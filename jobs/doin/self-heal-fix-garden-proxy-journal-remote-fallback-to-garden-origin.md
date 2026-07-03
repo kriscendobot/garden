@@ -14,3 +14,9 @@ journal_remote() {
 ```
 
 Add a shell test covering the fallback: a `$GARDEN_ROOT/journal` whose `.git` points at a nonexistent gitdir, plus a valid origin on `$GARDEN_ROOT`, must yield that origin (not die). Keep the `JOURNAL_REMOTE` override path (tests point it at a local bare repo) unchanged. Note for the implementer: the dangling `/home/kris/journal` worktree is separately environmental — repairing/re-adding it (or teaching `journal-worktree-keeper` to re-create a worktree with a dead backing gitdir instead of logging `WARN … skipping`) is a worthwhile follow-up but out of scope for this hardening.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 2
+  claimed_at: 2026-07-03T16:24:29Z
