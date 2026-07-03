@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T06:01:30Z_
+_As of 2026-07-03T06:05:11Z_
 
 ## Latest
 
-Two fresh claims are in flight: a review directive on [endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602) and a dead-lettered message someone re-picked up to recover its intent. Alongside them, the [xs2rust-endor](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-fundamentals.md) Rust port continues its stage-3 build (constructors, Object, Function fundamentals, 2 of 7), with its latest press check-in electing to observe-and-defer to that build chain, and a scholar is ingesting danfinlay/quickjs @ native-ses to inform the XS-evolution work. On the meta side, a design for the double-loop feedback/retrospective self-improvement mechanism landed on main2 (its builder job is now unblocked), and two mentor-improvement jobs — improve-job identity dedup and skipping already-fixed improve-jobs — completed. Nothing new is parked for maintainer review; the 27-deep parked queue is unchanged, still fronted by [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays).
+The feedback-review-retrospective-loop crossed from design into build: its [design landed on main2](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-feedback-review-retrospective-loop.md) and a builder has now claimed the implementation of the double-loop self-improvement mechanism. The mentor pipeline picked up two hardening fixes — improve-job identity dedup and skipping already-fixed improve jobs. On the fork side, a completion report landed for [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600), and a fresh review directive is in flight on [endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602). The XS→Rust (Endor) port continues its stage-3 fundamentals build (constructors, Object, Function; 2 of 7), with a press check-in electing to observe-and-defer while that build chain holds the wheel. Twenty-seven PRs remain parked for kriskowal, the oldest being [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
+- [`build-feedback-review-retrospective-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-feedback-review-retrospective-loop.md) — builder: implement the double-loop feedback-retrospective self-improvement me...
 - [`deadmail-20260703T055833Z-2c4d0d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T055833Z-2c4d0d.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr602-review-b4a2eef2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr602-review-b4a2eef2.md) — Review directive on endojs/endo-but-for-bots PR #602
 - [`scholar-ingest-quickjs-native-ses`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-quickjs-native-ses.md) — scholar: ingest danfinlay/quickjs @ native-ses for XS-evolution implementatio...
@@ -62,7 +63,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
 - [`build-daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase3.md) — awaiting `build-daemon-rename-to-manager-phase2` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
-- [`build-feedback-review-retrospective-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-feedback-review-retrospective-loop.md) — awaiting `design-feedback-review-retrospective-loop` · builder: implement the double-loop feedback-retrospective self-improvement me...
 - [`port-xs-to-rust-memory-safe-engine-s6`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s6.md) — awaiting `xs2rust-endor-build-stage3` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
