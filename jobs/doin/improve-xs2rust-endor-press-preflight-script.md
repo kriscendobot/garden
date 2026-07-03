@@ -1,1 +1,7 @@
 The schedule `journal2:schedules/xs2rust-endor-press.md` sets `preflight: gardening/xs2rust-endor-press-preflight.sh`, but that script does not exist under `scripts/jobs/gardening/`, so `scheduler` logs "preflight not found/executable; treating as work-present" and fires a full Fable press dispatch every 30m unconditionally. Author `scripts/jobs/gardening/xs2rust-endor-press-preflight.sh` encoding the press-driver's own "defer when the chain is advancing" gate deterministically (step 3 of the schedule body): exit work-present only when the `xs2rust-endor` branch is idle/stalled — i.e. no live builder/child job owns it (check `inbox-list.sh` / `jobs/doin/` for an active `xs2rust-endor*` job) and PR #600 HEAD has not moved since the last check — and exit no-work when a build chain is actively landing work, so the scheduler skips the redundant agent dispatch. This moves the collide-avoidance decision off the hourly agent into a script and stops the wasteful every-30m dispatch.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 5
+  claimed_at: 2026-07-03T12:21:42Z
