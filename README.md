@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T04:42:37Z_
+_As of 2026-07-03T04:44:55Z_
 
 ## Latest
 
-The one completion since the last bulletin is [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472)'s Proxy-based TypedArray emulation, which moved to done. In flight, a builder holds the sole active job: stage 3 (1 of 7) of the xs2rust-endor port, the "language closure" step covering strings-as-values. The board is otherwise quiet — nothing new posted or claimed — with 27 PRs parked for kriskowal's review, the longest-waiting being [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules via erasable type syntax, 17d) and a cluster of ~42-day-old endo-but-for-bots PRs (#182, #186, #266, #288, #329).
+A dead-lettered message ([`deadmail-20260703T044128Z`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T044128Z-ecb5c9.md)) was picked up for intent recovery, and the XS→Rust (Endor) port continues to dominate active work: stage 3 (language closure — strings as values) is in progress, with a fresh press check-in on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600). Recently completed: the TypedArray-emulation proxy work on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), an LLM-resume shepherd pass on [endo-but-for-bots#588](https://github.com/endojs/endo-but-for-bots/pull/588), a scheduler improvement to escalate persistently-missing preflight checks, and a counter-plan for a dedicated bot-email domain (AWS/Hetzner). The board is otherwise quiet — nothing queued in todo — while 27 PRs sit parked for kriskowal's review, the oldest being the passable-byte-arrays work on [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and voice-input on [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101).
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`deadmail-20260703T044128Z-ecb5c9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T044128Z-ecb5c9.md) — Dead-lettered message — pick up its intent
 - [`xs2rust-endor-build-stage3-language`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-language.md) — Builder: xs2rust-endor stage 3 (1/7) — language closure: strings as values + ...
 
 ### tada (1015)
