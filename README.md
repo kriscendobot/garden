@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-03T03:22:51Z_
+_As of 2026-07-03T03:26:07Z_
 
 ## Latest
 
-A live infrastructure incident is the headline: a gardener investigating five poisoned garden-infra jobs reports that the `endolinbot2` host-identity drift is still active on the leader host, silently resolving `GARDEN=endolinbot2` against a `leader` marker of `endolinbot` — so `is-main-host` returns FOLLOWER on the true leader and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being skipped. The fix is out of a gardener's scope and awaits a maintainer call: either `echo endolinbot > /home/kris/.garden` or re-point the marker with `set-main-host.sh endolinbot2`, then restart the fleet.
+Only one job closed out since the last bulletin — the CI-rollup now retries on transient `gh` failures — while the xs2rust-endor Rust port keeps advancing (stage 2b frames done, stage 2b exceptions in progress on [#600](https://github.com/endojs/endo-but-for-bots/pull/600)) and the clone-keeper gained self-heal for missing bare clones.
 
-Two dispositions also need your decision. A shepherd on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) found the PR is *subsumed*, not lint-blocked — its error-tracing feature already re-landed on `llm` via the merged #58, so a rebase collapses to a near-empty PR; the recommendation is to close #301 as superseded, optionally spinning its two unique refactors (`error-id.js`, `trace-constants.js`) into a fresh small PR. And on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), gibson042 rebuts the design doc's "Why not a Proxy wrapper?" section and argues for a Proxy `set` trap that throws on canonical-index writes; he explicitly wants kriskowal and/or erights to weigh in.
-
-The board itself was quiet — the only transition was `improve-ci-rollup-gh-transient-retry` moving into progress alongside the ongoing xs2rust-endor stage-2b builder work.
+Three items need kriskowal's call. Most urgent is a **live infra incident**: the leader host's `.garden` shard file still reads `endolinbot2` while `hostname`/`journal/leader` say `endolinbot`, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, ci-watcher, orchestrate, maintainer-inbox Monitor) is silently being skipped — the same drift that compounded the five recent job poisonings; the fix (`echo endolinbot > /home/kris/.garden` or re-point the marker to `endolinbot2`) is deployed-root state outside a gardener's scope. Separately, a shepherd found [#301](https://github.com/endojs/endo-but-for-bots/pull/301) is not lint-blocked but **subsumed** — its entire error-tracing feature already re-landed on `llm` via the merged #58 — and recommends closing it as superseded (optionally spinning the two unique refactors, `error-id.js` + `trace-constants.js`, into a fresh PR). And on [#472](https://github.com/endojs/endo-but-for-bots/pull/472), @gibson042 rebuts all three "Why not a Proxy wrapper?" arguments in the freezable-TypedArray design doc and asks you and @erights to weigh in on plain-object-view vs. a Proxy that throws on canonical-index writes.
 
 ## Parked for maintainer feedback
 
@@ -139,17 +137,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`improve-ci-rollup-gh-transient-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-ci-rollup-gh-transient-retry.md) — Harden scripts/jobs/handlers/ci-rollup-gh.sh against transient GitHub network...
+### doin (1)
 - [`xs2rust-endor-build-stage2b-exceptions`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage2b-exceptions.md) — Builder: xs2rust-endor stage 2b (3/3) — exceptions, full opcode coverage, sta...
 
-### tada (994)
+### tada (995)
+- [`improve-ci-rollup-gh-transient-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-rollup-gh-transient-retry.md) — Completion report
 - [`improve-clone-keeper-selfheal-missing-bare-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-selfheal-missing-bare-clone.md) — Completion report
 - [`xs2rust-endor-press-20260703-025032`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-025032.md) — Press check-in complete for PR #600 (xs2rust-endor), tick at 02:50Z. This was...
 - [`xs2rust-endor-build-stage2b-frames`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage2b-frames.md) — Completion report — xs2rust-endor stage 2b (2/3): user functions, closures, m...
 - [`improve-clone-keeper-recreate-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-recreate-missing-clone.md) — Completion report
-- [`improve-gardener-single-deadline-overrun-note`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-single-deadline-overrun-note.md) — Completion report
-- … and 989 more
+- … and 990 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
