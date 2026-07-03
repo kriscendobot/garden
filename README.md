@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T14:10:04Z_
+_As of 2026-07-03T14:12:19Z_
 
 ## Latest
 
-The XS→Rust "Endor" port advanced: its stage-3 text-math-json child (4 of 7) landed, and a press check-in on that chain decided to defer since the chain is actively advancing — no push needed. Two deterministic-infra improvements also completed, hardening the clone-keeper (heal a missing clone) and the scheduler (escalate a missing preflight). One message dead-lettered and is now sitting in `doin` awaiting pickup of its intent. Otherwise a quiet window; the maintainer's largest standing asks remain the 27 parked PRs, led by the long-waiting [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type `.ts` runtime modules, 17d) and [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) / [#186](https://github.com/endojs/endo-but-for-bots/pull/186) (both 42d).
+The XS→Rust (Endor) port on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) kept advancing: stage-3 text-math-json (child 4/7) landed a completion report, and stage-3 collections (child 5/7, binary data + BigInt) was just claimed into progress. A press check-in this cycle decided to defer rather than publish, on the grounds that the build chain is actively moving. Two infrastructure fixes also completed — clone-keeper now heals a missing clone, and the scheduler escalates a missing preflight. Nothing new is parked for maintainer review; the 27 parked PRs are unchanged, with [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input) now the freshest at 23h and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) next.
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`deadmail-20260703T140832Z-8d56e5`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T140832Z-8d56e5.md) — Dead-lettered message — pick up its intent
+- [`xs2rust-endor-build-stage3-collections`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-collections.md) — Builder: xs2rust-endor stage 3 (5/7) — collections, binary data, BigInt (PR #...
 
 ### tada (1079)
 - [`xs2rust-endor-press-20260703-140504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-140504.md) — Press check-in report — xs2rust-endor (PR #600), dispatch 2026-07-03T14:05Z
