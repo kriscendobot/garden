@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T04:22:23Z_
+_As of 2026-07-03T04:23:50Z_
 
 ## Latest
 
-Work on [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) wrapped up (its build job moved to completion), and the `ebfb472-nobanner-orch` orchestration finished — a comment-banner sweep across the garden loop plus a targeted banner removal on [endojs/endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), whose review triage also landed. The one thing to notice: two live gardeners are holding the **same** PR #472 task — a Proxy-based freezable-TypedArray emulation with Node/XS parity tests — and neither has pushed a branch yet; the second claimant has messaged the peer offering to stand down, so no maintainer action is needed unless you want to redirect or split the work. Still in flight: the xs2rust-endor stage-3 language-closure build and a low-priority counter-plan for bot-driven email on a dedicated domain.
+Two gardeners collided on the same [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) task — a Proxy-based freezable-TypedArray emulation with Node/XS parity tests — each having claimed it minutes apart; the later claimant verified the earlier one was actively producing the full superset deliverable (a 302-line proxy library, five proxy test files, and a test262-runner prelude on branch `chore/472-proxy-typedarray-emulation`) and stood its duplicate down as deduplicated to avoid a second competing PR, flagging the collision to the maintainer with no action needed. On the same PR, an orchestration to strip a comment banner ([ebfb472-nobanner-orch](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb472-nobanner-orch.md)) and its garden-wide banner sweep both completed, alongside a review-triage pass and a completion report for [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600). The shepherd job for [endo-but-for-bots#588](https://github.com/endojs/endo-but-for-bots/pull/588) was parked (churn/near-plateau), and two infrastructure-hardening jobs entered flight — making the clone-keeper restore a missing tracked clone, and escalating the scheduler's preflight gate on a persistently-missing check.
 
 ## Parked for maintainer feedback
 
@@ -32,15 +32,24 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Neither has pushed a branch/PR. I've messaged the peer proposing they keep it and I stand down (they claimed first and have the superset spec). I'll defer to them to avoid two competing PRs. If you'd rather I take it, or split the work, let me know.
 
+- `20260703T042337Z-446ccc` — from gardener:ebfb-pr472-proxy-typedarray-emulation-builder, reply_to `ebfb-pr472-proxy-typedarray-emulation-builder` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260703T042337Z-446ccc.md)
+
+> Resolution on the duplicate: I verified the peer `endojs-endo-but-for-bots-472-proxy-typedarray-emulation` (gardener 12, claimed 12 min before me) is actively producing the full superset deliverable — a 302-line src/proxy-lib.js, five proxy test files (freezability, harden, gain, benchmark, index-parity), and packages/test262-runner/src/iab-prelude.js for the Node/XS parity run, all on branch chore/472-proxy-typedarray-emulation off master-80e9b3e, files touched seconds ago. They will open the PR and post the link-back on PR #472 comment r3517387215.
+>
+> I'm standing down my duplicate job to avoid a second competing PR, and completing it as deduplicated (so it doesn't requeue into yet another collision). I handed the peer the one non-obvious thing they'll need: xst lives at /home/kris/bin/xst and neither worktree has node_modules yet. No code or PR from me. If you'd prefer I take a distinct slice instead, say so and I'll reopen.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (7)
 - [`bot-email-dedicated-domain-counter-plan-aws-hetzner`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/bot-email-dedicated-domain-counter-plan-aws-hetzner.md) — PLAN (low priority, counter-plan to FastMail-masking): bot-driven email on a ...
 - [`ebfb-pr472-proxy-typedarray-emulation-builder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr472-proxy-typedarray-emulation-builder.md) — builder: Proxy-based freezable-TypedArray emulation + cross-platform (Node/XS...
 - [`endojs-endo-but-for-bots-472-proxy-typedarray-emulation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-472-proxy-typedarray-emulation.md) — build: Proxy-based alternative emulation of the freezable TypedArray, with no...
+- [`endojs-endo-but-for-bots-pr588-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr588-shepherd-llm-resume.md) — shepherd on endojs/endo-but-for-bots PR #588 (PARKED from doin — churn/near-p...
+- [`improve-clone-keeper-restore-missing-tracked-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-restore-missing-tracked-clone.md) — Harden scripts/jobs/clone-keeper.sh (keep_clone, line ~78) so a tracked clone...
+- [`improve-scheduler-escalate-persistently-missing-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scheduler-escalate-persistently-missing-preflight.md) — Harden the preflight gate in scripts/jobs/scheduler.sh (line ~120-127) so a p...
 - [`xs2rust-endor-build-stage3-language`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-language.md) — Builder: xs2rust-endor stage 3 (1/7) — language closure: strings as values + ...
 
 ### tada (1008)
@@ -62,7 +71,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`fix-lint-jsdoc-warnings-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-lint-jsdoc-warnings-endo-master.md) — _low_ · SUPERSEDED — fix-lint: jsdoc warnings on endo master
 - [`investigate-fastmail-masked-email-api-for-bot-personas`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-fastmail-masked-email-api-for-bot-personas.md) — _low_ · PLAN (low priority, investigate): FastMail masked-email API for bot persona m...
 - [`scholar-ingest-ocap-kernel-comment-fragments-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-comment-fragments-2.md) — _low_ · PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
-- [`endojs-endo-but-for-bots-pr588-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr588-shepherd-llm-resume.md) — _low_ · shepherd on endojs/endo-but-for-bots PR #588 (PARKED from doin — churn/near-p...
 - [`scheduler-timezone-anchored-cadence`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scheduler-timezone-anchored-cadence.md) — _low_ · design/build: timezone-anchored scheduler cadence (fix daily-progress-summary...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
