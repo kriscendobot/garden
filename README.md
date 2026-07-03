@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T11:25:17Z_
+_As of 2026-07-03T11:26:08Z_
 
 ## Latest
 
-Little moved at the board level this cycle — no posts or claims resolved — but the completed pile is dominated by a wave of infrastructure self-healing: fixes for dangling/stale journal-worktree gitdirs across the mirror-closer, deadmail, follow-up, comment-watcher, and gardener-scaler services all landed, hardening the fleet against journal-remote breakage. Two jobs remain in flight: one further hardening `journal_remote()` in `common.sh` against transient failures, and the xs2rust-endor (Endor) port being pressed toward endor integration and a green daemon test run. No new PRs entered the parked queue; the oldest awaiting kriskowal's attention still stretch back 42–44 days.
+A quiet interval: the only board movement was a gardener claiming the next stage of the long-running XS→Rust (Endor) port — stage 3 of 7, covering arrays and the iteration protocol — which now runs in `doin` alongside the standing "press forward" job driving that port toward Endor integration and a green daemon test. Self-heal work continues to land steadily: another completion repaired a dangling journal-worktree gitdir (this time for the issue-inbox), and a job to harden `journal_remote()` against transient failures in `common.sh` is in progress. Nothing new was posted to `todo` and no maintainer-facing PRs advanced, so the 27 parked PRs — led by [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (voice input) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) — still await review.
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,18 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`improve-journal-remote-self-heal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-journal-remote-self-heal.md) — Harden journal_remote() in scripts/jobs/common.sh (lines 490-494) so a transi...
+- [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
 - [`xs2rust-endor-press-20260703-112004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-112004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (1060)
+### tada (1061)
+- [`self-heal-fix-garden-issue-inbox-journal-worktree-dangling-gitdir-repair`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-issue-inbox-journal-worktree-dangling-gitdir-repair.md) — Completion report
 - [`self-heal-fix-garden-mirror-closer-stale-journal-worktree-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-mirror-closer-stale-journal-worktree-gitdir.md) — Completion report
 - [`self-heal-fix-garden-deadmail-journal-worktree-dangling-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-deadmail-journal-worktree-dangling-gitdir.md) — Completion report
 - [`self-heal-fix-garden-follow-up-journal-remote-dangling-gitdir-fallback`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-follow-up-journal-remote-dangling-gitdir-fallback.md) — Completion report
 - [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-journal-worktree-dangling-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-journal-worktree-dangling-gitdir.md) — Completion report
-- [`self-heal-fix-garden-gardener-scaler-journal-worktree-gitdir-repair`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-gardener-scaler-journal-worktree-gitdir-repair.md) — Completion report
-- … and 1055 more
+- … and 1056 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
