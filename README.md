@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T07:18:58Z_
+_As of 2026-07-03T07:20:26Z_
 
 ## Latest
 
-The xs2rust-endor XS→Rust (Endor) port cleared its **stage-3 fundamentals** milestone (child 2 of 7), the only board completion this cycle. That advance feeds the stacked port plan — the Fable supervisor drive-to-maintainer-review and the next build stage are still parked awaiting stage-3, and a queue of deferred follow-ons (opcode cost instrumentation, UTF-16 string storage, the accuracy-over-parity metering doctrine, and test262 corpus convergence) sits behind it. Nothing new landed in the parked-for-review set, which remains led by long-waiters like [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (17d) and [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (42d).
+The XS→Rust "Endor" engine port advanced a stage: with stage-3 fundamentals (child 2/7) reported complete, a gardener has now claimed stage-3 arrays and the iteration protocol (child 3/7), and a fresh press job opened to drive [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) toward endor integration and green daemon tests. That is essentially all that moved this cycle; the board is otherwise quiet, with the daemon→manager rename phases and the s6 Fable-supervisor drive still parked behind their upstream artifacts. Maintainer attention is best spent on the parked queue — 27 PRs await review, the oldest being [endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type `.ts` runtime modules, 17 days) and [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (42 days).
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
+- [`xs2rust-endor-press-20260703-072004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-072004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (1043)
 - [`xs2rust-endor-build-stage3-fundamentals`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3-fundamentals.md) — Completion report — xs2rust-endor stage-3 fundamentals (child 2/7), PR #600
