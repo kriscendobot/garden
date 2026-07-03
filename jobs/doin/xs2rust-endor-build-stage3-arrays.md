@@ -63,6 +63,7 @@ reset a second time - decompose the remaining scope into smaller children instea
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
