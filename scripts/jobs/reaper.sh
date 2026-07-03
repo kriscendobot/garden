@@ -232,7 +232,7 @@ gc_scratch() {
 # that itself contains a `---` rule is preserved intact. If no claim block is
 # found the body is returned unchanged (never blindly truncated at a stray `---`).
 clean_body() {
-  awk -v mark="$REAP_MARKER_RE" -v rnow="$REAP_NOW_MARKER_RE" '
+  awk -v mark="$REAP_MARKER_RE" -v rnow="$REAP_NOW_MARKER_RE" -v prod="$PRODUCTIVE_MARKER_RE" '
     { line[NR] = $0 }
     END {
       cut = 0
@@ -242,6 +242,7 @@ clean_body() {
       for (i = 1; i <= end; i++) {
         if (line[i] ~ mark) continue          # drop prior reap-count markers
         if (line[i] ~ rnow) continue          # drop the gardener reap-now hint (never persist it)
+        if (line[i] ~ prod) continue          # drop the gardener productive-cycle hint (re-earned each cycle)
         out[++m] = line[i]
       }
       while (m > 0 && out[m] ~ /^[ \t]*$/) m--  # trim trailing blank lines
@@ -332,7 +333,19 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
 
     prev="$(sed -n 's/^<!-- garden-reaped: \([0-9][0-9]*\) -->$/\1/p' "$f" | tail -1)"
     [ -n "${prev:-}" ] || prev=0
-    count=$(( prev + 1 ))
+    # PRODUCTIVE cycle: the gardener stamped the productive marker because a per-job
+    # worktree HEAD advanced this cycle — the handler pushed REAL WORK (the sanctioned
+    # resume treadmill), NOT a handler that "fails every time". Do NOT count it toward
+    # poison: RESET the streak to 0 so only cycles with NO progress accumulate toward
+    # the drop. A job productive every cycle therefore never poisons; a job that truly
+    # fails every cycle never earns the marker and still poisons at the threshold. This
+    # is the reaper half of the productive-cycle fix (common.sh § productive-cycle hint).
+    if has_productive_cycle_hint "$f"; then
+      count=0
+      log "productive: '$base' advanced a per-job worktree HEAD this cycle; resetting reap/poison counter (was $prev) — not counted toward poison"
+    else
+      count=$(( prev + 1 ))
+    fi
     body="$(clean_body "$f")"
     # A gardener stamps `<!-- garden-deadline-overrun: N -->` on a claim whose handler
     # hit its OWN wall-clock budget (rc=124 at the wall) — a DETERMINISTIC overrun that

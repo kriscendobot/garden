@@ -1565,6 +1565,122 @@ stamp_deadline_overrun_hint() {
   return 1
 }
 
+# --- productive-cycle hint ---------------------------------------------------
+#
+# The reaper counts requeue cycles (`<!-- garden-reaped: N -->`) and POISONS a job
+# after GARDEN_REAP_POISON_THRESHOLD cycles on the assumption that a handler which
+# is requeued that many times "fails every time". But a long builder on the
+# SANCTIONED RESUME TREADMILL — push green commits each cycle, then exit WITHOUT the
+# completion signal before the handler wall, and RESUME on the next claim — trips the
+# SAME counter even though EVERY cycle lands real progress. xs2rust-endor-build-stage3
+# was false-poisoned exactly this way (2026-07-03): its tracked HEAD advanced across
+# the "failing" cycles, yet the counter climbed to the threshold and it was dropped.
+#
+# The fix: a cycle in which the handler made REAL PROGRESS (a per-job worktree HEAD
+# advanced — it committed / pushed work) is PRODUCTIVE and must NOT count toward
+# poison. The gardener DETECTS progress (it owns the worktree locally; see gardener.sh
+# job_worktree_heads/job_cycle_productive around the handler call) and stamps THIS
+# marker on its still-in-doin claim; the reaper READS it and RESETS the reap-count
+# rather than incrementing, so only cycles with NO progress accumulate toward the
+# drop. A genuinely-failing job (no commits, hard error every cycle) never earns the
+# marker and still poisons at the threshold.
+#
+# The marker is a BOOLEAN hint present iff the LAST cycle was productive — unlike the
+# reaper-owned reap-count and the gardener-owned deadline-overrun COUNTER, it does not
+# accumulate. reaper.sh's clean_body STRIPS it on requeue (like the reap-now hint) so
+# it never persists into the next cycle: each cycle must RE-EARN productivity by a
+# fresh gardener stamp. Stamped alongside the reap-now hint so the reaper still
+# requeues promptly; the two ride together.
+PRODUCTIVE_MARKER='<!-- garden-productive-cycle -->'
+PRODUCTIVE_MARKER_RE='^<!-- garden-productive-cycle -->$'
+
+# has_productive_cycle_hint <file> — 0 iff the job file carries the productive marker.
+has_productive_cycle_hint() {
+  local f="${1:-}"
+  [ -f "$f" ] || return 1
+  grep -Eq "$PRODUCTIVE_MARKER_RE" "$f"
+}
+
+# stamp_productive_cycle_hint <clone> <doin-relpath> — insert the productive marker
+# into the BODY of a still-in-doin claim (just above the trailing claim block) and
+# land it on the board, so the reaper RESETS the poison counter for this cycle instead
+# of incrementing it. Idempotent: a claim already carrying the hint, or already moved
+# out of doin, is left as-is. Bounded CAS retry against journal push contention,
+# reusing sync_clone/commit_and_push. Returns 0 once the hint is on the board (or was
+# already there / the claim is gone), non-zero only if it could not land. Run in a
+# SUBSHELL from a long-lived caller: sync_clone `exit`s GARDEN_OFFLINE_RC on a
+# connectivity blip, which a subshell contains. Mirrors stamp_reap_now_hint's contract.
+stamp_productive_cycle_hint() {
+  local clone="$1" rel="$2" attempt f rc
+  : "${GARDEN_REAP_NOW_PUSH_ATTEMPTS:=25}"
+  for attempt in $(seq 1 "$GARDEN_REAP_NOW_PUSH_ATTEMPTS"); do
+    sync_clone "$clone"
+    f="$clone/$rel"
+    if [ ! -e "$f" ]; then clone_unlock "$clone"; return 0; fi           # already moved by a peer
+    if has_productive_cycle_hint "$f"; then clone_unlock "$clone"; return 0; fi  # already hinted
+    awk -v m="$PRODUCTIVE_MARKER" '
+      { line[NR] = $0 }
+      END {
+        cut = 0
+        for (i = 1; i < NR; i++) if (line[i] == "---" && line[i+1] == "claim:") cut = i
+        for (i = 1; i <= NR; i++) {
+          if (cut > 0 && i == cut) print m   # insert just above the claim block (in the body)
+          print line[i]
+        }
+        if (cut == 0) print m                # no claim block: append (defensive)
+      }
+    ' "$f" > "$f.prod" && mv "$f.prod" "$f"
+    git -C "$clone" add "$rel"
+    if commit_and_push "$clone" "productive-cycle: hint $rel by $GARDEN (handler advanced a worktree HEAD)"; then rc=0; else rc=$?; fi
+    [ "$rc" -eq 0 ] && return 0
+    [ "$rc" -eq 2 ] && return 0   # nothing to commit (a racing stamp won): treat as landed
+    backoff "$attempt"            # rc=1: CAS lost — re-sync and retry
+  done
+  return 1
+}
+
+# --- per-job progress detection (the productive-cycle signal source) ---------
+#
+# A job's real work lands in ISOLATED per-job git worktrees under GARDEN_SCRATCH: the
+# garden worktree (gardener-wt-<base>, created by handlers/gardener-claude.sh) and any
+# project checkouts (project-wt-<base_safe>-<disc>, from ensure-project-worktree.sh).
+# Both are keyed by the UNIQUE job base and PERSIST across a reaper requeue so a resumed
+# run re-enters them, which is exactly what lets the gardener compare git state ACROSS a
+# handler run and see whether the cycle committed anything.
+
+# job_worktree_heads <base> — print `<worktree-path>:<HEAD-sha>` for every per-job git
+# worktree under GARDEN_SCRATCH that exists and has a resolvable HEAD (the garden
+# worktree and any project checkouts). Empty output when none exist yet. READ-ONLY.
+job_worktree_heads() {
+  local base="${1:?base}" base_safe wt head
+  base_safe="${base//[^A-Za-z0-9._-]/-}"
+  for wt in "$GARDEN_SCRATCH/gardener-wt-$base" "$GARDEN_SCRATCH"/project-wt-"$base_safe"-*; do
+    [ -e "$wt/.git" ] || continue
+    head="$(git -C "$wt" rev-parse HEAD 2>/dev/null || true)"
+    [ -n "$head" ] && printf '%s:%s\n' "$wt" "$head"
+  done
+}
+
+# job_cycle_productive <before-heads> <after-heads> — 0 (productive) iff SOME per-job
+# worktree present in BOTH snapshots advanced its HEAD across the handler run — the
+# handler committed real work this cycle. A worktree that ONLY appears in `after` is a
+# freshly-created checkout (setup, not a commit) and does NOT count, so merely creating
+# a worktree cannot be mistaken for progress; this is why the RESUME cycles (2nd+,
+# where the worktree persisted from the prior cycle so it is in `before` too) are what
+# this reliably detects — precisely the resume-treadmill class it must protect.
+# Snapshots are newline-separated `path:sha` from job_worktree_heads.
+job_cycle_productive() {
+  local before="$1" after="$2" line path sha bsha
+  while IFS= read -r line; do
+    [ -n "$line" ] || continue
+    path="${line%%:*}"; sha="${line##*:}"
+    bsha="$(printf '%s\n' "$before" | awk -F: -v p="$path" '$1==p{print $2; exit}')"
+    [ -n "$bsha" ] || continue           # path not in `before` → newly created, not progress
+    [ "$bsha" != "$sha" ] && return 0     # a persisted worktree advanced → productive
+  done <<< "$after"
+  return 1
+}
+
 # Hard-sync a clone to the authoritative tip. The board's true state. Acquires
 # the per-clone lock and HOLDS it; the matching commit_and_push releases it, so
 # the entire sync→write→commit→push critical section is atomic per clone. A

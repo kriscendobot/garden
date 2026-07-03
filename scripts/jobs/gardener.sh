@@ -341,6 +341,15 @@ while :; do
     fi
   fi
 
+  # PRODUCTIVE-CYCLE baseline. Snapshot the HEADs of this job's isolated per-job
+  # worktrees BEFORE the handler runs; comparing against the after-snapshot below tells
+  # us whether THIS cycle committed real work (a per-job worktree HEAD advanced). A job
+  # on the sanctioned resume treadmill (push commits, exit-0 without the signal before
+  # the wall, resume next claim) re-enters a PERSISTED worktree, so its HEAD sits in
+  # this baseline and its fresh commits show as an advance — the signal that stops the
+  # reaper false-poisoning a productive long job (common.sh § productive-cycle hint).
+  progress_before="$(job_worktree_heads "$base" 2>/dev/null || true)"
+
   # Run the handler and capture its exit code EXPLICITLY (not folded into an `if`
   # compound) so the completion gate below can branch on the three distinct
   # outcomes independently: (0 + sentinel)=complete, (0 + no sentinel)=exit-0-
@@ -351,6 +360,26 @@ while :; do
     "$GARDEN_JOB_HANDLER" "$base" "$jobfile" "$report" >"$capture" 2>&1
   hrc=$?
   set -e
+
+  # PRODUCTIVE-CYCLE detection. For any NON-completion outcome (the job is about to be
+  # left in doin for the reaper to requeue), decide whether the handler made real
+  # progress this cycle and, if so, stamp the productive marker on our own still-in-doin
+  # claim. The reaper then RESETS the reap/poison counter for a productive cycle instead
+  # of incrementing it, so a job pushing work every cycle never poisons while a job that
+  # truly fails every cycle (no HEAD movement) still poisons at the threshold. Stamped
+  # HERE, before the branch-specific reap-now/deadline hints below, so those hints (which
+  # rewrite the whole file, preserving body lines) carry it forward in the same claim.
+  # Subshell-isolated so a sync_clone offline-exit cannot kill this gardener; best-effort.
+  if [ "$hrc" -ne 0 ] || [ ! -e "$completion_sentinel" ]; then
+    progress_after="$(job_worktree_heads "$base" 2>/dev/null || true)"
+    if job_cycle_productive "$progress_before" "$progress_after"; then
+      if ( stamp_productive_cycle_hint "$CLONE" "$JOBS_DOIN/$base.md" ); then
+        log "productive cycle for '$base' (a per-job worktree HEAD advanced this cycle); reaper will RESET its poison counter, not increment"
+      else
+        log "could not stamp productive-cycle hint on '$base' (rc=$?); the reaper will count this cycle toward poison"
+      fi
+    fi
+  fi
   if [ "$hrc" -eq 0 ] && [ -e "$completion_sentinel" ]; then
     # DETERMINISTIC COMPLETION GATE: the handler both exited 0 AND wrote the
     # completion sentinel (the worker reached its final act and emitted
