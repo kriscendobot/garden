@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T11:19:49Z_
+_As of 2026-07-03T11:21:07Z_
 
 ## Latest
 
-The shared `/home/kris/journal` worktree crash-loop on endolinbot2 is over: two self-heal jobs completed (comment-watcher and follow-up), recovering the worktree and landing a durable fix in the journal-worktree-keeper, now cleanly registered on journal2. But the recovery exposed a destructive collision worth the maintainer's attention — a herd of concurrent per-service self-heal jobs all raced `git worktree repair`/`prune` on the same shared worktree, and while the entry was transiently dangling, a peer's `prune` deleted the entire admin registration, which had to be reconstructed by hand. Five sibling self-heal jobs (deadmail, gardener, issue-inbox, mirror-closer, orchestrate) are still in flight doing overlapping work on the same host state; the completing gardener recommends deploying the keeper to endolinbot2 so the tick auto-heals this class and cancelling the now-redundant duplicates so only one actor touches the shared worktree at a time. Otherwise steady: the xs2rust-endor Rust port continues (stage 3, arrays), and 27 PRs remain parked for review.
+A batch of infrastructure self-heals completed, repairing dangling and stale journal-worktree gitdir references across a spread of garden services — follow-up, comment-watcher, gardener-scaler, deadmail, gardener, issue-inbox, mirror-closer, and orchestrate — clearing a fleet-wide worktree fault rather than any single one. On the active-work side, the XS→Rust port (xs2rust-endor) is the sole thing moving: stage 3 (arrays and the iteration protocol, 3/7) is being built while a fresh press job drives PR #600 toward endor integration and green daemon tests. Nothing new landed for maintainer review — the 27 parked PRs are unchanged, with the oldest ([endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [#186](https://github.com/endojs/endo-but-for-bots/pull/186)) now 42 days out.
 
 ## Parked for maintainer feedback
 
@@ -22,28 +22,15 @@ The shared `/home/kris/journal` worktree crash-loop on endolinbot2 is over: two 
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260703T111744Z-790591` — from gardener:self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-journal-worktree-dangling-gitdir, reply_to `self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-journal-worktree-dangling-gitdir` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260703T111744Z-790591.md)
-
-> Host endolinbot2: recovered the shared /home/kris/journal worktree (crash-loop is over) and landed the durable fix, but flagging a destructive collision.
->
-> WHAT HAPPENED: A HERD of concurrent per-service self-heal jobs (comment-watcher [this job], deadmail, follow-up, issue-inbox, mirror-closer, plus a relink-recover job) all raced `git worktree repair`/`prune` on the SAME shared /home/kris/journal worktree. While the entry was transiently dangling at the defunct garden2 path, a peer's `git worktree prune` DELETED the whole admin registration (/home/kris/.git/worktrees/journal). I reconstructed the admin entry by hand (gitdir/HEAD/commondir) + `worktree repair`; it is now cleanly registered on journal2 @6b2ac9378, tree clean, inbox readable.
->
-> DURABLE FIX (this job): journal-worktree-keeper's jw_repair_gitdir already repairs a dangling gitdir every tick (peer commit ce4b94831); I deduped my redundant re-implementation and added the missing keeper test. On main2 @53a062507.
->
-> RECOMMENDATIONS: (1) DEPLOY the keeper to endolinbot2 so the tick auto-heals this class and the per-service self-heal jobs can be RETIRED rather than run concurrently. (2) The remaining sibling self-heal jobs (deadmail/follow-up/issue-inbox/mirror-closer/relink-recover) are now redundant and are actively colliding on shared host state — consider cancelling the duplicates; only one recovery actor should touch the shared worktree at a time.
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
-- [`self-heal-fix-garden-deadmail-journal-worktree-dangling-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-deadmail-journal-worktree-dangling-gitdir.md) — The garden root moved from /home/kris/garden2 to /home/kris, orphaning the sh...
-- [`self-heal-fix-garden-gardener-journal-worktree-dangling-gitdir-repair`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-journal-worktree-dangling-gitdir-repair.md) — Harden the journal-worktree access path in scripts/jobs/common.sh so a dangli...
-- [`self-heal-fix-garden-issue-inbox-journal-worktree-dangling-gitdir-repair`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-issue-inbox-journal-worktree-dangling-gitdir-repair.md) — In scripts/jobs/journal-worktree-keeper.sh, upgrade the keep_journal_worktree...
-- [`self-heal-fix-garden-mirror-closer-stale-journal-worktree-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-mirror-closer-stale-journal-worktree-gitdir.md) — Harden the standing-journal-worktree self-heal against a **stale worktree git...
-- [`self-heal-fix-garden-orchestrate-journal-worktree-stale-gitdir-repair`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-orchestrate-journal-worktree-stale-gitdir-repair.md) — Harden scripts/jobs/journal-worktree-keeper.sh to detect and repair a stale/d...
+### doin (2)
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
+- [`xs2rust-endor-press-20260703-112004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-112004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (1058)
 - [`self-heal-fix-garden-follow-up-journal-remote-dangling-gitdir-fallback`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-follow-up-journal-remote-dangling-gitdir-fallback.md) — Completion report
