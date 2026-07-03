@@ -43,3 +43,9 @@ Report: what landed, acceptance evidence verbatim, scope folds/frictions. Commit
 <!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 13
+  claimed_at: 2026-07-03T02:23:08Z
