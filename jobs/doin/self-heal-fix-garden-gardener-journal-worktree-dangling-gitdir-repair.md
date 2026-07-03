@@ -9,3 +9,9 @@ Change (both are needed):
 Immediate unstick for the live loop (also the repair the guard automates): `git -C /home/kris/garden2 worktree repair /home/kris/garden2/journal && git -C /home/kris/garden2 worktree prune`.
 
 Add a regression test under `scripts/jobs/test/` that fabricates a journal worktree whose `.git` gitdir points at a nonexistent admin dir and asserts the preflight repairs it (or, when unrepairable, that the die message names the gitdir and does not say "no origin").
+
+---
+claim:
+  host: endolinbot2
+  gardener: 7
+  claimed_at: 2026-07-03T11:06:44Z
