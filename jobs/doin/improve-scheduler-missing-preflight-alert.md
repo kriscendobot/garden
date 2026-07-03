@@ -1,1 +1,7 @@
 The scheduler WARNs every cycle (`14:50:04`, `15:20:14`, …) that `gardening/xs2rust-endor-press-preflight.sh` is `not found/executable at /home/kris/scripts/jobs/gardening/...; treating as work-present`, which dispatches an `xs2rust-endor-press` job every cycle regardless of whether work exists — the exact opposite of what a preflight is for. This is a live schedule referencing a preflight script that was never landed (or whose path drifted). In the scheduler script that emits this WARN, keep the fail-safe "work-present" default but stop silently repeating it forever: escalate ONE `alert_maintainer` (deduped on the schedule name, like the journal-worktree keeper's paging keys) the first time a named preflight is missing, so the config gap is surfaced and fixed rather than defaulted-and-dispatched indefinitely. The real fix is then to either land `scripts/jobs/gardening/xs2rust-endor-press-preflight.sh` or correct the `preflight:` path in the `xs2rust-endor-press.md` schedule entry.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 12
+  claimed_at: 2026-07-03T16:53:28Z
