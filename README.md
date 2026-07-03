@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T04:20:53Z_
+_As of 2026-07-03T04:21:57Z_
 
 ## Latest
 
-Voice input landed for the space-chat frontend via [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101), now parked for review, and the no-comment-banner sweep on the Proxy-TypedArray work ([endojs/endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472)) completed its orchestration end to end. The Proxy-based freezable-TypedArray emulation ([#472](https://github.com/endojs/endo-but-for-bots/pull/472)) is back under active building, and the xs2rust-endor port pressed through another stage-3 language-closure tick on [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600). A low-priority counter-plan for bot email on a dedicated AWS/Hetzner domain was claimed off the plan queue.
+Little moved at the file level this cycle, but two things merit a glance. Chiefly, a duplicate-job collision on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472): two live gardeners independently claimed the same Proxy-based freezable-TypedArray emulation + Node/XS parity task (one the broader spec with benchmark and rebuttal, one the maintainer-directive version), and neither has pushed a branch yet — the second gardener has messaged to stand down in favor of the first, so no action is needed unless you'd prefer to split or reassign the work. Separately, the no-comment-banner cleanup on #472 landed: the `ebfb472-nobanner-orch` orchestration, its `ebfb472-remove-banner` child, and the garden-wide `garden-loop-banner-sweep` all completed, and the #472 review-triage pass finished. The xs2rust-endor (Endor) port continues its steady press ticks on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600), now working stage 3 language-closure work.
 
 ## Parked for maintainer feedback
 
@@ -22,7 +22,16 @@ Voice input landed for the space-chat frontend via [endojs/endo-but-for-bots#101
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260703T042147Z-26d862` — from gardener:ebfb-pr472-proxy-typedarray-emulation-builder, reply_to `ebfb-pr472-proxy-typedarray-emulation-builder` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260703T042147Z-26d862.md)
+
+> Duplicate-job collision flag (no action needed unless you want to intervene):
+>
+> Two live gardeners hold the SAME task — a Proxy-based freezable-TypedArray emulation + Node/XS parity tests for endojs/endo-but-for-bots PR #472:
+> - `endojs-endo-but-for-bots-472-proxy-typedarray-emulation` (gardener 12, claimed 04:04Z) — broader spec (adds benchmark + three-objections rebuttal)
+> - `ebfb-pr472-proxy-typedarray-emulation-builder` (gardener 14, me, claimed 04:16Z) — the maintainer-directive version
+>
+> Neither has pushed a branch/PR. I've messaged the peer proposing they keep it and I stand down (they claimed first and have the superset spec). I'll defer to them to avoid two competing PRs. If you'd rather I take it, or split the work, let me know.
+
 
 ## Board
 ### todo (0)
