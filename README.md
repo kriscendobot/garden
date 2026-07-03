@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T14:05:50Z_
+_As of 2026-07-03T14:10:04Z_
 
 ## Latest
 
-The xs2rust-endor XS→Rust port ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) advanced another step in its stage-3 walk: the arrays-and-iteration-protocol child (3/7) landed and the text/numbers/Math/JSON child (4/7) is now in flight, with a fresh press job claimed to drive the chain toward endor integration. On the infrastructure side, several deterministic-service hardening jobs completed — the clone-keeper now heals a missing clone, and the scheduler gained deploy-lag preflight signaling and escalation on a missing preflight. Nothing new landed for the maintainer to review; the parked queue is unchanged, still fronted by the voice-input chat PR ([endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101)) and the passable-byte-arrays PR ([endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)).
+The XS→Rust "Endor" port advanced: its stage-3 text-math-json child (4 of 7) landed, and a press check-in on that chain decided to defer since the chain is actively advancing — no push needed. Two deterministic-infra improvements also completed, hardening the clone-keeper (heal a missing clone) and the scheduler (escalate a missing preflight). One message dead-lettered and is now sitting in `doin` awaiting pickup of its intent. Otherwise a quiet window; the maintainer's largest standing asks remain the 27 parked PRs, led by the long-waiting [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type `.ts` runtime modules, 17d) and [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) / [#186](https://github.com/endojs/endo-but-for-bots/pull/186) (both 42d).
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`xs2rust-endor-build-stage3-text-math-json`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-text-math-json.md) — Builder: xs2rust-endor stage 3 (4/7) — text, numbers, Math, JSON (PR #600)
-- [`xs2rust-endor-press-20260703-140504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-140504.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+### doin (1)
+- [`deadmail-20260703T140832Z-8d56e5`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T140832Z-8d56e5.md) — Dead-lettered message — pick up its intent
 
-### tada (1077)
+### tada (1079)
+- [`xs2rust-endor-press-20260703-140504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-140504.md) — Press check-in report — xs2rust-endor (PR #600), dispatch 2026-07-03T14:05Z
+- [`xs2rust-endor-build-stage3-text-math-json`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3-text-math-json.md) — Completion report — stage-3 text-math-json (child 4/7, PR #600)
 - [`improve-clone-keeper-heal-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-heal-missing-clone.md) — Completion report
 - [`improve-scheduler-escalate-missing-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-escalate-missing-preflight.md) — Completion report: improve-scheduler-escalate-missing-preflight
 - [`xs2rust-endor-press-20260703-132012`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-132012.md) — **Press check-in complete — decision: defer (chain actively advancing). No pu...
-- [`improve-scheduler-preflight-deploy-lag-signal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-deploy-lag-signal.md) — Completion report
-- [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3-arrays.md) — Completion report — child 3/7: arrays & the iteration protocol (PR #600)
-- … and 1072 more
+- … and 1074 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
