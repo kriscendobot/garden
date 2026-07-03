@@ -428,7 +428,7 @@ t3=$(count_pref e tickjob); w3=$(count_pref f wrjob)
 { [ "$t3" -gt "$t2" ] && [ "$w3" -eq "$w2" ]; } && ok "after 1s only the 1s-cadence tick re-dispatches" || bad "cadence (tick $t2→$t3, weekly $w2→$w3)"
 
 # ============================================================================
-hr; echo "SUBTEST 8b — SCHEDULER PREFLIGHT: not-found vs error, escalate-after-N"; hr
+hr; echo "SUBTEST 8b — SCHEDULER PREFLIGHT: set-time guard, not-found vs error, escalate-after-N"; hr
 export GARDEN_STATE="$TR/state-sched-pf" GARDEN=spfhost
 # Threshold of 2: a genuinely-absent gate escalates once on the 2nd not-found tick.
 export GARDEN_PREFLIGHT_MISSING_THRESHOLD=2
@@ -446,9 +446,30 @@ maint_pf_msgs() { # maint_pf_msgs <schedule-name>
   rm -rf "$d"
 }
 
-# (a) A gate whose path is GENUINELY ABSENT (deploy-lag / typo'd preflight:).
-echo "# missing-gate task" | GARDEN_SCHEDULE_PREFLIGHT="gardening/nonexistent-preflight.sh" \
+# (0) set-time GUARD: set-schedule.sh rejects a nonexistent/typo'd preflight gate
+# outright, BEFORE the schedule is ever written to the board (commit "set-schedule:
+# reject a nonexistent preflight gate at set time"). So a dangling gate can never be
+# REGISTERED — it can only arise LATER via deploy-lag, exactly the (a) case below.
+# The `if` conditions are exempt from set -e, so the expected-nonzero reject is safe.
+if echo "# bogus" | GARDEN_SCHEDULE_PREFLIGHT="gardening/nope-does-not-exist.sh" \
+     "$JOBS/set-schedule.sh" bogusgate 1s bogusjob >/dev/null 2>&1
+then bad "set-schedule accepted a nonexistent preflight gate (want reject at set time)"
+else ok "set-schedule rejects a nonexistent preflight gate at set time"; fi
+OKGATE="$TR/okgate.sh"; printf '#!/bin/bash\nexit 0\n' > "$OKGATE"; chmod +x "$OKGATE"
+if echo "# ok" | GARDEN_SCHEDULE_PREFLIGHT="$OKGATE" \
+     "$JOBS/set-schedule.sh" okgate 1s okjob >/dev/null 2>&1
+then ok "set-schedule accepts a preflight resolving to an executable"
+else bad "set-schedule rejected a valid executable preflight gate"; fi
+
+# (a) A gate that is ABSENT AT DISPATCH TIME (deploy-lag): the preflight: path was
+# valid when the schedule was set — set-schedule.sh now GUARDS the set-time case,
+# rejecting a nonexistent gate outright — but the script is missing from THIS
+# deploy tree by dispatch. Register with a real (exit-2) gate so set-schedule's
+# guard passes, then delete it so the scheduler resolves it as not-found.
+MISSGATE="$TR/missgate.sh"; printf '#!/bin/bash\nexit 2\n' > "$MISSGATE"; chmod +x "$MISSGATE"
+echo "# missing-gate task" | GARDEN_SCHEDULE_PREFLIGHT="$MISSGATE" \
   "$JOBS/set-schedule.sh" missgate 1s missjob >/dev/null
+rm -f "$MISSGATE"   # deploy-lag: the gate vanished from the tree after the schedule was set
 # (b) A gate that EXISTS but ERRORS (exit 1) — transient, must NOT be counted.
 ERRGATE="$TR/errgate.sh"; printf '#!/bin/bash\nexit 1\n' > "$ERRGATE"; chmod +x "$ERRGATE"
 echo "# error-gate task" | GARDEN_SCHEDULE_PREFLIGHT="$ERRGATE" \
