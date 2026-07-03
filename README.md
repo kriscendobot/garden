@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T11:26:08Z_
+_As of 2026-07-03T11:29:15Z_
 
 ## Latest
 
-A quiet interval: the only board movement was a gardener claiming the next stage of the long-running XS→Rust (Endor) port — stage 3 of 7, covering arrays and the iteration protocol — which now runs in `doin` alongside the standing "press forward" job driving that port toward Endor integration and a green daemon test. Self-heal work continues to land steadily: another completion repaired a dangling journal-worktree gitdir (this time for the issue-inbox), and a job to harden `journal_remote()` against transient failures in `common.sh` is in progress. Nothing new was posted to `todo` and no maintainer-facing PRs advanced, so the 27 parked PRs — led by [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (voice input) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) — still await review.
+Journal-remote self-heal landed ([improve-journal-remote-self-heal](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-remote-self-heal.md) completed), rounding out a run of infrastructure self-heal fixes for dangling journal-worktree gitdirs across the issue-inbox, mirror-closer, and deadmail services. A gardener has claimed [reaper-skip-productive-cycles-poison-threshold](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/reaper-skip-productive-cycles-poison-threshold.md), which stops the reaper from counting productive requeue cycles toward the poison threshold. Meanwhile the xs2rust-endor (XS→Rust "Endor") port continues: stage 3 (arrays and the iteration protocol) is in flight, with a press check-in logged for [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600).
 
 ## Parked for maintainer feedback
 
@@ -28,18 +28,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`improve-journal-remote-self-heal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-journal-remote-self-heal.md) — Harden journal_remote() in scripts/jobs/common.sh (lines 490-494) so a transi...
+### doin (2)
+- [`reaper-skip-productive-cycles-poison-threshold`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/reaper-skip-productive-cycles-poison-threshold.md) — garden-infra: reaper — don't count PRODUCTIVE requeue cycles toward the poiso...
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
-- [`xs2rust-endor-press-20260703-112004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-112004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (1061)
+### tada (1063)
+- [`xs2rust-endor-press-20260703-112004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-112004.md) — Press check-in report — tick 11:20Z (xs2rust-endor, PR #600)
+- [`improve-journal-remote-self-heal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-remote-self-heal.md) — Completion report: improve-journal-remote-self-heal
 - [`self-heal-fix-garden-issue-inbox-journal-worktree-dangling-gitdir-repair`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-issue-inbox-journal-worktree-dangling-gitdir-repair.md) — Completion report
 - [`self-heal-fix-garden-mirror-closer-stale-journal-worktree-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-mirror-closer-stale-journal-worktree-gitdir.md) — Completion report
 - [`self-heal-fix-garden-deadmail-journal-worktree-dangling-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-deadmail-journal-worktree-dangling-gitdir.md) — Completion report
-- [`self-heal-fix-garden-follow-up-journal-remote-dangling-gitdir-fallback`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-follow-up-journal-remote-dangling-gitdir-fallback.md) — Completion report
-- [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-journal-worktree-dangling-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-journal-worktree-dangling-gitdir.md) — Completion report
-- … and 1056 more
+- … and 1058 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
