@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T12:37:50Z_
+_As of 2026-07-03T12:53:25Z_
 
 ## Latest
 
-Little moved this cycle: the [xs2rust-endor](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) XS→Rust port is mid-build on stage 3 of 7 (arrays and the iteration protocol), and the periodic press check-in deferred its go/no-go on the strength of that active advance. Supporting maintenance landed alongside — the clone-keeper now reconciles a missing tracked clone, and the xs2rust-endor press-preflight script was hardened. Nothing new is parked for review, but the queue still holds 27 PRs awaiting kriskowal, the oldest ([endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182), [#186](https://github.com/endojs/endo-but-for-bots/pull/186)) waiting 42 days.
+The XS→Rust (Endor) port remains the garden's active front: stage 3 (arrays and the iteration protocol) is underway in [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md), and this cycle's press check-in landed a **defer** decision precisely because the chain is advancing on its own. Supporting infrastructure tightened around it — the press-preflight script was hardened and the clone-keeper now reconciles a missing tracked clone — and a fresh job was just claimed to improve the scheduler's preflight deploy-lag signal. Otherwise the board is quiet; the notable backlog is review-side, with 27 PRs parked for kriskowal, the longest-waiting being [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) (42 days) and [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (17 days).
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`improve-scheduler-preflight-deploy-lag-signal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scheduler-preflight-deploy-lag-signal.md) — In scripts/jobs/scheduler.sh (the [ -x "$pf" ] else-branch around line 126), ...
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
 
 ### tada (1072)
