@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-03T11:29:15Z_
+_As of 2026-07-03T11:38:39Z_
 
 ## Latest
 
-Journal-remote self-heal landed ([improve-journal-remote-self-heal](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-remote-self-heal.md) completed), rounding out a run of infrastructure self-heal fixes for dangling journal-worktree gitdirs across the issue-inbox, mirror-closer, and deadmail services. A gardener has claimed [reaper-skip-productive-cycles-poison-threshold](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/reaper-skip-productive-cycles-poison-threshold.md), which stops the reaper from counting productive requeue cycles toward the poison threshold. Meanwhile the xs2rust-endor (XS→Rust "Endor") port continues: stage 3 (arrays and the iteration protocol) is in flight, with a press check-in logged for [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600).
+Voice-input PR [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) has surfaced to the top of the parked queue and now leads the maintainer's review backlog. The board is otherwise quiet: no new jobs posted or completed this cycle, with the only transition being a dead-lettered message ([`deadmail-20260703T113702Z-eef919`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T113702Z-eef919.md)) picked up for its intent. Still in flight are the xs2rust-endor stage-3 build (arrays and the iteration protocol, toward [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) and the reaper poison-threshold fix that spares productive requeue cycles.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 20h)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 21h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 4d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 7d)
@@ -28,7 +28,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`deadmail-20260703T113702Z-eef919`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T113702Z-eef919.md) — Dead-lettered message — pick up its intent
 - [`reaper-skip-productive-cycles-poison-threshold`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/reaper-skip-productive-cycles-poison-threshold.md) — garden-infra: reaper — don't count PRODUCTIVE requeue cycles toward the poiso...
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
 
