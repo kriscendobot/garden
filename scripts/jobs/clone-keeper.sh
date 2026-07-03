@@ -37,10 +37,12 @@
 # worktrees/<owner>-<name>.git maps to <GARDEN_CLONE_URL_BASE>/<owner>/<name>.git —
 # and clones from that (logging a `provisioned missing clone` line), so even a clone
 # tracked by a bare remote name still self-heals (the basename derivation is the
-# ambiguous last resort — an explicit <clone-url> is preferred). The fresh bare
-# clone gets its fetch refspec set exactly as
-# ensure-project-worktree.sh prescribes, then falls through to the normal
-# fetch + fast-forward. Guards: a missing clone whose source cannot be REACHED is
+# ambiguous last resort — an explicit <clone-url> is preferred). The re-clone is
+# staged into a SIBLING temp path and atomically `mv -T`d into place only once it
+# is complete, so a partial/timed-out or racing clone never half-populates or
+# clobbers the tracked path (bounded_clone). The fresh bare clone gets its fetch
+# refspec set exactly as ensure-project-worktree.sh prescribes, then falls through
+# to the normal fetch + fast-forward. Guards: a missing clone whose source cannot be REACHED is
 # left for the next tick to retry (no re-clone loop, logged WARN — it is transient,
 # e.g. offline); a missing clone with NO derivable/configured source at all cannot
 # self-heal on any tick, so instead of an un-drained WARN it ESCALATES to the
@@ -154,21 +156,38 @@ derive_clone_url() {
 }
 
 # Bounded bare clone of <src> into <abs>, mirroring bounded_fetch's timeout+retry
-# discipline (git has no IO timeout of its own). git clone removes its own target
-# on an internal error, but a timeout SIGTERM can leave a partial tree, so we scrub
-# any non-repo leftover before each retry (and on final failure) to keep the
-# missing-vs-corrupt discrimination in keep_clone accurate on the next tick.
+# discipline (git has no IO timeout of its own). We NEVER clone straight into the
+# tracked path: git clone removes its own target on an internal error, but a
+# timeout SIGTERM can leave a partial tree, and a concurrent keeper tick (or a
+# worktree being cut off this clone) could observe that half-populated $abs. So we
+# clone into a SIBLING temp path and, only on a fully-successful clone, atomically
+# `mv -T` it into place. The temp is a sibling of $abs (same directory, hence same
+# filesystem) so the rename is a genuine atomic rename(2): $abs is only ever fully
+# absent or fully complete, never partial. `mv -T` also refuses to move INTO an
+# existing dir, so if a racing tick recreated $abs first, our rename fails, we
+# discard our temp, and — since the other tick's clone already stands — report
+# success. Every temp is scrubbed on failure and between retries so nothing leaks.
 # Returns 0 on success, the last non-zero rc after the retry budget is spent.
 bounded_clone() {
-  local src="$1" abs="$2" attempt=1 rc=0
+  local src="$1" abs="$2" attempt=1 rc=0 tmp
   mkdir -p "$(dirname "$abs")"
   while :; do
-    if timeout "$GARDEN_FETCH_TIMEOUT" git clone -q --bare "$src" "$abs" 2>/dev/null; then
-      return 0
+    tmp="${abs%/}.reclone.$$.$attempt"
+    rm -rf "$tmp"
+    if timeout "$GARDEN_FETCH_TIMEOUT" git clone -q --bare "$src" "$tmp" 2>/dev/null; then
+      # Atomically publish the completed clone. `mv -T` renames the temp onto $abs
+      # only when $abs is still absent; if a racing tick already recreated it, the
+      # rename fails and the other tick's clone stands — discard ours, report ok.
+      if mv -T "$tmp" "$abs" 2>/dev/null; then
+        return 0
+      fi
+      rm -rf "$tmp"
+      is_own_git_repo "$abs" && return 0
+      rc=1
     else
       rc=$?
+      rm -rf "$tmp"
     fi
-    [ -e "$abs" ] && ! is_own_git_repo "$abs" && rm -rf "$abs"
     [ "$rc" -eq 124 ] && log "clone of $src into $abs timed out (>${GARDEN_FETCH_TIMEOUT}s) on attempt $attempt"
     if [ "$attempt" -ge "$GARDEN_FETCH_RETRIES" ]; then
       log "clone of $src into $abs failed after $attempt attempt(s) (last rc=$rc)"

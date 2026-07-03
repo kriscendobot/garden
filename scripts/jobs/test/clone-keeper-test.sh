@@ -151,6 +151,9 @@ run_keeper GARDEN_TRACKED_CLONES="$CLONE|$UP|master"
 git -C "$CLONE" rev-parse --git-dir >/dev/null 2>&1 && ok "missing clone re-created as a git repo" || bad "clone NOT re-created"
 [ "$(local_master 2>/dev/null)" = "$before" ] && ok "re-cloned master matches upstream tip" || bad "re-cloned master wrong ($(local_master 2>/dev/null) != $before)"
 grep -qF "REPAIRED:" <<<"$OUT" && ok "logged a REPAIRED line" || bad "re-clone not surfaced as REPAIRED"
+# The re-clone stages into a sibling temp path and atomically renames it into
+# place; no `.reclone.` staging dir must survive a successful publish.
+[ -z "$(ls -d "$CLONE".reclone.* 2>/dev/null)" ] && ok "no temp reclone staging dir left after a successful re-clone" || bad "temp reclone staging dir left behind after success"
 
 # ============================================================================
 hr; echo "CLONE-URL FIELD — deleted clone, bare-name remote + explicit fourth clone-url: re-cloned from the explicit URL, refspec set"; hr
@@ -186,6 +189,9 @@ rm -rf "$CLONE"
 run_keeper GARDEN_TRACKED_CLONES="$CLONE|$TR/does-not-exist.git|master"
 [ "$RC" -eq 0 ] && ok "exit 0 when re-clone source is unreachable (never wedged)" || bad "exit $RC on unreachable re-clone"
 [ ! -e "$CLONE" ] && ok "no partial clone left behind" || bad "partial clone left at $CLONE"
+# The clone is staged into a sibling temp path; a failed/unreachable re-clone must
+# scrub that staging dir too, so neither the tracked path NOR a temp leaks.
+[ -z "$(ls -d "$CLONE".reclone.* 2>/dev/null)" ] && ok "no temp reclone staging dir left after an unreachable re-clone" || bad "temp reclone staging dir left behind after failure"
 { grep -qF "re-clone from" <<<"$OUT" && grep -qiF "skipping" <<<"$OUT"; } && ok "logged the missing+unreachable skip" || bad "missing+unreachable skip not logged"
 
 # ============================================================================
