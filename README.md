@@ -1,14 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-03T01:54:12Z_
+_As of 2026-07-03T01:55:03Z_
 
 ## Latest
 
-The board was quiet this cycle — mostly dead-letter cleanup and an XS→Rust (Endor) progress tick — but three maintainer messages carry the weight.
+Three items landed in the maintainer inbox that need your eyes, and the board is otherwise quiet (todo empty; one dead-lettered message completed).
 
-Most urgent: an investigating gardener flagged a **live leader-disabling incident** on this host. A stale `/home/kris/.garden` shard file resolves `GARDEN=endolinbot2` while the `journal/leader` marker names `endolinbot`, so `is-main-host.sh` reports FOLLOWER on the true leader — silently skipping every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor), and mislabeling 276 recent gardener entries. The drift was also the compounding factor behind the five poisoned garden-infra jobs during the 2026-07-01/07-02 Claude quota outage. The fix is out of a gardener's scope: either correct the shard file to `endolinbot` or re-point the marker to `endolinbot2` and record the override, then restart the fleet.
+**Live infra incident (leader silently down):** while investigating five poisoned garden-infra jobs, a gardener found the `endolinbot2` host-identity drift is still active on the true leader host — `/home/kris/.garden` resolves `GARDEN=endolinbot2` while `journal/leader` says `endolinbot`, so `is-main-host.sh` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being skipped. The same drift was the compounding factor behind the five poisonings during the 07-01/07-02 Claude quota outage. Requested fix is one operational call — either `echo endolinbot > /home/kris/.garden` or re-point the marker with `set-main-host.sh endolinbot2` — then restart the fleet; a sharpened drift-detector job was re-posted so the next regression is loud on tick 1.
 
-Two disposition calls also await you. A shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is not lint-blocked but **subsumed** — its error-tracing feature already re-landed on `llm` via the merged #58, so a rebase collapses to an essentially empty PR; recommendation is to close it (optionally spinning out its two unique refactors, `error-id.js` and `trace-constants.js`, as a fresh PR). And on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), @gibson042 rebuts all three of the freezable-TypedArray design's "Why not a Proxy wrapper?" reasons and asks you and @erights to weigh in on plain-object-vs-Proxy — a genuine tradeoff a bot won't decide.
+**Disposition call on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301):** the shepherd found it isn't lint-blocked — its entire error-tracing feature has already been independently re-landed on `llm` (via #58/#1879 and follow-ons), so a rebase collapses to an essentially empty PR. Recommendation is to close it as superseded, optionally extracting the two unique refactors (`error-id.js`, `trace-constants.js`) as a fresh small PR against `llm`.
+
+**Design decision on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472):** on the freezable-TypedArray design doc, @gibson042 rebuts all three "Why not a Proxy wrapper?" arguments and asks for you and @erights to weigh in — plain-object wrapper as designed vs. a Proxy that throws on canonical-index writes. Nothing was pushed; you can reply on the PR thread directly.
 
 ## Parked for maintainer feedback
 
@@ -139,20 +141,19 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
-- [`deadmail-issue-comment-4870255317`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4870255317.md) — Dead-lettered message — pick up its intent
+### doin (4)
 - [`deadmail-issue-comment-4870486307`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4870486307.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-4871521636`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4871521636.md) — Dead-lettered message — pick up its intent
 - [`improve-gardener-collapse-deadline-overrun-double-journal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-collapse-deadline-overrun-double-journal.md) — In scripts/jobs/gardener.sh, a handler killed at its own wall-clock budget (d...
 - [`xs2rust-endor-build-stage2b-frames`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage2b-frames.md) — Builder: xs2rust-endor stage 2b (2/3) — closures, call/return frames, meter-c...
 
-### tada (985)
+### tada (986)
+- [`deadmail-issue-comment-4870255317`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4870255317.md) — Completion report
 - [`deadmail-issue-comment-4870104413`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4870104413.md) — Completion report
 - [`deadmail-issue-comment-4869737552`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4869737552.md) — Completion report
 - [`xs2rust-endor-press-20260703-015012`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-015012.md) — Progress entry posted. This tick is a clean deferral — the completion report ...
 - [`xs2rust-endor-press-20260703-004244`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-004244.md) — **Completion report — xs2rust-endor-press-20260703-004244 (resumed after requ...
-- [`improve-atomic-deploy-tree-swap`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-atomic-deploy-tree-swap.md) — Completion report
-- … and 980 more
+- … and 981 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
