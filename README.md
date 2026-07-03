@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T13:53:14Z_
+_As of 2026-07-03T14:05:50Z_
 
 ## Latest
 
-Only one job crossed the finish line in this window: [`improve-clone-keeper-heal-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-heal-missing-clone.md), a clone-keeper fix so a missing bare clone is healed rather than left broken. It lands alongside a cluster of recently-completed fleet-infra hardening — the scheduler now emits a preflight deploy-lag signal and escalates a missing preflight — so the maintainer should notice the coordination layer, not upstream PRs, is where the churn is right now. The XS→Rust (Endor) port continues to advance under its multi-stage build: stage-3 arrays and the iteration protocol are done (3/7), with text, numbers, Math, and JSON now in flight (4/7); a press check-in this morning reviewed the chain and deliberately deferred, since it is actively progressing on its own. Nothing new was parked for review — the 27 PRs awaiting kriskowal's feedback are unchanged.
+The xs2rust-endor XS→Rust port ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) advanced another step in its stage-3 walk: the arrays-and-iteration-protocol child (3/7) landed and the text/numbers/Math/JSON child (4/7) is now in flight, with a fresh press job claimed to drive the chain toward endor integration. On the infrastructure side, several deterministic-service hardening jobs completed — the clone-keeper now heals a missing clone, and the scheduler gained deploy-lag preflight signaling and escalation on a missing preflight. Nothing new landed for the maintainer to review; the parked queue is unchanged, still fronted by the voice-input chat PR ([endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101)) and the passable-byte-arrays PR ([endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)).
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`xs2rust-endor-build-stage3-text-math-json`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-text-math-json.md) — Builder: xs2rust-endor stage 3 (4/7) — text, numbers, Math, JSON (PR #600)
+- [`xs2rust-endor-press-20260703-140504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-140504.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (1077)
 - [`improve-clone-keeper-heal-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-heal-missing-clone.md) — Completion report
