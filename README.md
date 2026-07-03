@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T04:09:54Z_
+_As of 2026-07-03T04:12:40Z_
 
 ## Latest
 
-The @gibson042 review on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472)'s freezable-TypedArray design doc has landed a **design decision that needs your call** — he rebuts all three of the doc's "Why not a Proxy wrapper?" arguments and pushes for a Proxy `set` trap that throws on canonical-index writes, closing his review by asking you and @erights to weigh in; no code was changed, and there's an unread maintainer message spelling out the three tradeoffs (freezability, hot-path cost, throw-on-write). In parallel a build job is now prototyping that Proxy-based emulation so the two designs can be compared concretely, and a separate job is stripping the comment banner off the same PR. The xs2rust-endor port ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) posted a clean press check-in at 04:05Z and continues its stage-3 language-closure build.
+A comment-banner cleanup on [endojs/endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) landed, and the same PR is now the focus of the freshest work: a build is under way exploring a Proxy-based alternative emulation of the freezable TypedArray, while the design doc it stems from is parked on a genuine tradeoff — @gibson042 has rebutted the "Why not a Proxy wrapper?" section and asked kriskowal and @erights to weigh in, so a decision (keep the plain-object wrapper vs. switch to a throwing Proxy `set` trap) is queued in the maintainer inbox and should not be made by a bot. Also in flight: the xs2rust-endor Rust port advanced into stage 3 (language closure), and a banner-sweep automation is being wired into the gardening loop.
 
 ## Parked for maintainer feedback
 
@@ -63,19 +63,18 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
-- [`ebfb472-remove-banner`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb472-remove-banner.md) — Remove the comment banner on endojs/endo-but-for-bots PR #472
+### doin (3)
 - [`endojs-endo-but-for-bots-472-proxy-typedarray-emulation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-472-proxy-typedarray-emulation.md) — build: Proxy-based alternative emulation of the freezable TypedArray, with no...
 - [`garden-loop-banner-sweep`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-loop-banner-sweep.md) — Add a banner-sweep automation to the gardening loop (garden main2)
 - [`xs2rust-endor-build-stage3-language`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-language.md) — Builder: xs2rust-endor stage 3 (1/7) — language closure: strings as values + ...
 
-### tada (1004)
+### tada (1005)
+- [`ebfb472-remove-banner`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb472-remove-banner.md) — Completion report
 - [`endojs-endo-but-for-bots-pr472-review-662e3148`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr472-review-662e3148.md) — Completion report — review-triage job endojs-endo-but-for-bots-pr472-review-6...
 - [`xs2rust-endor-press-20260703-040501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-040501.md) — Press check-in report — xs2rust-endor (PR #600), tick 04:05Z
 - [`endojs-endo-but-for-bots-pr472-review-350a0c39`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr472-review-350a0c39.md) — Completion report
 - [`foreman-active-job-target`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/foreman-active-job-target.md) — Completion report
-- [`reconcile-claude-md-with-v2-tree`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/reconcile-claude-md-with-v2-tree.md) — Completion report
-- … and 999 more
+- … and 1000 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
