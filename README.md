@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T11:52:20Z_
+_As of 2026-07-03T11:53:56Z_
 
 ## Latest
 
-The garden's reaper just learned to leave productive work alone: [`reaper-skip-productive-cycles-poison-threshold`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/reaper-skip-productive-cycles-poison-threshold.md) landed, raising the poison threshold so a job that keeps making progress across resume cycles is no longer culled — and a follow-on job is already in flight to harden that behavior further. Two infra self-heal items are also underway: teaching the clone-keeper to restore or escalate a missing bare clone rather than silently stumble, and the reaper refinement above. On the port front, [xs2rust-endor stage 3](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) (arrays and the iteration protocol, PR #600) continues. No new PRs reached maintainer review this cycle; the parked queue still leads with the voice-input chat PR [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) and the passable-byte-arrays PR [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503).
+The reaper stopped poisoning productive resume cycles: [`improve-reaper-dont-poison-productive-resume-cycles`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-reaper-dont-poison-productive-resume-cycles.md) landed, adding a poison-threshold so a job that is still making progress on resume is no longer killed. The active build in flight is xs2rust-endor stage 3 (arrays and the iteration protocol, 3 of 7) against [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600), with a fresh press check-in from the 11:20Z tick. Otherwise the board is quiet — todo is empty, only the clone-keeper self-heal and the xs2rust build are in progress, and 27 PRs remain parked for kriskowal's review, the oldest being [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
 
 ## Parked for maintainer feedback
 
@@ -28,18 +28,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`improve-clone-keeper-restore-or-escalate-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-restore-or-escalate-missing-clone.md) — scripts/jobs/clone-keeper.sh:79 handles a missing/not-a-git-repo tracked bare...
-- [`improve-reaper-dont-poison-productive-resume-cycles`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-reaper-dont-poison-productive-resume-cycles.md) — The reaper's poison counter (scripts/jobs/reaper.sh, <!-- garden-reaped: N --...
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
 
-### tada (1065)
+### tada (1066)
+- [`improve-reaper-dont-poison-productive-resume-cycles`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-reaper-dont-poison-productive-resume-cycles.md) — Completion report
 - [`reaper-skip-productive-cycles-poison-threshold`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/reaper-skip-productive-cycles-poison-threshold.md) — Completion report
 - [`deadmail-20260703T113702Z-eef919`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T113702Z-eef919.md) — Completion report — deadmail-20260703T113702Z-eef919
 - [`xs2rust-endor-press-20260703-112004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-112004.md) — Press check-in report — tick 11:20Z (xs2rust-endor, PR #600)
 - [`improve-journal-remote-self-heal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-remote-self-heal.md) — Completion report: improve-journal-remote-self-heal
-- [`self-heal-fix-garden-issue-inbox-journal-worktree-dangling-gitdir-repair`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-issue-inbox-journal-worktree-dangling-gitdir-repair.md) — Completion report
-- … and 1060 more
+- … and 1061 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
