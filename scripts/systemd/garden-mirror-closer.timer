@@ -4,8 +4,14 @@ Description=Garden mirror-closer timer
 [Timer]
 # A closed upstream PR is not time-critical; a few minutes' latency is fine and
 # keeps the GitHub API load low (one cheap state read per unresolved mapping).
-OnActiveSec=2min
-OnUnitActiveSec=5min
+# Absolute wall-clock schedule (every 5 minutes at :03 past), NOT a relative
+# OnActiveSec/OnUnitActiveSec pair: a relative first-elapse window larger than the
+# fleet's ~1-minute daemon-reload cadence is re-armed before it elapses and can be
+# deferred indefinitely (see garden-library-source-drift-scan.timer and the
+# 2026-07-03 starvation note on garden-orchestrate.timer). Persistent=true catches
+# up a run missed across downtime.
+OnCalendar=*:03/5
+Persistent=true
 
 [Install]
 WantedBy=timers.target

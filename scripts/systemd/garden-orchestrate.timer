@@ -2,8 +2,16 @@
 Description=Garden orchestration watcher timer
 
 [Timer]
-OnActiveSec=2m
-OnUnitActiveSec=3m
+# Absolute wall-clock schedule (every 3 minutes at :01 past), NOT a relative
+# OnActiveSec/OnUnitActiveSec pair: a relative first-elapse window larger than the
+# fleet's ~1-minute daemon-reload cadence is re-armed before it elapses and can be
+# deferred indefinitely (see garden-library-source-drift-scan.timer). This one
+# starved for real on 2026-07-03: the never-fired timer's first elapse kept
+# sliding ahead of the reload churn, so the stage2b orchestration sat pending for
+# hours with LastTrigger empty. Persistent=true catches up a run missed across
+# downtime.
+OnCalendar=*:01/3
+Persistent=true
 
 [Install]
 WantedBy=timers.target

@@ -2,8 +2,14 @@
 Description=Garden foreman timer
 
 [Timer]
-OnActiveSec=5m
-OnUnitActiveSec=5m
+# Absolute wall-clock schedule (every 5 minutes at :04 past), NOT a relative
+# OnActiveSec/OnUnitActiveSec pair: a relative first-elapse window larger than the
+# fleet's ~1-minute daemon-reload cadence is re-armed before it elapses and can be
+# deferred indefinitely (see garden-library-source-drift-scan.timer and the
+# 2026-07-03 starvation note on garden-orchestrate.timer). Persistent=true catches
+# up a run missed across downtime.
+OnCalendar=*:04/5
+Persistent=true
 
 [Install]
 WantedBy=timers.target
