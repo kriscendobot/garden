@@ -516,6 +516,65 @@ em3=$(maint_pf_msgs missgate); [ "$em3" -eq 1 ] && ok "escalation fires exactly 
 unset GARDEN_PREFLIGHT_MISSING_THRESHOLD
 
 # ============================================================================
+hr; echo "SUBTEST 8c — XS2RUST PRESS PREFLIGHT: stall bar (HEAD tracking + child ownership)"; hr
+# The Fable press-driver's observe-and-defer judgment, moved into plain code:
+# dispatch (exit 0) ONLY when the chain has stalled (HEAD unchanged across two
+# ticks AND no live/queued build child); defer (exit 2) whenever the chain is
+# advancing (HEAD moved), owned (a stage child in doin/ or on the bus), or
+# mid-handoff (a successor queued in todo/). Ambiguity (unreadable HEAD) and the
+# first observation fail toward not-starving / establishing a baseline.
+PF="$JOBS/gardening/xs2rust-endor-press-preflight.sh"
+export GARDEN_STATE="$TR/state-press"
+export GARDEN_XS2RUST_PRESS_PREFLIGHT_CLONE="$TR/press-clone/journal"
+PHF="$GARDEN_STATE/xs2rust-endor-press-preflight/last-head"
+mkdir -p "$(dirname "$PHF")"
+DOIN_CHILD="jobs/doin/xs2rust-endor-build-stage3-arrays.md"
+TODO_SUCC="jobs/todo/xs2rust-endor-build-stage3-strings.md"
+BUS_INBOX="inbox/xs2rust-endor-build-stage3-arrays/unread/.gitkeep"
+pf() { local rc; set +e; "$PF" xs2rust-endor-press >/dev/null 2>&1; rc=$?; set -e; printf '%s' "$rc"; }
+
+# Case 1 — a live stage3 child in doin/ OWNS the branch → defer (exit 2),
+# regardless of HEAD (HEAD reads a fresh sha here).
+push_change "$DOIN_CHILD" "# arrays" "fixture: stage3 child in doin"
+export GARDEN_PRESS_HEAD_CMD='echo sha-1'
+[ "$(pf)" = "2" ] && ok "live stage3 child in doin/ → defer (exit 2)" || bad "owned-in-doin did not defer"
+push_change "$DOIN_CHILD" @DELETE "fixture: remove doin child"
+
+# Case 2 — arrays gone from doin/ but a SUCCESSOR queued in todo/ (orchestration
+# mid-handoff) → defer (exit 2), not a stall.
+push_change "$TODO_SUCC" "# strings" "fixture: successor in todo"
+rm -f "$PHF"; export GARDEN_PRESS_HEAD_CMD='echo sha-2'   # even with a fresh HEAD baseline
+[ "$(pf)" = "2" ] && ok "successor build child queued in todo/ → defer (exit 2)" || bad "successor-in-todo did not defer"
+push_change "$TODO_SUCC" @DELETE "fixture: remove todo successor"
+
+# Case 3 — a build child alive on the message bus (an inbox exists) → defer.
+push_change "$BUS_INBOX" "x" "fixture: build child inbox on the bus"
+export GARDEN_PRESS_HEAD_CMD='echo sha-3'
+[ "$(pf)" = "2" ] && ok "build child live on the bus → defer (exit 2)" || bad "bus-child did not defer"
+push_change "$BUS_INBOX" @DELETE "fixture: remove bus inbox"
+
+# From here on the board carries NO xs2rust child — only the HEAD tracker decides.
+# Case 4 — first observation (no prior HEAD): establish a baseline, defer.
+rm -f "$PHF"; export GARDEN_PRESS_HEAD_CMD='echo sha-base'
+[ "$(pf)" = "2" ] && ok "first HEAD observation → defer to establish baseline (exit 2)" || bad "first observation did not defer"
+[ "$(tr -d '[:space:]' < "$PHF" 2>/dev/null)" = "sha-base" ] && ok "baseline HEAD persisted to \$GARDEN_STATE" || bad "baseline HEAD not persisted"
+
+# Case 5 — HEAD advanced since the previous tick → chain advancing, defer.
+printf 'sha-old\n' > "$PHF"; export GARDEN_PRESS_HEAD_CMD='echo sha-new'
+[ "$(pf)" = "2" ] && ok "HEAD advanced across ticks → defer (exit 2)" || bad "advancing HEAD did not defer"
+[ "$(tr -d '[:space:]' < "$PHF" 2>/dev/null)" = "sha-new" ] && ok "advanced HEAD recorded for the next tick" || bad "advanced HEAD not recorded"
+
+# Case 6 — HEAD UNCHANGED across two consecutive ticks, no child, no successor →
+# the stall bar is met → take the wheel (exit 0).
+printf 'sha-stall\n' > "$PHF"; export GARDEN_PRESS_HEAD_CMD='echo sha-stall'
+[ "$(pf)" = "0" ] && ok "HEAD stalled two ticks + no live/queued child → dispatch (exit 0)" || bad "stall bar met but did not dispatch"
+
+# Case 7 — HEAD unreadable (a gh/network blip) → fail open, dispatch, never starve.
+printf 'sha-stall\n' > "$PHF"; export GARDEN_PRESS_HEAD_CMD='true'   # prints nothing
+[ "$(pf)" = "0" ] && ok "unreadable HEAD → fail open, dispatch (exit 0)" || bad "unreadable HEAD did not fail open"
+unset GARDEN_PRESS_HEAD_CMD GARDEN_XS2RUST_PRESS_PREFLIGHT_CLONE
+
+# ============================================================================
 hr; echo "SUBTEST 9 — WATCHMAN: aggressive main2 checkout + reread broadcast"; hr
 export GARDEN_STATE="$TR/state-wm" GARDEN=wmhost
 GBARE="$TR/garden.git"; git init -q --bare "$GBARE"
