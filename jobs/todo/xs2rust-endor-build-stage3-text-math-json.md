@@ -1,10 +1,4 @@
----
-gate: orchestrated
-orchestrated_by: xs2rust-endor-build-stage3
-priority: normal
-posted_by: supervisor-s5
-posted_at: 2026-07-03T03:46:14Z
----
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-03T12:56:30Z -->
 
 ---
 model: opus
