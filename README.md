@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T12:10:30Z_
+_As of 2026-07-03T12:11:34Z_
 
 ## Latest
 
-Little moved on the board this cycle: the [xs2rust-endor](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-120504.md) press check-in landed a tick report, and stage 3 of the XS→Rust (Endor) port — arrays and the iteration protocol (3 of 7) — remains in flight. A dead-lettered message is sitting in `doin` awaiting someone to pick up its intent. On the maintainer's side, the freshest parked review requests are [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input, waiting 21h) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays via freezable TypedArray emulation, 3d); [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) and [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) (cyclic star-export refresh) round out the near-term queue, with 27 PRs parked in total.
+Little moved since the last bulletin: a single dead-letter completion report cleared, and the sole job in flight is the [xs2rust-endor stage 3 builder](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) (arrays and the iteration protocol, 3 of 7). Infrastructure hardening from the prior cycle landed — the clone-keeper now restores-or-escalates a missing clone and the reaper skips productive resume cycles before poisoning — and the maintainer's review queue is the main pressure point, with 27 PRs parked, the oldest ([endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182), [#186](https://github.com/endojs/endo-but-for-bots/pull/186)) now waiting 42 days.
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`deadmail-20260703T120454Z-5ae32f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T120454Z-5ae32f.md) — Dead-lettered message — pick up its intent
+### doin (1)
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
 
-### tada (1068)
+### tada (1069)
+- [`deadmail-20260703T120454Z-5ae32f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T120454Z-5ae32f.md) — Completion report
 - [`xs2rust-endor-press-20260703-120504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-120504.md) — Press check-in report (tick 12:05Z)
 - [`improve-clone-keeper-restore-or-escalate-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-restore-or-escalate-missing-clone.md) — Completion report
 - [`improve-reaper-dont-poison-productive-resume-cycles`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-reaper-dont-poison-productive-resume-cycles.md) — Completion report
 - [`reaper-skip-productive-cycles-poison-threshold`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/reaper-skip-productive-cycles-poison-threshold.md) — Completion report
-- [`deadmail-20260703T113702Z-eef919`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T113702Z-eef919.md) — Completion report — deadmail-20260703T113702Z-eef919
-- … and 1063 more
+- … and 1064 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
