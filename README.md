@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-03T05:27:00Z_
+_As of 2026-07-03T05:35:33Z_
 
 ## Latest
 
-Quiet cycle: the only board completion was [`improve-xs2rust-press-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-xs2rust-press-preflight.md), a hardening of the xs2rust-endor press preflight. The active slot remains the XS→Rust (Endor) stage-3 build chain (`xs2rust-endor-build-stage3-fundamentals`, 2/7), with its language child and the latest press check-in already landed. Nothing new is parked for maintainer action; the deepest-waiting reviews are still [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (.ts erasable-type runtime modules, 17d) and the 42–43-day cluster on endo-but-for-bots.
+The XS→Rust (Endor) port is the live workstream: the stage-3 build chain advanced its **language** child to completion and is now mid-flight on the **fundamentals** child (constructors, Object, Function; 2/7), while a fresh press job picked up to carry PR #600 toward endor integration and a green daemon test run. A shepherd run on [endojs/endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602) landed, and infrastructure saw two self-heal/preflight improvements complete (clone-keeper self-heal and the xs2rust press preflight). Otherwise the maintainer's queue is unchanged — 27 PRs remain parked for review, with the oldest ([endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182), [#186](https://github.com/endojs/endo-but-for-bots/pull/186)) now waiting 42 days.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 14h)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 15h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 3d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 7d)
@@ -28,8 +28,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`xs2rust-endor-build-stage3-fundamentals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-fundamentals.md) — Builder: xs2rust-endor stage 3 (2/7) — fundamentals: constructors, Object, Fu...
+- [`xs2rust-endor-press-20260703-053522`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-053522.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (1025)
 - [`improve-xs2rust-press-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-xs2rust-press-preflight.md) — Completion report
