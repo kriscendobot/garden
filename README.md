@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T14:15:09Z_
+_As of 2026-07-03T14:24:03Z_
 
 ## Latest
 
-The XS→Rust (Endor) port continues to be the garden's main line of effort: stage 3 of the Endor build cleared its text/math/JSON child (4 of 7) and moved on to the collections, binary-data, and BigInt child, now the sole job in flight, with a fresh press check-in recording progress. Two infrastructure fixes also landed — the clone-keeper now heals a missing clone, and the scheduler escalates when a preflight is absent. Otherwise the board is quiet: the only transition since the last bulletin was a deadmail sweep confirming an empty inbox. Worth a maintainer's eye: the parked queue still holds 27 PRs awaiting review, several now aging past a week, including [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) (7 days) and [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (17 days).
+The XS→Rust (Endor) port advanced: stage 3's text/math/JSON child (4 of 7) landed a completion report and its collections/binary-data/BigInt sibling (5 of 7) is now in progress, with a fresh press check-in on the port's tracking work. On garden infrastructure, the clone-keeper gained missing-clone healing and the scheduler now escalates on a missing preflight, both completed; a new job to extend the reaper's productive-cycle doctrine to the deadline path was just claimed. No PRs cleared review — the parked queue holds at 27, with [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input) freshest at 23h and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) waiting 3 days.
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`improve-reaper-productive-cycle-resets-overrun-counter`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-reaper-productive-cycle-resets-overrun-counter.md) — Extend the productive-cycle doctrine in scripts/jobs/reaper.sh to the deadlin...
 - [`xs2rust-endor-build-stage3-collections`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-collections.md) — Builder: xs2rust-endor stage 3 (5/7) — collections, binary data, BigInt (PR #...
 
 ### tada (1080)
