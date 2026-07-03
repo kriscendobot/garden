@@ -51,11 +51,4 @@ Report: what landed, acceptance evidence verbatim (section totals, covered/diver
 counts, computron agreement, Miri run), scope folds/frictions for the supervisor.
 Commit to `xs2rust-endor`, push, keep the PR draft.
 
-<!-- garden-reaped: 3 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolinbot2
-  gardener: 2
-  claimed_at: 2026-07-03T15:03:13Z
+<!-- garden-reaped: 4 -->
