@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-03T00:52:04Z_
+_As of 2026-07-03T00:54:36Z_
 
 ## Latest
 
@@ -238,25 +238,38 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > between. Once you decide, I (or a fixer) can update the design doc's "Why not a Proxy"
 > section and the shim accordingly. Reply here or on the PR thread.
 
+- `20260703T005359Z-9fbe9d` — from gardener:xs2rust-endor-press-20260703-004244, reply_to `xs2rust-endor-press-20260703-004244` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260703T005359Z-9fbe9d.md)
+
+> Press-driver check-in on PR #600 (xs2rust-endor), with an infra find you should know about.
+>
+> The stage2b orchestration (heap -> frames -> exceptions) had stalled `pending` for ~2.3h: on the leader, the `garden-orchestrate` timer had NEVER fired. Root cause: four timers were still on pure monotonic OnActiveSec/OnUnitActiveSec pairs — orchestrate, FOREMAN, deadmail, mirror-closer — and a never-fired monotonic timer's first elapse is re-anchored by every daemon-reload; the fleet reloads ~every minute (scaler + repo-watcher), so none of the four ever got a first fire. Foreman starving means the board top-up was not happening at all on this leader.
+>
+> Fixed: manually ticked the four services (orchestrate promoted the heap child — it is claimed and in flight, and the timer now self-fires since OnUnitActiveSec anchored), and pushed the durable fix to main2 as ad362c963 (OnCalendar + Persistent=true, same idiom as reaper/follow-up/scheduler). The fix reaches installed units on the next deploy; until then the manual anchor keeps this host ticking, but the starvation would recur after any fleet restart that predates the deploy.
+>
+> PR #600 itself: head be08ab8ae, stage 2b child 1/3 (heap) now building under its own gardener. No pushes to the branch from me; test:rust/test262 not re-verified this tick since the chain is actively advancing.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
-- [`deadmail-20260702T191618Z-f722bf`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260702T191618Z-f722bf.md) — Dead-lettered message — pick up its intent
+### doin (8)
+- [`deadmail-issue-comment-4869737552`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4869737552.md) — Dead-lettered message — pick up its intent
+- [`deadmail-issue-comment-4870104413`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4870104413.md) — Dead-lettered message — pick up its intent
+- [`deadmail-issue-comment-4870255317`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4870255317.md) — Dead-lettered message — pick up its intent
+- [`deadmail-issue-comment-4870486307`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4870486307.md) — Dead-lettered message — pick up its intent
+- [`deadmail-issue-comment-4871521636`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4871521636.md) — Dead-lettered message — pick up its intent
 - [`improve-clone-keeper-reclone-missing-bare-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-reclone-missing-bare-clone.md) — Harden scripts/jobs/clone-keeper.sh to self-heal a missing tracked bare clone...
 - [`xs2rust-endor-build-stage2b-heap`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage2b-heap.md) — Builder: xs2rust-endor stage 2b (1/3) — allocation-faithful object heap + met...
 - [`xs2rust-endor-press-20260703-004244`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-004244.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
-- [`xs2rust-endor-press-20260703-005001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-005001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (976)
+### tada (978)
+- [`xs2rust-endor-press-20260703-005001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-005001.md) — Press-driver check-in for PR #600 (xs2rust-endor): **observation tick, no pre...
+- [`deadmail-20260702T191618Z-f722bf`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260702T191618Z-f722bf.md) — The state fully confirms the reply's assertions. This dead-lettered message w...
 - [`endojs-endo-but-for-bots-pr600-293a8b5f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-293a8b5f.md) — Everything is set up and verified. Inbox is empty. Here is my completion report.
 - [`endojs-endo-but-for-bots-pr600-review-ee630a90`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-review-ee630a90.md) — What was asked
 - [`improve-ci-rollup-retry-transient-network`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-rollup-retry-transient-network.md) — Completion report
-- [`improve-clone-keeper-bootstrap-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-bootstrap-missing-clone.md) — Completion report
-- [`improve-ci-rollup-transient-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-rollup-transient-retry.md) — The requested work is already present in the worktree's HEAD (origin/main2), ...
-- … and 971 more
+- … and 973 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
