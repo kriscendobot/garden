@@ -257,6 +257,68 @@ grep -qiF "repair" <<<"$OUT" && ok "logged the repair attempt" || bad "did not l
 [ "$(alert_count)" -eq 0 ] && ok "no maintainer page on a self-healed gitdir" || bad "paged despite a successful repair"
 
 # ============================================================================
+hr; echo "DANGLING GITDIR (owning checkout DELETED) — rebuilt from origin, no page"; hr
+# The live 2026-07-03 incident: the checkout that OWNED the worktree was REMOVED
+# (the root moved and the old one deleted, or $GARDEN_ROOT/.git/worktrees/ was
+# wiped), so there is NO admin entry and `git worktree repair` fails outright. The
+# keeper must PRUNE, back up the files still under the worktree, remove the stale
+# dir, and re-`worktree add` it off origin/journal2 — losslessly, with no page.
+rm -rf "$TR"; mkdir -p "$TR/state"
+git init -q --bare "$UP"
+SEED="$TR/seed"; git init -q "$SEED"
+git -C "$SEED" checkout -q -b journal2
+printf 'a\n' > "$SEED/f"
+git -C "$SEED" add -A; git -C "$SEED" "${git_id[@]}" commit -q -m c1
+git -C "$SEED" remote add origin "$UP"; git -C "$SEED" push -q -u origin journal2
+git -C "$UP" symbolic-ref HEAD refs/heads/journal2
+rm -rf "$SEED"
+ROOT="$TR/root"                                  # stands in for $GARDEN_ROOT
+git clone -q "$UP" "$ROOT"
+git -C "$ROOT" checkout -q --detach              # free journal2 for the worktree
+git -C "$ROOT" "${git_id[@]}" worktree add -q "$ROOT/journal" journal2
+write_alert_stub
+# Content in the worktree that MUST survive the rebuild (a tracked-clean tree plus
+# untracked WIP the backup has to capture).
+printf 'agent WIP that must survive\n' > "$ROOT/journal/wip.md"
+mkdir -p "$ROOT/journal/entries/2026/07"
+printf 'a journal entry\n' > "$ROOT/journal/entries/2026/07/result.md"
+# SIMULATE the owning-checkout deletion: wipe the admin entry AND dangle the
+# forward pointer at a now-gone path, so `worktree repair` has nothing to re-link.
+rm -rf "$ROOT/.git/worktrees"
+printf 'gitdir: %s/gone-garden2/.git/worktrees/journal\n' "$TR" > "$ROOT/journal/.git"
+git -C "$ROOT/journal" rev-parse --git-dir >/dev/null 2>&1 \
+  && bad "fixture: gitdir should be dangling+unrepairable pre-run" \
+  || ok "fixture: gitdir dangles with NO admin entry before the keeper runs"
+run_keeper GARDEN_ROOT="$ROOT" GARDEN_JOURNAL_WORKTREE="$ROOT/journal"
+[ "$RC" -eq 0 ] && ok "exit 0 on an owning-checkout-deleted rebuild" || bad "exit $RC on the rebuild"
+git -C "$ROOT/journal" rev-parse --git-dir >/dev/null 2>&1 \
+  && ok "worktree resolves its git dir after the rebuild" \
+  || bad "worktree still broken after the rebuild"
+[ "$(git -C "$ROOT/journal" rev-parse --abbrev-ref HEAD 2>/dev/null)" = journal2 ] \
+  && ok "worktree re-established on journal2" || bad "worktree not on journal2 after rebuild"
+[ "$(git -C "$ROOT/journal" rev-parse HEAD 2>/dev/null)" = "$(git -C "$ROOT/journal" rev-parse refs/remotes/origin/journal2 2>/dev/null)" ] \
+  && ok "worktree HEAD reconciled to origin/journal2" || bad "worktree HEAD not at origin/journal2"
+grep -qiF "rebuil" <<<"$OUT" && ok "logged the rebuild" || bad "did not log the rebuild"
+[ "$(alert_count)" -eq 0 ] && ok "NO maintainer page on the lossless rebuild" || bad "paged on a lossless rebuild"
+RB="$(latest_backup)"
+[ -n "$RB" ] && [ -f "$RB/files/wip.md" ] && ok "present WIP captured in the backup" || bad "WIP not backed up before rebuild"
+[ -n "$RB" ] && [ -f "$RB/files/entries/2026/07/result.md" ] && ok "nested entry captured in the backup" || bad "nested entry not backed up"
+
+# ============================================================================
+hr; echo "GUARD — rebuild refuses a worktree that is not \$GARDEN_ROOT/journal"; hr
+# Re-break the (now-healthy) worktree, then point a DIFFERENT $GARDEN_ROOT at it so
+# $JW != $GARDEN_ROOT/journal. The rebuild must REFUSE and leave the tree untouched
+# — the destructive removal only ever fires on the canonical journal path.
+rm -rf "$ROOT/.git/worktrees"
+printf 'gitdir: %s/gone-garden2/.git/worktrees/journal\n' "$TR" > "$ROOT/journal/.git"
+printf 'sentinel that must not be removed\n' > "$ROOT/journal/guard-sentinel.md"
+mkdir -p "$TR/otherroot"; git init -q "$TR/otherroot"
+run_keeper GARDEN_ROOT="$TR/otherroot" GARDEN_JOURNAL_WORKTREE="$ROOT/journal"
+[ "$RC" -eq 0 ] && ok "exit 0 (never wedged) when the guard refuses" || bad "exit $RC on guard refusal"
+[ -f "$ROOT/journal/guard-sentinel.md" ] && ok "refused: the non-canonical worktree left UNTOUCHED" || bad "guard removed a worktree outside \$GARDEN_ROOT/journal"
+grep -qF "refusing to rebuild" <<<"$OUT" && ok "logged the guard refusal" || bad "did not log the guard refusal"
+
+# ============================================================================
 hr
 echo "journal-worktree-keeper-test: $PASS passed, $FAIL failed"
 rm -rf "$TR"

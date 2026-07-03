@@ -68,6 +68,20 @@
 # correct absolute paths; it is idempotent (a no-op when already healthy) and
 # lossless (it touches only the pointer files, never the tree), so this guard needs
 # none of the active-writer/backup gating the divergence path uses.
+#
+# Owning-checkout-DELETED rebuild (2026-07-03). `worktree repair` re-links only when
+# a matching admin entry (`$GARDEN_ROOT/.git/worktrees/journal`) still exists. When
+# the checkout that OWNED the worktree was REMOVED — the root moved
+# (/home/kris -> /home/kris/garden2) and garden2 was later deleted, or the whole
+# `$GARDEN_ROOT/.git/worktrees/` dir was wiped — there is no admin entry to repair
+# against and `worktree repair` fails outright ("… .git file does not reference a
+# repository"). The guard then REBUILDS the worktree losslessly: prune the stale
+# admin records, back up every file still present under $JW into the same host-local
+# backup dir, remove the stale $JW dir, and re-`worktree add --force` it off
+# $JOURNAL_BRANCH (origin/$JOURNAL_BRANCH when the local branch is absent), then fall
+# through to the normal fetch/reconcile. The rebuild is HARD-GUARDED to only ever
+# touch $GARDEN_ROOT/journal and only after a completed backup, and it pages the
+# maintainer solely when the tree could not be captured or the re-add failed.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -256,16 +270,115 @@ jw_repair_gitdir() {  # jw_repair_gitdir <jw>
      && [ -n "$gd" ] && ( cd "$jw" && [ -e "$gd" ] ); then
     return 0   # already healthy — nothing to do
   fi
-  if git -C "$GARDEN_ROOT" worktree repair "$jw" >/dev/null 2>&1; then
-    log "repaired journal worktree gitdir on $jw"
-  else
-    log "WARN: journal worktree gitdir on $jw is broken and 'git worktree repair' did not fix it"
-  fi
+  # STEP 1 — the cheap fix: `git worktree repair` re-links both pointer files when a
+  # matching admin entry still exists (the root MOVED but its admin dir survived).
+  # Gate the success on the linkage actually resolving afterward, not repair's exit
+  # code (repair can exit 0 without fixing an unrelated breakage).
+  git -C "$GARDEN_ROOT" worktree repair "$jw" >/dev/null 2>&1 || true
   # Drop the stale admin registrations (e.g. abandoned garden2/* entries) a root
   # relocation leaves behind, whether or not the repair above succeeded, so they
   # stop accumulating. Best-effort — prune only ever removes entries whose working
   # tree is gone, so a live worktree is never touched.
   git -C "$GARDEN_ROOT" worktree prune >/dev/null 2>&1 || true
+  if git -C "$jw" rev-parse --git-dir >/dev/null 2>&1; then
+    log "repaired journal worktree gitdir on $jw"
+    return 0
+  fi
+  # STEP 2 — the OWNING CHECKOUT is gone, so there is no admin entry for
+  # `worktree repair` to re-link against. Rebuild the worktree from origin.
+  jw_rebuild_dangling_worktree "$jw"
+}
+
+# --- rebuild a dangling worktree whose owning checkout was deleted ------------
+# The `worktree repair` fallback: when the admin entry is gone, re-establish the
+# worktree from origin LOSSLESSLY. Prune stale admin records, back up every file
+# still present under $jw, remove the stale dir, and re-`worktree add --force` off
+# $JOURNAL_BRANCH. Always returns 0 (the caller re-checks `rev-parse --git-dir`);
+# pages the maintainer only when the tree could not be captured or the re-add
+# failed. HARD-GUARDED to only ever act on the canonical $GARDEN_ROOT/journal path,
+# and only ever removes $jw after a completed backup — it can touch nothing else.
+jw_rebuild_dangling_worktree() {  # jw_rebuild_dangling_worktree <jw>
+  local jw="$1"
+
+  # HARD GUARD: only the canonical journal worktree, whose owning repo
+  # ($GARDEN_ROOT) must itself be a valid repo with an origin remote (we re-add the
+  # worktree from it). Any mismatch: refuse, leave the tree untouched.
+  if [ "$jw" != "$GARDEN_ROOT/journal" ]; then
+    log "WARN: gitdir on $jw is broken; refusing to rebuild a path that is not \$GARDEN_ROOT/journal"
+    return 0
+  fi
+  if ! git -C "$GARDEN_ROOT" rev-parse --git-dir >/dev/null 2>&1 \
+     || ! git -C "$GARDEN_ROOT" config --get remote.origin.url >/dev/null 2>&1; then
+    log "WARN: cannot rebuild $jw — \$GARDEN_ROOT ($GARDEN_ROOT) is not a repo with an origin remote"
+    return 0
+  fi
+
+  local dangling=""
+  [ -f "$jw/.git" ] && dangling="$(sed -n 's/^gitdir: *//p' "$jw/.git" 2>/dev/null | head -1)"
+  log "journal worktree gitdir on $jw is dangling${dangling:+ ($dangling gone)} and unrepairable; rebuilding from origin/$JOURNAL_BRANCH"
+  git -C "$GARDEN_ROOT" worktree prune >/dev/null 2>&1 || true
+
+  # LOSSLESS backup of every file still present under $jw. git is inoperable here,
+  # so byte-copy the tree directly (jw_backup_raw_tree). Same host-local, outside-
+  # the-worktree convention as the diverged-tree self-heal. If it cannot be
+  # captured, the WIP is unpreservable: leave the tree UNTOUCHED and page.
+  local ts backup
+  ts="$(date -u +%Y%m%dT%H%M%SZ 2>/dev/null || echo unknown)"
+  backup="$GARDEN_JW_BACKUP_DIR/${GARDEN}-${ts}"
+  if ! jw_backup_raw_tree "$jw" "$backup"; then
+    local msg="journal worktree $jw has a DANGLING gitdir${dangling:+ ($dangling gone)} and its files could NOT be backed up before rebuild; left UNTOUCHED (no removal). Reconcile by hand. (host=$GARDEN)"
+    log "UNPRESERVABLE: $msg"
+    alert_maintainer "journal-worktree-gitdir-unpreservable-$GARDEN" "$msg"
+    return 0
+  fi
+
+  # Remove the stale worktree dir (identity hard-guarded above, backup complete),
+  # then re-establish it.
+  if ! rm -rf "$jw" 2>/dev/null; then
+    local msg="journal worktree $jw has a dangling gitdir and its stale dir could NOT be removed for rebuild; left as-is. Lossless backup at $backup. (host=$GARDEN)"
+    log "GITDIR-RMFAIL: $msg"
+    alert_maintainer "journal-worktree-gitdir-rmfail-$GARDEN" "$msg"
+    return 0
+  fi
+
+  # Re-establish on $JOURNAL_BRANCH: prefer the existing local branch; if absent,
+  # fetch origin and create the branch from origin/$JOURNAL_BRANCH.
+  local added=1
+  if git -C "$GARDEN_ROOT" rev-parse --verify --quiet "refs/heads/$JOURNAL_BRANCH" >/dev/null 2>&1; then
+    git -C "$GARDEN_ROOT" worktree add --force "$jw" "$JOURNAL_BRANCH" >/dev/null 2>&1 && added=0
+  fi
+  if [ "$added" -ne 0 ]; then
+    git -C "$GARDEN_ROOT" fetch -q origin "$JOURNAL_BRANCH" >/dev/null 2>&1 || true
+    git -C "$GARDEN_ROOT" worktree add --force -B "$JOURNAL_BRANCH" "$jw" "origin/$JOURNAL_BRANCH" >/dev/null 2>&1 && added=0
+  fi
+
+  if [ "$added" -ne 0 ] || ! git -C "$jw" rev-parse --git-dir >/dev/null 2>&1; then
+    local msg="journal worktree $jw had a DANGLING gitdir; prune + re-add from origin/$JOURNAL_BRANCH FAILED. Files backed up at $backup. Reconcile by hand: 'git -C $GARDEN_ROOT worktree add --force $jw $JOURNAL_BRANCH'. (host=$GARDEN)"
+    log "GITDIR-REPAIR-FAIL: $msg"
+    alert_maintainer "journal-worktree-gitdir-repairfail-$GARDEN" "$msg"
+    return 0
+  fi
+
+  log "rebuilt journal worktree $jw on $JOURNAL_BRANCH from origin (was a dangling gitdir${dangling:+ -> $dangling}); lossless backup of the prior tree at $backup"
+  return 0
+}
+
+# --- lossless raw-tree backup (git inoperable) -------------------------------
+# Byte-copy every top-level entry present under $jw EXCEPT the broken .git gitlink,
+# preserving each subtree, into <backup>/files. Used by the owning-checkout-deleted
+# rebuild, where git cannot open the repo so the diverged-tree backup (format-patch
+# + ls-files) is impossible. `find -print0` includes dotfiles and tolerates odd
+# names; no glob/shopt state is touched. Returns non-zero if any present entry
+# could not be captured — the tree is then unpreservable and must NOT be destroyed.
+jw_backup_raw_tree() {  # jw_backup_raw_tree <jw> <backup-dir>
+  local jw="$1" backup="$2" entry rc=0
+  mkdir -p "$backup/files" 2>/dev/null || return 1
+  ls -la "$jw" > "$backup/listing.txt" 2>/dev/null || true   # a human-readable manifest
+  while IFS= read -r -d '' entry; do
+    [ "$(basename "$entry")" = ".git" ] && continue
+    cp -a "$entry" "$backup/files/" 2>/dev/null || { rc=1; break; }
+  done < <(find "$jw" -mindepth 1 -maxdepth 1 -print0 2>/dev/null)
+  return "$rc"
 }
 
 # Fetch + reconcile the journal worktree. Every failure path logs and returns 0
