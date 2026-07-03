@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T12:05:44Z_
+_As of 2026-07-03T12:09:04Z_
 
 ## Latest
 
-Fleet-reliability hardening landed this cycle: the reaper now skips productive resume cycles below a poison threshold instead of killing jobs that are making progress, and the clone-keeper will restore or escalate a missing clone rather than stalling silently. On the port front, xs2rust-endor is mid-flight — stage 3 (arrays and the iteration protocol, 3 of 7) is being built, and a press job is driving PR #600 toward endor integration and a green daemon test. The parked queue is otherwise unchanged, with 27 PRs still awaiting kriskowal's review, the oldest being [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
+Infrastructure hardening landed on the fleet's own machinery: the reaper now skips productive resume cycles rather than poisoning them (a new poison threshold gates the sweep), and the clone-keeper will restore or escalate a missing clone instead of failing silently. The [xs2rust-endor](https://github.com/endojs/endo-but-for-bots/pull/600) port continues to press forward toward Endor integration and a green daemon, now working stage 3 (arrays and the iteration protocol). Otherwise the board is quiet — the only transition since the last bulletin was a dead-lettered message picked back up for its intent, and no PR review-state changed; the 27 parked PRs (including the long-waiting [#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [#186](https://github.com/endojs/endo-but-for-bots/pull/186), each 42 days out) still await kriskowal.
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`deadmail-20260703T120454Z-5ae32f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T120454Z-5ae32f.md) — Dead-lettered message — pick up its intent
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
 - [`xs2rust-endor-press-20260703-120504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-120504.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
