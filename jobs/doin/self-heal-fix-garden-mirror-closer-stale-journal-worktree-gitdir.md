@@ -5,3 +5,9 @@ Two scoped changes:
 2. `scripts/jobs/common.sh` — make `journal_remote()` defensive so a momentarily-broken journal worktree cannot starve every producer/consumer before the keeper's next tick: when `git -C "$GARDEN_ROOT/journal" config --get remote.origin.url` fails, fall back to `git -C "$GARDEN_ROOT" config --get remote.origin.url` (the garden root repo shares the same origin) before the final `die`.
 
 Cover with a test alongside `scripts/jobs/test/journal-worktree-keeper-test.sh`: construct a worktree whose `.git` gitdir points at a removed path, run the keeper, assert it repairs and reconciles rather than skipping.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 3
+  claimed_at: 2026-07-03T11:10:40Z
