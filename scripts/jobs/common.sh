@@ -217,6 +217,26 @@ log() {
 }
 die()  { log "FATAL: $*"; exit 1; }
 
+# is_transient_net_error <stderr-file-or-string> — true (0) when the given text
+# bears the fingerprint of a TRANSIENT connectivity failure (a GitHub outage, a
+# DNS blip, a TLS/handshake/read timeout) rather than a STRUCTURAL one (auth,
+# 404, malformed response). A watcher whose PR/comment source fails uses this to
+# decide between a loud `die` (structural — a real bug to surface) and a quiet
+# skip-this-tick degrade (transient — the network will heal). The argument may be
+# a path to a stderr capture file OR a literal string; a file is slurped, a
+# non-file is matched directly. Matching is case-insensitive on a curated set of
+# git/gh/curl/Go-http connectivity signatures.
+is_transient_net_error() {
+  local blob
+  if [ -f "$1" ]; then
+    blob="$(cat "$1" 2>/dev/null || true)"
+  else
+    blob="$1"
+  fi
+  printf '%s' "$blob" | grep -qiE \
+    'connection timed out|error connecting to api\.github\.com|check your internet connection|read tcp .* i/o timeout|TLS handshake timeout|could not resolve host'
+}
+
 # True when this host's fleet is draining: the new draining marker OR the
 # deprecated legacy killswitch marker exists. Keys on EXISTENCE only — an empty
 # marker drains just as a prose-filled one does.

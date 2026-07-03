@@ -186,6 +186,17 @@ else
 fi
 if [ "$src_rc" -ne 0 ]; then
   sed 's/^/  source: /' "$ERRF" >&2 || true
+  # A transient connectivity failure (GitHub outage, DNS blip, TLS/read timeout)
+  # is not a broken enumeration — it is "we couldn't ask right now". Degrade the
+  # SAME way the per-PR rollup does on an unreadable state (line ~241): skip this
+  # tick rather than die, so a GitHub outage doesn't detonate a ~40-FATAL/100-min
+  # systemd restart storm. A structural failure (auth, 404, malformed) still dies
+  # loud — that IS a bug to surface, and the "never mistake a broken enumeration
+  # for no open PRs" guarantee is preserved (we never proceed on a partial list).
+  if is_transient_net_error "$ERRF"; then
+    log "WARN: ci PR source unreachable (transient network) — skipping tick (never guess)"
+    exit 0
+  fi
   die "ci PR source failed for $repo (rc=$src_rc; see source stderr above)"
 fi
 

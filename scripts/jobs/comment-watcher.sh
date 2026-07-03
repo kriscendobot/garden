@@ -1055,6 +1055,15 @@ else
 fi
 if [ "$src_rc" -ne 0 ]; then
   sed 's/^/  source: /' "$ERRF" >&2 || true
+  # Transient connectivity (GitHub outage, DNS blip, TLS/read timeout) is "we
+  # couldn't ask right now", not a broken enumeration — skip this tick instead of
+  # dying, so an outage doesn't drive a systemd restart storm. A structural
+  # failure (auth, 404, malformed) still dies loud. See ci-watcher.sh for the
+  # matching degrade and is_transient_net_error in common.sh.
+  if is_transient_net_error "$ERRF"; then
+    log "WARN: comment source unreachable (transient network) — skipping tick (never guess)"
+    exit 0
+  fi
   die "comment source failed for $repo (rc=$src_rc; see source stderr above)"
 fi
 # Defensive ascending sort by created_at (field 1); the source should already.
