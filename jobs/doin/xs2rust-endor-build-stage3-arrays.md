@@ -62,3 +62,9 @@ your stable worktree as before. If this hits the poison threshold AGAIN, do not
 reset a second time - decompose the remaining scope into smaller children instead. -->
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 16
+  claimed_at: 2026-07-03T12:53:14Z
