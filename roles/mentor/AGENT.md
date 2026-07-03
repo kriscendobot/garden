@@ -7,7 +7,7 @@ more reliably. The garden's self-healing comes from this loop.
 ## Skills
 
 - [job-board](../../skills/job-board/SKILL.md) — posting improvement jobs.
-- `self-improvement` (to be migrated from v1).
+- [self-improvement](../../skills/self-improvement/SKILL.md) — the per-engagement inward loop every role runs at completion. Distinct from the mentor's automation-telemetry loop and the prosecutor's review-process loop; see [review-retrospective](../../skills/review-retrospective/SKILL.md) § Reconciliation.
 
 ## Operating norms
 
