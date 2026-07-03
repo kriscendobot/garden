@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T11:56:09Z_
+_As of 2026-07-03T12:05:44Z_
 
 ## Latest
 
-Fleet infrastructure got two rounds of hardening: the clone-keeper now restores or escalates a missing bare clone instead of silently failing, and the reaper learned to skip productive resume cycles — a poison-threshold change so long-blocked-but-advancing jobs no longer get killed mid-progress. The one active build is xs2rust-endor stage 3 (arrays and the iteration protocol), still in `doin`. On the review front, 27 PRs remain parked for kriskowal; the freshest are [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input, 21h), [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 3d), and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability, 4d).
+Fleet-reliability hardening landed this cycle: the reaper now skips productive resume cycles below a poison threshold instead of killing jobs that are making progress, and the clone-keeper will restore or escalate a missing clone rather than stalling silently. On the port front, xs2rust-endor is mid-flight — stage 3 (arrays and the iteration protocol, 3 of 7) is being built, and a press job is driving PR #600 toward endor integration and a green daemon test. The parked queue is otherwise unchanged, with 27 PRs still awaiting kriskowal's review, the oldest being [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
+- [`xs2rust-endor-press-20260703-120504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-120504.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (1067)
 - [`improve-clone-keeper-restore-or-escalate-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-restore-or-escalate-missing-clone.md) — Completion report
