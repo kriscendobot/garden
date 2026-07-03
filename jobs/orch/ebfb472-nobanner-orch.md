@@ -2,7 +2,7 @@
 order: parallel
 children: ebfb472-remove-banner garden-loop-banner-sweep
 on-child-failure: continue
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-07-03T04:08:05Z
 ---
