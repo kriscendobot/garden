@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T11:23:24Z_
+_As of 2026-07-03T11:25:17Z_
 
 ## Latest
 
-The reaper on endolinbot2 gave up on the `xs2rust-endor-build-stage3-arrays` builder ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) after five requeue cycles and dropped it from the board as POISON — its handler failed every attempt, and the failure is now parked in the maintainer inbox. That stage-3 arrays child is the one repeatedly hitting the 2400s handler wall-clock; a separate `xs2rust-endor-press` job is in flight to push PR #600 toward endor integration and a green daemon test, but the poisoned child likely needs a look. Meanwhile the journal self-heal sweep continues: a fix landed for the mirror-closer's stale journal-worktree gitdir, and a new job to harden `journal_remote()` against transient dangling-gitdir failures is now in progress. No PRs merged or newly parked this cycle.
+Little moved at the board level this cycle — no posts or claims resolved — but the completed pile is dominated by a wave of infrastructure self-healing: fixes for dangling/stale journal-worktree gitdirs across the mirror-closer, deadmail, follow-up, comment-watcher, and gardener-scaler services all landed, hardening the fleet against journal-remote breakage. Two jobs remain in flight: one further hardening `journal_remote()` in `common.sh` against transient failures, and the xs2rust-endor (Endor) port being pressed toward endor integration and a green daemon test run. No new PRs entered the parked queue; the oldest awaiting kriskowal's attention still stretch back 42–44 days.
 
 ## Parked for maintainer feedback
 
@@ -22,66 +22,7 @@ The reaper on endolinbot2 gave up on the `xs2rust-endor-build-stage3-arrays` bui
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260703T112307Z-aa861b` — from reaper:endolinbot2, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260703T112307Z-aa861b.md)
-
-> POISON job dropped from the board after 5 requeue cycles on endolinbot2.
-> Its handler appears to fail every time; the reaper stopped requeueing it.
-> Original job base: xs2rust-endor-build-stage3-arrays
->
-> --- original job body ---
-> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-03T07:19:42Z -->
->
-> ---
-> model: opus
-> ---
-> # Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR #600)
->
-> Repo: `endojs/endo-but-for-bots`, branch `xs2rust-endor` (PR #600 — same PR as the design;
-> keep DRAFT). Workspace `rust/engine/`. Read in order: `designs/xs2rust-endor-engine.md`
-> (§ Resolved Questions is BINDING; § Staged Roadmap "Stage-3 decomposition" is your charter),
-> the supervisor's stage-2b review
-> (https://github.com/endojs/endo-but-for-bots/pull/600#issuecomment-4872378323), and
-> `rust/engine/README.md` (the c/moddable oracle-pin procedure — the shallow sha-fetch is
-> rejected upstream; use the documented fallbacks, and mind the empty-gitlink footgun:
-> clone into `c/moddable` before any `git -C c/moddable` command; a populated sibling
-> checkout under /home/kris/scratch/project-wt-* is the fastest fallback).
->
-> You are child 3 of the serial `xs2rust-endor-build-stage3` orchestration. Ground truth
-> for every weight and behavior is the pin `48ee02d8cfe0` (xsRun.c, xsMemory.c, and the
-> per-built-in sources); the stage-3 bar is dual-run agreement INCLUDING computrons
-> (`mxMeterSome` fast-path annotations land in this stage).
->
-> **Deliverable:** the Array exotic object (index/`length` semantics per `fxArraySetLength`),
-> array literals/holes/spread, `Array` constructor + statics (`isArray`, `of`, `from` within
-> reach), `Array.prototype` methods with their `mxMeterSome` fast-path annotations exactly
-> where the pin places them, and the iteration protocol: `for-in` (enumeration order per
-> XS), `for-of`, array and string iterators (generators themselves stay stage 4 per the
-> roadmap).
->
-> **Acceptance bar:** `built-ins/Array` dual-run sections: covered agrees bit-exactly
-> INCLUDING computrons, divergent **0**, skips named. `language/statements/{for-in,for-of}`
-> covered grows; report before/after verbatim. Corpus programs over literals, mutation
-> methods, iteration, and spread, bit-exact.
->
-> **Standing invariants (every child):** all existing corpora and tests stay green and
-> bit-exact (stage-1 86, stage-2 23, stage-2b 33/10/25, the 953-file covered-grammar test);
-> the honest covered/skipped split is never diluted (a skip is named, a wrong primitive
-> value is a hard divergence); `#![forbid(unsafe_code)]` everywhere but endor-oracle; GC
-> suite green under Miri; new grammar gets corpus programs AND fuzz-grammar arms where the
-> differential generator can reach it.
->
-> Budget discipline: the stage-2 monolith died twice at the 2400s handler wall-clock.
-> Commit and push green increments EARLY and often; if the budget nears, push what is
-> green and exit WITHOUT the completion signal so the requeue resumes your worktree.
-> Do not message the maintainer; a genuinely blocking discovery goes to the supervisor's
-> inbox (`/home/kris/scripts/jobs/inbox-send.sh port-xs-to-rust-memory-safe-engine-s6`)
-> AND into your tada report. Reopening a resolved design question is a supervisor ruling —
-> record it, decide per the design as written, move on.
->
-> Report: what landed, acceptance evidence verbatim (section totals, covered/divergent
-> counts, computron agreement, Miri run), scope folds/frictions for the supervisor.
-> Commit to `xs2rust-endor`, push, keep the PR draft.
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
