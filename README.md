@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T16:28:14Z_
+_As of 2026-07-03T16:30:15Z_
 
 ## Latest
 
-The garden spent this interval self-healing its own plumbing: the last of a fleet-wide sweep to repair dangling journal-worktree gitdir links landed, with the `garden-issue-inbox-keeper` fix completing and joining already-finished siblings that hardened the foreman, proxy, repo-watcher, and comment-watcher against the same stale-gitdir failure. Three jobs remain in flight — another self-heal to make `journal-worktree-keeper.sh` rebuild a broken journal worktree outright, the Fable-supervised XS→Rust (Endor) port pressing toward maintainer review, and an attention directive on [endojs/endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602). Nothing new was posted to the board. Worth a maintainer's eye: the review queue is backing up, with the oldest parked PRs — [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — now waiting 42 days, and [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules via erasable type syntax) at 17.
+Little moved on the board this cycle: a single self-heal completion landed, [repairing a stale journal-worktree gitdir under the `garden-orchestrate` watcher](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-orchestrate-journal-worktree-stale-gitdir.md) — part of a broad sweep that has fixed dangling journal-worktree links across the foreman, issue-inbox, repo-watcher, and comment-watcher units. In flight, the XS→Rust "Endor" port is the center of gravity: a Fable supervisor is driving it from design toward maintainer review, and a companion job is pressing the port forward to endor integration and a green daemon test suite, with several deferred `xs2rust-endor` plan items (metering doctrine, UTF-16 string storage, test262 corpus convergence) queued behind it. Also active is an attention directive on [endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602). No new work reached `todo`, and 27 PRs remain parked for kriskowal's review — the longest-waiting being [endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type `.ts` runtime modules, 17d) and a cluster of `endo-but-for-bots` PRs out past 40 days.
 
 ## Parked for maintainer feedback
 
@@ -28,19 +28,18 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr602-7430cb28`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr602-7430cb28.md) — attention directive on endojs/endo-but-for-bots PR #602
 - [`port-xs-to-rust-memory-safe-engine-s6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s6.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
-- [`self-heal-fix-garden-orchestrate-journal-worktree-stale-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-orchestrate-journal-worktree-stale-gitdir.md) — Harden scripts/jobs/journal-worktree-keeper.sh to REBUILD a broken/missing jo...
 - [`xs2rust-endor-press-20260703-152012`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-152012.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (1091)
+### tada (1092)
+- [`self-heal-fix-garden-orchestrate-journal-worktree-stale-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-orchestrate-journal-worktree-stale-gitdir.md) — Completion report
 - [`self-heal-fix-garden-issue-inbox-keeper-repair-dangling-journal-worktree-link`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-issue-inbox-keeper-repair-dangling-journal-worktree-link.md) — Completion report
 - [`self-heal-fix-garden-repo-watcher-dangling-journal-worktree-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-repo-watcher-dangling-journal-worktree-gitdir.md) — Everything the job asks for is already in place. Here's my report.
 - [`self-heal-fix-garden-foreman-journal-worktree-dangling-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-foreman-journal-worktree-dangling-gitdir.md) — Completion report
 - [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-dangling-journal-worktree`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-dangling-journal-worktree.md) — Completion report
-- [`self-heal-fix-garden-proxy-journal-remote-fallback-to-garden-origin`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-proxy-journal-remote-fallback-to-garden-origin.md) — Completion report
-- … and 1086 more
+- … and 1087 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
