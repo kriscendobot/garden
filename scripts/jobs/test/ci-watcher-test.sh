@@ -25,7 +25,11 @@
 #      canonical gh_pr_view_retry: a TRANSIENT stderr (TLS-handshake timeout, and a
 #      throttle now that the canonical absorber owns it) is retried up to
 #      GARDEN_GH_API_ATTEMPTS, while a DEFINITIVE 404 is not retried (single attempt);
-#      every failure path still falls through to exit 1 (watcher skips, never guesses)
+#      every EXHAUSTED failure path still falls through to exit 1 (watcher skips,
+#      never guesses); and a single transient blip that RECOVERS on retry yields the
+#      REAL verdict (RED→0 shepherd trigger, GREEN→10), NOT a skip — the whole point
+#      of the retry (endojs-endo-but-for-bots#377's one-off TLS timeout must not drop
+#      a red PR for the tick)
 #
 # Usage: ci-watcher-test.sh
 set -euo pipefail
@@ -272,6 +276,48 @@ env GARDEN_GH="$GHSTUB" GH_STUB_COUNT="$CNT" \
     "$ROLLUP" "$REPO" 999 >/dev/null 2>&1 || rc=$?
 [ "$(cat "$CNT")" -eq 1 ] && ok "definitive 404 NOT retried (single attempt)" || bad "expected 1 attempt, got $(cat "$CNT")"
 [ "$rc" -eq 1 ] && ok "definitive error falls through to exit 1 immediately" || bad "expected exit 1, got $rc"
+
+# A single transient blip that RECOVERS on retry is the whole point of the retry:
+# the read must yield the REAL verdict, NOT a skip. Without the retry, one
+# net/http TLS-handshake timeout (exactly what was logged for
+# endojs-endo-but-for-bots#377) would exit 1 and drop the PR's CI verdict for the
+# whole tick, missing the red-CI shepherd trigger. This stub fails GH_STUB_FAIL_TIMES
+# times with a transient stderr, then succeeds emitting the configured rollup JSON.
+RECOVER="$TR/gh-stub-recover.sh"
+cat > "$RECOVER" <<'EOF'
+#!/bin/bash
+c="${GH_STUB_COUNT:?}"; n=$(( $(cat "$c" 2>/dev/null || echo 0) + 1 )); echo "$n" > "$c"
+if [ "$n" -le "${GH_STUB_FAIL_TIMES:-1}" ]; then
+  printf '%s\n' "$GH_STUB_STDERR" >&2
+  exit 1
+fi
+printf '%s' "$GH_STUB_STDOUT"
+exit 0
+EOF
+chmod +x "$RECOVER"
+
+# Fail once (transient TLS timeout), then succeed with a COMPLETED-RED rollup:
+# exactly 2 attempts (one retry), and the handler returns the RED verdict (exit 0,
+# the shepherd trigger) — recovered, not skipped.
+: > "$CNT"; rc=0
+env GARDEN_GH="$RECOVER" GH_STUB_COUNT="$CNT" GH_STUB_FAIL_TIMES=1 \
+    GH_STUB_STDERR="Get \"https://api.github.com\": net/http: TLS handshake timeout" \
+    GH_STUB_STDOUT='{"state":"OPEN","statusCheckRollup":[{"status":"COMPLETED","conclusion":"FAILURE"}]}' \
+    GARDEN_GH_API_ATTEMPTS=3 GARDEN_BACKOFF_BASE_MS=1 GARDEN_BACKOFF_CAP_MS=2 \
+    "$ROLLUP" "$REPO" 999 >/dev/null 2>&1 || rc=$?
+[ "$(cat "$CNT")" -eq 2 ] && ok "one transient blip then success → exactly 2 attempts (retried once, recovered)" || bad "expected 2 attempts, got $(cat "$CNT")"
+[ "$rc" -eq 0 ] && ok "recovered read yields the REAL red verdict (exit 0 → shepherd), not a skip" || bad "expected exit 0 (RED) after recovery, got $rc"
+
+# Same recovery, but the settled state is GREEN: proves the handler returns the
+# ACTUAL parsed verdict (exit 10), not merely "some success". A skip would be exit 1.
+: > "$CNT"; rc=0
+env GARDEN_GH="$RECOVER" GH_STUB_COUNT="$CNT" GH_STUB_FAIL_TIMES=1 \
+    GH_STUB_STDERR="Get \"https://api.github.com\": net/http: TLS handshake timeout" \
+    GH_STUB_STDOUT='{"state":"OPEN","statusCheckRollup":[{"status":"COMPLETED","conclusion":"SUCCESS"}]}' \
+    GARDEN_GH_API_ATTEMPTS=3 GARDEN_BACKOFF_BASE_MS=1 GARDEN_BACKOFF_CAP_MS=2 \
+    "$ROLLUP" "$REPO" 999 >/dev/null 2>&1 || rc=$?
+[ "$(cat "$CNT")" -eq 2 ] && ok "green recovery also retries exactly once (2 attempts)" || bad "expected 2 attempts, got $(cat "$CNT")"
+[ "$rc" -eq 10 ] && ok "recovered read yields the REAL green verdict (exit 10), not a skip" || bad "expected exit 10 (GREEN) after recovery, got $rc"
 
 # ============================================================================
 hr
