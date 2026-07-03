@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T12:11:34Z_
+_As of 2026-07-03T12:22:04Z_
 
 ## Latest
 
-Little moved since the last bulletin: a single dead-letter completion report cleared, and the sole job in flight is the [xs2rust-endor stage 3 builder](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) (arrays and the iteration protocol, 3 of 7). Infrastructure hardening from the prior cycle landed — the clone-keeper now restores-or-escalates a missing clone and the reaper skips productive resume cycles before poisoning — and the maintainer's review queue is the main pressure point, with 27 PRs parked, the oldest ([endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182), [#186](https://github.com/endojs/endo-but-for-bots/pull/186)) now waiting 42 days.
+Little of substance moved on the board this cycle: two infrastructure jobs were claimed into flight — a [clone-keeper reconcile](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-reconcile-missing-tracked-clone.md) fix for the "tracked clone missing" warning and a [preflight-script hardening](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-xs2rust-endor-press-preflight-script.md) for the xs2rust-endor press schedule — alongside the ongoing xs2rust-endor stage-3 (arrays and the iteration protocol) build. Recently landed reaper and clone-keeper hardening (skip-productive-cycles poison threshold; restore-or-escalate on a missing clone) tightened the fleet's self-healing. The review queue remains the pressure point: 27 PRs are parked for kriskowal, with [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [#186](https://github.com/endojs/endo-but-for-bots/pull/186) now at 42 days, and the [`.ts` erasable-type-syntax runtime support](https://github.com/endojs/endo/pull/3137) at 17.
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`improve-clone-keeper-reconcile-missing-tracked-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-reconcile-missing-tracked-clone.md) — scripts/jobs/clone-keeper.sh (keep_clone) warns "tracked clone worktrees/endo...
+- [`improve-xs2rust-endor-press-preflight-script`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-xs2rust-endor-press-preflight-script.md) — The schedule journal2:schedules/xs2rust-endor-press.md sets preflight: garden...
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
 
 ### tada (1069)
