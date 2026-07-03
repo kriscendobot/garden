@@ -45,3 +45,9 @@ species/symbol-keyed corners), each named.
 <!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 5
+  claimed_at: 2026-07-03T20:13:01Z
