@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6073 (525 parent indexes + 5548 children).
+Total section files: 6078 (525 parent indexes + 5553 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -775,6 +775,14 @@ Total section files: 6073 (525 parent indexes + 5548 children).
 ### combex--tech-index
 
 - [combex--tech-index--overview](combex--tech-index--overview.md)
+
+### danfinlay-quickjs--native-ses
+
+- [danfinlay-quickjs--native-ses--architecture-overview](danfinlay-quickjs--native-ses--architecture-overview.md)
+- [danfinlay-quickjs--native-ses--compartment-context-model](danfinlay-quickjs--native-ses--compartment-context-model.md)
+- [danfinlay-quickjs--native-ses--harden-c-deep-freeze](danfinlay-quickjs--native-ses--harden-c-deep-freeze.md)
+- [danfinlay-quickjs--native-ses--lockdown-freeze-intrinsics](danfinlay-quickjs--native-ses--lockdown-freeze-intrinsics.md)
+- [danfinlay-quickjs--native-ses--xs-transferable-strategies](danfinlay-quickjs--native-ses--xs-transferable-strategies.md)
 
 ### endo--agents
 
