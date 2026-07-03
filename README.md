@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T05:53:25Z_
+_As of 2026-07-03T05:55:29Z_
 
 ## Latest
 
-The [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) completion report landed, and the XS→Rust (Endor) port remains the garden's dominant thread: the stage-3 build chain is underway with the language child reported complete and the fundamentals child (constructors, Object, Function — 2 of 7) now claimed and in progress, while a new opcode cost-calibration instrumentation plan was parked as a deferred follow-up. Supporting infrastructure also advanced — the xs2rust press preflight and the clone-keeper self-heal both completed, and the press check-in resolved to observe-and-defer, ceding the wheel to the stage-3 chain. Otherwise the board is quiet: the only other in-flight item is the design-feedback retrospective-loop designer job.
+The XS→Rust (Endor) port advanced another rung: the stage-3 **language** child (constructors-adjacent language semantics) landed its completion report, and the **fundamentals** child is now in flight (2 of 7). A completion report also came in for [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600). On the self-improvement front, two mentor-hardening jobs were just claimed — one giving mentor-emitted jobs a stable directive identity so re-detections dedup cleanly, the other teaching `mentor-claude.sh` to skip improve-jobs whose fix already landed — alongside the design half of the feedback-retrospective double-loop still in progress. Housekeeping wins also closed out: clone-keeper self-heal and an xs2rust press-preflight check.
 
 ## Parked for maintainer feedback
 
@@ -16,7 +16,7 @@ The [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 42d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 42d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 43d)
-- [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) — feat(cbor-frame): add @endo/cbor-frame package for CBOR byte-string framing (waiting 42d)
+- [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) — feat(cbor-frame): add @endo/cbor-frame package for CBOR byte-string framing (waiting 43d)
 - [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 43d)
 
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
@@ -28,8 +28,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
 - [`design-feedback-review-retrospective-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-feedback-review-retrospective-loop.md) — designer: the double-loop — treat every PR comment as an indictment of the re...
+- [`improve-mentor-improve-job-identity-dedup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-mentor-improve-job-identity-dedup.md) — Give mentor-emitted jobs a stable directive identity so re-detections of the ...
+- [`improve-mentor-skip-already-fixed-improve-jobs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-mentor-skip-already-fixed-improve-jobs.md) — In scripts/jobs/handlers/mentor-claude.sh, before the posting-loop calls post...
 - [`xs2rust-endor-build-stage3-fundamentals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-fundamentals.md) — Builder: xs2rust-endor stage 3 (2/7) — fundamentals: constructors, Object, Fu...
 
 ### tada (1027)
