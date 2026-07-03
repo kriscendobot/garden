@@ -1,7 +1,0 @@
-The schedule `journal/schedules/xs2rust-endor-press.md` declares `preflight: gardening/xs2rust-endor-press-preflight.sh`, but that file does not exist under `scripts/jobs/gardening/`. Every scheduler tick (30m cadence) logs `WARN ... preflight ... not found/executable ... treating as work-present` and dispatches the expensive Fable `claude -p` press-driver unconditionally — even when the build chain is live under another agent, in which case the driver just records an observe-only no-op (see the 170717Z gardener progress entry, which did exactly that). Author `scripts/jobs/gardening/xs2rust-endor-press-preflight.sh` (exit 0 = work present → dispatch; nonzero = skip) that deterministically encodes the driver's own "avoid colliding with peers / stall test" logic in plain code: exit skip when an `xs2rust-endor` child job is live on the bus or in `jobs/doin/` AND the orchestration record still says running, and only exit work-present when PR #600's branch HEAD is idle/stalled and the finish line is unmet. This both hardens a recurring failure and moves the collision/stall judgement off the agent into a script.
-
----
-claim:
-  host: endolinbot2
-  gardener: 9
-  claimed_at: 2026-07-03T17:22:04Z
