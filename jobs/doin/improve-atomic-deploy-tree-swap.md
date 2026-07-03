@@ -1,7 +1,0 @@
-Harden `scripts/jobs/deploy-garden.sh` so advancing the root checkout never exposes a window where a running `garden-*` unit execs a half-written script (the recurring rc=127 storm — confirmed 2026-07-03 00:54, and previously the deploy-sync rc-127 loop of 2026-06-27). The MERGE step at deploy-garden.sh:214 does `git merge --ff-only` in place in `$GARDEN_ROOT`, rewriting every script under the feet of live processes; the existing drain only covers gardener busy-markers, so the singleton oneshots (issue-inbox, watchman, mirror-closer, gardener-scaler, repo-watcher) that fire mid-checkout and the drained-but-restart-looping gardeners all hit rc=127 and get marked Failed, some dropping a tick's work. Fix by closing the exec window across the whole merge — either (preferred) make the tree advance atomic (stage the new tree in a sibling checkout/worktree and rename it into place so a process sees the whole old or whole new tree, never a partial one), or (lighter) bracket the in-place `git merge` by first stopping/masking the timer-driven oneshot units and pausing gardener restarts for the merge window, then let the existing step-3 reconcile + `restart_long_running_fleet` bring everything back live on the new code. Acceptance: a deploy across a change to `scripts/` produces zero rc=127 / `Failed with result 'exit-code'` entries in the `garden-*` journalctl tail and no dropped singleton tick.
-
----
-claim:
-  host: endolinbot2
-  gardener: 5
-  claimed_at: 2026-07-03T01:22:37Z
