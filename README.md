@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T10:55:06Z_
+_As of 2026-07-03T11:07:27Z_
 
 ## Latest
 
-The [xs2rust-endor](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) Rust-port build advanced into stage 3 of 7 (arrays and the iteration protocol), now the sole job in flight, with a 10:50Z press check-in confirming progress. Otherwise the tick was housekeeping — a deadmail sweep and three small infra hardening jobs landed (a CI-watcher transient-network skip, a `set-schedule` preflight-exists validation, and a deterministic stall preflight for the xs2rust press loop). No new PRs moved; the 27 parked PRs continue to await kriskowal's review.
+Two self-heal jobs were just claimed and are in flight, both hardening `common.sh` against a recurring failure mode: a dangling/stale journal-worktree gitdir link that trips the gardener and the gardener-scaler. Alongside that infrastructure repair, the `xs2rust-endor` XS→Rust port continues its staged march — stage 3 (arrays and the iteration protocol, 3 of 7) is under active build, with a fresh press check-in logged this hour. Recently completed maintenance tightened the CI-watcher to skip transient network-source failures, added a preflight existence check to `set-schedule`, and gave the xs2rust press a deterministic stall preflight. No jobs are sitting in `todo` and no new maintainer messages are pending; the deepest-parked reviews still awaiting kriskowal remain the iOS Safari regression test [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and the eventual-send delegate ponyfill [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186), both at 42 days.
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`self-heal-fix-garden-gardener-journal-worktree-dangling-gitdir-repair`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-journal-worktree-dangling-gitdir-repair.md) — Harden the journal-worktree access path in scripts/jobs/common.sh so a dangli...
+- [`self-heal-fix-garden-gardener-scaler-journal-worktree-gitdir-repair`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-scaler-journal-worktree-gitdir-repair.md) — Fix the stale journal worktree link and harden common.sh against its recurren...
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
 
 ### tada (1055)
