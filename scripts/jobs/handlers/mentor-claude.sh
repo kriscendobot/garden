@@ -58,10 +58,48 @@ command -v claude >/dev/null 2>&1 || die "claude not on PATH; cannot run mentor"
 # skipDangerousModePermissionPrompt in ~/.claude). Requires running as non-root.
 out="$(claude -p --dangerously-skip-permissions "$prompt")"
 
+# already_fixed_pending_deploy: deterministic pre-filter (no LLM). A mentor
+# "improve <script>" job is churn if the fix is ALREADY committed to
+# origin/main2 and merely awaiting a deliberate deploy of the root checkout —
+# the stale deployed root keeps re-emitting the same WARN, so the mentor keeps
+# re-filing. We detect that with the same freshness signal garden-upgrade-monitor
+# uses: fetch origin/main2, then for each script path the job body names, ask
+# whether the DEPLOYED root already differs from origin/main2 for that path. If
+# any implicated path differs, the fix is upstream (pending deploy) — skip.
+# Returns 0 (skip) when at least one named path already differs; 1 otherwise.
+_m2_fetched=""
+already_fixed_pending_deploy() {
+  local body="$1" path
+  # Collect file tokens the body names (scripts/... .sh and similar file paths).
+  local -a paths=()
+  while IFS= read -r path; do
+    [ -n "$path" ] && paths+=("$path")
+  done < <(printf '%s' "$body" \
+    | grep -oE '[A-Za-z0-9._/-]+\.(sh|md|py|js|ts|service|timer)' \
+    | sort -u)
+  [ "${#paths[@]}" -gt 0 ] || return 1
+  if [ -z "$_m2_fetched" ]; then
+    git -C "$GARDEN_ROOT" fetch -q origin main2 2>/dev/null || return 1
+    _m2_fetched=1
+  fi
+  for path in "${paths[@]}"; do
+    # Only paths that actually exist in the tree are meaningful to diff.
+    git -C "$GARDEN_ROOT" cat-file -e "origin/main2:$path" 2>/dev/null || continue
+    if ! git -C "$GARDEN_ROOT" diff --quiet origin/main2 -- "$path" 2>/dev/null; then
+      log "improve job for $path already fixed in origin/main2 (pending deploy); not reposting"
+      return 0
+    fi
+  done
+  return 1
+}
+
 base=""; body=""
 while IFS= read -r line; do
   if [[ "$line" =~ ^JOB[[:space:]]+(.+)$ ]]; then base="${BASH_REMATCH[1]}"; body=""
   elif [ "$line" = "ENDJOB" ] && [ -n "$base" ]; then
-    printf '%s' "$body" | "$HERE/../post-job.sh" "$base"; base=""; body=""
+    if ! already_fixed_pending_deploy "$body"; then
+      printf '%s' "$body" | "$HERE/../post-job.sh" "$base"
+    fi
+    base=""; body=""
   elif [ -n "$base" ]; then body+="$line"$'\n'; fi
 done <<< "$out"
