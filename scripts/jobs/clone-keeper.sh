@@ -42,13 +42,16 @@
 # is complete, so a partial/timed-out or racing clone never half-populates or
 # clobbers the tracked path (bounded_clone). The fresh bare clone gets its fetch
 # refspec set exactly as ensure-project-worktree.sh prescribes, then falls through
-# to the normal fetch + fast-forward. Guards: a missing clone whose source cannot be REACHED is
-# left for the next tick to retry (no re-clone loop, logged WARN — it is transient,
-# e.g. offline); a missing clone with NO derivable/configured source at all cannot
-# self-heal on any tick, so instead of an un-drained WARN it ESCALATES to the
-# maintainer inbox (alert_maintainer) so a human restores it or adds a <clone-url>
-# to the row — a vanished clone surfaces to a person instead of sitting invisible
-# for weeks. A present-but-corrupt dir is surfaced as STALE for manual
+# to the normal fetch + fast-forward. Guards: a missing clone whose source cannot
+# be REACHED is left for the next tick to retry (no re-clone loop) — a transient
+# blip (offline, DNS) self-heals next tick — but the failure ALSO throttle-escalates
+# to the maintainer inbox (alert_maintainer, deduped per clone, at most once per
+# window) so a PERSISTENTLY unreachable source (a deleted upstream, a wrong
+# <clone-url>) surfaces to a human instead of re-warning every ~30m tick forever
+# unseen; a missing clone with NO derivable/configured source at all cannot
+# self-heal on any tick, so it likewise ESCALATES so a human restores it or adds a
+# <clone-url> to the row — a vanished clone surfaces to a person instead of sitting
+# invisible for weeks. A present-but-corrupt dir is surfaced as STALE for manual
 # reconciliation rather than clobbered (it may hold un-pushed local state).
 #
 # When the tracked source is a bare remote NAME (e.g. `origin`) that carries no
@@ -242,7 +245,19 @@ keep_clone() {
       return 0
     fi
     if ! bounded_clone "$src" "$abs"; then
-      log "WARN: tracked clone $dir is missing at $abs and re-clone from $src failed (unreachable/offline?); skipping"
+      # The source is known but the re-clone did not complete. Usually transient
+      # (offline, DNS, a half-open connection reaped by the timeout) and self-heals
+      # next tick, so we do NOT wedge — we return to retry. But a PERSISTENTLY
+      # unreachable source (a deleted upstream, a wrong <clone-url>) would otherwise
+      # re-warn every ~30m tick forever into a log nobody reads — the exact "missing
+      # clone silently blocks the fleet" hazard this keeper exists to kill. So the
+      # failure ALSO escalates to the maintainer inbox; alert_maintainer is throttled
+      # per dedup key (the stamped marker that keeps it from re-posting every tick)
+      # and never fails its caller, so a transient blip alerts at most once per
+      # window while a persistent failure reliably reaches a human.
+      local wmsg="clone-keeper: tracked bare clone $dir is MISSING at $abs and the re-clone from '$src' failed (unreachable/offline?). It is retried next tick; if this persists the source is bad (deleted upstream, wrong <clone-url>, or firewalled) and needs manual attention — every downstream worktree/dispatch that needs this clone is blocked until it is restored."
+      log "WARN: $wmsg (skipping this tick)"
+      alert_maintainer "clone-keeper-reclone-failed-${dir//[^A-Za-z0-9._-]/_}" "$wmsg"
       return 0
     fi
     # A bare clone carries NO fetch refspec, so set it exactly as

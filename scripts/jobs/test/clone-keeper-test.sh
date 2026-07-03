@@ -183,7 +183,7 @@ grep -qF "STALE:" <<<"$OUT" && ok "corrupt dir surfaced as STALE" || bad "corrup
 [ -f "$CLONE/not-a-repo" ] && ok "corrupt dir NOT clobbered" || bad "corrupt dir was clobbered"
 
 # ============================================================================
-hr; echo "MISSING+UNREACHABLE — deleted clone, bad source: skip, no partial left"; hr
+hr; echo "MISSING+UNREACHABLE — deleted clone, bad source: skip + ESCALATE, no partial left"; hr
 setup_fixture
 rm -rf "$CLONE"
 run_keeper GARDEN_TRACKED_CLONES="$CLONE|$TR/does-not-exist.git|master"
@@ -193,6 +193,12 @@ run_keeper GARDEN_TRACKED_CLONES="$CLONE|$TR/does-not-exist.git|master"
 # scrub that staging dir too, so neither the tracked path NOR a temp leaks.
 [ -z "$(ls -d "$CLONE".reclone.* 2>/dev/null)" ] && ok "no temp reclone staging dir left after an unreachable re-clone" || bad "temp reclone staging dir left behind after failure"
 { grep -qF "re-clone from" <<<"$OUT" && grep -qiF "skipping" <<<"$OUT"; } && ok "logged the missing+unreachable skip" || bad "missing+unreachable skip not logged"
+# A KNOWN-but-unreachable source that keeps failing would re-warn every tick into a
+# log nobody reads (the six-week endo hazard). The failure must ALSO escalate —
+# throttled/deduped so it does not re-post every tick — so a persistently bad source
+# reaches a human instead of only the log.
+[ "$(alert_count)" -ge 1 ] && ok "ESCALATED the unreachable re-clone to the maintainer inbox" || bad "no maintainer escalation for an unreachable re-clone"
+grep -qF "clone-keeper-reclone-failed-" "$ALERTS" 2>/dev/null && ok "escalation carries the re-clone-failed dedup key" || bad "escalation missing the reclone-failed dedup key"
 
 # ============================================================================
 hr; echo "PROVISION — deleted clone, bare-name remote: URL derived from basename"; hr
