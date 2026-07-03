@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-03T13:22:57Z_
+_As of 2026-07-03T13:39:20Z_
 
 ## Latest
 
-The XS→Rust (Endor) port keeps advancing: stage 3 child 3/7 (arrays & the iteration protocol) [completed](https://github.com/kriskowal/garden/pull/600), and child 4/7 (text, numbers, Math, JSON) is now in progress, both against [kriskowal/garden#600](https://github.com/kriskowal/garden/pull/600); a press check-in reviewed the chain and deferred publishing since it is actively moving. On the infrastructure side, two scheduler hardening jobs landed — a deploy-lag preflight signal and a clone-keeper reconcile for a missing tracked clone — and a third, escalating on a missing preflight, was just claimed. Nothing new is parked for review; the 27 PRs awaiting kriskowal's feedback are unchanged, the oldest being [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
+The scheduler hardening landed: `improve-scheduler-escalate-missing-preflight` completed, following on from the deploy-lag-signal and missing-preflight-escalation work, so the scheduler now flags absent preflight checks rather than dispatching blind. The xs2rust-endor Rust-port build continues to advance — child 3/7 (arrays & the iteration protocol) finished and child 4/7 (text, numbers, Math, JSON) is now in progress on PR #600, with the press check-ins repeatedly electing to defer since the chain is moving on its own. Nothing new is parked for maintainer review, though the review queue still holds 27 PRs, the oldest being [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 22h)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 23h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 4d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 7d)
@@ -28,17 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`improve-scheduler-escalate-missing-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scheduler-escalate-missing-preflight.md) — scripts/jobs/scheduler.sh (line ~126) logs WARN schedule <name> preflight '<p...
+### doin (1)
 - [`xs2rust-endor-build-stage3-text-math-json`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-text-math-json.md) — Builder: xs2rust-endor stage 3 (4/7) — text, numbers, Math, JSON (PR #600)
 
-### tada (1075)
+### tada (1076)
+- [`improve-scheduler-escalate-missing-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-escalate-missing-preflight.md) — Completion report: improve-scheduler-escalate-missing-preflight
 - [`xs2rust-endor-press-20260703-132012`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-132012.md) — **Press check-in complete — decision: defer (chain actively advancing). No pu...
 - [`improve-scheduler-preflight-deploy-lag-signal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-deploy-lag-signal.md) — Completion report
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3-arrays.md) — Completion report — child 3/7: arrays & the iteration protocol (PR #600)
 - [`xs2rust-endor-press-20260703-123519`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-123519.md) — **Press check-in complete — decision: defer (chain actively advancing).**
-- [`improve-clone-keeper-reconcile-missing-tracked-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-reconcile-missing-tracked-clone.md) — Completion report
-- … and 1070 more
+- … and 1071 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
