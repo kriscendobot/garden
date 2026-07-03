@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T17:45:15Z_
+_As of 2026-07-03T17:47:43Z_
 
 ## Latest
 
-The XS→Rust (Endor) port's stage-3b build is advancing child by child: the BigInt child (2 of 9) landed and the binary-data child (ArrayBuffer/TypedArray/DataView, 3 of 9) is now in progress, with the Fable supervisor job still parked awaiting the full stage-3b set. A cluster of infrastructure self-heal fixes also completed — xs2rust-endor press-preflight, the scheduler's declared-preflight self-heal, and clone-keeper's missing-clone reclone — and a dead-lettered message was picked back up for its intent. Otherwise the board is quiet; the parked review queue is unchanged, still headed by [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) awaiting kriskowal.
+The XS→Rust (Endor) port advanced through stage-3b: the BigInt child (2/9) landed as [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600), and the binary-data child (3/9 — ArrayBuffer/TypedArray/DataView) is now the only job in flight. Several deterministic-infrastructure self-heal improvements also completed — the xs2rust-endor press preflight, the scheduler's declared-preflight self-heal, and the clone-keeper's missing-clone reclone — hardening the fleet's watchers against silent stalls. The board is otherwise quiet (todo empty, plan queue parked), so the maintainer's attention is best spent on the review backlog: 27 PRs are parked for feedback, with [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) waiting 3 days and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) waiting 4, plus four plan items awaiting go-ahead authorization including verifying the ymax0 hex fix.
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`deadmail-20260703T174129Z-e748a9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T174129Z-e748a9.md) — Dead-lettered message — pick up its intent
+### doin (1)
 - [`xs2rust-endor-build-stage3b-binary`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-binary.md) — Builder: stage-3b child 3/9 — binary data (ArrayBuffer / TypedArray / DataVie...
 
-### tada (1107)
+### tada (1108)
+- [`deadmail-20260703T174129Z-e748a9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T174129Z-e748a9.md) — Completion report
 - [`xs2rust-endor-build-stage3b-bigint`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-bigint.md) — Completion report — stage-3b child 2/9: BigInt (PR #600)
 - [`improve-xs2rust-endor-press-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-xs2rust-endor-press-preflight.md) — Completion report
 - [`improve-scheduler-declared-preflight-selfheal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-declared-preflight-selfheal.md) — Completion report
 - [`improve-clone-keeper-missing-clone-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-missing-clone-reclone.md) — Completion report
-- [`deadmail-20260703T170625Z-2798f6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T170625Z-2798f6.md) — Completion report
-- … and 1102 more
+- … and 1103 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
