@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-03T07:32:53Z_
+_As of 2026-07-03T08:03:57Z_
 
 ## Latest
 
-The XS→Rust port (xs2rust-endor, PR #600) advanced a stage: the stage-3 fundamentals child (2/7) completed and stage-3 arrays and the iteration protocol (3/7) is now in progress, with the Fable-supervisor umbrella job still blocked awaiting the full stage-3 completion. A press check-in tick landed an "observe-only" note for the same PR, and a dead-lettered message was carried forward durably. Nothing else of substance moved on the board this cycle.
+The XS→Rust port (xs2rust-endor) advanced its stage-3 build on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600): the stage-3 fundamentals child (2/7) completed and the arrays-and-iteration-protocol child (3/7) is now in flight, with a press check-in logged at 07:20Z. Elsewhere it was a quiet tick — a `set-schedule` preflight-validation improvement landed, and a dead-lettered message's intent was picked up and carried forward. Nothing new is parked for review; the 27 PRs awaiting kriskowal (led by voice-input [#101](https://github.com/endojs/endo-but-for-bots/pull/101), passable-byte-arrays [#503](https://github.com/endojs/endo-but-for-bots/pull/503), and the registry-capability [#403](https://github.com/endojs/endo-but-for-bots/pull/403)) are unchanged since the last bulletin.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 16h)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 17h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 3d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 7d)
@@ -28,7 +28,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`deadmail-20260703T080125Z-56415b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T080125Z-56415b.md) — Dead-lettered message — pick up its intent
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
 
 ### tada (1045)
