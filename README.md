@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-03T02:15:34Z_
+_As of 2026-07-03T02:23:44Z_
 
 ## Latest
 
-The board was nearly still this cycle — a single deadmail completion drained, with one builder job ([xs2rust-endor stage 2b](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage2b-frames.md)) still in flight and nothing queued in todo. The substance is in three maintainer messages awaiting your call. Most urgent: a **live leader-disabling incident** — the `endolinbot2` host-identity drift is still active on the true leader host, so `is-main-host.sh` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped; the gardener flagged that the `.garden` file override makes the drift self-consistent, so the existing spawn WARN can't catch it, and asked you to either reset `/home/kris/.garden` to `endolinbot` or re-point the marker to `endolinbot2` and then restart the fleet. Separately, the shepherd on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) found the PR is **subsumed, not lint-blocked** — its error-tracing feature already re-landed on `llm` via the merged #58, collapsing a rebase to near-empty — and recommends closing it as superseded (only two small refactor artifacts, `error-id.js` and `trace-constants.js`, are unique and could be extracted into a fresh PR). Finally, [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) needs a genuine **design decision**: @gibson042 rebuts all three of the freezable-TypedArray doc's "Why not a Proxy wrapper?" arguments and wants a Proxy `set` trap that throws on canonical-index writes, explicitly deferring to you and @erights.
+A live infrastructure incident tops the queue: a gardener investigating five poisoned garden-infra jobs found the leader host is silently running as a follower — `/home/kris/.garden` resolves `GARDEN=endolinbot2` while the `journal/leader` marker names `endolinbot`, so `is-main-host.sh` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being skipped. The fix is operational and out of a gardener's scope: either `echo endolinbot > /home/kris/.garden` or re-point the marker with `set-main-host.sh endolinbot2`, then restart the fleet.
+
+Two disposition calls also await you. On [endojs/endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301), a shepherd found the error-tracing feature was independently re-landed on `llm` (via merged #58), so a rebase collapses to an essentially empty PR — recommendation is to close as superseded, optionally extracting the two unique refactors (`error-id.js`, `trace-constants.js`) into a fresh small PR. On [endojs/endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), @gibson042 reviewed the freezable-TypedArray design doc and rebutted all three "Why not a Proxy wrapper?" arguments, explicitly asking for you and @erights to weigh in on the plain-object-vs-Proxy tradeoff.
+
+Board movement was light: two infra-hardening jobs were claimed into progress — remediating a missing tracked bare clone in the clone-keeper, and fixing the gardener deadline-overrun note — alongside the ongoing xs2rust-endor stage 2b frames build.
 
 ## Parked for maintainer feedback
 
@@ -135,7 +139,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`improve-clone-keeper-recreate-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-recreate-missing-clone.md) — Make scripts/jobs/clone-keeper.sh remediate a *missing* tracked bare clone in...
+- [`improve-gardener-single-deadline-overrun-note`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-single-deadline-overrun-note.md) — Fix scripts/jobs/gardener.sh so a rc=124 wall-clock deadline overrun writes O...
 - [`xs2rust-endor-build-stage2b-frames`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage2b-frames.md) — Builder: xs2rust-endor stage 2b (2/3) — closures, call/return frames, meter-c...
 
 ### tada (989)
