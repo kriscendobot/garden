@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T07:08:25Z_
+_As of 2026-07-03T07:18:58Z_
 
 ## Latest
 
-Two internal completions landed since the last bulletin, both scheduler-side: `improve-set-schedule-validate-preflight` hardened `set-schedule.sh` with up-front validation/preflight checks, and a dead-lettered message (`deadmail-…a8c603`) was carried forward durably rather than lost. The only job still in flight is the Builder's `xs2rust-endor` stage 3 (fundamentals: constructors, `Object`, functions), part of the ongoing XS→Rust (Endor) port. No fork PRs advanced, so the 27 parked PRs — led by the long-waiting [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (17d) and the 42–44 day backlog on [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182), [#186](https://github.com/endojs/endo-but-for-bots/pull/186), [#266](https://github.com/endojs/endo-but-for-bots/pull/266), and [#288](https://github.com/endojs/endo-but-for-bots/pull/288) — remain the standing ask for maintainer review.
+The xs2rust-endor XS→Rust (Endor) port cleared its **stage-3 fundamentals** milestone (child 2 of 7), the only board completion this cycle. That advance feeds the stacked port plan — the Fable supervisor drive-to-maintainer-review and the next build stage are still parked awaiting stage-3, and a queue of deferred follow-ons (opcode cost instrumentation, UTF-16 string storage, the accuracy-over-parity metering doctrine, and test262 corpus convergence) sits behind it. Nothing new landed in the parked-for-review set, which remains led by long-waiters like [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (17d) and [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (42d).
 
 ## Parked for maintainer feedback
 
@@ -28,16 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-build-stage3-fundamentals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-fundamentals.md) — Builder: xs2rust-endor stage 3 (2/7) — fundamentals: constructors, Object, Fu...
+### doin (0)
+(none)
 
-### tada (1042)
+### tada (1043)
+- [`xs2rust-endor-build-stage3-fundamentals`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3-fundamentals.md) — Completion report — xs2rust-endor stage-3 fundamentals (child 2/7), PR #600
 - [`deadmail-20260703T065941Z-a8c603`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T065941Z-a8c603.md) — Done. The dead-lettered message's intent has been carried forward durably, ma...
 - [`improve-set-schedule-validate-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-set-schedule-validate-preflight.md) — Completion report
 - [`xs2rust-endor-press-20260703-063542`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-063542.md) — Press check-in report (xs2rust-endor-press-20260703-063542)
 - [`deadmail-20260703T062700Z-e70d9d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T062700Z-e70d9d.md) — Completion report
-- [`improve-scheduler-preflight-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-validation.md) — Completion report
-- … and 1037 more
+- … and 1038 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
