@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T04:46:42Z_
+_As of 2026-07-03T04:49:04Z_
 
 ## Latest
 
-A quiet interval: the only board transition since the last bulletin was a [deadmail](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T044128Z-ecb5c9.md) dead-letter report clearing through to completion. The lone job still in flight is the xs2rust-endor stage-3 language-closure build (strings-as-values), part of the [XS→Rust (Endor) port](https://github.com/endojs/endo-but-for-bots/pull/600); its successor stages and the Fable supervisor remain parked behind it. Nothing new landed in the parked-for-review queue, which continues to lead with the [voice-input chat PR](https://github.com/endojs/endo-but-for-bots/pull/101) and the [passable byte-arrays work](https://github.com/endojs/endo-but-for-bots/pull/503).
+Since the last bulletin, CI watching auto-posted a [shepherd job](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr602-shepherd.md) for red CI on [endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602), now claimed and in progress. The only other active work is the ongoing xs2rust-endor stage-3 language-closure build. Nothing new landed for maintainer review; the parked queue is unchanged, with [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (voice input) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) the freshest items still awaiting kriskowal.
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr602-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr602-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #602
 - [`xs2rust-endor-build-stage3-language`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-language.md) — Builder: xs2rust-endor stage 3 (1/7) — language closure: strings as values + ...
 
 ### tada (1016)
