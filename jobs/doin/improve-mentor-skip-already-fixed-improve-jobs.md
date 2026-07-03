@@ -1,7 +1,0 @@
-In `scripts/jobs/handlers/mentor-claude.sh`, before the posting-loop calls `post-job.sh "$base"`, add a deterministic already-fixed-pending-deploy pre-filter (no LLM). For each emitted JOB block, extract the script paths its body names (regex for `scripts/[^ ]*\.sh` and similar file tokens), and for each, compare the DEPLOYED root's version against origin/main2 with `git -C "$GARDEN_ROOT" fetch -q origin main2` then `git -C "$GARDEN_ROOT" diff --quiet "origin/main2" -- "<path>"`. If any implicated path already differs (a fix is committed upstream, pending deliberate deploy — the same freshness signal `garden-upgrade-monitor` uses), SKIP posting and log `improve job for <path> already fixed in origin/main2 (pending deploy); not reposting`. This is the root cause of the observed churn: both current WARNs (clone-keeper self-heal, xs2rust-endor-press preflight) are already resolved in origin/main2, yet the stale deployed root keeps re-emitting them and the mentor keeps re-filing. This moves the "is this already fixed?" judgment off the LLM and into plain code, and would have prevented all 14 duplicate `improve-clone-keeper-*` jobs.
-
----
-claim:
-  host: endolinbot2
-  gardener: 10
-  claimed_at: 2026-07-03T05:55:01Z
