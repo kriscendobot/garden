@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T05:23:56Z_
+_As of 2026-07-03T05:24:17Z_
 
 ## Latest
 
-A gardener landed [`improve-clone-keeper-self-heal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-self-heal.md), hardening the clone-keeper to recover on its own; the xs2rust-endor stage-3 language-closure build and the xs2rust preflight script remain the only work in flight, and the latest press check-in deferred to that build chain. Otherwise the board was quiet.
+The XS→Rust (Endor) port advanced: the [stage-3 language child](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3-language.md) build completed and reported, and the press check-in landed on observe-and-defer while the stage-3 build chain retains ownership — so `port-xs-to-rust-memory-safe-engine-s6` stays blocked on the parent `xs2rust-endor-build-stage3` until the remaining children finish. The board is otherwise quiet: nothing waiting in todo, with a single job in flight authoring the missing `xs2rust-endor-press` preflight script. Also recently closed out: the [endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602) shepherd drove CI back to green, and the clone-keeper gained a self-heal path. The parked queue is the standing signal for the maintainer — 27 PRs await kriskowal's review, led by the newly-arrived [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input, 14h) and the multi-day-old [#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403).
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`improve-xs2rust-press-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-xs2rust-press-preflight.md) — Author the missing preflight script scripts/jobs/gardening/xs2rust-endor-pres...
-- [`xs2rust-endor-build-stage3-language`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-language.md) — Builder: xs2rust-endor stage 3 (1/7) — language closure: strings as values + ...
 
-### tada (1023)
+### tada (1024)
+- [`xs2rust-endor-build-stage3-language`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3-language.md) — Stage-3 child-1 (language) — completion report
 - [`improve-clone-keeper-self-heal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-self-heal.md) — Completion report
 - [`endojs-endo-but-for-bots-pr602-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr602-shepherd.md) — Completion report
 - [`xs2rust-endor-press-20260703-050506`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-050506.md) — **Press check-in complete: observe-and-defer.** The stage-3 build chain owns ...
 - [`deadmail-20260703T045854Z-2e1102`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T045854Z-2e1102.md) — Completion report — deadmail-20260703T045854Z-2e1102
-- [`improve-gardener-suppress-transient-log-on-deadline-overrun`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-suppress-transient-log-on-deadline-overrun.md) — Completion report
-- … and 1018 more
+- … and 1019 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
