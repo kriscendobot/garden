@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T05:55:50Z_
+_As of 2026-07-03T05:56:55Z_
 
 ## Latest
 
-The XS→Rust (Endor) stage-3 build chain is the active front: its language child landed, its press preflight and self-heal improvements completed, and the fundamentals child (constructors, `Object`, `Function`) is now underway at 2/7. A completion report closed out [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600). In flight alongside it: the designer's feedback-review retrospective loop and two mentor-reliability jobs giving improve-jobs stable identities and skipping already-fixed detections. Otherwise the board was quiet — only two deferred xs2rust plans (opcode cost instrumentation, UTF-16 string storage) had their priorities touched, and the todo queue is empty with 27 PRs still parked for kriskowal's review.
+A scholar picked up ingesting [danfinlay/quickjs @ native-ses](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-quickjs-native-ses.md) to mine XS-evolution implementation notes — the sole board transition this cycle. The xs2rust-endor port remains the busiest thread: stage-3 child-1 (language) landed its completion report and stage-3 fundamentals (constructors, Object, Function) is now in flight, while the press check-in defers to that build chain. No new maintainer messages, and the parked queue is unchanged, still headed by [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays).
 
 ## Parked for maintainer feedback
 
@@ -28,10 +28,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`design-feedback-review-retrospective-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-feedback-review-retrospective-loop.md) — designer: the double-loop — treat every PR comment as an indictment of the re...
 - [`improve-mentor-improve-job-identity-dedup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-mentor-improve-job-identity-dedup.md) — Give mentor-emitted jobs a stable directive identity so re-detections of the ...
 - [`improve-mentor-skip-already-fixed-improve-jobs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-mentor-skip-already-fixed-improve-jobs.md) — In scripts/jobs/handlers/mentor-claude.sh, before the posting-loop calls post...
+- [`scholar-ingest-quickjs-native-ses`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-quickjs-native-ses.md) — scholar: ingest danfinlay/quickjs @ native-ses for XS-evolution implementatio...
 - [`xs2rust-endor-build-stage3-fundamentals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-fundamentals.md) — Builder: xs2rust-endor stage 3 (2/7) — fundamentals: constructors, Object, Fu...
 
 ### tada (1027)
