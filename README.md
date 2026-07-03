@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T11:07:27Z_
+_As of 2026-07-03T11:10:52Z_
 
 ## Latest
 
-Two self-heal jobs were just claimed and are in flight, both hardening `common.sh` against a recurring failure mode: a dangling/stale journal-worktree gitdir link that trips the gardener and the gardener-scaler. Alongside that infrastructure repair, the `xs2rust-endor` XS→Rust port continues its staged march — stage 3 (arrays and the iteration protocol, 3 of 7) is under active build, with a fresh press check-in logged this hour. Recently completed maintenance tightened the CI-watcher to skip transient network-source failures, added a preflight existence check to `set-schedule`, and gave the xs2rust press a deterministic stall preflight. No jobs are sitting in `todo` and no new maintainer messages are pending; the deepest-parked reviews still awaiting kriskowal remain the iOS Safari regression test [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and the eventual-send delegate ponyfill [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186), both at 42 days.
+A fleet of six **self-heal** jobs were just claimed, all repairing the same root cause: the garden root moved from `/home/kris/garden2` to `/home/kris`, orphaning the shared journal worktree and leaving dangling `gitdir` pointers that crash-loop the standing services (`garden-comment-watcher`, `garden-deadmail`, `garden-follow-up`, `garden-issue-inbox`, `garden-mirror-closer`, `garden-orchestrate`). The common thread is hardening `scripts/jobs/common.sh` and `journal-worktree-keeper.sh` to detect and repair a stale/dangling worktree link rather than fail on it — worth watching as a cluster, since a single fix to the keeper likely resolves most of them. Alongside the repairs, builder work continues on **xs2rust-endor** stage 3 (arrays and the iteration protocol, 3 of 7), with the press check-in still reporting healthy ticks.
 
 ## Parked for maintainer feedback
 
@@ -28,9 +28,15 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (9)
+- [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-journal-worktree-dangling-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-journal-worktree-dangling-gitdir.md) — Repair the dangling $GARDEN_ROOT/journal worktree pointer that crash-loops ev...
+- [`self-heal-fix-garden-deadmail-journal-worktree-dangling-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-deadmail-journal-worktree-dangling-gitdir.md) — The garden root moved from /home/kris/garden2 to /home/kris, orphaning the sh...
+- [`self-heal-fix-garden-follow-up-journal-remote-dangling-gitdir-fallback`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-follow-up-journal-remote-dangling-gitdir-fallback.md) — Harden scripts/jobs/common.sh:journal_remote() so a dangling/unreadable $GARD...
 - [`self-heal-fix-garden-gardener-journal-worktree-dangling-gitdir-repair`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-journal-worktree-dangling-gitdir-repair.md) — Harden the journal-worktree access path in scripts/jobs/common.sh so a dangli...
 - [`self-heal-fix-garden-gardener-scaler-journal-worktree-gitdir-repair`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-scaler-journal-worktree-gitdir-repair.md) — Fix the stale journal worktree link and harden common.sh against its recurren...
+- [`self-heal-fix-garden-issue-inbox-journal-worktree-dangling-gitdir-repair`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-issue-inbox-journal-worktree-dangling-gitdir-repair.md) — In scripts/jobs/journal-worktree-keeper.sh, upgrade the keep_journal_worktree...
+- [`self-heal-fix-garden-mirror-closer-stale-journal-worktree-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-mirror-closer-stale-journal-worktree-gitdir.md) — Harden the standing-journal-worktree self-heal against a **stale worktree git...
+- [`self-heal-fix-garden-orchestrate-journal-worktree-stale-gitdir-repair`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-orchestrate-journal-worktree-stale-gitdir-repair.md) — Harden scripts/jobs/journal-worktree-keeper.sh to detect and repair a stale/d...
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
 
 ### tada (1055)
