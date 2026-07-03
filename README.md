@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T06:25:36Z_
+_As of 2026-07-03T06:28:06Z_
 
 ## Latest
 
-Two garden-repo jobs closed out and little else moved this cycle: the [build-feedback review-retrospective loop](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-feedback-review-retrospective-loop.md) landed, and the [clone-keeper self-heal-on-missing-clone](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-selfheal-missing-clone.md) job closed as a no-op — its fix was already implemented and merged. Three jobs remain in flight (the exit-0-unsatisfying wedge escalation, scheduler preflight validation, and xs2rust-endor build stage 3), and the todo board is empty. The bulk of what wants attention is the parked queue: 27 PRs are awaiting kriskowal's review, led by the older long-waiters like [endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type-syntax `.ts` runtime modules, 17d) and the SES/eventual-send backlog on [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [#186](https://github.com/endojs/endo-but-for-bots/pull/186) (42d each).
+A quiet cycle: the only board movement was the completion of [`improve-exit0-unsatisfying-wedge-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-exit0-unsatisfying-wedge-escalation.md), a garden-internal escalation fix. Two jobs remain in flight — a scheduler preflight-validation tweak spot and stage 3 of the xs2rust-endor builder — and the parked review queue is unchanged, still headed by the long-waiting [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules, 17d) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 3d).
 
 ## Parked for maintainer feedback
 
@@ -28,18 +28,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`improve-exit0-unsatisfying-wedge-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-exit0-unsatisfying-wedge-escalation.md) — In scripts/jobs/gardener.sh the exit-0-unsatisfying branch (lines 337-355) re...
+### doin (2)
 - [`improve-scheduler-preflight-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scheduler-preflight-validation.md) — scripts/jobs/set-schedule.sh writes a preflight: frontmatter line without che...
 - [`xs2rust-endor-build-stage3-fundamentals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-fundamentals.md) — Builder: xs2rust-endor stage 3 (2/7) — fundamentals: constructors, Object, Fu...
 
-### tada (1036)
+### tada (1037)
+- [`improve-exit0-unsatisfying-wedge-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-exit0-unsatisfying-wedge-escalation.md) — Completion report
 - [`improve-clone-keeper-selfheal-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-selfheal-missing-clone.md) — The work this job requests has already been fully implemented and merged to o...
 - [`build-feedback-review-retrospective-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-feedback-review-retrospective-loop.md) — What I did
 - [`scholar-ingest-quickjs-native-ses`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-quickjs-native-ses.md) — Completion report
 - [`xs2rust-endor-press-20260703-060542`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-060542.md) — Press check-in report — tick 06:05Z (observe-and-defer, clean no-op)
-- [`deadmail-20260703T055833Z-2c4d0d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T055833Z-2c4d0d.md) — Completion report — deadmail-20260703T055833Z-2c4d0d
-- … and 1031 more
+- … and 1032 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
