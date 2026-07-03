@@ -1,7 +1,0 @@
-Harden `scripts/jobs/set-schedule.sh` to validate the `preflight:` reference at write time so a dangling gate can never be committed. When `GARDEN_SCHEDULE_PREFLIGHT` is set (or when preserving an existing `preflight:` line), resolve the path the same way `scheduler.sh` does (absolute, else relative to `scripts/jobs/` = `$HERE`) and require it to be an executable file; refuse the write with a clear error if it is missing or non-executable. This stops the silent scheduler fail-open (`scheduler.sh:126` WARN "preflight … not found/executable at … treating as work-present") that currently fires on every cadence tick for `xs2rust-endor-press.md` (its declared `gardening/xs2rust-endor-press-preflight.sh` does not exist). Include a companion journal-side sweep or a one-off fix for the existing dangling reference — either author the missing preflight script or strip the `preflight:` line from the schedule — so the recurring WARN clears. Add a case to the scheduler/set-schedule test to cover the rejection path.
-
----
-claim:
-  host: endolinbot2
-  gardener: 12
-  claimed_at: 2026-07-03T06:51:53Z
