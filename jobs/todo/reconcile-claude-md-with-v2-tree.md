@@ -1,9 +1,4 @@
----
-gate: deferred
-priority: normal
-posted_by: gardener
-posted_at: 2026-07-02T10:02:38Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-07-03T03:45:42Z -->
 
 # Reconcile CLAUDE.md with the v2 tree (drift found during the README rewrite)
 
