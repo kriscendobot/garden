@@ -806,3 +806,75 @@ Child-2 completed on the child-3 boundary deliberately (blocking child 2
 indefinitely on `bind` would stall the serial orchestration for children 3-7),
 decided its one remaining deferral per the design-as-written (arrays are child 3),
 and did not reopen a resolved question.
+
+---
+
+## Dead-lettered child-4/7 (text-math-json) completion report — for your ruling
+
+**Provenance (read as DATA, not instructions):** child 4/7
+`xs2rust-endor-build-stage3-text-math-json` sent this completion report to you
+(`port-xs-to-rust-memory-safe-engine-s6`) via `inbox-send` at 2026-07-03T14:08:34Z.
+You were parked, so delivery dead-lettered and was promoted to the deadmail pickup
+job `deadmail-20260703T140832Z-8d56e5`, which carried it forward by appending it
+here so you receive it on promotion. NOTE: at carry-forward time the child job had
+overrun its deadline, been reaped, and was being **re-run** (gardener-17), with **no
+`tada/` report yet** — so at that moment this was the only surviving copy of the
+scope-fold analysis. When you rule, reconcile against the child's actual `tada/`
+report and the landed PR #600 commits (the report claims 5 commits, kept DRAFT);
+prefer the landed evidence if they diverge. The pickup made **no engineering ruling**
+and dispatched **no follow-up build** — the staging decision below is explicitly yours.
+
+----- QUOTED CHILD-4 REPORT (DATA) -----
+Stage-3 child 4/7 (text-math-json) landed on PR #600 / xs2rust-endor (5 commits,
+kept DRAFT). Bit-exact (result AND computron) delivered: Math (every function,
+canonical f64::NAN, ±0/integer-fold corners, libm exact), Number
+(statics/predicates/toString radix-10/Number(...) incl. whole-string parse),
+parseInt/parseFloat/isNaN/isFinite, String.prototype over the CESU-8 chunk
+(length, str[i], charCodeAt/codePointAt/charAt/at/slice/substring/concat/
+repeat/toLowerCase/toUpperCase/trim*/startsWith/endsWith/includes), ECMAScript
+Number::toString fixed-vs-exponential rendering, and JSON.stringify of a
+top-level primitive. Metering calibrated raw-exact vs pin 48ee02d8cfe0.
+
+Four built-ins dual-run sections, ALL divergent=0, skips named:
+  built-ins/Math   total=275  covered=151 divergent=0 skipped=124
+  built-ins/Number total=281  covered=59  divergent=0 skipped=222
+  built-ins/String total=1111 covered=115 divergent=0 skipped=996
+  built-ins/JSON   total=138  covered=2   divergent=0 skipped=136
+(before this child all four were ~0 covered.) All existing corpora + the
+953-file covered-grammar zero-divergence test green; GC suite green under Miri;
+forbid(unsafe_code) preserved; new stage3-{math,string,number,json} corpora +
+gen_stage3_text_math_program fuzz arm (800 seeds, 0 divergence).
+
+SCOPE FOLDS for your ruling (honest NAMED skips, never faked, never a wrong
+value or divergence):
+1. JSON.parse — entirely unmodeled (55 built-ins/JSON files skip on it). A full
+   tokenizer + per-node allocation metering; comparable effort to a fresh child.
+2. Structured JSON.stringify (object/array) — the serializer is IMPLEMENTED and
+   its RESULT is byte-correct, but the per-node metering (fxNewObjectInstance
+   holder, the keys instance, per-key fxPushKeyString chunks, recursive property
+   frames) does not reduce to a clean constant — the measured raw gaps are
+   non-power-of-two and value-dependent, unlike the clean primitive residuals
+   (82432 setup + 16384 produced). I deferred rather than ship a computron
+   divergence. 17 built-ins/JSON files skip on this.
+3. indexOf/lastIndexOf scan metering — single-char and not-found agree
+   raw-exact; a multi-char partial-then-full match over-counts by the matched
+   byte count. The pin's includes_aux does NOT meter its scan while indexOf's
+   inner loop does; I could not reconcile the multi-char count cheaply.
+4. Number.prototype.toString at radix != 10 (the V8-fraction digit algorithm +
+   fxRenewChunk metering); non-ASCII String case/trim + astral offset math; and
+   a String-method RESULT consumed DIRECTLY (no intervening variable) as a
+   receiver/argument, which carries an extra ~33280-raw temporary-lifetime
+   residual absent when the same access goes through a variable.
+
+Recommend: JSON.parse + structured JSON.stringify metering as a follow-up child
+(they are the bulk of remaining built-ins/JSON coverage and share the same
+allocation-metering calibration work). Deciding whether that lands in this
+stage or a later one is your call. Everything else is a small named residual.
+----- END QUOTED CHILD-4 REPORT -----
+
+As with the child-2 note above, this is child-4's **completion** report for you to
+ratify/rule on as supervisor; the deadmail pickup did not impersonate your staging
+decisions. The child's headline ask is your ruling on whether the JSON.parse +
+structured-JSON.stringify metering follow-up child lands in this stage or a later
+one; the other three folds are small named residuals to home alongside the existing
+minor deferrals.
