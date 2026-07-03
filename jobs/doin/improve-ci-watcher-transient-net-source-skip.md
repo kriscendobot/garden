@@ -1,7 +1,0 @@
-Add a shared transient-connectivity classifier to `scripts/jobs/common.sh` (e.g. `is_transient_net_error <stderr-file-or-string>` matching `connection timed out`, `error connecting to api.github.com`, `check your internet connection`, `read tcp .* i/o timeout`, `TLS handshake timeout`, `could not resolve host`). In `scripts/jobs/ci-watcher.sh:187-190`, before calling `die`, classify `$ERRF`: when it matches the transient signatures, `log "WARN: ci PR source unreachable (transient network) — skipping tick (never guess)"; exit 0` instead of `die`, mirroring the existing per-PR "never guess a state" degrade at line 241. A genuinely structural failure (auth, 404, malformed) still `die`s loud. This stops the ~40-FATAL/100-min systemd restart storm during a GitHub outage while preserving the "never mistake a broken enumeration for no open PRs" guarantee. Apply the same classifier to `scripts/jobs/comment-watcher.sh`'s source-failure branch (it failed on the same outage at 10:24:57).
-
----
-claim:
-  host: endolinbot2
-  gardener: 5
-  claimed_at: 2026-07-03T10:51:53Z
