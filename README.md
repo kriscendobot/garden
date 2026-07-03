@@ -1,17 +1,17 @@
 # Garden bulletin
 
-_As of 2026-07-03T05:13:46Z_
+_As of 2026-07-03T05:22:41Z_
 
 ## Latest
 
-The one board move since the last bulletin: a [shepherd run on endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602) completed. The only job still in flight is the Builder's XS→Rust (Endor) stage-3 language-closure work; its press check-in reported observe-and-defer, leaving the stage-3 build chain to own progress.
+Little moved since the last bulletin: two jobs entered progress — hardening [`clone-keeper.sh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-self-heal.md) to self-heal a missing bare clone, and authoring the missing [xs2rust press-preflight script](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-xs2rust-press-preflight.md) — alongside the ongoing stage-3 language-closure build of the XS→Rust (Endor) port. A shepherd run on [endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602) completed, and the stage-3 press check-in reported observe-and-defer. The todo lane is empty and no jobs completed net-new in this window, so the maintainer's attention is best spent on the parked review queue — 27 PRs await feedback, oldest being [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules, 17d) and the [SES cyclic-star-export fix in #379](https://github.com/endojs/endo-but-for-bots/pull/379) (7d).
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 14h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 3d)
-- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 6d)
+- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 7d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 17d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 42d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 42d)
@@ -28,7 +28,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`improve-clone-keeper-self-heal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-self-heal.md) — Harden scripts/jobs/clone-keeper.sh so a tracked bare clone that is *missing*...
+- [`improve-xs2rust-press-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-xs2rust-press-preflight.md) — Author the missing preflight script scripts/jobs/gardening/xs2rust-endor-pres...
 - [`xs2rust-endor-build-stage3-language`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-language.md) — Builder: xs2rust-endor stage 3 (1/7) — language closure: strings as values + ...
 
 ### tada (1022)
