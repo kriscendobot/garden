@@ -56,3 +56,9 @@ counts, computron agreement, Miri run), scope folds/frictions for the supervisor
 Commit to `xs2rust-endor`, push, keep the PR draft.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 9
+  claimed_at: 2026-07-03T06:33:07Z
