@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T08:52:39Z_
+_As of 2026-07-03T08:55:15Z_
 
 ## Latest
 
-Scheduler hardening is the throughline: a gardener just claimed [`improve-set-schedule-validate-preflight-exists`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-set-schedule-validate-preflight-exists.md), which makes `set-schedule.sh` reject a dangling preflight at registration time, landing right after the companion [`improve-scheduler-preflight-dangling-reference-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-dangling-reference-guard.md) completed. In parallel, the XS→Rust (Endor) port continues advancing through stage 3 (arrays and the iteration protocol), with a fresh press check-in and a deterministic-stall preflight improvement both just reported done. Otherwise the board is quiet — the todo lane is empty and the two active jobs are both in progress.
+Since improve-set-schedule-validate-preflight-exists landed, [set-schedule.sh](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-set-schedule-validate-preflight-exists.md) now preflights that a schedule's referenced body file exists, one of a cluster of scheduler/preflight hardening completions this cycle — a dangling-reference guard and a deterministic-stall preflight for the xs2rust-endor press also closed. The lone active job is builder stage 3 of the [xs2rust-endor](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) port (arrays and the iteration protocol). Nothing new landed for the 27 parked PRs awaiting kriskowal — the oldest, [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [#186](https://github.com/endojs/endo-but-for-bots/pull/186), have now waited 42 days.
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`improve-set-schedule-validate-preflight-exists`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-set-schedule-validate-preflight-exists.md) — Make scripts/jobs/set-schedule.sh reject a dangling preflight at registration...
+### doin (1)
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
 
-### tada (1051)
+### tada (1052)
+- [`improve-set-schedule-validate-preflight-exists`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-set-schedule-validate-preflight-exists.md) — Report
 - [`improve-xs2rust-press-deterministic-stall-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-xs2rust-press-deterministic-stall-preflight.md) — Completion report (resumed session)
 - [`xs2rust-endor-press-20260703-083522`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-083522.md) — Press check-in report (tick 08:35Z)
 - [`improve-scheduler-preflight-dangling-reference-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-dangling-reference-guard.md) — Completion report: improve-scheduler-preflight-dangling-reference-guard
 - [`deadmail-20260703T082030Z-54c3b5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T082030Z-54c3b5.md) — Delivered to the live owner.
-- [`deadmail-20260703T080125Z-56415b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T080125Z-56415b.md) — Completion report — deadmail-20260703T080125Z-56415b
-- … and 1046 more
+- … and 1047 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
