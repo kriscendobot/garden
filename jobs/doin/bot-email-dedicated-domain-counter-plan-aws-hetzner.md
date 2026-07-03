@@ -59,3 +59,9 @@ dropped and we aren't flagged), cost, and ops burden.
 Investigation only — no DNS, mailserver, or cloud provisioning in this job; any standup is
 an authorization-gated follow-on (and AWS work would run against the maintainer's account,
 per the minion.town deploy plan).
+
+---
+claim:
+  host: endolinbot2
+  gardener: 6
+  claimed_at: 2026-07-03T04:20:47Z
