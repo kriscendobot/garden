@@ -1,8 +1,3 @@
-cadence: 30m
-last_dispatched: 2026-07-03T04:35:04Z
-job_basename_prefix: xs2rust-endor-press
-preflight: gardening/xs2rust-endor-press-preflight.sh
----
 ---
 model: fable
 ---
