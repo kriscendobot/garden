@@ -93,6 +93,10 @@
 | [endo--readme--core-concepts](../sections/endo--readme--core-concepts.md) | endo README.md | The umbrella-level core concepts the Endo family realizes: HardenedJS substrate, Compartment isolation, capability discipline (Far, Exo), pass-style classification, eventual-send messaging, OCapN-family protocols. |
 | [endo--readme--overview](../sections/endo--readme--overview.md) | endo README.md | The repository's top-level README. |
 | [endo--readme--ruminations-on-name](../sections/endo--readme--ruminations-on-name.md) | endo README.md | Etymology and naming history for 'Endo'. |
+| [danfinlay-quickjs--native-ses--architecture-overview](../sections/danfinlay-quickjs--native-ses--architecture-overview.md) | danfinlay/quickjs @ native-ses | quickjs-ng native SES = three C primitives realizing SES's immutability half (deep-freeze + frozen intrinsics) but not its taming half (no permits, no removal/repair, no determinism scrub). |
+| [danfinlay-quickjs--native-ses--harden-c-deep-freeze](../sections/danfinlay-quickjs--native-ses--harden-c-deep-freeze.md) | danfinlay/quickjs @ native-ses | harden() as a native C recursive deep-freeze (JS_DeepFreeze) over props/getters/setters/prototype — the SES-startup cost most worth moving into the engine, safety-neutral; but its O(n²) visited set is a wart to avoid. |
+| [danfinlay-quickjs--native-ses--lockdown-freeze-intrinsics](../sections/danfinlay-quickjs--native-ses--lockdown-freeze-intrinsics.md) | danfinlay/quickjs @ native-ses | lockdown() as two-phase freeze-all-intrinsics: force-resolve lazy AUTOINIT intrinsics before sealing (a transferable correctness invariant), then deep-freeze — but freeze WITHOUT tame is the security-incomplete half of SES. |
+| [danfinlay-quickjs--native-ses--xs-transferable-strategies](../sections/danfinlay-quickjs--native-ses--xs-transferable-strategies.md) | danfinlay/quickjs @ native-ses | The asymmetric lesson for XS: move SES's FREEZE into the engine for a safety-neutral speedup, but do NOT move the TAMING/permits out — a freeze-only native lockdown is not a secure lockdown. |
 
 ## Superseded sections
 
