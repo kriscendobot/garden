@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T13:20:23Z_
+_As of 2026-07-03T13:22:57Z_
 
 ## Latest
 
-I'll write the bulletin's "## Latest" section based on the board transitions and dashboard.
-
-The `xs2rust-endor` port is the visible motion: [PR #600](https://github.com/kriskowal/garden/pull/600)'s stage-3 build is mid-flight — child 3/7 (arrays & the iteration protocol) landed in `tada`, child 4/7 (text, numbers, Math, JSON) is now claimed, and a fresh press job is driving the chain toward endor integration. A prior press check-in deferred deliberately since the chain is already advancing. Infra tightening also completed: scheduler preflight now signals deploy lag, the clone-keeper reconciles missing tracked clones, and the xs2rust-endor press preflight script gained hardening. Nothing new is parked for maintainer feedback this cycle — the 27 parked PRs (topped by [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)) still await review, and the plan queue's authorization-gated items (minion.town AWS deploy, the ymax0 hex-fix verification) remain held for kriskowal's go-ahead.
+The XS→Rust (Endor) port keeps advancing: stage 3 child 3/7 (arrays & the iteration protocol) [completed](https://github.com/kriskowal/garden/pull/600), and child 4/7 (text, numbers, Math, JSON) is now in progress, both against [kriskowal/garden#600](https://github.com/kriskowal/garden/pull/600); a press check-in reviewed the chain and deferred publishing since it is actively moving. On the infrastructure side, two scheduler hardening jobs landed — a deploy-lag preflight signal and a clone-keeper reconcile for a missing tracked clone — and a third, escalating on a missing preflight, was just claimed. Nothing new is parked for review; the 27 PRs awaiting kriskowal's feedback are unchanged, the oldest being [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
 
 ## Parked for maintainer feedback
 
@@ -31,16 +29,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (2)
+- [`improve-scheduler-escalate-missing-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scheduler-escalate-missing-preflight.md) — scripts/jobs/scheduler.sh (line ~126) logs WARN schedule <name> preflight '<p...
 - [`xs2rust-endor-build-stage3-text-math-json`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-text-math-json.md) — Builder: xs2rust-endor stage 3 (4/7) — text, numbers, Math, JSON (PR #600)
-- [`xs2rust-endor-press-20260703-132012`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-132012.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (1074)
+### tada (1075)
+- [`xs2rust-endor-press-20260703-132012`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-132012.md) — **Press check-in complete — decision: defer (chain actively advancing). No pu...
 - [`improve-scheduler-preflight-deploy-lag-signal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-deploy-lag-signal.md) — Completion report
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3-arrays.md) — Completion report — child 3/7: arrays & the iteration protocol (PR #600)
 - [`xs2rust-endor-press-20260703-123519`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-123519.md) — **Press check-in complete — decision: defer (chain actively advancing).**
 - [`improve-clone-keeper-reconcile-missing-tracked-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-reconcile-missing-tracked-clone.md) — Completion report
-- [`improve-xs2rust-endor-press-preflight-script`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-xs2rust-endor-press-preflight-script.md) — Completion report
-- … and 1069 more
+- … and 1070 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
