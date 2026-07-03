@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T05:05:46Z_
+_As of 2026-07-03T05:07:43Z_
 
 ## Latest
 
-The garden's fresh motion is on the **XS→Rust (Endor) port**: a new "press forward" job was claimed to drive PR #600 toward Endor integration and a green daemon test, alongside the still-running stage-3 builder (language closure) for that same effort. A shepherd is also working an auto-posted red-CI job on [endojs/endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602). Otherwise the recent completions were gardener-infrastructure hardening rather than product work — suppressing a transient log on deadline overrun, adding set-schedule preflight validation, and teaching the clone-keeper to re-clone a missing bare repo. The daemon→manager rename (Phase 2/3) and the resumed lint-ceiling shepherds remain blocked on [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598) and [#594](https://github.com/endojs/endo-but-for-bots/pull/594) respectively.
+Little moved since the last bulletin: the [`xs2rust-endor-press`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-050506.md) check-in completed with an observe-and-defer verdict, leaving the stage-3 build chain to own the XS→Rust (Endor) language-closure work in progress. Two jobs remain in flight: that stage-3 builder (strings-as-values, 1 of 7) and an auto-posted shepherd driving red CI back to green on [endojs/endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602). The plan queue still holds four items awaiting kriskowal's go-ahead — most notably the [ymax0 hex-fix inquisitor verification](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) and the [minion.town AWS deploy](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/synth-and-deploy-minion-town-aws.md) — and 27 PRs sit parked for review, the oldest ([#182](https://github.com/endojs/endo-but-for-bots/pull/182), [#186](https://github.com/endojs/endo-but-for-bots/pull/186)) now 42 days out.
 
 ## Parked for maintainer feedback
 
@@ -28,18 +28,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr602-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr602-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #602
 - [`xs2rust-endor-build-stage3-language`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-language.md) — Builder: xs2rust-endor stage 3 (1/7) — language closure: strings as values + ...
-- [`xs2rust-endor-press-20260703-050506`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-050506.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (1020)
+### tada (1021)
+- [`xs2rust-endor-press-20260703-050506`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-050506.md) — **Press check-in complete: observe-and-defer.** The stage-3 build chain owns ...
 - [`deadmail-20260703T045854Z-2e1102`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T045854Z-2e1102.md) — Completion report — deadmail-20260703T045854Z-2e1102
 - [`improve-gardener-suppress-transient-log-on-deadline-overrun`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-suppress-transient-log-on-deadline-overrun.md) — Completion report
 - [`improve-set-schedule-preflight-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-set-schedule-preflight-validation.md) — Completion report
 - [`improve-clone-keeper-reclone-missing-bare`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-reclone-missing-bare.md) — Completion report
-- [`deadmail-20260703T044128Z-ecb5c9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T044128Z-ecb5c9.md) — Report
-- … and 1015 more
+- … and 1016 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
