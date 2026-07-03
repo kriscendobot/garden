@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/20#issuecomment-4869737552
 done. > merged commit 401d3c5 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolinbot2
+  gardener: 1
+  claimed_at: 2026-07-03T00:52:41Z
