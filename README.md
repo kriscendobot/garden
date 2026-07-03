@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-07-03T04:59:45Z_
+_As of 2026-07-03T05:04:25Z_
 
 ## Latest
 
-A quiet interval: the only board movement was a dead-lettered message being picked back up and continued progress on the [xs2rust-endor stage 3](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-language.md) language-closure build. Still in flight is an auto-triggered shepherd driving red CI back to green on [endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602). Nothing new landed for maintainer review, so the parked queue is unchanged — most notably the aging [endo#3137](https://github.com/endojs/endo/pull/3137) erasable-`.ts`-runtime PR (17d) and the batch of ~42-day-old passable-byte-array and spackle designs still awaiting kriskowal's word.
+Little moved on the board since the last bulletin beyond a deadmail sweep. Two jobs are in flight: an auto-posted shepherd driving red CI back to green on [endojs/endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602), and builder stage 3 (1/7) of the xs2rust-endor port, now into the language-closure work (strings as values). Recently landed on the infra side were three gardener-fleet hardening fixes — suppressing a transient log on deadline overrun, set-schedule preflight validation, and clone-keeper re-cloning a missing bare repo. Worth the maintainer's attention: 27 PRs are parked for review, the longest-waiting being [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 14h)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 3d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 6d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 17d)
@@ -28,18 +28,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`deadmail-20260703T045854Z-2e1102`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T045854Z-2e1102.md) — Dead-lettered message — pick up its intent
+### doin (2)
 - [`endojs-endo-but-for-bots-pr602-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr602-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #602
 - [`xs2rust-endor-build-stage3-language`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-language.md) — Builder: xs2rust-endor stage 3 (1/7) — language closure: strings as values + ...
 
-### tada (1019)
+### tada (1020)
+- [`deadmail-20260703T045854Z-2e1102`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T045854Z-2e1102.md) — Completion report — deadmail-20260703T045854Z-2e1102
 - [`improve-gardener-suppress-transient-log-on-deadline-overrun`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-suppress-transient-log-on-deadline-overrun.md) — Completion report
 - [`improve-set-schedule-preflight-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-set-schedule-preflight-validation.md) — Completion report
 - [`improve-clone-keeper-reclone-missing-bare`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-reclone-missing-bare.md) — Completion report
 - [`deadmail-20260703T044128Z-ecb5c9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T044128Z-ecb5c9.md) — Report
-- [`endojs-endo-but-for-bots-472-proxy-typedarray-emulation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-472-proxy-typedarray-emulation.md) — Completion report
-- … and 1014 more
+- … and 1015 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
