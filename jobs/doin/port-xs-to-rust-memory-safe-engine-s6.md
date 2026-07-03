@@ -874,3 +874,9 @@ one; the other three folds are small named residuals to home alongside the exist
 minor deferrals.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 20
+  claimed_at: 2026-07-03T15:43:07Z
