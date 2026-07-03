@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T05:04:25Z_
+_As of 2026-07-03T05:05:46Z_
 
 ## Latest
 
-Little moved on the board since the last bulletin beyond a deadmail sweep. Two jobs are in flight: an auto-posted shepherd driving red CI back to green on [endojs/endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602), and builder stage 3 (1/7) of the xs2rust-endor port, now into the language-closure work (strings as values). Recently landed on the infra side were three gardener-fleet hardening fixes — suppressing a transient log on deadline overrun, set-schedule preflight validation, and clone-keeper re-cloning a missing bare repo. Worth the maintainer's attention: 27 PRs are parked for review, the longest-waiting being [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
+The garden's fresh motion is on the **XS→Rust (Endor) port**: a new "press forward" job was claimed to drive PR #600 toward Endor integration and a green daemon test, alongside the still-running stage-3 builder (language closure) for that same effort. A shepherd is also working an auto-posted red-CI job on [endojs/endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602). Otherwise the recent completions were gardener-infrastructure hardening rather than product work — suppressing a transient log on deadline overrun, adding set-schedule preflight validation, and teaching the clone-keeper to re-clone a missing bare repo. The daemon→manager rename (Phase 2/3) and the resumed lint-ceiling shepherds remain blocked on [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598) and [#594](https://github.com/endojs/endo-but-for-bots/pull/594) respectively.
 
 ## Parked for maintainer feedback
 
@@ -28,9 +28,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr602-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr602-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #602
 - [`xs2rust-endor-build-stage3-language`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-language.md) — Builder: xs2rust-endor stage 3 (1/7) — language closure: strings as values + ...
+- [`xs2rust-endor-press-20260703-050506`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-050506.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (1020)
 - [`deadmail-20260703T045854Z-2e1102`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T045854Z-2e1102.md) — Completion report — deadmail-20260703T045854Z-2e1102
