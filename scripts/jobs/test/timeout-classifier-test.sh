@@ -211,18 +211,21 @@ else
 fi
 
 # (d) NO kind:error journal entry for the timed-out handler (the loud path is skipped);
-# instead a kind:progress transient note is emitted.
+# instead a kind:progress transient note is emitted. This is the DEADLINE-OVERRUN
+# path (rc=124 AT the wall), so the progress note that stands in for the loud error
+# path is the DEADLINE-OVERRUN note, NOT the generic "transient handler outage" note
+# (which is gated out of the deadline-overrun path; see (i) below and SUBTEST 6).
 nerr=$(grep -rl 'handler FAILED' "$CLONE/entries" 2>/dev/null | grep -c 'error' || true)
 if [ "${nerr:-0}" -eq 0 ]; then
   ok "no kind:error journal entry emitted for the timed-out handler"
 else
   bad "kind:error journal entry emitted for a rc=124 timeout; expected only a kind:progress transient note"
 fi
-nprog=$(grep -rl 'transient handler outage' "$CLONE/entries" 2>/dev/null | grep -c 'progress' || true)
+nprog=$(grep -rl 'hit its OWN wall-clock budget' "$CLONE/entries" 2>/dev/null | grep -c 'progress' || true)
 if [ "${nprog:-0}" -ge 1 ]; then
-  ok "kind:progress transient-outage note emitted for the timed-out handler"
+  ok "kind:progress transient note emitted for the timed-out handler (the deadline-overrun note)"
 else
-  bad "no kind:progress transient-outage note for the timed-out handler"
+  bad "no kind:progress transient note for the timed-out handler"
 fi
 
 # (e) the job stays in doin (transient failures leave it for the reaper; not completed).
@@ -252,6 +255,18 @@ if grep -rlq 'hit its OWN wall-clock budget' "$CLONE/entries" 2>/dev/null; then
   ok "deadline-overrun progress note journaled (names the handler wall-clock budget)"
 else
   bad "no deadline-overrun progress note naming the wall-clock budget"
+fi
+# (i) EXACTLY ONE progress note on the deadline-overrun path — the accurate
+# deadline-overrun one, NOT also the generic "transient handler outage" note. The
+# generic note (which says "no escalation" while this path stamps an early-poison
+# hint) is now gated OUT of the deadline-overrun path; emitting both produced two
+# contradictory journal entries per event.
+ngeneric=$({ grep -rl 'transient handler outage' "$CLONE/entries" 2>/dev/null || true; } | wc -l | tr -d ' ')
+ndeadline=$({ grep -rl 'hit its OWN wall-clock budget' "$CLONE/entries" 2>/dev/null || true; } | wc -l | tr -d ' ')
+if [ "${ngeneric:-0}" -eq 0 ] && [ "${ndeadline:-0}" -eq 1 ]; then
+  ok "exactly one transient-classification progress note (deadline-overrun only; the generic note is suppressed)"
+else
+  bad "wrong transient-classification note count (generic=$ngeneric deadline=$ndeadline; want generic=0 deadline=1)"
 fi
 
 # ============================================================================
@@ -407,6 +422,66 @@ if grep -Eq 'POISON \(deadline-overrun\)' "$TR5/reaper.log"; then
   ok "reaper logged the deadline-overrun poison signature (names the handler wall-clock budget)"
 else
   bad "reaper did not log a deadline-overrun poison; log: $(grep -iE 'poison' "$TR5/reaper.log" | tail -3)"
+fi
+
+# ============================================================================
+hr; echo "SUBTEST 6 — a NEAR-POISON-THRESHOLD deadline overrun emits ONLY the deadline-overrun note (no generic double-journal)"; hr
+# The generic transient note fires only when the requeue cycle has reached the
+# poison threshold's edge (cycle >= poison_threshold-1). On the DEADLINE-OVERRUN
+# path that generic note is misleading — it says "no escalation" while the code
+# proceeds to stamp an early-poison hint — so it is now GATED OUT, leaving only the
+# accurate deadline-overrun note. SUBTEST 2 exercised cycle=0 (generic never
+# eligible); this drives cycle=4 (a job carrying `<!-- garden-reaped: 4 -->`) with
+# poison_threshold=5 so the generic guard IS satisfied, proving the deadline-overrun
+# gate — not merely the cycle guard — is what suppresses it. Before the fix this
+# produced TWO contradictory journal entries; now it must produce exactly one.
+TR6="$(mktemp -d "${TMPDIR:-/tmp}/garden-overrun-single.XXXXXX")"; trap 'rm -rf "$TR" "$TR3" "$TR5" "$TR6"' EXIT
+BARE6="$TR6/journal.git"
+git init -q --bare "$BARE6"
+SEED6="$TR6/seed"; git init -q "$SEED6"
+git -C "$SEED6" checkout -q -b "$BRANCH"
+( cd "$SEED6"
+  mkdir -p jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors
+  for d in jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors; do touch "$d/.gitkeep"; done
+  # A todo job already at cycle 4 (the reaped marker survives the claim into doin,
+  # where reap_count reads it), so the generic transient note's cycle guard is met.
+  printf '# nearpoisonjob\n\ndo the work for nearpoisonjob\n\n<!-- garden-reaped: 4 -->\n' > "jobs/todo/nearpoisonjob.md" )
+git -C "$SEED6" add -A
+git -C "$SEED6" "${git_id[@]}" commit -q -m "seed: 1 near-poison job (reaped:4)"
+git -C "$SEED6" remote add origin "$BARE6"
+git -C "$SEED6" push -q -u origin "$BRANCH"
+
+# rc=124 AT the wall (deadline_overrun=1) with cycle=4 and poison_threshold=5 so the
+# generic guard (cycle >= poison_threshold-1) is satisfied — before the fix BOTH the
+# generic and the deadline-overrun notes fired.
+env JOURNAL_REMOTE="$BARE6" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN="nearpoisonhost" GARDEN_STATE="$TR6/state" \
+    GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_HANDLER_TIMEOUT=2 GARDEN_REAP_POISON_THRESHOLD=5 \
+    GARDEN_JOB_HANDLER="$HERE/timeout-handler-stub.sh" \
+    "$JOBS/gardener.sh" 1 > "$TR6/gardener.log" 2>&1 || true
+
+CLONE6="$TR6/state/gardeners/1/journal"
+
+# (a) the handler hit its own wall (rc=124) — confirm we are on the deadline-overrun path.
+if grep -Eq "looks transient \(rc=124" "$TR6/gardener.log"; then
+  ok "handler hit its own wall (rc=124 transient) at cycle 4"
+else
+  bad "rc=124 transient verdict not observed; log: $(grep -i 'handler\|transient' "$TR6/gardener.log" | tail -3)"
+fi
+# (b) EXACTLY ONE transient-classification progress note: the deadline-overrun one,
+# and NOT the generic "transient handler outage" note — even though the generic
+# note's cycle guard IS satisfied here. This is the double-journal regression guard.
+ng6=$({ grep -rl 'transient handler outage' "$CLONE6/entries" 2>/dev/null || true; } | wc -l | tr -d ' ')
+nd6=$({ grep -rl 'hit its OWN wall-clock budget' "$CLONE6/entries" 2>/dev/null || true; } | wc -l | tr -d ' ')
+if [ "${ng6:-0}" -eq 0 ]; then
+  ok "generic 'transient handler outage' note SUPPRESSED on the deadline-overrun path (gate holds despite cycle>=threshold-1)"
+else
+  bad "generic transient note emitted on the deadline-overrun path ($ng6); the double-journal was not gated"
+fi
+if [ "${nd6:-0}" -eq 1 ]; then
+  ok "exactly one deadline-overrun note emitted (one accurate entry, not two contradictory ones)"
+else
+  bad "deadline-overrun note count wrong ($nd6; want 1)"
 fi
 
 hr

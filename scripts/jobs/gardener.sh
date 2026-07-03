@@ -593,7 +593,16 @@ while :; do
          && ! is_external_kill_rc "$rc" && ! is_handler_timeout_rc "$rc"; then
         constancy_applicable=1
       fi
-      if [ "$cycle" -ge "$(( poison_threshold - 1 ))" ] || [ "$constancy_applicable" -eq 1 ]; then
+      # GATE OUT the deadline-overrun path: an rc=124 handler that hit its OWN wall
+      # (deadline_overrun=1) gets the accurate, distinctive deadline-overrun progress
+      # entry emitted below — NOT this generic one. Emitting both produced two
+      # contradictory journal entries per event (this one says "no escalation" while
+      # the block below stamps an early-poison hint). So this generic note fires only
+      # on the OTHER transient paths (external signal-kill, plain timeout below the
+      # wall, empty-capture blip, transient-claude signature). The local `log` above
+      # is unconditional and stays.
+      if { [ "$cycle" -ge "$(( poison_threshold - 1 ))" ] || [ "$constancy_applicable" -eq 1 ]; } \
+         && [ "${deadline_overrun:-0}" -ne 1 ]; then
         printf 'gardener-%s on %s: job %s handler exited rc=%s (signal-kill/timeout/empty/transient-signature output); transient handler outage, requeue cycle %s of poison threshold %s (elapsed=%ss); left in doin for reaper requeue\n' \
           "$id" "$GARDEN" "$base" "$rc" "$cycle" "$poison_threshold" "$elapsed" \
           | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
