@@ -1,16 +1,18 @@
 # Garden bulletin
 
-_As of 2026-07-03T02:29:42Z_
+_As of 2026-07-03T02:50:50Z_
 
 ## Latest
 
-The [xs2rust-endor Rust port](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage2b-frames.md) advanced: stage 2b step 2/3 (user functions, closures, frames) landed and step 3/3 (exceptions + full opcode coverage) is now the sole in-flight job. Supporting infra fixes also completed — clone-keeper now recreates a missing clone, and the gardener gained a single-deadline-overrun note.
+A live infrastructure incident tops the queue: a gardener investigating five poisoned garden-infra jobs found the leader host is silently demoting itself to follower — `/home/kris/.garden` resolves `endolinbot2` while the `leader` marker names `endolinbot`, so every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being skipped. It wants an operational call: correct the shard file to `endolinbot`, or re-point the marker to `endolinbot2` and record the parallel-pool override, then restart the fleet.
 
-Three items need kriskowal's decision. Most urgent: a **live leader-host incident** — the `endolinbot2` shard-identity drift is still active, so `is-main-host` reports FOLLOWER on the true leader and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, ci-watcher, orchestrate, maintainer-inbox) is being silently skipped; the fix is an operational one-liner (`echo endolinbot > /home/kris/.garden` or re-point the leader marker) plus a fleet restart. On the PR side, a shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is subsumed — its entire error-tracing feature already re-landed on `llm` via the merged #58, so the recommendation is to close it as superseded (optionally salvaging two small refactors into a fresh PR). And gibson042's review on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) escalates a genuine design tradeoff — plain-object wrapper vs. a Proxy that throws on canonical-index writes for the freezable-TypedArray view — explicitly asking kriskowal and/or erights to weigh in.
+Two disposition calls are also parked for you. A shepherd reports that [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) (CapTP error tracing) is not lint-blocked but fully subsumed by the already-merged #58 feature on `llm`, and recommends closing it — with only two small refactors (`error-id.js` dedup, `trace-constants.js` sentinels) worth salvaging as a fresh PR. And on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), @gibson042 has asked you and @erights to settle a design tradeoff in the freezable-TypedArray doc: keep the plain-object emulated view, or switch to a Proxy that throws on canonical-index writes.
+
+On the build side, the XS→Rust (Endor) port cleared stage 2b (2/3) — user functions, closures, and more — with stage 2b (3/3, exceptions and full opcode coverage) now underway and a press job driving the integration toward green daemon tests.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 11h)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 12h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 3d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 6d)
@@ -137,8 +139,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`xs2rust-endor-build-stage2b-exceptions`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage2b-exceptions.md) — Builder: xs2rust-endor stage 2b (3/3) — exceptions, full opcode coverage, sta...
+- [`xs2rust-endor-press-20260703-025032`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-025032.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (992)
 - [`xs2rust-endor-build-stage2b-frames`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage2b-frames.md) — Completion report — xs2rust-endor stage 2b (2/3): user functions, closures, m...
