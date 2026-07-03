@@ -1,10 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-03T02:27:44Z_
+_As of 2026-07-03T02:28:22Z_
 
 ## Latest
 
-The board was nearly idle — the only transition was the completion of `improve-clone-keeper-recreate-missing-clone` — but three items in the maintainer inbox want attention. Most urgently, a gardener flagged a **live infrastructure incident**: the leader host's `.garden` shard file reads `endolinbot2` while `hostname -s` and the `leader` marker both read `endolinbot`, so `is-main-host.sh` reports FOLLOWER on the true leader and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped; the fix is an operator call (correct `.garden` to `endolinbot`, or re-point the marker to `endolinbot2` and record the override) followed by a fleet restart. Two disposition calls also await you: a shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is not lint-blocked but **subsumed** by the already-merged #58 error-tracing feature and recommends closing it (with an optional fresh PR to extract `error-id.js`/`trace-constants.js`), and @gibson042's review on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) escalates a genuine design tradeoff — plain-object wrapper vs. a Proxy that throws on canonical-index writes — explicitly asking you and @erights to weigh in. Only `xs2rust-endor-build-stage2b-frames` remains in flight.
+The board is quiet — the only transition since the last bulletin was the completion of `xs2rust-endor-build-stage2b-frames` (stage 2b of the XS→Rust "Endor" port: user functions, closures, and frames). The substance is in three fresh maintainer messages that need your call:
+
+- **Live infra incident:** the `endolinbot2` host-identity drift is still active on the true leader host and silently demoting it to follower — `/home/kris/.garden` resolves `endolinbot2` while `journal/leader` names `endolinbot`, so `is-main-host.sh` exits 1 and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, maintainer-inbox Monitor) is being skipped. This was also the compounding factor behind the five poisoned garden-infra jobs during the July 1–2 Claude quota outage. The gardener asks you to either `echo endolinbot > /home/kris/.garden` or re-point the marker with `set-main-host.sh endolinbot2`, then restart the fleet; a `.garden`-file override defeats the existing spawn-WARN detector, so it needs a hand.
+- **Disposition on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301):** the shepherd found the PR is subsumed, not lint-blocked — its entire error-tracing feature already re-landed on `llm` via the merged #58, so a rebase collapses to a near-empty PR. Recommendation is to close #301 as superseded, optionally extracting its two unique refactors (`error-id.js`, `trace-constants.js`) into a fresh small PR against `llm`.
+- **Design decision on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472):** @gibson042 reviewed the freezable-TypedArray design doc and rebuts all three "Why not a Proxy wrapper?" arguments, favoring a Proxy `set` trap that throws on canonical-index writes; he explicitly asks for you and @erights to weigh in. No code was changed and nothing pushed.
+
+Ten of 27 parked PRs still await review, the oldest ([endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182), [#186](https://github.com/endojs/endo-but-for-bots/pull/186)) at 42 days.
 
 ## Parked for maintainer feedback
 
@@ -13,8 +19,8 @@ The board was nearly idle — the only transition was the completion of `improve
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 3d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 6d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 17d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 41d)
-- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 41d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 42d)
+- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 42d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 43d)
 - [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) — feat(cbor-frame): add @endo/cbor-frame package for CBOR byte-string framing (waiting 42d)
 - [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 43d)
@@ -135,16 +141,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-build-stage2b-frames`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage2b-frames.md) — Builder: xs2rust-endor stage 2b (2/3) — closures, call/return frames, meter-c...
+### doin (0)
+(none)
 
-### tada (991)
+### tada (992)
+- [`xs2rust-endor-build-stage2b-frames`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage2b-frames.md) — Completion report — xs2rust-endor stage 2b (2/3): user functions, closures, m...
 - [`improve-clone-keeper-recreate-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-recreate-missing-clone.md) — Completion report
 - [`improve-gardener-single-deadline-overrun-note`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-single-deadline-overrun-note.md) — Completion report
 - [`deadmail-issue-comment-4871521636`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4871521636.md) — Completion report
 - [`deadmail-issue-comment-4870486307`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4870486307.md) — Completion report
-- [`improve-gardener-collapse-deadline-overrun-double-journal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-collapse-deadline-overrun-double-journal.md) — Completion report
-- … and 986 more
+- … and 987 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
