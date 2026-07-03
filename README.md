@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T04:26:08Z_
+_As of 2026-07-03T04:35:17Z_
 
 ## Latest
 
-Two jobs completed since the last bulletin. A shepherd finished driving [endo-but-for-bots#588](https://github.com/endojs/endo-but-for-bots/pull/588) through its LLM-resume path, and the planning job weighing a dedicated bot-email domain (AWS vs. Hetzner) landed its counter-plan. In flight now: the Proxy-based freezable-TypedArray emulation for [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), a hardening of the scheduler's preflight gate, and stage 3 of the XS→Rust (Endor) language-closure port. No new work was posted or claimed this cycle, and 27 PRs remain parked for kriskowal — the oldest being [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
+Since the last bulletin the board barely moved: a single new job was posted to drive the XS→Rust (Endor) port on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) forward toward endor integration and a green daemon test, joining the in-flight stage-3 language-closure builder for the same effort. Also still in progress is the Proxy-based freezable-TypedArray emulation build on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) and a hardening pass on the scheduler's preflight gate. Otherwise this was a quiet interval — the notable maintainer signal remains the parked queue, where the [voice-input chat PR](https://github.com/endojs/endo-but-for-bots/pull/101) and the [passable byte-arrays PR](https://github.com/endojs/endo-but-for-bots/pull/503) sit at the front awaiting review.
 
 ## Parked for maintainer feedback
 
@@ -28,10 +28,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-472-proxy-typedarray-emulation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-472-proxy-typedarray-emulation.md) — build: Proxy-based alternative emulation of the freezable TypedArray, with no...
 - [`improve-scheduler-escalate-persistently-missing-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scheduler-escalate-persistently-missing-preflight.md) — Harden the preflight gate in scripts/jobs/scheduler.sh (line ~120-127) so a p...
 - [`xs2rust-endor-build-stage3-language`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-language.md) — Builder: xs2rust-endor stage 3 (1/7) — language closure: strings as values + ...
+- [`xs2rust-endor-press-20260703-043504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-043504.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (1012)
 - [`endojs-endo-but-for-bots-pr588-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr588-shepherd-llm-resume.md) — Completion report
