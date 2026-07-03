@@ -1,0 +1,14 @@
+The pipeline is live: child 1 (`-language`) is already promoted into `todo/` for a gardener to claim, the remaining six are parked behind the serial orchestration, and s6 is parked blocked on the orchestration base. My inbox is empty. All supervisor duties for this stage are complete.
+
+## Completion report — port-xs-to-rust-memory-safe-engine-s5
+
+**What I did.** Stage-2b of the XS→Rust (endor) port came back complete (all three orchestration children succeeded), and I reviewed it as supervisor: read the three child tada reports, reviewed the PR #600 diff since `bd0a8392f` line-by-line (meter arming, meter-check placement, call/return frames, closure cells, the exceptions jump-chain, GC, the dual-run classification, the oracle shim, the test262 runner), and **independently reproduced every acceptance claim** on a fresh checkout of head `67226d79f` with the oracle pin populated from a sibling checkout: `cargo test --workspace` 51/51 green (all five corpus bars bit-exact incl. computrons, the 953-file covered-grammar test, the meter-placement tests), stage-1 harness 86/86, test262 `language/expressions` 155 covered / **0 divergent** / 9446 total (matches the child's claim exactly), Miri GC 8/8, `forbid(unsafe_code)` intact. All three s4 findings verified closed in code and tests. **Stage 2b ACCEPTED; roadmap stage 2 closed; no fixer round needed.**
+
+**What changed.**
+- Review posted on PR #600: [issuecomment-4872378323](https://github.com/endojs/endo-but-for-bots/pull/600#issuecomment-4872378323) — includes three carried-forward observations: XS's fixed stack limits are unmodeled (endor's stacks are unbounded Vecs; deterministic stack-overflow aborts are consensus-relevant — the oracle audibly hit `fxOverflow` during my sweep), the GC roots contract for future run-loop integration (side tables must be roots), and analytic closure of the `FUNCTION_*` sub-computron residuals.
+- Design amendment pushed to the PR branch (`287e080b5`): "Stage-3 decomposition" (seven-child serial split) + the GC roots contract.
+- **Stage 3 dispatched** as serial orchestration `xs2rust-endor-build-stage3` (halt-on-failure, all children `model: opus`): language closure (+ stack limits + residuals), fundamentals, arrays, text-math-json, collections, promises, xsre. Child 1 is already promoted to `todo/`.
+- Continuation `port-xs-to-rust-memory-safe-engine-s6` parked blocked on the orchestration, carrying the full spec with updated state — including the maintainer's widened finish line from their PR comment (endor daemon integration + `test:rust` green), which lands with stages 4–9.
+- Journal `progress` entry posted (`entries/2026/07/03/034758Z`).
+
+**Follow-ups.** None for a human now — the maintainer enters the loop once, at the end, per the program spec (the hourly `xs2rust-endor-press-*` observer line handles their PR-thread cadence). s6 resumes automatically when the stage-3 orchestration completes or halts.
