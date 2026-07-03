@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T08:55:15Z_
+_As of 2026-07-03T09:00:03Z_
 
 ## Latest
 
-Since improve-set-schedule-validate-preflight-exists landed, [set-schedule.sh](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-set-schedule-validate-preflight-exists.md) now preflights that a schedule's referenced body file exists, one of a cluster of scheduler/preflight hardening completions this cycle — a dangling-reference guard and a deterministic-stall preflight for the xs2rust-endor press also closed. The lone active job is builder stage 3 of the [xs2rust-endor](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) port (arrays and the iteration protocol). Nothing new landed for the 27 parked PRs awaiting kriskowal — the oldest, [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [#186](https://github.com/endojs/endo-but-for-bots/pull/186), have now waited 42 days.
+Quiet interval: the only board movement was a [dead-lettered message](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T085843Z-03844c.md) being re-claimed for its intent, while the [xs2rust-endor stage-3 builder](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) (arrays and the iteration protocol, 3 of 7) remains the one substantive job in flight. Nothing new landed for a maintainer to review beyond the standing parked queue.
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`deadmail-20260703T085843Z-03844c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T085843Z-03844c.md) — Dead-lettered message — pick up its intent
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
 
 ### tada (1052)
