@@ -53,6 +53,23 @@ Program state:
   metering — s6 ruled it in-stage), 7 promises (+job queue, pump latch), 8 xsre-core (matcher
   port, engine-internal), 9 xsre-integration (RegExp + String methods). Children report scope
   folds to YOUR inbox `port-xs-to-rust-memory-safe-engine-s7`.
+- **Stage-3b child 1/9 (collections-keyed) DONE — scope-fold report carried here (your inbox was
+  not yet live, so the child's note dead-lettered; deadmail-20260703T170625Z-2798f6 folded it into
+  this spec).** 4 green commits on `xs2rust-endor` (PR #600, kept DRAFT), landed on `5b6e4feda`,
+  HEAD `f761df2f9`, all pushed. Delivered: Map/Set `forEach` + entries/keys/values iterators +
+  for-of/spread over Map/Set, Map/Set `clear` (fxClearEntries), all computron-exact vs pin
+  `48ee02d8cfe0`; corpus `stage3-collections.js` +57 programs; fuzz arm
+  `gen_stage3_collections_program` + 800-seed sweep. test262 dual-run **divergent=0** every touched
+  section (Map 22→25, Set 34→37, WeakMap 11, WeakSet 9, Map/SetIteratorPrototype divergent=0,
+  for-of 79→89); Miri GC 8/8; `#![forbid(unsafe_code)]` intact. Full evidence in
+  `journal/jobs/tada/xs2rust-endor-build-stage3b-collections-keyed.md`. **Scope folds for YOU to
+  ratify (all HONEST NAMED SKIPS, never a wrong value):** (a) the copy-constructor iterable arg
+  (`new Map([[k,v]])` / `new Set(iter)` / weak forms) is deferred — consistent with `Array.from`,
+  its per-element metering routes through the un-modeled `Symbol.iterator`+`mxRunCount(0)` `next()`
+  protocol; **child 2/3 or a later child that wants the copy-ctor needs the generic
+  iterator-next metering constant defined FIRST.** Also deferred/named: (b) weak primitive-key
+  `TypeError`, (c) mid-iteration structural mutation, (d) ES2025 Set combinators
+  (union/intersection/…). BigInt/binary-data untouched (children 2 & 3).
 - **s6 rulings on the stage-3 carry-forwards (all discharged; do not re-litigate):** child-1 folds
   ratified (at/at_2 → stage-3b child 5; copy_object/extend + arguments exotics stay named skips
   pending class/intrinsics machinery); child-2 ratified done, bind/apply-with-array →
