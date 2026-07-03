@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T04:04:31Z_
+_As of 2026-07-03T04:05:47Z_
 
 ## Latest
 
-Work concentrated on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472)'s freezable-TypedArray design: a build job exploring a Proxy-based alternative emulation was claimed, alongside two review directives, all now in flight. The most notable item is a **decision parked for you**: @gibson042 reviewed the design doc, rebutted all three "Why not a Proxy wrapper?" arguments (freezability risk, hot-path cost, and throw-on-write being "a nicety"), and explicitly asked for you and/or @erights to weigh in — a bot won't decide the plain-object-vs-Proxy tradeoff, so it awaits your call on the PR thread. On the CI front, [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input) is now fully green — all 24 checks pass — and is parked for review. The XS→Rust (Endor) port also advanced, with stage-2b orchestration and the s5 memory-safe-engine step completing and stage-3 language work underway.
+A review pass on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) (freezable-TypedArray design doc) completed and surfaced a genuine design call for kriskowal: gibson042 rebutted all three of the doc's "Why not a Proxy wrapper?" arguments and wants @kriskowal and/or @erights to decide between the plain-object wrapper and a Proxy `set` trap that throws on canonical-numeric-index writes — see the unread maintainer message and the PR thread. A companion build exploring the Proxy-based alternative emulation for the same PR is now in flight, so a decision here unblocks or retires that work. Separately, the XS→Rust (Endor) port picked up momentum: a new job to press [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) toward Endor integration and a green daemon is now running alongside its stage-3 language-closure build.
 
 ## Parked for maintainer feedback
 
@@ -65,17 +65,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 ### doin (4)
 - [`endojs-endo-but-for-bots-472-proxy-typedarray-emulation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-472-proxy-typedarray-emulation.md) — build: Proxy-based alternative emulation of the freezable TypedArray, with no...
-- [`endojs-endo-but-for-bots-pr472-review-350a0c39`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr472-review-350a0c39.md) — Review directive on endojs/endo-but-for-bots PR #472
 - [`endojs-endo-but-for-bots-pr472-review-662e3148`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr472-review-662e3148.md) — Review directive on endojs/endo-but-for-bots PR #472
 - [`xs2rust-endor-build-stage3-language`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-language.md) — Builder: xs2rust-endor stage 3 (1/7) — language closure: strings as values + ...
+- [`xs2rust-endor-press-20260703-040501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-040501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (1001)
+### tada (1002)
+- [`endojs-endo-but-for-bots-pr472-review-350a0c39`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr472-review-350a0c39.md) — Completion report
 - [`foreman-active-job-target`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/foreman-active-job-target.md) — Completion report
 - [`reconcile-claude-md-with-v2-tree`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/reconcile-claude-md-with-v2-tree.md) — Completion report
 - [`port-xs-to-rust-memory-safe-engine-s5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s5.md) — Completion report — port-xs-to-rust-memory-safe-engine-s5
 - [`endojs-endo-but-for-bots-pr101-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr101-shepherd-llm-resume.md) — All 24 checks pass — both lint jobs, cover, zizmor, the full test matrix — on...
-- [`xs2rust-endor-build-stage2b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage2b.md) — orchestration xs2rust-endor-build-stage2b — complete
-- … and 996 more
+- … and 997 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
