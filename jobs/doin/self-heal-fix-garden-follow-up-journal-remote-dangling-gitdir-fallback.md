@@ -3,3 +3,9 @@ Harden `scripts/jobs/common.sh:journal_remote()` so a dangling/unreadable `$GARD
 Change `journal_remote()` (common.sh ~line 490): after the `JOURNAL_REMOTE` env check, try `git -C "$GARDEN_ROOT/journal" config --get remote.origin.url`, and on failure fall back to `git -C "$GARDEN_ROOT" config --get remote.origin.url` (the main2 checkout shares the same origin — confirmed `git@github.com:kriskowal/garden.git`), only calling `die` if BOTH are empty. The journal and main2 branches live in the same repo/remote, so the fallback yields the correct URL. This fixes the entire class in one place and is complementary to the per-service `journal-worktree-dangling-gitdir-repair` jobs already in flight.
 
 Additionally, have `scripts/jobs/journal-worktree-keeper.sh` detect an unreadable `$GARDEN_ROOT/journal` gitlink (e.g. `git -C "$GARDEN_ROOT/journal" rev-parse --git-dir` fails) and run `git -C "$GARDEN_ROOT" worktree repair "$GARDEN_ROOT/journal"` (plus prune the stale `garden2/*` registrations) so the root cause is corrected, not just tolerated.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 10
+  claimed_at: 2026-07-03T11:09:49Z

@@ -1,0 +1,4 @@
+host: endolinbot2
+gardener: 10
+claimed_at: 2026-07-03T11:09:49Z
+worktree_dir: /home/kris/worktrees/self-heal-fix-garden-follow-up-journal-remote-dangling-gitdir-fallback
