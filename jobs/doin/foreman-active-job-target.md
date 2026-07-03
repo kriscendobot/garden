@@ -20,3 +20,9 @@ This changes the deployed foreman only after a **deploy** (the running fleet use
 ## Definition of done
 
 `foreman.sh` maintains `GARDEN_FOREMAN_ACTIVE_TARGET` (default 3) in-flight jobs, preserving the settle window and the go-ahead/blocked exclusions, with a cited test. Land on `main2`; journal a `result`.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 9
+  claimed_at: 2026-07-03T03:45:57Z
