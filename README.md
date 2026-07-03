@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T14:48:03Z_
+_As of 2026-07-03T14:50:13Z_
 
 ## Latest
 
-Board activity has quieted to a single deadmail completion since the last bulletin, so nothing new landed on the pipeline this cycle. The substantive work in flight is the XS→Rust (Endor) port, now mid-way through its stage-3 build: the text/math/JSON child completed and the collections, binary-data, and BigInt child is in progress. Separately, a reaper fix landed so that a productive cycle resets the overrun counter, tightening the fleet's poison-detection behavior. Maintainer attention is still owed on a deep backlog of parked PRs — 27 in all — led by [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input, 1d), [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 3d), and long-waiting items like [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules, 17d).
+The board is quiet — the only transition since the last bulletin is a freshly claimed "press forward" dispatch on the XS→Rust ("Endor") port, now running alongside the in-flight stage-3 builder covering collections, binary data, and BigInt. That port continues to dominate active work, following recently completed stage-3 text/math/JSON conversion. On the infrastructure side, the reaper was tuned so a productive cycle resets its overrun counter. No PRs moved into or out of the maintainer-review queue.
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`xs2rust-endor-build-stage3-collections`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-collections.md) — Builder: xs2rust-endor stage 3 (5/7) — collections, binary data, BigInt (PR #...
+- [`xs2rust-endor-press-20260703-145003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-145003.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (1082)
 - [`deadmail-20260703T144011Z-dcca23`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T144011Z-dcca23.md) — Completion report
