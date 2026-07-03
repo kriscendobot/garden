@@ -1,7 +1,0 @@
-`scripts/jobs/scheduler.sh` (line ~126) treats a declared-but-missing/non-executable preflight as `work-present` and re-emits the same WARN every tick indefinitely, silently defeating the gate a maintainer explicitly opted into by declaring `preflight:`. Harden the fail-open path so a broken preflight ref is surfaced once instead of warned forever: when a `preflight:` is declared but the resolved path is missing/non-executable, in addition to the existing WARN, post a deduplicated self-healing improvement job (or a single `message-user.sh` notice keyed by schedule name) so the broken reference gets fixed, rather than degrading to unconditional dispatch with only recurring log noise. Keep the dispatch fail-open (do not silently stall legitimate work), but stop the silent-forever degradation.
-
----
-claim:
-  host: endolinbot2
-  gardener: 1
-  claimed_at: 2026-07-03T17:22:17Z
