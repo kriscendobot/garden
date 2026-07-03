@@ -68,6 +68,102 @@ escalate_missing_preflight() {
   } | "$HERE/message-user.sh" "scheduler-preflight-$sname"
 }
 
+# Per-host, one-shot dedup+diagnosis state for a NOT-FOUND preflight gate. The
+# gate ALWAYS fails open (never starve real work), but the WARN it logs must not
+# repeat on every cadence for the whole deploy-lag window. We stamp a per-schedule
+# marker under $GARDEN_STATE (per-host, outside any reset-prone worktree, never
+# committed) recording the resolved path we already warned about; while the marker
+# still names that path the tick stays silent. The marker is cleared the instant
+# the gate is found again (clear_missing_preflight, below), so the WARN and the
+# deploy-lag diagnosis re-arm per breakage — exactly like the frontmatter streak,
+# but for the noisy per-tick log line the streak never suppressed.
+GARDEN_PREFLIGHT_MISSING_STATE="${GARDEN_PREFLIGHT_MISSING_STATE:-$GARDEN_STATE/scheduler/preflight-missing}"
+preflight_missing_marker() { printf '%s\n' "$GARDEN_PREFLIGHT_MISSING_STATE/${1//[^A-Za-z0-9._-]/_}"; }
+preflight_deploy_lag_note() { printf '%s\n' "$GARDEN_DEPLOY_STATE/preflight-deploy-lag-${1//[^A-Za-z0-9._-]/_}"; }
+
+# Clear a schedule's not-found marker AND any deploy-lag note it left in the
+# deploy surface, so the WARN + deploy-lag diagnosis re-arm the next time the
+# gate goes missing. Called on the tick the gate is found (present/executable) —
+# e.g. after this host is deployed and the previously-behind script arrives.
+clear_missing_preflight() {  # $1=schedule name
+  rm -f "$(preflight_missing_marker "$1")" "$(preflight_deploy_lag_note "$1")" 2>/dev/null || true
+}
+
+# Log the not-found WARN AT MOST ONCE per (schedule, resolved-path) breakage, and
+# on the first tick of that breakage emit a DISTINCT one-shot deploy-lag signal
+# when the named script is present on the dev branch but missing from this
+# deployed root. A gate that is named-but-missing while the SAME script exists on
+# origin/$GARDEN_MAIN_BRANCH is not a typo — it is deploy-lag (this root is behind
+# the branch that already carries the gate), so the schedule fails open and
+# re-dispatches every cadence until the host is deployed. That is actionable, so
+# we surface it once into the deploy state dir (co-located with the upgrade-ready
+# marker the liaison's deploy Monitor watches) and once onto the message bus,
+# pointing at the pending deploy as the cause — instead of burying it as recurring
+# WARN noise. $1=schedule, $2=configured preflight (as written), $3=resolved path.
+note_missing_preflight() {
+  local sname="$1" pfcfg="$2" pfpath="$3"
+  local marker; marker="$(preflight_missing_marker "$sname")"
+  # Already warned+diagnosed for this exact resolved path? Stay silent this tick.
+  [ -f "$marker" ] && [ "$(cat "$marker" 2>/dev/null || true)" = "$pfpath" ] && return 0
+
+  log "WARN schedule $sname preflight '$pfcfg' not found/executable at $pfpath; treating as work-present (fail-open; deploy-lag or typo'd preflight: path)"
+
+  # Deploy-lag test: is the script present on the dev branch but not here? Only
+  # decidable for a preflight resolved INSIDE the deployed root (a relative path);
+  # an absolute path outside the repo has no branch-relative form, so skip it.
+  local rel="" onbranch=0
+  case "$pfpath" in
+    "$GARDEN_ROOT"/*) rel="${pfpath#"$GARDEN_ROOT"/}";;
+  esac
+  if [ -n "$rel" ]; then
+    # Best-effort, bounded refresh so the check does not read a stale ref; a
+    # one-shot fetch per breakage, and an offline tick never aborts the scheduler.
+    timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
+      git -C "$GARDEN_ROOT" fetch -q origin "$GARDEN_MAIN_BRANCH" >/dev/null 2>&1 || true
+    git -C "$GARDEN_ROOT" cat-file -e "origin/$GARDEN_MAIN_BRANCH:$rel" 2>/dev/null && onbranch=1
+  fi
+
+  if [ "$onbranch" -eq 1 ]; then
+    local dep up ahead detected note
+    dep="$(deployed_sha)"
+    up="$(git -C "$GARDEN_ROOT" rev-parse --verify --quiet "origin/$GARDEN_MAIN_BRANCH" || true)"
+    ahead="$(git -C "$GARDEN_ROOT" rev-list --count "$dep..$up" 2>/dev/null || echo '?')"
+    detected="$(date -u +%FT%TZ)"
+    log "deploy-lag: preflight '$rel' for schedule $sname exists on origin/$GARDEN_MAIN_BRANCH but not in this deployed root ($dep, behind by $ahead); the pending deploy is the cause"
+    # (a) A distinct one-shot note in the deploy surface, next to upgrade-ready.
+    note="$(preflight_deploy_lag_note "$sname")"
+    mkdir -p "$(dirname "$note")" 2>/dev/null || true
+    {
+      echo "Scheduler preflight deploy-lag"
+      echo
+      echo "schedule:   $sname"
+      echo "preflight:  $rel"
+      echo "status:     present on origin/$GARDEN_MAIN_BRANCH, ABSENT from this deployed root"
+      echo "deployed:   $dep"
+      echo "available:  $up"
+      echo "ahead_by:   $ahead commit(s)"
+      echo "host:       $GARDEN"
+      echo "detected:   $detected"
+      echo
+      echo "The named preflight gate cannot run because this host is behind the dev"
+      echo "branch that already carries it, so the schedule fails open and re-dispatches"
+      echo "every cadence. Deploying this host (scripts/jobs/deploy-garden.sh) resolves it."
+    } > "$note" 2>/dev/null || true
+    # (b) A one-shot message-bus escalation so it is actively surfaced, not just a
+    #     file. Best-effort; a delivery failure never aborts the scheduler.
+    {
+      printf 'Scheduler preflight gate for schedule "%s" is a DEPLOY-LAG symptom, not a typo.\n\n' "$sname"
+      printf 'The gate script "%s" exists on origin/%s but is ABSENT from this host'\''s\n' "$rel" "$GARDEN_MAIN_BRANCH"
+      printf 'deployed root (deployed %s, behind by %s commit(s)). The schedule is failing\n' "$dep" "$ahead"
+      printf 'open and re-dispatching every cadence until this host is deployed.\n\n'
+      printf 'Fix: scripts/jobs/deploy-garden.sh on %s. One-time signal per breakage.\n' "$GARDEN"
+    } | "$HERE/message-user.sh" "scheduler-preflight-deploy-lag-$sname" >/dev/null 2>&1 || true
+  fi
+
+  mkdir -p "$(dirname "$marker")" 2>/dev/null || true
+  printf '%s\n' "$pfpath" > "$marker" 2>/dev/null || true
+}
+
 DIR="${GARDEN_SCHEDULER_CLONE:-$GARDEN_STATE/scheduler/journal}"
 ensure_clone "$DIR"
 sync_clone "$DIR"
@@ -159,10 +255,13 @@ for name in $(list_jobs "$DIR" schedules); do
       pf_rc=0
       if [ -x "$pf" ]; then
         new_streak=0   # gate present → not a not-found tick, clear any streak
+        clear_missing_preflight "$name"   # re-arm the one-shot WARN + deploy-lag diagnosis
         if "$pf" "$name"; then pf_rc=0; else pf_rc=$?; fi
       else
         new_streak=$(( missing_streak + 1 ))
-        log "WARN schedule $name preflight '$preflight' not found/executable at $pf; treating as work-present (not-found streak $new_streak)"
+        # WARN ONCE per breakage (not every tick) and, on the first tick, diagnose
+        # a deploy-lag cause once. Idempotent across CAS retries via its marker.
+        note_missing_preflight "$name" "$preflight" "$pf"
         [ "$new_streak" -eq "$PREFLIGHT_MISSING_ESCALATE_THRESHOLD" ] && escalate_now=1
       fi
       if [ "$pf_rc" -eq 2 ]; then
