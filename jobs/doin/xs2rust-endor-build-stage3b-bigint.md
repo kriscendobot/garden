@@ -49,3 +49,9 @@ share that worktree.
 
 Bar: `built-ins/BigInt` dual-run divergent=0 + `language/` bigint literal/expression coverage
 growth at zero divergence; honest named skips elsewhere.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 4
+  claimed_at: 2026-07-03T17:07:28Z
