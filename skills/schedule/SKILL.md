@@ -32,20 +32,20 @@ do-nothing agent. Exit `0` = work present → post the job and stamp
 clock, post nothing) and log `preflight gated: no work`; any other exit is treated
 as work-present (fail open) so a broken gate never starves a schedule. A gate that
 is **not found / not executable** (a deploy-lag or a typo'd `preflight:` path) also
-fails open, but is DISTINGUISHED from a gate that runs and errors: the scheduler
-counts consecutive not-found ticks in a `preflight_missing_streak` frontmatter line
-and, past a small threshold (`GARDEN_PREFLIGHT_MISSING_THRESHOLD`, default 3),
-escalates ONCE to the maintainer inbox so a permanently-absent gate gets fixed
-instead of quietly re-firing an expensive dispatch every cadence. Two further
-guards keep a not-found gate from becoming per-tick noise for a whole deploy-lag
-window: the not-found **WARN is de-duplicated** per `(schedule, resolved-path)` via
-a marker under `$GARDEN_STATE`, so it logs ONCE per breakage rather than every due
-tick; and when the SAME script is present on `origin/$GARDEN_MAIN_BRANCH` but absent
-from this deployed root, the scheduler diagnoses **deploy-lag** and surfaces it ONCE
-as a distinct note in the deploy state dir (beside the `upgrade-ready` marker the
-liaison's deploy Monitor watches) plus a one-shot message-bus escalation, pointing
-at the pending deploy as the cause. The streak, the WARN, and the deploy-lag
-diagnosis all reset (and re-arm) as soon as the gate is found again. Wire one in
+fails open, but is DISTINGUISHED from a gate that runs and errors: on the FIRST tick
+of the breakage the scheduler escalates ONCE to the maintainer inbox (via
+`alert_maintainer`, keyed/deduped on the schedule name — the journal-worktree
+keeper's paging-key discipline), so a permanently-absent gate gets surfaced and
+fixed instead of quietly re-firing an expensive dispatch every cadence. The
+escalation is also deduped by a per-`(schedule, resolved-path)` marker under
+`$GARDEN_STATE`, and the same marker keeps the not-found **WARN** to ONCE per
+breakage rather than every due tick. When the SAME script is present on
+`origin/$GARDEN_MAIN_BRANCH` but absent from this deployed root, the scheduler
+diagnoses **deploy-lag** — the escalation names the pending deploy as the cause and
+it also drops a distinct one-shot note in the deploy state dir (beside the
+`upgrade-ready` marker the liaison's deploy Monitor watches). The WARN, the
+escalation, and the deploy-lag diagnosis all reset (and re-arm) as soon as the gate
+is found again. Wire one in
 with `GARDEN_SCHEDULE_PREFLIGHT=<script> set-schedule.sh …`; it is preserved across
 later cadence edits exactly like `last_dispatched`. Example:
 `scholar-preflight.sh` gates `scholar-library-cycle` on a non-empty scholar inbox,

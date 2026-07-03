@@ -31,41 +31,18 @@ cadence_seconds() {
 }
 
 # Rewrite a recurring schedule's frontmatter with a fresh last_dispatched stamp,
-# PRESERVING the optional preflight field and the consecutive not-found streak.
-# Both the dispatch path and the gated (no-work) path go through this so the
-# preflight: line is never dropped when the scheduler re-stamps the file.
-# $1=dest, $2=cadence, $3=stamp, $4=prefix, $5=preflight (may be empty), $6=body,
-# $7=preflight_missing_streak (default 0; the line is omitted at 0 so a healthy
-# schedule keeps a clean file, and a reset back to 0 clears a stale streak).
+# PRESERVING the optional preflight field. Both the dispatch path and the gated
+# (no-work) path go through this so the preflight: line is never dropped when the
+# scheduler re-stamps the file.
+# $1=dest, $2=cadence, $3=stamp, $4=prefix, $5=preflight (may be empty), $6=body.
 write_schedule() {
-  local dest="$1" cad="$2" stamp="$3" prefix="$4" preflight="$5" body="$6" missing_streak="${7:-0}"
+  local dest="$1" cad="$2" stamp="$3" prefix="$4" preflight="$5" body="$6"
   {
     printf 'cadence: %s\nlast_dispatched: %s\njob_basename_prefix: %s\n' "$cad" "$stamp" "$prefix"
     [ -n "$preflight" ] && printf 'preflight: %s\n' "$preflight"
-    [ "${missing_streak:-0}" -gt 0 ] && printf 'preflight_missing_streak: %s\n' "$missing_streak"
     printf -- '---\n'
     printf '%s\n' "$body"
   } > "$dest"
-}
-
-# Consecutive not-found/not-executable preflight ticks tolerated before we
-# escalate ONCE to the maintainer inbox. Fail-open never changes (a missing gate
-# must never starve a schedule); this threshold only closes the loop on a gate
-# that is GENUINELY absent every cadence — a deploy-lag or a typo'd preflight:
-# path — instead of silently re-firing an expensive dispatch forever.
-PREFLIGHT_MISSING_ESCALATE_THRESHOLD="${GARDEN_PREFLIGHT_MISSING_THRESHOLD:-3}"
-
-# Escalate a persistently-absent preflight gate to the maintainer inbox. Guarded
-# by the caller so a delivery failure never aborts the scheduler. $1=schedule
-# name, $2=configured preflight path, $3=consecutive not-found streak.
-escalate_missing_preflight() {
-  local sname="$1" pfpath="$2" streak="$3"
-  {
-    printf 'Scheduler preflight gate for schedule "%s" has been NOT FOUND / not executable for %s consecutive ticks.\n\n' "$sname" "$streak"
-    printf 'Configured preflight: %s\n' "$pfpath"
-    printf 'Resolved relative to %s/ unless absolute.\n\n' "$HERE"
-    printf 'The gate is failing open, so every cadence re-dispatches this schedule with the preflight fully bypassed — most likely a deploy-lag or a typo in the "preflight:" path. Please land the missing gate or fix the path so the schedule stops burning dispatches. This is a one-time escalation per breakage (it re-arms only after the gate is found again).\n'
-  } | "$HERE/message-user.sh" "scheduler-preflight-$sname"
 }
 
 # Per-host, one-shot dedup+diagnosis state for a NOT-FOUND preflight gate. The
@@ -90,20 +67,23 @@ clear_missing_preflight() {  # $1=schedule name
 }
 
 # Log the not-found WARN AT MOST ONCE per (schedule, resolved-path) breakage, and
-# on the first tick of that breakage emit a DISTINCT one-shot deploy-lag signal
-# when the named script is present on the dev branch but missing from this
-# deployed root. A gate that is named-but-missing while the SAME script exists on
-# origin/$GARDEN_MAIN_BRANCH is not a typo — it is deploy-lag (this root is behind
-# the branch that already carries the gate), so the schedule fails open and
-# re-dispatches every cadence until the host is deployed. That is actionable, so
-# we surface it once into the deploy state dir (co-located with the upgrade-ready
-# marker the liaison's deploy Monitor watches) and once onto the message bus,
-# pointing at the pending deploy as the cause — instead of burying it as recurring
-# WARN noise. $1=schedule, $2=configured preflight (as written), $3=resolved path.
+# on the first tick of that breakage escalate ONCE to the maintainer inbox so the
+# config gap is surfaced and fixed instead of defaulted-and-dispatched forever.
+# The escalation goes through alert_maintainer, keyed on the schedule name (the
+# journal-worktree keeper's paging-key discipline), so it is deduped by both this
+# per-breakage marker and alert_maintainer's own per-key throttle. The gate ALWAYS
+# fails open (never starve real work); this only closes the loop on the noisy,
+# indefinitely-repeating dispatch a named-but-missing preflight would otherwise
+# cause. When the SAME script exists on origin/$GARDEN_MAIN_BRANCH but not in the
+# deployed root, that is diagnosed as DEPLOY-LAG — the root is behind the branch
+# that already carries the gate, not a typo — and the escalation both names the
+# pending deploy as the cause and drops a distinct one-shot note in the deploy
+# state dir (co-located with the upgrade-ready marker the liaison's deploy Monitor
+# watches). $1=schedule, $2=configured preflight (as written), $3=resolved path.
 note_missing_preflight() {
   local sname="$1" pfcfg="$2" pfpath="$3"
   local marker; marker="$(preflight_missing_marker "$sname")"
-  # Already warned+diagnosed for this exact resolved path? Stay silent this tick.
+  # Already warned+escalated for this exact resolved path? Stay silent this tick.
   [ -f "$marker" ] && [ "$(cat "$marker" 2>/dev/null || true)" = "$pfpath" ] && return 0
 
   log "WARN schedule $sname preflight '$pfcfg' not found/executable at $pfpath; treating as work-present (fail-open; deploy-lag or typo'd preflight: path)"
@@ -123,6 +103,10 @@ note_missing_preflight() {
     git -C "$GARDEN_ROOT" cat-file -e "origin/$GARDEN_MAIN_BRANCH:$rel" 2>/dev/null && onbranch=1
   fi
 
+  # Build the one escalation message. Deploy-lag and typo/never-landed share a
+  # single alert_maintainer call so the maintainer is paged exactly ONCE per
+  # breakage, deduped on the schedule name.
+  local escmsg
   if [ "$onbranch" -eq 1 ]; then
     local dep up ahead detected note
     dep="$(deployed_sha)"
@@ -130,7 +114,7 @@ note_missing_preflight() {
     ahead="$(git -C "$GARDEN_ROOT" rev-list --count "$dep..$up" 2>/dev/null || echo '?')"
     detected="$(date -u +%FT%TZ)"
     log "deploy-lag: preflight '$rel' for schedule $sname exists on origin/$GARDEN_MAIN_BRANCH but not in this deployed root ($dep, behind by $ahead); the pending deploy is the cause"
-    # (a) A distinct one-shot note in the deploy surface, next to upgrade-ready.
+    # A distinct one-shot note in the deploy surface, next to upgrade-ready.
     note="$(preflight_deploy_lag_note "$sname")"
     mkdir -p "$(dirname "$note")" 2>/dev/null || true
     {
@@ -149,16 +133,20 @@ note_missing_preflight() {
       echo "branch that already carries it, so the schedule fails open and re-dispatches"
       echo "every cadence. Deploying this host (scripts/jobs/deploy-garden.sh) resolves it."
     } > "$note" 2>/dev/null || true
-    # (b) A one-shot message-bus escalation so it is actively surfaced, not just a
-    #     file. Best-effort; a delivery failure never aborts the scheduler.
-    {
-      printf 'Scheduler preflight gate for schedule "%s" is a DEPLOY-LAG symptom, not a typo.\n\n' "$sname"
-      printf 'The gate script "%s" exists on origin/%s but is ABSENT from this host'\''s\n' "$rel" "$GARDEN_MAIN_BRANCH"
-      printf 'deployed root (deployed %s, behind by %s commit(s)). The schedule is failing\n' "$dep" "$ahead"
-      printf 'open and re-dispatching every cadence until this host is deployed.\n\n'
-      printf 'Fix: scripts/jobs/deploy-garden.sh on %s. One-time signal per breakage.\n' "$GARDEN"
-    } | "$HERE/message-user.sh" "scheduler-preflight-deploy-lag-$sname" >/dev/null 2>&1 || true
+    escmsg="$(printf 'Scheduler preflight gate for schedule "%s" is a DEPLOY-LAG symptom, not a typo.\n\n%s\n%s\n\n%s\n' \
+      "$sname" \
+      "The gate script \"$rel\" exists on origin/$GARDEN_MAIN_BRANCH but is ABSENT from this host's" \
+      "deployed root (deployed $dep, behind by $ahead commit(s)). The schedule is failing open and re-dispatching every cadence until this host is deployed." \
+      "Fix: scripts/jobs/deploy-garden.sh on $GARDEN. One-time signal per breakage.")"
+  else
+    escmsg="$(printf 'Scheduler preflight gate for schedule "%s" is NOT FOUND / not executable.\n\nConfigured preflight: %s\nResolved to:          %s\n(relative paths resolve under %s/ unless absolute.)\n\n%s\n' \
+      "$sname" "$pfcfg" "$pfpath" "$HERE" \
+      "The gate is failing open, so every cadence re-dispatches this schedule with the preflight fully bypassed — most likely a preflight script that was never landed, or a typo in the schedule's \"preflight:\" path. Please land the missing gate or correct the path so the schedule stops burning dispatches. One-time signal per breakage (it re-arms only after the gate is found again).")"
   fi
+
+  # ONE deduped escalation, keyed on the schedule name. alert_maintainer swallows
+  # its own delivery errors, so a failed page never aborts the scheduler tick.
+  alert_maintainer "scheduler-preflight-missing-$sname" "$escmsg"
 
   mkdir -p "$(dirname "$marker")" 2>/dev/null || true
   printf '%s\n' "$pfpath" > "$marker" 2>/dev/null || true
@@ -225,14 +213,6 @@ for name in $(list_jobs "$DIR" schedules); do
 
     body="$(sed '1,/^---$/d' "$DIR/schedules/$name")"
 
-    # Consecutive not-found streak, read fresh each attempt so a lost CAS race
-    # recomputes off the freshest board state. Defaults to 0 and stays 0 for a
-    # gate that is present (whether it says work-present, no-work, or errors).
-    missing_streak="$(sed -n 's/^preflight_missing_streak:[[:space:]]*//p' "$DIR/schedules/$name" | head -1)"
-    missing_streak="${missing_streak:-0}"
-    new_streak="$missing_streak"
-    escalate_now=0
-
     # Optional deterministic preflight gate (designs/job-board.md; skills/schedule).
     # A `preflight:` script proves in plain code whether this schedule has any work,
     # moving the idle/active decision off the dispatched agent. Resolved relative to
@@ -246,27 +226,25 @@ for name in $(list_jobs "$DIR" schedules); do
     #                            the schedule.
     # A gate that is NOT FOUND / not executable also fails open (work-present), but
     # is DISTINGUISHED from a gate that runs and errors: a missing gate persists
-    # every cadence and silently burns an expensive dispatch, so we count the
-    # consecutive not-found ticks and, past the threshold, escalate once to the
-    # maintainer inbox. A gate that is merely erroring is transient and resets the
-    # streak (it exists, so a deploy-lag/typo is not the cause).
+    # every cadence and silently burns an expensive dispatch, so on the FIRST tick
+    # of a breakage note_missing_preflight escalates ONCE to the maintainer inbox
+    # (deduped on the schedule name) so the config gap is surfaced and fixed. A
+    # gate that is merely erroring is transient — it exists, so a deploy-lag/typo
+    # is not the cause and no escalation fires.
     if [ -n "$preflight" ]; then
       pf="$preflight"; case "$pf" in /*) :;; *) pf="$HERE/$pf";; esac
       pf_rc=0
       if [ -x "$pf" ]; then
-        new_streak=0   # gate present → not a not-found tick, clear any streak
-        clear_missing_preflight "$name"   # re-arm the one-shot WARN + deploy-lag diagnosis
+        clear_missing_preflight "$name"   # re-arm the one-shot WARN + escalation
         if "$pf" "$name"; then pf_rc=0; else pf_rc=$?; fi
       else
-        new_streak=$(( missing_streak + 1 ))
-        # WARN ONCE per breakage (not every tick) and, on the first tick, diagnose
-        # a deploy-lag cause once. Idempotent across CAS retries via its marker.
+        # WARN ONCE per breakage (not every tick) and escalate ONCE on the first
+        # tick. Idempotent across CAS retries and cadences via its marker.
         note_missing_preflight "$name" "$preflight" "$pf"
-        [ "$new_streak" -eq "$PREFLIGHT_MISSING_ESCALATE_THRESHOLD" ] && escalate_now=1
       fi
       if [ "$pf_rc" -eq 2 ]; then
         # No work: advance the clock so the cadence keeps marching, post nothing.
-        write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$body" "$new_streak"
+        write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$body"
         git -C "$DIR" add "schedules/$name"
         if commit_and_push "$DIR" "schedule($name) preflight gated: no work; advanced clock"; then
           log "preflight gated: no work for $name; advanced clock, posted nothing"; break
@@ -278,15 +256,11 @@ for name in $(list_jobs "$DIR" schedules); do
 
     mkdir -p "$DIR/$JOBS_TODO"
     printf '%s\n' "$body" > "$DIR/$JOBS_TODO/$base.md"
-    # stamp last_dispatched in the same commit (preserving preflight: + streak)
-    write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$body" "$new_streak"
+    # stamp last_dispatched in the same commit (preserving preflight:)
+    write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$body"
     git -C "$DIR" add "$JOBS_TODO/$base.md" "schedules/$name"
     if commit_and_push "$DIR" "schedule($name) dispatched $base"; then
       log "dispatched $base from schedule $name"; dispatched=$((dispatched+1))
-      # Escalate only after the streak-bearing commit lands, so a lost CAS race
-      # never double-escalates; equality with the threshold fires exactly once.
-      [ "$escalate_now" -eq 1 ] && { escalate_missing_preflight "$name" "$preflight" "$new_streak" \
-        || log "WARN could not escalate missing preflight for $name"; }
       break
     fi
     backoff "$attempt"
