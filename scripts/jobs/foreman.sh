@@ -1,40 +1,44 @@
 #!/bin/bash
-# foreman.sh — the work-in-progress pump: keep the gardener fleet supplied with
-# up to GARDEN_FOREMAN_WIP concurrent jobs of milestone work.
+# foreman.sh — the active-job pump: keep the gardener fleet supplied with a TARGET
+# number (GARDEN_FOREMAN_ACTIVE_TARGET, default 3) of concurrently-progressing
+# jobs of milestone work.
 #
 # Usage: foreman.sh
 #
 # A timer-driven oneshot. It monitors the job board and, whenever the board is
-# BELOW its work-in-progress target (fewer than GARDEN_FOREMAN_WIP jobs in flight)
-# and has stayed below it past a settle window, wears the FOREMAN role (via
-# `claude -p`) to determine the current in-progress milestone and post ONE job for
-# its next most important unblocked step — topping the board up one job per settle
-# window until the WIP target is reached. This is the v2, capacity-triggered,
-# milestone-aware evolution of the retired general-contractor's slot-refill and
-# the v1 design-poller. Part of the garden's autonomous posture: SILENT until an
-# error; only the foreman's own failures surface.
+# UNDER-SUBSCRIBED (fewer than GARDEN_FOREMAN_ACTIVE_TARGET jobs in flight) and has
+# stayed below it past a settle window, fills the open slots: first by batch-
+# promoting cheap pre-approved deferred plan jobs (up to TARGET - in-flight in one
+# tick), then, only if no deferred plan is queued, by wearing the FOREMAN role (via
+# `claude -p`) to post ONE job for the milestone's next unblocked step. Generated
+# steps are paced one per settle window; pre-approved deferred jobs fill in a
+# single tick. This is the v2, capacity-triggered, milestone-aware evolution of the
+# retired general-contractor's slot-refill and the v1 design-poller. Part of the
+# garden's autonomous posture: SILENT until an error; only the foreman's own
+# failures surface.
 #
 # Each tick:
 #   1. draining check; sync a dedicated journal clone.
 #   2. CAPACITY DETECTION. In-flight work is jobs/todo/ + jobs/doin/ (queued plus
-#      being worked). The board has CAPACITY whenever that count is below
-#      GARDEN_FOREMAN_WIP (default 1 — the historical fully-idle-pump behavior). At
-#      or above the target the board is AT CAPACITY: nothing is pumped. The proxy
-#      posts follow-on jobs from completions, so the board's in-flight count
-#      reflects the milestone's live work chain.
-#   3. DEBOUNCE. Act only on SUSTAINED capacity. The first below-target tick
-#      records a since marker; a pump fires only once the board has stayed below
-#      target for at least GARDEN_FOREMAN_IDLE_SETTLE seconds (so a brief dip
+#      being worked). The board is UNDER-SUBSCRIBED whenever that count is below
+#      GARDEN_FOREMAN_ACTIVE_TARGET (default 3). At or above the target the board is
+#      FULLY SUBSCRIBED: nothing is pumped. The proxy posts follow-on jobs from
+#      completions, so the board's in-flight count reflects the milestone's live
+#      work chain.
+#   3. DEBOUNCE. Act only on SUSTAINED under-subscription. The first below-target
+#      tick records a since marker; a pump fires only once the board has stayed
+#      below target for at least GARDEN_FOREMAN_IDLE_SETTLE seconds (so a brief dip
 #      between a completion and a follow-on post does not trigger a premature
-#      pump). Reaching the WIP target clears the marker.
-#   4. On sustained capacity, FIRST prefer promoting the top deferred plan job
-#      (jobs/plan/, gate=deferred) by priority/urgency — pre-approved, queued work
-#      that costs no `claude -p` call. Only if none exists, hand a small digest
-#      (project, board state, last step posted) to the handler (the foreman role)
-#      and post the one job it returns. go-ahead plan jobs are never auto-promoted.
+#      pump). Reaching the target clears the marker.
+#   4. On sustained under-subscription, FIRST batch-promote the top deferred plan
+#      jobs (jobs/plan/, gate=deferred) by priority/urgency — up to TARGET minus
+#      in-flight this tick — pre-approved, queued work that costs no `claude -p`
+#      call. Only if NONE is queued, hand a small digest (project, board state,
+#      last step posted) to the handler (the foreman role) and post the one job it
+#      returns. go-ahead and blocked plan jobs are never auto-promoted.
 #   5. COST GATE: the handler (and its `claude -p`) runs ONLY on sustained
-#      below-target capacity, never while the board is at the WIP target or still
-#      within the settle window.
+#      under-subscription, never while the board is at the target or still within
+#      the settle window.
 #   6. ANTI-FLAP: the last step posted is recorded; if the handler proposes the
 #      identical step again (the board redrained without milestone progress) the
 #      foreman does NOT blindly re-post it. It surfaces the repeat as a one-line
@@ -58,14 +62,17 @@ GARDEN_TAG="foreman"
 # Seconds of sustained below-target capacity before a pump. ~a few minutes; tune
 # via env.
 : "${GARDEN_FOREMAN_IDLE_SETTLE:=240}"
-# Work-in-progress target: how many concurrent jobs (jobs/todo/ + jobs/doin/) the
-# foreman keeps the board topped up to. The pump fires only while in-flight work
-# is BELOW this number, and posts ONE job per settle window, so the board climbs
-# toward the target one step at a time. Default 1 preserves the historical
-# fully-idle-pump behavior (pump only when the board is empty); the fleet default
-# is raised to 3 in the garden-foreman systemd unit per the maintainer's
-# authorization (kriskowal/garden#23).
-: "${GARDEN_FOREMAN_WIP:=1}"
+# Active-job TARGET: how many concurrent jobs (jobs/todo/ + jobs/doin/) the foreman
+# keeps actively progressing. The pump fires while in-flight work is BELOW this
+# number (the board is UNDER-SUBSCRIBED) and has stayed below it past the settle
+# window — not only when the board is fully idle. On a sustained-under tick it
+# fills the open slots up to the target: it batch-promotes cheap pre-approved
+# deferred plan jobs (up to TARGET - in-flight in ONE tick), and falls through to
+# generating ONE new milestone step via the handler only when no deferred plan is
+# queued. Default 3 keeps ~3 jobs in flight (kriskowal, 2026-07-03).
+# GARDEN_FOREMAN_WIP is the deprecated former name for this knob, still honored as
+# an alias so an env/unit that sets it keeps working.
+: "${GARDEN_FOREMAN_ACTIVE_TARGET:=${GARDEN_FOREMAN_WIP:-3}}"
 : "${GARDEN_FOREMAN_PROJECT:=endo-but-for-bots}"
 
 # Token-quota back-off knobs (defaults declared in usage-meter.sh; restated here so
@@ -109,15 +116,15 @@ note_once() {
 
 # --- capacity detection ------------------------------------------------------
 # In-flight work is the queued (todo) plus being-worked (doin) count. The board
-# has capacity to pump while that total is below the WIP target; at or above it
-# the board is at capacity and nothing is pumped this tick.
+# has capacity to pump while that total is below the active-job target; at or
+# above it the board is fully subscribed and nothing is pumped this tick.
 todo_n="$(list_jobs "$DIR" jobs/todo | grep -c . || true)"
 doin_n="$(list_jobs "$DIR" jobs/doin | grep -c . || true)"
 inflight=$(( todo_n + doin_n ))
 
-if [ "$inflight" -ge "$GARDEN_FOREMAN_WIP" ]; then
-  # Board at (or over) the WIP target: clear the settle clock, run no handler,
-  # stay silent.
+if [ "$inflight" -ge "$GARDEN_FOREMAN_ACTIVE_TARGET" ]; then
+  # Board at (or over) the active-job target: clear the settle clock, run no
+  # handler, stay silent.
   rm -f "$IDLE_SINCE"
   exit 0
 fi
@@ -135,7 +142,7 @@ if [ "$elapsed" -lt "$GARDEN_FOREMAN_IDLE_SETTLE" ]; then
 fi
 
 # --- token-quota back-off (deterministic; gates BOTH pump paths) --------------
-# The board is below the WIP target and past the settle window, so this tick WOULD pump — either
+# The board is below the active-job target and past the settle window, so this tick WOULD pump — either
 # by promoting a deferred plan job or by generating a new step via `claude -p`.
 # Both ignite spend, so check the weekly token meter (plain code, no LLM) FIRST.
 # At/over the high-water mark, pump nothing this tick; surface a single throttled
@@ -154,25 +161,44 @@ case "$(meter_quota_status)" in
   off|ok) : ;;   # no quota configured, or under the mark — pump as normal
 esac
 
-# --- sustained below-target: prefer promoting a deferred plan job ------------
-# Before generating a NEW step (a `claude -p` call), prefer promoting the top
-# already-parked deferred plan job: it is pre-approved work picked by priority, so
-# it both honors the maintainer's queue and SAVES the handler's cost. go-ahead
-# plan jobs are excluded by plan_deferred_ranked (those need maintainer
-# authorization, never auto-selection). Promotion raises the in-flight count, so
-# the settle clock clears once the board reaches the WIP target — exactly like a
-# normal post.
-top_deferred="$(plan_deferred_ranked "$DIR" | head -1)"
-if [ -n "$top_deferred" ]; then
+# --- sustained below-target: fill the open slots from deferred plan jobs ------
+# Before generating a NEW step (a `claude -p` call), fill the open slots with
+# already-parked deferred plan jobs: they are pre-approved work picked by
+# priority, so promoting them both honors the maintainer's queue and SAVES the
+# handler's cost. go-ahead plan jobs are excluded by plan_deferred_ranked (those
+# need maintainer authorization, never auto-selection); blocked plan jobs are
+# likewise excluded (they wait for the unblock watcher on their blocker).
+#
+# Batch, not one-per-tick: we promote up to (TARGET - in-flight) deferred jobs in
+# THIS tick, so a board that is under-subscribed by more than one comes up to the
+# target within a single settle window rather than one window per slot. This is
+# safe for the settle-window semantics because a deferred promotion is a cheap,
+# pre-approved move (no `claude -p`); the settle window still gates the FIRST
+# promotion (we only get here on sustained under-subscription), and only the
+# handler path below — which mints genuinely NEW work — stays paced at one step
+# per tick. Each promotion raises the in-flight count, so once the board reaches
+# the target the next tick clears the settle clock — exactly like a normal post.
+slots=$(( GARDEN_FOREMAN_ACTIVE_TARGET - inflight ))
+promoted=0
+while [ "$promoted" -lt "$slots" ]; do
+  top_deferred="$(plan_deferred_ranked "$DIR" | head -1)"
+  [ -n "$top_deferred" ] || break   # no more deferred plan jobs queued this tick
   if "$HERE/promote-plan.sh" "$top_deferred" >/dev/null 2>&1; then
+    promoted=$(( promoted + 1 ))
     printf '%s\n' "$top_deferred" > "$LAST_STEP"
-    : > "$NOTED"   # forward progress clears the maintainer-note dedupe
-    log "promoted top deferred plan job '$top_deferred' (preferred over generating a new step)"
-    printf '%s\n' "$NOW" > "$IDLE_SINCE"
-    exit 0
+    log "promoted deferred plan job '$top_deferred' ($promoted/$slots toward active-job target $GARDEN_FOREMAN_ACTIVE_TARGET)"
+    sync_clone "$DIR"   # reflect the promotion so the next pick sees it gone from plan/
+  else
+    log "failed to promote deferred plan job '$top_deferred'; stopping deferred promotion this tick"
+    break
   fi
-  log "failed to promote deferred plan job '$top_deferred'; falling through to handler"
+done
+if [ "$promoted" -gt 0 ]; then
+  : > "$NOTED"   # forward progress clears the maintainer-note dedupe
+  printf '%s\n' "$NOW" > "$IDLE_SINCE"
+  exit 0
 fi
+# No deferred plan job was available; fall through to generate one new step.
 
 # --- sustained below-target: pump the next milestone step --------------------
 last_step="$(cat "$LAST_STEP" 2>/dev/null || true)"
@@ -180,7 +206,7 @@ last_step="$(cat "$LAST_STEP" 2>/dev/null || true)"
 digest="$(mktemp "${TMPDIR:-/tmp}/garden-foreman.XXXXXX")"
 {
   printf 'project: %s\n'           "$GARDEN_FOREMAN_PROJECT"
-  printf 'board: below WIP target %s (todo=%s doin=%s, in-flight=%s); sustained for %ss\n' "$GARDEN_FOREMAN_WIP" "$todo_n" "$doin_n" "$inflight" "$elapsed"
+  printf 'board: below active-job target %s (todo=%s doin=%s, in-flight=%s); sustained for %ss\n' "$GARDEN_FOREMAN_ACTIVE_TARGET" "$todo_n" "$doin_n" "$inflight" "$elapsed"
   printf 'last_step_posted: %s\n'  "${last_step:-(none)}"
 } > "$digest"
 
@@ -234,7 +260,7 @@ esac
 
 # Reset the settle clock so the next pump is a fresh sustained-below-target window
 # away. After a real JOB post the in-flight count rises by one; if that reached the
-# WIP target the marker is cleared on the next at-capacity tick, otherwise this
+# active-job target the marker is cleared on the next at-capacity tick, otherwise this
 # fresh clock paces the next top-up step. Also matters for the maintainer-note and
 # no-op paths, where the board is still below target.
 printf '%s\n' "$NOW" > "$IDLE_SINCE"

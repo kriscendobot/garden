@@ -985,9 +985,14 @@ fcount() {  # fcount <subdir>  → non-gitkeep entries in a fresh clone of the f
   n=$(ls -1 "$v/$1" 2>/dev/null | grep -vxc '.gitkeep' || true); rm -rf "$v"; printf '%s' "$n"
 }
 run_fm() {  # run_fm <now-epoch>
+  # Pin the active-job target to 1 so this subtest exercises the single-slot
+  # (pump-only-when-fully-idle) configuration: busy-board cost gate, settle
+  # window, and anti-flap. The fill-to-target batch behavior is covered by
+  # SUBTEST 14d with the default target of 3.
   : > "$FCALLS"
   env JOURNAL_REMOTE="$FBARE" GARDEN_FOREMAN_HANDLER="$HERE/foreman-stub.sh" \
       GARDEN_FOREMAN_STUB_CALLS="$FCALLS" GARDEN_FOREMAN_NOW="$1" GARDEN_FOREMAN_IDLE_SETTLE=240 \
+      GARDEN_FOREMAN_ACTIVE_TARGET=1 \
       "$JOBS/foreman.sh" >/dev/null 2>&1
 }
 
@@ -1024,11 +1029,15 @@ run_fm 2600     # 300s ≥ 240 → pump; stub proposes the same base as last pos
   || bad "anti-flap (todo=$(fcount jobs/todo) maint=$(fcount inbox/maintainer/unread))"
 
 # ============================================================================
-hr; echo "SUBTEST 14a — FOREMAN WIP TARGET: top the board up to GARDEN_FOREMAN_WIP=3, then stop"; hr
-# With a WIP target of 3, the foreman pumps ONE step per settle window while the
-# board is BELOW target, climbing 0→1→2→3, then goes quiet once at capacity. Uses
-# a counting stub so successive pumps propose DISTINCT bases (anti-flap only holds
-# on a repeat of the last base). Fresh GARDEN_STATE so the settle clock is clean.
+hr; echo "SUBTEST 14a — FOREMAN GENERATED-STEP PACING: top up to a target of 3 via the handler (deprecated GARDEN_FOREMAN_WIP alias)"; hr
+# With a target of 3 and NO deferred plan jobs queued, the foreman generates one
+# new step per settle window via the handler, climbing 0→1→2→3, then goes quiet
+# once at capacity. This proves the handler (claude -p) path stays paced at ONE
+# per tick even when several slots are open. Uses a counting stub so successive
+# pumps propose DISTINCT bases (anti-flap only holds on a repeat of the last
+# base). Sets the target via GARDEN_FOREMAN_WIP so this also covers the deprecated
+# alias resolving to GARDEN_FOREMAN_ACTIVE_TARGET. Fresh GARDEN_STATE so the settle
+# clock is clean.
 fboard @CLEAR
 FWSTATE="$TR/state-fm-wip"; rm -rf "$FWSTATE"
 FWCOUNTER="$TR/fm-wip-counter"; rm -f "$FWCOUNTER"
@@ -1187,6 +1196,70 @@ ST_BO="$( cd "$JOBS"; GARDEN_STATE="$TR/sm4" GARDEN=meterhost GARDEN_CCUSAGE_LOG
   GARDEN_USAGE_NOW=10000 GARDEN_TOKEN_WINDOW_SECS=1000 GARDEN_TOKEN_WEEKLY_QUOTA=300 \
   GARDEN_USAGE_LEDGER="$TR/sm4-noledger" bash -c 'source ./common.sh; meter_quota_status' 2>/dev/null )"
 [ "$ST_BO" = "backoff" ] && ok "quota status: at/over high-water (315 ≥ 0.85·300) → backoff" || bad "quota status backoff wrong (got '$ST_BO')"
+
+# ============================================================================
+hr; echo "SUBTEST 14d — FOREMAN FILL-TO-TARGET: batch-promote deferred plans up to GARDEN_FOREMAN_ACTIVE_TARGET=3, then stop"; hr
+# The core of kriskowal/garden#… (2026-07-03): the foreman keeps ~3 jobs ACTIVELY
+# progressing, not just refilling a fully-idle board. With a target of 3 and ONE
+# job already in doin/, a sustained under-subscribed tick batch-promotes the top
+# TWO deferred plan jobs (2 = target 3 − in-flight 1) in a SINGLE tick, by
+# priority, and STOPS at the target. go-ahead and blocked plan jobs are never
+# touched. Dedicated bare so the board is fully controllable; the default target
+# of 3 is used (no GARDEN_FOREMAN_ACTIVE_TARGET override) to prove the new default.
+DFBARE="$TR/deferfill.git"; git init -q --bare "$DFBARE"
+DFSEED="$TR/deferfill-seed"; git init -q "$DFSEED"; git -C "$DFSEED" checkout -q -b "$BRANCH"
+( cd "$DFSEED"
+  mkdir -p jobs/todo jobs/doin jobs/tada jobs/plan inbox/maintainer/unread inbox/maintainer/read entries
+  for d in jobs/todo jobs/doin jobs/tada jobs/plan inbox/maintainer/unread inbox/maintainer/read entries; do touch "$d/.gitkeep"; done
+  # One job already in flight (doin/): the board is under-subscribed by 2, not idle.
+  printf '# already-running\nan in-flight job.\n' > jobs/doin/already-running.md )
+git -C "$DFSEED" add -A; git -C "$DFSEED" "${git_id[@]}" commit -q -m "seed defer-fill board (1 in doin)"
+git -C "$DFSEED" remote add origin "$DFBARE"; git -C "$DFSEED" push -q -u origin "$BRANCH"
+
+export GARDEN_STATE="$TR/state-deferfill" GARDEN=dffill
+DFCALLS="$TR/deferfill-calls"; : > "$DFCALLS"
+dfcount() { local v n; v="$(mktemp -d "$TR/dfv.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$DFBARE" "$v" 2>/dev/null; n=$(ls -1 "$v/$1" 2>/dev/null | grep -vxc '.gitkeep' || true); rm -rf "$v"; printf '%s' "$n"; }
+dfhas()   { local v r; v="$(mktemp -d "$TR/dfh.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$DFBARE" "$v" 2>/dev/null; [ -e "$v/$1" ]; r=$?; rm -rf "$v"; return $r; }
+run_dffm() {  # run_dffm <now-epoch>  — DEFAULT target (3), so no override is set
+  : > "$DFCALLS"
+  env JOURNAL_REMOTE="$DFBARE" GARDEN_FOREMAN_HANDLER="$HERE/foreman-stub.sh" \
+      GARDEN_FOREMAN_STUB_CALLS="$DFCALLS" GARDEN_FOREMAN_NOW="$1" GARDEN_FOREMAN_IDLE_SETTLE=240 \
+      "$JOBS/foreman.sh" >/dev/null 2>&1
+}
+# Four deferred plans (distinct priorities → deterministic promotion order), one
+# go-ahead, one blocked. Top two by priority are urgent then high.
+echo 'urgent body' | env JOURNAL_REMOTE="$DFBARE" "$JOBS/post-plan.sh" --deferred --priority urgent df-urgent >/dev/null 2>&1
+echo 'high body'   | env JOURNAL_REMOTE="$DFBARE" "$JOBS/post-plan.sh" --deferred --priority high   df-high   >/dev/null 2>&1
+echo 'normal body' | env JOURNAL_REMOTE="$DFBARE" "$JOBS/post-plan.sh" --deferred --priority normal df-normal >/dev/null 2>&1
+echo 'low body'    | env JOURNAL_REMOTE="$DFBARE" "$JOBS/post-plan.sh" --deferred --priority low    df-low    >/dev/null 2>&1
+echo 'authz body'  | env JOURNAL_REMOTE="$DFBARE" "$JOBS/post-plan.sh" --go-ahead                    df-authz  >/dev/null 2>&1
+echo 'blocked body'| env JOURNAL_REMOTE="$DFBARE" "$JOBS/post-plan.sh" --blocked --blocked-on some-pr df-blocked >/dev/null 2>&1
+
+# below target (in-flight 1 < 3): first observation starts the settle clock, no pump.
+run_dffm 5000
+{ [ ! -s "$DFCALLS" ] && [ "$(dfcount jobs/todo)" -eq 0 ] && [ "$(dfcount jobs/doin)" -eq 1 ]; } \
+  && ok "fill-to-target: first below-target tick starts the clock, no pump" \
+  || bad "fill first-seen pumped early (calls=$(wc -l <"$DFCALLS") todo=$(dfcount jobs/todo))"
+# sustained past the settle window: batch-promote 2 (to reach target 3), NO handler call.
+run_dffm 5300
+{ [ ! -s "$DFCALLS" ] && [ "$(dfcount jobs/todo)" -eq 2 ] && [ "$(dfcount jobs/doin)" -eq 1 ]; } \
+  && ok "fill-to-target: batch-promoted exactly 2 deferred plans in one tick (in-flight 1 → target 3), no claude call" \
+  || bad "fill batch wrong (calls=$(wc -l <"$DFCALLS") todo=$(dfcount jobs/todo) doin=$(dfcount jobs/doin))"
+{ dfhas jobs/todo/df-urgent.md && dfhas jobs/todo/df-high.md; } \
+  && ok "fill-to-target: the two promoted are the TOP-priority deferred jobs (urgent, high)" \
+  || bad "fill promoted the wrong jobs (todo=$(dfcount jobs/todo))"
+{ dfhas jobs/plan/df-normal.md && dfhas jobs/plan/df-low.md; } \
+  && ok "fill-to-target: lower-priority deferred jobs (normal, low) stay parked below the target" \
+  || bad "fill over-promoted lower-priority deferred (normal parked=$(dfhas jobs/plan/df-normal.md && echo y||echo n) low parked=$(dfhas jobs/plan/df-low.md && echo y||echo n))"
+{ dfhas jobs/plan/df-authz.md && dfhas jobs/plan/df-blocked.md; } \
+  && ok "fill-to-target: go-ahead and blocked plan jobs are NEVER auto-promoted" \
+  || bad "fill touched a go-ahead/blocked job (authz parked=$(dfhas jobs/plan/df-authz.md && echo y||echo n) blocked parked=$(dfhas jobs/plan/df-blocked.md && echo y||echo n))"
+# now AT the target (in-flight 3): a further sustained tick promotes 0, no handler call.
+run_dffm 5600
+{ [ ! -s "$DFCALLS" ] && [ "$(dfcount jobs/todo)" -eq 2 ] && [ "$(dfcount jobs/doin)" -eq 1 ]; } \
+  && ok "fill-to-target: at the target the foreman promotes 0 and runs no handler (no over-subscription)" \
+  || bad "fill over-promoted past target (calls=$(wc -l <"$DFCALLS") todo=$(dfcount jobs/todo))"
+unset JOURNAL_REMOTE
 
 # ============================================================================
 hr; echo "SUBTEST 15 — PROXY: stand in for the absent maintainer on gating questions"; hr
@@ -1631,9 +1704,14 @@ PFCALLS="$TR/plan-fm-calls"; : > "$PFCALLS"
 pfcount() { local v n; v="$(mktemp -d "$TR/pfv.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$PFBARE" "$v" 2>/dev/null; n=$(ls -1 "$v/$1" 2>/dev/null | grep -vxc '.gitkeep' || true); rm -rf "$v"; printf '%s' "$n"; }
 pfhas()   { local v r; v="$(mktemp -d "$TR/pfh.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$PFBARE" "$v" 2>/dev/null; [ -e "$v/$1" ]; r=$?; rm -rf "$v"; return $r; }
 run_plfm() {  # run_plfm <now-epoch>
+  # Pin the target to 1 so this case asserts the ORDERING invariant in isolation:
+  # a single slot promotes exactly the top-priority deferred job and leaves the
+  # rest — the lower-priority deferred AND the go-ahead — parked. Filling MORE
+  # than one open slot in a tick is covered by SUBTEST 14d.
   : > "$PFCALLS"
   env JOURNAL_REMOTE="$PFBARE" GARDEN_FOREMAN_HANDLER="$HERE/foreman-stub.sh" \
       GARDEN_FOREMAN_STUB_CALLS="$PFCALLS" GARDEN_FOREMAN_NOW="$1" GARDEN_FOREMAN_IDLE_SETTLE=240 \
+      GARDEN_FOREMAN_ACTIVE_TARGET=1 \
       "$JOBS/foreman.sh" >/dev/null 2>&1
 }
 run_plfm 1000   # idle (todo=0 doin=0): first idle observation, start the settle clock

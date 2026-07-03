@@ -1,5 +1,5 @@
 [Unit]
-Description=Garden foreman (keep the board topped up to the work-in-progress target)
+Description=Garden foreman (keep the board topped up to the active-job target)
 
 [Service]
 Type=oneshot
@@ -9,13 +9,15 @@ Type=oneshot
 # doesn't mark a SIGTERM stop as Failed.
 SuccessExitStatus=143 130 SIGTERM SIGINT
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
-# --- work-in-progress target --------------------------------------------------
-# The foreman keeps the board topped up to this many concurrent jobs
-# (jobs/todo/ + jobs/doin/), pumping one step per settle window while below it.
-# Raised from the script default of 1 to 3 per the maintainer's authorization on
-# kriskowal/garden#23 ("activate the foreman and authorize loading up the work in
-# progress to three active concurrent jobs"). Tune here or via a drop-in.
-Environment=GARDEN_FOREMAN_WIP=3
+# --- active-job target --------------------------------------------------------
+# The foreman keeps this many concurrent jobs (jobs/todo/ + jobs/doin/) actively
+# progressing, filling the open slots while the board is under-subscribed. The
+# script default is now 3 (kriskowal, 2026-07-03: keep ~3 jobs actively
+# progressing, not just refill when the board is fully idle), so this line is
+# redundant with the default but pins the intended value explicitly. Tune here or
+# via a drop-in. (GARDEN_FOREMAN_WIP is the deprecated former name, still honored
+# as an alias.)
+Environment=GARDEN_FOREMAN_ACTIVE_TARGET=3
 # --- weekly token meter / back-off gate (Claude Max x20 subscription) ---------
 # The foreman is the garden's autonomous token pump, so it gates on a deterministic
 # weekly token meter sourced from Claude Code's OWN session logs
