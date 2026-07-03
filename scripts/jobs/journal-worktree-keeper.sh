@@ -261,6 +261,11 @@ jw_repair_gitdir() {  # jw_repair_gitdir <jw>
   else
     log "WARN: journal worktree gitdir on $jw is broken and 'git worktree repair' did not fix it"
   fi
+  # Drop the stale admin registrations (e.g. abandoned garden2/* entries) a root
+  # relocation leaves behind, whether or not the repair above succeeded, so they
+  # stop accumulating. Best-effort — prune only ever removes entries whose working
+  # tree is gone, so a live worktree is never touched.
+  git -C "$GARDEN_ROOT" worktree prune >/dev/null 2>&1 || true
 }
 
 # Fetch + reconcile the journal worktree. Every failure path logs and returns 0

@@ -671,18 +671,28 @@ journal_remote() {
   # gitdir back-pointer.
   ensure_journal_worktree_linked "$jw" || true
   local url
-  if url="$(git -C "$jw" config --get remote.origin.url 2>/dev/null)"; then
+  if url="$(git -C "$jw" config --get remote.origin.url 2>/dev/null)" && [ -n "$url" ]; then
     printf '%s\n' "$url"; return
   fi
-  # Still failing after the repair attempt. Distinguish a BROKEN worktree (git
-  # can't open the repo — name the dangling gitdir target so the fix is obvious)
-  # from a genuinely MISSING origin (repo opens fine, just no remote configured).
+  # The journal worktree still won't yield an origin — the repair above could not
+  # re-link a dangling gitdir (its admin dir is gone, not just mis-pointed), or
+  # origin genuinely is unset there. journal2 and main2 live in the SAME
+  # repo/remote, so fall back to the main2 checkout's origin — the root shares the
+  # same origin URL. This keeps a dangling/unreadable journal worktree from
+  # killing EVERY service that resolves the remote even when repair cannot fix it,
+  # complementary to the preflight self-heal above.
+  if url="$(git -C "$GARDEN_ROOT" config --get remote.origin.url 2>/dev/null)" && [ -n "$url" ]; then
+    printf '%s\n' "$url"; return
+  fi
+  # Nothing resolved on either checkout. Distinguish a BROKEN worktree (git can't
+  # open the repo — name the dangling gitdir target so the fix is obvious) from a
+  # genuinely MISSING origin (repos open fine, just no remote configured).
   if ! git -C "$jw" rev-parse --git-dir >/dev/null 2>&1; then
     local target=""
     [ -f "$jw/.git" ] && target="$(sed -n 's/^gitdir: *//p' "$jw/.git" 2>/dev/null | head -1)"
-    die "broken journal worktree at $jw: gitdir link ${target:+points at ${target} which }is unresolvable — run 'git -C $GARDEN_ROOT worktree repair'"
+    die "broken journal worktree at $jw: gitdir link ${target:+points at ${target} which }is unresolvable, and $GARDEN_ROOT has no origin either — run 'git -C $GARDEN_ROOT worktree repair'"
   fi
-  die "no JOURNAL_REMOTE set and no origin on $jw"
+  die "no JOURNAL_REMOTE set and no origin on $jw or $GARDEN_ROOT"
 }
 
 # --- per-clone serialization (the shared-clone race fix) ---------------------
