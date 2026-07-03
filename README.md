@@ -1,18 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-03T01:35:40Z_
+_As of 2026-07-03T01:38:43Z_
 
 ## Latest
 
-The [xs2rust-endor](https://github.com/endojs/endo-but-for-bots/pull/600) port cleared stage 2b child 1/3 — the allocation-faithful heap — and PR #600 is being pressed toward Endor integration and green daemon tests; that was the only board transition this cycle.
-
-Three items need the maintainer's eyes. **Operationally urgent:** a gardener flagged a live host-identity drift — `/home/kris/.garden` reads `endolinbot2` while `hostname -s`, the `leader` marker, and `is-main-host.sh` all say `endolinbot`, so the true leader host resolves as a follower and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped; the fix is a one-line correction to `.garden` (or re-pointing the leader marker) plus a fleet restart, and it was the compounding factor behind five poisoned garden-infra jobs during the recent Claude quota outage.
-
-**Two disposition calls:** [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) (error tracing) is subsumed — its entire feature already re-landed on `llm` via the merged #58, so a rebase collapses to an empty PR; the gardener recommends closing it as superseded, optionally salvaging two small refactors (`error-id.js`, `trace-constants.js`) as a fresh PR. And on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) (freezable-TypedArray design), @gibson042 rebutted all three "why not a Proxy wrapper" arguments and explicitly asked you and @erights to weigh in on whether the emulated view should throw on canonical-index writes.
+The XS→Rust ([Endor](https://github.com/endojs/endo-but-for-bots/pull/600), PR #600) port advanced: stage 2b's allocation-faithful object-heap child (1/3) completed, the closures/call-return-frames child (2/3) was claimed, and a press-driver tick logged no blockers. Three maintainer messages need your attention. Most urgent is a **live infrastructure incident**: the `endolinbot2` host-identity drift is still active on the true leader, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, maintainer-inbox) is being silently skipped — the fix is an operational one-liner on the deployed root (`echo endolinbot > /home/kris/.garden`, or re-point the marker to `endolinbot2`) plus a fleet restart. Separately, a shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is subsumed (its error-tracing feature already re-landed on `llm` via #58) and recommends closing it as superseded rather than rebasing to an empty PR. And [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) has a genuine design call awaiting you and @erights — gibson042 argues for a Proxy `set` trap that throws on canonical-index writes over the doc's plain-object wrapper.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 10h)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 11h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 3d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 6d)
@@ -139,13 +135,14 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (8)
 - [`deadmail-issue-comment-4869737552`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4869737552.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-4870104413`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4870104413.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-4870255317`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4870255317.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-4870486307`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4870486307.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-4871521636`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4871521636.md) — Dead-lettered message — pick up its intent
 - [`improve-atomic-deploy-tree-swap`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-atomic-deploy-tree-swap.md) — Harden scripts/jobs/deploy-garden.sh so advancing the root checkout never exp...
+- [`xs2rust-endor-build-stage2b-frames`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage2b-frames.md) — Builder: xs2rust-endor stage 2b (2/3) — closures, call/return frames, meter-c...
 - [`xs2rust-endor-press-20260703-004244`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-004244.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (980)
