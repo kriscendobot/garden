@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T06:14:27Z_
+_As of 2026-07-03T06:22:58Z_
 
 ## Latest
 
-The scholar finished ingesting the QuickJS native-SES corpus, the one job to complete since the last bulletin. Two builds remain in flight: the double-loop feedback-retrospective self-improvement mechanism and stage 3 (fundamentals — constructors, `Object`, functions) of the xs2rust-endor XS→Rust port. Recently landed alongside these: the design half of the feedback-retrospective loop merged to `main2`, and a review pass completed on [endojs/endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602). Nothing new is parked for maintainer feedback, though the review queue still holds 27 open PRs — oldest among the top ten being [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type `.ts` runtime modules, waiting 17 days).
+Three self-improvement infra jobs were claimed off the plan queue and are now in flight, all hardening the gardener fleet's own machinery: making `clone-keeper.sh` self-heal a tracked-but-missing clone rather than just logging a WARN, escalating the gardener's exit-0-unsatisfying wedge instead of swallowing it, and adding preflight validation to `set-schedule.sh` so a bad `preflight:` line is caught before it lands. No PRs moved on the maintainer's side — the parked queue is unchanged, with [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input) now the freshest at 15h and the long tail led by [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (17d) awaiting review.
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (5)
 - [`build-feedback-review-retrospective-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-feedback-review-retrospective-loop.md) — builder: implement the double-loop feedback-retrospective self-improvement me...
+- [`improve-clone-keeper-selfheal-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-selfheal-missing-clone.md) — scripts/jobs/clone-keeper.sh keep_clone() (line 78-81) logs WARN: tracked clo...
+- [`improve-exit0-unsatisfying-wedge-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-exit0-unsatisfying-wedge-escalation.md) — In scripts/jobs/gardener.sh the exit-0-unsatisfying branch (lines 337-355) re...
+- [`improve-scheduler-preflight-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scheduler-preflight-validation.md) — scripts/jobs/set-schedule.sh writes a preflight: frontmatter line without che...
 - [`xs2rust-endor-build-stage3-fundamentals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-fundamentals.md) — Builder: xs2rust-endor stage 3 (2/7) — fundamentals: constructors, Object, Fu...
 
 ### tada (1034)
