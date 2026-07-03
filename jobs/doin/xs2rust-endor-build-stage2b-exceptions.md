@@ -44,3 +44,9 @@ divergent, skipped-by-reason), fuzz totals, Miri run, scope folds/frictions. Com
 <!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 4
+  claimed_at: 2026-07-03T03:13:27Z
