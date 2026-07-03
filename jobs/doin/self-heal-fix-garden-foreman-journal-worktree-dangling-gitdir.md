@@ -12,3 +12,9 @@ Two-part fix:
 2. `scripts/jobs/journal-worktree-keeper.sh` — `keep_journal_worktree()`: replace the bare `WARN … skipping` at the `! git -C "$JW" rev-parse --git-dir` branch (lines 234-237) with a self-repair for the dangling-gitdir case, since the keeper is the component responsible for the shared worktree. When `$JW` exists but is not a valid repo: (a) `git -C "$GARDEN_ROOT" worktree prune` to drop the dead registration; (b) try `git -C "$GARDEN_ROOT" worktree repair "$JW"`; (c) if it's still invalid because the admin dir is gone, LOSSLESSLY back up any untracked/uncommitted content under `$JW` into `$GARDEN_JW_BACKUP_DIR/<host>-<ts>/` (reuse the existing backup discipline — the dangling gitdir means git can't classify dirtiness, so copy the tree wholesale), then remove `$JW` and `git -C "$GARDEN_ROOT" worktree add "$JW" "$JOURNAL_BRANCH"`. Gate the destructive path on the same no-active-writer probe (`jw_active_writer`) already in the file, and page the maintainer only if re-creation fails. Log the repair.
 
 Note for whoever lands this: a one-time manual repair is also needed now to un-wedge this host — `git -C /home/kris worktree prune` then back up + remove `/home/kris/journal` and `git -C /home/kris worktree add /home/kris/journal journal2` — but the durable fix is the two script changes above so this can never recur silently on any host after a deploy-layout move.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 10
+  claimed_at: 2026-07-03T16:24:45Z
