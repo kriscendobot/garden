@@ -1,1 +1,7 @@
 Make `scripts/jobs/set-schedule.sh` reject a dangling preflight at registration time so a schedule can never be armed with a preflight script that does not exist/executable. The `xs2rust-endor-press.md` schedule points at `gardening/xs2rust-endor-press-preflight.sh`, which is absent; the scheduler then logs `WARN ... preflight ... not found/executable ... treating as work-present` every tick and fails open, silently turning the deterministic no-work gate into a no-op that dispatches the press job every cadence. In `set-schedule.sh`, when `preflight` is non-empty (whether newly supplied via `GARDEN_SCHEDULE_PREFLIGHT` or preserved from the existing file), resolve it the same way the scheduler does (relative to `scripts/jobs/` unless absolute) and `die` with a clear message if the resolved path is not an executable file, before writing/pushing the schedule. Keep the scheduler's runtime fail-open (it's the correct safety valve for a script deleted after arming), but stop letting a typo'd/never-landed preflight get committed in the first place.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 10
+  claimed_at: 2026-07-03T08:52:16Z
