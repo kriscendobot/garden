@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T07:02:15Z_
+_As of 2026-07-03T07:08:25Z_
 
 ## Latest
 
-A dead-lettered message ([`deadmail-20260703T065941Z-a8c603`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T065941Z-a8c603.md)) was picked up for intent recovery — the only fresh board transition this cycle. Otherwise the active thread is the XS→Rust (Endor) port: stage 3 (fundamentals — constructors, `Object`, `Function`) is in progress, following a just-landed press check-in, while the scheduler hardening continues in two parts (a completed preflight-validation pass plus an in-flight `set-schedule.sh` preflight-validation improvement). Recent completions also cleared the exit-0 wedge-escalation and clone-keeper self-heal items. No new PRs entered or left the pipeline; the 27 parked PRs awaiting kriskowal's review are unchanged, the oldest being [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules via erasable type syntax, 17d) and [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (42d).
+Two internal completions landed since the last bulletin, both scheduler-side: `improve-set-schedule-validate-preflight` hardened `set-schedule.sh` with up-front validation/preflight checks, and a dead-lettered message (`deadmail-…a8c603`) was carried forward durably rather than lost. The only job still in flight is the Builder's `xs2rust-endor` stage 3 (fundamentals: constructors, `Object`, functions), part of the ongoing XS→Rust (Endor) port. No fork PRs advanced, so the 27 parked PRs — led by the long-waiting [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (17d) and the 42–44 day backlog on [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182), [#186](https://github.com/endojs/endo-but-for-bots/pull/186), [#266](https://github.com/endojs/endo-but-for-bots/pull/266), and [#288](https://github.com/endojs/endo-but-for-bots/pull/288) — remain the standing ask for maintainer review.
 
 ## Parked for maintainer feedback
 
@@ -28,18 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`deadmail-20260703T065941Z-a8c603`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T065941Z-a8c603.md) — Dead-lettered message — pick up its intent
-- [`improve-set-schedule-validate-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-set-schedule-validate-preflight.md) — Harden scripts/jobs/set-schedule.sh to validate the preflight: reference at w...
+### doin (1)
 - [`xs2rust-endor-build-stage3-fundamentals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-fundamentals.md) — Builder: xs2rust-endor stage 3 (2/7) — fundamentals: constructors, Object, Fu...
 
-### tada (1040)
+### tada (1042)
+- [`deadmail-20260703T065941Z-a8c603`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T065941Z-a8c603.md) — Done. The dead-lettered message's intent has been carried forward durably, ma...
+- [`improve-set-schedule-validate-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-set-schedule-validate-preflight.md) — Completion report
 - [`xs2rust-endor-press-20260703-063542`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-063542.md) — Press check-in report (xs2rust-endor-press-20260703-063542)
 - [`deadmail-20260703T062700Z-e70d9d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T062700Z-e70d9d.md) — Completion report
 - [`improve-scheduler-preflight-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-validation.md) — Completion report
-- [`improve-exit0-unsatisfying-wedge-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-exit0-unsatisfying-wedge-escalation.md) — Completion report
-- [`improve-clone-keeper-selfheal-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-selfheal-missing-clone.md) — The work this job requests has already been fully implemented and merged to o...
-- … and 1035 more
+- … and 1037 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
