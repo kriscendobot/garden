@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T04:54:14Z_
+_As of 2026-07-03T04:59:45Z_
 
 ## Latest
 
-Three internal garden-infrastructure fixes landed this cycle, all self-improvements to the fleet's deterministic machinery: the clone-keeper now re-clones a missing bare repo rather than erroring, `set-schedule` gained preflight validation, and the gardener suppresses a transient log line on deadline overrun. On the PR front, a shepherd is driving red CI back to green on [endojs/endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602), and the xs2rust-endor Rust-port build is mid-flight on stage 3 (language closure). No PRs moved into or out of the maintainer's parked queue — the 27 parked PRs, led by voice input ([#101](https://github.com/endojs/endo-but-for-bots/pull/101)) and passable byte arrays ([#503](https://github.com/endojs/endo-but-for-bots/pull/503)), still await review.
+A quiet interval: the only board movement was a dead-lettered message being picked back up and continued progress on the [xs2rust-endor stage 3](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-language.md) language-closure build. Still in flight is an auto-triggered shepherd driving red CI back to green on [endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602). Nothing new landed for maintainer review, so the parked queue is unchanged — most notably the aging [endo#3137](https://github.com/endojs/endo/pull/3137) erasable-`.ts`-runtime PR (17d) and the batch of ~42-day-old passable-byte-array and spackle designs still awaiting kriskowal's word.
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`deadmail-20260703T045854Z-2e1102`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T045854Z-2e1102.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr602-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr602-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #602
 - [`xs2rust-endor-build-stage3-language`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-language.md) — Builder: xs2rust-endor stage 3 (1/7) — language closure: strings as values + ...
 
