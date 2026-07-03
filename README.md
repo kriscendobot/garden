@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T11:21:07Z_
+_As of 2026-07-03T11:21:41Z_
 
 ## Latest
 
-A batch of infrastructure self-heals completed, repairing dangling and stale journal-worktree gitdir references across a spread of garden services — follow-up, comment-watcher, gardener-scaler, deadmail, gardener, issue-inbox, mirror-closer, and orchestrate — clearing a fleet-wide worktree fault rather than any single one. On the active-work side, the XS→Rust port (xs2rust-endor) is the sole thing moving: stage 3 (arrays and the iteration protocol, 3/7) is being built while a fresh press job drives PR #600 toward endor integration and green daemon tests. Nothing new landed for maintainer review — the 27 parked PRs are unchanged, with the oldest ([endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [#186](https://github.com/endojs/endo-but-for-bots/pull/186)) now 42 days out.
+A cluster of self-heal fixes landed, repairing dangling `gitdir` pointers in the journal worktrees used by `garden-deadmail`, `garden-follow-up`, the `endo-but-for-bots` comment-watcher, and the gardener-scaler — infrastructure maintenance that quietly unbroke several singleton services. Otherwise the board is quiet: the xs2rust-endor (XS→Rust) port continues to be pressed forward, with stage 3 (arrays and the iteration protocol) in progress alongside a press job driving it toward endor integration and green daemon tests. No new PRs opened or merged this cycle; the parked review queue still leads with the voice-input chat feature ([endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101), waiting 20h) and passable byte arrays ([endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), 3d).
 
 ## Parked for maintainer feedback
 
@@ -32,13 +32,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
 - [`xs2rust-endor-press-20260703-112004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-112004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (1058)
+### tada (1059)
+- [`self-heal-fix-garden-deadmail-journal-worktree-dangling-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-deadmail-journal-worktree-dangling-gitdir.md) — Completion report
 - [`self-heal-fix-garden-follow-up-journal-remote-dangling-gitdir-fallback`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-follow-up-journal-remote-dangling-gitdir-fallback.md) — Completion report
 - [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-journal-worktree-dangling-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-journal-worktree-dangling-gitdir.md) — Completion report
 - [`self-heal-fix-garden-gardener-scaler-journal-worktree-gitdir-repair`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-gardener-scaler-journal-worktree-gitdir-repair.md) — Completion report
 - [`xs2rust-endor-press-20260703-105001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-105001.md) — Press check-in report (tick 10:50Z)
-- [`deadmail-20260703T085843Z-03844c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T085843Z-03844c.md) — Completion report
-- … and 1053 more
+- … and 1054 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
