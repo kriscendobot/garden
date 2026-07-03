@@ -41,6 +41,8 @@ Report: what landed, the test262 language/ numbers verbatim (total, covered, bit
 divergent, skipped-by-reason), fuzz totals, Miri run, scope folds/frictions. Commit to
 `xs2rust-endor`, push, keep the PR draft.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
