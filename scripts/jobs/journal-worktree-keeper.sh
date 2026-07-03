@@ -271,28 +271,12 @@ keep_journal_worktree() {
   # below don't themselves fail on the broken cross-pointers.
   jw_repair_gitdir "$JW"
 
+  # If jw_repair_gitdir could not restore the linkage (a genuinely missing
+  # worktree, or a repair that did not stick), skip this tick rather than let the
+  # keeper's own git commands below die on the broken pointers.
   if ! git -C "$JW" rev-parse --git-dir >/dev/null 2>&1; then
-    # A DANGLING gitdir, not a genuinely-missing worktree: the worktree dir and
-    # its backing entry ($GARDEN_ROOT/.git/worktrees/<name>) both exist, but the
-    # .git gitdir pointer references a defunct prior checkout path (the shape a
-    # deploy that relocated the garden root leaves behind — observed crash-looping
-    # every journal-touching service with "not a git repository:
-    # <old>/.git/worktrees/journal"). `git worktree repair` rewrites both dangling
-    # cross-pointers to the current paths. Self-heal it here the same way we
-    # already self-heal a diverged tree, so this class stops needing a
-    # self-heal-fix job per service. Fall through to WARN/skip only if the repair
-    # does not restore the worktree.
-    local jw_name; jw_name="$(basename "$JW")"
-    local wt_backing="$GARDEN_ROOT/.git/worktrees/$jw_name"
-    if [ -d "$JW" ] && [ -d "$wt_backing" ]; then
-      log "journal worktree $JW has a dangling gitdir; attempting 'git -C $GARDEN_ROOT worktree repair $JW'"
-      git -C "$GARDEN_ROOT" worktree repair "$JW" >/dev/null 2>&1 || true
-    fi
-    if ! git -C "$JW" rev-parse --git-dir >/dev/null 2>&1; then
-      log "WARN: journal worktree missing or not a git repo at $JW; skipping"
-      return 0
-    fi
-    log "journal worktree $JW gitdir repaired; continuing"
+    log "WARN: journal worktree missing or not a git repo at $JW; skipping"
+    return 0
   fi
 
   # Bounded, timeout-wrapped, retrying fetch of origin/$JOURNAL_BRANCH (the
