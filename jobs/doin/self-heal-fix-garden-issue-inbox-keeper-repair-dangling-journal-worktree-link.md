@@ -1,1 +1,7 @@
 Harden `scripts/jobs/journal-worktree-keeper.sh` to self-heal a *dangling journal-worktree link*, not only content divergence. Failure signature: journal-dependent services (`garden-issue-inbox`, etc.) die with `fatal: not a git repository: <old-root>/.git/worktrees/journal` / `FATAL: no JOURNAL_REMOTE set and no origin on $GARDEN_ROOT/journal` because `$GARDEN_ROOT/journal/.git` (and the home-repo `worktrees/journal/gitdir`) still point at a removed deploy checkout after the garden root is re-homed (today: `garden2` → `/home/kris`). Change `keep_journal_worktree()`'s opening guard so that when `$JW` exists as a directory but `git -C "$JW" rev-parse --git-dir` fails (dangling `.git` gitdir), it attempts `git -C "$GARDEN_ROOT" worktree repair "$JW"` (and re-verifies `rev-parse --git-dir` + `git -C "$JW" config --get remote.origin.url`) BEFORE giving up — logging a `REPAIRED:` line on success and only falling through to the current WARN-and-skip when the directory is genuinely absent or the repair fails. This closes the window deterministically on the keeper's ~30m tick and matches the keeper's stated "AUTONOMOUSLY SELF-HEALING" mission. Optional belt-and-suspenders: have `deploy-garden.sh` run `git -C "$GARDEN_ROOT" worktree repair` after the root swap so the window never opens. Add a keeper test that stubs a `$JW` whose `.git` points at a nonexistent gitdir and asserts the keeper repairs it rather than skipping.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 1
+  claimed_at: 2026-07-03T16:24:37Z
