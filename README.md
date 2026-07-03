@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T13:39:20Z_
+_As of 2026-07-03T13:52:05Z_
 
 ## Latest
 
-The scheduler hardening landed: `improve-scheduler-escalate-missing-preflight` completed, following on from the deploy-lag-signal and missing-preflight-escalation work, so the scheduler now flags absent preflight checks rather than dispatching blind. The xs2rust-endor Rust-port build continues to advance — child 3/7 (arrays & the iteration protocol) finished and child 4/7 (text, numbers, Math, JSON) is now in progress on PR #600, with the press check-ins repeatedly electing to defer since the chain is moving on its own. Nothing new is parked for maintainer review, though the review queue still holds 27 PRs, the oldest being [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
+The XS→Rust (Endor) port chain is actively advancing: stage-3 arrays and the iteration protocol landed (child 3/7), and the next builder is mid-flight on stage-3 text, numbers, Math, and JSON (4/7); two press check-ins this cycle both chose to defer, judging the chain healthy. On the infrastructure side, two scheduler hardening jobs completed — escalation on a missing preflight and a deploy-lag preflight signal — and a gardener just claimed a clone-keeper fix so a tracked bare clone that goes missing self-heals rather than wedging. Nothing new landed on the maintainer's plate; the parked review queue is unchanged, still topped by chat voice input ([endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101), 23h) and the passable-byte-arrays work ([endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), 3d).
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`improve-clone-keeper-heal-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-heal-missing-clone.md) — Change scripts/jobs/clone-keeper.sh's keep_clone() so a tracked bare clone th...
 - [`xs2rust-endor-build-stage3-text-math-json`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-text-math-json.md) — Builder: xs2rust-endor stage 3 (4/7) — text, numbers, Math, JSON (PR #600)
 
 ### tada (1076)
