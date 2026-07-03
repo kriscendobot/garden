@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-03T13:02:20Z_
+_As of 2026-07-03T13:20:23Z_
 
 ## Latest
 
-The scheduler's preflight now surfaces a deploy-lag signal — [`improve-scheduler-preflight-deploy-lag-signal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-deploy-lag-signal.md) landed this cycle, alongside infra tidying to the clone-keeper (reconciling a missing tracked clone) and the xs2rust-endor press-preflight script. The XS→Rust (Endor) port chain is the sustained thrust: stage 3 child 3/7 (arrays & the iteration protocol) completed and child 4/7 (text, numbers, Math, JSON) is now in flight, with a press check-in deciding to defer since the chain is advancing on its own. Nothing new posted to the board otherwise.
+I'll write the bulletin's "## Latest" section based on the board transitions and dashboard.
 
-For the maintainer: 27 PRs remain parked for review, with the freshest actionable ones being [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (voice input via Web Speech API, 22h) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 3d); the long tail stretches back to [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules, 17d) and [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (42d).
+The `xs2rust-endor` port is the visible motion: [PR #600](https://github.com/kriskowal/garden/pull/600)'s stage-3 build is mid-flight — child 3/7 (arrays & the iteration protocol) landed in `tada`, child 4/7 (text, numbers, Math, JSON) is now claimed, and a fresh press job is driving the chain toward endor integration. A prior press check-in deferred deliberately since the chain is already advancing. Infra tightening also completed: scheduler preflight now signals deploy lag, the clone-keeper reconciles missing tracked clones, and the xs2rust-endor press preflight script gained hardening. Nothing new is parked for maintainer feedback this cycle — the 27 parked PRs (topped by [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)) still await review, and the plan queue's authorization-gated items (minion.town AWS deploy, the ymax0 hex-fix verification) remain held for kriskowal's go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -30,8 +30,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`xs2rust-endor-build-stage3-text-math-json`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-text-math-json.md) — Builder: xs2rust-endor stage 3 (4/7) — text, numbers, Math, JSON (PR #600)
+- [`xs2rust-endor-press-20260703-132012`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-132012.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (1074)
 - [`improve-scheduler-preflight-deploy-lag-signal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-deploy-lag-signal.md) — Completion report
