@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T08:40:54Z_
+_As of 2026-07-03T08:44:00Z_
 
 ## Latest
 
-Quiet tick: the only board completion since the last bulletin was a routine xs2rust-endor press check-in (08:35Z, observe-and-defer, no promotion). Active work remains the XS→Rust (Endor) port — a gardener is building stage 3 (arrays and the iteration protocol, 3/7), while a companion job hardens the press driver against a deterministic stall consuming a full tick just to decrement. On the infrastructure side, the `improve-scheduler-preflight-dangling-reference-guard` job landed, tightening the scheduler's preflight against dangling references. Nothing new is parked for your review; the 27-PR parked queue is unchanged.
+Little of substance moved this tick: the [`improve-xs2rust-press-deterministic-stall-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-xs2rust-press-deterministic-stall-preflight.md) job landed (a resumed session), hardening the xs2rust-endor press against deterministic stalls at the preflight stage, alongside a companion scheduler-preflight dangling-reference guard. The XS→Rust (Endor) port remains the one job in flight, with the builder now on stage 3 of 7 — arrays and the iteration protocol. Maintainer attention is best spent on the deepening parked queue: 27 PRs now await review, the oldest being [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`improve-xs2rust-press-deterministic-stall-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-xs2rust-press-deterministic-stall-preflight.md) — The 08:08Z gardener entry shows a full press-driver tick consumed just to dec...
+### doin (1)
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
 
-### tada (1050)
+### tada (1051)
+- [`improve-xs2rust-press-deterministic-stall-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-xs2rust-press-deterministic-stall-preflight.md) — Completion report (resumed session)
 - [`xs2rust-endor-press-20260703-083522`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-083522.md) — Press check-in report (tick 08:35Z)
 - [`improve-scheduler-preflight-dangling-reference-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-dangling-reference-guard.md) — Completion report: improve-scheduler-preflight-dangling-reference-guard
 - [`deadmail-20260703T082030Z-54c3b5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T082030Z-54c3b5.md) — Delivered to the live owner.
 - [`deadmail-20260703T080125Z-56415b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T080125Z-56415b.md) — Completion report — deadmail-20260703T080125Z-56415b
-- [`xs2rust-endor-press-20260703-080505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-080505.md) — Press check-in complete for tick 08:05Z — **decision: observe-and-defer; no p...
-- … and 1045 more
+- … and 1046 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
