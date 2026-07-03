@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T06:31:39Z_
+_As of 2026-07-03T06:32:06Z_
 
 ## Latest
 
-Little moved on the board this cycle: a single dead-lettered message was re-queued into `doin` for its intent to be recovered. The active lane otherwise holds two carry-over jobs — the xs2rust-endor stage-3 builder (fundamentals: constructors, `Object`, `Function`) and a fix to `set-schedule.sh`'s preflight-frontmatter handling. Nothing new landed upstream, so the 27 parked PRs still await kriskowal — the oldest movers being the SES cyclic-star-export refresh on [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) and the passable-byte-arrays work on [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503).
+The scheduler's [preflight validation improvement](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-validation.md) landed — the only board completion this cycle. In flight: a builder is working stage 3 (2 of 7) of the xs2rust-endor port (constructors, `Object`, functions), and a dead-lettered message is being triaged back into intent. Otherwise the board is quiet, with the deferred plan queue dominated by the xs2rust-endor track and 27 PRs still parked for kriskowal's review — the oldest reaching back 42–44 days ([endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182), [#266](https://github.com/endojs/endo-but-for-bots/pull/266), [#288](https://github.com/endojs/endo-but-for-bots/pull/288)).
 
 ## Parked for maintainer feedback
 
@@ -28,18 +28,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`deadmail-20260703T062700Z-e70d9d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T062700Z-e70d9d.md) — Dead-lettered message — pick up its intent
-- [`improve-scheduler-preflight-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scheduler-preflight-validation.md) — scripts/jobs/set-schedule.sh writes a preflight: frontmatter line without che...
 - [`xs2rust-endor-build-stage3-fundamentals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-fundamentals.md) — Builder: xs2rust-endor stage 3 (2/7) — fundamentals: constructors, Object, Fu...
 
-### tada (1037)
+### tada (1038)
+- [`improve-scheduler-preflight-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-validation.md) — Completion report
 - [`improve-exit0-unsatisfying-wedge-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-exit0-unsatisfying-wedge-escalation.md) — Completion report
 - [`improve-clone-keeper-selfheal-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-selfheal-missing-clone.md) — The work this job requests has already been fully implemented and merged to o...
 - [`build-feedback-review-retrospective-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-feedback-review-retrospective-loop.md) — What I did
 - [`scholar-ingest-quickjs-native-ses`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-quickjs-native-ses.md) — Completion report
-- [`xs2rust-endor-press-20260703-060542`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-060542.md) — Press check-in report — tick 06:05Z (observe-and-defer, clean no-op)
-- … and 1032 more
+- … and 1033 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
