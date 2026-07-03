@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T05:52:06Z_
+_As of 2026-07-03T05:53:25Z_
 
 ## Latest
 
-The board is quiet since the last bulletin: the only transition is a newly parked plan to swap xs2rust-endor's CESU-8 string storage for UTF-16 (dropping the constant-time indexing constant), now sitting in the deferred queue behind the active stage-3 build. In flight, a builder is working xs2rust-endor stage 3 (fundamentals: constructors, Object, Function) and a designer is on the feedback-review-retrospective double-loop; nothing new landed for maintainer review.
+The [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) completion report landed, and the XS→Rust (Endor) port remains the garden's dominant thread: the stage-3 build chain is underway with the language child reported complete and the fundamentals child (constructors, Object, Function — 2 of 7) now claimed and in progress, while a new opcode cost-calibration instrumentation plan was parked as a deferred follow-up. Supporting infrastructure also advanced — the xs2rust press preflight and the clone-keeper self-heal both completed, and the press check-in resolved to observe-and-defer, ceding the wheel to the stage-3 chain. Otherwise the board is quiet: the only other in-flight item is the design-feedback retrospective-loop designer job.
 
 ## Parked for maintainer feedback
 
@@ -49,6 +49,7 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`xs2rust-endor-strings-utf16-replace-cesu8`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-strings-utf16-replace-cesu8.md) — _normal_ · xs2rust-endor: replace CESU-8 string storage with UTF-16 (drop the constant-t...
+- [`xs2rust-endor-meter-opcode-cost-instrumentation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-meter-opcode-cost-instrumentation.md) — _normal_ · xs2rust-endor: optional opcode cost-calibration instrumentation
 - [`fix-lint-jsdoc-warnings-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-lint-jsdoc-warnings-endo-master.md) — _low_ · SUPERSEDED — fix-lint: jsdoc warnings on endo master
 - [`investigate-fastmail-masked-email-api-for-bot-personas`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-fastmail-masked-email-api-for-bot-personas.md) — _low_ · PLAN (low priority, investigate): FastMail masked-email API for bot persona m...
 - [`scholar-ingest-ocap-kernel-comment-fragments-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-comment-fragments-2.md) — _low_ · PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
