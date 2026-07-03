@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T12:35:55Z_
+_As of 2026-07-03T12:37:50Z_
 
 ## Latest
 
-Only the xs2rust-endor press job advanced this cycle: a fresh press tick (PR #600) was claimed into `doin` alongside the in-flight stage-3 arrays builder, keeping the XS→Rust (Endor) port moving toward endor integration and a green daemon while the rest of the board held steady.
+Little moved this cycle: the [xs2rust-endor](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) XS→Rust port is mid-build on stage 3 of 7 (arrays and the iteration protocol), and the periodic press check-in deferred its go/no-go on the strength of that active advance. Supporting maintenance landed alongside — the clone-keeper now reconciles a missing tracked clone, and the xs2rust-endor press-preflight script was hardened. Nothing new is parked for review, but the queue still holds 27 PRs awaiting kriskowal, the oldest ([endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182), [#186](https://github.com/endojs/endo-but-for-bots/pull/186)) waiting 42 days.
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
-- [`xs2rust-endor-press-20260703-123519`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-123519.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (1071)
+### tada (1072)
+- [`xs2rust-endor-press-20260703-123519`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-123519.md) — **Press check-in complete — decision: defer (chain actively advancing).**
 - [`improve-clone-keeper-reconcile-missing-tracked-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-reconcile-missing-tracked-clone.md) — Completion report
 - [`improve-xs2rust-endor-press-preflight-script`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-xs2rust-endor-press-preflight-script.md) — Completion report
 - [`deadmail-20260703T120454Z-5ae32f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T120454Z-5ae32f.md) — Completion report
 - [`xs2rust-endor-press-20260703-120504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-120504.md) — Press check-in report (tick 12:05Z)
-- [`improve-clone-keeper-restore-or-escalate-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-restore-or-escalate-missing-clone.md) — Completion report
-- … and 1066 more
+- … and 1067 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
