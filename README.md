@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-03T00:22:15Z_
+_As of 2026-07-03T00:25:00Z_
 
 ## Latest
 
-A **live leader-host incident** tops the queue: an [investigating gardener](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T100530Z-a43c17.md) found the `endolinbot2` identity drift is still active on the true leader — `/home/kris/.garden` reads `endolinbot2` while the leader marker names `endolinbot`, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, orchestrate, maintainer-inbox Monitor) is being silently skipped, with all 276 recent gardener entries mislabeled. It needs a one-line operational fix (`echo endolinbot > /home/kris/.garden` or re-point the marker to `endolinbot2`) plus a fleet restart — out of a gardener's autonomous scope. This same drift compounded a Claude quota outage on 07-01/07-02 that **poisoned five garden-infra jobs** (identity drift-detector, gardener transient-failure backoff + fleet brake, issue-inbox git-reaping, repo-watcher arm-retry, and the daemon→manager rename build), all now dropped to the maintainer inbox for re-scoping. Two decisions also await your call: shepherd recommends **closing [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301)** as superseded by the already-merged #58 error-tracing feature (a rebase would re-land duplicate code), and gibson042's review on **[endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472)** rebuts the freezable-TypedArray design's "why not a Proxy" section and explicitly asks you and @erights to weigh in. On the board itself, only the `improve-ci-rollup-retry-transient-network` infra fix was claimed.
+Board activity was near-idle — a single completion, [`improve-ci-rollup-retry-transient-network`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-rollup-retry-transient-network.md) — so the signal this cycle is entirely in the maintainer inbox. Most urgent: a **live host-identity drift incident** on the leader host — `/home/kris/.garden` still resolves `GARDEN=endolinbot2` while `hostname -s` and the `leader` marker both say `endolinbot`, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, maintainer-inbox Monitor) is silently being skipped, with all ~276 recent gardener entries mislabeled `endolinbot2`. The fix is one operational line (`echo endolinbot > /home/kris/.garden`, or re-point the marker to `endolinbot2`) plus a fleet restart; it's out of a gardener's autonomous scope, so it's waiting on you. That same drift was the compounding factor behind **five poisoned garden-infra jobs** the reaper dropped after 5 requeue cycles during the 07-01/07-02 Claude quota outage (an identity drift-detector, gardener transient-failure backoff + fleet brake, issue-inbox git-child reaping, and repo-watcher arm-retry) — all now surfaced for your call.
+
+Two PRs need a decision. Shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) (error tracing) is **subsumed, not lint-blocked** — the feature already re-landed on `llm` via merged #58, so a rebase collapses to an essentially empty PR; recommendation is to **close #301 as superseded**, optionally extracting its two unique refactors (`error-id.js`, `trace-constants.js`) into a fresh small PR. And on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) (freezable-TypedArray design doc), @gibson042 rebuts all three "Why not a Proxy wrapper?" arguments and asks for you and @erights to weigh in on whether the emulated view should throw on canonical-index writes — a genuine design tradeoff a bot shouldn't settle.
 
 ## Parked for maintainer feedback
 
@@ -239,16 +241,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-ci-rollup-retry-transient-network`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-ci-rollup-retry-transient-network.md) — scripts/jobs/handlers/ci-rollup-gh.sh does a single gh pr view … --json state...
+### doin (0)
+(none)
 
-### tada (973)
+### tada (974)
+- [`improve-ci-rollup-retry-transient-network`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-rollup-retry-transient-network.md) — Completion report
 - [`improve-clone-keeper-bootstrap-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-bootstrap-missing-clone.md) — Completion report
 - [`improve-ci-rollup-transient-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-rollup-transient-retry.md) — The requested work is already present in the worktree's HEAD (origin/main2), ...
 - [`improve-clone-keeper-self-provision-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-self-provision-missing-clone.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-review-5cc27151`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-5cc27151.md) — Completion report
-- [`endojs-endo-but-for-bots-pr472-review-72d18f86`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr472-review-72d18f86.md) — Completion report
-- … and 968 more
+- … and 969 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
