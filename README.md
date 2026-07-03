@@ -1,16 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-03T08:44:00Z_
+_As of 2026-07-03T08:52:39Z_
 
 ## Latest
 
-Little of substance moved this tick: the [`improve-xs2rust-press-deterministic-stall-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-xs2rust-press-deterministic-stall-preflight.md) job landed (a resumed session), hardening the xs2rust-endor press against deterministic stalls at the preflight stage, alongside a companion scheduler-preflight dangling-reference guard. The XS→Rust (Endor) port remains the one job in flight, with the builder now on stage 3 of 7 — arrays and the iteration protocol. Maintainer attention is best spent on the deepening parked queue: 27 PRs now await review, the oldest being [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
+Scheduler hardening is the throughline: a gardener just claimed [`improve-set-schedule-validate-preflight-exists`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-set-schedule-validate-preflight-exists.md), which makes `set-schedule.sh` reject a dangling preflight at registration time, landing right after the companion [`improve-scheduler-preflight-dangling-reference-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-dangling-reference-guard.md) completed. In parallel, the XS→Rust (Endor) port continues advancing through stage 3 (arrays and the iteration protocol), with a fresh press check-in and a deterministic-stall preflight improvement both just reported done. Otherwise the board is quiet — the todo lane is empty and the two active jobs are both in progress.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 18h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 3d)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 4d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 7d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 17d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 42d)
@@ -28,7 +28,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`improve-set-schedule-validate-preflight-exists`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-set-schedule-validate-preflight-exists.md) — Make scripts/jobs/set-schedule.sh reject a dangling preflight at registration...
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
 
 ### tada (1051)
