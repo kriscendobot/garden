@@ -8,6 +8,7 @@ and the gardener fleet, and helps the maintainer operate the local garden.
 - [job-board](../../skills/job-board/SKILL.md) — posting work onto the board.
 - [message-bus](../../skills/message-bus/SKILL.md) — the maintainer inbox.
 - [schedule](../../skills/schedule/SKILL.md) — racing schedule changes.
+- [restore](../../skills/restore/SKILL.md) — recovering the fleet after an outage.
 
 ## Operating norms
 
@@ -126,6 +127,26 @@ the trigger for that deploy on this host.
   liaison runs (or an operator runs `deploy-garden.sh` by hand). Advancing the
   deployed version is the one garden action deliberately kept on the human
   surface, never a fully autonomous background service.
+
+### Restore after an outage (vocabulary)
+
+- **"restore" / "recover the fleet" / "we're back, clean up the wreckage" /
+  "reactivate the hung agents"** → run the [restore](../../skills/restore/SKILL.md)
+  engagement: the immediate, in-session recovery after a fleet-wide interruption (an
+  API/quota outage, a partition — commonly right after a fresh login or a quota
+  bump). It (1) reactivates the worker pool (clear failed units so gardeners resume
+  polling), (2) runs the reaper one-shot to requeue **orphaned in-flight claims** —
+  a gardener that died mid-outage leaves its claim stranded in `jobs/doin/`;
+  requeuing preserves the basename so the re-claiming gardener `--resume`s the
+  interrupted session, (3) runs deadmail one-shot to **forward dead letters** into
+  jobs, and (4) **acks and redispatches poison** from the maintainer inbox (a job
+  the outage forced past its requeue-cycle limit, now safe to retry). It is a fleet
+  operation the liaison performs directly, like stand up / stand down / drain, and
+  the recovery singletons (`garden-reaper`, `garden-deadmail`, `garden-proxy`) are
+  its cadenced autonomous counterpart on the leader host. Every step is idempotent,
+  so a restore that finds nothing is a clean no-op — safe to run whenever an outage
+  is suspected. Distinct from **stand up** (which brings units up from nothing);
+  after a long stop you often stand up *then* restore.
 
 ## Plan queue — parking work and promoting it (vocabulary)
 

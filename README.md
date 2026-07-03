@@ -174,6 +174,7 @@ deterministically. `#N` is a pull-request number.
 | **defer X** / park X | park a job on the plan queue; the foreman promotes it when the board idles |
 | **promote X** / go ahead on X | move a parked job onto the board now |
 | **stand up / stand down / drain** | fleet operations, handled by the liaison directly |
+| **restore** | recover the fleet after an outage: reactivate hung agents, forward dead letters, ack + redispatch poison ([restore](skills/restore/SKILL.md)) |
 
 ---
 
@@ -203,7 +204,7 @@ Common interactions, mined from practice:
   inbox mid-job.
 - **Steer the plan**: "defer X", "promote X", "go ahead on the retcon".
 - **Operate the fleet**: "drain the fleet", "hand off leadership to petunia",
-  "scale down to 50".
+  "scale down to 50", "restore" (recover after an API/quota outage).
 - **Teach it**: "encode this" writes the correction into the role or skill
   that got it wrong, and the change broadcasts to the running fleet.
 
