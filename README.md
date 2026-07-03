@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-03T18:14:48Z_
+_As of 2026-07-03T20:21:07Z_
 
 ## Latest
 
@@ -28,16 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-build-stage3b-binary`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-binary.md) — Builder: stage-3b child 3/9 — binary data (ArrayBuffer / TypedArray / DataVie...
+### doin (0)
+(none)
 
-### tada (1110)
+### tada (1111)
+- [`xs2rust-endor-build-stage3b-binary`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-binary.md) — Completion report — xs2rust-endor-build-stage3b-binary (stage-3b binary data,...
 - [`foreman-edge-trigger-on-job-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/foreman-edge-trigger-on-job-completion.md) — Completion report
 - [`xs2rust-endor-press-20260703-175002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-175002.md) — Press tick complete — this was an observe-and-defer cycle under the charter's...
 - [`deadmail-20260703T174129Z-e748a9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T174129Z-e748a9.md) — Completion report
 - [`xs2rust-endor-build-stage3b-bigint`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-bigint.md) — Completion report — stage-3b child 2/9: BigInt (PR #600)
-- [`improve-xs2rust-endor-press-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-xs2rust-endor-press-preflight.md) — Completion report
-- … and 1105 more
+- … and 1106 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
