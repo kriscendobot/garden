@@ -21,3 +21,9 @@ Cross-link to the active **XS→Rust (Endor)** design cluster: `designs/xs2rust-
 ## Deliverable
 
 A context-library entry (per `skills/context-library` / `skills/journalism` / `library-lookup`) distilling the above — the transferable strategies, each with its perf-vs-JIT/memory-safety verdict — indexed so the XS→Rust designers/builders can find it, and cross-linked to the Endor design cluster. Journal a `result` entry pointing at the library page.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 3
+  claimed_at: 2026-07-03T05:56:33Z
