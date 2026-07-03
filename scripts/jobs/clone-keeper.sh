@@ -40,10 +40,14 @@
 # ambiguous last resort — an explicit <clone-url> is preferred). The fresh bare
 # clone gets its fetch refspec set exactly as
 # ensure-project-worktree.sh prescribes, then falls through to the normal
-# fetch + fast-forward. Guards: a source that cannot be derived or reached falls
-# back to the existing skip (no re-clone loop, the next tick retries), and a
-# present-but-corrupt dir is surfaced as STALE for manual reconciliation rather
-# than clobbered (it may hold un-pushed local state).
+# fetch + fast-forward. Guards: a missing clone whose source cannot be REACHED is
+# left for the next tick to retry (no re-clone loop, logged WARN — it is transient,
+# e.g. offline); a missing clone with NO derivable/configured source at all cannot
+# self-heal on any tick, so instead of an un-drained WARN it ESCALATES to the
+# maintainer inbox (alert_maintainer) so a human restores it or adds a <clone-url>
+# to the row — a vanished clone surfaces to a person instead of sitting invisible
+# for weeks. A present-but-corrupt dir is surfaced as STALE for manual
+# reconciliation rather than clobbered (it may hold un-pushed local state).
 #
 # When the tracked source is a bare remote NAME (e.g. `origin`) that carries no
 # fetch refspec, or a URL/path fetched directly, `git fetch <src> <branch>`
@@ -205,7 +209,17 @@ keep_clone() {
     elif src="$(derive_clone_url "$abs")"; then
       provisioned=1
     else
-      log "WARN: tracked clone $dir is missing at $abs, remote '$remote' is a bare name, no explicit clone-url is set, and no upstream URL could be derived from its basename; skipping"
+      # Nothing can auto-recreate this clone: the remote is a bare name (dead once
+      # the clone is gone), no explicit fourth <clone-url> is configured, and the
+      # basename does not fit <owner>-<name>.git to derive one. A bare WARN here is
+      # exactly the failure mode this keeper exists to kill — it would drain into
+      # the log and the vanished clone would sit invisible for weeks (the endo
+      # six-week block). ESCALATE to the maintainer inbox so a human restores it or
+      # adds a <clone-url> to the row. alert_maintainer is throttled and never fails
+      # its caller, so this stays a self-contained per-clone step.
+      local emsg="clone-keeper: tracked bare clone $dir is MISSING at $abs and cannot be auto-recreated — remote '$remote' is a bare name (unresolvable once the clone is gone), no explicit fourth <clone-url> field is set on its GARDEN_TRACKED_CLONES row, and no upstream URL could be derived from its basename. Every downstream worktree/dispatch that needs this clone is blocked until it is restored. Fix: add a <clone-url> fourth field to the row (unambiguous re-clone source) or re-clone by hand. This is the six-week endo stale-clone hazard the keeper exists to prevent."
+      log "STALE: $emsg"
+      alert_maintainer "clone-keeper-missing-nourl-${dir//[^A-Za-z0-9._-]/_}" "$emsg"
       return 0
     fi
     if ! bounded_clone "$src" "$abs"; then

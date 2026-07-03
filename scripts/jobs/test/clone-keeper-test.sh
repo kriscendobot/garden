@@ -33,6 +33,20 @@ git_id=(-c user.name=test -c user.email=test@localhost)
 
 UP="$TR/upstream.git"
 CLONE="$TR/endojs-endo.git"
+ALERTS="$TR/alerts.log"   # GARDEN_ALERT_CMD appends "<key>|<msg>" here
+
+# A tiny alert capture: alert_maintainer (common.sh) invokes GARDEN_ALERT_CMD as
+# `<cmd> <dedup-key> <message>`, so the escalate-when-no-url path can be asserted
+# offline instead of routing to the real maintainer inbox over the network.
+ALERT_STUB="$TR/alert-stub.sh"
+write_alert_stub() {
+  mkdir -p "$TR"
+  cat > "$ALERT_STUB" <<EOF
+#!/bin/bash
+printf '%s|%s\n' "\$1" "\$2" >> "$ALERTS"
+EOF
+  chmod +x "$ALERT_STUB"
+}
 
 # Push a commit onto upstream master. Pass --amend to REWRITE the tip (a
 # divergence: the new tip does not have the old as an ancestor).
@@ -67,14 +81,17 @@ setup_fixture() {
 }
 
 run_keeper() {  # run_keeper [extra env...] ; fills $OUT, $RC
+  write_alert_stub   # setup_fixture wipes $TR, so (re)create the capture stub here
   set +e
   OUT="$(env GARDEN_ROOT="$TR" GARDEN_STATE="$TR/state" \
              GARDEN_TRACKED_CLONES="$CLONE|origin|master" \
              GARDEN_FETCH_TIMEOUT=10 GARDEN_FETCH_RETRIES=1 \
+             GARDEN_ALERT_CMD="$ALERT_STUB" \
              "$@" bash "$KEEPER" 2>&1)"
   RC=$?
   set -e
 }
+alert_count() { local n; n="$(grep -c . "$ALERTS" 2>/dev/null)" || true; printf '%s\n' "${n:-0}"; }
 local_master() { git -C "$CLONE" rev-parse refs/heads/master; }
 
 # ============================================================================
@@ -191,17 +208,23 @@ grep -qF "provisioned missing clone" <<<"$OUT" && ok "logged the provisioned lin
 [ "$(git -C "$CLONE" config --get remote.origin.fetch)" = "+refs/heads/*:refs/remotes/origin/*" ] && ok "fetch refspec set on provisioned clone" || bad "fetch refspec not set on provisioned clone"
 
 # ============================================================================
-hr; echo "MISSING+UNDERIVABLE — bare name, basename not <owner>-<name>.git: skip"; hr
+hr; echo "MISSING+NO-URL — bare name, no clone-url, underivable basename: ESCALATE, not a silent WARN"; hr
 setup_fixture
-# A tracked dir whose basename cannot be reversed into <owner>/<name> (no '-'):
-# nothing to derive, so the keeper falls back to the WARN-and-skip. Offline: no
-# clone is attempted at all.
+# A missing clone that cannot self-heal on ANY tick: the remote is the bare name
+# `origin` (dead once the clone is gone), no explicit fourth clone-url field is
+# set, and the basename (no '-') cannot be reversed into <owner>/<name>. A bare
+# WARN would drain into the log and the vanished clone would sit invisible for
+# weeks (the endo six-week block). The keeper must instead ESCALATE to the
+# maintainer inbox via alert_maintainer so a human restores it. Offline: no clone
+# is attempted at all.
 NOHYPHEN="$TR/singleword.git"
 run_keeper GARDEN_TRACKED_CLONES="$NOHYPHEN|origin|master" \
            GARDEN_CLONE_URL_BASE="file://$TR/gh"
-[ "$RC" -eq 0 ] && ok "exit 0 when the basename cannot be derived" || bad "exit $RC on underivable basename"
-[ ! -e "$NOHYPHEN" ] && ok "underivable missing clone left untouched" || bad "something was created for an underivable basename"
-grep -qF "no upstream URL could be derived" <<<"$OUT" && ok "logged the underivable no-URL skip" || bad "underivable skip not logged"
+[ "$RC" -eq 0 ] && ok "exit 0 when the clone cannot be recreated (never wedged)" || bad "exit $RC on no-url missing clone"
+[ ! -e "$NOHYPHEN" ] && ok "no-url missing clone left untouched (no clone attempted)" || bad "something was created for a no-url missing clone"
+grep -qF "no upstream URL could be derived" <<<"$OUT" && ok "logged the no-url anomaly" || bad "no-url anomaly not logged"
+[ "$(alert_count)" -ge 1 ] && ok "ESCALATED the vanished clone to the maintainer inbox" || bad "no maintainer escalation for a missing no-url clone"
+grep -qF "clone-keeper-missing-nourl-" "$ALERTS" 2>/dev/null && ok "escalation carries the per-clone dedup key" || bad "escalation missing the expected dedup key"
 
 # ============================================================================
 hr
