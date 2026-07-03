@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T01:38:43Z_
+_As of 2026-07-03T01:39:54Z_
 
 ## Latest
 
-The XS→Rust ([Endor](https://github.com/endojs/endo-but-for-bots/pull/600), PR #600) port advanced: stage 2b's allocation-faithful object-heap child (1/3) completed, the closures/call-return-frames child (2/3) was claimed, and a press-driver tick logged no blockers. Three maintainer messages need your attention. Most urgent is a **live infrastructure incident**: the `endolinbot2` host-identity drift is still active on the true leader, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, maintainer-inbox) is being silently skipped — the fix is an operational one-liner on the deployed root (`echo endolinbot > /home/kris/.garden`, or re-point the marker to `endolinbot2`) plus a fleet restart. Separately, a shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is subsumed (its error-tracing feature already re-landed on `llm` via #58) and recommends closing it as superseded rather than rebasing to an empty PR. And [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) has a genuine design call awaiting you and @erights — gibson042 argues for a Proxy `set` trap that throws on canonical-index writes over the doc's plain-object wrapper.
+The deterministic deploy path landed its atomic tree-swap improvement (`improve-atomic-deploy-tree-swap` completed), and the xs2rust-endor port continues to grind forward — stage 2b's allocation-faithful heap child is done, with the closures/call-frames child and the [PR #600](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-004244.md) press-driver still in flight. Otherwise the board is quiet (empty todo), so the real signal is in the maintainer inbox, which has three unread items needing kriskowal's call. Most urgent is a **live infrastructure incident**: the `endolinbot2` host-identity drift is silently demoting the true leader host to follower, so every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, orchestrate, and the maintainer-inbox Monitor) is being skipped — the reporter asks you to either correct `/home/kris/.garden` to `endolinbot` or re-point the leader marker to `endolinbot2`, then restart the fleet. Two disposition calls also await you: a shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is subsumed by the already-merged #58 error-tracing feature and recommends closing it (offering a small follow-up PR to salvage its two unique refactors), and gibson042's review on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) escalates a genuine design tradeoff — plain-object wrapper vs. a Proxy that throws on canonical-index writes — explicitly asking you and @erights to weigh in.
 
 ## Parked for maintainer feedback
 
@@ -135,23 +135,22 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (8)
+### doin (7)
 - [`deadmail-issue-comment-4869737552`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4869737552.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-4870104413`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4870104413.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-4870255317`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4870255317.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-4870486307`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4870486307.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-4871521636`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4871521636.md) — Dead-lettered message — pick up its intent
-- [`improve-atomic-deploy-tree-swap`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-atomic-deploy-tree-swap.md) — Harden scripts/jobs/deploy-garden.sh so advancing the root checkout never exp...
 - [`xs2rust-endor-build-stage2b-frames`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage2b-frames.md) — Builder: xs2rust-endor stage 2b (2/3) — closures, call/return frames, meter-c...
 - [`xs2rust-endor-press-20260703-004244`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-004244.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (980)
+### tada (981)
+- [`improve-atomic-deploy-tree-swap`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-atomic-deploy-tree-swap.md) — Completion report
 - [`xs2rust-endor-build-stage2b-heap`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage2b-heap.md) — Completion report — xs2rust-endor stage 2b (child 1/3): allocation-faithful o...
 - [`improve-clone-keeper-reclone-missing-bare-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-reclone-missing-bare-clone.md) — Done. Here is my completion report.
 - [`xs2rust-endor-press-20260703-005001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-005001.md) — Press-driver check-in for PR #600 (xs2rust-endor): **observation tick, no pre...
 - [`deadmail-20260702T191618Z-f722bf`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260702T191618Z-f722bf.md) — The state fully confirms the reply's assertions. This dead-lettered message w...
-- [`endojs-endo-but-for-bots-pr600-293a8b5f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-293a8b5f.md) — Everything is set up and verified. Inbox is empty. Here is my completion report.
-- … and 975 more
+- … and 976 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
