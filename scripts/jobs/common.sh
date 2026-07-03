@@ -627,8 +627,32 @@ bot_email() { git -C "$GARDEN_ROOT" config --get user.email 2>/dev/null || echo 
 
 journal_remote() {
   if [ -n "$JOURNAL_REMOTE" ]; then printf '%s\n' "$JOURNAL_REMOTE"; return; fi
-  git -C "$GARDEN_ROOT/journal" config --get remote.origin.url \
-    || die "no JOURNAL_REMOTE set and no origin on $GARDEN_ROOT/journal"
+  local jw="$GARDEN_ROOT/journal"
+  # Self-heal a dangling worktree gitdir link before reading the origin. When the
+  # garden root moves on disk (e.g. /home/kris → /home/kris/garden2), the worktree
+  # .git file and its admin back-pointer keep pointing at the old paths, so every
+  # git op in the worktree exits 128 ("not a git repository"). Left alone,
+  # `git config --get remote.origin.url` below fails not because origin is missing
+  # but because git can't open the repo at all — and the die() would mislabel it as
+  # a missing-origin error, sending recurrences down the wrong path (the very bug
+  # that killed the gardener-scaler via ensure_clone → journal_remote). So: if the
+  # worktree can't resolve its git dir, run `git worktree repair` once and retry.
+  if ! git -C "$jw" rev-parse --git-dir >/dev/null 2>&1; then
+    git -C "$GARDEN_ROOT" worktree repair "$jw" >/dev/null 2>&1 || true
+  fi
+  local url
+  if url="$(git -C "$jw" config --get remote.origin.url 2>/dev/null)"; then
+    printf '%s\n' "$url"; return
+  fi
+  # Still failing after the repair attempt. Distinguish a BROKEN worktree (git
+  # can't open the repo — name the dangling gitdir target so the fix is obvious)
+  # from a genuinely MISSING origin (repo opens fine, just no remote configured).
+  if ! git -C "$jw" rev-parse --git-dir >/dev/null 2>&1; then
+    local target=""
+    [ -f "$jw/.git" ] && target="$(sed -n 's/^gitdir: *//p' "$jw/.git" 2>/dev/null)"
+    die "broken journal worktree at $jw: gitdir link ${target:+points at ${target} which }is unresolvable and 'git worktree repair' did not fix it"
+  fi
+  die "no JOURNAL_REMOTE set and no origin on $jw"
 }
 
 # --- per-clone serialization (the shared-clone race fix) ---------------------
