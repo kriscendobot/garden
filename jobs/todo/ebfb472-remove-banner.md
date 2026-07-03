@@ -1,10 +1,4 @@
----
-gate: orchestrated
-orchestrated_by: ebfb472-nobanner-orch
-priority: normal
-posted_by: gardener
-posted_at: 2026-07-03T04:07:44Z
----
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-03T04:09:16Z -->
 
 # Remove the comment banner on endojs/endo-but-for-bots PR #472
 
