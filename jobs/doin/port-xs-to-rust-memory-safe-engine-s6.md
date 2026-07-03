@@ -872,3 +872,9 @@ decisions. The child's headline ask is your ruling on whether the JSON.parse +
 structured-JSON.stringify metering follow-up child lands in this stage or a later
 one; the other three folds are small named residuals to home alongside the existing
 minor deferrals.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 19
+  claimed_at: 2026-07-03T15:26:22Z
