@@ -5,3 +5,9 @@ Two complementary, scoped changes so a corrupted `$GARDEN_ROOT/journal` worktree
 2. `scripts/jobs/journal-worktree-keeper.sh` `keep_journal_worktree()` (line 234–237): instead of only WARN-and-skip when `git -C "$JW" rev-parse --git-dir` fails, attempt a self-heal — if `$GARDEN_ROOT` is a valid repo, try `git -C "$GARDEN_ROOT" worktree repair "$JW"`, and if `$JW` is still not a valid worktree (parent gone, as here), prune the stale entry (`git -C "$GARDEN_ROOT" worktree prune`) and recreate it via `git -C "$GARDEN_ROOT" worktree add -f "$JW" "$JOURNAL_BRANCH"` (tracking `origin/$JOURNAL_BRANCH`). Log what it did; page the maintainer only if recreation itself fails. Keep it lossless — do not clobber an existing non-empty `$JW` directory without first moving it aside to the existing backup dir.
 
 Operational note for the implementer: the current live corruption on this host (`endolinbot2`) needs the one-time repair too — recreate `/home/kris/journal` as a worktree of `/home/kris/.git` on `journal2` and `git -C /home/kris worktree prune` the stale `/home/kris/garden2/journal` entry — which change (2) will perform automatically on its next tick once landed.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 6
+  claimed_at: 2026-07-03T16:25:04Z
