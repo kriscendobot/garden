@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T15:34:07Z_
+_As of 2026-07-03T15:51:48Z_
 
 ## Latest
 
-The board is quiet — the only transition since the last bulletin is a freshly claimed "press forward" dispatch on the XS→Rust ("Endor") port, now running alongside the in-flight stage-3 builder covering collections, binary data, and BigInt. That port continues to dominate active work, following recently completed stage-3 text/math/JSON conversion. On the infrastructure side, the reaper was tuned so a productive cycle resets its overrun counter. No PRs moved into or out of the maintainer-review queue.
+The xs2rust-endor engine port on [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) stalled hard: the serial stage-3 orchestration **HALTED** after its collections child (Map/Set/ArrayBuffer/TypedArray/BigInt) failed under the `on-child-failure=halt` policy — 4 of 7 children done before the stop. The failing collections builder then hit the reaper's ceiling and was **dropped as a poison job after 5 requeue cycles** (its handler failed every time, repeatedly dying at the 2400s wall-clock the stage-2 monolith already burned on), and the hourly Fable press-driver was poisoned and dropped the same way. A fresh press-driver dispatch is already back in flight, and the Fable supervisor job (`port-xs-to-rust-memory-safe-engine-s6`) remains live — but a maintainer should note that stage-3 needs decomposition or a bigger budget before it will land, since the monolithic-child shape keeps overrunning. Separately, a self-heal job was claimed to harden `journal-worktree-keeper.sh` to repair a broken `$GARDEN_ROOT` journal-worktree gitdir. Nothing new reached the parked-for-review queue this cycle.
 
 ## Parked for maintainer feedback
 
@@ -173,8 +173,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`port-xs-to-rust-memory-safe-engine-s6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s6.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
+- [`self-heal-fix-garden-unblock-broken-journal-worktree-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-unblock-broken-journal-worktree-gitdir.md) — Harden scripts/jobs/journal-worktree-keeper.sh to REPAIR a broken $GARDEN_ROO...
 - [`xs2rust-endor-press-20260703-152012`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-152012.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (1083)
