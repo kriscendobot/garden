@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T16:38:30Z_
+_As of 2026-07-03T16:44:33Z_
 
 ## Latest
 
-The XS→Rust (Endor) port supervisor logged another press tick on [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600), an observe-and-defer check-in — no code moved, the Fable supervisor is holding for maintainer review while an attention directive on [endojs/endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602) remains in flight. Otherwise the board is quiet: nothing new posted or claimed, and 27 PRs still sit parked for kriskowal, the oldest being [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
+The XS→Rust (Endor) port advanced: a builder claimed [stage-3b child 1/9 — keyed collections remainder (Map/Set/WeakMap/WeakSet)](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-collections-keyed.md), and the Fable supervisor parked stage s7 to wait on the full stage-3b batch, so the port is now sequenced from build through to a maintainer-ready state. The press cadence on the Endor port continued its observe-and-defer check-ins. On the infrastructure side, three self-heal jobs repaired dangling journal-worktree gitdir links across the orchestrate, issue-inbox-keeper, and repo-watcher units. An attention directive is also in flight on [endojs/endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602). Nothing new landed for maintainer review; the 27-deep parked queue is unchanged, still led by the aging [voice-input](https://github.com/endojs/endo-but-for-bots/pull/101) and [passable byte arrays](https://github.com/endojs/endo-but-for-bots/pull/503) PRs.
 
 ## Parked for maintainer feedback
 
@@ -28,9 +28,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr602-7430cb28`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr602-7430cb28.md) — attention directive on endojs/endo-but-for-bots PR #602
 - [`port-xs-to-rust-memory-safe-engine-s6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s6.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
+- [`xs2rust-endor-build-stage3b-collections-keyed`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-collections-keyed.md) — Builder: stage-3b child 1/9 — keyed collections remainder (Map/Set/WeakMap/We...
 
 ### tada (1094)
 - [`xs2rust-endor-press-20260703-163536`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-163536.md) — Press tick report — xs2rust-endor-press-20260703-163536 (observe-and-defer, n...
@@ -60,6 +61,7 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
 - [`build-daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase3.md) — awaiting `build-daemon-rename-to-manager-phase2` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
+- [`port-xs-to-rust-memory-safe-engine-s7`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s7.md) — awaiting `xs2rust-endor-build-stage3b` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
 ## Watch set
