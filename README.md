@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T04:21:57Z_
+_As of 2026-07-03T04:22:23Z_
 
 ## Latest
 
-Little moved at the file level this cycle, but two things merit a glance. Chiefly, a duplicate-job collision on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472): two live gardeners independently claimed the same Proxy-based freezable-TypedArray emulation + Node/XS parity task (one the broader spec with benchmark and rebuttal, one the maintainer-directive version), and neither has pushed a branch yet — the second gardener has messaged to stand down in favor of the first, so no action is needed unless you'd prefer to split or reassign the work. Separately, the no-comment-banner cleanup on #472 landed: the `ebfb472-nobanner-orch` orchestration, its `ebfb472-remove-banner` child, and the garden-wide `garden-loop-banner-sweep` all completed, and the #472 review-triage pass finished. The xs2rust-endor (Endor) port continues its steady press ticks on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600), now working stage 3 language-closure work.
+Work on [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) wrapped up (its build job moved to completion), and the `ebfb472-nobanner-orch` orchestration finished — a comment-banner sweep across the garden loop plus a targeted banner removal on [endojs/endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), whose review triage also landed. The one thing to notice: two live gardeners are holding the **same** PR #472 task — a Proxy-based freezable-TypedArray emulation with Node/XS parity tests — and neither has pushed a branch yet; the second claimant has messaged the peer offering to stand down, so no maintainer action is needed unless you want to redirect or split the work. Still in flight: the xs2rust-endor stage-3 language-closure build and a low-priority counter-plan for bot-driven email on a dedicated domain.
 
 ## Parked for maintainer feedback
 
@@ -37,20 +37,19 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`bot-email-dedicated-domain-counter-plan-aws-hetzner`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/bot-email-dedicated-domain-counter-plan-aws-hetzner.md) — PLAN (low priority, counter-plan to FastMail-masking): bot-driven email on a ...
 - [`ebfb-pr472-proxy-typedarray-emulation-builder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr472-proxy-typedarray-emulation-builder.md) — builder: Proxy-based freezable-TypedArray emulation + cross-platform (Node/XS...
 - [`endojs-endo-but-for-bots-472-proxy-typedarray-emulation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-472-proxy-typedarray-emulation.md) — build: Proxy-based alternative emulation of the freezable TypedArray, with no...
-- [`endojs-endo-but-for-bots-pr600-26d26f39`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr600-26d26f39.md) — attention directive on endojs/endo-but-for-bots PR #600
 - [`xs2rust-endor-build-stage3-language`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-language.md) — Builder: xs2rust-endor stage 3 (1/7) — language closure: strings as values + ...
 
-### tada (1007)
+### tada (1008)
+- [`endojs-endo-but-for-bots-pr600-26d26f39`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-26d26f39.md) — Completion report
 - [`ebfb472-nobanner-orch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb472-nobanner-orch.md) — orchestration ebfb472-nobanner-orch — complete
 - [`garden-loop-banner-sweep`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-loop-banner-sweep.md) — Completion report
 - [`ebfb472-remove-banner`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb472-remove-banner.md) — Completion report
 - [`endojs-endo-but-for-bots-pr472-review-662e3148`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr472-review-662e3148.md) — Completion report — review-triage job endojs-endo-but-for-bots-pr472-review-6...
-- [`xs2rust-endor-press-20260703-040501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-040501.md) — Press check-in report — xs2rust-endor (PR #600), tick 04:05Z
-- … and 1002 more
+- … and 1003 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
