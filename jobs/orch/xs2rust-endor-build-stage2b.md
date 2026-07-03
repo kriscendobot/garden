@@ -2,7 +2,7 @@
 order: serial
 children: xs2rust-endor-build-stage2b-heap xs2rust-endor-build-stage2b-frames xs2rust-endor-build-stage2b-exceptions
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener-s4
 created_at: 2026-07-02T22:28:57Z
 ---
