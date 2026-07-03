@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T05:37:41Z_
+_As of 2026-07-03T05:43:35Z_
 
 ## Latest
 
-The XS→Rust (Endor) stage-3 build chain owns the queue: its press check-in completed with an observe-and-defer, and the fundamentals child (constructors, `Object`, functions — 2 of 7) is now in flight after the language child landed earlier. Otherwise the board is quiet, with a large parked backlog awaiting kriskowal's review — most prominently passable byte arrays in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and the EndoRegistry capability layer in [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403).
+A gardener picked up an attention directive on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600), now in progress. Otherwise the board is quiet: the XS→Rust (Endor) stage-3 build chain continues to own the machine — its language child landed, the press check-in resolved to observe-and-defer, and stage 3 (2/7, fundamentals) is mid-build. Nothing new is parked for the maintainer, and the 27 PRs awaiting review are unchanged, still led by [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (voice input) and the passable-byte-arrays work in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503).
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr600-6983cac7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr600-6983cac7.md) — attention directive on endojs/endo-but-for-bots PR #600
 - [`xs2rust-endor-build-stage3-fundamentals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-fundamentals.md) — Builder: xs2rust-endor stage 3 (2/7) — fundamentals: constructors, Object, Fu...
 
 ### tada (1026)
