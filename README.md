@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T02:00:15Z_
+_As of 2026-07-03T02:06:42Z_
 
 ## Latest
 
-Little moved on the board this cycle — one gardener-hardening job ([improve-gardener-collapse-deadline-overrun-double-journal](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-collapse-deadline-overrun-double-journal.md)) completed, with the xs2rust-endor stage-2b build still in flight — but three maintainer messages need your attention. **Most urgent: a live infrastructure incident.** While investigating five poisoned garden-infra jobs, a gardener found the `endolinbot2` host-identity drift is still active on the true leader host: `/home/kris/.garden` resolves `GARDEN=endolinbot2` while `journal/leader` names `endolinbot`, so `is-main-host.sh` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped. The fix is operational and outside a gardener's scope — either `echo endolinbot > /home/kris/.garden` or re-point the marker with `set-main-host.sh endolinbot2` and record the override, then restart the fleet.
-
-Two disposition calls also await you. On [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301), a shepherd found the entire error-tracing feature has already been independently re-landed on `llm` via the merged #58, collapsing the PR to essentially empty; the recommendation is to close it as superseded (only two small refactors — a shared `error-id.js` and `trace-constants.js` sentinels — are unique to #301 and could be extracted fresh). On [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), @gibson042 rebutted the freezable-TypedArray design doc's "Why not a Proxy wrapper?" section and asked for you and @erights to weigh in on whether the emulated view should be a Proxy that throws on canonical-index writes — a genuine design tradeoff a bot declined to decide.
+Board movement was quiet — a single dead-lettered issue-comment job cleared — so the substance this cycle is in the three unread maintainer messages, all of which need your call. Most urgent: a gardener flagged a **live leader-disabling incident** — the `endolinbot2` host-identity drift is still active on the true leader (`/home/kris/.garden` resolves `endolinbot2` while `journal/leader` and `hostname -s` say `endolinbot`), so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, maintainer-inbox Monitor) is silently skipping on this host; the fix is an operational one-liner (correct `.garden` or re-point the marker with `set-main-host.sh`) plus a fleet restart, out of a gardener's scope. Two dispositions also await you: [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) turns out to be **superseded** — the entire error-tracing feature it implements was independently re-landed on `llm` via merged #58, so a rebase collapses to a near-empty PR; the gardener recommends closing it and optionally spinning a fresh small refactor to extract just its unique `error-id.js`/`trace-constants.js`. On [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), @gibson042 reviewed the freezable-TypedArray design doc and rebuts all three "Why not a Proxy wrapper?" arguments, asking you and @erights to weigh in on plain-object-vs-Proxy-that-throws-on-canonical-index-writes. Twenty-seven PRs remain parked for review, newest being [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays).
 
 ## Parked for maintainer feedback
 
@@ -137,18 +135,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`deadmail-issue-comment-4870486307`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4870486307.md) — Dead-lettered message — pick up its intent
+### doin (2)
 - [`deadmail-issue-comment-4871521636`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4871521636.md) — Dead-lettered message — pick up its intent
 - [`xs2rust-endor-build-stage2b-frames`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage2b-frames.md) — Builder: xs2rust-endor stage 2b (2/3) — closures, call/return frames, meter-c...
 
-### tada (987)
+### tada (988)
+- [`deadmail-issue-comment-4870486307`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4870486307.md) — Completion report
 - [`improve-gardener-collapse-deadline-overrun-double-journal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-collapse-deadline-overrun-double-journal.md) — Completion report
 - [`deadmail-issue-comment-4870255317`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4870255317.md) — Completion report
 - [`deadmail-issue-comment-4870104413`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4870104413.md) — Completion report
 - [`deadmail-issue-comment-4869737552`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4869737552.md) — Completion report
-- [`xs2rust-endor-press-20260703-015012`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-015012.md) — Progress entry posted. This tick is a clean deferral — the completion report ...
-- … and 982 more
+- … and 983 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
