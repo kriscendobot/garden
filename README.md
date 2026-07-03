@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T17:08:27Z_
+_As of 2026-07-03T17:09:50Z_
 
 ## Latest
 
-The XS→Rust (Endor) port's stage-3b build fan-out advanced: the keyed-collections child landed its completion report and the BigInt child ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600), 2/9) was just claimed and is now in flight, with a completion also recorded for [endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602). Two garden self-improvement jobs are in progress — hardening `gardener.sh`'s elapsed-constancy overrun poison and adding a scheduler preflight alert for the repeatedly-warning `gardening/xs2rus…` cadence — and a dead-lettered message was picked back up for its intent. The plan queue still holds four items awaiting kriskowal's go-ahead, notably the [inquisitor ymax0 hex-fix verification](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) and the minion.town AWS deploy.
+Two garden-internal reliability fixes landed: [`improve-elapsed-constancy-early-poison`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-elapsed-constancy-early-poison.md) and [`improve-scheduler-missing-preflight-alert`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-missing-preflight-alert.md) both completed, hardening elapsed-time constancy under early poisoning and adding an alert when the scheduler's preflight goes missing. The xs2rust-endor (Endor) port stays the busiest thread — its stage-3b BigInt child is in flight toward [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) — while the maintainer's parked queue is unchanged, still fronted by the aging [#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [#186](https://github.com/endojs/endo-but-for-bots/pull/186) (42 days) and [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (17 days) awaiting review.
 
 ## Parked for maintainer feedback
 
@@ -28,19 +28,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (2)
 - [`deadmail-20260703T170625Z-2798f6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T170625Z-2798f6.md) — Dead-lettered message — pick up its intent
-- [`improve-elapsed-constancy-early-poison`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-elapsed-constancy-early-poison.md) — In /home/kris/scripts/jobs/gardener.sh, the elapsed-constancy overrun-suspect...
-- [`improve-scheduler-missing-preflight-alert`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scheduler-missing-preflight-alert.md) — The scheduler WARNs every cycle (14:50:04, 15:20:14, …) that gardening/xs2rus...
 - [`xs2rust-endor-build-stage3b-bigint`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-bigint.md) — Builder: stage-3b child 2/9 — BigInt, PR #600
 
-### tada (1100)
+### tada (1102)
+- [`improve-elapsed-constancy-early-poison`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-elapsed-constancy-early-poison.md) — Completion report
+- [`improve-scheduler-missing-preflight-alert`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-missing-preflight-alert.md) — Completion report
 - [`xs2rust-endor-press-20260703-170542`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-170542.md) — Press tick report — xs2rust-endor-press-20260703-170542 (observe-and-defer, n...
 - [`xs2rust-endor-build-stage3b-collections-keyed`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-collections-keyed.md) — Completion report
 - [`endojs-endo-but-for-bots-pr602-cde0ba2f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr602-cde0ba2f.md) — Completion report
-- [`improve-journal-remote-origin-fallback`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-remote-origin-fallback.md) — Pushed cleanly on the first attempt. Job complete.
-- [`port-xs-to-rust-memory-safe-engine-s6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s6.md) — Completion report — port-xs-to-rust-memory-safe-engine-s6 (stage-3 review + h...
-- … and 1095 more
+- … and 1097 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
