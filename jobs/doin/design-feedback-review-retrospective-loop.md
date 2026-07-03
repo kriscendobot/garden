@@ -33,3 +33,9 @@ A design doc under `designs/` (garden repo, main2) specifying the mechanism end-
 ## Definition of done
 
 An approved-quality design doc for the double-loop retrospective self-improvement mechanism, landed under `designs/` on `main2`, resolving all six design questions above with concrete choices, and carrying a staged build plan. Reconciled with existing self-improvement/mentor/panel machinery. Cite the files you inspected.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 17
+  claimed_at: 2026-07-03T05:50:58Z
