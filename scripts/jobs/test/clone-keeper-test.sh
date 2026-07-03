@@ -239,6 +239,24 @@ grep -qF "no upstream URL could be derived" <<<"$OUT" && ok "logged the no-url a
 grep -qF "clone-keeper-missing-nourl-" "$ALERTS" 2>/dev/null && ok "escalation carries the per-clone dedup key" || bad "escalation missing the expected dedup key"
 
 # ============================================================================
+hr; echo "DEFAULT — the shipped GARDEN_TRACKED_CLONES row names the real fork clone"; hr
+# Regression for the original defect: the tracked default named
+# worktrees/endojs-endo.git, a clone that exists on NO host (only the
+# endojs-endo-but-for-bots.git fork clone is ever present), so the keeper warned
+# `missing … skipping` every ~30m tick and freshened nothing. The shipped default
+# must name the real standing fork clone, keep the passive-mirror `master` branch
+# (the six-week-stale hazard), and pin an explicit fourth clone-url re-clone source
+# (the fork basename is exactly the ambiguous case derive_clone_url cannot split).
+# Parse the default straight out of the script rather than running it (the run
+# paths all override GARDEN_TRACKED_CLONES with hermetic fixtures).
+DEF="$(sed -n 's/^: "${GARDEN_TRACKED_CLONES:=\(.*\)}"$/\1/p' "$KEEPER")"
+IFS='|' read -r d_dir d_remote d_branch d_url <<<"$DEF"
+[ "$d_dir" = "worktrees/endojs-endo-but-for-bots.git" ] && ok "default tracks the real fork clone (not the phantom endojs-endo.git)" || bad "default dir is '$d_dir', expected worktrees/endojs-endo-but-for-bots.git"
+[ "$d_branch" = "master" ] && ok "default tracks the passive upstream-mirror branch master" || bad "default branch is '$d_branch', expected master"
+case "$d_url" in *://*) URL_OK=1 ;; *) URL_OK= ;; esac
+[ -n "$d_url" ] && [ -n "$URL_OK" ] && ok "default pins an explicit clone-url re-clone source" || bad "default has no explicit clone-url fourth field ('$d_url')"
+
+# ============================================================================
 hr
 echo "clone-keeper-test: $PASS passed, $FAIL failed"
 rm -rf "$TR"

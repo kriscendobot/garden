@@ -25,11 +25,16 @@
 #     and is surfaced loudly (`STALE: … cannot fast-forward`) rather than silently
 #     lagging or being clobbered.
 #
-# A tracked clone can also disappear entirely: on 2026-07-02 worktrees/endojs-endo.git
-# went missing at 09:30 and again at 10:00, and every prior version of this keeper
-# only re-warned `missing or not a git repo … skipping` each tick — never repaired
-# it — so every downstream worktree/dispatch that needs the endo clone stayed broken
-# indefinitely. The keeper now PROVISIONS a genuinely-missing clone rather than
+# A tracked clone can also disappear entirely — or be misconfigured to a path that
+# never existed: the tracked default long named worktrees/endojs-endo.git, a clone
+# absent on every host (only the endojs-endo-but-for-bots.git fork clone is ever
+# present), so the keeper re-warned `missing or not a git repo … skipping` on every
+# ~30m tick and freshened nothing, the exact stale-clone hazard it exists to kill.
+# A genuinely-vanished clone is the same shape (worktrees/endojs-endo-but-for-bots.git
+# went missing at 09:30 and again at 10:00 on 2026-07-02), and every prior version of
+# this keeper only re-warned each tick — never repaired it — so every downstream
+# worktree/dispatch that needs the clone stayed broken indefinitely. The keeper now
+# PROVISIONS a genuinely-missing clone rather than
 # skipping forever: it re-clones from the explicit fourth <clone-url> field of the
 # tracked row when one is given (the unambiguous source; logging `REPAIRED`), else
 # from the <remote> when that is itself a URL/path (also `REPAIRED`), and otherwise
@@ -84,7 +89,24 @@ GARDEN_TAG="clone-keeper"
 #      <GARDEN_CLONE_URL_BASE>/<owner>/<name>.git), the ambiguous last resort.
 # Blank lines and #-comment lines are ignored. Override GARDEN_TRACKED_CLONES
 # (newline-separated, same format) for tests or to track additional clones.
-: "${GARDEN_TRACKED_CLONES:=worktrees/endojs-endo.git|origin|master|https://github.com/endojs/endo.git}"
+#
+# The one standing clone the fleet actually cuts worktrees from is the
+# endojs/endo-but-for-bots fork (WORKTREES.md § Fork worktrees;
+# ensure-project-worktree.sh, import-endo.sh, the endo-but-for-bots watcher). Its
+# `master` branch is the PASSIVE upstream-mirror of endojs/endo that nothing
+# fetches on its own — the exact "sits weeks-stale, silently blocks upstream-drift
+# re-ingestion" hazard this keeper exists to kill (052b0487 sat six weeks; it is a
+# commit on THIS clone's master). The fork's `llm` working branch is NOT tracked:
+# the fleet pushes to it constantly, so it never goes passively stale the way the
+# master mirror does. Pure upstream `endojs/endo` is deliberately NOT tracked here
+# — it is out of autonomous scope (no PRs/comments; see ci-watcher.sh /
+# comment-watcher.sh), it has no standing bare clone on this host, and scholar
+# re-ingestion reads upstream shas via the gh API rather than a local clone. The
+# fourth field pins the AUTHORITATIVE re-clone source explicitly: the fork's
+# basename endojs-endo-but-for-bots.git is exactly the ambiguous case derive_clone_url
+# warns about (owner endojs / name endo-but-for-bots vs owner endojs-endo / name
+# but-for-bots), so the URL is given rather than derived.
+: "${GARDEN_TRACKED_CLONES:=worktrees/endojs-endo-but-for-bots.git|origin|master|ssh://git@github.com/endojs/endo-but-for-bots.git}"
 
 # Base of the canonical upstream URL the keeper reconstructs from a missing clone's
 # dir basename (worktrees/<owner>-<name>.git -> <base>/<owner>/<name>.git) when the
@@ -211,7 +233,7 @@ keep_clone() {
     #   * a present-but-corrupt dir → surface as STALE, never clobber (it may hold
     #     un-pushed local state; manual reconciliation is safer than a re-clone);
     #   * a genuinely MISSING dir whose source location is known → re-create it, so
-    #     a clone that disappears (worktrees/endojs-endo.git, 2026-07-02) is repaired
+    #     a clone that disappears (worktrees/endojs-endo-but-for-bots.git, 2026-07-02) is repaired
     #     next tick instead of re-warned forever with every dependent left broken.
     if [ -e "$abs" ]; then
       log "STALE: tracked clone $dir at $abs exists but is not a git repo; needs manual reconciliation (not clobbering)"
