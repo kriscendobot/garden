@@ -73,3 +73,9 @@ detector+handler pair exactly.
 
 Detector + handler + `garden-pr.sh` wiring committed and pushed to `main2`;
 no-comment-banners skill scope updated; detector self-test evidence in the report.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 14
+  claimed_at: 2026-07-03T04:09:32Z
