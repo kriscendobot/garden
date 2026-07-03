@@ -8,3 +8,9 @@ Change: in `keep_journal_worktree()`, replace the current `rev-parse --git-dir` 
   3. Ensure a local `$JOURNAL_BRANCH` exists tracking `origin/$JOURNAL_BRANCH` (fetch first via the existing `journal_fetch`/bounded-fetch helper), then `git -C "$GARDEN_ROOT" worktree add "$JW" "$JOURNAL_BRANCH"` (or `--track -b "$JOURNAL_BRANCH" "origin/$JOURNAL_BRANCH"` if the local branch is absent). If `$JOURNAL_BRANCH` is still checked out at a stale prunable path, the prune in step 1 frees it.
   4. Log a one-line `REBUILT: $JW recreated as worktree of $GARDEN_ROOT on $JOURNAL_BRANCH` and return 0. Page the maintainer only if the rebuild command itself fails.
 Keep the existing diverged/clean reconciliation for the healthy case unchanged. Add a test in `scripts/jobs/test/journal-worktree-keeper-test.sh` covering the broken-gitdir case (worktree `.git` pointing at a non-existent parent) asserting the keeper rebuilds it. This both repairs `/home/kris` now (the timer will rebuild `/home/kris/journal`) and prevents recurrence for every journal-touching service after a root/deploy relocation orphans the old worktree.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 5
+  claimed_at: 2026-07-03T16:24:20Z
