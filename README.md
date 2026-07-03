@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-03T06:36:40Z_
+_As of 2026-07-03T06:39:17Z_
 
 ## Latest
 
-Only a dead-letter completion report cleared the board since the last bulletin, so nothing of consequence merged in this window. Active work is narrow: two gardeners are pressing the internal xs2rust-endor port forward (build stage 3 fundamentals, plus a "press to endor integration" run). The more useful signal is the review backlog — the parked queue now holds 27 PRs awaiting kriskowal, with the oldest stretching well past a month: [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days, and the [#266](https://github.com/endojs/endo-but-for-bots/pull/266)/[#288](https://github.com/endojs/endo-but-for-bots/pull/288)/[#329](https://github.com/endojs/endo-but-for-bots/pull/329) cluster at 43–44 days, alongside the long-idle [endo#3137](https://github.com/endojs/endo/pull/3137) (17 days). Recent-but-substantive PRs [#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) have now been parked three days.
+Little moved this window: the [xs2rust-endor](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-endor-build-stage3-fundamentals.md) port remains the sole active build, now in stage 3 (fundamentals — constructors, `Object`, functions), with only a routine press check-in landing since the last bulletin. Maintainer attention is best spent on the parked review queue, where 27 PRs await feedback — several web-chat and pass-style features ([endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#403](https://github.com/endojs/endo-but-for-bots/pull/403)) plus the long-waiting [endo#3137](https://github.com/endojs/endo/pull/3137) TypeScript-runtime-modules PR (17 days) — and on the four plan-queue items still awaiting go-ahead, including the ymax0 hex-fix verification.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 15h)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 16h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 3d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 7d)
@@ -28,17 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`xs2rust-endor-build-stage3-fundamentals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-fundamentals.md) — Builder: xs2rust-endor stage 3 (2/7) — fundamentals: constructors, Object, Fu...
-- [`xs2rust-endor-press-20260703-063542`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-063542.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (1039)
+### tada (1040)
+- [`xs2rust-endor-press-20260703-063542`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-063542.md) — Press check-in report (xs2rust-endor-press-20260703-063542)
 - [`deadmail-20260703T062700Z-e70d9d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T062700Z-e70d9d.md) — Completion report
 - [`improve-scheduler-preflight-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-validation.md) — Completion report
 - [`improve-exit0-unsatisfying-wedge-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-exit0-unsatisfying-wedge-escalation.md) — Completion report
 - [`improve-clone-keeper-selfheal-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-selfheal-missing-clone.md) — The work this job requests has already been fully implemented and merged to o...
-- [`build-feedback-review-retrospective-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-feedback-review-retrospective-loop.md) — What I did
-- … and 1034 more
+- … and 1035 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
