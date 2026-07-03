@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T05:51:18Z_
+_As of 2026-07-03T05:52:06Z_
 
 ## Latest
 
-A designer picked up the [double-loop feedback-retrospective](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-feedback-review-retrospective-loop.md) work — treating every PR comment as an indictment of the review process itself — with the builder half parked and blocked on that design landing. The [xs2rust-endor](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-fundamentals.md) Rust-port effort is mid-stage-3: the language child completed and the fundamentals child (constructors, Object, Function) is now in flight, with a press check-in confirming the stage-3 build chain owns the lane. A completion report landed for [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600). Nothing new is parked for review, but the queue is deep — 27 PRs await kriskowal, the longest-waiting being [endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type-syntax `.ts` runtime modules, 17d) and a cluster of 42–43-day-old endo-but-for-bots PRs including [#266](https://github.com/endojs/endo-but-for-bots/pull/266), [#288](https://github.com/endojs/endo-but-for-bots/pull/288), and [#329](https://github.com/endojs/endo-but-for-bots/pull/329).
+The board is quiet since the last bulletin: the only transition is a newly parked plan to swap xs2rust-endor's CESU-8 string storage for UTF-16 (dropping the constant-time indexing constant), now sitting in the deferred queue behind the active stage-3 build. In flight, a builder is working xs2rust-endor stage 3 (fundamentals: constructors, Object, Function) and a designer is on the feedback-review-retrospective double-loop; nothing new landed for maintainer review.
 
 ## Parked for maintainer feedback
 
@@ -48,6 +48,7 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
+- [`xs2rust-endor-strings-utf16-replace-cesu8`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-strings-utf16-replace-cesu8.md) — _normal_ · xs2rust-endor: replace CESU-8 string storage with UTF-16 (drop the constant-t...
 - [`fix-lint-jsdoc-warnings-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-lint-jsdoc-warnings-endo-master.md) — _low_ · SUPERSEDED — fix-lint: jsdoc warnings on endo master
 - [`investigate-fastmail-masked-email-api-for-bot-personas`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-fastmail-masked-email-api-for-bot-personas.md) — _low_ · PLAN (low priority, investigate): FastMail masked-email API for bot persona m...
 - [`scholar-ingest-ocap-kernel-comment-fragments-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-comment-fragments-2.md) — _low_ · PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
