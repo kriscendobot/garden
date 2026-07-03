@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T17:43:49Z_
+_As of 2026-07-03T17:45:15Z_
 
 ## Latest
 
-The XS→Rust (Endor) port advanced another notch on its stage-3b binary-value work: the BigInt child (2/9, [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) completed and the binary-data child (3/9, ArrayBuffer/TypedArray/DataView) was just claimed into progress, leaving the board otherwise drained. A handful of deterministic self-heal improvements to the infrastructure also landed — the xs2rust press preflight, a scheduler declared-preflight self-heal, and a clone-keeper missing-clone reclone. Nothing new is parked for review; the maintainer queue holds steady at 27 PRs awaiting kriskowal, oldest being [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
+The XS→Rust (Endor) port's stage-3b build is advancing child by child: the BigInt child (2 of 9) landed and the binary-data child (ArrayBuffer/TypedArray/DataView, 3 of 9) is now in progress, with the Fable supervisor job still parked awaiting the full stage-3b set. A cluster of infrastructure self-heal fixes also completed — xs2rust-endor press-preflight, the scheduler's declared-preflight self-heal, and clone-keeper's missing-clone reclone — and a dead-lettered message was picked back up for its intent. Otherwise the board is quiet; the parked review queue is unchanged, still headed by [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) awaiting kriskowal.
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`deadmail-20260703T174129Z-e748a9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T174129Z-e748a9.md) — Dead-lettered message — pick up its intent
 - [`xs2rust-endor-build-stage3b-binary`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-binary.md) — Builder: stage-3b child 3/9 — binary data (ArrayBuffer / TypedArray / DataVie...
 
 ### tada (1107)
