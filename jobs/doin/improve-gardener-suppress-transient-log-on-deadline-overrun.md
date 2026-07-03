@@ -1,1 +1,7 @@
 In `scripts/jobs/gardener.sh`, stop emitting the misleading "transient handler outage … no escalation, left in doin for reaper requeue" journal entry (the `printf` around line 498) when `deadline_overrun=1`. In that case the deadline-overrun block (line ~513-523) immediately posts the contradicting "DETERMINISTIC deadline overrun … stamping garden-deadline-overrun" entry, so the two land seconds apart and read as a misclassification-then-correction to anyone (or any mentor) reading the journal. Guard the transient `printf`/`log` pair with `[ "${deadline_overrun:-0}" -eq 0 ]` (or move it into the `else` of the deadline-overrun branch) so exactly one authoritative entry is written per rc=124 event; the internal `log`-level breadcrumb can stay if useful, but only one journal-visible entry should describe the outcome.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 12
+  claimed_at: 2026-07-03T04:52:24Z
