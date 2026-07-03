@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T11:13:10Z_
+_As of 2026-07-03T11:17:52Z_
 
 ## Latest
 
-A single completion landed since the last bulletin: the [gardener-scaler journal-worktree gitdir repair](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-gardener-scaler-journal-worktree-gitdir-repair.md) finished, the first of a self-heal cluster now working through the fallout of the garden root moving from `/home/kris/garden2` to `/home/kris`, which orphaned the standing journal worktrees. Eight sibling repairs remain in flight — hardening `common.sh`'s `journal_remote()` and the worktree-keeper against dangling and stale gitdir pointers across the comment-watcher, deadmail, follow-up, gardener, issue-inbox, mirror-closer, and orchestrate services — so a maintainer should expect the crash-looping journal-worktree services to quiet as those land. Feature work is otherwise steady: the xs2rust-endor Rust port is mid-build on stage 3 (arrays and the iteration protocol), and the todo queue is empty with 27 PRs still parked for kriskowal's review.
+The headline is an infrastructure incident on endolinbot2: a herd of concurrent per-service self-heal jobs (comment-watcher, deadmail, follow-up, issue-inbox, mirror-closer, plus a relink-recover job) all raced `git worktree repair`/`prune` on the *same* shared `/home/kris/journal` worktree, and a peer's `prune` deleted the whole admin registration while the entry was transiently dangling. The comment-watcher job reconstructed the admin entry by hand and the worktree is now cleanly re-registered on `journal2` (tree clean, inbox readable), so the crash-loop is over. The durable fix landed on `main2`: the journal-worktree-keeper's per-tick gitdir repair already covers this class, so the redundant re-implementation was deduped and the missing keeper test added. Two things want a maintainer decision — **deploy the keeper to endolinbot2** so the tick auto-heals this class, and **cancel the remaining sibling self-heal jobs** (deadmail, follow-up, issue-inbox, mirror-closer, relink-recover, all still in `doin`), which are now redundant and actively colliding on shared host state; only one recovery actor should touch the worktree at a time. Elsewhere, the xs2rust-endor Rust-port build continues advancing through stage 3 (arrays and the iteration protocol). No job-board transitions resolved this cycle, and 27 PRs remain parked for review.
 
 ## Parked for maintainer feedback
 
@@ -22,7 +22,16 @@ A single completion landed since the last bulletin: the [gardener-scaler journal
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260703T111744Z-790591` — from gardener:self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-journal-worktree-dangling-gitdir, reply_to `self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-journal-worktree-dangling-gitdir` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260703T111744Z-790591.md)
+
+> Host endolinbot2: recovered the shared /home/kris/journal worktree (crash-loop is over) and landed the durable fix, but flagging a destructive collision.
+>
+> WHAT HAPPENED: A HERD of concurrent per-service self-heal jobs (comment-watcher [this job], deadmail, follow-up, issue-inbox, mirror-closer, plus a relink-recover job) all raced `git worktree repair`/`prune` on the SAME shared /home/kris/journal worktree. While the entry was transiently dangling at the defunct garden2 path, a peer's `git worktree prune` DELETED the whole admin registration (/home/kris/.git/worktrees/journal). I reconstructed the admin entry by hand (gitdir/HEAD/commondir) + `worktree repair`; it is now cleanly registered on journal2 @6b2ac9378, tree clean, inbox readable.
+>
+> DURABLE FIX (this job): journal-worktree-keeper's jw_repair_gitdir already repairs a dangling gitdir every tick (peer commit ce4b94831); I deduped my redundant re-implementation and added the missing keeper test. On main2 @53a062507.
+>
+> RECOMMENDATIONS: (1) DEPLOY the keeper to endolinbot2 so the tick auto-heals this class and the per-service self-heal jobs can be RETIRED rather than run concurrently. (2) The remaining sibling self-heal jobs (deadmail/follow-up/issue-inbox/mirror-closer/relink-recover) are now redundant and are actively colliding on shared host state — consider cancelling the duplicates; only one recovery actor should touch the shared worktree at a time.
+
 
 ## Board
 ### todo (0)
