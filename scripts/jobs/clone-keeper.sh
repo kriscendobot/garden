@@ -30,12 +30,15 @@
 # only re-warned `missing or not a git repo … skipping` each tick — never repaired
 # it — so every downstream worktree/dispatch that needs the endo clone stayed broken
 # indefinitely. The keeper now PROVISIONS a genuinely-missing clone rather than
-# skipping forever: it re-clones from the tracked source when that is a URL/path
-# (logging `REPAIRED`), and otherwise DERIVES the canonical upstream URL
-# deterministically from the dir basename — worktrees/<owner>-<name>.git maps to
-# <GARDEN_CLONE_URL_BASE>/<owner>/<name>.git — and clones from that (logging a
-# `provisioned missing clone` line), so even a clone tracked by a bare remote name
-# self-heals. The fresh bare clone gets its fetch refspec set exactly as
+# skipping forever: it re-clones from the explicit fourth <clone-url> field of the
+# tracked row when one is given (the unambiguous source; logging `REPAIRED`), else
+# from the <remote> when that is itself a URL/path (also `REPAIRED`), and otherwise
+# DERIVES the canonical upstream URL deterministically from the dir basename —
+# worktrees/<owner>-<name>.git maps to <GARDEN_CLONE_URL_BASE>/<owner>/<name>.git —
+# and clones from that (logging a `provisioned missing clone` line), so even a clone
+# tracked by a bare remote name still self-heals (the basename derivation is the
+# ambiguous last resort — an explicit <clone-url> is preferred). The fresh bare
+# clone gets its fetch refspec set exactly as
 # ensure-project-worktree.sh prescribes, then falls through to the normal
 # fetch + fast-forward. Guards: a source that cannot be derived or reached falls
 # back to the existing skip (no re-clone loop, the next tick retries), and a
@@ -58,17 +61,21 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 GARDEN_TAG="clone-keeper"
 
-# Tracked bare clones, one per line: "<dir>|<remote>|<branch>". <dir> is relative
-# to GARDEN_ROOT (or absolute). <remote> is the fetch source: either a bare remote
-# NAME (e.g. `origin`, resolvable only while the clone still exists) or a URL/path
-# (e.g. https://…/endo.git) that can ALSO re-clone the dir if it goes missing. Even
-# a bare-name source self-heals when the dir is named <owner>-<name>.git, since the
-# keeper derives <GARDEN_CLONE_URL_BASE>/<owner>/<name>.git from the basename to
-# provision a vanished clone; give a URL/path source to pin an exact non-GitHub
-# upstream or a dir that does not follow the <owner>-<name>.git convention.
+# Tracked bare clones, one per line: "<dir>|<remote>|<branch>[|<clone-url>]". <dir>
+# is relative to GARDEN_ROOT (or absolute). <remote> is the FETCH source of the
+# periodic fast-forward: either a bare remote NAME (e.g. `origin`, resolvable only
+# while the clone still exists) or a URL/path. The optional fourth <clone-url> is
+# the AUTHORITATIVE re-clone source used when the dir goes missing — give it
+# explicitly so the owner/repo split is unambiguous (deriving `endojs`/`endo` from
+# a hyphenated basename cannot tell owner `a-b`/name `c` from owner `a`/name `b-c`,
+# so it is only a last resort). Re-clone source precedence when the dir is gone:
+#   1. the explicit <clone-url> fourth field, when set (unambiguous);
+#   2. else <remote>, when it is itself a URL/path (not a bare name);
+#   3. else the URL DERIVED from the dir basename (<owner>-<name>.git ->
+#      <GARDEN_CLONE_URL_BASE>/<owner>/<name>.git), the ambiguous last resort.
 # Blank lines and #-comment lines are ignored. Override GARDEN_TRACKED_CLONES
 # (newline-separated, same format) for tests or to track additional clones.
-: "${GARDEN_TRACKED_CLONES:=worktrees/endojs-endo.git|https://github.com/endojs/endo.git|master}"
+: "${GARDEN_TRACKED_CLONES:=worktrees/endojs-endo.git|origin|master|https://github.com/endojs/endo.git}"
 
 # Base of the canonical upstream URL the keeper reconstructs from a missing clone's
 # dir basename (worktrees/<owner>-<name>.git -> <base>/<owner>/<name>.git) when the
@@ -170,7 +177,7 @@ bounded_clone() {
 # Fetch + fast-forward one tracked clone. Self-contained: every failure path is
 # logged and returns 0, so one unreachable/diverged clone never aborts the rest.
 keep_clone() {
-  local dir="$1" remote="$2" branch="$3" abs="$1"
+  local dir="$1" remote="$2" branch="$3" clone_url="${4:-}" abs="$1"
   case "$abs" in /*) ;; *) abs="$GARDEN_ROOT/$dir" ;; esac
 
   if ! is_own_git_repo "$abs"; then
@@ -184,16 +191,21 @@ keep_clone() {
       log "STALE: tracked clone $dir at $abs exists but is not a git repo; needs manual reconciliation (not clobbering)"
       return 0
     fi
-    # Pick a clone source. An explicit URL/path in the tracked row wins (it can pin
-    # a non-GitHub upstream); otherwise derive the canonical GitHub URL from the dir
-    # basename so even a clone tracked by a bare remote name self-heals.
+    # Pick a clone source, most-authoritative first: the explicit fourth
+    # <clone-url> field of the tracked row (unambiguous owner/repo, wins over
+    # everything); else the <remote> when it is itself a URL/path (it can pin a
+    # non-GitHub upstream); else the canonical GitHub URL DERIVED from the dir
+    # basename so even a clone tracked by a bare remote name self-heals — but that
+    # derivation is ambiguous for hyphenated owners/names, hence the last resort.
     local src provisioned=
-    if is_remote_location "$remote"; then
+    if [ -n "$clone_url" ]; then
+      src="$clone_url"
+    elif is_remote_location "$remote"; then
       src="$remote"
     elif src="$(derive_clone_url "$abs")"; then
       provisioned=1
     else
-      log "WARN: tracked clone $dir is missing at $abs, remote '$remote' is a bare name, and no upstream URL could be derived from its basename; skipping"
+      log "WARN: tracked clone $dir is missing at $abs, remote '$remote' is a bare name, no explicit clone-url is set, and no upstream URL could be derived from its basename; skipping"
       return 0
     fi
     if ! bounded_clone "$src" "$abs"; then
@@ -253,9 +265,11 @@ keep_clone() {
   return 0
 }
 
-while IFS='|' read -r dir remote branch; do
+while IFS='|' read -r dir remote branch clone_url; do
   dir="${dir#"${dir%%[![:space:]]*}"}"   # ltrim
   [ -n "$dir" ] || continue
   case "$dir" in \#*) continue ;; esac
-  keep_clone "$dir" "${remote:-origin}" "${branch:-master}"
+  # rtrim the last field so a trailing space/CR in the row does not corrupt the URL.
+  clone_url="${clone_url%"${clone_url##*[![:space:]]}"}"
+  keep_clone "$dir" "${remote:-origin}" "${branch:-master}" "$clone_url"
 done <<< "$GARDEN_TRACKED_CLONES"

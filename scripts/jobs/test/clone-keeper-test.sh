@@ -136,6 +136,24 @@ git -C "$CLONE" rev-parse --git-dir >/dev/null 2>&1 && ok "missing clone re-crea
 grep -qF "REPAIRED:" <<<"$OUT" && ok "logged a REPAIRED line" || bad "re-clone not surfaced as REPAIRED"
 
 # ============================================================================
+hr; echo "CLONE-URL FIELD — deleted clone, bare-name remote + explicit fourth clone-url: re-cloned from the explicit URL, refspec set"; hr
+setup_fixture
+before="$(local_master)"
+rm -rf "$CLONE"
+[ ! -e "$CLONE" ] || bad "precondition: clone still present after rm"
+# remote is the bare name `origin` (unresolvable once the clone is gone) and the
+# basename derivation is aimed at an unreachable base, so the ONLY way the clone can
+# come back is the explicit fourth clone-url field ($UP). Success therefore proves
+# the fourth field is the authoritative, unambiguous re-clone source.
+run_keeper GARDEN_TRACKED_CLONES="$CLONE|origin|master|$UP" \
+           GARDEN_CLONE_URL_BASE="file://$TR/nonexistent"
+[ "$RC" -eq 0 ] && ok "exit 0 on re-clone from explicit clone-url" || bad "exit $RC on explicit clone-url re-clone"
+git -C "$CLONE" rev-parse --git-dir >/dev/null 2>&1 && ok "missing clone re-created from the explicit fourth field" || bad "clone NOT re-created from the explicit clone-url"
+[ "$(local_master 2>/dev/null)" = "$before" ] && ok "re-cloned master matches upstream tip" || bad "re-cloned master wrong ($(local_master 2>/dev/null) != $before)"
+[ "$(git -C "$CLONE" config --get remote.origin.fetch)" = "+refs/heads/*:refs/remotes/origin/*" ] && ok "fetch refspec set on the explicit-clone-url re-clone" || bad "fetch refspec not set on the explicit-clone-url re-clone"
+grep -qF "REPAIRED:" <<<"$OUT" && ok "logged a REPAIRED line for the explicit clone-url re-clone" || bad "explicit clone-url re-clone not surfaced as REPAIRED"
+
+# ============================================================================
 hr; echo "CORRUPT — tracked dir present but not a git repo: STALE, NOT clobbered"; hr
 setup_fixture
 rm -rf "$CLONE"; mkdir -p "$CLONE"; printf 'junk\n' > "$CLONE/not-a-repo"
