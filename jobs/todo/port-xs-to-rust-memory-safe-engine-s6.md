@@ -873,11 +873,4 @@ structured-JSON.stringify metering follow-up child lands in this stage or a late
 one; the other three folds are small named residuals to home alongside the existing
 minor deferrals.
 
-<!-- garden-reaped: 2 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolinbot2
-  gardener: 20
-  claimed_at: 2026-07-03T15:43:07Z
+<!-- garden-reaped: 3 -->
