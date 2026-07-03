@@ -1,18 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-03T03:32:22Z_
+_As of 2026-07-03T03:56:53Z_
 
 ## Latest
 
-The most urgent item is a live infrastructure incident: a gardener investigating five poisoned garden-infra jobs reports that the `endolinbot2` host-identity drift is still active on the true leader host, silently making `is-main-host` return FOLLOWER and skipping every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor). Because the `.garden` file override resolves consistently across all workers, the existing spawn-WARN and scaler reconcile can't catch it; the fix is operational (correct `/home/kris/.garden` or re-point the leader marker, then restart the fleet) and awaits your hand.
-
-Two disposition/design calls are also parked in your inbox. A shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) (error-tracing) is subsumed, not lint-blocked — the feature already landed independently on `llm` via #58, so a rebase collapses to an empty PR; recommendation is to close it as superseded, optionally extracting the two unique refactors as a fresh small PR. And [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) (freezable-TypedArray design doc) has a gibson042 review rebutting the "Why not a Proxy wrapper?" section and asking you and @erights to weigh in on plain-object-vs-Proxy — a genuine design tradeoff a bot won't decide.
-
-On the board, the Fable-supervised XS→Rust (Endor) port claimed `port-xs-to-rust-memory-safe-engine-s5` and is now the sole in-flight job; its stage-2b build orchestration (exceptions/opcodes) completed and a press check-in ran for the port PR. Two infra hardening jobs also landed: a GitHub transient-retry for the CI rollup and a clone-keeper self-heal for a missing bare clone.
+[endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (voice input via Web Speech API) is green — the shepherd resumed and all 24 checks pass, so it now sits parked for review. The XS→Rust (Endor) port advanced a stage: stage 2b landed complete and stage 3 opened as an orchestration fanning out into seven parked children (language, fundamentals, arrays, collections, promises, text/math/JSON, and xsre); the language closure (1/7) is already claimed and building, while the s5 engine milestone finished and s6 waits on stage 3. On the infra side, `reconcile-claude-md-with-v2-tree` completed and a gardener picked up giving the foreman an explicit active-job target. One item needs kriskowal's own call: gibson042's review on the freezable-TypedArray design doc for [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) rebuts all three "Why not a Proxy wrapper?" arguments and asks whether the emulated view should throw on canonical-index writes — the bot deliberately made no change and left the decision to you.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 12h)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 13h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 3d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 6d)
@@ -25,78 +21,6 @@ On the board, the Fable-supervised XS→Rust (Endor) port claimed `port-xs-to-ru
 
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260702T100530Z-a43c17` — from gardener:investigate-poisoned-garden-infra-jobs, reply_to `investigate-poisoned-garden-infra-jobs` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T100530Z-a43c17.md)
-
-> LIVE INCIDENT surfaced while investigating the 5 poisoned garden-infra jobs
-> (job investigate-poisoned-garden-infra-jobs): the endolinbot2 host-identity drift
-> is still active on the leader host and is silently disabling the leader.
->
->   /home/kris/.garden  ->  "endolinbot2"
->   hostname -s         ->  "endolinbot"
->   journal/leader      ->  "endolinbot"
->   is-main-host.sh     ->  exit 1 (FOLLOWER)
->
-> Because common.sh reads .garden (identity precedence step 2) it resolves
-> GARDEN=endolinbot2, so is-main-host compares endolinbot2 != leader(endolinbot) and
-> reports FOLLOWER on the true leader host. Every leader-only singleton (foreman,
-> scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the
-> maintainer-inbox Monitor) is being SKIPPED here. All 276 recent gardener journal
-> entries key host: endolinbot2, mislabeling per-host state.
->
-> This same drift was the compounding factor behind the 5 poisonings (during the
-> 2026-07-01T00:26-00:50Z / 07-02T01:20-01:45Z Claude quota outage; see the result
-> entry). The existing gardener.sh:98 spawn WARN and gardener-scaler reconcile-identity
-> do NOT catch it because a .garden-FILE override makes every worker resolve
-> endolinbot2 CONSISTENTLY (their /proc environ agrees), so the inconsistency-based
-> reconcile sees no drift.
->
-> Requested operational fix (deployed-root state, out of a gardener's autonomous
-> scope so I did not touch it): either
->   (a) correct the shard identity  -> `echo endolinbot > /home/kris/.garden`  (if
->       this host is meant to be the single leader shard "endolinbot"), OR
->   (b) if endolinbot2 is the intended identity, re-point the leader marker with
->       set-main-host.sh endolinbot2 and record the parallel-pool override so the
->       spawn WARN silences.
-> Then restart the fleet (deploy-restart / re-exec) so workers pick up the corrected
-> GARDEN and is-main-host flips to leader.
->
-> I re-posted the improve-garden-identity-drift-detector job (sharpened) so the NEXT
-> regression is loud on tick 1 as a kind:error, but that detector cannot fix the
-> already-live .garden value.
-
-- `20260702T100825Z-a5961c` — from gardener:endojs-endo-but-for-bots-pr301-shepherd-llm-resume, reply_to `endojs-endo-but-for-bots-pr301-shepherd-llm-resume` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T100825Z-a5961c.md)
-
-> shepherd #301 (llm lint-ceiling resume) — finding: PR #301 is SUBSUMED, not lint-blocked.
->
-> Re-fetched live: #301 is OPEN, base=llm, head=kriskowal-error-trace, mergeable=CONFLICTING/DIRTY.
-> Rebasing onto current origin/llm reveals the real blocker is NOT the typescript-eslint ceiling
-> (that fix is present on llm) — it's that the ENTIRE error-tracing feature #301 implements has
-> already been independently re-landed on llm via:
->   e50be0b0c  feat(daemon,cli): error tracing across CapTP workers (#1879) (#58)
->   + 3b411aa25 marshal hooks, 48bf20f2d captp forwarding, bbc997dee daemon aggregator, etc.
->
-> Evidence during rebase onto origin/llm:
->   - commit 66d6abc9 (marshal: add marshalLoadError hook) auto-SKIPPED as "already applied";
->   - packages/captp/src/captp.js conflict resolved trivially (llm already forwards the hooks);
->   - packages/daemon/src/trace-aggregator.js + its test: add/add conflicts — llm's copy is
->     near-identical to #301's (470 vs 463 lines; diff is 5+/12-, i.e. 17 lines total).
->
-> So a rebase-and-green would try to re-introduce an already-merged feature and collapses to an
-> essentially empty PR. This is out of shepherd scope and out of a mechanical fixer's scope too —
-> it's a disposition call.
->
-> Unique to #301 over llm (NOT on llm): two later refactor commits' artifacts —
->   packages/daemon/src/error-id.js (dedup of recordInboundErrorId/extractErrorId helpers, +115),
->   packages/daemon/src/trace-constants.js (DAEMON_WORKER_ID / networkWorkerId sentinels).
-> Everything else is duplicated.
->
-> Recommendation: CLOSE #301 as superseded by the merged #58 error-tracing feature. If you want the
-> two small refactors (shared error-id module + trace-constants sentinels) applied on top of llm's
-> merged implementation, that's a fresh small builder/fixer PR against llm, not a rebase of #301.
->
-> I did not push anything and left #301 untouched (no comment authorization on this job). Awaiting
-> your call: close #301, or open a fresh refactor PR extracting error-id.js/trace-constants.js?
 
 - `20260702T223440Z-5b9cb3` — from gardener:endojs-endo-but-for-bots-pr472-review-72d18f86, reply_to `endojs-endo-but-for-bots-pr472-review-72d18f86` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T223440Z-5b9cb3.md)
 
@@ -139,16 +63,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`port-xs-to-rust-memory-safe-engine-s5`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s5.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
+### doin (2)
+- [`foreman-active-job-target`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/foreman-active-job-target.md) — garden-infra: give the foreman an active-job TARGET (default 3), not just idl...
+- [`xs2rust-endor-build-stage3-language`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-language.md) — Builder: xs2rust-endor stage 3 (1/7) — language closure: strings as values + ...
 
-### tada (997)
+### tada (1000)
+- [`reconcile-claude-md-with-v2-tree`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/reconcile-claude-md-with-v2-tree.md) — Completion report
+- [`port-xs-to-rust-memory-safe-engine-s5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s5.md) — Completion report — port-xs-to-rust-memory-safe-engine-s5
+- [`endojs-endo-but-for-bots-pr101-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr101-shepherd-llm-resume.md) — All 24 checks pass — both lint jobs, cover, zizmor, the full test matrix — on...
 - [`xs2rust-endor-build-stage2b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage2b.md) — orchestration xs2rust-endor-build-stage2b — complete
 - [`xs2rust-endor-build-stage2b-exceptions`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage2b-exceptions.md) — Completion report — xs2rust-endor stage 2b (child 3/3): exceptions, full opco...
-- [`improve-ci-rollup-gh-transient-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-rollup-gh-transient-retry.md) — Completion report
-- [`improve-clone-keeper-selfheal-missing-bare-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-selfheal-missing-bare-clone.md) — Completion report
-- [`xs2rust-endor-press-20260703-025032`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-025032.md) — Press check-in complete for PR #600 (xs2rust-endor), tick at 02:50Z. This was...
-- … and 992 more
+- … and 995 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -158,18 +83,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`reconcile-claude-md-with-v2-tree`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/reconcile-claude-md-with-v2-tree.md) — _normal_ · Reconcile CLAUDE.md with the v2 tree (drift found during the README rewrite)
 - [`bot-email-dedicated-domain-counter-plan-aws-hetzner`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/bot-email-dedicated-domain-counter-plan-aws-hetzner.md) — _low_ · PLAN (low priority, counter-plan to FastMail-masking): bot-driven email on a ...
 - [`fix-lint-jsdoc-warnings-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-lint-jsdoc-warnings-endo-master.md) — _low_ · SUPERSEDED — fix-lint: jsdoc warnings on endo master
 - [`investigate-fastmail-masked-email-api-for-bot-personas`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-fastmail-masked-email-api-for-bot-personas.md) — _low_ · PLAN (low priority, investigate): FastMail masked-email API for bot persona m...
 - [`scholar-ingest-ocap-kernel-comment-fragments-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-comment-fragments-2.md) — _low_ · PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
-- [`endojs-endo-but-for-bots-pr101-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr101-shepherd-llm-resume.md) — _low_ · shepherd on endojs/endo-but-for-bots PR #101 (PARKED from doin — churn/near-p...
 - [`endojs-endo-but-for-bots-pr588-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr588-shepherd-llm-resume.md) — _low_ · shepherd on endojs/endo-but-for-bots PR #588 (PARKED from doin — churn/near-p...
 - [`scheduler-timezone-anchored-cadence`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scheduler-timezone-anchored-cadence.md) — _low_ · design/build: timezone-anchored scheduler cadence (fix daily-progress-summary...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
 - [`build-daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase3.md) — awaiting `build-daemon-rename-to-manager-phase2` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
+- [`port-xs-to-rust-memory-safe-engine-s6`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s6.md) — awaiting `xs2rust-endor-build-stage3` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
 ## Watch set
