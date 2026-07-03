@@ -26,3 +26,9 @@ Two scoped changes, both keyed to this signature:
    `die`. This is safe because the journal (`journal2`) is an orphan branch on the
    SAME origin as the garden root; it keeps pollers alive through a transiently
    broken journal worktree instead of taking the whole watcher down.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 12
+  claimed_at: 2026-07-03T16:25:00Z
