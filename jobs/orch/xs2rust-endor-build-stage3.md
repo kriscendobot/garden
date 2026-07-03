@@ -2,7 +2,7 @@
 order: serial
 children: xs2rust-endor-build-stage3-language xs2rust-endor-build-stage3-fundamentals xs2rust-endor-build-stage3-arrays xs2rust-endor-build-stage3-text-math-json xs2rust-endor-build-stage3-collections xs2rust-endor-build-stage3-promises xs2rust-endor-build-stage3-xsre
 on-child-failure: halt
-state: pending
+state: running
 created_by: supervisor-s5
 created_at: 2026-07-03T03:46:44Z
 ---
