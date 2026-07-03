@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-03T17:25:45Z_
+_As of 2026-07-03T17:36:26Z_
 
 ## Latest
 
-Deterministic infrastructure hardening landed a cluster of self-heal fixes: the scheduler now self-heals its declared preflight ([`improve-scheduler-declared-preflight-selfheal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-declared-preflight-selfheal.md) completed since the last bulletin), alongside recent companions that alert on a missing preflight, re-clone a missing clone in the clone-keeper, and poison early on elapsed-constancy. In flight: the xs2rust-endor (XS→Rust "Endor" port) build is grinding through stage-3b — child 2/9 (BigInt) is being built as [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) — and a companion job is tightening that schedule's preflight. No new PRs were parked for review; the oldest waiters remain [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
+The bulletin board is quiet this cycle: a single completion moved through.
+
+The [xs2rust-endor press-preflight improvement](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-xs2rust-endor-press-preflight.md) landed, while stage-3b of the XS→Rust (Endor) port continues in flight — child 2/9, [BigInt](https://github.com/endojs/endo-but-for-bots/pull/600), is the sole job still working. On the maintainer's plate, [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) has been parked three days and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) four; four plan items — including the ymax0 hex-fix verification and the minion.town AWS deploy — still await your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -12,7 +14,7 @@ Deterministic infrastructure hardening landed a cluster of self-heal fixes: the 
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 4d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 7d)
-- [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 17d)
+- [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 18d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 42d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 42d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 44d)
@@ -28,17 +30,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`improve-xs2rust-endor-press-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-xs2rust-endor-press-preflight.md) — The schedule journal/schedules/xs2rust-endor-press.md declares preflight: gar...
+### doin (1)
 - [`xs2rust-endor-build-stage3b-bigint`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-bigint.md) — Builder: stage-3b child 2/9 — BigInt, PR #600
 
-### tada (1105)
+### tada (1106)
+- [`improve-xs2rust-endor-press-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-xs2rust-endor-press-preflight.md) — Completion report
 - [`improve-scheduler-declared-preflight-selfheal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-declared-preflight-selfheal.md) — Completion report
 - [`improve-clone-keeper-missing-clone-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-missing-clone-reclone.md) — Completion report
 - [`deadmail-20260703T170625Z-2798f6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T170625Z-2798f6.md) — Completion report
 - [`improve-elapsed-constancy-early-poison`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-elapsed-constancy-early-poison.md) — Completion report
-- [`improve-scheduler-missing-preflight-alert`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-missing-preflight-alert.md) — Completion report
-- … and 1100 more
+- … and 1101 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
