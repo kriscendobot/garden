@@ -119,6 +119,17 @@ board_has() {  # board_has <bare> <base>  -> 0 if job present in todo/doin/tada
   for s in todo doin tada; do [ -e "$v/jobs/$s/$2.md" ] && rc=0; done
   rm -rf "$v"; return $rc
 }
+board_has_plan() {  # board_has_plan <bare> <base>  -> 0 if job parked in jobs/plan
+  local v; v="$(mktemp -d "$TR/bp.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
+  local rc=1; [ -e "$v/jobs/plan/$2.md" ] && rc=0
+  rm -rf "$v"; return $rc
+}
+plan_count() {  # plan_count <bare>  -> non-gitkeep entries in jobs/plan
+  local v n; v="$(mktemp -d "$TR/pc.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
+  n=$(ls -1 "$v/jobs/plan" 2>/dev/null | grep -vxc '.gitkeep' || true); rm -rf "$v"; printf '%s' "$n"
+}
 
 run_watcher() {  # run_watcher <state> <bare> <fixture> <reactlog> [post-cmd]
   # Trust is DENIED deterministically (empty allowlist + /bin/false org check) so
@@ -134,6 +145,7 @@ run_watcher() {  # run_watcher <state> <bare> <fixture> <reactlog> [post-cmd]
       GARDEN_COMMENT_REACTJI="$REACTSTUB" \
       GARDEN_COMMENT_REPLY="$REPLYSTUB" CW_REPLY_LOG="${CW_REPLY_LOG:-/dev/null}" \
       GARDEN_COMMENT_POST="${5:-$JOBS/post-job.sh}" \
+      GARDEN_RETRO_POST="${CW_RETRO_POST:-$JOBS/post-plan.sh}" \
       GARDEN_COMMENT_TRUST=/bin/false \
       GARDEN_TRUSTED_ALLOWLIST=/dev/null \
       GARDEN_PR_MERGEABLE="${CW_MERGEABLE:-$MERGEABLE_OPEN}" \
@@ -310,6 +322,7 @@ run_directive() {  # run_directive <state> <bare> <fixture> <reactlog> [logfile]
       GARDEN_COMMENT_REACTJI="$REACTSTUB" \
       GARDEN_COMMENT_REPLY="$REPLYSTUB" CW_REPLY_LOG="${CW_REPLY_LOG:-/dev/null}" \
       GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
+      GARDEN_RETRO_POST="${CW_RETRO_POST:-$JOBS/post-plan.sh}" \
       GARDEN_COMMENT_TRUST=/bin/false \
       GARDEN_TRUSTED_ALLOWLIST="${CW_ALLOW:-$ALLOW}" \
       GARDEN_PR_MERGEABLE="${CW_MERGEABLE:-$MERGEABLE_OPEN}" \
@@ -1586,6 +1599,112 @@ run_watcher "$TR/state-self1" "$BARE_SELF1" "$FIX_SELF1" "$RLOG_SELF1"
 [ "$(todo_count "$BARE_SELF1")" -eq 0 ] && ok "the bot's own bare imperative minted no job" || bad "self-triggered a job off the bot's own comment (todo=$(todo_count "$BARE_SELF1"))"
 [ ! -s "$RLOG_SELF1" ] && ok "no reactji on the bot's own comment" || bad "reacted to the bot's own comment: $(cat "$RLOG_SELF1")"
 [ "$(cursor_seen "$TR/state-self1" "$BARE_SELF1")" = 2026-06-30T12:00:00Z ] && ok "cursor slid past the bot's own comment" || bad "cursor did not slide"
+
+# ============================================================================
+# ===== review-retrospective double loop (stage 2 wiring) ====================
+# The comment-watcher mints a SECOND, deferred `<primary-base>-retro` plan job
+# alongside a substantive-feedback primary, gated deterministically on the verb
+# class (design designs/review-retrospective-loop.md Q1/Q6). These cases assert
+# the gate: retro for review + directive-attention; NO retro for branch ops,
+# chatter-attention, finalize, or untrusted; idempotent on re-poll; a lost retro
+# WARNs and never freezes the cursor (the primary still lands).
+plan_glob() {  # plan_glob <bare> <regex>  -> count of jobs/plan entries matching
+  local v n; v="$(mktemp -d "$TR/pg.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
+  n=$(ls -1 "$v/jobs/plan" 2>/dev/null | grep -c "$2" || true); rm -rf "$v"; printf '%s' "$n"
+}
+
+hr; echo "RETRO-REVIEW — a trusted review mints the primary AND a paired -retro plan job"; hr
+BARE_RR="$TR/rr.git"; seed_bare "$BARE_RR"
+FIX_RR="$TR/fix-rr.tsv"; RLOG_RR="$TR/react-rr.log"; : > "$RLOG_RR"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-07-03T09:00:00Z pr-review-body 4700000001 594 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/594#pullrequestreview-4700000001 \
+  '[CHANGES_REQUESTED] Guard the empty-input boundary; the panel should have caught this.' > "$FIX_RR"
+run_directive "$TR/state-rr" "$BARE_RR" "$FIX_RR" "$RLOG_RR"
+[ "$(todo_glob "$BARE_RR" "^$SLUG-pr594-review-")" -eq 1 ] && ok "primary review job minted (unchanged loop)" || bad "primary review job missing"
+[ "$(plan_glob "$BARE_RR" "^$SLUG-pr594-review-.*-retro\.md$")" -eq 1 ] && ok "paired -retro plan job parked" || bad "retro plan job missing (plan=$(plan_count "$BARE_RR"))"
+# The retro is deferred + role prosecutor.
+RRV="$(mktemp -d "$TR/rrv.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BARE_RR" "$RRV"
+RETROF="$(ls -1 "$RRV"/jobs/plan/"$SLUG-pr594-review-"*-retro.md | head -1)"
+grep -q '^gate: deferred' "$RETROF" && ok "retro parked as gate: deferred" || bad "retro not deferred"
+grep -q '^role: prosecutor' "$RETROF" && ok "retro carries role: prosecutor" || bad "retro role wrong"
+grep -qi 'review-retrospective/SKILL.md' "$RETROF" && ok "retro body names the review-retrospective skill" || bad "retro body missing skill reference"
+grep -qi ':retro' "$RETROF" && ok "retro records the :retro directive identity" || bad "retro identity missing"
+rm -rf "$RRV"
+# re-poll → idempotent: still exactly one retro.
+run_directive "$TR/state-rr" "$BARE_RR" "$FIX_RR" "$RLOG_RR"
+[ "$(plan_glob "$BARE_RR" "^$SLUG-pr594-review-.*-retro\.md$")" -eq 1 ] && ok "re-poll is idempotent (still one retro)" || bad "retro duplicated on re-poll"
+
+hr; echo "RETRO-ATTN — a trusted directive-attention comment mints a -retro"; hr
+BARE_RA="$TR/ra.git"; seed_bare "$BARE_RA"
+FIX_RA="$TR/fix-ra.tsv"; RLOG_RA="$TR/react-ra.log"; : > "$RLOG_RA"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-07-03T09:10:00Z issue-comment 4700000100 595 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/595#issuecomment-4700000100 \
+  'Please take a look at the empty-input handling here.' > "$FIX_RA"
+run_directive "$TR/state-ra" "$BARE_RA" "$FIX_RA" "$RLOG_RA"
+[ "$(todo_count "$BARE_RA")" -eq 1 ] && ok "primary attention job minted" || bad "primary attention job missing"
+[ "$(plan_glob "$BARE_RA" "^$SLUG-pr595-.*-retro\.md$")" -eq 1 ] && ok "directive-attention minted a -retro" || bad "no retro for a directive-attention (plan=$(plan_count "$BARE_RA"))"
+
+hr; echo "RETRO-BRANCHOP — a rebase directive mints NO retro (maintenance, not a review miss)"; hr
+BARE_RB="$TR/rb.git"; seed_bare "$BARE_RB"
+FIX_RB="$TR/fix-rb.tsv"; RLOG_RB="$TR/react-rb.log"; : > "$RLOG_RB"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-07-03T09:20:00Z issue-comment 4700000200 596 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/596#issuecomment-4700000200 \
+  'Please rebase on #475' > "$FIX_RB"
+run_directive "$TR/state-rb" "$BARE_RB" "$FIX_RB" "$RLOG_RB"
+board_has "$BARE_RB" "$SLUG-pr596-rebase" && ok "primary rebase job minted" || bad "rebase job missing"
+[ "$(plan_count "$BARE_RB")" -eq 0 ] && ok "no retro for a branch op" || bad "a branch op wrongly minted a retro (plan=$(plan_count "$BARE_RB"))"
+
+hr; echo "RETRO-CHATTER — trusted chatter mints an attention reply but NO retro"; hr
+BARE_RC="$TR/rc.git"; seed_bare "$BARE_RC"
+FIX_RC="$TR/fix-rc.tsv"; RLOG_RC="$TR/react-rc.log"; : > "$RLOG_RC"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-07-03T09:30:00Z issue-comment 4700000300 597 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/597#issuecomment-4700000300 \
+  'Thanks, this looks great!' > "$FIX_RC"
+run_directive "$TR/state-rc" "$BARE_RC" "$FIX_RC" "$RLOG_RC"
+[ "$(todo_count "$BARE_RC")" -eq 1 ] && ok "chatter still mints its attention (reply) job" || bad "chatter attention missing"
+[ "$(plan_count "$BARE_RC")" -eq 0 ] && ok "no retro for non-directive chatter" || bad "chatter wrongly minted a retro (plan=$(plan_count "$BARE_RC"))"
+
+hr; echo "RETRO-FINALIZE — a clean approval (finalize) mints NO retro"; hr
+BARE_RF="$TR/rf.git"; seed_bare "$BARE_RF"
+FIX_RF="$TR/fix-rf.tsv"; RLOG_RF="$TR/react-rf.log"; : > "$RLOG_RF"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-07-03T09:40:00Z pr-review-body 4700000400 598 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/598#pullrequestreview-4700000400 \
+  '[APPROVED] Looks good.' > "$FIX_RF"
+run_directive "$TR/state-rf" "$BARE_RF" "$FIX_RF" "$RLOG_RF"
+board_has "$BARE_RF" "$SLUG-pr598-conduct" && ok "clean approval mints the conductor (finalize)" || bad "finalize/conduct job missing"
+[ "$(plan_count "$BARE_RF")" -eq 0 ] && ok "no retro for a clean approval" || bad "finalize wrongly minted a retro (plan=$(plan_count "$BARE_RF"))"
+
+hr; echo "RETRO-UNTRUSTED — an untrusted review mints neither a primary nor a retro"; hr
+BARE_RU="$TR/ru.git"; seed_bare "$BARE_RU"
+FIX_RU="$TR/fix-ru.tsv"; RLOG_RU="$TR/react-ru.log"; : > "$RLOG_RU"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-07-03T09:50:00Z pr-review-body 4700000500 599 drive-by-rando \
+  https://github.com/endojs/endo-but-for-bots/pull/599#pullrequestreview-4700000500 \
+  '[CHANGES_REQUESTED] Fix the empty-input guard.' > "$FIX_RU"
+run_directive "$TR/state-ru" "$BARE_RU" "$FIX_RU" "$RLOG_RU"
+[ "$(todo_count "$BARE_RU")" -eq 0 ] && ok "untrusted review mints no primary" || bad "untrusted review minted a primary"
+[ "$(plan_count "$BARE_RU")" -eq 0 ] && ok "untrusted review mints no retro" || bad "untrusted review minted a retro"
+
+hr; echo "RETRO-LOSTWARN — a lost retro WARNs and never freezes the cursor (primary still lands)"; hr
+BARE_RL="$TR/rl.git"; seed_bare "$BARE_RL"
+FIX_RL="$TR/fix-rl.tsv"; RLOG_RL="$TR/react-rl.log"; : > "$RLOG_RL"; LOG_RL="$TR/log-rl.txt"; : > "$LOG_RL"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-07-03T10:00:00Z pr-review-body 4700000600 600 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/600#pullrequestreview-4700000600 \
+  '[CHANGES_REQUESTED] Guard the empty-input boundary.' > "$FIX_RL"
+# A retro poster that always fails (never lands the plan job).
+LIE_RETRO="$TR/lie-retro.sh"; printf '#!/bin/bash\nexit 1\n' > "$LIE_RETRO"; chmod +x "$LIE_RETRO"
+CW_RETRO_POST="$LIE_RETRO" run_directive "$TR/state-rl" "$BARE_RL" "$FIX_RL" "$RLOG_RL" "$LOG_RL"
+[ "$(todo_glob "$BARE_RL" "^$SLUG-pr600-review-")" -eq 1 ] && ok "primary review job STILL landed despite the lost retro" || bad "primary lost when retro failed"
+[ "$(plan_count "$BARE_RL")" -eq 0 ] && ok "no retro parked (the poster failed)" || bad "retro somehow parked"
+grep -qi 'WARN: retro post lost' "$LOG_RL" && ok "the lost retro is a loud WARN" || bad "lost retro not WARNed ($(cat "$LOG_RL"))"
+[ "$(cursor_seen "$TR/state-rl" "$BARE_RL")" = 2026-07-03T10:00:00Z ] && ok "cursor advanced past the primary (retro loss did NOT freeze it)" || bad "cursor frozen by a lost retro ($(cursor_seen "$TR/state-rl" "$BARE_RL"))"
 
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
