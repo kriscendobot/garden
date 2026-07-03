@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T06:39:17Z_
+_As of 2026-07-03T06:52:14Z_
 
 ## Latest
 
-Little moved this window: the [xs2rust-endor](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-endor-build-stage3-fundamentals.md) port remains the sole active build, now in stage 3 (fundamentals — constructors, `Object`, functions), with only a routine press check-in landing since the last bulletin. Maintainer attention is best spent on the parked review queue, where 27 PRs await feedback — several web-chat and pass-style features ([endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#403](https://github.com/endojs/endo-but-for-bots/pull/403)) plus the long-waiting [endo#3137](https://github.com/endojs/endo/pull/3137) TypeScript-runtime-modules PR (17 days) — and on the four plan-queue items still awaiting go-ahead, including the ymax0 hex-fix verification.
+A gardener picked up [`improve-set-schedule-validate-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-set-schedule-validate-preflight.md), hardening `set-schedule.sh`'s preflight validation — a direct follow-on to the just-completed [`improve-scheduler-preflight-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-validation.md). The xs2rust-endor (XS→Rust engine) port continues in the other active slot: stage 3 ([`fundamentals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-fundamentals.md) — constructors, `Object`, `Function`) is building, with a fresh press check-in filed. The board is otherwise quiet, with no new PR-pipeline work moving and 27 PRs still parked for kriskowal's review.
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`improve-set-schedule-validate-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-set-schedule-validate-preflight.md) — Harden scripts/jobs/set-schedule.sh to validate the preflight: reference at w...
 - [`xs2rust-endor-build-stage3-fundamentals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-fundamentals.md) — Builder: xs2rust-endor stage 3 (2/7) — fundamentals: constructors, Object, Fu...
 
 ### tada (1040)
