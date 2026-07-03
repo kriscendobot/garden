@@ -1,10 +1,4 @@
----
-gate: blocked
-blocked_on: design-feedback-review-retrospective-loop
-priority: normal
-posted_by: producer
-posted_at: 2026-07-03T05:51:02Z
----
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-07-03T06:04:40Z -->
 
 ---
 model: opus
