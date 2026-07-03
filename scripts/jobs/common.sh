@@ -27,6 +27,15 @@
 # Kept OUTSIDE any reset-prone worktree on purpose.
 : "${GARDEN_STATE:=$GARDEN_ROOT/.garden-state}"
 
+# Per-host cache of the last successfully-resolved journal remote. Lives under
+# GARDEN_STATE (outside any reset-prone worktree, never committed) so a MOMENTARY
+# empty read of the journal worktree's origin — a config-lock race with the
+# worktree-keeper, or a deploy window — falls back to the last good value instead
+# of FATAL-storming every garden-* unit off its systemd Restart. Written on every
+# successful resolution; read as a fallback ahead of the root checkout's origin.
+# See journal_remote.
+: "${JOURNAL_REMOTE_CACHE:=$GARDEN_STATE/config/journal-remote}"
+
 # The one place for ephemeral job scratch and ad-hoc worktrees. It is
 # gitignored (`/scratch/` in .gitignore), so a job that dirties files here can
 # never block the watchman fast-forward — the recurring deploy outage whose
@@ -655,6 +664,21 @@ ensure_journal_worktree_linked() {
   git -C "$wt" rev-parse --git-dir >/dev/null 2>&1
 }
 
+# _cache_journal_remote <url> — best-effort persist the last good journal remote to
+# the per-host cache ($JOURNAL_REMOTE_CACHE, under GARDEN_STATE) so a later empty
+# read of the worktree origin self-heals from the cached value instead of dying.
+# Never fails the caller (write errors swallowed; callers may run under set -e) and
+# only rewrites when the value actually changed, so it adds no per-tick disk churn.
+_cache_journal_remote() {
+  local url="$1" cur
+  [ -n "$url" ] || return 0
+  cur="$(cat "$JOURNAL_REMOTE_CACHE" 2>/dev/null || true)"
+  [ "$cur" = "$url" ] && return 0
+  mkdir -p "$(dirname "$JOURNAL_REMOTE_CACHE")" 2>/dev/null || return 0
+  printf '%s\n' "$url" > "$JOURNAL_REMOTE_CACHE" 2>/dev/null || true
+  return 0
+}
+
 journal_remote() {
   if [ -n "$JOURNAL_REMOTE" ]; then printf '%s\n' "$JOURNAL_REMOTE"; return; fi
   local jw="$GARDEN_ROOT/journal"
@@ -672,16 +696,26 @@ journal_remote() {
   ensure_journal_worktree_linked "$jw" || true
   local url
   if url="$(git -C "$jw" config --get remote.origin.url 2>/dev/null)" && [ -n "$url" ]; then
+    _cache_journal_remote "$url"
     printf '%s\n' "$url"; return
   fi
-  # The journal worktree still won't yield an origin — the repair above could not
-  # re-link a dangling gitdir (its admin dir is gone, not just mis-pointed), or
-  # origin genuinely is unset there. journal2 and main2 live in the SAME
-  # repo/remote, so fall back to the main2 checkout's origin — the root shares the
-  # same origin URL. This keeps a dangling/unreadable journal worktree from
-  # killing EVERY service that resolves the remote even when repair cannot fix it,
-  # complementary to the preflight self-heal above.
+  # The journal worktree yielded no origin — the repair above could not re-link a
+  # dangling gitdir (its admin dir is gone, not just mis-pointed), origin is unset
+  # there, OR (the common transient case) the read was MOMENTARILY empty: a git
+  # config lock held by the worktree-keeper, or a deploy window. A per-tick die()
+  # here FATAL-storms EVERY garden-* unit off its systemd Restart even though the
+  # origin is intact seconds later — the 2026-07-03 11:06-11:11Z outage. So instead
+  # of dying we fall back and log a SINGLE WARN. Fallback order:
+  #   (1) the per-host cache of the last good resolution (survives a reset/deploy);
+  #   (2) the shared root checkout's origin — journal2 and main2 live in the SAME
+  #       repo/remote, so the root shares the same origin URL.
+  if url="$(cat "$JOURNAL_REMOTE_CACHE" 2>/dev/null)" && [ -n "$url" ]; then
+    log "WARN: journal worktree $jw yielded no origin; using cached journal remote $url (transient — config lock / worktree repair / deploy window)"
+    printf '%s\n' "$url"; return
+  fi
   if url="$(git -C "$GARDEN_ROOT" config --get remote.origin.url 2>/dev/null)" && [ -n "$url" ]; then
+    log "WARN: journal worktree $jw yielded no origin; falling back to $GARDEN_ROOT origin $url"
+    _cache_journal_remote "$url"
     printf '%s\n' "$url"; return
   fi
   # Nothing resolved on either checkout. Distinguish a BROKEN worktree (git can't
