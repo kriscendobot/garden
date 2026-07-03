@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T04:12:40Z_
+_As of 2026-07-03T04:15:29Z_
 
 ## Latest
 
-A comment-banner cleanup on [endojs/endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) landed, and the same PR is now the focus of the freshest work: a build is under way exploring a Proxy-based alternative emulation of the freezable TypedArray, while the design doc it stems from is parked on a genuine tradeoff — @gibson042 has rebutted the "Why not a Proxy wrapper?" section and asked kriskowal and @erights to weigh in, so a decision (keep the plain-object wrapper vs. switch to a throwing Proxy `set` trap) is queued in the maintainer inbox and should not be made by a bot. Also in flight: the xs2rust-endor Rust port advanced into stage 3 (language closure), and a banner-sweep automation is being wired into the gardening loop.
+A garden-wide loop-banner sweep landed (with a companion banner removal on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472)), and the board is otherwise quiet — one completion, nothing new posted to todo. The item worth a maintainer's eye is a parked design decision on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472): @gibson042 reviewed the freezable-TypedArray design doc and rebutted all three of its "Why not a Proxy wrapper?" arguments — pushing for a Proxy `set` trap that throws on canonical-numeric-index writes rather than the plain-object wrapper that silently absorbs them — and explicitly asked kriskowal and @erights to weigh in. No code was changed; a build exploring the Proxy-based emulation alternative is in flight, but the tradeoff itself needs your call. Meanwhile the xs2rust→Rust (Endor) port continues through stage 3 (language closure, 1/7), and 27 PRs remain parked for review, led by voice input ([#101](https://github.com/endojs/endo-but-for-bots/pull/101)) and passable byte arrays ([#503](https://github.com/endojs/endo-but-for-bots/pull/503)).
 
 ## Parked for maintainer feedback
 
@@ -63,18 +63,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-472-proxy-typedarray-emulation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-472-proxy-typedarray-emulation.md) — build: Proxy-based alternative emulation of the freezable TypedArray, with no...
-- [`garden-loop-banner-sweep`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-loop-banner-sweep.md) — Add a banner-sweep automation to the gardening loop (garden main2)
 - [`xs2rust-endor-build-stage3-language`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-language.md) — Builder: xs2rust-endor stage 3 (1/7) — language closure: strings as values + ...
 
-### tada (1005)
+### tada (1006)
+- [`garden-loop-banner-sweep`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-loop-banner-sweep.md) — Completion report
 - [`ebfb472-remove-banner`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb472-remove-banner.md) — Completion report
 - [`endojs-endo-but-for-bots-pr472-review-662e3148`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr472-review-662e3148.md) — Completion report — review-triage job endojs-endo-but-for-bots-pr472-review-6...
 - [`xs2rust-endor-press-20260703-040501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-040501.md) — Press check-in report — xs2rust-endor (PR #600), tick 04:05Z
 - [`endojs-endo-but-for-bots-pr472-review-350a0c39`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr472-review-350a0c39.md) — Completion report
-- [`foreman-active-job-target`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/foreman-active-job-target.md) — Completion report
-- … and 1000 more
+- … and 1001 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
