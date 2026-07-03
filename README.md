@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T10:51:57Z_
+_As of 2026-07-03T10:53:36Z_
 
 ## Latest
 
-Little moved on the board this cycle: a gardener claimed [`improve-ci-watcher-transient-net-source-skip`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-ci-watcher-transient-net-source-skip.md), which adds a shared transient-connectivity classifier to `scripts/jobs/common.sh` so the CI watcher stops treating network blips as source failures. Otherwise the active work is the ongoing xs2rust-endor Rust-engine port — stage 3 (arrays and the iteration protocol) is in flight alongside a press tick driving PR #600 toward endor integration. Maintainer attention is still owed on a deep parked queue, with the freshest items being the chat voice-input PR [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) and the passable-byte-arrays PR [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503).
+The garden's [`ci-watcher`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-watcher-transient-net-source-skip.md) landed a fix to skip transient network-source failures rather than let them cascade into red — the one substantive completion this cycle. Otherwise the board is quiet: the xs2rust-endor port continues in flight, with builder stage 3 (arrays and the iteration protocol) and a press pushing PR #600 toward endor integration both mid-run in `doin`, and a dead-lettered message awaiting pickup. No PRs moved on the maintainer-parked front.
 
 ## Parked for maintainer feedback
 
@@ -28,19 +28,18 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`deadmail-20260703T085843Z-03844c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T085843Z-03844c.md) — Dead-lettered message — pick up its intent
-- [`improve-ci-watcher-transient-net-source-skip`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-ci-watcher-transient-net-source-skip.md) — Add a shared transient-connectivity classifier to scripts/jobs/common.sh (e.g...
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
 - [`xs2rust-endor-press-20260703-105001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-105001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (1052)
+### tada (1053)
+- [`improve-ci-watcher-transient-net-source-skip`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-watcher-transient-net-source-skip.md) — Completion report
 - [`improve-set-schedule-validate-preflight-exists`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-set-schedule-validate-preflight-exists.md) — Report
 - [`improve-xs2rust-press-deterministic-stall-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-xs2rust-press-deterministic-stall-preflight.md) — Completion report (resumed session)
 - [`xs2rust-endor-press-20260703-083522`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-083522.md) — Press check-in report (tick 08:35Z)
 - [`improve-scheduler-preflight-dangling-reference-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-dangling-reference-guard.md) — Completion report: improve-scheduler-preflight-dangling-reference-guard
-- [`deadmail-20260703T082030Z-54c3b5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T082030Z-54c3b5.md) — Delivered to the live owner.
-- … and 1047 more
+- … and 1048 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
