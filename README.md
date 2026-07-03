@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T16:50:01Z_
+_As of 2026-07-03T16:53:51Z_
 
 ## Latest
 
-A single new work item moved: an attention directive on [endojs/endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602) was claimed and is now in progress, alongside the still-running stage-3b builder pass on the XS→Rust (Endor) port (keyed-collections remainder). Otherwise the board is quiet — the todo lane is empty and 27 PRs remain parked for kriskowal's review, the oldest being [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
+Three self-hardening jobs on the garden's own scripts just went into flight: tightening `gardener.sh`'s elapsed-constancy overrun poison, adding an origin fallback to `journal_remote()` in `common.sh`, and quieting the scheduler's per-cycle missing-preflight WARN for the xs2rust job. The XS→Rust (Endor) port remains the busiest lane — stage-3b's keyed-collections child is building, the stage-3 review (s6) landed, and two press ticks reported in (observe-and-defer, no action needed) against [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600). An attention directive on [endojs/endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602) also cleared with a completion report. Nothing new is parked for review, but 27 PRs still await kriskowal — the longest-waiting being [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr602-cde0ba2f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr602-cde0ba2f.md) — attention directive on endojs/endo-but-for-bots PR #602
+- [`improve-elapsed-constancy-early-poison`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-elapsed-constancy-early-poison.md) — In /home/kris/scripts/jobs/gardener.sh, the elapsed-constancy overrun-suspect...
+- [`improve-journal-remote-origin-fallback`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-journal-remote-origin-fallback.md) — Harden journal_remote() in /home/kris/scripts/jobs/common.sh (lines 490–494) ...
+- [`improve-scheduler-missing-preflight-alert`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scheduler-missing-preflight-alert.md) — The scheduler WARNs every cycle (14:50:04, 15:20:14, …) that gardening/xs2rus...
 - [`xs2rust-endor-build-stage3b-collections-keyed`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-collections-keyed.md) — Builder: stage-3b child 1/9 — keyed collections remainder (Map/Set/WeakMap/We...
 
 ### tada (1096)
