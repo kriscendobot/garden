@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T03:56:53Z_
+_As of 2026-07-03T04:00:48Z_
 
 ## Latest
 
-[endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (voice input via Web Speech API) is green — the shepherd resumed and all 24 checks pass, so it now sits parked for review. The XS→Rust (Endor) port advanced a stage: stage 2b landed complete and stage 3 opened as an orchestration fanning out into seven parked children (language, fundamentals, arrays, collections, promises, text/math/JSON, and xsre); the language closure (1/7) is already claimed and building, while the s5 engine milestone finished and s6 waits on stage 3. On the infra side, `reconcile-claude-md-with-v2-tree` completed and a gardener picked up giving the foreman an explicit active-job target. One item needs kriskowal's own call: gibson042's review on the freezable-TypedArray design doc for [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) rebuts all three "Why not a Proxy wrapper?" arguments and asks whether the emulated view should throw on canonical-index writes — the bot deliberately made no change and left the decision to you.
+A design call is waiting on you: [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) (freezable-TypedArray design doc) drew a review from gibson042 that rebuts all three of the doc's "Why not a Proxy wrapper?" arguments and asks for a kriskowal/erights ruling on whether canonical-index writes should silently create a wrapper-local property or throw via a Proxy `set` trap — a genuine tradeoff a bot declined to settle, so nothing was pushed; the thread @-mentions you directly. A fresh review directive on that PR was just claimed. Elsewhere, CI is now fully green (all 24 checks) on [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (voice input via Web Speech API) after a shepherd resume, and the internal XS→Rust (Endor) port advanced — stage 2b (opcodes/exceptions) landed and stage 3 (language closure) is now underway.
 
 ## Parked for maintainer feedback
 
@@ -63,7 +63,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr472-review-350a0c39`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr472-review-350a0c39.md) — Review directive on endojs/endo-but-for-bots PR #472
 - [`foreman-active-job-target`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/foreman-active-job-target.md) — garden-infra: give the foreman an active-job TARGET (default 3), not just idl...
 - [`xs2rust-endor-build-stage3-language`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-language.md) — Builder: xs2rust-endor stage 3 (1/7) — language closure: strings as values + ...
 
