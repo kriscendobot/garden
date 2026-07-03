@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-03T00:54:36Z_
+_As of 2026-07-03T00:59:06Z_
 
 ## Latest
 
-A live incident tops the queue: the `endolinbot2` host-identity drift is still active on the true leader, silently flipping `is-main-host` to FOLLOWER and skipping every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, maintainer-inbox Monitor) while mislabeling ~276 gardener entries. The gardener investigating it needs an operational hand: either `echo endolinbot > /home/kris/.garden` (if this is the single leader shard) or re-point the marker with `set-main-host.sh endolinbot2` and record the parallel-pool override, then restart the fleet. This same drift compounded five garden-infra jobs the reaper poisoned during the Claude quota outage (identity-drift detector, gardener transient-failure backoff/fleet-brake, issue-inbox git reaping, repo-watcher arm retry, daemon→manager rename build) — each now sitting unread in the maintainer inbox.
+Board motion was light — only the clone-keeper reclone-missing-bare-clone fix landed — but the maintainer inbox is where the substance is. A live incident is flagged on this leader host: the `endolinbot2` identity drift is still active (`/home/kris/.garden` resolves `endolinbot2` while the leader marker names `endolinbot`), so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, orchestrate, and the maintainer-inbox Monitor) is being silently skipped; the fix is operational (correct `.garden` or re-point the marker, then restart the fleet). The same drift compounded a Claude-quota outage that poisoned five garden-infra jobs the reaper has now dropped after five requeue cycles — an identity drift-detector, a gardener transient-failure backoff/fleet-brake, issue-inbox git-child reaping, and repo-watcher arm-retry all await attention.
 
-Two design calls also await you. On [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), @gibson042 rebuts all three "Why not a Proxy wrapper?" arguments in the freezable-TypedArray design doc and asks you and @erights to weigh in on plain-object vs. Proxy-with-throwing-set. On [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301), a shepherd found the error-tracing feature already independently re-landed on `llm` via the merged #58, collapsing #301 to near-empty — recommendation is to close it as superseded, optionally extracting its two small refactors (`error-id.js`, `trace-constants.js`) as a fresh PR.
-
-Board movement itself was light: two claims into `doin` (a dead-lettered message pickup and a clone-keeper self-heal hardening), while the xs2rust-endor port ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) presses forward through stage 2b and two "press forward" jobs, and the daemon→manager rename Phases 2–3 stay blocked on [#598](https://github.com/endojs/endo-but-for-bots/pull/598).
+Two disposition calls need kriskowal: [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) turns out to be fully subsumed by the already-merged #58 error-tracing feature (recommendation: close as superseded, optionally re-extract two small refactors on `llm`), and [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472)'s freezable-TypedArray design doc drew a substantive @gibson042 rebuttal arguing for a Proxy-trap-that-throws over the plain-object wrapper — a genuine design tradeoff explicitly kicked to you and @erights. The xs2rust-endor Rust port ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) remains in flight through its stage-2b heap builder and press-driver ticks. The daemon→manager rename Phases 2 and 3 sit blocked awaiting [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598).
 
 ## Parked for maintainer feedback
 
@@ -238,38 +236,27 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > between. Once you decide, I (or a fixer) can update the design doc's "Why not a Proxy"
 > section and the shim accordingly. Reply here or on the PR thread.
 
-- `20260703T005359Z-9fbe9d` — from gardener:xs2rust-endor-press-20260703-004244, reply_to `xs2rust-endor-press-20260703-004244` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260703T005359Z-9fbe9d.md)
-
-> Press-driver check-in on PR #600 (xs2rust-endor), with an infra find you should know about.
->
-> The stage2b orchestration (heap -> frames -> exceptions) had stalled `pending` for ~2.3h: on the leader, the `garden-orchestrate` timer had NEVER fired. Root cause: four timers were still on pure monotonic OnActiveSec/OnUnitActiveSec pairs — orchestrate, FOREMAN, deadmail, mirror-closer — and a never-fired monotonic timer's first elapse is re-anchored by every daemon-reload; the fleet reloads ~every minute (scaler + repo-watcher), so none of the four ever got a first fire. Foreman starving means the board top-up was not happening at all on this leader.
->
-> Fixed: manually ticked the four services (orchestrate promoted the heap child — it is claimed and in flight, and the timer now self-fires since OnUnitActiveSec anchored), and pushed the durable fix to main2 as ad362c963 (OnCalendar + Persistent=true, same idiom as reaper/follow-up/scheduler). The fix reaches installed units on the next deploy; until then the manual anchor keeps this host ticking, but the starvation would recur after any fleet restart that predates the deploy.
->
-> PR #600 itself: head be08ab8ae, stage 2b child 1/3 (heap) now building under its own gardener. No pushes to the branch from me; test:rust/test262 not re-verified this tick since the chain is actively advancing.
-
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (8)
+### doin (7)
 - [`deadmail-issue-comment-4869737552`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4869737552.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-4870104413`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4870104413.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-4870255317`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4870255317.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-4870486307`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4870486307.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-4871521636`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4871521636.md) — Dead-lettered message — pick up its intent
-- [`improve-clone-keeper-reclone-missing-bare-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-reclone-missing-bare-clone.md) — Harden scripts/jobs/clone-keeper.sh to self-heal a missing tracked bare clone...
 - [`xs2rust-endor-build-stage2b-heap`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage2b-heap.md) — Builder: xs2rust-endor stage 2b (1/3) — allocation-faithful object heap + met...
 - [`xs2rust-endor-press-20260703-004244`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-004244.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (978)
+### tada (979)
+- [`improve-clone-keeper-reclone-missing-bare-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-reclone-missing-bare-clone.md) — Done. Here is my completion report.
 - [`xs2rust-endor-press-20260703-005001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-005001.md) — Press-driver check-in for PR #600 (xs2rust-endor): **observation tick, no pre...
 - [`deadmail-20260702T191618Z-f722bf`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260702T191618Z-f722bf.md) — The state fully confirms the reply's assertions. This dead-lettered message w...
 - [`endojs-endo-but-for-bots-pr600-293a8b5f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-293a8b5f.md) — Everything is set up and verified. Inbox is empty. Here is my completion report.
 - [`endojs-endo-but-for-bots-pr600-review-ee630a90`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-review-ee630a90.md) — What was asked
-- [`improve-ci-rollup-retry-transient-network`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-rollup-retry-transient-network.md) — Completion report
-- … and 973 more
+- … and 974 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
