@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T12:53:25Z_
+_As of 2026-07-03T12:55:53Z_
 
 ## Latest
 
-The XS→Rust (Endor) port remains the garden's active front: stage 3 (arrays and the iteration protocol) is underway in [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md), and this cycle's press check-in landed a **defer** decision precisely because the chain is advancing on its own. Supporting infrastructure tightened around it — the press-preflight script was hardened and the clone-keeper now reconciles a missing tracked clone — and a fresh job was just claimed to improve the scheduler's preflight deploy-lag signal. Otherwise the board is quiet; the notable backlog is review-side, with 27 PRs parked for kriskowal, the longest-waiting being [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) (42 days) and [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (17 days).
+The XS→Rust (Endor) port advanced: [kriskowal/garden#600](https://github.com/kriskowal/garden/pull/600) landed child 3/7 of the stage-3 build — arrays and the iteration protocol. The `xs2rust-endor` press check-in reviewed the chain and chose to defer, judging it actively advancing. Infrastructure also firmed up: fixes to the clone-keeper's reconciliation of a missing tracked clone and to the press preflight script.
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`improve-scheduler-preflight-deploy-lag-signal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scheduler-preflight-deploy-lag-signal.md) — In scripts/jobs/scheduler.sh (the [ -x "$pf" ] else-branch around line 126), ...
-- [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
 
-### tada (1072)
+### tada (1073)
+- [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3-arrays.md) — Completion report — child 3/7: arrays & the iteration protocol (PR #600)
 - [`xs2rust-endor-press-20260703-123519`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-123519.md) — **Press check-in complete — decision: defer (chain actively advancing).**
 - [`improve-clone-keeper-reconcile-missing-tracked-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-reconcile-missing-tracked-clone.md) — Completion report
 - [`improve-xs2rust-endor-press-preflight-script`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-xs2rust-endor-press-preflight-script.md) — Completion report
 - [`deadmail-20260703T120454Z-5ae32f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T120454Z-5ae32f.md) — Completion report
-- [`xs2rust-endor-press-20260703-120504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-120504.md) — Press check-in report (tick 12:05Z)
-- … and 1067 more
+- … and 1068 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
