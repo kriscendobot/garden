@@ -28,6 +28,12 @@
 #             RESET (not poisoned), while an identical NON-productive claim POISONS at
 #             the same threshold — the resume-treadmill false-positive is gone, the
 #             genuine-failure case preserved.
+# SUBTEST 4 — reaper: the productive doctrine also spares the DEADLINE-OVERRUN counter.
+#             A productive wall-hit at GARDEN_REAP_OVERRUN_THRESHOLD is requeued with the
+#             overrun counter reset AND its marker stripped from the body (it survives
+#             clean_body by design), while a NON-productive wall-hit still poisons with
+#             the deadline-overrun signature — so a builder on the sanctioned resume
+#             treadmill that hits its own handler wall every cycle no longer false-poisons.
 #
 # Usage: productive-cycle-test.sh
 set -euo pipefail
@@ -149,14 +155,16 @@ export GARDEN=reaphost GARDEN_STATE="$T3/state"
 export GARDEN_POST_ATTEMPTS=50 GARDEN_REAP_PUSH_ATTEMPTS=50
 export GARDEN_REAP_POISON_THRESHOLD=1 GARDEN_REAP_OVERRUN_THRESHOLD=2 GARDEN_CLAIM_TTL=3600
 
-# place_stale <base> <productive:0|1> — a STALE claim in doin (claimed_at past TTL),
-# optionally carrying the productive-cycle marker in its body.
+# place_stale <base> <productive:0|1> [overrun:N] — a STALE claim in doin (claimed_at
+# past TTL), optionally carrying the productive-cycle marker and/or a deadline-overrun
+# counter marker (`<!-- garden-deadline-overrun: N -->`, only when N>0) in its body.
 place_stale() {
-  local base="$1" productive="${2:-0}" wt; wt="$(mktemp -d "$T3/edit.XXXXXX")"
+  local base="$1" productive="${2:-0}" overrun="${3:-0}" wt; wt="$(mktemp -d "$T3/edit.XXXXXX")"
   git clone -q --single-branch --branch journal2 "$BARE3" "$wt"
   {
     printf '# %s\n\nthe original work body for %s\n\n' "$base" "$base"
     [ "$productive" = "1" ] && printf '<!-- garden-productive-cycle -->\n'
+    [ "$overrun" -gt 0 ] && printf '<!-- garden-deadline-overrun: %s -->\n' "$overrun"
     printf -- '---\nclaim:\n  host: reaphost\n  gardener: 7\n  claimed_at: 2020-01-01T00:00:00Z\n'
   } > "$wt/jobs/doin/$base.md"
   printf 'worktree_dir: %s\n' "$T3/nonexistent-wt-$base" > "$wt/work/$base"
@@ -197,6 +205,49 @@ fail_ok=1
 [ "$fail_ok" -eq 1 ] \
   && ok "a NON-productive cycle still POISONS at the threshold (parked in plan/, held) — genuine-failure case preserved" \
   || bad "non-productive poison broke (plan=$([ -f "$T3/v/jobs/plan/failjob.md" ] && echo y || echo n) todo=$([ -f "$T3/v/jobs/todo/failjob.md" ] && echo y || echo n))"
+
+# ============================================================================
+hr; echo "SUBTEST 4 — reaper: productive cycle also spares the deadline-overrun counter"; hr
+# A builder on the sanctioned resume treadmill hits its OWN 2400s handler wall every
+# cycle by design and gets garden-deadline-overrun stamped each time. A PRODUCTIVE
+# wall-hit must NOT count toward the overrun poison (GARDEN_REAP_OVERRUN_THRESHOLD=2):
+# the counter is reset AND the preserved marker stripped from the requeued body (it
+# survives clean_body by design). Run with the requeue poison threshold lifted out of
+# the way so ONLY the overrun path is under test.
+
+# (a) productive wall-hit at/above the overrun threshold → requeued, NOT poisoned, and
+#     the deadline-overrun marker is stripped from the body (re-earned next cycle).
+place_stale prodovr 1 2
+env GARDEN_REAP_POISON_THRESHOLD=99 GARDEN_REAP_OVERRUN_THRESHOLD=2 \
+  "$JOBS/reaper.sh" > "$T3/reap-prodovr.log" 2>&1 || { echo "  (reaper rc=$?)"; sed 's/^/    /' "$T3/reap-prodovr.log"; }
+resync3
+po_ok=1
+[ -f "$T3/v/jobs/todo/prodovr.md" ] || { po_ok=0; echo "    prodovr not requeued to todo/"; }
+[ -f "$T3/v/jobs/plan/prodovr.md" ] && { po_ok=0; echo "    prodovr was POISONED despite a productive wall-hit"; }
+[ -f "$T3/v/jobs/doin/prodovr.md" ] && { po_ok=0; echo "    prodovr still in doin/"; }
+if [ -f "$T3/v/jobs/todo/prodovr.md" ]; then
+  grep -Eq '^<!-- garden-deadline-overrun: [0-9]+ -->$' "$T3/v/jobs/todo/prodovr.md" && { po_ok=0; echo "    deadline-overrun marker not stripped on the productive requeue"; }
+  grep -Eq '^<!-- garden-reaped: 0 -->$' "$T3/v/jobs/todo/prodovr.md" || { po_ok=0; echo "    reap counter not reset to 0"; }
+fi
+[ "$po_ok" -eq 1 ] \
+  && ok "a PRODUCTIVE wall-hit at overrun-threshold 2 → requeued to todo (overrun counter reset/stripped), NOT poisoned" \
+  || bad "productive overrun-reset failed (todo=$([ -f "$T3/v/jobs/todo/prodovr.md" ] && echo y || echo n) plan=$([ -f "$T3/v/jobs/plan/prodovr.md" ] && echo y || echo n))"
+
+# (b) NON-productive wall-hit at the overrun threshold still POISONS (deadline-overrun
+#     signature) — a genuinely deadlocked handler is preserved. Poison threshold lifted
+#     so this poison is attributable to the OVERRUN path, not the requeue-cycle path.
+place_stale failovr 0 2
+env GARDEN_REAP_POISON_THRESHOLD=99 GARDEN_REAP_OVERRUN_THRESHOLD=2 \
+  "$JOBS/reaper.sh" > "$T3/reap-failovr.log" 2>&1 || { echo "  (reaper rc=$?)"; sed 's/^/    /' "$T3/reap-failovr.log"; }
+resync3
+fo_ok=1
+[ -f "$T3/v/jobs/plan/failovr.md" ] || { fo_ok=0; echo "    failovr not poisoned/parked in plan/"; }
+[ -f "$T3/v/jobs/todo/failovr.md" ] && { fo_ok=0; echo "    failovr leaked into todo/ (should have poisoned)"; }
+[ -f "$T3/v/jobs/doin/failovr.md" ] && { fo_ok=0; echo "    failovr still in doin/"; }
+[ -f "$T3/v/jobs/plan/failovr.md" ] && { grep -q '^poison_signature: deadline-overrun$' "$T3/v/jobs/plan/failovr.md" || { fo_ok=0; echo "    plan entry missing deadline-overrun signature"; }; }
+[ "$fo_ok" -eq 1 ] \
+  && ok "a NON-productive wall-hit at overrun-threshold 2 still POISONS (deadline-overrun signature) — genuine deadlock preserved" \
+  || bad "non-productive overrun poison broke (plan=$([ -f "$T3/v/jobs/plan/failovr.md" ] && echo y || echo n) todo=$([ -f "$T3/v/jobs/todo/failovr.md" ] && echo y || echo n))"
 
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"

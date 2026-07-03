@@ -341,9 +341,11 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
     # fails every cycle never earns the marker and still poisons at the threshold. This
     # is the reaper half of the productive-cycle fix (common.sh § productive-cycle hint).
     if has_productive_cycle_hint "$f"; then
+      productive=1
       count=0
       log "productive: '$base' advanced a per-job worktree HEAD this cycle; resetting reap/poison counter (was $prev) — not counted toward poison"
     else
+      productive=0
       count=$(( prev + 1 ))
     fi
     body="$(clean_body "$f")"
@@ -354,6 +356,23 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
     # clean_body preserves this marker across the requeue (it strips only the reap-count
     # and reap-now markers), so the count accumulates cycle over cycle.
     overrun="$(deadline_overrun_count "$f")"
+    # PRODUCTIVE cycle also spares the deadline-overrun counter, symmetric to the reap
+    # counter above. A builder on the SANCTIONED resume treadmill hits its OWN handler
+    # wall (rc=124 at 2400s) every cycle BY DESIGN and gets garden-deadline-overrun
+    # stamped each time; without this it false-poisons at GARDEN_REAP_OVERRUN_THRESHOLD
+    # after just two PRODUCTIVE wall-hits (and when it is an on-child-failure:halt
+    # orchestration child, that false poison halts the whole serial chain). So on a
+    # productive cycle zero the count for the decision AND strip the preserved marker
+    # from the requeued body: the overrun marker survives clean_body by design, so a
+    # productive cycle must re-stamp it to 0 (not merely zero the local variable) or the
+    # next cycle re-reads the stale N and re-accumulates. Only NON-productive wall-hits
+    # count toward the overrun poison — a genuinely deadlocked handler never earns the
+    # productive marker and still poisons at threshold 2.
+    if [ "$productive" -eq 1 ] && [ "$overrun" -ne 0 ]; then
+      log "productive: '$base' hit its handler wall on a productive cycle; resetting deadline-overrun counter (was $overrun) — not counted toward overrun poison"
+      overrun=0
+      body="$(printf '%s\n' "$body" | grep -vE "$DEADLINE_OVERRUN_MARKER_RE" || true)"
+    fi
     if [ "$overrun" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ] || [ "$count" -ge "$GARDEN_REAP_POISON_THRESHOLD" ]; then
       # Poison: do NOT requeue, and do NOT drop the work — PARK it in jobs/plan/
       # under a HELD gate so the work survives and can be resumed once the
