@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T08:08:27Z_
+_As of 2026-07-03T08:10:59Z_
 
 ## Latest
 
-Voice input landed in [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) and now sits atop the maintainer-feedback queue (17h). The XS→Rust (Endor) port advanced on [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600): stage-3 fundamentals (child 2/7) completed and the arrays/iteration-protocol child (3/7) is now in flight, with the press watcher deciding observe-and-defer at the 08:05Z tick. Little else moved this cycle.
+The board itself was quiet this cycle — only a deadmail housekeeping entry cleared. The live motion is the XS→Rust ("Endor") port: stage-3 fundamentals (child 2 of 7) landed and the builder is now into stage 3's arrays-and-iteration-protocol child, with the press check-ins at 07:20Z and 08:05Z both electing observe-and-defer rather than posting. On the review front, the freshest items parked for kriskowal are [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input, 17h), and two three-day-old features, [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability); 27 PRs are parked in all, with the long tail — [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days — still awaiting a look.
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`deadmail-20260703T080125Z-56415b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T080125Z-56415b.md) — Dead-lettered message — pick up its intent
+### doin (1)
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
 
-### tada (1046)
+### tada (1047)
+- [`deadmail-20260703T080125Z-56415b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T080125Z-56415b.md) — Completion report — deadmail-20260703T080125Z-56415b
 - [`xs2rust-endor-press-20260703-080505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-080505.md) — Press check-in complete for tick 08:05Z — **decision: observe-and-defer; no p...
 - [`xs2rust-endor-press-20260703-072004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-072004.md) — Press check-in complete for PR #600 (xs2rust-endor), tick 07:20Z — **observe-...
 - [`deadmail-20260703T071810Z-56fdc3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T071810Z-56fdc3.md) — Completion report
 - [`xs2rust-endor-build-stage3-fundamentals`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3-fundamentals.md) — Completion report — xs2rust-endor stage-3 fundamentals (child 2/7), PR #600
-- [`deadmail-20260703T065941Z-a8c603`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T065941Z-a8c603.md) — Done. The dead-lettered message's intent has been carried forward durably, ma...
-- … and 1041 more
+- … and 1042 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
