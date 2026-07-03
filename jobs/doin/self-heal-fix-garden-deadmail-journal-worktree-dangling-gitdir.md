@@ -4,3 +4,9 @@ Fix — add a dangling-gitdir repair to `scripts/jobs/journal-worktree-keeper.sh
   1. If `$GARDEN_ROOT/journal` exists but is not a valid worktree — detect via `git -C "$GARDEN_ROOT/journal" rev-parse --is-inside-work-tree` failing, OR its `.git` gitdir pointer targeting a nonexistent directory — repair it rather than leaving it wedged.
   2. Repair: `git -C "$GARDEN_ROOT" worktree prune` (clears the stale `/home/kris/garden2/journal` registration `git worktree list` shows as prunable), then re-create the worktree against the live repo: remove the broken `$GARDEN_ROOT/journal` dir and `git -C "$GARDEN_ROOT" worktree add "$GARDEN_ROOT/journal" journal2` (or reattach the existing checkout to `$GARDEN_ROOT/.git`). Preserve any uncommitted WIP first, honoring the keeper's existing lossless-backup + active-writer gate before touching the tree.
   3. Since this is the shared dependency behind the already-posted garden-gardener and garden-gardener-scaler dangling-gitdir repair jobs, land it once in the keeper (the natural owner of the journal worktree) so all consumers recover on the next keeper tick, and optionally harden `common.sh:journal_remote()` to emit a clearer "journal worktree gitdir is dangling — run `git worktree repair`" hint instead of the bare origin-lookup failure.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 20
+  claimed_at: 2026-07-03T11:09:19Z
