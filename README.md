@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T11:21:41Z_
+_As of 2026-07-03T11:23:24Z_
 
 ## Latest
 
-A cluster of self-heal fixes landed, repairing dangling `gitdir` pointers in the journal worktrees used by `garden-deadmail`, `garden-follow-up`, the `endo-but-for-bots` comment-watcher, and the gardener-scaler — infrastructure maintenance that quietly unbroke several singleton services. Otherwise the board is quiet: the xs2rust-endor (XS→Rust) port continues to be pressed forward, with stage 3 (arrays and the iteration protocol) in progress alongside a press job driving it toward endor integration and green daemon tests. No new PRs opened or merged this cycle; the parked review queue still leads with the voice-input chat feature ([endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101), waiting 20h) and passable byte arrays ([endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), 3d).
+The reaper on endolinbot2 gave up on the `xs2rust-endor-build-stage3-arrays` builder ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) after five requeue cycles and dropped it from the board as POISON — its handler failed every attempt, and the failure is now parked in the maintainer inbox. That stage-3 arrays child is the one repeatedly hitting the 2400s handler wall-clock; a separate `xs2rust-endor-press` job is in flight to push PR #600 toward endor integration and a green daemon test, but the poisoned child likely needs a look. Meanwhile the journal self-heal sweep continues: a fix landed for the mirror-closer's stale journal-worktree gitdir, and a new job to harden `journal_remote()` against transient dangling-gitdir failures is now in progress. No PRs merged or newly parked this cycle.
 
 ## Parked for maintainer feedback
 
@@ -22,23 +22,82 @@ A cluster of self-heal fixes landed, repairing dangling `gitdir` pointers in the
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260703T112307Z-aa861b` — from reaper:endolinbot2, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260703T112307Z-aa861b.md)
+
+> POISON job dropped from the board after 5 requeue cycles on endolinbot2.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> Original job base: xs2rust-endor-build-stage3-arrays
+>
+> --- original job body ---
+> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-03T07:19:42Z -->
+>
+> ---
+> model: opus
+> ---
+> # Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR #600)
+>
+> Repo: `endojs/endo-but-for-bots`, branch `xs2rust-endor` (PR #600 — same PR as the design;
+> keep DRAFT). Workspace `rust/engine/`. Read in order: `designs/xs2rust-endor-engine.md`
+> (§ Resolved Questions is BINDING; § Staged Roadmap "Stage-3 decomposition" is your charter),
+> the supervisor's stage-2b review
+> (https://github.com/endojs/endo-but-for-bots/pull/600#issuecomment-4872378323), and
+> `rust/engine/README.md` (the c/moddable oracle-pin procedure — the shallow sha-fetch is
+> rejected upstream; use the documented fallbacks, and mind the empty-gitlink footgun:
+> clone into `c/moddable` before any `git -C c/moddable` command; a populated sibling
+> checkout under /home/kris/scratch/project-wt-* is the fastest fallback).
+>
+> You are child 3 of the serial `xs2rust-endor-build-stage3` orchestration. Ground truth
+> for every weight and behavior is the pin `48ee02d8cfe0` (xsRun.c, xsMemory.c, and the
+> per-built-in sources); the stage-3 bar is dual-run agreement INCLUDING computrons
+> (`mxMeterSome` fast-path annotations land in this stage).
+>
+> **Deliverable:** the Array exotic object (index/`length` semantics per `fxArraySetLength`),
+> array literals/holes/spread, `Array` constructor + statics (`isArray`, `of`, `from` within
+> reach), `Array.prototype` methods with their `mxMeterSome` fast-path annotations exactly
+> where the pin places them, and the iteration protocol: `for-in` (enumeration order per
+> XS), `for-of`, array and string iterators (generators themselves stay stage 4 per the
+> roadmap).
+>
+> **Acceptance bar:** `built-ins/Array` dual-run sections: covered agrees bit-exactly
+> INCLUDING computrons, divergent **0**, skips named. `language/statements/{for-in,for-of}`
+> covered grows; report before/after verbatim. Corpus programs over literals, mutation
+> methods, iteration, and spread, bit-exact.
+>
+> **Standing invariants (every child):** all existing corpora and tests stay green and
+> bit-exact (stage-1 86, stage-2 23, stage-2b 33/10/25, the 953-file covered-grammar test);
+> the honest covered/skipped split is never diluted (a skip is named, a wrong primitive
+> value is a hard divergence); `#![forbid(unsafe_code)]` everywhere but endor-oracle; GC
+> suite green under Miri; new grammar gets corpus programs AND fuzz-grammar arms where the
+> differential generator can reach it.
+>
+> Budget discipline: the stage-2 monolith died twice at the 2400s handler wall-clock.
+> Commit and push green increments EARLY and often; if the budget nears, push what is
+> green and exit WITHOUT the completion signal so the requeue resumes your worktree.
+> Do not message the maintainer; a genuinely blocking discovery goes to the supervisor's
+> inbox (`/home/kris/scripts/jobs/inbox-send.sh port-xs-to-rust-memory-safe-engine-s6`)
+> AND into your tada report. Reopening a resolved design question is a supervisor ruling —
+> record it, decide per the design as written, move on.
+>
+> Report: what landed, acceptance evidence verbatim (section totals, covered/divergent
+> counts, computron agreement, Miri run), scope folds/frictions for the supervisor.
+> Commit to `xs2rust-endor`, push, keep the PR draft.
+
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (2)
-- [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
+- [`improve-journal-remote-self-heal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-journal-remote-self-heal.md) — Harden journal_remote() in scripts/jobs/common.sh (lines 490-494) so a transi...
 - [`xs2rust-endor-press-20260703-112004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-112004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (1059)
+### tada (1060)
+- [`self-heal-fix-garden-mirror-closer-stale-journal-worktree-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-mirror-closer-stale-journal-worktree-gitdir.md) — Completion report
 - [`self-heal-fix-garden-deadmail-journal-worktree-dangling-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-deadmail-journal-worktree-dangling-gitdir.md) — Completion report
 - [`self-heal-fix-garden-follow-up-journal-remote-dangling-gitdir-fallback`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-follow-up-journal-remote-dangling-gitdir-fallback.md) — Completion report
 - [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-journal-worktree-dangling-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-journal-worktree-dangling-gitdir.md) — Completion report
 - [`self-heal-fix-garden-gardener-scaler-journal-worktree-gitdir-repair`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-gardener-scaler-journal-worktree-gitdir-repair.md) — Completion report
-- [`xs2rust-endor-press-20260703-105001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-105001.md) — Press check-in report (tick 10:50Z)
-- … and 1054 more
+- … and 1055 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
