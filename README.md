@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T14:45:25Z_
+_As of 2026-07-03T14:48:03Z_
 
 ## Latest
 
-A dead-lettered message surfaced back onto the board for pickup, the only fresh board transition this cycle. Otherwise the xs2rust-endor Rust-port build keeps advancing: stage-3 child 4/7 (text-math-json) landed, a press check-in for PR #600 was filed, and stage 3 (5/7, collections/binary-data/BigInt) is now in progress. A couple of infrastructure self-improvements also completed — the reaper now resets its overrun counter on a productive cycle, and the clone-keeper heals a missing clone. Nothing new landed in the maintainer-parked queue.
+Board activity has quieted to a single deadmail completion since the last bulletin, so nothing new landed on the pipeline this cycle. The substantive work in flight is the XS→Rust (Endor) port, now mid-way through its stage-3 build: the text/math/JSON child completed and the collections, binary-data, and BigInt child is in progress. Separately, a reaper fix landed so that a productive cycle resets the overrun counter, tightening the fleet's poison-detection behavior. Maintainer attention is still owed on a deep backlog of parked PRs — 27 in all — led by [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input, 1d), [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 3d), and long-waiting items like [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules, 17d).
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`deadmail-20260703T144011Z-dcca23`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T144011Z-dcca23.md) — Dead-lettered message — pick up its intent
+### doin (1)
 - [`xs2rust-endor-build-stage3-collections`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-collections.md) — Builder: xs2rust-endor stage 3 (5/7) — collections, binary data, BigInt (PR #...
 
-### tada (1081)
+### tada (1082)
+- [`deadmail-20260703T144011Z-dcca23`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T144011Z-dcca23.md) — Completion report
 - [`improve-reaper-productive-cycle-resets-overrun-counter`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-reaper-productive-cycle-resets-overrun-counter.md) — Completion report
 - [`deadmail-20260703T140832Z-8d56e5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T140832Z-8d56e5.md) — Inbox empty. Work complete.
 - [`xs2rust-endor-press-20260703-140504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-140504.md) — Press check-in report — xs2rust-endor (PR #600), dispatch 2026-07-03T14:05Z
 - [`xs2rust-endor-build-stage3-text-math-json`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3-text-math-json.md) — Completion report — stage-3 text-math-json (child 4/7, PR #600)
-- [`improve-clone-keeper-heal-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-heal-missing-clone.md) — Completion report
-- … and 1076 more
+- … and 1077 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
