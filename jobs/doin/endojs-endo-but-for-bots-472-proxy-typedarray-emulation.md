@@ -74,3 +74,9 @@ confirmed **across both the Node and XS platforms**, using
 - If the Proxy route proves genuinely unworkable for freezability, that negative
   result *is* a valid deliverable — report it with the exact failing invariant
   rather than forcing a broken wrapper.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 12
+  claimed_at: 2026-07-03T04:04:10Z
