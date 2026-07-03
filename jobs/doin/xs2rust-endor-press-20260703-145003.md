@@ -75,6 +75,7 @@ When you could not run a bar, report it "not verified" and why.
 
 <!-- garden-reaped: 4 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
