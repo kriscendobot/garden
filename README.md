@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T17:36:26Z_
+_As of 2026-07-03T17:42:13Z_
 
 ## Latest
 
-The bulletin board is quiet this cycle: a single completion moved through.
-
-The [xs2rust-endor press-preflight improvement](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-xs2rust-endor-press-preflight.md) landed, while stage-3b of the XS→Rust (Endor) port continues in flight — child 2/9, [BigInt](https://github.com/endojs/endo-but-for-bots/pull/600), is the sole job still working. On the maintainer's plate, [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) has been parked three days and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) four; four plan items — including the ymax0 hex-fix verification and the minion.town AWS deploy — still await your go-ahead.
+Only one item cleared the board this cycle: the BigInt child (2 of 9) of the xs2rust-endor stage-3b build filed its completion report, advancing the XS→Rust (Endor) engine port. The plan queue otherwise remains parked, with the daemon→manager rename Phases 2–3 still blocked on their predecessors and the ymax0 hex-fix verification awaiting go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -30,16 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-build-stage3b-bigint`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-bigint.md) — Builder: stage-3b child 2/9 — BigInt, PR #600
+### doin (0)
+(none)
 
-### tada (1106)
+### tada (1107)
+- [`xs2rust-endor-build-stage3b-bigint`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-bigint.md) — Completion report — stage-3b child 2/9: BigInt (PR #600)
 - [`improve-xs2rust-endor-press-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-xs2rust-endor-press-preflight.md) — Completion report
 - [`improve-scheduler-declared-preflight-selfheal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-declared-preflight-selfheal.md) — Completion report
 - [`improve-clone-keeper-missing-clone-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-missing-clone-reclone.md) — Completion report
 - [`deadmail-20260703T170625Z-2798f6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T170625Z-2798f6.md) — Completion report
-- [`improve-elapsed-constancy-early-poison`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-elapsed-constancy-early-poison.md) — Completion report
-- … and 1101 more
+- … and 1102 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
