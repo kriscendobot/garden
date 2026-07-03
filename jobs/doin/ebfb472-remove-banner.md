@@ -46,3 +46,9 @@ banners.
 
 The banner is gone on the PR branch and pushed; the review thread has a reply
 citing the fix.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 8
+  claimed_at: 2026-07-03T04:09:20Z
