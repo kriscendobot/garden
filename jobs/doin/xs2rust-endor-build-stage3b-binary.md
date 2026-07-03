@@ -41,3 +41,9 @@ with endianness). Allocation and per-element metering calibrated raw-exact again
 Bar: `built-ins/{ArrayBuffer,DataView}` + a representative `built-ins/TypedArray*` subset
 dual-run divergent=0, covered growth recorded; honest named skips for anything blocked (e.g.
 species/symbol-keyed corners), each named.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 17
+  claimed_at: 2026-07-03T17:43:43Z
