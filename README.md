@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T05:55:29Z_
+_As of 2026-07-03T05:55:50Z_
 
 ## Latest
 
-The XS→Rust (Endor) port advanced another rung: the stage-3 **language** child (constructors-adjacent language semantics) landed its completion report, and the **fundamentals** child is now in flight (2 of 7). A completion report also came in for [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600). On the self-improvement front, two mentor-hardening jobs were just claimed — one giving mentor-emitted jobs a stable directive identity so re-detections dedup cleanly, the other teaching `mentor-claude.sh` to skip improve-jobs whose fix already landed — alongside the design half of the feedback-retrospective double-loop still in progress. Housekeeping wins also closed out: clone-keeper self-heal and an xs2rust press-preflight check.
+The XS→Rust (Endor) stage-3 build chain is the active front: its language child landed, its press preflight and self-heal improvements completed, and the fundamentals child (constructors, `Object`, `Function`) is now underway at 2/7. A completion report closed out [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600). In flight alongside it: the designer's feedback-review retrospective loop and two mentor-reliability jobs giving improve-jobs stable identities and skipping already-fixed detections. Otherwise the board was quiet — only two deferred xs2rust plans (opcode cost instrumentation, UTF-16 string storage) had their priorities touched, and the todo queue is empty with 27 PRs still parked for kriskowal's review.
 
 ## Parked for maintainer feedback
 
@@ -50,8 +50,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`xs2rust-endor-strings-utf16-replace-cesu8`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-strings-utf16-replace-cesu8.md) — _normal_ · xs2rust-endor: replace CESU-8 string storage with UTF-16 (drop the constant-t...
 - [`xs2rust-endor-meter-opcode-cost-instrumentation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-meter-opcode-cost-instrumentation.md) — _normal_ · xs2rust-endor: optional opcode cost-calibration instrumentation
+- [`xs2rust-endor-strings-utf16-replace-cesu8`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-strings-utf16-replace-cesu8.md) — _normal_ · xs2rust-endor: replace CESU-8 string storage with UTF-16 (drop the constant-t...
 - [`fix-lint-jsdoc-warnings-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-lint-jsdoc-warnings-endo-master.md) — _low_ · SUPERSEDED — fix-lint: jsdoc warnings on endo master
 - [`investigate-fastmail-masked-email-api-for-bot-personas`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-fastmail-masked-email-api-for-bot-personas.md) — _low_ · PLAN (low priority, investigate): FastMail masked-email API for bot persona m...
 - [`scholar-ingest-ocap-kernel-comment-fragments-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-comment-fragments-2.md) — _low_ · PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
