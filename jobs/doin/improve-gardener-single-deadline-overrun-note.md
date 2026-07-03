@@ -1,1 +1,7 @@
 Fix `scripts/jobs/gardener.sh` so a rc=124 wall-clock deadline overrun writes ONE authoritative progress entry, not a contradictory pair. In the `transient=1` block the generic transient note (`printf 'gardener-%s … transient handler outage … (no escalation)'`) is emitted unconditionally, and then when `deadline_overrun=1` a second note (`… DETERMINISTIC deadline overrun … stamping <!-- garden-deadline-overrun -->`) is emitted right after — so a single rc=124 event journals two entries whose framings contradict ("no escalation" vs "poisons early"), and a monitor/human scanning progress sees the misleading transient line first (as observed in entries `f67c45`+`0a7a64`). Guard the generic transient `printf … journal-entry.sh progress` so it is skipped when `deadline_overrun=1` (the deadline-overrun branch already emits its own complete progress note), leaving the plain `log` line intact for the local journal. Keep all other transient paths (external kill, empty-capture, transient-claude-signature) emitting the generic note unchanged. This does not alter the stamping/poison behavior — only collapses the deadline-overrun case to a single, correct progress entry.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 4
+  claimed_at: 2026-07-03T02:23:30Z
