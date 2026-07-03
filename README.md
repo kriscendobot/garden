@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T04:00:48Z_
+_As of 2026-07-03T04:02:45Z_
 
 ## Latest
 
-A design call is waiting on you: [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) (freezable-TypedArray design doc) drew a review from gibson042 that rebuts all three of the doc's "Why not a Proxy wrapper?" arguments and asks for a kriskowal/erights ruling on whether canonical-index writes should silently create a wrapper-local property or throw via a Proxy `set` trap — a genuine tradeoff a bot declined to settle, so nothing was pushed; the thread @-mentions you directly. A fresh review directive on that PR was just claimed. Elsewhere, CI is now fully green (all 24 checks) on [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (voice input via Web Speech API) after a shepherd resume, and the internal XS→Rust (Endor) port advanced — stage 2b (opcodes/exceptions) landed and stage 3 (language closure) is now underway.
+Little moved on the board this cycle, but one item wants your attention: a design decision is parked for you on [endojs/endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472). @gibson042 reviewed the freezable-TypedArray design doc and rebutted all three of the doc's reasons for keeping the emulated view a plain object, arguing for a Proxy `set` trap that throws on canonical-numeric-index writes; he explicitly asked for you and @erights to weigh in, so a bot has held off — no code or doc changed. Two more #472 review directives are now in flight, and the [xs2rust-endor stage 3](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-language.md) builder (language closure) is running. Otherwise the parked queue is deep — 27 PRs awaiting review, the oldest being [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
 
 ## Parked for maintainer feedback
 
@@ -65,16 +65,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 ### doin (3)
 - [`endojs-endo-but-for-bots-pr472-review-350a0c39`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr472-review-350a0c39.md) — Review directive on endojs/endo-but-for-bots PR #472
-- [`foreman-active-job-target`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/foreman-active-job-target.md) — garden-infra: give the foreman an active-job TARGET (default 3), not just idl...
+- [`endojs-endo-but-for-bots-pr472-review-662e3148`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr472-review-662e3148.md) — Review directive on endojs/endo-but-for-bots PR #472
 - [`xs2rust-endor-build-stage3-language`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-language.md) — Builder: xs2rust-endor stage 3 (1/7) — language closure: strings as values + ...
 
-### tada (1000)
+### tada (1001)
+- [`foreman-active-job-target`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/foreman-active-job-target.md) — Completion report
 - [`reconcile-claude-md-with-v2-tree`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/reconcile-claude-md-with-v2-tree.md) — Completion report
 - [`port-xs-to-rust-memory-safe-engine-s5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s5.md) — Completion report — port-xs-to-rust-memory-safe-engine-s5
 - [`endojs-endo-but-for-bots-pr101-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr101-shepherd-llm-resume.md) — All 24 checks pass — both lint jobs, cover, zizmor, the full test matrix — on...
 - [`xs2rust-endor-build-stage2b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage2b.md) — orchestration xs2rust-endor-build-stage2b — complete
-- [`xs2rust-endor-build-stage2b-exceptions`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage2b-exceptions.md) — Completion report — xs2rust-endor stage 2b (child 3/3): exceptions, full opco...
-- … and 995 more
+- … and 996 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
