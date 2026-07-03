@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T01:39:54Z_
+_As of 2026-07-03T01:44:41Z_
 
 ## Latest
 
-The deterministic deploy path landed its atomic tree-swap improvement (`improve-atomic-deploy-tree-swap` completed), and the xs2rust-endor port continues to grind forward — stage 2b's allocation-faithful heap child is done, with the closures/call-frames child and the [PR #600](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-004244.md) press-driver still in flight. Otherwise the board is quiet (empty todo), so the real signal is in the maintainer inbox, which has three unread items needing kriskowal's call. Most urgent is a **live infrastructure incident**: the `endolinbot2` host-identity drift is silently demoting the true leader host to follower, so every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, orchestrate, and the maintainer-inbox Monitor) is being skipped — the reporter asks you to either correct `/home/kris/.garden` to `endolinbot` or re-point the leader marker to `endolinbot2`, then restart the fleet. Two disposition calls also await you: a shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is subsumed by the already-merged #58 error-tracing feature and recommends closing it (offering a small follow-up PR to salvage its two unique refactors), and gibson042's review on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) escalates a genuine design tradeoff — plain-object wrapper vs. a Proxy that throws on canonical-index writes — explicitly asking you and @erights to weigh in.
+The board was nearly quiet — only the xs2rust-endor press-driver's observation tick completed — so the news is in the maintainer inbox. A **live infrastructure incident** needs attention first: the `endolinbot2` host-identity drift is still active on the leader host, where `/home/kris/.garden` reads `endolinbot2` while the `leader` marker and `hostname -s` read `endolinbot`, so `is-main-host.sh` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped. The fix is out of a gardener's scope: either `echo endolinbot > /home/kris/.garden` or re-point the marker to `endolinbot2`, then restart the fleet. Three disposition calls also await you: shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is **subsumed** — its error-tracing feature already re-landed on `llm` via the merged #58, so a rebase collapses to an empty PR; recommendation is to close it (only two small refactors, `error-id.js` and `trace-constants.js`, are unique and would be a fresh PR). On [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), @gibson042 reviewed the freezable-TypedArray design doc and asked you and @erights to weigh in on whether the emulated view should stay a plain object or become a Proxy that throws on canonical-index writes — a genuine design tradeoff a bot won't decide. Twenty-seven PRs remain parked for review, longest-waiting being [endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type `.ts` runtime modules, 17 days).
 
 ## Parked for maintainer feedback
 
@@ -135,22 +135,21 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (6)
 - [`deadmail-issue-comment-4869737552`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4869737552.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-4870104413`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4870104413.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-4870255317`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4870255317.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-4870486307`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4870486307.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-4871521636`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4871521636.md) — Dead-lettered message — pick up its intent
 - [`xs2rust-endor-build-stage2b-frames`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage2b-frames.md) — Builder: xs2rust-endor stage 2b (2/3) — closures, call/return frames, meter-c...
-- [`xs2rust-endor-press-20260703-004244`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-004244.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (981)
+### tada (982)
+- [`xs2rust-endor-press-20260703-004244`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-004244.md) — **Completion report — xs2rust-endor-press-20260703-004244 (resumed after requ...
 - [`improve-atomic-deploy-tree-swap`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-atomic-deploy-tree-swap.md) — Completion report
 - [`xs2rust-endor-build-stage2b-heap`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage2b-heap.md) — Completion report — xs2rust-endor stage 2b (child 1/3): allocation-faithful o...
 - [`improve-clone-keeper-reclone-missing-bare-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-reclone-missing-bare-clone.md) — Done. Here is my completion report.
 - [`xs2rust-endor-press-20260703-005001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-005001.md) — Press-driver check-in for PR #600 (xs2rust-endor): **observation tick, no pre...
-- [`deadmail-20260702T191618Z-f722bf`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260702T191618Z-f722bf.md) — The state fully confirms the reply's assertions. This dead-lettered message w...
-- … and 976 more
+- … and 977 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
