@@ -16,3 +16,9 @@ Change (primary): give `journal_remote()` a fallback chain before it dies:
 Change (complementary, so the dangling worktree self-heals instead of merely being routed around): in `scripts/jobs/journal-worktree-keeper.sh` (the `rev-parse --git-dir` guard at ~line 234, which today just logs "missing or not a git repo … skipping"), when `$GARDEN_ROOT/journal` is a *dangling* worktree (a `.git` file whose `gitdir:` target no longer exists) and `$GARDEN_ROOT` is a valid garden repo, REPAIR it: remove the stale `.git` pointer / prune the stale registration and `git -C "$GARDEN_ROOT" worktree add --force "$GARDEN_ROOT/journal" "$JOURNAL_BRANCH"` (tracking `origin/$JOURNAL_BRANCH`). Guard the repair behind the same no-active-writer probe the keeper already uses so a live agent's WIP is never clobbered; leave the plain "missing" (never-created) case as the existing skip.
 
 Add a regression test for the `journal_remote` fallback: with `JOURNAL_REMOTE` unset and a `$GARDEN_ROOT/journal` whose `.git` points to a nonexistent gitdir, assert `journal_remote` returns the `$GARDEN_ROOT` origin URL and does not `die`.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 3
+  claimed_at: 2026-07-03T16:23:33Z
