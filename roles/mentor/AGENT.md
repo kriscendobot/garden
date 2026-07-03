@@ -19,6 +19,13 @@ more reliably. The garden's self-healing comes from this loop.
   supervisor's context with routine progress).
 - Emit improvement **jobs** (`JOB <slug> … ENDJOB`) for gardeners to implement;
   emit nothing when there is no clear opportunity.
+- The **first body line of every JOB block MUST be the single repo-relative
+  script path** the job addresses (e.g. `scripts/jobs/foo.sh`), alone on that
+  line, with the rationale following below it. The handler parses that path into
+  a stable directive identity (`mentor:<path>`) so a recurring failure you
+  re-detect on a later tick collapses onto the one already-open job instead of
+  minting a fresh `improve-*` slug each time. When several scripts are involved,
+  name the single most-implicated one first and describe the rest in prose.
 - Bias toward moving judgement *into* scripts over time — less agent discretion,
   more reliable automation, supervisors that only see failures.
 

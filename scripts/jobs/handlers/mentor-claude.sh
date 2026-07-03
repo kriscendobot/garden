@@ -44,10 +44,16 @@ recurring failure, or (b) move a responsibility off an agent into a script where
 it can run more reliably. For each, emit a job block EXACTLY:
 
 JOB improve-<short-deterministic-slug>
-<what to change and why, with the script/file involved>
+<repo-relative path of the SINGLE implicated script, alone on this first line>
+<what to change and why>
 ENDJOB
 
-Emit nothing if there is no clear opportunity.
+The FIRST body line MUST be the one repo-relative script path the job addresses
+(e.g. \`scripts/jobs/foo.sh\`) and nothing else — it is parsed into a STABLE
+directive identity so re-detections of the SAME failure across ticks collapse
+onto one open job instead of piling up under fresh slugs. If a job truly touches
+several scripts, name the single most-implicated one first; put the rest in prose
+below. Emit nothing if there is no clear opportunity.
 EOF
 )"
 
@@ -93,12 +99,36 @@ already_fixed_pending_deploy() {
   return 1
 }
 
+# Post one parsed JOB block. Its FIRST body line names the single implicated
+# script path (required by roles/mentor/AGENT.md); we parse it into a STABLE
+# directive identity `mentor:<path>` and pass it to post-job.sh. post-job.sh
+# dedups on --identity via jobs/index/<hash>, so the SAME recurring failure —
+# which re-detects under a fresh LLM-chosen slug every tick — collapses onto ONE
+# open job regardless of that slug. Without this, 129 near-duplicate improve-*
+# jobs piled up in jobs/tada/. The full normalized path (not just the basename)
+# is the identity so two distinct scripts sharing a basename (e.g. common.sh)
+# never fold onto one job. A first line that is not a lone path (older/malformed
+# emission) falls back to no identity, preserving prior behavior.
+post_mentor_job() {
+  local base="$1" body="$2" first path
+  first="$(printf '%s\n' "$body" | grep -m1 -v '^[[:space:]]*$' || true)"
+  # Strip surrounding whitespace and any leading list/quote/backtick markers.
+  path="$(printf '%s' "$first" | sed -E 's/^[[:space:]]*[-*>`[:space:]]*//; s/[[:space:]`]*$//')"
+  if [[ "$path" =~ ^[A-Za-z0-9_./-]+$ ]] && { [[ "$path" == *.sh ]] || [[ "$path" == */* ]]; }; then
+    path="${path#./}"
+    printf '%s' "$body" | "$HERE/../post-job.sh" --identity "mentor:$path" "$base"
+  else
+    log "JOB '$base' first line is not a lone script path; posting without a directive identity"
+    printf '%s' "$body" | "$HERE/../post-job.sh" "$base"
+  fi
+}
+
 base=""; body=""
 while IFS= read -r line; do
   if [[ "$line" =~ ^JOB[[:space:]]+(.+)$ ]]; then base="${BASH_REMATCH[1]}"; body=""
   elif [ "$line" = "ENDJOB" ] && [ -n "$base" ]; then
     if ! already_fixed_pending_deploy "$body"; then
-      printf '%s' "$body" | "$HERE/../post-job.sh" "$base"
+      post_mentor_job "$base" "$body"
     fi
     base=""; body=""
   elif [ -n "$base" ]; then body+="$line"$'\n'; fi
