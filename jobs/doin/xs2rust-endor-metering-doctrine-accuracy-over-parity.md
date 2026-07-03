@@ -58,3 +58,9 @@ Foundational to, and referenced by:
   recalibration).
 Ideally this doctrine is settled before those two are built, so they inherit a decided
 stance rather than each re-litigating it.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 7
+  claimed_at: 2026-07-03T20:27:50Z
