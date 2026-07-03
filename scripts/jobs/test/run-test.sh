@@ -507,10 +507,11 @@ unset GARDEN_ROOT
 hr; echo "SUBTEST 8c — XS2RUST PRESS PREFLIGHT: stall bar (HEAD tracking + child ownership)"; hr
 # The Fable press-driver's observe-and-defer judgment, moved into plain code:
 # dispatch (exit 0) ONLY when the chain has stalled (HEAD unchanged across two
-# ticks AND no live/queued build child); defer (exit 2) whenever the chain is
-# advancing (HEAD moved), owned (a stage child in doin/ or on the bus), or
-# mid-handoff (a successor queued in todo/). Ambiguity (unreadable HEAD) and the
-# first observation fail toward not-starving / establishing a baseline.
+# ticks AND no live/queued build child AND the finish line unmet); defer (exit 2)
+# whenever the chain is advancing (HEAD moved), owned (a stage child in doin/ or
+# on the bus), mid-handoff (a successor queued in todo/), or DONE/HANDED-OFF (PR
+# #600 merged/closed/left-DRAFT). Ambiguity (unreadable HEAD) and the first
+# observation fail toward not-starving / establishing a baseline.
 PF="$JOBS/gardening/xs2rust-endor-press-preflight.sh"
 export GARDEN_STATE="$TR/state-press"
 export GARDEN_XS2RUST_PRESS_PREFLIGHT_CLONE="$TR/press-clone/journal"
@@ -520,6 +521,11 @@ DOIN_CHILD="jobs/doin/xs2rust-endor-build-stage3-arrays.md"
 TODO_SUCC="jobs/todo/xs2rust-endor-build-stage3-strings.md"
 BUS_INBOX="inbox/xs2rust-endor-build-stage3-arrays/unread/.gitkeep"
 pf() { local rc; set +e; "$PF" xs2rust-endor-press >/dev/null 2>&1; rc=$?; set -e; printf '%s' "$rc"; }
+# Default the finish-line read to `draft` (the PR is an OPEN DRAFT, still being
+# pressed = finish line UNMET) for every case that is not about the finish line,
+# so Cases 1-7 exercise the stall/ownership logic exactly as before and the guard
+# never hits the network. The finish-line cases (8-10) override it per-case.
+export GARDEN_PRESS_STATE_CMD='echo draft'
 
 # Case 1 — a live stage3 child in doin/ OWNS the branch → defer (exit 2),
 # regardless of HEAD (HEAD reads a fresh sha here).
@@ -560,7 +566,38 @@ printf 'sha-stall\n' > "$PHF"; export GARDEN_PRESS_HEAD_CMD='echo sha-stall'
 # Case 7 — HEAD unreadable (a gh/network blip) → fail open, dispatch, never starve.
 printf 'sha-stall\n' > "$PHF"; export GARDEN_PRESS_HEAD_CMD='true'   # prints nothing
 [ "$(pf)" = "0" ] && ok "unreadable HEAD → fail open, dispatch (exit 0)" || bad "unreadable HEAD did not fail open"
-unset GARDEN_PRESS_HEAD_CMD GARDEN_XS2RUST_PRESS_PREFLIGHT_CLONE
+
+# --- finish-line guard (d): a terminal PR state OVERRIDES a stall -------------
+# Each of these arms the exact stall condition that Case 6 proved dispatches
+# (exit 0) — HEAD unchanged across two ticks, no child, no successor — so the
+# ONLY thing that can flip it to defer is the finish-line guard reading the PR
+# state. That isolates the guard from the stall logic.
+armstall() { printf 'sha-stall\n' > "$PHF"; export GARDEN_PRESS_HEAD_CMD='echo sha-stall'; }
+
+# Case 8 — PR #600 MERGED → campaign complete → defer (exit 2) despite the stall.
+armstall; export GARDEN_PRESS_STATE_CMD='echo merged'
+[ "$(pf)" = "2" ] && ok "MERGED PR → finish line met, defer (exit 2) even while stalled" || bad "merged PR did not defer"
+
+# Case 9 — PR #600 CLOSED (unmerged) → no branch to press → defer (exit 2).
+armstall; export GARDEN_PRESS_STATE_CMD='echo closed'
+[ "$(pf)" = "2" ] && ok "CLOSED PR → defer (exit 2) even while stalled" || bad "closed PR did not defer"
+
+# Case 10 — PR #600 left DRAFT (ready for review → judge chain) → defer (exit 2).
+armstall; export GARDEN_PRESS_STATE_CMD='echo ready'
+[ "$(pf)" = "2" ] && ok "PR left DRAFT (ready) → finish line met, defer (exit 2)" || bad "ready PR did not defer"
+
+# Case 11 — PR state UNREADABLE under a stall → guard falls through to the stall
+# logic (fail open), so the stall still dispatches (exit 0); a blip never skips a
+# live campaign.
+armstall; export GARDEN_PRESS_STATE_CMD='true'   # prints nothing
+[ "$(pf)" = "0" ] && ok "unreadable PR state → fall through, stall still dispatches (exit 0)" || bad "unreadable PR state wrongly deferred"
+
+# Case 12 — DRAFT (still being pressed) under a stall → finish line UNMET, so the
+# stall dispatches (exit 0): the guard must not defer an open, in-flight draft.
+armstall; export GARDEN_PRESS_STATE_CMD='echo draft'
+[ "$(pf)" = "0" ] && ok "open DRAFT under a stall → finish line unmet, dispatch (exit 0)" || bad "open draft wrongly deferred"
+
+unset GARDEN_PRESS_HEAD_CMD GARDEN_PRESS_STATE_CMD GARDEN_XS2RUST_PRESS_PREFLIGHT_CLONE
 
 # ============================================================================
 hr; echo "SUBTEST 9 — WATCHMAN: aggressive main2 checkout + reread broadcast"; hr

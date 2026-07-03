@@ -35,9 +35,18 @@
 #       jobs/todo/ waiting to be claimed. A successor freshly promoted into
 #       todo/ (but not yet claimed into doin/, so it has no inbox yet) means the
 #       orchestration is mid-handoff and the chain is about to advance; that is
-#       NOT a stall.
-# Any of these being FALSE means the chain is advancing or owned → exit 2 (defer,
-# dispatch nothing). The predicate in (b)/(c) intentionally covers the whole
+#       NOT a stall, AND
+#   (d) the FINISH LINE is UNMET — PR #600 is still an OPEN DRAFT. The charter
+#       presses the port forward while the PR is DRAFT and STOPS when the finish
+#       line (endor-integrated + `test:rust` green + test262 parity) is met, at
+#       which point the PR leaves DRAFT for the judge chain (or is merged/closed).
+#       A driver woken after that can only observe-and-no-op, so a PR that is
+#       MERGED, CLOSED, or has LEFT DRAFT (ready-for-review) is a positive
+#       finish-line signal → defer, never dispatch a Fable tick to observe a
+#       done/handed-off PR.
+# Any of these being FALSE means the chain is advancing, owned, or already
+# done/handed-off → exit 2 (defer, dispatch nothing). The predicate in (b)/(c)
+# intentionally covers the whole
 # `stage2*`/`stage3*` build family (a superset of the stall bar's named stage3):
 # a live stage2 worker owns the branch just as much as a stage3 one, so the
 # driver must never take the wheel while EITHER is active.
@@ -47,7 +56,11 @@
 # never starve a possibly-stalled chain on a transient. At worst the woken driver
 # observes-and-defers, the pre-gate status quo. The very first tick (no prior HEAD
 # recorded) also DEFERS: the "unchanged across two consecutive ticks" bar needs a
-# baseline observation before it can ever be met.
+# baseline observation before it can ever be met. The finish-line guard (d) reads
+# in the OPPOSITE, safe direction: it defers ONLY on a positively-read terminal
+# PR state (merged/closed/ready), and an unreadable state falls through to the
+# stall logic — so a blip there loosens the gate toward dispatch, never toward
+# silently skipping a live campaign.
 #
 # State: the last-seen branch HEAD is persisted per-host under $GARDEN_STATE
 # (outside any reset-prone worktree, uncommitted). Read-only against the board:
@@ -92,6 +105,31 @@ read_head() {
   printf '%s\n' "$sha"
 }
 
+# --- read PR #600's lifecycle state (the finish-line signal) -----------------
+# Echoes ONE token — `merged`, `closed`, `ready` (open, left DRAFT), or `draft`
+# (open, still DRAFT = actively being pressed) — or NOTHING (non-zero) on any
+# failure so the caller falls through to the stall logic rather than skipping.
+# Overridable via GARDEN_PRESS_STATE_CMD (the test substitutes a fixture),
+# parallel to GARDEN_PRESS_HEAD_CMD; the default reads the PR object once through
+# the fleet's retrying gh wrapper. A merged PR reports `merged` even though the
+# GitHub `state` is `closed`, so the merged branch is distinguished from an
+# abandoned (closed-unmerged) one.
+read_pr_state() {
+  if [ -n "${GARDEN_PRESS_STATE_CMD:-}" ]; then
+    bash -c "$GARDEN_PRESS_STATE_CMD" 2>/dev/null | head -1 | tr -d '[:space:]'
+    return
+  fi
+  if ! { command -v gh >/dev/null 2>&1 && command -v jq >/dev/null 2>&1; }; then
+    log "WARN: gh/jq unavailable; cannot read PR #$GARDEN_PRESS_PR state"; return 1
+  fi
+  local st
+  st="$(gh_api_retry "repos/$GARDEN_PRESS_REPO/pulls/$GARDEN_PRESS_PR" \
+        --jq 'if (.merged_at // false) then "merged" elif .state=="closed" then "closed" elif (.draft|not) then "ready" else "draft" end' \
+        2>/dev/null || true)"
+  [ -n "$st" ] && [ "$st" != null ] || return 1
+  printf '%s\n' "$st"
+}
+
 # Persist <sha> as the last-seen HEAD (per-host $GARDEN_STATE, uncommitted).
 record_head() {
   [ -n "${1:-}" ] || return 0
@@ -108,6 +146,24 @@ prev="$(head -1 "$HEAD_FILE" 2>/dev/null | tr -d '[:space:]' || true)"
 # todo/doin/ (do not stack a second driver). Record HEAD first so the two-tick
 # staleness window is always measured against the immediately previous tick.
 record_head "$cur"
+
+# (d) finish-line guard — a MERGED, CLOSED, or LEFT-DRAFT PR means the campaign is
+# done or handed to the judge chain; a driver woken now can only observe-and-no-op.
+# Read POSITIVELY: only a confirmed terminal state defers here; `draft` (still
+# being pressed) and an unreadable state both fall through to the stall logic,
+# which fails open. Placed before the board scans so a done PR skips cheapest.
+case "$(read_pr_state || true)" in
+  merged)
+    log "no work: PR #$GARDEN_PRESS_PR is MERGED; press campaign complete; defer press-driver"
+    exit 2 ;;
+  closed)
+    log "no work: PR #$GARDEN_PRESS_PR is CLOSED (unmerged); no branch to press; defer press-driver"
+    exit 2 ;;
+  ready)
+    log "no work: PR #$GARDEN_PRESS_PR left DRAFT (ready for review → judge chain); finish line met; defer press-driver"
+    exit 2 ;;
+esac
+
 for j in $(list_jobs "$DIR" "$JOBS_DOIN"); do
   case "$j" in
     xs2rust-endor-build-stage2*|xs2rust-endor-build-stage3*)
