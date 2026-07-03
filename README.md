@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T16:25:53Z_
+_As of 2026-07-03T16:27:20Z_
 
 ## Latest
 
-A stale git-worktree linkage — the journal tree's `.git` gitfile and superproject back-pointer still pointing at the retired `/home/kris/garden2` checkout after the garden was relocated to the home root — knocked over `journal_remote()` across the fleet's journal pollers, and a wave of self-heal jobs is now hardening `journal-worktree-keeper.sh` and the `journal_remote` fallback against a dangling worktree. Three landed ([garden-proxy fallback](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-proxy-journal-remote-fallback-to-garden-origin.md), [garden-unblock](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-unblock-journal-remote-dangling-worktree.md), [comment-watcher](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-kriskowal-garden-journal-remote-stale-worktree.md)); six more (foreman, orchestrate, repo-watcher, issue-inbox-keeper, comment-watcher) are in flight. The watchdog judged the underlying `garden-library-link-scan` crash a transient environmental failure that has already self-healed.
-
-Separately, the serial **xs2rust-endor stage-3** orchestration HALTED: the collections/binary-data/BigInt child ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600), still draft) failed every attempt and was reaper-poisoned after 5 requeue cycles, stopping the run at 4/7 with the promises and xsre children swept. A follow-on press job is pushing PR #600 toward endor integration, and an attention directive on [endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602) is being worked. Maintainer review is still owed on 27 parked PRs, oldest among the top ten being the iOS Safari regression test in [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (42 days).
+Three journal-worktree self-heal jobs landed, all hardening `scripts/jobs/journal-worktree-keeper.sh` against broken plumbing: the `garden-comment-watcher`, `garden-foreman`, and `garden-repo-watcher` fixes for dangling journal-worktree gitdir links all completed and verified. Two sibling self-heals remain in flight (the issue-inbox keeper's dangling-link repair and the orchestrate watcher's stale-gitdir rebuild), so the keeper-hardening sweep is nearly done. Nothing new posted to the board this cycle. Worth a maintainer's eye on the review queue: several parked PRs have aged past six weeks with no disposition, notably [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) (both 42 days) and the [opencode comparative-analysis design #266](https://github.com/endojs/endo-but-for-bots/pull/266) (44 days).
 
 ## Parked for maintainer feedback
 
@@ -24,98 +22,26 @@ Separately, the serial **xs2rust-endor stage-3** orchestration HALTED: the colle
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260703T152317Z-0f2511` — from reaper:endolinbot2, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260703T152317Z-0f2511.md)
-
-> POISON job dropped from the board after 5 requeue cycles on endolinbot2.
-> Its handler appears to fail every time; the reaper stopped requeueing it.
-> Original job base: xs2rust-endor-build-stage3-collections
->
-> --- original job body ---
-> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-03T14:12:09Z -->
->
-> ---
-> model: opus
-> ---
-> # Builder: xs2rust-endor stage 3 (5/7) — collections, binary data, BigInt (PR #600)
->
-> Repo: `endojs/endo-but-for-bots`, branch `xs2rust-endor` (PR #600 — same PR as the design;
-> keep DRAFT). Workspace `rust/engine/`. Read in order: `designs/xs2rust-endor-engine.md`
-> (§ Resolved Questions is BINDING; § Staged Roadmap "Stage-3 decomposition" is your charter),
-> the supervisor's stage-2b review
-> (https://github.com/endojs/endo-but-for-bots/pull/600#issuecomment-4872378323), and
-> `rust/engine/README.md` (the c/moddable oracle-pin procedure — the shallow sha-fetch is
-> rejected upstream; use the documented fallbacks, and mind the empty-gitlink footgun:
-> clone into `c/moddable` before any `git -C c/moddable` command; a populated sibling
-> checkout under /home/kris/scratch/project-wt-* is the fastest fallback).
->
-> You are child 5 of the serial `xs2rust-endor-build-stage3` orchestration. Ground truth
-> for every weight and behavior is the pin `48ee02d8cfe0` (xsRun.c, xsMemory.c, and the
-> per-built-in sources); the stage-3 bar is dual-run agreement INCLUDING computrons
-> (`mxMeterSome` fast-path annotations land in this stage).
->
-> **Deliverable:** Map/Set/WeakMap/WeakSet (XS's hashing and entry-slot allocation shapes,
-> metered faithfully — entry allocation is `fxNewSlot`-visible and affects computrons);
-> ArrayBuffer/TypedArray (every element kind)/DataView with XS's chunk-backed buffer model
-> and byte-level metering; BigInt (`XS_BIGINT_METERING` per digit step, the pin's xsBigInt.c
-> algorithms reproduced so digit counts — and therefore computrons — agree exactly).
->
-> **Acceptance bar:** `built-ins/{Map,Set,WeakMap,WeakSet,ArrayBuffer,TypedArray,DataView,
-> BigInt}` dual-run sections: covered agrees bit-exactly INCLUDING computrons, divergent
-> **0**, skips named. Report per-section before/after verbatim. Corpus programs over
-> collection growth (rehash boundaries), typed-array views/aliasing, and BigInt arithmetic
-> spanning digit-count boundaries, bit-exact.
->
-> **Standing invariants (every child):** all existing corpora and tests stay green and
-> bit-exact (stage-1 86, stage-2 23, stage-2b 33/10/25, the 953-file covered-grammar test);
-> the honest covered/skipped split is never diluted (a skip is named, a wrong primitive
-> value is a hard divergence); `#![forbid(unsafe_code)]` everywhere but endor-oracle; GC
-> suite green under Miri; new grammar gets corpus programs AND fuzz-grammar arms where the
-> differential generator can reach it.
->
-> Budget discipline: the stage-2 monolith died twice at the 2400s handler wall-clock.
-> Commit and push green increments EARLY and often; if the budget nears, push what is
-> green and exit WITHOUT the completion signal so the requeue resumes your worktree.
-> Do not message the maintainer; a genuinely blocking discovery goes to the supervisor's
-> inbox (`/home/kris/scripts/jobs/inbox-send.sh port-xs-to-rust-memory-safe-engine-s6`)
-> AND into your tada report. Reopening a resolved design question is a supervisor ruling —
-> record it, decide per the design as written, move on.
->
-> Report: what landed, acceptance evidence verbatim (section totals, covered/divergent
-> counts, computron agreement, Miri run), scope folds/frictions for the supervisor.
-> Commit to `xs2rust-endor`, push, keep the PR draft.
-
-- `20260703T152449Z-da14b4` — from orchestrator:xs2rust-endor-build-stage3-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260703T152449Z-da14b4.md)
-
-> Orchestration xs2rust-endor-build-stage3 HALTED: child xs2rust-endor-build-stage3-collections failed (serial, on-child-failure=halt). 4/7 done before halt; swept: xs2rust-endor-build-stage3-promises xs2rust-endor-build-stage3-xsre
-
-- `20260703T162406Z-f2b2de` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260703T162406Z-f2b2de.md)
-
-> self-heal: garden-library-link-scan exited rc=1 with no scoped fix. Capture: 15b96591a4222bf0c41e14ea17b08cffa9e57273 (git -C /home/kris/.garden-state/self-heal/journal cat-file -p 15b96591a4222bf0c41e14ea17b08cffa9e57273). Diagnosis: Diagnosis complete — this is a **transient environmental failure that has already self-healed**, so no fix job is warranted.
->
-> **What happened.** `garden-library-link-scan` died at 16:22:00 inside `common.sh:journal_remote()`, which runs `git -C "$GARDEN_ROOT/journal" config --get remote.origin.url` and hard-`die`s on failure. That git call failed with `fatal: not a git repository: /home/kris/garden2/.git/worktrees/journal`. The root cause was a stale git-worktree linkage: the journal worktree's `.git` gitfile (`/home/kris/journal/.git`) and the superproject's back-pointer (`/home/kris/.git/worktrees/journal/gitdir`) both still referenced an old `garden2/` checkout location that no longer exists — the tree had been relocated from `/home/kris/garden2` to the home root `/home/kris` (real 
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (8)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr602-7430cb28`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr602-7430cb28.md) — attention directive on endojs/endo-but-for-bots PR #602
 - [`port-xs-to-rust-memory-safe-engine-s6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s6.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
-- [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-dangling-journal-worktree`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-dangling-journal-worktree.md) — Failure signature (garden-comment-watcher@* and every other journal poller, e...
-- [`self-heal-fix-garden-foreman-journal-worktree-dangling-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-foreman-journal-worktree-dangling-gitdir.md) — Harden the garden against a dangling/stale $GARDEN_ROOT/journal worktree, whi...
 - [`self-heal-fix-garden-issue-inbox-keeper-repair-dangling-journal-worktree-link`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-issue-inbox-keeper-repair-dangling-journal-worktree-link.md) — Harden scripts/jobs/journal-worktree-keeper.sh to self-heal a *dangling journ...
 - [`self-heal-fix-garden-orchestrate-journal-worktree-stale-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-orchestrate-journal-worktree-stale-gitdir.md) — Harden scripts/jobs/journal-worktree-keeper.sh to REBUILD a broken/missing jo...
-- [`self-heal-fix-garden-repo-watcher-dangling-journal-worktree-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-dangling-journal-worktree-gitdir.md) — Two complementary, scoped changes so a corrupted $GARDEN_ROOT/journal worktre...
 - [`xs2rust-endor-press-20260703-152012`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-152012.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (1087)
+### tada (1090)
+- [`self-heal-fix-garden-repo-watcher-dangling-journal-worktree-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-repo-watcher-dangling-journal-worktree-gitdir.md) — Everything the job asks for is already in place. Here's my report.
+- [`self-heal-fix-garden-foreman-journal-worktree-dangling-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-foreman-journal-worktree-dangling-gitdir.md) — Completion report
+- [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-dangling-journal-worktree`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-dangling-journal-worktree.md) — Completion report
 - [`self-heal-fix-garden-proxy-journal-remote-fallback-to-garden-origin`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-proxy-journal-remote-fallback-to-garden-origin.md) — Completion report
 - [`self-heal-fix-garden-unblock-journal-remote-dangling-worktree`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-unblock-journal-remote-dangling-worktree.md) — Completion report
-- [`self-heal-fix-garden-comment-watcher-kriskowal-garden-journal-remote-stale-worktree`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-kriskowal-garden-journal-remote-stale-worktree.md) — Completion report
-- [`self-heal-fix-garden-unblock-broken-journal-worktree-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-unblock-broken-journal-worktree-gitdir.md) — This job is already fully satisfied in origin/main2; no code change is needed.
-- [`xs2rust-endor-build-stage3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3.md) — orchestration xs2rust-endor-build-stage3 — HALTED
-- … and 1082 more
+- … and 1085 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
