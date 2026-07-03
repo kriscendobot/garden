@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T06:52:14Z_
+_As of 2026-07-03T07:02:15Z_
 
 ## Latest
 
-A gardener picked up [`improve-set-schedule-validate-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-set-schedule-validate-preflight.md), hardening `set-schedule.sh`'s preflight validation — a direct follow-on to the just-completed [`improve-scheduler-preflight-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-validation.md). The xs2rust-endor (XS→Rust engine) port continues in the other active slot: stage 3 ([`fundamentals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-fundamentals.md) — constructors, `Object`, `Function`) is building, with a fresh press check-in filed. The board is otherwise quiet, with no new PR-pipeline work moving and 27 PRs still parked for kriskowal's review.
+A dead-lettered message ([`deadmail-20260703T065941Z-a8c603`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T065941Z-a8c603.md)) was picked up for intent recovery — the only fresh board transition this cycle. Otherwise the active thread is the XS→Rust (Endor) port: stage 3 (fundamentals — constructors, `Object`, `Function`) is in progress, following a just-landed press check-in, while the scheduler hardening continues in two parts (a completed preflight-validation pass plus an in-flight `set-schedule.sh` preflight-validation improvement). Recent completions also cleared the exit-0 wedge-escalation and clone-keeper self-heal items. No new PRs entered or left the pipeline; the 27 parked PRs awaiting kriskowal's review are unchanged, the oldest being [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules via erasable type syntax, 17d) and [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (42d).
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`deadmail-20260703T065941Z-a8c603`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T065941Z-a8c603.md) — Dead-lettered message — pick up its intent
 - [`improve-set-schedule-validate-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-set-schedule-validate-preflight.md) — Harden scripts/jobs/set-schedule.sh to validate the preflight: reference at w...
 - [`xs2rust-endor-build-stage3-fundamentals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-fundamentals.md) — Builder: xs2rust-endor stage 3 (2/7) — fundamentals: constructors, Object, Fu...
 
