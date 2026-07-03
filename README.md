@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T06:32:06Z_
+_As of 2026-07-03T06:35:51Z_
 
 ## Latest
 
-The scheduler's [preflight validation improvement](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-validation.md) landed — the only board completion this cycle. In flight: a builder is working stage 3 (2 of 7) of the xs2rust-endor port (constructors, `Object`, functions), and a dead-lettered message is being triaged back into intent. Otherwise the board is quiet, with the deferred plan queue dominated by the xs2rust-endor track and 27 PRs still parked for kriskowal's review — the oldest reaching back 42–44 days ([endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182), [#266](https://github.com/endojs/endo-but-for-bots/pull/266), [#288](https://github.com/endojs/endo-but-for-bots/pull/288)).
+Only the XS→Rust "Endor" port advanced this cycle: a new job to press PR #600 toward endor integration and green daemon tests entered flight alongside the in-progress stage-3 fundamentals build (constructors, `Object`, functions). No PRs landed or newly parked, and the todo queue is empty — the deferred plan queue remains heavy with further xs2rust-endor work (metering doctrine, UTF-16 string storage, test262 corpus convergence) awaiting foreman promotion.
 
 ## Parked for maintainer feedback
 
@@ -28,9 +28,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`deadmail-20260703T062700Z-e70d9d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T062700Z-e70d9d.md) — Dead-lettered message — pick up its intent
 - [`xs2rust-endor-build-stage3-fundamentals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-fundamentals.md) — Builder: xs2rust-endor stage 3 (2/7) — fundamentals: constructors, Object, Fu...
+- [`xs2rust-endor-press-20260703-063542`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-063542.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (1038)
 - [`improve-scheduler-preflight-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-validation.md) — Completion report
