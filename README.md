@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T04:52:31Z_
+_As of 2026-07-03T04:54:14Z_
 
 ## Latest
 
-Self-improvement work leads this cycle: three infra hardening jobs are now in flight — making [`clone-keeper.sh`](https://github.com/kriskowal/garden) re-clone a tracked bare clone that goes missing, silencing gardener's misleading "transient handler" log on deadline overrun, and adding preflight existence validation to `set-schedule.sh`. On the fork side, the [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) Proxy TypedArray-emulation work and the [endo-but-for-bots#588](https://github.com/endojs/endo-but-for-bots/pull/588) shepherd (LLM-resume) both landed completion reports, and a scheduler-escalation improvement closed out. The XS→Rust (Endor) port continues to press: [PR #600](https://github.com/endojs/endo-but-for-bots/pull/600) filed a check-in and stage 3 (language closure) is now building. A fresh shepherd is chasing red CI on [endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602). Maintainer attention is still owed on 27 parked PRs, the oldest reaching 42–43 days.
+Three internal garden-infrastructure fixes landed this cycle, all self-improvements to the fleet's deterministic machinery: the clone-keeper now re-clones a missing bare repo rather than erroring, `set-schedule` gained preflight validation, and the gardener suppresses a transient log line on deadline overrun. On the PR front, a shepherd is driving red CI back to green on [endojs/endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602), and the xs2rust-endor Rust-port build is mid-flight on stage 3 (language closure). No PRs moved into or out of the maintainer's parked queue — the 27 parked PRs, led by voice input ([#101](https://github.com/endojs/endo-but-for-bots/pull/101)) and passable byte arrays ([#503](https://github.com/endojs/endo-but-for-bots/pull/503)), still await review.
 
 ## Parked for maintainer feedback
 
@@ -28,20 +28,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr602-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr602-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #602
-- [`improve-clone-keeper-reclone-missing-bare`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-reclone-missing-bare.md) — Harden scripts/jobs/clone-keeper.sh so a tracked bare clone that is missing (...
-- [`improve-gardener-suppress-transient-log-on-deadline-overrun`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-suppress-transient-log-on-deadline-overrun.md) — In scripts/jobs/gardener.sh, stop emitting the misleading "transient handler ...
-- [`improve-set-schedule-preflight-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-set-schedule-preflight-validation.md) — Add preflight existence validation to scripts/jobs/set-schedule.sh so a sched...
 - [`xs2rust-endor-build-stage3-language`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-language.md) — Builder: xs2rust-endor stage 3 (1/7) — language closure: strings as values + ...
 
-### tada (1016)
+### tada (1019)
+- [`improve-gardener-suppress-transient-log-on-deadline-overrun`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-suppress-transient-log-on-deadline-overrun.md) — Completion report
+- [`improve-set-schedule-preflight-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-set-schedule-preflight-validation.md) — Completion report
+- [`improve-clone-keeper-reclone-missing-bare`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-reclone-missing-bare.md) — Completion report
 - [`deadmail-20260703T044128Z-ecb5c9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T044128Z-ecb5c9.md) — Report
 - [`endojs-endo-but-for-bots-472-proxy-typedarray-emulation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-472-proxy-typedarray-emulation.md) — Completion report
-- [`improve-scheduler-escalate-persistently-missing-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-escalate-persistently-missing-preflight.md) — Completion report
-- [`xs2rust-endor-press-20260703-043504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-043504.md) — Press check-in report — xs2rust-endor (PR #600), tick 04:35Z
-- [`endojs-endo-but-for-bots-pr588-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr588-shepherd-llm-resume.md) — Completion report
-- … and 1011 more
+- … and 1014 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
