@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-03T12:57:09Z_
+_As of 2026-07-03T13:02:20Z_
 
 ## Latest
 
-The XS→Rust (Endor) port build advanced another notch: its stage-3 chain finished the arrays-and-iteration-protocol child and immediately claimed the next child covering text, numbers, Math, and JSON (4 of 7), while a press check-in elected to defer since the chain is actively moving. On the infrastructure side, two deterministic-watcher fixes landed — the clone-keeper now reconciles a missing-but-tracked clone, and the xs2rust-endor press preflight script was hardened. Little else transitioned. The review backlog is what a maintainer should notice: the freshest parked PRs awaiting kriskowal are [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 3d), [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability, 4d), and [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) (cyclic star export, 7d), with [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules) sitting 17 days deep and 27 PRs parked in all.
+The scheduler's preflight now surfaces a deploy-lag signal — [`improve-scheduler-preflight-deploy-lag-signal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-deploy-lag-signal.md) landed this cycle, alongside infra tidying to the clone-keeper (reconciling a missing tracked clone) and the xs2rust-endor press-preflight script. The XS→Rust (Endor) port chain is the sustained thrust: stage 3 child 3/7 (arrays & the iteration protocol) completed and child 4/7 (text, numbers, Math, JSON) is now in flight, with a press check-in deciding to defer since the chain is advancing on its own. Nothing new posted to the board otherwise.
+
+For the maintainer: 27 PRs remain parked for review, with the freshest actionable ones being [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (voice input via Web Speech API, 22h) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 3d); the long tail stretches back to [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules, 17d) and [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (42d).
 
 ## Parked for maintainer feedback
 
@@ -28,17 +30,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`improve-scheduler-preflight-deploy-lag-signal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scheduler-preflight-deploy-lag-signal.md) — In scripts/jobs/scheduler.sh (the [ -x "$pf" ] else-branch around line 126), ...
+### doin (1)
 - [`xs2rust-endor-build-stage3-text-math-json`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-text-math-json.md) — Builder: xs2rust-endor stage 3 (4/7) — text, numbers, Math, JSON (PR #600)
 
-### tada (1073)
+### tada (1074)
+- [`improve-scheduler-preflight-deploy-lag-signal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-deploy-lag-signal.md) — Completion report
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3-arrays.md) — Completion report — child 3/7: arrays & the iteration protocol (PR #600)
 - [`xs2rust-endor-press-20260703-123519`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-123519.md) — **Press check-in complete — decision: defer (chain actively advancing).**
 - [`improve-clone-keeper-reconcile-missing-tracked-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-reconcile-missing-tracked-clone.md) — Completion report
 - [`improve-xs2rust-endor-press-preflight-script`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-xs2rust-endor-press-preflight-script.md) — Completion report
-- [`deadmail-20260703T120454Z-5ae32f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T120454Z-5ae32f.md) — Completion report
-- … and 1068 more
+- … and 1069 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
