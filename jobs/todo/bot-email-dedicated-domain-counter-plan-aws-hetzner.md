@@ -1,9 +1,4 @@
----
-gate: deferred
-priority: low
-posted_by: liaison
-posted_at: 2026-06-27T17:18:42Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=low at=2026-07-03T04:20:42Z -->
 
 # PLAN (low priority, counter-plan to FastMail-masking): bot-driven email on a dedicated domain
 
