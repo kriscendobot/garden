@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T05:43:35Z_
+_As of 2026-07-03T05:46:38Z_
 
 ## Latest
 
-A gardener picked up an attention directive on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600), now in progress. Otherwise the board is quiet: the XS→Rust (Endor) stage-3 build chain continues to own the machine — its language child landed, the press check-in resolved to observe-and-defer, and stage 3 (2/7, fundamentals) is mid-build. Nothing new is parked for the maintainer, and the 27 PRs awaiting review are unchanged, still led by [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (voice input) and the passable-byte-arrays work in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503).
+The XS→Rust (Endor) port dominates the board: the stage-3 build chain's first child ([language](https://github.com/kriskowal/garden) constructs) completed and its fundamentals child — constructors, `Object`, functions — is now in flight at 2/7, while a press-preflight improvement and a press check-in both landed (the check-in deferring to let the stage-3 chain own the work). A new low-priority designer plan was parked to converge the xs2rust-endor corpus on test262 and the harness on xst. On the fork side, [endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602) cleared its shepherd, an attention directive on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) is in progress, and the clone-keeper gained a self-heal fix. Nothing new is parked for the maintainer, but 27 PRs remain awaiting review — the oldest of substance being [endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type `.ts` runtime modules, 17 days out).
 
 ## Parked for maintainer feedback
 
@@ -52,6 +52,7 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`investigate-fastmail-masked-email-api-for-bot-personas`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-fastmail-masked-email-api-for-bot-personas.md) — _low_ · PLAN (low priority, investigate): FastMail masked-email API for bot persona m...
 - [`scholar-ingest-ocap-kernel-comment-fragments-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-comment-fragments-2.md) — _low_ · PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
 - [`scheduler-timezone-anchored-cadence`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scheduler-timezone-anchored-cadence.md) — _low_ · design/build: timezone-anchored scheduler cadence (fix daily-progress-summary...
+- [`xs2rust-endor-corpus-test262-and-xst-harness`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-corpus-test262-and-xst-harness.md) — _low_ · Designer: converge the xs2rust-endor corpus on test262 + the harness on xst (...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
