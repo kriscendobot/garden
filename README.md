@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T06:00:02Z_
+_As of 2026-07-03T06:01:30Z_
 
 ## Latest
 
-The garden's own tooling advanced: the [`design-feedback-review-retrospective-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-feedback-review-retrospective-loop.md) design landed on `main2`, clearing the last blocker on its builder follow-up (the double-loop feedback-retrospective self-improvement mechanism), and a mentor improvement adding improve-job identity dedup completed. Work continues on the XS→Rust (Endor) port, with the stage-3 build (fundamentals: constructors, `Object`, `Function`) still in flight and a scholar ingesting danfinlay/quickjs `native-ses` in parallel to inform the port. No PRs changed hands this cycle; the 27-deep parked queue still awaits kriskowal's review.
+Two fresh claims are in flight: a review directive on [endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602) and a dead-lettered message someone re-picked up to recover its intent. Alongside them, the [xs2rust-endor](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-fundamentals.md) Rust port continues its stage-3 build (constructors, Object, Function fundamentals, 2 of 7), with its latest press check-in electing to observe-and-defer to that build chain, and a scholar is ingesting danfinlay/quickjs @ native-ses to inform the XS-evolution work. On the meta side, a design for the double-loop feedback/retrospective self-improvement mechanism landed on main2 (its builder job is now unblocked), and two mentor-improvement jobs — improve-job identity dedup and skipping already-fixed improve-jobs — completed. Nothing new is parked for maintainer review; the 27-deep parked queue is unchanged, still fronted by [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays).
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
+- [`deadmail-20260703T055833Z-2c4d0d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T055833Z-2c4d0d.md) — Dead-lettered message — pick up its intent
+- [`endojs-endo-but-for-bots-pr602-review-b4a2eef2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr602-review-b4a2eef2.md) — Review directive on endojs/endo-but-for-bots PR #602
 - [`scholar-ingest-quickjs-native-ses`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-quickjs-native-ses.md) — scholar: ingest danfinlay/quickjs @ native-ses for XS-evolution implementatio...
 - [`xs2rust-endor-build-stage3-fundamentals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-fundamentals.md) — Builder: xs2rust-endor stage 3 (2/7) — fundamentals: constructors, Object, Fu...
 
