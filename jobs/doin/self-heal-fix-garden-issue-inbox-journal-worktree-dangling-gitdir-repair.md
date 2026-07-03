@@ -8,3 +8,9 @@ Repair procedure (only when `$JW` == `$GARDEN_ROOT/journal`, `$GARDEN_ROOT` is a
 3. Re-run `rev-parse --git-dir`; on success fall through to the normal fetch/reconcile path, on failure log and page per the existing unpreservable-WIP path.
 
 Guard hard against touching anything outside `$GARDEN_ROOT/journal`. Since this hardens the shared keeper for the whole recurring class, consolidate/close the two prior per-service jobs (`self-heal-fix-garden-gardener-journal-worktree-dangling-gitdir-repair`, `self-heal-fix-garden-gardener-scaler-journal-worktree-gitdir-repair`) into this one fix. Add a keeper test covering a dangling-gitdir worktree whose owning checkout was deleted.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 4
+  claimed_at: 2026-07-03T11:10:11Z
