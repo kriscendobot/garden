@@ -53,6 +53,7 @@ Commit to `xs2rust-endor`, push, keep the PR draft.
 
 <!-- garden-reaped: 4 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
