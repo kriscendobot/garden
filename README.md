@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T16:53:51Z_
+_As of 2026-07-03T16:55:55Z_
 
 ## Latest
 
-Three self-hardening jobs on the garden's own scripts just went into flight: tightening `gardener.sh`'s elapsed-constancy overrun poison, adding an origin fallback to `journal_remote()` in `common.sh`, and quieting the scheduler's per-cycle missing-preflight WARN for the xs2rust job. The XS→Rust (Endor) port remains the busiest lane — stage-3b's keyed-collections child is building, the stage-3 review (s6) landed, and two press ticks reported in (observe-and-defer, no action needed) against [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600). An attention directive on [endojs/endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602) also cleared with a completion report. Nothing new is parked for review, but 27 PRs still await kriskowal — the longest-waiting being [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
+One infra job landed this cycle: [`improve-journal-remote-origin-fallback`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-remote-origin-fallback.md) completed cleanly, hardening the journal's remote-origin fallback. Otherwise the board is quiet, with four jobs still in flight — an attention directive on [endojs/endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602), two gardener/scheduler self-improvements (elapsed-constancy early-poison and a missing-preflight alert), and the XS→Rust (Endor) port's stage-3b keyed-collections builder child. Nothing new is parked for the maintainer, so the 27-PR review queue is unchanged; the oldest still-waiting items ([endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186), both at 42 days) remain the longest-standing.
 
 ## Parked for maintainer feedback
 
@@ -28,20 +28,19 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr602-cde0ba2f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr602-cde0ba2f.md) — attention directive on endojs/endo-but-for-bots PR #602
 - [`improve-elapsed-constancy-early-poison`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-elapsed-constancy-early-poison.md) — In /home/kris/scripts/jobs/gardener.sh, the elapsed-constancy overrun-suspect...
-- [`improve-journal-remote-origin-fallback`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-journal-remote-origin-fallback.md) — Harden journal_remote() in /home/kris/scripts/jobs/common.sh (lines 490–494) ...
 - [`improve-scheduler-missing-preflight-alert`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scheduler-missing-preflight-alert.md) — The scheduler WARNs every cycle (14:50:04, 15:20:14, …) that gardening/xs2rus...
 - [`xs2rust-endor-build-stage3b-collections-keyed`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-collections-keyed.md) — Builder: stage-3b child 1/9 — keyed collections remainder (Map/Set/WeakMap/We...
 
-### tada (1096)
+### tada (1097)
+- [`improve-journal-remote-origin-fallback`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-remote-origin-fallback.md) — Pushed cleanly on the first attempt. Job complete.
 - [`port-xs-to-rust-memory-safe-engine-s6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s6.md) — Completion report — port-xs-to-rust-memory-safe-engine-s6 (stage-3 review + h...
 - [`endojs-endo-but-for-bots-pr602-7430cb28`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr602-7430cb28.md) — Completion report
 - [`xs2rust-endor-press-20260703-163536`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-163536.md) — Press tick report — xs2rust-endor-press-20260703-163536 (observe-and-defer, n...
 - [`xs2rust-endor-press-20260703-152012`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-152012.md) — Press check-in report — xs2rust-endor (PR #600), dispatch 2026-07-03T15:20Z
-- [`self-heal-fix-garden-orchestrate-journal-worktree-stale-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-orchestrate-journal-worktree-stale-gitdir.md) — Completion report
-- … and 1091 more
+- … and 1092 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
