@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-03T15:23:49Z_
+_As of 2026-07-03T15:24:58Z_
 
 ## Latest
 
@@ -82,6 +82,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > counts, computron agreement, Miri run), scope folds/frictions for the supervisor.
 > Commit to `xs2rust-endor`, push, keep the PR draft.
 
+- `20260703T152449Z-da14b4` — from orchestrator:xs2rust-endor-build-stage3-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260703T152449Z-da14b4.md)
+
+> Orchestration xs2rust-endor-build-stage3 HALTED: child xs2rust-endor-build-stage3-collections failed (serial, on-child-failure=halt). 4/7 done before halt; swept: xs2rust-endor-build-stage3-promises xs2rust-endor-build-stage3-xsre
+
 
 ## Board
 ### todo (0)
@@ -91,13 +95,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`xs2rust-endor-press-20260703-145003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-145003.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260703-152012`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-152012.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (1082)
+### tada (1083)
+- [`xs2rust-endor-build-stage3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3.md) — orchestration xs2rust-endor-build-stage3 — HALTED
 - [`deadmail-20260703T144011Z-dcca23`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T144011Z-dcca23.md) — Completion report
 - [`improve-reaper-productive-cycle-resets-overrun-counter`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-reaper-productive-cycle-resets-overrun-counter.md) — Completion report
 - [`deadmail-20260703T140832Z-8d56e5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T140832Z-8d56e5.md) — Inbox empty. Work complete.
 - [`xs2rust-endor-press-20260703-140504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-140504.md) — Press check-in report — xs2rust-endor (PR #600), dispatch 2026-07-03T14:05Z
-- [`xs2rust-endor-build-stage3-text-math-json`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3-text-math-json.md) — Completion report — stage-3 text-math-json (child 4/7, PR #600)
-- … and 1077 more
+- … and 1078 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
