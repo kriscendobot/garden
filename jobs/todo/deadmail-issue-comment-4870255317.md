@@ -39,8 +39,4 @@ Rsvp
 
 ----- END ORIGINAL MESSAGE -----
 
----
-claim:
-  host: endolinbot2
-  gardener: 12
-  claimed_at: 2026-07-03T00:53:12Z
+<!-- garden-reaped: 1 -->
