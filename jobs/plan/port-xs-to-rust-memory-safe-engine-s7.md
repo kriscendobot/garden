@@ -70,6 +70,35 @@ Program state:
   iterator-next metering constant defined FIRST.** Also deferred/named: (b) weak primitive-key
   `TypeError`, (c) mid-iteration structural mutation, (d) ES2025 Set combinators
   (union/intersection/…). BigInt/binary-data untouched (children 2 & 3).
+- **Stage-3b child 2/9 (BigInt) DONE — scope-fold report carried here (your inbox was not yet
+  live, so the child's note dead-lettered; deadmail-20260703T174129Z-e748a9 folded it into this
+  spec).** Pushed to `xs2rust-endor` (PR #600, kept DRAFT). Commits: `c8de281bf` (core),
+  `e021feaf6` (corpus+fuzz), `9713ee930` (String skip), `76db05dd4` (GC test). All **raw-exact**
+  vs pin `48ee02d8cfe0`: BigInt value Kind + `[sign][LE u32 limbs]` digit chunk; literals;
+  `+ - *` (mxBigInt_meter digit step + allocation-faithful result chunk at XS's PRE-TRIM
+  fxBigInt_alloc size — add max+1, sub max, mul a+b limbs); unary minus; strict/loose
+  `=== == !== !=` incl BigInt-vs-Number (fxNumberToBigInt); relational `< <= > >=` (both-BigInt);
+  typeof; decimal completion rendering. Corpus (93 progs) + fuzz arm (800 seeds) + BigInt
+  GC-relocation test all green; Miri GC suite green; `#![forbid(unsafe_code)]` intact; full
+  workspace test green. Full evidence in
+  `journal/jobs/tada/xs2rust-endor-build-stage3b-bigint.md`. **CALIBRATION NOTE (the salvaged
+  in-flight diff was computron-off — canceling errors crossed boundaries, e.g. `-3n*-4n`): the
+  true per-op residuals are each `1<<14` — `BIGINT_LITERAL_METERING`, `BIGINT_ARITH_FRAME_METERING`,
+  `BIGINT_NEG_FRAME_METERING`; the both-BigInt compare and strict-mixed carry ZERO residual (the
+  salvage's "builtin per operand" was the literal undercharge in disguise).** Bar met:
+  built-ins/BigInt divergent=0; bigint language sections 204 covered / divergent=0. **Scope folds
+  for YOU to ratify (all HONEST NAMED SKIPS via `Halt::Unsupported`, never a wrong value/meter):**
+  (a) `BigInt**`, (b) BigInt `/` and `%` (long-div/repeated-squaring metering unmodeled),
+  (c) mixed BigInt/Number ARITHMETIC (a TypeError anyway), (d) the fractional-delta mixed
+  RELATIONAL path, (e) `String(BigInt)`/concat/template (fxBigintToString radix-formula chunk +
+  fxBigInt_dup + call-frame residual unmodeled — chose skip over a ~82k-raw wrong meter;
+  bare-completion render stays bit-exact). **NEXT INCREMENT the child flags (biggest remaining
+  BigInt coverage):** the `BigInt()` constructor as a new intrinsic global +
+  `BigInt.prototype.toString/valueOf` + `asIntN/asUintN` — unlocks the 67 built-ins/BigInt files
+  (currently all endor-aborted on the missing BigInt global). Delicate: new intrinsic registration
+  must NOT double-count the realm-setup metering constant (endor's startup lump already matches XS,
+  which registers BigInt), and `BigInt(number)` RangeError-on-non-integer + string parse need their
+  own bit-exact meters. Left as a clean follow-on, not rushed into an invariant violation.
 - **s6 rulings on the stage-3 carry-forwards (all discharged; do not re-litigate):** child-1 folds
   ratified (at/at_2 → stage-3b child 5; copy_object/extend + arguments exotics stay named skips
   pending class/intrinsics machinery); child-2 ratified done, bind/apply-with-array →
