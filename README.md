@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T18:07:05Z_
+_As of 2026-07-03T18:14:48Z_
 
 ## Latest
 
-The XS→Rust (Endor) port continues to advance through its stage-3b binary-data work: the BigInt child landed as [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600), and the next child — binary data (ArrayBuffer / TypedArray / DataView) — is now in progress. The most recent xs2rust-endor press tick was an observe-and-defer cycle, and two infrastructure self-heals completed (press-preflight and scheduler declared-preflight). Since the last bulletin the only board move is the foreman claiming `foreman-edge-trigger-on-job-completion`, which wires the foreman to fire on gardener job completion rather than waiting for its next poll. Nothing new is parked for maintainer feedback; the review backlog holds at the same 27 open PRs, oldest being [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
+Quiet cycle: the only board transition was the completion of [`foreman-edge-trigger-on-job-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/foreman-edge-trigger-on-job-completion.md), which wires the foreman to edge-trigger on job completion rather than waiting for its next timer tick — tightening the latency between a finished job and the next promotion. The XS→Rust (Endor) port continues to be the fleet's center of gravity: stage-3b's BigInt child landed as [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) and the binary-data child (ArrayBuffer/TypedArray/DataView) is the sole job in flight, while the latest press tick was an observe-and-defer cycle under charter. Nothing new is parked for maintainer feedback since the last bulletin.
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`foreman-edge-trigger-on-job-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/foreman-edge-trigger-on-job-completion.md) — Foreman edge-trigger on gardener job completion
+### doin (1)
 - [`xs2rust-endor-build-stage3b-binary`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-binary.md) — Builder: stage-3b child 3/9 — binary data (ArrayBuffer / TypedArray / DataVie...
 
-### tada (1109)
+### tada (1110)
+- [`foreman-edge-trigger-on-job-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/foreman-edge-trigger-on-job-completion.md) — Completion report
 - [`xs2rust-endor-press-20260703-175002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-175002.md) — Press tick complete — this was an observe-and-defer cycle under the charter's...
 - [`deadmail-20260703T174129Z-e748a9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T174129Z-e748a9.md) — Completion report
 - [`xs2rust-endor-build-stage3b-bigint`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-bigint.md) — Completion report — stage-3b child 2/9: BigInt (PR #600)
 - [`improve-xs2rust-endor-press-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-xs2rust-endor-press-preflight.md) — Completion report
-- [`improve-scheduler-declared-preflight-selfheal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-declared-preflight-selfheal.md) — Completion report
-- … and 1104 more
+- … and 1105 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
