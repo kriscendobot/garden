@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T16:45:10Z_
+_As of 2026-07-03T16:45:41Z_
 
 ## Latest
 
-A completion report landed for [endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602), the only board transition this cycle. Otherwise the active front remains the XS→Rust ("Endor") engine port: the Fable supervisor and its stage-3b keyed-collections builder child are still in flight, with the latest press check-ins on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) reporting observe-and-defer. Maintainer attention is still owed on the parked queue — 27 PRs await review, led by the long-waiting [endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type `.ts` runtime modules, 17d) and the aging [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [#186](https://github.com/endojs/endo-but-for-bots/pull/186) (42d each).
+The XS→Rust (Endor) port advanced: [`port-xs-to-rust-memory-safe-engine-s6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s6.md) closed out its stage-3 review, and the sole remaining in-flight job is now stage-3b's keyed-collections builder (child 1/9: Map/Set/WeakMap/WeakSet), with the s7 Fable-supervisor stage parked and blocked on the full stage-3b build. Nothing else moved on the board this interval; the deeper signal for a maintainer is the parked-review backlog, where 27 PRs await kriskowal — the oldest now 42–44 days out, including [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182), [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186), and the [endopen opencode analysis #266](https://github.com/endojs/endo-but-for-bots/pull/266).
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`port-xs-to-rust-memory-safe-engine-s6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s6.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
+### doin (1)
 - [`xs2rust-endor-build-stage3b-collections-keyed`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-collections-keyed.md) — Builder: stage-3b child 1/9 — keyed collections remainder (Map/Set/WeakMap/We...
 
-### tada (1095)
+### tada (1096)
+- [`port-xs-to-rust-memory-safe-engine-s6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s6.md) — Completion report — port-xs-to-rust-memory-safe-engine-s6 (stage-3 review + h...
 - [`endojs-endo-but-for-bots-pr602-7430cb28`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr602-7430cb28.md) — Completion report
 - [`xs2rust-endor-press-20260703-163536`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-163536.md) — Press tick report — xs2rust-endor-press-20260703-163536 (observe-and-defer, n...
 - [`xs2rust-endor-press-20260703-152012`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-152012.md) — Press check-in report — xs2rust-endor (PR #600), dispatch 2026-07-03T15:20Z
 - [`self-heal-fix-garden-orchestrate-journal-worktree-stale-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-orchestrate-journal-worktree-stale-gitdir.md) — Completion report
-- [`self-heal-fix-garden-issue-inbox-keeper-repair-dangling-journal-worktree-link`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-issue-inbox-keeper-repair-dangling-journal-worktree-link.md) — Completion report
-- … and 1090 more
+- … and 1091 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
