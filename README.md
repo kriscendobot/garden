@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T04:38:44Z_
+_As of 2026-07-03T04:40:14Z_
 
 ## Latest
 
-Little moved since the last bulletin: the only board transition was a press check-in tick for the xs2rust-endor port (PR #600), whose stage-3 build (language closure — strings-as-values) remains in progress alongside the Proxy-based TypedArray emulation build ([endojs/endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472)) and a scheduler preflight-gate hardening job. Worth a maintainer's eye: 27 PRs are now parked for review, the oldest stretching back 42–43 days — including [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182), [#186](https://github.com/endojs/endo-but-for-bots/pull/186), [#266](https://github.com/endojs/endo-but-for-bots/pull/266), [#288](https://github.com/endojs/endo-but-for-bots/pull/288), and [#329](https://github.com/endojs/endo-but-for-bots/pull/329) — and four plan-queue items sit awaiting go-ahead authorization.
+Only one job landed since the last bulletin: the [`improve-scheduler-escalate-persistently-missing-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-escalate-persistently-missing-preflight.md) fix completed, hardening the scheduler to escalate when a preflight check goes persistently missing. Two builds remain in flight — the [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) Proxy-based freezable-TypedArray emulation and the xs2rust-endor stage-3 language closure — and the maintainer's review queue is otherwise unchanged, still headed by the voice-input chat PR ([endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101)) and the passable-byte-arrays work ([endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)).
 
 ## Parked for maintainer feedback
 
@@ -28,18 +28,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-472-proxy-typedarray-emulation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-472-proxy-typedarray-emulation.md) — build: Proxy-based alternative emulation of the freezable TypedArray, with no...
-- [`improve-scheduler-escalate-persistently-missing-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scheduler-escalate-persistently-missing-preflight.md) — Harden the preflight gate in scripts/jobs/scheduler.sh (line ~120-127) so a p...
 - [`xs2rust-endor-build-stage3-language`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-language.md) — Builder: xs2rust-endor stage 3 (1/7) — language closure: strings as values + ...
 
-### tada (1013)
+### tada (1014)
+- [`improve-scheduler-escalate-persistently-missing-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-escalate-persistently-missing-preflight.md) — Completion report
 - [`xs2rust-endor-press-20260703-043504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-043504.md) — Press check-in report — xs2rust-endor (PR #600), tick 04:35Z
 - [`endojs-endo-but-for-bots-pr588-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr588-shepherd-llm-resume.md) — Completion report
 - [`bot-email-dedicated-domain-counter-plan-aws-hetzner`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/bot-email-dedicated-domain-counter-plan-aws-hetzner.md) — Completion report
 - [`improve-clone-keeper-restore-missing-tracked-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-restore-missing-tracked-clone.md) — Completion report
-- [`ebfb-pr472-proxy-typedarray-emulation-builder`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr472-proxy-typedarray-emulation-builder.md) — Completion report
-- … and 1008 more
+- … and 1009 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
