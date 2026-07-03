@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T08:29:17Z_
+_As of 2026-07-03T08:33:20Z_
 
 ## Latest
 
-Board motion was quiet this cycle — a single dead-letter redelivery cleared, with no new jobs posted or completed. The live substance is the xs2rust-endor port: its press-driver ticks at 07:20Z and 08:05Z both landed on observe-and-defer (no push), and the stage 3 build (arrays and the iteration protocol, 3 of 7) is in progress, while two scheduler-preflight hardening jobs work to stop those press ticks from burning a full tick on dangling-reference decisions. Nothing new reached the maintainer queue; the 27 parked PRs still await review, the oldest being [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules, 17d) and the recently-refreshed [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) (cyclic star-export fix, 7d). Two rename and lint-ceiling builds remain blocked on [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598) and [endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594).
+A garden-internal fix landed: [`improve-scheduler-preflight-dangling-reference-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-dangling-reference-guard.md) completed, hardening the scheduler's preflight against dangling references. Otherwise the board is quiet, with two jobs in flight on the XS→Rust (Endor) port — builder stage 3 (arrays and the iteration protocol) and a preflight tweak to keep the press-driver from burning a full tick just to decline. Nothing new is parked for review; the maintainer queue still holds 27 PRs awaiting kriskowal, led by the long-waiting [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (17d) and [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (42d).
 
 ## Parked for maintainer feedback
 
@@ -28,18 +28,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`improve-scheduler-preflight-dangling-reference-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scheduler-preflight-dangling-reference-guard.md) — journal:schedules/xs2rust-endor-press.md declares preflight: gardening/xs2rus...
+### doin (2)
 - [`improve-xs2rust-press-deterministic-stall-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-xs2rust-press-deterministic-stall-preflight.md) — The 08:08Z gardener entry shows a full press-driver tick consumed just to dec...
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
 
-### tada (1048)
+### tada (1049)
+- [`improve-scheduler-preflight-dangling-reference-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-dangling-reference-guard.md) — Completion report: improve-scheduler-preflight-dangling-reference-guard
 - [`deadmail-20260703T082030Z-54c3b5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T082030Z-54c3b5.md) — Delivered to the live owner.
 - [`deadmail-20260703T080125Z-56415b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T080125Z-56415b.md) — Completion report — deadmail-20260703T080125Z-56415b
 - [`xs2rust-endor-press-20260703-080505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-080505.md) — Press check-in complete for tick 08:05Z — **decision: observe-and-defer; no p...
 - [`xs2rust-endor-press-20260703-072004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-072004.md) — Press check-in complete for PR #600 (xs2rust-endor), tick 07:20Z — **observe-...
-- [`deadmail-20260703T071810Z-56fdc3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T071810Z-56fdc3.md) — Completion report
-- … and 1043 more
+- … and 1044 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
