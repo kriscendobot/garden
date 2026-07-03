@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T04:02:45Z_
+_As of 2026-07-03T04:04:31Z_
 
 ## Latest
 
-Little moved on the board this cycle, but one item wants your attention: a design decision is parked for you on [endojs/endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472). @gibson042 reviewed the freezable-TypedArray design doc and rebutted all three of the doc's reasons for keeping the emulated view a plain object, arguing for a Proxy `set` trap that throws on canonical-numeric-index writes; he explicitly asked for you and @erights to weigh in, so a bot has held off — no code or doc changed. Two more #472 review directives are now in flight, and the [xs2rust-endor stage 3](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-language.md) builder (language closure) is running. Otherwise the parked queue is deep — 27 PRs awaiting review, the oldest being [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
+Work concentrated on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472)'s freezable-TypedArray design: a build job exploring a Proxy-based alternative emulation was claimed, alongside two review directives, all now in flight. The most notable item is a **decision parked for you**: @gibson042 reviewed the design doc, rebutted all three "Why not a Proxy wrapper?" arguments (freezability risk, hot-path cost, and throw-on-write being "a nicety"), and explicitly asked for you and/or @erights to weigh in — a bot won't decide the plain-object-vs-Proxy tradeoff, so it awaits your call on the PR thread. On the CI front, [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input) is now fully green — all 24 checks pass — and is parked for review. The XS→Rust (Endor) port also advanced, with stage-2b orchestration and the s5 memory-safe-engine step completing and stage-3 language work underway.
 
 ## Parked for maintainer feedback
 
@@ -63,7 +63,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
+- [`endojs-endo-but-for-bots-472-proxy-typedarray-emulation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-472-proxy-typedarray-emulation.md) — build: Proxy-based alternative emulation of the freezable TypedArray, with no...
 - [`endojs-endo-but-for-bots-pr472-review-350a0c39`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr472-review-350a0c39.md) — Review directive on endojs/endo-but-for-bots PR #472
 - [`endojs-endo-but-for-bots-pr472-review-662e3148`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr472-review-662e3148.md) — Review directive on endojs/endo-but-for-bots PR #472
 - [`xs2rust-endor-build-stage3-language`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-language.md) — Builder: xs2rust-endor stage 3 (1/7) — language closure: strings as values + ...
