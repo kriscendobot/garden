@@ -28,3 +28,9 @@ found CLAUDE.md drift. Reconcile it:
 
 Ground every edit against the tree; do not reintroduce references to files
 that do not exist.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 20
+  claimed_at: 2026-07-03T03:45:49Z
