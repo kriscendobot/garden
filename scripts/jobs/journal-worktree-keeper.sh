@@ -81,13 +81,15 @@
 # (/home/kris -> /home/kris/garden2) and garden2 was later deleted, or the whole
 # `$GARDEN_ROOT/.git/worktrees/` dir was wiped — there is no admin entry to repair
 # against and `worktree repair` fails outright ("… .git file does not reference a
-# repository"). The guard then REBUILDS the worktree losslessly: prune the stale
-# admin records, back up every file still present under $JW into the same host-local
-# backup dir, remove the stale $JW dir, and re-`worktree add --force` it off
-# $JOURNAL_BRANCH (origin/$JOURNAL_BRANCH when the local branch is absent), then fall
-# through to the normal fetch/reconcile. The rebuild is HARD-GUARDED to only ever
-# touch $GARDEN_ROOT/journal and only after a completed backup, and it pages the
-# maintainer solely when the tree could not be captured or the re-add failed.
+# repository"). The guard then REBUILDS the worktree losslessly: gate on
+# no-active-writer (never rm -rf a dir a live agent holds as cwd — defer to the next
+# tick if one is present), prune the stale admin records, back up every file still
+# present under $JW into the same host-local backup dir, remove the stale $JW dir,
+# and re-`worktree add --force` it off $JOURNAL_BRANCH (origin/$JOURNAL_BRANCH when
+# the local branch is absent), then fall through to the normal fetch/reconcile. The
+# rebuild is HARD-GUARDED to only ever touch $GARDEN_ROOT/journal and only after a
+# completed backup, and it pages the maintainer solely when the tree could not be
+# captured or the re-add failed.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -324,6 +326,26 @@ jw_rebuild_dangling_worktree() {  # jw_rebuild_dangling_worktree <jw>
      || ! git -C "$GARDEN_ROOT" config --get remote.origin.url >/dev/null 2>&1; then
     log "WARN: cannot rebuild $jw — \$GARDEN_ROOT ($GARDEN_ROOT) is not a repo with an origin remote"
     return 0
+  fi
+
+  # ACTIVE-WRITER GATE: never rm -rf a dir a live agent is parked in. Reuse the
+  # divergence path's probe; a dangling worktree can't enumerate a dirty set, so
+  # feed it an EMPTY path list — that neutralizes probe signal (b) (mtime settle,
+  # trivially stable) and leaves signal (a) (a process holding $jw as cwd), the
+  # only meaningful writer signal here. A MISSING $jw dir has no writer (skip the
+  # probe entirely). An active writer aborts THIS tick losslessly; the dangling
+  # gitdir already makes the tree unusable, so the next tick rebuilds once the
+  # writer leaves — no page, no data loss.
+  if [ -d "$jw" ]; then
+    local jw_abs empty_list
+    jw_abs="$(cd "$jw" && pwd)"
+    empty_list="$(mktemp "${TMPDIR:-/tmp}/jw-rebuild-writers.XXXXXX")"
+    if jw_active_writer "$jw_abs" "$empty_list"; then
+      rm -f "$empty_list"
+      log "SKIP: active writer in $jw; deferring dangling-gitdir rebuild this tick (transient — will rebuild next tick)"
+      return 0
+    fi
+    rm -f "$empty_list"
   fi
 
   local dangling=""

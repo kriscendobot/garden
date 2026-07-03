@@ -322,6 +322,89 @@ run_keeper GARDEN_ROOT="$TR/otherroot" GARDEN_JOURNAL_WORKTREE="$ROOT/journal"
 grep -qF "refusing to rebuild" <<<"$OUT" && ok "logged the guard refusal" || bad "did not log the guard refusal"
 
 # ============================================================================
+hr; echo "STALE PRUNABLE ADMIN ENTRY — the live 2026-07-03 /home/kris signature"; hr
+# The EXACT observed incident: the root RELOCATED (/home/kris/garden2 -> /home/kris).
+# $GARDEN_ROOT/journal's .git still points at the removed /home/kris/garden2/.git,
+# AND the root repo's registered journal worktree points at a DIFFERENT, now-gone
+# path (/home/kris/garden2/journal) that `git worktree list` reports as `prunable`.
+# journal_remote() then died ("no origin on .../journal"), crash-looping orchestrate
+# and every journal-touching service. The keeper must re-link the worktree back to
+# $GARDEN_ROOT/journal (repair after prune clears the mismatched entry) and leave it
+# on journal2 — never WARN-and-skip.
+rm -rf "$TR"; mkdir -p "$TR/state"
+git init -q --bare "$UP"
+SEED="$TR/seed"; git init -q "$SEED"
+git -C "$SEED" checkout -q -b journal2
+printf 'a\n' > "$SEED/f"
+git -C "$SEED" add -A; git -C "$SEED" "${git_id[@]}" commit -q -m c1
+git -C "$SEED" remote add origin "$UP"; git -C "$SEED" push -q -u origin journal2
+git -C "$UP" symbolic-ref HEAD refs/heads/journal2
+rm -rf "$SEED"
+ROOT="$TR/root"                                  # stands in for $GARDEN_ROOT
+git clone -q "$UP" "$ROOT"
+git -C "$ROOT" checkout -q --detach
+git -C "$ROOT" "${git_id[@]}" worktree add -q "$ROOT/journal" journal2
+write_alert_stub
+printf 'live agent WIP\n' > "$ROOT/journal/wip.md"          # untracked, must survive
+# 1. $JW/.git points at the removed garden2/.git ...
+printf 'gitdir: %s/garden2/.git/worktrees/journal\n' "$TR" > "$ROOT/journal/.git"
+# 2. ... and the admin entry points at a DIFFERENT prunable path (garden2/journal).
+printf '%s/garden2/journal/.git\n' "$TR" > "$ROOT/.git/worktrees/journal/gitdir"
+git -C "$ROOT/journal" rev-parse --git-dir >/dev/null 2>&1 \
+  && bad "fixture: gitdir should be dangling pre-run" \
+  || ok "fixture: gitdir dangles with a prunable mismatched admin entry"
+git -C "$ROOT" worktree list 2>/dev/null | grep -q prunable \
+  && ok "fixture: registered journal worktree reports 'prunable'" \
+  || bad "fixture: expected a prunable registered worktree"
+run_keeper GARDEN_ROOT="$ROOT" GARDEN_JOURNAL_WORKTREE="$ROOT/journal"
+[ "$RC" -eq 0 ] && ok "exit 0 on the stale-prunable-admin signature" || bad "exit $RC on the live signature"
+git -C "$ROOT/journal" rev-parse --git-dir >/dev/null 2>&1 \
+  && ok "gitdir re-linked (rev-parse --git-dir works again)" \
+  || bad "gitdir still broken after the keeper ran"
+[ "$(git -C "$ROOT/journal" rev-parse --abbrev-ref HEAD 2>/dev/null)" = journal2 ] \
+  && ok "worktree left on journal2" || bad "worktree not on journal2 after repair"
+[ "$(git -C "$ROOT/journal" rev-parse HEAD 2>/dev/null)" = "$(git -C "$ROOT/journal" rev-parse refs/remotes/origin/journal2 2>/dev/null)" ] \
+  && ok "worktree HEAD reconciled to origin/journal2" || bad "worktree HEAD not at origin/journal2"
+[ "$(alert_count)" -eq 0 ] && ok "no maintainer page on the self-healed live signature" || bad "paged despite a self-heal"
+# The untracked WIP is either still in place (repair path, tree untouched) or
+# recoverable from a backup (rebuild path) — never simply lost.
+{ [ -f "$ROOT/journal/wip.md" ] || { RB="$(latest_backup)"; [ -n "$RB" ] && [ -f "$RB/files/wip.md" ]; }; } \
+  && ok "untracked WIP preserved (in place or in the backup)" || bad "untracked WIP lost"
+
+# ============================================================================
+hr; echo "REBUILD ACTIVE-WRITER GATE — a live writer defers the destructive rebuild"; hr
+# When the owning checkout is gone (rebuild path, not repair) AND a live agent holds
+# the worktree as cwd, the keeper must NOT rm -rf it out from under the writer: defer
+# this tick (the dangling tree is unusable anyway; the next tick rebuilds once the
+# writer leaves). No removal, no page.
+rm -rf "$TR"; mkdir -p "$TR/state"
+git init -q --bare "$UP"
+SEED="$TR/seed"; git init -q "$SEED"
+git -C "$SEED" checkout -q -b journal2
+printf 'a\n' > "$SEED/f"
+git -C "$SEED" add -A; git -C "$SEED" "${git_id[@]}" commit -q -m c1
+git -C "$SEED" remote add origin "$UP"; git -C "$SEED" push -q -u origin journal2
+git -C "$UP" symbolic-ref HEAD refs/heads/journal2
+rm -rf "$SEED"
+ROOT="$TR/root"
+git clone -q "$UP" "$ROOT"
+git -C "$ROOT" checkout -q --detach
+git -C "$ROOT" "${git_id[@]}" worktree add -q "$ROOT/journal" journal2
+write_alert_stub
+printf 'writer sentinel that must not be removed\n' > "$ROOT/journal/writer-sentinel.md"
+# Owning-checkout deletion -> forces the rebuild path (repair can't help).
+rm -rf "$ROOT/.git/worktrees"
+printf 'gitdir: %s/gone-garden2/.git/worktrees/journal\n' "$TR" > "$ROOT/journal/.git"
+# Force the active-writer verdict deterministically (the /proc cwd scan is covered
+# elsewhere; inject here to keep the test hermetic and fast).
+run_keeper GARDEN_ROOT="$ROOT" GARDEN_JOURNAL_WORKTREE="$ROOT/journal" \
+           GARDEN_JW_WRITER_PROBE=/bin/true
+[ "$RC" -eq 0 ] && ok "exit 0 when a writer is active during a rebuild" || bad "exit $RC with an active writer"
+[ -f "$ROOT/journal/writer-sentinel.md" ] && ok "rebuild deferred: worktree dir left UNTOUCHED" || bad "rm -rf'd a worktree a live writer holds"
+grep -qiF "active writer" <<<"$OUT" && ok "logged the active-writer rebuild deferral" || bad "did not log the active-writer deferral"
+[ "$(alert_count)" -eq 0 ] && ok "NO page on a transient active writer" || bad "paged on an active writer"
+
+# ============================================================================
 hr
 echo "journal-worktree-keeper-test: $PASS passed, $FAIL failed"
 rm -rf "$TR"
