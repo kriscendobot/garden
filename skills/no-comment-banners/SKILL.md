@@ -53,13 +53,20 @@ thinner shape.
 
 The rule governs code comments in the projects the garden builds for (today
 `endojs/endo-but-for-bots` and, post-ferry, `endojs/endo`). It is a project
-code-style rule, not a garden-document prose rule, so it is enforced at the two
-sites the maintainer named:
+code-style rule, not a garden-document prose rule, so it is enforced at three
+sites:
 
 - **Generation.** The `no-ascii-banners` probe in
   `skills/pre-push-gates/SKILL.md` fails a push whose changed `.js` / `.ts` /
   `.md` files add a banner-rule comment. By the time a diff reaches the panel,
   this class of finding cannot survive.
+- **Gardening loop.** The sense-gated `scripts/jobs/gardening/detect-banners.sh`
+  detector runs inside `garden-pr.sh`: on any ADDED banner-rule line in a code
+  file it fires the conditional
+  `scripts/jobs/handlers/banner-sweep-claude.sh` fixer, which deletes the rule
+  lines (keeping a bracketed title as a plain comment) and re-stages — mirroring
+  the workstation-coupling detector+handler pair. Deterministic and
+  quiet-by-design; best-effort, with the `archivist` juror as the backstop.
 - **Review.** The `archivist` code-panel seat (it already reads comment and
   JSDoc prose) flags any surviving banner rule as should-fix. The `pedant`
   design-panel seat carries the same rule for code blocks inside design

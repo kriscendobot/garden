@@ -59,7 +59,12 @@ whose cost we want to avoid when a signal says they cannot matter.
 
 1. **rebase?** — sense whether the base moved; `decide` whether to rebase; do it.
 2. **sense-gated automations** — docs/lint when Markdown changed; dependency
-   checks when an `import` line moved; etc. (`run_if <sense…> -- <command…>`).
+   checks when an `import` line moved; a workstation-coupling fixer when
+   `detect-home-coupling.sh` finds a hardcoded `$HOME` in an added line; a
+   comment-banner sweep when `detect-banners.sh` finds a decorative rule comment
+   in an added code line; etc. (`run_if <sense…> -- <command…>`). Each
+   deterministic detector is quiet-by-design and gates a best-effort `claude -p`
+   handler.
 3. **evaluation gate (always)** — run the project's eval suite; *no* sense-gate.
    False positives fine, false negatives unacceptable. The default eval runner is
    the deterministic, no-LLM pre-PR verification harness
