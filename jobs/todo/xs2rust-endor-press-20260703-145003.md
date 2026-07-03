@@ -73,9 +73,4 @@ Do not claim a bar is "verified"/"green" without real-execution evidence — cit
 the command and its observed output (the gardener reporting norm burned on #58).
 When you could not run a bar, report it "not verified" and why.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolinbot2
-  gardener: 19
-  claimed_at: 2026-07-03T15:20:20Z
+<!-- garden-reaped: 4 -->
