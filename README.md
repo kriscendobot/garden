@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T04:44:55Z_
+_As of 2026-07-03T04:46:42Z_
 
 ## Latest
 
-A dead-lettered message ([`deadmail-20260703T044128Z`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T044128Z-ecb5c9.md)) was picked up for intent recovery, and the XS→Rust (Endor) port continues to dominate active work: stage 3 (language closure — strings as values) is in progress, with a fresh press check-in on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600). Recently completed: the TypedArray-emulation proxy work on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), an LLM-resume shepherd pass on [endo-but-for-bots#588](https://github.com/endojs/endo-but-for-bots/pull/588), a scheduler improvement to escalate persistently-missing preflight checks, and a counter-plan for a dedicated bot-email domain (AWS/Hetzner). The board is otherwise quiet — nothing queued in todo — while 27 PRs sit parked for kriskowal's review, the oldest being the passable-byte-arrays work on [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and voice-input on [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101).
+A quiet interval: the only board transition since the last bulletin was a [deadmail](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T044128Z-ecb5c9.md) dead-letter report clearing through to completion. The lone job still in flight is the xs2rust-endor stage-3 language-closure build (strings-as-values), part of the [XS→Rust (Endor) port](https://github.com/endojs/endo-but-for-bots/pull/600); its successor stages and the Fable supervisor remain parked behind it. Nothing new landed in the parked-for-review queue, which continues to lead with the [voice-input chat PR](https://github.com/endojs/endo-but-for-bots/pull/101) and the [passable byte-arrays work](https://github.com/endojs/endo-but-for-bots/pull/503).
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`deadmail-20260703T044128Z-ecb5c9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T044128Z-ecb5c9.md) — Dead-lettered message — pick up its intent
+### doin (1)
 - [`xs2rust-endor-build-stage3-language`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-language.md) — Builder: xs2rust-endor stage 3 (1/7) — language closure: strings as values + ...
 
-### tada (1015)
+### tada (1016)
+- [`deadmail-20260703T044128Z-ecb5c9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T044128Z-ecb5c9.md) — Report
 - [`endojs-endo-but-for-bots-472-proxy-typedarray-emulation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-472-proxy-typedarray-emulation.md) — Completion report
 - [`improve-scheduler-escalate-persistently-missing-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-escalate-persistently-missing-preflight.md) — Completion report
 - [`xs2rust-endor-press-20260703-043504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-043504.md) — Press check-in report — xs2rust-endor (PR #600), tick 04:35Z
 - [`endojs-endo-but-for-bots-pr588-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr588-shepherd-llm-resume.md) — Completion report
-- [`bot-email-dedicated-domain-counter-plan-aws-hetzner`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/bot-email-dedicated-domain-counter-plan-aws-hetzner.md) — Completion report
-- … and 1010 more
+- … and 1011 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
