@@ -1,9 +1,4 @@
----
-gate: deferred
-priority: low
-posted_by: producer
-posted_at: 2026-07-02T17:34:02Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=low at=2026-07-03T03:45:47Z -->
 
 # shepherd on endojs/endo-but-for-bots PR #101 (PARKED from doin — churn/near-poison)
 
