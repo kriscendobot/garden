@@ -43,9 +43,5 @@ dual-run divergent=0, covered growth recorded; honest named skips for anything b
 species/symbol-keyed corners), each named.
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolinbot2
-  gardener: 17
-  claimed_at: 2026-07-03T17:43:43Z
+
+<!-- garden-reaped: 1 -->
