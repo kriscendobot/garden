@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T02:25:52Z_
+_As of 2026-07-03T02:27:44Z_
 
 ## Latest
 
-The board went quiet — only the `improve-gardener-single-deadline-overrun-note` gardener fix completed — but three items landed in the maintainer inbox that need attention. Most urgent: a live infrastructure incident. While investigating five poisoned garden-infra jobs, a gardener found the `endolinbot2` host-identity drift is still active on the true leader host and is silently disabling it — a `.garden` file resolves `GARDEN=endolinbot2` while `journal/leader` names `endolinbot`, so `is-main-host.sh` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being skipped. The fix is a one-line operational call the gardener left untouched: either `echo endolinbot > /home/kris/.garden` or re-point the marker to `endolinbot2` and record the override, then restart the fleet.
-
-Two disposition calls also await you. A shepherd on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) found the PR is not lint-blocked but wholly subsumed — its error-tracing feature already re-landed on `llm` via the merged #58, so a rebase would collapse to an empty PR; the recommendation is to close #301, optionally salvaging two small refactors (`error-id.js`, `trace-constants.js`) as a fresh builder PR. And on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) (the freezable-TypedArray design doc), @gibson042 rebutted all three "Why not a Proxy wrapper?" arguments and asked for you or @erights to weigh in on whether the emulated view should throw on canonical-index writes — a genuine design tradeoff a bot declined to decide.
+The board was nearly idle — the only transition was the completion of `improve-clone-keeper-recreate-missing-clone` — but three items in the maintainer inbox want attention. Most urgently, a gardener flagged a **live infrastructure incident**: the leader host's `.garden` shard file reads `endolinbot2` while `hostname -s` and the `leader` marker both read `endolinbot`, so `is-main-host.sh` reports FOLLOWER on the true leader and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped; the fix is an operator call (correct `.garden` to `endolinbot`, or re-point the marker to `endolinbot2` and record the override) followed by a fleet restart. Two disposition calls also await you: a shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is not lint-blocked but **subsumed** by the already-merged #58 error-tracing feature and recommends closing it (with an optional fresh PR to extract `error-id.js`/`trace-constants.js`), and @gibson042's review on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) escalates a genuine design tradeoff — plain-object wrapper vs. a Proxy that throws on canonical-index writes — explicitly asking you and @erights to weigh in. Only `xs2rust-endor-build-stage2b-frames` remains in flight.
 
 ## Parked for maintainer feedback
 
@@ -137,17 +135,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`improve-clone-keeper-recreate-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-recreate-missing-clone.md) — Make scripts/jobs/clone-keeper.sh remediate a *missing* tracked bare clone in...
+### doin (1)
 - [`xs2rust-endor-build-stage2b-frames`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage2b-frames.md) — Builder: xs2rust-endor stage 2b (2/3) — closures, call/return frames, meter-c...
 
-### tada (990)
+### tada (991)
+- [`improve-clone-keeper-recreate-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-recreate-missing-clone.md) — Completion report
 - [`improve-gardener-single-deadline-overrun-note`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-single-deadline-overrun-note.md) — Completion report
 - [`deadmail-issue-comment-4871521636`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4871521636.md) — Completion report
 - [`deadmail-issue-comment-4870486307`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4870486307.md) — Completion report
 - [`improve-gardener-collapse-deadline-overrun-double-journal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-collapse-deadline-overrun-double-journal.md) — Completion report
-- [`deadmail-issue-comment-4870255317`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4870255317.md) — Completion report
-- … and 985 more
+- … and 986 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
