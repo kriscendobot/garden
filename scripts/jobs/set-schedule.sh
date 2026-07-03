@@ -11,7 +11,11 @@
 # elapses — exit 2 from the gate means "no work" and the scheduler advances the
 # clock without posting. An existing preflight line is PRESERVED when the env var
 # is unset, exactly like last_dispatched, so re-running set-schedule.sh to change
-# cadence does not drop the gate. See scheduler.sh and skills/schedule/SKILL.md.
+# cadence does not drop the gate. Whichever the source — a gate supplied via the
+# env var OR one preserved from the existing schedule — the reference is VALIDATED
+# at write time (resolved the same way scheduler.sh does and required to be an
+# executable file), so a dangling gate can never be committed and later fail open
+# every cadence in the scheduler. See scheduler.sh and skills/schedule/SKILL.md.
 #
 # Writes schedules/<name>; the scheduler service dispatches it on its cadence
 # and stamps last_dispatched. Add-only-ish (overwrites one file), so a rejected
@@ -33,17 +37,22 @@ if   [ -n "$body_src" ] && [ -f "$body_src" ]; then BODY="$(cat "$body_src")"
 elif [ ! -t 0 ];                                then BODY="$(cat)"
 else BODY="# scheduled job: $name"; fi
 
-# Preflight existence check: when a gate is supplied via the env var, resolve it
-# exactly as scheduler.sh does (relative to this script's dir unless absolute)
-# and refuse to register the schedule if it is not found/executable. A missing
-# gate fails OPEN in scheduler.sh (line ~165: "not found/executable … treating
-# as work-present") and re-dispatches every tick with the gate silently
-# defeated — so fail loudly here, at set time, instead. The preserve-existing
-# path below is untouched: it only reuses an already-validated preflight line.
-if [ -n "${GARDEN_SCHEDULE_PREFLIGHT:-}" ]; then
-  pf="$GARDEN_SCHEDULE_PREFLIGHT"; case "$pf" in /*) :;; *) pf="$HERE/$pf";; esac
-  [ -x "$pf" ] || die "preflight gate '$GARDEN_SCHEDULE_PREFLIGHT' not found or not executable at $pf; refusing to register schedule $name (a missing gate fails open and re-dispatches every tick)"
-fi
+# Resolve a preflight reference exactly as scheduler.sh does (relative to this
+# script's dir = $HERE unless absolute) and refuse the write if it is not an
+# executable file. A missing gate fails OPEN in scheduler.sh (line ~165: "not
+# found/executable … treating as work-present") and re-dispatches every tick with
+# the gate silently defeated — so fail loudly here, at set time, instead. Called
+# for BOTH the gate supplied via the env var AND one preserved from the existing
+# schedule (below), so a dangling gate can never be committed by either path.
+# $1=reference, $2=where it came from (for the error message).
+validate_preflight() {
+  local ref="$1" src="$2" pf="$1"
+  case "$pf" in /*) :;; *) pf="$HERE/$pf";; esac
+  [ -x "$pf" ] || die "preflight gate '$ref' ($src) not found or not executable at $pf; refusing to register schedule $name (a dangling gate fails open and re-dispatches every tick)"
+}
+
+# Validate a gate supplied via the env var up front, before we touch the clone.
+[ -n "${GARDEN_SCHEDULE_PREFLIGHT:-}" ] && validate_preflight "$GARDEN_SCHEDULE_PREFLIGHT" "env GARDEN_SCHEDULE_PREFLIGHT"
 
 DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
 ensure_clone "$DIR"
@@ -58,6 +67,11 @@ for attempt in $(seq 1 50); do
     last="$(sed -n 's/^last_dispatched:[[:space:]]*//p' "$DIR/schedules/$name.md" | head -1)"
     # preserve an existing preflight when no new one is supplied via the env var
     [ -n "$preflight" ] || preflight="$(sed -n 's/^preflight:[[:space:]]*//p' "$DIR/schedules/$name.md" | head -1)"
+  fi
+  # Validate a PRESERVED gate too (the env-supplied case was checked up front),
+  # so re-running to change cadence can never carry a dangling gate forward.
+  if [ -z "${GARDEN_SCHEDULE_PREFLIGHT:-}" ] && [ -n "$preflight" ]; then
+    validate_preflight "$preflight" "preserved from schedules/$name.md"
   fi
   {
     printf 'cadence: %s\nlast_dispatched: %s\njob_basename_prefix: %s\n' "$cadence" "$last" "$prefix"

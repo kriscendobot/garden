@@ -461,6 +461,21 @@ if echo "# ok" | GARDEN_SCHEDULE_PREFLIGHT="$OKGATE" \
 then ok "set-schedule accepts a preflight resolving to an executable"
 else bad "set-schedule rejected a valid executable preflight gate"; fi
 
+# (0b) set-time GUARD on the PRESERVE path: a schedule registered with a valid
+# gate whose script LATER vanishes (deploy-lag / a removed gate) must not be able
+# to carry that now-dangling reference forward on a plain cadence change. Register
+# 'presvgate' with a real executable gate, delete the script, then re-run
+# set-schedule WITHOUT GARDEN_SCHEDULE_PREFLIGHT (the preserve path). The preserved
+# gate is re-validated and the write is refused, so the dangling line never
+# re-commits. The `if` condition is exempt from set -e, so the expected reject is safe.
+PRESVGATE="$TR/presvgate.sh"; printf '#!/bin/bash\nexit 0\n' > "$PRESVGATE"; chmod +x "$PRESVGATE"
+echo "# preserve task" | GARDEN_SCHEDULE_PREFLIGHT="$PRESVGATE" \
+  "$JOBS/set-schedule.sh" presvgate 1s presvjob >/dev/null
+rm -f "$PRESVGATE"   # the gate script vanishes from the tree after registration
+if echo "# preserve task" | "$JOBS/set-schedule.sh" presvgate hourly presvjob >/dev/null 2>&1
+then bad "set-schedule preserved a now-dangling preflight gate (want reject on the preserve path)"
+else ok "set-schedule rejects a preserved-but-dangling preflight gate on cadence change"; fi
+
 # (a) A gate that is ABSENT AT DISPATCH TIME (deploy-lag): the preflight: path was
 # valid when the schedule was set — set-schedule.sh now GUARDS the set-time case,
 # rejecting a nonexistent gate outright — but the script is missing from THIS
