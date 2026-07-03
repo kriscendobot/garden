@@ -61,9 +61,4 @@ and the 09:06-10:45Z host-wide DNS outage burned cycles. Reap counter reset; res
 your stable worktree as before. If this hits the poison threshold AGAIN, do not
 reset a second time - decompose the remaining scope into smaller children instead. -->
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolinbot2
-  gardener: 2
-  claimed_at: 2026-07-03T11:25:45Z
+<!-- garden-reaped: 1 -->
