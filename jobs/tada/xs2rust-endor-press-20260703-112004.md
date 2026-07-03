@@ -1,0 +1,11 @@
+# Press check-in report — tick 11:20Z (xs2rust-endor, PR #600)
+
+**Decision: unstick (poison-restore) and defer.** I made no pushes to `xs2rust-endor` — the stage-3 build chain owns the branch — but this tick I caught and reversed a board failure that was about to halt the whole chain.
+
+**What I found.** HEAD moved since the 10:54Z check (`52464aa` → `5063124`, committed 11:13:59Z, "expanded stage-3 Array method suite in README") — real progress. But at 11:14:56Z the arrays handler (child 3/7 of the serial stage-3 orchestration) exited without the completion signal — the budget-resume pattern its own job spec mandates — putting it on requeue cycle 5, and at 11:23:07Z the reaper **poisoned** it (threshold 5), dropping it from the board. This was the hard stall the previous driver warned about, and a false positive: every cycle landed commits, and two cycles were burned by the 09:06–10:45Z host-wide DNS outage.
+
+**What I did.** Orchestrate's 11:26:00Z tick would have halted the orchestration (`on-child-failure: halt`). I recovered the job body from journal2 history, reset the reap counter, appended an annotation (if it poisons again: decompose, don't reset), and reposted it at 11:25:41Z — 19 seconds ahead of the tick. Verified end to end: re-claimed at 11:25:45Z by endolinbot2/gardener-2 with a live handler in the process table, and the 11:26:02Z orchestrate log reads "waiting on child 3/7 … (in flight)" — no halt. Messaged the maintainer (follow-up to the automatic poison alert, countermand invited) and wrote the progress entry (`entries/2026/07/03/112751Z-progress-gardener-f5584e.md`).
+
+**Finish line: not met** — stage 3 in flight; endor daemon wiring, `test:rust`, and full test262 parity are later stages. Test bars not run this tick by design (defer rule; the owning builder holds them) — reported as not verified here.
+
+**Follow-ups:** (1) if arrays poisons a second time, decompose its remaining scope rather than reset; (2) suggested systemic fix to the maintainer — don't count a reap cycle whose session pushed commits, so long builders on the sanctioned resume treadmill stop tripping the poison threshold; (3) gardener journal-clone gitdir crash-loops recurred (gardener-17, 14 restarts) — the self-heal fleet already has jobs on it.
