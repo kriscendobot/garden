@@ -2,7 +2,7 @@
 order: serial
 children: xs2rust-endor-build-stage3b-collections-keyed xs2rust-endor-build-stage3b-bigint xs2rust-endor-build-stage3b-binary xs2rust-endor-build-stage3b-fundamentals-followup xs2rust-endor-build-stage3b-object-statics-intern xs2rust-endor-build-stage3b-json-metering xs2rust-endor-build-stage3b-promises xs2rust-endor-build-stage3b-xsre-core xs2rust-endor-build-stage3b-xsre-integration
 on-child-failure: halt
-state: pending
+state: running
 created_by: port-xs-to-rust-memory-safe-engine-s6
 created_at: 2026-07-03T16:42:09Z
 ---
