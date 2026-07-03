@@ -1,7 +1,0 @@
-Harden `journal_remote()` in `scripts/jobs/common.sh` (currently: `git -C "$GARDEN_ROOT/journal" config --get remote.origin.url || die "no JOURNAL_REMOTE set and no origin on $GARDEN_ROOT/journal"`) so a stale/relocated journal worktree self-heals instead of wedging every producer. Failure signature: after the garden root was moved from `/home/kris/garden2` to `/home/kris` without repairing worktree links, the journal gitlink dangled (`fatal: not a git repository: /home/kris/garden2/.git/worktrees/journal`) and `journal_remote()` died with `no JOURNAL_REMOTE set and no origin on /home/kris/journal`, taking down `garden-comment-watcher@` (and every sibling poller). Fix: when the `$GARDEN_ROOT/journal` origin read fails and `$JOURNAL_REMOTE` is unset, (1) attempt `git -C "$GARDEN_ROOT" worktree repair "$GARDEN_ROOT/journal"` once and retry the config read, then (2) fall back to `git -C "$GARDEN_ROOT" config --get remote.origin.url` — the main repo and the orphan `journal2` branch share the same origin (`git@github.com:kriskowal/garden.git`), so this derivation is sound — and only `die` if all three fail. This converts a fleet-wide hard failure on any garden-root relocation into a self-repair.
-
----
-claim:
-  host: endolinbot2
-  gardener: 9
-  claimed_at: 2026-07-03T16:24:06Z
