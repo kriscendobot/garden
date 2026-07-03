@@ -1,11 +1,3 @@
----
-gate: deferred
-priority: normal
-roadmap: xs2rust-endor
-posted_by: producer
-posted_at: 2026-07-03T05:51:58Z
----
-
 # xs2rust-endor: replace CESU-8 string storage with UTF-16 (drop the constant-time-index hacks)
 
 **Program:** the `xs2rust-endor` XS→Rust port (design: `designs/xs2rust-endor-engine.md`).
@@ -29,33 +21,36 @@ UTF-16 makes code-unit indexing intrinsically O(1) and lets that machinery be
 **deleted**, trading a modest memory increase (2 bytes/unit vs ~1 for ASCII under
 CESU-8) for simpler, obviously-correct indexing.
 
-## The crux to resolve in design (do NOT skip)
-The port is an **oracle-locked transliteration of XS**, with C-XS as a permanent
-**differential oracle** on `(result, computron)`. XS meters string chunk allocation
-and concatenation (`fxNewChunk`, `fxConcatString`) **by CESU-8 byte length**.
-Switching storage to UTF-16 therefore forces an explicit decision:
-- **(a) Preserve meter parity** — keep the meter computed on a CESU-8-length basis
-  (compute the CESU-8 byte length for metering even though bytes are stored as
-  UTF-16), so computron counts stay identical to C-XS and the differential oracle
-  keeps passing. (Preferred default unless there's a reason to diverge.)
-- **(b) Formally diverge the meter** — re-base string metering on UTF-16 units and
-  update the oracle's expected computrons + any Agoric meter-version implications.
-  Heavier; only if (a) proves untenable.
-Observable JS semantics stay identical either way (UTF-16 is the JS-native view);
-the risk is entirely in metering determinism and the snapshot/FourCC string atoms.
+## Metering stance (IMPORTANT — parity is a non-goal)
+Meter **parity with C-XS is explicitly NOT a goal.** The deterministic meter is free
+to diverge from XS's computron counts. The goal is **meter accuracy as a proxy for
+real (wall-clock) cost, while remaining deterministic for a given release version.**
+Therefore:
+- Re-base the string-op meter costs to reflect the real cost of the **UTF-16**
+  representation (informed by the opcode cost-calibration instrumentation — see the
+  sibling plan `xs2rust-endor-meter-opcode-cost-instrumentation`), **not** CESU-8 byte
+  length chosen to match the oracle.
+- Determinism is preserved by **freezing** the chosen costs per release version;
+  accuracy improves across releases as the model is recalibrated.
+- The C-XS differential oracle governs **result** correctness only; do not treat its
+  computron counts as an authority the string meter must match. (This diverges from
+  the design's current "oracle-locked on (result, computron)" language — flag that the
+  design's metering section needs updating to the accuracy-over-parity stance.)
 
 ## Scope / touch points
 - `endor-vm` chunk-backed string values (the `228ee790b` surface): storage,
   literals, concat, comparison, `typeof`, rendering.
 - Delete the O(1)-index hacks/fast-paths once UTF-16 makes them unnecessary.
 - Snapshot grammar: ensure string atoms still round-trip under the new encoding.
-- Differential/test262 harness: re-run to confirm result parity + the chosen
-  meter-parity story; add index-heavy and supplementary-plane (surrogate-pair)
-  cases (`charCodeAt`/`codePointAt`/slicing across a surrogate boundary).
+- test262 / differential harness: confirm **result** parity; add index-heavy and
+  supplementary-plane (surrogate-pair) cases (`charCodeAt`/`codePointAt`/slicing across
+  a surrogate boundary). Meter numbers may legitimately change — update expectations to
+  the recalibrated, more-accurate costs rather than back-fitting to CESU-8.
 - Any C-FFI / xsnap boundary where raw string bytes cross.
 
 ## Suggested shape when promoted
 Designer revisits the string-representation section of
-`designs/xs2rust-endor-engine.md` and picks (a)/(b) with rationale; then a build
-stage swaps the representation and removes the hacks; then a test stage proves
-parity. If it decomposes into ordered steps, run it as an orchestration.
+`designs/xs2rust-endor-engine.md`, adopts UTF-16, and re-bases string metering for
+accuracy (deterministic-per-release); then a build stage swaps the representation and
+removes the hacks; then a test stage proves result parity + the recalibrated meter.
+Orchestrate if it decomposes into ordered steps.
