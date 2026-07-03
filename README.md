@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T00:59:06Z_
+_As of 2026-07-03T01:10:45Z_
 
 ## Latest
 
-Board motion was light — only the clone-keeper reclone-missing-bare-clone fix landed — but the maintainer inbox is where the substance is. A live incident is flagged on this leader host: the `endolinbot2` identity drift is still active (`/home/kris/.garden` resolves `endolinbot2` while the leader marker names `endolinbot`), so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, orchestrate, and the maintainer-inbox Monitor) is being silently skipped; the fix is operational (correct `.garden` or re-point the marker, then restart the fleet). The same drift compounded a Claude-quota outage that poisoned five garden-infra jobs the reaper has now dropped after five requeue cycles — an identity drift-detector, a gardener transient-failure backoff/fleet-brake, issue-inbox git-child reaping, and repo-watcher arm-retry all await attention.
-
-Two disposition calls need kriskowal: [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) turns out to be fully subsumed by the already-merged #58 error-tracing feature (recommendation: close as superseded, optionally re-extract two small refactors on `llm`), and [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472)'s freezable-TypedArray design doc drew a substantive @gibson042 rebuttal arguing for a Proxy-trap-that-throws over the plain-object wrapper — a genuine design tradeoff explicitly kicked to you and @erights. The xs2rust-endor Rust port ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) remains in flight through its stage-2b heap builder and press-driver ticks. The daemon→manager rename Phases 2 and 3 sit blocked awaiting [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598).
+Three maintainer messages landed and want your call. Most urgent: a live infrastructure incident — the `endolinbot2` host-identity drift is still active on the true leader host, so `is-main-host.sh` resolves it as a follower and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped; it was also the compounding factor behind the five poisoned garden-infra jobs during the Claude quota outage. The fix is deployed-root state outside a gardener's scope: either correct `/home/kris/.garden` to `endolinbot`, or re-point the leader marker to `endolinbot2` and record the parallel-pool override, then restart the fleet. Separately, a shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is subsumed — its entire error-tracing feature already re-landed on `llm` via #58 — and recommends closing it rather than rebasing (two small refactors could be split into a fresh PR). And [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) needs a design decision from you and @erights: gibson042 rebuts the "Why not a Proxy wrapper?" section of the freezable-TypedArray doc and argues for a Proxy `set` trap that throws on canonical-index writes. Meanwhile the XS→Rust (Endor) port on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) continues, with stage-2b heap work in flight; no other job-board transitions resolved this cycle.
 
 ## Parked for maintainer feedback
 
@@ -23,110 +21,6 @@ Two disposition calls need kriskowal: [endo-but-for-bots#301](https://github.com
 
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260702T012313Z-f47566` — from reaper:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T012313Z-f47566.md)
-
-> POISON job dropped from the board after 5 requeue cycles on endolinbot.
-> Its handler appears to fail every time; the reaper stopped requeueing it.
-> Original job base: build-daemon-rename-to-manager
->
-> --- original job body ---
-> # Build: rename `daemon.js` → `manager.js` (`Daemon`/`Mignonic` → `Manager`/`Worker`)
->
-> Batch design→build dispatch for the **current active milestone (M3: Remote Access
-> and Coding Capabilities)** on the endo roadmap. This is the one M3 design that is
-> **ready to build** — design-complete, no unmet dependency, and no build in flight.
->
-> Repo: **endojs/endo-but-for-bots**, base branch **`llm`**, **bot identity**
-> (kriscendobot / bot fork — bot-repo work only, no upstream `endojs/endo` touch).
->
-> ## Design (blessed, merged)
->
-> `designs/daemon-rename-to-manager.md` on `llm` (Status: Not Started; design landed
-> via merged PR #85). Align the JS orchestration layer's naming with the Rust
-> `endor` supervisor, which already calls this role the **manager**:
->
-> - `packages/daemon/src/daemon.js` → `manager.js` (and peer `daemon-*.js` per the
->   design's *File renames* table).
-> - Identifiers `Daemon`/`Daemonic` → `Manager`, and `MignonicPowers` →
->   `WorkerPowers` (the exo tag `'EndoDaemonFacetForWorker'` renamed on both
->   producer and consumer in the same package — no wire-compat window needed).
-> - The npm package `@endo/daemon` and the directory `packages/daemon/` **keep**
->   their names; only the orchestration file and the `Daemon*` identifiers change.
->
-> ## What to do
->
-> Wear **designer** only if a short implementation delta is needed, then
-> **builder**; the standard researcher-precedes-builder chain and the gardening
-> state machine apply. Ground the work in the design's **Phased Implementation**:
->
-> - **Phase 1** — file renames only (`git mv`, update `import` specifiers pointing
->   at the renamed files, no identifier renames). Package builds, types check, tests
->   pass. This is the safest, smallest-review slice — open the initial **DRAFT** PR
->   on `llm` here.
-> - **Phase 2** — whole-word identifier renames (`Daemon`/`Daemonic` → `Manager`,
->   `MignonicPowers` → `WorkerPowers`, exo tag). Independently mergeable; depends on
->   Phase 1.
-> - **Phase 3** — sweep workspace consumers (small; most import unchanged names like
->   `EndoHost`/`EndoGuest`/`EndoWorker`). Add the `@endo/daemon` CHANGELOG entry
->   (`makeDaemon` → `makeManager`, exports otherwise unchanged; outright cut, no
->   deprecated alias — no downstream consumers of `Daemon*` identifiers).
->
-> ## Sequencing / collision note (read before pushing)
->
-> `packages/daemon/*` is under heavy concurrent churn — ~40 open PRs (the mount
-> stack #135, the gateway-package stack #343/#388–#397/#409–#420, sturdyrefs #541,
-> etc.). A project-wide identifier rename will conflict with any of them that edit
-> `daemon.js` or `Daemon*` names. Mitigations, in order:
->
-> - Keep the PR **DRAFT** and land **Phase 1 first** (mechanical, smallest surface),
->   so review can sequence it against the in-flight daemon PRs rather than
->   merge-storming them.
-> - Rebase on `llm` immediately before each push; expect to re-run the whole-word
->   replace after a rebase.
-> - If the maintainer prefers to hold the rename until the daemon PRs quiesce,
->   surface that on the PR and park — do not force it through against open work.
->
-> ## Idempotency
->
-> Deterministic basename `build-daemon-rename-to-manager` — a re-run of this batch
-> collides and no-ops.
-
-- `20260702T014512Z-d6ba94` — from reaper:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T014512Z-d6ba94.md)
-
-> POISON job dropped from the board after 5 requeue cycles on endolinbot.
-> Its handler appears to fail every time; the reaper stopped requeueing it.
-> Original job base: improve-garden-identity-drift-detector
->
-> --- original job body ---
-> Every new gardener entry in this window reports `host: endolinbot2`, but per the maintainer record this host is canonically `endolinbot` (the leader marker names `endolinbot`; the `GARDEN=endolinbot2` override was removed as drift on 2026-07-01 precisely because it breaks every leader-only singleton's `is-main-host` ExecCondition). A silent `GARDEN` divergence corrupts per-host state (worker counts, claim metadata, journal index) and disables the leader gate for hours before anyone notices. `scripts/jobs/common.sh` defaults `GARDEN` to `hostname -s` but never checks for divergence. Add a deterministic drift guard (in `common.sh` or a preflight run each `gardener-scaler.sh` tick): when `$GARDEN` != `hostname -s` AND the host is not explicitly configured as a parallel pool, emit ONE loud `kind:error` journal entry (and, on the leader path, surface that `is-main-host` will fail) so a regression of the endolinbot2 override surfaces on the first tick instead of silently mislabeling 100 gardeners.
-
-- `20260702T014520Z-33796e` — from reaper:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T014520Z-33796e.md)
-
-> POISON job dropped from the board after 5 requeue cycles on endolinbot.
-> Its handler appears to fail every time; the reaper stopped requeueing it.
-> Original job base: improve-gardener-transient-failure-backoff-and-fleet-brake
->
-> --- original job body ---
-> `scripts/jobs/gardener.sh`: on a correlated Claude quota/API outage, all ~100 gardeners thrash — 50+ entries in ~15 min show shepherd handlers failing transiently (rc=1 / exit-0-unsatisfying, the message literally names "claude quota/usage cut"), all requeuing and immediately re-claiming. The loop's `idle_backoff` is applied ONLY on empty-claim and offline-completion paths; both transient-failure branches (the `elif [ "$hrc" -eq 0 ]` exit-0-unsatisfying branch ~line 318 and the non-zero transient branch that ends at `done` line 604) fall straight back to the claim head with zero delay. Result: the fleet re-runs the same jobs against an already-exhausted quota, amplifying the outage and churning todo↔doin. Add (a) a per-worker exponential+jittered backoff after any transient-classified handler failure (reuse `idle_backoff`/`idle_attempt` so a just-failed worker does not instantly re-claim), and (b) a shared fleet brake: when the recent transient-failure density crosses a threshold (a rolling count in `$GARDEN_STATE`, written by any gardener on a transient failure), gardeners pause claiming for a backoff window so a quota storm drains instead of being fed. Keep the reaper as the sole requeue owner; this changes only claim cadence, not board ownership.
-
-- `20260702T014525Z-4f7dc2` — from reaper:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T014525Z-4f7dc2.md)
-
-> POISON job dropped from the board after 5 requeue cycles on endolinbot.
-> Its handler appears to fail every time; the reaper stopped requeueing it.
-> Original job base: improve-issue-inbox-child-git-reaping
->
-> --- original job body ---
-> `garden-issue-inbox.service` logs `Found left-over process (git) in control group while starting unit ... indicates unclean termination of a previous run` (three orphan `git` PIDs at 00:36:21). `scripts/jobs/issue-inbox-watcher.sh` is leaving background git processes that outlive the unit, so the next start inherits stragglers. Make the handler `wait` on (or explicitly kill) every git child before exiting, and/or set `KillMode=mixed` + a bounded `TimeoutStopSec` on the unit in `scripts/systemd/` so the control group is reaped cleanly on stop/restart. Prevents orphan-git accumulation across restarts.
-
-- `20260702T014531Z-015c4c` — from reaper:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T014531Z-015c4c.md)
-
-> POISON job dropped from the board after 5 requeue cycles on endolinbot.
-> Its handler appears to fail every time; the reaper stopped requeueing it.
-> Original job base: improve-repo-watcher-arm-retry
->
-> --- original job body ---
-> `scripts/jobs/repo-watcher.sh` logs `WARN: could not arm garden-ci-watcher@endojs-endo-but-for-bots` and `@kriskowal-garden` on four consecutive ticks (00:23–00:27), meaning the templated ci-watcher units may never come up (and indeed the ci-watcher's own `#259 rollup unreadable` skips follow later). The arming failure is silently WARNed and retried only on the next full tick. Have `repo-watcher.sh` capture and log the underlying `systemctl --user` failure (rc + stderr) for the arm call rather than a bare WARN, and add a short bounded retry within the tick, so a transient `systemctl`/`XDG_RUNTIME_DIR` hiccup does not leave a watcher disarmed for a full cycle.
 
 - `20260702T100530Z-a43c17` — from gardener:investigate-poisoned-garden-infra-jobs, reply_to `investigate-poisoned-garden-infra-jobs` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T100530Z-a43c17.md)
 
