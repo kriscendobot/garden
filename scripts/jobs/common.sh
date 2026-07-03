@@ -625,21 +625,51 @@ scratch_cleanup() {
 bot_name()  { git -C "$GARDEN_ROOT" config --get user.name  2>/dev/null || echo garden-bot; }
 bot_email() { git -C "$GARDEN_ROOT" config --get user.email 2>/dev/null || echo garden-bot@localhost; }
 
+# ensure_journal_worktree_linked [<worktree>] — self-heal a journal worktree whose
+# `.git` gitdir points at a nonexistent/wrong admin dir. This is the exact
+# corruption that stranded the fleet: the worktree's forward `.git` file dangles —
+# e.g. it names `/home/kris/.git/worktrees/journal` when the real repo lives at
+# `/home/kris/garden2/.git/worktrees/journal` — so every `git -C <worktree>` dies
+# with `fatal: not a git repository: <admin-dir>`, which journal_remote then
+# misread as a missing origin and crash-looped claim/monitor under systemd Restart.
+# When BOTH halves of the link still exist (the worktree checkout's `.git` gitdir
+# file AND the repo-side admin dir under $GARDEN_ROOT/.git/worktrees/journal),
+# `git worktree repair` re-links the forward `.git` file and the admin `gitdir`
+# back-pointer losslessly, and `worktree prune` clears any stale admin entry.
+# Quiet + best-effort: an already-valid worktree is a no-op, and when the pieces
+# needed to re-link are absent (a truly missing worktree is ensure_clone's job,
+# not ours) it leaves the fault for the caller's own validity check to report.
+# Returns 0 iff the worktree is a valid git repo afterward.
+ensure_journal_worktree_linked() {
+  local wt="${1:-$GARDEN_ROOT/journal}"
+  # Already a valid worktree — nothing to repair.
+  git -C "$wt" rev-parse --git-dir >/dev/null 2>&1 && return 0
+  # Only attempt a repair when both ends of the link are still on disk. A missing
+  # worktree checkout or a missing admin dir is not a dangling-gitdir case.
+  [ -e "$wt/.git" ] || return 1
+  [ -d "$GARDEN_ROOT/.git/worktrees/journal" ] || return 1
+  git -C "$GARDEN_ROOT" worktree repair "$wt" >/dev/null 2>&1 || true
+  git -C "$GARDEN_ROOT" worktree prune >/dev/null 2>&1 || true
+  # Re-check: success is silent; a still-broken worktree falls through to the
+  # caller's accurate diagnostic.
+  git -C "$wt" rev-parse --git-dir >/dev/null 2>&1
+}
+
 journal_remote() {
   if [ -n "$JOURNAL_REMOTE" ]; then printf '%s\n' "$JOURNAL_REMOTE"; return; fi
   local jw="$GARDEN_ROOT/journal"
-  # Self-heal a dangling worktree gitdir link before reading the origin. When the
-  # garden root moves on disk (e.g. /home/kris → /home/kris/garden2), the worktree
-  # .git file and its admin back-pointer keep pointing at the old paths, so every
-  # git op in the worktree exits 128 ("not a git repository"). Left alone,
-  # `git config --get remote.origin.url` below fails not because origin is missing
-  # but because git can't open the repo at all — and the die() would mislabel it as
-  # a missing-origin error, sending recurrences down the wrong path (the very bug
-  # that killed the gardener-scaler via ensure_clone → journal_remote). So: if the
-  # worktree can't resolve its git dir, run `git worktree repair` once and retry.
-  if ! git -C "$jw" rev-parse --git-dir >/dev/null 2>&1; then
-    git -C "$GARDEN_ROOT" worktree repair "$jw" >/dev/null 2>&1 || true
-  fi
+  # Preflight: self-heal a dangling worktree gitdir link before reading origin.
+  # When the garden root moves on disk (e.g. /home/kris → /home/kris/garden2), the
+  # worktree .git file and its admin back-pointer keep pointing at the old paths,
+  # so every git op in the worktree exits 128 ("not a git repository") and the
+  # config read below would fail not because origin is missing but because git
+  # can't open the repo at all — the die() would then mislabel it as a
+  # missing-origin error and send recurrences down the wrong path (the very bug
+  # that crash-looped claim/monitor and the gardener-scaler via
+  # ensure_clone → journal_remote). ensure_journal_worktree_linked runs
+  # `git worktree repair` + `prune` to re-link the forward .git file and the admin
+  # gitdir back-pointer.
+  ensure_journal_worktree_linked "$jw" || true
   local url
   if url="$(git -C "$jw" config --get remote.origin.url 2>/dev/null)"; then
     printf '%s\n' "$url"; return
@@ -649,8 +679,8 @@ journal_remote() {
   # from a genuinely MISSING origin (repo opens fine, just no remote configured).
   if ! git -C "$jw" rev-parse --git-dir >/dev/null 2>&1; then
     local target=""
-    [ -f "$jw/.git" ] && target="$(sed -n 's/^gitdir: *//p' "$jw/.git" 2>/dev/null)"
-    die "broken journal worktree at $jw: gitdir link ${target:+points at ${target} which }is unresolvable and 'git worktree repair' did not fix it"
+    [ -f "$jw/.git" ] && target="$(sed -n 's/^gitdir: *//p' "$jw/.git" 2>/dev/null | head -1)"
+    die "broken journal worktree at $jw: gitdir link ${target:+points at ${target} which }is unresolvable — run 'git -C $GARDEN_ROOT worktree repair'"
   fi
   die "no JOURNAL_REMOTE set and no origin on $jw"
 }
