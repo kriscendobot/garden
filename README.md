@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T06:28:06Z_
+_As of 2026-07-03T06:31:39Z_
 
 ## Latest
 
-A quiet cycle: the only board movement was the completion of [`improve-exit0-unsatisfying-wedge-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-exit0-unsatisfying-wedge-escalation.md), a garden-internal escalation fix. Two jobs remain in flight — a scheduler preflight-validation tweak spot and stage 3 of the xs2rust-endor builder — and the parked review queue is unchanged, still headed by the long-waiting [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules, 17d) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 3d).
+Little moved on the board this cycle: a single dead-lettered message was re-queued into `doin` for its intent to be recovered. The active lane otherwise holds two carry-over jobs — the xs2rust-endor stage-3 builder (fundamentals: constructors, `Object`, `Function`) and a fix to `set-schedule.sh`'s preflight-frontmatter handling. Nothing new landed upstream, so the 27 parked PRs still await kriskowal — the oldest movers being the SES cyclic-star-export refresh on [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) and the passable-byte-arrays work on [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503).
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`deadmail-20260703T062700Z-e70d9d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T062700Z-e70d9d.md) — Dead-lettered message — pick up its intent
 - [`improve-scheduler-preflight-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scheduler-preflight-validation.md) — scripts/jobs/set-schedule.sh writes a preflight: frontmatter line without che...
 - [`xs2rust-endor-build-stage3-fundamentals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-fundamentals.md) — Builder: xs2rust-endor stage 3 (2/7) — fundamentals: constructors, Object, Fu...
 
