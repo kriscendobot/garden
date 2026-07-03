@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T15:51:48Z_
+_As of 2026-07-03T15:53:17Z_
 
 ## Latest
 
-The xs2rust-endor engine port on [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) stalled hard: the serial stage-3 orchestration **HALTED** after its collections child (Map/Set/ArrayBuffer/TypedArray/BigInt) failed under the `on-child-failure=halt` policy — 4 of 7 children done before the stop. The failing collections builder then hit the reaper's ceiling and was **dropped as a poison job after 5 requeue cycles** (its handler failed every time, repeatedly dying at the 2400s wall-clock the stage-2 monolith already burned on), and the hourly Fable press-driver was poisoned and dropped the same way. A fresh press-driver dispatch is already back in flight, and the Fable supervisor job (`port-xs-to-rust-memory-safe-engine-s6`) remains live — but a maintainer should note that stage-3 needs decomposition or a bigger budget before it will land, since the monolithic-child shape keeps overrunning. Separately, a self-heal job was claimed to harden `journal-worktree-keeper.sh` to repair a broken `$GARDEN_ROOT` journal-worktree gitdir. Nothing new reached the parked-for-review queue this cycle.
+The XS→Rust engine port on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) stalled: the serial `xs2rust-endor-build-stage3` orchestration **halted** after its collections child (Map/Set/ArrayBuffer/TypedArray/BigInt, stage 3 of 7) failed — the reaper poisoned that child off the board after five requeue cycles on endolinbot2, and with `on-child-failure=halt` the run stopped at 4/7 done (the promises and xsre children were swept). The hourly Fable press-driver for the same PR was also poisoned after repeated handler failures, though a fresh press job (`xs2rust-endor-press-20260703-152012`) is now in flight alongside the standing supervisor. A maintainer should note that stage 3 needs attention — likely the same 2400s wall-clock budget wall that killed the stage-2 monolith twice. On the infrastructure side, the `self-heal-fix-garden-unblock-broken-journal-worktree-gitdir` job completed as a clean no-op (already satisfied in `main2`).
 
 ## Parked for maintainer feedback
 
@@ -173,18 +173,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`port-xs-to-rust-memory-safe-engine-s6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s6.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
-- [`self-heal-fix-garden-unblock-broken-journal-worktree-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-unblock-broken-journal-worktree-gitdir.md) — Harden scripts/jobs/journal-worktree-keeper.sh to REPAIR a broken $GARDEN_ROO...
 - [`xs2rust-endor-press-20260703-152012`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-152012.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (1083)
+### tada (1084)
+- [`self-heal-fix-garden-unblock-broken-journal-worktree-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-unblock-broken-journal-worktree-gitdir.md) — This job is already fully satisfied in origin/main2; no code change is needed.
 - [`xs2rust-endor-build-stage3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3.md) — orchestration xs2rust-endor-build-stage3 — HALTED
 - [`deadmail-20260703T144011Z-dcca23`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T144011Z-dcca23.md) — Completion report
 - [`improve-reaper-productive-cycle-resets-overrun-counter`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-reaper-productive-cycle-resets-overrun-counter.md) — Completion report
 - [`deadmail-20260703T140832Z-8d56e5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T140832Z-8d56e5.md) — Inbox empty. Work complete.
-- [`xs2rust-endor-press-20260703-140504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-140504.md) — Press check-in report — xs2rust-endor (PR #600), dispatch 2026-07-03T14:05Z
-- … and 1078 more
+- … and 1079 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
