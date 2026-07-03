@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T05:48:30Z_
+_As of 2026-07-03T05:51:18Z_
 
 ## Latest
 
-The gardener that had been working [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) landed its completion report, clearing the board of that item. The `xs2rust-endor` XS→Rust port continues to dominate active work: stage-3 fundamentals (constructors, `Object`, functions — 2 of 7) is now the sole in-flight build, with its language child already reported complete and a press check-in electing to observe-and-defer while the stage-3 chain runs; a preflight improvement to the press routine also landed. Twenty-seven PRs remain parked for kriskowal's review, the freshest being [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech API voice input, 15h) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 3d); four plan-queue items still await maintainer go-ahead, including the ymax0 hex-fix inquisitor verification.
+A designer picked up the [double-loop feedback-retrospective](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-feedback-review-retrospective-loop.md) work — treating every PR comment as an indictment of the review process itself — with the builder half parked and blocked on that design landing. The [xs2rust-endor](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-fundamentals.md) Rust-port effort is mid-stage-3: the language child completed and the fundamentals child (constructors, Object, Function) is now in flight, with a press check-in confirming the stage-3 build chain owns the lane. A completion report landed for [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600). Nothing new is parked for review, but the queue is deep — 27 PRs await kriskowal, the longest-waiting being [endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type-syntax `.ts` runtime modules, 17d) and a cluster of 42–43-day-old endo-but-for-bots PRs including [#266](https://github.com/endojs/endo-but-for-bots/pull/266), [#288](https://github.com/endojs/endo-but-for-bots/pull/288), and [#329](https://github.com/endojs/endo-but-for-bots/pull/329).
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`design-feedback-review-retrospective-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-feedback-review-retrospective-loop.md) — designer: the double-loop — treat every PR comment as an indictment of the re...
 - [`xs2rust-endor-build-stage3-fundamentals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-fundamentals.md) — Builder: xs2rust-endor stage 3 (2/7) — fundamentals: constructors, Object, Fu...
 
 ### tada (1027)
@@ -56,6 +57,7 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
 - [`build-daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase3.md) — awaiting `build-daemon-rename-to-manager-phase2` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
+- [`build-feedback-review-retrospective-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-feedback-review-retrospective-loop.md) — awaiting `design-feedback-review-retrospective-loop` · builder: implement the double-loop feedback-retrospective self-improvement me...
 - [`port-xs-to-rust-memory-safe-engine-s6`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s6.md) — awaiting `xs2rust-endor-build-stage3` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
