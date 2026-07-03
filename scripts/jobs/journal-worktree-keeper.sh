@@ -56,6 +56,18 @@
 # clone-keeper. Quiet on the no-op path (a one-line "already fresh"); a
 # fast-forward, a self-heal (with a backup-location line), an aborted heal, and an
 # unpreservable-WIP page are all logged.
+#
+# Stale-gitdir guard (2026-07-03). BEFORE any fetch/reconcile, the keeper verifies
+# the worktree's git linkage resolves and, if not, repairs it. A garden root that
+# MOVED (e.g. /home/kris/garden2 -> /home/kris) leaves the journal worktree's two
+# cross-pointers — $JW/.git's "gitdir:" line and
+# $GARDEN_ROOT/.git/worktrees/journal/gitdir — pointing under the old, now-absent
+# path, so every `git -C $JW …` dies with "fatal: not a git repository" and any
+# service that resolves the journal remote (orchestrate, gardener, gardener-scaler)
+# exits 1. `git -C $GARDEN_ROOT worktree repair $JW` rewrites both pointer files to
+# correct absolute paths; it is idempotent (a no-op when already healthy) and
+# lossless (it touches only the pointer files, never the tree), so this guard needs
+# none of the active-writer/backup gating the divergence path uses.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -227,10 +239,38 @@ heal_diverged_worktree() {  # heal_diverged_worktree <jw> <ahead> <behind> <dirt
   return 0
 }
 
+# --- stale-gitdir repair -----------------------------------------------------
+# Detect and repair a stale/dangling gitdir link on the worktree BEFORE any other
+# git command runs against it. Healthy = `git -C $JW rev-parse --git-dir` resolves
+# AND the resolved gitdir exists on disk. When it does not (the garden root moved
+# out from under the worktree's cross-pointers), `git -C $GARDEN_ROOT worktree
+# repair $JW` rewrites both $JW/.git and $GARDEN_ROOT/.git/worktrees/journal/gitdir
+# to correct absolute paths. Idempotent + lossless; a genuinely missing worktree
+# ($JW absent) is left for the caller's own missing-repo check to report.
+jw_repair_gitdir() {  # jw_repair_gitdir <jw>
+  local jw="$1" gd
+  [ -d "$jw" ] || return 0
+  # Resolve the gitdir and confirm it exists; rev-parse emits a path relative to
+  # $jw, so probe it with $jw as the base.
+  if gd="$(git -C "$jw" rev-parse --git-dir 2>/dev/null)" \
+     && [ -n "$gd" ] && ( cd "$jw" && [ -e "$gd" ] ); then
+    return 0   # already healthy — nothing to do
+  fi
+  if git -C "$GARDEN_ROOT" worktree repair "$jw" >/dev/null 2>&1; then
+    log "repaired journal worktree gitdir on $jw"
+  else
+    log "WARN: journal worktree gitdir on $jw is broken and 'git worktree repair' did not fix it"
+  fi
+}
+
 # Fetch + reconcile the journal worktree. Every failure path logs and returns 0
 # so a transient hiccup never marks the tick Failed; a clean tree fast-forwards,
 # a diverged tree self-heals losslessly.
 keep_journal_worktree() {
+  # Repair a stale/dangling gitdir link first, so the keeper's own git commands
+  # below don't themselves fail on the broken cross-pointers.
+  jw_repair_gitdir "$JW"
+
   if ! git -C "$JW" rev-parse --git-dir >/dev/null 2>&1; then
     log "WARN: journal worktree missing or not a git repo at $JW; skipping"
     return 0
