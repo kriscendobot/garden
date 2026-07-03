@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T17:23:46Z_
+_As of 2026-07-03T17:25:45Z_
 
 ## Latest
 
-The garden's own infrastructure was the only thing to move: the [`improve-clone-keeper-missing-clone-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-missing-clone-reclone.md) job completed, teaching the clone-keeper to re-clone a missing bare clone rather than skip it. Three jobs remain in flight — two scheduler/preflight self-heal hardening items and the stage-3b BigInt builder (child 2/9) for the XS→Rust Endor port on [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600). The `todo` lane is empty and the deferred plan queue is dominated by xs2rust-endor follow-ons, so the fleet is quiet and self-maintaining; the more notable backlog is on the maintainer's side, where 27 PRs sit parked for review — the oldest being [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
+Deterministic infrastructure hardening landed a cluster of self-heal fixes: the scheduler now self-heals its declared preflight ([`improve-scheduler-declared-preflight-selfheal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-declared-preflight-selfheal.md) completed since the last bulletin), alongside recent companions that alert on a missing preflight, re-clone a missing clone in the clone-keeper, and poison early on elapsed-constancy. In flight: the xs2rust-endor (XS→Rust "Endor" port) build is grinding through stage-3b — child 2/9 (BigInt) is being built as [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) — and a companion job is tightening that schedule's preflight. No new PRs were parked for review; the oldest waiters remain [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
 
 ## Parked for maintainer feedback
 
@@ -28,18 +28,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`improve-scheduler-declared-preflight-selfheal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scheduler-declared-preflight-selfheal.md) — scripts/jobs/scheduler.sh (line ~126) treats a declared-but-missing/non-execu...
+### doin (2)
 - [`improve-xs2rust-endor-press-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-xs2rust-endor-press-preflight.md) — The schedule journal/schedules/xs2rust-endor-press.md declares preflight: gar...
 - [`xs2rust-endor-build-stage3b-bigint`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-bigint.md) — Builder: stage-3b child 2/9 — BigInt, PR #600
 
-### tada (1104)
+### tada (1105)
+- [`improve-scheduler-declared-preflight-selfheal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-declared-preflight-selfheal.md) — Completion report
 - [`improve-clone-keeper-missing-clone-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-missing-clone-reclone.md) — Completion report
 - [`deadmail-20260703T170625Z-2798f6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T170625Z-2798f6.md) — Completion report
 - [`improve-elapsed-constancy-early-poison`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-elapsed-constancy-early-poison.md) — Completion report
 - [`improve-scheduler-missing-preflight-alert`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-missing-preflight-alert.md) — Completion report
-- [`xs2rust-endor-press-20260703-170542`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-170542.md) — Press tick report — xs2rust-endor-press-20260703-170542 (observe-and-defer, n...
-- … and 1099 more
+- … and 1100 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
