@@ -48,9 +48,5 @@ Miri run), scope folds/frictions for the supervisor. Commit to `xs2rust-endor`, 
 keep the PR draft.
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolinbot2
-  gardener: 11
-  claimed_at: 2026-07-03T00:50:23Z
+
+<!-- garden-reaped: 1 -->
