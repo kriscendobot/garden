@@ -42,9 +42,5 @@ divergent, skipped-by-reason), fuzz totals, Miri run, scope folds/frictions. Com
 `xs2rust-endor`, push, keep the PR draft.
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolinbot2
-  gardener: 11
-  claimed_at: 2026-07-03T02:29:38Z
+
+<!-- garden-reaped: 1 -->
