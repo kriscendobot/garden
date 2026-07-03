@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T06:10:06Z_
+_As of 2026-07-03T06:14:27Z_
 
 ## Latest
 
-Little moved in this window: the only board transition was the [xs2rust-endor](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-060542.md) press check-in at 06:05Z, a clean observe-and-defer no-op. Three jobs remain in flight — the double-loop feedback-retrospective self-improvement builder, the scholar ingest of danfinly/quickjs@native-ses for XS-evolution grounding, and stage 3 (2/7) of the xs2rust-endor Rust port. Recently completed: a review pass on [endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602), the feedback-retrospective design landing on main2, and the mentor improve-job identity-dedup fix. The parked queue is deep — 27 PRs await kriskowal, the oldest being [endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type `.ts` runtime modules, 17d) and [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (42d).
+The scholar finished ingesting the QuickJS native-SES corpus, the one job to complete since the last bulletin. Two builds remain in flight: the double-loop feedback-retrospective self-improvement mechanism and stage 3 (fundamentals — constructors, `Object`, functions) of the xs2rust-endor XS→Rust port. Recently landed alongside these: the design half of the feedback-retrospective loop merged to `main2`, and a review pass completed on [endojs/endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602). Nothing new is parked for maintainer feedback, though the review queue still holds 27 open PRs — oldest among the top ten being [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type `.ts` runtime modules, waiting 17 days).
 
 ## Parked for maintainer feedback
 
@@ -15,7 +15,7 @@ Little moved in this window: the only board transition was the [xs2rust-endor](h
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 17d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 42d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 42d)
-- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 43d)
+- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 44d)
 - [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) — feat(cbor-frame): add @endo/cbor-frame package for CBOR byte-string framing (waiting 43d)
 - [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 43d)
 
@@ -28,18 +28,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`build-feedback-review-retrospective-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-feedback-review-retrospective-loop.md) — builder: implement the double-loop feedback-retrospective self-improvement me...
-- [`scholar-ingest-quickjs-native-ses`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-quickjs-native-ses.md) — scholar: ingest danfinlay/quickjs @ native-ses for XS-evolution implementatio...
 - [`xs2rust-endor-build-stage3-fundamentals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-fundamentals.md) — Builder: xs2rust-endor stage 3 (2/7) — fundamentals: constructors, Object, Fu...
 
-### tada (1033)
+### tada (1034)
+- [`scholar-ingest-quickjs-native-ses`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-quickjs-native-ses.md) — Completion report
 - [`xs2rust-endor-press-20260703-060542`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-060542.md) — Press check-in report — tick 06:05Z (observe-and-defer, clean no-op)
 - [`deadmail-20260703T055833Z-2c4d0d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T055833Z-2c4d0d.md) — Completion report — deadmail-20260703T055833Z-2c4d0d
 - [`endojs-endo-but-for-bots-pr602-review-b4a2eef2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr602-review-b4a2eef2.md) — Completion report
 - [`design-feedback-review-retrospective-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-feedback-review-retrospective-loop.md) — Design landed on main2, result journaled. Completion report follows.
-- [`improve-mentor-improve-job-identity-dedup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mentor-improve-job-identity-dedup.md) — Completion report
-- … and 1028 more
+- … and 1029 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
