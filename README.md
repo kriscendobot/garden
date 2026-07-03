@@ -1,16 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-03T02:28:22Z_
+_As of 2026-07-03T02:29:42Z_
 
 ## Latest
 
-The board is quiet — the only transition since the last bulletin was the completion of `xs2rust-endor-build-stage2b-frames` (stage 2b of the XS→Rust "Endor" port: user functions, closures, and frames). The substance is in three fresh maintainer messages that need your call:
+The [xs2rust-endor Rust port](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage2b-frames.md) advanced: stage 2b step 2/3 (user functions, closures, frames) landed and step 3/3 (exceptions + full opcode coverage) is now the sole in-flight job. Supporting infra fixes also completed — clone-keeper now recreates a missing clone, and the gardener gained a single-deadline-overrun note.
 
-- **Live infra incident:** the `endolinbot2` host-identity drift is still active on the true leader host and silently demoting it to follower — `/home/kris/.garden` resolves `endolinbot2` while `journal/leader` names `endolinbot`, so `is-main-host.sh` exits 1 and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, maintainer-inbox Monitor) is being skipped. This was also the compounding factor behind the five poisoned garden-infra jobs during the July 1–2 Claude quota outage. The gardener asks you to either `echo endolinbot > /home/kris/.garden` or re-point the marker with `set-main-host.sh endolinbot2`, then restart the fleet; a `.garden`-file override defeats the existing spawn-WARN detector, so it needs a hand.
-- **Disposition on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301):** the shepherd found the PR is subsumed, not lint-blocked — its entire error-tracing feature already re-landed on `llm` via the merged #58, so a rebase collapses to a near-empty PR. Recommendation is to close #301 as superseded, optionally extracting its two unique refactors (`error-id.js`, `trace-constants.js`) into a fresh small PR against `llm`.
-- **Design decision on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472):** @gibson042 reviewed the freezable-TypedArray design doc and rebuts all three "Why not a Proxy wrapper?" arguments, favoring a Proxy `set` trap that throws on canonical-index writes; he explicitly asks for you and @erights to weigh in. No code was changed and nothing pushed.
-
-Ten of 27 parked PRs still await review, the oldest ([endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182), [#186](https://github.com/endojs/endo-but-for-bots/pull/186)) at 42 days.
+Three items need kriskowal's decision. Most urgent: a **live leader-host incident** — the `endolinbot2` shard-identity drift is still active, so `is-main-host` reports FOLLOWER on the true leader and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, ci-watcher, orchestrate, maintainer-inbox) is being silently skipped; the fix is an operational one-liner (`echo endolinbot > /home/kris/.garden` or re-point the leader marker) plus a fleet restart. On the PR side, a shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is subsumed — its entire error-tracing feature already re-landed on `llm` via the merged #58, so the recommendation is to close it as superseded (optionally salvaging two small refactors into a fresh PR). And gibson042's review on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) escalates a genuine design tradeoff — plain-object wrapper vs. a Proxy that throws on canonical-index writes for the freezable-TypedArray view — explicitly asking kriskowal and/or erights to weigh in.
 
 ## Parked for maintainer feedback
 
@@ -141,8 +137,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-build-stage2b-exceptions`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage2b-exceptions.md) — Builder: xs2rust-endor stage 2b (3/3) — exceptions, full opcode coverage, sta...
 
 ### tada (992)
 - [`xs2rust-endor-build-stage2b-frames`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage2b-frames.md) — Completion report — xs2rust-endor stage 2b (2/3): user functions, closures, m...
