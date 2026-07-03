@@ -63,3 +63,9 @@ Commit to `xs2rust-endor`, push, keep the PR draft.
 <!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 14
+  claimed_at: 2026-07-03T05:23:29Z
