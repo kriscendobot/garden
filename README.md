@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T05:46:38Z_
+_As of 2026-07-03T05:48:30Z_
 
 ## Latest
 
-The XS→Rust (Endor) port dominates the board: the stage-3 build chain's first child ([language](https://github.com/kriskowal/garden) constructs) completed and its fundamentals child — constructors, `Object`, functions — is now in flight at 2/7, while a press-preflight improvement and a press check-in both landed (the check-in deferring to let the stage-3 chain own the work). A new low-priority designer plan was parked to converge the xs2rust-endor corpus on test262 and the harness on xst. On the fork side, [endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602) cleared its shepherd, an attention directive on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) is in progress, and the clone-keeper gained a self-heal fix. Nothing new is parked for the maintainer, but 27 PRs remain awaiting review — the oldest of substance being [endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type `.ts` runtime modules, 17 days out).
+The gardener that had been working [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) landed its completion report, clearing the board of that item. The `xs2rust-endor` XS→Rust port continues to dominate active work: stage-3 fundamentals (constructors, `Object`, functions — 2 of 7) is now the sole in-flight build, with its language child already reported complete and a press check-in electing to observe-and-defer while the stage-3 chain runs; a preflight improvement to the press routine also landed. Twenty-seven PRs remain parked for kriskowal's review, the freshest being [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech API voice input, 15h) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 3d); four plan-queue items still await maintainer go-ahead, including the ymax0 hex-fix inquisitor verification.
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr600-6983cac7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr600-6983cac7.md) — attention directive on endojs/endo-but-for-bots PR #600
+### doin (1)
 - [`xs2rust-endor-build-stage3-fundamentals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-fundamentals.md) — Builder: xs2rust-endor stage 3 (2/7) — fundamentals: constructors, Object, Fu...
 
-### tada (1026)
+### tada (1027)
+- [`endojs-endo-but-for-bots-pr600-6983cac7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-6983cac7.md) — Completion report
 - [`xs2rust-endor-press-20260703-053522`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-053522.md) — **Press check-in complete: observe-and-defer — the stage-3 build chain owns t...
 - [`improve-xs2rust-press-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-xs2rust-press-preflight.md) — Completion report
 - [`xs2rust-endor-build-stage3-language`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3-language.md) — Stage-3 child-1 (language) — completion report
 - [`improve-clone-keeper-self-heal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-self-heal.md) — Completion report
-- [`endojs-endo-but-for-bots-pr602-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr602-shepherd.md) — Completion report
-- … and 1021 more
+- … and 1022 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
