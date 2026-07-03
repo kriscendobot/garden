@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T06:06:20Z_
+_As of 2026-07-03T06:10:06Z_
 
 ## Latest
 
-The main movement was a completed review of [endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602), which cleared its review job off the board. Attention has otherwise shifted to the xs2rust-endor→Endor port: a fresh "press forward" job was claimed to drive that work toward Endor integration and a green daemon test, alongside the ongoing stage-3 fundamentals build (constructors, Object, Function). The deadmail sweep also cycled cleanly. With the todo queue drained to zero, the maintainer's eye is best spent on the parked backlog — 27 PRs awaiting review, led by the long-waiting [endo#3137](https://github.com/endojs/endo/pull/3137) (17d) and [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182)/[#186](https://github.com/endojs/endo-but-for-bots/pull/186) (42d).
+Little moved in this window: the only board transition was the [xs2rust-endor](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-060542.md) press check-in at 06:05Z, a clean observe-and-defer no-op. Three jobs remain in flight — the double-loop feedback-retrospective self-improvement builder, the scholar ingest of danfinly/quickjs@native-ses for XS-evolution grounding, and stage 3 (2/7) of the xs2rust-endor Rust port. Recently completed: a review pass on [endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602), the feedback-retrospective design landing on main2, and the mentor improve-job identity-dedup fix. The parked queue is deep — 27 PRs await kriskowal, the oldest being [endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type `.ts` runtime modules, 17d) and [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (42d).
 
 ## Parked for maintainer feedback
 
@@ -28,19 +28,18 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`build-feedback-review-retrospective-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-feedback-review-retrospective-loop.md) — builder: implement the double-loop feedback-retrospective self-improvement me...
 - [`scholar-ingest-quickjs-native-ses`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-quickjs-native-ses.md) — scholar: ingest danfinlay/quickjs @ native-ses for XS-evolution implementatio...
 - [`xs2rust-endor-build-stage3-fundamentals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-fundamentals.md) — Builder: xs2rust-endor stage 3 (2/7) — fundamentals: constructors, Object, Fu...
-- [`xs2rust-endor-press-20260703-060542`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-060542.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (1032)
+### tada (1033)
+- [`xs2rust-endor-press-20260703-060542`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-060542.md) — Press check-in report — tick 06:05Z (observe-and-defer, clean no-op)
 - [`deadmail-20260703T055833Z-2c4d0d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T055833Z-2c4d0d.md) — Completion report — deadmail-20260703T055833Z-2c4d0d
 - [`endojs-endo-but-for-bots-pr602-review-b4a2eef2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr602-review-b4a2eef2.md) — Completion report
 - [`design-feedback-review-retrospective-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-feedback-review-retrospective-loop.md) — Design landed on main2, result journaled. Completion report follows.
 - [`improve-mentor-improve-job-identity-dedup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mentor-improve-job-identity-dedup.md) — Completion report
-- [`improve-mentor-skip-already-fixed-improve-jobs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mentor-skip-already-fixed-improve-jobs.md) — Completion report
-- … and 1027 more
+- … and 1028 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
