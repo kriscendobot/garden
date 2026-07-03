@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T14:12:19Z_
+_As of 2026-07-03T14:15:09Z_
 
 ## Latest
 
-The XS→Rust (Endor) port on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) kept advancing: stage-3 text-math-json (child 4/7) landed a completion report, and stage-3 collections (child 5/7, binary data + BigInt) was just claimed into progress. A press check-in this cycle decided to defer rather than publish, on the grounds that the build chain is actively moving. Two infrastructure fixes also completed — clone-keeper now heals a missing clone, and the scheduler escalates a missing preflight. Nothing new is parked for maintainer review; the 27 parked PRs are unchanged, with [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input) now the freshest at 23h and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) next.
+The XS→Rust (Endor) port continues to be the garden's main line of effort: stage 3 of the Endor build cleared its text/math/JSON child (4 of 7) and moved on to the collections, binary-data, and BigInt child, now the sole job in flight, with a fresh press check-in recording progress. Two infrastructure fixes also landed — the clone-keeper now heals a missing clone, and the scheduler escalates when a preflight is absent. Otherwise the board is quiet: the only transition since the last bulletin was a deadmail sweep confirming an empty inbox. Worth a maintainer's eye: the parked queue still holds 27 PRs awaiting review, several now aging past a week, including [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) (7 days) and [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (17 days).
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`deadmail-20260703T140832Z-8d56e5`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T140832Z-8d56e5.md) — Dead-lettered message — pick up its intent
+### doin (1)
 - [`xs2rust-endor-build-stage3-collections`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-collections.md) — Builder: xs2rust-endor stage 3 (5/7) — collections, binary data, BigInt (PR #...
 
-### tada (1079)
+### tada (1080)
+- [`deadmail-20260703T140832Z-8d56e5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T140832Z-8d56e5.md) — Inbox empty. Work complete.
 - [`xs2rust-endor-press-20260703-140504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-140504.md) — Press check-in report — xs2rust-endor (PR #600), dispatch 2026-07-03T14:05Z
 - [`xs2rust-endor-build-stage3-text-math-json`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3-text-math-json.md) — Completion report — stage-3 text-math-json (child 4/7, PR #600)
 - [`improve-clone-keeper-heal-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-heal-missing-clone.md) — Completion report
 - [`improve-scheduler-escalate-missing-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-escalate-missing-preflight.md) — Completion report: improve-scheduler-escalate-missing-preflight
-- [`xs2rust-endor-press-20260703-132012`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-132012.md) — **Press check-in complete — decision: defer (chain actively advancing). No pu...
-- … and 1074 more
+- … and 1075 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
