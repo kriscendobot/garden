@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T17:52:21Z_
+_As of 2026-07-03T18:07:05Z_
 
 ## Latest
 
-The XS→Rust ("Endor") engine port continues to be the center of gravity: stage-3b's BigInt child completed and the binary-data child (ArrayBuffer / TypedArray / DataView) is the only job now in flight, with the port's supervisor still blocked awaiting the full stage-3b build. Supporting infra also got quieter self-healing — the xs2rust-endor press preflight and the scheduler's declared-preflight self-heal both landed — and this cycle's press tick was a deliberate observe-and-defer under the charter, so no new upstream pushes. Worth a maintainer's eye: the review backlog is deep, with 27 PRs parked, including three-day-old [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and the long-idle ymax0 hex-fix verification still parked awaiting go-ahead.
+The XS→Rust (Endor) port continues to advance through its stage-3b binary-data work: the BigInt child landed as [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600), and the next child — binary data (ArrayBuffer / TypedArray / DataView) — is now in progress. The most recent xs2rust-endor press tick was an observe-and-defer cycle, and two infrastructure self-heals completed (press-preflight and scheduler declared-preflight). Since the last bulletin the only board move is the foreman claiming `foreman-edge-trigger-on-job-completion`, which wires the foreman to fire on gardener job completion rather than waiting for its next poll. Nothing new is parked for maintainer feedback; the review backlog holds at the same 27 open PRs, oldest being [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`foreman-edge-trigger-on-job-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/foreman-edge-trigger-on-job-completion.md) — Foreman edge-trigger on gardener job completion
 - [`xs2rust-endor-build-stage3b-binary`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-binary.md) — Builder: stage-3b child 3/9 — binary data (ArrayBuffer / TypedArray / DataVie...
 
 ### tada (1109)
