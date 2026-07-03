@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T11:17:52Z_
+_As of 2026-07-03T11:19:49Z_
 
 ## Latest
 
-The headline is an infrastructure incident on endolinbot2: a herd of concurrent per-service self-heal jobs (comment-watcher, deadmail, follow-up, issue-inbox, mirror-closer, plus a relink-recover job) all raced `git worktree repair`/`prune` on the *same* shared `/home/kris/journal` worktree, and a peer's `prune` deleted the whole admin registration while the entry was transiently dangling. The comment-watcher job reconstructed the admin entry by hand and the worktree is now cleanly re-registered on `journal2` (tree clean, inbox readable), so the crash-loop is over. The durable fix landed on `main2`: the journal-worktree-keeper's per-tick gitdir repair already covers this class, so the redundant re-implementation was deduped and the missing keeper test added. Two things want a maintainer decision — **deploy the keeper to endolinbot2** so the tick auto-heals this class, and **cancel the remaining sibling self-heal jobs** (deadmail, follow-up, issue-inbox, mirror-closer, relink-recover, all still in `doin`), which are now redundant and actively colliding on shared host state; only one recovery actor should touch the worktree at a time. Elsewhere, the xs2rust-endor Rust-port build continues advancing through stage 3 (arrays and the iteration protocol). No job-board transitions resolved this cycle, and 27 PRs remain parked for review.
+The shared `/home/kris/journal` worktree crash-loop on endolinbot2 is over: two self-heal jobs completed (comment-watcher and follow-up), recovering the worktree and landing a durable fix in the journal-worktree-keeper, now cleanly registered on journal2. But the recovery exposed a destructive collision worth the maintainer's attention — a herd of concurrent per-service self-heal jobs all raced `git worktree repair`/`prune` on the same shared worktree, and while the entry was transiently dangling, a peer's `prune` deleted the entire admin registration, which had to be reconstructed by hand. Five sibling self-heal jobs (deadmail, gardener, issue-inbox, mirror-closer, orchestrate) are still in flight doing overlapping work on the same host state; the completing gardener recommends deploying the keeper to endolinbot2 so the tick auto-heals this class and cancelling the now-redundant duplicates so only one actor touches the shared worktree at a time. Otherwise steady: the xs2rust-endor Rust port continues (stage 3, arrays), and 27 PRs remain parked for review.
 
 ## Parked for maintainer feedback
 
@@ -37,23 +37,21 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (8)
-- [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-journal-worktree-dangling-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-journal-worktree-dangling-gitdir.md) — Repair the dangling $GARDEN_ROOT/journal worktree pointer that crash-loops ev...
+### doin (6)
 - [`self-heal-fix-garden-deadmail-journal-worktree-dangling-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-deadmail-journal-worktree-dangling-gitdir.md) — The garden root moved from /home/kris/garden2 to /home/kris, orphaning the sh...
-- [`self-heal-fix-garden-follow-up-journal-remote-dangling-gitdir-fallback`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-follow-up-journal-remote-dangling-gitdir-fallback.md) — Harden scripts/jobs/common.sh:journal_remote() so a dangling/unreadable $GARD...
 - [`self-heal-fix-garden-gardener-journal-worktree-dangling-gitdir-repair`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-journal-worktree-dangling-gitdir-repair.md) — Harden the journal-worktree access path in scripts/jobs/common.sh so a dangli...
 - [`self-heal-fix-garden-issue-inbox-journal-worktree-dangling-gitdir-repair`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-issue-inbox-journal-worktree-dangling-gitdir-repair.md) — In scripts/jobs/journal-worktree-keeper.sh, upgrade the keep_journal_worktree...
 - [`self-heal-fix-garden-mirror-closer-stale-journal-worktree-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-mirror-closer-stale-journal-worktree-gitdir.md) — Harden the standing-journal-worktree self-heal against a **stale worktree git...
 - [`self-heal-fix-garden-orchestrate-journal-worktree-stale-gitdir-repair`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-orchestrate-journal-worktree-stale-gitdir-repair.md) — Harden scripts/jobs/journal-worktree-keeper.sh to detect and repair a stale/d...
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
 
-### tada (1056)
+### tada (1058)
+- [`self-heal-fix-garden-follow-up-journal-remote-dangling-gitdir-fallback`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-follow-up-journal-remote-dangling-gitdir-fallback.md) — Completion report
+- [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-journal-worktree-dangling-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-journal-worktree-dangling-gitdir.md) — Completion report
 - [`self-heal-fix-garden-gardener-scaler-journal-worktree-gitdir-repair`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-gardener-scaler-journal-worktree-gitdir-repair.md) — Completion report
 - [`xs2rust-endor-press-20260703-105001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-105001.md) — Press check-in report (tick 10:50Z)
 - [`deadmail-20260703T085843Z-03844c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T085843Z-03844c.md) — Completion report
-- [`improve-ci-watcher-transient-net-source-skip`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-watcher-transient-net-source-skip.md) — Completion report
-- [`improve-set-schedule-validate-preflight-exists`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-set-schedule-validate-preflight-exists.md) — Report
-- … and 1051 more
+- … and 1053 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
