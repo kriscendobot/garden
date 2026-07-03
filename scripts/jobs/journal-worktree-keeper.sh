@@ -67,7 +67,13 @@
 # exits 1. `git -C $GARDEN_ROOT worktree repair $JW` rewrites both pointer files to
 # correct absolute paths; it is idempotent (a no-op when already healthy) and
 # lossless (it touches only the pointer files, never the tree), so this guard needs
-# none of the active-writer/backup gating the divergence path uses.
+# none of the active-writer/backup gating the divergence path uses. Repair success
+# is gated on BOTH `rev-parse --git-dir` AND `config --get remote.origin.url`
+# resolving through the worktree — the failure surfaced as the gitdir dying AND the
+# downstream "no JOURNAL_REMOTE set and no origin", so a re-link that does not also
+# restore origin has not closed the window. On success the keeper logs a REPAIRED:
+# line; it falls through to the WARN-and-skip only when $JW is genuinely absent or
+# the repair (and the owning-checkout rebuild below) could not restore linkage.
 #
 # Owning-checkout-DELETED rebuild (2026-07-03). `worktree repair` re-links only when
 # a matching admin entry (`$GARDEN_ROOT/.git/worktrees/journal`) still exists. When
@@ -280,8 +286,15 @@ jw_repair_gitdir() {  # jw_repair_gitdir <jw>
   # stop accumulating. Best-effort — prune only ever removes entries whose working
   # tree is gone, so a live worktree is never touched.
   git -C "$GARDEN_ROOT" worktree prune >/dev/null 2>&1 || true
-  if git -C "$jw" rev-parse --git-dir >/dev/null 2>&1; then
-    log "repaired journal worktree gitdir on $jw"
+  # Gate success on BOTH the gitdir resolving AND origin being readable through the
+  # worktree: the observed failure is `git -C $JW …` dying "not a git repository"
+  # AND the downstream "no JOURNAL_REMOTE set and no origin on $GARDEN_ROOT/journal"
+  # (journal_remote can no longer derive origin off a broken worktree). A repair that
+  # re-links the gitdir but leaves origin unreadable has not actually closed the
+  # window, so require both before declaring the heal done.
+  if git -C "$jw" rev-parse --git-dir >/dev/null 2>&1 \
+     && git -C "$jw" config --get remote.origin.url >/dev/null 2>&1; then
+    log "REPAIRED: journal worktree gitdir re-linked on $jw via 'worktree repair' (rev-parse --git-dir + remote.origin.url both resolve again)"
     return 0
   fi
   # STEP 2 — the OWNING CHECKOUT is gone, so there is no admin entry for
@@ -391,9 +404,12 @@ keep_journal_worktree() {
 
   # If jw_repair_gitdir could not restore the linkage (a genuinely missing
   # worktree, or a repair that did not stick), skip this tick rather than let the
-  # keeper's own git commands below die on the broken pointers.
-  if ! git -C "$JW" rev-parse --git-dir >/dev/null 2>&1; then
-    log "WARN: journal worktree missing or not a git repo at $JW; skipping"
+  # keeper's own git commands below die on the broken pointers. Require BOTH the
+  # gitdir and origin to resolve through the worktree — a re-link that leaves origin
+  # unreadable still trips the downstream "no origin" fatal, so it is not "repaired".
+  if ! git -C "$JW" rev-parse --git-dir >/dev/null 2>&1 \
+     || ! git -C "$JW" config --get remote.origin.url >/dev/null 2>&1; then
+    log "WARN: journal worktree missing or unlinked at $JW (gitdir/origin unresolved after repair); skipping"
     return 0
   fi
 

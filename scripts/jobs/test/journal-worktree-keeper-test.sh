@@ -250,10 +250,13 @@ run_keeper GARDEN_ROOT="$ROOT" GARDEN_JOURNAL_WORKTREE="$ROOT/journal"
 git -C "$ROOT/journal" rev-parse --git-dir >/dev/null 2>&1 \
   && ok "gitdir repaired (rev-parse --git-dir works again)" \
   || bad "gitdir still dangling after the keeper ran"
+git -C "$ROOT/journal" config --get remote.origin.url >/dev/null 2>&1 \
+  && ok "origin resolves through the worktree after the repair (no 'no origin' fatal)" \
+  || bad "origin still unresolved after the repair"
 [ "$(git -C "$ROOT/journal" rev-parse --abbrev-ref HEAD 2>/dev/null)" = journal2 ] \
   && ok "HEAD left on journal2 after the repair" \
   || bad "HEAD not on journal2 after the repair"
-grep -qiF "repair" <<<"$OUT" && ok "logged the repair attempt" || bad "did not log the repair"
+grep -qF "REPAIRED:" <<<"$OUT" && ok "logged the REPAIRED: self-heal line" || bad "did not log a REPAIRED: line"
 [ "$(alert_count)" -eq 0 ] && ok "no maintainer page on a self-healed gitdir" || bad "paged despite a successful repair"
 
 # ============================================================================
