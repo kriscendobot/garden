@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-03T02:50:50Z_
+_As of 2026-07-03T02:52:23Z_
 
 ## Latest
 
-A live infrastructure incident tops the queue: a gardener investigating five poisoned garden-infra jobs found the leader host is silently demoting itself to follower — `/home/kris/.garden` resolves `endolinbot2` while the `leader` marker names `endolinbot`, so every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being skipped. It wants an operational call: correct the shard file to `endolinbot`, or re-point the marker to `endolinbot2` and record the parallel-pool override, then restart the fleet.
+A live infrastructure incident tops the queue: an investigating gardener reports that the host-identity drift on the leader is still active — `/home/kris/.garden` resolves `GARDEN=endolinbot2` while `journal/leader` names `endolinbot`, so `is-main-host.sh` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped on the true leader host. It was also the compounding factor behind the five poisoned garden-infra jobs during the recent Claude quota outage. The fix is out of a gardener's scope: either `echo endolinbot > /home/kris/.garden` or re-point the marker with `set-main-host.sh endolinbot2`, then restart the fleet.
 
-Two disposition calls are also parked for you. A shepherd reports that [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) (CapTP error tracing) is not lint-blocked but fully subsumed by the already-merged #58 feature on `llm`, and recommends closing it — with only two small refactors (`error-id.js` dedup, `trace-constants.js` sentinels) worth salvaging as a fresh PR. And on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), @gibson042 has asked you and @erights to settle a design tradeoff in the freezable-TypedArray doc: keep the plain-object emulated view, or switch to a Proxy that throws on canonical-index writes.
+Two dispositions await your call. A shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is subsumed rather than lint-blocked — its entire error-tracing feature already re-landed on `llm` via the merged #58, so a rebase collapses to an essentially empty PR; the recommendation is to close it as superseded (with an optional fresh refactor extracting `error-id.js`/`trace-constants.js`). And on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), @gibson042 rebutted all three "Why not a Proxy wrapper?" arguments in the freezable-TypedArray design doc and asked you and @erights to weigh in on whether the emulated view should throw on canonical-index writes.
 
-On the build side, the XS→Rust (Endor) port cleared stage 2b (2/3) — user functions, closures, and more — with stage 2b (3/3, exceptions and full opcode coverage) now underway and a press job driving the integration toward green daemon tests.
+On the build side, the xs2rust-endor Endor port cleared stage 2b (user functions, closures) and has stage 2b/3 (exceptions, full opcode coverage) plus a press-forward job in flight, and a clone-keeper hardening job was claimed to self-heal a missing tracked bare clone.
 
 ## Parked for maintainer feedback
 
@@ -139,7 +139,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`improve-clone-keeper-selfheal-missing-bare-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-selfheal-missing-bare-clone.md) — Harden scripts/jobs/clone-keeper.sh so a *missing* tracked bare clone self-he...
 - [`xs2rust-endor-build-stage2b-exceptions`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage2b-exceptions.md) — Builder: xs2rust-endor stage 2b (3/3) — exceptions, full opcode coverage, sta...
 - [`xs2rust-endor-press-20260703-025032`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-025032.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
