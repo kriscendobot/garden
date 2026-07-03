@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T05:22:41Z_
+_As of 2026-07-03T05:23:56Z_
 
 ## Latest
 
-Little moved since the last bulletin: two jobs entered progress — hardening [`clone-keeper.sh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-self-heal.md) to self-heal a missing bare clone, and authoring the missing [xs2rust press-preflight script](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-xs2rust-press-preflight.md) — alongside the ongoing stage-3 language-closure build of the XS→Rust (Endor) port. A shepherd run on [endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602) completed, and the stage-3 press check-in reported observe-and-defer. The todo lane is empty and no jobs completed net-new in this window, so the maintainer's attention is best spent on the parked review queue — 27 PRs await feedback, oldest being [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules, 17d) and the [SES cyclic-star-export fix in #379](https://github.com/endojs/endo-but-for-bots/pull/379) (7d).
+A gardener landed [`improve-clone-keeper-self-heal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-self-heal.md), hardening the clone-keeper to recover on its own; the xs2rust-endor stage-3 language-closure build and the xs2rust preflight script remain the only work in flight, and the latest press check-in deferred to that build chain. Otherwise the board was quiet.
 
 ## Parked for maintainer feedback
 
@@ -28,18 +28,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`improve-clone-keeper-self-heal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-self-heal.md) — Harden scripts/jobs/clone-keeper.sh so a tracked bare clone that is *missing*...
+### doin (2)
 - [`improve-xs2rust-press-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-xs2rust-press-preflight.md) — Author the missing preflight script scripts/jobs/gardening/xs2rust-endor-pres...
 - [`xs2rust-endor-build-stage3-language`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-language.md) — Builder: xs2rust-endor stage 3 (1/7) — language closure: strings as values + ...
 
-### tada (1022)
+### tada (1023)
+- [`improve-clone-keeper-self-heal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-self-heal.md) — Completion report
 - [`endojs-endo-but-for-bots-pr602-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr602-shepherd.md) — Completion report
 - [`xs2rust-endor-press-20260703-050506`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-050506.md) — **Press check-in complete: observe-and-defer.** The stage-3 build chain owns ...
 - [`deadmail-20260703T045854Z-2e1102`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T045854Z-2e1102.md) — Completion report — deadmail-20260703T045854Z-2e1102
 - [`improve-gardener-suppress-transient-log-on-deadline-overrun`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-suppress-transient-log-on-deadline-overrun.md) — Completion report
-- [`improve-set-schedule-preflight-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-set-schedule-preflight-validation.md) — Completion report
-- … and 1017 more
+- … and 1018 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
