@@ -1,6 +1,6 @@
 ---
 created: 2026-06-30
-updated: 2026-06-30
+updated: 2026-07-03
 author: gardener
 ---
 
@@ -21,6 +21,14 @@ All of this stays on the `kriscendobot/agoric-sdk` fork and bot-owned forks.
 Nothing here touches upstream `agoric/agoric-sdk`: no comments, no reviews, no
 cross-references, no issue/PR opens or closes. See `roles/COMMON.md`
 § External-repo etiquette, *Project scope: agoric/agoric-sdk*.
+
+This is the **reproduction lever** in a larger debugging picture. The engine-level
+reading of *why* the value stack overflows (width-not-depth, symbolication, the
+targeted `flatMap`->loop versus the coarse taller-`stackCount` remedy) is
+[xs-debugging](../xs-debugging/SKILL.md); reading the failure out of the swingset
+slog / flight recorder is [slog-debugging](../slog-debugging/SKILL.md). All three
+are reached from the fixer's project debugging sub-role
+([roles/fixer/subroles/agoric-sdk.md](../../roles/fixer/subroles/agoric-sdk.md)).
 
 ## The two capture scripts
 

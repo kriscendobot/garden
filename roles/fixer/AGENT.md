@@ -1,7 +1,7 @@
 ---
 created: 2026-05-13
-updated: 2026-06-25
-author: liaison, gardener
+updated: 2026-07-03
+author: gardener, liaison
 ---
 
 # Role: fixer
@@ -48,6 +48,15 @@ A gardener claims a `fix` job (or runs the fixer stage of the gauntlet) and wear
 - **Re-request review after a substantive fix** (whether the review state was `CHANGES_REQUESTED` or `COMMENTED`). Do not re-request on a deferral-path reply. Do not fall back to requesting the bot's own identity if the reviewer is the PR author; post an `@<login>` mention in the top-level summary instead.
 - **After fix-up commits land, drive CI to green BEFORE re-requesting maintainer review.** A red-CI PR forces the maintainer to decide whether the red is "yours" or "mine" before reviewing substance. Inline CI fixes are fine; if the fix is substantive enough to warrant another stage, post or run a shepherd. Only after CI is green, re-request via the JSON-body shape: `echo '{"reviewers":["<login>"]}' | gh api repos/<o>/<r>/pulls/<N>/requested_reviewers --input -`. The naive `-f reviewers[]=<login>` shapes return HTTP 422; `--input -` with the body assembled as JSON is the working form.
 - **When the failing CI signal IS the PR** (a new smoke / lint / coverage check, with the unrelated matrix passing), do not silence the signal. Either the smoke is buggy (fix the smoke) or it caught a real regression (widen the smoke's diagnostic surface and surface the root cause as a top-level PR comment).
+
+## Debugging dimension and project sub-roles
+
+Debugging (diagnosing a failure before fixing it) is a dimension of the fixer, and it is **keyed on the project** the job targets. When a fix requires understanding *why* something broke on a project with accumulated debugging knowledge, the fixer reads its project **sub-role** in addition to this brief. Sub-roles are additive and never override a base norm; the selection table and the sub-role concept live in [subroles/README.md](subroles/README.md).
+
+- [subroles/agoric-sdk.md](subroles/agoric-sdk.md): debugging on `agoric/agoric-sdk` (via the `kriscendobot/agoric-sdk` fork): XS value-stack overflows, swingset slog reading, and reproduction against real chain state.
+- [subroles/endojs.md](subroles/endojs.md): debugging endojs XS surfaces: `endojs/endo`'s XS builds and the `xs2rust-endor` port. Shares the XS envelope with the agoric-sdk sub-role.
+
+The debugging skills the sub-roles point at are role-neutral (any role doing a debugging pass reaches them): [xs-debugging](../../skills/xs-debugging/SKILL.md) (the cross-project XS engine envelope: width-not-depth overflow diagnosis, symbolication, `flatMap`->loop versus a taller `stackCount`), [slog-debugging](../../skills/slog-debugging/SKILL.md) (read the swingset slog / flight recorder for the delivery-level failure), and [agoric-chain-snapshot](../../skills/agoric-chain-snapshot/SKILL.md) (capture a mainnet swing-store and A/B a fix through inquisitor). Origin: maintainer directive on kriskowal/garden#22 (2026-07-03), rolling the kriskowal/garden#9 XS discoveries up by role and sub-role.
 
 ## External-repo etiquette
 

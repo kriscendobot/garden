@@ -15,6 +15,12 @@ maintainer inbox + local ops). See [`designs/job-board.md`](../designs/job-board
   first (not yet written).
 - `roles/jurors/<seat>/AGENT.md` — operating brief for one jury seat, dispatched
   only by a judge role, never by an orchestrator directly.
+- `roles/<role>/subroles/<key>.md`: a project-keyed **sub-role**, an additive
+  specialization the base role reads *in addition to* its own brief when the
+  job's target repo matches. The base role stays project-agnostic; project
+  debugging/build knowledge accumulates in the sub-role. First home:
+  [`fixer/subroles/`](fixer/subroles/README.md) (the debugging dimension, keyed on
+  agoric-sdk / endojs). A sub-role never overrides a base norm.
 
 Files are named `AGENT.md` (not `CLAUDE.md`) on purpose, so they are not
 auto-loaded into a subagent's context; a dispatched subagent loads its role
