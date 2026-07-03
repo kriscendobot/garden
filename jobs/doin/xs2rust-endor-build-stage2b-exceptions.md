@@ -40,3 +40,9 @@ tada report.
 Report: what landed, the test262 language/ numbers verbatim (total, covered, bit-exact,
 divergent, skipped-by-reason), fuzz totals, Miri run, scope folds/frictions. Commit to
 `xs2rust-endor`, push, keep the PR draft.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 11
+  claimed_at: 2026-07-03T02:29:38Z
