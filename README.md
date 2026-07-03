@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T17:12:29Z_
+_As of 2026-07-03T17:22:50Z_
 
 ## Latest
 
-Board movement was quiet this cycle — only a stale dead-mail completion cleared. The live work remains the XS→Rust (Endor) port: a builder is mid-flight on stage-3b's BigInt child (2 of 9, PR #600), following the just-landed `collections-keyed` stage-3b build. Two self-improvement fixes also completed — tightening the scheduler's missing-preflight alerting and the foreman's early-poison elapsed-time constancy. No PRs are newly parked, but the review backlog is deep: 27 PRs await kriskowal, the longest-waiting being [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days, with [endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type `.ts` runtime modules) at 17.
+Three self-healing infrastructure fixes were claimed and are in flight, all hardening the deterministic job machinery: a clone-keeper repair for tracked-but-missing clone worktrees, a scheduler self-heal for a declared-but-missing/non-executable preflight, and a preflight guard for the `xs2rust-endor-press` schedule. They follow a just-completed batch in the same vein (a scheduler missing-preflight alert and an elapsed-constancy early-poison fix), so the recent focus has been on making the scheduler and clone-keeper fail loudly and recover rather than stall silently. On the build side, the XS→Rust (Endor) port continues through stage-3b, with the BigInt child (2 of 9) now underway. Nothing new landed in the maintainer's parked queue — the 27 PRs awaiting kriskowal's review are unchanged, led by [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays).
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (4)
+- [`improve-clone-keeper-missing-clone-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-missing-clone-reclone.md) — scripts/jobs/clone-keeper.sh (line ~79) logs WARN: tracked clone worktrees/en...
+- [`improve-scheduler-declared-preflight-selfheal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scheduler-declared-preflight-selfheal.md) — scripts/jobs/scheduler.sh (line ~126) treats a declared-but-missing/non-execu...
+- [`improve-xs2rust-endor-press-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-xs2rust-endor-press-preflight.md) — The schedule journal/schedules/xs2rust-endor-press.md declares preflight: gar...
 - [`xs2rust-endor-build-stage3b-bigint`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-bigint.md) — Builder: stage-3b child 2/9 — BigInt, PR #600
 
 ### tada (1103)
