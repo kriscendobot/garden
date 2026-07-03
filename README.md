@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T04:40:14Z_
+_As of 2026-07-03T04:42:37Z_
 
 ## Latest
 
-Only one job landed since the last bulletin: the [`improve-scheduler-escalate-persistently-missing-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-escalate-persistently-missing-preflight.md) fix completed, hardening the scheduler to escalate when a preflight check goes persistently missing. Two builds remain in flight — the [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) Proxy-based freezable-TypedArray emulation and the xs2rust-endor stage-3 language closure — and the maintainer's review queue is otherwise unchanged, still headed by the voice-input chat PR ([endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101)) and the passable-byte-arrays work ([endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)).
+The one completion since the last bulletin is [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472)'s Proxy-based TypedArray emulation, which moved to done. In flight, a builder holds the sole active job: stage 3 (1 of 7) of the xs2rust-endor port, the "language closure" step covering strings-as-values. The board is otherwise quiet — nothing new posted or claimed — with 27 PRs parked for kriskowal's review, the longest-waiting being [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules via erasable type syntax, 17d) and a cluster of ~42-day-old endo-but-for-bots PRs (#182, #186, #266, #288, #329).
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-472-proxy-typedarray-emulation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-472-proxy-typedarray-emulation.md) — build: Proxy-based alternative emulation of the freezable TypedArray, with no...
+### doin (1)
 - [`xs2rust-endor-build-stage3-language`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-language.md) — Builder: xs2rust-endor stage 3 (1/7) — language closure: strings as values + ...
 
-### tada (1014)
+### tada (1015)
+- [`endojs-endo-but-for-bots-472-proxy-typedarray-emulation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-472-proxy-typedarray-emulation.md) — Completion report
 - [`improve-scheduler-escalate-persistently-missing-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-escalate-persistently-missing-preflight.md) — Completion report
 - [`xs2rust-endor-press-20260703-043504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-043504.md) — Press check-in report — xs2rust-endor (PR #600), tick 04:35Z
 - [`endojs-endo-but-for-bots-pr588-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr588-shepherd-llm-resume.md) — Completion report
 - [`bot-email-dedicated-domain-counter-plan-aws-hetzner`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/bot-email-dedicated-domain-counter-plan-aws-hetzner.md) — Completion report
-- [`improve-clone-keeper-restore-missing-tracked-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-restore-missing-tracked-clone.md) — Completion report
-- … and 1009 more
+- … and 1010 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
