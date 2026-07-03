@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-03T05:56:55Z_
+_As of 2026-07-03T05:57:32Z_
 
 ## Latest
 
-A scholar picked up ingesting [danfinlay/quickjs @ native-ses](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-quickjs-native-ses.md) to mine XS-evolution implementation notes — the sole board transition this cycle. The xs2rust-endor port remains the busiest thread: stage-3 child-1 (language) landed its completion report and stage-3 fundamentals (constructors, Object, Function) is now in flight, while the press check-in defers to that build chain. No new maintainer messages, and the parked queue is unchanged, still headed by [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays).
+Here is the body for the "## Latest" section:
+
+The mentor-improvement track advanced: [`improve-mentor-skip-already-fixed-improve-jobs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mentor-skip-already-fixed-improve-jobs.md) completed, teaching the mentor to skip improve-jobs whose fix has already landed, and a companion job to give mentor-emitted jobs a stable directive identity for dedup is now in flight. The bulk of live work sits on the XS→Rust (Endor) port: stage-3 fundamentals building (constructors, Object, Function) with a scholar ingesting danfinley/quickjs at `native-ses` to inform the XS-evolution implementation. On the review front, [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) landed, and 27 PRs remain parked for kriskowal — the oldest of note being [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules via erasable type syntax, 17 days waiting) and the passable-byte-arrays work in [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503).
 
 ## Parked for maintainer feedback
 
@@ -28,20 +30,19 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`design-feedback-review-retrospective-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-feedback-review-retrospective-loop.md) — designer: the double-loop — treat every PR comment as an indictment of the re...
 - [`improve-mentor-improve-job-identity-dedup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-mentor-improve-job-identity-dedup.md) — Give mentor-emitted jobs a stable directive identity so re-detections of the ...
-- [`improve-mentor-skip-already-fixed-improve-jobs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-mentor-skip-already-fixed-improve-jobs.md) — In scripts/jobs/handlers/mentor-claude.sh, before the posting-loop calls post...
 - [`scholar-ingest-quickjs-native-ses`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-quickjs-native-ses.md) — scholar: ingest danfinlay/quickjs @ native-ses for XS-evolution implementatio...
 - [`xs2rust-endor-build-stage3-fundamentals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-fundamentals.md) — Builder: xs2rust-endor stage 3 (2/7) — fundamentals: constructors, Object, Fu...
 
-### tada (1027)
+### tada (1028)
+- [`improve-mentor-skip-already-fixed-improve-jobs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mentor-skip-already-fixed-improve-jobs.md) — Completion report
 - [`endojs-endo-but-for-bots-pr600-6983cac7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-6983cac7.md) — Completion report
 - [`xs2rust-endor-press-20260703-053522`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-053522.md) — **Press check-in complete: observe-and-defer — the stage-3 build chain owns t...
 - [`improve-xs2rust-press-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-xs2rust-press-preflight.md) — Completion report
 - [`xs2rust-endor-build-stage3-language`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3-language.md) — Stage-3 child-1 (language) — completion report
-- [`improve-clone-keeper-self-heal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-self-heal.md) — Completion report
-- … and 1022 more
+- … and 1023 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
