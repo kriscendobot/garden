@@ -428,6 +428,58 @@ t3=$(count_pref e tickjob); w3=$(count_pref f wrjob)
 { [ "$t3" -gt "$t2" ] && [ "$w3" -eq "$w2" ]; } && ok "after 1s only the 1s-cadence tick re-dispatches" || bad "cadence (tick $t2→$t3, weekly $w2→$w3)"
 
 # ============================================================================
+hr; echo "SUBTEST 8b — SCHEDULER PREFLIGHT: not-found vs error, escalate-after-N"; hr
+export GARDEN_STATE="$TR/state-sched-pf" GARDEN=spfhost
+# Threshold of 2: a genuinely-absent gate escalates once on the 2nd not-found tick.
+export GARDEN_PREFLIGHT_MISSING_THRESHOLD=2
+# Read a single frontmatter field back off the shared origin.
+sched_field() { # sched_field <schedule-name.md> <field>
+  local d; d="$(mktemp -d "$TR/sf.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$BARE" "$d" 2>/dev/null
+  sed -n "s/^$2:[[:space:]]*//p" "$d/schedules/$1" | head -1; rm -rf "$d"
+}
+# Count maintainer-inbox messages that mention a given schedule name.
+maint_pf_msgs() { # maint_pf_msgs <schedule-name>
+  local d; d="$(mktemp -d "$TR/mp.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$BARE" "$d" 2>/dev/null
+  grep -rl "preflight gate for schedule \"$1" "$d/inbox/maintainer/unread" 2>/dev/null | grep -c . || true
+  rm -rf "$d"
+}
+
+# (a) A gate whose path is GENUINELY ABSENT (deploy-lag / typo'd preflight:).
+echo "# missing-gate task" | GARDEN_SCHEDULE_PREFLIGHT="gardening/nonexistent-preflight.sh" \
+  "$JOBS/set-schedule.sh" missgate 1s missjob >/dev/null
+# (b) A gate that EXISTS but ERRORS (exit 1) — transient, must NOT be counted.
+ERRGATE="$TR/errgate.sh"; printf '#!/bin/bash\nexit 1\n' > "$ERRGATE"; chmod +x "$ERRGATE"
+echo "# error-gate task" | GARDEN_SCHEDULE_PREFLIGHT="$ERRGATE" \
+  "$JOBS/set-schedule.sh" errgate 1s errjob >/dev/null
+
+SPT=2100000000  # a fresh epoch base, well past one weekly cadence
+# Tick 1: both fail open and dispatch; missgate streak → 1 (< threshold), no escalation.
+GARDEN_SCHEDULER_NOW=$SPT           "$JOBS/scheduler.sh" >/dev/null 2>&1
+mj1=$(count_pref pa missjob); ej1=$(count_pref pb errjob)
+{ [ "$mj1" -ge 1 ] && [ "$ej1" -ge 1 ]; } && ok "not-found AND erroring gates both fail open (dispatched)" || bad "fail-open dispatch (miss=$mj1 err=$ej1)"
+ms1=$(sched_field missgate.md preflight_missing_streak); es1=$(sched_field errgate.md preflight_missing_streak)
+[ "${ms1:-0}" = "1" ] && ok "not-found tick increments the streak (1)" || bad "missgate streak=${ms1:-unset} (want 1)"
+[ -z "$es1" ] && ok "erroring (but present) gate does NOT count as not-found (no streak)" || bad "errgate streak leaked '${es1}' (want empty)"
+em1=$(maint_pf_msgs missgate); [ "$em1" -eq 0 ] && ok "no escalation below threshold" || bad "escalated too early ($em1)"
+
+# Tick 2 (cadence elapsed): missgate streak → 2 == threshold → escalate ONCE.
+GARDEN_SCHEDULER_NOW=$(( SPT + 2 )) "$JOBS/scheduler.sh" >/dev/null 2>&1
+ms2=$(sched_field missgate.md preflight_missing_streak)
+[ "${ms2:-0}" = "2" ] && ok "not-found streak keeps climbing (2)" || bad "missgate streak=${ms2:-unset} (want 2)"
+em2=$(maint_pf_msgs missgate); [ "$em2" -eq 1 ] && ok "escalated to maintainer inbox at threshold" || bad "escalation count=$em2 (want 1)"
+es2=$(sched_field errgate.md preflight_missing_streak)
+[ -z "$es2" ] && ok "erroring gate still uncounted after a 2nd tick" || bad "errgate streak leaked '${es2}'"
+
+# Tick 3 (past threshold): fail-open dispatch continues, but NO second escalation.
+GARDEN_SCHEDULER_NOW=$(( SPT + 4 )) "$JOBS/scheduler.sh" >/dev/null 2>&1
+mj3=$(count_pref pc missjob); ms3=$(sched_field missgate.md preflight_missing_streak)
+{ [ "$mj3" -gt "$mj1" ] && [ "${ms3:-0}" = "3" ]; } && ok "past threshold still fails open (streak 3), schedule not starved" || bad "post-threshold (miss=$mj3 streak=${ms3:-unset})"
+em3=$(maint_pf_msgs missgate); [ "$em3" -eq 1 ] && ok "escalation fires exactly once, not every tick" || bad "escalation re-fired ($em3, want 1)"
+unset GARDEN_PREFLIGHT_MISSING_THRESHOLD
+
+# ============================================================================
 hr; echo "SUBTEST 9 — WATCHMAN: aggressive main2 checkout + reread broadcast"; hr
 export GARDEN_STATE="$TR/state-wm" GARDEN=wmhost
 GBARE="$TR/garden.git"; git init -q --bare "$GBARE"
