@@ -1,1 +1,7 @@
 Extend the productive-cycle doctrine in `scripts/jobs/reaper.sh` to the deadline-overrun counter, symmetric to how it already resets the requeue counter. Today the productive branch (`reaper.sh:343`, `has_productive_cycle_hint` → `count=0`) only spares the `garden-reaped` counter; the `garden-deadline-overrun` counter read at `reaper.sh:356` (`deadline_overrun_count`) is untouched, so a builder on the sanctioned resume treadmill — which hits its OWN 2400s handler wall every cycle by design and gets `garden-deadline-overrun` stamped each time — still false-poisons at `GARDEN_REAP_OVERRUN_THRESHOLD=2` after two *productive* wall-hits. When that job is an `on-child-failure: halt` orchestration child (e.g. the stage-3 `xs2rust-endor-build-stage3` `text-math-json` child on 2026-07-03), the false poison halts the entire serial chain. Fix: in the `has_productive_cycle_hint` branch, also treat the wall-hit as non-poisoning — set `overrun=0` for the decision AND actually reset the preserved marker on the requeued job (the overrun marker survives `clean_body` by design, so a productive cycle must re-stamp/strip it to 0, not merely zero the local variable), so only NON-productive wall-hits accumulate toward the overrun poison. A genuinely deadlocked handler never earns the productive marker and still poisons at threshold 2. Add coverage to `scripts/jobs/test/productive-cycle-test.sh` (productive wall-hit resets overrun; non-productive wall-hit still poisons at 2).
+
+---
+claim:
+  host: endolinbot2
+  gardener: 15
+  claimed_at: 2026-07-03T14:23:34Z
