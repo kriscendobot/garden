@@ -69,10 +69,10 @@ GARDEN_TAG="foreman"
 # fills the open slots up to the target: it batch-promotes cheap pre-approved
 # deferred plan jobs (up to TARGET - in-flight in ONE tick), and falls through to
 # generating ONE new milestone step via the handler only when no deferred plan is
-# queued. Default 3 keeps ~3 jobs in flight (kriskowal, 2026-07-03).
+# queued. Default 5 keeps ~5 jobs in flight (kriskowal, 2026-07-03).
 # GARDEN_FOREMAN_WIP is the deprecated former name for this knob, still honored as
 # an alias so an env/unit that sets it keeps working.
-: "${GARDEN_FOREMAN_ACTIVE_TARGET:=${GARDEN_FOREMAN_WIP:-3}}"
+: "${GARDEN_FOREMAN_ACTIVE_TARGET:=${GARDEN_FOREMAN_WIP:-5}}"
 : "${GARDEN_FOREMAN_PROJECT:=endo-but-for-bots}"
 
 # Token-quota back-off knobs (defaults declared in usage-meter.sh; restated here so
