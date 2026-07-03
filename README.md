@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-03T15:57:28Z_
+_As of 2026-07-03T16:25:53Z_
 
 ## Latest
 
-The **xs2rust-endor stage-3 orchestration halted**: running serially with a halt-on-failure policy, it completed 4 of 7 children before the `collections` child — the Map/Set/ArrayBuffer/TypedArray/BigInt builder for [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) (kept draft) — failed. The reaper dropped that job as POISON after 5 requeue cycles, its handler failing every time; this echoes the stage-2 monolith's repeated deaths at the 2400s handler wall-clock, so the collections/binary-data/BigInt work needs a smaller decomposition or a resumable-worktree budget before it can land. The already-swept `promises` and `xsre` children survived the halt. Two supervisor jobs remain in flight — the Fable XS→Rust supervisor and a fresh press to drive PR #600 toward Endor integration. On the infra side, a reaper improvement landed so a productive cycle resets the overrun counter, and a self-heal check confirmed the `garden-unblock` journal-worktree gitdir fix was already present upstream. No job-board claims or completions otherwise moved since the last bulletin.
+A stale git-worktree linkage — the journal tree's `.git` gitfile and superproject back-pointer still pointing at the retired `/home/kris/garden2` checkout after the garden was relocated to the home root — knocked over `journal_remote()` across the fleet's journal pollers, and a wave of self-heal jobs is now hardening `journal-worktree-keeper.sh` and the `journal_remote` fallback against a dangling worktree. Three landed ([garden-proxy fallback](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-proxy-journal-remote-fallback-to-garden-origin.md), [garden-unblock](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-unblock-journal-remote-dangling-worktree.md), [comment-watcher](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-kriskowal-garden-journal-remote-stale-worktree.md)); six more (foreman, orchestrate, repo-watcher, issue-inbox-keeper, comment-watcher) are in flight. The watchdog judged the underlying `garden-library-link-scan` crash a transient environmental failure that has already self-healed.
+
+Separately, the serial **xs2rust-endor stage-3** orchestration HALTED: the collections/binary-data/BigInt child ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600), still draft) failed every attempt and was reaper-poisoned after 5 requeue cycles, stopping the run at 4/7 with the promises and xsre children swept. A follow-on press job is pushing PR #600 toward endor integration, and an attention directive on [endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602) is being worked. Maintainer review is still owed on 27 parked PRs, oldest among the top ten being the iOS Safari regression test in [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (42 days).
 
 ## Parked for maintainer feedback
 
@@ -86,22 +88,34 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration xs2rust-endor-build-stage3 HALTED: child xs2rust-endor-build-stage3-collections failed (serial, on-child-failure=halt). 4/7 done before halt; swept: xs2rust-endor-build-stage3-promises xs2rust-endor-build-stage3-xsre
 
+- `20260703T162406Z-f2b2de` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260703T162406Z-f2b2de.md)
+
+> self-heal: garden-library-link-scan exited rc=1 with no scoped fix. Capture: 15b96591a4222bf0c41e14ea17b08cffa9e57273 (git -C /home/kris/.garden-state/self-heal/journal cat-file -p 15b96591a4222bf0c41e14ea17b08cffa9e57273). Diagnosis: Diagnosis complete — this is a **transient environmental failure that has already self-healed**, so no fix job is warranted.
+>
+> **What happened.** `garden-library-link-scan` died at 16:22:00 inside `common.sh:journal_remote()`, which runs `git -C "$GARDEN_ROOT/journal" config --get remote.origin.url` and hard-`die`s on failure. That git call failed with `fatal: not a git repository: /home/kris/garden2/.git/worktrees/journal`. The root cause was a stale git-worktree linkage: the journal worktree's `.git` gitfile (`/home/kris/journal/.git`) and the superproject's back-pointer (`/home/kris/.git/worktrees/journal/gitdir`) both still referenced an old `garden2/` checkout location that no longer exists — the tree had been relocated from `/home/kris/garden2` to the home root `/home/kris` (real 
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (8)
+- [`endojs-endo-but-for-bots-pr602-7430cb28`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr602-7430cb28.md) — attention directive on endojs/endo-but-for-bots PR #602
 - [`port-xs-to-rust-memory-safe-engine-s6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s6.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
+- [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-dangling-journal-worktree`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-dangling-journal-worktree.md) — Failure signature (garden-comment-watcher@* and every other journal poller, e...
+- [`self-heal-fix-garden-foreman-journal-worktree-dangling-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-foreman-journal-worktree-dangling-gitdir.md) — Harden the garden against a dangling/stale $GARDEN_ROOT/journal worktree, whi...
+- [`self-heal-fix-garden-issue-inbox-keeper-repair-dangling-journal-worktree-link`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-issue-inbox-keeper-repair-dangling-journal-worktree-link.md) — Harden scripts/jobs/journal-worktree-keeper.sh to self-heal a *dangling journ...
+- [`self-heal-fix-garden-orchestrate-journal-worktree-stale-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-orchestrate-journal-worktree-stale-gitdir.md) — Harden scripts/jobs/journal-worktree-keeper.sh to REBUILD a broken/missing jo...
+- [`self-heal-fix-garden-repo-watcher-dangling-journal-worktree-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-dangling-journal-worktree-gitdir.md) — Two complementary, scoped changes so a corrupted $GARDEN_ROOT/journal worktre...
 - [`xs2rust-endor-press-20260703-152012`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-152012.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (1084)
+### tada (1087)
+- [`self-heal-fix-garden-proxy-journal-remote-fallback-to-garden-origin`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-proxy-journal-remote-fallback-to-garden-origin.md) — Completion report
+- [`self-heal-fix-garden-unblock-journal-remote-dangling-worktree`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-unblock-journal-remote-dangling-worktree.md) — Completion report
+- [`self-heal-fix-garden-comment-watcher-kriskowal-garden-journal-remote-stale-worktree`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-kriskowal-garden-journal-remote-stale-worktree.md) — Completion report
 - [`self-heal-fix-garden-unblock-broken-journal-worktree-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-unblock-broken-journal-worktree-gitdir.md) — This job is already fully satisfied in origin/main2; no code change is needed.
 - [`xs2rust-endor-build-stage3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3.md) — orchestration xs2rust-endor-build-stage3 — HALTED
-- [`deadmail-20260703T144011Z-dcca23`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T144011Z-dcca23.md) — Completion report
-- [`improve-reaper-productive-cycle-resets-overrun-counter`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-reaper-productive-cycle-resets-overrun-counter.md) — Completion report
-- [`deadmail-20260703T140832Z-8d56e5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T140832Z-8d56e5.md) — Inbox empty. Work complete.
-- … and 1079 more
+- … and 1082 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
