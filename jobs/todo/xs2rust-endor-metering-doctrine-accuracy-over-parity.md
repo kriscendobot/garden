@@ -1,10 +1,4 @@
----
-gate: deferred
-priority: normal
-roadmap: xs2rust-endor
-posted_by: producer
-posted_at: 2026-07-03T05:58:04Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-07-03T20:27:45Z -->
 
 # xs2rust-endor: revise the metering doctrine to accuracy-over-parity
 
