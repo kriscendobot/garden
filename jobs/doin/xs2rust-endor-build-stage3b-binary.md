@@ -42,6 +42,8 @@ Bar: `built-ins/{ArrayBuffer,DataView}` + a representative `built-ins/TypedArray
 dual-run divergent=0, covered growth recorded; honest named skips for anything blocked (e.g.
 species/symbol-keyed corners), each named.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
