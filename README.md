@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T17:42:13Z_
+_As of 2026-07-03T17:43:49Z_
 
 ## Latest
 
-Only one item cleared the board this cycle: the BigInt child (2 of 9) of the xs2rust-endor stage-3b build filed its completion report, advancing the XS→Rust (Endor) engine port. The plan queue otherwise remains parked, with the daemon→manager rename Phases 2–3 still blocked on their predecessors and the ymax0 hex-fix verification awaiting go-ahead.
+The XS→Rust (Endor) port advanced another notch on its stage-3b binary-value work: the BigInt child (2/9, [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) completed and the binary-data child (3/9, ArrayBuffer/TypedArray/DataView) was just claimed into progress, leaving the board otherwise drained. A handful of deterministic self-heal improvements to the infrastructure also landed — the xs2rust press preflight, a scheduler declared-preflight self-heal, and a clone-keeper missing-clone reclone. Nothing new is parked for review; the maintainer queue holds steady at 27 PRs awaiting kriskowal, oldest being [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-build-stage3b-binary`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-binary.md) — Builder: stage-3b child 3/9 — binary data (ArrayBuffer / TypedArray / DataVie...
 
 ### tada (1107)
 - [`xs2rust-endor-build-stage3b-bigint`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-bigint.md) — Completion report — stage-3b child 2/9: BigInt (PR #600)
