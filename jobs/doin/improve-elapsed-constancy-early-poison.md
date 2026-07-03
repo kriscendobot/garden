@@ -1,1 +1,7 @@
 In `/home/kris/scripts/jobs/gardener.sh`, the elapsed-constancy overrun-suspect path (lines ~537–608) correctly *detects* a deterministic overrun (near-constant elapsed across requeue cycles on a non-external-kill rc with real output) but only emits ONE advisory `kind:error` and then leaves the job to burn all `GARDEN_REAP_POISON_THRESHOLD` (~5) requeue cycles — exactly what happened to the four jobs in this batch, each dying at a constant 1–2s. The deadline-overrun branch just above (lines 513–530) already handles its deterministic case by calling `stamp_deadline_overrun_hint`, which makes the reaper poison after `GARDEN_REAP_OVERRUN_THRESHOLD` (2) cycles instead of 5. Apply the same treatment here: when the elapsed-constancy window confirms a deterministic overrun, also stamp the early-poison hint so the reaper poisons after 2 cycles rather than 5, ending the wasted ~5×TTL of gardener wall-clock. Separately, a genuine Claude usage-cap overrun does not occur in 1–2s; add a very-short-elapsed floor (e.g. `GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS`) below which an rc=1 "transient-claude-signature" failure is reclassified as a real deterministic failure outright rather than transient, since a sub-few-second crash is a setup/spec defect, not a self-resolving blip.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 15
+  claimed_at: 2026-07-03T16:53:15Z
