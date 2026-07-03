@@ -27,3 +27,9 @@ Include a test / documented repro: a simulated review-miss comment produces the 
 ## Definition of done
 
 The double-loop is live in the gardener workflow per the design: comment → (1) address-feedback job [unchanged] + (2) retrospective job that records/clusters misses and, past the threshold, dispatches a prevention-plus-review-sensing improvement job. Tested, wired into existing machinery, landed on `main2` from an isolated worktree. Journal a `result` entry. Note it activates on the running fleet only after a deploy.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 18
+  claimed_at: 2026-07-03T06:04:45Z
