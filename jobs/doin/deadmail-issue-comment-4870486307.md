@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/21#issuecomment-4870486307
 Please attempt to exploit each defect. Use the Inquisitor to verify the exploit.  
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolinbot2
+  gardener: 7
+  claimed_at: 2026-07-03T00:53:24Z
