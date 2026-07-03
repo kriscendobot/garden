@@ -41,9 +41,5 @@ Report: what landed, acceptance evidence verbatim, scope folds/frictions. Commit
 `xs2rust-endor`, push, keep the PR draft.
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolinbot2
-  gardener: 8
-  claimed_at: 2026-07-03T01:38:15Z
+
+<!-- garden-reaped: 1 -->
