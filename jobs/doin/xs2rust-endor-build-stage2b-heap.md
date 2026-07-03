@@ -46,3 +46,9 @@ record it, decide per the design as written, move on.
 Report: what landed, acceptance evidence verbatim (corpus totals, computron numbers,
 Miri run), scope folds/frictions for the supervisor. Commit to `xs2rust-endor`, push,
 keep the PR draft.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 11
+  claimed_at: 2026-07-03T00:50:23Z
