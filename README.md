@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T08:10:59Z_
+_As of 2026-07-03T08:22:38Z_
 
 ## Latest
 
-The board itself was quiet this cycle — only a deadmail housekeeping entry cleared. The live motion is the XS→Rust ("Endor") port: stage-3 fundamentals (child 2 of 7) landed and the builder is now into stage 3's arrays-and-iteration-protocol child, with the press check-ins at 07:20Z and 08:05Z both electing observe-and-defer rather than posting. On the review front, the freshest items parked for kriskowal are [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input, 17h), and two three-day-old features, [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability); 27 PRs are parked in all, with the long tail — [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days — still awaiting a look.
+The **xs2rust-endor** XS→Rust port dominated recent movement: stage-3 fundamentals landed (child 2/7 of the build) and stage-3 arrays plus the iteration protocol (3/7) is now in progress. The press-driver checked in twice this morning and both times chose observe-and-defer — no upstream push — so PR #600 held steady. Two infrastructure-hardening jobs were just claimed: a dangling-reference guard for the scheduler's preflight and a deterministic-stall preflight for the xs2rust-endor press driver, both prompted by a press tick that burned a full cycle just to decline work. Nothing new reached the maintainer's parked queue, which still holds 27 PRs awaiting review — the oldest being [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`improve-scheduler-preflight-dangling-reference-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scheduler-preflight-dangling-reference-guard.md) — journal:schedules/xs2rust-endor-press.md declares preflight: gardening/xs2rus...
+- [`improve-xs2rust-press-deterministic-stall-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-xs2rust-press-deterministic-stall-preflight.md) — The 08:08Z gardener entry shows a full press-driver tick consumed just to dec...
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
 
 ### tada (1047)
