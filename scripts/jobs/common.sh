@@ -1892,6 +1892,33 @@ unit_ctl_bounded() {
   fi
 }
 
+# foreman_kick — deterministic, non-blocking, best-effort EDGE trigger that asks
+# the foreman to re-evaluate the board the instant a gardener completes a job,
+# instead of waiting out its 5-minute poll + idle-settle debounce. Routes through
+# unit_ctl (so GARDEN_UNIT_CTL mocks it in tests) with `start --no-block`, which
+# returns immediately and never stalls the completing gardener.
+#
+# It is safe to kick FREQUENTLY, on every completion, because the kick is a cheap
+# no-op whenever a real pump is not due:
+#   (a) The foreman is a LEADER-ONLY singleton — its
+#       ExecCondition=is-main-host.sh means a kick on a FOLLOWER host starts the
+#       unit but the tick is skipped cleanly (condition-failed, never Failed), so
+#       a follower's completion cannot double-pump the leader.
+#   (b) Even on the leader, the foreman's own idle-detection +
+#       GARDEN_FOREMAN_IDLE_SETTLE debounce + weekly token cost-gate + anti-flap
+#       mean a kick while the board is busy, or still within the settle window,
+#       spends no `claude -p` — it exits early having done nothing.
+#
+# Best-effort / NEVER fatal: every failure is swallowed (`|| true`) so a missing
+# unit, absent systemd (standalone/test invocation), or a follower host never
+# fails or delays the completion that called it — safe under `set -euo pipefail`.
+# GARDEN_FOREMAN_EDGE_KICK=0 disables it (default on).
+foreman_kick() {
+  [ "${GARDEN_FOREMAN_EDGE_KICK:-1}" = "0" ] && return 0
+  unit_ctl start --no-block garden-foreman.service >/dev/null 2>&1 || true
+  return 0
+}
+
 # job lifecycle dirs (relative to a journal clone root)
 JOBS_TODO="jobs/todo"
 JOBS_DOIN="jobs/doin"

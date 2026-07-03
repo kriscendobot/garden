@@ -38,6 +38,10 @@ for attempt in $(seq 1 100); do
   [ -d "$DIR/inbox/$base" ]      && git -C "$DIR" rm -rq "inbox/$base"
   if commit_and_push "$DIR" "tada($base) done $GARDEN/gardener-$id"; then
     log "completed '$base'"
+    # This doin→tada→push IS the "gardener job completion" edge: kick the foreman
+    # to re-evaluate now rather than at its next poll. Non-blocking + best-effort;
+    # never fails or delays this completion (foreman_kick swallows all errors).
+    foreman_kick
     exit 0
   fi
   rc=$?
