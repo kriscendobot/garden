@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T16:45:41Z_
+_As of 2026-07-03T16:50:01Z_
 
 ## Latest
 
-The XS→Rust (Endor) port advanced: [`port-xs-to-rust-memory-safe-engine-s6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s6.md) closed out its stage-3 review, and the sole remaining in-flight job is now stage-3b's keyed-collections builder (child 1/9: Map/Set/WeakMap/WeakSet), with the s7 Fable-supervisor stage parked and blocked on the full stage-3b build. Nothing else moved on the board this interval; the deeper signal for a maintainer is the parked-review backlog, where 27 PRs await kriskowal — the oldest now 42–44 days out, including [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182), [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186), and the [endopen opencode analysis #266](https://github.com/endojs/endo-but-for-bots/pull/266).
+A single new work item moved: an attention directive on [endojs/endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602) was claimed and is now in progress, alongside the still-running stage-3b builder pass on the XS→Rust (Endor) port (keyed-collections remainder). Otherwise the board is quiet — the todo lane is empty and 27 PRs remain parked for kriskowal's review, the oldest being [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr602-cde0ba2f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr602-cde0ba2f.md) — attention directive on endojs/endo-but-for-bots PR #602
 - [`xs2rust-endor-build-stage3b-collections-keyed`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-collections-keyed.md) — Builder: stage-3b child 1/9 — keyed collections remainder (Map/Set/WeakMap/We...
 
 ### tada (1096)
