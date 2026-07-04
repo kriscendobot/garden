@@ -131,6 +131,40 @@ Program state:
   non-species methods. Deferrals are legitimate per the charter's "honest named skips for anything
   blocked (e.g. species/symbol-keyed corners)" clause; the child's read is that child 3/9's stated
   bar is satisfied. Say the word (promote a fresh scoped child) if coverage should be pushed further.
+- **Stage-3b child 4/9 (fundamentals-followup) DONE — scope-fold report carried here (your inbox was
+  not yet live, so the child's note dead-lettered; deadmail-20260704T040350Z-7004f3 folded it into
+  this spec).** All charter items landed on `xs2rust-endor` (PR #600, kept DRAFT) — 7 commits, HEAD
+  `d2d402f30`, each its own green computron-exact commit; full evidence in
+  `journal/jobs/tada/xs2rust-endor-build-stage3b-fundamentals-followup.md`. Landed surface (all
+  computron-exact vs pin `48ee02d8cfe0`, raw-exact via the raw-gap where noted): (1) `8c6b0d520`
+  Function `.length` (arity from begin's param-count operand at `code`) + `.name` (inferred for
+  `var f=function(){}`) as own data-property reads. (2) `043f01c29` Function.prototype.apply with a
+  real dense Array (APPLY_ARRAY_BASE 98040 + 3<<14/element) — prototype/apply 5 covered, 0 divergent.
+  (3) `d25bb8d94` Symbol.prototype.toString/valueOf, String(symbol), Symbol.for/keyFor registry
+  (registry-interned identity) — built-ins/Symbol 6 covered, 0 divergent. (4) `9de63cfb7`
+  AggregateError(errors,message) — base error (msg arg1) + errors Array from a dense-array arg
+  (AGGREGATE_ERROR_EXTRA 461568 + 246048/elem), 0 divergent. (5) `c7c7b7816`
+  Function.prototype.bind — recovered child-2's reverted bind end-to-end: bound-fn repr
+  (bound_functions side table) + two trampolines, bound `.length`/`.name`, args Array; creation
+  198696 (+33296 array +288/arg when bound args), call 180216 + 1<<14/forwarded-arg, all raw-exact
+  via the raw-gap; prototype/bind 11 covered, whole built-ins/Function 23 -> 39 covered, 0 divergent.
+  (6) `a38dd2296` differential fuzz arm (gen_stage3b_fundamentals_followup_program, 1200-seed
+  bit-exact sweep); corpus `stage3b-fundamentals-followup.js` (all surfaces), test wired.
+  (7) `d2d402f30` README evidence block. **Invariants:** `#![forbid(unsafe_code)]` holds (no new
+  unsafe); Miri GC suite unaffected (gc.rs untouched, GC not wired into interp — the new side tables
+  mirror the existing arrays/collections tables; Miri component absent on this host, CI confirms);
+  full workspace `cargo test` green (27 endor-262 + 17 endor-fuzz + gc/vm). Doctrine followed:
+  computron-exact-or-honest-skip against the current computron-gating runner. **Scope folds for YOU
+  to ratify (all HONEST NAMED SKIPS via `Halt::Unsupported`, never a wrong value/meter, documented in
+  README):** (a) `new (boundFn)` construct, (b) non-user-function / native bind target,
+  (c) bound-of-bound CALL (its `.length`/`.name` still read), (d) sparse / non-array apply &
+  AggregateError args, (e) non-string `Symbol.for` key, and — per the charter's "if calibratable;
+  else keep the honest skip" — (f) **SLOPPY PRIMITIVE-THIS BOXING (fxToInstance)** in
+  `.call`/`.apply`/bound calls: a primitive `thisArg` self-names `Halt::Unsupported` because the
+  sloppy-boxes-vs-strict-keeps distinction is not knowable until the callee's begin, so it was kept
+  as the honest skip (not attempted, within budget) — this DISCHARGES the review-ledger
+  "sloppy primitive-this boxing (stage-3b child 4 attempts it)" carry-forward: attempted, ruled a
+  legitimate named skip, moved off the open ledger.
 - **s6 rulings on the stage-3 carry-forwards (all discharged; do not re-litigate):** child-1 folds
   ratified (at/at_2 → stage-3b child 5; copy_object/extend + arguments exotics stay named skips
   pending class/intrinsics machinery); child-2 ratified done, bind/apply-with-array →
