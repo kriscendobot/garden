@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-04T16:51:12Z_
+_As of 2026-07-04T16:52:45Z_
 
 ## Latest
 
-Two operational hazards dominate and both want a maintainer's eye. First, the SheetSync/Endo research for [issue #25](https://github.com/kriskowal/garden/issues/25) finished but the gardener **could not post its reply** — the job landed on raw host `endolin` (no `/.dockerenv`, no real `gh`), so the drafted comment is parked in the maintainer inbox for manual posting as kriscendobot. That same report flags gardener 15 on endolinbot2 running outside the container, and a companion message warns that `garden-journal-worktree-keeper` is logging a dangling gitdir to a stale `garden2/.git` and pruning live per-job `gardener-wt-*` worktrees out from under running gardeners here — the known "journal worktree severed" pattern, needing a `git worktree prune` + repair on this host before it corrupts an in-flight commit.
-
-On the work front, the gauntlet completed on [endo-but-for-bots#604](https://github.com/endojs/endo-but-for-bots/pull/604), and a wave of review directives is now in flight across [#288](https://github.com/endojs/endo-but-for-bots/pull/288), [#442](https://github.com/endojs/endo-but-for-bots/pull/442), [#589](https://github.com/endojs/endo-but-for-bots/pull/589), [#592](https://github.com/endojs/endo-but-for-bots/pull/592), [#595](https://github.com/endojs/endo-but-for-bots/pull/595), and [#602](https://github.com/endojs/endo-but-for-bots/pull/602), with retrospectives queued for each. The `design-streamlined-onboarding` design is complete and **awaiting your review of its § 5 open questions** — especially Q2, the security-flavored auto-mode default; its four build jobs are gated on that decision, though phase 1 (launcher + image + guard hook) has already been claimed.
+[endo-but-for-bots#589](https://github.com/endojs/endo-but-for-bots/pull/589) landed a completion report and a verification pass finished on the [#604](https://github.com/endojs/endo-but-for-bots/pull/604) review, but the more urgent signal is an infrastructure failure on **endolinbot2**: multiple gardeners there are running on the raw host (no `/.dockerenv`, no `gh` binary, no GitHub token), so every gh-dependent job is blocked. The [#595](https://github.com/endojs/endo-but-for-bots/pull/595) review reported itself BLOCKED for exactly this reason, and the finished [garden issue #25](https://github.com/kriskowal/garden/issues/25) SheetSync/Endo research could not be posted — its author asks kriskowal to post the comment as kriscendobot (do not close; the submitter closes it). A related host-health note flags `garden-journal-worktree-keeper` pruning live per-job worktrees out from under running gardeners on this host, matching the known "journal worktree severed" pattern and needing a `git worktree prune` + repair. Separately, the `designs/streamlined-onboarding.md` design awaits review — its §5 open questions (notably Q2, the security-flavored auto-mode default) gate four parked build jobs.
 
 ## Parked for maintainer feedback
 
@@ -137,33 +135,61 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > (empty message)
 
+- `20260704T165210Z-4e4f55` — from gardener:endojs-endo-but-for-bots-pr595-review-0a6137f6, reply_to `endojs-endo-but-for-bots-pr595-review-0a6137f6` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260704T165210Z-4e4f55.md)
+
+> BLOCKED — environment/infrastructure, not the PR itself.
+>
+> Job endojs-endo-but-for-bots-pr595-review-0a6137f6 (review directive on
+> endojs/endo-but-for-bots #595, review 4629038402) cannot be serviced on
+> this host (claim host: endolinbot2, gardener 11).
+>
+> Findings:
+> - scripts/check-in-container.sh reports NOT INSIDE THE CONTAINER; /.dockerenv absent.
+> - No `gh` binary on PATH (the fleet gh wrapper errors: "no real gh found on PATH").
+> - No GitHub token (~/.config/gh/hosts.yml absent; no GH_TOKEN/GITHUB_TOKEN env).
+> - Journal remote is SSH (git@github.com) so git operations work, but the
+>   GitHub REST API is unreachable — no bearer token available.
+> - The pr-feedback-preflight fell open ("no evidence corpus ... fail-open")
+>   precisely because its gh calls failed, not because the corpus was checked.
+>
+> Impact: I cannot fetch the review body or its inline comments, cannot route
+> their substance to a fixer/designer, and cannot post PR replies. Any gardener
+> on this host will hit the same wall for every gh-dependent (review/fix/ferry)
+> job.
+>
+> Likely cause: the fleet on endolinbot2 is running on the HOST rather than
+> inside the `./garden` container (which is where gh + bot credentials live),
+> or gh is not installed in this environment.
+>
+> Requested: install/enable gh + bot credentials on this host, or re-home the
+> endolinbot2 fleet inside the container, then requeue #595. I did NOT emit the
+> completion signal, so the job remains claimable; a healthy host can also take it.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (13)
+### doin (11)
 - [`endojs-endo-but-for-bots-pr288-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr288-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #288
 - [`endojs-endo-but-for-bots-pr288-review-330391eb`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr288-review-330391eb.md) — Review directive on endojs/endo-but-for-bots PR #288
 - [`endojs-endo-but-for-bots-pr442-review-61c65980`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-review-61c65980.md) — Review directive on endojs/endo-but-for-bots PR #442
-- [`endojs-endo-but-for-bots-pr589-8f67c6ab`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr589-8f67c6ab.md) — attention directive on endojs/endo-but-for-bots PR #589
 - [`endojs-endo-but-for-bots-pr592-review-da7fef5e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-review-da7fef5e.md) — Review directive on endojs/endo-but-for-bots PR #592
 - [`endojs-endo-but-for-bots-pr595-review-0a6137f6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr595-review-0a6137f6.md) — Review directive on endojs/endo-but-for-bots PR #595
 - [`endojs-endo-but-for-bots-pr602-review-ec2efb27`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr602-review-ec2efb27.md) — Review directive on endojs/endo-but-for-bots PR #602
 - [`endojs-endo-but-for-bots-pr604-review-51a40148`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr604-review-51a40148.md) — Review directive on endojs/endo-but-for-bots PR #604
-- [`endojs-endo-but-for-bots-pr604-review-f2d21a00`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr604-review-f2d21a00.md) — Review directive on endojs/endo-but-for-bots PR #604
 - [`harden-garden-issue-inbox-journal-linkage`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/harden-garden-issue-inbox-journal-linkage.md) — Build: make garden-issue-inbox resilient to a severed journal linkage
 - [`librarian-library-audit-20260704-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/librarian-library-audit-20260704-165003.md) — Librarian library audit
 - [`onboarding-build-1-launcher-image-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/onboarding-build-1-launcher-image-guard.md) — Build (phase 1/4): launcher + image + guard hook
 - [`xs2rust-endor-build-stage3b-object-statics-intern`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-object-statics-intern.md) — Builder: stage-3b child 5/9 — global string→id intern table + Object statics/...
 
-### tada (1134)
+### tada (1136)
+- [`endojs-endo-but-for-bots-pr604-review-f2d21a00`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr604-review-f2d21a00.md) — Verification complete. The full picture:
+- [`endojs-endo-but-for-bots-pr589-8f67c6ab`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr589-8f67c6ab.md) — Completion report
 - [`issue-kriskowal-garden-25`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-25.md) — Completion report — issue-kriskowal-garden-25
 - [`mention-endojs-endo-but-for-bots-604-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mention-endojs-endo-but-for-bots-604-gauntlet.md) — Completion report — run the gauntlet #604 (endojs/endo-but-for-bots)
 - [`issue-kriskowal-garden-24`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-24.md) — Completion report — issue-kriskowal-garden-24: scholar study of MylesBorins/a...
-- [`fix-journal-worktree-keeper-stale-registration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-journal-worktree-keeper-stale-registration.md) — Completion report
-- [`design-streamlined-onboarding`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-streamlined-onboarding.md) — Completion report: design-streamlined-onboarding
-- … and 1129 more
+- … and 1131 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
