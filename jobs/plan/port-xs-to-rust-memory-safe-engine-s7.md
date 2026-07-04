@@ -99,6 +99,38 @@ Program state:
   must NOT double-count the realm-setup metering constant (endor's startup lump already matches XS,
   which registers BigInt), and `BigInt(number)` RangeError-on-non-integer + string parse need their
   own bit-exact meters. Left as a clean follow-on, not rushed into an invariant violation.
+- **Stage-3b child 3/9 (binary data) DONE — scope-fold report carried here (your inbox was not yet
+  live, so the child's note dead-lettered; deadmail-20260703T202026Z-8bcdb1 folded it into this
+  spec).** Bar MET on pushed HEAD `651c747da` (== `origin/xs2rust-endor`, PR #600, kept DRAFT); the
+  substantive surface was landed across three prior commits and this run **independently
+  re-verified** it green (not just trusting commit messages): workspace build green with the C-XS
+  oracle linked (pin `48ee02d8cfe0`, `c/moddable` repopulated from a sibling worktree — working-tree
+  gitlink, correctly untracked); `cargo test --workspace -- --test-threads=1` all suites pass, 0
+  failed; live acceptance dual-runs **divergent=0** every section — `built-ins/ArrayBuffer` 11
+  covered/0 divergent, `built-ins/DataView` 62/0, `built-ins/TypedArrayConstructors` 11/0; every
+  skip honestly named via `Halt::Unsupported`. Full evidence in
+  `journal/jobs/tada/xs2rust-endor-build-stage3b-binary.md`. **Landed surface (all computron-exact
+  vs the pin):** ArrayBuffer construct + `byteLength` + `isView`; the 11 concrete TypedArray
+  constructors (length AND buffer forms) + exotic index read/write + `length`/`byteLength`/
+  `byteOffset`/`buffer` accessors; DataView construct + the full `get*`/`set*` family with
+  endianness. No code change was needed this run — the bar was already satisfied and confirmed.
+  **Scope folds for YOU to ratify (all HONEST NAMED SKIPS, never a wrong value; each a SEPARATE
+  hard-calibration increment, not a quick fold — the child flagged them for follow-up-child scoping
+  rather than cramming under its deadline, already force-reaped once/overrun=1):** (1)
+  `ArrayBuffer.prototype.slice` — routes through `fxConstructArrayBufferResult` → species
+  constructor (`this.constructor` + `Symbol.species` getter + re-entrant construct); needs the
+  species-getter machinery modeled. (2) **TypedArray prototype methods**
+  (at/fill/indexOf/includes/join/set/copyWithin/iterators/…) — spec homes these on the abstract
+  `%TypedArray.prototype%` which endor does NOT model (the 11 concrete protos chain straight to
+  `%Object.prototype%`); landing them bit-exact wants a shared `%TypedArray.prototype%` intrinsic +
+  per-method oracle calibration + a full 953-file bar re-run. (3) Construct abort/coerce corners —
+  `new ArrayBuffer(-1)`/oversized (RangeError abort metering), bool/string `byteLength` (general
+  ToNumber), DataView bad-length/bad-offset (abort metering), TypedArray from-object/from-iterable
+  ctor (iteration protocol), typed-array-`set` object-value coerce. **NEXT INCREMENT the child flags
+  (highest yield):** item 2 — a shared `%TypedArray.prototype%` intrinsic + a batch of the
+  non-species methods. Deferrals are legitimate per the charter's "honest named skips for anything
+  blocked (e.g. species/symbol-keyed corners)" clause; the child's read is that child 3/9's stated
+  bar is satisfied. Say the word (promote a fresh scoped child) if coverage should be pushed further.
 - **s6 rulings on the stage-3 carry-forwards (all discharged; do not re-litigate):** child-1 folds
   ratified (at/at_2 → stage-3b child 5; copy_object/extend + arguments exotics stay named skips
   pending class/intrinsics machinery); child-2 ratified done, bind/apply-with-array →
