@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-04T03:16:31Z_
+_As of 2026-07-04T03:21:39Z_
 
 ## Latest
 
-Little moved on the board since the last bulletin — the only transition was a dead-mail issue-comment job completing. Active work continues in the xs2rust-endor (Endor) port, with a builder on stage-3b fundamentals follow-ups and a revision of its metering doctrine toward accuracy-over-parity, alongside the nightly progress summary. The bigger call for a maintainer is the review backlog: 27 PRs are parked, several aging, including [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 3d), [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability, 4d), and the freshly parked [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (voice input via Web Speech API, 1d), plus longer-waiting items like [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules, 18d) and [endo#379](https://github.com/endojs/endo-but-for-bots/pull/379) (cyclic star-export fix, 7d). The daemon→manager rename remains staged, with Phase 2 and 3 blocked on [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598).
+The scheduler grew a DST-aware anchored cadence (`daily-at-00:00-America/Los_Angeles`) on main2 (85a1cd8e6), backed by a 13-assertion test and documented in the `schedule` skill; it stamps the midnight-Pacific anchor rather than the fire time so the daily summary stops drifting (it currently fires ~8pm Pacific). This needs a leader-host deploy, after which the live `daily-progress-summary` schedule should be flipped to the anchored cadence — order matters, since flipping before the deploy would make the old scheduler treat the token as its weekly default. The gardener also backfilled the missing `2026/07/02` periodical. In flight: the xs2rust-endor port continues (stage-3b fundamentals follow-up, plus a metering-doctrine revision toward accuracy-over-parity), and several self-heal jobs repaired dangling comment-watcher and repo-watcher worktrees. One thing to confirm: the 07-02 periodical flagged that this host (endolinbot2) ran with a drifted identity for that whole window — worth verifying it now reads correctly.
 
 ## Parked for maintainer feedback
 
@@ -22,7 +22,38 @@ Little moved on the board since the last bulletin — the only transition was a 
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260704T032133Z-329166` — from gardener:daily-progress-summary-20260704-030501, reply_to `daily-progress-summary-20260704-030501` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260704T032133Z-329166.md)
+
+> Daily-progress-summary periodical: v1→v2 translation landed, one coordinated
+> follow-up needs your deploy.
+>
+> DONE now:
+> - Wrote the missing periodical journal/periodicals/2026/07/02.md (pushed to
+>   journal2). The series was current through 07-01; 07-02 (Pacific) was the next
+>   one due.
+> - main2 85a1cd8e6: scheduler.sh grew a DST-aware anchored cadence
+>   `daily-at-00:00-America/Los_Angeles` (stamps the anchor, not the fire time, so
+>   the daily midnight-Pacific anchor never drifts even on a late tick or across DST;
+>   injects the prior-24h window + Pacific-date output path into the dispatched job
+>   body). Added scheduler-anchored-cadence-test.sh (13 assertions, green), gave the
+>   v2 journalist role its dropped `daily-progress-summary` purpose, and documented
+>   the anchored cadence in skills/schedule.
+> - journal2 schedule body rewritten from a description into an explicit journalist
+>   dispatch instruction.
+>
+> FOLLOW-UP (needs a deploy, so I left it for you):
+> - The live schedule is still cadence `daily`. It KEEPS firing daily correctly under
+>   the current scheduler. After main2 85a1cd8e6 deploys to the leader host, flip
+>   schedules/daily-progress-summary.md cadence to `daily-at-00:00-America/Los_Angeles`
+>   so it anchors to midnight Pacific instead of drifting (right now the seed fires at
+>   ~03:05Z = 8pm Pacific, not midnight). Flipping BEFORE deploy would make the
+>   pre-deploy scheduler treat the unknown token as its weekly default, so the order
+>   matters: deploy first, then flip.
+>
+> One thing to notice from the 07-02 periodical: the investigate-poisoned-garden-infra
+> result flagged that this host's (endolinbot2) identity was drifted for the whole
+> window. Worth confirming it is now correct.
+
 
 ## Board
 ### todo (0)
