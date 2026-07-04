@@ -42,3 +42,9 @@ Task (role: librarian; a keywords.md content edit):
 Deliverable: keywords.md gains keyword routes for both concept-ids;
 `grep -E '\| *(e-data-types|polymorphic-operator) *$' library/keywords.md`
 returns hits.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 7
+  claimed_at: 2026-07-04T16:53:40Z
