@@ -25,3 +25,9 @@ model: opus
 ## Definition of done
 
 Bare `./garden` auto-builds if needed, enters, and execs `claude --dangerously-skip-permissions` as the foreground process; `./garden sh` opens a debug shell; identity resolves from `.garden` (and `GARDEN=… ./garden` writes it); `.claude/settings.json` is seeded with the guard hook when absent; the Container-guard sentence is added. Verify the launcher paths host-side (dry-run/read the code paths; do not disrupt the live fleet). Push to main2; report the commit sha and what you verified.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 4
+  claimed_at: 2026-07-04T16:46:01Z
