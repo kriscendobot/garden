@@ -62,6 +62,7 @@
 | [web--langgraph-streaming--graph-state-and-llm-token-streaming](../sections/web--langgraph-streaming--graph-state-and-llm-token-streaming.md) | LangGraph streaming | `values`/`updates` state streaming and `messages` token-by-token LLM streaming with tag / `langgraph_node` / `nostream` filtering. |
 | [web--langgraph-streaming--custom-subgraph-checkpoint-task-and-debug](../sections/web--langgraph-streaming--custom-subgraph-checkpoint-task-and-debug.md) | LangGraph streaming | `get_stream_writer` custom data, `subgraphs=True` namespacing via `ns`, and the checkpointer-requiring `checkpoints`/`tasks`/`debug` runtime-event modes. |
 | [web--langgraph-streaming--advanced-any-llm-disable-and-v2-migration](../sections/web--langgraph-streaming--advanced-any-llm-disable-and-v2-migration.md) | LangGraph streaming | Streaming non-LangChain LLMs via custom mode, per-model streaming disable, the v1→v2 migration table and `GraphOutput`, and Python < 3.11 async caveats. |
+| [pi-agent-sync (athanor)](../sections/athanor--readme--pi-agent-sync.md) | local-model-serving, llm-agent-frameworks | Athanor publishes local MLX/llama.cpp models into pi-agent's (badlogic/pi-mono) provider registry; the serving-side surface that endo-but-for-bots' endopi provider-registry-and-oauth design re-imagines under least authority. |
 
 ## See also
 
