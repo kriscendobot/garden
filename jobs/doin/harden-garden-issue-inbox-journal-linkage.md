@@ -29,3 +29,9 @@ Add a case (near `scripts/jobs/test/` alongside the keeper/issue-inbox tests): w
 ## Definition of done
 
 `garden-issue-inbox` self-heals a severed journal linkage at tick start and still reactji+dispatches; a repair failure is surfaced, not swallowed; regression test reproduces the drop-then-recover and passes. Note in the commit that the durable root-cause fix is host-side (the `garden2` bind-mount), this only stops the silent drop. Push to main2; report the commit sha and test result.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 7
+  claimed_at: 2026-07-04T16:44:05Z
