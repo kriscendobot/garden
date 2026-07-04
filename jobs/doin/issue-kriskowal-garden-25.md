@@ -23,3 +23,9 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 Please dispatch a scholar to study and ingest articles about SheetSync, a tool that connects Google Sheets via plaid and report back here about how this might be accomplished in Endo, perhaps with a plugin and ocaps. 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 15
+  claimed_at: 2026-07-04T16:41:41Z
