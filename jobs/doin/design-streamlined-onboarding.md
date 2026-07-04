@@ -49,3 +49,9 @@ Collapse the new-user onboarding to the **fewest manual commands possible**, pus
 ## Definition of done
 
 `designs/streamlined-onboarding.md` exists on `main2` (pushed directly, no PR), following the project's design conventions, with: the three-step golden path fully specified; the `help`-verb tutorial flow; the `context/` tree shape (index + initial fragments) authored under the context-library discipline; a concrete migration map out of README/CLAUDE.md; and the open questions above made explicit. The report names the design slug and the pushed commit.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 6
+  claimed_at: 2026-07-04T06:11:17Z
