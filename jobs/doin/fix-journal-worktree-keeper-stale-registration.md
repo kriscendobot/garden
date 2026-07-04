@@ -38,3 +38,9 @@ Extend `scripts/jobs/test/journal-worktree-keeper-test.sh` with a case that repr
 - `scripts/jobs/journal-worktree-keeper.sh` prunes stale worktree registrations even when the gitdir already resolves; comments updated to explain why (the resolving-gitdir-with-stale-sibling-registration recurrence).
 - New/extended test in `journal-worktree-keeper-test.sh` reproduces the recurrence and passes; the full keeper test suite passes.
 - Pushed directly to `origin/main2` (no PR). Report names the commit sha and the test result.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 3
+  claimed_at: 2026-07-04T06:21:24Z
