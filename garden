@@ -5,50 +5,80 @@
 set -euo pipefail
 
 IMAGE_NAME="${GARDEN_IMAGE:-garden}"
-CONTAINER_NAME="${GARDEN_CONTAINER:-garden}"
-HOSTNAME_NAME="${GARDEN_HOSTNAME:-endolinbot}"
-# The durable shard identity (the GARDEN name the fleet keys off). Defaults to
-# the container hostname, but is captured into a gitignored $HOME/.garden file
-# (see below) so it survives independently of the kernel hostname and of any
-# env var — an exported GARDEN never reaches the systemd --user manager. Override
-# GARDEN at creation time to give a pool an identity distinct from its hostname
-# (e.g. a follower pool "endolinbot2" on a host whose hostname is "endolinbot").
-# GARDEN_SHARD is accepted as a deprecated alias for the same knob.
-SHARD_NAME="${GARDEN:-${GARDEN_SHARD:-$HOSTNAME_NAME}}"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+# The durable shard identity (the GARDEN name the fleet keys off), resolved
+# .garden-FIRST so bare `./garden` needs zero environment variables:
+#   1. An explicit GARDEN (or deprecated GARDEN_SHARD) env var wins and is
+#      persisted to $HOME/.garden at container creation — the belt-and-
+#      suspenders convenience form `GARDEN=petunias ./garden`.
+#   2. Otherwise a present, gitignored $HOME/.garden file supplies it. This is
+#      the streamlined, preferred way to name an instance: `echo petunias >
+#      .garden` before the first run.
+#   3. Otherwise the default "garden".
+# The file survives independently of the kernel hostname and of any env var —
+# an exported GARDEN never reaches the systemd --user manager, so the file is
+# the durable per-instance identity.
+DEFAULT_SHARD="garden"
+if [[ -n "${GARDEN:-}" ]]; then
+    SHARD_NAME="$GARDEN"
+elif [[ -n "${GARDEN_SHARD:-}" ]]; then
+    SHARD_NAME="$GARDEN_SHARD"
+elif [[ -s "${SCRIPT_DIR}/.garden" ]]; then
+    SHARD_NAME="$(tr -d '[:space:]' < "${SCRIPT_DIR}/.garden")"
+else
+    SHARD_NAME="$DEFAULT_SHARD"
+fi
+
+# The container name and --hostname derive from the shard identity so a named
+# instance (`echo petunias > .garden`) is self-consistent across re-entries:
+# the same bare `./garden` re-attaches to the same container. GARDEN_CONTAINER
+# and GARDEN_HOSTNAME remain expert overrides for the rare split cases.
+CONTAINER_NAME="${GARDEN_CONTAINER:-$SHARD_NAME}"
+HOSTNAME_NAME="${GARDEN_HOSTNAME:-$SHARD_NAME}"
 
 usage() {
     cat <<EOF
 Usage: $(basename "$0") [command]
 
 Commands:
-  (no args)   Enter the container, creating or starting it as needed.
-  build       Build (or rebuild) the container image.
+  (no args)   Enter the container (building the image and creating or starting
+              the container as needed) and exec Claude Code — the liaison — in
+              auto mode as the foreground process.
+  sh          Enter the container and open an interactive login shell instead
+              of Claude Code — the debugging escape hatch.
+  build       Build (or rebuild) the container image. Bare \`$(basename "$0")\`
+              auto-builds when the image is absent; this is for explicit
+              rebuilds.
   reset       Remove the container so the next invocation creates a fresh one.
 
 Environment:
   ANTHROPIC_API_KEY   Forwarded to the container for Claude Code auth.
   GARDEN_IMAGE        Override image name (default: garden).
-  GARDEN_CONTAINER    Override container name (default: garden).
-  GARDEN_HOSTNAME     Override container hostname (default: endolinbot).
-  GARDEN              Override the durable shard identity written to
-                      \$HOME/.garden at container creation (default:
-                      GARDEN_HOSTNAME). This is the GARDEN name the fleet
-                      keys off; set it when a pool's identity must differ
-                      from its hostname (e.g. a follower "endolinbot2").
+  GARDEN              Name this instance's durable shard identity. Bare
+                      \`$(basename "$0")\` needs NO env vars: the preferred way
+                      to name an instance is \`echo petunias > .garden\` before
+                      the first run. GARDEN=petunias is the equivalent
+                      convenience form — it sets the identity AND writes
+                      \$HOME/.garden at container creation. The container name
+                      and --hostname derive from this identity.
   GARDEN_SHARD        Deprecated alias for GARDEN (honored for one release
                       so existing pools that set it keep working; prefer
-                      GARDEN).
+                      GARDEN or the .garden file).
+  GARDEN_CONTAINER    Expert override for the container name (default: the
+                      shard identity).
+  GARDEN_HOSTNAME     Expert override for the container --hostname (default:
+                      the shard identity).
 
 Notes:
   The container runs systemd as PID 1 so the garden's user-mode units
-  (scripts/systemd/garden-*) can run. After entering, bring the fleet up
-  per CLAUDE.md § Job system: install-units.sh install && enable-services,
-  then set-gardeners.sh <N> <host>. The shard identity MUST be unique across
-  instances; to run several, give each a distinct GARDEN_CONTAINER and
-  GARDEN (or GARDEN_HOSTNAME). The identity is captured in the
-  gitignored \$HOME/.garden file so it is durable and per-instance — an
-  exported GARDEN env var does NOT reach the systemd --user units.
+  (scripts/systemd/garden-*) can run. After entering, say \`help\` and the
+  liaison walks the first-run setup, or \`start the garden\` to bring the
+  fleet up. The shard identity MUST be unique across instances; to run
+  several, give each a distinct name (\`echo <name> > .garden\`). The identity
+  is captured in the gitignored \$HOME/.garden file so it is durable and
+  per-instance — an exported GARDEN env var does NOT reach the systemd
+  --user units.
 
   Unlike town, garden does NOT forward SSH_AUTH_SOCK. The bot uses its
   own keys under \$HOME/.ssh/ (i.e. /home/kris/garden/.ssh on the host)
@@ -70,10 +100,46 @@ cmd_reset() {
     fi
 }
 
-cmd_enter() {
+# Seed $SCRIPT_DIR/.claude/settings.json host-side, exactly like .garden and
+# only when absent (a hand-edited file is preserved). The container's home IS
+# the bind-mounted repo root, so this one file covers both the user-level
+# (~/.claude/settings.json) and project-level (<repo>/.claude/settings.json)
+# scopes at once. Its sole content is a SessionStart hook running the container
+# guard, making the guard automatic for every session that starts in the garden
+# root — INCLUDING a host-side session, which is exactly where the guard must
+# fire. It deliberately does NOT set a permission defaultMode: the settings file
+# is visible host-side too, so a settings-level bypass would silently make
+# host-side sessions permissionless. Auto mode rides the launch flag instead
+# (see the exec in cmd_enter), which applies only to the in-container session.
+seed_claude_settings() {
+    local settings="${SCRIPT_DIR}/.claude/settings.json"
+    [[ -e "$settings" ]] && return 0
+    mkdir -p "${SCRIPT_DIR}/.claude"
+    cat > "$settings" <<'JSON'
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR/scripts/check-in-container.sh\""
+          }
+        ]
+      }
+    ]
+  }
+}
+JSON
+}
+
+# Build the image if absent, then create the container if absent (seeding the
+# durable identity and settings on creation), or start it if stopped. Shared by
+# cmd_enter (execs claude) and cmd_sh (execs a login shell).
+ensure_container() {
     if ! docker image inspect "$IMAGE_NAME" &>/dev/null; then
-        echo "Image '$IMAGE_NAME' not found. Run '$(basename "$0") build' first." >&2
-        exit 1
+        echo "Image '$IMAGE_NAME' not found; building it now ('$(basename "$0") build' to rebuild later)." >&2
+        cmd_build
     fi
 
     if ! docker container inspect "$CONTAINER_NAME" &>/dev/null; then
@@ -90,6 +156,10 @@ cmd_enter() {
         if [[ ! -e "${SCRIPT_DIR}/.garden" ]]; then
             printf '%s\n' "$SHARD_NAME" > "${SCRIPT_DIR}/.garden"
         fi
+
+        # Seed the container guard's SessionStart hook (same host-side move as
+        # .garden, only when absent).
+        seed_claude_settings
 
         # systemd as PID 1 needs the containerized-systemd flags: a writable
         # cgroup mount, tmpfs at /run and /tmp, the host cgroup namespace,
@@ -110,13 +180,32 @@ cmd_enter() {
     elif [[ "$(docker container inspect -f '{{.State.Running}}' "$CONTAINER_NAME")" != "true" ]]; then
         docker start "$CONTAINER_NAME" >/dev/null
     fi
+}
 
-    # Drop into the container as kris (uid 1000), NOT root. PID 1 (systemd)
-    # must run as root and the ENTRYPOINT owns that, so the image's default
-    # USER stays root; we override it here per-exec. Entering as kris means
-    # the interactive session (and any `claude` it launches) uses kris's
-    # gh/ssh credentials and manages the garden's `systemctl --user` units
-    # directly — no `sudo -u kris`, and no root-vs-kris credential split.
+# Drop into the container as kris (uid 1000), NOT root. PID 1 (systemd) must run
+# as root and the ENTRYPOINT owns that, so the image's default USER stays root;
+# we override it here per-exec. Entering as kris means the interactive session
+# (and the `claude` it launches) uses kris's gh/ssh credentials and manages the
+# garden's `systemctl --user` units directly — no `sudo -u kris`, and no
+# root-vs-kris credential split.
+#
+# `bash -lc` loads /etc/profile.d/garden.sh (PATH) and then `exec claude`
+# replaces the login shell with Claude Code as the foreground process on the
+# allocated tty — no shell in between. --dangerously-skip-permissions is auto
+# mode: it applies ONLY to this in-container session (not the host-visible
+# settings file), matching the fleet's existing headless posture. Exiting claude
+# exits the exec and returns to the host shell; the container and fleet keep
+# running, and `./garden` re-enters.
+cmd_enter() {
+    ensure_container
+    exec docker exec -it -u kris "$CONTAINER_NAME" \
+        /bin/bash -lc 'exec claude --dangerously-skip-permissions'
+}
+
+# The debugging escape hatch: a login shell instead of claude — yesterday's
+# enter behavior verbatim.
+cmd_sh() {
+    ensure_container
     exec docker exec -it -u kris "$CONTAINER_NAME" /bin/bash -l
 }
 
@@ -126,6 +215,7 @@ if [[ $# -eq 0 ]]; then
 fi
 
 case "$1" in
+    sh) shift; cmd_sh "$@" ;;
     build) shift; cmd_build "$@" ;;
     reset) shift; cmd_reset "$@" ;;
     -h|--help|help) usage ;;

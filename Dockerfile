@@ -104,8 +104,15 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
     && apt-get install -y gh \
     && rm -rf /var/lib/apt/lists/*
 
-# Claude Code CLI
-RUN npm install -g @anthropic-ai/claude-code
+# Claude Code CLI — the image-side half of the direct-exec contract. The
+# `garden` launcher enters with `bash -lc 'exec claude --dangerously-skip-permissions'`,
+# so `claude` MUST resolve on a bare login-shell PATH. NodeSource's npm prefix
+# is /usr, so the global `claude` bin lands in /usr/bin (already on the default
+# PATH and thus reachable from /etc/profile.d/garden.sh below). The trailing
+# `command -v claude` asserts the exec contract at build time: a broken install
+# fails the build loudly rather than at first `./garden`.
+RUN npm install -g @anthropic-ai/claude-code \
+    && command -v claude
 
 # Create kris user with uid 1000 to match the host user so the
 # bind-mounted home stays writable.
@@ -130,6 +137,10 @@ RUN git clone "${VUNDLE_REPO}" /opt/dotfiles/vim/bundle/Vundle.vim \
 USER root
 
 # Login-shell PATH via /etc/profile.d (bind-mounted $HOME has no dotfiles).
+# This is the PATH wiring the launcher's `bash -lc 'exec claude ...'` relies on:
+# it prepends the garden/go tool dirs while preserving the default PATH (which
+# already contains /usr/bin, where the global `claude` bin lives), so `claude`
+# resolves on a bare enter.
 RUN printf '%s\n' \
     'export PATH="$HOME/bin:$HOME/go/bin:/opt/go-tools/bin:/usr/local/go/bin:$PATH"' \
     > /etc/profile.d/garden.sh
