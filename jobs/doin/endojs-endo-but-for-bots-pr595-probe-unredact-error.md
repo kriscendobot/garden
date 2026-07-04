@@ -70,6 +70,7 @@ four required sections (*Gaps surfaced*, *Skeleton implemented*, *Skeleton not
 implemented*, *Recommendations to design author*). PR stays draft. Completion
 report cites the PR URL + head SHA and the gap/skeleton counts.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
