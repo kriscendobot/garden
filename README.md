@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-04T03:06:01Z_
+_As of 2026-07-04T03:07:52Z_
 
 ## Latest
 
-The XS→Rust (Endor) port dominated the cycle: stage-3b builder children for binary data and BigInt both landed, the fundamentals follow-up (bind/apply-with-array) is now in progress, and a fresh press tick is driving [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) toward Endor integration and green daemon tests. A companion job also revises the port's metering doctrine toward accuracy-over-parity. Separately, a burst of infrastructure self-heal work is underway: five jobs are hardening the garden's own tooling against a dangling/stale `$GARDEN_ROOT/journal` worktree link that was tripping the comment-watcher, gardener-scaler, orchestrate, and repo-watcher services. Nothing new parked for maintainer review this cycle — the review queue is unchanged, still led by the voice-input chat PR ([endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101)) and the passable byte-arrays PR ([endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)).
+A cluster of self-healing infrastructure fixes landed, all targeting stale or dangling journal-worktree links that were breaking leader-only services: `garden-comment-watcher`, `garden-repo-watcher` (journal-remote root/origin fallback), `garden-orchestrate`, and `garden-gardener-scaler` all completed repairs, alongside a deadmail sweep. Notably, the gardener-scaler fix reported that the repair was already present on `origin/main2`, suggesting these self-heal jobs are partly re-confirming work already deployed rather than introducing new changes — worth a glance to confirm the fleet isn't queuing redundant self-heal jobs. No fork PRs moved this cycle; the active work in flight is the xs2rust-endor (Endor) port, with a builder on stage-3b fundamentals, a metering-doctrine revision toward accuracy-over-parity, and a push to press [kriskowal/garden#600](https://github.com/kriskowal/garden/pull/600) forward toward Endor integration and a green daemon.
 
 ## Parked for maintainer feedback
 
@@ -28,24 +28,19 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (9)
+### doin (4)
 - [`daily-progress-summary-20260704-030501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260704-030501.md) — Daily midnight Pacific progress summary
-- [`deadmail-20260703T202026Z-8bcdb1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T202026Z-8bcdb1.md) — Dead-lettered message — pick up its intent
-- [`self-heal-fix-garden-comment-watcher-kriskowal-garden-journal-remote-dangling-worktree`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriskowal-garden-journal-remote-dangling-worktree.md) — Two-part hardening for the dangling $GARDEN_ROOT/journal worktree that makes ...
-- [`self-heal-fix-garden-gardener-scaler-journal-worktree-link-repair`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-scaler-journal-worktree-link-repair.md) — Add a lossless self-heal for a BROKEN journal-worktree link to scripts/jobs/j...
-- [`self-heal-fix-garden-orchestrate-stale-journal-worktree-link`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-orchestrate-stale-journal-worktree-link.md) — Root cause: the standing $GARDEN_ROOT/journal worktree has stale two-way git ...
-- [`self-heal-fix-garden-repo-watcher-journal-remote-root-origin-fallback`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-journal-remote-root-origin-fallback.md) — Harden journal_remote() in scripts/jobs/common.sh (lines 490-494) so a dangli...
 - [`xs2rust-endor-build-stage3b-fundamentals-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-fundamentals-followup.md) — Builder: stage-3b child 4/9 — fundamentals follow-up (bind/apply-with-array/....
 - [`xs2rust-endor-metering-doctrine-accuracy-over-parity`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-metering-doctrine-accuracy-over-parity.md) — xs2rust-endor: revise the metering doctrine to accuracy-over-parity
 - [`xs2rust-endor-press-20260704-030501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260704-030501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (1111)
-- [`xs2rust-endor-build-stage3b-binary`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-binary.md) — Completion report — xs2rust-endor-build-stage3b-binary (stage-3b binary data,...
-- [`foreman-edge-trigger-on-job-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/foreman-edge-trigger-on-job-completion.md) — Completion report
-- [`xs2rust-endor-press-20260703-175002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-175002.md) — Press tick complete — this was an observe-and-defer cycle under the charter's...
-- [`deadmail-20260703T174129Z-e748a9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T174129Z-e748a9.md) — Completion report
-- [`xs2rust-endor-build-stage3b-bigint`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-bigint.md) — Completion report — stage-3b child 2/9: BigInt (PR #600)
-- … and 1106 more
+### tada (1116)
+- [`self-heal-fix-garden-comment-watcher-kriskowal-garden-journal-remote-dangling-worktree`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-kriskowal-garden-journal-remote-dangling-worktree.md) — Completion report
+- [`deadmail-20260703T202026Z-8bcdb1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T202026Z-8bcdb1.md) — Completion report — deadmail-20260703T202026Z-8bcdb1
+- [`self-heal-fix-garden-repo-watcher-journal-remote-root-origin-fallback`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-repo-watcher-journal-remote-root-origin-fallback.md) — Work complete. Here is my report.
+- [`self-heal-fix-garden-orchestrate-stale-journal-worktree-link`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-orchestrate-stale-journal-worktree-link.md) — Completion report
+- [`self-heal-fix-garden-gardener-scaler-journal-worktree-link-repair`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-gardener-scaler-journal-worktree-link-repair.md) — The requested fix is already fully implemented on origin/main2 (which my work...
+- … and 1111 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
