@@ -667,6 +667,64 @@ ensure_journal_worktree_linked() {
   git -C "$wt" rev-parse --git-dir >/dev/null 2>&1
 }
 
+# repair_journal_worktree_gitdir [<jw>] — the SHARED, hardened prune-first repair of
+# a severed journal-worktree gitdir link, factored out of the journal-worktree-keeper
+# (jw_repair_gitdir) so every leader-only reader of the journal — the keeper AND the
+# issue-inbox / comment / mention watchers, each of which aborts its WHOLE tick (an
+# issue-inbox tick silently DROPS a maintainer's issue) when a `git -C <worktree>`
+# dies "not a git repository" on a dangling gitdir — shares ONE hardened
+# implementation instead of drifting copies. NON-DESTRUCTIVE: it only ever runs
+# `git worktree prune` + `git worktree repair`, both of which touch pointer files and
+# never the working tree, so a caller with no backup/active-writer machinery (a
+# watcher) can call it safely. The keeper layers its LOSSY rebuild-from-origin
+# fallback (jw_rebuild_dangling_worktree) on TOP of a non-zero return here.
+#
+# Prune-BEFORE-repair (2026-07-04, the companion keeper fix). A garden-root
+# relocation (/home/kris/garden2 -> /home/kris) leaves a STALE sibling worktree
+# registration ($GARDEN_ROOT/.git/worktrees/* pointing at a now-absent garden2/*
+# path, shown `prunable` by `git worktree list`). A worktree whose gitdir CURRENTLY
+# resolves but with a lingering stale registration would be declared healthy and
+# never pruned; a later git op then re-resolves the cross-pointers onto the stale
+# entry and re-breaks the linkage within the hour (`fatal: not a git repository:
+# …/garden2/.git/worktrees/journal`), FATAL-storming the fleet. So prune runs
+# UNCONDITIONALLY, at the top, BEFORE the health check — the order that empirically
+# makes the fix stick. Prune only removes entries whose working tree is absent, so a
+# live worktree is never touched; it is idempotent and cheap to run every tick.
+#
+# Returns 0 when the worktree resolves as a git repo (its gitdir), 1 when even a
+# prune+repair could not re-link it. The healthy-path early return mirrors the
+# keeper: it gates on the GITDIR only (a missing remote.origin.url is a separate
+# concern handled by jw_ensure_origin / journal_remote's re-heal, NOT a reason to
+# fall through to the keeper's destructive rebuild). The post-repair success gate
+# additionally requires origin to resolve, because the observed failure was BOTH the
+# gitdir dying AND the downstream "no origin", so a re-link that leaves origin
+# unreadable has not actually closed the window. Best-effort and quiet: never dies;
+# a missing worktree ($jw absent) returns 1 for the caller's own missing-repo check.
+repair_journal_worktree_gitdir() {  # repair_journal_worktree_gitdir [<jw>]
+  local jw="${1:-$GARDEN_ROOT/journal}" gd
+  [ -d "$jw" ] || return 1
+  # DEFENSIVE PRUNE — unconditional, before the health check (see header).
+  git -C "$GARDEN_ROOT" worktree prune >/dev/null 2>&1 || true
+  # Healthy already (gitdir resolves AND its target exists on disk): nothing to do.
+  # rev-parse emits a path relative to $jw, so probe it with $jw as the base.
+  if gd="$(git -C "$jw" rev-parse --git-dir 2>/dev/null)" \
+     && [ -n "$gd" ] && ( cd "$jw" && [ -e "$gd" ] ); then
+    return 0
+  fi
+  # The cheap fix: `git worktree repair` re-links both pointer files against the
+  # surviving admin entry (the stale sibling was already pruned above). Gate success
+  # on the linkage actually resolving afterward — repair can exit 0 without fixing an
+  # unrelated breakage — and require origin too so a re-link that leaves origin
+  # unreadable is not mistaken for a heal.
+  git -C "$GARDEN_ROOT" worktree repair "$jw" >/dev/null 2>&1 || true
+  if git -C "$jw" rev-parse --git-dir >/dev/null 2>&1 \
+     && git -C "$jw" config --get remote.origin.url >/dev/null 2>&1; then
+    log "REPAIRED: journal worktree gitdir re-linked on $jw via prune+worktree-repair (rev-parse --git-dir + remote.origin.url both resolve again)"
+    return 0
+  fi
+  return 1
+}
+
 # _cache_journal_remote <url> — best-effort persist the last good journal remote to
 # the per-host cache ($JOURNAL_REMOTE_CACHE, under GARDEN_STATE) so a later empty
 # read of the worktree origin self-heals from the cached value instead of dying.
@@ -700,15 +758,21 @@ _reheal_journal_worktree_origin() {
 }
 
 # _journal_remote_from_state_clones — last-resort read of remote.origin.url from any
-# existing per-instance journal clone under $GARDEN_STATE (each v2 service and the
-# shared producer hash into their own $GARDEN_STATE/<svc>/journal clone). When both
-# the worktree AND the per-host cache AND the root origin are unavailable, one of
-# those sibling clones almost certainly still carries the origin, so we scan them
-# rather than die. Prints the first URL found and returns 0; prints nothing and
+# existing per-instance journal clone under $GARDEN_STATE. Each v2 service and the
+# shared producer hash into their own $GARDEN_STATE/<svc>/journal clone, and the
+# read-side watchers (issue-inbox, comment, mention, ci, deadmail) keep a
+# $GARDEN_STATE/<svc>/verify clone — BOTH shapes carry the correct origin. When the
+# worktree AND the per-host cache AND the root origin are all unavailable, one of
+# these sibling clones almost certainly still carries the origin, so we scan them
+# rather than die. Including the `*/verify` shape is load-bearing for the read-side
+# watchers: a severed journal worktree would otherwise abort an issue-inbox tick (and
+# silently drop a maintainer's issue) even though that watcher's OWN verify clone,
+# right there under $GARDEN_STATE, still holds the origin — the `*/journal`-only glob
+# never consulted it. Prints the first URL found and returns 0; prints nothing and
 # returns 1 when none resolves. Quiet + best-effort.
 _journal_remote_from_state_clones() {
   local d url
-  for d in "$GARDEN_STATE"/*/journal; do
+  for d in "$GARDEN_STATE"/*/journal "$GARDEN_STATE"/*/verify; do
     [ -d "$d/.git" ] || [ -e "$d/.git" ] || continue
     if url="$(git -C "$d" config --get remote.origin.url 2>/dev/null)" && [ -n "$url" ]; then
       printf '%s\n' "$url"; return 0

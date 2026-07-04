@@ -110,6 +110,55 @@ verify_fetch() {  # verify_fetch [fresh]; ensure+fetch the VERIFY clone (once/ti
   return 0
 }
 
+# --- self-heal the journal linkage at TICK START (before any journal read) ---
+# This watcher exists to deliver a maintainer's issue. But every read it does — the
+# garden-repo config, the maintainer allowlist, the poll cursor, the dispatch — is
+# routed through journal clones whose ensure_clone resolves the journal remote via
+# the shared $GARDEN_ROOT/journal worktree. When a garden-root relocation severs that
+# worktree's gitdir (`fatal: not a git repository: …/garden2/.git/worktrees/journal`,
+# confirmed live on kriskowal/garden #24), journal_remote can be pushed to its die
+# path and the WHOLE tick aborts BEFORE the reactji/dispatch step — silently dropping
+# the very issue this watcher is meant to deliver. So we repair the linkage FIRST,
+# using the same hardened prune-first repair the journal-worktree-keeper uses
+# (repair_journal_worktree_gitdir, common.sh), and we heal this watcher's own verify
+# clone. A repair failure is SURFACED (WARN + a throttled maintainer signal), never a
+# silent abort: dispatch then continues via journal_remote's sibling-clone fallback
+# (which now includes this watcher's own verify clone), and if nothing at all can
+# resolve the remote the downstream read exits non-zero for self-heal-run.sh to
+# escalate — loud, not silent. NOTE: the DURABLE root-cause fix is host-side (the
+# `garden2` bind-mount that makes git canonicalize the worktree link path); this only
+# stops the silent drop.
+heal_verify_clone() {  # drop a corrupt verify clone (ensure_clone re-clones); re-add a missing origin
+  local d="$VERIFY" url
+  [ -e "$d/.git" ] || return 0                              # absent → ensure_clone clones it fresh
+  if ! git -C "$d" rev-parse --git-dir >/dev/null 2>&1; then
+    log "WARN: verify clone $d is not a valid git repo; removing so it is re-cloned this tick"
+    rm -rf "$d" 2>/dev/null || true
+    return 0
+  fi
+  git -C "$d" config --get remote.origin.url >/dev/null 2>&1 && return 0
+  url="$(journal_remote 2>/dev/null || true)"
+  [ -n "$url" ] && git -C "$d" remote add origin "$url" >/dev/null 2>&1 || true
+  return 0
+}
+
+heal_journal_linkage() {
+  local jw="$GARDEN_ROOT/journal"
+  # Only act when a journal worktree actually exists here (a non-worktree deployment
+  # or a test with no $GARDEN_ROOT/journal has nothing to repair — and must not page).
+  if [ -d "$jw" ]; then
+    if ! repair_journal_worktree_gitdir "$jw"; then
+      # The in-place prune+repair could not re-link it (the owning admin entry is
+      # gone) — that needs the keeper's LOSSLESS rebuild, which is NOT this watcher's
+      # job (it has no backup/active-writer machinery). Surface it, then continue.
+      log "WARN: journal worktree linkage at $jw is severed and not repairable in place (needs the journal-worktree-keeper rebuild); continuing via sibling-clone remote fallback so the issue is not dropped"
+      alert_maintainer "issue-inbox-journal-linkage-$GARDEN" \
+        "issue-inbox watcher on $GARDEN found the journal worktree ($jw) severed and unrepairable in place (dangling gitdir; owning admin entry gone). Dispatch continues via a sibling journal-clone remote fallback, so no issue is dropped, but the worktree needs the journal-worktree-keeper's rebuild — if this alert persists the keeper may also be wedged. Durable fix is host-side (the garden2 bind-mount)."
+    fi
+  fi
+  heal_verify_clone
+}
+
 # --- read the watched repo from journal config (config/garden-repo) ----------
 # Per-instance, journal-tracked, so main2 stays generic. Override for tests.
 load_garden_repo() {
@@ -250,6 +299,11 @@ write_comment_msg() {  # write_comment_msg <out> <repo> <number> <spine> <url> <
     head -c 280 "$bf" | tr '\n' ' '; printf '\n'
   } > "$out"
 }
+
+# --- self-heal the journal linkage BEFORE the first journal read -------------
+# Runs ahead of load_garden_repo so a severed worktree is repaired (or surfaced)
+# before ensure_clone/journal_remote can abort the tick and drop the issue.
+heal_journal_linkage
 
 # --- resolve config; stay inert until the instance is configured -------------
 load_garden_repo
