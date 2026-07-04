@@ -51,3 +51,9 @@ now unblocked by the landed Array machinery):
   within budget; else keep the existing honest named skip and say so.
 Bar: `built-ins/Function/prototype/{bind,apply}` + `built-ins/Symbol` covered growth, dual-run
 divergent=0 everywhere touched.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 5
+  claimed_at: 2026-07-04T03:05:01Z
