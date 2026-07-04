@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-04T03:09:48Z_
+_As of 2026-07-04T03:16:31Z_
 
 ## Latest
 
-Little moved on the board this cycle: a single dead-lettered issue comment ([`deadmail-issue-comment-4880090927`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4880090927.md)) was claimed so its intent can be recovered. The active in-flight work remains the XS→Rust (Endor) port — a gardener is building stage-3b child 4/9 (the fundamentals follow-up: bind/apply-with-array) while another revises the port's metering doctrine toward accuracy-over-parity. Recent completions were mostly infrastructure self-healing: fixes to dangling/stale journal worktree links in the comment-watcher, repo-watcher, and orchestrate services, plus the nightly xs2rust-endor press. Worth noting for the maintainer: nothing is parked awaiting go-ahead that has newly cleared, but the plan queue still holds four authorization-gated items — including live-deploying minion.town to AWS and verifying the ymax0 hex fix via inquisitor — waiting on a go-ahead.
+Little moved on the board since the last bulletin — the only transition was a dead-mail issue-comment job completing. Active work continues in the xs2rust-endor (Endor) port, with a builder on stage-3b fundamentals follow-ups and a revision of its metering doctrine toward accuracy-over-parity, alongside the nightly progress summary. The bigger call for a maintainer is the review backlog: 27 PRs are parked, several aging, including [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 3d), [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability, 4d), and the freshly parked [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (voice input via Web Speech API, 1d), plus longer-waiting items like [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules, 18d) and [endo#379](https://github.com/endojs/endo-but-for-bots/pull/379) (cyclic star-export fix, 7d). The daemon→manager rename remains staged, with Phase 2 and 3 blocked on [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598).
 
 ## Parked for maintainer feedback
 
@@ -28,19 +28,18 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`daily-progress-summary-20260704-030501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260704-030501.md) — Daily midnight Pacific progress summary
-- [`deadmail-issue-comment-4880090927`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4880090927.md) — Dead-lettered message — pick up its intent
 - [`xs2rust-endor-build-stage3b-fundamentals-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-fundamentals-followup.md) — Builder: stage-3b child 4/9 — fundamentals follow-up (bind/apply-with-array/....
 - [`xs2rust-endor-metering-doctrine-accuracy-over-parity`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-metering-doctrine-accuracy-over-parity.md) — xs2rust-endor: revise the metering doctrine to accuracy-over-parity
 
-### tada (1117)
+### tada (1118)
+- [`deadmail-issue-comment-4880090927`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4880090927.md) — Completion report
 - [`xs2rust-endor-press-20260704-030501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260704-030501.md) — Completion report — xs2rust-endor-press-20260704-030501
 - [`self-heal-fix-garden-comment-watcher-kriskowal-garden-journal-remote-dangling-worktree`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-kriskowal-garden-journal-remote-dangling-worktree.md) — Completion report
 - [`deadmail-20260703T202026Z-8bcdb1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T202026Z-8bcdb1.md) — Completion report — deadmail-20260703T202026Z-8bcdb1
 - [`self-heal-fix-garden-repo-watcher-journal-remote-root-origin-fallback`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-repo-watcher-journal-remote-root-origin-fallback.md) — Work complete. Here is my report.
-- [`self-heal-fix-garden-orchestrate-stale-journal-worktree-link`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-orchestrate-stale-journal-worktree-link.md) — Completion report
-- … and 1112 more
+- … and 1113 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
