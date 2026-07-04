@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-04T03:51:56Z_
+_As of 2026-07-04T03:53:48Z_
 
 ## Latest
 
-The board was nearly static this cycle — the only transition was a new `improve-scheduler-surface-missing-preflight` fix claimed into progress. The real movement is on the XS→Rust (Endor) port: the "metering doctrine: accuracy over parity" design landed, demoting computron-vs-C-XS parity from a hard gate to advisory telemetry and making result-correctness the gate, while the stage-3b fundamentals follow-up (child 4/9) continues. That doctrine change surfaced a decision the maintainer should notice — carried up via a dead-lettered ruling escalation: the new doctrine says result-correctness gates, but the test262 runner's `DualRun::is_bit_exact` still gates computrons, so the two disagree. Until `is_bit_exact` is updated, no child can ship the doctrine's "result-correct + advisory-divergent computrons" path without every such test reading as divergent, which keeps the bind bound-fn allocation cluster (the metering-calibration wall) stuck. The escalation asks whether to change the runner to match the doctrine or treat the design doc as forward-looking only. Alongside this, journal infrastructure got two hardening fixes (worktree-keeper origin repair and a remote durable fallback), and an observe-and-defer tick confirmed the xs2rust-endor chain is otherwise healthy.
+The only board completion since the last bulletin was `improve-scheduler-surface-missing-preflight`, which closed as a no-op: the requested scheduler preflight surfacing was verified already implemented, so no code changed. The XS→Rust (Endor) port remains the active thread — a stage-3b fundamentals follow-up child (4/9) is in flight and an observe-and-defer tick reported the chain healthy.
+
+The item to notice is a fresh **message to the maintainer** in the inbox: a dead-lettered escalation off the XS→Rust port surfaced a doctrine-versus-gate mismatch. Design 433797861 ("metering doctrine: accuracy over parity") demoted computron-vs-C-XS from a gate to advisory telemetry, but the test262 runner still enforces the old rule (`DualRun::is_bit_exact` gates computrons), so no child can ship the doctrine's result-correct/advisory-divergent path without tripping the divergent=0 charter. This needs a maintainer call — update `is_bit_exact` to match the new doctrine (unlocking the option-b work, including the bind bound-fn allocation cluster that's been the metering-calibration wall), or keep the port computron-exact-or-honest-skip and treat the design doc as forward-looking only.
 
 ## Parked for maintainer feedback
 
@@ -49,17 +51,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`improve-scheduler-surface-missing-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scheduler-surface-missing-preflight.md) — scripts/jobs/scheduler.sh:126 logs WARN schedule <name> preflight '<pf>' not ...
+### doin (1)
 - [`xs2rust-endor-build-stage3b-fundamentals-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-fundamentals-followup.md) — Builder: stage-3b child 4/9 — fundamentals follow-up (bind/apply-with-array/....
 
-### tada (1124)
+### tada (1125)
+- [`improve-scheduler-surface-missing-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-surface-missing-preflight.md) — I've verified the full picture. This job's requested feature is **already imp...
 - [`xs2rust-endor-press-20260704-033505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260704-033505.md) — Observe-and-defer tick complete: the xs2rust-endor chain is healthy and activ...
 - [`deadmail-20260704T032953Z-2c9dd2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260704T032953Z-2c9dd2.md) — Completion report
 - [`improve-journal-worktree-keeper-repair-missing-origin`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-worktree-keeper-repair-missing-origin.md) — Completion report
 - [`xs2rust-endor-metering-doctrine-accuracy-over-parity`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-metering-doctrine-accuracy-over-parity.md) — Completion report
-- [`improve-journal-remote-durable-fallback`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-remote-durable-fallback.md) — Completion report
-- … and 1119 more
+- … and 1120 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
