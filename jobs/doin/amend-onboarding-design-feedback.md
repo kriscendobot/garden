@@ -39,3 +39,9 @@ The maintainer's direction that bare `./garden` "enters claude directly in auto 
 ## Definition of done
 
 `designs/streamlined-onboarding.md` on `main2` reflects all four points, coherently integrated (not appended as a changelog): the "Starting the garden" reframe with commands deemphasized; the no-env-vars default with the `.garden`-file preferred over `GARDEN=… ./garden`; `./garden` → direct claude and `./garden sh` → debug shell (with the Dockerfile+garden-script § 6 build jobs updated); and § 5 Q2 resolved. Report the pushed commit sha.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 11
+  claimed_at: 2026-07-04T06:27:36Z
