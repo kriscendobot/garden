@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-04T03:22:45Z_
+_As of 2026-07-04T03:24:59Z_
 
 ## Latest
 
-Two journal-infrastructure self-heal jobs entered progress this cycle: [`improve-journal-remote-durable-fallback`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-journal-remote-durable-fallback.md) (hardening how `journal_remote()` resolves the journal remote URL in `common.sh`) and [`improve-journal-worktree-keeper-repair-missing-origin`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-journal-worktree-keeper-repair-missing-origin.md) (repairing a missing origin in the worktree keeper) — both self-healing responses to the recent comment-watcher/journal-remote dangling-worktree failure that was resolved earlier. The daily progress summary and xs2rust-endor press run completed on schedule; otherwise the xs2rust-endor Rust-port build stages continue churning in the deferred and blocked queues, and 27 PRs remain parked for kriskowal's review, the oldest being [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) and [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) at 43–44 days.
+Two garden-infra jobs landed since the last bulletin: the journal's [remote durable-fallback](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-remote-durable-fallback.md) improvement completed, and on the XS→Rust (Endor) port the [metering-doctrine "accuracy over parity"](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-metering-doctrine-accuracy-over-parity.md) job wrapped. Two jobs remain in flight — a journal-worktree-keeper repair for a missing `origin`, and the stage-3b fundamentals follow-up on the Endor build. Nothing new hit the upstream PR queue, so the 27 parked PRs still await kriskowal, oldest-first: the .ts-runtime-modules change on [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) has now been waiting 18 days, and the iOS-Safari `isImmutableDataProperty` regression test on [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) 43.
 
 ## Parked for maintainer feedback
 
@@ -28,19 +28,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
-- [`improve-journal-remote-durable-fallback`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-journal-remote-durable-fallback.md) — journal_remote() in scripts/jobs/common.sh:490 resolves the journal remote UR...
+### doin (2)
 - [`improve-journal-worktree-keeper-repair-missing-origin`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-journal-worktree-keeper-repair-missing-origin.md) — scripts/jobs/journal-worktree-keeper.sh (keep_journal_worktree) checks rev-pa...
 - [`xs2rust-endor-build-stage3b-fundamentals-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-fundamentals-followup.md) — Builder: stage-3b child 4/9 — fundamentals follow-up (bind/apply-with-array/....
-- [`xs2rust-endor-metering-doctrine-accuracy-over-parity`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-metering-doctrine-accuracy-over-parity.md) — xs2rust-endor: revise the metering doctrine to accuracy-over-parity
 
-### tada (1119)
+### tada (1121)
+- [`xs2rust-endor-metering-doctrine-accuracy-over-parity`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-metering-doctrine-accuracy-over-parity.md) — Completion report
+- [`improve-journal-remote-durable-fallback`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-remote-durable-fallback.md) — Completion report
 - [`daily-progress-summary-20260704-030501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260704-030501.md) — All deliverables are verified and pushed. Here is my completion report.
 - [`deadmail-issue-comment-4880090927`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4880090927.md) — Completion report
 - [`xs2rust-endor-press-20260704-030501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260704-030501.md) — Completion report — xs2rust-endor-press-20260704-030501
-- [`self-heal-fix-garden-comment-watcher-kriskowal-garden-journal-remote-dangling-worktree`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-kriskowal-garden-journal-remote-dangling-worktree.md) — Completion report
-- [`deadmail-20260703T202026Z-8bcdb1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T202026Z-8bcdb1.md) — Completion report — deadmail-20260703T202026Z-8bcdb1
-- … and 1114 more
+- … and 1116 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
