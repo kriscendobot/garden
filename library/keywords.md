@@ -9173,6 +9173,35 @@ archivable app | (see section: kriskowal-com--giants--overview)
 Mastodon operator trust | (see section: kriskowal-com--giants--overview)
 giants vocabulary | (see section: kriskowal-com--giants--overview)
 
+E scalar types | e-data-types
+E primitive data types | e-data-types
+`float64` | e-data-types
+E integer bignum | e-data-types
+E char | e-data-types
+`ConstList` | e-data-types
+`ConstMap` | e-data-types
+`FlexList` | e-data-types
+`FlexMap` | e-data-types
+`EList` | e-data-types
+`EMap` | e-data-types
+E collections | e-data-types
+E Tables | e-data-types
+Coordinate Spaces E | e-data-types
+capability-mediated IO | e-data-types
+File-object E | e-data-types
+URI expression E | e-data-types
+
+polymorphic operator | polymorphic-operator
+polymorphic operators | polymorphic-operator
+generic operator | polymorphic-operator
+free-function operator | polymorphic-operator
+operator delegates to method | polymorphic-operator
+eponymous method dispatch | polymorphic-operator
+covers higher layers defers to method | polymorphic-operator
+monkey-patch alternative | polymorphic-operator
+dunk-punch | polymorphic-operator
+cover-up the omission | polymorphic-operator
+
 ## MCP ambient authority landscape (mcp-landscape survey, 2026-06-11)
 
 MCP ambient authority | (see section: mcp-landscape--gateway-hosting-category)
