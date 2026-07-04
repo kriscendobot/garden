@@ -22,3 +22,9 @@ non-draft, +4345/-1 across 21 files. Per skills/pr-creation-flow § When to
 use, a cold PR opened by someone else runs the cleaner + panel stages after
 the fact (skip the build stage; un-draft is a no-op since it is already
 ready). The eyes reactji is already posted; do not re-react.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 13
+  claimed_at: 2026-07-04T16:00:19Z
