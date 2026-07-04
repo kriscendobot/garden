@@ -30,6 +30,88 @@ cadence_seconds() {
   esac
 }
 
+# --- Anchored wall-clock cadences (DST-aware, drift-free) --------------------
+# The interval cadences above fire `cad_s` seconds after the previous dispatch, so
+# a late tick shifts every future fire forward — fine for "every N hours", wrong
+# for "at 00:00 local every day". An ANCHORED cadence pins the fire to a wall-clock
+# time in a named IANA timezone:
+#
+#   daily-at-HH:MM-<TZ>        e.g. daily-at-00:00-America/Los_Angeles
+#
+# Due-ness is decided against the most recent anchor instant at-or-before now, and
+# last_dispatched is stamped to that ANCHOR (not to the actual fire time), so the
+# daily anchor never drifts even when a tick fires hours late — the next fire is
+# always computed forward from the intended schedule. Both the anchor and the
+# window math run through `date` with TZ set, so DST transitions are handled by the
+# zoneinfo database (a 23h/25h local day is spanned correctly).
+#
+# anchored_cadence <cadence>: on a match echoes "HH:MM TZ" and returns 0, else 1.
+# The TZ is everything after the first hyphen following HH:MM, so a zone that itself
+# contains a hyphen (Etc/GMT-5) survives — HH:MM never does.
+anchored_cadence() {
+  case "$1" in
+    daily-at-*)
+      local rest="${1#daily-at-}" hhmm tz
+      hhmm="${rest%%-*}"; tz="${rest#*-}"
+      case "$hhmm" in [0-2][0-9]:[0-5][0-9]) : ;; *) return 1 ;; esac
+      [ -n "$tz" ] && [ "$tz" != "$hhmm" ] || return 1
+      printf '%s %s\n' "$hhmm" "$tz"; return 0 ;;
+  esac
+  return 1
+}
+
+# anchor_epoch <now-epoch> <HH:MM> <TZ>: the most recent occurrence of HH:MM in TZ
+# at or before now, as a UTC epoch. Empty output + rc 1 on an unparseable TZ/time.
+anchor_epoch() {
+  local now="$1" hhmm="$2" tz="$3" today anchor
+  today="$(TZ="$tz" date -d "@$now" +%Y-%m-%d 2>/dev/null)" || return 1
+  [ -n "$today" ] || return 1
+  anchor="$(TZ="$tz" date -d "$today $hhmm" +%s 2>/dev/null)" || return 1
+  [ -n "$anchor" ] || return 1
+  # today's HH:MM has not occurred yet → step back to the previous local day's HH:MM
+  if [ "$anchor" -gt "$now" ]; then
+    anchor="$(TZ="$tz" date -d "$today $hhmm 1 day ago" +%s 2>/dev/null)" || return 1
+  fi
+  printf '%s\n' "$anchor"
+}
+
+# Decide whether a recurring schedule is due at `now`, given its last-dispatch
+# epoch, and print the last_dispatched STAMP (UTC ISO) to use on stdout — returning
+# 0 when due, 1 when not. Anchored cadences stamp the anchor instant (drift-free);
+# interval cadences stamp `now`. Used both before the CAS loop and on the in-loop
+# re-check, so the two paths cannot disagree on due-ness or on the stamp.
+schedule_due_stamp() {  # $1=cadence $2=last-epoch $3=now-epoch
+  local cad="$1" last="$2" now="$3" anc hhmm tz anchor cad_s
+  if anc="$(anchored_cadence "$cad")"; then
+    read -r hhmm tz <<<"$anc"
+    anchor="$(anchor_epoch "$now" "$hhmm" "$tz")" || return 1
+    [ -n "$anchor" ] && [ "$last" -lt "$anchor" ] || return 1
+    date -u -d "@$anchor" +%FT%TZ; return 0
+  fi
+  cad_s="$(cadence_seconds "$cad")"
+  [ $(( now - last )) -ge "$cad_s" ] || return 1
+  date -u -d "@$now" +%FT%TZ; return 0
+}
+
+# For an anchored daily cadence, echo the "prior 24 hours" window and Pacific-date
+# output path that the periodical it dispatches should cover, computed from the
+# anchor STAMP (so a late tick still covers the intended local day). Echoes four
+# space-separated fields: <win_start_iso> <win_end_iso> <pacific_date> <out_path>.
+# All wall-clock math is local-date arithmetic (not @epoch offsets) so a DST day is
+# spanned correctly. Empty output when the cadence is not an anchored daily one.
+anchored_window() {  # $1=cadence $2=anchor-stamp-iso
+  local cad="$1" stamp="$2" anc hhmm tz anchor adate ws pdate
+  anc="$(anchored_cadence "$cad")" || return 0
+  read -r hhmm tz <<<"$anc"
+  anchor="$(date -u -d "$stamp" +%s 2>/dev/null)" || return 0
+  adate="$(TZ="$tz" date -d "@$anchor" +%Y-%m-%d 2>/dev/null)" || return 0
+  ws="$(TZ="$tz" date -d "$adate $hhmm 1 day ago" +%s 2>/dev/null)" || return 0
+  pdate="$(TZ="$tz" date -d "$adate $hhmm 1 day ago" +%Y-%m-%d 2>/dev/null)" || return 0
+  printf '%s %s %s journal/periodicals/%s.md\n' \
+    "$(date -u -d "@$ws" +%FT%TZ)" "$(date -u -d "@$anchor" +%FT%TZ)" \
+    "$pdate" "${pdate//-//}"
+}
+
 # Rewrite a recurring schedule's frontmatter with a fresh last_dispatched stamp,
 # PRESERVING the optional preflight field. Both the dispatch path and the gated
 # (no-work) path go through this so the preflight: line is never dropped when the
@@ -198,18 +280,19 @@ for name in $(list_jobs "$DIR" schedules); do
   last_iso="$(sed -n 's/^last_dispatched:[[:space:]]*//p' "$f" | head -1)"
   prefix="$(sed -n 's/^job_basename_prefix:[[:space:]]*//p' "$f" | head -1)"
   preflight="$(sed -n 's/^preflight:[[:space:]]*//p' "$f" | head -1)"
-  cad_s="$(cadence_seconds "$cad")"
   last=0; [ -n "$last_iso" ] && last="$(date -u -d "$last_iso" +%s 2>/dev/null || echo 0)"
-  [ $(( now - last )) -ge "$cad_s" ] || continue
+  # Due-ness + the stamp to write come from schedule_due_stamp: interval cadences
+  # stamp `now`; anchored `daily-at-HH:MM-TZ` cadences stamp the anchor instant so
+  # the daily wall-clock time never drifts (DST-aware). Not due → skip the schedule.
+  stamp="$(schedule_due_stamp "$cad" "$last" "$now")" || continue
 
-  stamp="$(date -u -d "@$now" +%FT%TZ)"
   base="${prefix:-$name}-$(date -u -d "@$now" +%Y%m%d-%H%M%S)"
   for attempt in $(seq 1 50); do
     sync_clone "$DIR"
     # re-check due against the freshest state (another host may have dispatched)
     last_iso="$(sed -n 's/^last_dispatched:[[:space:]]*//p' "$DIR/schedules/$name" | head -1)"
     last=0; [ -n "$last_iso" ] && last="$(date -u -d "$last_iso" +%s 2>/dev/null || echo 0)"
-    [ $(( now - last )) -ge "$cad_s" ] || { log "$name no longer due; skip"; break; }
+    stamp="$(schedule_due_stamp "$cad" "$last" "$now")" || { log "$name no longer due; skip"; break; }
 
     body="$(sed '1,/^---$/d' "$DIR/schedules/$name")"
 
@@ -255,7 +338,24 @@ for name in $(list_jobs "$DIR" schedules); do
     fi
 
     mkdir -p "$DIR/$JOBS_TODO"
-    printf '%s\n' "$body" > "$DIR/$JOBS_TODO/$base.md"
+    # For an anchored daily cadence, prepend the concrete window + Pacific-date
+    # output path this fire covers, computed from the anchor stamp (drift-free), so
+    # the dispatched agent does not have to re-derive "prior 24 hours" from its own
+    # (possibly late) claim time. Interval cadences post the body verbatim.
+    win="$(anchored_window "$cad" "$stamp")"
+    if [ -n "$win" ]; then
+      read -r w_start w_end w_pdate w_out <<<"$win"
+      {
+        printf 'Scheduled dispatch context (computed by the scheduler at fire time):\n\n'
+        printf -- '- window_start: %s (UTC, inclusive)\n' "$w_start"
+        printf -- '- window_end: %s (UTC, exclusive)\n' "$w_end"
+        printf -- '- pacific_date: %s (the Pacific day this periodical covers)\n' "$w_pdate"
+        printf -- '- output: %s\n\n---\n\n' "$w_out"
+        printf '%s\n' "$body"
+      } > "$DIR/$JOBS_TODO/$base.md"
+    else
+      printf '%s\n' "$body" > "$DIR/$JOBS_TODO/$base.md"
+    fi
     # stamp last_dispatched in the same commit (preserving preflight:)
     write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$body"
     git -C "$DIR" add "$JOBS_TODO/$base.md" "schedules/$name"

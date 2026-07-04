@@ -16,13 +16,31 @@ board and stamps `last_dispatched` — atomically, so no host double-dispatches.
 
 Recurring (`cadence:`):
 ```
-cadence: weekly            # weekly | daily | hourly | <N>s | <N>m | <N>h | <N>d
+cadence: weekly            # interval: weekly | daily | hourly | <N>s | <N>m | <N>h | <N>d
+                           # anchored: daily-at-HH:MM-<TZ>  (DST-aware wall-clock, see below)
 last_dispatched: <ISO>     # stamped by the scheduler; the dispatch note
 job_basename_prefix: <p>   # dispatched job basename = <p>-<YYYYMMDD-HHMMSS>
 preflight: <script>        # OPTIONAL deterministic gate (see below)
 ---
 <the task body to duplicate each period>
 ```
+
+Two cadence families. An **interval** cadence (`weekly`/`daily`/`hourly`/`<N>{s,m,h,d}`)
+fires `cad_s` seconds after the previous dispatch and stamps `last_dispatched` to
+the fire time, so a late tick drags every future fire forward — right for "every N
+hours", wrong for "at midnight local". An **anchored** cadence,
+`daily-at-HH:MM-<TZ>` (e.g. `daily-at-00:00-America/Los_Angeles`), pins the fire to
+a wall-clock `HH:MM` in a named IANA timezone: due-ness is decided against the most
+recent anchor instant at-or-before now, and `last_dispatched` is stamped to that
+**anchor** (not the actual fire time). So the daily wall-clock time never drifts
+even when a tick fires hours late — the next fire is always computed forward from
+the *intended* schedule — and DST transitions are handled by the zoneinfo database
+(a 23h/25h local day is spanned correctly). For an anchored daily cadence the
+scheduler also **prepends a computed context block** to the dispatched job body
+naming the `prior 24 hours` window (`window_start`/`window_end`, UTC) and the
+`pacific_date` + `journal/periodicals/<YYYY>/<MM>/<DD>.md` output path the fire
+covers, so the claiming agent need not re-derive the window from its own (possibly
+late) claim time. The `daily-progress-summary` periodical uses this cadence.
 
 The optional `preflight:` field names a script (resolved relative to
 `scripts/jobs/`, passed the schedule name) the scheduler runs in plain code when
