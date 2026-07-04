@@ -1,1 +1,7 @@
 `scripts/jobs/journal-worktree-keeper.sh` (`keep_journal_worktree`) checks `rev-parse --git-dir` and then calls `journal_fetch "$JW"`, but it never verifies the worktree still has an `origin` remote. When `remote.origin.url` is absent — the exact condition that wedged the fleet on 2026-07-03 — `journal_fetch` fails, the keeper logs "offline?" and returns, leaving the root cause unrepaired every 30m tick. Add an explicit guard before the fetch: if `git -C "$JW" config --get remote.origin.url` is empty, re-add origin from `$JOURNAL_REMOTE` (or the persisted canonical URL from the companion job) via `git -C "$JW" remote add origin <url>`, log a REPAIRED line, and proceed. This makes the keeper — the one service already responsible for the journal worktree's health — the deterministic repair point for a dropped origin, so the fleet recovers on the next ~30m tick instead of waiting hours for an agent self-heal responder.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 14
+  claimed_at: 2026-07-04T03:22:18Z
