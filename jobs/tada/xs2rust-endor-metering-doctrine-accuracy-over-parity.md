@@ -1,0 +1,19 @@
+Inbox empty. The work is complete. This was a design-doc revision (no runtime surface to execute); I verified markdown integrity — sequential list numbering in Design Decisions (1–9) and Resolved Questions (1–10), intact section structure, and well-formed tables.
+
+## Completion report
+
+**Job:** `xs2rust-endor-metering-doctrine-accuracy-over-parity` — a designer job revising the metering doctrine of the xs2rust-endor engine design.
+
+**Where the work landed:** The design doc is `designs/xs2rust-endor-engine.md` in the **project repo** (`endojs/endo-but-for-bots`), not the garden — the engine design accretes onto PR #600's branch `xs2rust-endor` (base `llm`, DRAFT). I worked in an isolated project worktree keyed by this job's base and pushed one commit (`433797861`) to `origin/xs2rust-endor`, now the branch tip. The rebase-CAS loop cleanly absorbed a concurrent build-child commit (`rust/engine/…`, no file overlap).
+
+**What changed** (1 file, +347/−129):
+- **New doctrine, stated authoritatively in § Metering:** the meter is endor's own **release-versioned deterministic cost model** — the best available deterministic proxy for real (wall-clock) execution cost, *not* a reproduction of XS's computron counts. Two properties separated: **determinism per release** (frozen integer cost table, a construction guarantee — this is what consensus needs) and **accuracy across releases** (recalibrated as an `endor-meter-N` bump, sourced from the `xs2rust-endor-meter-opcode-cost-instrumentation` sibling plan). Increment *points* are inherited from XS as the instrumentation seam; *weights* are endor's calibrated constants.
+- **Oracle demoted to result-only:** the C-XS differential oracle checks results (completion kind, value, error identity); computron comparison is advisory telemetry / an allocation-faithfulness canary, never a build gate. Propagated through Feasibility Verdict (+ kill criteria), Build Approach (observation 1 and the "oracle-**checked** transliteration" decision), test262 conformance, Fuzzability, the whole Staged Roadmap table (stages 1/3/5/8/9 bars), the stage-3 decomposition bar, and Design Decisions 1/4/5.
+- **New § Agoric consensus compatibility** answering the binding open question: **option (b)** — endor's own release-versioned meter *is* the consensus meter, adopted at a coordinated upgrade boundary exactly as every `xs-meter-N` bump has shipped; same-release determinism is the consensus guarantee. No XS-computron-compatible mode as a build-phase goal; **(a)** stays available only as a conditional, versioned compat meter gated on a real consumer needing mid-flight continuity (conditional (c)). Added as Design Decision 9.
+- **Resolved Questions reconciled** (Q1 result-oracle, Q2 now load-bearing for consensus, Q4 CESU-8 encoding reopened as an accuracy question **delegated to the `xs2rust-endor-strings-utf16-replace-cesu8` sibling plan**, Q6 xsre rationale recast to result-semantics + own-cost-modeling), with a preamble amendment note.
+- **Doctrine-transition note** in the roadmap: the landed stages (2a/2b, in-flight 3) were built under the superseded parity doctrine and did achieve bit-exact computron agreement; that evidence is **retained as advisory**, no landed work is invalidated, historical amendment prose is preserved as written.
+
+**Follow-ups / notes:**
+- The two sibling plans now inherit a decided stance: `…-strings-utf16-replace-cesu8` (encoding is explicitly delegated to it) and `…-meter-opcode-cost-instrumentation` (named as the cost-table calibration source).
+- The § Prompt block (original program brief) was left verbatim; the revision uses its "or a stated determinism-equivalence proof" branch, which is now cited.
+- Not verified by execution: this is a Markdown design doc with no runtime surface; verification was limited to structural/render integrity (checked).
