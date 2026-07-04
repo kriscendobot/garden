@@ -7,3 +7,9 @@ Two scoped changes:
 2. Defense in depth in `scripts/jobs/common.sh` `journal_remote()` (lines 490–494): the journal worktree is a worktree of the *same* garden repo, so when `git -C "$GARDEN_ROOT/journal" config --get remote.origin.url` fails, fall back to `git -C "$GARDEN_ROOT" config --get remote.origin.url` before `die`. This keeps orchestrate (and other `journal_remote()` callers) resilient to a transiently-broken standing worktree rather than FATAL-ing.
 
 Verify: with a worktree whose `.git` points at a nonexistent gitdir, a keeper tick relinks it and a subsequent `orchestrate.sh` tick resolves the journal remote and no longer FATALs.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 10
+  claimed_at: 2026-07-04T03:04:03Z

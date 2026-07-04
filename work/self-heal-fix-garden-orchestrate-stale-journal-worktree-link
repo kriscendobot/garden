@@ -1,0 +1,4 @@
+host: endolinbot2
+gardener: 10
+claimed_at: 2026-07-04T03:04:03Z
+worktree_dir: /home/kris/worktrees/self-heal-fix-garden-orchestrate-stale-journal-worktree-link
