@@ -13796,3 +13796,12 @@ deploy user Worker | (see section: cloudflare-w4p--platform-examples--deploy-and
 Upload User Worker API | (see section: cloudflare-w4p--platform-examples--deploy-and-manage)
 assets-upload-session | (see section: cloudflare-w4p--platform-examples--static-assets)
 delete Workers by tag | (see section: cloudflare-w4p--platform-examples--list-and-delete)
+athanor | athanor
+pi-agent | athanor
+pi-mono | athanor
+local model serving | local-model-serving
+MLX | athanor
+mlx_lm.server | athanor
+GGUF | athanor
+llama.cpp | athanor
+stable per-model port | athanor
