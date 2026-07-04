@@ -16,3 +16,9 @@ library context-efficiency audit so future research stays context-cheap:
 
 Deliverable: the set of posted split/index jobs, or a `tada` report stating the
 library is within budget and fully indexed.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 3
+  claimed_at: 2026-07-04T16:50:17Z
