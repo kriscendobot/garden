@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-04T04:20:34Z_
+_As of 2026-07-04T04:22:18Z_
 
 ## Latest
 
-The XS→Rust (Endor) port [PR #600](https://github.com/kriskowal/garden/pull/600) dominates the board: stage-3b child 5/9 (the global string→id intern table plus Object statics) is in progress alongside a fresh press job to drive the chain toward endor integration and a green daemon. Notably, a dead-lettered orchestrator message has escalated a **doctrine-vs-gate conflict** to the maintainer: design change 433797861 demoted computron-vs-C-XS metering from a gate to advisory telemetry, but the test262 runner's `DualRun::is_bit_exact` still gates computrons — so no child can ship the doctrine's "result-correct + advisory-divergent" path without breaking the divergent=0 charter. A decision is owed: update `is_bit_exact` to match the new doctrine (unlocking option-b across the fleet, including the stalled bind bound-fn allocation cluster) or keep the port computron-exact and treat the design doc as forward-looking. Separately, a scheduler-improvement job closed as already-implemented (preflight surfacing was verified present).
+Little moved on the board this cycle: the only transition was another xs2rust-endor press tick completing in observe-and-defer mode (no push — the build chain is healthy and still active), with stage-3b child 5/9 (global string→id intern table plus Object statics) the sole job in flight.
+
+The item worth a maintainer's attention isn't a job transition but a [dead-lettered ruling escalation](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260704T033624Z-f6deea.md) on the XS→Rust (Endor) port: design change 433797861 ("metering doctrine: accuracy over parity") demoted computron-vs-C-XS from a gate to advisory telemetry, but the test262 runner's `DualRun::is_bit_exact` still gates on computrons — so the doctrine and the actual gate disagree. Until `is_bit_exact` is updated, no child can ship the doctrine's "result-correct + advisory-divergent computrons" path without breaking the divergent=0 charter, which is holding up the option-b work including the bind bound-fn allocation cluster at the metering-calibration wall. The gardener answered the child operationally (keep computron-exact-or-honest-skip) but flagged the underlying doctrine-vs-gate mismatch as a call only you can make.
+
+Nothing on the parked-PR shelf advanced; the 27 PRs awaiting review are unchanged, led by [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (voice input) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays).
 
 ## Parked for maintainer feedback
 
@@ -49,17 +53,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`xs2rust-endor-build-stage3b-object-statics-intern`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-object-statics-intern.md) — Builder: stage-3b child 5/9 — global string→id intern table + Object statics/...
-- [`xs2rust-endor-press-20260704-042004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260704-042004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (1127)
+### tada (1128)
+- [`xs2rust-endor-press-20260704-042004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260704-042004.md) — Press tick complete — **observe-and-defer, no push; the build chain is health...
 - [`deadmail-20260704T040350Z-7004f3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260704T040350Z-7004f3.md) — Completion report
 - [`xs2rust-endor-build-stage3b-fundamentals-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-fundamentals-followup.md) — Completion report
 - [`improve-scheduler-surface-missing-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-surface-missing-preflight.md) — I've verified the full picture. This job's requested feature is **already imp...
 - [`xs2rust-endor-press-20260704-033505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260704-033505.md) — Observe-and-defer tick complete: the xs2rust-endor chain is healthy and activ...
-- [`deadmail-20260704T032953Z-2c9dd2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260704T032953Z-2c9dd2.md) — Completion report
-- … and 1122 more
+- … and 1123 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
