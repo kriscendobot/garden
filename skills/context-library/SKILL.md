@@ -12,12 +12,16 @@ The conventions below optimize for the agent's path: arrive at the right
 document quickly, descend only when an abstract justifies it, and abandon the
 trail when an abstract makes clear the branch is wrong.
 
-This skill is canonical for any directory under the journal (the `journal2`
-branch, directory `journal/`) that aspires to be browsable as context:
-`journal/projects/`, `journal/agents/`, and any future tree a doc-growth job
-grows. Role and skill files in the garden library (`main2`) are written for the
-same reader (an agent reading them at claim time), but their layout is fixed by
-the library README; this skill does not retroactively reshape them.
+This skill is canonical for two context trees on two branches, same discipline:
+the journal trees (the `journal2` branch, directory `journal/`) that aspire to be
+browsable as context — `journal/projects/`, `journal/agents/`, and any future
+tree a doc-growth job grows — **and the `context/` tree on `main2`** (the
+garden's operator manual for agents: `context/first-run/`, `context/operations/`;
+see `context/README.md`). Both obey this same discipline; they differ only in
+branch and audience (per-instance research vs. shipped-with-code operator
+procedure). Role and skill files in the garden library (`main2`) are written for
+the same reader (an agent reading them at claim time), but their layout is fixed
+by the library README; this skill does not retroactively reshape them.
 
 ## When to use
 
