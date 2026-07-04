@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6078 (525 parent indexes + 5553 children).
+Total section files: 6086 (525 parent indexes + 5561 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -241,6 +241,23 @@ Total section files: 6078 (525 parent indexes + 5553 children).
 
 - [agoric-sdk--security--coordinated-vulnerability-disclosure](agoric-sdk--security--coordinated-vulnerability-disclosure.md)
 - [agoric-sdk--security--supported-versions](agoric-sdk--security--supported-versions.md)
+
+### athanor--agents
+
+- [athanor--agents--invariants](athanor--agents--invariants.md)
+- [athanor--agents--layout-and-state](athanor--agents--layout-and-state.md)
+
+### athanor--context-arch-map
+
+- [athanor--context-arch-map--architecture-map](athanor--context-arch-map--architecture-map.md)
+
+### athanor--readme
+
+- [athanor--readme--mlx-capabilities-and-flavor-routing](athanor--readme--mlx-capabilities-and-flavor-routing.md)
+- [athanor--readme--overview](athanor--readme--overview.md)
+- [athanor--readme--pi-agent-sync](athanor--readme--pi-agent-sync.md)
+- [athanor--readme--registry-and-stable-ports](athanor--readme--registry-and-stable-ports.md)
+- [athanor--readme--supervisor-and-observability](athanor--readme--supervisor-and-observability.md)
 
 ### cask--allocator-design
 
