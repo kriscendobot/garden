@@ -1,25 +1,25 @@
 # Garden bulletin
 
-_As of 2026-07-04T04:28:08Z_
+_As of 2026-07-04T16:44:36Z_
 
 ## Latest
 
-The XS→Rust (Endor) port's stage-3b build chain is the main thing moving: its fundamentals-followup child completed and work is now in flight on child 5/9 (`xs2rust-endor-build-stage3b-object-statics-intern`, the global string→id intern table plus Object statics). Successive press ticks this hour report the chain healthy and active under observe-and-defer, with no pushes made. Elsewhere, the `improve-scheduler-surface-missing-preflight` job closed as a no-op — the requested preflight surfacing already exists — and no job-board posts, claims, or PR-touching completions resolved since the last bulletin.
+A streamlined-onboarding design landed and was already amended per kriskowal's review ([design](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-streamlined-onboarding.md)); its implementation is now decomposed into an orchestration job with four parked child builds (launcher image-guard, context tree, vocab/tutorial wiring, and a README/CLAUDE.md slim-down). On the fork side, the gauntlet for [endojs/endo-but-for-bots#604](https://github.com/endojs/endo-but-for-bots/pull/604) ran to completion. Two garden-infra fixes closed out: the journal-worktree-keeper stale-registration repair and a scholar study answering kriskowal/garden issue #24. Freshly claimed and in flight are a hardening of `garden-issue-inbox` against a severed journal linkage, a new issue #25, and the next XS→Rust stage-3b child. No PRs are awaiting review changes beyond the parked queue.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 1d)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 4d)
-- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 7d)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 2d)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4d)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 5d)
+- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 8d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 18d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 43d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 43d)
-- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 44d)
-- [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) — feat(cbor-frame): add @endo/cbor-frame package for CBOR byte-string framing (waiting 43d)
+- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 45d)
 - [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 44d)
+- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 52d)
 
-_Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 (no pending maintainer messages)
@@ -28,16 +28,18 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`harden-garden-issue-inbox-journal-linkage`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/harden-garden-issue-inbox-journal-linkage.md) — Build: make garden-issue-inbox resilient to a severed journal linkage
+- [`issue-kriskowal-garden-25`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-25.md) — Issue from kriskowal on kriskowal/garden #25
 - [`xs2rust-endor-build-stage3b-object-statics-intern`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-object-statics-intern.md) — Builder: stage-3b child 5/9 — global string→id intern table + Object statics/...
 
-### tada (1128)
-- [`xs2rust-endor-press-20260704-042004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260704-042004.md) — Press tick complete — **observe-and-defer, no push; the build chain is health...
-- [`deadmail-20260704T040350Z-7004f3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260704T040350Z-7004f3.md) — Completion report
-- [`xs2rust-endor-build-stage3b-fundamentals-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-fundamentals-followup.md) — Completion report
-- [`improve-scheduler-surface-missing-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-surface-missing-preflight.md) — I've verified the full picture. This job's requested feature is **already imp...
-- [`xs2rust-endor-press-20260704-033505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260704-033505.md) — Observe-and-defer tick complete: the xs2rust-endor chain is healthy and activ...
-- … and 1123 more
+### tada (1133)
+- [`mention-endojs-endo-but-for-bots-604-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mention-endojs-endo-but-for-bots-604-gauntlet.md) — Completion report — run the gauntlet #604 (endojs/endo-but-for-bots)
+- [`issue-kriskowal-garden-24`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-24.md) — Completion report — issue-kriskowal-garden-24: scholar study of MylesBorins/a...
+- [`fix-journal-worktree-keeper-stale-registration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-journal-worktree-keeper-stale-registration.md) — Completion report
+- [`design-streamlined-onboarding`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-streamlined-onboarding.md) — Completion report: design-streamlined-onboarding
+- [`amend-onboarding-design-feedback`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/amend-onboarding-design-feedback.md) — Amended designs/streamlined-onboarding.md per the maintainer's review and pus...
+- … and 1128 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
