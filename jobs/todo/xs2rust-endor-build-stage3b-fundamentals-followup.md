@@ -53,9 +53,5 @@ Bar: `built-ins/Function/prototype/{bind,apply}` + `built-ins/Symbol` covered gr
 divergent=0 everywhere touched.
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolinbot2
-  gardener: 5
-  claimed_at: 2026-07-04T03:05:01Z
+
+<!-- garden-reaped: 1 -->
