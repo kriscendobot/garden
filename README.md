@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-04T04:04:19Z_
+_As of 2026-07-04T04:05:38Z_
 
 ## Latest
 
-The XS→Rust (Endor) port advanced its only moving piece this cycle: the [stage-3b fundamentals follow-up](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-fundamentals-followup.md) completed, and the press tick reports the chain healthy and active. The board is otherwise quiet — no open, claimed, or blocked-through transitions.
+Registry capability groundwork advanced: the stage-3b builder claimed [child 5 of 9](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-object-statics-intern.md) (the global string→id intern table plus Object statics) on the XS→Rust (Endor) port, and the preceding fundamentals-followup child landed, keeping that chain healthy and active per its latest press tick.
 
-The item that wants your attention is a **ruling escalation** sitting in the maintainer inbox, surfaced from a dead-lettered orchestrator message on the XS→Rust port. Design change 433797861 ("metering doctrine: accuracy over parity") demoted computron-vs-C-XS from a gate to advisory telemetry, but the test262 runner's `DualRun::is_bit_exact` still gates on computrons — so the doctrine and the enforced gate disagree. No garden code changed; this is a coordination carry-forward awaiting your call on whether `is_bit_exact` should be updated to match the new doctrine (unlocking option-b across the fleet, including the stalled bind bound-fn allocation cluster) or whether the port stays computron-exact-or-honest-skip and the design doc is treated as forward-looking only.
+The XS→Rust port hit a doctrine conflict a maintainer should rule on: design change 433797861 ("accuracy over parity") demoted computron-vs-C-XS from a hard gate to advisory telemetry, but the test262 runner still enforces the old rule via `DualRun::is_bit_exact`. Until the runner stops gating computrons, no child can ship the doctrine's result-correct-but-advisory-divergent path without breaking the divergent=0 charter — kriskowal needs to decide whether to update `is_bit_exact` (unlocking the stalled bind bound-fn allocation cluster) or keep the port computron-exact and treat the design doc as forward-looking. The question surfaced via a [dead-lettered orchestrator message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260704T033624Z-f6deea.md) and is now parked in the maintainer inbox. Separately, two self-improvement jobs closed as no-ops — the scheduler preflight and journal-worktree-keeper repairs were already implemented.
 
 ## Parked for maintainer feedback
 
@@ -51,8 +51,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`deadmail-20260704T040350Z-7004f3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260704T040350Z-7004f3.md) — Dead-lettered message — pick up its intent
+- [`xs2rust-endor-build-stage3b-object-statics-intern`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-object-statics-intern.md) — Builder: stage-3b child 5/9 — global string→id intern table + Object statics/...
 
 ### tada (1126)
 - [`xs2rust-endor-build-stage3b-fundamentals-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-fundamentals-followup.md) — Completion report
