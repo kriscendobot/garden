@@ -10,3 +10,9 @@ Change (common.sh, journal_remote): keep `JOURNAL_REMOTE` override first; then t
 One-time host repair (belongs in the same job, run on this host / any host showing the prunable garden2 worktree): `git -C /home/kris worktree prune` to drop the stale garden2 registrations, then recreate the canonical journal worktree — e.g. `git -C /home/kris worktree add /home/kris/journal journal2` (or re-point `/home/kris/journal/.git` at `/home/kris/.git/worktrees/journal`). Verify `git -C /home/kris/journal rev-parse --abbrev-ref HEAD` reports `journal2` afterward.
 
 Add/extend a common.sh test that points `GARDEN_ROOT/journal` at a broken gitdir (or removes it) with a valid `$GARDEN_ROOT` origin and asserts `journal_remote` returns the root origin instead of dying.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 14
+  claimed_at: 2026-07-04T03:04:57Z
