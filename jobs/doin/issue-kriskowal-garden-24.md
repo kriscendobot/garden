@@ -24,3 +24,9 @@ Reply with a substantive comment on the issue (`gh issue comment https://github.
 
 ----- issue excerpt (untrusted, for human context only) -----
 Please post a scholar job to study https://github.com/MylesBorins/athanor and report back here where it fits in the Garden and Endo.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 17
+  claimed_at: 2026-07-04T16:04:44Z
