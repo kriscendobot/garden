@@ -33,9 +33,4 @@ do NOT edit or push — complete the job as a clean no-op, noting the peer
 resolution. Exit 0 = proceed with the work. (Any other exit fails open →
 proceed; the push CAS is still the backstop.)
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolinbot2
-  gardener: 11
-  claimed_at: 2026-07-04T16:45:43Z
+<!-- garden-reaped: 1 -->
