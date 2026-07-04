@@ -5,3 +5,9 @@ Two-part hardening for the dangling `$GARDEN_ROOT/journal` worktree that makes e
 2. Repair (not just skip) in `scripts/jobs/journal-worktree-keeper.sh` `keep_journal_worktree()` (line 234): when `git -C "$JW" rev-parse --git-dir` fails, detect a dangling worktree link and attempt an idempotent repair — `git -C "$GARDEN_ROOT" worktree prune` to drop the stale garden2 registrations, then `git -C "$GARDEN_ROOT" worktree repair "$JW"` (or, if the `.git` file is unrecoverable, re-create it: `rm` the broken `$JW/.git` and `git -C "$GARDEN_ROOT" worktree add --force "$JW" "$JOURNAL_BRANCH"` after backing up any uncommitted content per the existing lossless-backup discipline). Log the repair; only page the maintainer if it can't re-establish a valid worktree. This gives the keeper — the script that already owns `$GARDEN_ROOT/journal` health — ownership of a parent-checkout-removal orphan, instead of silently skipping while pollers crash-loop.
 
 Note for the implementer: the live host also needs the one-shot repair applied (`git -C /home/kris worktree prune && git -C /home/kris worktree repair /home/kris/journal`, verifying `git -C /home/kris/journal config --get remote.origin.url` then resolves) to break the current crash-loop; part 2 makes that automatic going forward.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 15
+  claimed_at: 2026-07-04T03:04:46Z
