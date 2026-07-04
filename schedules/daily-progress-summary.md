@@ -5,18 +5,34 @@ job_basename_prefix: daily-progress-summary
 
 # Daily midnight Pacific progress summary
 
-A periodical that fires every day at 00:00 America/Los_Angeles (DST-aware),
-dispatched into a [journalist](../../roles/journalist/AGENT.md) subagent. The
-journalist reads journal entries from the prior 24 hours, summarizes progress
-across every project (not just one), and writes the summary as a periodical.
+Act as the [journalist](../../roles/journalist/AGENT.md) with purpose
+`daily-progress-summary` (see that role's § Daily progress summaries). Write one
+daily progress-summary periodical covering the prior 24 hours across every project,
+then commit it to `journal2`.
 
-Scope is intentionally everything: dispatches, results, ticks, messages,
-worktree-lifecycle entries. The journalist's `daily-progress-summary` purpose
-handles partitioning the input by project and by activity kind.
+1. **Window.** If the scheduler prepended a "Scheduled dispatch context" block
+   above (it does once the anchored `daily-at-00:00-America/Los_Angeles` cadence is
+   deployed), use its `window_start`, `window_end`, `pacific_date`, and `output`
+   verbatim. Otherwise fall back to the Pacific day that most recently closed:
+   window `[<pacific_date> 00:00, next-day 00:00)` in America/Los_Angeles, and
+   `output = journal/periodicals/<YYYY>/<MM>/<DD>.md` keyed by that `pacific_date`.
+2. **Read.** Every entry under `journal/entries/<YYYY>/<MM>/<DD>/` whose `ts:` is
+   in `[window_start, window_end)` (a UTC window can straddle two day-directories;
+   scan both and filter by `ts:`), plus the board transitions in the window
+   (`jobs/{todo,doin,tada}` moves from `git -C journal log --since=... --until=...`).
+   Scope is intentionally everything: dispatches, results, ticks, messages, and
+   worktree-lifecycle entries alike.
+3. **Write.** One abstract-first periodical at `output`, partitioned by project
+   (the `project:` slug; one section per project with any entry, plus a garden-meta
+   section for untagged entries) and, within each, by activity kind. Do not skip a
+   project for having only a couple of entries. Cite sources by relative path;
+   paraphrase, do not copy. House style applies (no em-dashes in prose, no Latin
+   shorthand, relative paths). Commit and push the one file with the usual CAS; if
+   the file already exists for that Pacific date, overwrite it (the periodical is a
+   function of the window, so a re-run is idempotent).
 
-Recurrence anchors to local midnight Pacific: the next fire is always computed
-forward from the *intended* schedule, so a late firing does not shift the daily
-anchor, even across DST transitions.
+Deliverable: the periodical file committed to `journal2`, or (empty window) a
+one-line periodical saying nothing moved. No board writes, no upstream actions.
 
 ---
 Translated from v1 `schedule/garden/20260513T070000Z--5a93f9.md`
@@ -26,3 +42,9 @@ The v1 trigger/short-id/fired machinery is dropped: v2 schedules are recurring
 specs keyed by cadence, not pre-computed per-fire event files. The v1 periodicals
 output tree is archived under `legacy/v1/periodicals/`. The v1 original is
 retained on `journal-v1` and `origin/journal`.
+
+The cadence is `daily` for now and flips to the anchored, DST-aware
+`daily-at-00:00-America/Los_Angeles` (which the scheduler learned on main2 commit
+85a1cd8e6) once that scheduler change is deployed to the leader host. Flipping it
+before deploy would make the running pre-deploy scheduler treat the unknown cadence
+token as its weekly default.
