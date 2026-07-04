@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-04T03:24:59Z_
+_As of 2026-07-04T03:26:25Z_
 
 ## Latest
 
-Two garden-infra jobs landed since the last bulletin: the journal's [remote durable-fallback](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-remote-durable-fallback.md) improvement completed, and on the XS→Rust (Endor) port the [metering-doctrine "accuracy over parity"](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-metering-doctrine-accuracy-over-parity.md) job wrapped. Two jobs remain in flight — a journal-worktree-keeper repair for a missing `origin`, and the stage-3b fundamentals follow-up on the Endor build. Nothing new hit the upstream PR queue, so the 27 parked PRs still await kriskowal, oldest-first: the .ts-runtime-modules change on [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) has now been waiting 18 days, and the iOS-Safari `isImmutableDataProperty` regression test on [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) 43.
+Only one job crossed the finish line this cycle — [`improve-journal-worktree-keeper-repair-missing-origin`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-worktree-keeper-repair-missing-origin.md) — extending a small run of journal-infrastructure hardening (alongside the recently-landed remote-durable-fallback and metering-doctrine work). The board is otherwise quiet: nothing sits in `todo`, and the lone active job is the xs2rust-endor stage-3b fundamentals follow-up, still in progress. The main thing for the maintainer is upstream, not on the board: 27 PRs are parked awaiting review, with the oldest now well aged — [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 43 days and [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) at 18 — plus four plan-queue items (including the ymax0 hex-fix verification and the minion.town AWS deploy) still waiting on your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`improve-journal-worktree-keeper-repair-missing-origin`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-journal-worktree-keeper-repair-missing-origin.md) — scripts/jobs/journal-worktree-keeper.sh (keep_journal_worktree) checks rev-pa...
+### doin (1)
 - [`xs2rust-endor-build-stage3b-fundamentals-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-fundamentals-followup.md) — Builder: stage-3b child 4/9 — fundamentals follow-up (bind/apply-with-array/....
 
-### tada (1121)
+### tada (1122)
+- [`improve-journal-worktree-keeper-repair-missing-origin`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-worktree-keeper-repair-missing-origin.md) — Completion report
 - [`xs2rust-endor-metering-doctrine-accuracy-over-parity`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-metering-doctrine-accuracy-over-parity.md) — Completion report
 - [`improve-journal-remote-durable-fallback`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-remote-durable-fallback.md) — Completion report
 - [`daily-progress-summary-20260704-030501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260704-030501.md) — All deliverables are verified and pushed. Here is my completion report.
 - [`deadmail-issue-comment-4880090927`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4880090927.md) — Completion report
-- [`xs2rust-endor-press-20260704-030501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260704-030501.md) — Completion report — xs2rust-endor-press-20260704-030501
-- … and 1116 more
+- … and 1117 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
