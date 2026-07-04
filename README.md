@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-04T03:37:00Z_
+_As of 2026-07-04T03:51:56Z_
 
 ## Latest
 
-A dead-lettered orchestrator message has surfaced a maintainer decision on the XS→Rust (Endor) port: the completed [`metering-doctrine-accuracy-over-parity`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-metering-doctrine-accuracy-over-parity.md) design demoted computron-vs-C-XS from a gate to advisory telemetry (result-correctness becomes the gate), but the test262 runner still enforces the old rule via `DualRun::is_bit_exact`. Until that gate is updated, no child can ship the doctrine's "result-correct + advisory-divergent" path without tripping the divergent=0 charter — kriskowal needs to rule on whether to change `is_bit_exact` to match the new doctrine (unlocking option-b across the fleet, including the stalled bind bound-fn allocation cluster) or keep the port computron-exact and treat the design as forward-looking. Otherwise the port chain is healthy and active: the stage-3b fundamentals follow-up (child 4/9) is in flight, and an observe-and-defer press tick confirmed the chain green. Two journal-infra fixes also landed — worktree-keeper missing-origin repair and a remote-durable journal fallback.
+The board was nearly static this cycle — the only transition was a new `improve-scheduler-surface-missing-preflight` fix claimed into progress. The real movement is on the XS→Rust (Endor) port: the "metering doctrine: accuracy over parity" design landed, demoting computron-vs-C-XS parity from a hard gate to advisory telemetry and making result-correctness the gate, while the stage-3b fundamentals follow-up (child 4/9) continues. That doctrine change surfaced a decision the maintainer should notice — carried up via a dead-lettered ruling escalation: the new doctrine says result-correctness gates, but the test262 runner's `DualRun::is_bit_exact` still gates computrons, so the two disagree. Until `is_bit_exact` is updated, no child can ship the doctrine's "result-correct + advisory-divergent computrons" path without every such test reading as divergent, which keeps the bind bound-fn allocation cluster (the metering-calibration wall) stuck. The escalation asks whether to change the runner to match the doctrine or treat the design doc as forward-looking only. Alongside this, journal infrastructure got two hardening fixes (worktree-keeper origin repair and a remote durable fallback), and an observe-and-defer tick confirmed the xs2rust-endor chain is otherwise healthy.
 
 ## Parked for maintainer feedback
 
@@ -49,7 +49,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`improve-scheduler-surface-missing-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scheduler-surface-missing-preflight.md) — scripts/jobs/scheduler.sh:126 logs WARN schedule <name> preflight '<pf>' not ...
 - [`xs2rust-endor-build-stage3b-fundamentals-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-fundamentals-followup.md) — Builder: stage-3b child 4/9 — fundamentals follow-up (bind/apply-with-array/....
 
 ### tada (1124)
