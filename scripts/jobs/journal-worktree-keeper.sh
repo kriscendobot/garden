@@ -67,7 +67,20 @@
 # exits 1. `git -C $GARDEN_ROOT worktree repair $JW` rewrites both pointer files to
 # correct absolute paths; it is idempotent (a no-op when already healthy) and
 # lossless (it touches only the pointer files, never the tree), so this guard needs
-# none of the active-writer/backup gating the divergence path uses. Repair success
+# none of the active-writer/backup gating the divergence path uses.
+#
+# Defensive prune every tick (2026-07-04). A root relocation ALSO leaves a STALE
+# sibling worktree REGISTRATION behind — $GARDEN_ROOT/.git/worktrees/<name> whose
+# working tree is the vanished garden2/* path (`git worktree list` marks it
+# `prunable`). The recurrence bit twice in one day: a worktree whose gitdir CURRENTLY
+# RESOLVES but with a lingering stale registration was declared "already healthy" and
+# never pruned, so the stale entry survived; a later git op re-resolved the
+# cross-pointers onto it and re-broke the linkage within the hour. The keeper now runs
+# `git -C $GARDEN_ROOT worktree prune` UNCONDITIONALLY at the top of the guard, before
+# the health check — so a stale registration can never accumulate to be latched onto,
+# and the prune runs BEFORE `worktree repair` (the order that empirically makes the
+# fix stick). Prune only removes entries whose working tree is absent (never a live
+# worktree), so it is safe, idempotent, and cheap. Repair success
 # is gated on BOTH `rev-parse --git-dir` AND `config --get remote.origin.url`
 # resolving through the worktree — the failure surfaced as the gitdir dying AND the
 # downstream "no JOURNAL_REMOTE set and no origin", so a re-link that does not also
@@ -272,22 +285,33 @@ heal_diverged_worktree() {  # heal_diverged_worktree <jw> <ahead> <behind> <dirt
 jw_repair_gitdir() {  # jw_repair_gitdir <jw>
   local jw="$1" gd
   [ -d "$jw" ] || return 0
+  # DEFENSIVE PRUNE, every tick, BEFORE the health check (2026-07-04). A root
+  # relocation (/home/kris/garden2 -> /home/kris) leaves a STALE sibling worktree
+  # registration ($GARDEN_ROOT/.git/worktrees/* pointing at a now-absent path, shown
+  # as `prunable` by `git worktree list`). The dangerous case is a worktree whose
+  # gitdir currently RESOLVES yet a stale registration for the vanished path lingers:
+  # the early-return below would declare it healthy and never prune, then a later git
+  # op re-resolves the cross-pointers onto the stale entry and re-breaks the linkage
+  # (`fatal: not a git repository: …/garden2/.git/worktrees/journal`), FATAL-storming
+  # the whole fleet within the hour. A repair-only fix satisfies the early-return but
+  # leaves the stale registration to latch onto; empirically, pruning it FIRST is what
+  # makes the fix stick. Prune only ever removes entries whose working tree is absent
+  # (never a live worktree), so it is safe, idempotent, and cheap to run unconditionally.
+  git -C "$GARDEN_ROOT" worktree prune >/dev/null 2>&1 || true
   # Resolve the gitdir and confirm it exists; rev-parse emits a path relative to
   # $jw, so probe it with $jw as the base.
   if gd="$(git -C "$jw" rev-parse --git-dir 2>/dev/null)" \
      && [ -n "$gd" ] && ( cd "$jw" && [ -e "$gd" ] ); then
-    return 0   # already healthy — nothing to do
+    return 0   # already healthy — nothing to do (stale registrations already pruned above)
   fi
   # STEP 1 — the cheap fix: `git worktree repair` re-links both pointer files when a
   # matching admin entry still exists (the root MOVED but its admin dir survived).
-  # Gate the success on the linkage actually resolving afterward, not repair's exit
-  # code (repair can exit 0 without fixing an unrelated breakage).
+  # The unconditional `worktree prune` at the top of this function has already
+  # dropped any stale garden2/* sibling registration, so repair now re-links against
+  # only the surviving admin entry — the prune-BEFORE-repair order that empirically
+  # makes the fix stick. Gate the success on the linkage actually resolving afterward,
+  # not repair's exit code (repair can exit 0 without fixing an unrelated breakage).
   git -C "$GARDEN_ROOT" worktree repair "$jw" >/dev/null 2>&1 || true
-  # Drop the stale admin registrations (e.g. abandoned garden2/* entries) a root
-  # relocation leaves behind, whether or not the repair above succeeded, so they
-  # stop accumulating. Best-effort — prune only ever removes entries whose working
-  # tree is gone, so a live worktree is never touched.
-  git -C "$GARDEN_ROOT" worktree prune >/dev/null 2>&1 || true
   # Gate success on BOTH the gitdir resolving AND origin being readable through the
   # worktree: the observed failure is `git -C $JW …` dying "not a git repository"
   # AND the downstream "no JOURNAL_REMOTE set and no origin on $GARDEN_ROOT/journal"

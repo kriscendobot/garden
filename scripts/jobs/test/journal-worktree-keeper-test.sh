@@ -441,6 +441,66 @@ grep -qiF "active writer" <<<"$OUT" && ok "logged the active-writer rebuild defe
 [ "$(alert_count)" -eq 0 ] && ok "NO page on a transient active writer" || bad "paged on an active writer"
 
 # ============================================================================
+hr; echo "HEALTHY GITDIR + STALE SIBLING REGISTRATION — pruned on the healthy path"; hr
+# The recurrence that bit TWICE on 2026-07-04: the journal worktree's gitdir CURRENTLY
+# RESOLVES (so the old early-return declared it 'already healthy' and pruned nothing),
+# but a STALE sibling worktree registration for a now-absent path (the relocated
+# garden2/journal signature) still lingers in `git worktree list` as `prunable`. A
+# later git op can re-latch onto that stale entry and re-break the whole linkage. The
+# keeper must prune the stale registration EVEN on the healthy path, while leaving the
+# live worktree untouched and healthy. This case FAILS before the defensive-prune fix
+# (the early-return skipped the prune) and passes after it.
+rm -rf "$TR"; mkdir -p "$TR/state"
+git init -q --bare "$UP"
+SEED="$TR/seed"; git init -q "$SEED"
+git -C "$SEED" checkout -q -b journal2
+printf 'a\n' > "$SEED/f"
+git -C "$SEED" add -A; git -C "$SEED" "${git_id[@]}" commit -q -m c1
+git -C "$SEED" remote add origin "$UP"; git -C "$SEED" push -q -u origin journal2
+git -C "$UP" symbolic-ref HEAD refs/heads/journal2
+rm -rf "$SEED"
+ROOT="$TR/root"                                  # stands in for $GARDEN_ROOT
+git clone -q "$UP" "$ROOT"
+git -C "$ROOT" checkout -q --detach
+git -C "$ROOT" "${git_id[@]}" worktree add -q "$ROOT/journal" journal2
+write_alert_stub
+# Keep the live tree clean so this case isolates the stale-registration prune (an
+# untracked file would send the tree down the unrelated divergence self-heal path).
+# Manufacture a STALE sibling registration: add a second worktree, then remove its dir
+# so its admin entry becomes `prunable` (its working tree is absent) — exactly the
+# garden2/* leftover a root relocation strands behind.
+git -C "$ROOT" "${git_id[@]}" worktree add -q --detach "$TR/stale-sibling" >/dev/null 2>&1
+rm -rf "$TR/stale-sibling"
+# The live journal worktree's OWN gitdir RESOLVES (untouched) — the old early-return
+# fires here, so the pre-fix keeper never reaches a prune.
+git -C "$ROOT/journal" rev-parse --git-dir >/dev/null 2>&1 \
+  && ok "fixture: live journal gitdir resolves (old early-return path)" \
+  || bad "fixture: journal gitdir should resolve"
+git -C "$ROOT" worktree list 2>/dev/null | grep -q prunable \
+  && ok "fixture: a stale sibling registration reports 'prunable'" \
+  || bad "fixture: expected a prunable stale sibling registration"
+before_head="$(git -C "$ROOT/journal" rev-parse HEAD)"
+run_keeper GARDEN_ROOT="$ROOT" GARDEN_JOURNAL_WORKTREE="$ROOT/journal"
+[ "$RC" -eq 0 ] && ok "exit 0 on the healthy-path stale-registration prune" || bad "exit $RC"
+if git -C "$ROOT" worktree list 2>/dev/null | grep -q prunable; then
+  bad "stale sibling registration STILL present after the tick (not pruned on the healthy path)"
+else
+  ok "stale sibling registration pruned even though the live gitdir resolved"
+fi
+if git -C "$ROOT" worktree list 2>/dev/null | grep -qF "$TR/stale-sibling"; then
+  bad "the absent-path registration lingers in 'git worktree list'"
+else
+  ok "the absent-path registration is gone from 'git worktree list'"
+fi
+git -C "$ROOT/journal" rev-parse --git-dir >/dev/null 2>&1 \
+  && ok "live journal worktree still healthy after the prune" || bad "live worktree broken after prune"
+[ "$(git -C "$ROOT/journal" rev-parse HEAD 2>/dev/null)" = "$before_head" ] \
+  && ok "live worktree HEAD untouched by the prune" || bad "live worktree HEAD unexpectedly changed"
+[ -z "$(git -C "$ROOT/journal" status --porcelain 2>/dev/null)" ] \
+  && ok "live worktree left clean by the prune" || bad "live worktree perturbed by the prune"
+[ "$(alert_count)" -eq 0 ] && ok "no maintainer page on a healthy-path prune" || bad "paged on a healthy-path prune"
+
+# ============================================================================
 hr
 echo "journal-worktree-keeper-test: $PASS passed, $FAIL failed"
 rm -rf "$TR"
