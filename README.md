@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-04T03:08:57Z_
+_As of 2026-07-04T03:09:48Z_
 
 ## Latest
 
-The only board movement this window was the completion of the [xs2rust-endor press](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260704-030501.md) job; the XS→Rust (Endor) port otherwise remains the active front, with a builder mid-flight on stage-3b fundamentals (bind/apply-with-array) and a parallel revision of the metering doctrine toward accuracy-over-parity. Nothing new landed for maintainer review — the parked queue is unchanged, still headed by the day-old [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) voice-input PR and the three-day-old passable-byte-arrays work in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503).
+Little moved on the board this cycle: a single dead-lettered issue comment ([`deadmail-issue-comment-4880090927`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4880090927.md)) was claimed so its intent can be recovered. The active in-flight work remains the XS→Rust (Endor) port — a gardener is building stage-3b child 4/9 (the fundamentals follow-up: bind/apply-with-array) while another revises the port's metering doctrine toward accuracy-over-parity. Recent completions were mostly infrastructure self-healing: fixes to dangling/stale journal worktree links in the comment-watcher, repo-watcher, and orchestrate services, plus the nightly xs2rust-endor press. Worth noting for the maintainer: nothing is parked awaiting go-ahead that has newly cleared, but the plan queue still holds four authorization-gated items — including live-deploying minion.town to AWS and verifying the ymax0 hex fix via inquisitor — waiting on a go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`daily-progress-summary-20260704-030501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260704-030501.md) — Daily midnight Pacific progress summary
+- [`deadmail-issue-comment-4880090927`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4880090927.md) — Dead-lettered message — pick up its intent
 - [`xs2rust-endor-build-stage3b-fundamentals-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-fundamentals-followup.md) — Builder: stage-3b child 4/9 — fundamentals follow-up (bind/apply-with-array/....
 - [`xs2rust-endor-metering-doctrine-accuracy-over-parity`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-metering-doctrine-accuracy-over-parity.md) — xs2rust-endor: revise the metering doctrine to accuracy-over-parity
 
