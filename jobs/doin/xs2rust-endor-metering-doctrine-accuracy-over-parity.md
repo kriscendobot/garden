@@ -60,3 +60,9 @@ Ideally this doctrine is settled before those two are built, so they inherit a d
 stance rather than each re-litigating it.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 16
+  claimed_at: 2026-07-04T03:13:07Z
