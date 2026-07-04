@@ -8,7 +8,7 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 
 | Topic | Abstract | Sections |
 |-------|----------|----------|
-| [llm-agent-frameworks](llm-agent-frameworks.md) | External LLM-application / agent frameworks ingested as cross-cutting reference: LangChain (the agent framework: create_agent harness, standard cross-provider model interface, tool calling, retrieval/RAG, memory) and LangGraph (the low-level orchestration runtime: nodes/edges over a reducer-merged State, Pregel super-steps, checkpointer persistence, durability modes, time travel, human-in-the-loop). | 56 |
+| [llm-agent-frameworks](llm-agent-frameworks.md) | External LLM-application / agent frameworks ingested as cross-cutting reference: LangChain (the agent framework: create_agent harness, standard cross-provider model interface, tool calling, retrieval/RAG, memory) and LangGraph (the low-level orchestration runtime: nodes/edges over a reducer-merged State, Pregel super-steps, checkpointer persistence, durability modes, time travel, human-in-the-loop). | 57 |
 | [agent-conventions](agent-conventions.md) | Repository-specific instructions written for AI agents working in a project; agent-security threat-class definitions; business-agent + reputation-system foundations. | 67 |
 | [chat-ui](chat-ui.md) | Familiar Chat — the web-based keyboard-first UI for the Endo daemon; UI invariants, principles, and component designs. | 70 |
 | [repository-governance](repository-governance.md) | Contribution rules, security policy, commit conventions, repository structure. | 58 |
