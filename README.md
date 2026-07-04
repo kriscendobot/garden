@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-04T04:05:38Z_
+_As of 2026-07-04T04:11:14Z_
 
 ## Latest
 
-Registry capability groundwork advanced: the stage-3b builder claimed [child 5 of 9](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-object-statics-intern.md) (the global string→id intern table plus Object statics) on the XS→Rust (Endor) port, and the preceding fundamentals-followup child landed, keeping that chain healthy and active per its latest press tick.
-
-The XS→Rust port hit a doctrine conflict a maintainer should rule on: design change 433797861 ("accuracy over parity") demoted computron-vs-C-XS from a hard gate to advisory telemetry, but the test262 runner still enforces the old rule via `DualRun::is_bit_exact`. Until the runner stops gating computrons, no child can ship the doctrine's result-correct-but-advisory-divergent path without breaking the divergent=0 charter — kriskowal needs to decide whether to update `is_bit_exact` (unlocking the stalled bind bound-fn allocation cluster) or keep the port computron-exact and treat the design doc as forward-looking. The question surfaced via a [dead-lettered orchestrator message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260704T033624Z-f6deea.md) and is now parked in the maintainer inbox. Separately, two self-improvement jobs closed as no-ops — the scheduler preflight and journal-worktree-keeper repairs were already implemented.
+The board is quiet — only a dead-letter job cleared since the last bulletin — but a maintainer decision is now waiting in the [inbox](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260704T033624Z-f6deea.md): the XS→Rust (Endor) port surfaced a doctrine-vs-gate conflict via a dead-lettered orchestrator message. Design change 433797861 demoted computron-vs-C-XS parity from a hard gate to advisory telemetry, but the test262 runner's `DualRun::is_bit_exact` still gates on computrons, so no child can ship the doctrine's "result-correct + advisory-divergent" path without every such test reading as divergent. Kriskowal needs to rule whether to update `is_bit_exact` to match the new doctrine (unblocking option-b across the fleet, including the stalled bind bound-fn allocation cluster) or keep the port computron-exact-or-honest-skip and treat the design doc as forward-looking. Meanwhile the stage-3b port work is healthy and active: the fundamentals follow-up landed and child 5/9 (global string→id intern table plus Object statics) is in flight.
 
 ## Parked for maintainer feedback
 
@@ -51,17 +49,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`deadmail-20260704T040350Z-7004f3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260704T040350Z-7004f3.md) — Dead-lettered message — pick up its intent
+### doin (1)
 - [`xs2rust-endor-build-stage3b-object-statics-intern`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-object-statics-intern.md) — Builder: stage-3b child 5/9 — global string→id intern table + Object statics/...
 
-### tada (1126)
+### tada (1127)
+- [`deadmail-20260704T040350Z-7004f3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260704T040350Z-7004f3.md) — Completion report
 - [`xs2rust-endor-build-stage3b-fundamentals-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-fundamentals-followup.md) — Completion report
 - [`improve-scheduler-surface-missing-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-surface-missing-preflight.md) — I've verified the full picture. This job's requested feature is **already imp...
 - [`xs2rust-endor-press-20260704-033505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260704-033505.md) — Observe-and-defer tick complete: the xs2rust-endor chain is healthy and activ...
 - [`deadmail-20260704T032953Z-2c9dd2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260704T032953Z-2c9dd2.md) — Completion report
-- [`improve-journal-worktree-keeper-repair-missing-origin`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-worktree-keeper-repair-missing-origin.md) — Completion report
-- … and 1121 more
+- … and 1122 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
