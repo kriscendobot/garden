@@ -18,7 +18,10 @@
 
 # The shared journal remote (the serialization point) and branch. If
 # JOURNAL_REMOTE is empty we derive it from the canonical journal worktree's
-# origin. For tests, set JOURNAL_REMOTE to a local bare repo.
+# origin, and — when that worktree is dangling/absent — fall back to the shared
+# root checkout's origin ($GARDEN_ROOT), since journal2 and main2 live in the
+# same repo and share one remote (see journal_remote). For tests, set
+# JOURNAL_REMOTE to a local bare repo.
 : "${JOURNAL_REMOTE:=}"
 # The message-bus / job-board branch. Directory is `journal`; branch is `journal2`.
 : "${JOURNAL_BRANCH:=journal2}"
