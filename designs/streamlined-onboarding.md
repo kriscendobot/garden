@@ -1,7 +1,7 @@
 ---
 created: 2026-07-04
 updated: 2026-07-04
-author: designer (job design-streamlined-onboarding)
+author: designer (job design-streamlined-onboarding); amended per maintainer review (job amend-onboarding-design-feedback)
 ---
 
 # Streamlined onboarding: clone → `./garden` → "help"
@@ -34,9 +34,18 @@ The entire operational README becomes:
    one-time auto-mode acknowledgment) happen here, prompted by the tools
    themselves, not by README instructions.
 3. **Say `help`.** The liaison runs the interactive first-run tutorial (§ 2):
-   it checks identity, authenticates the bot, brings up the fleet, arms the
-   monitors, and posts your first job — asking before each step and running
-   the commands itself.
+   it checks identity, authenticates the bot, **starts the garden** — the
+   units, the worker pool, leadership, its own monitors — and posts your
+   first job, asking before each consequential step and running every
+   command itself. "Start the garden" is the conversational name for the
+   whole bring-up (§ 2.2 stage 4); nothing in it is a command a human is
+   expected to type.
+
+Bare `./garden` needs **no environment variables** — every default is
+satisfactory. Naming an instance (needed only when running more than one) is
+one line before the first run: `echo petunias > .garden`. The equivalent
+convenience form `GARDEN=petunias ./garden` does the same thing through an
+env var (§ 1.1).
 
 What remains on the human side that no agent can do: having Docker, having a
 Claude subscription (or API key), owning a bot GitHub account, and clicking
@@ -45,9 +54,21 @@ residue (§ 4).
 
 ### 1.1 Launcher changes (`./garden`)
 
-`cmd_enter` gains three behaviors, all at the launcher layer (host-side), none
-in the image:
+`cmd_enter` gains four behaviors at the launcher layer (host-side); the exec
+change also has an image-side half (see the exec bullet):
 
+- **Identity from `.garden`, zero required environment variables.** Bare
+  `./garden` works with satisfactory defaults and no env vars. The launcher
+  today only *writes* the gitignored `.garden` file at container creation; it
+  now also **reads** it: when present, the shard identity — and the container
+  name and `--hostname` derived from it — come from the file. The
+  streamlined, preferred way to name an instance is therefore
+  `echo petunias > .garden` before the first run. The belt-and-suspenders
+  convenience form `GARDEN=petunias ./garden` stays supported: it sets the
+  container hostname **and** writes `.garden`, so the container is built and
+  named from that identity either way — the env var is sugar over the file,
+  and the file is the documented default. (`GARDEN_CONTAINER` /
+  `GARDEN_HOSTNAME` remain as expert overrides.)
 - **Auto-build.** If the image is missing, run `cmd_build` instead of erroring
   ("run `garden build` first" disappears from the human's path; `./garden
   build` remains for explicit rebuilds).
@@ -80,10 +101,15 @@ in the image:
   ```
 
   `bash -l` loads `/etc/profile.d/garden.sh` (PATH), then `exec` replaces the
-  shell with `claude` as the foreground process on the allocated tty. A new
-  subcommand **`./garden shell`** preserves the debugging escape hatch: it is
-  today's behavior verbatim (`/bin/bash -l`, no claude). `./garden claude`
-  could alias the default for symmetry but is not required.
+  shell with `claude` as the foreground process on the allocated tty — no
+  extra step, no shell in between. A new subcommand **`./garden sh`**
+  preserves the debugging escape hatch: it is today's enter behavior verbatim
+  (`/bin/bash -l`, no claude). This lands as changes to **both the `garden`
+  script and the `Dockerfile`**: the wrapper owns the exec and the `sh`
+  subcommand; the image owns the half the exec relies on — the claude CLI
+  install and the PATH wiring (today `/etc/profile.d/garden.sh`) — adjusted
+  as needed so `exec claude` works on a bare enter (§ 6, phase 1).
+  `./garden claude` could alias the default for symmetry but is not required.
 
 ### 1.2 `exec claude` placement: the enter wrapper, not the image
 
@@ -114,7 +140,8 @@ sessions the container guard exists to catch — run permissionless as the
 maintainer's identity. The flag, by construction, applies only to the session
 the enter wrapper launches inside the container.
 
-Blast-radius analysis (open question, surfaced with a recommendation):
+Blast-radius analysis (recorded for the record; the default itself is
+resolved, § 5 Q2):
 
 - The **ceiling is already set by the fleet.** Every headless handler
   (`gardener-claude.sh` and peers) runs `claude -p
@@ -134,15 +161,15 @@ Blast-radius analysis (open question, surfaced with a recommendation):
   contract, § 2.3) — rather than by permission prompts that the tutorial
   would otherwise turn into dozens of nags.
 
-**Recommendation:** bypass is the default launch mode (it is what "auto mode"
-asks for, and the tutorial is unusable under prompt-per-command); the
-conservative alternative — `--permission-mode acceptEdits` plus a seeded
-allowlist for `scripts/jobs/*` — is documented in
+**Default (maintainer-confirmed):** bypass is the default launch mode (it is
+what "auto mode" asks for, and the tutorial is unusable under
+prompt-per-command); the conservative alternative — `--permission-mode
+acceptEdits` plus a seeded allowlist for `scripts/jobs/*` — is documented in
 `context/first-run/auth.md` for a user who wants prompts, reachable via
-`./garden shell` + a hand-launched `claude`. Claude Code's own one-time
+`./garden sh` + a hand-launched `claude`. Claude Code's own one-time
 bypass acknowledgment (a single keystroke on first launch) is the explicit
 opt-in moment and stays; the README does not document it because the tool
-prompts for it. **Maintainer decision requested** on this default (§ 5, Q2).
+prompts for it. **Resolved: auto mode is the default** (§ 5, Q2).
 
 ### 1.4 First-run auth with fewest commands
 
@@ -174,19 +201,23 @@ like the branch-op verbs — but it is **liaison-session vocabulary only**, neve
 a job the comment watchers recognize (a tutorial is a conversation, not a
 board entry). Wiring, resolving the open question by doing both halves:
 
-- **CLAUDE.md**: one row in the § Orchestrator vocabulary table (*help* /
-  *help &lt;topic&gt;* → run the onboarding tutorial / answer from `context/`),
+- **CLAUDE.md**: two rows in the § Orchestrator vocabulary table (*help* /
+  *help &lt;topic&gt;* → run the onboarding tutorial / answer from `context/`;
+  *start the garden* → perform the starting stage, § 2.2 stage 4),
   and one sentence appended to the session preflight: after
   `check-in-container.sh`, if the instance looks **virgin** (no rendered
   `garden-*` units in `~/.config/systemd/user/`), greet with "this garden
-  isn't set up yet — say **help** and I'll walk you through it." The probe is
+  isn't set up yet — say **help** for the guided tour, or **start the
+  garden** and I'll set it up." The probe is
   one `ls`; the preflight stays cheap. Order is fixed: guard first (a
   host-side "help" must be answered with the guard warning and `./garden`,
   not with a tutorial that would arm the wrong fleet), virgin-probe second.
-- **`roles/liaison/AGENT.md`**: a new § Help (vocabulary) section defining the
-  two forms — bare **help** (run the tutorial track, § 2.2) and **help
+- **`roles/liaison/AGENT.md`**: a new § Help (vocabulary) section defining
+  three forms — bare **help** (run the tutorial track, § 2.2), **help
   &lt;topic&gt;** (walk `context/` per its routing README and answer; offer to
-  *do* whatever the answer prescribes). The seeded SessionStart hook (§ 1.1)
+  *do* whatever the answer prescribes), and **start the garden** (perform the
+  starting stage directly, § 2.2 stage 4, for the user who wants motion, not
+  a tour). The seeded SessionStart hook (§ 1.1)
   makes the guard automatic even before CLAUDE.md is read, so the two
   preflight vehicles reconcile rather than compete.
 
@@ -208,28 +239,33 @@ source of truth, and the interaction norms live in its README. Stages:
 2. **Identity.** Confirm we are in-container (guard already ran); read
    `.garden`; ask the one question only the human can answer — "is this name
    unique among your running garden instances?" — and on collision offer the
-   rename/parallel-pool moves (`./garden reset` + `GARDEN_CONTAINER=…`, or
-   `GARDEN=<unique>`), running them on approval.
+   rename (`./garden reset`, write the new name to `.garden`, re-run
+   `./garden`; `GARDEN=<unique> ./garden` is the equivalent convenience form,
+   § 1.1), running the moves on approval.
 3. **Bot credentials.** Check `gh auth status` and `.ssh/`. Missing pieces:
    generate the key, print the public half and wait while the human adds it
    to the **bot** account, run `gh auth login` and relay the device code.
    Verify by whoami-ing the wrapper.
-4. **Fleet bring-up.** `loginctl enable-linger`, `install-units.sh install` +
-   `enable-services`, `set-gardeners.sh <N>` (default 100, explaining that
-   idle-blocked workers are cheap), `set-main-host.sh <this>` on a first/only
-   host. Verify: no failed `garden-*` units.
-5. **Arm the liaison's own monitors.** Leader-marker watch (every host),
-   maintainer-inbox Monitor + deploy-on-upgrade Monitor (leader only) — the
-   liaison arms these in its own session and explains what each will surface.
-6. **Optional armings.** Issue inbox (`set-garden-repo.sh` +
-   `add-maintainer.sh` — explaining this is the deliberate arming act) and
-   the bulletin PAT (human-only clicks; hand over
-   `docs/bulletin/SETUP.md` and offer to verify the result).
-7. **First job.** Offer to post a small real job, watch it cross
+4. **Starting the garden.** The conversational pivot: the liaison says "say
+   **start the garden** when you're ready" (or the user already said it — the
+   verb jumps straight here, § 2.1). The liaison then performs the whole
+   bring-up itself: enable linger, install and enable the units, size the
+   worker pool (default 100, explaining that idle-blocked workers are cheap),
+   designate the leader on a first/only host, arm its own Monitors
+   (leader-marker watch on every host; maintainer-inbox and deploy-on-upgrade
+   on the leader), and offer the optional armings (the issue inbox, whose
+   repo + allowlist writes are the deliberate arming act; the bulletin PAT
+   with its human-only clicks, via `docs/bulletin/SETUP.md`) — asking before
+   each consequential step, verifying after (no failed `garden-*` units), and
+   narrating what each piece will surface. The individual commands are
+   deliberately absent from this stage's prose: they are agent-facing detail
+   in `context/operations/starting.md` (§ 3.2) that the liaison reads and
+   executes on demand, never a checklist a human is expected to run by hand.
+5. **First job.** Offer to post a small real job, watch it cross
    `todo/ → doin/ → tada/`, and read the report back — teaching the board's
    shape and the core verbs (*design*, *build*, *run the gauntlet*, *defer*,
    *promote*) with the vocabulary table as reference.
-8. **Where to go next.** `help <topic>`, the control surfaces, and the
+6. **Where to go next.** `help <topic>`, the control surfaces, and the
    README's conceptual §§ 2–3 for the architecture tour.
 
 On an **already-armed** instance, bare `help` skips to a status summary
@@ -270,7 +306,7 @@ different branch), rather than forking the discipline.
 
 | Tree | Branch | Holds | Does not hold |
 | --- | --- | --- | --- |
-| **`context/`** (new) | `main2` | How to operate *any* garden instance: bring-up, identity, auth, scaling, leadership, deploy, schedules, health. Ships with the code, so procedure and script version together. | Per-instance state or history; architectural rationale; imported material; procedures already encoded as skills (it routes to them). |
+| **`context/`** (new) | `main2` | How to operate *any* garden instance: starting the garden, identity, auth, scaling, leadership, deploy, schedules, health. Ships with the code, so procedure and script version together. | Per-instance state or history; architectural rationale; imported material; procedures already encoded as skills (it routes to them). |
 | `designs/` | `main2` | Why the machinery is shaped as it is — decision records. | Operator procedure. A context page links a design for rationale; a design links context for the how-to. |
 | `references/` | `main2` | Imported shelves from other gardens, browsed only by the liaison when nothing local fits. | Anything of ours. |
 | journal `library/` | `journal2` | Per-instance digested external sources plus the instance's transcript, plan, and board. | Garden-operation procedure — that would strand the how-to on one instance and desync it from the scripts it describes. |
@@ -290,32 +326,36 @@ context/
   README.md                     routing index: what this tree is, who reads it
                                 (the liaison, on demand), and the two children.
   first-run/
-    README.md                   the tutorial track: ordered stage list with
-                                one-line abstracts, plus the interaction norms
-                                (§ 2.3). Bare "help" starts here.
-    identity.md                 the GARDEN shard identity: .garden seeding,
-                                uniqueness check, rename and parallel-pool
-                                moves, why env vars don't reach user units.
+    README.md                   the tutorial track: ordered, conversational
+                                stage list with one-line abstracts, plus the
+                                interaction norms (§ 2.3). Bare "help" starts
+                                here; "start the garden" jumps to its stage.
+    identity.md                 the GARDEN shard identity: the .garden file as
+                                the one naming knob (echo name > .garden), the
+                                GARDEN=… ./garden convenience form as sugar
+                                over it, uniqueness check, rename and
+                                parallel-pool moves, why env vars don't reach
+                                user units.
     auth.md                     the three credentials (claude login / API key,
                                 bot ssh key, bot gh token): probes, the
                                 liaison-run halves, the human-only clicks;
                                 the conservative non-bypass launch variant.
-    fleet.md                    linger, install-units, enable-services,
-                                set-gardeners; what a healthy pool looks like.
-    leader.md                   set-main-host on a first host; what the leader
-                                marker gates (one-paragraph view, routes to
-                                operations/leader-follower.md for multi-host).
-    monitors.md                 the liaison's three Monitors — leader-marker
-                                watch (every host), maintainer inbox and
-                                deploy-on-upgrade (leader only) — commands,
-                                singleton rules, what each surfaces.
-    inboxes.md                  optional armings: issue inbox (repo +
-                                maintainer allowlist as the arming act),
-                                bulletin PAT (routes to docs/bulletin/SETUP.md).
     first-job.md                posting a first job; the board's states; the
                                 core verbs with pointers to the vocabulary.
   operations/
     README.md                   day-2 routing: pick by symptom or intent.
+    starting.md                 starting the garden, at command level: linger,
+                                install-units, enable-services, set-gardeners
+                                (what a healthy pool looks like),
+                                set-main-host on a first host (multi-host
+                                routes to leader-follower.md), the liaison's
+                                three Monitors and their singleton rules, the
+                                optional armings (issue inbox as the
+                                deliberate arming act; bulletin PAT, routing
+                                to docs/bulletin/SETUP.md). The substance
+                                behind tutorial stage 4 — agent-facing detail
+                                the liaison executes on demand, not a human
+                                checklist.
     leader-follower.md          multi-host: marker semantics, follower
                                 stand-up, the drain→stand-down→re-point
                                 handoff, no automatic failover.
@@ -330,10 +370,13 @@ context/
                                 one operator paragraph each.
 ```
 
-Twelve leaf pages, each a screenful, each opening with an abstract that is an
-exit criterion. `first-run/` is ordered (it is the tutorial); `operations/`
-partitions day-2 concerns by intent. The two children partition cleanly:
-"getting to a working fleet once" versus "operating one that exists". Growth
+Nine leaf pages, each a screenful, each opening with an abstract that is an
+exit criterion. `first-run/` is ordered and conversational (it is the
+tutorial); `operations/` holds the command-level detail — including
+everything "start the garden" runs. That split is deliberate: the tutorial
+stays a conversation, and the commands get exactly one agent-facing home
+(`operations/starting.md`) that serves the first run and any later re-start
+alike. Growth
 rule: a new operational topic lands as a new leaf with a README row, splitting
 a directory only when its README stops routing cleanly — per the skill.
 
@@ -349,12 +392,12 @@ through the tutorial.
 | README today | Disposition |
 | --- | --- |
 | § What you need | **Stays**, trimmed to the true human residue: Docker; a Claude subscription or API key; a bot GitHub account you control. |
-| § Build and enter the container (`build`/enter/`reset`) | **Replaced** by the three-step golden path; `./garden shell` and `./garden reset` stay as two lines of escape-hatch residue. Auto-build makes `build` an internal detail. |
-| Pick-a-unique-identity block (`GARDEN_CONTAINER=… GARDEN_HOSTNAME=…`) | → `context/first-run/identity.md` + tutorial stage 2. README keeps one sentence: "running more than one instance? the tutorial covers unique naming." |
+| § Build and enter the container (`build`/enter/`reset`) | **Replaced** by the three-step golden path; `./garden sh` and `./garden reset` stay as two lines of escape-hatch residue. Auto-build makes `build` an internal detail. |
+| Pick-a-unique-identity block (env-var forms) | → `context/first-run/identity.md` + tutorial stage 2, both leading with the `.garden` one-liner (`echo name > .garden`) and demoting the env-var forms to convenience sugar (§ 1.1). README keeps one sentence: "running more than one instance? name each with `echo <name> > .garden`; the tutorial covers uniqueness." |
 | § Give the bot its keys | → `context/first-run/auth.md` + tutorial stage 3. |
 | § Authenticate claude | → folded into golden-path step 2 (the tool prompts) + `auth.md`. |
-| § Bring up the fleet (the 4-command block, worker-count guidance, leader note, optional armings, maintainer-watch block) | → `context/first-run/{fleet,leader,monitors,inboxes}.md` + tutorial stages 4–6. |
-| § Mint the bulletin token | → `context/first-run/inboxes.md`; `docs/bulletin/SETUP.md` remains the click-by-click. |
+| § Bring up the fleet (the 4-command block, worker-count guidance, leader note, optional armings, maintainer-watch block) | Retitled **Starting the garden**: → `context/operations/starting.md` + tutorial stage 4. The liaison performs it when asked ("start the garden"); no human command checklist survives anywhere. |
+| § Mint the bulletin token | → `context/operations/starting.md` (optional armings); `docs/bulletin/SETUP.md` remains the click-by-click. |
 | § Health, pausing | → `context/operations/{health,scaling}.md`; `help <topic>` answers these live. |
 | § Key vocabulary | **Stays** — it is what the *human says*, not something Claude does on their behalf; it doubles as the tutorial's reference table. |
 | § 2 Control surfaces, § 3 How it works | **Stay** — conceptual orientation, the README's real job. Command snippets inside them (the plan/schedule verb block in § 3) move to `context/operations/schedules.md` with a link back. |
@@ -370,10 +413,10 @@ whole point of `context/`.
 
 | CLAUDE.md today | Disposition |
 | --- | --- |
-| Bring-up steps 1–8 | → `context/first-run/` (steps 1–4 → `identity/fleet/leader.md`; 5, 6, 8 → `monitors.md`; 7 → `inboxes.md`). CLAUDE.md keeps a three-line pointer: unique identity is sacred; the tutorial (`help`) or `context/first-run/` does the rest. |
+| § Bringing up local systemd services (steps 1–8) — the concept is retitled **Starting the garden** wherever it survives | Step 1 (identity) → `context/first-run/identity.md`; steps 2–8 → `context/operations/starting.md`. CLAUDE.md keeps a three-line pointer: unique identity is sacred; say *help* or *start the garden* and the liaison performs the rest; command detail lives in `context/`. |
 | § Leader and follower hosts (mechanics, singleton inventory, handoff) | → `context/operations/leader-follower.md` (procedure) beside [multibot-leader-follower](multibot-leader-follower.md) (rationale, already exists — the context page routes to it, not duplicates it). CLAUDE.md keeps the two standing behaviors the liaison must never drop: watch the marker on every host; singletons are leader-only. |
 | § Deliberate deploy | → `context/operations/deploy.md`; CLAUDE.md keeps two lines (root is a deployed version; deploy is signal-triggered and liaison-supervised). |
-| Issue-inbox arming (step 7 + the arming sentences in § Monitoring safety) | Procedure → `context/first-run/inboxes.md`. The **safety constraints stay in CLAUDE.md verbatim** — they are standing policy the liaison must hold in context, not operational detail. |
+| Issue-inbox arming (step 7 + the arming sentences in § Monitoring safety) | Procedure → `context/operations/starting.md` (optional armings). The **safety constraints stay in CLAUDE.md verbatim** — they are standing policy the liaison must hold in context, not operational detail. |
 | Gardener scaling / worker counts | → `context/operations/scaling.md`. |
 | § Racing a schedule change | → `context/operations/schedules.md` (which routes to `skills/schedule`); CLAUDE.md keeps the one-line verb mapping. |
 | § Host environment (identity resolution, container rename) | → `context/first-run/identity.md`; CLAUDE.md keeps the two-sentence definition of the `GARDEN` identity that the rest of the file references. |
@@ -389,20 +432,24 @@ routes into `context/operations/`.
    as the beaten path and `ANTHROPIC_API_KEY` as the silent alternative
    (§ 1.4). Confirm that ordering — the README residue names both in one
    sentence.
-2. **Auto-mode default.** Recommendation is `--dangerously-skip-permissions`
-   on the exec'd liaison session, matching the fleet's existing posture, with
-   the conservative acceptEdits variant documented but not defaulted
-   (§ 1.3). This is the design's one genuinely security-flavored default;
-   explicit sign-off requested.
-3. **`exec claude` placement.** Recommendation: the enter wrapper, per-exec;
-   `CMD` stays systemd (§ 1.2). Veto if you want `./garden` to land in a
-   shell by default with `claude` opt-in — the design argues the opposite.
+2. **Auto-mode default — Resolved: auto mode is the default** (maintainer
+   review, 2026-07-04). Bare `./garden` execs the liaison session with
+   `--dangerously-skip-permissions`, matching the fleet's existing headless
+   posture. Residual safety note, one line: the interactive liaison still
+   asks before consequential garden operations per the tutorial contract
+   (§ 2.3), and the conservative acceptEdits variant stays documented in
+   `context/first-run/auth.md` (via `./garden sh`), not defaulted.
+3. **`exec claude` placement — Resolved in substance by the same review:**
+   bare `./garden` enters claude directly and `./garden sh` is the opt-in
+   debug shell, so the shell-by-default alternative is off the table. The
+   wrapper-not-CMD placement stands as specified (§ 1.2).
 4. **`help` mechanics.** Recommendation: vocabulary row + virgin-instance
    greeting in CLAUDE.md, § Help in the liaison brief, guard-then-probe
    preflight order, no watcher-recognized `help` (§ 2.1).
 5. **Boundary confirmation.** `context/` (shipped, `main2`) versus journal
    library (per-instance, `journal2`) as drawn in § 3.1 — in particular that
-   bring-up procedure ships with the code rather than living journal-side.
+   the starting-the-garden procedure ships with the code rather than living
+   journal-side.
 6. **README depth.** § 4.1 keeps §§ 2–3 (surfaces, how-it-works) in the
    README as conceptual orientation. Alternative: move them to `context/`
    too and leave a near-empty README. The design recommends keeping them —
@@ -414,11 +461,19 @@ routes into `context/operations/`.
 Separate build jobs, ordered so each lands whole; the maintainer's review of
 this design gates the first.
 
-1. **Launcher + guard hook.** `./garden`: auto-build, `.claude/settings.json`
-   seeding (SessionStart guard hook), `exec claude --dangerously-skip-permissions`
-   on enter, `./garden shell`. CLAUDE.md § Container guard sentence. Testable
-   host-side without touching a live fleet.
-2. **`context/` tree.** Author the index plus twelve fragments (§ 3.2),
+1. **Launcher + image + guard hook.** Two files change, named explicitly:
+   the **`garden` script** — auto-build; `.garden`-file-first identity (bare
+   `./garden` with zero required env vars; `GARDEN=…` writes the same file,
+   § 1.1); `.claude/settings.json` seeding (SessionStart guard hook);
+   `exec claude --dangerously-skip-permissions` on bare enter; and the new
+   **`sh` subcommand** (interactive debug shell — today's enter behavior,
+   `/bin/bash -l`, no claude) — and the **`Dockerfile`** — the image-side
+   half of the direct-exec contract: the claude CLI install and the PATH
+   wiring the exec relies on (today `/etc/profile.d/garden.sh`), adjusted so
+   `exec claude` works on a bare enter (§ 1.1). Plus the CLAUDE.md
+   § Container guard sentence. Testable host-side without touching a live
+   fleet.
+2. **`context/` tree.** Author the index plus nine fragments (§ 3.2),
    migrating substance from README/CLAUDE.md per § 4 (content moves here
    first, while the sources still carry it). Amend
    `skills/context-library/SKILL.md` scope to cover `context/`.
