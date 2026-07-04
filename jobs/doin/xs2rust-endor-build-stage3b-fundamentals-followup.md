@@ -52,6 +52,8 @@ now unblocked by the landed Array machinery):
 Bar: `built-ins/Function/prototype/{bind,apply}` + `built-ins/Symbol` covered growth, dual-run
 divergent=0 everywhere touched.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
