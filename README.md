@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-04T03:35:42Z_
+_As of 2026-07-04T03:37:00Z_
 
 ## Latest
 
-Two jobs just moved into flight: a dead-lettered message was reclaimed for its intent, and a fresh press on the **xs2rust-endor** XS→Rust ("Endor") port to drive PR #600 toward Endor integration and a green daemon. That port remains the garden's dominant thread — stage-3b's fundamentals follow-up is still in progress, with opcode cost-instrumentation and a CESU-8→UTF-16 string-storage rework parked behind it. Recently landed work is mostly journal-infrastructure hardening (worktree-keeper origin repair, a durable journal-remote fallback) plus the metering-doctrine "accuracy over parity" decision on the port.
-
-Worth a maintainer's eye: the parked-for-review queue is deep (27 PRs), and several have aged past six weeks — [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (iOS Safari `isImmutableDataProperty` regression), [#186](https://github.com/endojs/endo-but-for-bots/pull/186) (eventual-send delegate ponyfill), [#266](https://github.com/endojs/endo-but-for-bots/pull/266) (opencode gap-closing design), [#288](https://github.com/endojs/endo-but-for-bots/pull/288) (cbor-frame), and [#329](https://github.com/endojs/endo-but-for-bots/pull/329) (the spackle pattern) have all waited 43–44 days, and [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules via erasable type syntax) is at 18.
+A dead-lettered orchestrator message has surfaced a maintainer decision on the XS→Rust (Endor) port: the completed [`metering-doctrine-accuracy-over-parity`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-metering-doctrine-accuracy-over-parity.md) design demoted computron-vs-C-XS from a gate to advisory telemetry (result-correctness becomes the gate), but the test262 runner still enforces the old rule via `DualRun::is_bit_exact`. Until that gate is updated, no child can ship the doctrine's "result-correct + advisory-divergent" path without tripping the divergent=0 charter — kriskowal needs to rule on whether to change `is_bit_exact` to match the new doctrine (unlocking option-b across the fleet, including the stalled bind bound-fn allocation cluster) or keep the port computron-exact and treat the design as forward-looking. Otherwise the port chain is healthy and active: the stage-3b fundamentals follow-up (child 4/9) is in flight, and an observe-and-defer press tick confirmed the chain green. Two journal-infra fixes also landed — worktree-keeper missing-origin repair and a remote-durable journal fallback.
 
 ## Parked for maintainer feedback
 
@@ -24,24 +22,43 @@ Worth a maintainer's eye: the parked-for-review queue is deep (27 PRs), and seve
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260704T033624Z-f6deea` — from gardener:deadmail-20260704T032953Z-2c9dd2, reply_to `deadmail-20260704T032953Z-2c9dd2` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260704T033624Z-f6deea.md)
+
+> Ruling escalation (surfaced via a dead-lettered orchestrator message on the XS→Rust port, PR #600).
+>
+> A stage-3b child asked its now-completed orchestrator to rule on a doctrine conflict, and I picked
+> up the dead-letter. I answered the child operationally (keep computron-exact-or-honest-skip), but
+> the underlying mismatch is a maintainer call:
+>
+>   The design change 433797861 ("metering doctrine: accuracy over parity") demoted
+>   computron-vs-C-XS from a gate to ADVISORY telemetry — result-correctness becomes the gate.
+>   BUT the test262 runner still enforces the old rule: DualRun::is_bit_exact gates computrons.
+>   So the doctrine and the actual gate disagree.
+>
+> Until is_bit_exact is updated to stop gating computrons, no child can ship the doctrine's
+> "result-correct + advisory-divergent computrons" path without every such test reading as
+> divergent (breaking the divergent=0 charter). Decision needed: do you want the runner's
+> is_bit_exact changed to match the new doctrine (unlocking option-b across the fleet, incl. the
+> bind bound-fn allocation cluster that's been the metering-calibration wall), or should the port
+> stay computron-exact-or-honest-skip and the design doc be treated as forward-looking only?
+>
+> No garden code changed for this job — it was a coordination/ruling carry-forward.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`deadmail-20260704T032953Z-2c9dd2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260704T032953Z-2c9dd2.md) — Dead-lettered message — pick up its intent
+### doin (1)
 - [`xs2rust-endor-build-stage3b-fundamentals-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-fundamentals-followup.md) — Builder: stage-3b child 4/9 — fundamentals follow-up (bind/apply-with-array/....
-- [`xs2rust-endor-press-20260704-033505`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260704-033505.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (1122)
+### tada (1124)
+- [`xs2rust-endor-press-20260704-033505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260704-033505.md) — Observe-and-defer tick complete: the xs2rust-endor chain is healthy and activ...
+- [`deadmail-20260704T032953Z-2c9dd2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260704T032953Z-2c9dd2.md) — Completion report
 - [`improve-journal-worktree-keeper-repair-missing-origin`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-worktree-keeper-repair-missing-origin.md) — Completion report
 - [`xs2rust-endor-metering-doctrine-accuracy-over-parity`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-metering-doctrine-accuracy-over-parity.md) — Completion report
 - [`improve-journal-remote-durable-fallback`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-remote-durable-fallback.md) — Completion report
-- [`daily-progress-summary-20260704-030501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260704-030501.md) — All deliverables are verified and pushed. Here is my completion report.
-- [`deadmail-issue-comment-4880090927`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4880090927.md) — Completion report
-- … and 1117 more
+- … and 1119 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
