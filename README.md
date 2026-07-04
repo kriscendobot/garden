@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T20:27:55Z_
+_As of 2026-07-04T03:06:01Z_
 
 ## Latest
 
-Quiet cycle: the only board transition was the completion of [`foreman-edge-trigger-on-job-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/foreman-edge-trigger-on-job-completion.md), which wires the foreman to edge-trigger on job completion rather than waiting for its next timer tick — tightening the latency between a finished job and the next promotion. The XS→Rust (Endor) port continues to be the fleet's center of gravity: stage-3b's BigInt child landed as [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) and the binary-data child (ArrayBuffer/TypedArray/DataView) is the sole job in flight, while the latest press tick was an observe-and-defer cycle under charter. Nothing new is parked for maintainer feedback since the last bulletin.
+The XS→Rust (Endor) port dominated the cycle: stage-3b builder children for binary data and BigInt both landed, the fundamentals follow-up (bind/apply-with-array) is now in progress, and a fresh press tick is driving [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) toward Endor integration and green daemon tests. A companion job also revises the port's metering doctrine toward accuracy-over-parity. Separately, a burst of infrastructure self-heal work is underway: five jobs are hardening the garden's own tooling against a dangling/stale `$GARDEN_ROOT/journal` worktree link that was tripping the comment-watcher, gardener-scaler, orchestrate, and repo-watcher services. Nothing new parked for maintainer review this cycle — the review queue is unchanged, still led by the voice-input chat PR ([endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101)) and the passable byte-arrays PR ([endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)).
 
 ## Parked for maintainer feedback
 
@@ -13,11 +13,11 @@ Quiet cycle: the only board transition was the completion of [`foreman-edge-trig
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 4d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 7d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 18d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 42d)
-- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 42d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 43d)
+- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 43d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 44d)
 - [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) — feat(cbor-frame): add @endo/cbor-frame package for CBOR byte-string framing (waiting 43d)
-- [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 43d)
+- [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 44d)
 
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
@@ -28,8 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (9)
+- [`daily-progress-summary-20260704-030501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260704-030501.md) — Daily midnight Pacific progress summary
+- [`deadmail-20260703T202026Z-8bcdb1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T202026Z-8bcdb1.md) — Dead-lettered message — pick up its intent
+- [`self-heal-fix-garden-comment-watcher-kriskowal-garden-journal-remote-dangling-worktree`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriskowal-garden-journal-remote-dangling-worktree.md) — Two-part hardening for the dangling $GARDEN_ROOT/journal worktree that makes ...
+- [`self-heal-fix-garden-gardener-scaler-journal-worktree-link-repair`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-scaler-journal-worktree-link-repair.md) — Add a lossless self-heal for a BROKEN journal-worktree link to scripts/jobs/j...
+- [`self-heal-fix-garden-orchestrate-stale-journal-worktree-link`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-orchestrate-stale-journal-worktree-link.md) — Root cause: the standing $GARDEN_ROOT/journal worktree has stale two-way git ...
+- [`self-heal-fix-garden-repo-watcher-journal-remote-root-origin-fallback`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-journal-remote-root-origin-fallback.md) — Harden journal_remote() in scripts/jobs/common.sh (lines 490-494) so a dangli...
+- [`xs2rust-endor-build-stage3b-fundamentals-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-fundamentals-followup.md) — Builder: stage-3b child 4/9 — fundamentals follow-up (bind/apply-with-array/....
 - [`xs2rust-endor-metering-doctrine-accuracy-over-parity`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-metering-doctrine-accuracy-over-parity.md) — xs2rust-endor: revise the metering doctrine to accuracy-over-parity
+- [`xs2rust-endor-press-20260704-030501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260704-030501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (1111)
 - [`xs2rust-endor-build-stage3b-binary`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-binary.md) — Completion report — xs2rust-endor-build-stage3b-binary (stage-3b binary data,...
