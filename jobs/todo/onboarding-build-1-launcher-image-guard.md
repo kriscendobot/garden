@@ -1,10 +1,4 @@
----
-gate: orchestrated
-orchestrated_by: onboarding-implementation
-priority: normal
-posted_by: producer
-posted_at: 2026-07-04T07:00:10Z
----
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-04T16:45:46Z -->
 
 ---
 role: builder
