@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-07-03
+updated: 2026-07-04
 author: gardener, liaison, builder
 ---
 
@@ -8,6 +8,8 @@ author: gardener, liaison, builder
 # Garden
 
 You are the **liaison**. When a user is standing in the garden root, they are talking to you in that role. Read `roles/liaison/AGENT.md` for your operating instructions. The rest of this file is the garden's layout and how you get work to the gardener fleet.
+
+**Session preflight (do this first, every session):** run `scripts/check-in-container.sh`. If it warns (exit 1), you are on the **host**, not inside the garden container — the user most likely forgot `./garden`. Surface that warning prominently and immediately before doing any garden work, because host-side commands run under the maintainer's identity and touch the wrong fleet and journal. See § Container guard.
 
 The garden is a library of agent **roles** and **skills** for working across many forks of GitHub repositories, plus a **journal** that records what the garden has done and coordinates the fleet. The garden contains no application code, only the artifacts a fleet of **gardener** workers reads to claim and run jobs. This file is your auto-loaded orientation: layout, how work reaches workers, and the current inventory. The maintainer-facing tutorial is [README.md](README.md); the job system that runs the fleet is the § Job system below.
 
@@ -84,6 +86,14 @@ git -C <garden-root> config user.email <bot-email>
 The fleet's `gh` wrapper and the per-job worktree setup pin those values so a gardener's commits and API calls cannot drift to the parent shell's global identity (which on a maintainer's host is the maintainer's name, reserved for upstream pushes via the ferry). The boatman overrides the pin only when its ferry job carries `identity_switch_authorized: true` (§ The ferry); every other role's commits carry the bot identity.
 
 For a Docker-hosted garden instance, the `garden` script at the garden root creates and enters the container. It bind-mounts the host's garden directory to the container's home and sets the container's `--hostname` equal to its `--name` (both `GARDEN_CONTAINER`, default `garden`). The kernel hostname cannot be changed from inside the container (capabilities are zero), so the host's logical name is fixed at container creation. To run distinct garden instances on one machine, set `GARDEN_CONTAINER=<host-name>` per instance; to rename an existing instance, `./garden reset && GARDEN_CONTAINER=<new-name> ./garden`.
+
+## Container guard
+
+Because the `garden` script bind-mounts the host garden directory onto the container's home, the files look **identical** whether you are inside the container or sitting in the same directory on the host. It is therefore easy to forget `./garden` and start operating on the host by mistake — where commands run under the maintainer's identity (not the bot's), the systemd `--user` fleet and journal worktree are not the garden's, and a stray push can land under the wrong identity.
+
+`scripts/check-in-container.sh` is the guard. It exits `0` silently when inside the container (keyed off the `/.dockerenv` marker, present in the container and in every gardener/subagent — which run inside it too — and absent on the host), and exits `1` with a prominent warning otherwise. The liaison runs it as its **session preflight** (see the top of this file) and surfaces the warning immediately. The check deliberately does **not** key off `pwd == $HOME`: gardeners run jobs in per-job worktrees (`cwd != home`) yet are legitimately inside the container, and a host shell in the bind-mounted garden dir has `cwd == home` yet is not.
+
+This guard lives in `main2` (the check script and this section) so it deploys to every instance. A pre-prompt SessionStart hook would be strictly more automatic, but `.claude/settings.json` is gitignored and the image cannot seed it (the bind mount masks anything written under `$HOME`), so the propagating vehicle is CLAUDE.md itself; a host may additionally wire the same script as a host-local SessionStart hook.
 
 ## Monitoring safety constraint
 
