@@ -39,3 +39,9 @@ Each leaf opens with an **abstract that is an exit criterion**, ~one screen. Hon
 ## Definition of done
 
 The nine-leaf `context/` tree + two directory READMEs + top README exist per § 3.2, each authored to the context-library discipline with exit-criterion abstracts and correct cross-links; migrated content is present (sources untouched); the context-library scope line covers `context/`. Push to main2; report the commit sha and the file list.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 1
+  claimed_at: 2026-07-04T16:55:29Z
