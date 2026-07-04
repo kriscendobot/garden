@@ -305,33 +305,43 @@ jw_repair_gitdir() {  # jw_repair_gitdir <jw>
 }
 
 # --- origin self-heal --------------------------------------------------------
-# Re-add a MISSING remote.origin.url on the worktree from the owning root's
-# origin, the same repo/remote the worktree tracks. This closes the transient
-# window where a one-worktree config gap — $JW loses remote.origin.url while
-# $GARDEN_ROOT keeps it — otherwise sends every git op that resolves the journal
+# Re-add a MISSING remote.origin.url on the worktree from the canonical journal
+# remote. This closes the transient window where a one-worktree config gap — $JW
+# loses remote.origin.url — otherwise sends every git op that resolves the journal
 # remote down the "no origin" fatal path, the 2026-07-03 15:50-15:51Z cascade that
 # FATAL-stormed every gardener/monitor/ci-watcher on claim at once. The keeper
 # already self-heals the worktree's BRANCH (fast-forward / diverged reset); this
 # heals its REMOTE the same way. Only acts when the worktree repo opens fine
 # (gitdir resolves — a pure config gap, NOT a dangling gitdir, which is
-# jw_repair_gitdir's job), origin is actually absent on $jw, and $GARDEN_ROOT
-# itself has an origin to copy. Idempotent + best-effort; a still-missing origin
-# falls through to the caller's own gate.
+# jw_repair_gitdir's job) and origin is actually absent on $jw.
+#
+# The URL comes from journal_remote (common.sh), the SAME canonical resolver every
+# other consumer uses, whose fallback order is: an explicit $JOURNAL_REMOTE ->
+# the worktree's own origin -> the persisted per-host cache ($JOURNAL_REMOTE_CACHE,
+# the companion job's last-good value, which survives a reset/deploy) -> the owning
+# $GARDEN_ROOT's origin. Reaching only into $GARDEN_ROOT (the prior implementation)
+# missed both an explicit $JOURNAL_REMOTE override AND the cache, so it could not
+# recover in the window where the root origin was momentarily gone too but the cache
+# still held the last-good URL. journal_remote may die() when nothing resolves at
+# all; the command substitution + `|| true` confine that exit to the subshell (and
+# 2>/dev/null suppresses its FATAL log), so a genuinely unresolvable remote leaves
+# the repair to the caller's own gate rather than killing the keeper.
+# Idempotent + best-effort.
 jw_ensure_origin() {  # jw_ensure_origin <jw>
-  local jw="$1" root_url
+  local jw="$1" url
   # Only a valid, openable repo missing ONLY its origin is our case: a broken
   # gitdir is jw_repair_gitdir's, and a present origin is a no-op.
   git -C "$jw" rev-parse --git-dir >/dev/null 2>&1 || return 0
   git -C "$jw" config --get remote.origin.url >/dev/null 2>&1 && return 0
-  # The owning root shares the same repo/remote as the journal worktree, so its
-  # origin URL is the correct value to restore.
-  root_url="$(git -C "$GARDEN_ROOT" config --get remote.origin.url 2>/dev/null || true)"
-  [ -n "$root_url" ] || return 0
+  # Canonical resolution: $JOURNAL_REMOTE -> worktree origin -> persisted cache ->
+  # $GARDEN_ROOT origin (see journal_remote). Confine a possible die() to the subshell.
+  url="$(journal_remote 2>/dev/null || true)"
+  [ -n "$url" ] || return 0
   # `remote add` when the remote is wholly absent; fall back to setting the url
   # directly when an origin section exists without a url.
-  if git -C "$jw" remote add origin "$root_url" >/dev/null 2>&1 \
-     || git -C "$jw" config remote.origin.url "$root_url" >/dev/null 2>&1; then
-    log "REPAIRED: re-added missing remote.origin.url on $jw from \$GARDEN_ROOT origin ($root_url)"
+  if git -C "$jw" remote add origin "$url" >/dev/null 2>&1 \
+     || git -C "$jw" config remote.origin.url "$url" >/dev/null 2>&1; then
+    log "REPAIRED: re-added missing remote.origin.url on $jw from the canonical journal remote ($url)"
   fi
   return 0
 }

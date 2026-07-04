@@ -127,6 +127,42 @@ grep -qF "fast-forwarded" <<<"$OUT" && ok "logged the fast-forward" || bad "did 
 [ "$(alert_count)" -eq 0 ] && ok "no alert on a clean fast-forward" || bad "alerted on a clean fast-forward"
 
 # ============================================================================
+hr; echo "MISSING ORIGIN (JOURNAL_REMOTE) — origin re-added, worktree reconciled"; hr
+# The 2026-07-03 15:50-15:51Z cascade: the journal worktree opens fine (gitdir
+# resolves) but remote.origin.url momentarily vanishes, so journal_fetch — and every
+# other git op resolving the journal remote — dives down the "no origin" fatal path.
+# The keeper must re-add origin (here from an explicit $JOURNAL_REMOTE) BEFORE the
+# fetch, then reconcile normally, never leaving the root cause for a later tick.
+setup_fixture; write_alert_stub
+upstream_commit b c2                          # upstream advances (so a real fetch matters)
+git -C "$JW" remote remove origin             # drop origin — the exact wedge condition
+git -C "$JW" config --get remote.origin.url >/dev/null 2>&1 \
+  && bad "fixture: origin should be absent pre-run" \
+  || ok "fixture: remote.origin.url absent before the keeper runs"
+run_keeper JOURNAL_REMOTE="$UP"
+[ "$RC" -eq 0 ] && ok "exit 0 after re-adding a missing origin" || bad "exit $RC on missing origin"
+[ "$(git -C "$JW" config --get remote.origin.url 2>/dev/null)" = "$UP" ] \
+  && ok "origin re-added to the canonical remote" || bad "origin not re-added"
+grep -qF "REPAIRED:" <<<"$OUT" && ok "logged a REPAIRED: line for the re-added origin" || bad "did not log the origin repair"
+[ "$(head_sha)" = "$(remote_sha)" ] && ok "worktree reconciled to origin/journal2 after the repair" || bad "worktree not reconciled after re-adding origin"
+[ "$(alert_count)" -eq 0 ] && ok "no maintainer page on a self-healed origin" || bad "paged despite a self-healed origin"
+
+# ============================================================================
+hr; echo "MISSING ORIGIN (persisted cache) — origin re-added from the companion cache"; hr
+# The companion job persists the last-good journal remote to $JOURNAL_REMOTE_CACHE
+# ($GARDEN_STATE/config/journal-remote). With NO $JOURNAL_REMOTE set and no root
+# origin, the keeper must still recover origin from that persisted canonical URL.
+setup_fixture; write_alert_stub
+git -C "$JW" remote remove origin
+mkdir -p "$TR/state/config"; printf '%s\n' "$UP" > "$TR/state/config/journal-remote"
+run_keeper                                    # no JOURNAL_REMOTE; forces the cache path
+[ "$RC" -eq 0 ] && ok "exit 0 re-adding origin from the cache" || bad "exit $RC on cache-based origin repair"
+[ "$(git -C "$JW" config --get remote.origin.url 2>/dev/null)" = "$UP" ] \
+  && ok "origin re-added from the persisted cache" || bad "origin not re-added from the cache"
+grep -qF "REPAIRED:" <<<"$OUT" && ok "logged the REPAIRED: line (cache path)" || bad "did not log the cache-path repair"
+[ "$(alert_count)" -eq 0 ] && ok "no page on the cache-based origin repair" || bad "paged despite recovering origin from the cache"
+
+# ============================================================================
 hr; echo "SELF-HEAL (a) — diverged+superseded, no writer: auto-healed, no page"; hr
 # The recurring real shape: a stale local-ahead commit, a dirty tracked file, and
 # a stray untracked entry, all while upstream has moved far ahead. Expect a
