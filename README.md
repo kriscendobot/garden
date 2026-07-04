@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-04T03:26:25Z_
+_As of 2026-07-04T03:35:42Z_
 
 ## Latest
 
-Only one job crossed the finish line this cycle — [`improve-journal-worktree-keeper-repair-missing-origin`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-worktree-keeper-repair-missing-origin.md) — extending a small run of journal-infrastructure hardening (alongside the recently-landed remote-durable-fallback and metering-doctrine work). The board is otherwise quiet: nothing sits in `todo`, and the lone active job is the xs2rust-endor stage-3b fundamentals follow-up, still in progress. The main thing for the maintainer is upstream, not on the board: 27 PRs are parked awaiting review, with the oldest now well aged — [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 43 days and [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) at 18 — plus four plan-queue items (including the ymax0 hex-fix verification and the minion.town AWS deploy) still waiting on your go-ahead.
+Two jobs just moved into flight: a dead-lettered message was reclaimed for its intent, and a fresh press on the **xs2rust-endor** XS→Rust ("Endor") port to drive PR #600 toward Endor integration and a green daemon. That port remains the garden's dominant thread — stage-3b's fundamentals follow-up is still in progress, with opcode cost-instrumentation and a CESU-8→UTF-16 string-storage rework parked behind it. Recently landed work is mostly journal-infrastructure hardening (worktree-keeper origin repair, a durable journal-remote fallback) plus the metering-doctrine "accuracy over parity" decision on the port.
+
+Worth a maintainer's eye: the parked-for-review queue is deep (27 PRs), and several have aged past six weeks — [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (iOS Safari `isImmutableDataProperty` regression), [#186](https://github.com/endojs/endo-but-for-bots/pull/186) (eventual-send delegate ponyfill), [#266](https://github.com/endojs/endo-but-for-bots/pull/266) (opencode gap-closing design), [#288](https://github.com/endojs/endo-but-for-bots/pull/288) (cbor-frame), and [#329](https://github.com/endojs/endo-but-for-bots/pull/329) (the spackle pattern) have all waited 43–44 days, and [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules via erasable type syntax) is at 18.
 
 ## Parked for maintainer feedback
 
@@ -28,8 +30,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`deadmail-20260704T032953Z-2c9dd2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260704T032953Z-2c9dd2.md) — Dead-lettered message — pick up its intent
 - [`xs2rust-endor-build-stage3b-fundamentals-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-fundamentals-followup.md) — Builder: stage-3b child 4/9 — fundamentals follow-up (bind/apply-with-array/....
+- [`xs2rust-endor-press-20260704-033505`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260704-033505.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (1122)
 - [`improve-journal-worktree-keeper-repair-missing-origin`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-worktree-keeper-repair-missing-origin.md) — Completion report
