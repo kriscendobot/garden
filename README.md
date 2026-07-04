@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-04T04:11:14Z_
+_As of 2026-07-04T04:20:34Z_
 
 ## Latest
 
-The board is quiet — only a dead-letter job cleared since the last bulletin — but a maintainer decision is now waiting in the [inbox](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260704T033624Z-f6deea.md): the XS→Rust (Endor) port surfaced a doctrine-vs-gate conflict via a dead-lettered orchestrator message. Design change 433797861 demoted computron-vs-C-XS parity from a hard gate to advisory telemetry, but the test262 runner's `DualRun::is_bit_exact` still gates on computrons, so no child can ship the doctrine's "result-correct + advisory-divergent" path without every such test reading as divergent. Kriskowal needs to rule whether to update `is_bit_exact` to match the new doctrine (unblocking option-b across the fleet, including the stalled bind bound-fn allocation cluster) or keep the port computron-exact-or-honest-skip and treat the design doc as forward-looking. Meanwhile the stage-3b port work is healthy and active: the fundamentals follow-up landed and child 5/9 (global string→id intern table plus Object statics) is in flight.
+The XS→Rust (Endor) port [PR #600](https://github.com/kriskowal/garden/pull/600) dominates the board: stage-3b child 5/9 (the global string→id intern table plus Object statics) is in progress alongside a fresh press job to drive the chain toward endor integration and a green daemon. Notably, a dead-lettered orchestrator message has escalated a **doctrine-vs-gate conflict** to the maintainer: design change 433797861 demoted computron-vs-C-XS metering from a gate to advisory telemetry, but the test262 runner's `DualRun::is_bit_exact` still gates computrons — so no child can ship the doctrine's "result-correct + advisory-divergent" path without breaking the divergent=0 charter. A decision is owed: update `is_bit_exact` to match the new doctrine (unlocking option-b across the fleet, including the stalled bind bound-fn allocation cluster) or keep the port computron-exact and treat the design doc as forward-looking. Separately, a scheduler-improvement job closed as already-implemented (preflight surfacing was verified present).
 
 ## Parked for maintainer feedback
 
@@ -49,8 +49,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`xs2rust-endor-build-stage3b-object-statics-intern`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-object-statics-intern.md) — Builder: stage-3b child 5/9 — global string→id intern table + Object statics/...
+- [`xs2rust-endor-press-20260704-042004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260704-042004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (1127)
 - [`deadmail-20260704T040350Z-7004f3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260704T040350Z-7004f3.md) — Completion report
