@@ -682,6 +682,41 @@ _cache_journal_remote() {
   return 0
 }
 
+# _reheal_journal_worktree_origin <url> — when we resolved the journal remote from a
+# fallback source (cache / another clone) because the journal worktree itself yields
+# no origin, opportunistically re-add it in place so the NEXT tick reads origin
+# straight from the worktree and never enters the fallback path again. Only meaningful
+# when the worktree is a valid git repo whose origin is genuinely unset (a broken
+# gitdir link is ensure_journal_worktree_linked's job, not this one; a `remote add`
+# there just fails harmlessly). Best-effort and idempotent: `remote add` no-ops once
+# origin exists, and every git error is swallowed so a caller under set -e is safe.
+_reheal_journal_worktree_origin() {
+  local url="$1" jw="${2:-$GARDEN_ROOT/journal}"
+  [ -n "$url" ] || return 0
+  git -C "$jw" rev-parse --git-dir >/dev/null 2>&1 || return 0
+  git -C "$jw" config --get remote.origin.url >/dev/null 2>&1 && return 0
+  git -C "$jw" remote add origin "$url" >/dev/null 2>&1 || true
+  return 0
+}
+
+# _journal_remote_from_state_clones — last-resort read of remote.origin.url from any
+# existing per-instance journal clone under $GARDEN_STATE (each v2 service and the
+# shared producer hash into their own $GARDEN_STATE/<svc>/journal clone). When both
+# the worktree AND the per-host cache AND the root origin are unavailable, one of
+# those sibling clones almost certainly still carries the origin, so we scan them
+# rather than die. Prints the first URL found and returns 0; prints nothing and
+# returns 1 when none resolves. Quiet + best-effort.
+_journal_remote_from_state_clones() {
+  local d url
+  for d in "$GARDEN_STATE"/*/journal; do
+    [ -d "$d/.git" ] || [ -e "$d/.git" ] || continue
+    if url="$(git -C "$d" config --get remote.origin.url 2>/dev/null)" && [ -n "$url" ]; then
+      printf '%s\n' "$url"; return 0
+    fi
+  done
+  return 1
+}
+
 journal_remote() {
   if [ -n "$JOURNAL_REMOTE" ]; then printf '%s\n' "$JOURNAL_REMOTE"; return; fi
   local jw="$GARDEN_ROOT/journal"
@@ -711,14 +746,26 @@ journal_remote() {
   # of dying we fall back and log a SINGLE WARN. Fallback order:
   #   (1) the per-host cache of the last good resolution (survives a reset/deploy);
   #   (2) the shared root checkout's origin — journal2 and main2 live in the SAME
-  #       repo/remote, so the root shares the same origin URL.
+  #       repo/remote, so the root shares the same origin URL;
+  #   (3) remote.origin.url from any sibling per-instance clone under $GARDEN_STATE.
+  # Whenever a fallback resolves, we also opportunistically re-add origin to the
+  # worktree in place (_reheal_journal_worktree_origin) so the NEXT tick reads it
+  # straight from the worktree and skips the fallback entirely.
   if url="$(cat "$JOURNAL_REMOTE_CACHE" 2>/dev/null)" && [ -n "$url" ]; then
     log "WARN: journal worktree $jw yielded no origin; using cached journal remote $url (transient — config lock / worktree repair / deploy window)"
+    _reheal_journal_worktree_origin "$url" "$jw"
     printf '%s\n' "$url"; return
   fi
   if url="$(git -C "$GARDEN_ROOT" config --get remote.origin.url 2>/dev/null)" && [ -n "$url" ]; then
     log "WARN: journal worktree $jw yielded no origin; falling back to $GARDEN_ROOT origin $url"
     _cache_journal_remote "$url"
+    _reheal_journal_worktree_origin "$url" "$jw"
+    printf '%s\n' "$url"; return
+  fi
+  if url="$(_journal_remote_from_state_clones)" && [ -n "$url" ]; then
+    log "WARN: journal worktree $jw yielded no origin; falling back to a per-instance clone origin under $GARDEN_STATE ($url)"
+    _cache_journal_remote "$url"
+    _reheal_journal_worktree_origin "$url" "$jw"
     printf '%s\n' "$url"; return
   fi
   # Nothing resolved on either checkout. Distinguish a BROKEN worktree (git can't
