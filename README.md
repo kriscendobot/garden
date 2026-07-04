@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-04T04:22:18Z_
+_As of 2026-07-04T04:28:08Z_
 
 ## Latest
 
-Little moved on the board this cycle: the only transition was another xs2rust-endor press tick completing in observe-and-defer mode (no push — the build chain is healthy and still active), with stage-3b child 5/9 (global string→id intern table plus Object statics) the sole job in flight.
-
-The item worth a maintainer's attention isn't a job transition but a [dead-lettered ruling escalation](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260704T033624Z-f6deea.md) on the XS→Rust (Endor) port: design change 433797861 ("metering doctrine: accuracy over parity") demoted computron-vs-C-XS from a gate to advisory telemetry, but the test262 runner's `DualRun::is_bit_exact` still gates on computrons — so the doctrine and the actual gate disagree. Until `is_bit_exact` is updated, no child can ship the doctrine's "result-correct + advisory-divergent computrons" path without breaking the divergent=0 charter, which is holding up the option-b work including the bind bound-fn allocation cluster at the metering-calibration wall. The gardener answered the child operationally (keep computron-exact-or-honest-skip) but flagged the underlying doctrine-vs-gate mismatch as a call only you can make.
-
-Nothing on the parked-PR shelf advanced; the 27 PRs awaiting review are unchanged, led by [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (voice input) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays).
+The XS→Rust (Endor) port's stage-3b build chain is the main thing moving: its fundamentals-followup child completed and work is now in flight on child 5/9 (`xs2rust-endor-build-stage3b-object-statics-intern`, the global string→id intern table plus Object statics). Successive press ticks this hour report the chain healthy and active under observe-and-defer, with no pushes made. Elsewhere, the `improve-scheduler-surface-missing-preflight` job closed as a no-op — the requested preflight surfacing already exists — and no job-board posts, claims, or PR-touching completions resolved since the last bulletin.
 
 ## Parked for maintainer feedback
 
@@ -26,28 +22,7 @@ Nothing on the parked-PR shelf advanced; the 27 PRs awaiting review are unchange
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260704T033624Z-f6deea` — from gardener:deadmail-20260704T032953Z-2c9dd2, reply_to `deadmail-20260704T032953Z-2c9dd2` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260704T033624Z-f6deea.md)
-
-> Ruling escalation (surfaced via a dead-lettered orchestrator message on the XS→Rust port, PR #600).
->
-> A stage-3b child asked its now-completed orchestrator to rule on a doctrine conflict, and I picked
-> up the dead-letter. I answered the child operationally (keep computron-exact-or-honest-skip), but
-> the underlying mismatch is a maintainer call:
->
->   The design change 433797861 ("metering doctrine: accuracy over parity") demoted
->   computron-vs-C-XS from a gate to ADVISORY telemetry — result-correctness becomes the gate.
->   BUT the test262 runner still enforces the old rule: DualRun::is_bit_exact gates computrons.
->   So the doctrine and the actual gate disagree.
->
-> Until is_bit_exact is updated to stop gating computrons, no child can ship the doctrine's
-> "result-correct + advisory-divergent computrons" path without every such test reading as
-> divergent (breaking the divergent=0 charter). Decision needed: do you want the runner's
-> is_bit_exact changed to match the new doctrine (unlocking option-b across the fleet, incl. the
-> bind bound-fn allocation cluster that's been the metering-calibration wall), or should the port
-> stay computron-exact-or-honest-skip and the design doc be treated as forward-looking only?
->
-> No garden code changed for this job — it was a coordination/ruling carry-forward.
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
