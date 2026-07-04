@@ -22,3 +22,9 @@ The v1 trigger/short-id/fired machinery is dropped: v2 schedules are recurring
 specs keyed by cadence, not pre-computed per-fire event files. The v1 periodicals
 output tree is archived under `legacy/v1/periodicals/`. The v1 original is
 retained on `journal-v1` and `origin/journal`.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 3
+  claimed_at: 2026-07-04T03:05:09Z
