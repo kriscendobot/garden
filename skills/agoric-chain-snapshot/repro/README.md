@@ -26,6 +26,37 @@ only needs `node:fs`; the endowments (`swingStore`, `runCoreEval`, `EV`,
   compartment-map sha512, re-zips via `@endo/zip`. Run with cwd inside a built
   agoric-sdk worktree so `@endo/zip` resolves.
 
+### The three upgrade-vector drivers (captured 2026-07-04, kriskowal/garden#22)
+
+These trigger the upgrade through progressively more faithful paths. They were
+referenced by the parent `SKILL.md` but had lived only in build worktrees that
+redeploy wiped; they are **reconstructed from the SKILL.md methodology** in the
+established inquisitor idiom (the verbatim originals were unrecoverable) and are
+committed here so the vectors survive. Each follows its documented call sequence
+but has **not** been re-run on this host — adapt the endowment signatures to the
+tree you run against before relying on a fresh result.
+
+- **`repro-upgrade-driver.mjs`** — the SUPERSEDED promise-space vector:
+  `E(ymax0Kit.adminFacet).upgradeContract(bundleID)` via `runCoreEval`. Fails
+  BEFORE any worker spins up (`…non-running vat "v275"`) because the bootstrap
+  kit's adminFacet drives the original, now-terminated ymax0 instance — kept as
+  the record of why the bootstrap adminFacet is the wrong target (stale-bootstrap-
+  kit finding).
+- **`repro-control-upgrade-driver.mjs`** — the WALLET-envelope-faithful vector:
+  hand-marshals (`@endo/marshal`, smallcaps, zero slots) the control account's
+  `invokeEntry`→`ymaxControl.upgrade` bridge action and injects it via
+  `pushQueueRecord('actionQueue', …)` + `runNextBlock()`. Subject to the overlay
+  WALLET-bridge caveat (the inbound WALLET action is not delivered to the wallet in
+  the read-only overlay), so it corroborates rather than replaces the EV-direct
+  vector.
+- **`cc-upgrade-driver2.mjs`** — the CONCURRENT-OBSERVER contract-control upgrade
+  (mhofman's full #9 protocol): `controller.queueToVatObject(kslot('ko25961078'),
+  'upgrade', …)` for a kpid, `controller.run()` WITHOUT awaiting, poll incarnation
+  + `kpStatus` on a `setTimeout` loop, read `kpResolution` exactly once. SUCCESS =
+  no reject + span reaches `[249702,249706)`; FAILURE = `vat-upgrade failure` +
+  slog `Stack meter exceeded`. Run with `INQUISITOR_MAX_VATS_ONLINE=50` and
+  preserve `/tmp/testdb-*/flight-recorder.bin` before `shutdown()`.
+
 ## Verified A/B (2026-07-01, snapshot `agoric-26146641`)
 
 ```

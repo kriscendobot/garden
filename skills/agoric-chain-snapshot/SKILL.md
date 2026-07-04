@@ -326,8 +326,8 @@ wallet-bridge caveat, so the `createVat` A/B above is the decisive cross-check.
   vat "v275"`. The live v290/v288 instances carry separate admin facets that Zoe
   holds privately per instance, not exposed in any **promise-space** kit on the
   snapshot; reaching them is the real contract-control upgrade path. The driver
-  for this (now-superseded) promise-space vector is
-  `repro/repro-upgrade-driver.mjs` in the build worktree.
+  for this (now-superseded) promise-space vector is committed as
+  `repro/repro-upgrade-driver.mjs`.
 - **The delegated contract-control finding (the faithful upgrade path mhofman
   pointed to), per mhofman 2026-06-30 ([comment](https://github.com/kriskowal/garden/issues/9#issuecomment-4848598136)).**
   mhofman was right that the contract *kits* are reachable from bootstrap space —
@@ -477,8 +477,8 @@ against the cached `agoric-26146641` swing-store and posted to kriskowal/garden#
   awaiting it**, and poll the overlay incarnation + `controller.kpStatus(kpid)` on
   a `setTimeout` loop. The upgrade delivery cranks in the first ~0s (a new
   incarnation span opens immediately in ALL cases — do NOT read "span opened" as
-  success). Driver: `repro/cc-upgrade-driver2.mjs` in the
-  `ymax0-inquisitor-build` worktree; run with `INQUISITOR_MAX_VATS_ONLINE=50`.
+  success). Driver: committed as `repro/cc-upgrade-driver2.mjs`; run with
+  `INQUISITOR_MAX_VATS_ONLINE=50`.
   Note `kunser(controller.kpResolution(kpid))` returns an Error — log
   `err.message`/`err.stack`, never `JSON.stringify(err)` (renders `{}`); call
   `kpResolution` **once** (repeat calls → `refCount underflow`).
@@ -493,7 +493,10 @@ against the cached `agoric-26146641` swing-store and posted to kriskowal/garden#
   `/tmp/testdb-*/flight-recorder.bin` and `grep -c 'Stack meter exceeded'`.
 - **The three bundles (source-built portfolio.contract repro pair, A/B-validated
   to overflow/clear at stock `stackCount=4096` on inquisitor's own xsnap worker
-  via `/tmp/xs6/surface.mjs`):**
+  via `surface.mjs`, an ad-hoc raw-XS surface probe that ran the `hex.js`
+  `decodings` build directly on the worker; it was an ephemeral `/tmp/xs6` helper
+  and was not preserved — the committed `repro/cc-upgrade-driver2.mjs` is the
+  durable, in-overlay equivalent):**
   - baseline = current on-chain `b1-68c494…` (release `ymax-v0.3.2606-beta2`) →
     upgrade **succeeds**, inc 38→39, clean.
   - beta3 = `b1-2595e4b7…` (`/tmp/xs6/b3src-ctl.zip`, hex.js `flatMap`, 10
