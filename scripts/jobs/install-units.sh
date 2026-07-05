@@ -279,13 +279,23 @@ enable_services() {
   # no by-name list: deleting a unit from scripts/systemd/ is sufficient to retire it.
   prune_retired
   # Enable every intended (derived) unit. --now starts it immediately too.
-  local enabled=()
+  # BOUNDED per unit, and one failure never aborts the loop: this runs inside
+  # deploy-garden's DRAINED window, where an unbounded `systemctl` against a
+  # wedged user-manager/dbus used to hang the whole deploy with the fleet
+  # stopped (the reason unit_ctl_bounded exists for the scaler), and a single
+  # failing enable under set -e silently skipped every alphabetically-later
+  # unit. Failures are collected and WARN'd; a later reconcile retries them.
+  local enabled=() failed_units=()
   while read -r u; do
     [ -n "$u" ] || continue
-    unit_ctl enable --now "$u"
-    enabled+=("$u")
+    if unit_ctl_bounded enable --now "$u"; then
+      enabled+=("$u")
+    else
+      failed_units+=("$u")
+    fi
   done < <(intended_units)
   log "enabled (${#enabled[@]}): ${enabled[*]}"
+  [ "${#failed_units[@]}" -gt 0 ] && log "WARN: failed/timed out enabling ${#failed_units[@]} unit(s): ${failed_units[*]} (a later enable-services retries them)"
   log "excluded by policy: templates (garden-*@), ${EXCLUDED_UNITS[*]}"
 }
 
