@@ -71,3 +71,9 @@ Designer specifies the complexity model, the instrumentation API, the off-by-def
 determinism gating, and how its output feeds meter re-calibration; a build stage adds the
 hooks + report; a follow-on wires it into the press/benchmark harness for corpus-wide
 calibration data. Orchestrate if it decomposes into ordered steps.
+
+---
+claim:
+  host: endolinbot
+  gardener: 2
+  claimed_at: 2026-07-05T21:19:23Z
