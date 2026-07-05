@@ -53,7 +53,7 @@ anchored_cadence() {
     daily-at-*)
       local rest="${1#daily-at-}" hhmm tz
       hhmm="${rest%%-*}"; tz="${rest#*-}"
-      case "$hhmm" in [0-2][0-9]:[0-5][0-9]) : ;; *) return 1 ;; esac
+      case "$hhmm" in [01][0-9]:[0-5][0-9]|2[0-3]:[0-5][0-9]) : ;; *) return 1 ;; esac
       [ -n "$tz" ] && [ "$tz" != "$hhmm" ] || return 1
       printf '%s %s\n' "$hhmm" "$tz"; return 0 ;;
   esac
@@ -84,10 +84,18 @@ schedule_due_stamp() {  # $1=cadence $2=last-epoch $3=now-epoch
   local cad="$1" last="$2" now="$3" anc hhmm tz anchor cad_s
   if anc="$(anchored_cadence "$cad")"; then
     read -r hhmm tz <<<"$anc"
-    anchor="$(anchor_epoch "$now" "$hhmm" "$tz")" || return 1
+    # WARN when the anchor cannot be computed (an unknown TZ): "not due" and
+    # "unparseable" used to be indistinguishable, so a typo'd daily-at- schedule
+    # simply never fired, with no log line ever (the once: path logs its own
+    # unparseable case; the recurring path did not).
+    anchor="$(anchor_epoch "$now" "$hhmm" "$tz")" \
+      || { log "WARN: anchored cadence '$cad' unparseable (bad TZ '$tz'?); schedule will NEVER fire until fixed"; return 1; }
     [ -n "$anchor" ] && [ "$last" -lt "$anchor" ] || return 1
     date -u -d "@$anchor" +%FT%TZ; return 0
   fi
+  case "$cad" in daily-at-*)
+    log "WARN: cadence '$cad' looks anchored but does not parse (HH:MM out of range?); treating as interval, which will misfire — fix the schedule name"
+  ;; esac
   cad_s="$(cadence_seconds "$cad")"
   [ $(( now - last )) -ge "$cad_s" ] || return 1
   date -u -d "@$now" +%FT%TZ; return 0

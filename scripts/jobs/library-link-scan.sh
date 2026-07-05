@@ -175,7 +175,7 @@ case "${1:-}" in
     # is `  DANGLING <referrer> -> <target> (<reason>)`; keep the referrer->target
     # spine, sorted+unique, as both the job-body list and the idempotency key.
     targets="$(printf '%s\n' "$OUT" \
-      | sed -n 's/^  DANGLING \(.*\) (\(no such committed file\|exists on disk[^)]*\))$/\1/p' \
+      | sed -n 's/^  DANGLING \(.*\) (\(no such committed file\|exists on disk[^)]*\))\( — did you mean .*\)\{0,1\}$/\1/p' \
       | sort -u)"
     if [ -z "$targets" ]; then
       # Core said rc=1 but emitted no parseable DANGLING line — treat as a real
