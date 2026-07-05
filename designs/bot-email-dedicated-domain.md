@@ -4,7 +4,8 @@
 | Author  | gardener (researcher + designer) |
 | Status  | Proposed |
 
-This is the **counter-plan** to *investigate-fastmail-masked-email-api-for-bot-personas*.
+This is the **counter-plan** to the FastMail masking study
+([`fastmail-masked-email-bot-personas.md`](fastmail-masked-email-bot-personas.md)).
 Where that plan multiplexes one FastMail account behind masked addresses, this one runs
 bot-driven email on a **dedicated domain the bot fully controls** (the domain is
 `minion.town`, already bot-controlled per the minion.town infra work). The agent mints
