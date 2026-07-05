@@ -57,7 +57,8 @@ bad="$(printf '%s' "$json" | jq -r '
 pending="$(printf '%s' "$json" | jq -r '
   [ .statusCheckRollup[]?
     | ((.status // .state // "") | ascii_upcase) as $s
-    | select($s=="QUEUED" or $s=="IN_PROGRESS" or $s=="PENDING" or $s=="WAITING") ]
+    | select($s=="QUEUED" or $s=="IN_PROGRESS" or $s=="PENDING" or $s=="WAITING"
+             or $s=="EXPECTED") ]
   | length')"
 [ "${pending:-0}" = 0 ] || exit 1
 
