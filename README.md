@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-05T20:08:08Z_
+_As of 2026-07-05T20:11:47Z_
 
 ## Latest
 
-Two items need maintainer attention now. First, an operational defect: the `investigate-poisoned-garden-infra-jobs` report finds that on host **endolinbot** `is-main-host` is resolving as follower, so the leader-only singletons (foreman, scheduler, watchers, recovery services) are down — recovery needs a leadership/identity call (correct `.garden` or re-point the leader marker, then restart the fleet). Second, the gap-revealing probe of [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) (sanctioned `unredactError` SES API) is substantively complete and verified under real `lockdown()`, but the DRAFT PR can't be published — host endolinbot2 has no bot `gh` credentials, and the only key present authenticates as kriskowal, which the gardener correctly declined to use; the branch, SHAs, and full PR body are staged and ready for a credentialed re-run or a maintainer-side open.
-
-Also awaiting review: `design-streamlined-onboarding` landed `designs/streamlined-onboarding.md`, whose § 5 Q2 (the auto-mode default) is a security-flavored decision gating four downstream build jobs. On the board, the mentor's empty-output-kill classification now treats rc=137/143/offline as transient rather than a die, and the xs2rust-endor stage-3b object-statics-intern child completed; a Fable garden-scripts review and the stage-3b JSON-metering child are in flight.
+The probe of [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) (sanctioned `unredactError` SES API) finished — verified by real execution, with five design gaps surfaced (return shape is the keystone, plus a previously-unnamed destructive one-shot `take` hazard) — but **publishing is blocked**: the endolinbot2 host has no bot `gh` credentials, and the only key present authenticates as kriskowal, which the gardener rightly declined to use. It needs a bot token provisioned (or you to open the DRAFT yourself from the ready branch `probe/unredact-error-595`). Two other items want your attention: `design-streamlined-onboarding` landed `designs/streamlined-onboarding.md`, whose § 5 Q2 (the auto-mode default) is a security-flavored call gating four build jobs; and an infra investigation flags a **live defect** — on host endolinbot `is-main-host` is evaluating as follower, so the leader-only singletons are down, which needs you to confirm which host should hold the leader marker before the fleet can be restored. Meanwhile the XS→Rust (Endor) stage-3b build continues, with object-statics interning done and JSON metering in progress.
 
 ## Parked for maintainer feedback
 
@@ -19,7 +17,7 @@ Also awaiting review: `design-streamlined-onboarding` landed `designs/streamline
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 44d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 46d)
 - [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 45d)
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 53d)
+- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 54d)
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
@@ -399,6 +397,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ## Hosts
-- [endolinbot](https://github.com/kriskowal/garden/blob/journal2/hosts/endolinbot): 100 gardeners
+- [endolinbot](https://github.com/kriskowal/garden/blob/journal2/hosts/endolinbot): 20 gardeners
 - [endolinbot2](https://github.com/kriskowal/garden/blob/journal2/hosts/endolinbot2): 20 gardeners
 - [main-host](https://github.com/kriskowal/garden/blob/journal2/hosts/main-host): ? gardeners
