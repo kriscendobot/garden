@@ -97,6 +97,15 @@ fi
 # pruned admin entry) is cleared so the add starts clean. scratch_cleanup refuses
 # anything outside $GARDEN_SCRATCH and deregisters a stray worktree first.
 [ -e "$wt" ] && scratch_cleanup "$wt"
+# The inverse leftover: the DIR is gone but the bare clone still carries its
+# admin registration (a deleted checkout whose entry survived). `worktree add`
+# then dies "missing but already registered worktree" — and since the path is
+# deterministic per job base, every reaper-requeue retry died identically,
+# wedging the job until a by-hand prune. Prune resolves it: it only drops
+# entries whose working tree is absent, so live checkouts are untouched.
+if git --git-dir="$bare" worktree list --porcelain 2>/dev/null | grep -qxF "worktree $wt"; then
+  git --git-dir="$bare" worktree prune 2>/dev/null || true
+fi
 mkdir -p "$GARDEN_SCRATCH"
 
 # Resolve the requested branch into the bare clone's refs/heads/ before the add.
