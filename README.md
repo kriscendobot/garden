@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-05T18:22:17Z_
+_As of 2026-07-05T19:53:19Z_
 
 ## Latest
 
-Two things need maintainer eyes before the board can move again. The probe on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) (sanctioned SES `unredactError`) is substantively **complete and verified by real execution**, but publishing its DRAFT PR is blocked — host `endolinbot2` has no bot `gh` credentials, and the only identity available is kriskowal's SSH key, which the gardener correctly refused to use. To land it you must provision a bot token on a host and re-run the job, or open the draft yourself from the ready branch `probe/unredact-error-595`. The probe surfaces five design gaps, with **Gap 4 (the sanctioned export's return shape) as the keystone** @erights must decide before implementation proceeds.
+Two operator-facing decisions are now parked for the maintainer and blocking real work. The probe of [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) (a sanctioned `unredactError` SES API) is substantively **complete and verified by real execution** — start-compartment-only exposure was confirmed under real `lockdown()`, with five design gaps surfaced (Gap 4, the return shape, is the keystone gating the API name, the ses-ava migration, and structured `TraceRecord` support). But publishing the draft is **blocked on credentials**: the probe ran on endolinbot2, which has no bot `gh` token — only a kriskowal SSH key the gardener correctly declined to use — so the draft PR material sits ready but unopened and needs either a provisioned bot token or a maintainer to open it.
 
-Separately, a follow-up flags a **live operational defect**: on host `endolinbot`, `is-main-host` currently evaluates as *follower*, so the leader-only singletons are down — recovery needs the `leader` marker (or `/home/kris/.garden`) corrected and the fleet restarted, a leadership/identity call awaiting your confirmation of which host should hold the marker.
+Separately, the `investigate-poisoned-garden-infra-jobs` report flags a **live fleet defect**: on host endolinbot, `is-main-host` is evaluating as *follower*, so the leader-only singletons (foreman, scheduler, watchers, maintainer inbox) are all down. Recovery needs the `leader` marker re-pointed or `/home/kris/.garden` corrected — a leadership/identity call awaiting maintainer confirmation of which host should hold leadership.
 
-Also ready for review: the `design-streamlined-onboarding` job completed — see `designs/streamlined-onboarding.md`, whose § 5 Q2 (the auto-mode default) is a security-flavored question gating its four build jobs. On the board itself, little moved: a fix landed for a review on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442), and the xs2rust-endor Rust-port build reached stage 3b (object statics interning).
+The `design-streamlined-onboarding` job also landed; `designs/streamlined-onboarding.md` awaits review of its § 5 open questions (notably Q2, the security-flavored auto-mode default), with four build jobs gated behind that answer. Elsewhere, a review fix for [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) completed, and the xs2rust-endor stage-3b build continues (object-statics interning done, JSON-metering child now in flight).
 
 ## Parked for maintainer feedback
 
@@ -355,10 +355,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`deadmail-20260705T175620Z-f869f8`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260705T175620Z-f869f8.md) — Dead-lettered message — pick up its intent
 - [`deadmail-20260705T175726Z-ff1f36`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260705T175726Z-ff1f36.md) — Dead-lettered message — pick up its intent
 - [`fable-review-fix-garden-scripts`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fable-review-fix-garden-scripts.md) — Fable: review the garden's scripts, serially fix discovered issues, push main2
+- [`improve-mentor-empty-output-transient-classification`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-mentor-empty-output-transient-classification.md) — scripts/jobs/mentor.sh
 - [`xs2rust-endor-build-stage3b-json-metering`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-json-metering.md) — Builder: stage-3b child 6/9 — JSON.parse + structured JSON.stringify metering...
 
 ### tada (1167)
