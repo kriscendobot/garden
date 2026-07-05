@@ -58,6 +58,46 @@ atomic_advance_tree() {
   # is touched). Parse `git diff --raw --no-renames -z`: each record is
   # `<meta>\0<path>\0`, meta = ":mode1 mode2 sha1 sha2 STATUS". --no-renames keeps
   # the status set to A/M/D/T (no R/C to special-case).
+  # Read the raw diff to a file FIRST and check its rc: `done < <(git diff …)`
+  # put the diff beyond set -e's reach — a failed diff (object-store hiccup,
+  # lock) fed the loop NOTHING, phase 2 no-op'd, and the reset --mixed below
+  # still advanced HEAD/index: metadata recorded a deploy whose files never
+  # changed, with a fully dirty tree blocking every later deploy.
+  local rawdiff
+  rawdiff="$(mktemp "${TMPDIR:-/tmp}/deploy-rawdiff.XXXXXX")"
+  if ! git -C "$repo" diff --raw --no-renames -z "$old" "$up" > "$rawdiff"; then
+    log "tree-swap: 'git diff --raw $old $up' failed; aborting the atomic advance (nothing touched)"
+    rm -f "$rawdiff"; return 1
+  fi
+  # PRE-SCAN for file<->dir type transitions, which phase 2 cannot survive:
+  # dir->file makes `mv -f tmp dst` move the temp INTO the still-existing dir
+  # (exit 0, file never lands, deploy records success over a broken tree);
+  # file->dir makes the mkdir -p above die on the still-existing regular file
+  # on every retry. Rare; until the swap grows real transition support, abort
+  # LOUDLY here, before anything is staged or touched — deploy-garden treats a
+  # tree-swap failure as an aborted deploy and lifts its drain.
+  while IFS= read -r -d '' meta && IFS= read -r -d '' path; do
+    read -r _ newmode _ _ status <<<"${meta#:}"
+    case "$status" in
+      A|M|T)
+        if [ -d "$repo/$path" ] && [ ! -L "$repo/$path" ] && [ "$newmode" != 160000 ]; then
+          log "tree-swap: '$path' transitions directory->file between $old and $up; unsupported — aborting the atomic advance (deploy this transition by hand)"
+          rm -f "$rawdiff"; return 1
+        fi
+        case "$newmode" in 160000) ;; *)
+          parent="$repo/$(dirname "$path")"
+          while [ "$parent" != "$repo" ] && [ "$parent" != "/" ]; do
+            if [ -e "$parent" ] && [ ! -d "$parent" ]; then
+              log "tree-swap: '$path' needs directory '$parent' where a file exists (file->dir transition); unsupported — aborting the atomic advance"
+              rm -f "$rawdiff"; return 1
+            fi
+            parent="$(dirname "$parent")"
+          done
+        ;; esac
+        ;;
+    esac
+  done < "$rawdiff"
+
   while IFS= read -r -d '' meta && IFS= read -r -d '' path; do
     # meta (colon-stripped) = "<mode1> <mode2> <sha1> <sha2> <STATUS>"; we need
     # the incoming mode/sha and the status (`_` discards the old-side fields).
@@ -107,7 +147,8 @@ atomic_advance_tree() {
         return 1
         ;;
     esac
-  done < <(git -C "$repo" diff --raw --no-renames -z "$old" "$up")
+  done < "$rawdiff"
+  rm -f "$rawdiff"
 
   # --- Phase 2: swap every staged blob into place with an atomic rename, then
   # apply deletions. These are fast syscalls; a failure here is the rare rc-2
