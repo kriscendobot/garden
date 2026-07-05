@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-05T22:35:06Z_
+_As of 2026-07-05T22:38:03Z_
 
 ## Latest
 
-Two review retrospectives moved off the plan queue and are now running — one on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595), one on [endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602) — while the stage-3b XSRE core builder continues the XS→Rust port. Little else transitioned, but two maintainer decisions are now waiting: the completed `design-streamlined-onboarding` design needs answers to its §5 open questions before its four build jobs can be posted, especially Q2's auto-mode default (a security-flavored call); and on the [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) probe (published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605)), the report-back found the job spec's paraphrased "destructive one-shot `take` semantics" gap absent from the actual 7-gap probe — the gardener correctly declined to invent it, so a dedicated `take`-semantics analysis would be a fresh probe question awaiting your go-ahead.
+Two PR-review retrospectives closed out — [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) and [endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602) — leaving the board otherwise quiet, with the sole active job being the Fable-driven XS→Rust (Endor) port grinding through stage-3b (child 8/9, the XSRE RegExp-matcher core). Two decisions are waiting in your inbox: the `design-streamlined-onboarding` design landed and its § 5 open questions (especially Q2, the security-flavored auto-mode default) need answers before its four build jobs can be orchestrated; and on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595), the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) reported 7 gaps rather than the spec's paraphrased 5 — with no `take`-semantics correctness hazard — so the liaison is asking whether you specifically want a fresh probe on destructive one-shot `take` semantics.
 
 ## Parked for maintainer feedback
 
@@ -35,18 +35,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr595-review-0a6137f6-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr595-review-0a6137f6-retro.md) — Retrospective on endojs/endo-but-for-bots PR #595 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr602-review-ec2efb27-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr602-review-ec2efb27-retro.md) — Retrospective on endojs/endo-but-for-bots PR #602 (primary: endojs-endo-but-f...
+### doin (1)
 - [`xs2rust-endor-build-stage3b-xsre-core`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-xsre-core.md) — Builder: stage-3b child 8/9 — XSRE core (the RegExp matcher port, engine-inte...
 
-### tada (1203)
+### tada (1205)
+- [`endojs-endo-but-for-bots-pr602-review-ec2efb27-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr602-review-ec2efb27-retro.md) — Completion report
+- [`endojs-endo-but-for-bots-pr595-review-0a6137f6-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr595-review-0a6137f6-retro.md) — Completion report
 - [`improve-library-link-check-changed-gate-preexisting-danglers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-library-link-check-changed-gate-preexisting-danglers.md) — Completion report
 - [`review-improve-typedef-location-dts`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/review-improve-typedef-location-dts.md) — Completion report: review-improve-typedef-location-dts
 - [`deadmail-20260705T221101Z-5894bf`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260705T221101Z-5894bf.md) — Completion report
-- [`endojs-endo-but-for-bots-pr442-review-61c65980-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr442-review-61c65980-retro.md) — Completion report
-- [`endojs-endo-but-for-bots-pr592-review-da7fef5e-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr592-review-da7fef5e-retro.md) — Completion report
-- … and 1198 more
+- … and 1200 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
