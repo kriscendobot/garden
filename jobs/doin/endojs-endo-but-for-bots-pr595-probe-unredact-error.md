@@ -71,3 +71,9 @@ implemented*, *Recommendations to design author*). PR stays draft. Completion
 report cites the PR URL + head SHA and the gap/skeleton counts.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot
+  gardener: 78
+  claimed_at: 2026-07-05T17:17:25Z
