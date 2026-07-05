@@ -49,3 +49,9 @@ async-function/await surfaces (stage 4 owns async/generators) — name them.
 <!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot
+  gardener: 15
+  claimed_at: 2026-07-05T21:53:29Z
