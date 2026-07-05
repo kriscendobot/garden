@@ -10,9 +10,13 @@
 #                supplied via the GARDEN_JOB_IDENTITY env var.
 #
 # Idempotent by BASENAME: if <basename> already exists anywhere in the lifecycle
-# (todo/doin/tada) the post is a no-op success — a triager that re-sees the
+# (plan/todo/doin/tada) the post is a no-op success — a triager that re-sees the
 # same change across ticks will not duplicate the job, provided the basename
-# is derived deterministically from the change identity.
+# is derived deterministically from the change identity. plan/ counts: a job the
+# proxy parked as blocked (proxy.sh park_blocked_jobs moves the ONLY live copy
+# there) must not be re-minted into todo/ by a producer re-seeing the directive —
+# that would run the "blocked" job AND let promote-plan.sh later clobber it with
+# the stale plan body.
 #
 # Idempotent by DIRECTIVE IDENTITY: basename dedup only collapses re-posts of the
 # SAME base. It does NOT catch two DIFFERENT producers minting DIFFERENTLY-named
@@ -23,7 +27,7 @@
 # for the comment/review that triggered the work, e.g.
 # `endojs/endo-but-for-bots#58:comment:4850565566` — the post is additionally
 # deduped against the `jobs/index/<hash>` map: if that identity already owns a job
-# that is still live (todo/doin/tada) the post is a NO-OP, so ONE directive maps
+# that is still live (plan/todo/doin/tada) the post is a NO-OP, so ONE directive maps
 # to at most one open job regardless of what each producer named it. When no
 # explicit identity is given, one is best-effort derived from the body if it cites
 # exactly one canonical GitHub comment URL (derive_job_identity_from_body), so a
@@ -136,7 +140,8 @@ fi
 
 for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   sync_clone "$DIR"
-  if [ -e "$DIR/$JOBS_TODO/$base.md" ] || [ -e "$DIR/$JOBS_DOIN/$base.md" ] || [ -e "$DIR/$JOBS_TADA/$base.md" ]; then
+  if [ -e "$DIR/$JOBS_PLAN/$base.md" ] || [ -e "$DIR/$JOBS_TODO/$base.md" ] \
+     || [ -e "$DIR/$JOBS_DOIN/$base.md" ] || [ -e "$DIR/$JOBS_TADA/$base.md" ]; then
     log "job '$base' already present in lifecycle; nothing to do"
     exit 0
   fi

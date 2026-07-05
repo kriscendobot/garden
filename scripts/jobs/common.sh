@@ -2236,20 +2236,25 @@ list_jobs() {
 # opposite of the failure mode a base-hash collision causes (a duplicate job).
 job_id_hash() { printf '%s' "$1" | (sha1sum 2>/dev/null || shasum) | cut -c1-16; }
 
-# Is <base> present anywhere in the live lifecycle (todo|doin|tada) of a journal
-# clone <dir>? An index entry pointing at a base that has fully drained out of
-# tada is STALE and must not block a fresh directive. Mirrors post-job.sh's own
-# "already present in lifecycle" basename check.
+# Is <base> present anywhere in the live lifecycle (plan|todo|doin|tada) of a
+# journal clone <dir>? An index entry pointing at a base that has fully drained
+# out of tada is STALE and must not block a fresh directive. plan/ counts as
+# live: a blocked job parked there by the proxy (park_blocked_jobs) is the ONE
+# copy of its spine and will be promoted back to todo/ — minting a second copy
+# would run it while "blocked" and let the promotion clobber the fresh body.
+# Mirrors post-job.sh's own "already present in lifecycle" basename check.
 job_in_lifecycle() {
   local dir="$1" base="$2" sub
-  for sub in "$JOBS_TODO" "$JOBS_DOIN" "$JOBS_TADA"; do
+  for sub in "$JOBS_PLAN" "$JOBS_TODO" "$JOBS_DOIN" "$JOBS_TADA"; do
     [ -e "$dir/$sub/$base.md" ] && return 0
   done
   return 1
 }
 
 # Print the base that owns <identity> on <ref> in clone <dir> IFF that base is
-# still live (todo|doin|tada); return 1 otherwise. The watchers call this in
+# still live (plan|todo|doin|tada — the same set job_in_lifecycle checks, or the
+# watchers would misread a dedup against a plan-parked owner as a lost push);
+# return 1 otherwise. The watchers call this in
 # their post-confirm: when post-job.sh's directive-identity dedup found the
 # directive already owned by a DIFFERENT-named live job, the requested base is
 # (correctly) never created, so a plain "base not on board" check would misread a
@@ -2262,7 +2267,7 @@ journal_identity_owner_live() {
   entry="$(git -C "$dir" cat-file -p "$ref:$JOBS_INDEX/$idhash" 2>/dev/null)" || return 1
   owner="$(printf '%s\n' "$entry" | sed -n 's/^base:[[:space:]]*//p' | head -1)"
   [ -n "$owner" ] || return 1
-  for sub in "$JOBS_TODO" "$JOBS_DOIN" "$JOBS_TADA"; do
+  for sub in "$JOBS_PLAN" "$JOBS_TODO" "$JOBS_DOIN" "$JOBS_TADA"; do
     git -C "$dir" cat-file -e "$ref:$sub/$owner.md" 2>/dev/null && { printf '%s\n' "$owner"; return 0; }
   done
   return 1
