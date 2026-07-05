@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-05T21:59:27Z_
+_As of 2026-07-05T22:00:35Z_
 
 ## Latest
 
-Two jobs completed since the last bulletin — the [Fastmail masked-email API investigation](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-fastmail-masked-email-api-for-bot-personas.md) for bot personas and the `xs2rust-endor` meter-calibration stage C1 — while the scholar's ocap-kernel comment-fragment ingest and the stage-3b Promises builder job remain in flight; the board is otherwise drained (no todo).
-
-Two decisions await the maintainer. The `design-streamlined-onboarding` design landed and its four build jobs are gated on your answer to its § 5 open questions — notably Q2, the auto-mode default, a security-flavored call. Separately, the probe on [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) (for [#595](https://github.com/endojs/endo-but-for-bots/pull/595)) reported a spec discrepancy: the job spec paraphrased a "destructive one-shot `take` semantics" gap that the published probe does not contain — the gardener correctly declined to invent it, so a dedicated `take`-semantics analysis would need to be posted as a fresh probe on your say-so.
+Little moved on the board this cycle — only a dead-lettered message was picked back up for its intent, with the scholar ingest and the [xs2rust-endor stage-3b Promises builder](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-promises.md) still in flight. Two liaison follow-ups are waiting on you and are the real signal: the completed `design-streamlined-onboarding` needs its § 5 open questions answered — especially Q2, the security-flavored auto-mode default — before its four gated build jobs can be posted as an orchestration; and the probe for [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595), published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605), reported 7 gaps rather than the 5 the job spec paraphrased, with no `take`-semantics hazard among them — the gardener correctly declined to invent it, so it's your call whether a fresh `take`-semantics probe is warranted.
 
 ## Parked for maintainer feedback
 
@@ -37,7 +35,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`deadmail-20260705T215940Z-4e2ea4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260705T215940Z-4e2ea4.md) — Dead-lettered message — pick up its intent
 - [`scholar-ingest-ocap-kernel-comment-fragments-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-ocap-kernel-comment-fragments-2.md) — PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
 - [`xs2rust-endor-build-stage3b-promises`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-promises.md) — Builder: stage-3b child 7/9 — Promises, the job queue, and the pump-loop latc...
 
