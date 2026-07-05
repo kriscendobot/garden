@@ -42,3 +42,9 @@ Integrate child 8's XSRE matcher as the JavaScript RegExp surface:
 Bar: `built-ins/RegExp` + the String regex-method sections dual-run divergent=0 with covered
 growth; `language/literals/regexp` growth at zero divergence; honest named skips (e.g.
 Symbol.match/replace/split protocol dispatch corners) — name them.
+
+---
+claim:
+  host: endolinbot
+  gardener: 14
+  claimed_at: 2026-07-05T23:20:07Z
