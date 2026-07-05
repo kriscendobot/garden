@@ -100,3 +100,9 @@ A design doc (amend/supersede `designs/multibot-leader-follower.md`, or a new
 Post your completion report with the design doc path + commit sha on `main2`, and
 the proposed staged build-plan (so the liaison/steward can orchestrate the
 implementation). Style rules apply (no em-dashes, no Latin shorthand).
+
+---
+claim:
+  host: endolinbot
+  gardener: 55
+  claimed_at: 2026-07-05T17:17:11Z
