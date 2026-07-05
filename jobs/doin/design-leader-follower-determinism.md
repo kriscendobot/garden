@@ -102,3 +102,9 @@ the proposed staged build-plan (so the liaison/steward can orchestrate the
 implementation). Style rules apply (no em-dashes, no Latin shorthand).
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot
+  gardener: 73
+  claimed_at: 2026-07-05T17:36:05Z
