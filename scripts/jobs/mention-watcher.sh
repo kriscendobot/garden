@@ -228,9 +228,22 @@ write_job_body() {  # write_job_body <out> <verb> <repo> <surface> <author> <num
 # --- poll, then process each mention in created_at order --------------------
 load_allowlist
 
-SRC="$(mktemp)"; trap 'rm -f "$SRC"' EXIT
-if ! "$GARDEN_MENTION_SOURCE" "${last_seen:-}" "$GARDEN_BOT_LOGIN" > "$SRC" 2>/dev/null; then
-  die "mention source failed"
+SRC="$(mktemp)"; ERRF="$(mktemp)"; trap 'rm -f "$SRC" "$ERRF"' EXIT
+# Capture the source's stderr (was 2>/dev/null — the silent-blindness signature the
+# comment-watcher fixed after the 2026-06-24 jq outage hid for ~16h: a broken source
+# emitting nothing looks identical to a quiet GitHub). On failure we echo the captured
+# stderr so an absent jq/gh or an auth error is diagnosable, and a transient network
+# blip DEGRADES to a skipped tick instead of a die → systemd restart storm
+# (is_transient_net_error, shared with the comment/ci watchers via common.sh).
+src_rc=0
+"$GARDEN_MENTION_SOURCE" "${last_seen:-}" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF" || src_rc=$?
+if [ "$src_rc" -ne 0 ]; then
+  sed 's/^/  source: /' "$ERRF" >&2 || true
+  if is_transient_net_error "$ERRF"; then
+    log "WARN: mention source unreachable (transient network) — skipping tick (never guess)"
+    exit 0
+  fi
+  die "mention source failed (rc=$src_rc; see source stderr above)"
 fi
 # Defensive ascending sort by created_at (field 1); the source should already.
 sort -t$'\t' -k1,1 -o "$SRC" "$SRC"
@@ -241,7 +254,24 @@ if [ "$nlines" -eq 0 ]; then
   exit 0
 fi
 
-hw="$last_seen"; failed=0; acted=0; dropped=0
+hw="$last_seen"; failed=0; acted=0; dropped=0; fail_floor=""
+# --- head-of-line safety: one un-postable item must NOT block later ones -------
+# Ported from comment-watcher.sh (the #594 postmortem). The batch runs in ASCENDING
+# created_at order behind a single scalar high-water cursor. The old shape `break`-ed
+# the WHOLE loop on the first POST LOST (a push whose landing on origin/journal2 could
+# not be confirmed) OR the first trust-INDETERMINATE row, freezing the cursor so the
+# failed item re-polls next tick — but also ABANDONING every chronologically-later
+# mention in the same batch. An item stuck at the front then permanently hides
+# everything behind it, tick after tick.
+#
+# The fix decouples DETECTION from the single cursor's retry semantics: on a failed
+# item we record fail_floor = the FIRST failed item's created_at and CONTINUE, so
+# later independent mentions are still classified and posted this tick; the cursor may
+# only advance over the contiguous successful prefix strictly before fail_floor.
+# `slide()` freezes hw once fail_floor is set, so the failed item stays below the
+# cursor and re-polls next tick. Re-processing the already-posted later items next tick
+# is a cheap idempotent no-op (verify_posted + post-job.sh identity dedup collapse them).
+slide() { [ -z "$fail_floor" ] && hw="$1"; return 0; }
 # TSV columns: created  surface  comment_id  repo  number  author  url  body
 while IFS=$'\t' read -r created surface cid repo number author url body; do
   [ -n "$created" ] || continue
@@ -250,15 +280,17 @@ while IFS=$'\t' read -r created surface cid repo number author url body; do
   trc=0; is_trusted "$author" || trc=$?
   if [ "$trc" -eq 2 ]; then
     # Membership API had no usable answer (transient outage past the retry
-    # budget). This is NOT an untrusted verdict: hold the cursor at the clean
+    # budget). This is NOT an untrusted verdict: freeze the cursor at the clean
     # prefix and retry the whole row next tick, exactly like a lost post —
-    # advancing here would permanently drop a possibly-trusted directive.
-    log "trust INDETERMINATE for ${author:-<none>} on ${repo:-?} #${number:-?}; holding cursor to retry next tick"
-    failed=1; break
+    # advancing here would permanently drop a possibly-trusted directive. Do NOT
+    # break: record fail_floor and CONTINUE so a chronologically-later mention is
+    # still classified this tick (head-of-line safety, see the loop-top note).
+    log "trust INDETERMINATE for ${author:-<none>} on ${repo:-?} #${number:-?}; freezing cursor to retry next tick (continuing the batch)"
+    failed=1; [ -z "$fail_floor" ] && fail_floor="$created"; continue
   fi
   if [ "$trc" -ne 0 ]; then
     log "untrusted sender ${author:-<none>} on ${repo:-?} #${number:-?}; dropped (not triaged)"
-    dropped=$((dropped+1)); hw="$created"; continue
+    dropped=$((dropped+1)); slide "$created"; continue
   fi
 
   bf="$(mktemp)"; printf '%s\n' "$body" > "$bf"
@@ -283,7 +315,7 @@ while IFS=$'\t' read -r created surface cid repo number author url body; do
   # Idempotency: if the job is already on the board, this mention was already
   # actioned (a re-poll across the inclusive since= boundary, or a prior tick).
   if verify_posted "$base"; then
-    log "already actioned: $base (idempotent skip)"; rm -f "$bf"; hw="$created"; continue
+    log "already actioned: $base (idempotent skip)"; rm -f "$bf"; slide "$created"; continue
   fi
 
   # Reactji FIRST (the bot's "received and processing" signal), then post.
@@ -295,26 +327,32 @@ while IFS=$'\t' read -r created surface cid repo number author url body; do
   rm -f "$jb" "$bf"
 
   if verify_posted "$base"; then
-    log "posted $base ($VERB on $repo #$number from trusted $author) + acked"; acted=$((acted+1)); hw="$created"
+    log "posted $base ($VERB on $repo #$number from trusted $author) + acked"; acted=$((acted+1)); slide "$created"
   elif owner="$(journal_identity_owner_live "$VERIFY" "origin/$JOURNAL_BRANCH" "$IDENTITY")"; then
     # post-job.sh deduped this mention onto an existing live job (the comment-watcher
     # already owns identity $IDENTITY for the same comment under a different base).
     # The directive IS being handled — treat as success (the reactji already acked);
     # advance the cursor rather than misreading the intentional no-op as a lost push.
     log "DEDUP: mention $IDENTITY already owned by live job '$owner' — not double-posting $base; advancing cursor"
-    acted=$((acted+1)); hw="$created"
+    acted=$((acted+1)); slide "$created"
   else
-    log "POST LOST for $base — push did not reach origin/$JOURNAL_BRANCH; leaving cursor at ${hw:-<coldstart>} to retry"
-    failed=1; break
+    # Do NOT break: a `break` abandoned every chronologically-later mention in the
+    # batch (the #594 head-of-line miss). Record the FIRST lost item's created_at as
+    # fail_floor (freezing the cursor there via slide) and CONTINUE, so an independent
+    # later mention is still posted this tick; the cursor stays below fail_floor so
+    # this mention re-polls next tick until its post lands.
+    log "POST LOST for $base — push did not reach origin/$JOURNAL_BRANCH; freezing cursor at ${hw:-<coldstart>} to retry (continuing the batch so later mentions are still detected)"
+    failed=1; [ -z "$fail_floor" ] && fail_floor="$created"; continue
   fi
 done < "$SRC"
 
-# Advance the cursor over the successfully-handled prefix only (dropped + acted +
-# already-actioned all slide it; a lost post stops it short so we re-poll).
+# Advance the cursor over the contiguous successful PREFIX only — the slide()-frozen
+# hw sits strictly below fail_floor (the first failed item), so a failed mention and
+# everything at/after it re-poll next tick while the clean prefix is not re-seen.
 if [ -n "$hw" ] && [ "$hw" != "$last_seen" ]; then
   printf 'last_seen: %s\nlast_polled_at: %s\n' "$hw" "$(date -u +%FT%TZ)" \
     | "$HERE/cursor-set.sh" "$CURSOR_KEY"
-  log "advanced mention cursor to $hw (acted $acted; dropped $dropped; failed=$failed)"
+  log "advanced mention cursor to $hw (acted $acted; dropped $dropped; failed=$failed; floor=${fail_floor:-none})"
 else
-  log "cursor unchanged (acted $acted; dropped $dropped; failed=$failed)"
+  log "cursor unchanged (acted $acted; dropped $dropped; failed=$failed; floor=${fail_floor:-none})"
 fi

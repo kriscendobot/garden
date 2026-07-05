@@ -430,7 +430,25 @@ if [ "$nlines" -eq 0 ]; then
   exit 0
 fi
 
-hw="$last_seen"; failed=0; acted=0; dropped=0
+hw="$last_seen"; failed=0; acted=0; dropped=0; fail_floor=""
+# --- head-of-line safety: one un-dispatchable item must NOT block later ones ----
+# Ported from comment-watcher.sh (the #594 postmortem). The batch runs in ASCENDING
+# created_at order behind a single scalar high-water cursor. The old shape `break`-ed
+# the WHOLE loop on the first POST LOST or COMMENT DELIVERY LOST (a dispatch whose
+# landing could not be confirmed), freezing the cursor so the failed item re-polls
+# next tick — but also ABANDONING every chronologically-later issue/comment in the
+# same batch, tick after tick, because each tick re-polls from the frozen cursor and
+# breaks at the same front item.
+#
+# The fix decouples DETECTION from the single cursor's retry semantics: on a lost
+# dispatch we record fail_floor = the FIRST lost item's created_at and CONTINUE, so a
+# later independent issue/comment is still dispatched this tick; the cursor may only
+# advance over the contiguous successful prefix strictly before fail_floor. `slide()`
+# freezes hw once fail_floor is set, so the failed item stays below the cursor and
+# re-polls next tick. Re-processing the already-dispatched later items next tick is a
+# cheap idempotent no-op (issue posts are idempotent by spine; a re-delivered comment
+# is an accepted at-least-once fold, pinned by GitHub comment id).
+slide() { [ -z "$fail_floor" ] && hw="$1"; return 0; }
 # TSV columns: kind created id number author submitter state closed_by closed_at url body
 # closed_by AND closed_at each carry a '-' sentinel when empty: bash `read` with a
 # (whitespace) TAB IFS collapses consecutive tabs, so an empty MIDDLE field would
@@ -455,7 +473,7 @@ while IFS=$'\t' read -r kind created id number author submitter state closed_by 
   # ── MAINTAINER-TRUST GATE — first, deterministic, before ANYTHING reads body ──
   if ! is_maintainer "$author"; then
     log "non-maintainer ${author:-<none>} on $REPO #${number:-?} ($kind id=${id:-?}); dropped (not triaged)"
-    dropped=$((dropped+1)); hw="$created"; continue
+    dropped=$((dropped+1)); slide "$created"; continue
   fi
 
   # Closing etiquette, corrected for re-engagement (kriskowal/garden #10,
@@ -479,7 +497,7 @@ while IFS=$'\t' read -r kind created id number author submitter state closed_by 
       log "issue #$number: trusted comment id=$id post-dates submitter-close (created=$created, closed_at=${closed_at:-unknown}) — re-engagement, processing"
     else
       log "issue #$number $kind id=${id:-?} at-or-before submitter-close by $submitter (created=$created, closed_at=${closed_at:-unknown}) — terminal, dropping (reason: not a post-close re-engagement)"
-      hw="$created"; continue
+      slide "$created"; continue
     fi
   fi
 
@@ -493,7 +511,7 @@ while IFS=$'\t' read -r kind created id number author submitter state closed_by 
       # Idempotent by spine: if the job is already on the board this issue was
       # already actioned (a re-poll, or a prior tick). Skip cleanly.
       if verify_posted "$spine"; then
-        log "already actioned issue: $spine (idempotent skip)"; rm -f "$nf" "$bf"; hw="$created"; continue
+        log "already actioned issue: $spine (idempotent skip)"; rm -f "$nf" "$bf"; slide "$created"; continue
       fi
       # Reactji FIRST (the "received" signal), then post — like comment-watcher.sh.
       # The id for an issue body is the ISSUE NUMBER, not a comment id.
@@ -502,10 +520,13 @@ while IFS=$'\t' read -r kind created id number author submitter state closed_by 
       "$GARDEN_ISSUE_POST" "$spine" "$jb" >/dev/null 2>&1 || true
       rm -f "$jb"
       if verify_posted "$spine" fresh; then
-        log "posted $spine (issue #$number from maintainer $author)"; acted=$((acted+1)); hw="$created"
+        log "posted $spine (issue #$number from maintainer $author)"; acted=$((acted+1)); slide "$created"
       else
-        log "POST LOST for $spine — push did not reach origin/$JOURNAL_BRANCH; leaving cursor at ${hw:-<coldstart>} to retry"
-        failed=1; rm -f "$nf" "$bf"; break
+        # Do NOT break: freezing at fail_floor keeps later issues/comments in the batch
+        # reachable this tick (head-of-line safety, see the loop-top note); the cursor
+        # stays below fail_floor so this issue re-polls next tick until its post lands.
+        log "POST LOST for $spine — push did not reach origin/$JOURNAL_BRANCH; freezing cursor at ${hw:-<coldstart>} to retry (continuing the batch so later items are still detected)"
+        failed=1; [ -z "$fail_floor" ] && fail_floor="$created"; rm -f "$nf" "$bf"; continue
       fi
       ;;
     issue-comment)
@@ -528,26 +549,30 @@ while IFS=$'\t' read -r kind created id number author submitter state closed_by 
       if GARDEN_SENDER="issue-inbox" GARDEN_MSG_ID="issue-comment-$id" \
            "$GARDEN_ISSUE_MSG" "$spine" "$mb" >/dev/null 2>&1; then
         log "delivered comment on #$number to issue doer ($spine) — or dead-lettered for promotion"
-        acted=$((acted+1)); hw="$created"
+        acted=$((acted+1)); slide "$created"
       else
-        log "COMMENT DELIVERY LOST for $spine — leaving cursor at ${hw:-<coldstart>} to retry"
-        failed=1; rm -f "$mb" "$nf" "$bf"; break
+        # Do NOT break: freezing at fail_floor keeps later issues/comments in the batch
+        # reachable this tick (head-of-line safety); the cursor stays below fail_floor
+        # so this comment re-polls next tick until its delivery confirms.
+        log "COMMENT DELIVERY LOST for $spine — freezing cursor at ${hw:-<coldstart>} to retry (continuing the batch so later items are still detected)"
+        failed=1; [ -z "$fail_floor" ] && fail_floor="$created"; rm -f "$mb" "$nf" "$bf"; continue
       fi
       rm -f "$mb"
       ;;
     *)
-      log "unknown row kind '$kind' on #$number; ignoring"; hw="$created"
+      log "unknown row kind '$kind' on #$number; ignoring"; slide "$created"
       ;;
   esac
   rm -f "$nf" "$bf"
 done < "$SRC"
 
-# Advance the cursor over the successfully-handled prefix only (dropped + acted +
-# already-actioned all slide it; a lost dispatch stops it short so we re-poll).
+# Advance the cursor over the contiguous successful PREFIX only — the slide()-frozen
+# hw sits strictly below fail_floor (the first lost dispatch), so a failed item and
+# everything at/after it re-poll next tick while the clean prefix is not re-seen.
 if [ -n "$hw" ] && [ "$hw" != "$last_seen" ]; then
   printf 'last_seen: %s\nlast_polled_at: %s\n' "$hw" "$(date -u +%FT%TZ)" \
     | "$HERE/cursor-set.sh" "$CURSOR_KEY"
-  log "advanced issue cursor for $slug to $hw (acted $acted; dropped $dropped; failed=$failed)"
+  log "advanced issue cursor for $slug to $hw (acted $acted; dropped $dropped; failed=$failed; floor=${fail_floor:-none})"
 else
-  log "cursor unchanged for $slug (acted $acted; dropped $dropped; failed=$failed)"
+  log "cursor unchanged for $slug (acted $acted; dropped $dropped; failed=$failed; floor=${fail_floor:-none})"
 fi

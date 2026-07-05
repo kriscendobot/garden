@@ -63,10 +63,14 @@ cat "${MW_FIXTURE:?set MW_FIXTURE}"
 EOF
 chmod +x "$SRCSTUB"
 
-# org-membership stub: ONLY the login named in MW_ORGMEMBER is a "member".
+# org-membership stub: ONLY the login named in MW_ORGMEMBER is a "member" (rc 0).
+# The login named in MW_INDETERMINATE returns rc 2 — the "membership API had no usable
+# answer" verdict (a transient outage past the retry budget), so the watcher's trust
+# gate freezes the cursor at the floor and re-polls the row next tick.
 TRUSTSTUB="$TR/trust-stub.sh"
 cat > "$TRUSTSTUB" <<'EOF'
 #!/bin/bash
+[ -n "${MW_INDETERMINATE:-}" ] && [ "$1" = "$MW_INDETERMINATE" ] && exit 2
 [ "$1" = "${MW_ORGMEMBER:-}" ]
 EOF
 chmod +x "$TRUSTSTUB"
@@ -112,9 +116,12 @@ board_has() {  # board_has <bare> <base>
 }
 
 run_watcher() {  # run_watcher <state> <bare> <fixture> <reactlog> <orgmember> [post-cmd] [post-log]
+  # MW_INDETERMINATE (a login the trust stub returns rc 2 for) rides in from the
+  # caller's environment so a held-floor case can force the indeterminate verdict.
   env GARDEN_STATE="$1" JOURNAL_REMOTE="$2" JOURNAL_BRANCH="$BRANCH" \
       GARDEN_TRUSTED_ALLOWLIST="$ALLOW" \
       MW_FIXTURE="$3" MW_REACTJI_LOG="$4" MW_ORGMEMBER="${5:-}" \
+      MW_INDETERMINATE="${MW_INDETERMINATE:-}" \
       MW_POST_LOG="${7:-/dev/null}" \
       GARDEN_MENTION_SOURCE="$SRCSTUB" \
       GARDEN_MENTION_TRUST="$TRUSTSTUB" \
@@ -202,6 +209,54 @@ run_watcher "$TR/state-f" "$BARE_F" "$FIX_F" "$RLOG_F" ""
 board_has "$BARE_F" "mention-endojs-endo-but-for-bots-526-rebase" && bad "verb-as-topic minted a bogus rebase job" || ok "no rebase job from a non-imperative @-mention of the word"
 [ "$(board_count "$BARE_F")" -eq 1 ] && ok "verb-topic @-mention routed to an attention job" || bad "expected 1 attention job, got $(board_count "$BARE_F")"
 grep -qx "issue-comment 555 eyes" "$RLOG_F" && ok "eyes reactji on the @-mention" || bad "reactji wrong ($(cat "$RLOG_F"))"
+
+# ============================================================================
+# G — HELD FLOOR on a lost post: an EARLIER trusted mention whose push does not land
+# must NOT abandon a chronologically-LATER trusted mention in the same batch. The old
+# `failed=1; break` shape stopped the loop at the first lost post, so the later mention
+# was never even handed to the poster — the #594 head-of-line miss. With fail_floor the
+# later mention is still classified + posted this tick, while the cursor freezes at the
+# first failure so the lost item re-polls next tick. Prove it with a LOGGING poster
+# that reports success but never lands the job (so BOTH rows POST-LOST): the post log
+# must record BOTH bases (later row reached the poster) and the cursor must NOT advance.
+hr; echo "G — held floor: an earlier lost post does not block a later mention"; hr
+BARE_G="$TR/g.git"; seed_bare "$BARE_G"
+FIX_G="$TR/fix-g.tsv"; RLOG_G="$TR/react-g.log"; PLOG_G="$TR/post-g.log"; : > "$RLOG_G"; : > "$PLOG_G"
+{
+  mkline 2026-06-24T15:00:00Z issue-comment 601 endojs/endo-but-for-bots 60 kriskowal \
+    https://github.com/endojs/endo-but-for-bots/pull/60#issuecomment-601 \
+    '@kriscendobot please shepherd #60'
+  mkline 2026-06-24T15:05:00Z issue-comment 611 endojs/endo-but-for-bots 61 erights \
+    https://github.com/endojs/endo-but-for-bots/pull/61#issuecomment-611 \
+    '@kriscendobot please rebase #61'
+} > "$FIX_G"
+run_watcher "$TR/state-g" "$BARE_G" "$FIX_G" "$RLOG_G" "" "$LOGPOST" "$PLOG_G"
+grep -qx "mention-endojs-endo-but-for-bots-60-shepherd" "$PLOG_G" && ok "the earlier (lost) mention was handed to the poster" || bad "earlier mention never posted ($(cat "$PLOG_G"))"
+grep -qx "mention-endojs-endo-but-for-bots-61-rebase" "$PLOG_G" && ok "the LATER mention was still posted despite the earlier lost post (no head-of-line block)" || bad "later mention abandoned after the earlier lost post ($(cat "$PLOG_G"))"
+[ -z "$(cursor_seen "$TR/state-g" "$BARE_G")" ] && ok "cursor frozen at the floor (did not advance past the lost post)" || bad "cursor advanced past a lost post ($(cursor_seen "$TR/state-g" "$BARE_G"))"
+
+# ============================================================================
+# H — HELD FLOOR on an indeterminate trust verdict: an EARLIER row whose sender-trust
+# check is INDETERMINATE (membership API outage → rc 2) must likewise not abandon a
+# LATER trusted mention. The indeterminate row freezes the cursor (retry next tick);
+# the later allowlisted mention is still posted this tick.
+hr; echo "H — held floor: an earlier INDETERMINATE trust row does not block a later mention"; hr
+BARE_H="$TR/h.git"; seed_bare "$BARE_H"
+FIX_H="$TR/fix-h.tsv"; RLOG_H="$TR/react-h.log"; PLOG_H="$TR/post-h.log"; : > "$RLOG_H"; : > "$PLOG_H"
+{
+  # maybecontributor is neither allowlisted nor a definite member: the trust stub
+  # returns rc 2 (indeterminate) for it, freezing the floor at this earlier row.
+  mkline 2026-06-24T16:00:00Z issue-comment 701 endojs/endo-but-for-bots 62 maybecontributor \
+    https://github.com/endojs/endo-but-for-bots/pull/62#issuecomment-701 \
+    '@kriscendobot could you take a look?'
+  mkline 2026-06-24T16:05:00Z issue-comment 711 endojs/endo-but-for-bots 63 kriskowal \
+    https://github.com/endojs/endo-but-for-bots/pull/63#issuecomment-711 \
+    '@kriscendobot please rebase #63'
+} > "$FIX_H"
+MW_INDETERMINATE=maybecontributor run_watcher "$TR/state-h" "$BARE_H" "$FIX_H" "$RLOG_H" "" "$LOGPOST" "$PLOG_H"
+grep -q -- '-62-' "$PLOG_H" && bad "the indeterminate row (#62) reached the poster (should be held for retry)" || ok "the indeterminate row was NOT posted (held for retry)"
+grep -qx "mention-endojs-endo-but-for-bots-63-rebase" "$PLOG_H" && ok "the LATER trusted mention was still posted despite the earlier indeterminate row" || bad "later mention abandoned after an indeterminate row ($(cat "$PLOG_H"))"
+[ -z "$(cursor_seen "$TR/state-h" "$BARE_H")" ] && ok "cursor frozen at the indeterminate floor" || bad "cursor advanced past an indeterminate row ($(cursor_seen "$TR/state-h" "$BARE_H"))"
 
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr

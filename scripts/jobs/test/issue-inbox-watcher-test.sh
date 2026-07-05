@@ -268,5 +268,32 @@ grep -q "POST issue-$SLUG-14" "$PL_J" && ok "job still posted despite a reactji 
 grep -qi 'WARN: reactji failed' "$ERR_J" && ok "the reactji failure is logged as a WARN" || bad "no WARN logged on reactji failure ($(cat "$ERR_J"))"
 
 # ============================================================================
+# K — HELD FLOOR: an EARLIER item whose dispatch is lost must NOT abandon a
+# chronologically-LATER item in the same batch. The old `failed=1; …; break` stopped
+# the loop at the first lost dispatch, so every later issue/comment was silently
+# abandoned tick after tick (the comment-watcher #594 head-of-line miss). With
+# fail_floor the later item is still dispatched this tick, while the cursor freezes at
+# the first failure so the lost item re-polls next tick.
+#
+# The POST stub reports success but never LANDS the job on the board, so a kind=issue
+# row always POST-LOSTs (verify_posted holds — the same mechanic case J relies on),
+# while a kind=issue-comment row is DELIVERED by the MSG stub (exit 0 = success). So
+# an EARLIER issue (lost) followed by a LATER comment proves the later comment is still
+# delivered despite the earlier lost post, and the cursor does not advance past the floor.
+hr; echo "K — held floor: an earlier lost issue-post does not block a later comment"; hr
+BARE_K="$TR/k.git"; seed_bare "$BARE_K"
+FIX_K="$TR/fix-k.tsv"; PL_K="$TR/post-k.log"; ML_K="$TR/msg-k.log"; ERR_K="$TR/err-k.log"; : >"$PL_K"; : >"$ML_K"
+{
+  row issue 2026-06-28T18:00:00Z 800 20 kriskowal kriskowal open - - \
+    https://github.com/kriskowal/garden/issues/20 'a new issue whose post will not land'
+  row issue-comment 2026-06-28T18:05:00Z 8001 21 kriskowal kriskowal open - - \
+    'https://github.com/kriskowal/garden/issues/21#issuecomment-8001' 'a later comment on another issue'
+} > "$FIX_K"
+run_watcher "$TR/state-k" "$BARE_K" "$FIX_K" "$PL_K" "$ML_K" "$ERR_K"
+grep -q "POST issue-$SLUG-20" "$PL_K" && ok "the earlier (lost) issue was handed to the poster" || bad "earlier issue never posted ($(cat "$PL_K"))"
+grep -q "MSG issue-$SLUG-21" "$ML_K" && ok "the LATER comment was still delivered despite the earlier lost post (no head-of-line block)" || bad "later comment abandoned after the earlier lost post ($(cat "$ML_K"))"
+[ -z "$(cursor_seen "$TR/state-k" "$BARE_K")" ] && ok "cursor frozen at the floor (did not advance past the lost post)" || bad "cursor advanced past a lost post ($(cursor_seen "$TR/state-k" "$BARE_K"))"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]
