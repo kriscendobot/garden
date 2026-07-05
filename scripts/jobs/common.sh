@@ -1842,6 +1842,80 @@ stamp_productive_cycle_hint() {
   return 1
 }
 
+# --- outage-cycle hint (the sustained-outage poison-pause) --------------------
+#
+# A job's handler can transient-fail purely because the WHOLE FLEET is in a
+# correlated outage — a Claude quota/usage cut, an API-overload storm — that has
+# nothing to do with THIS job's content. Left alone, GARDEN_REAP_POISON_THRESHOLD
+# such cycles poison an otherwise-healthy job (park it held, page the maintainer)
+# even though every failure was environmental and self-resolving — the 2026-07-01
+# storm that poisoned a dozen unrelated jobs, and the case this marker exists to
+# prevent.
+#
+# The discriminator is the shared FLEET BRAKE: a per-job defect fails while its
+# peers succeed; a fleet-wide outage makes MANY handlers fail at once, which is
+# exactly the correlated-transient DENSITY the brake already measures. So when a
+# gardener transient-fails AND fleet_brake_engaged is true (the same predicate that
+# PAUSES claiming), it stamps THIS marker on its still-in-doin claim; the reaper
+# READS it and PAUSES the poison counter for that cycle — HOLDS it steady, neither
+# incrementing toward the threshold nor resetting it — so cycles that failed only
+# because the fleet was down do not accrue toward poison, while a job that still
+# fails once the outage clears poisons on its own (non-outage) cycles.
+#
+# Distinct from the productive-cycle hint, which RESETS the counter on real
+# progress: an outage cycle made no progress, so it HOLDS rather than resets (a
+# reset would let intermittent outages erase legitimate prior failures and shield a
+# genuinely-broken job forever). Like the productive/reap-now hints it is a BOOLEAN
+# present iff the LAST cycle failed under an engaged brake; reaper.sh's clean_body
+# STRIPS it on requeue so it never persists — each cycle must RE-EARN the outage
+# classification by a fresh gardener stamp under a still-engaged brake. Stamped
+# alongside the reap-now hint so the reaper still requeues promptly; the two ride
+# together.
+OUTAGE_MARKER='<!-- garden-outage-cycle -->'
+OUTAGE_MARKER_RE='^<!-- garden-outage-cycle -->$'
+
+# has_outage_cycle_hint <file> — 0 iff the job file carries the outage marker.
+has_outage_cycle_hint() {
+  local f="${1:-}"
+  [ -f "$f" ] || return 1
+  grep -Eq "$OUTAGE_MARKER_RE" "$f"
+}
+
+# stamp_outage_cycle_hint <clone> <doin-relpath> — insert the outage marker into the
+# BODY of a still-in-doin claim (just above the trailing claim block) and land it on
+# the board, so the reaper PAUSES the poison counter for this cycle. Idempotent (a
+# claim already carrying the hint, or already moved out of doin, is left as-is),
+# bounded CAS retry against journal push contention, subshell-safe — mirrors
+# stamp_productive_cycle_hint's contract exactly.
+stamp_outage_cycle_hint() {
+  local clone="$1" rel="$2" attempt f rc
+  : "${GARDEN_REAP_NOW_PUSH_ATTEMPTS:=25}"
+  for attempt in $(seq 1 "$GARDEN_REAP_NOW_PUSH_ATTEMPTS"); do
+    sync_clone "$clone"
+    f="$clone/$rel"
+    if [ ! -e "$f" ]; then clone_unlock "$clone"; return 0; fi              # already moved by a peer
+    if has_outage_cycle_hint "$f"; then clone_unlock "$clone"; return 0; fi # already hinted
+    awk -v m="$OUTAGE_MARKER" '
+      { line[NR] = $0 }
+      END {
+        cut = 0
+        for (i = 1; i < NR; i++) if (line[i] == "---" && line[i+1] == "claim:") cut = i
+        for (i = 1; i <= NR; i++) {
+          if (cut > 0 && i == cut) print m   # insert just above the claim block (in the body)
+          print line[i]
+        }
+        if (cut == 0) print m                # no claim block: append (defensive)
+      }
+    ' "$f" > "$f.outage" && mv "$f.outage" "$f"
+    git -C "$clone" add "$rel"
+    if commit_and_push "$clone" "outage-cycle: hint $rel by $GARDEN (transient failure under engaged fleet brake)"; then rc=0; else rc=$?; fi
+    [ "$rc" -eq 0 ] && return 0
+    [ "$rc" -eq 2 ] && return 0   # nothing to commit (a racing stamp won): treat as landed
+    backoff "$attempt"            # rc=1: CAS lost — re-sync and retry
+  done
+  return 1
+}
+
 # --- per-job progress detection (the productive-cycle signal source) ---------
 #
 # A job's real work lands in ISOLATED per-job git worktrees under GARDEN_SCRATCH: the

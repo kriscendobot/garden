@@ -49,6 +49,13 @@
 #      <failure signature> (poison-notice.sh) so a restart that poisons dozens of
 #      jobs does not flood the inbox with near-identical messages. See the poison
 #      branch of the batch-requeue loop below and poison-notice.sh.
+#      Two gardener-stamped exemptions keep the counter from poisoning HEALTHY work:
+#      a PRODUCTIVE cycle (a per-job worktree HEAD advanced) RESETS it, and a
+#      SUSTAINED-OUTAGE cycle (the handler transient-failed while the shared fleet
+#      brake was engaged — a fleet-wide quota/API storm, not a defect in this job)
+#      PAUSES it (holds it steady). The outage exemption is what stops a correlated
+#      outage from mass-poisoning a dozen unrelated jobs (the 2026-07-01 incident);
+#      see common.sh § outage-cycle hint and the has_outage_cycle_hint branch below.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -232,7 +239,8 @@ gc_scratch() {
 # that itself contains a `---` rule is preserved intact. If no claim block is
 # found the body is returned unchanged (never blindly truncated at a stray `---`).
 clean_body() {
-  awk -v mark="$REAP_MARKER_RE" -v rnow="$REAP_NOW_MARKER_RE" -v prod="$PRODUCTIVE_MARKER_RE" '
+  awk -v mark="$REAP_MARKER_RE" -v rnow="$REAP_NOW_MARKER_RE" -v prod="$PRODUCTIVE_MARKER_RE" \
+      -v outage="$OUTAGE_MARKER_RE" '
     { line[NR] = $0 }
     END {
       cut = 0
@@ -243,6 +251,7 @@ clean_body() {
         if (line[i] ~ mark) continue          # drop prior reap-count markers
         if (line[i] ~ rnow) continue          # drop the gardener reap-now hint (never persist it)
         if (line[i] ~ prod) continue          # drop the gardener productive-cycle hint (re-earned each cycle)
+        if (line[i] ~ outage) continue        # drop the gardener outage-cycle hint (re-earned each cycle)
         out[++m] = line[i]
       }
       while (m > 0 && out[m] ~ /^[ \t]*$/) m--  # trim trailing blank lines
@@ -340,10 +349,25 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
     # the drop. A job productive every cycle therefore never poisons; a job that truly
     # fails every cycle never earns the marker and still poisons at the threshold. This
     # is the reaper half of the productive-cycle fix (common.sh § productive-cycle hint).
+    outage=0
     if has_productive_cycle_hint "$f"; then
       productive=1
       count=0
       log "productive: '$base' advanced a per-job worktree HEAD this cycle; resetting reap/poison counter (was $prev) — not counted toward poison"
+    elif has_outage_cycle_hint "$f"; then
+      # OUTAGE cycle: the gardener stamped this because the handler transient-failed
+      # while the shared fleet brake was ENGAGED — a fleet-wide correlated outage (a
+      # Claude quota/usage cut, an API-overload storm), not a defect in THIS job. PAUSE
+      # the poison counter: HOLD it at its prior value rather than incrementing, so an
+      # environmental storm cannot poison an otherwise-healthy job (the 2026-07-01
+      # dozen-job poisoning). Unlike a productive cycle it does NOT reset — the job made
+      # no progress, so genuine prior no-progress failures are preserved and the job
+      # still poisons on its own (non-outage) cycles once the outage clears. `outage=1`
+      # also guards the poison DECISION below so this cycle can never itself poison.
+      productive=0
+      outage=1
+      count="$prev"
+      log "outage: '$base' transient-failed under an engaged fleet brake this cycle; PAUSING poison counter (held at $prev) — sustained environmental transient, not counted toward poison"
     else
       productive=0
       count=$(( prev + 1 ))
@@ -373,7 +397,7 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       overrun=0
       body="$(printf '%s\n' "$body" | grep -vE "$DEADLINE_OVERRUN_MARKER_RE" || true)"
     fi
-    if [ "$overrun" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ] || [ "$count" -ge "$GARDEN_REAP_POISON_THRESHOLD" ]; then
+    if [ "$outage" -ne 1 ] && { [ "$overrun" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ] || [ "$count" -ge "$GARDEN_REAP_POISON_THRESHOLD" ]; }; then
       # Poison: do NOT requeue, and do NOT drop the work — PARK it in jobs/plan/
       # under a HELD gate so the work survives and can be resumed once the
       # underlying issue is cleared, rather than being lost until a human

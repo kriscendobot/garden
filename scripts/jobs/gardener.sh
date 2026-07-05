@@ -502,7 +502,13 @@ while :; do
     # A misconfigured (non-integer) tunable DISABLES the check rather than crashing
     # the gardener loop on the arithmetic test below.
     case "$constancy_n0" in ''|*[!0-9]*) constancy_n0=0 ;; esac
-    if [ "$constancy_n0" -ge 2 ] && [ "$cycle" -ge 2 ]; then
+    # SUPPRESS during a fleet-wide outage: the constancy check reads a near-constant
+    # elapsed as "a WEDGED child, not a working one", but under an ENGAGED fleet brake
+    # a constant elapsed is just as consistent with an environmental storm (a usage cap
+    # tripping at the same point every run — the 2026-07-01 incident) that will
+    # self-resolve. Firing a wedge advisory then is a false alarm, so skip it while the
+    # brake is engaged; the outage-cycle hint (below) already spares the poison counter.
+    if [ "$constancy_n0" -ge 2 ] && [ "$cycle" -ge 2 ] && ! fleet_brake_engaged; then
       # Prior cycles' elapsed (this clone was synced at claim time, so it holds the
       # prior notes but NOT this cycle's) with the current elapsed appended, then the
       # trailing N-cycle window; require a FULL window before judging constancy.
@@ -555,6 +561,20 @@ while :; do
     # instantly re-claim and re-run against the same exhausted quota. Cadence only
     # — the reaper still owns the requeue.
     record_transient_failure
+    # If this transient failure is part of a fleet-wide correlated outage (the shared
+    # brake is now engaged — many handlers failing at once, not a defect in THIS job),
+    # stamp the outage-cycle hint so the reaper PAUSES the poison counter for this cycle:
+    # an environmental storm must never poison an otherwise-healthy job (the 2026-07-01
+    # dozen-job poisoning; common.sh § outage-cycle hint). Checked AFTER recording so
+    # this failure counts toward the density. Best-effort, subshell-isolated so a
+    # sync_clone offline-exit cannot kill this gardener.
+    if fleet_brake_engaged; then
+      if ( stamp_outage_cycle_hint "$CLONE" "$JOBS_DOIN/$base.md" ); then
+        log "fleet brake ENGAGED at failure time for '$base'; stamped outage-cycle hint — reaper will PAUSE the poison counter this cycle (sustained environmental transient, not counted toward poison)"
+      else
+        log "could not stamp outage-cycle hint on '$base' (rc=$?); this cycle will count toward poison"
+      fi
+    fi
     idle_backoff "$fail_attempt"; fail_attempt=$((fail_attempt+1))
   else
     rc=$hrc  # exit code of the failed handler (captured explicitly above)
@@ -809,8 +829,17 @@ while :; do
       # A misconfigured (non-integer) tunable DISABLES the check rather than crashing
       # the gardener loop on the arithmetic test below (this runs on every failed job).
       case "$constancy_n" in ''|*[!0-9]*) constancy_n=0 ;; esac
+      # SUPPRESS during a fleet-wide outage. This path does more than advise — it stamps
+      # the early-poison deadline-overrun counter (below) so a "deterministic overrun"
+      # poisons after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles. But under an ENGAGED fleet
+      # brake a near-constant elapsed is equally the signature of an environmental storm
+      # (a session/usage cap tripping at the same point every run — the 2026-07-01
+      # incident) that will self-resolve, NOT a per-job defect. Stamping the overrun
+      # counter then would poison a healthy job via the overrun path in 2 cycles, DEFEATING
+      # the outage-cycle poison-pause. So skip the whole early-escalation while the brake is
+      # engaged; the outage-cycle hint (above) spares the requeue counter for these cycles.
       if [ "$constancy_n" -ge 2 ] && [ "$cycle" -ge 2 ] && [ -s "$capture" ] \
-         && ! is_external_kill_rc "$rc" && ! is_handler_timeout_rc "$rc"; then
+         && ! is_external_kill_rc "$rc" && ! is_handler_timeout_rc "$rc" && ! fleet_brake_engaged; then
         # Prior cycles' elapsed (this clone was synced at claim time, so it holds the
         # prior notes but NOT this cycle's) with the current elapsed appended, then
         # the trailing N-cycle window; require a FULL window before judging constancy.
@@ -890,6 +919,19 @@ while :; do
       # consecutive transient failures (reset only on a genuine completion), so a
       # sustained outage backs this worker off exponentially up to the idle cap.
       record_transient_failure
+      # If this transient failure is part of a fleet-wide correlated outage (the shared
+      # brake is now engaged), stamp the outage-cycle hint so the reaper PAUSES the poison
+      # counter for this cycle: an environmental storm must never poison an otherwise-
+      # healthy job (the 2026-07-01 dozen-job poisoning; common.sh § outage-cycle hint).
+      # Checked AFTER recording so this failure counts toward the density. Best-effort,
+      # subshell-isolated. Rides alongside the reap-now/deadline-overrun hint stamped above.
+      if fleet_brake_engaged; then
+        if ( stamp_outage_cycle_hint "$CLONE" "$JOBS_DOIN/$base.md" ); then
+          log "fleet brake ENGAGED at failure time for '$base'; stamped outage-cycle hint — reaper will PAUSE the poison counter this cycle (sustained environmental transient, not counted toward poison)"
+        else
+          log "could not stamp outage-cycle hint on '$base' (rc=$?); this cycle will count toward poison"
+        fi
+      fi
       idle_backoff "$fail_attempt"; fail_attempt=$((fail_attempt+1))
     else
       # --- real failure: escalate the diagnostic output by hash -----------------
