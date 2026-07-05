@@ -47,11 +47,4 @@ Bar: `built-ins/JSON` covered from 2 sharply upward (the ~55 parse-gated + ~17 s
 files are the target pool), dual-run divergent=0; honest named skips for reviver/replacer corners
 you rule out of scope — name them.
 
-<!-- garden-reaped: 2 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolinbot
-  gardener: 55
-  claimed_at: 2026-07-05T20:03:57Z
+<!-- garden-reaped: 3 -->

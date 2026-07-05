@@ -12,12 +12,4 @@ discipline. The excerpt below is for human context only:
 ----- comment excerpt (untrusted, truncated) -----
 Shepherd. 
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-productive-cycle -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolinbot
-  gardener: 4
-  claimed_at: 2026-07-05T20:33:11Z
+<!-- garden-reaped: 0 -->
