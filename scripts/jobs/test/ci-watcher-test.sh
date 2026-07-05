@@ -98,8 +98,16 @@ todo_count() {  # todo_count <bare>  -> non-gitkeep entries in jobs/todo
   n=$(ls -1 "$v/jobs/todo" | grep -vxc '.gitkeep' || true); rm -rf "$v"; printf '%s' "$n"
 }
 
+# Timestamps computed against the real clock so the activity-window assertions hold
+# regardless of the absolute date the suite runs on. FRESH_TS is also prline's default
+# updated_at: a fixed literal here would age past the watcher's default 3-day
+# GARDEN_CI_ACTIVITY_WINDOW (§ Gate 3) as the calendar advances, silently skipping the
+# very red PRs cases A/B/H assert get shepherded.
+FRESH_TS="$(date -u -d '-1 hour'  +%Y-%m-%dT%H:%M:%SZ)"
+STALE_TS="$(date -u -d '-30 days' +%Y-%m-%dT%H:%M:%SZ)"
+
 # fixture line: number \t author \t head_repo \t updated_at
-prline() { printf '%s\t%s\t%s\t%s\n' "$1" "$2" "$3" "${4:-2026-07-01T00:00:00Z}"; }
+prline() { printf '%s\t%s\t%s\t%s\n' "$1" "$2" "$3" "${4:-$FRESH_TS}"; }
 
 run_ci() {  # run_ci <state> <bare> <fixture> <rollup-map> [slug]
   env GARDEN_STATE="$1" JOURNAL_REMOTE="$2" JOURNAL_BRANCH="$BRANCH" \
@@ -120,11 +128,6 @@ run_ci_env() {  # run_ci_env <state> <bare> <fixture> <rollup-map> <slug> [KEY=V
       GARDEN_CI_POST="$JOBS/post-job.sh" \
       "$JOBS/ci-watcher.sh" "$slug" >/dev/null 2>&1
 }
-
-# Timestamps computed against the real clock so the activity-window assertions hold
-# regardless of the absolute date the suite runs on.
-FRESH_TS="$(date -u -d '-1 hour'  +%Y-%m-%dT%H:%M:%SZ)"
-STALE_TS="$(date -u -d '-30 days' +%Y-%m-%dT%H:%M:%SZ)"
 
 # ============================================================================
 hr; echo "A — bot PR + completed-red CI → exactly one shepherd job"; hr
