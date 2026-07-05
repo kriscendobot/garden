@@ -165,6 +165,37 @@ Program state:
   as the honest skip (not attempted, within budget) — this DISCHARGES the review-ledger
   "sloppy primitive-this boxing (stage-3b child 4 attempts it)" carry-forward: attempted, ruled a
   legitimate named skip, moved off the open ledger.
+- **Stage-3b child 5/9 (object-statics-intern) DONE — scope-fold report carried here (your inbox was
+  not yet live, so the child's note dead-lettered; deadmail-20260705T175620Z-f869f8 folded it into
+  this spec).** All charter items landed on `xs2rust-endor` (PR #600, kept DRAFT), each its own
+  green computron-exact commit, HEAD `b2771da76` (all pushed); full evidence in
+  `journal/jobs/tada/xs2rust-endor-build-stage3b-object-statics-intern.md`. Landed surface (all
+  bit-exact vs pin `48ee02d8cfe0`, divergent=0): (1) `10888be66` GLOBAL string→id intern table
+  reconciled with C-XS program symbols + boot default keys, and interning `AT`/`AT_2` — computed
+  string member access `o[k]` for any string key: a program-symbol key resolves exactly as its
+  `o.name` static access; a genuinely-novel name interns one `fxNewSlot` + reads bit-exact
+  `undefined`; an index string meters XS's 2× code units. (2) `46e6c2f36` sound `in` false-answers —
+  a novel key answers `false` via a metered `fxOrdinaryHasProperty` chain walk (one
+  `XS_CODE_METERING` per prototype hop). (3) `7ab6360d5` `Object.defineProperty` — new own data
+  property from the canonical 4-field data descriptor `{value,writable,enumerable,configurable}`,
+  booleans stored as XS's flag byte, attributes rippling through `Object.keys` (filters
+  non-enumerable) + `getOwnPropertyDescriptor` (renders writable/enumerable/configurable from the
+  flag byte); `fxDescriptorToSlot` + `fxOrdinaryDefineOwnProperty` fold into one calibrated raw
+  residual (622024). (4) `0bb42b19c`/`b2771da76` README evidence + curated corpus + differential
+  fuzz arms for every new surface. **Sound-gate (both interning + `in`):** a boot default-key name
+  the program never symbol-referenced self-names (`Halt::Unsupported`) rather than risk a wrong
+  `undefined`/`false` for an unlinked inherited built-in — never a wrong value. **Bars met:**
+  built-ins/Object **48→63 covered, divergent=0**; language/expressions **1064→1066, divergent=0**;
+  verifyProperty-shaped gopd+defineProperty tests now covered; corpus + differential fuzz arm per
+  grammar, covered-grammar gate + all prior corpora green; `#![forbid(unsafe_code)]` intact (Miri
+  absent on host — no unsafe to exercise; GC relocation tests green under normal `cargo test`).
+  **Scope folds for YOU to ratify (all HONEST NAMED SKIPS, never a wrong value/meter, documented in
+  `rust/engine/README.md`):** (a) `defineProperty` REDEFINE of an existing key (configurable-compat
+  checks + different metering), (b) partial/accessor descriptors, (c) index/exotic keys, (d)
+  non-boolean attributes, (e) `Object.keys` rendering of a `defineProperty`'d ENUMERABLE *novel*
+  (runtime-interned, non-program-symbol) key, (f) `instanceof`/`hasInstance` built-in/literal-name
+  resolution (piece-1 aspirational, absent from the bar). The flag-byte attribute model now in
+  place is the foundation a later child extends. None block the stated bar.
 - **s6 rulings on the stage-3 carry-forwards (all discharged; do not re-litigate):** child-1 folds
   ratified (at/at_2 → stage-3b child 5; copy_object/extend + arguments exotics stay named skips
   pending class/intrinsics machinery); child-2 ratified done, bind/apply-with-array →
