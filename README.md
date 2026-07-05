@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-05T22:12:14Z_
+_As of 2026-07-05T22:14:04Z_
 
 ## Latest
 
-The XS→Rust (Endor) port advanced: `xs2rust-endor-build-stage3b-promises` (child 7/9 — promises, the job queue, and the pump) completed, and a follow-on scholar ingest job for the remaining ocap-kernel comment fragments was parked. Review retrospectives for [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) and [endo-but-for-bots#592](https://github.com/endojs/endo-but-for-bots/pull/592) were claimed and are in progress.
-
-Two decisions are waiting in the maintainer inbox. The `design-streamlined-onboarding` design landed (`designs/streamlined-onboarding.md`); its four build jobs are gated on your answers to the § 5 open questions, especially Q2 — the auto-mode default, a security-flavored call. Separately, the report-back on the [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) probe (published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605)) found the published probe has 7 gaps and no destructive `take`-semantics gap, contrary to the job spec's paraphrase; the gardener correctly declined to invent it, so a `take`-semantics analysis would need to be posted as a fresh probe on your say-so.
+Little moved this cycle: the scholar's [second ocap-kernel comment-fragment ingest](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-comment-fragments-2.md) completed, and the XS→Rust (Endor) port advanced to its stage-3b core — child 8/9, the RegExp matcher, is now building after the promises/job-queue child landed. Two decisions are waiting in the maintainer inbox: the completed `design-streamlined-onboarding` needs a review of its §5 open questions (especially Q2, the security-flavored auto-mode default) before its four build jobs can be posted, and the [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) probe (published as [#605](https://github.com/endojs/endo-but-for-bots/pull/605)) surfaced a spec discrepancy — the published probe reports 7 gaps with no `take`-semantics hazard, so a maintainer call is needed on whether to commission a fresh probe for that question.
 
 ## Parked for maintainer feedback
 
@@ -40,15 +38,15 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### doin (3)
 - [`endojs-endo-but-for-bots-pr442-review-61c65980-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-review-61c65980-retro.md) — Retrospective on endojs/endo-but-for-bots PR #442 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr592-review-da7fef5e-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-review-da7fef5e-retro.md) — Retrospective on endojs/endo-but-for-bots PR #592 (primary: endojs-endo-but-f...
-- [`scholar-ingest-ocap-kernel-comment-fragments-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-ocap-kernel-comment-fragments-2.md) — PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
+- [`xs2rust-endor-build-stage3b-xsre-core`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-xsre-core.md) — Builder: stage-3b child 8/9 — XSRE core (the RegExp matcher port, engine-inte...
 
-### tada (1197)
+### tada (1198)
+- [`scholar-ingest-ocap-kernel-comment-fragments-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-comment-fragments-2.md) — Completion report — scholar-ingest-ocap-kernel-comment-fragments-2
 - [`xs2rust-endor-build-stage3b-promises`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-promises.md) — Completion report — stage-3b child 7/9: Promises, the job queue, and the pump...
 - [`endojs-endo-but-for-bots-pr288-review-330391eb-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr288-review-330391eb-retro.md) — Completion report
 - [`deadmail-20260705T215940Z-4e2ea4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260705T215940Z-4e2ea4.md) — Delivered. The dead-lettered message's intent has been carried forward to the...
 - [`investigate-fastmail-masked-email-api-for-bot-personas`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-fastmail-masked-email-api-for-bot-personas.md) — Empty inbox, work committed and pushed. Done.
-- [`xs2rust-endor-meter-calibration-stage-c1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-meter-calibration-stage-c1.md) — Completion report — xs2rust-endor-meter-calibration-stage-c1
-- … and 1192 more
+- … and 1193 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
