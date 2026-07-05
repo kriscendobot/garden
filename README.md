@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-05T20:23:13Z_
+_As of 2026-07-05T20:25:33Z_
 
 ## Latest
 
-Two items need your decision before anything downstream can move. First, an operational defect: the `investigate-poisoned-garden-infra-jobs` report finds host **endolinbot** currently resolving as a follower, so the leader-only singletons (foreman, scheduler, watchers) are down — recovery needs you to confirm which host holds the leader marker so the fleet can be restored. Second, the gap-revealing probe on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) (sanctioned `unredactError` SES API) finished and verified its skeleton by real execution — start-compartment-only exposure holds under `lockdown()` — but publishing the DRAFT is blocked because host endolinbot2 has no bot credentials, and the only key present authenticates as kriskowal; the gardener correctly refused the identity switch and surfaced the ready-to-push branch instead. Its five surfaced gaps (return-shape being the keystone, @erights' call) are captured for the design author.
+Two operational calls now sit in your inbox and both need you specifically. First, the `investigate-poisoned-garden-infra-jobs` report surfaced a live defect: on host **endolinbot**, `is-main-host` currently evaluates as *follower*, so the leader-only singletons (foreman, scheduler, watchers, recovery) are down — recovery needs the `.garden` identity or leader marker corrected and the fleet restarted, a leadership call the liaison won't make autonomously. Second, the [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) `unredactError` probe finished and verified its skeleton by real execution (start-compartment-only exposure confirmed under real `lockdown()`), but publishing the draft PR is blocked because host endolinbot2 has no bot GitHub credentials — the only key present authenticates as kriskowal, which the gardener correctly declined to use; it surfaced five design gaps (the return-shape choice in Open Question 1 is the keystone) and needs either a bot token provisioned or you to open the draft from the ready material.
 
-Also awaiting you: the `design-streamlined-onboarding` job completed — review `designs/streamlined-onboarding.md` and answer its § 5 open questions, especially Q2's auto-mode default, before the four gated build jobs are posted. On the board, reviews on [endo-but-for-bots#592](https://github.com/endojs/endo-but-for-bots/pull/592) closed out, while shepherd work on [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), a Fable garden-scripts review-and-fix, and the xs2rust stage-3b metering build remain in flight.
+Separately, `design-streamlined-onboarding` completed — review `designs/streamlined-onboarding.md` and answer its § 5 open questions, especially Q2's auto-mode default (a security-flavored decision), before its four gated build jobs are posted. On the board, reviews for [endo-but-for-bots#592](https://github.com/endojs/endo-but-for-bots/pull/592) landed, and shepherd (#288), a Fable garden-scripts review-and-fix pass, and the xs2rust stage-3b JSON-metering build remain in flight.
 
 ## Parked for maintainer feedback
 
@@ -353,7 +353,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
+- [`deadmail-20260705T202239Z-177671`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260705T202239Z-177671.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr288-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr288-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #288
 - [`fable-review-fix-garden-scripts`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fable-review-fix-garden-scripts.md) — Fable: review the garden's scripts, serially fix discovered issues, push main2
 - [`xs2rust-endor-build-stage3b-json-metering`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-json-metering.md) — Builder: stage-3b child 6/9 — JSON.parse + structured JSON.stringify metering...
