@@ -13482,6 +13482,18 @@ in-crank terminate callback bypass terminateVat | ocap-kernel
 `provideFacet` kernel facet orphaned message survival | ocap-kernel
 kernel manager decomposition VatManager SubclusterManager RemoteManager | ocap-kernel
 Kernel.ts ocap-kernel orchestrator | ocap-kernel
+`VatSupervisor` in-vat supervisor | ocap-kernel
+VatSupervisor VatHandle mirror-image dual RPC endpoints | ocap-kernel
+`executeSyscall` optimistic execution model | ocap-kernel
+optimistic syscall fire-and-forget notify assume success | ocap-kernel
+`initVat` user-code load endowment confinement | ocap-kernel
+`allowedGlobalNames` kernel-restricted endowment filter | ocap-kernel
+`makeCaveatedFetch` per-vat host allowlist no implicit-allow-all | ocap-kernel
+caveated fetch network.allowedHosts vat endowment | ocap-kernel
+`DuplicateEndowmentError` mergeDisjointRecords endowment collision | ocap-kernel
+`makeAllowedGlobals` VatEndowmentsStruct defense-in-depth assert | ocap-kernel
+endowment teardown-first idempotent termination `#terminationPromise` | ocap-kernel
+`StreamReadError` self-terminate on stream read error | ocap-kernel
 data-lock | data-lock
 datalock | data-lock
 data lock | data-lock
