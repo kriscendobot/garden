@@ -32,3 +32,9 @@ published because the probe ran on `endolinbot2`, which had no bot GitHub creden
 
 Bot-repo work only; publish under the bot identity (no maintainer-identity switch). Confirm the two comments
 posted, then report the comment URLs in your ## Follow-ups.
+
+---
+claim:
+  host: endolinbot
+  gardener: 16
+  claimed_at: 2026-07-05T20:31:42Z
