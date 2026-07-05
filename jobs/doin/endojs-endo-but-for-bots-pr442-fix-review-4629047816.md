@@ -94,3 +94,9 @@ change through EVERYTHING that touches it:
 - Post ONE top-level PR summary comment (skill pr-completion-summary-comment):
   the pushed HEAD SHA, a per-ask bullet of what changed, and the verification
   evidence. Inline replies alone are not enough.
+
+---
+claim:
+  host: endolinbot
+  gardener: 58
+  claimed_at: 2026-07-05T17:35:50Z
