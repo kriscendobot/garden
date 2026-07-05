@@ -49,11 +49,4 @@ Bar: `language/expressions` covered growth from the at/at_2 unlock at zero diver
 `built-ins/Object/{keys,defineProperty,getOwnPropertyDescriptor}` dual-run divergent=0;
 demonstrate at least one previously-skipped verifyProperty-using test now covered.
 
-<!-- garden-reaped: 3 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolinbot
-  gardener: 67
-  claimed_at: 2026-07-05T17:35:59Z
+<!-- garden-reaped: 4 -->
