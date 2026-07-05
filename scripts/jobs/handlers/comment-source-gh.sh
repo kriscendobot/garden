@@ -194,7 +194,7 @@ while IFS=$'\t' read -r n updated; do
   rids="$(gh_api_retry --paginate "repos/$repo/pulls/$n/comments?per_page=100" 2>"$rids_err" \
           | jq -r '.[] | (.pull_request_review_id // empty) | tostring' \
           | sort -u | tr '\n' ' ')" || { rids=""; cat "$rids_err" >&2; }
-  gh_api_retry "repos/$repo/pulls/$n/reviews" 2>/dev/null \
+  gh_api_retry --paginate "repos/$repo/pulls/$n/reviews?per_page=100" 2>/dev/null \
     | jq -r --arg s "$since" --arg n "$n" --arg rids " $rids " --arg bot "$bot" '
         .[] | select((.submitted_at // "") >= $s)
         | select((.user.login // "") != $bot)
