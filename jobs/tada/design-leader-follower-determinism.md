@@ -1,0 +1,18 @@
+The peer commit was unrelated onboarding wiring; the design landed cleanly. Job complete.
+
+## Completion report: design-leader-follower-determinism
+
+**Deliverable:** `designs/leader-follower-determinism.md`, landed directly on `main2` at commit `593a15418` (with a supersession pointer added to `designs/multibot-leader-follower.md`, which stays authoritative for which services are singletons).
+
+**What the design specifies:**
+
+- **Failure inventory.** Seven concrete sources of today's flapping: the bare-name marker, the instant-for-new but TTL-lazy-for-old re-point (a structural overlap window on every handoff), the prose-only handoff ceremony, the fail-open predicate default, the never-expiring stale-cache fallback, the by-documentation-only Monitor singleton, and the needless coupling of handoff to gardener draining.
+- **Journal state.** The `leader` file becomes a structured record (state `stable` or `handoff`, a monotonic epoch, a per-epoch `bound_instance`), line-1 compatible with the legacy reader so rollout and rollback need no flag day. A separate slow-cadence `leader-heartbeat` file carries the leader's instance identity. All writes are CAS pushes to `origin/journal2`.
+- **The state machine.** Two fleet states, five derived host roles (follower, becoming-leader, leader, stepping-down, duplicate), eight transitions. A handoff means zero leaders everywhere; the release to `stable` is written only by the outgoing leader's own sentinel after a positive quiesce (delete predicate cache, wait for every leader-only unit inactive with systemd's `activating` state closing the condition-passed race, synchronous bulletin stop/start). The safety proof shows no two-leader instant without cross-host clock assumptions; the only weakened path is the maintainer's explicit `--force`, bounded to one TTL and then detected.
+- **Instance identity and split-brain detection.** The maintainer's build-time UUID suggestion is evaluated and refined to creation time: a UUID seeded by the `garden` launcher into gitignored `$GARDEN_ROOT/.garden-instance` (mirroring `.garden`), with a self-minting `common.sh` fallback. The CAS epoch bind is both detector and resolver: two instances sharing a `GARDEN` name race the bind, exactly one wins, the loser deterministically stays follower and posts a deduplicated `kind: error` maintainer report. A heartbeat cross-check catches writers that bypass the bind.
+- **Hardened predicate.** Leader only when fresh-read `stable`, named, and bound to this instance; handoff answers follower everywhere; stale cache may never answer leader; default flips to fail-closed with a bootstrap auto-designation preserving single-host bring-up.
+- **Service participation, kill/rollback.** Every unit, both in-process gates, all three liaison Monitors, and the new every-host `garden-leader-sentinel` are enumerated; the maintainer-inbox Monitor becomes self-gating. Rollback levers and triggers are named, resting on line-1 compatibility.
+
+**Proposed staged build plan** (serial orchestration, halt on child failure; each sized to one handler wall): 1 `leader-instance-identity`, 2 `leader-record-v2-writer`, 3 `leader-predicate-v2` (ships dark behind `GARDEN_LEADER_V2`), 4 `leader-sentinel-bind-heartbeat-detect` (arms the flag), 5 `leader-sentinel-stepdown`, 6 `leader-monitor-self-gating`, 7 `leader-docs-and-runbook`, 8 `leader-handoff-rehearsal` as the acceptance gate.
+
+**Follow-ups:** the liaison should orchestrate the plan above once the maintainer accepts the design; no handoff should be initiated with the new verbs until stage 4 has armed the flag fleet-wide.
