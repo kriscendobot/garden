@@ -51,6 +51,7 @@ demonstrate at least one previously-skipped verifyProperty-using test now covere
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot
