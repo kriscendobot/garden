@@ -96,9 +96,26 @@ we_drained=0
 
 lift_drain_if_we_engaged() {
   [ "$we_drained" = "1" ] || return 0
+  we_drained=0
   "$HERE/drain-fleet.sh" off >/dev/null 2>&1 || true
   log "drain lifted (deploy aborted; restored pre-deploy run state)"
 }
+
+# BELT for the UNANTICIPATED abort: every foreseen failure path below calls
+# lift_drain_if_we_engaged explicitly, but this script runs under `set -e` with
+# many unguarded commands between drain-engage and drain-lift (rev-parses, the
+# marker write inside record_deployed_sha, subprocess hangs killed by a signal).
+# Any of those dying used to strand the WHOLE host drained indefinitely — and a
+# retriggered deploy then read the orphaned marker as operator-engaged
+# (we_drained=0) and deliberately refused to lift it on ITS abort, so one crash
+# plus one aborted retry parked the fleet until a human intervened (the
+# 2026-07-05 nohup'd-deploy SIGTERM orphaned exactly this way). The trap makes
+# the lift unconditional on ANY exit: on success the drain is already lifted
+# and we_drained reset, so it no-ops; an operator-engaged drain (we_drained=0)
+# is never touched. TERM/INT exit through the EXIT trap via the explicit exit.
+trap 'lift_drain_if_we_engaged' EXIT
+trap 'exit 143' TERM
+trap 'exit 130' INT
 
 # Count this host's mid-job gardeners by their busy markers. Zero = quiesced.
 busy_count() {
@@ -201,7 +218,7 @@ if [ "$up_sha" = "$old_sha" ]; then
   log "root already at origin/$GARDEN_MAIN_BRANCH ($old_sha); nothing to deploy"
   record_deployed_sha "$old_sha"
   # A no-op deploy still lifts the drain it engaged (the fleet should resume).
-  [ "$we_drained" = "1" ] && { "$HERE/drain-fleet.sh" off >/dev/null 2>&1 || true; log "drain lifted (no-op deploy)"; }
+  [ "$we_drained" = "1" ] && { "$HERE/drain-fleet.sh" off >/dev/null 2>&1 || true; we_drained=0; log "drain lifted (no-op deploy)"; }
   exit 0
 fi
 
@@ -271,6 +288,7 @@ fi
 # Lift the drain BEFORE restarting so the restarted units come up live (the
 # drained gardeners have already exited; nothing runs on the old code).
 "$HERE/drain-fleet.sh" off >/dev/null 2>&1 || log "WARN: could not lift the draining marker"
+we_drained=0   # lifted on the success path; the abort-belt EXIT trap must no-op now
 log "drain lifted; fleet may resume"
 
 # Restart the long-running fleet onto the new code (busy-gate off: we quiesced).
