@@ -43,6 +43,14 @@ done < <(find "$DIR/entries" -type f -name '*.md' 2>/dev/null | sort)
 # 2. recent service failures from journalctl across all garden-* units
 #    (production path; tolerant when systemd/journalctl is absent)
 since="$(cat "$JSINCE" 2>/dev/null || echo '-1h')"
+# Capture the cursor for the NEXT tick NOW, before the journalctl read: the old
+# code stamped JSINCE with the time AFTER the handler finished (a claude -p run
+# of many minutes), so any garden-* warning logged during the read-to-stamp gap
+# fell below the next tick's --since and was never surfaced — a silent per-tick
+# blind window in the very service that exists to see failures. Stamping the
+# pre-read time makes windows contiguous; a warning right at the boundary may
+# be seen twice, and a duplicate beats a blind spot.
+tick_start="$(date -u +%FT%TZ)"
 jlog=""
 if command -v journalctl >/dev/null 2>&1; then
   systemd_user_env
@@ -109,7 +117,7 @@ rc=$?
 set -e
 if [ "$rc" -eq 0 ]; then
   for f in "${new[@]}"; do printf '%s\n' "${f#"$DIR"/}" >> "$SEEN"; done
-  date -u +%FT%TZ > "$JSINCE"
+  printf '%s\n' "$tick_start" > "$JSINCE"
   rm -f "$capture"
 elif [ ! -s "$capture" ] && is_transient_empty_failure "$rc"; then
   # EMPTY capture + a signal/offline rc — a `claude -p` handler SIGKILLed/
