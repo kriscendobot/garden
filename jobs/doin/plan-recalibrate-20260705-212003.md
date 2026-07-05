@@ -41,3 +41,9 @@ following, then commit the changed records + regenerated view and push HEAD:jour
 Bounds: bot identity, bot-actionable repos only; `agoric-sdk` excluded
 unconditionally (the validator enforces this). Report what was reconciled,
 recalibrated, and groomed.
+
+---
+claim:
+  host: endolinbot
+  gardener: 20
+  claimed_at: 2026-07-05T21:20:15Z
