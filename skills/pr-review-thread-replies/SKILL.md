@@ -37,6 +37,14 @@ For a deferral instead of an addressed item:
 -f body="Following up in a separate PR. <one-line reason>."
 ```
 
+**Never pass a file path as the body value.** `gh api -f body="@/tmp/reply.md"`
+posts the literal string `@/tmp/reply.md` — no `@`-file dereference happens on a
+`-f` field, so a maintainer sees a garbled one-token comment (the endo-but-for-bots
+#592 "Weird response."). When the reply is long or comes from a file, read it into
+the value with `-f body="$(cat /tmp/reply.md)"`, or use `--field body=@/tmp/reply.md`
+(the `--field`/`-F` form is the one that reads from a file). Verify the posted body
+by re-fetching the comment when in doubt.
+
 Then post a top-level summary via `gh pr comment <N>` listing each item, the commit that addressed it, and any deferrals.
 
 ## Output
