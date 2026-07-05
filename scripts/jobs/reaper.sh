@@ -210,9 +210,31 @@ reap_stuck_fetches() {
 GARDEN_SCRATCH_GC_AGE="${GARDEN_SCRATCH_GC_AGE:-24}"   # hours of quiescence before GC
 gc_scratch() {
   [ -d "$GARDEN_SCRATCH" ] || return 0
+  # LIVE-BASE protection. Per-job worktrees (gardener-wt-<base>,
+  # project-wt-<base_safe>-*) deliberately PERSIST across a reaper requeue so a
+  # resumed claim re-enters its in-flight work. During a long drain or quota
+  # outage a requeued job sits in todo/ untouched past the quiescence window
+  # while its worktree still holds uncommitted work — age alone must not reap
+  # it. Protect every entry whose base is still live on the board
+  # (todo|doin|plan), read from the reaper's already-synced clone; when the
+  # clone is unavailable the protection set is empty and behavior is unchanged.
+  local live_bases=() b sub name
+  if [ -n "${DIR:-}" ] && [ -d "$DIR/jobs" ]; then
+    for sub in todo doin plan; do
+      while IFS= read -r b; do
+        [ -n "$b" ] && live_bases+=("${b%.md}")
+      done < <(list_jobs "$DIR" "jobs/$sub")
+    done
+  fi
   local removed=0 entry
   for entry in "$GARDEN_SCRATCH"/*; do
     [ -e "$entry" ] || continue                         # empty-glob guard
+    name="$(basename "$entry")"
+    for b in "${live_bases[@]}"; do
+      case "$name" in
+        "gardener-wt-$b"|"project-wt-${b//[^A-Za-z0-9._-]/-}"-*) continue 2 ;;
+      esac
+    done
     # Quiescence: the most recent mtime anywhere in the subtree. If nothing has
     # been modified within the window, treat the scratch dir as abandoned.
     if find "$entry" -newermt "-${GARDEN_SCRATCH_GC_AGE} hours" -print -quit 2>/dev/null | grep -q .; then
@@ -266,11 +288,13 @@ clean_body() {
 reap_stuck_fetches
 
 # GC abandoned job scratch (best-effort; never blocks the requeue path).
-gc_scratch
-
 DIR="${GARDEN_REAPER_CLONE:-$GARDEN_STATE/reaper/journal}"
 ensure_clone "$DIR"
 sync_clone "$DIR"
+# Scratch janitor AFTER the sync so its live-base protection reads fresh board
+# state (it previously ran before the clone existed; ordering here is otherwise
+# inert — the stuck-fetch janitor above still runs first).
+gc_scratch
 
 # --- 1. detect the stale set -------------------------------------------------
 now="$(date -u +%s)"
