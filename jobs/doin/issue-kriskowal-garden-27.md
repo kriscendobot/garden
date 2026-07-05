@@ -23,3 +23,9 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 After pushing to the journal branch, the garden should watch for the build action for Github pages and adjust the implementation as necessary, like t he shepherd role but applied to a push without a pull request.  
+
+---
+claim:
+  host: endolinbot
+  gardener: 18
+  claimed_at: 2026-07-05T22:47:56Z
