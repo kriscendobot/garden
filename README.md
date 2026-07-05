@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-05T22:22:46Z_
+_As of 2026-07-05T22:26:16Z_
 
 ## Latest
 
-Two decisions await the maintainer. The `design-streamlined-onboarding` job completed — `designs/streamlined-onboarding.md` needs review of its § 5 open questions, especially Q2 (the auto-mode default, a security-flavored call); its four build jobs stay gated until that answer lands. Separately, the probe on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) reports the published probe carries 7 gaps and no destructive-`take` semantics gap, contradicting the job spec's paraphrased 5; the gardener correctly declined to invent the missing one, so the maintainer needs to say whether a `take`-semantics analysis is actually wanted (it would be a fresh probe, not a report-back).
+Little moved on the board since the last bulletin: the sole completion was `review-improve-typedef-location-dts` (a review of a .d.ts typedef-location cleanup), leaving the board drained to zero `todo` with just two jobs in flight — the deterministic `library-link-check` changed-gate improvement and stage-3b (child 8/9) of the XS→Rust "Endor" engine port (the RegExp matcher core).
 
-On the fleet, the XS→Rust (Endor) port advanced another step — stage-3b's Promises/job-queue child (7/9) completed and the XSRE core RegExp-matcher port (8/9) is in flight — and a new infra job is underway to gate `library-link-check.sh` so it flags only newly-introduced dangling links rather than preexisting ones. A stack of PR review retrospectives (for [endo-but-for-bots#592](https://github.com/endojs/endo-but-for-bots/pull/592), [#595](https://github.com/endojs/endo-but-for-bots/pull/595), [#602](https://github.com/endojs/endo-but-for-bots/pull/602), and [#604](https://github.com/endojs/endo-but-for-bots/pull/604)) sits parked at low priority for the foreman to promote when the board idles.
+Two decisions are queued in the maintainer inbox and warrant attention. First, the `design-streamlined-onboarding` design landed (`designs/streamlined-onboarding.md`); its four §6 build jobs are gated on your review, and §5 Q2 — the auto-mode default — is flagged as a security-flavored call. Second, on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595), the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) reported 7 gaps rather than the 5 the job spec paraphrased, and notably no "destructive one-shot `take` semantics" gap; the gardener correctly declined to invent it, so the liaison is asking whether you specifically want a `take`-semantics analysis posted as a fresh probe.
 
 ## Parked for maintainer feedback
 
@@ -37,18 +37,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`improve-library-link-check-changed-gate-preexisting-danglers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-library-link-check-changed-gate-preexisting-danglers.md) — scripts/jobs/library-link-check.sh
-- [`review-improve-typedef-location-dts`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/review-improve-typedef-location-dts.md) — review-improve: typedef-only .js modules must be .d.ts — add the deterministi...
 - [`xs2rust-endor-build-stage3b-xsre-core`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-xsre-core.md) — Builder: stage-3b child 8/9 — XSRE core (the RegExp matcher port, engine-inte...
 
-### tada (1201)
+### tada (1202)
+- [`review-improve-typedef-location-dts`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/review-improve-typedef-location-dts.md) — Completion report: review-improve-typedef-location-dts
 - [`deadmail-20260705T221101Z-5894bf`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260705T221101Z-5894bf.md) — Completion report
 - [`endojs-endo-but-for-bots-pr442-review-61c65980-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr442-review-61c65980-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr592-review-da7fef5e-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr592-review-da7fef5e-retro.md) — Completion report
 - [`scholar-ingest-ocap-kernel-comment-fragments-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-comment-fragments-2.md) — Completion report — scholar-ingest-ocap-kernel-comment-fragments-2
-- [`xs2rust-endor-build-stage3b-promises`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-promises.md) — Completion report — stage-3b child 7/9: Promises, the job queue, and the pump...
-- … and 1196 more
+- … and 1197 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
