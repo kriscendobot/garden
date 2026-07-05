@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-05T20:13:35Z_
+_As of 2026-07-05T20:15:23Z_
 
 ## Latest
 
-Two items need a maintainer decision before anything else moves. The `investigate-poisoned-garden-infra-jobs` report surfaced a **live operational defect**: on host **endolinbot**, `is-main-host` currently evaluates as follower, so the leader-only singletons (foreman, scheduler, watchers) are down — recovery needs a leadership/identity call (correct `.garden` or re-point the leader marker, then restart the fleet), which the liaison won't make autonomously. Separately, the gap-revealing probe of [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) (sanctioned `unredactError` SES API) is **substantively complete and verified under real `lockdown()`**, but publishing the DRAFT is blocked: host endolinbot2 has no bot `gh` token, and the only credential present authenticates as kriskowal — a reserved maintainer identity the job isn't authorized to use. The branch, SHAs, and full PR body are staged and ready; landing it needs a bot token provisioned (or the maintainer to open the draft). The probe's headline finding: SES already enforces the start-compartment-only exposure the design wants; the genuine open work is entirely the API's return shape (the keystone Open Question that gates the name and the ses-ava migration).
+Three items need your hand. The **[endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595)** `unredactError` probe finished and verified its skeleton by real execution (start-compartment-only exposure enforced under real `lockdown()`, confirmed via a child-`Compartment` probe), surfacing five gaps — the keystone being the sanctioned export's return shape, which @erights must steer since it gates the API name, the ses-ava migration, and the daemon's structured trace. It is **publish-blocked**: the host that ran it (endolinbot2) has no bot `gh` credentials, and the only key present authenticates as kriskowal, so the draft was committed but not opened. To land it, provision a bot token on a host and re-run, or open the draft yourself from the pasted-ready material.
 
-Also awaiting review: `design-streamlined-onboarding` finished — its § 5 Q2 (auto-mode default) is a security-flavored call that gates four downstream build jobs. On the infra side, garden hardening landed on `main2` this cycle (mentor now classifies empty-output handler kills as transient rather than a die, the reaper pauses its poison counter during fleet-wide outages, and producers fail fast on non-file body arguments). The board is otherwise quiet — no `todo` backlog, three jobs in flight (shepherd on [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), a Fable script-review pass, and the xs2rust stage-3b metering build, whose object-statics-intern child just completed).
+Separately, an infra investigation flags a **live operational defect**: on host endolinbot, `is-main-host` evaluates as follower, so the leader-only singletons (foreman, scheduler, watchers) are down — recovery needs you to confirm which host holds the leader marker. And `design-streamlined-onboarding` completed; its §5 Q2 (the auto-mode default, a security-flavored call) blocks four build jobs and awaits your review.
+
+On the board, two review directives on **[endo-but-for-bots#592](https://github.com/endojs/endo-but-for-bots/pull/592)** are in flight with retros parked, the mentor's empty-output transient-classification fix landed, and the xs2rust→Rust engine port continued through stage-3b (object-statics interning done, JSON metering underway).
 
 ## Parked for maintainer feedback
 
@@ -353,8 +355,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr288-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr288-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #288
+- [`endojs-endo-but-for-bots-pr592-review-1050d7e9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-review-1050d7e9.md) — Review directive on endojs/endo-but-for-bots PR #592
+- [`endojs-endo-but-for-bots-pr592-review-2e32890c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-review-2e32890c.md) — Review directive on endojs/endo-but-for-bots PR #592
 - [`fable-review-fix-garden-scripts`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fable-review-fix-garden-scripts.md) — Fable: review the garden's scripts, serially fix discovered issues, push main2
 - [`xs2rust-endor-build-stage3b-json-metering`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-json-metering.md) — Builder: stage-3b child 6/9 — JSON.parse + structured JSON.stringify metering...
 
@@ -389,6 +393,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`endojs-endo-but-for-bots-pr604-review-f2d21a00-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr604-review-f2d21a00-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #604 (primary: endojs-endo-but-f...
 - [`scheduler-timezone-anchored-cadence`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scheduler-timezone-anchored-cadence.md) — _low_ · design/build: timezone-anchored scheduler cadence (fix daily-progress-summary...
 - [`xs2rust-endor-corpus-test262-and-xst-harness`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-corpus-test262-and-xst-harness.md) — _low_ · Designer: converge the xs2rust-endor corpus on test262 + the harness on xst (...
+- [`endojs-endo-but-for-bots-pr592-review-1050d7e9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr592-review-1050d7e9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #592 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr592-review-2e32890c-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr592-review-2e32890c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #592 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
