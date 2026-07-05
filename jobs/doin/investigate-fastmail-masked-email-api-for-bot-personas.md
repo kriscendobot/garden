@@ -49,3 +49,9 @@ FastMail **API token**. The investigation must confirm and document:
 Investigation only. The bot-controlled FastMail account is SEPARATE from the maintainer's
 personal FastMail. No persona/account creation, no OAuth flows executed in this job —
 those are authorization-gated follow-ons if the maintainer green-lights the approach.
+
+---
+claim:
+  host: endolinbot
+  gardener: 3
+  claimed_at: 2026-07-05T21:54:08Z
