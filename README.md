@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-05T17:55:45Z_
+_As of 2026-07-05T17:57:01Z_
 
 ## Latest
 
-The [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) review fix (review 4629047816) landed — the only board completion this cycle. Two items now need a maintainer decision. First, an operational defect: the `investigate-poisoned-garden-infra-jobs` report finds host **endolinbot** evaluating as *follower*, so the leader-only singletons are down; recovery needs the `leader` marker (or `/home/kris/.garden`) corrected and the fleet restarted — a leadership/identity call the liaison won't make autonomously, so please confirm which host should hold the marker. Second, the gap-revealing probe on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) (sanctioned `unredactError` SES API) is substantively complete and execution-verified — start-compartment-only exposure confirmed under real `lockdown()`, five gaps surfaced with Gap 4 (return shape) as the keystone — but publishing is blocked: host **endolinbot2** has no bot `gh` credentials and the only key present authenticates as kriskowal, so the DRAFT PR needs either a bot token on some host or for you to open it from the ready branch `probe/unredact-error-595`. Separately, `design-streamlined-onboarding` completed (`designs/streamlined-onboarding.md`) and awaits your answers to its § 5 open questions — especially Q2, the security-flavored auto-mode default — before its four build jobs can be posted as an orchestration; the `onboarding-implementation` orchestration and the [endo-but-for-bots#592](https://github.com/endojs/endo-but-for-bots/pull/592) cross-platform watchdir fix also wrapped.
+Two things need maintainer eyes before the board can move again. The probe on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) (sanctioned SES `unredactError`) is substantively **complete and verified by real execution**, but publishing its DRAFT PR is blocked — host `endolinbot2` has no bot `gh` credentials, and the only identity available is kriskowal's SSH key, which the gardener correctly refused to use. To land it you must provision a bot token on a host and re-run the job, or open the draft yourself from the ready branch `probe/unredact-error-595`. The probe surfaces five design gaps, with **Gap 4 (the sanctioned export's return shape) as the keystone** @erights must decide before implementation proceeds.
+
+Separately, a follow-up flags a **live operational defect**: on host `endolinbot`, `is-main-host` currently evaluates as *follower*, so the leader-only singletons are down — recovery needs the `leader` marker (or `/home/kris/.garden`) corrected and the fleet restarted, a leadership/identity call awaiting your confirmation of which host should hold the marker.
+
+Also ready for review: the `design-streamlined-onboarding` job completed — see `designs/streamlined-onboarding.md`, whose § 5 Q2 (the auto-mode default) is a security-flavored question gating its four build jobs. On the board itself, little moved: a fix landed for a review on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442), and the xs2rust-endor Rust-port build reached stage 3b (object statics interning).
 
 ## Parked for maintainer feedback
 
@@ -351,18 +355,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`deadmail-20260705T174755Z-261313`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260705T174755Z-261313.md) — Dead-lettered message — pick up its intent
+### doin (1)
 - [`fable-review-fix-garden-scripts`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fable-review-fix-garden-scripts.md) — Fable: review the garden's scripts, serially fix discovered issues, push main2
-- [`xs2rust-endor-build-stage3b-object-statics-intern`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-object-statics-intern.md) — Builder: stage-3b child 5/9 — global string→id intern table + Object statics/...
 
-### tada (1165)
+### tada (1167)
+- [`xs2rust-endor-build-stage3b-object-statics-intern`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-object-statics-intern.md) — Completion report
+- [`deadmail-20260705T174755Z-261313`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260705T174755Z-261313.md) — Completion report — job deadmail-20260705T174755Z-261313
 - [`endojs-endo-but-for-bots-pr442-fix-review-4629047816`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr442-fix-review-4629047816.md) — Completion report
 - [`fu-investigate-poisoned-garden-infra-jobs-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-investigate-poisoned-garden-infra-jobs-2.md) — Completion report
 - [`fu-design-streamlined-onboarding-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-design-streamlined-onboarding-2.md) — Completion report
-- [`ebfb-592-watchdir-crossplatform-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-592-watchdir-crossplatform-fixer.md) — Completion report — ebfb-592-watchdir-crossplatform-fixer
-- [`onboarding-implementation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/onboarding-implementation.md) — orchestration onboarding-implementation — complete
-- … and 1160 more
+- … and 1162 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
