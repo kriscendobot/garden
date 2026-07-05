@@ -1,0 +1,4 @@
+host: endolinbot
+gardener: 8
+claimed_at: 2026-07-05T20:39:51Z
+worktree_dir: /home/kris/worktrees/reaper-requeue-kills-or-waits-for-live-handler

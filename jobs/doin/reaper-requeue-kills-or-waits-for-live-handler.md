@@ -13,3 +13,9 @@ does not kill the displaced handler. Diagnose from the journal claim history +
 host journalctl for that window, then fix so a requeue either kills the old
 handler's process group or does not fire while it is alive. This is a data-
 corruption class: two live incarnations share one worktree.
+
+---
+claim:
+  host: endolinbot
+  gardener: 8
+  claimed_at: 2026-07-05T20:39:51Z
