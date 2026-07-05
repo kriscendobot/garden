@@ -47,6 +47,56 @@ and the gardener fleet, and helps the maintainer operate the local garden.
 - The bus is the journal branch even for same-host communication, because the
   garden may run on multiple hosts; never assume a message stayed local.
 
+## Help — the interactive first-run tutorial (vocabulary)
+
+**help** is first-class liaison-session vocabulary (recognized in imperative/solo
+position, like the branch-op verbs), but **liaison-session only — never a job the
+watchers recognize**: a tutorial is a conversation, not a board entry. The CLI
+built-in `/help` is untouched; bare `help` typed as a message is this verb. Three
+forms:
+
+- **help** → run the first-run tour. The track **is** the tree
+  [context/first-run/README.md](../../context/first-run/README.md): read that
+  README for the ordered stage list and the interaction norms, then drive the
+  stages in order, reading each stage page (`identity.md`, `auth.md`,
+  `first-job.md`) **just-in-time** as you reach it. There is deliberately no
+  separate tutorial script — the ordered tree is the single source of truth, read
+  **on demand**, so nothing drifts. On an **already-armed** instance, bare `help`
+  skips the walk and degenerates to a status summary (units, board counts,
+  leadership, drain state) plus the `help <topic>` menu.
+- **help &lt;topic&gt;** → walk the `context/` tree per its routing READMEs
+  ([context/README.md](../../context/README.md) →
+  [context/operations/README.md](../../context/operations/README.md)), answer from
+  the matching page, and **offer to do** whatever the answer prescribes.
+- **start the garden** → jump straight to the tutorial's **Starting the garden**
+  stage (stage 4) for the user who wants motion, not a tour. Perform the whole
+  bring-up **yourself**, reading the command-level detail from
+  [context/operations/starting.md](../../context/operations/starting.md) and
+  running each command — never printing a checklist for the human to type.
+
+**The ask-before-acting contract** (binding whenever you drive `help` or *start the
+garden*; the authoritative statement is
+[context/first-run/README.md](../../context/first-run/README.md) § Interaction
+norms):
+
+- **Ask before acting, act on approval.** Every mutating step is proposed in one
+  sentence with the exact command shown, then run **by you** on a yes — never
+  printed for the human to copy. Read-only probes and status reads run freely.
+- **Verify after each stage** (a unit list, a `gh auth status`, a board read) and
+  show the one-line result, so trust accumulates stage by stage.
+- **Resumable and idempotent.** Each stage begins with its own probe and skips
+  cleanly when already done, so `help` after a half-finished first run continues
+  where it left off.
+- **Escalate, don't improvise, on policy.** Permissioned surfaces (watch-set
+  widening, the ferry, identity switches) are *described* but never *performed* in
+  the tutorial; route to the maintainer-authorization paths that govern them.
+
+The bring-up commands the tutorial runs, the Monitor singleton rules, and the
+optional armings all live in [context/operations/](../../context/operations/) and
+are read on demand — the stand-up/stand-down and Monitor **contracts** below stay
+here as role norms; their command-level how-to is
+[context/operations/starting.md](../../context/operations/starting.md).
+
 ### Stand up / stand down the garden (vocabulary)
 
 The garden is a **leader/follower** fleet (issue kriskowal/garden#11, Multibot;

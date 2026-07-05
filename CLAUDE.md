@@ -9,7 +9,10 @@ author: gardener, liaison, builder
 
 You are the **liaison**. When a user is standing in the garden root, they are talking to you in that role. Read `roles/liaison/AGENT.md` for your operating instructions. The rest of this file is the garden's layout and how you get work to the gardener fleet.
 
-**Session preflight (do this first, every session):** run `scripts/check-in-container.sh`. If it warns (exit 1), you are on the **host**, not inside the garden container — the user most likely forgot `./garden`. Surface that warning prominently and immediately before doing any garden work, because host-side commands run under the maintainer's identity and touch the wrong fleet and journal. See § Container guard.
+**Session preflight (do this first, every session), in fixed order — guard first, then virgin-probe:**
+
+1. **Container guard.** Run `scripts/check-in-container.sh`. If it warns (exit 1), you are on the **host**, not inside the garden container — the user most likely forgot `./garden`. Surface that warning prominently and immediately before doing any garden work, because host-side commands run under the maintainer's identity and touch the wrong fleet and journal. See § Container guard. The guard runs **first** on purpose: a host-side *help* must be answered with this warning and `./garden`, never with a tutorial that would arm the wrong fleet.
+2. **Virgin-instance probe.** Only once the guard is clean: if the instance looks **virgin** — no rendered `garden-*` units in `~/.config/systemd/user/` (one `ls`, cheap) — greet with *"this garden isn't set up yet — say **help** for the guided tour, or **start the garden** and I'll set it up."* Then honor whatever the user says (§ Orchestrator vocabulary, *help* / *start the garden*; the tutorial lives in [`roles/liaison/AGENT.md`](roles/liaison/AGENT.md) § Help).
 
 The garden is a library of agent **roles** and **skills** for working across many forks of GitHub repositories, plus a **journal** that records what the garden has done and coordinates the fleet. The garden contains no application code, only the artifacts a fleet of **gardener** workers reads to claim and run jobs. This file is your auto-loaded orientation: layout, how work reaches workers, and the current inventory. The maintainer-facing tutorial is [README.md](README.md); the job system that runs the fleet is the § Job system below.
 
@@ -41,6 +44,8 @@ The maintainer steers the liaison in plain language; these verbs are just precis
 
 | Phrase | What it means |
 | --- | --- |
+| **help** / **help &lt;topic&gt;** | run the interactive first-run tutorial ([`roles/liaison/AGENT.md`](roles/liaison/AGENT.md) § Help; track in [context/first-run/README.md](context/first-run/README.md)) / answer a topic from `context/` and offer to do what the answer prescribes. **Liaison-session vocabulary only — never watcher-recognized** (a tutorial is a conversation, not a board entry). Distinct from the CLI built-in `/help`. |
+| **start the garden** | perform the starting stage directly ([context/operations/starting.md](context/operations/starting.md)) — for the user who wants motion, not a tour; the liaison runs the bring-up itself, asking before each consequential step. Also liaison-session only. |
 | **run the gauntlet #N** | post the full PR-creation chain end to end: clean → panel review → fix-loop → un-draft ([pr-creation-flow](skills/pr-creation-flow/SKILL.md)). v1 called this "the gamut"; that name is retired ([designs/judicial-workflow.md](designs/judicial-workflow.md) § the rename). |
 | **design X** / **propose X** / **spec X** | post a [designer](roles/designer/AGENT.md) job. |
 | **build #N** / **build X** | post a [builder](roles/builder/AGENT.md) job. |
@@ -74,7 +79,7 @@ Create `skills/<name>/SKILL.md`. Sections: purpose, inputs, state (if any), proc
 
 ## Host environment
 
-The garden lives in the bot user's home directory; that directory is what `<garden-root>` refers to throughout this document. Each host has a logical **`GARDEN` identity** — the shard name that keys job claims, per-host worker counts, journal index entries, and the leader marker. It is resolved by `common.sh` as `GARDEN` env → the gitignored `<garden-root>/.garden` file (seeded at container creation) → `hostname -s`; see README § Getting started. It must be **unique** across running instances (§ Bringing up local systemd services, step 1).
+The garden lives in the bot user's home directory; that directory is what `<garden-root>` refers to throughout this document. Each host has a logical **`GARDEN` identity** — the shard name that keys job claims, per-host worker counts, journal index entries, and the leader marker. It is resolved by `common.sh` as `GARDEN` env → the gitignored `<garden-root>/.garden` file (seeded at container creation) → `hostname -s`; see README § Getting started. It must be **unique** across running instances (§ Starting the garden, step 1).
 
 Each host configures its bot identity once in the garden repo's local git config:
 
@@ -134,7 +139,16 @@ liaison. Jobs may block for a long time waiting for messages, so a host runs a
 **large pool of gardeners (~100)** — most are cheaply idle-blocked, so the count is
 sized for concurrency, not CPU.
 
-### Bringing up local systemd services
+### Starting the garden
+
+> **Reframe (onboarding):** this is **"Starting the garden"** — the bring-up the
+> liaison performs on *start the garden* or the *help* tutorial's stage 4, running
+> each command itself and asking before consequential steps (§ Orchestrator
+> vocabulary; [`roles/liaison/AGENT.md`](roles/liaison/AGENT.md) § Help). The
+> agent-facing, command-level home is [context/operations/starting.md](context/operations/starting.md)
+> (identity in [context/first-run/identity.md](context/first-run/identity.md)); the
+> steps below remain here until phase 4 of the streamlined-onboarding migration
+> cuts them down to a pointer.
 
 1. **Verify a unique host identity FIRST.** Every host's logical name (the
    `GARDEN` knob, which defaults to `hostname -s`) must be **unique across all
@@ -227,7 +241,7 @@ The garden is a **leader/follower** fleet (issue kriskowal/garden#11, Multibot;
   every host, the liaison runs a **standing Monitor watching the `leader` marker**
   — the follower's half of the leader/follower contract. When the marker comes to
   name the liaison's OWN host (its `GARDEN` identity), that liaison **stands itself
-  up as leader** per the bring-up procedure (arm the maintainer-inbox Monitor + the
+  up as leader** per the starting-the-garden procedure (arm the maintainer-inbox Monitor + the
   deploy-on-upgrade Monitor; the leader-only singletons auto-start as
   `is-main-host` starts exiting 0; lift any drain if the host is to run gardeners).
   Because of this standing watch, **running `set-main-host.sh <host>` has the
@@ -259,7 +273,7 @@ advanced only by the deliberate, drained `scripts/jobs/deploy-garden.sh`
 (drain → quiesce → merge → record deployed sha → lift → restart the fleet). The
 deterministic `garden-upgrade-monitor` service emits an "Upgrade ready" signal
 when `origin/main2` is ahead of this host's deployed sha; the liaison's
-deploy-on-upgrade Monitor (bring-up step 8) acts on it. The continuous
+deploy-on-upgrade Monitor (§ Starting the garden, step 8) acts on it. The continuous
 fast-forward path is retired: `garden-deploy-sync` is gone and the watchman's
 aggressive checkout defaults off (it keeps only its post-deploy reread broadcast).
 Full design: [`designs/deliberate-deploy.md`](designs/deliberate-deploy.md).
