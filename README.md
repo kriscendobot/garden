@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-05T17:22:24Z_
+_As of 2026-07-05T17:36:21Z_
 
 ## Latest
 
-The gap-revealing probe on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) (sanctioned SES `unredactError`) finished and was verified under real `lockdown()`, but **needs your action**: it ran on `endolinbot2`, which has no bot `gh` token, so the DRAFT PR can't be opened without a maintainer-identity (kriskowal SSH) switch the gardener correctly refused — the branch, commits, and full PR body are staged and waiting for a credentialed host or your hand. Its five surfaced gaps (return shape as the keystone, exposure mechanism, ses-ava factory-vs-string, one-shot `take` semantics) are design decisions for @erights.
-
-On the review front, the fleet merged [endo-but-for-bots#590](https://github.com/endojs/endo-but-for-bots/pull/590), pushed [endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602) and [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) (TypedArray emulation + banner sweep) through multiple review rounds, and ran a broad shepherd resume across the lint-ceiling-blocked PRs (#101, #242, #301, #306, #313, #316, #318, #320, #324, #335, #581, #585, #588, #592, #593). Phase 1 of the daemon→manager rename landed via [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598); phases 2–3 are parked behind it. The lint-ceiling shepherds remain blocked awaiting [endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594).
-
-Elsewhere: the xs2rust-endor engine port advanced through stages 1–3 into stage-3b (interning, Object statics in flight), onboarding builds 1–2 completed with build 3 (help verb + tutorial) underway, and a large wave of garden self-healing landed — clone-keeper reclone, scheduler preflight validation, journal-worktree-keeper repair, foreman edge-triggering, and atomic-deploy tree swap among them. Issues #21–25 from the garden repo closed; dckc's #26 is in progress.
+The gap-revealing probe on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) (sanctioned SES `unredactError`) finished and verified its skeleton by real execution — start-compartment-only exposure holds under real `lockdown()`, and it surfaces five design gaps with Gap 4 (return shape) as the keystone gating the API name, the ses-ava migration, and structured daemon traces. **Publishing is blocked, not done:** the running host (endolinbot2) has no bot `gh` token, and its only credential is an SSH key that authenticates as kriskowal — a reserved maintainer identity the gardener correctly declined to use. The draft PR is committed and ready on branch `probe/unredact-error-595`; it needs either a bot token on some host or a manual open (details in the [maintainer message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260704T170858Z-0fbe2f.md)). Also landed: review fixes on [endo-but-for-bots#592](https://github.com/endojs/endo-but-for-bots/pull/592) and [#604](https://github.com/endojs/endo-but-for-bots/pull/604), a refresh of [#288](https://github.com/endojs/endo-but-for-bots/pull/288), the leader/follower-determinism design, and onboarding phase-3 wiring. A follow-up CHANGES_REQUESTED review on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) is now in flight.
 
 ## Parked for maintainer feedback
 
@@ -16,7 +12,7 @@ Elsewhere: the xs2rust-endor engine port advanced through stages 1–3 into stag
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 5d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 6d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 9d)
-- [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 19d)
+- [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 20d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 44d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 44d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 46d)
@@ -347,26 +343,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (11)
-- [`daily-progress-summary-20260705-051008`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260705-051008.md) — Daily midnight Pacific progress summary
+### doin (7)
 - [`design-leader-follower-determinism`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-leader-follower-determinism.md) — Designer (Fable): make the leader/follower state machine FULLY DETERMINISTIC
-- [`endojs-endo-but-for-bots-pr288-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr288-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #288
-- [`endojs-endo-but-for-bots-pr442-review-61c65980`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-review-61c65980.md) — Review directive on endojs/endo-but-for-bots PR #442
-- [`endojs-endo-but-for-bots-pr592-review-da7fef5e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-review-da7fef5e.md) — Review directive on endojs/endo-but-for-bots PR #592
+- [`ebfb-592-watchdir-crossplatform-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-592-watchdir-crossplatform-fixer.md) — Fix directive: address kriskowal CHANGES_REQUESTED review on endojs/endo-but-...
+- [`endojs-endo-but-for-bots-pr442-fix-review-4629047816`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-fix-review-4629047816.md) — Fix: address kriskowal CHANGES_REQUESTED review on endojs/endo-but-for-bots P...
 - [`endojs-endo-but-for-bots-pr595-probe-unredact-error`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr595-probe-unredact-error.md) — probe (exploratory build): sanctioned SES unredactError API — endojs/endo-but...
-- [`endojs-endo-but-for-bots-pr604-67c88e63`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr604-67c88e63.md) — attention directive on endojs/endo-but-for-bots PR #604
 - [`fable-review-fix-garden-scripts`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fable-review-fix-garden-scripts.md) — Fable: review the garden's scripts, serially fix discovered issues, push main2
-- [`issue-kriskowal-garden-26`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-26.md) — Issue from dckc on kriskowal/garden #26
-- [`onboarding-build-3-vocab-tutorial-wiring`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/onboarding-build-3-vocab-tutorial-wiring.md) — Build (phase 3/4): the help verb + tutorial wiring
+- [`improve-ensure-clone-partial-dir-selfheal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-ensure-clone-partial-dir-selfheal.md) — scripts/jobs/common.sh
 - [`xs2rust-endor-build-stage3b-object-statics-intern`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-object-statics-intern.md) — Builder: stage-3b child 5/9 — global string→id intern table + Object statics/...
 
-### tada (1147)
-- [`ebfb-pr288-fable-review-post`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr288-fable-review-post.md) — Completion report
-- [`xs2rust-endor-press-20260704-042004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260704-042004.md) — Press tick complete — **observe-and-defer, no push; the build chain is health...
-- [`xs2rust-endor-press-20260704-033505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260704-033505.md) — Observe-and-defer tick complete: the xs2rust-endor chain is healthy and activ...
-- [`xs2rust-endor-press-20260704-030501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260704-030501.md) — Completion report — xs2rust-endor-press-20260704-030501
-- [`xs2rust-endor-press-20260703-175002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-175002.md) — Press tick complete — this was an observe-and-defer cycle under the charter's...
-- … and 1142 more
+### tada (1156)
+- [`onboarding-build-3-vocab-tutorial-wiring`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/onboarding-build-3-vocab-tutorial-wiring.md) — Completion report
+- [`issue-kriskowal-garden-26`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-26.md) — Completion report
+- [`endojs-endo-but-for-bots-pr604-67c88e63`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr604-67c88e63.md) — Completion report
+- [`endojs-endo-but-for-bots-pr595-probe-unredact-error`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr595-probe-unredact-error.md) — Completion report
+- [`endojs-endo-but-for-bots-pr592-review-da7fef5e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr592-review-da7fef5e.md) — Completion report
+- … and 1151 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
