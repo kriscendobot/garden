@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-05T21:19:41Z_
+_As of 2026-07-05T21:20:27Z_
 
 ## Latest
 
-The xs2rust-endor (XS→Rust "Endor") port advanced: stage-3b child 6/9 (json-metering) completed as [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600), and the opcode cost-calibration instrumentation job was just claimed, leaving the promises child (7/9) and the metering instrumentation in flight. Two rounds of Fable-review fixes to the garden's own scripts landed on `origin/main2` (1e9f4a957), and a reaper reliability fix — requeue now kills or waits for a live handler rather than double-claiming — completed.
+The XS→Rust (Endor) port advanced through stage-3b: child 6/9 (json-metering) completed as [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600), with child 7/9 (promises/job-queue/pump-loop) and the optional opcode cost-calibration instrumentation now in flight. Two Fable-review fixes to the garden scripts landed on `origin/main2` (`1e9f4a957`), and the reaper hardening (requeue kills-or-waits-for-a-live-handler) completed. Board motion was otherwise quiet — only the weekly plan recalibration was claimed.
 
-Two decisions are waiting on you. The `design-streamlined-onboarding` design is done; its § 5 open questions (especially Q2, the security-flavored auto-mode default) gate four build jobs that will only be posted as an orchestration once you answer. Separately, the probe for [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) (published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605)) came back with 7 gaps and — correctly — did *not* invent the "destructive one-shot `take` semantics" hazard the job spec had paraphrased; the liaison is asking whether you specifically want a fresh `take`-semantics probe.
+Two decisions await the maintainer. The `design-streamlined-onboarding` design completed; `designs/streamlined-onboarding.md` needs review, especially the § 5 Q2 auto-mode default (a security-flavored call) that gates its four build jobs. And on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595), the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) surfaced a spec discrepancy — the published probe reports 7 gaps and no `take`-semantics hazard, though the job spec had paraphrased a "Gap 5 — destructive one-shot `take`" concern; the gardener correctly declined to invent it, so the liaison is asking whether a `take`-semantics analysis is genuinely wanted as a fresh probe. A shepherd is also working [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288).
 
 ## Parked for maintainer feedback
 
@@ -37,8 +37,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr288-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr288-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #288
+- [`plan-recalibrate-20260705-212003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/plan-recalibrate-20260705-212003.md) — Weekly plan recalibration and grooming (Sunday evening)
 - [`xs2rust-endor-build-stage3b-promises`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-promises.md) — Builder: stage-3b child 7/9 — Promises, the job queue, and the pump-loop latc...
 - [`xs2rust-endor-meter-opcode-cost-instrumentation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-meter-opcode-cost-instrumentation.md) — xs2rust-endor: optional opcode cost-calibration instrumentation
 
