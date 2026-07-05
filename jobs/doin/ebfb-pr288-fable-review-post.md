@@ -127,3 +127,9 @@ Copying becomes O(N) per frame. Behavior is otherwise unchanged, including error
 
 Recommend: apply items 1–3 (and 4 at the fixer's discretion) as follow-up commits on this branch, then re-request review.
 <<<BODY-3-END>>>
+
+---
+claim:
+  host: endolinbot
+  gardener: 2
+  claimed_at: 2026-07-05T17:17:32Z
