@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-05T17:37:22Z_
+_As of 2026-07-05T17:37:51Z_
 
 ## Latest
 
-The [probe of #595's `unredactError` design](https://github.com/endojs/endo-but-for-bots/pull/595) finished on the credential-starved `endolinbot2` host and is **blocked on publishing, not substance**: the DRAFT PR cannot be opened because that host carries no bot `gh` token — only a `kriskowal` SSH key the gardener correctly declined to use as an unauthorized identity switch — so the two committed, real-execution-verified commits (`probe/unredact-error-595` off `designs/captp-error-identification`) sit ready but unpublished, awaiting either a bot token on a re-run host or a maintainer opening it by hand. The probe surfaced five design gaps, the keystone being the sanctioned export's return shape (string vs. structured record vs. causal-console factory), which @erights must settle before implementation; it verified that SES's existing child-global rebuild already enforces the start-compartment-only constraint, so the open work is entirely the API's shape, not whether SES can host it. Separately, the [leader/follower determinism design](https://github.com/kriskowal/garden) landed, and onboarding phase 3 (help verb + tutorial wiring) completed with phase 4 (slimming README/CLAUDE.md) now in progress.
+The clone-keeper self-heal landed: [`improve-ensure-clone-partial-dir-selfheal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ensure-clone-partial-dir-selfheal.md) pushed cleanly to main2, hardening `ensure-clone` against partial-directory states. The item needing your eyes: the gap-revealing probe on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) (sanctioned `unredactError` SES API) is substantively **complete and verified by real execution** — start-compartment-only exposure confirmed under real `lockdown()`, five design gaps surfaced with Gap 4 (return shape) named as the keystone — but publishing the DRAFT is **blocked on credentials**: the job ran on endolinbot2, which has no bot `gh` token, and the only key present authenticates as kriskowal, so the gardener declined to push under a maintainer identity it wasn't authorized to use. The proxy has escalated this to your inbox as a credential/identity decision beyond its authority; the branch, SHAs, and full PR body are staged and ready to open. Five fix/build jobs remain in flight (the ebfb#592 watchdir fixer, the ebfb#442 review fix, the Fable scripts review, onboarding phase 4, and the xs2rust stage-3b builder), and the board is otherwise drained to zero todo.
 
 ## Parked for maintainer feedback
 
@@ -343,21 +343,20 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - [`ebfb-592-watchdir-crossplatform-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-592-watchdir-crossplatform-fixer.md) — Fix directive: address kriskowal CHANGES_REQUESTED review on endojs/endo-but-...
 - [`endojs-endo-but-for-bots-pr442-fix-review-4629047816`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-fix-review-4629047816.md) — Fix: address kriskowal CHANGES_REQUESTED review on endojs/endo-but-for-bots P...
 - [`fable-review-fix-garden-scripts`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fable-review-fix-garden-scripts.md) — Fable: review the garden's scripts, serially fix discovered issues, push main2
-- [`improve-ensure-clone-partial-dir-selfheal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-ensure-clone-partial-dir-selfheal.md) — scripts/jobs/common.sh
 - [`onboarding-build-4-readme-claudemd-slim`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/onboarding-build-4-readme-claudemd-slim.md) — Build (phase 4/4): slim README.md and CLAUDE.md to the residues
 - [`xs2rust-endor-build-stage3b-object-statics-intern`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-object-statics-intern.md) — Builder: stage-3b child 5/9 — global string→id intern table + Object statics/...
 
-### tada (1156)
+### tada (1157)
+- [`improve-ensure-clone-partial-dir-selfheal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ensure-clone-partial-dir-selfheal.md) — Pushed cleanly to main2. Job complete.
 - [`design-leader-follower-determinism`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-leader-follower-determinism.md) — Completion report: design-leader-follower-determinism
 - [`endojs-endo-but-for-bots-pr595-probe-unredact-error`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr595-probe-unredact-error.md) — Completion report (resumed job — verified complete)
 - [`onboarding-build-3-vocab-tutorial-wiring`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/onboarding-build-3-vocab-tutorial-wiring.md) — Completion report
 - [`issue-kriskowal-garden-26`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-26.md) — Completion report
-- [`endojs-endo-but-for-bots-pr604-67c88e63`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr604-67c88e63.md) — Completion report
-- … and 1151 more
+- … and 1152 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
