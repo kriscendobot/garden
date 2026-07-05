@@ -356,3 +356,31 @@ A single PR on `endojs/endo-but-for-bots` carrying the **approved** design plus 
 implementation at test262 parity**, reviewed to completion by you, un-drafted, and surfaced to the
 maintainer with a status summary. The maintainer is asked to look **once**, at the end. Journal the full
 lifecycle (design PR, approval, build, review rounds, hand-off).
+
+---
+
+## Carried-forward child report — stage-3b child 7/9 (Promises), PR #600 [dead-letter pickup deadmail-20260705T221101Z-5894bf]
+
+The promises child's status message to you was **dead-lettered** (this supervisor inbox was parked when it
+landed) and promoted; its intent is carried forward here so your review loop cannot miss it. Full detail is in
+`jobs/tada/xs2rust-endor-build-stage3b-promises.md`.
+
+- **DONE, all green, pushed HEAD `bc785b265`.** Promise constructor + executor (resolve/reject under a shared
+  `[[AlreadyResolved]]` guard), `Promise.resolve`/`reject`, `then`/`catch`, the microtask job queue, and the
+  endor-side pump-loop drain are **bit-exact (result AND computron, divergent=0)**. `built-ins/Promise` dual-run
+  `total=474 covered=7 divergent=0`. Curated `stage3b-promises.js` corpus + `gen_stage3b_promise_program` fuzz arm,
+  bit-exact. endor-vm 46 / endor-262 30 / endor-fuzz 21 / endor-oracle 3 green; stage-1 86/86.
+- **Thenable adoption: attempted then REVERTED** (`74adcdfac` → `bc785b265`). Native-promise adoption was
+  bit-exact for single-adoption-with-observation (covered 7→9) but the fuzz sweep found compound adoption chains
+  and un-observed adoption (`Promise.resolve(4).then(v=>Promise.resolve(8))`) diverging by a few computrons: a
+  native-handler reaction settles BOTH the adopting promise AND the discarded inner-`.then` derived — an
+  uncalibrated job-count nuance. A silent computron divergence violates the sacred invariant, so reverted to the
+  honest named skip (`promise:resolve-thenable`). Scaffolding (enum / `fxOnThenable`) is in git history for a clean
+  resume.
+- **Remaining honest named skips (self-name `Halt::Unsupported`):** thenable adoption (native + user-object),
+  self-resolving promise, handler-that-throws, `.finally`, the `all`/`race`/`allSettled`/`any` **combinators**
+  (`fxCombinePromises`: iterator protocol over the arg + per-element sub-promise/combine functions + native-function
+  reaction handlers), and async/await (stage 4).
+- **FOLLOW-UP for a future increment:** nail the native-handler reaction job's double-settle (adopting promise +
+  discarded derived) **bit-exact** — it unblocks BOTH thenable adoption and the combinators in one stroke (they
+  share the native-function-reaction-handler job machinery).
