@@ -30,3 +30,9 @@ Also shrink the longer procedural passages in `roles/liaison/AGENT.md` to routes
 ## Definition of done
 
 README is pitch → three steps → residue → surfaces → how-it-works (§ 1 ≈ 15 lines); CLAUDE.md § Job-system operational detail is replaced by pointers into `context/` with all safety constraints and the dispatch contract kept verbatim; no procedure is orphaned (grep the removed procedures to confirm each has a `context/` home). Push to main2; report the commit sha.
+
+---
+claim:
+  host: endolinbot
+  gardener: 46
+  claimed_at: 2026-07-05T17:37:07Z
