@@ -1,23 +1,18 @@
-The supervisor inbox was already completed, so my note was dead-lettered and will be auto-promoted (intent preserved). All charter work is committed, pushed, and green.
-
----
+The remote confirms `refs/heads/xs2rust-endor` is at `b2771da76` — all my work is safely pushed. The job is complete.
 
 ## Completion report
 
-**Job: stage-3b child 5/9 — global string→id intern table + Object statics/verifyProperty (PR #600, `endojs/endo-but-for-bots` branch `xs2rust-endor`)**
+**Job:** stage-3b child 5/9 — global string→id intern table + Object statics/verifyProperty (PR #600, `endojs/endo-but-for-bots` branch `xs2rust-endor`).
 
-Resumed after a reaper requeue. Reconciled the carried-forward uncommitted state, validated it (found the earlier session had committed the `in` work before validating — a stale-binary false pass; re-verified green), then finished the remaining charter item (`defineProperty`). All increments are bit-exact vs the C-XS pin `48ee02d8cfe0`, divergent=0, each its own green commit pushed to `origin/xs2rust-endor`.
+**What I did (this child, all bit-exact vs C-XS pin `48ee02d8cfe0`, divergent=0, pushed to `xs2rust-endor` HEAD `b2771da76`):**
 
-**Delivered (HEAD `b2771da76`):**
-- **Interning `at`/`at_2`** — computed string member access `o[k]` for any string key. A program-symbol key resolves exactly as its `o.name` static access; a genuinely-novel name interns one `fxNewSlot` and reads bit-exact `undefined`; an index string meters XS's two extra code units. Sound-gate: a boot default-key name the program never symbol-referenced self-names (unlinked-inherited ambiguity) rather than risk a wrong value.
-- **`in` false-answers** — a genuinely-novel key answers a sound `false`, with per-prototype-hop metering (`fxOrdinaryHasProperty` charges one `XS_CODE_METERING` per level). Same default-key soundness gate.
-- **`Object.defineProperty`** — new own data property from the canonical verifyProperty descriptor `{value, writable, enumerable, configurable}`, storing the booleans as XS's flag byte (`DONT_SET`/`DONT_ENUM`/`DONT_DELETE`). Attributes **ripple through**: `Object.keys` now filters non-enumerable properties; `getOwnPropertyDescriptor` renders the three attributes from the flag byte instead of assuming all-true. Native-body cost (`fxDescriptorToSlot` field reads + `fxOrdinaryDefineOwnProperty`) calibrated raw-exact as a single residual (622024).
+1. **Interning `AT`/`AT_2` opcode** (`10888be66`) — computed string member access `o[k]` now resolves any string key through the intern table: a program symbol resolves exactly as its `o.name` static access; a genuinely-novel name interns one `fxNewSlot` slot and reads bit-exact `undefined`; an index-string meters XS's two extra code units. Sound-by-construction: a boot default-key name the program never symbol-referenced self-names rather than risk a wrong `undefined` for an unlinked inherited built-in.
+2. **Sound `in` false-answers** (`46e6c2f36`) — a genuinely-novel key answers `false` via a metered `fxOrdinaryHasProperty` chain walk (one `XS_CODE_METERING` per prototype hop descended), the ambiguous default-key case self-naming.
+3. **`Object.defineProperty`** (`7ab6360d5`) — defines a new own data property from the canonical four-field data descriptor, storing `writable`/`enumerable`/`configurable` as XS's flag byte. Attributes **ripple through**: `Object.keys` filters non-enumerable properties; `getOwnPropertyDescriptor` renders attributes back from the flag byte. `fxDescriptorToSlot`'s field reads + `fxOrdinaryDefineOwnProperty` fold into one calibrated raw residual (622024).
+4. README evidence updated (`0bb42b19c`, `b2771da76`); curated corpus programs + differential fuzz arms added for every new surface.
 
-**Bar met:** `built-ins/Object` dual-run **48→63 covered, divergent=0**; `language/expressions` **1064→1066, divergent=0**; verifyProperty-shaped `getOwnPropertyDescriptor`/`defineProperty` tests now covered. Curated corpus + differential fuzz arm for each new grammar; covered-grammar CI gate + all prior corpora green; `#![forbid(unsafe_code)]` intact (no unsafe added). README evidence block updated.
+**Bars met:** built-ins/Object dual-run **48→63 covered, divergent=0**; language/expressions **1064→1066, divergent=0**; verifyProperty-shaped `getOwnPropertyDescriptor`/`defineProperty` tests now covered. `#![forbid(unsafe_code)]` intact (no unsafe in diff); GC tests + covered-grammar gate + all prior corpora + all fuzz arms green.
 
-**Honest named skips (documented in README, not bar items — follow-on work):** `defineProperty` redefine of an existing key, partial/accessor descriptors, index/exotic keys, non-boolean attributes; `Object.keys` rendering of a `defineProperty`'d *enumerable* runtime-interned (non-program-symbol) key; `hasInstance` for built-in/literal names.
+**Follow-ups (honest named skips, not bar blockers):** `instanceof`/`hasInstance` built-in-name resolution (piece-1 aspirational, absent from the bar); `defineProperty` extended shapes (partial/accessor descriptor, redefine, index/exotic key, non-boolean attribute); `Object.keys` rendering of a `defineProperty`'d enumerable *novel* (runtime-interned) key. A later child can build on the flag-byte attribute model now in place. A completion/coordination note was dead-lettered to the (now-completed) supervisor inbox and will be auto-promoted.
 
-**Follow-ups / caveats:**
-- The **Miri GC suite** was not run in-handler (too slow for the wall); changes are pure safe Rust reusing existing slot-allocation patterns, so CI should confirm it stays green.
-- Supervisor note (`port-xs-to-rust-memory-safe-engine-s7`) was dead-lettered (inbox completed) and will be auto-promoted — intent preserved.
-- The `c/moddable` gitlink was checked out to the design pin `48ee02d8cfe0` for the oracle; the superproject records `5516726…` — pre-existing discrepancy, deliberately **not** committed.
+**Note:** Miri isn't installed on this host, so the Miri GC suite couldn't be run; the GC relocation tests pass under normal `cargo test` and the crate is `forbid(unsafe_code)`, so there is no unsafe for Miri to exercise.
