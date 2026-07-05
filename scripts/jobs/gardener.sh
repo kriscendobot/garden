@@ -663,7 +663,11 @@ while :; do
       # DISTINGUISH a self-wall hit from an external kill masquerading as rc=124.
       # rc=124 is `timeout`'s own expiry code, so it ALREADY means the handler's own
       # wall-clock wrapper fired — but confirm the elapsed is actually AT the wall
-      # (within GARDEN_HANDLER_DEADLINE_EPSILON of GARDEN_HANDLER_TIMEOUT) before
+      # (within GARDEN_HANDLER_DEADLINE_EPSILON of the ACTUAL budget this run used
+      # — handler_budget, which a `handler-timeout:` job header may have lowered
+      # below GARDEN_HANDLER_TIMEOUT; comparing against the global constant made a
+      # per-job budget's wall-hit read as an ordinary transient and burn the full
+      # poison threshold instead of the fast overrun path) before
       # treating it as a DETERMINISTIC budget overrun. A handler that hit its own
       # 2400s wall will be killed identically every requeue, so requeuing it the full
       # 5 poison cycles (~200 min of gardener wall-clock) before surfacing it is pure
@@ -673,7 +677,7 @@ while :; do
       # belt-and-suspenders: an external kill varies in elapsed and reads as 143/137
       # (is_external_kill_rc), not 124, so this rarely excludes anything — but it means
       # only a genuine wall-hit gets the fast-poison treatment.
-      if [ "$elapsed" -ge "$(( GARDEN_HANDLER_TIMEOUT - GARDEN_HANDLER_DEADLINE_EPSILON ))" ]; then
+      if [ "$elapsed" -ge "$(( handler_budget - GARDEN_HANDLER_DEADLINE_EPSILON ))" ]; then
         deadline_overrun=1
       fi
     elif [ ! -s "$capture" ]; then
@@ -787,9 +791,9 @@ while :; do
         # GARDEN_REAP_POISON_THRESHOLD (5) — two identical deadline hits is already
         # conclusive, and requeuing it 5× (~5×GARDEN_HANDLER_TIMEOUT of gardener
         # wall-clock, ~200 min) before surfacing it is pure waste.
-        log "handler for '$base' hit its OWN wall-clock budget (rc=124, elapsed=${elapsed}s ≈ GARDEN_HANDLER_TIMEOUT=${GARDEN_HANDLER_TIMEOUT}s): deterministic deadline overrun, stamping the overrun counter for early poison"
-        printf 'gardener-%s on %s: job %s handler hit its OWN wall-clock budget (rc=124, elapsed=%ss ≈ GARDEN_HANDLER_TIMEOUT=%ss) — a DETERMINISTIC deadline overrun, not a varying external kill; stamping <!-- garden-deadline-overrun --> so the reaper poisons it after GARDEN_REAP_OVERRUN_THRESHOLD cycles instead of the full poison threshold; left in doin for the reaper\n' \
-          "$id" "$GARDEN" "$base" "$elapsed" "$GARDEN_HANDLER_TIMEOUT" \
+        log "handler for '$base' hit its OWN wall-clock budget (rc=124, elapsed=${elapsed}s ≈ handler-budget=${handler_budget}s): deterministic deadline overrun, stamping the overrun counter for early poison"
+        printf 'gardener-%s on %s: job %s handler hit its OWN wall-clock budget (rc=124, elapsed=%ss ≈ handler-budget=%ss) — a DETERMINISTIC deadline overrun, not a varying external kill; stamping <!-- garden-deadline-overrun --> so the reaper poisons it after GARDEN_REAP_OVERRUN_THRESHOLD cycles instead of the full poison threshold; left in doin for the reaper\n' \
+          "$id" "$GARDEN" "$base" "$elapsed" "$handler_budget" \
           | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
         if ( stamp_deadline_overrun_hint "$CLONE" "$JOBS_DOIN/$base.md" ); then
           log "stamped deadline-overrun hint on '$base'; reaper will requeue before TTL and poison early (overrun cycle counts)"
