@@ -1,10 +1,4 @@
----
-gate: deferred
-priority: low
-roadmap: xs2rust-endor-completion
-posted_by: gardener:endojs-endo-but-for-bots-pr600-6983cac7
-posted_at: 2026-07-03T05:46:32Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=low at=2026-07-05T23:04:03Z -->
 
 ---
 model: fable
