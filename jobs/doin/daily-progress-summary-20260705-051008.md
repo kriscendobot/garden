@@ -44,3 +44,9 @@ The cadence is `daily` for now and flips to the anchored, DST-aware
 85a1cd8e6) once that scheduler change is deployed to the leader host. Flipping it
 before deploy would make the running pre-deploy scheduler treat the unknown cadence
 token as its weekly default.
+
+---
+claim:
+  host: endolinbot
+  gardener: 27
+  claimed_at: 2026-07-05T17:16:55Z
