@@ -191,16 +191,39 @@ while :; do
     { echo "### $seat"; cat "$block"; echo; } >> "$agg"
   done
 
-  disposition="$(decide_disposition "$agg")"
+  # STRICT verdict parse — the disposition gate must never fail OPEN. The old
+  # `case "$disposition" in *must-fix*) … *) undraft` treated ANY non-"must-fix"
+  # output — a refusal, an empty/truncated answer, free prose — as PASS and
+  # un-drafted a PR whose panel may have demanded changes; conversely a
+  # compliant "pass — no must-fix findings remain" contains the substring and
+  # looped the fixer to the round bound. Accept only an answer whose LAST
+  # non-blank line is exactly one of the two tokens (case-insensitive,
+  # punctuation-trimmed — the prompt demands a single word, so a compliant
+  # answer ends with it); retry the decider once on garbage, then FAIL LOUDLY
+  # so the supervising gardener re-runs the panel rather than un-drafting on a
+  # guess.
+  disposition=""
+  for _decide_attempt in 1 2; do
+    raw="$(decide_disposition "$agg")"
+    tok="$(printf '%s\n' "$raw" | awk 'NF{l=$0} END{print l}' | tr -d '\r' \
+           | sed "s/[\"'.\!]//g; s/^[[:space:]]*//; s/[[:space:]]*\$//" \
+           | tr '[:upper:]' '[:lower:]')"
+    case "$tok" in
+      must-fix|pass) disposition="$tok"; break ;;
+      *) echo "panel #$pr: unparseable disposition '$tok' (attempt $_decide_attempt); re-asking" >&2 ;;
+    esac
+  done
   case "$disposition" in
-    *must-fix*)
+    must-fix)
       run_fixer "$agg"      # non-terminating round; loop to re-review the delta
       continue ;;
-    *)
+    pass)
       # terminating round: appellate pass (advisory), then un-draft, then exit.
       appellate_pass "$agg" > "$GARDEN_PANEL_RUNDIR/appellate.md" || true
       undraft
       break ;;
+    *)
+      fail "disposition (decider returned neither 'must-fix' nor 'pass' twice)" ;;
   esac
 done
 

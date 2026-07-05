@@ -95,8 +95,18 @@ run_if "$DETECT_BANNERS" check "$wt" "$base" -- "$GARDEN_BANNER_FIXER" "$wt" "$b
 # git -C "$wt" push --force-with-lease ...   # supervisor/boatman owns identity
 
 # --- loop decision ----------------------------------------------------------
+# STRICT parse, never substring: `*loop*)` matched "do not loop" / "stop — no
+# need to loop" and re-invoked forever (this loop has no round bound, unlike the
+# panel's). Accept only an answer whose LAST non-blank line is exactly one of
+# the two tokens; anything else defaults to STOP with a WARN — a wrong stop
+# stalls one PR recoverably (other watchers re-surface it), a wrong loop
+# re-invokes without bound.
 ans="$(decide "CI is running for PR #$pr. Should I wait and loop, or stop here? Answer 'loop' or 'stop'.")"
-case "$ans" in
-  *loop*) echo "loop" ;;   # supervisor re-invokes
-  *)      : ;;             # quiet success
+tok="$(printf '%s\n' "$ans" | awk 'NF{l=$0} END{print l}' | tr -d '\r' \
+       | sed "s/[\"'.\!]//g; s/^[[:space:]]*//; s/[[:space:]]*\$//" \
+       | tr '[:upper:]' '[:lower:]')"
+case "$tok" in
+  loop) echo "loop" ;;     # supervisor re-invokes
+  stop) : ;;               # quiet success
+  *)    echo "garden-pr #$pr: WARN unparseable loop decision '$tok'; defaulting to stop" >&2 ;;
 esac
