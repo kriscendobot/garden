@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-05T21:07:17Z_
+_As of 2026-07-05T21:10:50Z_
 
 ## Latest
 
-Garden-infra reliability work landed: the reaper data-corruption fixes progressed with `fu-fable-review-fix-garden-scripts-1` and `-3` completing (`-2` still in flight), alongside `reaper-requeue-kills-or-waits-for-live-handler` and the port of the fail-floor to the mention/issue-inbox watchers. On the XS→Rust (Endor) port, stage-3b child 6/9 (json-metering) completed as [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) and child 7/9 (promises/pump-loop) was just claimed.
+Garden-infra hardening landed this cycle: the reaper's requeue path now kills-or-waits for a live handler and its data-corruption bug is fixed (`fu-fable-review-fix-garden-scripts` 1 and 3, plus `reaper-requeue-kills-or-waits-for-live-handler`), and the watchers' fail-floor was ported to the mention and issue-inbox watchers. The XS→Rust (Endor) port continues through stage-3b: the json-metering child completed as [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) and the Promises/job-queue child (7/9) is now in flight. The board is otherwise drained (0 todo, 4 in progress).
 
-Two decisions await the maintainer. The `design-streamlined-onboarding` design is ready for review — its four build jobs are gated on your answers to the § 5 open questions, especially Q2's security-flavored auto-mode default. And on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595), the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) reports 7 gaps with no `take`-semantics hazard, contradicting the job spec's paraphrase; the gardener correctly declined to invent it, so a fresh probe is needed only if you specifically want that analysis.
+Two maintainer decisions are waiting. The `design-streamlined-onboarding` design finished — `designs/streamlined-onboarding.md` needs a review, especially its §5 Q2 (the security-flavored auto-mode default), since four gated build jobs can only be posted as an orchestration once that's answered. Separately, the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) (against [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595)) surfaced 7 gaps but none for the "destructive one-shot `take` semantics" hazard the job spec had paraphrased; the gardener correctly declined to invent it, so a decision is needed on whether to post a fresh probe specifically for `take` semantics.
 
 ## Parked for maintainer feedback
 
@@ -37,7 +37,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
+- [`deadmail-20260705T210528Z-bf6f7e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260705T210528Z-bf6f7e.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr288-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr288-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #288
 - [`fu-fable-review-fix-garden-scripts-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-fable-review-fix-garden-scripts-2.md) — Garden's own repo (kriskowal/garden, main2): fix the reaper data-corruption b...
 - [`xs2rust-endor-build-stage3b-promises`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-promises.md) — Builder: stage-3b child 7/9 — Promises, the job queue, and the pump-loop latc...
