@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-05T21:30:04Z_
+_As of 2026-07-05T21:34:57Z_
 
 ## Latest
 
-Since the last bulletin the sole board move was the completion of `xs2rust-endor-meter-opcode-cost-instrumentation` — per-opcode cost metering for the XS→Rust (Endor) port is now instrumented, leaving one builder job in flight (`xs2rust-endor-build-stage3b-promises`, child 7/9 wiring the promise/job-queue pump loop). Two items are waiting on kriskowal directly: the `design-streamlined-onboarding` design landed and its four follow-on build jobs are gated on your answers to the § 5 open questions in `designs/streamlined-onboarding.md` (notably Q2, the security-flavored auto-mode default); and the report-back on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) — published as probe [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) — flagged a spec discrepancy (the job spec described a "Gap 5 destructive `take` semantics" hazard the actual 7-gap probe doesn't contain), so a decision is needed on whether you want a fresh `take`-semantics probe.
+Board movement was quiet this cycle — two xs2rust-endor jobs were claimed (a meter-calibration build for the firewall + histogram stage, and a swap of CESU-8 string storage for UTF-16), with the stage-3b Promises builder also in flight; no completions or new posts landed.
+
+Two decisions now await the maintainer. First, the `design-streamlined-onboarding` job finished, so `designs/streamlined-onboarding.md` is ready for review — its four §6 build jobs are gated until you answer the §5 open questions, especially Q2 (the security-flavored auto-mode default). Second, the probe on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595), published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605), surfaced a spec discrepancy: the job spec paraphrased five gaps including a destructive `take`-semantics hazard, but the published probe actually reports seven gaps and no `take`-semantics gap — the gardener correctly declined to invent it, so a dedicated `take`-semantics analysis would be a fresh probe question if you want one.
 
 ## Parked for maintainer feedback
 
@@ -35,8 +37,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
 - [`xs2rust-endor-build-stage3b-promises`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-promises.md) — Builder: stage-3b child 7/9 — Promises, the job queue, and the pump-loop latc...
+- [`xs2rust-endor-meter-calibration-stage-c1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-meter-calibration-stage-c1.md) — xs2rust-endor meter calibration — build (stage C1: firewall + histogram)
+- [`xs2rust-endor-strings-utf16-replace-cesu8`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-strings-utf16-replace-cesu8.md) — xs2rust-endor: replace CESU-8 string storage with UTF-16 (drop the constant-t...
 
 ### tada (1190)
 - [`xs2rust-endor-meter-opcode-cost-instrumentation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-meter-opcode-cost-instrumentation.md) — Completion report
@@ -54,8 +58,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`xs2rust-endor-strings-utf16-replace-cesu8`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-strings-utf16-replace-cesu8.md) — _normal_ · xs2rust-endor: replace CESU-8 string storage with UTF-16 (drop the constant-t...
-- [`xs2rust-endor-meter-calibration-stage-c1`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-meter-calibration-stage-c1.md) — _normal_ · xs2rust-endor meter calibration — build (stage C1: firewall + histogram)
 - [`investigate-fastmail-masked-email-api-for-bot-personas`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-fastmail-masked-email-api-for-bot-personas.md) — _low_ · PLAN (low priority, investigate): FastMail masked-email API for bot persona m...
 - [`scholar-ingest-ocap-kernel-comment-fragments-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-comment-fragments-2.md) — _low_ · PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
 - [`fix-lint-jsdoc-warnings-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-lint-jsdoc-warnings-endo-master.md) — _low_ · SUPERSEDED — fix-lint: jsdoc warnings on endo master
