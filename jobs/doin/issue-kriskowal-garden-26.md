@@ -23,3 +23,9 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 Please dispatch a scholar to consider using opencollective integration with ERTP. Context:  - https://github.com/dckc/vattr97/issues/11 For example, along with a github connector, a smart contract may facilitate negotiation and payment for github issues.  - https://github.com/dck
+
+---
+claim:
+  host: endolinbot
+  gardener: 49
+  claimed_at: 2026-07-05T17:20:53Z
