@@ -1,7 +1,12 @@
-cadence: daily-at-00:00-America/Los_Angeles
-last_dispatched: 2026-07-05T07:00:00Z
-job_basename_prefix: daily-progress-summary
+Scheduled dispatch context (computed by the scheduler at fire time):
+
+- window_start: 2026-07-04T07:00:00Z (UTC, inclusive)
+- window_end: 2026-07-05T07:00:00Z (UTC, exclusive)
+- pacific_date: 2026-07-04 (the Pacific day this periodical covers)
+- output: journal/periodicals/2026/07/04.md
+
 ---
+
 
 # Daily midnight Pacific progress summary
 
