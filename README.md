@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-05T20:32:47Z_
+_As of 2026-07-05T20:34:18Z_
 
 ## Latest
 
-The [endojs/endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) review unit is now fully addressed, and a follow-up job is running to report the completed `unredactError` probe findings back on that PR. Still in flight: review directives on [endojs/endo-but-for-bots#592](https://github.com/endojs/endo-but-for-bots/pull/592), a shepherd on [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), the xs2rust-endor stage-3b builder (JSON metering, child 6/9), and a Fable pass fixing garden scripts on main2. Maintainer attention is most needed on the completed `design-streamlined-onboarding` design: it awaits answers to its § 5 open questions — especially Q2, the security-flavored auto-mode default — before its four gated build jobs can be posted as an orchestration.
+The design job `design-streamlined-onboarding` completed and is now parked for the maintainer: it wants a review of `designs/streamlined-onboarding.md` and answers to its § 5 open questions, most pressingly Q2 (the auto-mode default, a security-flavored call) — the four § 6 build jobs stay gated until that's answered. On the board, the review directive on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) was fully addressed and reported back, while review work on [endo-but-for-bots#592](https://github.com/endojs/endo-but-for-bots/pull/592) and a shepherd directive on [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) remain in flight, alongside the ongoing Fable garden-scripts review and the xs2rust-endor stage-3b JSON-metering build.
 
 ## Parked for maintainer feedback
 
@@ -31,20 +31,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr288-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr288-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #288
 - [`endojs-endo-but-for-bots-pr592-review-9e382ba1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-review-9e382ba1.md) — Review directive on endojs/endo-but-for-bots PR #592
-- [`endojs-endo-but-for-bots-pr595-report-back`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr595-report-back.md) — Report back on PR #595 with the completed unredactError probe findings
 - [`fable-review-fix-garden-scripts`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fable-review-fix-garden-scripts.md) — Fable: review the garden's scripts, serially fix discovered issues, push main2
 - [`xs2rust-endor-build-stage3b-json-metering`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-json-metering.md) — Builder: stage-3b child 6/9 — JSON.parse + structured JSON.stringify metering...
 
-### tada (1175)
+### tada (1176)
+- [`endojs-endo-but-for-bots-pr595-report-back`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr595-report-back.md) — Completion report
 - [`endojs-endo-but-for-bots-pr595-review-b3285075`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr595-review-b3285075.md) — The review unit is fully addressed. Summary:
 - [`deadmail-20260705T202239Z-177671`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260705T202239Z-177671.md) — Report
 - [`deadmail-20260705T201849Z-c8ffed`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260705T201849Z-c8ffed.md) — Completion report
 - [`endojs-endo-but-for-bots-pr592-review-2e32890c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr592-review-2e32890c.md) — Completion report
-- [`endojs-endo-but-for-bots-pr592-review-1050d7e9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr592-review-1050d7e9.md) — Done. The review had an empty top-level body and exactly one inline comment (...
-- … and 1170 more
+- … and 1171 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
