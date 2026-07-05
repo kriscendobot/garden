@@ -1,9 +1,4 @@
----
-gate: deferred
-priority: low
-posted_by: producer
-posted_at: 2026-07-02T19:24:55Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=low at=2026-07-05T22:49:44Z -->
 
 # design/build: timezone-anchored scheduler cadence (fix daily-progress-summary firing at the wrong time)
 
