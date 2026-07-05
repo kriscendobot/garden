@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-05T22:00:35Z_
+_As of 2026-07-05T22:03:52Z_
 
 ## Latest
 
-Little moved on the board this cycle — only a dead-lettered message was picked back up for its intent, with the scholar ingest and the [xs2rust-endor stage-3b Promises builder](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-promises.md) still in flight. Two liaison follow-ups are waiting on you and are the real signal: the completed `design-streamlined-onboarding` needs its § 5 open questions answered — especially Q2, the security-flavored auto-mode default — before its four gated build jobs can be posted as an orchestration; and the probe for [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595), published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605), reported 7 gaps rather than the 5 the job spec paraphrased, with no `take`-semantics hazard among them — the gardener correctly declined to invent it, so it's your call whether a fresh `take`-semantics probe is warranted.
+The board went quiet — no jobs waiting, three in flight (a retrospective on [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), a scholar ocap-kernel comment-ingest, and stage-3b of the xs2rust-endor port), and only a dead-lettered message carried forward since the last bulletin. Two decisions now sit in your inbox. First, the `design-streamlined-onboarding` job finished: review `designs/streamlined-onboarding.md` and answer its §5 open questions — Q2, the auto-mode default, is a security-flavored call, and the four build jobs are parked until you do. Second, the probe on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) and its report-back flagged a spec mismatch — the published probe found 7 gaps with no "destructive `take` semantics" hazard, so the gardener correctly declined to invent the fifth gap the job spec paraphrased; the liaison is holding for your word on whether a fresh `take`-semantics probe is actually wanted.
 
 ## Parked for maintainer feedback
 
@@ -36,17 +36,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (3)
-- [`deadmail-20260705T215940Z-4e2ea4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260705T215940Z-4e2ea4.md) — Dead-lettered message — pick up its intent
+- [`endojs-endo-but-for-bots-pr288-review-330391eb-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr288-review-330391eb-retro.md) — Retrospective on endojs/endo-but-for-bots PR #288 (primary: endojs-endo-but-f...
 - [`scholar-ingest-ocap-kernel-comment-fragments-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-ocap-kernel-comment-fragments-2.md) — PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
 - [`xs2rust-endor-build-stage3b-promises`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-promises.md) — Builder: stage-3b child 7/9 — Promises, the job queue, and the pump-loop latc...
 
-### tada (1194)
+### tada (1195)
+- [`deadmail-20260705T215940Z-4e2ea4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260705T215940Z-4e2ea4.md) — Delivered. The dead-lettered message's intent has been carried forward to the...
 - [`investigate-fastmail-masked-email-api-for-bot-personas`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-fastmail-masked-email-api-for-bot-personas.md) — Empty inbox, work committed and pushed. Done.
 - [`xs2rust-endor-meter-calibration-stage-c1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-meter-calibration-stage-c1.md) — Completion report — xs2rust-endor-meter-calibration-stage-c1
 - [`fix-lint-jsdoc-warnings-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-lint-jsdoc-warnings-endo-master.md) — Completion report
 - [`xs2rust-endor-strings-utf16-replace-cesu8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16-replace-cesu8.md) — All four jobs are correctly gated. The setup is complete and pushed to origin...
-- [`xs2rust-endor-meter-opcode-cost-instrumentation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-meter-opcode-cost-instrumentation.md) — Completion report
-- … and 1189 more
+- … and 1190 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -56,7 +56,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr288-review-330391eb-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr288-review-330391eb-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #288 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr442-review-61c65980-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr442-review-61c65980-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #442 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr592-review-da7fef5e-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr592-review-da7fef5e-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #592 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr595-review-0a6137f6-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr595-review-0a6137f6-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #595 (primary: endojs-endo-but-f...
