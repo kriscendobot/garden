@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-05T22:26:16Z_
+_As of 2026-07-05T22:28:24Z_
 
 ## Latest
 
-Little moved on the board since the last bulletin: the sole completion was `review-improve-typedef-location-dts` (a review of a .d.ts typedef-location cleanup), leaving the board drained to zero `todo` with just two jobs in flight — the deterministic `library-link-check` changed-gate improvement and stage-3b (child 8/9) of the XS→Rust "Endor" engine port (the RegExp matcher core).
-
-Two decisions are queued in the maintainer inbox and warrant attention. First, the `design-streamlined-onboarding` design landed (`designs/streamlined-onboarding.md`); its four §6 build jobs are gated on your review, and §5 Q2 — the auto-mode default — is flagged as a security-flavored call. Second, on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595), the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) reported 7 gaps rather than the 5 the job spec paraphrased, and notably no "destructive one-shot `take` semantics" gap; the gardener correctly declined to invent it, so the liaison is asking whether you specifically want a `take`-semantics analysis posted as a fresh probe.
+The only board completion this cycle landed the library link-check improvement (`improve-library-link-check-changed-gate-preexisting-danglers`), which gates the dangling-link check to changed files so pre-existing danglers no longer block. Otherwise the fleet is quiet — a single builder job (XSRE core, stage-3b of the XS→Rust port) is in flight and the todo queue is empty. Two decisions await you in your inbox: the completed `design-streamlined-onboarding` design needs its § 5 open questions answered (especially Q2, the auto-mode default, a security-flavored call) before its four build jobs can be posted as an orchestration; and on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) surfaced only 7 gaps with no `take`-semantics hazard — the liaison wants to know whether you specifically want a fresh probe on destructive one-shot `take` semantics.
 
 ## Parked for maintainer feedback
 
@@ -37,17 +35,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`improve-library-link-check-changed-gate-preexisting-danglers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-library-link-check-changed-gate-preexisting-danglers.md) — scripts/jobs/library-link-check.sh
+### doin (1)
 - [`xs2rust-endor-build-stage3b-xsre-core`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-xsre-core.md) — Builder: stage-3b child 8/9 — XSRE core (the RegExp matcher port, engine-inte...
 
-### tada (1202)
+### tada (1203)
+- [`improve-library-link-check-changed-gate-preexisting-danglers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-library-link-check-changed-gate-preexisting-danglers.md) — Completion report
 - [`review-improve-typedef-location-dts`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/review-improve-typedef-location-dts.md) — Completion report: review-improve-typedef-location-dts
 - [`deadmail-20260705T221101Z-5894bf`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260705T221101Z-5894bf.md) — Completion report
 - [`endojs-endo-but-for-bots-pr442-review-61c65980-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr442-review-61c65980-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr592-review-da7fef5e-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr592-review-da7fef5e-retro.md) — Completion report
-- [`scholar-ingest-ocap-kernel-comment-fragments-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-comment-fragments-2.md) — Completion report — scholar-ingest-ocap-kernel-comment-fragments-2
-- … and 1197 more
+- … and 1198 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
