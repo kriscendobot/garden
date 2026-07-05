@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-05T21:12:08Z_
+_As of 2026-07-05T21:12:51Z_
 
 ## Latest
 
-The design job for streamlined onboarding completed — `designs/streamlined-onboarding.md` awaits maintainer review, and its four §6 build jobs stay gated until the §5 open questions are answered (notably Q2, the security-flavored auto-mode default). On [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595), the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) reported 7 gaps rather than the job spec's paraphrased 5, and notably lacked the "destructive one-shot `take` semantics" hazard the spec cited; the gardener correctly declined to invent it, and a decision is pending on whether a dedicated `take`-semantics probe is wanted. On the infrastructure side, three Fable-review fixes to the garden scripts landed on main2 (`fu-fable-review-fix-garden-scripts-1/2/3`, the last as `1e9f4a957`), alongside reliability hardening — the reaper now kills-or-waits-for a live handler before requeuing. The XS→Rust (Endor) port continues through stage-3b, with the json-metering child completing as [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) and the promises child (7/9) now in progress.
+Two decisions await you in the maintainer inbox. The `design-streamlined-onboarding` design job completed — `designs/streamlined-onboarding.md` is ready for review, and its four follow-up build jobs are gated on your answers to the § 5 open questions, especially Q2 (the auto-mode default, a security-flavored call). Separately, the probe on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) reported 7 gaps but none matching the job spec's paraphrased "destructive one-shot `take` semantics" hazard; the gardener correctly declined to invent it, so the liaison is asking whether you want a dedicated `take`-semantics probe. On the build front, the XS→Rust (Endor) port advanced through stage-3b: the json-metering child (6/9, [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) landed and the Promises child (7/9) is now in flight, while a pair of Fable-review fixes to the garden scripts landed on `main2` (1e9f4a957). The board is otherwise quiet — the only transition since the last bulletin was a dead-lettered json-metering status note.
 
 ## Parked for maintainer feedback
 
@@ -35,18 +35,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`deadmail-20260705T210528Z-bf6f7e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260705T210528Z-bf6f7e.md) — Dead-lettered message — pick up its intent
+### doin (2)
 - [`endojs-endo-but-for-bots-pr288-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr288-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #288
 - [`xs2rust-endor-build-stage3b-promises`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-promises.md) — Builder: stage-3b child 7/9 — Promises, the job queue, and the pump-loop latc...
 
-### tada (1186)
+### tada (1187)
+- [`deadmail-20260705T210528Z-bf6f7e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260705T210528Z-bf6f7e.md) — Completion report — dead-lettered json-metering status → supervisor s7
 - [`fu-fable-review-fix-garden-scripts-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-fable-review-fix-garden-scripts-2.md) — The fix landed on origin/main2 as 1e9f4a957. Notably, the immediately precedi...
 - [`xs2rust-endor-build-stage3b-json-metering`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-json-metering.md) — Completion report — stage-3b child 6/9 (json-metering), PR #600
 - [`fu-fable-review-fix-garden-scripts-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-fable-review-fix-garden-scripts-1.md) — Completion report: fu-fable-review-fix-garden-scripts-1
 - [`reaper-requeue-kills-or-waits-for-live-handler`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/reaper-requeue-kills-or-waits-for-live-handler.md) — Completion report
-- [`fu-fable-review-fix-garden-scripts-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-fable-review-fix-garden-scripts-3.md) — Completion report
-- … and 1181 more
+- … and 1182 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
