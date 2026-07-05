@@ -303,7 +303,17 @@ heal_diverged_worktree() {  # heal_diverged_worktree <jw> <ahead> <behind> <dirt
 # untouched).
 jw_repair_gitdir() {  # jw_repair_gitdir <jw>
   local jw="$1"
-  [ -d "$jw" ] || return 0
+  # A GENUINELY ABSENT worktree dir goes straight to the rebuild: the old
+  # `[ -d "$jw" ] || return 0` short-circuit declared a deleted journal/ checkout
+  # "healthy", so the rebuild machinery below was unreachable and the keeper
+  # WARN-skipped ("missing or unlinked … skipping") every tick forever — exactly
+  # the case jw_rebuild_dangling_worktree's own guards were written to handle
+  # (its active-writer probe explicitly skips when the dir is missing, and its
+  # hard guard confines the rebuild to the canonical $GARDEN_ROOT/journal path).
+  if [ ! -d "$jw" ]; then
+    jw_rebuild_dangling_worktree "$jw"
+    return
+  fi
   # STEP 1 — the shared, non-destructive prune-first repair (common.sh). Returns 0
   # when the gitdir re-links (stale sibling registrations pruned first); 1 when even
   # that could not restore the linkage because the owning admin entry is gone.
