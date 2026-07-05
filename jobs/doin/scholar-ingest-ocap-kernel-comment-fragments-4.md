@@ -82,3 +82,9 @@ existing ocap-kernel sources use the `metamask-ocap-kernel--` slug prefix.
   touching those same pages. (The second backfill note from earlier cycles — the
   trivial `Kernel.ts` "Service to to things" doc-comment typo — remains a
   documentation-only no-action item in a read-only repo.)
+
+---
+claim:
+  host: endolinbot
+  gardener: 13
+  claimed_at: 2026-07-05T23:49:09Z
