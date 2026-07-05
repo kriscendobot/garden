@@ -63,8 +63,24 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   src="$DIR/$JOBS_PLAN/$base.md"
   gate="$(plan_gate "$src")"
   priority="$(plan_priority "$src")"
+  # Preserve the EXECUTION keys across promotion. strip_frontmatter drops the
+  # whole plan block (gate/priority are provenance, correctly consumed here),
+  # but role:/model:/handler-timeout: bind how the gardener RUNS the job — the
+  # per-role model pin (designer→Fable, builder→Opus) and the per-job handler
+  # budget are resolved from the CLAIMED todo file, so dropping them silently
+  # demoted every planned designer/builder job to the fleet default model.
+  role="$(plan_field "$src" role)"
+  model="$(plan_field "$src" model)"
+  htimeout="$(plan_field "$src" handler-timeout)"
   mkdir -p "$DIR/$JOBS_TODO"
   {
+    if [ -n "$role$model$htimeout" ]; then
+      printf -- '---\n'
+      [ -n "$role" ]     && printf 'role: %s\n' "$role"
+      [ -n "$model" ]    && printf 'model: %s\n' "$model"
+      [ -n "$htimeout" ] && printf 'handler-timeout: %s\n' "$htimeout"
+      printf -- '---\n'
+    fi
     printf '<!-- garden-promoted-from-plan: gate=%s priority=%s at=%s -->\n\n' \
       "$gate" "$priority" "$(date -u +%FT%TZ)"
     strip_frontmatter "$src"
