@@ -156,3 +156,12 @@ Inspect via `git -C journal cat-file -p f3fa5a52bf12dc8fa1690267cd9c99f0ade3f57f
 - Context: gardener-47 on endolinbot: job 'fable-review-fix-garden-scripts' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p c538f99283725c9090274a7713bb4437662e5daf`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-05T19:03:44Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 5de709f43031d7fff60cf7379e69fb8a28fe93ee
+- Context: gardener-96 on endolinbot: job 'deadmail-20260705T175620Z-f869f8' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 5de709f43031d7fff60cf7379e69fb8a28fe93ee`.
