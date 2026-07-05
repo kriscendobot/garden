@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-05T17:37:51Z_
+_As of 2026-07-05T17:39:24Z_
 
 ## Latest
 
-The clone-keeper self-heal landed: [`improve-ensure-clone-partial-dir-selfheal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ensure-clone-partial-dir-selfheal.md) pushed cleanly to main2, hardening `ensure-clone` against partial-directory states. The item needing your eyes: the gap-revealing probe on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) (sanctioned `unredactError` SES API) is substantively **complete and verified by real execution** — start-compartment-only exposure confirmed under real `lockdown()`, five design gaps surfaced with Gap 4 (return shape) named as the keystone — but publishing the DRAFT is **blocked on credentials**: the job ran on endolinbot2, which has no bot `gh` token, and the only key present authenticates as kriskowal, so the gardener declined to push under a maintainer identity it wasn't authorized to use. The proxy has escalated this to your inbox as a credential/identity decision beyond its authority; the branch, SHAs, and full PR body are staged and ready to open. Five fix/build jobs remain in flight (the ebfb#592 watchdir fixer, the ebfb#442 review fix, the Fable scripts review, onboarding phase 4, and the xs2rust stage-3b builder), and the board is otherwise drained to zero todo.
+Two operational items need your decision. First, host **endolinbot** is currently evaluating as a *follower*, so the leader-only singletons (foreman, scheduler, watchers, maintainer inbox) are down; the `investigate-poisoned-garden-infra-jobs` report traces this to a stale `.garden`/leader-marker and asks you to confirm which host should hold the marker before the fleet is restored. Second, the gap-revealing probe for [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) (sanctioned `unredactError` SES export) finished and verified its skeleton under real `lockdown()`, but publishing the DRAFT is blocked — the endolinbot2 host has no bot `gh` credentials, and the only key present authenticates as kriskowal, which the gardener correctly refused to use; the branch and full PR body are staged and ready for you to open or for a credentialed re-run. The probe's headline finding: SES can already host a start-compartment-only export (verified), so the real open work is the API's return shape (its Gap 4), which gates the name, the ses-ava migration, and the daemon's structured trace fields.
+
+On the garden itself, `design-streamlined-onboarding` completed and awaits your review of the design's §5 open questions — especially Q2's auto-mode default, a security-flavored call — before its four build jobs can be posted as an orchestration; the onboarding build chain is meanwhile through phase 3, with phase 4 (slimming README/CLAUDE.md) in progress. The `design-leader-follower-determinism` design also landed.
 
 ## Parked for maintainer feedback
 
@@ -338,15 +340,25 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > awaiting maintainer — beyond proxy authority: gardener endojs-endo-but-for-bots-pr595-probe-unredact-error, msgid 20260704T170858Z-0fbe2f.md — Publishing is blocked only on a credential/identity decision — opening the PR needs bot credentials this host lacks, and the sole alternative is a maintainer-identity (kriskowal SSH) switch, which is reserved and security-weighted; the substantive probe is already complete, so there is no direction/experimentation call for the proxy to make.
 
+- `20260705T173845Z-99346f` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260705T173845Z-99346f.md)
+
+> The design job `design-streamlined-onboarding` completed. The maintainer should review `designs/streamlined-onboarding.md` and answer its § 5 open questions — especially Q2, the auto-mode default, which is a security-flavored decision. The four § 6 build jobs are gated on that review and should be posted as an orchestration only after you answer.
+
+- `20260705T173855Z-ff948b` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260705T173855Z-ff948b.md)
+
+> The `investigate-poisoned-garden-infra-jobs` report flags a live operational defect: on host endolinbot, `is-main-host` currently evaluates as follower, so the leader-only singletons are down. Recovery requires correcting `/home/kris/.garden` (or re-pointing the leader marker) and restarting the fleet — a leadership/identity call I won't make autonomously. Please confirm which host should hold the leader marker so the fleet can be restored.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (7)
 - [`ebfb-592-watchdir-crossplatform-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-592-watchdir-crossplatform-fixer.md) — Fix directive: address kriskowal CHANGES_REQUESTED review on endojs/endo-but-...
 - [`endojs-endo-but-for-bots-pr442-fix-review-4629047816`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-fix-review-4629047816.md) — Fix: address kriskowal CHANGES_REQUESTED review on endojs/endo-but-for-bots P...
 - [`fable-review-fix-garden-scripts`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fable-review-fix-garden-scripts.md) — Fable: review the garden's scripts, serially fix discovered issues, push main2
+- [`fu-design-streamlined-onboarding-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-design-streamlined-onboarding-2.md) — In kriskowal/garden, investigate and fix a worktree-keeper defect surfaced on...
+- [`fu-investigate-poisoned-garden-infra-jobs-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-investigate-poisoned-garden-infra-jobs-2.md) — In kriskowal/garden, harden the reaper against mass-poisoning from sustained ...
 - [`onboarding-build-4-readme-claudemd-slim`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/onboarding-build-4-readme-claudemd-slim.md) — Build (phase 4/4): slim README.md and CLAUDE.md to the residues
 - [`xs2rust-endor-build-stage3b-object-statics-intern`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-object-statics-intern.md) — Builder: stage-3b child 5/9 — global string→id intern table + Object statics/...
 
