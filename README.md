@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-05T18:20:35Z_
+_As of 2026-07-05T18:22:17Z_
 
 ## Latest
 
@@ -349,10 +349,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260705T173855Z-ff948b` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260705T173855Z-ff948b.md)
 
 > The `investigate-poisoned-garden-infra-jobs` report flags a live operational defect: on host endolinbot, `is-main-host` currently evaluates as follower, so the leader-only singletons are down. Recovery requires correcting `/home/kris/.garden` (or re-pointing the leader marker) and restarting the fleet — a leadership/identity call I won't make autonomously. Please confirm which host should hold the leader marker so the fleet can be restored.
-
-- `20260705T182023Z-4f3ea9` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260705T182023Z-4f3ea9.md)
-
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 6c0babac900bd765e54513abb6232d32b86cc163 (git -C /home/kris/.garden-state/self-heal/journal cat-file -p 6c0babac900bd765e54513abb6232d32b86cc163). Diagnosis: You've hit your session limit · resets 10pm (UTC)
 
 
 ## Board
