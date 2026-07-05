@@ -50,3 +50,9 @@ workspace + Miri green. Name any pin feature you defer (e.g. unicode property es
 <!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot
+  gardener: 7
+  claimed_at: 2026-07-05T23:03:38Z
