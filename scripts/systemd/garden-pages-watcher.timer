@@ -1,0 +1,16 @@
+[Unit]
+Description=Garden Pages-build watcher timer
+
+[Timer]
+# OnBootSec anchors the first elapse to a FIXED monotonic reference (boot), so the timer
+# always has a concrete next-trigger and fires promptly on arming; OnUnitActiveSec drives
+# the steady cadence after the first run (see the garden-comment-watcher@.timer header for
+# the daemon-reload rationale). A Pages deploy is quick and pushes to main2 are frequent,
+# so a ~2-minute cadence surfaces a red deploy promptly without polling the API hard.
+OnBootSec=50s
+OnUnitActiveSec=120s
+# Default accuracy is 1min; tighten so the cadence does not get batched late.
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target

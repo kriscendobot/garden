@@ -1,0 +1,45 @@
+[Unit]
+Description=Garden Pages-build watcher (the garden's own repo GitHub Pages deploy → pages-shepherd)
+# Producer: watch the garden's OWN GitHub-Pages build/deploy action and auto-post a
+# pages-shepherd job the moment the live site's last deploy goes red (kriskowal/garden
+# #27 — the shepherd, applied to a push without a pull request). Driven by its .timer.
+# Safe on a PUBLIC repo BY CONSTRUCTION: the watcher reads only workflow-RUN metadata
+# (id, status, conclusion, head SHA, URL) of the garden's own repo and feeds NONE of it
+# to an LLM — the job body it writes is deterministic. So, like the ci-watcher, it
+# introduces no prompt-injection surface (CLAUDE.md § Monitoring safety constraint) and
+# needs no per-repo arming; it may be enabled normally.
+
+[Service]
+Type=oneshot
+# A systemd stop mid-tick SIGTERMs the run; a signalled shutdown is a CLEAN exit, not a
+# failure. The self-heal wrapper normalizes 143/130 to 0; this is the belt-and-suspenders
+# so any future bypass of the wrapper still doesn't mark a SIGTERM stop as Failed.
+SuccessExitStatus=143 130 SIGTERM SIGINT
+# Graceful drain on stop/restart. The default KillMode=control-group would SIGTERM the
+# WHOLE cgroup the instant systemd stops this unit — but a git credential helper forked
+# by the run source's `gh run list` may ignore/outrace that TERM and linger in the
+# cgroup, so the next start flags a left-over process. KillMode=mixed instead sends the
+# initial SIGTERM ONLY to the main process (self-heal-run.sh, which forwards it to
+# pages-watcher.sh); the watcher's EXIT/INT/TERM trap then reaps the source's whole
+# process group deterministically, and the cgroup-wide SIGKILL backstop at
+# TimeoutStopSec catches anything the process-group reap cannot reach. Mirrors
+# garden-issue-inbox.service (same producer-leak class).
+KillMode=mixed
+# Short stop timeout: the pages poll holds NO in-flight work worth preserving (a killed
+# tick simply re-polls next firing — the newest-run read is stateless), so we do NOT wait
+# minutes on stop; a SHORT bound makes the cgroup-wide SIGKILL backstop fell any straggler
+# WELL BEFORE the next firing.
+TimeoutStopSec=20s
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+# Leader-only singleton: run only on the host whose GARDEN identity matches the journal
+# `leader` marker. On a follower the timer still fires but this ExecCondition fails, so
+# the tick is SKIPPED CLEANLY (condition-failed, never marked Failed) — that IS follower
+# mode. Each firing re-evaluates, so a leader change is picked up next tick with no
+# restart. Same producer-double-post class as the other watchers (a follower pages-watcher
+# would double-post the same red-deploy pages-shepherd). See issue kriskowal/garden#11.
+ExecCondition=/bin/bash @GARDEN_ROOT@/scripts/jobs/is-main-host.sh
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-pages-watcher -- @GARDEN_ROOT@/scripts/jobs/pages-watcher.sh
+# The self-heal responder runs synchronously on a failed tick before the wrapper returns
+# the failing rc; give it headroom beyond the implicit 90s oneshot start timeout so a
+# diagnosis is not cut off (responder itself is hard-bounded by SELF_HEAL_RESPONDER_TIMEOUT).
+TimeoutStartSec=900
