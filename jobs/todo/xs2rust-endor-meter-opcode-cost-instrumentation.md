@@ -1,3 +1,5 @@
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-07-05T21:19:18Z -->
+
 # xs2rust-endor: optional opcode cost-calibration instrumentation
 
 **Program:** the `xs2rust-endor` XS→Rust port (design: `designs/xs2rust-endor-engine.md`).
