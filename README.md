@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-05T20:20:50Z_
+_As of 2026-07-05T20:21:33Z_
 
 ## Latest
 
-Little moved on the board this cycle — only a dead-lettered message was re-picked-up — but three items are now stacked in the maintainer inbox awaiting your call. The gap-revealing probe of [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) (sanctioned SES `unredactError`) is substantively **complete and execution-verified** but its DRAFT PR is **publish-blocked**: it ran on host `endolinbot2`, which has no bot `gh` credentials, and the only identity present is a reserved kriskowal SSH key, so the gardener correctly surfaced rather than switch identity — it needs a bot token provisioned (or you to open the draft from the ready branch `probe/unredact-error-595`). The probe's headline finding is that SES already enforces start-compartment-only exposure; the design's real open work is the export's *shape* (Gap 4, @erights' call), which gates the API name and the ses-ava symbol retirement.
+Two operational defects need a maintainer decision. The `investigate-poisoned-garden-infra-jobs` report found that on host **endolinbot** `is-main-host` now evaluates as follower, so the leader-only singletons (foreman, scheduler, watchers, recovery services) are down; recovery needs the `.garden` identity or `leader` marker corrected and the fleet restarted — a leadership call the liaison won't make autonomously, so it's asking which host should hold the leader marker. Separately, the gap-revealing probe of [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) finished and verified its skeleton under real `lockdown()`, but the DRAFT PR can't be published: endolinbot2 has no bot `gh` credentials, and the only key present authenticates as kriskowal — a reserved maintainer identity the gardener correctly declined to use. The branch (`probe/unredact-error-595`) and full PR body are staged and ready for you to open, or to re-run on a credentialed host; the probe surfaces five design gaps, with the sanctioned export's return shape (Open Question 1) as the keystone for @erights.
 
-Separately, `design-streamlined-onboarding` finished — `designs/streamlined-onboarding.md` awaits your answers to its §5 open questions (especially the security-flavored auto-mode default) before its four build jobs can be posted as an orchestration. Most urgent operationally: the `investigate-poisoned-garden-infra-jobs` report flags that on host **endolinbot**, `is-main-host` is evaluating as *follower*, so the leader-only singletons (foreman, scheduler, watchers) are currently down; restoring them needs you to confirm which host should hold the leader marker. Meanwhile shepherd, review, and Fable script-fix jobs remain in flight, and the xs2rust-endor stage-3b metering build continues.
+On the design side, `design-streamlined-onboarding` completed — review `designs/streamlined-onboarding.md` and answer its § 5 open questions, especially Q2 (the security-flavored auto-mode default) before the four gated build jobs are posted. A review pass on [endo-but-for-bots#592](https://github.com/endojs/endo-but-for-bots/pull/592) also closed out. The board is otherwise quiet: no todo backlog, four jobs in flight (a #288 shepherd, a Fable scripts-review sweep, an xs2rust build stage, and a dead-letter pickup).
 
 ## Parked for maintainer feedback
 
@@ -353,20 +353,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`deadmail-20260705T201849Z-c8ffed`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260705T201849Z-c8ffed.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr288-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr288-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #288
-- [`endojs-endo-but-for-bots-pr592-review-2e32890c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-review-2e32890c.md) — Review directive on endojs/endo-but-for-bots PR #592
 - [`fable-review-fix-garden-scripts`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fable-review-fix-garden-scripts.md) — Fable: review the garden's scripts, serially fix discovered issues, push main2
 - [`xs2rust-endor-build-stage3b-json-metering`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-json-metering.md) — Builder: stage-3b child 6/9 — JSON.parse + structured JSON.stringify metering...
 
-### tada (1171)
+### tada (1172)
+- [`endojs-endo-but-for-bots-pr592-review-2e32890c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr592-review-2e32890c.md) — Completion report
 - [`endojs-endo-but-for-bots-pr592-review-1050d7e9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr592-review-1050d7e9.md) — Done. The review had an empty top-level body and exactly one inline comment (...
 - [`deadmail-20260705T175620Z-f869f8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260705T175620Z-f869f8.md) — Completion report
 - [`deadmail-20260705T175726Z-ff1f36`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260705T175726Z-ff1f36.md) — Completion report
 - [`improve-mentor-empty-output-transient-classification`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mentor-empty-output-transient-classification.md) — Completion report
-- [`xs2rust-endor-build-stage3b-object-statics-intern`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-object-statics-intern.md) — Completion report
-- … and 1166 more
+- … and 1167 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
