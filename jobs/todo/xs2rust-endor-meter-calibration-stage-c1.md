@@ -1,11 +1,4 @@
----
-gate: deferred
-priority: normal
-roadmap: M11
-role: builder
-posted_by: producer
-posted_at: 2026-07-05T21:29:07Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-07-05T21:34:33Z -->
 
 # xs2rust-endor meter calibration — build (stage C1: firewall + histogram)
 
