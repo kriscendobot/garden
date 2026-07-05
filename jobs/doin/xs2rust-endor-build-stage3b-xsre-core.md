@@ -46,3 +46,9 @@ matcher module — NO JavaScript surface yet (child 9 integrates):
   (structure-aware pattern generator, differential vs the pin where the shim allows).
 Bar: the matcher parity suite green; fuzz arm landed with zero divergence on its seed sweep;
 workspace + Miri green. Name any pin feature you defer (e.g. unicode property escapes) honestly.
+
+---
+claim:
+  host: endolinbot
+  gardener: 8
+  claimed_at: 2026-07-05T22:13:40Z
