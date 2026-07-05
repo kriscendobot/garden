@@ -1,0 +1,2 @@
+base: improve-ensure-clone-partial-dir-selfheal
+identity: mentor:scripts/jobs/common.sh
