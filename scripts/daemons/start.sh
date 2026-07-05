@@ -18,7 +18,7 @@ set -uo pipefail
 
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 CONFIG_FILE="$SCRIPT_DIR/config.sh"
-GARDEN_ROOT=$(cd "$SCRIPT_DIR/.." && pwd)
+GARDEN_ROOT=$(cd "$SCRIPT_DIR/../.." && pwd)
 # GARDEN_ROOT is exported for downstream wrappers that may consult it;
 # the daemons scripts themselves only need SCRIPT_DIR.
 export GARDEN_ROOT

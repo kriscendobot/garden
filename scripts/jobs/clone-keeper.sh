@@ -122,7 +122,7 @@ GARDEN_TAG="clone-keeper"
 bounded_fetch() {
   local dir="$1" remote="$2" branch="$3" attempt=1 rc=0
   while :; do
-    if timeout "$GARDEN_FETCH_TIMEOUT" git -C "$dir" fetch -q "$remote" "$branch" 2>/dev/null; then
+    if timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" git -C "$dir" fetch -q "$remote" "$branch" 2>/dev/null; then
       return 0
     else
       rc=$?
@@ -199,7 +199,7 @@ bounded_clone() {
   while :; do
     tmp="${abs%/}.reclone.$$.$attempt"
     rm -rf "$tmp"
-    if timeout "$GARDEN_FETCH_TIMEOUT" git clone -q --bare "$src" "$tmp" 2>/dev/null; then
+    if timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" git clone -q --bare "$src" "$tmp" 2>/dev/null; then
       # Atomically publish the completed clone. `mv -T` renames the temp onto $abs
       # only when $abs is still absent; if a racing tick already recreated it, the
       # rename fails and the other tick's clone stands — discard ours, report ok.
