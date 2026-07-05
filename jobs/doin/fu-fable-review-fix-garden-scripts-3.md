@@ -1,7 +1,0 @@
-Garden's own repo (kriskowal/garden, main2): investigate and fix the 6/29 ci-watcher test failures that reproduce on a pristine main2 tree (unrelated to the fable-review job's changes). Build in an isolated worktree off origin/main2.
-
----
-claim:
-  host: endolinbot
-  gardener: 12
-  claimed_at: 2026-07-05T20:49:28Z
