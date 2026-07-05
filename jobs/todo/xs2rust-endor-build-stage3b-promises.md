@@ -47,9 +47,5 @@ Bar: `built-ins/Promise` dual-run divergent=0 with covered growth; a promise-ord
 async-function/await surfaces (stage 4 owns async/generators) — name them.
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolinbot
-  gardener: 12
-  claimed_at: 2026-07-05T21:07:13Z
+
+<!-- garden-reaped: 1 -->
