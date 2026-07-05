@@ -1,4 +1,4 @@
-cadence: daily
+cadence: daily-at-00:00-America/Los_Angeles
 last_dispatched: 2026-07-05T05:10:08Z
 job_basename_prefix: daily-progress-summary
 ---
@@ -11,8 +11,8 @@ daily progress-summary periodical covering the prior 24 hours across every proje
 then commit it to `journal2`.
 
 1. **Window.** If the scheduler prepended a "Scheduled dispatch context" block
-   above (it does once the anchored `daily-at-00:00-America/Los_Angeles` cadence is
-   deployed), use its `window_start`, `window_end`, `pacific_date`, and `output`
+   above (it does under the anchored `daily-at-00:00-America/Los_Angeles`
+   cadence), use its `window_start`, `window_end`, `pacific_date`, and `output`
    verbatim. Otherwise fall back to the Pacific day that most recently closed:
    window `[<pacific_date> 00:00, next-day 00:00)` in America/Los_Angeles, and
    `output = journal/periodicals/<YYYY>/<MM>/<DD>.md` keyed by that `pacific_date`.
@@ -43,8 +43,12 @@ specs keyed by cadence, not pre-computed per-fire event files. The v1 periodical
 output tree is archived under `legacy/v1/periodicals/`. The v1 original is
 retained on `journal-v1` and `origin/journal`.
 
-The cadence is `daily` for now and flips to the anchored, DST-aware
-`daily-at-00:00-America/Los_Angeles` (which the scheduler learned on main2 commit
-85a1cd8e6) once that scheduler change is deployed to the leader host. Flipping it
-before deploy would make the running pre-deploy scheduler treat the unknown cadence
-token as its weekly default.
+The cadence is the anchored, DST-aware `daily-at-00:00-America/Los_Angeles` (which
+the scheduler learned on main2 commit 85a1cd8e6): due-ness is decided against the
+most recent Pacific-midnight anchor at-or-before now and `last_dispatched` is
+stamped to that anchor, so the fire never drifts off local midnight and a 23h/25h
+DST day is spanned correctly. It was flipped from the earlier fixed-interval
+`daily` (which drifted, firing at each actual dispatch time rather than at local
+midnight) once the anchored scheduler landed on the leader host; do not revert it
+to `daily` while any leader host still runs a pre-anchor scheduler, or that
+scheduler would treat the token as its weekly default.
