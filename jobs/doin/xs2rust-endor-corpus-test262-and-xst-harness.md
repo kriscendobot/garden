@@ -48,3 +48,9 @@ Keep the PR DRAFT. Ground every claim in the pin the design names and in the exi
 harness code; cite section totals when you touch the corpus. Report the design, the
 migration/rollout sketch, and any build sub-jobs it implies (park those as
 `--orchestrated` children under a future build orchestration — do not fan them out here).
+
+---
+claim:
+  host: endolinbot
+  gardener: 12
+  claimed_at: 2026-07-05T23:04:07Z
