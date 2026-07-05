@@ -22,6 +22,17 @@ GARDEN_TAG="maintainer-reply"
 
 id="${1:?usage: maintainer-reply.sh <msgid> [body-file]}"
 body="${2:-}"
+
+# Body source guard: a non-empty $2 that is not a readable file is almost always
+# a mistake (an inline reply STRING passed where a body-FILE path is expected).
+# Without this, the reply read falls through to `cat` on stdin — and with a
+# non-tty stdin (every background / `claude -p` / systemd context) that blocks
+# forever (garden-harden-producer-body-read-hang). Fail fast, mirroring
+# post-job.sh and journal-entry.sh.
+if [ -n "$body" ] && [ ! -f "$body" ]; then
+  die "body source '$body' is not a readable file (pass a body FILE path, or feed the reply on stdin / leave \$2 empty to acknowledge only)"
+fi
+
 DIR="${GARDEN_MAINT_CLONE:-$GARDEN_STATE/maintainer/journal}"
 ensure_clone "$DIR"
 sync_clone "$DIR"

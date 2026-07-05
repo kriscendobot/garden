@@ -1,6 +1,8 @@
 #!/bin/bash
 # producer-body-hang-test.sh — the inline-body stdin-hang guard on the producer
-# primitives that read a body (journal-entry.sh, post-job.sh, post-plan.sh).
+# primitives that read a body (journal-entry.sh, post-job.sh, post-plan.sh, and
+# the sibling producers inbox-send.sh, send-msg.sh, maintainer-reply.sh,
+# set-schedule.sh, set-schedule-once.sh).
 #
 # Regression for garden-harden-producer-body-read-hang (observed 2026-06-27): the
 # body read had the shape
@@ -99,6 +101,15 @@ assert_inline() {  # assert_inline <label> <script> [pre-args...]
 assert_inline "journal-entry.sh" journal-entry.sh progress
 assert_inline "post-job.sh"      post-job.sh      body-hang-job-1
 assert_inline "post-plan.sh"     post-plan.sh     body-hang-plan-1
+# The sibling producers with the same body-read shape (guard ported 2026-07-05):
+# inbox-send.sh <doer> <body> ; send-msg.sh <addr> <body> ;
+# maintainer-reply.sh <msgid> <body> ; set-schedule.sh <name> <cadence>
+# [prefix] <body> ; set-schedule-once.sh <name> <ISO> [prefix] <body>.
+assert_inline "inbox-send.sh"        inbox-send.sh        body-hang-doer-1
+assert_inline "send-msg.sh"          send-msg.sh          role/gardener
+assert_inline "maintainer-reply.sh"  maintainer-reply.sh  body-hang-msg-1.md
+assert_inline "set-schedule.sh"      set-schedule.sh      body-hang-sched-1 weekly body-hang-sched-1
+assert_inline "set-schedule-once.sh" set-schedule-once.sh body-hang-once-1 2030-01-01T00:00:00Z body-hang-once-1
 
 # --- 3: journal-entry.sh --help exits 0 and posts no entry -------------------
 echo "================================================================"

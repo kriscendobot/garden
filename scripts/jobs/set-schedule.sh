@@ -33,6 +33,17 @@ prefix="${3:-$name}"
 body_src="${4:-}"
 case "$name" in -*|*/*|.*|'') die "illegal schedule name '$name'";; esac
 
+# Body source guard: a non-empty $4 that is not a readable file is almost always
+# a mistake (an inline body STRING passed where a body-FILE path is expected).
+# Without this, the body read falls through to `cat` on stdin — and with a
+# non-tty stdin (every background / `claude -p` / systemd context) that blocks
+# forever, wedging the shared producer lock
+# (garden-harden-producer-body-read-hang). Fail fast, mirroring post-job.sh and
+# journal-entry.sh.
+if [ -n "$body_src" ] && [ ! -f "$body_src" ]; then
+  die "body source '$body_src' is not a readable file (pass a body FILE path, or feed the body on stdin / leave \$4 empty for a placeholder)"
+fi
+
 if   [ -n "$body_src" ] && [ -f "$body_src" ]; then BODY="$(cat "$body_src")"
 elif [ ! -t 0 ];                                then BODY="$(cat)"
 else BODY="# scheduled job: $name"; fi

@@ -26,6 +26,17 @@ doer="${1:?usage: inbox-send.sh <doer> [body-file]}"
 body_src="${2:-}"
 case "$doer" in */*|.*|'') die "illegal doer '$doer'";; esac
 
+# Body source guard: a non-empty $2 that is not a readable file is almost always
+# a mistake (an inline body STRING passed where a body-FILE path is expected —
+# e.g. block-job.sh handing an inline reason through). Without this, the body
+# read falls through to `cat` on stdin — and with a non-tty stdin (every
+# background / `claude -p` / systemd context) that blocks forever, wedging the
+# shared producer lock (garden-harden-producer-body-read-hang). Fail fast,
+# mirroring post-job.sh and journal-entry.sh.
+if [ -n "$body_src" ] && [ ! -f "$body_src" ]; then
+  die "body source '$body_src' is not a readable file (pass a body FILE path, or feed the body on stdin / leave \$2 empty for '(empty message)')"
+fi
+
 DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
 ensure_clone "$DIR"
 

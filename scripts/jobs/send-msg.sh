@@ -52,6 +52,17 @@ case "$addr" in
   *) die "illegal address '$addr' (use role/<name>, job/<base>, or broadcast)";;
 esac
 
+# Body source guard: a non-empty $2 that is not a readable file is almost always
+# a mistake (an inline body STRING passed where a body-FILE path is expected).
+# Without this, the body read falls through to `cat` on stdin — and with a
+# non-tty stdin (every background / `claude -p` / systemd context) that blocks
+# forever, wedging the shared producer lock
+# (garden-harden-producer-body-read-hang). Fail fast, mirroring post-job.sh and
+# journal-entry.sh.
+if [ -n "$body_src" ] && [ ! -f "$body_src" ]; then
+  die "body source '$body_src' is not a readable file (pass a body FILE path, or feed the body on stdin / leave \$2 empty for '(empty message)')"
+fi
+
 # unique, sortable message id (timestamp + short random)
 msgid="$(date -u +%Y%m%dT%H%M%SZ)-$(od -An -N3 -tx1 /dev/urandom | tr -d ' \n')"
 relpath="msgs/$addr/$msgid.md"
