@@ -49,6 +49,7 @@ you rule out of scope — name them.
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot
