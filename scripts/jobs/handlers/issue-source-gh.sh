@@ -59,9 +59,17 @@ oneline='(.body // "") | gsub("[\t\r\n]+"; " ")'
 #
 # Stderr policy: gh carries `2>/dev/null` to suppress EXPECTED-empty noise (404 /
 # idle windows) AND gh_api_retry's own retry/WARN lines. jq carries NO `2>/dev/null`:
-# a jq parse error is a real fault that must surface. The `|| true` tolerates a
-# transient gh blip on one endpoint without aborting the other; a truly missing jq
-# can no longer reach here (require_tools).
+# a jq parse error is a real fault that must surface. A truly missing jq can no
+# longer reach here (require_tools).
+#
+# Failure policy: an endpoint that FAILS (past gh_api_retry's transient budget)
+# fails the WHOLE tick with a nonzero exit, never degrades to empty output. The
+# watcher keeps ONE high-water cursor over the merged stream: if one endpoint
+# blanked while another emitted later rows, the cursor would advance past the
+# blanked endpoint's events and they would never be re-fetched — a maintainer
+# directive silently lost (the issue inbox is the maintainer's command channel,
+# so correctness beats availability here). The watcher treats a nonzero source
+# as a skipped tick with the cursor held; the next tick re-polls the same window.
 
 # 1) NEW ISSUES (exclude PRs). The issues API `since=` filters by UPDATED_AT, so we
 #    additionally select created_at >= since to keep this to genuinely-new issues.
@@ -70,7 +78,8 @@ gh_api_retry --paginate "repos/$repo/issues?state=all&since=$since&sort=created&
       .[] | select(has(\"pull_request\") | not) | select(.created_at >= \$s)
       | [ \"issue\", .created_at, (.id|tostring), (.number|tostring),
           .user.login, .user.login, .state, (.closed_by.login // \"-\"),
-          (.closed_at // \"-\"), .html_url, ($oneline) ] | @tsv" || true
+          (.closed_at // \"-\"), .html_url, ($oneline) ] | @tsv" \
+  || die "issues enumeration for $repo failed (rc=$?); failing the tick so the cursor holds"
 
 # 2) NEW ISSUE COMMENTS — join the parent issue for submitter/state/closed_by and
 #    to drop PR comments. The issues/comments feed is repo-wide and `since=` here
@@ -99,8 +108,15 @@ gh_api_retry --paginate "repos/$repo/issues/comments?since=$since&sort=created&d
       meta="$(issue_meta "$number")"
       IFS=$'\t' read -r submitter state closed_by closed_at is_pr <<<"$meta"
       [ "$is_pr" = pr ] && continue                 # a PR comment — not our inbox
-      [ -n "$submitter" ] || continue               # issue lookup failed — skip this tick
+      if [ -z "$submitter" ]; then
+        # The parent-issue join failed (gh error past the retry budget). Do NOT
+        # skip just this row: the watcher's cursor would advance over it via the
+        # later rows and the comment would be unrecoverable. Fail the tick.
+        log "FATAL: parent issue #$number lookup failed for comment id=$cid; failing the tick so the cursor holds"
+        exit 3
+      fi
       printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
         "issue-comment" "$created" "$cid" "$number" "$author" "$submitter" \
         "$state" "$closed_by" "$closed_at" "$url" "$body"
-    done || true
+    done \
+  || die "issue-comments enumeration/join for $repo failed (rc=$?); failing the tick so the cursor holds"
