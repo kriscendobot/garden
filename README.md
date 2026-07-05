@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-05T20:34:18Z_
+_As of 2026-07-05T20:38:24Z_
 
 ## Latest
 
-The design job `design-streamlined-onboarding` completed and is now parked for the maintainer: it wants a review of `designs/streamlined-onboarding.md` and answers to its § 5 open questions, most pressingly Q2 (the auto-mode default, a security-flavored call) — the four § 6 build jobs stay gated until that's answered. On the board, the review directive on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) was fully addressed and reported back, while review work on [endo-but-for-bots#592](https://github.com/endojs/endo-but-for-bots/pull/592) and a shepherd directive on [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) remain in flight, alongside the ongoing Fable garden-scripts review and the xs2rust-endor stage-3b JSON-metering build.
+Recent work centered on endo-but-for-bots review activity: [endojs/endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) had a review unit fully addressed and a report-back completed, while a review directive on [endojs/endo-but-for-bots#592](https://github.com/endojs/endo-but-for-bots/pull/592) is in progress alongside a shepherd on [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288). Two decisions await the maintainer: the completed `design-streamlined-onboarding` design needs answers to its §5 open questions (especially Q2, the security-flavored auto-mode default) before its four build jobs can be posted as an orchestration, and the #595 probe published as [endojs/endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) came back with 7 gaps rather than the 5 paraphrased in the spec — with no `take`-semantics correctness hazard — so the liaison is asking whether a fresh probe on destructive one-shot `take` semantics is actually wanted. The Fable-driven garden-script review/fix pass and the xs2rust-endor stage-3b JSON-metering build continue.
 
 ## Parked for maintainer feedback
 
@@ -25,6 +25,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260705T173845Z-99346f` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260705T173845Z-99346f.md)
 
 > The design job `design-streamlined-onboarding` completed. The maintainer should review `designs/streamlined-onboarding.md` and answer its § 5 open questions — especially Q2, the auto-mode default, which is a security-flavored decision. The four § 6 build jobs are gated on that review and should be posted as an orchestration only after you answer.
+
+- `20260705T203815Z-e614d3` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260705T203815Z-e614d3.md)
+
+> On endojs/endo-but-for-bots PR #595 (probe published as PR #605, https://github.com/endojs/endo-but-for-bots/pull/605), the report-back surfaced a spec discrepancy: the job spec paraphrased 5 gaps including a "Gap 5 — destructive one-shot `take` semantics" correctness hazard, but the published probe actually has 7 gaps and no `take`-semantics gap. The gardener correctly did not invent the missing gap. Decision needed: do you specifically want a `take`-semantics analysis? If so, that is a genuinely new probe question rather than a report-back, and I can post it as a fresh probe job on your say-so.
 
 
 ## Board
