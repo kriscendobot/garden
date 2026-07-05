@@ -55,9 +55,16 @@ worktree="$GARDEN_SCRATCH/gardener-wt-$base"
 # presence is also exactly the signal that distinguishes a RESUME (in-flight work
 # to keep) from a FRESH claim that merely found a stale worktree dir to reset.
 session_id="$(python3 -c 'import sys,uuid; print(uuid.uuid5(uuid.NAMESPACE_URL, "garden-job:"+sys.argv[1]))' "$base" 2>/dev/null || true)"
+# Two candidate encodings are probed: slash-only (what this handler always
+# used) and slash+dot (Claude Code encodes dots in some versions). Probing both
+# keeps resume detection working whichever rule the installed CLI applies to a
+# worktree path carrying a dot, instead of silently never matching (which sent
+# every requeue down the --session-id branch to die in seconds on the existing
+# session).
 proj_dir="$HOME/.claude/projects/$(printf '%s' "$worktree" | sed 's#/#-#g')"
+proj_dir_alt="$HOME/.claude/projects/$(printf '%s' "$worktree" | sed 's#[/.]#-#g')"
 resuming=false
-if [ -n "$session_id" ] && [ -f "$proj_dir/$session_id.jsonl" ]; then
+if [ -n "$session_id" ] && { [ -f "$proj_dir/$session_id.jsonl" ] || [ -f "$proj_dir_alt/$session_id.jsonl" ]; }; then
   resuming=true
 fi
 
@@ -283,5 +290,13 @@ fi
 # GARDEN_SCRATCH_GC_AGE hours of quiescence.
 if [ -n "${GARDEN_COMPLETION_SENTINEL:-}" ] && [ -e "$GARDEN_COMPLETION_SENTINEL" ]; then
   scratch_cleanup "$worktree"
+  # Retire the session transcript too. The session id is DETERMINISTIC from the
+  # base, so a later re-post of a drained base would otherwise find this
+  # finished session and --resume it: a model whose history ends "job finished,
+  # marker emitted" under a prompt asserting its old worktree still exists is
+  # primed to re-emit the report and completion marker WITHOUT doing the newly
+  # requested work — a silent false completion. A re-posted base must start a
+  # fresh session against its fresh worktree.
+  rm -f "$proj_dir/$session_id.jsonl" "$proj_dir_alt/$session_id.jsonl" 2>/dev/null || true
 fi
 exit "$rc"
