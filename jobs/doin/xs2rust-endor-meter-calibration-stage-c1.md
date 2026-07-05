@@ -32,3 +32,9 @@ a **serial orchestration** (`post-orchestration.sh --serial`) over parked childr
 `tada/`. This C1 job is the head of that chain.
 
 **Role:** builder (Rust engine work). Isolated project worktree per the gardener norm.
+
+---
+claim:
+  host: endolinbot
+  gardener: 8
+  claimed_at: 2026-07-05T21:34:38Z
