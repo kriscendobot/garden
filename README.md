@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-05T21:20:27Z_
+_As of 2026-07-05T21:22:49Z_
 
 ## Latest
 
-The XS→Rust (Endor) port advanced through stage-3b: child 6/9 (json-metering) completed as [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600), with child 7/9 (promises/job-queue/pump-loop) and the optional opcode cost-calibration instrumentation now in flight. Two Fable-review fixes to the garden scripts landed on `origin/main2` (`1e9f4a957`), and the reaper hardening (requeue kills-or-waits-for-a-live-handler) completed. Board motion was otherwise quiet — only the weekly plan recalibration was claimed.
+The shepherd finished driving [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) to green — the one job that cleared the board this cycle. On the XS→Rust (Endor) port, stage-3b build children keep landing: child 6/9 (json-metering) shipped as [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600), with children 7/9 (promises/pump-loop) and the opcode-cost instrumentation now in flight. A Fable-review fix (`fu-fable-review-fix-garden-scripts`) also landed on `origin/main2` as `1e9f4a957`.
 
-Two decisions await the maintainer. The `design-streamlined-onboarding` design completed; `designs/streamlined-onboarding.md` needs review, especially the § 5 Q2 auto-mode default (a security-flavored call) that gates its four build jobs. And on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595), the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) surfaced a spec discrepancy — the published probe reports 7 gaps and no `take`-semantics hazard, though the job spec had paraphrased a "Gap 5 — destructive one-shot `take`" concern; the gardener correctly declined to invent it, so the liaison is asking whether a `take`-semantics analysis is genuinely wanted as a fresh probe. A shepherd is also working [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288).
+Two decisions are parked in the maintainer inbox and worth your attention: the `design-streamlined-onboarding` job completed, and its four build jobs are gated on you answering the § 5 open questions in `designs/streamlined-onboarding.md` — especially Q2, the security-flavored auto-mode default. Separately, the probe for [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) (published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605)) surfaced a spec discrepancy: the job brief paraphrased a "destructive one-shot `take` semantics" gap that the actual probe doesn't contain, so the gardener correctly declined to invent it — a fresh probe is available on your say-so if you specifically want a `take`-semantics analysis.
 
 ## Parked for maintainer feedback
 
@@ -37,19 +37,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
-- [`endojs-endo-but-for-bots-pr288-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr288-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #288
+### doin (3)
 - [`plan-recalibrate-20260705-212003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/plan-recalibrate-20260705-212003.md) — Weekly plan recalibration and grooming (Sunday evening)
 - [`xs2rust-endor-build-stage3b-promises`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-promises.md) — Builder: stage-3b child 7/9 — Promises, the job queue, and the pump-loop latc...
 - [`xs2rust-endor-meter-opcode-cost-instrumentation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-meter-opcode-cost-instrumentation.md) — xs2rust-endor: optional opcode cost-calibration instrumentation
 
-### tada (1187)
+### tada (1188)
+- [`endojs-endo-but-for-bots-pr288-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr288-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #288
 - [`deadmail-20260705T210528Z-bf6f7e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260705T210528Z-bf6f7e.md) — Completion report — dead-lettered json-metering status → supervisor s7
 - [`fu-fable-review-fix-garden-scripts-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-fable-review-fix-garden-scripts-2.md) — The fix landed on origin/main2 as 1e9f4a957. Notably, the immediately precedi...
 - [`xs2rust-endor-build-stage3b-json-metering`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-json-metering.md) — Completion report — stage-3b child 6/9 (json-metering), PR #600
 - [`fu-fable-review-fix-garden-scripts-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-fable-review-fix-garden-scripts-1.md) — Completion report: fu-fable-review-fix-garden-scripts-1
-- [`reaper-requeue-kills-or-waits-for-live-handler`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/reaper-requeue-kills-or-waits-for-live-handler.md) — Completion report
-- … and 1182 more
+- … and 1183 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
