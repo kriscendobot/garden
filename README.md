@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-05T20:11:47Z_
+_As of 2026-07-05T20:13:35Z_
 
 ## Latest
 
-The probe of [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) (sanctioned `unredactError` SES API) finished — verified by real execution, with five design gaps surfaced (return shape is the keystone, plus a previously-unnamed destructive one-shot `take` hazard) — but **publishing is blocked**: the endolinbot2 host has no bot `gh` credentials, and the only key present authenticates as kriskowal, which the gardener rightly declined to use. It needs a bot token provisioned (or you to open the DRAFT yourself from the ready branch `probe/unredact-error-595`). Two other items want your attention: `design-streamlined-onboarding` landed `designs/streamlined-onboarding.md`, whose § 5 Q2 (the auto-mode default) is a security-flavored call gating four build jobs; and an infra investigation flags a **live defect** — on host endolinbot `is-main-host` is evaluating as follower, so the leader-only singletons are down, which needs you to confirm which host should hold the leader marker before the fleet can be restored. Meanwhile the XS→Rust (Endor) stage-3b build continues, with object-statics interning done and JSON metering in progress.
+Two items need a maintainer decision before anything else moves. The `investigate-poisoned-garden-infra-jobs` report surfaced a **live operational defect**: on host **endolinbot**, `is-main-host` currently evaluates as follower, so the leader-only singletons (foreman, scheduler, watchers) are down — recovery needs a leadership/identity call (correct `.garden` or re-point the leader marker, then restart the fleet), which the liaison won't make autonomously. Separately, the gap-revealing probe of [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) (sanctioned `unredactError` SES API) is **substantively complete and verified under real `lockdown()`**, but publishing the DRAFT is blocked: host endolinbot2 has no bot `gh` token, and the only credential present authenticates as kriskowal — a reserved maintainer identity the job isn't authorized to use. The branch, SHAs, and full PR body are staged and ready; landing it needs a bot token provisioned (or the maintainer to open the draft). The probe's headline finding: SES already enforces the start-compartment-only exposure the design wants; the genuine open work is entirely the API's return shape (the keystone Open Question that gates the name and the ses-ava migration).
+
+Also awaiting review: `design-streamlined-onboarding` finished — its § 5 Q2 (auto-mode default) is a security-flavored call that gates four downstream build jobs. On the infra side, garden hardening landed on `main2` this cycle (mentor now classifies empty-output handler kills as transient rather than a die, the reaper pauses its poison counter during fleet-wide outages, and producers fail fast on non-file body arguments). The board is otherwise quiet — no `todo` backlog, three jobs in flight (shepherd on [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), a Fable script-review pass, and the xs2rust stage-3b metering build, whose object-statics-intern child just completed).
 
 ## Parked for maintainer feedback
 
@@ -351,7 +353,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr288-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr288-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #288
 - [`fable-review-fix-garden-scripts`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fable-review-fix-garden-scripts.md) — Fable: review the garden's scripts, serially fix discovered issues, push main2
 - [`xs2rust-endor-build-stage3b-json-metering`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-json-metering.md) — Builder: stage-3b child 6/9 — JSON.parse + structured JSON.stringify metering...
 
