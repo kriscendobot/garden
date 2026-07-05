@@ -2001,7 +2001,11 @@ sync_clone() {
   # a connectivity outage, so exit EX_TEMPFAIL exactly like the fetch path. A
   # reset that fails for any other reason still surfaces (the retry below dies).
   if ! git -C "$dir" reset -q --hard "origin/$JOURNAL_BRANCH"; then
-    journal_fetch "$dir"; rc=$?
+    # Same guarded idiom as the first fetch above: a bare `journal_fetch ...; rc=$?`
+    # is a `set -e` exit at the call itself when the re-fetch ALSO fails (the classic
+    # connectivity outage), killing the process with the raw rc before the offline
+    # classification below can run.
+    if journal_fetch "$dir"; then rc=0; else rc=$?; fi
     if [ "$rc" -ne 0 ] && _fetch_stderr_is_offline "$GARDEN_FETCH_STDERR"; then
       log "offline on reset; skipping tick (rc=$GARDEN_OFFLINE_RC)"
       exit "$GARDEN_OFFLINE_RC"
