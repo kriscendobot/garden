@@ -12,3 +12,9 @@ mention-watcher, also consider capturing the source's stderr (it is currently
 ERRF capture + positive self-test). Tests: scripts/jobs/test/mention-watcher-test.sh
 and issue-inbox-watcher-test.sh; extend them for the held-floor case.
 Found by the 2026-07-05 Fable scripts review (job fable-review-fix-garden-scripts).
+
+---
+claim:
+  host: endolinbot
+  gardener: 11
+  claimed_at: 2026-07-05T20:39:43Z
