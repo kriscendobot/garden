@@ -634,6 +634,95 @@ scratch_cleanup() {
   return 0
 }
 
+# kill_stale_worktree_handlers <worktree> — SIGTERM→SIGKILL any live process still
+# rooted in <worktree>, so a re-claim of the SAME job base on THIS host can never
+# run a second handler incarnation against a worktree a prior one is still writing.
+#
+# THE HAZARD (reaper-requeue-kills-or-waits-for-live-handler, 2026-07-05; the
+# endo-but-for-bots #58 corruption class). A requeue re-runs the SAME base, and the
+# per-job worktree path is DETERMINISTIC from the base (gardener-claude.sh § per-job
+# worktree), so a re-claim on this host re-enters the identical worktree. The
+# requeue can fire — a gardener reap-now hint (the exit-0-unsatisfying / transient
+# branches stamp one) or the claim TTL — while a PRIOR incarnation's `claude -p`, or
+# a subagent/tool child that outlived it, or an orphan left when the wrapper's
+# `timeout` reaped only its direct child, is STILL RUNNING in that worktree. Two
+# live incarnations then share one working tree and their interleaved edits corrupt
+# each other (observed 2026-07-05 on fable-review-fix-garden-scripts: requeued at
+# ~17-minute intervals — a reap-now hint, well under the 3600s TTL — with the prior
+# `claude -p` still live each time). The reaper cannot close this: it may run on a
+# different host than the orphan. The CLAIMING handler can, because the orphan is a
+# LOCAL process on the same host it re-claims onto — which is the ONLY case a
+# worktree is shared, since a cross-host re-claim gets a fresh worktree via
+# ensure_worktree and cannot collide.
+#
+# Every process rooted at <worktree> at claim time is by construction a stale
+# predecessor: the handler does not launch its own claude until AFTER this runs, and
+# nothing else legitimately sets a cwd to a per-job worktree. We still exclude our
+# own process tree (self + ancestors) and process group defensively. We signal the
+# whole process GROUP of each match (claude plus the node/tool children `timeout`
+# grouped with it) and escalate TERM→KILL like the reaper's stuck-fetch janitor, so
+# a child that ignores SIGTERM is still reaped rather than left writing. Best-effort:
+# never fails its caller. Linux /proc only; a host without it is a no-op (the
+# resume/worktree machinery is already Linux-specific).
+: "${GARDEN_STALE_HANDLER_KILL_GRACE:=5}"   # seconds between the group SIGTERM and the SIGKILL escalation
+kill_stale_worktree_handlers() {
+  local wt="${1:-}"
+  [ -n "$wt" ] || return 0
+  [ -d /proc ] || return 0
+  # Normalize to the absolute path readlink /proc/<pid>/cwd reports.
+  local abs
+  abs="$(cd "$wt" 2>/dev/null && pwd)" || return 0
+  [ -n "$abs" ] || return 0
+
+  # Our own process tree (self + transitive ancestors) and process group — never
+  # signal them, so this can never kill the very handler that is running it.
+  local self_tree=" $$ " a="$$" mypgid
+  mypgid="$(ps -o pgid= -p "$$" 2>/dev/null | tr -d ' ')"
+  while :; do
+    a="$(ps -o ppid= -p "$a" 2>/dev/null | tr -d ' ')"
+    [ -n "$a" ] && [ "$a" -gt 1 ] 2>/dev/null || break
+    case "$self_tree" in *" $a "*) break ;; esac      # cycle guard
+    self_tree="$self_tree$a "
+  done
+
+  # Pass 1: collect every pid whose cwd is the worktree, plus their process groups.
+  local pid cwd pgid procdir
+  local -a match=() groups=()
+  for procdir in /proc/[0-9]*; do
+    pid="${procdir#/proc/}"
+    case "$self_tree" in *" $pid "*) continue ;; esac
+    cwd="$(readlink "/proc/$pid/cwd" 2>/dev/null || true)"
+    [ "$cwd" = "$abs" ] || continue
+    match+=("$pid")
+    pgid="$(ps -o pgid= -p "$pid" 2>/dev/null | tr -d ' ')"
+    [ -n "$pgid" ] || continue
+    [ -n "$mypgid" ] && [ "$pgid" = "$mypgid" ] && continue   # never our own group
+    case " ${groups[*]:-} " in *" $pgid "*) : ;; *) groups+=("$pgid") ;; esac
+  done
+  [ "${#match[@]}" -gt 0 ] || return 0
+
+  log "killing ${#match[@]} stale predecessor process(es) still live in worktree $abs (pids: ${match[*]}) before launching a fresh handler — closing the two-writer window"
+  # SIGTERM each match's whole group (covers the orphan's children), then the pids
+  # directly as a belt (an orphan reparented to init keeps its own pgid, handled
+  # above; this catches any pid a group signal missed).
+  local g
+  for g in "${groups[@]}"; do kill -TERM -"$g" 2>/dev/null || true; done
+  for pid in "${match[@]}"; do kill -TERM "$pid" 2>/dev/null || true; done
+
+  sleep "$GARDEN_STALE_HANDLER_KILL_GRACE"
+
+  # Pass 2: SIGKILL anything that survived the grace — a SIGTERM-ignoring child —
+  # by group, then by any pid still rooted in the worktree.
+  for g in "${groups[@]}"; do kill -KILL -"$g" 2>/dev/null || true; done
+  for procdir in /proc/[0-9]*; do
+    pid="${procdir#/proc/}"
+    case "$self_tree" in *" $pid "*) continue ;; esac
+    cwd="$(readlink "/proc/$pid/cwd" 2>/dev/null || true)"
+    [ "$cwd" = "$abs" ] && kill -KILL "$pid" 2>/dev/null || true
+  done
+  return 0
+}
+
 bot_name()  { git -C "$GARDEN_ROOT" config --get user.name  2>/dev/null || echo garden-bot; }
 bot_email() { git -C "$GARDEN_ROOT" config --get user.email 2>/dev/null || echo garden-bot@localhost; }
 

@@ -93,6 +93,21 @@ ensure_worktree() {
   done
   die "could not create per-job worktree $worktree off any of origin/$main_branch, $main_branch, HEAD"
 }
+
+# --- close the two-writer window BEFORE we touch the worktree -----------------
+#
+# A reaper requeue re-runs the SAME base; the worktree path above is deterministic
+# from the base, so a re-claim on THIS host re-enters the identical $worktree. If a
+# prior incarnation's `claude -p` (or a child that outlived it) is STILL RUNNING
+# there — the requeue fired on a reap-now hint or the claim TTL while the handler
+# was alive, or the wrapper's `timeout` orphaned a subprocess — then either path
+# below is unsafe: a FRESH claim's ensure_worktree would `rm -rf` the tree out from
+# under a live writer, and a RESUME would launch a second claude that interleaves
+# edits with it (the endo-but-for-bots #58 corruption class). So reap any live
+# predecessor rooted in this worktree first. This is same-host by construction (the
+# only case a worktree is shared); a cross-host re-claim got a fresh worktree above
+# and cannot collide. See common.sh § kill_stale_worktree_handlers.
+kill_stale_worktree_handlers "$worktree"
 ensure_worktree
 
 jobs_dir="$GARDEN_ROOT/scripts/jobs"

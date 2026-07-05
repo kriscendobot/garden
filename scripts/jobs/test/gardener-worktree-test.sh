@@ -144,7 +144,7 @@ run_handler() {  # run_handler <base> <jobfile> <report> ; sets global RC
   rm -f "$SENTINEL"
   HOME="$TR/home" PATH="$FAKEDIR:$PATH" \
     GARDEN_ROOT="$GROOT" GARDEN_SCRATCH="$SCRATCH" GARDEN_STATE="$TR/state" \
-    GARDEN_NO_MAINTAINER_ALERT=1 \
+    GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STALE_HANDLER_KILL_GRACE=1 \
     GARDEN_COMPLETION_SENTINEL="$SENTINEL" FAKE_COMPLETION_MARKER="$MARKER" \
     FAKE_CWD_OUT="$TR/cwd.out" FAKE_MODE_OUT="$TR/mode.out" FAKE_MODEL_OUT="$TR/model.out" \
     bash "$HANDLER" "$1" "$2" "$3"
@@ -295,6 +295,55 @@ run_handler "$URBASE" "$URJOB" "$REPORT"
 [ -z "$(cat "$TR/model.out" 2>/dev/null)" ] \
   && ok "unpinned role passes NO --model (fleet default)" \
   || bad "expected no --model, got '$(cat "$TR/model.out" 2>/dev/null)'"
+
+# === 12: a re-claim KILLS a live predecessor still in the worktree ============
+# The two-writer guard (reaper-requeue-kills-or-waits-for-live-handler): a requeue
+# can re-claim a base on this host while a PRIOR incarnation's process is still
+# running in the deterministic per-base worktree (a reap-now hint / TTL fired while
+# it was alive, or an orphan the wrapper's `timeout` left behind). Launching a
+# second claude then would put two live writers on one tree. The handler must reap
+# any such predecessor BEFORE it touches the worktree. We simulate the predecessor
+# with a `setsid sleep` whose cwd is the worktree (its OWN process group, so the
+# group-kill path is exercised), then run the handler and assert the predecessor is
+# dead. Requires /proc (the kill enumerates it); skip cleanly without it.
+if [ -d /proc ] && command -v setsid >/dev/null 2>&1; then
+  PBASE="garden-infra-predecessor"
+  PWT="$SCRATCH/gardener-wt-$PBASE"
+  PJOB="$TR/$PBASE.job"
+  printf 'Map: build (garden infra). Two-writer guard.\n' > "$PJOB"
+  # A failed first run creates and LEAVES the worktree (and its transcript), the
+  # in-flight state a requeue would re-enter.
+  FAKE_CLAUDE_FAIL=9 run_handler "$PBASE" "$PJOB" "$REPORT"
+  if [ -d "$PWT" ]; then
+    # Spawn a live predecessor rooted in the worktree, in its own session/group.
+    setsid bash -c "cd '$PWT' && exec sleep 300" &
+    PRED=$!
+    sleep 0.4
+    pred_cwd="$(readlink "/proc/$PRED/cwd" 2>/dev/null || true)"
+    if kill -0 "$PRED" 2>/dev/null && [ "$pred_cwd" = "$PWT" ]; then
+      ok "spawned a live predecessor (pid $PRED) rooted in the worktree"
+      # The re-claim must kill it before launching its own claude.
+      run_handler "$PBASE" "$PJOB" "$REPORT"
+      [ "$RC" -eq 0 ] && ok "re-claim over a live predecessor completes (exit 0)" \
+        || bad "re-claim run should exit 0 (got $RC)"
+      # Give the reaped process a beat to be collected, then assert it is gone.
+      sleep 0.3
+      if kill -0 "$PRED" 2>/dev/null; then
+        bad "predecessor pid $PRED SURVIVED the re-claim (two-writer window still open)"
+        kill -KILL "$PRED" 2>/dev/null || true
+      else
+        ok "the re-claim SIGKILLed the live predecessor before launching a fresh handler"
+      fi
+    else
+      echo "  SKIP: could not stage a live predecessor in the worktree"
+      kill -KILL "$PRED" 2>/dev/null || true
+    fi
+  else
+    bad "failed first run did not leave the worktree to stage the predecessor test"
+  fi
+else
+  echo "  SKIP: /proc or setsid unavailable; cannot exercise the predecessor-kill guard"
+fi
 
 echo
 echo "gardener-worktree-test: $PASS passed, $FAIL failed"
