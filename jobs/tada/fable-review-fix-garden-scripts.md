@@ -1,0 +1,33 @@
+All 28 commits are on `origin/main2`, follow-up jobs are posted, and the inbox is empty. The job is complete — final report follows.
+
+# Completion report: fable-review-fix-garden-scripts
+
+**Phase 1 (review).** Read `roles/COMMON.md`, then reviewed the full ~22.5k-line `scripts/` tree: my own pass over `common.sh` plus six parallel Fable review subagents partitioned across board-core, fleet-loop, watchers, deploy/infra, messaging, and gardening/library/misc. This produced ~60 candidate findings, which I triaged and spot-verified against source into 26 accepted work items plus a skip list.
+
+**Phase 2 (fixes).** The first three fixes ran as serial Fable subagents; the Claude session limit then made subagent dispatch unreliable (one dispatch died on the cap; three requeue cycles passed with no progress), so I landed the remainder inline in this Fable session — still strictly serial, one focused commit per issue, running each touched test suite. The run survived five reaper requeues; twice a predecessor incarnation was found still alive and editing this worktree, and was terminated at a clean-tree moment before continuing (that infra defect is now a posted follow-up job with evidence).
+
+**Phase 3 (push).** Pushed incrementally via rebase-CAS to `origin/main2` (as protection against the requeue churn); everything is on the remote. **Commit range: `71e4132f5..6e7b92fc8` on main2 — 28 commits** (one interleaved fleet commit, `d5191b2ed`, is not mine).
+
+## Fixed (28 commits; every touched suite green)
+
+- **Board core:** dead `rc=$?`-after-`if` class in 12 CAS loops (complete-job, cursor-set, set-schedule×2, set-main-host, set-gardeners, mirror-closer, record-mirror, orchestrate×2, scheduler, proxy) — a benign no-op burned 50–100 retries then died; non-file body-arg → stdin-`cat` hang class in 5 more producers + `block-job` transitively; `sync_clone`'s reset-path re-fetch tripped `set -e` before its offline classification; plan/-blind dedup let a proxy-parked job be re-minted and later clobbered; `promote-plan` dropped `role:`/`model:`/`handler-timeout:` (planned designer/builder jobs silently lost their Fable/Opus pin); `post-orchestration` leading-`--` corruption; `unblock.sh` unquoted listing; `send-msg` address traversal.
+- **Watchers:** PR reviews fetch unpaginated (reviews past 30 — including a maintainer's APPROVED — permanently invisible); issue-source now fails its tick instead of silently dropping a maintainer comment past the cursor; mention-trust three-way verdict (a transient membership-API failure is no longer cached as "other" for 1h while the cursor discards trusted mentions); `pr-mergeable` counts `EXPECTED` as pending (approved PRs could merge before a required status ran); `follow-up`'s quarantine escalation no longer rides the proxy-auto-cleared `watchdog:*` sender.
+- **Fleet loop:** deadline-overrun detection compares the actual per-job handler budget; `meter_claude`/foreman no longer swallow pump-handler failures; `self-heal-run`'s offline grep scoped to the failure tail (a quoted "HTTP 502" no longer converts a real crash to exit 0); gardener-claude retires the session transcript on completion (a re-posted base could `--resume` a finished session and false-complete); reaper/claim-job: removed the per-requeue worktree `rm -rf` (a live-tree deletion hazard that also contradicted the resume contract); the scratch janitor now protects live bases' persisted worktrees.
+- **Deploy/host:** deploy-garden lifts a self-engaged drain on ANY exit (trap — a crashed deploy stranded the fleet drained); deploy-tree-swap guards the raw-diff read and aborts loudly on file↔dir transitions instead of silently corrupting; install-units bounds each enable and survives per-unit failures inside the drained window; leader_host contains `ensure_clone`'s `die` (an unreadable journal remote self-demoted the true leader, skipping every singleton); journal-worktree-keeper rebuilds a genuinely absent `journal/`; clone-keeper `--kill-after`; `daemons/start.sh` exported a wrong `GARDEN_ROOT`; ensure-project-worktree prunes a registered-but-missing checkout (was wedging jobs forever); mentor's journalctl cursor blind window; scheduler surfaces unparseable anchored cadences; library-link-scan tolerates the did-you-mean hint (hint-bearing danglers were dropped and an all-hint scan die'd).
+- **Panel/gauntlet:** the disposition gate parsed strictly and fails closed (any refusal/prose no longer un-drafts a PR the panel demanded changes on; "pass — no must-fix…" no longer loops the fixer 8 rounds); garden-pr's `*loop*` unbounded re-invoke; panel run dir keyed by worktree+PR; seats run headless like the rest of the fleet; ci-wait-merge: an empty or unparseable rollup is never green.
+
+## Skipped, with reasons
+
+- **drain-fleet `set -e` claims** — false positive: verified by real execution that bash does not exit on an exempt `&&`-list failure inside the brace group.
+- **ci-rollup stderr un-redirect** — attempted and **reverted**: ci-watcher parses the handler's merged output, so the redirect is load-bearing (tests proved it).
+- **gh wrapper fail-open identity pin** — deliberate, documented availability trade-off; changing it is a security/identity decision for the maintainer (flagged here, untouched).
+- **comment-watcher @-mention/verb trust gating on the public garden repo** — the mechanical-verb trust-independence is test-pinned intended behavior; widening the gate is a monitoring-safety decision for the maintainer.
+- **mention-source `latest_comment_url` mismatch, same-second cursor boundary, 24h look-back floor, finalize-probe conductor→shepherd downgrade, gardener blanket rc=128 retry, elapsed-series anchor mixing** — real but need cursor/API redesign, not a spot fix; documented for follow-up rather than half-fixed.
+
+## Follow-ups posted to the board
+
+- `watchers-port-fail-floor-to-mention-issue-inbox` — the one accepted fix I deliberately did not rush (head-of-line `break` in two watchers; port comment-watcher's fail_floor).
+- `reaper-requeue-kills-or-waits-for-live-handler` — this job was requeued ~every 18 min against a 40-min handler wall with the prior handler left alive, twice producing two live writers in one worktree (pids and timestamps in the job body). Data-corruption class.
+- `ci-watcher-test-preexisting-failures` — 6/29 failures on a pristine main2 tree, unrelated to this job's changes.
+
+Self-improvement: verified-by-reasoning is not verified — the drain-fleet "bug" survived my own eyeball confirmation and died only under a real execution test; empirically test `set -e` claims before accepting them.
