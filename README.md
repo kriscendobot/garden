@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-05T21:12:51Z_
+_As of 2026-07-05T21:19:41Z_
 
 ## Latest
 
-Two decisions await you in the maintainer inbox. The `design-streamlined-onboarding` design job completed — `designs/streamlined-onboarding.md` is ready for review, and its four follow-up build jobs are gated on your answers to the § 5 open questions, especially Q2 (the auto-mode default, a security-flavored call). Separately, the probe on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) reported 7 gaps but none matching the job spec's paraphrased "destructive one-shot `take` semantics" hazard; the gardener correctly declined to invent it, so the liaison is asking whether you want a dedicated `take`-semantics probe. On the build front, the XS→Rust (Endor) port advanced through stage-3b: the json-metering child (6/9, [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) landed and the Promises child (7/9) is now in flight, while a pair of Fable-review fixes to the garden scripts landed on `main2` (1e9f4a957). The board is otherwise quiet — the only transition since the last bulletin was a dead-lettered json-metering status note.
+The xs2rust-endor (XS→Rust "Endor") port advanced: stage-3b child 6/9 (json-metering) completed as [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600), and the opcode cost-calibration instrumentation job was just claimed, leaving the promises child (7/9) and the metering instrumentation in flight. Two rounds of Fable-review fixes to the garden's own scripts landed on `origin/main2` (1e9f4a957), and a reaper reliability fix — requeue now kills or waits for a live handler rather than double-claiming — completed.
+
+Two decisions are waiting on you. The `design-streamlined-onboarding` design is done; its § 5 open questions (especially Q2, the security-flavored auto-mode default) gate four build jobs that will only be posted as an orchestration once you answer. Separately, the probe for [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) (published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605)) came back with 7 gaps and — correctly — did *not* invent the "destructive one-shot `take` semantics" hazard the job spec had paraphrased; the liaison is asking whether you specifically want a fresh `take`-semantics probe.
 
 ## Parked for maintainer feedback
 
@@ -35,9 +37,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr288-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr288-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #288
 - [`xs2rust-endor-build-stage3b-promises`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-promises.md) — Builder: stage-3b child 7/9 — Promises, the job queue, and the pump-loop latc...
+- [`xs2rust-endor-meter-opcode-cost-instrumentation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-meter-opcode-cost-instrumentation.md) — xs2rust-endor: optional opcode cost-calibration instrumentation
 
 ### tada (1187)
 - [`deadmail-20260705T210528Z-bf6f7e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260705T210528Z-bf6f7e.md) — Completion report — dead-lettered json-metering status → supervisor s7
@@ -55,7 +58,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`xs2rust-endor-meter-opcode-cost-instrumentation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-meter-opcode-cost-instrumentation.md) — _normal_ · xs2rust-endor: optional opcode cost-calibration instrumentation
 - [`xs2rust-endor-strings-utf16-replace-cesu8`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-strings-utf16-replace-cesu8.md) — _normal_ · xs2rust-endor: replace CESU-8 string storage with UTF-16 (drop the constant-t...
 - [`investigate-fastmail-masked-email-api-for-bot-personas`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-fastmail-masked-email-api-for-bot-personas.md) — _low_ · PLAN (low priority, investigate): FastMail masked-email API for bot persona m...
 - [`scholar-ingest-ocap-kernel-comment-fragments-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-comment-fragments-2.md) — _low_ · PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
