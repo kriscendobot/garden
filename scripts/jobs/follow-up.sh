@@ -168,7 +168,7 @@ if [ "$count" -ge "$GARDEN_FOLLOWUP_MAX_RETRIES" ]; then
     printf '\n===== FOLLOW-UP DIGEST =====\n'
     cat "$digest"
     printf '\n===== LAST FAILURE SIGNATURE =====\n%s\n' "${sig:-<empty>}"
-  } | GARDEN_SENDER="watchdog:follow-up" "$GARDEN_ROOT/scripts/jobs/inbox-send.sh" maintainer >/dev/null 2>&1 \
+  } | GARDEN_SENDER="follow-up:quarantine" "$GARDEN_ROOT/scripts/jobs/inbox-send.sh" maintainer >/dev/null 2>&1 \
     || log "could not escalate wedged follow-up digest to maintainer (quarantining anyway)"
   mark_new_seen
   rm -f "$FAILCOUNT" "$digest" "$handler_out"
