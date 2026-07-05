@@ -48,3 +48,9 @@ files are the target pool), dual-run divergent=0; honest named skips for reviver
 you rule out of scope — name them.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot
+  gardener: 91
+  claimed_at: 2026-07-05T19:03:39Z
