@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-05T22:03:52Z_
+_As of 2026-07-05T22:07:25Z_
 
 ## Latest
 
-The board went quiet — no jobs waiting, three in flight (a retrospective on [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), a scholar ocap-kernel comment-ingest, and stage-3b of the xs2rust-endor port), and only a dead-lettered message carried forward since the last bulletin. Two decisions now sit in your inbox. First, the `design-streamlined-onboarding` job finished: review `designs/streamlined-onboarding.md` and answer its §5 open questions — Q2, the auto-mode default, is a security-flavored call, and the four build jobs are parked until you do. Second, the probe on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) and its report-back flagged a spec mismatch — the published probe found 7 gaps with no "destructive `take` semantics" hazard, so the gardener correctly declined to invent the fifth gap the job spec paraphrased; the liaison is holding for your word on whether a fresh `take`-semantics probe is actually wanted.
+The only board movement this cycle was the completion of a review retrospective on [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288); two jobs remain in flight (the ocap-kernel comment-fragment ingest and the xs2rust-endor stage-3b promises build). Two decisions now sit in the maintainer inbox: the `design-streamlined-onboarding` job landed `designs/streamlined-onboarding.md`, whose §5 open questions — notably Q2, the security-flavored auto-mode default — gate four downstream build jobs that will only be posted as an orchestration once answered; and the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) (against [#595](https://github.com/endojs/endo-but-for-bots/pull/595)) reported 7 gaps rather than the 5 its spec paraphrased, with no `take`-semantics correctness gap — the gardener correctly declined to invent one, so a `take`-semantics analysis, if wanted, needs a fresh probe job on your say-so.
 
 ## Parked for maintainer feedback
 
@@ -35,18 +35,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr288-review-330391eb-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr288-review-330391eb-retro.md) — Retrospective on endojs/endo-but-for-bots PR #288 (primary: endojs-endo-but-f...
+### doin (2)
 - [`scholar-ingest-ocap-kernel-comment-fragments-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-ocap-kernel-comment-fragments-2.md) — PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
 - [`xs2rust-endor-build-stage3b-promises`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-promises.md) — Builder: stage-3b child 7/9 — Promises, the job queue, and the pump-loop latc...
 
-### tada (1195)
+### tada (1196)
+- [`endojs-endo-but-for-bots-pr288-review-330391eb-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr288-review-330391eb-retro.md) — Completion report
 - [`deadmail-20260705T215940Z-4e2ea4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260705T215940Z-4e2ea4.md) — Delivered. The dead-lettered message's intent has been carried forward to the...
 - [`investigate-fastmail-masked-email-api-for-bot-personas`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-fastmail-masked-email-api-for-bot-personas.md) — Empty inbox, work committed and pushed. Done.
 - [`xs2rust-endor-meter-calibration-stage-c1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-meter-calibration-stage-c1.md) — Completion report — xs2rust-endor-meter-calibration-stage-c1
 - [`fix-lint-jsdoc-warnings-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-lint-jsdoc-warnings-endo-master.md) — Completion report
-- [`xs2rust-endor-strings-utf16-replace-cesu8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16-replace-cesu8.md) — All four jobs are correctly gated. The setup is complete and pushed to origin...
-- … and 1190 more
+- … and 1191 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
