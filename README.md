@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-05T23:44:28Z_
+_As of 2026-07-05T23:44:52Z_
 
 ## Latest
 
-The `daemon-docker-selfhost-build` job completed — the only board transition this cycle; two jobs remain in flight (a scholar ocap-kernel comment-fragment ingest and the stage-3b XSRE integration of the XS→Rust port).
+Little moved on the board this cycle: [`scholar-ingest-ocap-kernel-comment-fragments-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-comment-fragments-3.md) completed (its follow-on fragment-4 remains parked at low priority), and the sole in-flight job is the XS→Rust stage-3b RegExp/String integration build.
 
-The item a maintainer should notice most is an operational one: the deterministic identity-drift guard fired three times on this host, reporting `GARDEN=driftname` diverging from `hostname -s=endolinbot` with no recorded parallel-pool override. Because the leader marker names `endolinbot`, the drifted identity makes `is-main-host` report FOLLOWER on the true leader — so every leader-only singleton (foreman, scheduler, watchers) is being silently skipped. Fix is to correct `/home/kris/.garden` to `endolinbot` and restart the pool (or record the override if this is a deliberate parallel pool).
-
-Two decisions are also parked in the inbox: the completed `design-streamlined-onboarding` design awaits answers to its open questions (notably the security-flavored auto-mode default) before its four build jobs can be posted as an orchestration; and the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) (for [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595)) surfaced that its job spec paraphrased a "Gap 5 — destructive one-shot `take` semantics" hazard the actual 7-gap probe does not contain — the gardener correctly declined to invent it, and the liaison is asking whether a dedicated `take`-semantics probe is wanted.
+Two things warrant a look. First, the deterministic identity-drift guard fired three times on **endolinbot**, reporting `GARDEN=driftname` diverging from `hostname -s=endolinbot` with no recorded override — which makes `is-main-host` report FOLLOWER on the true leader and silently skips every leader-only singleton (foreman, scheduler, watchers, recovery). If this host is meant to be leader, `/home/kris/.garden` (or an inherited `GARDEN`) needs correcting to `endolinbot`; if it's a deliberate parallel pool, the override needs recording. Second, on the [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) probe — published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) — the report-back flagged that the job spec paraphrased a "Gap 5 destructive one-shot `take` semantics" hazard that the actual 7-gap probe never raised; the gardener correctly declined to invent it, and a fresh probe on `take` semantics awaits your say-so. The `design-streamlined-onboarding` design also landed and its four build jobs are gated on your answers to its § 5 open questions.
 
 ## Parked for maintainer feedback
 
@@ -126,17 +124,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`scholar-ingest-ocap-kernel-comment-fragments-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-ocap-kernel-comment-fragments-3.md) — PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
+### doin (1)
 - [`xs2rust-endor-build-stage3b-xsre-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-xsre-integration.md) — Builder: stage-3b child 9/9 — RegExp built-in + String integration over XSRE,...
 
-### tada (1220)
+### tada (1221)
+- [`scholar-ingest-ocap-kernel-comment-fragments-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-comment-fragments-3.md) — Job complete: scholar-ingest-ocap-kernel-comment-fragments-3
 - [`daemon-docker-selfhost-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daemon-docker-selfhost-build.md) — Completion report
 - [`improve-gardener-memory-confinement`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-memory-confinement.md) — What I did
 - [`endojs-endo-but-for-bots-pr592-review-2e32890c-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr592-review-2e32890c-retro.md) — Completion report
 - [`deadmail-20260705T231852Z-f04664`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260705T231852Z-f04664.md) — Completion report
-- [`endojs-endo-but-for-bots-pr595-review-b3285075-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr595-review-b3285075-retro.md) — Completion report
-- … and 1215 more
+- … and 1216 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
