@@ -128,10 +128,11 @@ mark_resolved() {  # mark_resolved <key> <outcome>
     { printf 'closed_at: %s\n' "$(date -u +%FT%TZ)"
       printf 'upstream_outcome: %s\n' "$outcome"; } >> "$DIR/$key"
     git -C "$DIR" add "$key"
-    if commit_and_push "$DIR" "pr-mirror($key) resolved: upstream $outcome on $GARDEN"; then
-      return 0
-    fi
-    rc=$?; [ "$rc" -eq 2 ] && return 0
+    # Capture with `|| rc=$?` (a false `if` with no `else` is exit 0 and would
+    # swallow commit_and_push's rc=2 "nothing to commit" on an idempotent re-run).
+    local rc=0; commit_and_push "$DIR" "pr-mirror($key) resolved: upstream $outcome on $GARDEN" || rc=$?
+    [ "$rc" -eq 0 ] && return 0
+    [ "$rc" -eq 2 ] && return 0
     backoff "$attempt"
   done
   die "could not stamp resolve on $key after retries"

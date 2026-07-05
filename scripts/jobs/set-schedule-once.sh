@@ -44,8 +44,11 @@ for attempt in $(seq 1 50); do
     printf '%s\n' "$BODY"
   } > "$DIR/schedules/$name.md"
   git -C "$DIR" add "schedules/$name.md"
-  if commit_and_push "$DIR" "schedule-once($name) at=$when"; then log "set one-time schedule $name (at $when)"; exit 0; fi
-  rc=$?; [ "$rc" -eq 2 ] && { log "schedule $name unchanged"; exit 0; }
+  # Capture with `|| rc=$?` (a false `if` with no `else` is exit 0 and would
+  # swallow commit_and_push's rc=2 "nothing to commit" on an idempotent re-run).
+  rc=0; commit_and_push "$DIR" "schedule-once($name) at=$when" || rc=$?
+  [ "$rc" -eq 0 ] && { log "set one-time schedule $name (at $when)"; exit 0; }
+  [ "$rc" -eq 2 ] && { log "schedule $name unchanged"; exit 0; }
   backoff "$attempt"
 done
 die "could not set one-time schedule $name after retries"

@@ -36,7 +36,11 @@ for attempt in $(seq 1 100); do
   [ -e "$DIR/work/$base" ]       && git -C "$DIR" rm -q "work/$base"
   # destroy this job doer's inbox; its lifetime ends with the job.
   [ -d "$DIR/inbox/$base" ]      && git -C "$DIR" rm -rq "inbox/$base"
-  if commit_and_push "$DIR" "tada($base) done $GARDEN/gardener-$id"; then
+  # Capture the return with `|| rc=$?` (NOT `rc=$?` after an `if`): a false `if`
+  # with no `else` has exit status 0, which would swallow commit_and_push's rc=2
+  # "nothing to commit" (the idempotent re-run) and burn the whole retry loop.
+  rc=0; commit_and_push "$DIR" "tada($base) done $GARDEN/gardener-$id" || rc=$?
+  if [ "$rc" -eq 0 ]; then
     log "completed '$base'"
     # This doin→tada→push IS the "gardener job completion" edge: kick the foreman
     # to re-evaluate now rather than at its next poll. Non-blocking + best-effort;
@@ -44,7 +48,6 @@ for attempt in $(seq 1 100); do
     foreman_kick
     exit 0
   fi
-  rc=$?
   [ "$rc" -eq 2 ] && { log "'$base' already completed (nothing to commit)"; exit 0; }
   log "completion of '$base' lost a push race (attempt $attempt); retrying"
   backoff "$attempt"

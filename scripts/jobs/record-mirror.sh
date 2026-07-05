@@ -81,11 +81,14 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
     printf 'how: %s\n' "$how"
   } > "$DIR/$key"
   git -C "$DIR" add "$key"
-  if commit_and_push "$DIR" "pr-mirror($up_ref → $mir_ref) recorded on $GARDEN"; then
+  # Capture with `|| rc=$?` (a false `if` with no `else` is exit 0 and would
+  # swallow commit_and_push's rc=2 "nothing to commit" on an idempotent re-run).
+  rc=0; commit_and_push "$DIR" "pr-mirror($up_ref → $mir_ref) recorded on $GARDEN" || rc=$?
+  if [ "$rc" -eq 0 ]; then
     log "recorded mapping $key ($up_ref → $mir_ref)"
     exit 0
   fi
-  rc=$?; [ "$rc" -eq 2 ] && exit 0   # nothing to commit (a peer wrote the same)
+  [ "$rc" -eq 2 ] && exit 0   # nothing to commit (a peer wrote the same)
   log "record of '$key' lost a push race (attempt $attempt); re-syncing"
   backoff "$attempt"
 done

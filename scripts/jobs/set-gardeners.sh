@@ -28,10 +28,10 @@ for attempt in $(seq 1 50); do
   printf 'gardeners: %s\nupdated_at: %s\nupdated_by: %s\n' \
     "$n" "$(date -u +%FT%TZ)" "$GARDEN" > "$DIR/hosts/$host"
   git -C "$DIR" add "hosts/$host"
-  if commit_and_push "$DIR" "hosts($host) gardeners=$n"; then
-    log "declared $host gardeners=$n"; exit 0
-  fi
-  rc=$?
+  # Capture with `|| rc=$?` (a false `if` with no `else` is exit 0 and would
+  # swallow commit_and_push's rc=2 "nothing to commit" on an idempotent re-run).
+  rc=0; commit_and_push "$DIR" "hosts($host) gardeners=$n" || rc=$?
+  [ "$rc" -eq 0 ] && { log "declared $host gardeners=$n"; exit 0; }
   [ "$rc" -eq 2 ] && { log "$host already at gardeners=$n"; exit 0; }
   log "set-gardeners lost a push race (attempt $attempt); retrying"
   backoff "$attempt"

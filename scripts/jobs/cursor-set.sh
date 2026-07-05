@@ -31,10 +31,11 @@ for attempt in $(seq 1 50); do
   mkdir -p "$(dirname "$DIR/cursors/$key")"
   printf '%s\n' "$BODY" > "$DIR/cursors/$key"
   git -C "$DIR" add "cursors/$key"
-  if commit_and_push "$DIR" "cursor($key) advanced on $GARDEN"; then
-    log "advanced cursor $key"; exit 0
-  fi
-  rc=$?; [ "$rc" -eq 2 ] && exit 0
+  # Capture with `|| rc=$?` (a false `if` with no `else` is exit 0 and would
+  # swallow commit_and_push's rc=2 "nothing to commit" on an idempotent re-run).
+  rc=0; commit_and_push "$DIR" "cursor($key) advanced on $GARDEN" || rc=$?
+  [ "$rc" -eq 0 ] && { log "advanced cursor $key"; exit 0; }
+  [ "$rc" -eq 2 ] && exit 0
   backoff "$attempt"
 done
 die "could not advance cursor $key after retries"

@@ -40,10 +40,10 @@ for attempt in $(seq 1 50); do
   fi
   printf '%s\n' "$leader" > "$DIR/$GARDEN_LEADER_MARKER_PATH"
   git -C "$DIR" add "$GARDEN_LEADER_MARKER_PATH"
-  if commit_and_push "$DIR" "leader=$leader (designated by $GARDEN)"; then
-    log "designated leader host: $leader"; exit 0
-  fi
-  rc=$?
+  # Capture with `|| rc=$?` (a false `if` with no `else` is exit 0 and would
+  # swallow commit_and_push's rc=2 "nothing to commit" on an idempotent re-run).
+  rc=0; commit_and_push "$DIR" "leader=$leader (designated by $GARDEN)" || rc=$?
+  [ "$rc" -eq 0 ] && { log "designated leader host: $leader"; exit 0; }
   [ "$rc" -eq 2 ] && { log "leader host already $leader"; exit 0; }
   log "set-main-host lost a push race (attempt $attempt); retrying"
   backoff "$attempt"

@@ -115,8 +115,11 @@ set_orch_state() {  # <base> <newstate>
       sed -i "1a state: $newstate" "$f"
     fi
     git -C "$DIR" add "$JOBS_ORCH/$base.md"
-    if commit_and_push "$DIR" "orch($base) state→$newstate by $GARDEN"; then return 0; fi
-    rc=$?; [ "$rc" -eq 2 ] && return 0   # no change to commit → already at that state
+    # Capture with `|| rc=$?` (a false `if` with no `else` is exit 0 and would
+    # swallow commit_and_push's rc=2 "nothing to commit" on an idempotent re-run).
+    rc=0; commit_and_push "$DIR" "orch($base) state→$newstate by $GARDEN" || rc=$?
+    [ "$rc" -eq 0 ] && return 0
+    [ "$rc" -eq 2 ] && return 0   # no change to commit → already at that state
     backoff "$attempt"
   done
   return 1
@@ -141,8 +144,11 @@ finish_orch() {  # <base> <summary-file> [<child-to-sweep>...]
     for c in "${sweep[@]}"; do
       [ -e "$DIR/$JOBS_PLAN/$c.md" ] && git -C "$DIR" rm -q "$JOBS_PLAN/$c.md"
     done
-    if commit_and_push "$DIR" "orch($base) finished → tada by $GARDEN"; then return 0; fi
-    rc=$?; [ "$rc" -eq 2 ] && return 0
+    # Capture with `|| rc=$?` (a false `if` with no `else` is exit 0 and would
+    # swallow commit_and_push's rc=2 "nothing to commit" on an idempotent re-run).
+    rc=0; commit_and_push "$DIR" "orch($base) finished → tada by $GARDEN" || rc=$?
+    [ "$rc" -eq 0 ] && return 0
+    [ "$rc" -eq 2 ] && return 0
     backoff "$attempt"
   done
   return 1

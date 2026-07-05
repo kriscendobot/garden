@@ -329,10 +329,13 @@ for name in $(list_jobs "$DIR" schedules); do
         # No work: advance the clock so the cadence keeps marching, post nothing.
         write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$body"
         git -C "$DIR" add "schedules/$name"
-        if commit_and_push "$DIR" "schedule($name) preflight gated: no work; advanced clock"; then
+        # Capture with `|| rc=$?` (a false `if` with no `else` is exit 0 and would
+        # swallow commit_and_push's rc=2 "nothing to stamp" on an already-current clock).
+        rc=0; commit_and_push "$DIR" "schedule($name) preflight gated: no work; advanced clock" || rc=$?
+        if [ "$rc" -eq 0 ]; then
           log "preflight gated: no work for $name; advanced clock, posted nothing"; break
         fi
-        rc=$?; [ "$rc" -eq 2 ] && break   # already current; nothing to stamp
+        [ "$rc" -eq 2 ] && break   # already current; nothing to stamp
         backoff "$attempt"; continue      # lost the CAS race; re-sync and retry
       fi
     fi

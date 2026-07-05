@@ -74,7 +74,7 @@ fleet_draining && exit 0
 # returns quietly with the clone synced and the per-clone lock still held for the
 # remainder of the tick.
 clear_watchdog_messages() {
-  local dir="$1" attempt f from base label tally
+  local dir="$1" attempt f from base label tally rc
   for attempt in $(seq 1 50); do
     sync_clone "$dir"
     local moved=()
@@ -91,12 +91,17 @@ clear_watchdog_messages() {
     # Nothing watchdog-class: sync_clone already refreshed the tree (and holds the
     # per-clone lock) for the rest of the tick. Quiet, no commit.
     [ "${#moved[@]}" -eq 0 ] && return 0
-    if commit_and_push "$dir" "proxy: auto-clear ${#moved[@]} watchdog message(s)"; then
+    # Capture with `|| rc=$?` (a false `if` with no `else` is exit 0). rc=2
+    # ("nothing to commit" — e.g. a duplicate notification whose mv staged
+    # nothing) means there is nothing left to land: done, not a retry.
+    rc=0; commit_and_push "$dir" "proxy: auto-clear ${#moved[@]} watchdog message(s)" || rc=$?
+    if [ "$rc" -eq 0 ]; then
       tally=""
       for label in "${!counts[@]}"; do tally+="${tally:+, }${label}×${counts[$label]}"; done
       log "cleared ${#moved[@]} watchdog messages: $tally"
       return 0
     fi
+    [ "$rc" -eq 2 ] && return 0
     backoff "$attempt"
   done
   die "could not auto-clear watchdog messages after retries"
@@ -125,7 +130,7 @@ clear_watchdog_messages() {
 # parking. Like the watchdog sibling it runs EVERY tick regardless of grace: a
 # blocked job cannot proceed, so parking it promptly (and reversibly) is progress.
 park_blocked_jobs() {
-  local dir="$1" attempt f base artifact body src
+  local dir="$1" attempt f base artifact body src rc
   for attempt in $(seq 1 50); do
     sync_clone "$dir"
     local parked=() pr_notes=()      # pr_notes: "repo\tnum\tbase" for courtesy comments
@@ -184,7 +189,12 @@ park_blocked_jobs() {
     done < <(find "$dir/inbox/maintainer/unread" -type f -name '*.md' 2>/dev/null | sort)
 
     [ "${#parked[@]}" -eq 0 ] && return 0            # nothing blocked: tree synced, quiet
-    if commit_and_push "$dir" "proxy: park ${#parked[@]} blocked job(s)"; then
+    # Capture with `|| rc=$?` (a false `if` with no `else` is exit 0). rc=2
+    # ("nothing to commit" — e.g. only duplicate notifications whose mv/add staged
+    # nothing) means the park already landed: done, not a retry (and no courtesy
+    # comments — those fired when the park actually landed).
+    rc=0; commit_and_push "$dir" "proxy: park ${#parked[@]} blocked job(s)" || rc=$?
+    if [ "$rc" -eq 0 ]; then
       log "parked ${#parked[@]} blocked job(s): ${parked[*]}"
       # Courtesy comments are outward + best-effort; fire once, only after the park
       # landed. pr_notes carries "repo\tnum\tbase".
@@ -197,6 +207,7 @@ park_blocked_jobs() {
       done
       return 0
     fi
+    [ "$rc" -eq 2 ] && return 0
     backoff "$attempt"
   done
   die "could not park blocked jobs after retries"
