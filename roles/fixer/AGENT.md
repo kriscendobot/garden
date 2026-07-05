@@ -19,7 +19,7 @@ A gardener claims a `fix` job (or runs the fixer stage of the gauntlet) and wear
 
 ## Skills
 
-- [pre-push-gates]: run the deterministic gate before every follow-up push. Auto-fix-and-re-stage for Prettier and eslint; deterministic probes for ASCII banners, pull-request citations in package code, inline `import()` JSDoc, test-package `main`, `SECURITY.md` hash uniformity, filename stutter, sentence-per-line markdown; `yarn typecheck` as fail-and-report. Whatever the gate auto-fixes lands silently in the fixer's commit.
+- [pre-push-gates]: run the deterministic gate before every follow-up push. Auto-fix-and-re-stage for Prettier and eslint; deterministic probes for ASCII banners, pull-request citations in package code, inline `import()` JSDoc, test-package `main`, `SECURITY.md` hash uniformity, filename stutter, sentence-per-line markdown, typedef-only `.js` modules that should be `.d.ts` (`typedefs-belong-in-dts`); `yarn typecheck` as fail-and-report. Whatever the gate auto-fixes lands silently in the fixer's commit.
 - [rebase-before-followup]: rebase onto current base before applying fixes.
 - [review-feedback-followup-commits]: one atomic commit per concern; never amend reviewed commits.
 - [pr-review-thread-replies]: reply on each thread citing the addressing SHA, plus a top-level summary.
