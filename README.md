@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-05T23:20:58Z_
+_As of 2026-07-05T23:23:52Z_
 
 ## Latest
 
-The xs2rust-endor Rust port advanced through its stage-3b XSRE work: the RegExp matcher core (child 8/9) landed, and the final child 9/9 — the RegExp built-in plus String integration — is now in progress, which should close out stage-3b. A companion design for test262 convergence on that port also landed as PR #600. On the review side, three retrospectives were claimed for [endo-but-for-bots#592](https://github.com/endojs/endo-but-for-bots/pull/592) (two) and [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595).
+A gardener wrapped [`improve-gardener-memory-confinement`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-memory-confinement.md), and the review retrospectives for [endo-but-for-bots#592](https://github.com/endojs/endo-but-for-bots/pull/592) (two review passes) and [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) all landed; the board is now nearly idle, with only the stage-3b XS→Rust builder job still in flight.
 
-Two decisions await the maintainer: the completed `streamlined-onboarding` design needs sign-off on its § 5 open questions — notably the security-flavored Q2 auto-mode default — before its four build jobs can be posted as an orchestration; and the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) (against [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595)) surfaced 7 gaps rather than the spec's paraphrased 5, with no `take`-semantics gap — the liaison is holding for a yes/no on whether to post a fresh probe for that analysis. Most urgent operationally: the deterministic identity-drift guard fired three times flagging `GARDEN=driftname` diverging from `hostname -s=endolinbot`, so `is-main-host` is reporting FOLLOWER and every leader-only singleton is being skipped on the true leader host — correct `/home/kris/.garden` to `endolinbot` and restart the pool.
+Two things want the maintainer's eye. First, a **host-identity drift** on endolinbot: the deterministic guard reports `GARDEN=driftname` diverging from `hostname -s=endolinbot` with no recorded parallel-pool override, so `is-main-host` is reporting FOLLOWER on the true leader and **every leader-only singleton is being skipped** — fix is to correct `/home/kris/.garden` back to `endolinbot` and restart the pool (or record the override if this is a deliberate parallel pool). Second, two decisions are queued from the liaison: the `design-streamlined-onboarding` design is done and its § 5 open questions — especially Q2, the security-flavored auto-mode default — gate four build jobs; and the #595 probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) surfaced a spec discrepancy (7 gaps, none about `take` semantics, versus the job spec's paraphrased 5-with-a-`take`-hazard), so the liaison is asking whether you specifically want a `take`-semantics probe posted fresh.
 
 ## Parked for maintainer feedback
 
@@ -124,20 +124,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
-- [`deadmail-20260705T231852Z-f04664`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260705T231852Z-f04664.md) — Dead-lettered message — pick up its intent
-- [`endojs-endo-but-for-bots-pr592-review-2e32890c-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-review-2e32890c-retro.md) — Retrospective on endojs/endo-but-for-bots PR #592 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr592-review-9e382ba1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-review-9e382ba1-retro.md) — Retrospective on endojs/endo-but-for-bots PR #592 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr595-review-b3285075-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr595-review-b3285075-retro.md) — Retrospective on endojs/endo-but-for-bots PR #595 (primary: endojs-endo-but-f...
+### doin (1)
 - [`xs2rust-endor-build-stage3b-xsre-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-xsre-integration.md) — Builder: stage-3b child 9/9 — RegExp built-in + String integration over XSRE,...
 
-### tada (1214)
-- [`xs2rust-endor-build-stage3b-xsre-core`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-xsre-core.md) — Completion report — stage-3b child 8/9: XSRE core (RegExp matcher port)
-- [`endojs-endo-but-for-bots-pr592-review-1050d7e9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr592-review-1050d7e9-retro.md) — Completion report
-- [`xs2rust-endor-corpus-test262-and-xst-harness`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-corpus-test262-and-xst-harness.md) — Design landed: test262 convergence for the xs2rust-endor port (PR #600)
-- [`daily-progress-summary-20260705-230505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260705-230505.md) — Wrote the daily progress-summary periodical for the Pacific day 2026-07-04 an...
-- [`issue-kriskowal-garden-27`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-27.md) — Completion report
-- … and 1209 more
+### tada (1219)
+- [`improve-gardener-memory-confinement`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-memory-confinement.md) — What I did
+- [`endojs-endo-but-for-bots-pr592-review-2e32890c-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr592-review-2e32890c-retro.md) — Completion report
+- [`deadmail-20260705T231852Z-f04664`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260705T231852Z-f04664.md) — Completion report
+- [`endojs-endo-but-for-bots-pr595-review-b3285075-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr595-review-b3285075-retro.md) — Completion report
+- [`endojs-endo-but-for-bots-pr592-review-9e382ba1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr592-review-9e382ba1-retro.md) — Completion report — endojs-endo-but-for-bots-pr592-review-9e382ba1-retro
+- … and 1214 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
