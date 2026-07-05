@@ -13,3 +13,9 @@ discipline. The excerpt below is for human context only:
 Shepherd. 
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot
+  gardener: 4
+  claimed_at: 2026-07-05T20:33:11Z
