@@ -50,3 +50,9 @@ Bar: `language/expressions` covered growth from the at/at_2 unlock at zero diver
 demonstrate at least one previously-skipped verifyProperty-using test now covered.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolinbot
+  gardener: 5
+  claimed_at: 2026-07-05T17:17:48Z
