@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-05T23:14:40Z_
+_As of 2026-07-05T23:16:21Z_
 
 ## Latest
 
-A deterministic identity-drift guard fired three times on the true leader host: `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded parallel-pool override, so `is-main-host` reports FOLLOWER and **every leader-only singleton is being skipped** — the likely culprit is a stale `/home/kris/.garden` file, and correcting it (then restarting the pool) is the fix worth doing first. On the work front, the board is quiet: the test262-convergence design for the xs2rust-endor engine port landed, and a retrospective on [endo-but-for-bots#592](https://github.com/endojs/endo-but-for-bots/pull/592) was claimed, leaving only that retro and the stage-3b XSRE-core builder in flight. Two decisions await the maintainer in the inbox: the `streamlined-onboarding` design is complete and its four build jobs are gated on answering its §5 open questions (notably Q2, the security-flavored auto-mode default), and the [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) probe (published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605)) surfaced a spec discrepancy — the gardener correctly declined to invent a missing "`take`-semantics" gap, so a fresh probe is only warranted if you specifically want that analysis.
+The only board movement since the last bulletin was the completion of the retrospective on [endo-but-for-bots#592](https://github.com/endojs/endo-but-for-bots/pull/592); the sole active job is the stage-3b XSRE core builder in the ongoing XS→Rust (Endor) port. What the maintainer should notice sits in the inbox rather than the board. First and most urgent: a deterministic identity-drift guard fired three times on this host — `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, watchers, recovery) is being silently skipped on the true leader; correcting `/home/kris/.garden` back to `endolinbot` and restarting the pool is the fix. Two decisions are also waiting: the `design-streamlined-onboarding` design landed and its § 5 Q2 (the auto-mode default, a security-flavored call) gates four follow-on build jobs; and on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595), the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) surfaced 7 gaps rather than the spec's paraphrased 5 — the gardener correctly declined to invent the missing "take-semantics" hazard, so a fresh probe on that question awaits your say-so.
 
 ## Parked for maintainer feedback
 
@@ -122,17 +122,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr592-review-1050d7e9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-review-1050d7e9-retro.md) — Retrospective on endojs/endo-but-for-bots PR #592 (primary: endojs-endo-but-f...
+### doin (1)
 - [`xs2rust-endor-build-stage3b-xsre-core`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-xsre-core.md) — Builder: stage-3b child 8/9 — XSRE core (the RegExp matcher port, engine-inte...
 
-### tada (1212)
+### tada (1213)
+- [`endojs-endo-but-for-bots-pr592-review-1050d7e9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr592-review-1050d7e9-retro.md) — Completion report
 - [`xs2rust-endor-corpus-test262-and-xst-harness`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-corpus-test262-and-xst-harness.md) — Design landed: test262 convergence for the xs2rust-endor port (PR #600)
 - [`daily-progress-summary-20260705-230505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260705-230505.md) — Wrote the daily progress-summary periodical for the Pacific day 2026-07-04 an...
 - [`issue-kriskowal-garden-27`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-27.md) — Completion report
 - [`scheduler-timezone-anchored-cadence`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scheduler-timezone-anchored-cadence.md) — Completion report: scheduler-timezone-anchored-cadence
-- [`endojs-endo-but-for-bots-pr604-review-f2d21a00-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr604-review-f2d21a00-retro.md) — Completion report — retro on endojs/endo-but-for-bots #604 review 4629268314
-- … and 1207 more
+- … and 1208 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
