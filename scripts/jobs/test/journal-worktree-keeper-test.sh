@@ -501,6 +501,59 @@ git -C "$ROOT/journal" rev-parse --git-dir >/dev/null 2>&1 \
 [ "$(alert_count)" -eq 0 ] && ok "no maintainer page on a healthy-path prune" || bad "paged on a healthy-path prune"
 
 # ============================================================================
+hr; echo "LIVE GARDENER-WT PRESERVED — relocation-staled per-job worktree survives the prune"; hr
+# The endolinbot2 defect (2026-07-05). A garden-root RELOCATION (an `mv` of the whole
+# tree, garden2 -> the current root) stales EVERY worktree admin entry's recorded path
+# at once, so `git worktree list` marks a LIVE per-job gardener-wt-<base> worktree
+# `prunable` right alongside the stale journal sibling. The keeper's defensive prune
+# must NOT delete the live gardener's admin entry — that corrupts any job committing
+# from its assigned worktree. prune_worktrees_preserving_live repairs the live
+# checkout FIRST (re-linking it so it is no longer prunable), so it survives while the
+# genuinely-dead journal sibling is still cleared. This case FAILS with a raw
+# `git worktree prune` (the gardener entry is deleted) and passes after the fix.
+rm -rf "$TR"; mkdir -p "$TR/state"
+git init -q --bare "$UP"
+SEED="$TR/seed"; git init -q "$SEED"
+git -C "$SEED" checkout -q -b journal2
+printf 'a\n' > "$SEED/f"
+git -C "$SEED" add -A; git -C "$SEED" "${git_id[@]}" commit -q -m c1
+git -C "$SEED" remote add origin "$UP"; git -C "$SEED" push -q -u origin journal2
+git -C "$UP" symbolic-ref HEAD refs/heads/journal2
+rm -rf "$SEED"
+ROOT="$TR/root"                                  # stands in for $GARDEN_ROOT
+git clone -q "$UP" "$ROOT"
+git -C "$ROOT" checkout -q --detach
+git -C "$ROOT" "${git_id[@]}" worktree add -q "$ROOT/journal" journal2
+write_alert_stub
+# A LIVE per-job gardener worktree under $GARDEN_SCRATCH (defaults to $ROOT/scratch),
+# with in-flight work that MUST survive.
+git -C "$ROOT" "${git_id[@]}" worktree add -q --detach "$ROOT/scratch/gardener-wt-foo" >/dev/null 2>&1
+printf 'in-flight gardener work\n' > "$ROOT/scratch/gardener-wt-foo/work.md"     # untracked WIP
+# SIMULATE the relocation: stale BOTH cross-pointers of the gardener worktree at a
+# now-gone garden2 path (the admin entry dir itself survives, keyed by base), so the
+# live checkout reports `prunable` exactly as after an `mv`.
+printf '%s/gone-garden2/scratch/gardener-wt-foo/.git\n' "$TR" > "$ROOT/.git/worktrees/gardener-wt-foo/gitdir"
+printf 'gitdir: %s/gone-garden2/.git/worktrees/gardener-wt-foo\n' "$TR" > "$ROOT/scratch/gardener-wt-foo/.git"
+# `git worktree list` reports the RECORDED (now-stale garden2) path, which is what
+# git flags `prunable` — the live checkout lives at the new $ROOT path.
+git -C "$ROOT" worktree list 2>/dev/null | grep -F gardener-wt-foo | grep -q prunable \
+  && ok "fixture: gardener-wt worktree reports 'prunable' after the relocation" \
+  || bad "fixture: expected the gardener-wt worktree to be prunable"
+run_keeper GARDEN_ROOT="$ROOT" GARDEN_JOURNAL_WORKTREE="$ROOT/journal"
+[ "$RC" -eq 0 ] && ok "exit 0 on the relocation-staled per-job worktree case" || bad "exit $RC"
+[ -d "$ROOT/.git/worktrees/gardener-wt-foo" ] \
+  && ok "live gardener-wt admin entry SURVIVED the prune (not deleted out from under the job)" \
+  || bad "live gardener-wt admin entry was pruned away — job corrupted"
+git -C "$ROOT/scratch/gardener-wt-foo" rev-parse --git-dir >/dev/null 2>&1 \
+  && ok "gardener-wt worktree re-linked and resolves its git dir again" \
+  || bad "gardener-wt worktree still broken after the keeper ran"
+[ -f "$ROOT/scratch/gardener-wt-foo/work.md" ] \
+  && ok "in-flight gardener WIP preserved" || bad "gardener WIP lost"
+git -C "$ROOT/journal" rev-parse --git-dir >/dev/null 2>&1 \
+  && ok "journal worktree still healthy after the prune" || bad "journal worktree broken after prune"
+[ "$(alert_count)" -eq 0 ] && ok "no maintainer page on the live-worktree-preserving prune" || bad "paged on the preserving prune"
+
+# ============================================================================
 hr
 echo "journal-worktree-keeper-test: $PASS passed, $FAIL failed"
 rm -rf "$TR"

@@ -76,11 +76,20 @@
 # RESOLVES but with a lingering stale registration was declared "already healthy" and
 # never pruned, so the stale entry survived; a later git op re-resolved the
 # cross-pointers onto it and re-broke the linkage within the hour. The keeper now runs
-# `git -C $GARDEN_ROOT worktree prune` UNCONDITIONALLY at the top of the guard, before
-# the health check — so a stale registration can never accumulate to be latched onto,
-# and the prune runs BEFORE `worktree repair` (the order that empirically makes the
-# fix stick). Prune only removes entries whose working tree is absent (never a live
-# worktree), so it is safe, idempotent, and cheap. Repair success
+# a live-worktree-preserving prune (common.sh `prune_worktrees_preserving_live`)
+# UNCONDITIONALLY at the top of the guard, before the health check — so a stale
+# registration can never accumulate to be latched onto, and the prune runs BEFORE
+# `worktree repair` (the order that empirically makes the fix stick).
+#
+# Live per-job worktrees are EXCLUDED from the prune (2026-07-05, endolinbot2). A raw
+# `git worktree prune` is NOT safe under a garden-root RELOCATION: an `mv` of the tree
+# (garden2 -> the current root) stales every admin entry's recorded path at once, so
+# `git worktree list` marks a LIVE gardener-wt-* worktree `prunable` alongside the
+# stale journal sibling, and a raw prune deletes the running job's admin entry as
+# collateral — corrupting any job that commits from its assigned worktree. So the
+# prune is routed through prune_worktrees_preserving_live, which REPAIRS every live
+# per-job checkout first (re-linking it so it is no longer prunable) and only then
+# prunes the genuinely-dead entries. It is idempotent and cheap. Repair success
 # is gated on BOTH `rev-parse --git-dir` AND `config --get remote.origin.url`
 # resolving through the worktree — the failure surfaced as the gitdir dying AND the
 # downstream "no JOURNAL_REMOTE set and no origin", so a re-link that does not also
@@ -393,7 +402,10 @@ jw_rebuild_dangling_worktree() {  # jw_rebuild_dangling_worktree <jw>
   local dangling=""
   [ -f "$jw/.git" ] && dangling="$(sed -n 's/^gitdir: *//p' "$jw/.git" 2>/dev/null | head -1)"
   log "journal worktree gitdir on $jw is dangling${dangling:+ ($dangling gone)} and unrepairable; rebuilding from origin/$JOURNAL_BRANCH"
-  git -C "$GARDEN_ROOT" worktree prune >/dev/null 2>&1 || true
+  # Live-worktree-preserving prune (common.sh): a garden-root relocation stales the
+  # journal sibling AND every live gardener-wt-* entry at once, so a raw prune here
+  # would delete a running job's admin entry as collateral (the endolinbot2 defect).
+  prune_worktrees_preserving_live "$GARDEN_ROOT"
 
   # LOSSLESS backup of every file still present under $jw. git is inoperable here,
   # so byte-copy the tree directly (jw_backup_raw_tree). Same host-local, outside-

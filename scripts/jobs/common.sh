@@ -637,6 +637,50 @@ scratch_cleanup() {
 bot_name()  { git -C "$GARDEN_ROOT" config --get user.name  2>/dev/null || echo garden-bot; }
 bot_email() { git -C "$GARDEN_ROOT" config --get user.email 2>/dev/null || echo garden-bot@localhost; }
 
+# prune_worktrees_preserving_live [<root>] — run `git worktree prune` in <root>
+# (default $GARDEN_ROOT) WITHOUT deleting the admin entry of a LIVE per-job
+# gardener worktree. Use this EVERYWHERE the journal machinery would otherwise call
+# a blanket `git -C $GARDEN_ROOT worktree prune`.
+#
+# The hazard (the endolinbot2 signature, 2026-07-05). A garden-root RELOCATION — an
+# `mv` of the whole tree, e.g. /home/kris/garden2 -> /home/kris — leaves EVERY
+# worktree admin entry recording the OLD absolute path in
+# $GARDEN_ROOT/.git/worktrees/<id>/gitdir, so `git worktree list` marks each entry
+# `prunable` even though a LIVE gardener is committing from the checkout at the NEW
+# path. A blanket `git worktree prune` then deletes those admin entries out from
+# under the running jobs; once an entry is gone `git worktree repair` can no longer
+# recover it, so the job's commits fail irrecoverably. The stale JOURNAL sibling the
+# keeper wants to clear and a live gardener-wt-* entry are BOTH `prunable` after a
+# relocation, so a blanket prune cannot tell them apart — it takes both.
+#
+# The fix is ORDER: REPAIR every live per-job checkout FIRST. Given a live path,
+# `git worktree repair <path>` rewrites BOTH cross-pointers (the admin gitdir and
+# the checkout's forward .git) back to the current location, so the entry is no
+# longer prunable; THEN prune. After the repair only genuinely-dead entries (no
+# live checkout anywhere) remain prunable, so the prune still clears the stale
+# journal sibling and abandoned per-job entries while every live gardener survives.
+# Repair on an already-healthy checkout is a lossless near-no-op (it touches the two
+# pointer files only when they disagree, never the working tree), so this is safe to
+# run every tick and never perturbs a gardener mid-commit. Best-effort + quiet.
+prune_worktrees_preserving_live() {
+  local root="${1:-$GARDEN_ROOT}"
+  # Enumerate the live per-job checkout shapes registered in <root>: the per-job
+  # gardener dev worktrees under $GARDEN_SCRATCH (gardener-wt-<base>) and the v1
+  # dispatch triples. Only dirs that currently exist with a .git gitlink are passed
+  # to repair; an unexpanded glob or a vanished dir is skipped by the -e test.
+  local live=() d
+  for d in "$GARDEN_SCRATCH"/gardener-wt-* \
+           "$root"/dispatches/*/garden "$root"/dispatches/*/journal; do
+    [ -e "$d/.git" ] && live+=("$d")
+  done
+  # Re-link any relocation-staled admin entry to its live path so prune leaves it
+  # alone. One repair call handles the whole batch; healthy paths are no-ops.
+  if [ "${#live[@]}" -gt 0 ]; then
+    git -C "$root" worktree repair "${live[@]}" >/dev/null 2>&1 || true
+  fi
+  git -C "$root" worktree prune >/dev/null 2>&1 || true
+}
+
 # ensure_journal_worktree_linked [<worktree>] — self-heal a journal worktree whose
 # `.git` gitdir points at a nonexistent/wrong admin dir. This is the exact
 # corruption that stranded the fleet: the worktree's forward `.git` file dangles —
@@ -661,7 +705,9 @@ ensure_journal_worktree_linked() {
   [ -e "$wt/.git" ] || return 1
   [ -d "$GARDEN_ROOT/.git/worktrees/journal" ] || return 1
   git -C "$GARDEN_ROOT" worktree repair "$wt" >/dev/null 2>&1 || true
-  git -C "$GARDEN_ROOT" worktree prune >/dev/null 2>&1 || true
+  # Prune stale registrations WITHOUT taking a live per-job gardener worktree whose
+  # recorded path a garden-root relocation staled (see prune_worktrees_preserving_live).
+  prune_worktrees_preserving_live "$GARDEN_ROOT"
   # Re-check: success is silent; a still-broken worktree falls through to the
   # caller's accurate diagnostic.
   git -C "$wt" rev-parse --git-dir >/dev/null 2>&1
@@ -688,8 +734,17 @@ ensure_journal_worktree_linked() {
 # entry and re-breaks the linkage within the hour (`fatal: not a git repository:
 # …/garden2/.git/worktrees/journal`), FATAL-storming the fleet. So prune runs
 # UNCONDITIONALLY, at the top, BEFORE the health check — the order that empirically
-# makes the fix stick. Prune only removes entries whose working tree is absent, so a
-# live worktree is never touched; it is idempotent and cheap to run every tick.
+# makes the fix stick. It is idempotent and cheap to run every tick.
+#
+# Live-worktree-preserving prune (2026-07-05). The prune is routed through
+# prune_worktrees_preserving_live, NOT a raw `git worktree prune`. A blanket prune
+# is NOT actually safe for live worktrees under a garden-root RELOCATION: an `mv` of
+# the tree (garden2 -> the current root) stales EVERY admin entry's recorded path at
+# once, so `git worktree list` marks a LIVE per-job gardener-wt-* worktree `prunable`
+# right alongside the stale journal sibling, and a raw prune deletes the gardener's
+# admin entry out from under a running job (the endolinbot2 corruption). The helper
+# repairs every live per-job checkout FIRST (re-linking its cross-pointers so it is
+# no longer prunable), then prunes — clearing only genuinely-dead entries.
 #
 # Returns 0 when the worktree resolves as a git repo (its gitdir), 1 when even a
 # prune+repair could not re-link it. The healthy-path early return mirrors the
@@ -703,8 +758,11 @@ ensure_journal_worktree_linked() {
 repair_journal_worktree_gitdir() {  # repair_journal_worktree_gitdir [<jw>]
   local jw="${1:-$GARDEN_ROOT/journal}" gd
   [ -d "$jw" ] || return 1
-  # DEFENSIVE PRUNE — unconditional, before the health check (see header).
-  git -C "$GARDEN_ROOT" worktree prune >/dev/null 2>&1 || true
+  # DEFENSIVE PRUNE — unconditional, before the health check (see header). Routed
+  # through prune_worktrees_preserving_live so a garden-root relocation that stales
+  # the journal sibling's recorded path does NOT also delete a live gardener-wt-*
+  # entry staled by the SAME relocation (the endolinbot2 corruption).
+  prune_worktrees_preserving_live "$GARDEN_ROOT"
   # Healthy already (gitdir resolves AND its target exists on disk): nothing to do.
   # rev-parse emits a path relative to $jw, so probe it with $jw as the base.
   if gd="$(git -C "$jw" rev-parse --git-dir 2>/dev/null)" \
