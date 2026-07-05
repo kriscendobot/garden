@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-05T17:43:08Z_
+_As of 2026-07-05T17:44:21Z_
 
 ## Latest
 
-The board is nearly idle — no jobs waiting, seven in flight, and only a stale deadmail entry cleared since the last bulletin — so the substance this cycle is in the maintainer inbox, where three items need your hand.
-
-Two of them are operational blockers only you can clear. First, the [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) `unredactError` probe is **substantively complete and verified by real execution** (start-compartment-only exposure confirmed under real `lockdown()`), but publishing the DRAFT is blocked: host endolinbot2 has no bot `gh` credentials, and the only key present authenticates as kriskowal — a reserved maintainer identity the gardener correctly refused to use. The branch, SHAs, and full four-section PR body are staged and ready; landing it needs either a bot token on some host or you opening it yourself. The probe surfaces five gaps, with return-shape (Gap 4) named as the keystone that gates the API name, the ses-ava migration, and the daemon's structured trace fields — all @erights' call. Second, a fleet-leadership defect: on **endolinbot, `is-main-host` now evaluates as follower, so every leader-only singleton is down**. Recovery needs you to confirm which host should hold the leader marker before the fleet can be restored.
-
-Third, the `design-streamlined-onboarding` job landed `designs/streamlined-onboarding.md`; its four build jobs are gated on your answers to the § 5 open questions, especially Q2 (the security-flavored auto-mode default). The `design-leader-follower-determinism` design also completed and is on main2.
+The onboarding migration's build phase 4 landed — [`onboarding-build-4-readme-claudemd-slim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/onboarding-build-4-readme-claudemd-slim.md) completed, slimming README/CLAUDE.md as the streamlined-onboarding work continues; the `design-leader-follower-determinism` and clone partial-dir self-heal jobs also closed out. Three items need a maintainer decision. Most urgent: an operational defect — on host `endolinbot`, `is-main-host` now evaluates as **follower**, so the leader-only singletons are down; restoring the fleet needs a leadership/identity call (correct `/home/kris/.garden` or re-point the leader marker). Second, the `design-streamlined-onboarding` design is ready for review — its § 5 open questions, especially Q2 (the auto-mode default, a security-flavored choice), gate the four follow-on build jobs. Third, the [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) probe (sanctioned `unredactError` SES API) finished its substantive work and verified the start-compartment-only constraint under real lockdown, but publishing the DRAFT PR is blocked on `endolinbot2` lacking bot GitHub credentials — the gardener declined to push under the only key present (kriskowal SSH) and surfaced five design gaps instead, keyed on the API's return-shape decision (@erights' call).
 
 ## Parked for maintainer feedback
 
@@ -355,22 +351,21 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (6)
 - [`ebfb-592-watchdir-crossplatform-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-592-watchdir-crossplatform-fixer.md) — Fix directive: address kriskowal CHANGES_REQUESTED review on endojs/endo-but-...
 - [`endojs-endo-but-for-bots-pr442-fix-review-4629047816`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-fix-review-4629047816.md) — Fix: address kriskowal CHANGES_REQUESTED review on endojs/endo-but-for-bots P...
 - [`fable-review-fix-garden-scripts`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fable-review-fix-garden-scripts.md) — Fable: review the garden's scripts, serially fix discovered issues, push main2
 - [`fu-design-streamlined-onboarding-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-design-streamlined-onboarding-2.md) — In kriskowal/garden, investigate and fix a worktree-keeper defect surfaced on...
 - [`fu-investigate-poisoned-garden-infra-jobs-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-investigate-poisoned-garden-infra-jobs-2.md) — In kriskowal/garden, harden the reaper against mass-poisoning from sustained ...
-- [`onboarding-build-4-readme-claudemd-slim`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/onboarding-build-4-readme-claudemd-slim.md) — Build (phase 4/4): slim README.md and CLAUDE.md to the residues
 - [`xs2rust-endor-build-stage3b-object-statics-intern`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-object-statics-intern.md) — Builder: stage-3b child 5/9 — global string→id intern table + Object statics/...
 
-### tada (1159)
+### tada (1160)
+- [`onboarding-build-4-readme-claudemd-slim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/onboarding-build-4-readme-claudemd-slim.md) — Completion report
 - [`deadmail-issue-comment-4884336933`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4884336933.md) — Completion report
 - [`deadmail-issue-comment-4884744570`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4884744570.md) — Completion report
 - [`improve-ensure-clone-partial-dir-selfheal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ensure-clone-partial-dir-selfheal.md) — Pushed cleanly to main2. Job complete.
 - [`design-leader-follower-determinism`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-leader-follower-determinism.md) — Completion report: design-leader-follower-determinism
-- [`endojs-endo-but-for-bots-pr595-probe-unredact-error`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr595-probe-unredact-error.md) — Completion report (resumed job — verified complete)
-- … and 1154 more
+- … and 1155 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
