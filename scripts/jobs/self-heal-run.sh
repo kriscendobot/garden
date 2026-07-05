@@ -135,12 +135,20 @@ fi
 
 # Belt-and-suspenders: a path that hits a connectivity outage WITHOUT returning
 # GARDEN_OFFLINE_RC (e.g. a raw `ssh … git fetch` outside journal_fetch, which
-# exits 128) would otherwise be diagnosed as a real failure. Grep the bounded
-# capture tail for the connectivity signatures and short-circuit to a clean exit,
-# so a DNS/GitHub blip never marks the unit failed or burns a responder. The
-# signature set is the canonical GARDEN_OFFLINE_SIGNATURES from common.sh, shared
-# with _fetch_stderr_is_offline so the two lists can never drift.
-if tail -c "$SELF_HEAL_CAPTURE_BYTES" "$capture" 2>/dev/null \
+# exits 128) would otherwise be diagnosed as a real failure. Grep the FAILURE
+# VICINITY — the last few lines, where a terminal connectivity diagnostic
+# actually lands — for the connectivity signatures and short-circuit to a clean
+# exit, so a DNS/GitHub blip never marks the unit failed or burns a responder.
+# The window is LINES, not the whole 256KB capture tail: the signature set
+# includes broad tokens (bare SSL/TLS, `HTTP 5[0-9][0-9]`, `RPC failed`), and a
+# long transcript that merely QUOTED one — a retried-past gh blip logged
+# minutes earlier, a job spec discussing networking — would otherwise convert a
+# genuine rc!=0 crash into a silent exit 0: no responder, no capture, a unit
+# that "succeeds" while crash-looping. The signature set is the canonical
+# GARDEN_OFFLINE_SIGNATURES from common.sh, shared with
+# _fetch_stderr_is_offline so the two lists can never drift.
+: "${SELF_HEAL_OFFLINE_GREP_LINES:=25}"
+if tail -n "$SELF_HEAL_OFFLINE_GREP_LINES" "$capture" 2>/dev/null \
      | grep -qiE "$GARDEN_OFFLINE_SIGNATURES"; then
   log "transient connectivity outage; skipping responder"
   exit 0
