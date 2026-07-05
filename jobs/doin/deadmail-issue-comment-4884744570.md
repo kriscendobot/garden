@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/25#issuecomment-4884744570
 @kriscendobot re google sheets connector, what do you think of makeSheetsORM in https://github.com/dckc/finquick/blob/master/packages/lm-sync/src/sheetsAccess.js  
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolinbot
+  gardener: 90
+  claimed_at: 2026-07-05T17:40:27Z
