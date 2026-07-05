@@ -29,9 +29,12 @@
 # (`sections/<source-slug>.md`); its children are `sections/<source-slug>--*.md`.
 #
 # Exit: 0 = every checked link resolves (in --all, also when ONLY advisory
-#           leaf-section-body links dangle); 1 = at least one dangling target (in
-#           --all, a must-resolve navigation/index/source-table link); 2 = usage /
-#           setup error.
+#           leaf-section-body links dangle; in --changed, also when ONLY
+#           pre-existing danglers remain — links that already dangled at
+#           $BASE_REF on rows the change never touched); 1 = at least one dangling
+#           target (in --all, a must-resolve navigation/index/source-table link;
+#           in --changed, a NEWLY-INTRODUCED dangler absent at $BASE_REF); 2 =
+#           usage / setup error.
 #
 # This script makes NO writes and NO network calls. It is safe to run anywhere.
 
@@ -57,7 +60,13 @@ Scope (exactly one required):
   --changed [<base-ref>]   GATE mode: check the source clusters touched since
                            <base-ref> (default origin/journal2) plus the working
                            tree. Catches a row pointing at a file the change
-                           never wrote (the missing-parent-index defect).
+                           never wrote (the missing-parent-index defect). A
+                           dangling link that ALREADY dangled at <base-ref> (a
+                           pre-existing dangler on a shared-index row this change
+                           never touched) is reported [pre-existing] and does NOT
+                           fail the gate; exit fires only on NEWLY-INTRODUCED
+                           danglers. Falls back to whole-file gating when
+                           <base-ref> is unavailable.
   --source-slug <slug>     check one source cluster: sources/<slug>.md, the
                            kind:index parent sections/<slug>.md, that source's
                            sections/README.md block, and all children.
@@ -132,6 +141,27 @@ GIT_ROOT="$(git -C "$LIBRARY" rev-parse --show-toplevel 2>/dev/null || true)"
 if [ -z "$GIT_ROOT" ] && [ "$REQUIRE_TRACKED" = 1 ]; then
   echo "library-link-check: $LIBRARY is not in a git repo; --require-tracked degraded to on-disk existence" >&2
   REQUIRE_TRACKED=0
+fi
+
+# Library path relative to the git toplevel — used to scope the --changed diff
+# and, in the --changed pre-existing-dangler test, to reconstruct a target/
+# referrer's path at $BASE_REF. Empty when the library is not in a git repo.
+libpfx=""
+[ -n "$GIT_ROOT" ] && libpfx="$(realpath --relative-to="$GIT_ROOT" "$LIBRARY" 2>/dev/null || true)"
+
+# --changed baseline availability. When a dangling link is found under --changed,
+# we test whether the SAME referrer->target link already dangled at $BASE_REF; if
+# so it is a PRE-EXISTING dangler on a row this change never touched (every ingest
+# appends rows to shared index files like sources/README.md, so whole-file
+# checking re-surfaces long-lived danglers the scholar did not introduce), and it
+# is reported advisory rather than gating. That test needs $BASE_REF resolvable;
+# when it is not (shallow clone, unknown ref) we cannot separate pre-existing from
+# newly-introduced, so we preserve today's whole-file behavior and gate on every
+# dangler.
+BASE_AVAILABLE=0
+if [ "$SCOPE" = changed ] && [ -n "$GIT_ROOT" ] \
+   && git -C "$GIT_ROOT" rev-parse --verify --quiet "$BASE_REF" >/dev/null 2>&1; then
+  BASE_AVAILABLE=1
 fi
 
 # --- whole-library staleness guard (--all / --nav only) ----------------------
@@ -225,9 +255,10 @@ extract_targets() {
 }
 
 # --- the dangling accumulator ------------------------------------------------
-DANGLING=0               # total dangling, all scopes
+DANGLING=0               # newly-introduced dangling (gates every non-all scope)
 MUST_DANGLING=0          # --all: dangling on a must-resolve (navigation) surface
 ADVISORY_DANGLING=0      # --all: dangling in a verbatim leaf section body
+CHANGED_ADVISORY=0       # --changed: pre-existing dangler (already dangled at base)
 declare -A REPORTED=()   # dedupe (referrer -> target) pairs
 
 # is_nav_file <abs-path> -> 0 if the file is a MUST-RESOLVE navigation surface
@@ -247,14 +278,55 @@ is_nav_file() {
   esac
 }
 
-# check_links_in <file> [<link-base-dir>]
+# link_preexisting_dangler <referrer_rel> <target> <abs>
+# --changed only. Return 0 iff the SAME referrer->target link ALREADY existed and
+# dangled at $BASE_REF — a pre-existing dangler on a row this change never touched,
+# to be reported advisory rather than gating. Return non-zero (gate on it) when the
+# link is newly introduced: the referrer did not exist at base, the referrer did
+# not carry this exact link at base, or the target DID resolve to a committed file
+# at base (so a now-broken link is breakage this change introduced). Pure git
+# object reads against the already-present $BASE_REF; no network.
+link_preexisting_dangler() {
+  local referrer_rel="$1" target="$2" abs="$3"
+  [ "$BASE_AVAILABLE" = 1 ] || return 1
+  # Reconstruct the referrer's path at base and read its base content. A referrer
+  # absent at base (or one whose rel path escapes the library, e.g. a mktemp block
+  # whose logical referrer was not supplied) makes the link newly-introduced.
+  case "$referrer_rel" in ../*|/*) return 1 ;; esac
+  local base_content
+  base_content="$(git -C "$GIT_ROOT" show "$BASE_REF:$libpfx/$referrer_rel" 2>/dev/null)" || return 1
+  # Did the referrer carry this exact link target at base? Extract with the same
+  # normalization used on the current file so the target strings are comparable.
+  local btmp; btmp="$(mktemp)"; printf '%s\n' "$base_content" > "$btmp"
+  local had_link=1
+  extract_targets "$btmp" | grep -Fxq -- "$target" && had_link=0
+  rm -f "$btmp"
+  [ "$had_link" = 0 ] || return 1
+  # Did the target resolve to a committed file at base? If it existed at base and
+  # is gone now, the change removed it — newly-introduced breakage, gate on it.
+  local tgt_rel; tgt_rel="$(realpath --relative-to="$LIBRARY" "$abs" 2>/dev/null)" || return 1
+  case "$tgt_rel" in ../*|/*) return 1 ;; esac
+  git -C "$GIT_ROOT" cat-file -e "$BASE_REF:$libpfx/$tgt_rel" 2>/dev/null && return 1
+  return 0   # link present at base AND target absent at base -> pre-existing dangler
+}
+
+# check_links_in <file> [<link-base-dir>] [<logical-referrer-rel>]
 # Resolve every link in <file>. Wikilink targets resolve relative to LIBRARY;
-# markdown targets resolve relative to <link-base-dir> (the file's own dir).
+# markdown targets resolve relative to <link-base-dir> (the file's own dir). The
+# optional <logical-referrer-rel> is the library-relative path to report and to
+# use for the --changed base-ref lookup when <file> is a synthesized scratch file
+# (e.g. a sections/README.md block written to a mktemp), so the base test can find
+# the real referrer's history instead of the temp path.
 check_links_in() {
-  local file="$1" base_dir="${2:-}"
+  local file="$1" base_dir="${2:-}" logical_ref="${3:-}"
   [ -f "$file" ] || return 0
   [ -n "$base_dir" ] || base_dir="$(dirname "$file")"
-  local rel_referrer; rel_referrer="$(realpath --relative-to="$LIBRARY" "$file" 2>/dev/null || echo "$file")"
+  local rel_referrer
+  if [ -n "$logical_ref" ]; then
+    rel_referrer="$logical_ref"
+  else
+    rel_referrer="$(realpath --relative-to="$LIBRARY" "$file" 2>/dev/null || echo "$file")"
+  fi
   local target abs status key
   while IFS= read -r target; do
     [ -n "$target" ] || continue
@@ -278,10 +350,19 @@ check_links_in() {
       [ "$QUIET" = 1 ] || echo "  ok       $rel_referrer -> $target"
     else
       REPORTED["$key"]=1
-      DANGLING=$((DANGLING + 1))
+      # In --changed, a dangling link that already existed and dangled at
+      # $BASE_REF is a PRE-EXISTING dangler on a row this change never touched
+      # (shared index files accrue a row every ingest, so whole-file checking
+      # re-surfaces long-lived danglers). Classify it advisory: report it, but do
+      # NOT add to the gating DANGLING count. Gate only on danglers absent at base.
+      local cls_suffix=""
+      if [ "$SCOPE" = changed ] && link_preexisting_dangler "$rel_referrer" "$target" "$abs"; then
+        CHANGED_ADVISORY=$((CHANGED_ADVISORY + 1)); cls_suffix=" [pre-existing]"
+      else
+        DANGLING=$((DANGLING + 1))
+      fi
       # In --all, classify the SOURCE file so the verdict can gate on the
       # must-resolve set only and report advisory leaf-body links separately.
-      local cls_suffix=""
       if [ "$SCOPE" = all ]; then
         if is_nav_file "$file"; then
           MUST_DANGLING=$((MUST_DANGLING + 1)); cls_suffix=" [must-resolve]"
@@ -346,7 +427,9 @@ check_source_cluster() {
   if [ -n "$blk" ]; then
     local tmp; tmp="$(mktemp)"
     printf '%s\n' "$blk" > "$tmp"
-    check_links_in "$tmp" "$LIBRARY/sections"
+    # The block is a scratch slice of sections/README.md; pass that as the logical
+    # referrer so reporting and the --changed base-ref test key off the real file.
+    check_links_in "$tmp" "$LIBRARY/sections" "sections/README.md"
     rm -f "$tmp"
   fi
 }
@@ -422,7 +505,7 @@ case "$SCOPE" in
     fi
     [ "$QUIET" = 1 ] || echo "scope: --changed since $BASE_REF ($LIBRARY)"
     # Union of: committed-since-base, staged, unstaged, and untracked — under library/.
-    libpfx="$(realpath --relative-to="$GIT_ROOT" "$LIBRARY")"
+    # (libpfx is computed once up front, near the git-root setup.)
     declare -A SLUGS=()
     while IFS= read -r rel; do
       [ -n "$rel" ] || continue
@@ -473,6 +556,11 @@ if [ "$SCOPE" = all ]; then
   exit 0
 fi
 
+if [ "$SCOPE" = changed ] && [ "$CHANGED_ADVISORY" -gt 0 ]; then
+  echo "library-link-check: advisory — $CHANGED_ADVISORY pre-existing dangling link(s) that already"
+  echo "dangled at $BASE_REF, on rows this change did not touch (shared index files accrue a row every"
+  echo "ingest). Reported above with [pre-existing]; informational only, they do not affect exit status."
+fi
 if [ "$DANGLING" -gt 0 ]; then
   echo "library-link-check: FAIL — $DANGLING dangling link(s); see DANGLING lines above."
   echo "An ingest with a dangling section-table / README (index) row must not be"
@@ -480,5 +568,10 @@ if [ "$DANGLING" -gt 0 ]; then
   echo "kind:index parent), or correct the row, then re-run."
   exit 1
 fi
-echo "library-link-check: OK — every checked link resolves to a committed file."
+if [ "$SCOPE" = changed ] && [ "$CHANGED_ADVISORY" -gt 0 ]; then
+  echo "library-link-check: OK — every newly-introduced link resolves to a committed file"
+  echo "(pre-existing danglers reported above are advisory only)."
+else
+  echo "library-link-check: OK — every checked link resolves to a committed file."
+fi
 exit 0

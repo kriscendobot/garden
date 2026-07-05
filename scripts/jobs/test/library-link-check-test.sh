@@ -331,6 +331,85 @@ echo "$out" | grep "nope-no-source-page.md" | grep -q "did you mean" \
   || ok "no hint on a legitimate-sibling-shaped dangling link without a source page"
 
 # ============================================================================
+hr; echo "SUBTEST 13: --changed does NOT fail on a PRE-EXISTING dangler on an untouched row"
+setup_fixture
+# Base: a clean cluster PLUS a shared index page (sources/README.md) that already
+# carries a long-lived dangling wikilink on a row nobody is about to touch.
+SLUG_A="proj-a--docs-guide-md"
+write_child "$SLUG_A" core
+write_source_page "$SLUG_A" core
+write_parent_index "$SLUG_A" core
+append_readme_block "$SLUG_A" core
+# sources/README.md with a pre-existing dangling [[wikilink]] to a missing concept.
+cat > "$LIB/sources/README.md" <<'EOF'
+# Sources index
+
+- [[engine-implementation]] — a concept page that does not exist (pre-existing).
+EOF
+commit_all "base: clean cluster + a pre-existing dangler in sources/README.md"
+git "${git_id[@]}" -C "$TR/journal" branch -f base HEAD
+
+# The new ingest: append a NEW source row to sources/README.md (as every ingest
+# does) whose target DOES resolve. The pre-existing dangling row is untouched.
+write_child "$SLUG_A" api          # extend the touched cluster harmlessly
+cat >> "$LIB/sources/README.md" <<'EOF'
+- [proj-a](proj-a--docs-guide-md.md) — a freshly-added, resolvable row.
+EOF
+# Make the appended row's target actually resolve.
+cat > "$LIB/sources/proj-a--docs-guide-md.md" <<'EOF'
+---
+source: docs/x.md
+status: current
+---
+## Abstract
+Placeholder.
+EOF
+commit_all "ingest: append a resolvable row to sources/README.md (dangler untouched)"
+
+out="$("$CHECK" --library "$LIB" --changed base --wikilinks 2>&1)"; rc=$?
+if [ "$rc" = 0 ]; then ok "pre-existing dangler does NOT fail the gate (exit 0)"; else bad "expected exit 0, got $rc:"; echo "$out"; fi
+echo "$out" | grep -q "pre-existing" && ok "the pre-existing dangler is reported [pre-existing]" || { bad "pre-existing dangler not reported"; echo "$out"; }
+echo "$out" | grep -q "advisory — .* pre-existing" && ok "pre-existing advisory count reported in the verdict" || { bad "no pre-existing advisory verdict"; echo "$out"; }
+
+# ============================================================================
+hr; echo "SUBTEST 14: --changed STILL fails on a NEWLY-INTRODUCED dangler (absent at base)"
+setup_fixture
+commit_all "empty base"
+git "${git_id[@]}" -C "$TR/journal" branch -f base HEAD
+# A brand-new source page with a brand-new dangling wikilink absent at base.
+cat > "$LIB/sources/README.md" <<'EOF'
+# Sources index
+
+- [[brand-new-missing-concept]] — introduced by THIS change, never existed at base.
+EOF
+commit_all "ingest introduces a new dangling wikilink"
+out="$("$CHECK" --library "$LIB" --changed base --wikilinks 2>&1)"; rc=$?
+if [ "$rc" = 1 ]; then ok "newly-introduced dangler fails the gate (exit 1)"; else bad "expected exit 1, got $rc:"; echo "$out"; fi
+echo "$out" | grep -q "brand-new-missing-concept" && ok "the new dangler is flagged" || { bad "new dangler not flagged"; echo "$out"; }
+echo "$out" | grep "brand-new-missing-concept" | grep -q "pre-existing" && bad "new dangler wrongly tagged pre-existing" || ok "new dangler NOT tagged pre-existing"
+
+# ============================================================================
+hr; echo "SUBTEST 15: --changed gates a link whose target EXISTED at base but the change deleted"
+setup_fixture
+SLUG_D="proj-d--docs-guide-md"
+write_child "$SLUG_D" core
+write_source_page "$SLUG_D" core
+write_parent_index "$SLUG_D" core
+append_readme_block "$SLUG_D" core
+commit_all "base: cluster whose child resolves"
+git "${git_id[@]}" -C "$TR/journal" branch -f base HEAD
+# The change DELETES the child that the (still-present) source/parent/README rows
+# reference. Same link text as base, but it resolved at base and now dangles ->
+# newly-introduced breakage, must gate.
+git "${git_id[@]}" -C "$TR/journal" rm -q "library/sections/${SLUG_D}--core.md"
+# Touch the source page so the cluster is in the changed set.
+printf '\n<!-- touched -->\n' >> "$LIB/sources/${SLUG_D}.md"
+commit_all "change deletes a referenced child"
+out="$("$CHECK" --library "$LIB" --changed base 2>&1)"; rc=$?
+if [ "$rc" = 1 ]; then ok "deleting a base-resolving target fails the gate (exit 1)"; else bad "expected exit 1, got $rc:"; echo "$out"; fi
+echo "$out" | grep "${SLUG_D}--core.md" | grep -q "pre-existing" && bad "a base-resolving-now-deleted target wrongly tagged pre-existing" || ok "deleted target NOT tagged pre-existing (gated)"
+
+# ============================================================================
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"
 [ "$FAIL" = 0 ] && { rm -rf "$TR"; exit 0; } || exit 1
