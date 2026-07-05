@@ -8,7 +8,7 @@ depends_on: []
 pr: endo-but-for-bots#284
 created: 2026-04-30
 source: imported from origin/llm designs/README.md
-updated: 2026-07-05T21:21:34Z
+updated: 2026-07-05
 ---
 
 # Retention Paths Inspector
