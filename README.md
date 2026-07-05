@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-05T22:28:24Z_
+_As of 2026-07-05T22:35:06Z_
 
 ## Latest
 
-The only board completion this cycle landed the library link-check improvement (`improve-library-link-check-changed-gate-preexisting-danglers`), which gates the dangling-link check to changed files so pre-existing danglers no longer block. Otherwise the fleet is quiet — a single builder job (XSRE core, stage-3b of the XS→Rust port) is in flight and the todo queue is empty. Two decisions await you in your inbox: the completed `design-streamlined-onboarding` design needs its § 5 open questions answered (especially Q2, the auto-mode default, a security-flavored call) before its four build jobs can be posted as an orchestration; and on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) surfaced only 7 gaps with no `take`-semantics hazard — the liaison wants to know whether you specifically want a fresh probe on destructive one-shot `take` semantics.
+Two review retrospectives moved off the plan queue and are now running — one on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595), one on [endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602) — while the stage-3b XSRE core builder continues the XS→Rust port. Little else transitioned, but two maintainer decisions are now waiting: the completed `design-streamlined-onboarding` design needs answers to its §5 open questions before its four build jobs can be posted, especially Q2's auto-mode default (a security-flavored call); and on the [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) probe (published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605)), the report-back found the job spec's paraphrased "destructive one-shot `take` semantics" gap absent from the actual 7-gap probe — the gardener correctly declined to invent it, so a dedicated `take`-semantics analysis would be a fresh probe question awaiting your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -35,7 +35,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr595-review-0a6137f6-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr595-review-0a6137f6-retro.md) — Retrospective on endojs/endo-but-for-bots PR #595 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr602-review-ec2efb27-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr602-review-ec2efb27-retro.md) — Retrospective on endojs/endo-but-for-bots PR #602 (primary: endojs-endo-but-f...
 - [`xs2rust-endor-build-stage3b-xsre-core`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-xsre-core.md) — Builder: stage-3b child 8/9 — XSRE core (the RegExp matcher port, engine-inte...
 
 ### tada (1203)
@@ -54,8 +56,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr595-review-0a6137f6-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr595-review-0a6137f6-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #595 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr602-review-ec2efb27-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr602-review-ec2efb27-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #602 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr604-86120b5a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr604-86120b5a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #604 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr604-review-51a40148-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr604-review-51a40148-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #604 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr604-review-f2d21a00-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr604-review-f2d21a00-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #604 (primary: endojs-endo-but-f...
