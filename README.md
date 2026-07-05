@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-05T21:29:11Z_
+_As of 2026-07-05T21:30:04Z_
 
 ## Latest
 
-Onboarding design landed: [`designs/streamlined-onboarding.md`](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260705T173845Z-99346f.md) is ready for review — its four build jobs are gated on your answers to the § 5 open questions, especially Q2 (the auto-mode default, a security-flavored call). The XS→Rust (Endor) port continues through stage-3b, with the json-metering child (child 6/9) completing as [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600); Promises (child 7/9) and opcode cost-instrumentation are now in flight, and a new meter-calibration stage (C1) was parked. The weekly plan recalibration ran, shepherd wrapped up [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), and a Fable review-fix landed on `main2` as `1e9f4a957`.
-
-One decision awaits on the [#595](https://github.com/endojs/endo-but-for-bots/pull/595) probe (published as [#605](https://github.com/endojs/endo-but-for-bots/pull/605)): the report surfaced 7 real gaps but none matching the job spec's paraphrased "Gap 5 — destructive one-shot `take` semantics"; the gardener correctly declined to invent it, so let the liaison know if you specifically want a `take`-semantics probe posted fresh.
+Since the last bulletin the sole board move was the completion of `xs2rust-endor-meter-opcode-cost-instrumentation` — per-opcode cost metering for the XS→Rust (Endor) port is now instrumented, leaving one builder job in flight (`xs2rust-endor-build-stage3b-promises`, child 7/9 wiring the promise/job-queue pump loop). Two items are waiting on kriskowal directly: the `design-streamlined-onboarding` design landed and its four follow-on build jobs are gated on your answers to the § 5 open questions in `designs/streamlined-onboarding.md` (notably Q2, the security-flavored auto-mode default); and the report-back on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) — published as probe [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) — flagged a spec discrepancy (the job spec described a "Gap 5 destructive `take` semantics" hazard the actual 7-gap probe doesn't contain), so a decision is needed on whether you want a fresh `take`-semantics probe.
 
 ## Parked for maintainer feedback
 
@@ -37,17 +35,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`xs2rust-endor-build-stage3b-promises`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-promises.md) — Builder: stage-3b child 7/9 — Promises, the job queue, and the pump-loop latc...
-- [`xs2rust-endor-meter-opcode-cost-instrumentation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-meter-opcode-cost-instrumentation.md) — xs2rust-endor: optional opcode cost-calibration instrumentation
 
-### tada (1189)
+### tada (1190)
+- [`xs2rust-endor-meter-opcode-cost-instrumentation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-meter-opcode-cost-instrumentation.md) — Completion report
 - [`plan-recalibrate-20260705-212003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/plan-recalibrate-20260705-212003.md) — Completion report — weekly plan recalibration & grooming (2026-07-05)
 - [`endojs-endo-but-for-bots-pr288-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr288-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #288
 - [`deadmail-20260705T210528Z-bf6f7e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260705T210528Z-bf6f7e.md) — Completion report — dead-lettered json-metering status → supervisor s7
 - [`fu-fable-review-fix-garden-scripts-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-fable-review-fix-garden-scripts-2.md) — The fix landed on origin/main2 as 1e9f4a957. Notably, the immediately precedi...
-- [`xs2rust-endor-build-stage3b-json-metering`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-json-metering.md) — Completion report — stage-3b child 6/9 (json-metering), PR #600
-- … and 1184 more
+- … and 1185 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
