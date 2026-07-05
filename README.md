@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-05T22:44:17Z_
+_As of 2026-07-05T22:47:25Z_
 
 ## Latest
 
-Little moved on the board itself — the retrospective sweep on [endo-but-for-bots#604](https://github.com/endojs/endo-but-for-bots/pull/604) wrapped (two review/retro jobs completed, a third now running), leaving only that retro and the stage-3b [XSRE core builder](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-xsre-core.md) of the XS→Rust port in flight.
-
-Two items need the maintainer's eye. The `design-streamlined-onboarding` job landed `designs/streamlined-onboarding.md`; its four build jobs are gated on you answering the § 5 open questions — especially Q2, the security-flavored auto-mode default — before they can be posted as an orchestration. Separately, the probe on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) surfaced a spec discrepancy: the job paraphrased a "destructive one-shot `take` semantics" gap that the published probe does not contain (7 real gaps, no `take` gap). The gardener correctly declined to invent it — so if you do want a `take`-semantics analysis, that is a fresh probe question awaiting your say-so.
+Little moved on the board since the last bulletin: the sole transition was a completed review retrospective on [endo-but-for-bots#604](https://github.com/endojs/endo-but-for-bots/pull/604), with one builder job still in flight — the stage-3b XSRE core (the RegExp matcher port) of the XS→Rust engine effort. Two decisions now await the maintainer, both flagged to the inbox: the `design-streamlined-onboarding` design landed and needs a read of `designs/streamlined-onboarding.md`, especially the security-flavored Q2 auto-mode default that gates its four follow-on build jobs; and the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) (against [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595)) surfaced a spec mismatch — the job brief described a destructive one-shot `take`-semantics gap that the actual 7-gap probe doesn't contain, so a `take`-semantics analysis would be a fresh probe question rather than a report-back.
 
 ## Parked for maintainer feedback
 
@@ -37,17 +35,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr604-review-f2d21a00-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr604-review-f2d21a00-retro.md) — Retrospective on endojs/endo-but-for-bots PR #604 (primary: endojs-endo-but-f...
+### doin (1)
 - [`xs2rust-endor-build-stage3b-xsre-core`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-xsre-core.md) — Builder: stage-3b child 8/9 — XSRE core (the RegExp matcher port, engine-inte...
 
-### tada (1207)
+### tada (1208)
+- [`endojs-endo-but-for-bots-pr604-review-f2d21a00-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr604-review-f2d21a00-retro.md) — Completion report — retro on endojs/endo-but-for-bots #604 review 4629268314
 - [`endojs-endo-but-for-bots-pr604-review-51a40148-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr604-review-51a40148-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr604-86120b5a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr604-86120b5a-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr602-review-ec2efb27-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr602-review-ec2efb27-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr595-review-0a6137f6-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr595-review-0a6137f6-retro.md) — Completion report
-- [`improve-library-link-check-changed-gate-preexisting-danglers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-library-link-check-changed-gate-preexisting-danglers.md) — Completion report
-- … and 1202 more
+- … and 1203 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
