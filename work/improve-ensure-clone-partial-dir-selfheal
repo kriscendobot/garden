@@ -1,0 +1,4 @@
+host: endolinbot
+gardener: 60
+claimed_at: 2026-07-05T17:35:54Z
+worktree_dir: /home/kris/worktrees/improve-ensure-clone-partial-dir-selfheal

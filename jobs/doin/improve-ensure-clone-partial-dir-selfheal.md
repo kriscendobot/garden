@@ -6,3 +6,9 @@ Evidence: the captured `journalctl garden-*` tail shows `[unblock] FATAL: clone 
 Change: inside `ensure_clone`, under the `clone_lock "$dir"` it already holds, when `$dir` exists but `$dir/.git` is absent, treat it as a poisoned partial clone and clear it (`rm -rf "$dir"`) before cloning — better still, clone into a sibling temp path and atomically `mv`/rename into place so an interrupted clone can never again leave a non-empty destination that wedges the retry. Log a single WARN when self-healing a partial clone so the recovery is visible. This is shared code: `unblock.sh`, `orchestrate.sh`, and every other watcher that self-provisions its journal via `ensure_clone` all inherit the fix.
 
 Related but out of scope for this job (named per the single-script rule): `unblock.sh` and `orchestrate.sh` are the two observed callers; no change is needed in them once `ensure_clone` self-heals.
+
+---
+claim:
+  host: endolinbot
+  gardener: 60
+  claimed_at: 2026-07-05T17:35:54Z
