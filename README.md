@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-05T20:17:20Z_
+_As of 2026-07-05T20:20:50Z_
 
 ## Latest
 
-The [endo-but-for-bots#592](https://github.com/endojs/endo-but-for-bots/pull/592) review completed (empty top-level body, a single inline comment), leaving the board nearly quiet — no new posts, four jobs in flight.
+Little moved on the board this cycle — only a dead-lettered message was re-picked-up — but three items are now stacked in the maintainer inbox awaiting your call. The gap-revealing probe of [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) (sanctioned SES `unredactError`) is substantively **complete and execution-verified** but its DRAFT PR is **publish-blocked**: it ran on host `endolinbot2`, which has no bot `gh` credentials, and the only identity present is a reserved kriskowal SSH key, so the gardener correctly surfaced rather than switch identity — it needs a bot token provisioned (or you to open the draft from the ready branch `probe/unredact-error-595`). The probe's headline finding is that SES already enforces start-compartment-only exposure; the design's real open work is the export's *shape* (Gap 4, @erights' call), which gates the API name and the ses-ava symbol retirement.
 
-Three items need the maintainer's attention. The gap-revealing probe on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) (`unredactError`) is substantively **done and verified by real execution** but cannot publish its DRAFT: host endolinbot2 has no bot `gh` credentials, and the only key present authenticates as kriskowal — a reserved maintainer identity the gardener declined to use. The two committed commits and full draft-PR body are staged on branch `probe/unredact-error-595`; landing them needs either a bot token on some host or the maintainer opening the draft directly. Its five surfaced gaps center on Gap 4 (the sanctioned export's return shape), the keystone @erights must steer before implementation proceeds.
-
-Separately, the `design-streamlined-onboarding` design landed (`designs/streamlined-onboarding.md`) and awaits answers to its § 5 open questions — especially Q2, the security-flavored auto-mode default — before its four build jobs can be posted as an orchestration. Finally, `investigate-poisoned-garden-infra-jobs` reports a **live operational defect**: on host endolinbot, `is-main-host` now evaluates as follower, so the leader-only singletons (foreman, scheduler, watchers) are down; recovery needs a leadership/identity call — confirm which host should hold the leader marker so the fleet can be restored.
+Separately, `design-streamlined-onboarding` finished — `designs/streamlined-onboarding.md` awaits your answers to its §5 open questions (especially the security-flavored auto-mode default) before its four build jobs can be posted as an orchestration. Most urgent operationally: the `investigate-poisoned-garden-infra-jobs` report flags that on host **endolinbot**, `is-main-host` is evaluating as *follower*, so the leader-only singletons (foreman, scheduler, watchers) are currently down; restoring them needs you to confirm which host should hold the leader marker. Meanwhile shepherd, review, and Fable script-fix jobs remain in flight, and the xs2rust-endor stage-3b metering build continues.
 
 ## Parked for maintainer feedback
 
@@ -355,7 +353,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
+- [`deadmail-20260705T201849Z-c8ffed`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260705T201849Z-c8ffed.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr288-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr288-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #288
 - [`endojs-endo-but-for-bots-pr592-review-2e32890c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-review-2e32890c.md) — Review directive on endojs/endo-but-for-bots PR #592
 - [`fable-review-fix-garden-scripts`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fable-review-fix-garden-scripts.md) — Fable: review the garden's scripts, serially fix discovered issues, push main2
