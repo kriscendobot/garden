@@ -24,3 +24,9 @@ Honor the design's recommendations for the still-open questions (Q4 help mechani
 ## Definition of done
 
 `help` is honored as liaison-session vocabulary (not watcher-side); the preflight greets a virgin instance guard-then-probe; `roles/liaison/AGENT.md § Help` defines the on-demand tutorial + ask-before-acting contract routing into `context/first-run/` and `context/operations/`; "Starting the garden" reframe is in place. Push to main2; report the commit sha.
+
+---
+claim:
+  host: endolinbot
+  gardener: 62
+  claimed_at: 2026-07-05T17:22:18Z
