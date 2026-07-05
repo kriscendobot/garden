@@ -93,3 +93,9 @@ scripts/jobs/review-miss-record.sh cluster-status typedef-location-dts closed \
   concurrently mutated). The probe + skill table row + role edits land together.
 - The gate's executable lives under v2 `scripts/` (per the pre-push-gates skill); the
   `SKILL.md` is the contract, the script is the implementation — update both.
+
+---
+claim:
+  host: endolinbot
+  gardener: 1
+  claimed_at: 2026-07-05T22:17:44Z
