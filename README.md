@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-05T23:16:21Z_
+_As of 2026-07-05T23:20:58Z_
 
 ## Latest
 
-The only board movement since the last bulletin was the completion of the retrospective on [endo-but-for-bots#592](https://github.com/endojs/endo-but-for-bots/pull/592); the sole active job is the stage-3b XSRE core builder in the ongoing XS→Rust (Endor) port. What the maintainer should notice sits in the inbox rather than the board. First and most urgent: a deterministic identity-drift guard fired three times on this host — `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, watchers, recovery) is being silently skipped on the true leader; correcting `/home/kris/.garden` back to `endolinbot` and restarting the pool is the fix. Two decisions are also waiting: the `design-streamlined-onboarding` design landed and its § 5 Q2 (the auto-mode default, a security-flavored call) gates four follow-on build jobs; and on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595), the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) surfaced 7 gaps rather than the spec's paraphrased 5 — the gardener correctly declined to invent the missing "take-semantics" hazard, so a fresh probe on that question awaits your say-so.
+The xs2rust-endor Rust port advanced through its stage-3b XSRE work: the RegExp matcher core (child 8/9) landed, and the final child 9/9 — the RegExp built-in plus String integration — is now in progress, which should close out stage-3b. A companion design for test262 convergence on that port also landed as PR #600. On the review side, three retrospectives were claimed for [endo-but-for-bots#592](https://github.com/endojs/endo-but-for-bots/pull/592) (two) and [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595).
+
+Two decisions await the maintainer: the completed `streamlined-onboarding` design needs sign-off on its § 5 open questions — notably the security-flavored Q2 auto-mode default — before its four build jobs can be posted as an orchestration; and the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) (against [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595)) surfaced 7 gaps rather than the spec's paraphrased 5, with no `take`-semantics gap — the liaison is holding for a yes/no on whether to post a fresh probe for that analysis. Most urgent operationally: the deterministic identity-drift guard fired three times flagging `GARDEN=driftname` diverging from `hostname -s=endolinbot`, so `is-main-host` is reporting FOLLOWER and every leader-only singleton is being skipped on the true leader host — correct `/home/kris/.garden` to `endolinbot` and restart the pool.
 
 ## Parked for maintainer feedback
 
@@ -16,7 +18,7 @@ The only board movement since the last bulletin was the completion of the retros
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 44d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 44d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 46d)
-- [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 45d)
+- [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 46d)
 - [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 54d)
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
@@ -122,16 +124,20 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-build-stage3b-xsre-core`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-xsre-core.md) — Builder: stage-3b child 8/9 — XSRE core (the RegExp matcher port, engine-inte...
+### doin (5)
+- [`deadmail-20260705T231852Z-f04664`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260705T231852Z-f04664.md) — Dead-lettered message — pick up its intent
+- [`endojs-endo-but-for-bots-pr592-review-2e32890c-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-review-2e32890c-retro.md) — Retrospective on endojs/endo-but-for-bots PR #592 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr592-review-9e382ba1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-review-9e382ba1-retro.md) — Retrospective on endojs/endo-but-for-bots PR #592 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr595-review-b3285075-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr595-review-b3285075-retro.md) — Retrospective on endojs/endo-but-for-bots PR #595 (primary: endojs-endo-but-f...
+- [`xs2rust-endor-build-stage3b-xsre-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-xsre-integration.md) — Builder: stage-3b child 9/9 — RegExp built-in + String integration over XSRE,...
 
-### tada (1213)
+### tada (1214)
+- [`xs2rust-endor-build-stage3b-xsre-core`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-xsre-core.md) — Completion report — stage-3b child 8/9: XSRE core (RegExp matcher port)
 - [`endojs-endo-but-for-bots-pr592-review-1050d7e9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr592-review-1050d7e9-retro.md) — Completion report
 - [`xs2rust-endor-corpus-test262-and-xst-harness`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-corpus-test262-and-xst-harness.md) — Design landed: test262 convergence for the xs2rust-endor port (PR #600)
 - [`daily-progress-summary-20260705-230505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260705-230505.md) — Wrote the daily progress-summary periodical for the Pacific day 2026-07-04 an...
 - [`issue-kriskowal-garden-27`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-27.md) — Completion report
-- [`scheduler-timezone-anchored-cadence`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scheduler-timezone-anchored-cadence.md) — Completion report: scheduler-timezone-anchored-cadence
-- … and 1208 more
+- … and 1209 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -141,9 +147,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr592-review-2e32890c-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr592-review-2e32890c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #592 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr592-review-9e382ba1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr592-review-9e382ba1-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #592 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr595-review-b3285075-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr595-review-b3285075-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #595 (primary: endojs-endo-but-f...
 - [`scholar-ingest-ocap-kernel-comment-fragments-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-comment-fragments-3.md) — _low_ · PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
