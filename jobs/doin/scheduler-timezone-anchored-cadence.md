@@ -25,3 +25,9 @@ every gated tick.) Update the schedule spec + scheduler to agree.
 
 `daily`-with-TZ schedules fire at the intended local boundary without drift; a test or documented repro
 shows daily-progress-summary firing at Pacific midnight. Land on `main2`.
+
+---
+claim:
+  host: endolinbot
+  gardener: 4
+  claimed_at: 2026-07-05T22:49:49Z
