@@ -46,6 +46,8 @@ Bar: `built-ins/Promise` dual-run divergent=0 with covered growth; a promise-ord
 (resolution chains, already-settled, thenable adoption) bit-exact; honest named skips for
 async-function/await surfaces (stage 4 owns async/generators) — name them.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot
