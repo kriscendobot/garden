@@ -47,6 +47,8 @@ matcher module — NO JavaScript surface yet (child 9 integrates):
 Bar: the matcher parity suite green; fuzz arm landed with zero divergence on its seed sweep;
 workspace + Miri green. Name any pin feature you defer (e.g. unicode property escapes) honestly.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot
