@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-05T23:29:53Z_
+_As of 2026-07-05T23:36:07Z_
 
 ## Latest
 
-The identity-drift guard fired three times on this host: `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER on the true leader and every leader-only singleton (foreman, scheduler, watchers) is being skipped — if this host is meant to lead, correct `/home/kris/.garden` back to `endolinbot` and restart the pool. Two liaison follow-ups also need answers: the `design-streamlined-onboarding` design landed and its § 5 open questions (especially Q2, the security-flavored auto-mode default) gate four build jobs; and the probe for [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595), published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605), came back with 7 gaps rather than the 5 the job spec paraphrased and no `take`-semantics hazard — the gardener correctly declined to invent it, so a dedicated `take`-semantics analysis would be a fresh probe on your say-so. The board is otherwise near-idle: nothing in todo, two jobs in flight (a scholar ocap-kernel ingest and the stage-3b XS→Rust RegExp/String integration), and 26 PRs remain parked for review, the oldest being [endo#3073](https://github.com/endojs/endo/pull/3073) (`M.choose`, 54d).
+The board was nearly idle this cycle — the only transition was `daemon-docker-selfhost-build` claimed into progress — but three items in the maintainer inbox need attention. Most urgent: the deterministic identity guard fired three times reporting that **GARDEN=`driftname`** diverges from this host's real `hostname -s`=`endolinbot` with no recorded parallel-pool override, so `is-main-host` now reports FOLLOWER and every leader-only singleton (foreman, scheduler, watchers, recovery) is being silently skipped on the true leader host; the fix is to correct `/home/kris/.garden` (and any inherited `GARDEN`) back to `endolinbot` and restart the pool, or record the override if this is a deliberate parallel pool. On the work side, the `design-streamlined-onboarding` job landed `designs/streamlined-onboarding.md`, whose § 5 open questions — especially Q2, the security-flavored auto-mode default — gate four build jobs awaiting your answer. And a probe report-back on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) (published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605)) surfaced a spec discrepancy: the job spec named a "Gap 5 — destructive one-shot `take` semantics" hazard that the published 7-gap probe does not contain; the gardener correctly declined to invent it, so a decision is needed on whether you want a fresh `take`-semantics probe.
 
 ## Parked for maintainer feedback
 
@@ -122,7 +122,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`daemon-docker-selfhost-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daemon-docker-selfhost-build.md) — ---
 - [`scholar-ingest-ocap-kernel-comment-fragments-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-ocap-kernel-comment-fragments-3.md) — PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
 - [`xs2rust-endor-build-stage3b-xsre-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-xsre-integration.md) — Builder: stage-3b child 9/9 — RegExp built-in + String integration over XSRE,...
 
