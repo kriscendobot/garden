@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6091 (526 parent indexes + 5565 children).
+Total section files: 6096 (527 parent indexes + 5569 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -7258,6 +7258,7 @@ Total section files: 6091 (526 parent indexes + 5565 children).
 - [metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts](metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts.md) (index)
 - [metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts](metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts.md) (index)
 - [metamask-ocap-kernel--packages-ocap-kernel-src-vats-VatHandle-ts](metamask-ocap-kernel--packages-ocap-kernel-src-vats-VatHandle-ts.md) (index)
+- [metamask-ocap-kernel--packages-ocap-kernel-src-vats-VatSupervisor-ts](metamask-ocap-kernel--packages-ocap-kernel-src-vats-VatSupervisor-ts.md) (index)
 
 ### metamask-ocap-kernel--docs-glossary-md
 
@@ -7414,6 +7415,13 @@ Total section files: 6091 (526 parent indexes + 5565 children).
 - [metamask-ocap-kernel--packages-ocap-kernel-src-vats-VatHandle-ts--endpoint-handle-and-dual-rpc-wiring](metamask-ocap-kernel--packages-ocap-kernel-src-vats-VatHandle-ts--endpoint-handle-and-dual-rpc-wiring.md)
 - [metamask-ocap-kernel--packages-ocap-kernel-src-vats-VatHandle-ts--make-init-lifecycle-and-stream-drain](metamask-ocap-kernel--packages-ocap-kernel-src-vats-VatHandle-ts--make-init-lifecycle-and-stream-drain.md)
 - [metamask-ocap-kernel--packages-ocap-kernel-src-vats-VatHandle-ts--priority-ordered-crank-result-and-termination](metamask-ocap-kernel--packages-ocap-kernel-src-vats-VatHandle-ts--priority-ordered-crank-result-and-termination.md)
+
+### metamask-ocap-kernel--packages-ocap-kernel-src-vats-VatSupervisor-ts
+
+- [metamask-ocap-kernel--packages-ocap-kernel-src-vats-VatSupervisor-ts--idempotent-teardown-first-termination](metamask-ocap-kernel--packages-ocap-kernel-src-vats-VatSupervisor-ts--idempotent-teardown-first-termination.md)
+- [metamask-ocap-kernel--packages-ocap-kernel-src-vats-VatSupervisor-ts--in-vat-endpoint-and-mirrored-dual-rpc-wiring](metamask-ocap-kernel--packages-ocap-kernel-src-vats-VatSupervisor-ts--in-vat-endpoint-and-mirrored-dual-rpc-wiring.md)
+- [metamask-ocap-kernel--packages-ocap-kernel-src-vats-VatSupervisor-ts--initvat-endowment-filtering-and-caveated-fetch](metamask-ocap-kernel--packages-ocap-kernel-src-vats-VatSupervisor-ts--initvat-endowment-filtering-and-caveated-fetch.md)
+- [metamask-ocap-kernel--packages-ocap-kernel-src-vats-VatSupervisor-ts--optimistic-syscall-execution](metamask-ocap-kernel--packages-ocap-kernel-src-vats-VatSupervisor-ts--optimistic-syscall-execution.md)
 
 ### metamask-ocap-kernel--packages-remote-iterables-readme
 
