@@ -45,3 +45,9 @@ The original stage-3 child 6 (swept unrun by the halt; fresh start), per the des
 Bar: `built-ins/Promise` dual-run divergent=0 with covered growth; a promise-ordering corpus
 (resolution chains, already-settled, thenable adoption) bit-exact; honest named skips for
 async-function/await surfaces (stage 4 owns async/generators) — name them.
+
+---
+claim:
+  host: endolinbot
+  gardener: 12
+  claimed_at: 2026-07-05T21:07:13Z
