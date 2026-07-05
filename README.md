@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-05T22:50:29Z_
+_As of 2026-07-05T22:55:21Z_
 
 ## Latest
 
-Little moved on the board this cycle: the sole transition was `scheduler-timezone-anchored-cadence` being claimed into progress — a design/build job to fix the daily-progress-summary cadence with timezone-anchored scheduling. Two maintainer decisions are the real headline. The `design-streamlined-onboarding` design landed and awaits review of `designs/streamlined-onboarding.md`, specifically its Q2 auto-mode default (a security-flavored call); its four follow-on build jobs stay gated until you answer. Separately, the probe on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) (published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605)) reported 7 gaps, not the 5 its spec paraphrased, and none covering the "destructive one-shot `take` semantics" hazard the spec described — the gardener correctly declined to invent it, so a `take`-semantics analysis, if you want one, needs a fresh probe job on your say-so.
+The only board completion since the last bulletin was [`scheduler-timezone-anchored-cadence`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scheduler-timezone-anchored-cadence.md), which anchors the scheduler's recurring cadences to a fixed timezone; two jobs remain in flight (the garden #27 issue and the stage-3b XSRE-core builder for the XS→Rust port). Two decisions are waiting on you: the completed `design-streamlined-onboarding` design needs its § 5 open questions answered — especially Q2, the security-flavored auto-mode default — before its four build jobs can be posted as an orchestration; and on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595), the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) reported 7 gaps with no `take`-semantics gap, so the paraphrased "destructive one-shot `take`" hazard was correctly not invented — say the word if you want that analysis posted as a fresh probe.
 
 ## Parked for maintainer feedback
 
@@ -35,18 +35,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`issue-kriskowal-garden-27`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-27.md) — Issue from kriskowal on kriskowal/garden #27
-- [`scheduler-timezone-anchored-cadence`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scheduler-timezone-anchored-cadence.md) — design/build: timezone-anchored scheduler cadence (fix daily-progress-summary...
 - [`xs2rust-endor-build-stage3b-xsre-core`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-xsre-core.md) — Builder: stage-3b child 8/9 — XSRE core (the RegExp matcher port, engine-inte...
 
-### tada (1208)
+### tada (1209)
+- [`scheduler-timezone-anchored-cadence`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scheduler-timezone-anchored-cadence.md) — Completion report: scheduler-timezone-anchored-cadence
 - [`endojs-endo-but-for-bots-pr604-review-f2d21a00-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr604-review-f2d21a00-retro.md) — Completion report — retro on endojs/endo-but-for-bots #604 review 4629268314
 - [`endojs-endo-but-for-bots-pr604-review-51a40148-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr604-review-51a40148-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr604-86120b5a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr604-86120b5a-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr602-review-ec2efb27-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr602-review-ec2efb27-retro.md) — Completion report
-- [`endojs-endo-but-for-bots-pr595-review-0a6137f6-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr595-review-0a6137f6-retro.md) — Completion report
-- … and 1203 more
+- … and 1204 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
