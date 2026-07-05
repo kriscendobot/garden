@@ -96,10 +96,36 @@ rm -f "$digest"   # the blob now lives in $DIR's object DB; the temp file is spe
 #    the die (exit 1 → self-heal) path for a genuine, non-transient handler
 #    failure. Mirrors gardener.sh's transient-vs-real classification.
 capture="$(mktemp "${TMPDIR:-/tmp}/garden-mentor-capture.XXXXXX")"
-if "$GARDEN_MENTOR_HANDLER" "$sha" "$DIR" >"$capture" 2>&1; then
+# Capture the handler's exit code IMMEDIATELY into $rc. A bare `if
+# "$HANDLER" …; then` would work for the success arm, but the failure arm below
+# needs $rc to classify an EMPTY-output kill (rc=137/143 SIGKILL/OOM/SIGTERM, or
+# the offline rc) — and `$?` there would already be clobbered by the `out="$(…)"`
+# substitution. Run the handler as a plain statement under `set +e` (mirroring
+# gardener.sh:376-381) so a non-zero exit is captured into $rc rather than
+# tripping `set -e` before the classifier below runs.
+set +e
+"$GARDEN_MENTOR_HANDLER" "$sha" "$DIR" >"$capture" 2>&1
+rc=$?
+set -e
+if [ "$rc" -eq 0 ]; then
   for f in "${new[@]}"; do printf '%s\n' "${f#"$DIR"/}" >> "$SEEN"; done
   date -u +%FT%TZ > "$JSINCE"
   rm -f "$capture"
+elif [ ! -s "$capture" ] && is_transient_empty_failure "$rc"; then
+  # EMPTY capture + a signal/offline rc — a `claude -p` handler SIGKILLed/
+  # OOM-killed (rc=137/143) or cut mid-call by a quota/network blip that flushed
+  # nothing to $capture — matches neither is_transient_claude_signature nor
+  # _fetch_stderr_is_offline (both need signature TEXT), so without this branch it
+  # would fall through to `die` and fire self-heal-run.sh into a diagnosis that
+  # fails identically in the SAME outage (the observed 30-min FATAL loop on
+  # endolinbot, 2026-07-05 18:20/18:50/19:20, bare "FATAL: improve handler failed"
+  # with no preceding $out diagnostic → empty output). Classify it transient,
+  # mirroring gardener.sh's empty-capture branch (gardener.sh:679-687) via the
+  # SAME common.sh helper so the two handlers stay aligned: WARN + exit 0, leaving
+  # $SEEN/$JSINCE unadvanced so the next tick retries.
+  rm -f "$capture"
+  log "WARN: improve handler killed with empty output (rc=$rc); leaving markers, retrying next tick"
+  exit 0
 else
   out="$(tail -c 65536 "$capture" 2>/dev/null || true)"
   rm -f "$capture"

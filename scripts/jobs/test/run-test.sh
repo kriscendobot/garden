@@ -916,6 +916,22 @@ seen_after="$(wc -l < "$SEENF" 2>/dev/null || echo 0)"
 rrc=0; env GARDEN_MENTOR_HANDLER="$TR/mentor-real.sh" "$JOBS/mentor.sh" >/dev/null 2>&1 || rrc=$?
 [ "$rrc" -ne 0 ] && ok "genuine handler defect → non-zero exit (self-heal path)" \
   || bad "real defect did not die (rc=$rrc)"
+# An EMPTY-output SIGKILL/OOM (rc=137) — a `claude -p` handler killed mid-call
+# leaving nothing in $capture — matches no transient SIGNATURE (the capture is
+# empty), so before the empty-capture-transient branch it fell through to `die`
+# and fired self-heal into the same outage (the 2026-07-05 30-min FATAL loop on
+# endolinbot). It must be absorbed: WARN + exit 0, markers unadvanced.
+cat > "$TR/mentor-emptykill.sh" <<'EOF'
+#!/bin/bash
+exit 137
+EOF
+chmod +x "$TR/mentor-emptykill.sh"
+seen_before_k="$(wc -l < "$SEENF" 2>/dev/null || echo 0)"
+krc=0; env GARDEN_MENTOR_HANDLER="$TR/mentor-emptykill.sh" "$JOBS/mentor.sh" >/dev/null 2>&1 || krc=$?
+seen_after_k="$(wc -l < "$SEENF" 2>/dev/null || echo 0)"
+{ [ "$krc" -eq 0 ] && [ "$seen_after_k" -eq "$seen_before_k" ]; } \
+  && ok "empty-output kill (rc=137) → exit 0, markers unadvanced (retry next tick)" \
+  || bad "empty-output kill not absorbed (rc=$krc seen $seen_before_k→$seen_after_k)"
 
 # ============================================================================
 hr; echo "SUBTEST 12 — CURSORS: durable poll position survives a restart"; hr
