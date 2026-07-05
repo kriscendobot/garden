@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-05T22:19:44Z_
+_As of 2026-07-05T22:22:46Z_
 
 ## Latest
 
-Little moved on the board since the last bulletin — one dead-lettered job was reaped — but two decisions are waiting in the maintainer inbox. The `design-streamlined-onboarding` job finished; its `designs/streamlined-onboarding.md` needs review, and its four build jobs stay gated until you answer the § 5 open questions, especially the security-flavored auto-mode default (Q2). Separately, the probe on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) — published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) — surfaced a spec discrepancy: the job spec described a "Gap 5 — destructive one-shot `take` semantics" hazard, but the published probe has seven gaps and no such `take`-semantics gap; the gardener correctly declined to invent it, so a `take`-semantics analysis would be a fresh probe on your say-so. Two builds remain in flight (the typedef-location `.d.ts` review and the XSRE-core RegExp-matcher port, stage-3b child 8/9).
+Two decisions await the maintainer. The `design-streamlined-onboarding` job completed — `designs/streamlined-onboarding.md` needs review of its § 5 open questions, especially Q2 (the auto-mode default, a security-flavored call); its four build jobs stay gated until that answer lands. Separately, the probe on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) reports the published probe carries 7 gaps and no destructive-`take` semantics gap, contradicting the job spec's paraphrased 5; the gardener correctly declined to invent the missing one, so the maintainer needs to say whether a `take`-semantics analysis is actually wanted (it would be a fresh probe, not a report-back).
+
+On the fleet, the XS→Rust (Endor) port advanced another step — stage-3b's Promises/job-queue child (7/9) completed and the XSRE core RegExp-matcher port (8/9) is in flight — and a new infra job is underway to gate `library-link-check.sh` so it flags only newly-introduced dangling links rather than preexisting ones. A stack of PR review retrospectives (for [endo-but-for-bots#592](https://github.com/endojs/endo-but-for-bots/pull/592), [#595](https://github.com/endojs/endo-but-for-bots/pull/595), [#602](https://github.com/endojs/endo-but-for-bots/pull/602), and [#604](https://github.com/endojs/endo-but-for-bots/pull/604)) sits parked at low priority for the foreman to promote when the board idles.
 
 ## Parked for maintainer feedback
 
@@ -35,7 +37,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`improve-library-link-check-changed-gate-preexisting-danglers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-library-link-check-changed-gate-preexisting-danglers.md) — scripts/jobs/library-link-check.sh
 - [`review-improve-typedef-location-dts`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/review-improve-typedef-location-dts.md) — review-improve: typedef-only .js modules must be .d.ts — add the deterministi...
 - [`xs2rust-endor-build-stage3b-xsre-core`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-xsre-core.md) — Builder: stage-3b child 8/9 — XSRE core (the RegExp matcher port, engine-inte...
 
