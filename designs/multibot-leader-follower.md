@@ -8,11 +8,22 @@ author: gardener
 
 | Created | 2026-06-28 |
 | Author  | gardener |
-| Status  | Implemented |
+| Status  | Implemented; transition mechanics superseded by [leader-follower-determinism.md](leader-follower-determinism.md) |
 
 Tracks issue [kriskowal/garden#11](https://github.com/kriskowal/garden/issues/11)
 (Multibot). The garden may run on more than one host sharing one `journal2`
 branch. This design says which units run where, and how a host knows.
+
+**Supersession note (2026-07-05).** The leader/follower TRANSITION described
+here (the bare `leader` marker, the fail-open predicate default, the prose
+handoff ceremony) proved race-prone in practice. Its replacement is
+[leader-follower-determinism.md](leader-follower-determinism.md): a structured
+epoch-fenced leader record, a two-phase handoff executed by a deterministic
+per-host sentinel, a container-minted instance identity with a duplicate-leader
+detector, and a fail-closed predicate. This document remains the authority on
+WHICH services are singletons versus per-host local-infra (§ The split, § Per-host
+local-infra); read the sections below on the predicate, gating, and designation
+as historical background for the superseding design.
 
 ## The split
 
