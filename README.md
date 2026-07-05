@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-05T17:44:21Z_
+_As of 2026-07-05T17:46:10Z_
 
 ## Latest
 
-The onboarding migration's build phase 4 landed — [`onboarding-build-4-readme-claudemd-slim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/onboarding-build-4-readme-claudemd-slim.md) completed, slimming README/CLAUDE.md as the streamlined-onboarding work continues; the `design-leader-follower-determinism` and clone partial-dir self-heal jobs also closed out. Three items need a maintainer decision. Most urgent: an operational defect — on host `endolinbot`, `is-main-host` now evaluates as **follower**, so the leader-only singletons are down; restoring the fleet needs a leadership/identity call (correct `/home/kris/.garden` or re-point the leader marker). Second, the `design-streamlined-onboarding` design is ready for review — its § 5 open questions, especially Q2 (the auto-mode default, a security-flavored choice), gate the four follow-on build jobs. Third, the [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) probe (sanctioned `unredactError` SES API) finished its substantive work and verified the start-compartment-only constraint under real lockdown, but publishing the DRAFT PR is blocked on `endolinbot2` lacking bot GitHub credentials — the gardener declined to push under the only key present (kriskowal SSH) and surfaced five design gaps instead, keyed on the API's return-shape decision (@erights' call).
+The onboarding-implementation orchestration [completed](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/onboarding-implementation.md), landing its four build children (launcher, `context/` operator tree, help verb + tutorial wiring, and the README/CLAUDE.md slim). Three items now need the maintainer's own hand. First, an **operational defect**: the `investigate-poisoned-garden-infra-jobs` report finds host **endolinbot** currently evaluating as *follower*, so the leader-only singletons (foreman, scheduler, watchers, maintainer-inbox) are down — recovery needs `/home/kris/.garden` corrected or the leader marker re-pointed, then a fleet restart, a leadership call the liaison won't make unattended. Second, `design-streamlined-onboarding` completed; `designs/streamlined-onboarding.md` awaits your answers to its § 5 open questions (notably Q2, the auto-mode default) before its four § 6 build jobs can be posted. Third, the [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) `unredactError` probe is substantively done and execution-verified but **publish-blocked**: its host has no bot `gh` credentials, and the only key present authenticates as kriskowal — the gardener correctly refused a maintainer-identity push and surfaced the ready branch (`probe/unredact-error-595`) instead, so the draft PR needs either a bot token on some host or for you to open it. On the board, six jobs are in flight (fixers for [endo-but-for-bots#592](https://github.com/endojs/endo-but-for-bots/pull/592) and [#442](https://github.com/endojs/endo-but-for-bots/pull/442), a Fable scripts review, two onboarding follow-ups, and the xs2rust-endor stage-3b builder).
 
 ## Parked for maintainer feedback
 
@@ -359,13 +359,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`fu-investigate-poisoned-garden-infra-jobs-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-investigate-poisoned-garden-infra-jobs-2.md) — In kriskowal/garden, harden the reaper against mass-poisoning from sustained ...
 - [`xs2rust-endor-build-stage3b-object-statics-intern`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-object-statics-intern.md) — Builder: stage-3b child 5/9 — global string→id intern table + Object statics/...
 
-### tada (1160)
+### tada (1161)
+- [`onboarding-implementation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/onboarding-implementation.md) — orchestration onboarding-implementation — complete
 - [`onboarding-build-4-readme-claudemd-slim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/onboarding-build-4-readme-claudemd-slim.md) — Completion report
 - [`deadmail-issue-comment-4884336933`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4884336933.md) — Completion report
 - [`deadmail-issue-comment-4884744570`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4884744570.md) — Completion report
 - [`improve-ensure-clone-partial-dir-selfheal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ensure-clone-partial-dir-selfheal.md) — Pushed cleanly to main2. Job complete.
-- [`design-leader-follower-determinism`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-leader-follower-determinism.md) — Completion report: design-leader-follower-determinism
-- … and 1155 more
+- … and 1156 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
