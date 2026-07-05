@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-05T17:58:35Z_
+_As of 2026-07-05T18:00:44Z_
 
 ## Latest
 
@@ -355,7 +355,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
+- [`deadmail-20260705T175620Z-f869f8`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260705T175620Z-f869f8.md) — Dead-lettered message — pick up its intent
+- [`deadmail-20260705T175726Z-ff1f36`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260705T175726Z-ff1f36.md) — Dead-lettered message — pick up its intent
 - [`fable-review-fix-garden-scripts`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fable-review-fix-garden-scripts.md) — Fable: review the garden's scripts, serially fix discovered issues, push main2
 - [`xs2rust-endor-build-stage3b-json-metering`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-json-metering.md) — Builder: stage-3b child 6/9 — JSON.parse + structured JSON.stringify metering...
 
