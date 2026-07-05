@@ -62,3 +62,9 @@ never contributes to, so no action beyond the note; (b) the ninth cycle
 row to the concept page while there, but the three KernelQueue leaf sections are
 still absent from the topic pages (`persistence`, `eventual-send`,
 `capability-security`). A future cycle could backfill those topic rows.
+
+---
+claim:
+  host: endolinbot
+  gardener: 17
+  claimed_at: 2026-07-05T21:58:45Z
