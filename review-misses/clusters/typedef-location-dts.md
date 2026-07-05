@@ -1,13 +1,15 @@
 ---
 slug: typedef-location-dts
 category: style-convention
-status: improvement-dispatched
+status: closed
 count: 1
 members:
   - endojs-endo-but-for-bots-pr442-review-61c65980
 prs: [442]
 improvement_job: review-improve-typedef-location-dts
+improved_by: commit 33a6994ef on main2: new deterministic probe scripts/jobs/gardening/pre-push-gates/probes/typedefs-belong-in-dts.sh (tier-1 gate); sharpened roles/builder/AGENT.md + roles/jurors/typist/AGENT.md to name the whole typedef-only-module shape; probe row + field note in skills/pre-push-gates/SKILL.md; probe added to builder/fixer gate enumeration. Verified fires on #442 pre-fix packages/platform/src/fs/types.js, abstains on #58 trace-aggregator.js.
 ---
+
 
 
 Exported/shared type definitions authored as @typedef in a .js module instead of a hand-written .d.ts — a repeat of an explicit maintainer directive the garden already encoded as prose only.
