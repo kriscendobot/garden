@@ -26,10 +26,10 @@ of records, so a milestone spanning repositories rolls up as one.
 | M6 | 1 | 0 | 0% | 3 |
 | M7 | 11 | 1 | 9% | 22 |
 | M8 | 4 | 0 | 0% | 9 |
-| M9 | 19 | 2 | 10% | 55 |
+| M9 | 19 | 3 | 15% | 47 |
 | M10 | 9 | 0 | 0% | 53 |
-| M11 | 2 | 0 | 0% | 30 |
-| (unfiled) | 45 | 29 | 64% | 0 |
+| M11 | 7 | 3 | 42% | 30 |
+| (unfiled) | 40 | 26 | 65% | 0 |
 
 ## Designs
 
@@ -55,12 +55,9 @@ of records, so a milestone spanning repositories rolls up as one.
 | daemon-cas-management | endo-but-for-bots | — | In Progress | — | — |
 | daemon-cross-peer-gc | endo-but-for-bots | — | Complete | — | — |
 | daemon-debug-worker-restart | endo-but-for-bots | — | Not Started | — | — |
-| daemon-endo-rust-sqlite | endo-but-for-bots | — | Complete | — | — |
-| daemon-endor-architecture | endo-but-for-bots | — | Active | — | — |
 | daemon-make-archive | endo-but-for-bots | — | In Progress | — | — |
 | daemon-message-streaming | endo-but-for-bots | — | In Progress | — | endo-but-for-bots#287 |
 | daemon-mount-capabilities | endo-but-for-bots | — | Complete | — | — |
-| daemon-rust-xs-performance | endo-but-for-bots | — | Active | — | — |
 | daemon-web-gateway | endo-but-for-bots | — | Complete | — | — |
 | daemon-xs-worker-debugger | endo-but-for-bots | — | In Progress | — | — |
 | daemon-xs-worker-metering | endo-but-for-bots | — | Complete | — | — |
@@ -68,8 +65,6 @@ of records, so a milestone spanning repositories rolls up as one.
 | endo-fs-backend-seam | endo-but-for-bots | — | Complete | — | — |
 | endoclaw | endo-but-for-bots | — | Reference | — | — |
 | endopi | endo-but-for-bots | — | Reference | — | — |
-| endor-npm-registry-proxy | endo-but-for-bots | — | In Progress | — | — |
-| endor-run-expanded | endo-but-for-bots | — | In Progress | — | — |
 | familiar-electron-shell | endo-but-for-bots | — | Complete | — | — |
 | familiar-gateway-migration | endo-but-for-bots | — | Complete | — | — |
 | familiar-localhttp-protocol | endo-but-for-bots | — | In Progress | — | — |
@@ -96,7 +91,12 @@ of records, so a milestone spanning repositories rolls up as one.
 | endoclaw-skill-registry | endo-but-for-bots | M10 | Not Started | M | — |
 | endopi-extension-package-manifest | endo-but-for-bots | M10 | Proposed | M | — |
 | endopi-skills-markdown-format | endo-but-for-bots | M10 | Proposed | M | — |
+| daemon-endo-rust-sqlite | endo-but-for-bots | M11 | Complete | — | — |
+| daemon-endor-architecture | endo-but-for-bots | M11 | Active | — | — |
+| daemon-rust-xs-performance | endo-but-for-bots | M11 | Active | — | — |
 | endor-bus-tui | endo-but-for-bots | M11 | Not Started | XL | — |
+| endor-npm-registry-proxy | endo-but-for-bots | M11 | In Progress | — | — |
+| endor-run-expanded | endo-but-for-bots | M11 | In Progress | — | — |
 | endor-tui | endo-but-for-bots | M11 | Not Started | XL | — |
 | base64-native-fallthrough | endo-but-for-bots | M2 | Complete | S | — |
 | break-dev-dependency-cycles | endo-but-for-bots | M2 | Complete | M | — |
@@ -164,7 +164,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | chat-slot-slash-commands | endo-but-for-bots | M9 | Proposed | M | — |
 | chat-view-edit-commands | endo-but-for-bots | M9 | Complete | M | — |
 | daemon-commands-as-messages | endo-but-for-bots | M9 | Not Started | L | — |
-| daemon-retention-paths | endo-but-for-bots | M9 | In Progress | L | endo-but-for-bots#284 |
+| daemon-retention-paths | endo-but-for-bots | M9 | Complete | L | endo-but-for-bots#284 |
 | endopi-iterative-compaction | endo-but-for-bots | M9 | Proposed | M | — |
 | endopi-prompt-templates | endo-but-for-bots | M9 | Proposed | S | — |
 | formula-inspector | endo-but-for-bots | M9 | In Progress | M | — |

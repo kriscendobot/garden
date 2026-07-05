@@ -5,7 +5,7 @@ status: In Progress
 depends_on: []
 pr: endo-but-for-bots#287
 created: 2026-03-26
-updated: 2026-05-19
+updated: 2026-07-05
 source: imported from origin/llm designs/README.md
 ---
 
@@ -312,3 +312,6 @@ That is a caller concern, not a protocol concern.
 
 ---
 _Groomed 2026-06-29: PR endo-but-for-bots#287 was closed without merging; the `pr` pointer records the first Phase-1 attempt (StreamWriter/streamReply). Status left In Progress pending a re-attempt._
+
+---
+_Groomed 2026-07-05: `pr: endo-but-for-bots#287` was **closed without merge** on 2026-05-20 and no replacement PR is open; the record stays In Progress but its `pr:` pointer is stale — flag for maintainer whether to re-open implementation or retire the design._

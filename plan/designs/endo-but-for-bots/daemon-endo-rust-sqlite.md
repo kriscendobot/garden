@@ -2,9 +2,10 @@
 slug: daemon-endo-rust-sqlite
 repository: endo-but-for-bots
 status: Complete
+milestone: M11
 depends_on: []
 created: 2026-04-14
-updated: 2026-04-16
+updated: 2026-07-05
 source: imported from origin/llm designs/README.md
 ---
 
@@ -642,3 +643,6 @@ These can be added as follow-up work:
 > Revised: All INTEGER → bigint, all REAL → number, BLOB →
 > Uint8Array, no $blob sentinels or smallcaps.
 > Values must be passable (Endo marshallable).
+
+---
+_Groomed 2026-07-05: filed into milestone M11 (Rust Daemon `endor`)._

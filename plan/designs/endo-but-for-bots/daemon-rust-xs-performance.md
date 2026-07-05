@@ -2,9 +2,10 @@
 slug: daemon-rust-xs-performance
 repository: endo-but-for-bots
 status: Active
+milestone: M11
 depends_on: []
 created: 2026-04-16
-updated: 2026-04-16
+updated: 2026-07-05
 source: imported from origin/llm designs/README.md
 ---
 
@@ -600,3 +601,6 @@ Ordered by impact:
    The design doc describes a cooperative event loop where
    multiple machines share a runner thread.
    This is an optimization, not a correctness issue.
+
+---
+_Groomed 2026-07-05: filed into milestone M11 (Rust Daemon `endor`)._

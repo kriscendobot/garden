@@ -2,9 +2,10 @@
 slug: endor-npm-registry-proxy
 repository: endo-but-for-bots
 status: In Progress
+milestone: M11
 depends_on: []
 created: 2026-04-17
-updated: 2026-04-17
+updated: 2026-07-05
 source: imported from origin/llm designs/README.md
 ---
 
@@ -414,3 +415,6 @@ The tree's children are the package's files, stored as blobs.
 > and transitively co-versioned workspaces), such that
 > `endor run entry.js` can function without using the npm CLI
 > or laying out a node_modules tree at all.
+
+---
+_Groomed 2026-07-05: filed into milestone M11 (Rust Daemon `endor`)._

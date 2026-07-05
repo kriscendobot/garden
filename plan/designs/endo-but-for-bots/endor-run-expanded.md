@@ -2,9 +2,10 @@
 slug: endor-run-expanded
 repository: endo-but-for-bots
 status: In Progress
+milestone: M11
 depends_on: []
 created: 2026-04-17
-updated: 2026-04-17
+updated: 2026-07-05
 source: imported from origin/llm designs/README.md
 ---
 
@@ -367,3 +368,6 @@ undesirable (e.g., read-only filesystems).
 >    write an archive of the application directly to the content
 >    address store, using specialized write powers, then
 >    executes it.
+
+---
+_Groomed 2026-07-05: filed into milestone M11 (Rust Daemon `endor`)._

@@ -1,14 +1,14 @@
 ---
 slug: daemon-retention-paths
 repository: endo-but-for-bots
-status: In Progress
+status: Complete
 size: L
 milestone: M9
 depends_on: []
 pr: endo-but-for-bots#284
 created: 2026-04-30
-updated: 2026-05-19
 source: imported from origin/llm designs/README.md
+updated: 2026-07-05T21:21:34Z
 ---
 
 # Retention Paths Inspector
@@ -491,3 +491,6 @@ The shipping requirements:
 >
 > These proposed changes may overlap an existing design. Consider
 > factoring those designs into constituent components.
+
+---
+_Reconciled 2026-07-05T21:21:34Z: status → Complete (PR endojs/endo-but-for-bots#284 observed merged)._

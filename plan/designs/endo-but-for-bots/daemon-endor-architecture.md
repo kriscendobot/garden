@@ -2,9 +2,10 @@
 slug: daemon-endor-architecture
 repository: endo-but-for-bots
 status: Active
+milestone: M11
 depends_on: []
 created: 2026-04-16
-updated: 2026-04-16
+updated: 2026-07-05
 source: imported from origin/llm designs/README.md
 ---
 
@@ -814,3 +815,6 @@ or platform defaults:
 | [daemon-xs-worker-snapshot](daemon-xs-worker-snapshot.md) | Suspend/resume feature design |
 | [daemon-xs-worker-debugger](daemon-xs-worker-debugger.md) | XS debugger protocol |
 | [daemon-endo-rust-sqlite](daemon-endo-rust-sqlite.md) | SQLite host function design |
+
+---
+_Groomed 2026-07-05: filed into milestone M11 (Rust Daemon `endor`)._
