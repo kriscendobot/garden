@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-05T21:43:52Z_
+_As of 2026-07-05T21:49:37Z_
 
 ## Latest
 
-The main thread of active work is the **xs2rust-endor** (XS→Rust "Endor" engine) port: the CESU-8→UTF-16 string-representation revisit landed its setup with four follow-on jobs correctly gated, while builders continue on stage-3b promises/pump-loop and meter-calibration stage C1. Two decisions now sit in the maintainer inbox. First, the `design-streamlined-onboarding` design job completed — `designs/streamlined-onboarding.md` awaits review of its §5 open questions, notably Q2's auto-mode default (a security-flavored call) that gates four §6 build jobs from being posted as an orchestration. Second, on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595), the report-back on its probe (published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605)) surfaced a spec discrepancy: the job spec paraphrased a "destructive one-shot `take` semantics" gap that the actual 7-gap probe does not contain — the gardener correctly declined to invent it, so a `take`-semantics analysis, if wanted, needs a fresh probe on the maintainer's say-so.
+Streamlined-onboarding design job landed and now waits on maintainer sign-off: the [design doc's §5 open questions](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260705T173845Z-99346f.md) — chiefly Q2, the security-flavored auto-mode default — gate four §6 build jobs that will only be posted as an orchestration once you answer. On [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595), the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) came back with 7 gaps rather than the 5 the job spec paraphrased, and notably no destructive `take`-semantics gap; the gardener correctly declined to invent it, so a decision is pending on whether to commission a fresh probe for `take` semantics specifically. The XS→Rust (Endor) port continues to grind forward — the UTF-16/CESU-8 string work and opcode-cost metering instrumentation completed, with stage-3b promises and meter calibration still in flight — alongside a shepherd pass on [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) and the weekly plan recalibration.
 
 ## Parked for maintainer feedback
 
@@ -35,7 +35,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`fix-lint-jsdoc-warnings-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-lint-jsdoc-warnings-endo-master.md) — SUPERSEDED — fix-lint: jsdoc warnings on endo master
 - [`xs2rust-endor-build-stage3b-promises`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-promises.md) — Builder: stage-3b child 7/9 — Promises, the job queue, and the pump-loop latc...
 - [`xs2rust-endor-meter-calibration-stage-c1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-meter-calibration-stage-c1.md) — xs2rust-endor meter calibration — build (stage C1: firewall + histogram)
 
@@ -57,7 +58,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`investigate-fastmail-masked-email-api-for-bot-personas`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-fastmail-masked-email-api-for-bot-personas.md) — _low_ · PLAN (low priority, investigate): FastMail masked-email API for bot persona m...
 - [`scholar-ingest-ocap-kernel-comment-fragments-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-comment-fragments-2.md) — _low_ · PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
-- [`fix-lint-jsdoc-warnings-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-lint-jsdoc-warnings-endo-master.md) — _low_ · SUPERSEDED — fix-lint: jsdoc warnings on endo master
 - [`endojs-endo-but-for-bots-pr288-review-330391eb-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr288-review-330391eb-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #288 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr442-review-61c65980-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr442-review-61c65980-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #442 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr592-review-da7fef5e-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr592-review-da7fef5e-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #592 (primary: endojs-endo-but-f...
