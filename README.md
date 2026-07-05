@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-05T21:42:39Z_
+_As of 2026-07-05T21:43:52Z_
 
 ## Latest
 
-The bulk of movement is on the **xs2rust-endor** (XS→Rust "Endor" engine) port: opcode-cost meter instrumentation completed, three builds are in flight — stage-3b promises/job-queue, meter calibration stage C1 (firewall + histogram), and replacing CESU-8 string storage with UTF-16 — and the CESU-8→UTF-16 string-representation revisit was just armed as a new blocked plan entry. The weekly plan recalibration and grooming pass ran, and a shepherd cleared [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) to green.
-
-Two items want a maintainer decision. The `design-streamlined-onboarding` job landed `designs/streamlined-onboarding.md`, whose four build jobs are gated until kriskowal answers its §5 open questions — notably Q2, the security-flavored auto-mode default. And the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) (probing [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595)) reported 7 gaps rather than the 5 its spec paraphrased, with no "destructive one-shot `take` semantics" gap; the gardener correctly declined to invent it, so a `take`-semantics analysis is available as a fresh probe on your say-so.
+The main thread of active work is the **xs2rust-endor** (XS→Rust "Endor" engine) port: the CESU-8→UTF-16 string-representation revisit landed its setup with four follow-on jobs correctly gated, while builders continue on stage-3b promises/pump-loop and meter-calibration stage C1. Two decisions now sit in the maintainer inbox. First, the `design-streamlined-onboarding` design job completed — `designs/streamlined-onboarding.md` awaits review of its §5 open questions, notably Q2's auto-mode default (a security-flavored call) that gates four §6 build jobs from being posted as an orchestration. Second, on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595), the report-back on its probe (published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605)) surfaced a spec discrepancy: the job spec paraphrased a "destructive one-shot `take` semantics" gap that the actual 7-gap probe does not contain — the gardener correctly declined to invent it, so a `take`-semantics analysis, if wanted, needs a fresh probe on the maintainer's say-so.
 
 ## Parked for maintainer feedback
 
@@ -37,18 +35,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`xs2rust-endor-build-stage3b-promises`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-promises.md) — Builder: stage-3b child 7/9 — Promises, the job queue, and the pump-loop latc...
 - [`xs2rust-endor-meter-calibration-stage-c1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-meter-calibration-stage-c1.md) — xs2rust-endor meter calibration — build (stage C1: firewall + histogram)
-- [`xs2rust-endor-strings-utf16-replace-cesu8`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-strings-utf16-replace-cesu8.md) — xs2rust-endor: replace CESU-8 string storage with UTF-16 (drop the constant-t...
 
-### tada (1190)
+### tada (1191)
+- [`xs2rust-endor-strings-utf16-replace-cesu8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16-replace-cesu8.md) — All four jobs are correctly gated. The setup is complete and pushed to origin...
 - [`xs2rust-endor-meter-opcode-cost-instrumentation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-meter-opcode-cost-instrumentation.md) — Completion report
 - [`plan-recalibrate-20260705-212003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/plan-recalibrate-20260705-212003.md) — Completion report — weekly plan recalibration & grooming (2026-07-05)
 - [`endojs-endo-but-for-bots-pr288-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr288-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #288
 - [`deadmail-20260705T210528Z-bf6f7e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260705T210528Z-bf6f7e.md) — Completion report — dead-lettered json-metering status → supervisor s7
-- [`fu-fable-review-fix-garden-scripts-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-fable-review-fix-garden-scripts-2.md) — The fix landed on origin/main2 as 1e9f4a957. Notably, the immediately precedi...
-- … and 1185 more
+- … and 1186 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
