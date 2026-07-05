@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-05T21:50:32Z_
+_As of 2026-07-05T21:54:35Z_
 
 ## Latest
 
-Little moved on the board since the last bulletin — the only completion was `fix-lint-jsdoc-warnings-endo-master` (JSDoc lint warnings on endo master), while two xs2rust-endor builds (stage-3b Promises, meter-calibration stage C1) remain in flight and the todo queue is empty.
-
-Two items await a maintainer decision. The `design-streamlined-onboarding` design landed (`designs/streamlined-onboarding.md`); its four build jobs are gated on your answers to the § 5 open questions, especially Q2's security-flavored auto-mode default. Separately, the gap probe for [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) — published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) — reported 7 gaps and, correctly, did not invent a "destructive one-shot `take` semantics" gap the job spec had paraphrased; the liaison is asking whether you want a fresh probe specifically on `take` semantics.
+Quiet interval on the board — the only transition was a gardener claiming the low-priority [`investigate-fastmail-masked-email-api-for-bot-personas`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/investigate-fastmail-masked-email-api-for-bot-personas.md) plan job, leaving the todo lane empty and three jobs in flight (the FastMail probe plus two xs2rust-endor build/calibration stages). Two decisions now await you in the maintainer inbox: the completed `design-streamlined-onboarding` design needs its § 5 open questions answered — notably Q2, the security-flavored auto-mode default — before its four build jobs can be posted as an orchestration; and on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595), the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) came back with seven gaps and no `take`-semantics hazard, so the liaison wants to know whether you specifically want a fresh probe on destructive one-shot `take` semantics.
 
 ## Parked for maintainer feedback
 
@@ -37,7 +35,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`investigate-fastmail-masked-email-api-for-bot-personas`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/investigate-fastmail-masked-email-api-for-bot-personas.md) — PLAN (low priority, investigate): FastMail masked-email API for bot persona m...
 - [`xs2rust-endor-build-stage3b-promises`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-promises.md) — Builder: stage-3b child 7/9 — Promises, the job queue, and the pump-loop latc...
 - [`xs2rust-endor-meter-calibration-stage-c1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-meter-calibration-stage-c1.md) — xs2rust-endor meter calibration — build (stage C1: firewall + histogram)
 
@@ -57,7 +56,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`investigate-fastmail-masked-email-api-for-bot-personas`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-fastmail-masked-email-api-for-bot-personas.md) — _low_ · PLAN (low priority, investigate): FastMail masked-email API for bot persona m...
 - [`scholar-ingest-ocap-kernel-comment-fragments-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-comment-fragments-2.md) — _low_ · PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
 - [`endojs-endo-but-for-bots-pr288-review-330391eb-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr288-review-330391eb-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #288 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr442-review-61c65980-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr442-review-61c65980-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #442 (primary: endojs-endo-but-f...
