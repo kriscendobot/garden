@@ -22,3 +22,9 @@ Each ratchet job carries the full config location, the exact defect list (master
 `364d69ba1`, unchanged since the classification), the fix approach, and a
 definition of done. The original classification lives in
 `entries/2026/06/27/120231Z-result-gardener-b2471d.md`.
+
+---
+claim:
+  host: endolinbot
+  gardener: 13
+  claimed_at: 2026-07-05T21:49:33Z
