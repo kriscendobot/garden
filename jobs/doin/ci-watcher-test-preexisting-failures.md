@@ -7,3 +7,9 @@ C "#70/#74 not shepherded", "expected two jobs, got 0"). All other suites the
 review touched pass. Determine whether this is a genuine main2 regression in
 ci-watcher.sh/ci-pr-source-gh.sh or an environmental assumption in the test
 (fake-gh setup, sandbox), and fix whichever it is.
+
+---
+claim:
+  host: endolinbot
+  gardener: 55
+  claimed_at: 2026-07-05T20:40:02Z
