@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-05T22:47:25Z_
+_As of 2026-07-05T22:48:22Z_
 
 ## Latest
 
-Little moved on the board since the last bulletin: the sole transition was a completed review retrospective on [endo-but-for-bots#604](https://github.com/endojs/endo-but-for-bots/pull/604), with one builder job still in flight — the stage-3b XSRE core (the RegExp matcher port) of the XS→Rust engine effort. Two decisions now await the maintainer, both flagged to the inbox: the `design-streamlined-onboarding` design landed and needs a read of `designs/streamlined-onboarding.md`, especially the security-flavored Q2 auto-mode default that gates its four follow-on build jobs; and the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) (against [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595)) surfaced a spec mismatch — the job brief described a destructive one-shot `take`-semantics gap that the actual 7-gap probe doesn't contain, so a `take`-semantics analysis would be a fresh probe question rather than a report-back.
+Little moved on the board since the last bulletin: a new issue job for [kriskowal/garden#27](https://github.com/kriskowal/garden/issues/27) was claimed, and the XS→Rust stage-3b builder (XSRE core, the RegExp matcher port) remains in flight. Two items want the maintainer's attention. The `design-streamlined-onboarding` job completed — its `designs/streamlined-onboarding.md` § 5 open questions (notably Q2, the security-flavored auto-mode default) gate four downstream build jobs and need answers before they're posted as an orchestration. And the probe for [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595), published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605), surfaced a spec discrepancy: the job spec described a "destructive one-shot `take`" hazard that the published probe (7 gaps) doesn't contain — the gardener correctly declined to invent it, so the maintainer should decide whether a fresh `take`-semantics probe is actually wanted.
 
 ## Parked for maintainer feedback
 
@@ -35,7 +35,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`issue-kriskowal-garden-27`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-27.md) — Issue from kriskowal on kriskowal/garden #27
 - [`xs2rust-endor-build-stage3b-xsre-core`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-xsre-core.md) — Builder: stage-3b child 8/9 — XSRE core (the RegExp matcher port, engine-inte...
 
 ### tada (1208)
