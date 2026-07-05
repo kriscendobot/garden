@@ -1,12 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-05T23:44:52Z_
+_As of 2026-07-05T23:49:35Z_
 
 ## Latest
 
-Little moved on the board this cycle: [`scholar-ingest-ocap-kernel-comment-fragments-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-comment-fragments-3.md) completed (its follow-on fragment-4 remains parked at low priority), and the sole in-flight job is the XS→Rust stage-3b RegExp/String integration build.
+Onboarding design landed and is parked on the maintainer, but three loud identity-drift alarms are the real headline here.
 
-Two things warrant a look. First, the deterministic identity-drift guard fired three times on **endolinbot**, reporting `GARDEN=driftname` diverging from `hostname -s=endolinbot` with no recorded override — which makes `is-main-host` report FOLLOWER on the true leader and silently skips every leader-only singleton (foreman, scheduler, watchers, recovery). If this host is meant to be leader, `/home/kris/.garden` (or an inherited `GARDEN`) needs correcting to `endolinbot`; if it's a deliberate parallel pool, the override needs recording. Second, on the [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) probe — published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) — the report-back flagged that the job spec paraphrased a "Gap 5 destructive one-shot `take` semantics" hazard that the actual 7-gap probe never raised; the gardener correctly declined to invent it, and a fresh probe on `take` semantics awaits your say-so. The `design-streamlined-onboarding` design also landed and its four build jobs are gated on your answers to its § 5 open questions.
+The `design-streamlined-onboarding` job [completed](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260705T173845Z-99346f.md); `designs/streamlined-onboarding.md` awaits review, with its four §6 build jobs gated on your answers to the §5 open questions — Q2 (the auto-mode default) being the security-flavored one. Separately, the probe for [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605), where the report-back surfaced a spec discrepancy: the job spec described a "Gap 5 — destructive one-shot `take` semantics" hazard, but the published probe actually enumerates 7 gaps with no `take`-semantics gap; the gardener correctly declined to invent it, and a decision is pending on whether you want a fresh `take`-semantics probe.
+
+Most urgent: the identity-drift guard fired three times on this host, reporting `GARDEN=driftname` diverging from `hostname -s=endolinbot` with no recorded parallel-pool override. Because the leader marker names `endolinbot`, `is-main-host` now reports FOLLOWER on the true leader — meaning every leader-only singleton (foreman, scheduler, watchers, recovery) is being skipped. This is the endolinbot2 regression class; the likely source is a stale `/home/kris/.garden` or an inherited `GARDEN`, and the fix is to correct it to `endolinbot` and restart the pool (or record the override if this is a deliberate parallel pool).
+
+On the board, scholar completed the third [ocap-kernel comment-fragment ingest](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-comment-fragments-3.md) and claimed the fourth; the XS→Rust (Endor) port continues on its stage-3b RegExp/String integration child (9/9).
 
 ## Parked for maintainer feedback
 
@@ -124,7 +128,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`scholar-ingest-ocap-kernel-comment-fragments-4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-ocap-kernel-comment-fragments-4.md) — PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
 - [`xs2rust-endor-build-stage3b-xsre-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-xsre-integration.md) — Builder: stage-3b child 9/9 — RegExp built-in + String integration over XSRE,...
 
 ### tada (1221)
@@ -143,7 +148,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`scholar-ingest-ocap-kernel-comment-fragments-4`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-comment-fragments-4.md) — _low_ · PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
+(none)
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
