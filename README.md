@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-05T22:15:52Z_
+_As of 2026-07-05T22:19:20Z_
 
 ## Latest
 
-The board has gone quiet — nothing is queued in todo, and the only fresh transition is a dead-lettered message being picked back up. What warrants attention is in the maintainer inbox. The `design-streamlined-onboarding` job finished; its output (`designs/streamlined-onboarding.md`) needs your review, and specifically an answer to its §5 Q2 — the auto-mode default, a security-flavored call — before its four §6 build jobs can be posted as an orchestration. Separately, the report-back on the [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) probe (published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605)) surfaced a spec discrepancy: the job spec described a "Gap 5 — destructive one-shot `take` semantics" hazard that the published probe (7 gaps, no `take` gap) does not contain; the gardener correctly declined to invent it, so a decision is pending on whether you want a dedicated `take`-semantics analysis as a fresh probe. In flight: retrospectives on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) and [endo-but-for-bots#592](https://github.com/endojs/endo-but-for-bots/pull/592), plus continued builder progress on the XS→Rust (Endor) stage-3b port.
+Streamlined-onboarding design ([`design-streamlined-onboarding`](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260705T173845Z-99346f.md)) landed and now awaits your review — its four build jobs are parked until you answer § 5's open questions, especially Q2's auto-mode default. On [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595), a probe published as [#605](https://github.com/endojs/endo-but-for-bots/pull/605) revealed the job spec's paraphrased "Gap 5 — destructive `take` semantics" doesn't exist in the actual 7-gap report; the gardener correctly declined to invent it, and a fresh probe awaits your call on whether `take`-semantics analysis is wanted. Otherwise quiet: two review retrospectives closed out ([#442](https://github.com/endojs/endo-but-for-bots/pull/442), [#592](https://github.com/endojs/endo-but-for-bots/pull/592)), and the XS→Rust (Endor) port advanced through stage-3b with Promises/job-queue (child 7/9) done and XSRE core (8/9) now building.
 
 ## Parked for maintainer feedback
 
@@ -35,19 +35,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`deadmail-20260705T221101Z-5894bf`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260705T221101Z-5894bf.md) — Dead-lettered message — pick up its intent
-- [`endojs-endo-but-for-bots-pr442-review-61c65980-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-review-61c65980-retro.md) — Retrospective on endojs/endo-but-for-bots PR #442 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr592-review-da7fef5e-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-review-da7fef5e-retro.md) — Retrospective on endojs/endo-but-for-bots PR #592 (primary: endojs-endo-but-f...
+- [`review-improve-typedef-location-dts`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/review-improve-typedef-location-dts.md) — review-improve: typedef-only .js modules must be .d.ts — add the deterministi...
 - [`xs2rust-endor-build-stage3b-xsre-core`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-xsre-core.md) — Builder: stage-3b child 8/9 — XSRE core (the RegExp matcher port, engine-inte...
 
-### tada (1198)
+### tada (1200)
+- [`endojs-endo-but-for-bots-pr442-review-61c65980-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr442-review-61c65980-retro.md) — Completion report
+- [`endojs-endo-but-for-bots-pr592-review-da7fef5e-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr592-review-da7fef5e-retro.md) — Completion report
 - [`scholar-ingest-ocap-kernel-comment-fragments-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-comment-fragments-2.md) — Completion report — scholar-ingest-ocap-kernel-comment-fragments-2
 - [`xs2rust-endor-build-stage3b-promises`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-promises.md) — Completion report — stage-3b child 7/9: Promises, the job queue, and the pump...
 - [`endojs-endo-but-for-bots-pr288-review-330391eb-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr288-review-330391eb-retro.md) — Completion report
-- [`deadmail-20260705T215940Z-4e2ea4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260705T215940Z-4e2ea4.md) — Delivered. The dead-lettered message's intent has been carried forward to the...
-- [`investigate-fastmail-masked-email-api-for-bot-personas`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-fastmail-masked-email-api-for-bot-personas.md) — Empty inbox, work committed and pushed. Done.
-- … and 1193 more
+- … and 1195 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
