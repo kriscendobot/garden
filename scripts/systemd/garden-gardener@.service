@@ -44,6 +44,30 @@ RestartSec=5
 # cannot hold the stop open past this bound.
 KillMode=mixed
 TimeoutStopSec=2700
+# Per-worker memory confinement. Today this unit has no Memory* or OOMPolicy keys,
+# so a memory spike in one handler pressures the WHOLE host and the kernel OOM
+# killer picks an arbitrary victim across every process — it once caught
+# gardener-8 (self-restarts, tolerable), but the same unconfined pressure can
+# instead snipe a leader-only singleton (foreman/scheduler/watchers, which double
+# nothing but simply die) or a mid-job peer whose SIGKILLed `claude -p` handler
+# then requeues and burns a poison TTL cycle — the very rc=143/requeue outage class
+# the KillMode=mixed/TimeoutStopSec block above already guards on the stop/restart
+# path but leaves open on the OOM path. Accounting + a per-worker cgroup limit
+# contain the eventual kill to the offending worker so it restarts cleanly instead.
+MemoryAccounting=yes
+# Soft throttle: at MemoryHigh systemd applies reclaim/swap pressure to THIS
+# worker's cgroup BEFORE any kill, so a transient spike degrades into swap (the
+# host has 8G swap, 128G RAM) rather than a hard kill.
+MemoryHigh=6G
+# Hard cap: the eventual OOM is confined to this worker's cgroup, so the killer
+# targets it deterministically and it self-restarts, never sniping an innocent
+# process. Sized to comfortably hold one `claude -p` handler plus the node/yarn
+# toolchains a job builds with. TUNING: the xs2rust / rust-build family are the
+# memory-heaviest handlers (a large cargo/LTO build can spike well past a node
+# build); if such a job is OOM-killed below its real need, raise MemoryMax (and
+# MemoryHigh in step) here rather than adding a background.slice aggregate cap —
+# an aggregate cap would let one hungry worker starve its idle peers' headroom.
+MemoryMax=8G
 
 [Install]
 WantedBy=default.target
