@@ -210,8 +210,24 @@ digest="$(mktemp "${TMPDIR:-/tmp}/garden-foreman.XXXXXX")"
   printf 'last_step_posted: %s\n'  "${last_step:-(none)}"
 } > "$digest"
 
-out="$("$GARDEN_FOREMAN_HANDLER" "$digest" 2>/dev/null || true)"
-rm -f "$digest"
+# Capture the handler's stderr and rc EXPLICITLY. The old `2>/dev/null || true`
+# made a permanently broken handler (claude not on PATH, an auth failure, a
+# crash) indistinguishable from a healthy "no next step": the pump starved
+# silently forever, every settle window, with nothing in the logs — while the
+# header above promises the foreman's own failures surface. A handler failure
+# now WARNs with the stderr tail and (throttled) alerts the maintainer; the
+# tick still idles rather than crashing, since a broken pump must not take the
+# rest of the foreman down with it.
+herrf="$(mktemp "${TMPDIR:-/tmp}/garden-foreman-err.XXXXXX")"
+hrc=0
+out="$("$GARDEN_FOREMAN_HANDLER" "$digest" 2>"$herrf")" || hrc=$?
+if [ "$hrc" -ne 0 ]; then
+  log "WARN: foreman handler failed rc=$hrc: $(tail -c 500 "$herrf" 2>/dev/null || echo '<no stderr>')"
+  alert_maintainer "foreman-handler-failed-$GARDEN" \
+    "garden-foreman's pump handler ($GARDEN_FOREMAN_HANDLER) failed rc=$hrc on $GARDEN; the board pump is starving. stderr tail: $(tail -c 500 "$herrf" 2>/dev/null)"
+  out=""
+fi
+rm -f "$digest" "$herrf"
 
 # Parse at most one block from the handler output. An optional `ROLE <role>` line
 # immediately inside a JOB block names the role the gardener wears (designer,

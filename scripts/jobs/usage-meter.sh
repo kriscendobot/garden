@@ -242,7 +242,11 @@ meter_claude() {
     return $?
   fi
   local json rc toks result
-  json="$(claude -p --output-format json "$@")"; rc=$?
+  # Capture the rc through an `if`: a bare `json="$(claude …)"; rc=$?` dies AT
+  # THE ASSIGNMENT under a caller's `set -e` when claude exits non-zero, so the
+  # documented pass-through-with-log branch below was dead code and the caller
+  # (foreman-claude.sh) crashed with no output and no diagnostic instead.
+  if json="$(claude -p --output-format json "$@")"; then rc=0; else rc=$?; fi
   if [ "$rc" -ne 0 ]; then
     log "usage-meter: claude exited rc=$rc; usage not recorded"
     printf '%s' "$json"
