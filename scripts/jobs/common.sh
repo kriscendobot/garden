@@ -990,12 +990,34 @@ clone_unlock() {
 # clone + config write is serialized so concurrent producers don't race a cold
 # `git clone` into the same dir or collide on `.git/config`.
 ensure_clone() {
-  local dir="$1" remote; remote="$(journal_remote)"
+  local dir="$1" remote tmp; remote="$(journal_remote)"
   clone_lock "$dir"
   if [ ! -d "$dir/.git" ]; then
+    # A destination that exists but lacks .git is a POISONED PARTIAL CLONE: a
+    # prior `git clone` was interrupted (SIGKILL at TimeoutStop, a sync_clone
+    # reset aborted mid-flight, a disk hiccup) and left $dir populated without a
+    # repo. `git clone` refuses a non-empty destination, so a naive retry would
+    # `die` here on EVERY tick forever (observed: 145 identical [unblock] FATALs
+    # over ~12h). Self-heal by clearing the poisoned dir. To ensure a future
+    # interruption can NEVER re-wedge us, clone into a sibling temp path first
+    # and atomically rename into place — the destination only ever appears
+    # fully cloned or not at all, never half-populated, so an interrupted clone
+    # leaves only a discardable temp behind. The temp is a sibling (same parent,
+    # thus same filesystem) so the rename is atomic; we hold clone_lock "$dir"
+    # throughout, so no concurrent producer races the same destination.
+    if [ -e "$dir" ]; then
+      log "WARN: $dir exists without .git (poisoned partial clone); self-healing by re-cloning"
+      rm -rf "$dir"
+    fi
     mkdir -p "$(dirname "$dir")"
-    git clone -q --single-branch --branch "$JOURNAL_BRANCH" "$remote" "$dir" \
-      || die "clone of $remote ($JOURNAL_BRANCH) into $dir failed"
+    tmp="${dir}.tmp.$$"
+    rm -rf "$tmp"
+    if git clone -q --single-branch --branch "$JOURNAL_BRANCH" "$remote" "$tmp"; then
+      mv "$tmp" "$dir" || { rm -rf "$tmp"; die "atomic rename of fresh clone $tmp -> $dir failed"; }
+    else
+      rm -rf "$tmp"
+      die "clone of $remote ($JOURNAL_BRANCH) into $dir failed"
+    fi
   fi
   git -C "$dir" config user.name  "$(bot_name)"
   git -C "$dir" config user.email "$(bot_email)"
