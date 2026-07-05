@@ -138,3 +138,12 @@ Inspect via `git -C journal cat-file -p 9a14a16dfc96ff40794fd43ab3ca5be7aa468ee8
 - Context: gardener-2 on endolinbot: job 'fable-review-fix-garden-scripts' transient-classified (rc=1) but elapsed near-constant (294,294s) over 2 cycles — likely deterministic overrun, not a blip
 
 Inspect via `git -C journal cat-file -p 5cffc1a69fec428fcfa1ea322d5a3bcf005c9df0`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-05T18:00:24Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: f3fa5a52bf12dc8fa1690267cd9c99f0ade3f57f
+- Context: gardener-98 on endolinbot: job 'deadmail-20260705T175620Z-f869f8' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p f3fa5a52bf12dc8fa1690267cd9c99f0ade3f57f`.
