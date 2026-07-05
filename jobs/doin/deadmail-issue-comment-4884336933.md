@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/25#issuecomment-4884336933
 Poke 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolinbot
+  gardener: 53
+  claimed_at: 2026-07-05T17:40:13Z
