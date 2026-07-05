@@ -129,3 +129,12 @@ Inspect via `git -C journal cat-file -p e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
 - Context: gardener-85 on endolinbot: job 'garden-deliberate-deploy-no-shared-tree-development' handler exited rc=143
 
 Inspect via `git -C journal cat-file -p 9a14a16dfc96ff40794fd43ab3ca5be7aa468ee8`.
+
+## lane 0 -- elapsed-constancy-overrun-suspect failure at 2026-07-05T17:58:22Z
+
+- PR: (none)
+- State: elapsed-constancy-overrun-suspect
+- Transcript SHA: 5cffc1a69fec428fcfa1ea322d5a3bcf005c9df0
+- Context: gardener-2 on endolinbot: job 'fable-review-fix-garden-scripts' transient-classified (rc=1) but elapsed near-constant (294,294s) over 2 cycles — likely deterministic overrun, not a blip
+
+Inspect via `git -C journal cat-file -p 5cffc1a69fec428fcfa1ea322d5a3bcf005c9df0`.
