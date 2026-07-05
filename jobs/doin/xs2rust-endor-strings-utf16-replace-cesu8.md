@@ -56,3 +56,9 @@ Designer revisits the string-representation section of
 accuracy (deterministic-per-release); then a build stage swaps the representation and
 removes the hacks; then a test stage proves result parity + the recalibrated meter.
 Orchestrate if it decomposes into ordered steps.
+
+---
+claim:
+  host: endolinbot
+  gardener: 16
+  claimed_at: 2026-07-05T21:34:28Z
