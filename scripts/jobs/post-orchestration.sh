@@ -82,7 +82,11 @@ while [ $# -gt 0 ]; do
     --on-child-failure) policy="${2:?--on-child-failure needs halt|continue}"; shift 2;;
     --by)               by="${2:?--by needs a value}"; shift 2;;
     --no-validate)      validate=0; shift;;
-    --)                 shift; body_src="${1:-}"; break;;
+    --)                 shift; break;;   # end of options; positionals (and a trailing
+                                           # `-- body-file`) are parsed below — consuming
+                                           # the next token HERE bound it as body_src AND
+                                           # base at once, corrupting a conventional
+                                           # leading `--` call
     -*)                 die "unknown option: '$1' (run --help for usage)";;
     *)                  break;;
   esac

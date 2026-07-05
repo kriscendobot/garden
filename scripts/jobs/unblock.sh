@@ -60,7 +60,10 @@ pr_is_done() {
 }
 
 promoted=0
-for j in $(list_jobs "$DIR" jobs/plan); do
+# while-read, not `for j in $(…)`: an unquoted expansion word-splits, so a plan
+# basename containing whitespace (postable — the basename guards reject only
+# -*/./slash/empty) would be scanned as fragments and silently never unblocked.
+while IFS= read -r j; do
   case "$j" in *.md) ;; *) continue;; esac
   f="$DIR/jobs/plan/$j"; [ -f "$f" ] || continue
   [ "$(plan_gate "$f")" = "blocked" ] || continue
@@ -101,7 +104,7 @@ for j in $(list_jobs "$DIR" jobs/plan); do
       log "promotion of unblocked '$base' failed; will retry next tick"
     fi
   fi
-done
+done < <(list_jobs "$DIR" jobs/plan)
 
 [ "$promoted" -gt 0 ] && log "promoted $promoted unblocked plan job(s) to todo"
 exit 0

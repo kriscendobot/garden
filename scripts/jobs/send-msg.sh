@@ -51,6 +51,18 @@ case "$addr" in
   role/?*|job/?*|broadcast) :;;
   *) die "illegal address '$addr' (use role/<name>, job/<base>, or broadcast)";;
 esac
+# The prefix match above still admits nested slashes and dot segments; a
+# relpath like msgs/job/../../x would escape msgs/ (a stray write elsewhere in
+# the journal, or a mid-lock `git add` death on 'outside repository'). Require
+# exactly one path segment after the kind, with the same charset the job/doer
+# basename guards enforce.
+case "$addr" in
+  broadcast) :;;
+  *) seg="${addr#*/}"
+     case "$seg" in
+       *[!A-Za-z0-9._-]*|.*|'') die "illegal address segment '$seg' (one [A-Za-z0-9._-]+ segment, no leading dot)";;
+     esac;;
+esac
 
 # Body source guard: a non-empty $2 that is not a readable file is almost always
 # a mistake (an inline body STRING passed where a body-FILE path is expected).
