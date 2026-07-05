@@ -1,14 +1,4 @@
----
-gate: deferred
-priority: low
-posted_by: gardener
-posted_at: 2026-06-27T12:01:39Z
-superseded_at: 2026-06-28T18:13:00Z
-superseded_by:
-  - ratchet-jsdoc-require-param-error-endo
-  - ratchet-jsdoc-check-tag-names-error-endo
-status: superseded
----
+<!-- garden-promoted-from-plan: gate=deferred priority=low at=2026-07-05T21:49:29Z -->
 
 # SUPERSEDED — fix-lint: jsdoc warnings on endo master
 
