@@ -305,17 +305,17 @@ if [ "${#STALE[@]}" -eq 0 ]; then
   exit 0
 fi
 
-# --- 2. best-effort orphaned-worktree cleanup (once, before the push loop) ----
-for base in "${STALE[@]}"; do
-  spine="${base%.md}"
-  wt="$(sed -n 's/^worktree_dir: //p' "$DIR/work/$spine" 2>/dev/null | head -1)"
-  if [ -n "$wt" ] && [ -d "$wt" ]; then
-    git -C "$wt" rev-parse --is-inside-work-tree >/dev/null 2>&1 \
-      && git --git-dir="$(git -C "$wt" rev-parse --git-common-dir 2>/dev/null)" worktree remove --force "$wt" 2>/dev/null \
-      || rm -rf "$wt" 2>/dev/null || true
-    log "removed orphaned worktree $wt"
-  fi
-done
+# --- 2. (REMOVED) per-requeue worktree cleanup -------------------------------
+# The old block here force-removed each stale claim's `worktree_dir:` path on
+# EVERY requeue. That was doubly wrong: (a) per-job worktrees deliberately
+# PERSIST across a requeue so a resumed claim re-enters its in-flight work (the
+# sanctioned resume treadmill) — deleting them on requeue would discard that
+# work; it only "worked" because claim-job stamped a path where worktrees never
+# actually live, making the cleanup a permanent no-op. And (b) the stamped
+# prefix was the LIVE fork-worktree namespace (worktrees/<owner>-<repo>/), so a
+# job base colliding with an <owner>-<repo> dirname would have rm -rf'd a
+# directory of live fork worktrees. Orphan GC is the scratch janitor's job
+# (gc_scratch below, age-gated), never the requeue path's.
 
 # --- 3. batch-requeue with bounded retry (the land-within-a-tick fix) ---------
 #

@@ -60,13 +60,17 @@ for ((k=0; k<n; k++)); do
     printf '  gardener: %s\n'  "$id"
     printf '  claimed_at: %s\n' "$claimed_at"
   } >> "$DIR/$JOBS_DOIN/$base.md"
-  # worktree-state record under work/ (the spine: same basename), so the
-  # reaper can find and remove an orphaned worktree if this gardener dies.
+  # worktree-state record under work/ (the spine: same basename). worktree_dir
+  # names the REAL per-job garden worktree (handlers/gardener-claude.sh's
+  # gardener-wt-<base> under GARDEN_SCRATCH) for a human inspecting the claim;
+  # it is INFORMATIONAL ONLY — worktrees persist across a requeue so a resumed
+  # claim re-enters its in-flight work, and nothing may delete them from board
+  # state (orphans age out via the reaper's scratch janitor).
   {
     printf 'host: %s\n'         "$GARDEN"
     printf 'gardener: %s\n'     "$id"
     printf 'claimed_at: %s\n'   "$claimed_at"
-    printf 'worktree_dir: %s\n' "${GARDEN_WORKTREES:-$GARDEN_ROOT/worktrees}/$base"
+    printf 'worktree_dir: %s\n' "${GARDEN_SCRATCH:-$GARDEN_ROOT/scratch}/gardener-wt-$base"
   } > "$DIR/work/$base"
   # create this job doer's inbox (unread/read), alive for the job's lifetime.
   mkdir -p "$DIR/inbox/$base/unread" "$DIR/inbox/$base/read"
