@@ -79,7 +79,7 @@ Create `skills/<name>/SKILL.md`. Sections: purpose, inputs, state (if any), proc
 
 ## Host environment
 
-The garden lives in the bot user's home directory; that directory is what `<garden-root>` refers to throughout this document. Each host has a logical **`GARDEN` identity** — the shard name that keys job claims, per-host worker counts, journal index entries, and the leader marker. It is resolved by `common.sh` as `GARDEN` env → the gitignored `<garden-root>/.garden` file (seeded at container creation) → `hostname -s`; see README § Getting started. It must be **unique** across running instances (§ Starting the garden, step 1).
+The garden lives in the bot user's home directory; that directory is what `<garden-root>` refers to throughout this document. Each host has a logical **`GARDEN` identity** — the shard name that keys job claims, per-host worker counts, journal index entries, and the leader marker, and **must be unique across running instances**. Its resolution order (`GARDEN` env → the gitignored `<garden-root>/.garden` file → `hostname -s`), the `.garden` naming knob, why an exported env var does not reach the `--user` units, and the container-rename move all live in [context/first-run/identity.md](context/first-run/identity.md).
 
 Each host configures its bot identity once in the garden repo's local git config:
 
@@ -89,8 +89,6 @@ git -C <garden-root> config user.email <bot-email>
 ```
 
 The fleet's `gh` wrapper and the per-job worktree setup pin those values so a gardener's commits and API calls cannot drift to the parent shell's global identity (which on a maintainer's host is the maintainer's name, reserved for upstream pushes via the ferry). The boatman overrides the pin only when its ferry job carries `identity_switch_authorized: true` (§ The ferry); every other role's commits carry the bot identity.
-
-For a Docker-hosted garden instance, the `garden` script at the garden root creates and enters the container. It bind-mounts the host's garden directory to the container's home and sets the container's `--hostname` equal to its `--name` (both `GARDEN_CONTAINER`, default `garden`). The kernel hostname cannot be changed from inside the container (capabilities are zero), so the host's logical name is fixed at container creation. To run distinct garden instances on one machine, set `GARDEN_CONTAINER=<host-name>` per instance; to rename an existing instance, `./garden reset && GARDEN_CONTAINER=<new-name> ./garden`.
 
 ## Container guard
 
@@ -141,142 +139,50 @@ sized for concurrency, not CPU.
 
 ### Starting the garden
 
-> **Reframe (onboarding):** this is **"Starting the garden"** — the bring-up the
-> liaison performs on *start the garden* or the *help* tutorial's stage 4, running
-> each command itself and asking before consequential steps (§ Orchestrator
-> vocabulary; [`roles/liaison/AGENT.md`](roles/liaison/AGENT.md) § Help). The
-> agent-facing, command-level home is [context/operations/starting.md](context/operations/starting.md)
-> (identity in [context/first-run/identity.md](context/first-run/identity.md)); the
-> steps below remain here until phase 4 of the streamlined-onboarding migration
-> cuts them down to a pointer.
-
-1. **Verify a unique host identity FIRST.** Every host's logical name (the
-   `GARDEN` knob, which defaults to `hostname -s`) must be **unique across all
-   garden instances** — it keys claim metadata, `hosts/<host>` worker counts,
-   journal index entries, and the leader/follower predicate (§ Leader and follower
-   hosts); two instances sharing a name corrupt per-host state. Interrogate the user: "Is this host's
-   `GARDEN` identity unique among your running garden containers?" The kernel
-   hostname can't be changed inside a container (zero capabilities), so it is fixed
-   at creation via `--hostname`/`--name` (both `GARDEN_CONTAINER`). To rename:
-   `./garden reset && GARDEN_CONTAINER=<unique-name> ./garden` (§ Host environment).
-   For a lighter, per-invocation override (a parallel pool from a checked-out
-   worktree, no Dockerfile change) just export `GARDEN=<unique>`. Offer to do this
-   if the name collides or is a default.
-2. **Bootstrap the user manager** for headless `systemctl --user`:
-   `loginctl enable-linger "$USER"` (one-time).
-3. **Install + enable:** `scripts/jobs/install-units.sh install` then
-   `scripts/jobs/install-units.sh enable-services`.
-4. **Set this host's worker count** (journal state the gardener-scaler reconciles):
-   `scripts/jobs/set-gardeners.sh 100 <this-host>` (≈100; tune per host).
-5. **Watch the leader marker** (liaison, **every host**): run a Claude Code
-   **Monitor** that watches the journal `leader` marker — the follower's half of
-   the leader/follower contract. When the marker comes to name this host's `GARDEN`
-   identity, the liaison **stands itself up as leader** (arm the maintainer-inbox
-   Monitor + the deploy-on-upgrade Monitor below; the singletons auto-start).
-   Re-pointing the marker with `set-main-host.sh` therefore *raises* the new leader
-   (§ Leader and follower hosts). A follower liaison must have this watch armed.
-6. **Watch the maintainer inbox** (liaison, **leader host only**): run
-   `scripts/jobs/maintainer-watch.sh` through the Claude Code **Monitor** tool;
-   reply/archive with `maintainer-reply.sh` / `maintainer-archive.sh`. This Monitor
-   is a singleton (two would double-answer), so a **follower** stand-up brings up
-   the gardener pool only and skips it (§ Leader and follower hosts).
-7. **Arm the issue inbox** (optional, per-instance) so maintainers can drive the
-   garden from its own GitHub issues. This is journal state, NOT main2, so each
-   instance points at its own repo and tracks its own maintainers:
-   `scripts/jobs/set-garden-repo.sh <owner/name>` (this instance:
-   `kriskowal/garden`) then `scripts/jobs/add-maintainer.sh <login>` for each
-   trusted maintainer. The `garden-issue-inbox.timer` is auto-enabled by step 3
-   and is **inert** until both exist — writing them is the deliberate arming act.
-   See [`designs/issue-inbox.md`](designs/issue-inbox.md).
-8. **Watch the "Upgrade ready" signal** (liaison): run a second Claude Code
-   **Monitor** whose command is `cat "$GARDEN_STATE/deploy/upgrade-ready"
-   2>/dev/null` (silent when up to date). On a signal, automatically invoke
-   `scripts/jobs/deploy-garden.sh` to deploy this host. See § Deliberate deploy
-   below and `roles/liaison/AGENT.md` § Deploy-on-upgrade Monitor.
+Bringing up a fresh instance — linger, unit install/enable, sizing the worker
+pool, designating the leader, arming the liaison's three Monitors, the optional
+armings (issue inbox, bulletin PAT) — is work the **liaison performs itself** on
+*help* or *start the garden* (§ Orchestrator vocabulary;
+[`roles/liaison/AGENT.md`](roles/liaison/AGENT.md) § Help), running each command
+and asking before consequential steps. One precondition is sacred and only the
+human can answer: **this host's `GARDEN` identity must be unique across every
+running instance** (§ Host environment). The command-level detail is
+[context/operations/starting.md](context/operations/starting.md) (identity in
+[context/first-run/identity.md](context/first-run/identity.md)), read on demand —
+never a checklist a human is expected to type.
 
 ### Leader and follower hosts (multibot)
 
 The garden is a **leader/follower** fleet (issue kriskowal/garden#11, Multibot;
-[`designs/multibot-leader-follower.md`](designs/multibot-leader-follower.md)).
+rationale [`designs/multibot-leader-follower.md`](designs/multibot-leader-follower.md),
+operator procedure [context/operations/leader-follower.md](context/operations/leader-follower.md)).
+Two standing behaviors the liaison must never drop; everything else — the full
+singleton inventory, the gate mechanics, follower stand-up, the handoff — routes
+to the context page:
 
-- **Gardeners run on EVERY host** (leader and follower alike). Concurrent
-  gardeners across hosts are safe: they race-claim jobs via the job board's
-  git-push CAS, which dedups the work. More hosts = more concurrency, no
-  duplication. A **follower** runs only the gardener pool (and the per-host
-  local-infra units below).
-- **Singleton services run ONLY on the leader host.** None of them handle
-  concurrent duplicates: two foremen double-pump, two schedulers double-dispatch,
-  two bulletins/deadmail/reaper/follow-up double-post, two watchmen
-  double-broadcast, two comment/mention/triager/issue-inbox watchers double-post,
-  two liaison maintainer-inbox Monitors double-answer. The leader-only set:
-  `garden-foreman`, `garden-scheduler`, `garden-bulletin`, `garden-deadmail`,
-  `garden-reaper`, `garden-follow-up`, `garden-proxy`, `garden-mentor`,
-  `garden-mirror-closer`, `garden-comment-watcher@*`, `garden-ci-watcher@*`,
-  `garden-mention-watcher`, `garden-triager@*`, `garden-issue-inbox`,
-  `garden-library-source-drift-scan`, `garden-orchestrate`, and the **liaison
-  maintainer-inbox Monitor**.
-  (`garden-ci-watcher@*` auto-posts a shepherd job when an open bot-authored PR's
-  CI goes red; leader-only so the shepherd is never double-posted across hosts.
-  `garden-orchestrate` sequences a multi-part job's parked children into `todo/`
-  and watches them; leader-only so a child failure surfaces to the maintainer
-  exactly once — child promotion itself is CAS-deduped and safe on any host.)
-- **Per-host local-infra (every host, not shared work):** `garden-gardener@*`,
-  `garden-gardener-scaler` (each host scales its own pool), `garden-upgrade-monitor`,
-  `garden-clone-keeper`, `garden-journal-worktree-keeper`, `garden-repo-watcher`
-  (arms this host's watcher units), `garden-unblock` (deterministic board moves,
-  CAS-deduped), and the **fast-forward/maintenance half of `garden-watchman`** (its
-  duplicate-prone reread BROADCAST is leader-only, gated in-process).
-- **How the gate works.** The leader is named by the single journal file `leader`
-  (at the journal root), holding the leader's `GARDEN` identity. This `leader`
-  file is the **authoritative marker**; the older `hosts/main-host` path is stale
-  legacy cruft the predicate no longer reads. The predicate
-  `scripts/jobs/is-main-host.sh` (exit 0 = leader, 1 = follower) compares the
-  `leader` file to this host's `GARDEN`. Each timer-fired singleton service carries
-  it as an `ExecCondition=`: on a follower the timer still fires but the tick is
-  **skipped cleanly** (condition-failed, never marked Failed), and each firing
-  re-evaluates, so promotion/demotion needs no restart. The continuous bulletin and
-  the watchman broadcast gate the same predicate **in-process** (the `is_main_host`
-  helper in `common.sh`), so they promote/demote without a restart too.
-- **Every liaison watches the marker; changing it RAISES the new leader.** On
-  every host, the liaison runs a **standing Monitor watching the `leader` marker**
-  — the follower's half of the leader/follower contract. When the marker comes to
-  name the liaison's OWN host (its `GARDEN` identity), that liaison **stands itself
-  up as leader** per the starting-the-garden procedure (arm the maintainer-inbox Monitor + the
-  deploy-on-upgrade Monitor; the leader-only singletons auto-start as
-  `is-main-host` starts exiting 0; lift any drain if the host is to run gardeners).
-  Because of this standing watch, **running `set-main-host.sh <host>` has the
-  effect of raising the new leader**: designating a leader *is* raising it — the
-  new leader's watch observes the marker change and stands itself up. See
-  `roles/liaison/AGENT.md` § Stand up / stand down for the Monitor.
-- **Designating the leader is manual; no automatic failover.**
-  `scripts/jobs/set-main-host.sh [<host>]` CAS-writes the authoritative `leader`
-  marker (raising the new leader via its standing watch, above). If the leader
-  dies, the singletons stay down until the marker is re-pointed by hand
-  (lease-based election / automatic failover is a separate, harder follow-on
-  documented in [`designs/multibot-leader-follower.md`](designs/multibot-leader-follower.md)
-  § Designating the leader; the watch-raises-leader contract is what is live now).
-  With a single host (named in the `leader` marker), behavior is unchanged — the
-  gate only bites when a second host joins.
-- **Handoff contract.** To move leadership cleanly, the **outgoing** leader first
-  **drains** (`scripts/jobs/drain-fleet.sh on`) and **stands down** its leader
-  Monitors (maintainer-inbox + deploy-on-upgrade); then the marker is re-pointed
-  (`set-main-host.sh <new>`), which **raises the new leader** via its standing
-  watch. The liaison's stand-up/stand-down vocabulary
-  (`roles/liaison/AGENT.md` § Stand up / stand down) drives this surface.
+- **Watch the `leader` marker on every host** (leader and follower alike). This
+  is the follower's half of the contract: when the marker (the journal `leader`
+  file, holding the leader's `GARDEN` identity) comes to name **this** host, the
+  liaison stands itself up as leader. Re-pointing the marker with
+  `scripts/jobs/set-main-host.sh` therefore *raises* the new leader — designation
+  *is* raising, and there is no automatic failover.
+- **Singleton services run ONLY on the leader host.** None handle concurrent
+  duplicates (two foremen double-pump, two schedulers double-dispatch, two
+  watchers double-post, two liaison maintainer-inbox Monitors double-answer), so
+  the foreman, scheduler, bulletin, the watchers, the recovery services, and the
+  liaison's maintainer-inbox and deploy-on-upgrade Monitors are leader-only,
+  gated by `scripts/jobs/is-main-host.sh`. **Gardeners run on every host** and
+  race-claim safely via the job-board push CAS.
 
 ### Deliberate deploy (the root checkout is a deployed version)
 
 The root checkout (`<garden-root>`) is a **deployed version** of the garden, not a
-development tree. Nothing fast-forwards it continuously: development happens in
-**per-subagent worktrees** off the dev branch (`origin/main2`), and the root is
-advanced only by the deliberate, drained `scripts/jobs/deploy-garden.sh`
-(drain → quiesce → merge → record deployed sha → lift → restart the fleet). The
-deterministic `garden-upgrade-monitor` service emits an "Upgrade ready" signal
-when `origin/main2` is ahead of this host's deployed sha; the liaison's
-deploy-on-upgrade Monitor (§ Starting the garden, step 8) acts on it. The continuous
-fast-forward path is retired: `garden-deploy-sync` is gone and the watchman's
-aggressive checkout defaults off (it keeps only its post-deploy reread broadcast).
-Full design: [`designs/deliberate-deploy.md`](designs/deliberate-deploy.md).
+development tree; it is advanced only by the deliberate, drained
+`scripts/jobs/deploy-garden.sh`, signal-triggered by the `garden-upgrade-monitor`
+service and supervised by the liaison's deploy-on-upgrade Monitor — never by a
+continuous fast-forward. Procedure:
+[context/operations/deploy.md](context/operations/deploy.md); rationale:
+[`designs/deliberate-deploy.md`](designs/deliberate-deploy.md).
 
 ### Orchestrating a multi-part job (the standing decomposition)
 
@@ -314,11 +220,11 @@ remains the lighter tool.
 
 ### Racing a schedule change to the journal
 
-To add/change a recurring job (commonly a weekly task duplication), use the
-[schedule](skills/schedule/SKILL.md) skill: `scripts/jobs/set-schedule.sh <name>
-<cadence> [prefix] [body-file]` CAS-races the schedule onto the journal; the sole
-`garden-scheduler` service dispatches it on cadence. Prefer this over a host-local
-crontab so the schedule set is shared across hosts.
+To add/change a recurring job, use the [schedule](skills/schedule/SKILL.md) skill:
+`scripts/jobs/set-schedule.sh <name> <cadence> [prefix] [body-file]` CAS-races the
+schedule onto the journal and the sole `garden-scheduler` dispatches it on cadence
+(prefer this over a host-local crontab, so the set is shared across hosts).
+Operator entry point: [context/operations/schedules.md](context/operations/schedules.md).
 
 ### v1 role/skill migration (in progress)
 

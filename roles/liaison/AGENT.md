@@ -42,8 +42,9 @@ and the gardener fleet, and helps the maintainer operate the local garden.
   non-empty reply through its own inbox monitor.
 - **Operate local services** for the maintainer: bringing up the systemd user
   units, confirming a unique hostname/`GARDEN` identity, and scaling the local
-  gardener pool. See the top-level `CLAUDE.md` § Job system for the startup
-  procedure and the hostname-uniqueness check.
+  gardener pool. The startup procedure and the identity-uniqueness check are
+  [context/operations/starting.md](../../context/operations/starting.md) and
+  [context/first-run/identity.md](../../context/first-run/identity.md).
 - The bus is the journal branch even for same-host communication, because the
   garden may run on multiple hosts; never assume a message stayed local.
 
@@ -120,63 +121,51 @@ maintainer.
   marker change *raise* the new leader without anyone logging into that host.
 
 - **"start" / "resume" / "stand up" the garden** → bring the units up. **First
-  verify this host's `GARDEN` identity is UNIQUE** across
-  running instances (the bring-up step-1 uniqueness check, keyed on `GARDEN`);
-  if it collides or is a default, offer the `GARDEN=endolinbot2` env override
-  (`./garden reset && GARDEN_CONTAINER=…` for a durable rename, or just export
-  `GARDEN=<unique>` to spawn a parallel pool from a checkout). Then
-  `scripts/jobs/install-units.sh install` + `enable-services` and set the worker
-  count. **Only the leader runs the maintainer-inbox Monitor and the singletons**
-  (gated by `scripts/jobs/is-main-host.sh`); a **follower stand-up brings up the
-  gardener pool only** — its singleton timers fire but skip cleanly until promoted.
-- **"stand down" / "drain" / "stop the garden" / "halt the garden" / "shut down
-  the garden"** → the graceful dual of standing up. **Drain** (workers finish
-  in-flight claims, take no new ones) is `scripts/jobs/drain-fleet.sh on`;
-  **fully halt** additionally stops/disables the units. Prefer drain for a pause,
-  a full stop only when the maintainer wants the host quiet. Lift a drain with
-  `drain-fleet.sh off`.
+  verify this host's `GARDEN` identity is UNIQUE** across running instances; if it
+  collides or is a default, fix it before proceeding
+  ([context/first-run/identity.md](../../context/first-run/identity.md)). **Only
+  the leader runs the maintainer-inbox Monitor and the singletons** (gated by
+  `scripts/jobs/is-main-host.sh`); a **follower stand-up brings up the gardener
+  pool only** — its singleton timers fire but skip cleanly until promoted. The
+  command-level bring-up is [context/operations/starting.md](../../context/operations/starting.md).
+- **"stand down" / "drain" / "stop the garden" / "halt the garden"** → the
+  graceful dual of standing up. **Drain** (workers finish in-flight claims, take
+  no new ones) with `scripts/jobs/drain-fleet.sh on` and lift with `off`; **fully
+  halt** additionally stops/disables the units. Prefer drain for a pause. Sizing
+  and drain detail: [context/operations/scaling.md](../../context/operations/scaling.md).
 - **"make this host the leader" / "designate <host> the leader"** →
   `scripts/jobs/set-main-host.sh [<host>]` CAS-writes the authoritative journal
   `leader` marker. **Designating a leader *is* raising it:** the new leader's
   standing marker-watch (above) observes the change and stands itself up, so no one
   need touch that host. Leadership is **manual, no automatic failover**: if the
-  leader dies the singletons stay down until the marker is re-pointed by hand
-  (lease-based election / automatic failover is the future evolution in
-  [multibot-leader-follower](../../designs/multibot-leader-follower.md)
-  § Designating the leader; the watch-raises-leader contract is what is live now).
+  leader dies the singletons stay down until the marker is re-pointed by hand.
 - **"hand off leadership to <host>" / "move the leader to <host>"** → the graceful
-  handoff: the **outgoing** leader (you, if you are leading) first **drains**
-  (`scripts/jobs/drain-fleet.sh on`, if this host is to go quiet) and **stands
-  down** its leader Monitors (maintainer-inbox + deploy-on-upgrade); then re-point
-  the marker with `set-main-host.sh <new>`, which **raises the new leader** via its
-  standing watch. Stand-down-then-re-point avoids a window with two live
-  maintainer-inbox Monitors.
+  handoff, in order: the **outgoing** leader **drains** and **stands down** its
+  leader Monitors (maintainer-inbox + deploy-on-upgrade), *then* the marker is
+  re-pointed with `set-main-host.sh <new>` (which **raises the new leader** via its
+  standing watch). Stand-down-then-re-point avoids a window with two live
+  maintainer-inbox Monitors. Full contract:
+  [context/operations/leader-follower.md](../../context/operations/leader-follower.md).
 
 ### Deploy-on-upgrade Monitor (auto-deploy this host on an upgrade signal)
 
 The root checkout (`<garden-root>`) is a **deployed version**, advanced only by
 the deliberate, drained `scripts/jobs/deploy-garden.sh` — never by a continuous
 fast-forward ([deliberate-deploy](../../designs/deliberate-deploy.md)). You are
-the trigger for that deploy on this host.
+the trigger for that deploy on this host; advancing the deployed version is the
+one garden action deliberately kept on the human surface, never a fully
+autonomous background service.
 
 - **Run a second Claude Code Monitor** (alongside the maintainer-inbox one) that
-  watches the "Upgrade ready" signal. The signal is the file
-  `$GARDEN_STATE/deploy/upgrade-ready`, written by the deterministic
-  `garden-upgrade-monitor` service when `origin/$GARDEN_MAIN_BRANCH` is ahead of
-  this host's deployed sha (it carries the deployed→available shas and the
-  ahead-by count). A simple Monitor command:
+  watches the "Upgrade ready" signal — the file `$GARDEN_STATE/deploy/upgrade-ready`,
+  written by the deterministic `garden-upgrade-monitor` when `origin/$GARDEN_MAIN_BRANCH`
+  is ahead of this host's deployed sha. A simple Monitor command:
   `cat "$GARDEN_STATE/deploy/upgrade-ready" 2>/dev/null` (silent when absent).
-- **On seeing the signal, automatically invoke `scripts/jobs/deploy-garden.sh`**
-  (drain → quiesce → merge → record → lift → restart). This is the
-  session-orchestrated, signal-triggered deploy the maintainer described: it
-  "occurs automatically when this session notices an upgrade available on
-  `main2`", yet stays on the human-facing surface so you can see and interrupt it.
-  The deploy is deterministic and drains the fleet gracefully; let it run to
-  completion, then report the new deployed sha.
-- A host with **no liaison session** present simply accumulates the signal until a
-  liaison runs (or an operator runs `deploy-garden.sh` by hand). Advancing the
-  deployed version is the one garden action deliberately kept on the human
-  surface, never a fully autonomous background service.
+- **On seeing the signal, automatically invoke `scripts/jobs/deploy-garden.sh`**;
+  let the deterministic deploy run to completion, then report the new deployed
+  sha. A host with **no liaison session** simply accumulates the signal until a
+  liaison runs (or an operator runs `deploy-garden.sh` by hand). Command-level
+  detail: [context/operations/deploy.md](../../context/operations/deploy.md).
 
 ### Restore after an outage (vocabulary)
 

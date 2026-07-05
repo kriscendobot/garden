@@ -42,115 +42,32 @@ This README is a graduated tutorial in usage:
 
 ## 1. Getting started
 
-### What you need
+Three manual steps, once per host:
 
-- **Docker.** The garden lives in a container that runs systemd as PID 1.
-- **A bot GitHub account** (like `kriscendobot`). All routine work — branches,
-  draft PRs, comments — happens as the bot, never as you. Your own identity is
-  reserved for [ferrying](#the-ferry-a-permissioned-cli-on-one-host).
-- **Claude Code auth**, most practiced as a Claude subscription login from
-  inside the container.
+1. **Clone** the garden on a machine that runs Docker, and `cd` into it.
+2. **Run `./garden`.** The launcher builds the image if it is missing, creates
+   or starts the container, and drops you straight into a Claude Code session —
+   the liaison — in auto mode. First-run interstitials (the Claude login, the
+   one-time auto-mode acknowledgment) are prompted by the tools themselves.
+3. **Say `help`.** The liaison runs the interactive first-run tutorial: it
+   checks the instance's identity, authenticates the bot's GitHub account,
+   **starts the garden** (units, worker pool, leadership, its own monitors), and
+   posts your first job — asking before each consequential step and running
+   every command itself. (Say **start the garden** to skip the tour and go
+   straight to the bring-up.)
 
-### Build and enter the container
+What you supply, because no agent can: **Docker**; a **Claude subscription or
+API key**; and a **bot GitHub account** you control (like `kriscendobot`) —
+routine work all happens as the bot, never as you, and your own identity is
+reserved for [ferrying](#the-ferry-a-permissioned-cli-on-one-host).
 
-```sh
-./garden build     # build the image (once)
-./garden           # create/start the container and drop into a shell
-./garden reset     # remove the container; next entry starts fresh
-```
+Two escape hatches: `./garden sh` opens a debug shell in the container instead
+of the liaison, and `./garden reset` removes the container so the next `./garden`
+starts fresh (everything the bot accumulates — keys, tokens, claude credentials,
+worktrees — lives in this bind-mounted directory and survives a reset).
 
-The [`garden`](./garden) launcher bind-mounts this directory as the
-container's home, so everything the bot accumulates — keys, tokens, claude
-credentials, worktrees — lives here on the host and survives a `reset`.
-
-**Pick a unique identity first.** Each instance has a logical name (its
-*shard* identity) that keys job claims, per-host worker counts, and the
-leader marker. Two instances sharing a name corrupt each other's state. At
-container creation the launcher seeds this identity from `GARDEN`
-(defaulting to the container hostname `GARDEN_HOSTNAME`) into a gitignored
-`.garden` file, with `GARDEN_CONTAINER` naming the container:
-
-```sh
-GARDEN_CONTAINER=petunia GARDEN_HOSTNAME=petunia ./garden
-```
-
-Every fleet script then reads that file as its runtime `GARDEN` identity
-(`common.sh` resolves `GARDEN` env → `.garden` file → `hostname -s`); an
-exported `GARDEN` does **not** reach the systemd `--user` units, which is why
-the durable file exists. Set `GARDEN` at creation time only when a pool's
-identity must differ from its hostname (a second follower pool on the same
-machine); `GARDEN_SHARD` remains accepted as a deprecated alias for one
-release.
-
-### Give the bot its keys
-
-The launcher deliberately does **not** forward your SSH agent — an
-agent-forwarded human identity must not leak into bot actions. The bot uses
-its own keys under `.ssh/` in this directory (which is `~/.ssh/` inside the
-container, and gitignored):
-
-1. Generate a key and add it to the **bot** GitHub account (an
-   `id_ed25519` under `<garden-root>/.ssh/`).
-2. Inside the container, authenticate `gh` as the bot: `gh auth login`. The
-   token lands in `.config/gh/`, also bind-mounted, also gitignored.
-
-### Authenticate claude
-
-Run `claude` inside the container and log in. A Claude subscription login is
-the most practiced path — the whole fleet runs on one subscription — and the
-credential persists in the bind-mounted home like everything else. The
-launcher also forwards `ANTHROPIC_API_KEY` into the container if you export it
-before `./garden`, but the subscription flow is the beaten path.
-
-### Bring up the fleet
-
-Inside the container:
-
-```sh
-loginctl enable-linger "$USER"                 # 1. user manager without a login session (once)
-scripts/jobs/install-units.sh install          # 2. render + install the systemd units
-scripts/jobs/install-units.sh enable-services
-scripts/jobs/set-gardeners.sh 100 "$(hostname -s)"   # 3. this host's worker count
-scripts/jobs/set-main-host.sh "$(hostname -s)"       # 4. designate the leader (single host: itself)
-```
-
-~100 workers is normal. Most are idle-blocked waiting on messages at any
-moment — sleeping is the cheapest thing an agent can do — so the count is
-sized for concurrency, not CPU. The leader marker gates the singleton services
-(scheduler, watchers, bulletin); followers run only worker pools. See
-[`designs/multibot-leader-follower.md`](designs/multibot-leader-follower.md)
-when you add a second host.
-
-Two optional armings:
-
-```sh
-scripts/jobs/set-garden-repo.sh <owner/name>   # drive the garden from its own GitHub issues…
-scripts/jobs/add-maintainer.sh  <your-login>   # …allowlist who may drive it
-```
-
-Then watch your inbox. Workers message you when they need a decision; surface
-those messages by running `scripts/jobs/maintainer-watch.sh` under a Claude
-Code **Monitor** in your liaison session, and answer with:
-
-```sh
-scripts/jobs/maintainer-reply.sh   <msgid>   # reply routes back to the asking worker
-scripts/jobs/maintainer-archive.sh <msgid>   # dismiss without replying
-```
-
-### Mint the bulletin token
-
-The [GitHub Pages bulletin](#the-bulletin-github-pages) reads the garden's
-status without auth, but replying from the page needs a fine-grained Personal
-Access Token (Contents: Read and write, scoped to this repo only). The
-click-by-click workflow is [`docs/bulletin/SETUP.md`](docs/bulletin/SETUP.md).
-
-### Health, pausing
-
-```sh
-systemctl --user list-units 'garden-*' --state=failed   # should be empty
-scripts/jobs/drain-fleet.sh on [reason]   # workers finish current jobs, take no new ones
-scripts/jobs/drain-fleet.sh off
-```
+Running more than one instance? Name each with `echo <name> > .garden` before
+its first `./garden`; the tutorial covers why the name must be unique.
 
 ### Key vocabulary for the liaison
 
@@ -401,22 +318,15 @@ re-fits velocity to what actually shipped, reprojects the roadmap, and grooms
 the records. Delivery dates are a computed projection of measured velocity,
 not vibes; when they're wrong you fix the velocity input, not the number.
 
-The service verbs you actually use:
-
-```sh
-scripts/jobs/post-job.sh <basename> [body]            # a job, now
-scripts/jobs/post-plan.sh --deferred <base> [body]    # parked; foreman promotes when idle
-scripts/jobs/post-plan.sh --go-ahead <base> [body]    # parked until you say "go ahead"
-scripts/jobs/promote-plan.sh <base>                   # …you said go ahead
-scripts/jobs/set-schedule.sh <name> weekly [prefix]   # recurring, shared across hosts
-scripts/jobs/set-schedule-once.sh <name> <ISO-time>   # fires exactly once, then deletes itself
-```
-
-Multi-part work gets an **orchestration**: park the children
-(`post-plan.sh --orchestrated`), record the sequence
-(`post-orchestration.sh --serial <orch> <child>…`), and a deterministic
-watcher promotes each child as its predecessor completes, halting to you on
-failure instead of stalling silently
+The plan and its verbs are things you *say* — "defer X", "promote X", "run this
+weekly" (§ Key vocabulary) — and the liaison runs the underlying
+`post-plan` / `promote-plan` / `set-schedule` commands for you. Their
+command-level detail lives in
+[`context/operations/schedules.md`](context/operations/schedules.md) and the
+liaison brief's plan queue, read on demand rather than kept here. Multi-part
+work gets an **orchestration**: the children are parked and a deterministic
+watcher promotes each as its predecessor completes, halting to you on failure
+instead of stalling silently
 ([`skills/orchestration/SKILL.md`](skills/orchestration/SKILL.md)).
 
 ### The bidding market: the next metamorphosis
