@@ -66,3 +66,9 @@ remaining files. Survey coverage against `origin/journal2` (not the live
   the KernelQueue **index** row to the concept page but the three KernelQueue
   leaf sections are still absent from the topic pages. A future cycle could
   backfill those topic rows while touching those same pages.
+
+---
+claim:
+  host: endolinbot
+  gardener: 18
+  claimed_at: 2026-07-05T23:29:18Z
