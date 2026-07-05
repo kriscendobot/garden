@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-05T20:42:06Z_
+_As of 2026-07-05T20:44:15Z_
 
 ## Latest
 
-Two maintainer decisions are pending. The `design-streamlined-onboarding` design job completed — `designs/streamlined-onboarding.md` awaits review, and its § 5 Q2 (the auto-mode default, a security-flavored call) gates four downstream build jobs that will only be posted as an orchestration once you answer. Separately, the probe for [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) was published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605); its report-back caught that the job spec paraphrased a "Gap 5 — destructive one-shot `take` semantics" hazard the published probe (7 gaps, no `take` gap) doesn't contain — the gardener correctly declined to invent it, so decide whether you want a fresh `take`-semantics probe. On the board, reviews for [endo-but-for-bots#592](https://github.com/endojs/endo-but-for-bots/pull/592) and #595 closed out, `fable-review-fix-garden-scripts` landed, and the `ci-watcher-test-preexisting-failures` fix completed; the queue is otherwise idle (0 todo, 5 in flight) with the daemon→manager rename (Phase 2/3) still blocked on [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598).
+Two decisions are waiting in the maintainer inbox. The design job for streamlined onboarding completed — `designs/streamlined-onboarding.md` is ready for review, and its four follow-on build jobs are gated on your answers to the § 5 open questions, especially Q2 (the auto-mode default, a security-flavored call). Separately, the report-back on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) (probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605)) flagged a spec discrepancy: the job spec described a "Gap 5 — destructive one-shot `take` semantics" hazard, but the published probe has seven gaps and no `take`-semantics gap. The gardener correctly declined to invent it; the liaison is asking whether you want a fresh probe specifically on `take` semantics.
+
+The board is otherwise quiet — only a dead-mail completion moved since the last bulletin, with four jobs in flight (the PR #288 shepherd, the reaper live-handler fix, the watcher fail-floor port, and the xs2rust JSON-metering builder).
 
 ## Parked for maintainer feedback
 
@@ -35,20 +37,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
-- [`deadmail-20260705T203811Z-5bff83`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260705T203811Z-5bff83.md) — Dead-lettered message — pick up its intent
+### doin (4)
 - [`endojs-endo-but-for-bots-pr288-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr288-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #288
 - [`reaper-requeue-kills-or-waits-for-live-handler`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/reaper-requeue-kills-or-waits-for-live-handler.md) — Reaper requeues a claim while its handler is still ALIVE (duplicate live inca...
 - [`watchers-port-fail-floor-to-mention-issue-inbox`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/watchers-port-fail-floor-to-mention-issue-inbox.md) — Port comment-watcher's fail_floor to the mention- and issue-inbox watchers
 - [`xs2rust-endor-build-stage3b-json-metering`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-json-metering.md) — Builder: stage-3b child 6/9 — JSON.parse + structured JSON.stringify metering...
 
-### tada (1179)
+### tada (1180)
+- [`deadmail-20260705T203811Z-5bff83`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260705T203811Z-5bff83.md) — Completion report
 - [`ci-watcher-test-preexisting-failures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ci-watcher-test-preexisting-failures.md) — Completion report
 - [`fable-review-fix-garden-scripts`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fable-review-fix-garden-scripts.md) — Completion report: fable-review-fix-garden-scripts
 - [`endojs-endo-but-for-bots-pr592-review-9e382ba1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr592-review-9e382ba1.md) — Completion report — endojs-endo-but-for-bots-pr592-review-9e382ba1
 - [`endojs-endo-but-for-bots-pr595-report-back`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr595-report-back.md) — Completion report
-- [`endojs-endo-but-for-bots-pr595-review-b3285075`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr595-review-b3285075.md) — The review unit is fully addressed. Summary:
-- … and 1174 more
+- … and 1175 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
