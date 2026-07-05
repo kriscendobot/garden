@@ -1,196 +1,372 @@
 # Garden bulletin
 
-_As of 2026-07-04T16:57:55Z_
+_As of 2026-07-05T17:22:24Z_
 
 ## Latest
 
-The one board completion this cycle is deceptive: [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595)'s review job landed in `tada/`, but its report is a **BLOCKED — environment** signal, not a real review. Several gardeners converge on the same root cause: the **endolinbot2 fleet is running on the raw host, outside the `./garden` container**, so there is no `gh` binary or bot credential and every GitHub-dependent job dies at the wall — this already sank the [#595](https://github.com/endojs/endo-but-for-bots/pull/595) review, the [#592](https://github.com/endojs/endo-but-for-bots/pull/592) review, and the issue [kriskowal/garden#25](https://github.com/kriskowal/garden/issues/25) SheetSync research (whose finished reply now sits in the maintainer inbox for kriscendobot to post by hand). A companion message flags the matching local-infra hazard on this host — `garden-journal-worktree-keeper` chasing a dangling `garden2` gitdir and pruning live `gardener-wt-*` worktrees out from under running jobs — the known "journal worktree severed" pattern, needing a `git worktree prune` + repair. Separately, the `designs/streamlined-onboarding.md` design awaits kriskowal's answers to its §5 open questions (notably Q2, the security-flavored auto-mode default) before its four build jobs can be posted as an orchestration.
+The gap-revealing probe on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) (sanctioned SES `unredactError`) finished and was verified under real `lockdown()`, but **needs your action**: it ran on `endolinbot2`, which has no bot `gh` token, so the DRAFT PR can't be opened without a maintainer-identity (kriskowal SSH) switch the gardener correctly refused — the branch, commits, and full PR body are staged and waiting for a credentialed host or your hand. Its five surfaced gaps (return shape as the keystone, exposure mechanism, ses-ava factory-vs-string, one-shot `take` semantics) are design decisions for @erights.
+
+On the review front, the fleet merged [endo-but-for-bots#590](https://github.com/endojs/endo-but-for-bots/pull/590), pushed [endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602) and [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) (TypedArray emulation + banner sweep) through multiple review rounds, and ran a broad shepherd resume across the lint-ceiling-blocked PRs (#101, #242, #301, #306, #313, #316, #318, #320, #324, #335, #581, #585, #588, #592, #593). Phase 1 of the daemon→manager rename landed via [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598); phases 2–3 are parked behind it. The lint-ceiling shepherds remain blocked awaiting [endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594).
+
+Elsewhere: the xs2rust-endor engine port advanced through stages 1–3 into stage-3b (interning, Object statics in flight), onboarding builds 1–2 completed with build 3 (help verb + tutorial) underway, and a large wave of garden self-healing landed — clone-keeper reclone, scheduler preflight validation, journal-worktree-keeper repair, foreman edge-triggering, and atomic-deploy tree swap among them. Issues #21–25 from the garden repo closed; dckc's #26 is in progress.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 2d)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4d)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 5d)
-- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 8d)
-- [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 18d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 43d)
-- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 43d)
-- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 45d)
-- [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 44d)
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 52d)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 3d)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 5d)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 6d)
+- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 9d)
+- [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 19d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 44d)
+- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 44d)
+- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 46d)
+- [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 45d)
+- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 53d)
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260704T164740Z-fa5477` — from gardener:issue-kriskowal-garden-25, reply_to `issue-kriskowal-garden-25` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260704T164740Z-fa5477.md)
+- `20260704T170858Z-0fbe2f` — from gardener:endojs-endo-but-for-bots-pr595-probe-unredact-error, reply_to `endojs-endo-but-for-bots-pr595-probe-unredact-error` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260704T170858Z-0fbe2f.md)
 
-> RE: issue kriskowal/garden#25 (https://github.com/kriskowal/garden/issues/25) — SheetSync/Endo research.
+> # probe #595 unredactError — work COMPLETE, PUBLISH BLOCKED (no bot GitHub credentials on this host)
 >
-> I finished the research and wrote the reply, but I could NOT post it myself:
-> this job landed on the raw host 'endolin' (no /.dockerenv, GARDEN=endolinbot2)
-> where there is no real 'gh' binary behind the fleet gh wrapper (exit 127), so
-> no GitHub API is reachable from this environment. Please post the comment below
-> as kriscendobot on issue #25 (do NOT close it — the submitter closes it).
+> **Job:** endojs-endo-but-for-bots-pr595-probe-unredact-error (host endolinbot2).
 >
-> Environment follow-up worth checking: gardener 15 on endolinbot2 appears to be
-> running outside the container (host endolin), so its gh/issue-inbox actions can't
-> reach GitHub. Other issue/PR jobs claimed there will hit the same wall.
+> The substantive probe is done and verified by real execution. I cannot open
+> the DRAFT PR from this host, so I am surfacing rather than falsely completing.
 >
-> ----- BEGIN ISSUE #25 COMMENT (post verbatim) -----
-> ## SheetSync in Endo: a plugin + ocaps sketch
+> ## Publish blocker (needs your action)
 >
-> Researched SheetSync and the family of "bank → Google Sheets via Plaid" tools, then mapped the shape onto Endo. Summary of what SheetSync is, then how the same result decomposes into an Endo caplet driven by object capabilities, and where the real work would be.
+> This host has **no `gh` CLI and no bot GitHub token** (no `~/.config/gh/hosts.yml`,
+> no `GH_TOKEN`, the fleet `gh` wrapper reports "no real gh found"). An HTTPS push
+> fails with "could not read Username". The **only** credential present is an SSH
+> key that authenticates as **kriskowal** (`ssh -T git@github.com` → "Hi kriskowal!").
+> Opening a PR through it would be an unauthorized maintainer-identity action;
+> this job carries no `identity_switch_authorized: true` and I am not the boatman,
+> so I did not use it.
 >
-> ### What SheetSync actually is
+> To land the draft PR, either: (a) provision an endolinbot/kriscendobot token +
+> `gh` on a host and re-run this job there, or (b) open it yourself from the ready
+> material below.
 >
-> SheetSync ([getsheetsync.com](https://getsheetsync.com), and the near-identical BankToSheets, SheetLink, BankSync) is a **Google Sheets add-on** that:
+> ## Ready to publish
+> - **Branch (committed, in the stable job worktree):** `probe/unredact-error-595`
+> - **Base:** `designs/captp-error-identification`  (design PR #595 head)
+> - **Head SHA:** d5884cecbc5b8bfeb018d77e7963b4690f61f147
+> - **Base SHA:** bd5640531d85dc40abbbe3ceaafac2776c5495ea
+> - **Commits:** `feat(ses): prototype sanctioned unredactError…` +
+>   `refactor(daemon): prefer sanctioned unredactError…`
+> - **Full draft-PR title + four-section body:** pasted below (also at
+>   `scratch/pr-body-unredact-error-595.md`). Open with `--draft`; keep draft.
+> - Push command once a bot token exists (from the job worktree):
+>   `git push origin probe/unredact-error-595` then
+>   `gh pr create --draft --base designs/captp-error-identification --head probe/unredact-error-595 --title "<first line below>" --body-file scratch/pr-body-unredact-error-595.md`
 >
-> 1. Links your bank accounts through **Plaid** (12,000+ institutions) from a sidebar inside the sheet.
-> 2. Pulls historical + incremental transactions and balances.
-> 3. Writes them straight into the spreadsheet, refreshing on a schedule — no CSV exports.
+> ## Verified (real execution, not inspection)
+> - Composition: `defineUnredactError` renders template args + unredacted stack +
+>   cause chain + notes to a string — isolated smoke test, 5/5 checks pass.
+> - Hard constraint: under real `lockdown()`, start compartment exposes
+>   `unredactError`; a child `Compartment` sees `undefined` for it (and for
+>   `getStackString` and the ses-ava symbol). PROPAGATION-PASS.
 >
-> The trust story, in Plaid's own model:
+> ## 5 gaps surfaced (full detail in the PR body below)
+> 1. API name — `unredactError` fits the string form, not the shared primitive.
+> 2. Start-compartment-only exposure — design names the constraint, not the
+>    mechanism; SES already offers two (convention-symbol vs permitted intrinsic).
+> 3. Coupling map — `@endo/ses-ava` needs the causal-console *factory*, so it
+>    cannot migrate onto a string API; daemon migrated but loses TraceRecord shape.
+> 4. Signature/return shape — string vs structured vs factory; three consumers
+>    pull three ways (Open Question 1, the keystone).
+> 5. One-shot consumption — the handler's `take*` accessors are destructive; first
+>    renderer wins, later renderers see redacted output (design is silent on this).
 >
-> - You never hand the app your bank password. **Plaid** holds the bank credentials. Plaid's browser flow (`Link`) returns a short-lived, single-use `public_token`, which the app exchanges (`/item/public_token/exchange`) for a long-lived `access_token`. That `access_token` is a **read-only bearer capability to one bank "Item"** — it can read transactions but cannot move money. The app then polls `/transactions/sync` (cursor-paginated, webhook-driven) for deltas.
-> - SheetSync-the-service must **store that `access_token`** and also hold a **Google OAuth token** with a scope broad enough to write your sheet.
+> =====================================================================
+> FULL DRAFT-PR TITLE + BODY (paste as-is):
+> =====================================================================
 >
-> So there are already two capability-ish bearer tokens in play. The weaknesses are the classic bearer-token weaknesses: they are **copyable secrets** (whoever reads the bytes wields them), the holder **cannot attenuate** them (an `access_token` is the whole Item, a Google scope is often broader than "this one sheet"), **revocation is coarse and remote**, and the app that holds them has **ambient authority** — its entire codebase (and supply chain) can use them however it likes. You are trusting SheetSync's servers, and every dependency they ship, with those two secrets.
+> feat(ses): sanctioned `unredactError` start-compartment API (gap-revealing prototype of #595)
 >
-> ### The Endo version: shrink the trusted core, hand out narrow object capabilities
+> Gap-revealing prototype for the design in
+> `designs/unredacted-stack-sanctioned-ses-api.md` (PR #595), probing the
+> maintainer's directive on review
+> [4629038402](https://github.com/endojs/endo-but-for-bots/pull/595#pullrequestreview-4629038402).
+> Base: `designs/captp-error-identification`. This PR is a discussion artifact
+> and stays DRAFT; it is not for merge.
 >
-> Endo already gives us exactly the decomposition this wants. The move is to stop treating "the app" as one ambient blob holding two secrets, and instead run the *application logic* as a **confined caplet** (the "plugin") that is handed only two **object capabilities** — one per resource — and nothing else. POLA by construction.
+> Skeleton verified by real execution (not inspection):
+> - Composition: `defineUnredactError` renders hidden message-template args,
+>   the unredacted stack, the cause chain, and `note(err, ...)` annotations to a
+>   string (isolated smoke test against a stub `loggedErrorHandler`, 5/5 checks
+>   pass).
+> - Hard constraint (start-compartment-only): under real `lockdown()`, the start
+>   compartment exposes `unredactError`; a child `Compartment` sees `undefined`
+>   for it (and for `getStackString` and the ses-ava symbol). PROPAGATION-PASS.
 >
-> **1. Two small, individually-audited connector caplets hold the real secrets.**
+> ## Gaps surfaced
 >
-> Something must still speak HTTPS to Plaid and to Google and hold the actual bearer credentials — Endo doesn't make that vanish, it *relocates and shrinks* it. Author two minimal, trusted caplets the human authorizes once through the powerbox:
+> ### Gap 1: API name — `unredactError` fits the string form but not the primitive
 >
-> - A **`plaid` connector** that owns the Plaid client-id/secret and the network endowment. Its job is the Link handshake and `/transactions/sync`. Crucially, when a link completes it does **not** return an `access_token` string — it mints and returns an **object**: an attenuated, read-only `item` facet whose only methods are `E(item).syncTransactions(cursor)` / `E(item).getBalances()`. The copyable secret stays inside the connector; the guest downstream holds an unforgeable reference, not bytes it can exfiltrate or replay.
-> - A **`google-sheets` connector** that owns the Google OAuth token. From it the human mints a **single-sheet writer facet** scoped to exactly one spreadsheet + range: `E(sheet).appendRows(rows)`. This is attenuation — a broad OAuth scope wrapped once, then handed out narrow.
+> **Where in the design.** Open Question 1 (lines 84-86) and § 2 (lines 55-66);
+> maintainer's suggested name from review 4629038402.
 >
-> These two caplets are the entire trusted computing base for credentials. They are small and change rarely, so they are auditable in a way a full add-on codebase is not.
+> **Verbatim quote.** > "consider `unredactError` for the API name" (review
+> 4629038402) and > "`ses` grow (or bless) such an API — e.g. a
+> start-compartment-only `getErrorDiagnostic(err)` / public causal-console
+> factory".
 >
-> **2. The SheetSync caplet is confined and endowed with just those two facets.**
+> **What's needed to implement.** The name presumes the export is
+> `err -> string`. But the primitive the consumers actually share is the
+> causal-console factory (Gap 4), and `unredactError` reads poorly as a name for
+> a factory. The name cannot be settled until the return shape is (Gap 4).
 >
-> The actual sync logic — the big, frequently-updated, least-trusted code, the "plugin" in the issue's terms — is an Endo caplet (a bundle you `endo install`, run in its own worker as a **guest**). At instantiation the host endows it with exactly:
+> **Candidate resolutions.**
+> - **A.** Keep `unredactError(err) -> string` as the sanctioned surface; name
+>   the factory (if also exported) separately. Trade-off: two names, two exports.
+> - **B.** Make the factory the sanctioned primitive under a factory-shaped name;
+>   `unredactError` becomes a thin string helper. Trade-off: the maintainer's
+>   preferred name demotes to a convenience.
+> - **C.** Adopt `unredactError` for the string form only and do not export a
+>   factory (ses-ava keeps its symbol). Trade-off: the ses-ava symbol survives,
+>   which § 2 wanted to retire.
 >
-> - `plaidItem` — the read-only Item facet,
-> - `sheet` — the single-sheet writer facet,
-> - `scheduler`/`clock` — to run the sync loop (optionally; or drive it from a Plaid webhook, see below).
+> **Maintainer's call:** design revision (name follows the Gap 4 shape decision).
 >
-> It gets **no network endowment, no filesystem, no other sheet, no other Item, no host powers.** Its complete attack surface is those three references. A malicious or supply-chain-compromised SheetSync caplet can, at worst, read transactions you had already made read-only and write them into the one sheet you chose. It cannot phone home, cannot touch your other spreadsheets, cannot move money, cannot enumerate your other bank Items. That is the whole point.
+> ### Gap 2: Start-compartment-only exposure — the design names the constraint, not the mechanism
 >
-> **3. Naming, granting, and revocation are the human's, via the powerbox.**
+> **Where in the design.** § 2 (lines 55-66) and the specific request (lines
+> 74-80).
 >
-> In Endo the human *host* grants capabilities under **petnames**. You'd `endo mkguest sheetsync`, then grant it `plaidItem` and `sheet` by petname. Because every grant is a caretaker/attenuating forwarder, **revocation is local and instant**: drop the facet and SheetSync is cut off from that bank or that sheet — no remote token-revocation dance, no trusting the vendor to honor it. Add a second bank? Mint a second `item` facet and grant it. Want to pause? Revoke the `scheduler`. The Endo daemon **persists** these object references across restarts, so "securely store the access_token" becomes "the daemon persists the object under its petname" — the secret is never marshalled back into app-reachable form.
+> **Verbatim quote.** > "a **first-class, supported SES export** ... a
+> start-compartment-only `getErrorDiagnostic(err)`".
 >
-> ### Sketch of the object graph
+> **What's needed to implement.** SES already offers two distinct mechanisms for
+> start-compartment-only exposure, and the design picks neither:
+> - **(A) convention-symbol on the start global** — a direct assignment to the
+>   start compartment's `globalThis` under a registered symbol, exactly as
+>   `console-shim.js` installs `MAKE_CAUSAL_CONSOLE_FROM_LOGGER_KEY_FOR_SES_AVA`.
+>   Child compartment globals are rebuilt from `sharedGlobalPropertyNames` /
+>   `universalPropertyNames` (`setGlobalObjectMutableProperties`,
+>   `compartment.js:400`) and never copy the parent's own properties, so the
+>   value is unreachable from any `new Compartment()`. This prototype uses (A).
+> - **(B) permitted intrinsic** — register `%InitialUnredactError%` in
+>   `permits.js` and list it in `initialGlobalPropertyNames` (not
+>   `sharedGlobalPropertyNames`), exactly as `getStackString` is placed
+>   (`permits.js:162`). Then it is a permit-audited, named global rather than a
+>   convention symbol.
 >
-> ```
-> host (you, via the powerbox / petnames)
->  ├─ plaid          (connector caplet; owns Plaid client-id+secret + net endowment)
->  │    └─ E(plaid).linkAccount()  ──►  item        // read-only facet, minted per bank
->  ├─ googleSheets   (connector caplet; owns Google OAuth token + net endowment)
->  │    └─ E(googleSheets).sheetFor(id, range)  ──►  sheet   // single-sheet writer facet
->  └─ sheetsync      (GUEST caplet — the "plugin", confined)
->         endowments: { plaidItem: item, sheet, clock }
->         loop:  const { added, cursor } = await E(plaidItem).syncTransactions(lastCursor);
->                await E(sheet).appendRows(added.map(toRow));
->                // holds no secret; can reach nothing but these two facets
-> ```
+> **Verified by execution.** Child `Compartment` view was
+> `{unredact:"undefined", getStackString:"undefined", sesAva:"undefined"}` under
+> real lockdown, confirming (A) enforces the constraint.
 >
-> Everything crosses vat boundaries by `E()` eventual-send returning promises — the same discipline as the rest of Endo.
+> **Candidate resolutions.**
+> - **A.** Convention-symbol (this prototype). Trade-off: not in the permit
+>   tables, so it is invisible to permit audits and to anything that reasons
+>   about the global surface from permits.
+> - **B.** Permitted intrinsic like `getStackString`. Trade-off: touches the
+>   intrinsics collector and permit machinery; heavier change, but the principled
+>   home for a first-class supported export.
 >
-> ### Why this is strictly better than the add-on
+> **Maintainer's call:** design revision (this is the SES-surface decision that
+> is @erights' to steer; the design should name A or B).
 >
-> - **The TCB shrinks to two tiny connectors.** The large, churny application code runs with zero ambient authority. Supply-chain risk in the app is *contained*, not catastrophic.
-> - **No copyable secret in the app.** Capabilities are unforgeable references, not replayable bytes.
-> - **Attenuation is real and per-resource:** one bank Item, one sheet+range — not "all your sheets" and "the whole Item store".
-> - **Revocation is local, instant, and per-capability.**
-> - **Webhooks fit ocaps cleanly.** Plaid recommends event-driven `/transactions/sync` over polling. Model it as the SheetSync caplet passing an inbound callback capability to the `plaid` connector — `E(plaid).subscribe(handler)` where `handler` is a capability the guest owns. A callback *is* a capability; Endo makes that first-class.
+> ### Gap 3: Coupling map — one consumer (ses-ava) cannot migrate onto a string API
 >
-> ### Where the real work is (honest caveats)
+> **Where in the design.** § 2 (lines 55-66), Open Question 2 (lines 87-88).
 >
-> Endo relocates trust; it doesn't erase it. The pieces that don't exist yet:
+> **Verbatim quote.** > "both `@endo/ses-ava` and this daemon consumer migrate
+> onto it, retiring the shared symbol hack."
 >
-> - **A hardened HTTPS/network endowment** and the two **connector caplets** (Plaid, Google Sheets) would have to be built and reviewed — that's where the residual trust concentrates. The garden already has an [`oauth-use-case-patterns`](../skills/oauth-use-case-patterns/SKILL.md) skill covering least-privilege OAuth app/scope choice and short-lived-token rotation, directly relevant to the Google connector.
-> - **Plaid Link is a browser/OAuth UX.** The linking handshake still needs a web view; Endo models only the *result* (the `item` capability minted when Link completes) as an ocap.
-> - **Persistence + upgrade** of the connector caplets (durable secrets, token refresh) rides Endo's durable-object story and wants care.
+> **What's needed to implement.** Walking each consumer that depends on
+> unredacting errors today:
+> - **`assert` / `@endo/errors`** — the *producers* of redaction; they own
+>   `loggedErrorHandler` (the hidden message-args, notes, and unredacted stack).
+>   No migration: `unredactError` is *built on* their handler. Coupling: the
+>   sanctioned export must be defined after `assert` installs the handler (this
+>   prototype wires the shim after `assert-shim.js` in `index.js`).
+> - **Causal console (the SES `console`)** — already renders unredacted in the
+>   start compartment via the same `loggedErrorHandler`. No migration;
+>   `unredactError` is a sibling that buffers to a string instead of to a base
+>   console, so the two renderings stay identical by sharing
+>   `defineCausalConsoleFromLogger`.
+> - **`@endo/ses-ava`** — needs the causal-console *factory* (a `VirtualConsole`
+>   it drives so `console.error(err)` flows into AVA's `t.log`), NOT a string.
+>   It cannot migrate onto `unredactError(err) -> string`. Retiring the ses-ava
+>   symbol (Open Question 2) therefore requires the sanctioned export to be, or
+>   to also expose, the factory — see Gap 4.
+> - **Distributed traces (daemon `unredacted-stack.js` / `TraceRecord`)** —
+>   migrated in this prototype: the daemon feature-tests the sanctioned symbol
+>   first, then the legacy ses-ava symbol, then `getStackString`, then
+>   `err.stack`. But `TraceRecord` has *separate* `stack`, `annotations`, and
+>   `causes` fields, while `unredactError` returns one flat string the daemon
+>   dumps into `stack`. A structured return would let the daemon populate those
+>   fields (Gap 4).
 >
-> ### Recommended follow-up
+> **Candidate resolutions.**
+> - **A.** Sanctioned export is the factory; ses-ava, the causal console, and a
+>   string helper all derive from it. Trade-off: consumers do a little assembly,
+>   but one primitive serves all and the symbol truly retires.
+> - **B.** Export both a factory and `unredactError(err) -> string`. Trade-off:
+>   two supported surfaces to co-maintain.
+> - **C.** Export only the string form; ses-ava keeps its symbol. Trade-off:
+>   Open Question 2's "retire the symbol" goal is not met.
 >
-> If you want the source material captured for the library, a **`scholar-ingest-source` job** over the Plaid Transactions/Link docs (`plaid.com/docs/transactions`, `plaid.com/docs/link`) and Endo's caplet/powerbox docs would give future roles a cited, abstract-routed reference to build the connectors from. I did not run the full library-ingestion pipeline in this pass (see the note in the completion report about the environment), so that ingestion is the clean next step.
+> **Maintainer's call:** needs broader review (@erights) for the ses-ava
+> factory-vs-string conflict; the daemon dispatch order is implementation-time.
 >
-> Sources: [getsheetsync.com](https://getsheetsync.com) · [Plaid Transactions docs](https://plaid.com/docs/transactions/) · [Plaid Link docs](https://plaid.com/docs/link/) · [Plaid Quickstart](https://plaid.com/docs/quickstart/)
-> ----- END ISSUE #25 COMMENT -----
+> ### Gap 4: Signature and return shape — three consumers pull three ways
+>
+> **Where in the design.** Open Question 1 (lines 84-86).
+>
+> **Verbatim quote.** > "Exact signature of the sanctioned unredacted-diagnostic
+> SES export — @erights to steer. This is the gating upstream dependency."
+>
+> **What's needed to implement.** The load-bearing return-shape choice, with each
+> consumer's pull:
+> - **Rendered string** (this prototype) — right for a human operator and
+>   `endo trace`; lossy for the daemon; unusable for ses-ava.
+> - **Structured record** (`{ messageArgs, stack, notes, causes }`) — right for
+>   the daemon's `TraceRecord`; needs a separate renderer for humans; still not
+>   the console shape ses-ava wants.
+> - **Causal-console factory** (`logger -> VirtualConsole`) — right for ses-ava;
+>   the daemon and the string helper derive from it (as the daemon does today).
+> Sync-vs-async: unredaction reads local `WeakMap` state synchronously; no async
+> is needed, and the prototype is sync. Single-error-vs-log: `unredactError(err)`
+> renders one error; the factory renders arbitrary console arg lists.
+>
+> **Candidate resolutions.**
+> - **A.** String-only convenience over a private factory. Trade-off: simplest
+>   surface, but ses-ava cannot use it and the daemon loses structure.
+> - **B.** Factory as the primitive plus a string helper. Trade-off: serves all
+>   three; two exports.
+> - **C.** Structured record plus a renderer. Trade-off: best for the daemon;
+>   extra shape for humans and still no console for ses-ava.
+>
+> **Maintainer's call:** design revision (@erights; this is Open Question 1 and
+> gates everything downstream).
+>
+> ### Gap 5: One-shot consumption — the handler's `take` semantics are destructive
+>
+> **Where in the design.** Not addressed anywhere in the design.
+>
+> **Verbatim quote.** (design is silent — this gap surfaced only from contact
+> with code: `assert.js:458-460` `takeMessageLogArgs` calls
+> `weakmapDelete(hiddenMessageLogArgs, error)`, and the causal console at
+> `console.js:331-339` renders via the destructive `takeMessageLogArgs` /
+> `takeNoteLogArgsArray`).
+>
+> **What's needed to implement.** Unredaction is destructive: whichever renderer
+> touches an error *first* consumes its hidden message-args and notes; every
+> later renderer (the causal console, ses-ava, a second `unredactError` call)
+> sees the redacted remainder. A sanctioned `unredactError` makes this a
+> first-class supported concern. Example: if the daemon calls `unredactError` at
+> `marshalSaveError` time, a later `console.error(err)` in the same start
+> compartment renders without the annotations the daemon already took.
+>
+> **Candidate resolutions.**
+> - **A.** Document `unredactError` as one-shot (matching today's causal-console
+>   behavior) and say so in the API contract. Trade-off: cheap; leaves a
+>   foot-gun for the daemon-plus-console case.
+> - **B.** Build `unredactError` on the *non-destructive* `getMessageLogArgs`
+>   peek (`assert.js:457`) plus a non-taking notes accessor, so it never strips
+>   context. Trade-off: needs a peek variant for notes (only `takeNoteLogArgsArray`
+>   exists today); a repeatable read, but diverges from the causal console.
+> - **C.** Leave the semantics as-is and let each consumer coordinate.
+>   Trade-off: coupling leaks back to consumers, the opposite of § 1's intent.
+>
+> **Maintainer's call:** design revision plus broader review (@erights).
+>
+> ## Skeleton implemented
+>
+> - `packages/ses/src/error/unredact-error.js` — `defineUnredactError(loggedErrorHandler)`
+>   returning `unredactError(err) -> string`, built on the existing
+>   `defineCausalConsoleFromLogger`. Renders template args + unredacted stack +
+>   cause chain + notes. Composition smoke-tested (5/5 checks) against a stub
+>   handler; syntax-checked with `node --check`.
+> - `packages/ses/src/unredact-error-shim.js` — installs `unredactError` on the
+>   start compartment global under `Symbol.for('UNREDACT_ERROR_KEY_FOR_START_COMPARTMENT')`,
+>   mirroring `console-shim.js`. Start-compartment-only exposure verified by real
+>   `lockdown()` + child-`Compartment` probe (PROPAGATION-PASS).
+> - `packages/ses/index.js`, `packages/ses/src-xs/index.js` — load the shim after
+>   `console-shim.js`.
+> - `packages/daemon/src/unredacted-stack.js` — the distributed-trace consumer
+>   migrates onto the sanctioned symbol (feature-tested first, legacy ses-ava
+>   symbol / `getStackString` / `err.stack` as ordered fallbacks);
+>   `hasUnredactedStackHook` now also reports the sanctioned hook. Syntax-checked.
+>
+> Two commits, one per package (ses, daemon); no dependency changes, so no
+> `yarn.lock` commit.
+>
+> ## Skeleton not implemented
+>
+> - **`@endo/ses-ava` migration off the shared symbol** — abandoned at Gap 3 /
+>   Gap 4: ses-ava needs the causal-console factory, which the string-shaped
+>   `unredactError` prototype does not export. Blocked on the return-shape
+>   decision.
+> - **Permitted-intrinsic exposure (`%InitialUnredactError%`)** — abandoned at
+>   Gap 2 (candidate B): the prototype uses the convention-symbol path; the
+>   permit-table path is the alternative the design must choose between.
+> - **Structured `TraceRecord` population** — abandoned at Gap 3 / Gap 4: with a
+>   flat-string return the daemon still dumps everything into `stack` rather than
+>   splitting `annotations` / `causes`.
+> - **The upstream `endojs/endo` issue** to actually grow this SES export
+>   (design § 2, lines 65-66) — out of scope for this fork prototype; named as
+>   the gating upstream dependency.
+> - **Non-smoke tests** — per gap-revealing-build, the prototype is not
+>   regression-tested; a real build must pin the contract once the shape is
+>   final.
+>
+> ## Recommendations to design author
+>
+> Resolve **before** implementation can proceed (design revisions, @erights'
+> call): **Gap 4** (return shape) is the keystone — it gates the API name
+> (Gap 1), the ses-ava migration and symbol retirement (Gap 3, Open Question 2),
+> and whether the daemon can populate structured `TraceRecord` fields. **Gap 2**
+> (exposure mechanism: convention-symbol vs permitted intrinsic) is an
+> independent SES-surface decision the design should name explicitly. **Gap 5**
+> (destructive one-shot `take` semantics) is a correctness hazard the design does
+> not currently mention and should address in the API contract.
+>
+> Resolvable **at implementation time** once the shape is authorized: the daemon
+> feature-test dispatch order (sanctioned-first is this prototype's choice), the
+> migration-window coexistence of the sanctioned and legacy ses-ava surfaces, and
+> the human-readable string formatting details.
+>
+> The strongest positive signal from contact with code: the *mechanism* the hard
+> constraint needs already exists and works — start-compartment-only exposure is
+> enforced by SES's existing child-global rebuild, verified here under real
+> lockdown. The design's genuine open work is entirely in the API's *shape*
+> (Gaps 1, 3, 4, 5), not in whether SES can host a start-compartment-only export
+> at all.
 
-- `20260704T164910Z-d6a3a8` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260704T164910Z-d6a3a8.md)
+- `20260705T172123Z-71ff80` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260705T172123Z-71ff80.md)
 
-> Design `designs/streamlined-onboarding.md` (from report `design-streamlined-onboarding`) awaits your review: please answer its § 5 open questions — especially Q2, the auto-mode default, which is a security-flavored decision. The four § 6 build jobs are gated on that review; once you decide, I'll post them as an orchestration.
-
-- `20260704T164925Z-1cae48` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260704T164925Z-1cae48.md)
-
-> Operational hazard on this host (endolinbot2), from report `design-streamlined-onboarding`: `garden-journal-worktree-keeper` logs a dangling gitdir reference to `/home/kris/garden2/.git/worktrees/journal` every tick, and live per-job `gardener-wt-*` worktree admin entries under `/home/kris/.git/worktrees/` are being pruned out from under running gardeners — which will corrupt any job that commits from its assigned worktree here. This is local garden-infra health (not a bot-repo PR), and matches the known "journal worktree severed" pattern; it needs a `git worktree prune` + journal-worktree repair on this host. Want me to run the repair now, or investigate the stale `garden2` gitdir reference first?
-
-- `20260704T165042Z-b5ead1` — from gardener:endojs-endo-but-for-bots-pr288-review-330391eb, reply_to `endojs-endo-but-for-bots-pr288-review-330391eb` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260704T165042Z-b5ead1.md)
-
-> (empty message)
-
-- `20260704T165210Z-4e4f55` — from gardener:endojs-endo-but-for-bots-pr595-review-0a6137f6, reply_to `endojs-endo-but-for-bots-pr595-review-0a6137f6` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260704T165210Z-4e4f55.md)
-
-> BLOCKED — environment/infrastructure, not the PR itself.
->
-> Job endojs-endo-but-for-bots-pr595-review-0a6137f6 (review directive on
-> endojs/endo-but-for-bots #595, review 4629038402) cannot be serviced on
-> this host (claim host: endolinbot2, gardener 11).
->
-> Findings:
-> - scripts/check-in-container.sh reports NOT INSIDE THE CONTAINER; /.dockerenv absent.
-> - No `gh` binary on PATH (the fleet gh wrapper errors: "no real gh found on PATH").
-> - No GitHub token (~/.config/gh/hosts.yml absent; no GH_TOKEN/GITHUB_TOKEN env).
-> - Journal remote is SSH (git@github.com) so git operations work, but the
->   GitHub REST API is unreachable — no bearer token available.
-> - The pr-feedback-preflight fell open ("no evidence corpus ... fail-open")
->   precisely because its gh calls failed, not because the corpus was checked.
->
-> Impact: I cannot fetch the review body or its inline comments, cannot route
-> their substance to a fixer/designer, and cannot post PR replies. Any gardener
-> on this host will hit the same wall for every gh-dependent (review/fix/ferry)
-> job.
->
-> Likely cause: the fleet on endolinbot2 is running on the HOST rather than
-> inside the `./garden` container (which is where gh + bot credentials live),
-> or gh is not installed in this environment.
->
-> Requested: install/enable gh + bot credentials on this host, or re-home the
-> endolinbot2 fleet inside the container, then requeue #595. I did NOT emit the
-> completion signal, so the job remains claimable; a healthy host can also take it.
-
-- `20260704T165454Z-ad319d` — from gardener:endojs-endo-but-for-bots-pr592-review-da7fef5e, reply_to `endojs-endo-but-for-bots-pr592-review-da7fef5e` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260704T165454Z-ad319d.md)
-
-> (empty message)
+> awaiting maintainer — beyond proxy authority: gardener endojs-endo-but-for-bots-pr595-probe-unredact-error, msgid 20260704T170858Z-0fbe2f.md — Publishing is blocked only on a credential/identity decision — opening the PR needs bot credentials this host lacks, and the sole alternative is a maintainer-identity (kriskowal SSH) switch, which is reserved and security-weighted; the substantive probe is already complete, so there is no direction/experimentation call for the proxy to make.
 
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (8)
-- [`ebfb-pr288-fable-review`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr288-fable-review.md) — Fable closer review of @endo/cbor-frame — endojs/endo-but-for-bots PR #288
+### doin (11)
+- [`daily-progress-summary-20260705-051008`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260705-051008.md) — Daily midnight Pacific progress summary
+- [`design-leader-follower-determinism`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-leader-follower-determinism.md) — Designer (Fable): make the leader/follower state machine FULLY DETERMINISTIC
 - [`endojs-endo-but-for-bots-pr288-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr288-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #288
 - [`endojs-endo-but-for-bots-pr442-review-61c65980`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-review-61c65980.md) — Review directive on endojs/endo-but-for-bots PR #442
 - [`endojs-endo-but-for-bots-pr592-review-da7fef5e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-review-da7fef5e.md) — Review directive on endojs/endo-but-for-bots PR #592
 - [`endojs-endo-but-for-bots-pr595-probe-unredact-error`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr595-probe-unredact-error.md) — probe (exploratory build): sanctioned SES unredactError API — endojs/endo-but...
-- [`harden-garden-issue-inbox-journal-linkage`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/harden-garden-issue-inbox-journal-linkage.md) — Build: make garden-issue-inbox resilient to a severed journal linkage
-- [`onboarding-build-2-context-tree`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/onboarding-build-2-context-tree.md) — Build (phase 2/4): author the context/ tree
+- [`endojs-endo-but-for-bots-pr604-67c88e63`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr604-67c88e63.md) — attention directive on endojs/endo-but-for-bots PR #604
+- [`fable-review-fix-garden-scripts`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fable-review-fix-garden-scripts.md) — Fable: review the garden's scripts, serially fix discovered issues, push main2
+- [`issue-kriskowal-garden-26`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-26.md) — Issue from dckc on kriskowal/garden #26
+- [`onboarding-build-3-vocab-tutorial-wiring`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/onboarding-build-3-vocab-tutorial-wiring.md) — Build (phase 3/4): the help verb + tutorial wiring
 - [`xs2rust-endor-build-stage3b-object-statics-intern`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-object-statics-intern.md) — Builder: stage-3b child 5/9 — global string→id intern table + Object statics/...
 
-### tada (1143)
-- [`endojs-endo-but-for-bots-pr595-review-0a6137f6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr595-review-0a6137f6.md) — Completion report
-- [`library-index-keywords-orphan-concepts`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/library-index-keywords-orphan-concepts.md) — Completion report
-- [`onboarding-build-1-launcher-image-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/onboarding-build-1-launcher-image-guard.md) — Completion report
-- [`librarian-library-audit-20260704-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/librarian-library-audit-20260704-165003.md) — Completion report — librarian library audit
-- [`endojs-endo-but-for-bots-pr288-review-330391eb`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr288-review-330391eb.md) — Completion report
-- … and 1138 more
+### tada (1147)
+- [`ebfb-pr288-fable-review-post`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr288-fable-review-post.md) — Completion report
+- [`xs2rust-endor-press-20260704-042004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260704-042004.md) — Press tick complete — **observe-and-defer, no push; the build chain is health...
+- [`xs2rust-endor-press-20260704-033505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260704-033505.md) — Observe-and-defer tick complete: the xs2rust-endor chain is healthy and activ...
+- [`xs2rust-endor-press-20260704-030501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260704-030501.md) — Completion report — xs2rust-endor-press-20260704-030501
+- [`xs2rust-endor-press-20260703-175002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-175002.md) — Press tick complete — this was an observe-and-defer cycle under the charter's...
+- … and 1142 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -202,19 +378,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`xs2rust-endor-meter-opcode-cost-instrumentation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-meter-opcode-cost-instrumentation.md) — _normal_ · xs2rust-endor: optional opcode cost-calibration instrumentation
 - [`xs2rust-endor-strings-utf16-replace-cesu8`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-strings-utf16-replace-cesu8.md) — _normal_ · xs2rust-endor: replace CESU-8 string storage with UTF-16 (drop the constant-t...
-- [`fix-lint-jsdoc-warnings-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-lint-jsdoc-warnings-endo-master.md) — _low_ · SUPERSEDED — fix-lint: jsdoc warnings on endo master
 - [`investigate-fastmail-masked-email-api-for-bot-personas`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-fastmail-masked-email-api-for-bot-personas.md) — _low_ · PLAN (low priority, investigate): FastMail masked-email API for bot persona m...
 - [`scholar-ingest-ocap-kernel-comment-fragments-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-comment-fragments-2.md) — _low_ · PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
-- [`scheduler-timezone-anchored-cadence`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scheduler-timezone-anchored-cadence.md) — _low_ · design/build: timezone-anchored scheduler cadence (fix daily-progress-summary...
-- [`xs2rust-endor-corpus-test262-and-xst-harness`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-corpus-test262-and-xst-harness.md) — _low_ · Designer: converge the xs2rust-endor corpus on test262 + the harness on xst (...
+- [`fix-lint-jsdoc-warnings-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-lint-jsdoc-warnings-endo-master.md) — _low_ · SUPERSEDED — fix-lint: jsdoc warnings on endo master
 - [`endojs-endo-but-for-bots-pr288-review-330391eb-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr288-review-330391eb-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #288 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr442-review-61c65980-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr442-review-61c65980-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #442 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr592-review-da7fef5e-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr592-review-da7fef5e-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #592 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr595-review-0a6137f6-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr595-review-0a6137f6-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #595 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr442-review-61c65980-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr442-review-61c65980-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #442 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr602-review-ec2efb27-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr602-review-ec2efb27-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #602 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr604-86120b5a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr604-86120b5a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #604 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr604-review-51a40148-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr604-review-51a40148-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #604 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr604-review-f2d21a00-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr604-review-f2d21a00-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #604 (primary: endojs-endo-but-f...
+- [`scheduler-timezone-anchored-cadence`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scheduler-timezone-anchored-cadence.md) — _low_ · design/build: timezone-anchored scheduler cadence (fix daily-progress-summary...
+- [`xs2rust-endor-corpus-test262-and-xst-harness`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-corpus-test262-and-xst-harness.md) — _low_ · Designer: converge the xs2rust-endor corpus on test262 + the harness on xst (...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
@@ -226,6 +402,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ## Hosts
-- [endolinbot](https://github.com/kriskowal/garden/blob/journal2/hosts/endolinbot): 20 gardeners
+- [endolinbot](https://github.com/kriskowal/garden/blob/journal2/hosts/endolinbot): 100 gardeners
 - [endolinbot2](https://github.com/kriskowal/garden/blob/journal2/hosts/endolinbot2): 20 gardeners
 - [main-host](https://github.com/kriskowal/garden/blob/journal2/hosts/main-host): ? gardeners
