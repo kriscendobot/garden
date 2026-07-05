@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-05T21:34:57Z_
+_As of 2026-07-05T21:42:39Z_
 
 ## Latest
 
-Board movement was quiet this cycle — two xs2rust-endor jobs were claimed (a meter-calibration build for the firewall + histogram stage, and a swap of CESU-8 string storage for UTF-16), with the stage-3b Promises builder also in flight; no completions or new posts landed.
+The bulk of movement is on the **xs2rust-endor** (XS→Rust "Endor" engine) port: opcode-cost meter instrumentation completed, three builds are in flight — stage-3b promises/job-queue, meter calibration stage C1 (firewall + histogram), and replacing CESU-8 string storage with UTF-16 — and the CESU-8→UTF-16 string-representation revisit was just armed as a new blocked plan entry. The weekly plan recalibration and grooming pass ran, and a shepherd cleared [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) to green.
 
-Two decisions now await the maintainer. First, the `design-streamlined-onboarding` job finished, so `designs/streamlined-onboarding.md` is ready for review — its four §6 build jobs are gated until you answer the §5 open questions, especially Q2 (the security-flavored auto-mode default). Second, the probe on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595), published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605), surfaced a spec discrepancy: the job spec paraphrased five gaps including a destructive `take`-semantics hazard, but the published probe actually reports seven gaps and no `take`-semantics gap — the gardener correctly declined to invent it, so a dedicated `take`-semantics analysis would be a fresh probe question if you want one.
+Two items want a maintainer decision. The `design-streamlined-onboarding` job landed `designs/streamlined-onboarding.md`, whose four build jobs are gated until kriskowal answers its §5 open questions — notably Q2, the security-flavored auto-mode default. And the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) (probing [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595)) reported 7 gaps rather than the 5 its spec paraphrased, with no "destructive one-shot `take` semantics" gap; the gardener correctly declined to invent it, so a `take`-semantics analysis is available as a fresh probe on your say-so.
 
 ## Parked for maintainer feedback
 
@@ -81,6 +81,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`build-daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase3.md) — awaiting `build-daemon-rename-to-manager-phase2` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`port-xs-to-rust-memory-safe-engine-s7`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s7.md) — awaiting `xs2rust-endor-build-stage3b` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
+- [`xs2rust-endor-strings-utf16-arm`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-strings-utf16-arm.md) — awaiting `port-xs-to-rust-memory-safe-engine-s7` · Arm the CESU-8→UTF-16 string-representation revisit (record its orchestration)
 
 ## Watch set
 (none)
