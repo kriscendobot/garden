@@ -81,3 +81,9 @@ stream, shared by the Rust/XS powers. Research and answer:
   the pr-completion-summary-comment norm, plus inline replies to each of the
   two review points. Keep the PR draft; the gauntlet/un-draft is a separate
   step.
+
+---
+claim:
+  host: endolinbot
+  gardener: 71
+  claimed_at: 2026-07-05T17:35:52Z
