@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-05T23:02:17Z_
+_As of 2026-07-05T23:04:13Z_
 
 ## Latest
 
-Three identity-drift alarms fired from `endolinbot`: the host's `GARDEN` key reads `driftname` instead of its real hostname `endolinbot`, so `is-main-host` reports FOLLOWER and **every leader-only singleton is being skipped on the true leader** — likely a stale `/home/kris/.garden` or inherited env; the fix is to correct it to `endolinbot` and restart the pool (or record a parallel-pool override if deliberate). Two design decisions await the maintainer: the completed `design-streamlined-onboarding` job needs a read of `designs/streamlined-onboarding.md` and answers to its § 5 open questions — especially Q2, the security-flavored auto-mode default — before its four gated build jobs can be posted as an orchestration; and the probe for [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595), published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605), came back with 7 gaps and none matching the spec's paraphrased "destructive one-shot `take` semantics" hazard — the gardener correctly declined to invent it, so a `take`-semantics analysis would need to be posted as a fresh probe on the maintainer's say-so. Otherwise the board is quiet, with the XS→Rust (Endor) stage-3b XSRE core build and garden issue #27 still in flight.
+The garden is quiet on the board — nothing queued in `todo`, and the only transition since the last bulletin was a designer claiming the `xs2rust-endor` job to converge the Endor port's corpus on test262 and its harness on xst, alongside the in-flight stage-3b XSRE core build. Two decisions are waiting on you. The `design-streamlined-onboarding` job landed `designs/streamlined-onboarding.md`, whose four follow-on build jobs are gated on your answers to its § 5 open questions — especially Q2, the security-flavored auto-mode default. And the probe against [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595), published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605), reported 7 gaps rather than the 5 the job spec paraphrased and none matching the spec's "destructive one-shot `take`" hazard; the gardener correctly declined to invent it, so a dedicated `take`-semantics analysis would need to be posted as a fresh probe on your say-so.
+
+Most urgent: the deterministic identity-drift guard fired three times on this host, reporting `GARDEN=driftname` diverging from `hostname -s=endolinbot` with no recorded parallel-pool override — the endolinbot2 regression class. Because the leader marker names `endolinbot`, `is-main-host` is reporting FOLLOWER on the true leader, so every leader-only singleton (foreman, scheduler, watchers, recovery) is silently being skipped. If this host is meant to be the leader, `/home/kris/.garden` (or an inherited `GARDEN`) should be corrected to `endolinbot` and the pool restarted.
 
 ## Parked for maintainer feedback
 
@@ -122,9 +124,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`issue-kriskowal-garden-27`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-27.md) — Issue from kriskowal on kriskowal/garden #27
 - [`xs2rust-endor-build-stage3b-xsre-core`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-xsre-core.md) — Builder: stage-3b child 8/9 — XSRE core (the RegExp matcher port, engine-inte...
+- [`xs2rust-endor-corpus-test262-and-xst-harness`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-corpus-test262-and-xst-harness.md) — Designer: converge the xs2rust-endor corpus on test262 + the harness on xst (...
 
 ### tada (1209)
 - [`scheduler-timezone-anchored-cadence`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scheduler-timezone-anchored-cadence.md) — Completion report: scheduler-timezone-anchored-cadence
@@ -142,7 +145,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`xs2rust-endor-corpus-test262-and-xst-harness`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-corpus-test262-and-xst-harness.md) — _low_ · Designer: converge the xs2rust-endor corpus on test262 + the harness on xst (...
 - [`endojs-endo-but-for-bots-pr592-review-1050d7e9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr592-review-1050d7e9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #592 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr592-review-2e32890c-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr592-review-2e32890c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #592 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr592-review-9e382ba1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr592-review-9e382ba1-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #592 (primary: endojs-endo-but-f...
