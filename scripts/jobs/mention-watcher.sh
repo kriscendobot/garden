@@ -94,22 +94,34 @@ load_allowlist() {
 }
 
 # --- the SENDER-TRUST GATE (deterministic, no LLM) --------------------------
-# rc 0 = trusted (allowlisted OR a current endojs/Agoric org member); rc 1 = not.
-# Results cache per-tick so a repeat author is one lookup. This is the injection
-# defense — it MUST run before any mention text reaches a job, reactji, or claude.
+# rc 0 = trusted (allowlisted OR a current endojs/Agoric org member); rc 1 = not;
+# rc 2 = INDETERMINATE (the membership API had no usable answer even after the
+# transient retry budget — mirror of the trust handler's exit 2). The gate loop
+# treats 2 as "hold the cursor and retry next tick", never as untrusted: a
+# transient API outage must not silently drop a genuinely-trusted directive.
+# Results cache per-tick so a repeat author is one lookup (indeterminate caches
+# too — the same outage would answer the same way all tick). This is the
+# injection defense — it MUST run before any mention text reaches a job,
+# reactji, or claude.
 declare -A _TRUST_CACHE=()
 is_trusted() {  # is_trusted <login>
-  local login="$1" lc a
+  local login="$1" lc a rc
   [ -n "$login" ] || return 1
   lc="$(printf '%s' "$login" | tr '[:upper:]' '[:lower:]')"
-  if [ -n "${_TRUST_CACHE[$lc]:-}" ]; then [ "${_TRUST_CACHE[$lc]}" = y ]; return; fi
+  if [ -n "${_TRUST_CACHE[$lc]:-}" ]; then
+    case "${_TRUST_CACHE[$lc]}" in y) return 0;; i) return 2;; *) return 1;; esac
+  fi
   # 1) allowlist (plain string compare, case-insensitive)
   for a in "${ALLOWLIST[@]}"; do
     if [ "$a" = "$lc" ]; then _TRUST_CACHE[$lc]=y; return 0; fi
   done
   # 2) current member of endojs or Agoric (read-only org-membership check)
-  if "$GARDEN_MENTION_TRUST" "$login" >/dev/null 2>&1; then _TRUST_CACHE[$lc]=y; return 0; fi
-  _TRUST_CACHE[$lc]=n; return 1
+  rc=0; "$GARDEN_MENTION_TRUST" "$login" >/dev/null 2>&1 || rc=$?
+  case "$rc" in
+    0) _TRUST_CACHE[$lc]=y; return 0 ;;
+    2) _TRUST_CACHE[$lc]=i; return 2 ;;
+    *) _TRUST_CACHE[$lc]=n; return 1 ;;
+  esac
 }
 
 # --- verify a post actually reached origin/journal2 -------------------------
@@ -235,7 +247,16 @@ while IFS=$'\t' read -r created surface cid repo number author url body; do
   [ -n "$created" ] || continue
 
   # ── SENDER-TRUST GATE — first, deterministic, before ANYTHING touches body ──
-  if ! is_trusted "$author"; then
+  trc=0; is_trusted "$author" || trc=$?
+  if [ "$trc" -eq 2 ]; then
+    # Membership API had no usable answer (transient outage past the retry
+    # budget). This is NOT an untrusted verdict: hold the cursor at the clean
+    # prefix and retry the whole row next tick, exactly like a lost post —
+    # advancing here would permanently drop a possibly-trusted directive.
+    log "trust INDETERMINATE for ${author:-<none>} on ${repo:-?} #${number:-?}; holding cursor to retry next tick"
+    failed=1; break
+  fi
+  if [ "$trc" -ne 0 ]; then
     log "untrusted sender ${author:-<none>} on ${repo:-?} #${number:-?}; dropped (not triaged)"
     dropped=$((dropped+1)); hw="$created"; continue
   fi
