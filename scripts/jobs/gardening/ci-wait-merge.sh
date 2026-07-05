@@ -108,6 +108,12 @@ read_rollup() {
   json="$("$GH" pr view "$pr" -R "$repo" --json state,mergeable,statusCheckRollup 2>/dev/null)" \
     || { log "gh pr view $repo#$pr failed — aborting this tick (never fabricate green)"; return 1; }
   [ -n "$json" ] || { log "empty PR state for $repo#$pr"; return 1; }
+  # Validate the payload IS json before extracting: a jq parse failure on
+  # non-JSON stdout leaves state/pending/failed empty, and the ${pending:-0}
+  # defaults below would convert that into a fabricated green (this function's
+  # own contract forbids exactly that).
+  printf '%s' "$json" | jq -e . >/dev/null 2>&1 \
+    || { log "unparseable PR state for $repo#$pr (not JSON); aborting this tick (never fabricate green)"; return 1; }
   state="$(printf '%s' "$json" | jq -r '.state // ""')"
   failed="$(printf '%s' "$json" | jq -r '
     [ .statusCheckRollup[]?
@@ -203,6 +209,22 @@ while :; do
     MERGED) echo "terminal repo=$repo pr=$pr state=MERGED (already merged)"; exit 0 ;;
     CLOSED) echo "terminal repo=$repo pr=$pr state=CLOSED (nothing to finalize)"; exit 2 ;;
   esac
+
+  # An EMPTY rollup is NOT green: in the window right after a push (before any
+  # check attaches) statusCheckRollup is [] for up to ~a minute, and pending=0 ∧
+  # failed=0 used to break straight to the merge — merging a PR whose CI never
+  # started. Treat total=0 like pending: keep polling; the deadline's exit 4
+  # (re-enqueue) covers a repo that never attaches checks. A genuinely
+  # checkless repo opts in via GARDEN_CI_ALLOW_NO_CHECKS=1.
+  if [ "${total:-0}" -eq 0 ] && [ "${GARDEN_CI_ALLOW_NO_CHECKS:-0}" != 1 ]; then
+    now="$(date +%s)"
+    if [ $(( now - start )) -ge "$deadline_secs" ]; then
+      echo "ci-wait-timeout repo=$repo pr=$pr rollup stayed EMPTY after ${deadline_secs}s — STILL UNMERGED, re-enqueue (set GARDEN_CI_ALLOW_NO_CHECKS=1 for a checkless repo)"
+      exit 4
+    fi
+    log "waiting: $repo#$pr rollup empty (checks not attached yet; elapsed $(( now - start ))s / ${deadline_secs}s)"
+    sleep "$poll_secs"; continue
+  fi
 
   if [ "${pending:-0}" -eq 0 ]; then
     if [ "${failed:-0}" -gt 0 ]; then
