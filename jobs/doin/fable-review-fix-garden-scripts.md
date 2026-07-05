@@ -30,3 +30,9 @@ After all fixes are committed, **push once to `origin/main2`** (`git push origin
 ## Definition of done
 
 A prioritized review of `scripts/` was produced; each accepted issue was fixed by its own serial Fable subagent as a focused commit; touched tests pass; `main2` is pushed. The report lists each issue, its disposition (fixed / skipped-with-reason), and the pushed commit range.
+
+---
+claim:
+  host: endolinbot
+  gardener: 76
+  claimed_at: 2026-07-05T17:17:18Z
