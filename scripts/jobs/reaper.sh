@@ -78,6 +78,27 @@ GARDEN_TAG="reaper"
 # § deadline-overrun); the reaper only reads it to decide the threshold.
 : "${GARDEN_REAP_OVERRUN_THRESHOLD:=2}" # deadline-overrun cycles after which a wall-hitting job is surfaced as poison
 
+# --- two-writers-in-one-worktree guard (data-corruption class) ----------------
+#
+# A claim is reapable only once its handler is GUARANTEED dead. The gardener bounds
+# every handler at `timeout --signal=TERM --kill-after=GARDEN_HANDLER_KILL_AFTER
+# GARDEN_HANDLER_TIMEOUT`, so a handler cannot outlive GARDEN_HANDLER_TIMEOUT +
+# GARDEN_HANDLER_KILL_AFTER; the gardener's INVARIANT
+# (GARDEN_HANDLER_TIMEOUT + GARDEN_HANDLER_KILL_AFTER < GARDEN_CLAIM_TTL) is what
+# lets the reaper treat a claim past GARDEN_CLAIM_TTL as dead. But that invariant is
+# CONFIG-FRAGILE: nothing stops GARDEN_CLAIM_TTL being set BELOW the handler wall
+# (the reaper and the gardener read the knob independently, in separate processes).
+# When it is, the reaper requeues a claim whose handler is STILL RUNNING — a fresh
+# gardener re-claims the SAME base, re-enters the SAME persisted per-job worktree,
+# and now TWO live handlers write one tree (the ~18-min-requeue-vs-40-min-wall
+# corruption). So the reaper re-derives the invariant at reap time (reap_age_threshold
+# below): it NEVER treats a claim as stale before the maximum lifetime its handler
+# could hold has elapsed, whatever GARDEN_CLAIM_TTL says. These two knobs must match
+# gardener.sh's defaults so the derived floor tracks the real handler wall.
+: "${GARDEN_HANDLER_TIMEOUT:=2400}"    # must match gardener.sh: the default handler wall-clock budget
+: "${GARDEN_HANDLER_KILL_AFTER:=60}"   # must match gardener.sh: grace before the handler's SIGKILL
+: "${GARDEN_REAP_SAFETY_SLACK:=30}"    # extra seconds past the handler's max lifetime before its claim is reapable
+
 # Marker the reaper stamps into a requeued job body to count requeue cycles. It
 # is an HTML comment so it is invisible in rendered Markdown, and it survives both
 # the claim-block strip (it lives in the body, above the trailing claim block) and
@@ -164,6 +185,55 @@ _proc_descendants() {
         }
       }
     }'
+}
+
+# reap_age_threshold <doin-file> — echo the minimum claim age (seconds) at which
+# this job's claim may be reaped. It is the LARGER of the configured
+# GARDEN_CLAIM_TTL and the maximum lifetime the job's handler could hold: the
+# effective handler budget + GARDEN_HANDLER_KILL_AFTER + GARDEN_REAP_SAFETY_SLACK.
+# The effective budget is the DEFAULT GARDEN_HANDLER_TIMEOUT — the gardener runs a
+# headerless job at that default regardless of GARDEN_CLAIM_TTL — unless the job
+# carries a valid `handler-timeout:` header, which the gardener honors clamped to
+# GARDEN_CLAIM_TTL - GARDEN_HANDLER_KILL_AFTER - 1 (never below the default). This
+# re-derives the gardener's single-owner invariant at reap time so a GARDEN_CLAIM_TTL
+# misconfigured below the handler wall can no longer requeue a still-live handler.
+reap_age_threshold() {
+  local f="$1" req budget budget_max floor
+  budget="$GARDEN_HANDLER_TIMEOUT"
+  req="$(sed -n 's/^handler-timeout:[[:space:]]*//p' "$f" 2>/dev/null | head -1 | tr -dc '0-9')"
+  if [ -n "$req" ] && [ "$req" -ge 1 ] 2>/dev/null; then
+    budget_max=$(( GARDEN_CLAIM_TTL - GARDEN_HANDLER_KILL_AFTER - 1 ))
+    if [ "$req" -le "$budget_max" ]; then budget="$req"; else budget="$budget_max"; fi
+    # The gardener never runs BELOW the default wall for a header job; keep the
+    # floor at least the default so a tiny budget_max (from a misconfigured TTL)
+    # cannot shrink the guard under the real handler lifetime.
+    [ "$budget" -lt "$GARDEN_HANDLER_TIMEOUT" ] && budget="$GARDEN_HANDLER_TIMEOUT"
+  fi
+  floor=$(( budget + GARDEN_HANDLER_KILL_AFTER + GARDEN_REAP_SAFETY_SLACK ))
+  if [ "$GARDEN_CLAIM_TTL" -ge "$floor" ]; then printf '%s\n' "$GARDEN_CLAIM_TTL"; else printf '%s\n' "$floor"; fi
+}
+
+# _handler_alive_pids <base> — print the pids of any LIVE handler subtree working
+# this base ON THIS HOST, one per line. <base> is the doin filename INCLUDING its
+# `.md` suffix (list_jobs yields it that way). A running handler (and its `timeout`
+# supervisor) is invoked with the job file `.../jobs/doin/<base>` as an argument, so
+# any process whose argv carries that path token is part of the live handler subtree
+# — a precise, handler-agnostic liveness probe (the leading `doin/` and the `.md`
+# suffix anchor it so base `boom.md` does not match `xboom.md`/`boomer.md`). The
+# reaper's OWN git/sed children take the same path as an argument, so the reaper
+# process subtree is excluded. This can only see THIS host's processes; a claim on
+# another host reports nothing here and is governed by reap_age_threshold's floor.
+_handler_alive_pids() {
+  local base="$1"
+  local needle="jobs/doin/$base" self_tree pid cmd
+  self_tree=" $(_proc_descendants $$ 2>/dev/null | tr '\n' ' ') "
+  # SC2009: we need ps's args column (pgrep gives neither cmdline nor a substring match).
+  # shellcheck disable=SC2009
+  ps -eo pid=,args= 2>/dev/null | while read -r pid cmd; do
+    [ -n "$pid" ] || continue
+    case "$self_tree" in *" $pid "*) continue ;; esac   # never match the reaper's own subtree
+    case "$cmd" in *"$needle"*) printf '%s\n' "$pid" ;; esac
+  done
 }
 
 reap_stuck_fetches() {
@@ -299,6 +369,8 @@ gc_scratch
 # --- 1. detect the stale set -------------------------------------------------
 now="$(date -u +%s)"
 declare -a STALE=()
+declare -a LIVE_KILL_TARGETS=()   # pids to SIGKILL after a grace: handlers still live past staleness
+live_deferred=0
 for base in $(list_jobs "$DIR" "$JOBS_DOIN"); do
   f="$DIR/$JOBS_DOIN/$base"
   claimed_at="$(sed -n 's/^  claimed_at: //p' "$f" | head -1)"
@@ -313,15 +385,54 @@ for base in $(list_jobs "$DIR" "$JOBS_DOIN"); do
   # every cycle still escalates as poison after the threshold (never loops forever).
   if has_reap_now_hint "$f"; then
     log "reap-now: '$base' carries a gardener reap-now hint (age ${age}s); requeueing before TTL"
-    STALE+=("$base")
+  else
+    # Age-based staleness, floored at the handler's maximum possible lifetime
+    # (reap_age_threshold) so a GARDEN_CLAIM_TTL set below the handler wall cannot
+    # requeue a still-running handler — the two-writers-in-one-worktree fix.
+    threshold="$(reap_age_threshold "$f")"
+    if [ "$ts" -eq 0 ] || [ "$age" -lt "$threshold" ]; then
+      continue
+    fi
+    if [ "$threshold" -gt "$GARDEN_CLAIM_TTL" ]; then
+      log "stale: '$base' (age ${age}s ≥ safe floor ${threshold}s; GARDEN_CLAIM_TTL=${GARDEN_CLAIM_TTL}s is BELOW the handler wall GARDEN_HANDLER_TIMEOUT=${GARDEN_HANDLER_TIMEOUT}s + kill-after ${GARDEN_HANDLER_KILL_AFTER}s — check the config)"
+    else
+      log "stale: '$base' (age ${age}s ≥ TTL ${GARDEN_CLAIM_TTL}s)"
+    fi
+  fi
+
+  # LIVE-HANDLER GUARD (kill-or-wait). Even past the age floor, a handler that
+  # somehow outlived its own `timeout` (a wedged supervisor) would still be writing
+  # this base's worktree. Requeuing it now would let a re-claim re-enter that tree
+  # under a second live writer. So if a handler subtree for this base is still alive
+  # ON THIS HOST, KILL it (SIGTERM now, SIGKILL its subtree after a grace, mirroring
+  # the stuck-fetch janitor) and DEFER the requeue to the next tick — by then the
+  # process is gone and the requeue lands against a settled, single-owner tree. A
+  # claim on another host reports no local process and requeues under the age floor.
+  live_pids="$(_handler_alive_pids "$base" 2>/dev/null || true)"
+  if [ -n "$live_pids" ]; then
+    log "ANOMALY: '$base' is reapable (age ${age}s) but a LIVE handler subtree is still running on $GARDEN (pids: $(echo "$live_pids" | tr '\n' ' ')); killing it and deferring the requeue one tick to avoid two writers in one worktree"
+    while read -r pid; do
+      [ -n "$pid" ] || continue
+      kill -TERM "$pid" 2>/dev/null || true
+      while read -r d; do [ -n "$d" ] && LIVE_KILL_TARGETS+=("$d"); done < <(_proc_descendants "$pid")
+    done <<< "$live_pids"
+    live_deferred=$((live_deferred+1))
     continue
   fi
-  if [ "$ts" -eq 0 ] || [ "$age" -lt "$GARDEN_CLAIM_TTL" ]; then
-    continue
-  fi
-  log "stale: '$base' (age ${age}s ≥ TTL ${GARDEN_CLAIM_TTL}s)"
+
   STALE+=("$base")
 done
+
+# Escalate the deferred kills: give a SIGTERM-respecting handler a brief grace, then
+# SIGKILL the captured subtrees unconditionally. The claims stay in doin/ this tick
+# and are requeued next tick once the processes are confirmed gone.
+if [ "${#LIVE_KILL_TARGETS[@]}" -gt 0 ]; then
+  sleep "$GARDEN_FETCH_REAP_KILL_AFTER"
+  for d in "${LIVE_KILL_TARGETS[@]}"; do
+    kill -KILL "$d" 2>/dev/null || true
+  done
+  log "live-handler guard: killed $live_deferred stale-but-live handler(s); their claims deferred to next tick"
+fi
 
 if [ "${#STALE[@]}" -eq 0 ]; then
   clone_unlock "$DIR"
