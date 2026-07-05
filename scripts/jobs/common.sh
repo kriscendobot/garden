@@ -1121,7 +1121,15 @@ leader_host() {
       head -1 "$cache" 2>/dev/null | tr -d '[:space:]'; return 0
     fi
   fi
-  ensure_clone "$dir" >/dev/null 2>&1 || true
+  # Contain ensure_clone in a SUBSHELL: on an unresolvable journal remote it
+  # reaches journal_remote's die() → `exit 1`, and a bare `|| true` cannot catch
+  # an exit from a same-shell function — leader_host would kill its caller, so
+  # is-main-host.sh would exit 1 = "follower" and every singleton would skip its
+  # tick on the TRUE leader (silently defeating the GARDEN_LEADER_DEFAULT=leader
+  # fail-open this function promises). The subshell converts the exit into a
+  # plain non-zero status the `|| true` absorbs; the clone lock is released with
+  # the subshell's fds, and the fallback-to-cache path below still runs.
+  ( ensure_clone "$dir" ) >/dev/null 2>&1 || true
   _journal_git_fetch "$dir" >/dev/null 2>&1 || true
   val="$(git -C "$dir" show "origin/$JOURNAL_BRANCH:$GARDEN_LEADER_MARKER_PATH" 2>/dev/null | head -1 | tr -d '[:space:]')"
   if [ -n "$val" ]; then
