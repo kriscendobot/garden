@@ -196,6 +196,40 @@ Program state:
   (runtime-interned, non-program-symbol) key, (f) `instanceof`/`hasInstance` built-in/literal-name
   resolution (piece-1 aspirational, absent from the bar). The flag-byte attribute model now in
   place is the foundation a later child extends. None block the stated bar.
+- **Stage-3b child 6/9 (json-metering) PARTIAL COMPLETE — scope-fold report carried here (your inbox
+  was not yet live, so the child's note dead-lettered; deadmail-20260705T203811Z-5bff83 folded it
+  into this spec).** On `xs2rust-endor` (PR #600, kept DRAFT), HEAD `c712ee8f5`, all pushed. **Structured
+  `JSON.stringify` metering DONE bit-exact; `JSON.parse` REMAINS as the clean follow-up (REQUEUED, not
+  abandoned — the live child `xs2rust-endor-build-stage3b-json-metering` carries it).** Delivered — 3
+  green commits, divergent=0, `#![forbid(unsafe_code)]` intact, all prior corpora + endor-vm/endor-262/
+  endor-fuzz suites green; full evidence in `rust/engine/README.md` evidence block: (1) structured
+  `JSON.stringify` per-node metering, bit-exact (result AND computron) vs pin `48ee02d8cfe0`, fully
+  **decomposed** against xsJSON.c `fxStringifyJSONProperty` (NOT fitted) — each node a whole number of
+  `mxMeterOne(1<<14)` steps + exact `fxNewSlot`/`fxNewChunk` allocs: array-enter 11 steps +1 nonempty
+  +5/element; object-enter 8 steps +1 `fxNewInstance` slot +1 AT-slot/own-key +65528 nonempty +4 steps
+  + `fxPushKeyString` chunk(rup8(len+1))/key; 1-step primitive leaf. The child-4 "value-dependent
+  non-power-of-two gaps" is fully explained — the apparent wobble was ENTIRELY the final result
+  `fxNewChunk(offset)` (output len + NUL), already metered once by `new_string_metered`; verified
+  bit-exact across flat/nested/holes/undefined/string-escape objects & arrays to 30 keys and depth 5.
+  (2) curated corpus `stage3b-json-metering.js` + a `gen_json_structured_program` differential fuzz arm
+  (both bit-exact). (3) README evidence block. **Bar:** built-ins/JSON **2→4 covered, divergent=0** —
+  only +2 because most "stringify-gated" test files ALSO round-trip through `JSON.parse` (55 files gated
+  on `JSON.parse:unmodeled`) or use replacer/space (22); the sharp coverage climb needs `JSON.parse`.
+  **Scope folds for YOU to ratify (all HONEST NAMED SKIPS, never a wrong value/divergence):**
+  `JSON.stringify` of a callable VALUE (function) inside a container — its reference branch runs an
+  unmodeled `mxGetID(_toJSON)` probe (measured object-ctx +131072 / array-ctx +65536, context-dependent;
+  deferred rather than shipped) — plus the prior toJSON/wrapper/replacer/space corners and callable-top.
+  **`JSON.parse` (remaining, REQUEUED):** the primitive-parse internal metering is measured =
+  180224 raw constant (number/bool/null) + string chunk (rup8(len+1)+16) for strings; the tokenizer
+  (`fxParseJSONToken`), value dispatch (`fxParseJSONValue`), array/object construction (`fxNewArrayInstance`
+  + `fxNewSlot`/element; `fxNewObjectInstance` + property slots) + error metering remain to implement
+  bit-exact — a full recursive-descent parser, a self-contained next-cycle effort. **Pre-existing
+  observation flagged for the parse child (or an object-literal child) — NOT introduced here and NOT a
+  JSON issue:** a large/deep nested OBJECT LITERAL *construction* (bare `var v={...}`, no JSON) accrues a
+  sub-computron raw drift in endor vs oracle (e.g. −1664 raw on a ~120-computron literal) that can
+  occasionally tip one computron boundary; visible independent of JSON. The json-structured fuzz arm
+  bounds depth/breadth to stay construction-exact. Route it (to the `JSON.parse` child, an object-literal
+  child, or the stage-8 ledger) — worth a look in the object-literal/`SET_PROPERTY` metering path.
 - **s6 rulings on the stage-3 carry-forwards (all discharged; do not re-litigate):** child-1 folds
   ratified (at/at_2 → stage-3b child 5; copy_object/extend + arguments exotics stay named skips
   pending class/intrinsics machinery); child-2 ratified done, bind/apply-with-array →
