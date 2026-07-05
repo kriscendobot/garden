@@ -1,3 +1,5 @@
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-07-05T21:34:24Z -->
+
 # xs2rust-endor: replace CESU-8 string storage with UTF-16 (drop the constant-time-index hacks)
 
 **Program:** the `xs2rust-endor` XS→Rust port (design: `designs/xs2rust-endor-engine.md`).
