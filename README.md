@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-05T22:55:21Z_
+_As of 2026-07-05T23:02:17Z_
 
 ## Latest
 
-The only board completion since the last bulletin was [`scheduler-timezone-anchored-cadence`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scheduler-timezone-anchored-cadence.md), which anchors the scheduler's recurring cadences to a fixed timezone; two jobs remain in flight (the garden #27 issue and the stage-3b XSRE-core builder for the XS→Rust port). Two decisions are waiting on you: the completed `design-streamlined-onboarding` design needs its § 5 open questions answered — especially Q2, the security-flavored auto-mode default — before its four build jobs can be posted as an orchestration; and on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595), the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) reported 7 gaps with no `take`-semantics gap, so the paraphrased "destructive one-shot `take`" hazard was correctly not invented — say the word if you want that analysis posted as a fresh probe.
+Three identity-drift alarms fired from `endolinbot`: the host's `GARDEN` key reads `driftname` instead of its real hostname `endolinbot`, so `is-main-host` reports FOLLOWER and **every leader-only singleton is being skipped on the true leader** — likely a stale `/home/kris/.garden` or inherited env; the fix is to correct it to `endolinbot` and restart the pool (or record a parallel-pool override if deliberate). Two design decisions await the maintainer: the completed `design-streamlined-onboarding` job needs a read of `designs/streamlined-onboarding.md` and answers to its § 5 open questions — especially Q2, the security-flavored auto-mode default — before its four gated build jobs can be posted as an orchestration; and the probe for [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595), published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605), came back with 7 gaps and none matching the spec's paraphrased "destructive one-shot `take` semantics" hazard — the gardener correctly declined to invent it, so a `take`-semantics analysis would need to be posted as a fresh probe on the maintainer's say-so. Otherwise the board is quiet, with the XS→Rust (Endor) stage-3b XSRE core build and garden issue #27 still in flight.
 
 ## Parked for maintainer feedback
 
@@ -29,6 +29,93 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260705T203815Z-e614d3` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260705T203815Z-e614d3.md)
 
 > On endojs/endo-but-for-bots PR #595 (probe published as PR #605, https://github.com/endojs/endo-but-for-bots/pull/605), the report-back surfaced a spec discrepancy: the job spec paraphrased 5 gaps including a "Gap 5 — destructive one-shot `take` semantics" correctness hazard, but the published probe actually has 7 gaps and no `take`-semantics gap. The gardener correctly did not invent the missing gap. Decision needed: do you specifically want a `take`-semantics analysis? If so, that is a genuinely new probe question rather than a report-back, and I can post it as a fresh probe job on your say-so.
+
+- `20260705T230144Z-12089a` — from identity-drift-guard:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260705T230144Z-12089a.md)
+
+> kind: error
+>
+> # Host-identity DRIFT detected (deterministic guard)
+>
+> **GARDEN=`driftname`** diverges from **hostname -s=`endolinbot`** on this host,
+> with NO recorded parallel-pool override (checked GARDEN_IDENTITY_OVERRIDE and
+> `/tmp/idg-ubnS9p/state/identity-override`).
+>
+> GARDEN is the single key every per-host structure hangs off — claim metadata, the
+> `hosts/<host>` worker count, the journal index, and the leader/follower
+> predicate. An unrecorded divergence silently mislabels all of it (here: up to this
+> host's full gardener pool) and disables the leader gate.
+>
+> **Leader impact:** is-main-host reports FOLLOWER: the leader marker names 'endolinbot' (this host's real hostname -s), but the drifted GARDEN=driftname does not match it — every leader-only singleton is being SKIPPED on the true leader host
+>
+> **Likely source:** the gitignored per-instance identity file `/home/kris/.garden`
+> (common.sh precedence step 2) or an inherited-env `GARDEN`. This is the
+> endolinbot2 regression class.
+>
+> **Fix:** if this host is the leader, correct `/home/kris/.garden` (and any
+> inherited `GARDEN`) to `endolinbot` and restart the pool; if this is a
+> deliberate parallel pool, record the override in `/tmp/idg-ubnS9p/state/identity-override`
+> (or export GARDEN_IDENTITY_OVERRIDE=`driftname`) so this guard stays quiet.
+>
+> Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
+> (gardener-scaler preflight). It will not repeat until the drift changes or clears.
+
+- `20260705T230150Z-143d1c` — from identity-drift-guard:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260705T230150Z-143d1c.md)
+
+> kind: error
+>
+> # Host-identity DRIFT detected (deterministic guard)
+>
+> **GARDEN=`driftname`** diverges from **hostname -s=`endolinbot`** on this host,
+> with NO recorded parallel-pool override (checked GARDEN_IDENTITY_OVERRIDE and
+> `/tmp/idg-ubnS9p/state/identity-override`).
+>
+> GARDEN is the single key every per-host structure hangs off — claim metadata, the
+> `hosts/<host>` worker count, the journal index, and the leader/follower
+> predicate. An unrecorded divergence silently mislabels all of it (here: up to this
+> host's full gardener pool) and disables the leader gate.
+>
+> **Leader impact:** is-main-host reports FOLLOWER: the leader marker names 'endolinbot' (this host's real hostname -s), but the drifted GARDEN=driftname does not match it — every leader-only singleton is being SKIPPED on the true leader host
+>
+> **Likely source:** the gitignored per-instance identity file `/home/kris/.garden`
+> (common.sh precedence step 2) or an inherited-env `GARDEN`. This is the
+> endolinbot2 regression class.
+>
+> **Fix:** if this host is the leader, correct `/home/kris/.garden` (and any
+> inherited `GARDEN`) to `endolinbot` and restart the pool; if this is a
+> deliberate parallel pool, record the override in `/tmp/idg-ubnS9p/state/identity-override`
+> (or export GARDEN_IDENTITY_OVERRIDE=`driftname`) so this guard stays quiet.
+>
+> Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
+> (gardener-scaler preflight). It will not repeat until the drift changes or clears.
+
+- `20260705T230156Z-3d08c6` — from identity-drift-guard:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260705T230156Z-3d08c6.md)
+
+> kind: error
+>
+> # Host-identity DRIFT detected (deterministic guard)
+>
+> **GARDEN=`driftname`** diverges from **hostname -s=`endolinbot`** on this host,
+> with NO recorded parallel-pool override (checked GARDEN_IDENTITY_OVERRIDE and
+> `/tmp/idg-ubnS9p/state/identity-override`).
+>
+> GARDEN is the single key every per-host structure hangs off — claim metadata, the
+> `hosts/<host>` worker count, the journal index, and the leader/follower
+> predicate. An unrecorded divergence silently mislabels all of it (here: up to this
+> host's full gardener pool) and disables the leader gate.
+>
+> **Leader impact:** is-main-host reports FOLLOWER: the leader marker names 'endolinbot' (this host's real hostname -s), but the drifted GARDEN=driftname does not match it — every leader-only singleton is being SKIPPED on the true leader host
+>
+> **Likely source:** the gitignored per-instance identity file `/home/kris/.garden`
+> (common.sh precedence step 2) or an inherited-env `GARDEN`. This is the
+> endolinbot2 regression class.
+>
+> **Fix:** if this host is the leader, correct `/home/kris/.garden` (and any
+> inherited `GARDEN`) to `endolinbot` and restart the pool; if this is a
+> deliberate parallel pool, record the override in `/tmp/idg-ubnS9p/state/identity-override`
+> (or export GARDEN_IDENTITY_OVERRIDE=`driftname`) so this guard stays quiet.
+>
+> Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
+> (gardener-scaler preflight). It will not repeat until the drift changes or clears.
 
 
 ## Board
