@@ -14165,3 +14165,19 @@ content-addressed storage API | content-addressed-storage-backend
 encoding scheme | content-addressed-storage-backend
 R2 backend | content-addressed-storage-backend
 native vs WASM storage | content-addressed-storage-backend
+DialogSession | dialog-session-js
+dialog Session | dialog-session-js
+dialog-experimental | dialog-session-js
+dialog js api | dialog-session-js
+dialog javascript api | dialog-session-js
+`useQuery` | dialog-session-js
+`useSession` | dialog-session-js
+`useTransaction` | dialog-session-js
+`DialogContext` | dialog-session-js
+dialog react hooks | dialog-session-js
+`did:key` session | dialog-session-js
+`BroadcastChannel` session | dialog-session-js
+`Retraction` | dialog-session-js
+`Changes` | dialog-session-js
+`GENESIS` revision | dialog-session-js
+`FactsSelector` | dialog-session-js
