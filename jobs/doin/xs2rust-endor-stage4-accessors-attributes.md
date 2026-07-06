@@ -79,6 +79,8 @@ baseline (Object 63), every skip named. Lock the new sections as cargo-test bars
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
