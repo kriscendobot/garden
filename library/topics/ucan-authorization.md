@@ -37,6 +37,9 @@
 | [dialog-db--rust-dialog-repository-guide--identity-profile-operator-account](../sections/dialog-db--rust-dialog-repository-guide--identity-profile-operator-account.md) | dialog-db rust/dialog-repository/Guide.md | The three-keypair identity model (profile / operator / account) and the subject -> profile -> operator invocation chain. |
 | [dialog-db--rust-dialog-repository-guide--syncing-remotes-and-upstream](../sections/dialog-db--rust-dialog-repository-guide--syncing-remotes-and-upstream.md) | dialog-db rust/dialog-repository/Guide.md | Remotes fronted by a UCAN access service (SiteAddress::Ucan); set_upstream and push/pull against a UCAN-gated site. |
 | [dialog-db--rust-dialog-repository-guide--collaboration-ucan-delegation](../sections/dialog-db--rust-dialog-repository-guide--collaboration-ucan-delegation.md) | dialog-db rust/dialog-repository/Guide.md | Sharing a repository across profiles via UCAN delegation — the Alice-sets-up / invites-Bob / Bob-joins flow. |
+| [dialog-db--rust-dialog-remote-ucan-s3-readme--overview](../sections/dialog-db--rust-dialog-remote-ucan-s3-readme--overview.md) | dialog-remote-ucan-s3 README | A UCAN-authorized remote wrapping S3; requests authorized by a delegation-verifying access service, not direct credentials. |
+| [dialog-db--rust-dialog-remote-ucan-s3-readme--usage-walkthrough](../sections/dialog-db--rust-dialog-remote-ucan-s3-readme--usage-walkthrough.md) | dialog-remote-ucan-s3 README | The `UcanAddress` remote lifecycle pointed at an access service; the operator's identity supplies the delegation. |
+| [dialog-db--rust-dialog-remote-ucan-s3-readme--collaboration](../sections/dialog-db--rust-dialog-remote-ucan-s3-readme--collaboration.md) | dialog-remote-ucan-s3 README | Sharing access via UCAN delegation chains: Alice claims+delegates to Bob's DID, Bob saves it and pushes with `.subject(did)`. |
 
 ## See also
 
