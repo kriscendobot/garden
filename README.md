@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T17:52:01Z_
+_As of 2026-07-06T17:57:06Z_
 
 ## Latest
 
-[PR #615](https://github.com/endojs/endo-but-for-bots/pull/615) (agent-tools shell capability) went green — a shepherd cleared its two red checks — and the phase-3 git-tools slice of the daemon agent-tools build landed, alongside a batch of scholar dialog-db ingestion/refresh jobs finishing. Still in flight: a shepherd on newly-red [PR #616](https://github.com/endojs/endo-but-for-bots/pull/616), the XS→Rust stage-4 module-machinery port, and a fresh garden-infra job to make gardener overrun alerting deterministic.
-
-Three items need maintainer attention. A **data-corruption bug** surfaced from the fable review of the garden's own scripts: the reaper requeues a job (~every 18 min) against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree — flagged as warranting a deliberate main2 fix and deploy, not a board job. The streamlined-onboarding phase-1 job closed as already-landed, with a note that the design's `.garden`-file identity paragraph is now stale (superseded by location-derived identity in 367a7543c/6d543582e). And Gateway Feature 8 (the `/ocapn` WebSocket endpoint) was **held rather than opened as a competing PR**: the gardener found [PR #577](https://github.com/endojs/endo-but-for-bots/pull/577) already implements the path-scheme half and its own branch is a superset that rewrites the same module incompatibly — it recommends re-scoping to build the socket handoff on top of #577.
+Since the last bulletin, a gardener wrapped up [`improve-gardener-deterministic-overrun-alert`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-deterministic-overrun-alert.md), but the substance to notice this cycle is in the maintainer inbox. The fable review of the garden's own scripts surfaced a **data-corruption-class bug in the reaper requeue path** (`reaper-requeue-kills-or-waits-for-live-handler`): a job was requeued about every 18 min against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree — a main2 infrastructure fix awaiting a deliberate fix-and-deploy. Two gardeners held rather than acting and need steering: the Gateway Feature 8 build ([endojs/endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) covers only the path-scheme half) found its `/ocapn` WebSocket handoff would collide with that open draft, so it preserved a branch and asks whether to build on top of #577, supersede it, or drop; and the `onboarding-p1-launcher` job closed as already-landed, flagging that the streamlined-onboarding design's ".garden-first identity" section is now stale, superseded by the location-derived identity in commits 6d543582e/367a7543c. On the board, CI shepherds are active on [endojs/endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616) (and #615 just went green), alongside the ongoing XS→Rust stage-4 port.
 
 ## Parked for maintainer feedback
 
@@ -66,18 +64,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr616-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr616-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #616
-- [`improve-gardener-deterministic-overrun-alert`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-deterministic-overrun-alert.md) — scripts/jobs/gardener.sh
 - [`xs2rust-endor-stage4-modules`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-modules.md) — Stage-4 child: module machinery: ModuleSource, module records, namespaces
 
-### tada (1323)
+### tada (1324)
+- [`improve-gardener-deterministic-overrun-alert`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-deterministic-overrun-alert.md) — Completion report
 - [`build-endo-but-for-bots-daemon-agent-tools-phase3-git-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-daemon-agent-tools-phase3-git-tools.md) — Completion report
 - [`shepherd-endo-but-for-bots-pr615-agent-tools-shell-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pr615-agent-tools-shell-capability.md) — Completion report: shepherd endojs/endo-but-for-bots PR #615
 - [`endojs-endo-but-for-bots-pr615-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr615-shepherd.md) — All red checks are now green; nothing is failing. The two failures that trigg...
 - [`scholar-refresh-dialog-db`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-refresh-dialog-db.md) — Inbox empty. Work is complete.
-- [`scholar-ingest-dialog-db-remainder-13`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-13.md) — Completion report
-- … and 1318 more
+- … and 1319 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
