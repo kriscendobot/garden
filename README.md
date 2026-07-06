@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T12:18:14Z_
+_As of 2026-07-06T12:19:24Z_
 
 ## Latest
 
-A quiet cycle on the board: the shepherd job for [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) reached completion, and one dead-mail entry was reaped. Three jobs remain in flight — the auto-posted [garden Pages deploy shepherd](https://github.com/kriskowal/garden), a shepherd for [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286), and the scholar's Gutentag ingest. More consequential than the board churn are two items in the maintainer inbox: the liaison surfaced a **data-corruption-class bug in the reaper requeue path** (`reaper-requeue-kills-or-waits-for-live-handler`) — a job requeued every ~18 min against a 40-min handler wall, twice producing two live writers in one worktree — flagged as a main2 infrastructure fix warranting a deliberate fix-and-deploy rather than a board job; and the onboarding phase-1 job closed as already-satisfied, noting that the design's `.garden`-file identity is now superseded by the location-derived identity landed in 6d543582e/367a7543c and could be annotated stale.
+A fable review of the garden's own scripts turned up a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`): a job was requeued about every 18 min against a 40-min handler wall without killing the prior handler, twice leaving two live writers in one worktree. It's a main2 infrastructure fix with no bot-repo PR, surfaced to the maintainer for a deliberate fix-and-deploy rather than posted to the board. On the board itself, little moved — the `xs2rust-endor-stage4-generators` child was claimed (stage-4 `classes` child already completed), continuing the XS→Rust (Endor) port. Separately, the `onboarding-p1-launcher` job closed as already-landed: streamlined-onboarding phase 1 shipped 2026-07-04, and its ".garden-file-first identity" design point was deliberately superseded by the newer location-derived identity (`<hostname>-<basename>-<hash8>`) in commits 6d543582e/367a7543c — so that paragraph of the design is now stale and worth annotating as such.
 
 ## Parked for maintainer feedback
 
@@ -44,10 +44,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`garden-pages-0fe25c6e9af6-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-pages-0fe25c6e9af6-shepherd.md) — pages-shepherd (auto: red Pages deploy) on kriskowal/garden
 - [`pr-ebfb-286-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/pr-ebfb-286-shepherd.md) — Repo endojs/endo-but-for-bots — shepherd PR #286 (https://github.com/endojs/e...
 - [`scholar-ingest-gutentag-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-gutentag-remainder.md) — role: scholar
+- [`xs2rust-endor-stage4-generators`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-generators.md) — Stage-4 child: generator functions and the iteration protocol closure
 
 ### tada (1284)
 - [`deadmail-20260706T121417Z-81d784`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T121417Z-81d784.md) — Completion report
