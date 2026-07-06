@@ -23,3 +23,9 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 The portfolio-contract vat is not critical, so should it exhaust resources, getting access to the capabilities that it controlled is... a mess. If it were marked critical, the chain would halt before we would commit to killing the vat. Please present design options to address the
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  claimed_at: 2026-07-06T19:45:42Z
