@@ -82,3 +82,9 @@ Dual-run `built-ins/Promise` (7 baseline — this child should grow it substanti
 <!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  claimed_at: 2026-07-06T14:33:07Z
