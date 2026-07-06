@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-06T15:08:21Z_
+_As of 2026-07-06T15:10:43Z_
 
 ## Latest
 
-The XS→Rust (Endor) port cleared [its stage-4 async/await milestone](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage4-async-await.md), the board's only completion this cycle; a daemon agent-tools phase-2 shell-capability build and a shepherd on [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614) remain in flight. Three items landed in the maintainer inbox that need a decision. The fable review of the garden's own scripts flagged a **data-corruption bug in the reaper requeue path** — a job requeued every ~18 min against a 40-min handler wall left the prior handler alive, twice yielding two live writers in one worktree; it's a main2 infra fix warranting a deliberate fix-and-deploy. On the bot repo, the Gateway Feature-8 build found a **duplicate** and held rather than open a competing PR: [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) already lands the pure path-scheme half of the `/ocapn` WebSocket endpoint and explicitly defers the socket handoff the new work implements, but the two rewrite `src/ocapn-ws.js` incompatibly — the gardener recommends re-scoping its work to build atop #577. Finally, the streamlined-onboarding phase-1 job closed as already-satisfied (landed 2026-07-04), with a note that the design's `.garden`-first identity paragraph is now **stale**, superseded by the newer location-derived identity, and could be annotated as such.
+Three maintainer messages landed that need a decision. The fable review of the garden's own scripts surfaced a **data-corruption-class bug** in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`): jobs were requeued roughly every 18 min against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree — a garden-infrastructure fix (main2) warranting a deliberate fix + deploy. Separately, the gateway Feature 8 build ([/ocapn WebSocket endpoint](https://github.com/endojs/endo-but-for-bots/pull/577)) was **held rather than opened as a competing PR**: it's a superset of the open draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577), which implements only the path-naming half and defers the socket handoff — the gardener recommends re-scoping to build on top of #577 and awaits steering. The streamlined-onboarding phase-1 job closed as already-landed, with a note that the design's ".garden-file-first identity" was deliberately superseded by the recent location-derived identity commits.
+
+On the board, the XS→Rust (Endor) port advanced — stage-4 async/await completed and stage-4 modules is now in progress — alongside another scholar dialog-DB ingest cycle and the daemon agent-tools phase-1 filesystem tools. A shepherd is driving red CI on [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614), and a dead-lettered message was requeued for pickup.
 
 ## Parked for maintainer feedback
 
@@ -64,10 +66,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (5)
 - [`build-endo-but-for-bots-daemon-agent-tools-phase2-shell-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-daemon-agent-tools-phase2-shell-capability.md) — ---
+- [`deadmail-20260706T150710Z-09b07f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260706T150710Z-09b07f.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr614-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr614-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #614
 - [`scholar-ingest-dialog-db-remainder-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder-6.md) — role: scholar
+- [`xs2rust-endor-stage4-modules`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-modules.md) — Stage-4 child: module machinery: ModuleSource, module records, namespaces
 
 ### tada (1307)
 - [`xs2rust-endor-stage4-async-await`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage4-async-await.md) — Completion report
