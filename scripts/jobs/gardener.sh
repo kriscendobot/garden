@@ -795,6 +795,22 @@ while :; do
         printf 'gardener-%s on %s: job %s handler hit its OWN wall-clock budget (rc=124, elapsed=%ss ≈ handler-budget=%ss) — a DETERMINISTIC deadline overrun, not a varying external kill; stamping <!-- garden-deadline-overrun --> so the reaper poisons it after GARDEN_REAP_OVERRUN_THRESHOLD cycles instead of the full poison threshold; left in doin for the reaper\n' \
           "$id" "$GARDEN" "$base" "$elapsed" "$handler_budget" \
           | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
+        # EARLY ACTIONABLE DIAGNOSIS to the maintainer. A job that DECLARES an
+        # over-large `handler-timeout:` gets the clamp-path alert above (line ~358)
+        # before it ever runs; a job that runs under the DEFAULT budget and
+        # deterministically overruns (rc=124 at the wall — the xs2rust-endor-stage4-
+        # modules case: 2400s default, always killed) gets no such signal, so today
+        # the maintainer must reverse-engineer "too big for one claim" from the
+        # reaper's generic poison report cycles later. Emit the same diagnosis HERE,
+        # deterministically, under the SAME dedup key as the clamp path so both
+        # surfaces of the one root cause collapse onto a single throttled alert. The
+        # two overrun cycles before poison (GARDEN_REAP_OVERRUN_THRESHOLD=2) are
+        # ~one handler-budget + requeue-latency apart (≈2400-3000s < the 3600s
+        # default GARDEN_ALERT_THROTTLE_SECS), so the key dedups them to one alert.
+        # Best-effort/subshell-isolated like the surrounding stamps — never fail the
+        # gardener (alert_maintainer already swallows its own errors).
+        ( alert_maintainer "handler-budget-overrun-$base" \
+            "gardener job '$base' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=${elapsed}s ≈ handler-budget=${handler_budget}s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (${GARDEN_REAP_OVERRUN_THRESHOLD:-2}) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler." ) || true
         if ( stamp_deadline_overrun_hint "$CLONE" "$JOBS_DOIN/$base.md" ); then
           log "stamped deadline-overrun hint on '$base'; reaper will requeue before TTL and poison early (overrun cycle counts)"
         else
