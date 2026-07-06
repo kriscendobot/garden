@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-06T00:31:26Z_
+_As of 2026-07-06T00:34:55Z_
 
 ## Latest
 
-The XS→Rust (Endor) port advanced: the [`xs2rust-endor-build-stage3b-xsre-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-xsre-integration.md) build completed, though the downstream supervisor and string-representation arming jobs remain parked behind later stage-3b work. The most urgent item is infrastructural: a deterministic guard flagged a **host-identity drift on the leader host** — `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, watchers, recovery services) is silently being skipped on the true leader; the fix is correcting `/home/kris/.garden` (or the inherited env) back to `endolinbot` and restarting the pool. A gauntlet is running on [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) (Docker self-host, green and garden-authored), but the gardener has correctly declined to close the overlapping [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) — a broader, non-garden PR from 0xpatrickbot carrying the deferred ws-gateway auth surface — so a maintainer lifecycle call is needed there. Two design/probe items also await you: the completed `design-streamlined-onboarding` doc needs its §5 open questions answered (notably the security-flavored auto-mode default) before its four build jobs can be orchestrated, and the [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) probe report surfaced that [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595)'s spec paraphrase named a `take`-semantics gap the published probe doesn't contain — decide whether you want that analysis as a fresh probe.
+The **xs2rust-endor-build-stage3b** orchestration (the XS→Rust "Endor" port's stage-3b XSRE integration) completed, unblocking the downstream string-representation and supervisor jobs parked behind it; scholar picked up the next ocap-kernel comment-fragment ingest batch (6 of the series), leaving the board otherwise drained.
+
+Three things want a maintainer eye. First, a **host-identity drift**: the deterministic guard fired three times reporting `GARDEN=driftname` on the real `endolinbot` leader host with no recorded parallel-pool override, so `is-main-host` reads FOLLOWER and every leader-only singleton is being skipped on the true leader — fix `/home/kris/.garden` back to `endolinbot` (or record the override if this pool is deliberate). Second, the gauntlet on [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) (Docker self-host) is green and MERGEABLE and proceeding to un-draft, but the gardener flagged that the job's "supersede #568" clause is misjudged: [#568](https://github.com/endojs/endo-but-for-bots/pull/568) is 0xpatrickbot's *broader* PR carrying the ws-gateway + bearer-token auth surface that #608 deliberately defers — it left #568 untouched, and closing it is a maintainer lifecycle call. Third, the probe on [#595](https://github.com/endojs/endo-but-for-bots/pull/595) (published as [#605](https://github.com/endojs/endo-but-for-bots/pull/605)) came back with 7 real gaps and *no* `take`-semantics hazard, contradicting the job spec's paraphrased "Gap 5" — the liaison is asking whether you actually want a `take`-semantics analysis posted as a fresh probe. The `design-streamlined-onboarding` design also landed and its four build jobs are gated on your answers to its §5 open questions (notably Q2, the auto-mode default).
 
 ## Parked for maintainer feedback
 
@@ -130,16 +132,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr608-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr608-gauntlet.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
+- [`scholar-ingest-ocap-kernel-comment-fragments-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-ocap-kernel-comment-fragments-6.md) — PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
 
-### tada (1226)
+### tada (1227)
+- [`xs2rust-endor-build-stage3b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b.md) — orchestration xs2rust-endor-build-stage3b — complete
 - [`xs2rust-endor-build-stage3b-xsre-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-xsre-integration.md) — Completion report
 - [`deadmail-20260706T002005Z-8d94ee`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T002005Z-8d94ee.md) — Completion report
 - [`scholar-ingest-ocap-kernel-comment-fragments-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-comment-fragments-5.md) — Completion report
 - [`endor-run-expanded-phase3-directory-input`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endor-run-expanded-phase3-directory-input.md) — Work is complete. Here is my report.
-- [`scholar-ingest-ocap-kernel-comment-fragments-4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-comment-fragments-4.md) — Completion report
-- … and 1221 more
+- … and 1222 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -149,7 +152,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`scholar-ingest-ocap-kernel-comment-fragments-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-comment-fragments-6.md) — _normal_ · PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
+(none)
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
