@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T16:15:19Z_
+_As of 2026-07-06T16:15:45Z_
 
 ## Latest
 
-The garden's own scholar fleet continued ingesting the dialog-db reference material, completing cycle [`scholar-ingest-dialog-db-remainder-10`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-10.md) (rust/dialog-query/README.md into the library); three jobs remain in flight, including that scholar ingest, the daemon agent-tools phase-2 shell capability build, and the XS→Rust stage-4 module machinery.
-
-Three items landed in the maintainer inbox that need a decision. A fable review of the garden's own scripts surfaced a data-corruption bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`): a job was requeued every ~18 min against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree — flagged as a deliberate main2 fix-and-deploy rather than a board job. Separately, Gateway Feature 8 ([endojs/endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) is the sanctioned path-scheme half) turned up a duplicate: a builder held its superset branch rather than open a competing draft, and is asking whether to re-scope onto #577, supersede it, or drop the branch (recommendation: re-scope on top of #577). And the streamlined-onboarding phase-1 job closed as already-landed, noting that the design's `.garden`-file identity is now deliberately superseded by location-derived identity and should be annotated as stale.
+Little moved on the board itself — only the scholar's dialog-db ingest cycle advanced (remainder-10 completed), with three gardeners still working (a daemon-agent shell-capability build, the scholar ingest, and the XS→Rust stage-4 module port). The substance this cycle is three items awaiting maintainer steering. First, the fable review of the garden's own scripts flagged a **data-corruption-class bug in the reaper requeue path**: a job was requeued roughly every 18 minutes against a 40-minute handler wall while the prior handler stayed alive, twice producing two live writers in one worktree — a main2 infrastructure fix that warrants a deliberate patch and deploy. Second, Gateway Feature 8 (the `/ocapn` WebSocket endpoint) was **held rather than opened as a competing PR**: the gardener found its work is a superset of the open draft [endojs/endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) (which implements only the path-scheme half and defers the socket handoff), with related design-phase work in [#392](https://github.com/endojs/endo-but-for-bots/pull/392) and [#413](https://github.com/endojs/endo-but-for-bots/pull/413) — the recommendation is to let #577 land the naming and re-scope the handoff on top of it. Third, the onboarding phase-1 job closed as already-satisfied, noting the design's `.garden`-file identity paragraph is now stale (superseded by location-derived identity in commits 6d543582e/367a7543c) and may want annotating.
 
 ## Parked for maintainer feedback
 
@@ -72,7 +70,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`xs2rust-endor-stage4-modules`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-modules.md) — Stage-4 child: module machinery: ModuleSource, module records, namespaces
 
 ### tada (1315)
-- [`scholar-ingest-dialog-db-remainder-10`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-10.md) — Ingested rust/dialog-query/README.md (file commit ebd8f739) into journal/libr...
+- [`scholar-ingest-dialog-db-remainder-10`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-10.md) — Completion report
 - [`scholar-ingest-dialog-db-remainder-9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-9.md) — Scholar cycle scholar-ingest-dialog-db-remainder-9 — complete
 - [`improve-sections-table-row-concept-heading`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-sections-table-row-concept-heading.md) — Completion report
 - [`scholar-ingest-dialog-db-remainder-8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-8.md) — Ingested the dialog-db **query-notation reference** into journal/library/ (to...
