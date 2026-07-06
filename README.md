@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-06T23:50:08Z_
+_As of 2026-07-06T23:56:19Z_
 
 ## Latest
 
-A fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`): a job was requeued against a still-live handler, twice producing two live writers in one worktree — a main2 infrastructure fix that wants a deliberate fix-and-deploy, not a board job.
+Transcript-journal capture crossed from design to build: the design landed on main2 (commit d9c7ad6c7) and is now being implemented under a serial `supervise-transcript-capture` orchestration (spool hook, hourly per-host capture timer, launcher seeding). Everything lands **inert** — nothing pushes anywhere until kriskowal performs the arming act (create a private `kriskowal/garden-transcripts` repo, grant the bot push access, run `set-transcripts-remote.sh`, and record the authorization); proxy has escalated this as beyond its authority, and open questions remain on repo privacy, whether liaison sessions are in scope, and the idle threshold.
 
-Several stacks are now blocked on maintainer authority rather than more building. M3's flagship `daemon-agent-tools` pillar is fully built: phases 1–3 ([#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), [#616](https://github.com/endojs/endo-but-for-bots/pull/616)) are CI-green and mergeable but still Draft, and phase 4 ([#618](https://github.com/endojs/endo-but-for-bots/pull/618)) has cleared its last un-draft blocker — the stack only awaits review and merge. The confined-HttpClient gauntlet on [#566](https://github.com/endojs/endo-but-for-bots/pull/566) passed panel re-review and is un-drafted into the review queue (clean, mergeable, 7 must-fix items resolved), with one deferred design call: whether to add a per-request AbortController timeout to backstop a hostile-but-allowlisted server that never settles. Gateway Feature 8 (the `/ocapn` WebSocket endpoint) was held rather than opening a competing PR — its build is a superset of the in-flight [#577](https://github.com/endojs/endo-but-for-bots/pull/577), whose parallel rewrite of `src/ocapn-ws.js` can't co-land; the branch is preserved and awaits a scope decision (recommendation: re-scope to build the socket handoff atop #577).
+Two PRs need a steering decision. The Gateway `/ocapn` WebSocket endpoint build (M3 Feature 8) was **held rather than opened** — it's a superset of the in-flight draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) but rewrites the same module incompatibly; the gardener recommends re-scoping to build the socket handoff on top of #577's path scheme. And [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (confined HttpClient) cleared its gauntlet and is un-drafted, clean, and mergeable, with one deferred design call: whether to add a per-request AbortController timeout to close a hostile-server slow-stream vector (the two governing designs disagree).
 
-On garden infrastructure: transcript-journal capture is being built inert under a serial orchestration and needs a maintainer arming act (create a private transcripts repo, grant push, run `set-transcripts-remote.sh`) before anything pushes. The streamlined-onboarding phase-1 job closed as already-landed, flagging that the design's `.garden`-file identity is now superseded by location-derived identity. The XS→Rust (Endor) port stage-4 orchestration halted on a failed `stage4-modules` child (4/8 done), and completed gauntlets/shepherds include [#619](https://github.com/endojs/endo-but-for-bots/pull/619) and [#96](https://github.com/endojs/endo-but-for-bots/pull/96).
+The M3 flagship `daemon-agent-tools` stack — [#614](https://github.com/endojs/endo-but-for-bots/pull/614) → [#615](https://github.com/endojs/endo-but-for-bots/pull/615) → [#616](https://github.com/endojs/endo-but-for-bots/pull/616) → [#618](https://github.com/endojs/endo-but-for-bots/pull/618) — is fully built and CI-green but still Draft; the foreman reports the milestone's critical path is now landing this review-and-merge backlog, not more building. Separately, a fable review of the garden's own scripts flagged a **data-corruption-class bug** in the reaper requeue path (requeuing every ~18 min against a 40-min handler wall, twice yielding two live writers in one worktree) that the liaison is surfacing for a deliberate main2 fix-and-deploy. Finally, the `xs2rust-endor` stage-4 orchestration **halted** on a failed `stage4-modules` child (4/8 done) while stage 5 continues, and [endo-but-for-bots#619](https://github.com/endojs/endo-but-for-bots/pull/619) plus the [#96](https://github.com/endojs/endo-but-for-bots/pull/96) shepherd completed.
 
 ## Parked for maintainer feedback
 
@@ -136,6 +136,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > The fleet-wide deletion disable (cleanupPeriodDays: 36500) needs no arming: the
 > launcher seeds it for new instances and every capture tick reconciles it into
 > existing hosts' settings.json, including this one (verified missing today).
+
+- `20260706T235604Z-381c02` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T235604Z-381c02.md)
+
+> awaiting maintainer — beyond proxy authority: gardener supervise-transcript-capture, msgid 20260706T234023Z-b6d70e.md — The core ask is an arming authorization — creating a private repo, granting the bot push credentials, and recording maintainer authorization to publish the fleet's raw transcripts — an authority grant and outward-facing action reserved to the maintainer.
 
 
 ## Board
