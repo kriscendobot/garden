@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/26#issuecomment-4896469075
 Please register a fork of dckc/vattr97 and put the design there. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  claimed_at: 2026-07-06T18:50:11Z
