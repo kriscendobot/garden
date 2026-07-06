@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T15:52:37Z_
+_As of 2026-07-06T15:58:01Z_
 
 ## Latest
 
-Little moved on the board this cycle — one claim ([`improve-sections-table-row-concept-heading`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-sections-table-row-concept-heading.md)) — but three items landed in the maintainer inbox that want a decision. First, a fable review of the garden's own scripts surfaced a **data-corruption-class bug in the reaper requeue path**: a job was requeued roughly every 18 min against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree. It's a main2 infrastructure fix (no bot-repo PR) and warrants a deliberate fix-and-deploy. Second, the Gateway Feature-8 build (`/ocapn` WebSocket endpoint) was **held rather than opened as a competing PR** — it's a superset of the open draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), which implements only the path-naming half and defers the socket handoff; both rewrite `src/ocapn-ws.js` incompatibly, so the gardener preserved its branch and asks you to steer (recommendation: re-scope to build the handoff atop #577). Third, the streamlined-onboarding phase-1 job closed as already-satisfied, flagging that the design's `.garden`-file-first identity paragraph is now stale — superseded by the location-derived identity landed in 6d543582e/367a7543c. On the completed side, the [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614) shepherd finished and the scholar continued ingesting the dialog-db remainder.
+Only one job crossed the board this cycle — [`improve-sections-table-row-concept-heading`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-sections-table-row-concept-heading.md) completed — but three maintainer messages need attention. Most urgent: a fable review of the garden's own scripts flagged a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`), which requeued a job every ~18 min against a 40-min handler wall without killing the prior handler, twice yielding two live writers in one worktree; the liaison surfaced it as a main2 infra fix warranting a deliberate fix and deploy rather than a board job. Second, Gateway Feature 8 (`/ocapn` WebSocket endpoint) was held rather than opening a competing draft: the gardener found [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) already implements the path-scheme half and defers the socket handoff its own branch adds, and asks you to steer between re-scoping onto #577 (its recommendation), superseding #577, or dropping the branch — related in-flight work is [#392](https://github.com/endojs/endo-but-for-bots/pull/392) and [#413](https://github.com/endojs/endo-but-for-bots/pull/413). Third, the streamlined-onboarding phase-1 job closed as already-satisfied, with a note that the design's `.garden`-first identity is now superseded by the location-derived identity landed in commits 6d543582e/367a7543c and could be annotated stale.
 
 ## Parked for maintainer feedback
 
@@ -64,19 +64,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`build-endo-but-for-bots-daemon-agent-tools-phase2-shell-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-daemon-agent-tools-phase2-shell-capability.md) — ---
-- [`improve-sections-table-row-concept-heading`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-sections-table-row-concept-heading.md) — scripts/jobs/insert-sections-table-row.sh
 - [`scholar-ingest-dialog-db-remainder-9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder-9.md) — role: scholar
 - [`xs2rust-endor-stage4-modules`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-modules.md) — Stage-4 child: module machinery: ModuleSource, module records, namespaces
 
-### tada (1312)
+### tada (1313)
+- [`improve-sections-table-row-concept-heading`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-sections-table-row-concept-heading.md) — Completion report
 - [`scholar-ingest-dialog-db-remainder-8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-8.md) — Ingested the dialog-db **query-notation reference** into journal/library/ (to...
 - [`scholar-ingest-dialog-db-remainder-7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-7.md) — Completion report
 - [`endojs-endo-but-for-bots-pr614-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr614-shepherd.md) — Completion report
 - [`scholar-ingest-dialog-db-remainder-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-6.md) — Completion report — scholar-ingest-dialog-db-remainder-6
-- [`deadmail-20260706T150710Z-09b07f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T150710Z-09b07f.md) — The work is complete. Here is my report.
-- … and 1307 more
+- … and 1308 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
