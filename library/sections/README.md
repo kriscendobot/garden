@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6123 (530 parent indexes + 5593 children).
+Total section files: 6134 (530 parent indexes + 5604 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -258,6 +258,12 @@ Total section files: 6123 (530 parent indexes + 5593 children).
 - [athanor--readme--pi-agent-sync](athanor--readme--pi-agent-sync.md)
 - [athanor--readme--registry-and-stable-ports](athanor--readme--registry-and-stable-ports.md)
 - [athanor--readme--supervisor-and-observability](athanor--readme--supervisor-and-observability.md)
+
+### blick--readme
+
+- [blick--readme--design-rationale](blick--readme--design-rationale.md)
+- [blick--readme--draw-cycle-phases](blick--readme--draw-cycle-phases.md)
+- [blick--readme--overview](blick--readme--overview.md)
 
 ### cask--allocator-design
 
@@ -7211,6 +7217,11 @@ Total section files: 6123 (530 parent indexes + 5593 children).
 - [gutentag--readme--translation-and-provided-tags](gutentag--readme--translation-and-provided-tags.md)
 - [gutentag--readme--virtual-document-koerper](gutentag--readme--virtual-document-koerper.md)
 
+### koerper--readme
+
+- [koerper--readme--body-node-api](koerper--readme--body-node-api.md)
+- [koerper--readme--overview](koerper--readme--overview.md)
+
 ### kriskowal-com--giants
 
 - [kriskowal-com--giants--overview](kriskowal-com--giants--overview.md) (index)
@@ -8006,6 +8017,13 @@ Total section files: 6123 (530 parent indexes + 5593 children).
   - [See also](papers--taly-automated-analysis-of-security-critical-javascript-apis-2011--static-analysis-procedure-and-soundness-theorem--see-also.md)
   - [Translation block (paper idiom → contemporary practice)](papers--taly-automated-analysis-of-security-critical-javascript-apis-2011--static-analysis-procedure-and-soundness-theorem--translation-block-paper-idiom-contemporary-practice.md)
 
+### system--readme
+
+- [system--readme--extensions-translators-analyzers](system--readme--extensions-translators-analyzers.md)
+- [system--readme--history](system--readme--history.md)
+- [system--readme--overview](system--readme--overview.md)
+- [system--readme--usage-and-bootstrapping](system--readme--usage-and-bootstrapping.md)
+
 ### web--acme-challenge-types
 
 - [web--acme-challenge-types--http01-dns01-tls-alpn01](web--acme-challenge-types--http01-dns01-tls-alpn01.md) (index)
@@ -8299,6 +8317,11 @@ Total section files: 6123 (530 parent indexes + 5593 children).
   - [Role hierarchy and metadata files](web--tuf-signed-update-framework--overview--role-hierarchy-and-metadata-files.md)
   - [Security properties](web--tuf-signed-update-framework--overview--security-properties.md)
   - [Threat model](web--tuf-signed-update-framework--overview--threat-model.md)
+
+### wizdom--readme
+
+- [wizdom--readme--overview](wizdom--readme--overview.md)
+- [wizdom--readme--parsing-and-stringifying](wizdom--readme--parsing-and-stringifying.md)
 
 ## Historical ingest log (preserved for chronological context)
 
