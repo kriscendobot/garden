@@ -77,3 +77,9 @@ push, and report the remainder honestly.
 
 Report your completion (fix, root cause, re-certified numbers, wall-clocks, any scope folds) to
 inbox `port-xs-to-rust-memory-safe-engine-s11`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  claimed_at: 2026-07-06T21:07:09Z
