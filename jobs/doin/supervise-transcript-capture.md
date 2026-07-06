@@ -52,3 +52,9 @@ the bring-up + broadcast-reader pieces.
   upstream.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 11
+  claimed_at: 2026-07-06T23:43:31Z
