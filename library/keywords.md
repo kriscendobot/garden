@@ -13987,6 +13987,9 @@ set-widening optional field | optional-attribute-query
 Absent fallback scan | optional-attribute-query
 `maybe` field concept | optional-attribute-query
 dialog issue 348 optional scan | optional-attribute-query
+absent for whom | optional-attribute-query
+optional lookup requires bound entity | optional-attribute-query
+optionality two-layer scalar semantic | optional-attribute-query
 claim-based serialization | claim-projection
 `Claim` trait constrain | claim-projection
 `Caveat` trait | claim-projection
@@ -14007,6 +14010,17 @@ Robinson unification | set-widening-type-system
 Resolution policy | set-widening-type-system
 `RequiredHeadFromOptional` | set-widening-type-system
 rule-level type inference | set-widening-type-system
+absence is a claim not a hole | set-widening-type-system
+Absent positive claim about the store | set-widening-type-system
+filter by default optionality | set-widening-type-system
+occurrence typing narrowing | set-widening-type-system
+`NegatedOptional` | set-widening-type-system
+you cannot negate an optional field | set-widening-type-system
+heads are contracts required field | set-widening-type-system
+dialog filters not coerces not errors | set-widening-type-system
+open-world soundness type inference | set-widening-type-system
+`TypeEnv::explain` | set-widening-type-system
+`TypeEnv::dead_optionality` | set-widening-type-system
 demand-driven incremental maintenance | demand-driven-incremental-maintenance
 incremental view maintenance | demand-driven-incremental-maintenance
 IVM | demand-driven-incremental-maintenance
