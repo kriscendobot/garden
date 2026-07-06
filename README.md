@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-06T02:51:25Z_
+_As of 2026-07-06T02:52:05Z_
 
 ## Latest
 
-The docker self-host slice [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared its gauntlet and is now un-drafted — OPEN, MERGEABLE, CI green (15/15) — awaiting review. A panel fix corrected a real must-fix (the documented `docker exec … endo` control command would have failed because `node_modules/.bin` wasn't on the image PATH), but the image was never built or run in-sandbox, so an end-to-end `docker build` smoke test on a Docker-capable host is still owed. The broader gateway-bearing parallel attempt [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot, mention-only) was deliberately left untouched; whether it's closed-as-superseded or reconciled with #608 is a maintainer call.
+A build job for the confined-outbound-HTTP pillar (`endoclaw-network-fetch`) came back **not building**: the gardener found the capability is already delivered twice over and declined to write a third — 0xpatrickbot's [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (a complete, all-green `@endo/exo-http-client`, but mention-only so the garden can't drive it) and the garden's own [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286), which builds the blessed `cli-http-client.md` design. Recommendation: shepherd #286 as the garden's vehicle and mark the stale "Not Started" design record superseded. Separately, the docker self-host slice [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared its panel and is now un-drafted, OPEN, MERGEABLE, CI 15/15 — the panel caught a real `endo: not found` PATH bug in the documented control command; the overlapping, broader gateway attempt [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot's) was deliberately left untouched and awaits your close-as-superseded / keep / reconcile call.
 
-**Needs attention:** a deterministic host-identity drift guard fired three times — `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so is-main-host reports FOLLOWER and every leader-only singleton (foreman, scheduler, watchers) is being skipped on the true leader host. Fix is correcting `/home/kris/.garden` back to `endolinbot` and restarting the pool.
-
-Two build jobs stood down rather than duplicate existing work: `endoclaw-network-fetch` won't build because the HttpClient capability is already delivered by [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) and the garden's own [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (recommended vehicle: shepherd #286). The `design-streamlined-onboarding` doc landed and its four build jobs are gated on the maintainer answering its open questions — notably the security-flavored auto-mode default. Meanwhile the XS→Rust (Endor) port advanced, with the UTF-16 string-storage build now in flight.
+**Operational flag worth immediate attention:** the identity-drift guard fired three times from the true leader host — `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER and **every leader-only singleton (foreman, scheduler, watchers, recovery) is being skipped**. Fix is to correct `/home/kris/.garden` to `endolinbot` and restart the pool. Also parked for you: the completed `designs/streamlined-onboarding.md` (its § 5 auto-mode-default question gates four build jobs), and a spec discrepancy on probe [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) where a requested `take`-semantics gap doesn't exist in the published probe.
 
 ## Parked for maintainer feedback
 
@@ -166,18 +164,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`build-endoclaw-network-fetch-http-client-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endoclaw-network-fetch-http-client-capability.md) — ---
+### doin (2)
 - [`design-gateway-bearer-token-auth-reconcile-endo-gateway`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-gateway-bearer-token-auth-reconcile-endo-gateway.md) — ---
 - [`xs2rust-endor-strings-utf16-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-strings-utf16-build.md) — Builder: swap endor-vm string storage CESU-8→UTF-16, delete the O(1)-index ha...
 
-### tada (1238)
+### tada (1239)
+- [`build-endoclaw-network-fetch-http-client-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endoclaw-network-fetch-http-client-capability.md) — Completion report — build-endoclaw-network-fetch-http-client-capability
 - [`build-endoclaw-timer-daemon-formula-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endoclaw-timer-daemon-formula-integration.md) — Completion report
 - [`improve-mentor-claude-transient-claude-exit`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mentor-claude-transient-claude-exit.md) — Completion report
 - [`deadmail-20260706T022040Z-b35dd7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T022040Z-b35dd7.md) — What the dead-lettered message was
 - [`xs2rust-endor-strings-utf16-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16-design.md) — Job complete. Report:
-- [`xs2rust-endor-fix-bound-callback-dispatch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-fix-bound-callback-dispatch.md) — Completion report
-- … and 1233 more
+- … and 1234 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
