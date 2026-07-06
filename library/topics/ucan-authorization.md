@@ -1,0 +1,23 @@
+# Topic: ucan-authorization
+
+> Abstract: UCAN (User Controlled Authorization Network) capability-based authorization: offline-verifiable delegation tokens over a `subject x command x policy` structure, keyed to did:key principals, delegable with equal-or-more-restrictive attenuation, and verifiable without a central authority. The serialized, offline token form of object-capability delegation. Seeded 2026-07-06 from `dialog-db/dialog-db` (Irakli Gozalishvili's local-first database), which uses UCANs for both effect authorization and data privacy: the capability-system sketch's subject/ability/policy layering and its Archive/Memory/Acquire capability set, and the privacy RFC's four monotone access levels (L0–L3), in-tree delegation storage, and nested per-level/per-group encryption keyed by UCAN delegation. Distinct from `capability-security` (Endo/Agoric ocap *practice*, where this cross-references) and `oauth-credentials` (the OAuth token model); this topic collects the UCAN/did:key delegation-token family specifically.
+
+## Sections
+
+| Section | Source | One-line abstract |
+|---------|--------|-------------------|
+| [dialog-db--notes-architecture-overview--blob-store-and-mutable-pointers](../sections/dialog-db--notes-architecture-overview--blob-store-and-mutable-pointers.md) | dialog-db notes/architecture overview.md | The DID:key mutable pointer authorizes root-hash updates by signature-or-delegation with compare-and-swap; the mutability-and-access-control layer over the immutable blob store. |
+| [dialog-db--notes-capability-sysstem--overview](../sections/dialog-db--notes-capability-sysstem--overview.md) | dialog-db notes/capability-sysstem.md | Effects as application-to-platform commands the platform performs only if it holds the capability; ocap as the only viable non-centralized access model; "a capability is subject x command x policy". |
+| [dialog-db--notes-capability-sysstem--subject-ability-policy](../sections/dialog-db--notes-capability-sysstem--subject-ability-policy.md) | dialog-db notes/capability-sysstem.md | A capability is `subject x command x policy`, each layer a UCAN-delegation field: did:key subject, ability accreting the `cmd` path, policy adding `pol` predicates; modeled as nested `Access<Inner, Outer>` types. |
+| [dialog-db--notes-capability-sysstem--proposed-capabilities](../sections/dialog-db--notes-capability-sysstem--proposed-capabilities.md) | dialog-db notes/capability-sysstem.md | The proposed capability set: Archive (Get/Put content-addressed blobs), Memory (Resolve/Publish cells with CAS on an Edition), and the Acquire meta-capability that returns a delegation for a requested capability. |
+| [dialog-db--notes-privacy--tiered-access-levels](../sections/dialog-db--notes-privacy--tiered-access-levels.md) | dialog-db notes/privacy.md | Four monotone access levels: L0 opaque blobs, L1 blob connectivity, L2 key-range tree structure, L3 group-scoped fact decryption. |
+| [dialog-db--notes-privacy--ucan-authorization-model](../sections/dialog-db--notes-privacy--ucan-authorization-model.md) | dialog-db notes/privacy.md | UCAN bearer tokens grant the access levels: in-tree delegation storage, owner-issued and re-delegatable with equal-or-more-restrictive scope, verifiable without a central authority. |
+| [dialog-db--notes-privacy--tiered-encryption-implementation](../sections/dialog-db--notes-privacy--tiered-encryption-implementation.md) | dialog-db notes/privacy.md | The access levels realized as nested encryption layers (L1 outer wraps L2 middle wraps L3 inner) with hierarchical root-derived per-level and per-group keys, rotatable without full-tree rebuild. |
+| [dialog-db--notes-privacy--privacy-efficiency-tradeoffs](../sections/dialog-db--notes-privacy--privacy-efficiency-tradeoffs.md) | dialog-db notes/privacy.md | Users choose their privacy-efficiency point per subtree by delegating more or less structural access (L1/L2) to trusted sync and validation services. |
+
+## See also
+
+- [`capability-security`](capability-security.md): the Endo/Agoric object-capability practice UCAN is the offline-token realization of — attenuated delegation of an unforgeable authority.
+- [`oauth-credentials`](oauth-credentials.md): the OAuth 2.0 scoped-token authorization model, a centralized-issuer contrast to UCAN's issuer-anywhere delegation.
+- [`content-addressed-storage`](content-addressed-storage.md): the Archive capability's content-addressed blob store; the substrate the capabilities gate.
+- [`capability-theory`](capability-theory.md): the papers arguing the object-capability discipline UCAN delegation enacts.
