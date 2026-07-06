@@ -412,3 +412,9 @@ named skip) before accepting child 9.
   and non-ASCII subject under a stateful (`g`/`y`) flag.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolinbot
+  gardener: 18
+  claimed_at: 2026-07-06T02:03:10Z
