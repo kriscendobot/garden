@@ -20,6 +20,7 @@
 | [gutentag--readme--arguments-and-scopes](../sections/gutentag--readme--arguments-and-scopes.md) | gutentag README | How repeat/reveal/choose child scopes cut through the caller so an instantiated argument surfaces as an `items:row`-style iteration. |
 | [gutentag--readme--this-space-and-xml](../sections/gutentag--readme--this-space-and-xml.md) | gutentag README | Three facilities: `<this>` self-recursion for trees, `<sp>` for significant whitespace, and XML as an escape from HTML5 parser restrictions. |
 | [gutentag--readme--virtual-document-koerper](../sections/gutentag--readme--virtual-document-koerper.md) | gutentag README | The virtual document: every node has an actualNode and proxies common DOM methods; body-node support comes from the Koerper module. |
+| [gutentag-component-demos--readmes--single-tag-demo-packages](../sections/gutentag-component-demos--readmes--single-tag-demo-packages.md) | single-tag demo packages | A worked-example catalog of the `<tag>.html` single-tag packaging convention: the list/dice/colorim/accrete demo components, each an npm package named `<tag>.html` publishing one Guten Tag component with a live demo. |
 
 ## Concepts
 
@@ -33,6 +34,8 @@
 - [`virtual-dom`](virtual-dom.md): Koerper and Wizdom (`gutentags/koerper`, `gutentags/wizdom`), the container-free-body-node virtual DOM Guten Tag's components govern their document fragment through.
 - [`module-loader`](module-loader.md): `gutentags/system`, the CommonJS/npm loader whose `gutentag/extension` translates Guten Tag's HTML modules to JavaScript on the fly or at build.
 - [`animation-coordination`](animation-coordination.md): `gutentags/blick`, the component animation controller a Guten Tag scope shares by dependency injection to batch document reads and writes.
+- [`focus-management`](focus-management.md): `gutentags/kamera`, the single-focus enforcer a Guten Tag scope injects at its root so at most one component holds focus.
+- [`spatial-geometry`](spatial-geometry.md): `gutentags/ndim`, the point/region/box geometry library Guten Tag's spatial components and Blick's animation math build on.
 - [`reactive-bindings`](reactive-bindings.md): kriskowal/frb, a synchronous incremental binding query language — the kind of binding layer Guten Tag leaves as bring-your-own.
 - [`web-frontend`](web-frontend.md): cross-cutting browser/CSS technique for the garden's web surfaces; Guten Tag is a component framework such techniques would live inside.
 - [`node-packaging`](node-packaging.md): npm package layout and conventions; Guten Tag's `<tag>.html`/`index.html` packaging convention is an instance.
