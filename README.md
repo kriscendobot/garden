@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T14:08:42Z_
+_As of 2026-07-06T14:20:41Z_
 
 ## Latest
 
-The scholar's SQL dialog-database ingest advanced — `scholar-ingest-against-sql`, `scholar-ingest-dialog-db-remainder`, and `-remainder-2` all completed, with `-remainder-3` now in flight. Two items landed in the maintainer inbox that warrant attention: a fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`), where a job was requeued roughly every 18 min against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree — a main2 infrastructure fix that needs a deliberate fix-and-deploy rather than a board job. Separately, the streamlined-onboarding phase-1 job closed as already-satisfied: the direct-exec launcher, auto-build, and guard-hook seeding all landed 2026-07-04, and the design's `.garden`-file identity is intentionally superseded by the newer location-derived identity (`<hostname>-<basename>-<hash8>`), so that paragraph of the design is now stale. The board is otherwise quiet with an empty todo queue; the deep parked backlog still awaits review, oldest among them [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 45 days.
+The gateway OCapN WebSocket endpoint build ([ebfb-endo-gateway-ocapn-websocket-endpoint](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-endo-gateway-ocapn-websocket-endpoint.md)) finished but deliberately opened **no PR**: the gardener found its work is a superset of the open draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) (which lands only the path-scheme naming and defers the live listener/Noise relay), and the two `src/ocapn-ws.js` rewrites can't both land on `llm`. The branch `feat/gateway-ocapn-ws-endpoint-handoff` is preserved (73 ava pass, tsc/eslint/prettier clean) and awaits your call — the gardener recommends rescoping to build the socket handoff on top of #577 rather than superseding it (related in-flight: [#392](https://github.com/endojs/endo-but-for-bots/pull/392), [#413](https://github.com/endojs/endo-but-for-bots/pull/413)). Two other maintainer messages want attention: the liaison surfaced a **data-corruption-class bug** in the reaper requeue path (a job requeued ~every 18 min against a 40-min handler wall, twice yielding two live writers in one worktree) that needs a deliberate main2 fix and deploy, and the `onboarding-p1-launcher` job closed as already-landed, flagging that the design's `.garden`-file identity is now stale, superseded by location-derived identity in commits 6d543582e/367a7543c.
 
 ## Parked for maintainer feedback
 
@@ -39,23 +39,42 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Re-adding .garden-first identity per design §1.1 would revert 6d543582e/367a7543c, so I did not. If you DO want .garden naming back (e.g. as sugar layered on top of location-derivation), please re-post with that reconciliation spelled out; otherwise design §1.1's identity paragraph is stale and could be annotated as superseded. Completing the job as already-satisfied.
 
+- `20260706T141945Z-1a8516` — from gardener:ebfb-endo-gateway-ocapn-websocket-endpoint, reply_to `ebfb-endo-gateway-ocapn-websocket-endpoint` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T141945Z-1a8516.md)
+
+> Gateway Feature 8 (/ocapn WebSocket endpoint) — DUPLICATE FOUND, held rather than opening a competing PR.
+>
+> My build job asked for the canonical /ocapn WS endpoint that ACCEPTS the upgrade and HANDS the framed connection to the Noise-over-WebSocket OCapN transport (powers-injected). While pre-flighting for duplicates I found:
+>
+> - **PR #577 (open draft, base `llm`): "OCapN WebSocket path scheme (/ocapn-cbor-np) — Phase 1 feature 8"** — implements ONLY the pure-logic path-naming half (OCAPN_WS_PATH, matchOcapnWebSocketPath, parseOcapnWebSocketPath, ocapnWebSocketConnectionHint) and EXPLICITLY defers "the live WebSocket listener and the Noise frame relay ... to a later phase." It touches the same files I do (src/ocapn-ws.js, index.js, types.d.ts, README, package.json, test/ocapn-ws.test.js) with different symbol names.
+> - Also in flight on other design-phase stacks: #392 (phase-4 "OcapnWebSocketHandler" consuming a {reader,writer} pair, base design/gateway-package-phase-3) and #413 (phase-11a HTTP listener wire-up).
+>
+> My work is a SUPERSET of #577: it does the path matching PLUS the WebSocket→byte-stream adapter PLUS makeOcapnWebSocketEndpoint.accept() that hands the framed connection to an injected sink, PLUS the makeGateway powers.ocapn seam — i.e. the socket handoff #577 defers. But my src/ocapn-ws.js and #577's are incompatible parallel rewrites of the same module, so they cannot both land on `llm` as-is. Opening a second competing draft PR would collide, so I did NOT open one.
+>
+> Preserved (no PR): branch `feat/gateway-ocapn-ws-endpoint-handoff` pushed to endojs/endo-but-for-bots. Locally verified: yarn ava (73 pass incl. 20 new), tsc clean, eslint clean, prettier clean; regression-tested two core paths via mutation.
+>
+> Please steer one of:
+> (a) Let #577 land the path-scheme half; re-scope my job to build the socket handoff ON TOP of #577 (my makeOcapnWebSocketEndpoint.accept consuming #577's matchOcapnWebSocketPath instead of my own matcher).
+> (b) Supersede #577 with my superset (I open the PR, #577 closes).
+> (c) Drop my branch.
+>
+> Recommendation: (a) — #577 is the sanctioned "one uncovered Phase-1 increment" for the naming and is further along the gauntlet; the socket handoff is a clean follow-on that reuses its path scheme.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`ebfb-endo-gateway-ocapn-websocket-endpoint`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-endo-gateway-ocapn-websocket-endpoint.md) — ---
+### doin (2)
 - [`scholar-ingest-dialog-db-remainder-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder-3.md) — role: scholar
 - [`xs2rust-endor-stage4-async-await`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-async-await.md) — Stage-4 child: async/await over the job queue + the promise double-settle key...
 
-### tada (1301)
+### tada (1302)
+- [`ebfb-endo-gateway-ocapn-websocket-endpoint`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-endo-gateway-ocapn-websocket-endpoint.md) — Completion report
 - [`scholar-ingest-dialog-db-remainder-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-2.md) — Cycle complete. Summary of what I did:
 - [`scholar-ingest-dialog-db-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder.md) — Completion report
 - [`scholar-ingest-against-sql`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-against-sql.md) — Completion report
 - [`deadmail-20260706T133852Z-764cda`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T133852Z-764cda.md) — Completion report
-- [`deadmail-20260706T133039Z-fa81df`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T133039Z-fa81df.md) — Completion report — deadmail-20260706T133039Z-fa81df
-- … and 1296 more
+- … and 1297 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
