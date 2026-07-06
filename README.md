@@ -1,16 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-06T03:16:26Z_
+_As of 2026-07-06T03:26:57Z_
 
 ## Latest
 
-A host-identity drift is the thing to notice: the deterministic guard on **endolinbot** reports `GARDEN=driftname` diverging from `hostname -s=endolinbot`, so `is-main-host` reads FOLLOWER and every leader-only singleton (foreman, scheduler, watchers, recovery) is being skipped on the true leader — likely a stale `/home/kris/.garden` or inherited env; the fix is to correct it to `endolinbot` and restart the pool (or record a parallel-pool override).
+[endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared its gauntlet and is now open, un-drafted, and MERGEABLE with green CI (15/15) in the review queue — treated as the standalone Docker self-host slice. The panel's one must-fix was real: `node_modules/.bin` was missing from the image PATH, so the documented `docker exec … endo …` control command would have failed with "endo: not found" (commit 8e6749d8d, plus several doc/hardening should-fixes). Caveat: the fix is correct by construction but not runtime-proven — no Docker in the gardener sandbox, so an end-to-end `docker build`/`docker exec` smoke test still wants a Docker-capable host. Per proxy's steer, 0xpatrickbot's broader gateway-bearing [#568](https://github.com/endojs/endo-but-for-bots/pull/568) was left untouched (mention-only author); whether to close it as superseded is your call. A follow-on `build-endo-but-for-bots-daemon-docker-selfhost` job has just been claimed.
 
-On the PR front, [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared the gauntlet and is now un-drafted, OPEN/MERGEABLE, CI green (15/15) and in the review queue as the standalone docker-slice PR; a panel caught a real must-fix (the documented `docker exec <ctr> endo …` would have failed since `node_modules/.bin` wasn't on the image PATH) plus a bundle of should-fixes — though the image was not built or run in-sandbox, so an end-to-end `docker build`/`docker exec` smoke test still wants a Docker-capable host. Per the proxy's steer, [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot's broader gateway-bearing attempt, mention-only) was left untouched; whether to close it as superseded is a maintainer call.
+Two build jobs were declined as redundant rather than duplicating existing work: `endoclaw-network-fetch` (confined outbound-HTTP pillar) is already delivered by the garden-owned [#286](https://github.com/endojs/endo-but-for-bots/pull/286) on the blessed `cli-http-client` design and by 0xpatrickbot's parallel [#566](https://github.com/endojs/endo-but-for-bots/pull/566) — recommendation is to shepherd #286 and leave #566 alone.
 
-The `endoclaw-network-fetch` build was declined as redundant: the confined-outbound-HTTP pillar is already covered by garden-owned [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (the blessed `cli-http-client.md` design) and external [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (0xpatrickbot, mention-only) — the recommendation is to shepherd #286 through the gauntlet and mark the stale design record superseded.
-
-Two decisions are parked for you: the `design-streamlined-onboarding` doc awaits your answers to its § 5 open questions (especially Q2, the auto-mode default, a security-flavored call) before its four build jobs can be posted as an orchestration; and the [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) probe report flagged that the published probe has 7 gaps and no `take`-semantics gap (the job spec had paraphrased one) — the gardener correctly declined to invent it, so a `take`-semantics analysis would be a fresh probe if you want it.
+Two items need your attention. First, a **host-identity drift alarm fired three times on endolinbot**: `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded parallel-pool override, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, watchers) is being skipped on the true leader — likely a stale `/home/kris/.garden` file. Second, the `design-streamlined-onboarding` design landed and its § 5 open questions await you (notably Q2, the security-flavored auto-mode default) before its four gated build jobs can be posted.
 
 ## Parked for maintainer feedback
 
@@ -168,7 +166,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`build-endo-but-for-bots-daemon-docker-selfhost`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-daemon-docker-selfhost.md) — ---
 - [`gauntlet-endo-but-for-bots-pr609-endoclaw-timer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr609-endoclaw-timer.md) — ---
 - [`xs2rust-endor-strings-utf16-test`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-strings-utf16-test.md) — Test/corpus: prove result parity + recalibrated meter for the UTF-16 string s...
 
