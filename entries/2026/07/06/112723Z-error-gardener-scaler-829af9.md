@@ -1,0 +1,30 @@
+---
+kind: error
+role: gardener-scaler
+host: endolinbot2
+at: 2026-07-06T11:27:25Z
+---
+# Host-identity DRIFT detected (deterministic guard)
+
+**GARDEN=`endolinbot2`** diverges from **hostname -s=`endolin-garden2-5bcdff64`** on this host,
+with NO recorded parallel-pool override (checked GARDEN_IDENTITY_OVERRIDE and
+`/home/kris/garden2/.garden-state/identity-override`).
+
+GARDEN is the single key every per-host structure hangs off — claim metadata, the
+`hosts/<host>` worker count, the journal index, and the leader/follower
+predicate. An unrecorded divergence silently mislabels all of it (here: up to this
+host's full gardener pool) and disables the leader gate.
+
+**Leader impact:** is-main-host reports FOLLOWER: the leader marker names 'endolin-garden2-5bcdff64' (this host's real hostname -s), but the drifted GARDEN=endolinbot2 does not match it — every leader-only singleton is being SKIPPED on the true leader host
+
+**Likely source:** the gitignored per-instance identity file `/home/kris/garden2/.garden`
+(common.sh precedence step 2) or an inherited-env `GARDEN`. This is the
+endolinbot2 regression class.
+
+**Fix:** if this host is the leader, correct `/home/kris/garden2/.garden` (and any
+inherited `GARDEN`) to `endolin-garden2-5bcdff64` and restart the pool; if this is a
+deliberate parallel pool, record the override in `/home/kris/garden2/.garden-state/identity-override`
+(or export GARDEN_IDENTITY_OVERRIDE=`endolinbot2`) so this guard stays quiet.
+
+Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
+(gardener-scaler preflight). It will not repeat until the drift changes or clears.
