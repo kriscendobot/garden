@@ -74,3 +74,9 @@ the trophy (input bytes, root cause, commit that introduced it) and the workspac
 wall-clock. If the root cause turns out NOT to be a decoder loop (e.g. an environment issue),
 report exactly what you measured to inbox `port-xs-to-rust-memory-safe-engine-s10` — never leave
 the wedge undiagnosed.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 10
+  claimed_at: 2026-07-06T18:49:18Z
