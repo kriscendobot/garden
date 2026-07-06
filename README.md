@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T00:38:33Z_
+_As of 2026-07-06T00:40:20Z_
 
 ## Latest
 
-The XS→Rust (Endor) port advanced: [`port-xs-to-rust-memory-safe-engine-s7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s7.md) was promoted to in-progress under its Fable supervisor, and the stage-3b build orchestration (xsre integration, expanded phase-3 directory input) landed in `tada`.
-
-Two items need a maintainer decision. On the Docker self-host gauntlet for [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) (green, garden-authored, being driven to un-draft), the gardener flags that the job's "supersede #568" instruction is mistaken: [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) is authored by 0xpatrickbot (mention-only, not a garden bot) and is a *broader* parallel attempt carrying the ws-gateway bearer-token auth that #608 deliberately defers — so it isn't a duplicate to close, and the gardener correctly left it untouched pending your call. Separately, the probe for [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) (published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605)) reported 7 real gaps, not the 5 the job spec paraphrased, and has no `take`-semantics hazard — so if you want that analysis it's a fresh probe question, not a report-back. The `design-streamlined-onboarding` design also completed and awaits your answers to its § 5 open questions (notably Q2, the auto-mode default).
-
-Operationally urgent: the identity-drift guard fired three times on this host, reporting `GARDEN=driftname` diverging from `hostname -s=endolinbot` with no recorded override — which makes `is-main-host` report FOLLOWER on the true leader, so every leader-only singleton is being skipped. If endolinbot is the leader, `/home/kris/.garden` (or an inherited `GARDEN`) needs correcting back to `endolinbot` and the pool restarted.
+The gauntlet is running on [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) (Docker self-host) — green, mergeable, garden-authored, being driven through the panel to un-draft — but the gardener flagged that the job's "supersede #568" instruction is misdirected: [#568](https://github.com/endojs/endo-but-for-bots/pull/568) is authored by 0xpatrickbot (a mention-only, non-garden contributor) and is a *broader* PR carrying the gateway bearer-token-auth work that #608 defers, so it is a parallel effort, not a bot duplicate to close. The gardener is not touching it; closing or reframing is a maintainer call. Separately, a deterministic guard is raising an **identity-drift alarm on the endolinbot host**: `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER and every leader-only singleton is being skipped on the true leader — worth fixing `/home/kris/.garden` back to `endolinbot` and restarting the pool. Two design items await your input: the completed `design-streamlined-onboarding` needs its § 5 open questions answered (especially Q2, the security-flavored auto-mode default) before four gated build jobs can be posted, and the probe published as [#605](https://github.com/endojs/endo-but-for-bots/pull/605) surfaced a spec discrepancy (seven gaps, none about `take` semantics) that needs a yes/no on whether you want a dedicated take-semantics probe. The XS→Rust (Endor) port advanced with the `xs2rust-endor-build-stage3b` orchestration completing; the board is otherwise quiet.
 
 ## Parked for maintainer feedback
 
@@ -134,19 +130,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
-- [`deadmail-20260706T003057Z-e87344`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260706T003057Z-e87344.md) — Dead-lettered message — pick up its intent
+### doin (3)
 - [`endojs-endo-but-for-bots-pr608-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr608-gauntlet.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
 - [`port-xs-to-rust-memory-safe-engine-s7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s7.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`scholar-ingest-ocap-kernel-comment-fragments-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-ocap-kernel-comment-fragments-6.md) — PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
 
-### tada (1227)
+### tada (1228)
+- [`deadmail-20260706T003057Z-e87344`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T003057Z-e87344.md) — Completion report
 - [`xs2rust-endor-build-stage3b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b.md) — orchestration xs2rust-endor-build-stage3b — complete
 - [`xs2rust-endor-build-stage3b-xsre-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-xsre-integration.md) — Completion report
 - [`deadmail-20260706T002005Z-8d94ee`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T002005Z-8d94ee.md) — Completion report
 - [`scholar-ingest-ocap-kernel-comment-fragments-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-comment-fragments-5.md) — Completion report
-- [`endor-run-expanded-phase3-directory-input`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endor-run-expanded-phase3-directory-input.md) — Work is complete. Here is my report.
-- … and 1222 more
+- … and 1223 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
