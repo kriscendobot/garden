@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6218 (530 parent indexes + 5688 children).
+Total section files: 6232 (530 parent indexes + 5702 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -826,12 +826,29 @@ Total section files: 6218 (530 parent indexes + 5688 children).
 - [dialog-db--notes-capability-sysstem--proposed-capabilities](dialog-db--notes-capability-sysstem--proposed-capabilities.md)
 - [dialog-db--notes-capability-sysstem--subject-ability-policy](dialog-db--notes-capability-sysstem--subject-ability-policy.md)
 
+### dialog-db--notes-claim-based-serialization
+
+- [dialog-db--notes-claim-based-serialization--claim-projection-proposed-change](dialog-db--notes-claim-based-serialization--claim-projection-proposed-change.md)
+- [dialog-db--notes-claim-based-serialization--vestigial-serialize-bound](dialog-db--notes-claim-based-serialization--vestigial-serialize-bound.md)
+
 ### dialog-db--notes-concept
 
 - [dialog-db--notes-concept--attributes-and-concepts](dialog-db--notes-concept--attributes-and-concepts.md)
 - [dialog-db--notes-concept--bidirectional-mapping-assert-retract-query](dialog-db--notes-concept--bidirectional-mapping-assert-retract-query.md)
 - [dialog-db--notes-concept--claims-and-the-semantic-layer](dialog-db--notes-concept--claims-and-the-semantic-layer.md)
 - [dialog-db--notes-concept--schema-on-read-and-rules](dialog-db--notes-concept--schema-on-read-and-rules.md)
+
+### dialog-db--notes-formula
+
+- [dialog-db--notes-formula--defining-and-using-formulas](dialog-db--notes-formula--defining-and-using-formulas.md)
+- [dialog-db--notes-formula--output-costs-and-built-ins](dialog-db--notes-formula--output-costs-and-built-ins.md)
+
+### dialog-db--notes-formula-schemes
+
+- [dialog-db--notes-formula-schemes--no-implicit-numeric-promotion](dialog-db--notes-formula-schemes--no-implicit-numeric-promotion.md)
+- [dialog-db--notes-formula-schemes--polymorphic-scheme-declaration](dialog-db--notes-formula-schemes--polymorphic-scheme-declaration.md)
+- [dialog-db--notes-formula-schemes--runtime-and-inference](dialog-db--notes-formula-schemes--runtime-and-inference.md)
+- [dialog-db--notes-formula-schemes--textual-and-comparison-schemes](dialog-db--notes-formula-schemes--textual-and-comparison-schemes.md)
 
 ### dialog-db--notes-glossary
 
@@ -887,6 +904,12 @@ Total section files: 6218 (530 parent indexes + 5688 children).
 - [dialog-db--notes-query-engine-design--pointers-and-type-checking](dialog-db--notes-query-engine-design--pointers-and-type-checking.md)
 - [dialog-db--notes-query-engine-design--what-the-papers-contribute](dialog-db--notes-query-engine-design--what-the-papers-contribute.md)
 
+### dialog-db--notes-record-value
+
+- [dialog-db--notes-record-value--problem-compound-atomic-values](dialog-db--notes-record-value--problem-compound-atomic-values.md)
+- [dialog-db--notes-record-value--recordformat-trait-and-record-type](dialog-db--notes-record-value--recordformat-trait-and-record-type.md)
+- [dialog-db--notes-record-value--storage-deferral-and-decision](dialog-db--notes-record-value--storage-deferral-and-decision.md)
+
 ### dialog-db--notes-refinements
 
 - [dialog-db--notes-refinements--goal-value-constraints-to-key-ranges](dialog-db--notes-refinements--goal-value-constraints-to-key-ranges.md)
@@ -903,6 +926,12 @@ Total section files: 6218 (530 parent indexes + 5688 children).
 
 - [dialog-db--notes-rules--defining-rules-and-grounding](dialog-db--notes-rules--defining-rules-and-grounding.md)
 - [dialog-db--notes-rules--formulas-negation-and-transactions](dialog-db--notes-rules--formulas-negation-and-transactions.md)
+
+### dialog-db--notes-scalar-associative-layer
+
+- [dialog-db--notes-scalar-associative-layer--decisions-optional-attribute-query](dialog-db--notes-scalar-associative-layer--decisions-optional-attribute-query.md)
+- [dialog-db--notes-scalar-associative-layer--optionality-leaked-into-associative-layer](dialog-db--notes-scalar-associative-layer--optionality-leaked-into-associative-layer.md)
+- [dialog-db--notes-scalar-associative-layer--semantic-layer-set-widening](dialog-db--notes-scalar-associative-layer--semantic-layer-set-widening.md)
 
 ### dialog-db--notes-scope-and-delegation
 
