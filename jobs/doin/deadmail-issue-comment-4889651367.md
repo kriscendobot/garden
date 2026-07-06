@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/25#issuecomment-4889651367
 @kriscendobot Please dispatch a designer to propose a design for a Google Sheets connector, `@endo/exo-google-sheets` (possibly backed by `@endo/google-sheets`). Please check on related designs or planned designs in the roadmap for endo-but-for-bots. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 10
+  claimed_at: 2026-07-06T11:38:16Z
