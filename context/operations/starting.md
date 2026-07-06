@@ -39,10 +39,10 @@ Do not proceed on a default or a collision.
    reconciles):
 
    ```sh
-   scripts/jobs/set-gardeners.sh 100 "$(hostname -s)"
+   scripts/jobs/set-gardeners.sh 20 "$(hostname -s)"
    ```
 
-   ~100 is normal. Most workers are idle-blocked waiting on messages at any
+   ~20 is normal. Most workers are idle-blocked waiting on messages at any
    moment — sleeping is the cheapest thing an agent can do — so the count is
    sized for concurrency, not CPU. Sizing detail: [scaling.md](scaling.md).
 

@@ -15,7 +15,7 @@ scripts/jobs/set-gardeners.sh <count> <host>
 ```
 
 This writes journal state (`hosts/<host>`) that this host's
-`garden-gardener-scaler` reconciles — **each host scales its own pool.** ~100
+`garden-gardener-scaler` reconciles — **each host scales its own pool.** ~20
 workers is normal. The count is sized for **concurrency, not CPU**: most workers
 are idle-blocked waiting on messages at any moment (a job can block a long time
 waiting on a maintainer reply or a peer), and sleeping is the cheapest thing an

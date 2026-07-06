@@ -134,7 +134,7 @@ Posture mapping from v1: the **steward is retired** — its autonomous PR-pipeli
 work is now the **gardener script** fleet claiming jobs off the board. The
 **liaison is implicit**: an agent spawned in the garden root (this terminal) is the
 liaison. Jobs may block for a long time waiting for messages, so a host runs a
-**large pool of gardeners (~100)** — most are cheaply idle-blocked, so the count is
+**pool of gardeners (~20)** — most are cheaply idle-blocked, so the count is
 sized for concurrency, not CPU.
 
 ### Starting the garden
