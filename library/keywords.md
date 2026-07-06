@@ -14140,3 +14140,16 @@ period moment | fact-triple
 `impl When` premise tuple | dialog-query-rust-api
 `Input<Self>` compute | dialog-query-rust-api
 dialog-query crate API | dialog-query-rust-api
+repository | repository-branch-remote
+branch | repository-branch-remote
+remote | repository-branch-remote
+upstream | repository-branch-remote
+`set_upstream` | repository-branch-remote
+push pull | repository-branch-remote
+`dialog-repository` | repository-branch-remote
+`RepositoryExt` | repository-branch-remote
+git-like interface for structured data | repository-branch-remote
+same name same repository identity | repository-branch-remote
+on-demand block replication | repository-branch-remote
+`branch.transaction` | repository-branch-remote
+version control for structured data | repository-branch-remote
