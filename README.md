@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-06T02:12:08Z_
+_As of 2026-07-06T02:13:36Z_
 
 ## Latest
 
-[endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared the gauntlet and is now un-drafted — OPEN, MERGEABLE, CI green (15/15), in the review queue. A code panel independently flagged (4 seats) one real must-fix: the documented `docker exec … endo …` control command would have failed with "endo: not found" because `node_modules/.bin` wasn't on the image PATH; that plus a bundle of should-fixes (socket-parent mkdir, PID-1 zombie reaping via init, doc corrections) landed in commit 8e6749d8d. Two caveats worth your eye: the PATH fix is correct by construction but **not runtime-proven** (no Docker in the gardener sandbox — an end-to-end `docker build` + `docker exec endo endo who` smoke test needs a Docker-capable host), and #608 was deliberately scoped as the standalone docker-slice, leaving [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot's broader gateway-bearing parallel attempt, currently CONFLICTING on `llm`) untouched — whether #568 is closed-as-superseded, kept, or reconciled is your call.
+[endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared its gauntlet and is un-drafted — now OPEN, MERGEABLE, CI green (15/15), in the review queue as the standalone docker-self-host slice. A code panel caught one real must-fix (the documented `docker exec … endo` control command would have failed with "endo: not found" because `node_modules/.bin` wasn't on the image PATH) plus a batch of should-fixes; the fix is correct by construction but not runtime-proven, since the gardener sandbox has no Docker — an end-to-end `docker build` + smoke test still wants a Docker-capable host. Per proxy's steer, 0xpatrickbot's broader gateway-bearing [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) was left untouched (mention-only author, lifecycle call reserved to you); the two overlap and closing #568 as superseded is your decision.
 
-On the engine port, `port-xs-to-rust-memory-safe-engine-s7` completed, unblocking the queued s8 supervisor and the CESU-8→UTF-16 string-representation revisit; a fixer is mid-flight on a bound-callback dispatch crash (`xs2rust-endor-fix-bound-callback-dispatch`). The scholar also cleared its ocap-kernel library backfill notes.
+**Notice:** a deterministic identity-drift guard fired three times on host endolinbot — `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded parallel-pool override, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, watchers, recovery) is being skipped on the true leader. Fix is to correct `/home/kris/.garden` (and any inherited `GARDEN`) back to `endolinbot` and restart the pool, or record the override if this is deliberate.
 
-**Needs your attention:** a deterministic host-identity drift guard fired three times on this host — **GARDEN=`driftname` diverges from `hostname -s`=`endolinbot`** with no recorded override, which makes is-main-host report FOLLOWER and **silently skips every leader-only singleton on the true leader host** (foreman, scheduler, watchers). If endolinbot is the leader, correct `/home/kris/.garden` to `endolinbot` and restart the pool. Also awaiting decisions: the `designs/streamlined-onboarding.md` § 5 open questions (especially Q2, the auto-mode default), and whether you want a `take`-semantics analysis on the #595 probe (a genuinely new probe question, not in the published [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) report).
+Two items also await your call: the `design-streamlined-onboarding` design is done and needs your answers to its § 5 open questions (especially Q2, the security-flavored auto-mode default) before its four build jobs can be posted; and the [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) probe (published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605)) surfaced a spec discrepancy — the job paraphrased a "destructive one-shot `take`" gap the published probe doesn't have, so a `take`-semantics analysis would be a fresh probe if you want it.
 
 ## Parked for maintainer feedback
 
@@ -154,9 +154,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`build-endoclaw-timer-daemon-formula-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endoclaw-timer-daemon-formula-integration.md) — ---
 - [`xs2rust-endor-fix-bound-callback-dispatch`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-fix-bound-callback-dispatch.md) — Fixer: bound function in callback position dispatches at pc 0 — crash / silen...
+- [`xs2rust-endor-strings-utf16-arm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-strings-utf16-arm.md) — Arm the CESU-8→UTF-16 string-representation revisit (record its orchestration)
 
 ### tada (1232)
 - [`scholar-clear-ocap-kernel-library-backfill-notes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-clear-ocap-kernel-library-backfill-notes.md) — Completion report
@@ -181,7 +182,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`build-daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase3.md) — awaiting `build-daemon-rename-to-manager-phase2` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`port-xs-to-rust-memory-safe-engine-s8`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s8.md) — awaiting `xs2rust-endor-strings-utf16` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
-- [`xs2rust-endor-strings-utf16-arm`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-strings-utf16-arm.md) — awaiting `port-xs-to-rust-memory-safe-engine-s7` · Arm the CESU-8→UTF-16 string-representation revisit (record its orchestration)
 
 ## Watch set
 (none)
