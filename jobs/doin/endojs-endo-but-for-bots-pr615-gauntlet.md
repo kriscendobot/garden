@@ -3,6 +3,7 @@ Run the gauntlet on endojs/endo-but-for-bots PR #615 (daemon-agent-tools Phase 2
 <!-- garden-reaped: 0 -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
