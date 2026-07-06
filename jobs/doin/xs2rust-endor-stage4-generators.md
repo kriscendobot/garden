@@ -76,3 +76,9 @@ Dual-run `built-ins/GeneratorFunction`, `built-ins/GeneratorPrototype` (if prese
 `built-ins/Generator*` subtrees), `language/statements/generators`,
 `language/expressions/generators` — divergent=0, skips named, bars locked. Confirm
 `statements/for-of` (92 baseline) grows or holds with zero divergence.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 20
+  claimed_at: 2026-07-06T12:19:12Z
