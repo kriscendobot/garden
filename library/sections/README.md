@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6162 (530 parent indexes + 5632 children).
+Total section files: 6161 (530 parent indexes + 5631 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8121,7 +8121,6 @@ Total section files: 6162 (530 parent indexes + 5632 children).
 
 ### web--brandon-against-sql
 
-- [web--brandon-against-sql--inexpressive](web--brandon-against-sql--inexpressive.md)
 - [web--brandon-against-sql--overview](web--brandon-against-sql--overview.md)
 
 ### web--cloudflare-monetization-gateway-x402
