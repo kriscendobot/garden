@@ -63,3 +63,9 @@ the capture script's shape, the systemd unit(s), the branch/worktree setup if an
 the launcher change) for a builder to implement without re-deciding. Keep it
 proportionate — prefer the simplest design that handles the bloat hazard; do not
 gold-plate. Note follow-on build steps. Garden-meta only; no project repo, no upstream.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  claimed_at: 2026-07-06T23:24:36Z
