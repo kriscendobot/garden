@@ -1,11 +1,4 @@
----
-gate: orchestrated
-orchestrated_by: xs2rust-endor-strings-utf16
-priority: normal
-roadmap: xs2rust-endor
-posted_by: producer
-posted_at: 2026-07-05T21:42:11Z
----
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-06T02:16:44Z -->
 
 ---
 model: fable
