@@ -79,3 +79,9 @@ File-by-file (details live in the design):
 Garden-meta only: land on main2 directly (commit explicit pathspecs, rebase
 CAS push), no PR, no project repo. Do NOT arm the remote, create any repo, or
 touch push access — that is the maintainer's act, after this lands.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  claimed_at: 2026-07-06T23:40:33Z
