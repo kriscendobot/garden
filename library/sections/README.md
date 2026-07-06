@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6134 (530 parent indexes + 5604 children).
+Total section files: 6138 (530 parent indexes + 5608 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -7217,6 +7217,15 @@ Total section files: 6134 (530 parent indexes + 5604 children).
 - [gutentag--readme--translation-and-provided-tags](gutentag--readme--translation-and-provided-tags.md)
 - [gutentag--readme--virtual-document-koerper](gutentag--readme--virtual-document-koerper.md)
 
+### gutentag-component-demos--readmes
+
+- [gutentag-component-demos--readmes--single-tag-demo-packages](gutentag-component-demos--readmes--single-tag-demo-packages.md)
+
+### kamera--readme
+
+- [kamera--readme--focus-api](kamera--readme--focus-api.md)
+- [kamera--readme--overview](kamera--readme--overview.md)
+
 ### koerper--readme
 
 - [koerper--readme--body-node-api](koerper--readme--body-node-api.md)
@@ -7483,6 +7492,10 @@ Total section files: 6134 (530 parent indexes + 5604 children).
 - [metamask-ocap-kernel--packages-streams-src-BaseDuplexStream-ts--reader-with-write-shape-drain-pipe-and-idempotent-close](metamask-ocap-kernel--packages-streams-src-BaseDuplexStream-ts--reader-with-write-shape-drain-pipe-and-idempotent-close.md)
 - [metamask-ocap-kernel--packages-streams-src-BaseDuplexStream-ts--syn-ack-synchronization-handshake-and-four-state-machine](metamask-ocap-kernel--packages-streams-src-BaseDuplexStream-ts--syn-ack-synchronization-handshake-and-four-state-machine.md)
 - [metamask-ocap-kernel--packages-streams-src-BaseDuplexStream-ts--sync-gated-next-write-and-mid-stream-resynchronization](metamask-ocap-kernel--packages-streams-src-BaseDuplexStream-ts--sync-gated-next-write-and-mid-stream-resynchronization.md)
+
+### ndim--readme
+
+- [ndim--readme--overview](ndim--readme--overview.md)
 
 ### ocap-history
 
