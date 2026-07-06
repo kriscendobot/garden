@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T13:22:07Z_
+_As of 2026-07-06T13:27:46Z_
 
 ## Latest
 
-Little moved on the board itself: the last outstanding retrospective on [endo-but-for-bots#486](https://github.com/endojs/endo-but-for-bots/pull/486) completed, leaving the queue drained (two long-running research jobs — a dialog-DB ingest and the XS→Rust stage-4 generators port — remain in flight). The items worth a maintainer's eye are in the inbox, not the board: the fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (a job requeued every ~18 min against a 40-min handler wall, twice yielding two live writers in one worktree), flagged as a deliberate main2 fix-and-deploy rather than a board job. Separately, the streamlined-onboarding phase-1 job was closed as already-landed, with its ".garden-file-first identity" design point noted as superseded by the newer location-derived identity scheme — worth annotating that design paragraph as stale.
+Little moved on the board itself: the [endojs/endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) review retrospective was claimed off the plan queue and is now in progress, and a prosecutor progress note landed. Two maintainer messages are worth a look. The liaison surfaced a data-corruption-class bug from the Fable review of the garden's own scripts: the reaper's requeue path (`reaper-requeue-kills-or-waits-for-live-handler`) re-posted a job roughly every 18 minutes against a 40-minute handler wall without killing the prior handler, twice producing two live writers in one worktree — a main2 infrastructure fix awaiting a deliberate fix-and-deploy rather than a board job. Separately, the `onboarding-p1-launcher` job closed as already-satisfied: streamlined-onboarding phase 1 landed 2026-07-04, and its lone open item (`.garden`-file-first identity) was deliberately superseded by the newer location-derived identity in commits 6d543582e/367a7543c, so the design's §1.1 identity paragraph is now stale.
 
 ## Parked for maintainer feedback
 
@@ -44,7 +44,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr96-review-b474e0ee-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr96-review-b474e0ee-retro.md) — Retrospective on endojs/endo-but-for-bots PR #96 (primary: endojs-endo-but-fo...
 - [`scholar-ingest-dialog-db`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db.md) — ---
 - [`xs2rust-endor-stage4-generators`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-generators.md) — Stage-4 child: generator functions and the iteration protocol closure
 
@@ -64,7 +65,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr96-review-b474e0ee-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr96-review-b474e0ee-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #96 (primary: endojs-endo-but-fo...
 - [`scholar-ingest-against-sql`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-against-sql.md) — _low_ · ---
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
