@@ -15,6 +15,7 @@ The discipline of imposing structure at read time, not write time: facts are sto
 | [dialog-db--notes-concept--schema-on-read-and-rules](../sections/dialog-db--notes-concept--schema-on-read-and-rules.md) | A concept is a lens over the claim store; concepts as rule conclusions with disjunction across rules. |
 | [dialog-db--notes-architecture-overview--schema-on-query](../sections/dialog-db--notes-architecture-overview--schema-on-query.md) | Schema-on-query vs schema-on-write; evolution without migration; per-application interpretation. |
 | [dialog-db--notes-concept--attributes-and-concepts](../sections/dialog-db--notes-concept--attributes-and-concepts.md) | Concept identity from the sorted attribute set; structural equivalence regardless of struct name. |
+| [dialog-db--rust-dialog-query-readme--semantic-concepts](../sections/dialog-db--rust-dialog-query-readme--semantic-concepts.md) | Crate-doc: #[derive(Concept)] as a bidirectional schema-on-read lens — one entity satisfies many concepts; Query::<T>.perform composes claims into conclusions by conjunction. |
 
 ## See also
 
