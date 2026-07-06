@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot Please refresh. A lot of the changes in the last month bring this design closer to fruition in spirit if not details, and this will need to speak to what is done and what remains to be done. 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 18
+  claimed_at: 2026-07-06T11:34:16Z
