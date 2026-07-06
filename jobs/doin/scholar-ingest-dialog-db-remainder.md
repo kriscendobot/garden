@@ -42,3 +42,9 @@ budget per cycle; post a further follow-on for whatever is left):
 Keep cross-referencing to endo design material where concepts meet (ocap /
 capability-security, content-addressed / durable storage, confinement,
 persistence). No fork or upstream actions.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  claimed_at: 2026-07-06T13:33:29Z
