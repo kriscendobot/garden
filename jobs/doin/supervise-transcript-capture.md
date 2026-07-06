@@ -50,3 +50,9 @@ the bring-up + broadcast-reader pieces.
   threshold value? — for the maintainer to decide.
 - Garden-meta only: land code/docs on main2 (push directly, no PR). No project repo, no
   upstream.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 10
+  claimed_at: 2026-07-06T23:36:10Z
