@@ -111,6 +111,8 @@
 | [dialog-db--rust-dialog-repository-readme--usage-walkthrough](../sections/dialog-db--rust-dialog-repository-readme--usage-walkthrough.md) | dialog-db rust/dialog-repository/README.md | A typed #[derive(Concept)] schema committed and queried against a branch with Query::<T> and Term::var. |
 | [dialog-db--rust-dialog-repository-guide--writing-semantic-triples](../sections/dialog-db--rust-dialog-repository-guide--writing-semantic-triples.md) | dialog-db rust/dialog-repository/Guide.md | Semantic triples via branch.transaction().assert(..).commit(), each commit folding a batch into a new branch revision. |
 | [dialog-db--rust-dialog-repository-guide--querying-concepts-rules-and-artifacts](../sections/dialog-db--rust-dialog-repository-guide--querying-concepts-rules-and-artifacts.md) | dialog-db rust/dialog-repository/Guide.md | Typed concept queries, deductive-rule queries (.query().install(rule)), and raw artifact selection with automatic remote fallback. |
+| [dialog-db--rust-dialog-csv-readme--overview](../sections/dialog-db--rust-dialog-csv-readme--overview.md) | dialog-csv README | CSV interchange for `{the, of, is, cause}` artifacts: the five-column (the/of/as/is/cause) row format and typed value set. |
+| [dialog-db--rust-dialog-csv-readme--usage](../sections/dialog-db--rust-dialog-csv-readme--usage.md) | dialog-csv README | Export/import a branch (`branch.export`/`branch.import`) or use `CsvExporter`/`CsvImporter` standalone over any writer/reader. |
 
 ## See also
 
