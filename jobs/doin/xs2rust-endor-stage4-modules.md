@@ -80,6 +80,8 @@ plus namespace/linkage unit tests locked in cargo. Record honestly which path wa
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
