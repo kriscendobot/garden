@@ -14127,3 +14127,16 @@ retraction | fact-triple
 provenance | fact-triple
 `{by, period, moment}` | fact-triple
 period moment | fact-triple
+`the!` macro | dialog-query-rust-api
+`#[derive(Attribute)]` | dialog-query-rust-api
+`#[derive(Concept)]` | dialog-query-rust-api
+`#[cardinality(many)]` | dialog-query-rust-api
+`#[domain(...)]` attribute | dialog-query-rust-api
+`Query<T>` conclusion | dialog-query-rust-api
+`Session::install` | dialog-query-rust-api
+`Session::open` | dialog-query-rust-api
+`Term::var` | dialog-query-rust-api
+`Term::<The>::var` | dialog-query-rust-api
+`impl When` premise tuple | dialog-query-rust-api
+`Input<Self>` compute | dialog-query-rust-api
+dialog-query crate API | dialog-query-rust-api
