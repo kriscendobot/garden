@@ -2,6 +2,7 @@ Run the gauntlet on endojs/endo-but-for-bots PR #566 (confined `HttpClient`, the
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
