@@ -13876,3 +13876,31 @@ stream re-synchronization on mid-stream SYN | ocap-kernel
 passable default guards | ocap-kernel
 `defaultGuards` passable | ocap-kernel
 sentinel values on the value channel | ocap-kernel
+Guten Tag | guten-tag-component
+guten tag | guten-tag-component
+gutentag | guten-tag-component
+Guten Tag framework | guten-tag-component
+HTML module component | guten-tag-component
+`hookup` | guten-tag-component
+`Component(body, caller)` | guten-tag-component
+`scope.root` | guten-tag-scope
+`scope.parent` | guten-tag-scope
+`scope.this` | guten-tag-scope
+`scope.components` | guten-tag-scope
+`scope.caller` | guten-tag-scope
+`scope.argument` | guten-tag-scope
+guten tag lexical scope | guten-tag-scope
+`items:iteration` | guten-tag-scope
+`meta accepts` | guten-tag-accepts-convention
+`accepts="[body]"` | guten-tag-accepts-convention
+`accepts="[entries]"` | guten-tag-accepts-convention
+`accepts="[text]"` | guten-tag-accepts-convention
+`accepts="[html]"` | guten-tag-accepts-convention
+`caller.argument` | guten-tag-accepts-convention
+guten tag calling convention | guten-tag-accepts-convention
+body node | guten-tag-body-node
+Koerper | guten-tag-body-node
+koerper | guten-tag-body-node
+`actualNode` | guten-tag-body-node
+guten tag virtual document | guten-tag-body-node
+`<sp>` significant whitespace | guten-tag-body-node
