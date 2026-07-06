@@ -933,6 +933,26 @@ seen_after_k="$(wc -l < "$SEENF" 2>/dev/null || echo 0)"
   && ok "empty-output kill (rc=137) → exit 0, markers unadvanced (retry next tick)" \
   || bad "empty-output kill not absorbed (rc=$krc seen $seen_before_k→$seen_after_k)"
 
+# The REAL mentor-claude.sh handler must PROPAGATE a transient inner-`claude`
+# failure (a quota/usage cut, an Anthropic overload/5xx, an api/network blip) — a
+# non-zero exit with its output RE-EMITTED — not swallow it. Before the fix the
+# `claude` call ran under `set -euo pipefail`, so a non-zero exit aborted the
+# handler at rc=1 with claude's stdout trapped in a discarded `$out` and NOTHING
+# re-emitted; mentor.sh then saw an empty capture + rc=1, matched no transient
+# classifier, and fell through to `die`/self-heal — the 2026-07-06 FATAL loop.
+# Drive the real handler with the deterministic fake-claude stub (via the
+# GARDEN_MENTOR_CLAUDE seam — a differently-named binary because the fleet sandbox
+# pins the literal `claude`, so a PATH shim named `claude` cannot execute) failing
+# with a transient signature; the handler must re-emit that signature AND exit
+# non-zero so mentor.sh's classifier can absorb it.
+mc_rc=0
+mc_out="$(env GARDEN_MENTOR_CLAUDE="$HERE/fake-claude.sh" FAKE_CLAUDE_FAIL=1 \
+  FAKE_CLAUDE_STDERR="API Error: Overloaded (529) — please retry" \
+  GARDEN_ROOT="$JOBS/../.." "$JOBS/handlers/mentor-claude.sh" deadbeef "$TR" 2>&1)" || mc_rc=$?
+{ [ "$mc_rc" -ne 0 ] && printf '%s' "$mc_out" | grep -q 'Overloaded (529)'; } \
+  && ok "mentor-claude propagates transient claude failure (rc≠0, output re-emitted)" \
+  || bad "mentor-claude swallowed transient claude failure (rc=$mc_rc out='$mc_out')"
+
 # ============================================================================
 hr; echo "SUBTEST 12 — CURSORS: durable poll position survives a restart"; hr
 export GARDEN=curhost

@@ -57,12 +57,40 @@ below. Emit nothing if there is no clear opportunity.
 EOF
 )"
 
-command -v claude >/dev/null 2>&1 || die "claude not on PATH; cannot run mentor"
+# The inner agent is `claude` by default; tests inject a deterministic stub via
+# GARDEN_MENTOR_CLAUDE so the parse/post path and the transient-propagation path
+# below can be driven without a live model (mirrors GARDEN_FOLLOWUP_CLAUDE in
+# follow-up-claude.sh — and a non-`claude`-named stub is required because the
+# fleet sandbox pins the literal `claude` binary, so a PATH shim named `claude`
+# cannot execute).
+: "${GARDEN_MENTOR_CLAUDE:=claude}"
+command -v "$GARDEN_MENTOR_CLAUDE" >/dev/null 2>&1 \
+  || die "$GARDEN_MENTOR_CLAUDE not on PATH; cannot run mentor"
 # --dangerously-skip-permissions: autonomous headless context, no human
 # approver; the default permission gate would deny every tool call. Bypass is
 # the intended fleet posture (operator pre-consents via
 # skipDangerousModePermissionPrompt in ~/.claude). Requires running as non-root.
-out="$(claude -p --dangerously-skip-permissions "$prompt")"
+# Run `claude` under `set +e` so a NON-ZERO exit — the common transient case (a
+# quota/usage cut, an Anthropic overload/5xx, an api/network blip) — is captured
+# rather than tripping `set -e`, which would abort this handler at rc=1 with
+# claude's output trapped in a discarded `$out` and NOTHING re-emitted. mentor.sh
+# captures our combined stdout+stderr and classifies it: with empty output + rc=1
+# it matches neither is_transient_empty_failure (wants a signal/offline rc) nor
+# is_transient_claude_signature/_fetch_stderr_is_offline (both need signature
+# TEXT), so it falls through to `die` and misreads a transient inner-agent outage
+# as a real handler defect — the 30-min FATAL loop observed 2026-07-06. Mirror
+# gardener-claude.sh:279-282: on non-zero rc, re-emit the captured output to our
+# stderr (so mentor.sh's classifiers can see the transient signature and/or a
+# propagated signal/offline rc) AND propagate rc via `exit`. The rc=0 path parses
+# `$out` for JOB blocks exactly as before.
+set +e
+out="$("$GARDEN_MENTOR_CLAUDE" -p --dangerously-skip-permissions "$prompt" 2>&1)"
+rc=$?
+set -e
+if [ "$rc" -ne 0 ]; then
+  printf '%s\n' "$out" >&2
+  exit "$rc"
+fi
 
 # already_fixed_pending_deploy: deterministic pre-filter (no LLM). A mentor
 # "improve <script>" job is churn if the fix is ALREADY committed to
