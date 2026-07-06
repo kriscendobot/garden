@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T20:35:35Z_
+_As of 2026-07-06T20:36:58Z_
 
 ## Latest
 
-The garden's M3 flagship — Claw-like coding capabilities via `daemon-agent-tools` — is now fully built and blocked on you: the foreman reports phases 1–3 ([endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), [#616](https://github.com/endojs/endo-but-for-bots/pull/616)) are CI-green and mergeable but still Draft, and phase 4 ([#618](https://github.com/endojs/endo-but-for-bots/pull/618)) just had its last un-draft blocker closed, so the milestone's critical path is now review + un-draft + merge of the #614→#615→#616→#618 stack rather than more building. Three items need a steer: the XS→Rust (Endor) stage-4 orchestration **halted** after child `xs2rust-endor-stage4-modules` failed (4/8 done); the Gateway `/ocapn` WebSocket build was **held** as a superset duplicate of the still-draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577), awaiting a rescope/supersede/drop decision; and a data-corruption-class reaper-requeue bug in the garden's own scripts surfaced from the Fable self-review, flagged for a deliberate main2 fix and deploy. The onboarding phase-1 job closed as already-landed, noting design §1.1's `.garden`-file identity is now superseded by location-derived identity. Board motion was otherwise quiet — a single dead-lettered message was picked up.
+[endo-but-for-bots#618](https://github.com/endojs/endo-but-for-bots/pull/618) went CI-green (24 checks pass on head 6e81647), and with its last un-draft blocker — the live-daemon integration test — now closed, the M3 flagship `daemon-agent-tools` pillar is fully built: phases 1–3 ([#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), [#616](https://github.com/endojs/endo-but-for-bots/pull/616)) are CI-green and mergeable but still Draft, and phase 4 ([#618](https://github.com/endojs/endo-but-for-bots/pull/618)) only awaits them landing. The critical path here is now a maintainer step the fleet cannot take on its own: review, un-draft, and merge the #614→#615→#616→#618 stack. Three items in the maintainer inbox also want a decision — a Gateway Feature 8 build was held rather than opening a PR that would collide with the existing draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577) (steer requested: build the socket handoff atop #577, supersede it, or drop the branch); the `xs2rust-endor-build-stage4` orchestration halted after a child failed (4/8 done); and the liaison flagged a data-corruption-class reaper-requeue bug in the garden's own scripts warranting a deliberate main2 fix and deploy.
 
 ## Parked for maintainer feedback
 
@@ -76,19 +76,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`deadmail-20260706T203108Z-8e19d7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260706T203108Z-8e19d7.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr614-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr614-gauntlet.md) — Run the gauntlet on endojs/endo-but-for-bots PR #614 (daemon-agent-tools Phas...
-- [`endojs-endo-but-for-bots-pr618-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr618-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #618
 - [`xs2rust-endor-stage4-ses-conformance`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-ses-conformance.md) — Stage-4 child: stage-4 closure: daemon boot bundles + ses-xs-parity
 
-### tada (1342)
+### tada (1343)
+- [`endojs-endo-but-for-bots-pr618-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr618-shepherd.md) — All **24 checks pass** — CI is green on head SHA 6e81647. No non-passing chec...
 - [`xs2rust-endor-stage4-lockdown-harden`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage4-lockdown-harden.md) — Completion report
 - [`deadmail-20260706T201018Z-28fa64`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T201018Z-28fa64.md) — Completion report — deadmail pickup for port-xs-to-rust-memory-safe-engine-s10
 - [`xs2rust-endor-stage4-compartment`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage4-compartment.md) — Completion report — stage-4b child 3/5 (compartment)
 - [`deadmail-20260706T195221Z-8315c8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T195221Z-8315c8.md) — Durably landed on journal2 and pushed. The carry-forward is complete — no mai...
-- [`issue-kriskowal-garden-29`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-29.md) — Completion report
-- … and 1337 more
+- … and 1338 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
