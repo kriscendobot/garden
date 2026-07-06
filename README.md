@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T18:23:38Z_
+_As of 2026-07-06T18:25:48Z_
 
 ## Latest
 
-The reaper parked the Stage-4 module-machinery child of the XS→Rust port ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) back to the plan queue after two deadline-overrun cycles — it exceeds the 2400s handler budget and would be killed on every requeue, so it now waits (`xs2rust-endor-stage4-modules`, gate=go-ahead) for a human to split it, raise the timeout, or drop it. Separately, the fable review of the garden's own scripts surfaced a **data-corruption-class bug in the reaper requeue path** (a job requeued against a still-live 40-min handler, twice yielding two live writers in one worktree); it's a main2 infra fix warranting a deliberate fix + deploy, not a board job. Gateway Feature 8 is held rather than opening a competing draft: its socket-handoff work is a superset of the already-in-flight path-scheme PR [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), and the gardener recommends re-scoping to build atop #577 rather than superseding it. Onboarding phase 1 is confirmed already landed, with the design's `.garden`-first identity intentionally superseded by location-derived identity. On the completion side, shepherds drove [endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616) and [endo-but-for-bots#615](https://github.com/endojs/endo-but-for-bots/pull/615) to green, and the daemon agent-tools phase-3 git tools and endomount filesystem-watcher builds finished. One caution: the foreman flags `build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery` (still in `doin`) as possibly stuck after recurring without milestone progress.
+The XS→Rust (Endor) port hit a wall: the `xs2rust-endor-build-stage4` orchestration **halted** after its module-machinery child ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) blew past the 2400s handler budget on two straight cycles — the reaper poisoned it and parked the work in the plan queue, where it now waits (with three sibling stage-4 children swept) for a maintainer to split the job, raise the timeout, or drop it. Separately, Gateway Feature 8 (the `/ocapn` WebSocket endpoint) was **held rather than opened**: the gardener found its work is a superset of open draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), which lands only the path-naming half, and asks whether to build the socket handoff on top of #577, supersede it, or drop the branch (recommendation: build on top). A fable review of the garden's own scripts surfaced a **data-corruption-class bug in the reaper requeue path** — twice producing two live writers in one worktree — flagged for a deliberate main2 fix and deploy. The foreman also warns that `build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery` may be stuck, having recurred without milestone progress. On the green side, the [endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616) shepherd drove CI to green, and the daemon git-tools phase-3 build, filesystem-watcher work, and the deterministic overrun-alert improvement all completed.
 
 ## Parked for maintainer feedback
 
@@ -62,6 +62,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260706T181347Z-a1dca0` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T181347Z-a1dca0.md)
 
 > foreman: next step 'build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery' recurred after the previous post drained without milestone progress. Holding the re-post pending review; it may be stuck.
+
+- `20260706T182517Z-526c55` — from orchestrator:xs2rust-endor-build-stage4-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T182517Z-526c55.md)
+
+> Orchestration xs2rust-endor-build-stage4 HALTED: child xs2rust-endor-stage4-modules failed (serial, on-child-failure=halt). 4/8 done before halt; swept: xs2rust-endor-stage4-compartment xs2rust-endor-stage4-lockdown-harden xs2rust-endor-stage4-ses-conformance
 
 - `poison-xs2rust-endor-stage4-modules-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-xs2rust-endor-stage4-modules-deadline-overrun.md)
 
@@ -168,13 +172,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### doin (1)
 - [`build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery.md) — ---
 
-### tada (1326)
+### tada (1327)
+- [`xs2rust-endor-build-stage4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage4.md) — orchestration xs2rust-endor-build-stage4 — HALTED
 - [`build-endo-but-for-bots-filesystem-watchers-endomount-follow-name-changes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-filesystem-watchers-endomount-follow-name-changes.md) — Findings
 - [`endojs-endo-but-for-bots-pr616-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr616-shepherd.md) — CI is green. Job complete.
 - [`improve-gardener-deterministic-overrun-alert`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-deterministic-overrun-alert.md) — Completion report
 - [`build-endo-but-for-bots-daemon-agent-tools-phase3-git-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-daemon-agent-tools-phase3-git-tools.md) — Completion report
-- [`shepherd-endo-but-for-bots-pr615-agent-tools-shell-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pr615-agent-tools-shell-capability.md) — Completion report: shepherd endojs/endo-but-for-bots PR #615
-- … and 1321 more
+- … and 1322 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
