@@ -1,23 +1,23 @@
 # Garden bulletin
 
-_As of 2026-07-06T04:00:48Z_
+_As of 2026-07-06T11:42:16Z_
 
 ## Latest
 
-[endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared the gauntlet and is un-drafted — OPEN, MERGEABLE, CI green (15/15), now in the review queue as the standalone Docker self-host slice; the panel's one must-fix was a broken `docker exec … endo` control command (node_modules/.bin wasn't on the image PATH), since fixed, though no one could run an actual `docker build` in the sandbox. Three gardeners paused rather than duplicating work and surfaced disposition calls: the Docker/daemon pillar now has three overlapping PRs ([#608](https://github.com/endojs/endo-but-for-bots/pull/608) docker-only, [#134](https://github.com/endojs/endo-but-for-bots/pull/134) comprehensive-but-stale, [#568](https://github.com/endojs/endo-but-for-bots/pull/568) 0xpatrickbot's conflicting third-party attempt) plus an open architecture question — wire remote-auth into `ws-gateway.js` now or wait for `@endo/gateway` — and the confined-HTTP-client pillar is likewise already covered by [#566](https://github.com/endojs/endo-but-for-bots/pull/566) (external) and the garden's own [#286](https://github.com/endojs/endo-but-for-bots/pull/286), so the `endoclaw-network-fetch` build stopped and recommends shepherding #286 instead. Also completed: the [#609](https://github.com/endojs/endo-but-for-bots/pull/609) endoclaw-timer gauntlet and the `streamlined-onboarding` design (its § 5 open questions await your answer before the gated build jobs post).
+A gardener ran the [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) gauntlet to completion: the docker self-host slice is now un-drafted, OPEN/MERGEABLE with CI green (15/15), after a panel caught a real must-fix (the documented `docker exec … endo` command would have failed on `endo: not found` because `node_modules/.bin` wasn't on the image PATH). Per the proxy's steer, the broader parallel attempt [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot, mention-only) was left untouched — its disposition against #608 is a maintainer call. Three build jobs came back as **skip-and-surface duplicates rather than new PRs**: the confined-outbound-HTTP pillar is already delivered by [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (external) and the garden's own [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286), and the Docker M3 keystone overlaps [endo-but-for-bots#134](https://github.com/endojs/endo-but-for-bots/pull/134)/[#608](https://github.com/endojs/endo-but-for-bots/pull/608)/[#568](https://github.com/endojs/endo-but-for-bots/pull/568) — that last surfacing flags a genuine architecture fork (wire remote-auth into `ws-gateway.js` now vs. wait for `@endo/gateway`) needing a maintainer decision, with verified gateway-auth wiring parked on a WIP branch for whichever PR wins.
 
-**Worth your attention:** a deterministic identity-drift guard fired three times on host `endolinbot` — `GARDEN` is set to `driftname` while `hostname -s` reports `endolinbot`, so `is-main-host` reads FOLLOWER and every leader-only singleton (foreman, scheduler, watchers, bulletin) is being skipped on the true leader; fix is to correct `/home/kris/.garden` back to `endolinbot` and restart the pool.
+On garden infrastructure, a Fable review found a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`) that twice left two live writers in one worktree; it wants a deliberate main2 fix + deploy. Separately, the **host-identity drift guard is firing repeatedly** — `GARDEN=endolinbot2` diverges from this host's real `endolin-garden2-5bcdff64`, so `is-main-host` reports FOLLOWER and every leader-only singleton is being skipped on the true leader; the stale `.garden` file needs correcting and the pool restarting. The XS→Rust (Endor) port closed out stage 3b and UTF-16 strings and fanned stage 4 out into a fresh orchestration (accessors, classes, generators, async/await, modules, compartment, lockdown, SES conformance). Shepherds are still driving red CI on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) and the #595 probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) — where a spec/deliverable discrepancy (a paraphrased "take-semantics" gap that doesn't exist in the real 7-gap probe) awaits a maintainer yes/no on whether that analysis is actually wanted.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 3d)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 5d)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 6d)
-- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 9d)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 6d)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 7d)
+- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 10d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 20d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 45d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 45d)
-- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 46d)
+- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 47d)
 - [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 46d)
 - [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 54d)
 
@@ -188,24 +188,141 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Follow-up to the daemon-docker-selfhost surface: my verified work is pushed (no PR) to branch `wip/daemon-docker-selfhost-gateway-remote-auth` on endojs/endo-but-for-bots, off origin/llm tip (1132289). Contains the ws-gateway.js CIDR wiring + daemon-node.js env reads + 5 green ws-gateway.test.js tests + the docker/ image. Cherry-pick or rebase onto the canonical PR once you decide the direction.
 
+- `20260706T040517Z-72bbd0` — from gardener:build-endo-but-for-bots-endoclaw-network-fetch, reply_to `build-endo-but-for-bots-endoclaw-network-fetch` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T040517Z-72bbd0.md)
+
+> Build job `build-endo-but-for-bots-endoclaw-network-fetch` (EndoClaw confined-outbound-HTTP, M3): NOT building — a complete duplicate already exists.
+>
+> endojs/endo-but-for-bots#566 "feat(exo-http-client): add confined HttpClient" (DRAFT, base llm, author 0xpatrickbot) already implements designs/endoclaw-network-fetch.md in full:
+> - package @endo/exo-http-client with makeHttpClientAndControl → HttpClient / HttpClientControl exo pair (M.interface guards)
+> - structural exact-origin allowlist (guest cannot construct a URL escaping it)
+> - per-minute rate limits (maxRequestsPerMinute / setMaxRequestsPerMinute + enforceRateLimit)
+> - max-response-byte caps (maxResponseBytes / setMaxResponseBytes, streaming read cancels at the cap)
+> - revocation (client + per-binding), plus an opt-in trust-on-first-bind policy layer beyond the design
+> All CI checks green; it passed a code panel and the author addressed every blocker on 2026-06-29. This satisfies the M3 exit clause "confined outbound HTTP".
+>
+> I did NOT open a competing PR (builder norm: skip-and-surface on duplicate) and did NOT touch #566 — 0xpatrickbot is a mention-only PR author, so absent an @-mention I leave their PR alone.
+>
+> If you want the garden to instead own its own implementation (or to review/shepherd #566 toward merge — it's still draft), say so and I'll post the appropriate job.
+
+- `20260706T111144Z-efc3d3` — from identity-drift-guard:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T111144Z-efc3d3.md)
+
+> kind: error
+>
+> # Host-identity DRIFT detected (deterministic guard)
+>
+> **GARDEN=`endolinbot`** diverges from **hostname -s=`endolin-garden-ece02cb4`** on this host,
+> with NO recorded parallel-pool override (checked GARDEN_IDENTITY_OVERRIDE and
+> `/home/kris/garden/.garden-state/identity-override`).
+>
+> GARDEN is the single key every per-host structure hangs off — claim metadata, the
+> `hosts/<host>` worker count, the journal index, and the leader/follower
+> predicate. An unrecorded divergence silently mislabels all of it (here: up to this
+> host's full gardener pool) and disables the leader gate.
+>
+> **Leader impact:** is-main-host reports FOLLOWER (leader marker='endolin-garden2-5bcdff64', GARDEN=endolinbot)
+>
+> **Likely source:** the gitignored per-instance identity file `/home/kris/garden/.garden`
+> (common.sh precedence step 2) or an inherited-env `GARDEN`. This is the
+> endolinbot2 regression class.
+>
+> **Fix:** if this host is the leader, correct `/home/kris/garden/.garden` (and any
+> inherited `GARDEN`) to `endolin-garden-ece02cb4` and restart the pool; if this is a
+> deliberate parallel pool, record the override in `/home/kris/garden/.garden-state/identity-override`
+> (or export GARDEN_IDENTITY_OVERRIDE=`endolinbot`) so this guard stays quiet.
+>
+> Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
+> (gardener-scaler preflight). It will not repeat until the drift changes or clears.
+
+- `20260706T112610Z-848e2d` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T112610Z-848e2d.md)
+
+> kind: error
+>
+> # Host-identity DRIFT detected (deterministic guard)
+>
+> **GARDEN=`endolinbot2`** diverges from **hostname -s=`endolin-garden2-5bcdff64`** on this host,
+> with NO recorded parallel-pool override (checked GARDEN_IDENTITY_OVERRIDE and
+> `/home/kris/garden2/.garden-state/identity-override`).
+>
+> GARDEN is the single key every per-host structure hangs off — claim metadata, the
+> `hosts/<host>` worker count, the journal index, and the leader/follower
+> predicate. An unrecorded divergence silently mislabels all of it (here: up to this
+> host's full gardener pool) and disables the leader gate.
+>
+> **Leader impact:** is-main-host reports FOLLOWER: the leader marker names 'endolin-garden2-5bcdff64' (this host's real hostname -s), but the drifted GARDEN=endolinbot2 does not match it — every leader-only singleton is being SKIPPED on the true leader host
+>
+> **Likely source:** the gitignored per-instance identity file `/home/kris/garden2/.garden`
+> (common.sh precedence step 2) or an inherited-env `GARDEN`. This is the
+> endolinbot2 regression class.
+>
+> **Fix:** if this host is the leader, correct `/home/kris/garden2/.garden` (and any
+> inherited `GARDEN`) to `endolin-garden2-5bcdff64` and restart the pool; if this is a
+> deliberate parallel pool, record the override in `/home/kris/garden2/.garden-state/identity-override`
+> (or export GARDEN_IDENTITY_OVERRIDE=`endolinbot2`) so this guard stays quiet.
+>
+> Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
+> (gardener-scaler preflight). It will not repeat until the drift changes or clears.
+
+- `20260706T112719Z-1768bd` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T112719Z-1768bd.md)
+
+> kind: error
+>
+> # Host-identity DRIFT detected (deterministic guard)
+>
+> **GARDEN=`endolinbot2`** diverges from **hostname -s=`endolin-garden2-5bcdff64`** on this host,
+> with NO recorded parallel-pool override (checked GARDEN_IDENTITY_OVERRIDE and
+> `/home/kris/garden2/.garden-state/identity-override`).
+>
+> GARDEN is the single key every per-host structure hangs off — claim metadata, the
+> `hosts/<host>` worker count, the journal index, and the leader/follower
+> predicate. An unrecorded divergence silently mislabels all of it (here: up to this
+> host's full gardener pool) and disables the leader gate.
+>
+> **Leader impact:** is-main-host reports FOLLOWER: the leader marker names 'endolin-garden2-5bcdff64' (this host's real hostname -s), but the drifted GARDEN=endolinbot2 does not match it — every leader-only singleton is being SKIPPED on the true leader host
+>
+> **Likely source:** the gitignored per-instance identity file `/home/kris/garden2/.garden`
+> (common.sh precedence step 2) or an inherited-env `GARDEN`. This is the
+> endolinbot2 regression class.
+>
+> **Fix:** if this host is the leader, correct `/home/kris/garden2/.garden` (and any
+> inherited `GARDEN`) to `endolin-garden2-5bcdff64` and restart the pool; if this is a
+> deliberate parallel pool, record the override in `/home/kris/garden2/.garden-state/identity-override`
+> (or export GARDEN_IDENTITY_OVERRIDE=`endolinbot2`) so this guard stays quiet.
+>
+> Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
+> (gardener-scaler preflight). It will not repeat until the drift changes or clears.
+
+- `20260706T114002Z-ccc540` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T114002Z-ccc540.md)
+
+> On endojs/endo-but-for-bots PR #595 report-back (report `endojs-endo-but-for-bots-pr595-report-back`): the job spec's paraphrase described 5 gaps including a "Gap 5 — destructive one-shot `take` semantics" correctness hazard, but the actual published probe (PR #605, https://github.com/endojs/endo-but-for-bots/pull/605) has 7 gaps and no `take`-semantics gap — that item does not exist in the real deliverable, and the gardener correctly did not invent it. Decision needed: if you specifically expect a `take`-semantics analysis, that is a genuinely new probe question to post, not a report-back. Otherwise no action; PR #605 stays draft as discussion substrate for @kriskowal / @erights.
+
+- `20260706T114016Z-d133d3` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T114016Z-d133d3.md)
+
+> From the fable review of the garden's own scripts (report `fable-review-fix-garden-scripts`): a data-corruption-class bug was found in the reaper requeue path — `reaper-requeue-kills-or-waits-for-live-handler`. The job was requeued roughly every 18 min against a 40-min handler wall while the prior handler was left alive, twice producing two live writers in one worktree (pids/timestamps in the job body). This is a garden-infrastructure fix (main2, no bot-repo PR), so I'm surfacing it rather than posting a board job — it warrants a deliberate fix + deploy. Two lesser items rode along and need no decision: the accepted-but-deferred `watchers-port-fail-floor-to-mention-issue-inbox` fix, and `ci-watcher-test-preexisting-failures` (6/29 failures on a pristine main2 tree, unrelated to that job's changes).
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
-- [`build-endo-but-for-bots-endoclaw-network-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-endoclaw-network-fetch.md) — ---
-- [`deadmail-issue-comment-4888938507`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4888938507.md) — Dead-lettered message — pick up its intent
-- [`mention-kriskowal-garden-26-186e048e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mention-kriskowal-garden-26-186e048e.md) — attention directive from @-mention on kriskowal/garden #26
+### doin (10)
+- [`daily-progress-summary-20260706-113547`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260706-113547.md) — Daily midnight Pacific progress summary
+- [`deadmail-issue-comment-4888978127`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4888978127.md) — Dead-lettered message — pick up its intent
+- [`deadmail-issue-comment-4889651367`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4889651367.md) — Dead-lettered message — pick up its intent
+- [`design-ebfb-buffered-channel-exo-stream-consolidation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-ebfb-buffered-channel-exo-stream-consolidation.md) — Design: consolidate the two buffered-channel.js copies onto @endo/exo-stream
+- [`endojs-endo-but-for-bots-pr442-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #442
+- [`endojs-endo-but-for-bots-pr605-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr605-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #605
+- [`endojs-endo-but-for-bots-pr89-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr89-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #89
+- [`endojs-endo-but-for-bots-pr96-review-b474e0ee`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr96-review-b474e0ee.md) — Review directive on endojs/endo-but-for-bots PR #96
+- [`scholar-ingest-gutentag`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-gutentag.md) — role: scholar
 - [`xs2rust-endor-stage4-accessors-attributes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-accessors-attributes.md) — Stage-4 child: accessor properties, full property descriptors, freeze/seal (h...
 
-### tada (1252)
-- [`build-endo-but-for-bots-daemon-docker-selfhost`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-daemon-docker-selfhost.md) — Completion report: build-endo-but-for-bots-daemon-docker-selfhost
-- [`mention-kriskowal-garden-26-fd0eac1c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mention-kriskowal-garden-26-fd0eac1c.md) — Comment is live and rendered; inbox is empty. This was a design-memo reply ta...
-- [`gauntlet-endo-but-for-bots-pr609-endoclaw-timer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr609-endoclaw-timer.md) — Completion report
-- [`deadmail-issue-comment-4888913059`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4888913059.md) — Completion report
-- [`port-xs-to-rust-memory-safe-engine-s8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s8.md) — Completion report — port-xs-to-rust-memory-safe-engine-s8
-- … and 1247 more
+### tada (1258)
+- [`endojs-endo-but-for-bots-pr486-review-69dc0d7a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr486-review-69dc0d7a.md) — Completion report
+- [`endojs-endo-but-for-bots-pr486-review-d14e72bb`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr486-review-d14e72bb.md) — Completion report — endojs-endo-but-for-bots-pr486-review-d14e72bb
+- [`xs2rust-endor-strings-utf16`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16.md) — orchestration xs2rust-endor-strings-utf16 — complete
+- [`xs2rust-endor-strings-utf16-test`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16-test.md) — Completion report: xs2rust-endor-strings-utf16-test (child 3/3)
+- [`xs2rust-endor-strings-utf16-replace-cesu8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16-replace-cesu8.md) — All four jobs are correctly gated. The setup is complete and pushed to origin...
+- … and 1253 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -215,7 +332,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-(none)
+- [`scholar-ingest-dialog-db`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-dialog-db.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr486-review-69dc0d7a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr486-review-69dc0d7a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #486 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr486-review-7da05a5b-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr486-review-7da05a5b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #486 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr486-review-d14e72bb-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr486-review-d14e72bb-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #486 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr96-review-b474e0ee-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr96-review-b474e0ee-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #96 (primary: endojs-endo-but-fo...
+- [`scholar-ingest-against-sql`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-against-sql.md) — _low_ · ---
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
@@ -227,6 +349,5 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ## Hosts
-- [endolinbot](https://github.com/kriskowal/garden/blob/journal2/hosts/endolinbot): 20 gardeners
-- [endolinbot2](https://github.com/kriskowal/garden/blob/journal2/hosts/endolinbot2): 20 gardeners
-- [main-host](https://github.com/kriskowal/garden/blob/journal2/hosts/main-host): ? gardeners
+- [endolin-garden-ece02cb4](https://github.com/kriskowal/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 20 gardeners
+- [endolin-garden2-5bcdff64](https://github.com/kriskowal/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 100 gardeners
