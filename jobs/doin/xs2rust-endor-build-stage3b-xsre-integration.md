@@ -46,3 +46,9 @@ Symbol.match/replace/split protocol dispatch corners) — name them.
 <!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot
+  gardener: 14
+  claimed_at: 2026-07-06T00:03:51Z
