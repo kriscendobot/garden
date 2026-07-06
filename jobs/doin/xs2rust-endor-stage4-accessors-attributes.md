@@ -78,3 +78,9 @@ plus a re-run of `built-ins/Object` whole-tree — divergent=0, covered strictly
 baseline (Object 63), every skip named. Lock the new sections as cargo-test bars.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 12
+  claimed_at: 2026-07-06T11:04:10Z
