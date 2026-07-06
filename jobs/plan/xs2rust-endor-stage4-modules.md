@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 2
+deadline_overruns: 2
+poisoned_at: 2026-07-06T18:23:11Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-06T18:23:11Z
+---
+
+---
 model: opus
 ---
 <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-06T15:10:25Z -->
@@ -80,12 +94,5 @@ plus namespace/linkage unit tests locked in cargo. Record honestly which path wa
 
 
 
-<!-- garden-reaped: 1 -->
 
 <!-- garden-deadline-overrun: 2 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 12
-  claimed_at: 2026-07-06T17:33:09Z
