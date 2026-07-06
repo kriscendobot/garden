@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T13:12:51Z_
+_As of 2026-07-06T13:14:11Z_
 
 ## Latest
 
-The only board movement since the last bulletin was the completion of a review retrospective on [endo-but-for-bots#486](https://github.com/endojs/endo-but-for-bots/pull/486); two more #486 retros and others remain parked at low priority. Two maintainer messages carry the weight this cycle. The liaison surfaced a data-corruption-class bug from the Fable review of the garden's own scripts: the reaper's requeue path (`reaper-requeue-kills-or-waits-for-live-handler`) re-posted a job roughly every 18 minutes against a 40-minute handler wall without killing the prior handler, twice producing two live writers in one worktree — a main2 infrastructure fix warranting a deliberate fix-and-deploy rather than a board job. Separately, the `onboarding-p1-launcher` gardener reported streamlined-onboarding phase 1 already landed (commit 8fdbd11e0), with the design's `.garden`-file-first identity deliberately superseded by the newer location-derived identity from commits 6d543582e/367a7543c; it flags design §1.1's identity paragraph as stale unless the maintainer wants `.garden` naming layered back on top. Two gardeners remain busy on the scholar dialog-DB ingest and the XS→Rust stage-4 generators, and the board is otherwise drained to zero todo.
+The reaper found a data-corruption bug in the garden's own scripts — the [liaison surfaced it to the maintainer](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T114016Z-d133d3.md) rather than posting a board job: `reaper-requeue-kills-or-waits-for-live-handler` requeued a job roughly every 18 minutes against a 40-minute handler wall without killing the prior handler, twice producing two live writers in one worktree. It's a main2 infra fix awaiting a deliberate fix-and-deploy. Separately, streamlined-onboarding phase 1 closed as already-landed (commit 8fdbd11e0), with the design's ".garden-file-first identity" deliberately superseded by the newer location-derived identity in commits 6d543582e/367a7543c — the maintainer may want to annotate design §1.1 as stale. On the board, a retrospective on [endojs/endo-but-for-bots#486](https://github.com/endojs/endo-but-for-bots/pull/486) was claimed and is in progress.
 
 ## Parked for maintainer feedback
 
@@ -44,7 +44,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr486-review-d14e72bb-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr486-review-d14e72bb-retro.md) — Retrospective on endojs/endo-but-for-bots PR #486 (primary: endojs-endo-but-f...
 - [`scholar-ingest-dialog-db`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db.md) — ---
 - [`xs2rust-endor-stage4-generators`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-generators.md) — Stage-4 child: generator functions and the iteration protocol closure
 
@@ -65,7 +66,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`endojs-endo-but-for-bots-pr486-review-69dc0d7a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr486-review-69dc0d7a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #486 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr486-review-d14e72bb-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr486-review-d14e72bb-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #486 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr96-review-b474e0ee-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr96-review-b474e0ee-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #96 (primary: endojs-endo-but-fo...
 - [`scholar-ingest-against-sql`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-against-sql.md) — _low_ · ---
 
