@@ -108,3 +108,9 @@ dynamic `import()`, `import.meta` (stage-4a child 5); `compartment:dynamic-impor
 Compartment child named it; anything the async-surface child (stage-4b child 2) reports. Verify
 each is STILL an honest named skip at closure and enumerate them in the consolidated ledger for
 s10's whole-stage-4 acceptance review.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 16
+  claimed_at: 2026-07-06T20:34:24Z
