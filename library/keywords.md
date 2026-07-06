@@ -14043,3 +14043,29 @@ causal assertion | value-based-cas
 `db/cas` | value-based-cas
 Datomic cas | value-based-cas
 provenance-aware query | value-based-cas
+account | profile-account-operator
+profile identity | profile-account-operator
+operator | profile-account-operator
+three-layer identity | profile-account-operator
+delegation chain | profile-account-operator
+recovered access | profile-account-operator
+local access | profile-account-operator
+powerline delegation | profile-account-operator
+`authority::Identify` | profile-account-operator
+signer credential | signer-verifier-credential
+verifier credential | signer-verifier-credential
+`SignerCredential` | signer-verifier-credential
+`VerifierCredential` | signer-verifier-credential
+credential storage | signer-verifier-credential
+named space credential | signer-verifier-credential
+`credentials/self` | signer-verifier-credential
+ed25519-priv multicodec | signer-verifier-credential
+ed25519-pub multicodec | signer-verifier-credential
+subject routing | subject-routing
+`Router` | subject-routing
+`Loader` | subject-routing
+DID dispatch | subject-routing
+two-level dispatch | subject-routing
+DID to storage | subject-routing
+`RemoteAddress` | subject-routing
+`SiteAddress` | subject-routing
