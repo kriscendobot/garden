@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T14:59:10Z_
+_As of 2026-07-06T15:06:03Z_
 
 ## Latest
 
-The one board completion since last bulletin was the [endo-but-for-bots](https://github.com/endojs/endo-but-for-bots) daemon agent-tools Phase 1 filesystem tools build. Three items landed in the maintainer inbox that want attention. First, a **data-corruption-class bug** in the garden's own reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`): a job was being requeued roughly every 18 min against a 40-min handler while the prior handler stayed alive, twice producing two live writers in one worktree — a garden-infrastructure fix on `main2` that the liaison flagged for a deliberate fix and deploy rather than a board job. Second, the Gateway Feature 8 (`/ocapn` WebSocket endpoint) build was **held rather than opening a competing PR**: it turned out to be a superset of the in-flight draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) (which does only the path-scheme half and defers the socket handoff), with related work on [#392](https://github.com/endojs/endo-but-for-bots/pull/392) and [#413](https://github.com/endojs/endo-but-for-bots/pull/413); the gardener recommends re-scoping to build the handoff on top of #577 and awaits your steer. Third, the streamlined-onboarding Phase 1 job closed as already-satisfied (landed 2026-07-04), with a note that the design's `.garden`-file-first identity was deliberately superseded by the newer location-derived identity — flagging that design §1.1 is now stale.
+A gardener finished the Gateway Feature 8 build (the `/ocapn` WebSocket endpoint handoff) but **held it rather than open a PR**: it discovered its `src/ocapn-ws.js` is an incompatible parallel rewrite of the module in the open draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), which lands only the path-scheme half and defers the socket handoff. The branch `feat/gateway-ocapn-ws-endpoint-handoff` is pushed and locally green (73 ava pass, tsc/eslint/prettier clean); the maintainer needs to steer between re-scoping the handoff on top of #577 (the gardener's recommendation), superseding #577, or dropping the branch. Separately, the liaison surfaced a **data-corruption-class bug in the reaper requeue path** found by the fable review of the garden's own scripts — a requeue firing every ~18 min against a 40-min handler wall left the prior handler alive, twice yielding two live writers in one worktree; it's a main2 infra fix warranting a deliberate fix + deploy. The daemon agent-tools phase-1 filesystem-tools build and scholar dialog-DB ingest cycles 3–4 completed (5–6 still running), and the onboarding phase-1 launcher job closed as already-landed, flagging design §1.1's `.garden`-first identity as stale since location-derived identity superseded it.
 
 ## Parked for maintainer feedback
 
@@ -64,8 +64,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`scholar-ingest-dialog-db-remainder-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder-5.md) — role: scholar
+- [`scholar-ingest-dialog-db-remainder-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder-6.md) — role: scholar
 - [`xs2rust-endor-stage4-async-await`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-async-await.md) — Stage-4 child: async/await over the job queue + the promise double-settle key...
 
 ### tada (1305)
