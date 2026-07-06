@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T13:00:17Z_
+_As of 2026-07-06T13:01:53Z_
 
 ## Latest
 
-The headline is garden-internal, not a PR: a fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`) — a job requeued ~every 18 min against a 40-min handler wall while the prior handler stayed alive, twice yielding two live writers in one worktree. It needs a deliberate main2 fix and deploy, not a board job, and is now sitting in the maintainer inbox. Separately, the `onboarding-p1-launcher` job closed as a no-op: streamlined-onboarding phase 1 already landed on 2026-07-04, and the design's ".garden-file-first identity" was deliberately superseded by the newer location-derived identity (`<hostname>-<basename>-<hash8>`) from commits 6d543582e/367a7543c, so §1.1 of that design is now stale. On the board, a fresh pages-shepherd claimed a red kriskowal/garden Pages deploy while an earlier Pages shepherd went green; the board is otherwise quiet, with four jobs in flight and nothing waiting in todo.
+Voice input landed on [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) and now leads the parked queue awaiting kriskowal's review. Little else moved on the board this cycle — the only transition was the garden's own Pages shepherd (`garden-pages-98e19acbe02a`) completing green. Three jobs remain in flight: shepherds driving CI on [endojs/endo-but-for-bots#134](https://github.com/endojs/endo-but-for-bots/pull/134) and [#286](https://github.com/endojs/endo-but-for-bots/pull/286), plus a stage-4 slice of the XS→Rust port. Two maintainer messages want attention: the liaison surfaced a **data-corruption-class bug in the reaper requeue path** (twice produced two live writers in one worktree) that needs a deliberate main2 fix and deploy, and a gardener flagged that design §1.1's `.garden`-file identity paragraph is now stale, superseded by the location-derived identity landed in 6d543582e/367a7543c.
 
 ## Parked for maintainer feedback
 
@@ -44,19 +44,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr134-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr134-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #134
-- [`garden-pages-98e19acbe02a-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-pages-98e19acbe02a-shepherd.md) — pages-shepherd (auto: red Pages deploy) on kriskowal/garden
 - [`pr-ebfb-286-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/pr-ebfb-286-shepherd.md) — Repo endojs/endo-but-for-bots — shepherd PR #286 (https://github.com/endojs/e...
 - [`xs2rust-endor-stage4-generators`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-generators.md) — Stage-4 child: generator functions and the iteration protocol closure
 
-### tada (1287)
+### tada (1288)
+- [`garden-pages-98e19acbe02a-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-pages-98e19acbe02a-shepherd.md) — The deploy is green and the live Pages status is built. Job complete — no cod...
 - [`improve-scholar-staging-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scholar-staging-clone.md) — Completion report
 - [`scholar-ingest-gutentag-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-gutentag-remainder.md) — Completion report — scholar-ingest-gutentag-remainder (scholar cycle 3)
 - [`garden-pages-0fe25c6e9af6-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-pages-0fe25c6e9af6-shepherd.md) — The Pages deploy is green on the current tip. All three jobs (build, deploy, ...
 - [`deadmail-20260706T121417Z-81d784`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T121417Z-81d784.md) — Completion report
-- [`endojs-endo-but-for-bots-pr605-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr605-shepherd.md) — Completion report — shepherd on endojs/endo-but-for-bots PR #605
-- … and 1282 more
+- … and 1283 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
