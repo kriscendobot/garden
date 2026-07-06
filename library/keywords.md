@@ -13857,3 +13857,22 @@ mlx_lm.server | athanor
 GGUF | athanor
 llama.cpp | athanor
 stable per-model port | athanor
+`DuplexStream` | ocap-kernel
+`DuplexStreamSentinel` | ocap-kernel
+`makeDuplexStreamInputValidator` | ocap-kernel
+`makeSyn` | ocap-kernel
+`makeAck` | ocap-kernel
+`isSyn` | ocap-kernel
+`isAck` | ocap-kernel
+SYN/ACK handshake | ocap-kernel
+`@@Syn` | ocap-kernel
+`@@Ack` | ocap-kernel
+`SynchronizationStatus` | ocap-kernel
+duplex stream synchronization | ocap-kernel
+stream re-synchronization on mid-stream SYN | ocap-kernel
+`#performSynchronization` | ocap-kernel
+`#syncKit` | ocap-kernel
+`makeDefaultInterface` | ocap-kernel
+passable default guards | ocap-kernel
+`defaultGuards` passable | ocap-kernel
+sentinel values on the value channel | ocap-kernel
