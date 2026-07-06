@@ -41,6 +41,11 @@
 | [dialog-db--rust-dialog-repository-guide--setup-storage-and-operator](../sections/dialog-db--rust-dialog-repository-guide--setup-storage-and-operator.md) | dialog-db rust/dialog-repository/Guide.md | Bring-up: Storage::default, Profile::open, .derive().allow().build(); operator base directory; .build takes ownership of storage. |
 | [dialog-db--rust-dialog-repository-guide--repository-and-branch-modes](../sections/dialog-db--rust-dialog-repository-guide--repository-and-branch-modes.md) | dialog-db rust/dialog-repository/Guide.md | Repository/branch open/load/create modes and the Repository<Credential> vs Repository<SignerCredential> return-type split. |
 | [dialog-db--rust-dialog-repository-guide--syncing-remotes-and-upstream](../sections/dialog-db--rust-dialog-repository-guide--syncing-remotes-and-upstream.md) | dialog-db rust/dialog-repository/Guide.md | Remote registration, set_upstream, push/pull, .subject(did) cross-repo targeting, and on-demand block replication on read. |
+| [dialog-db--rust-dialog-csv-readme--usage](../sections/dialog-db--rust-dialog-csv-readme--usage.md) | dialog-csv README | Export/import a branch or use the CSV exporter/importer standalone; branch-level runs through `.perform(&operator)`. |
+| [dialog-db--rust-dialog-remote-s3-readme--overview](../sections/dialog-db--rust-dialog-remote-s3-readme--overview.md) | dialog-remote-s3 README | A direct SigV4-signed S3 remote for pushing/pulling repository data (archive blocks, memory cells). |
+| [dialog-db--rust-dialog-remote-s3-readme--usage-walkthrough](../sections/dialog-db--rust-dialog-remote-s3-readme--usage-walkthrough.md) | dialog-remote-s3 README | Configure an `Address`+`S3Credentials`, add it as a remote, `set_upstream`, then `push`/`pull`. |
+| [dialog-db--rust-dialog-remote-ucan-s3-readme--overview](../sections/dialog-db--rust-dialog-remote-ucan-s3-readme--overview.md) | dialog-remote-ucan-s3 README | A UCAN-authorized remote wrapping S3 — a delegation-verifying access service instead of direct credentials. |
+| [dialog-db--rust-dialog-remote-ucan-s3-readme--usage-walkthrough](../sections/dialog-db--rust-dialog-remote-ucan-s3-readme--usage-walkthrough.md) | dialog-remote-ucan-s3 README | The `UcanAddress::new(access_service_url)` remote lifecycle; identical create/set_upstream/push/pull surface. |
 
 ## See also
 
