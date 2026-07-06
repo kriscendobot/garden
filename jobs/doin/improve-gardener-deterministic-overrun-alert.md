@@ -1,8 +1,0 @@
-scripts/jobs/gardener.sh
-In the `deadline_overrun=1` branch (around line 785, where a handler killed by its OWN wall-clock bound stamps the deadline-overrun counter for early poison), also emit an `alert_maintainer` with a stable dedup key (e.g. `handler-budget-overrun-$base`, matching the clamped-overrun path at line 358 so both surfaces of the same root cause collapse onto one throttled alert). The message should state the actionable diagnosis the reaper's eventual generic poison report omits: the job (`$base`) deterministically overran its handler budget (`elapsed=${elapsed}s ≈ handler-budget=${handler_budget}s`), so it does not fit in a single claim-scoped handler and will be poisoned after `GARDEN_REAP_OVERRUN_THRESHOLD` cycles without completing; the remedy is to SPLIT it into claim-sized stages or run it DETACHED outside the claim-scoped handler — the same guidance the declared-over-budget clamp path already gives. Why: `xs2rust-endor-stage4-modules` hit exactly this (default 2400s budget, deterministic rc=124) and, unlike a job that declares an over-large `handler-timeout:`, gets no early actionable signal — the maintainer must reverse-engineer "too big for one claim" from a poison report cycles later. Moving that diagnosis into a deterministic script emission is a straight hardening. Keep it subshell/best-effort like the surrounding stamps so it never fails the gardener, and confirm the throttle key dedups across the two overrun cycles before poison. Add/extend a case in `scripts/jobs/test/handler-budget-test.sh` asserting the alert fires once on default-budget deterministic overrun.
-
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  claimed_at: 2026-07-06T17:51:53Z
