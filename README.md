@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T13:43:08Z_
+_As of 2026-07-06T13:43:38Z_
 
 ## Latest
 
-A quiet board turn: the scholar wrapped `scholar-ingest-against-sql`, with dialog-DB ingestion and the Stage-4 async/await XS→Rust child still in flight. The signal worth a maintainer's eye is in the inbox, not the job moves. The liaison surfaced a data-corruption-class bug from the Fable review of the garden's own scripts: the reaper's requeue path (`reaper-requeue-kills-or-waits-for-live-handler`) re-posted a job every ~18 min against a 40-min handler wall without killing the prior handler, twice yielding two live writers in one worktree — a garden-infrastructure fix wanting a deliberate main2 fix + deploy, not a board job. Separately, the streamlined-onboarding phase-1 job closed with no changes: the work already landed 2026-07-04, and its lone open design point (".garden-file-first identity") was deliberately superseded by the location-derived identity landed earlier today (commits 6d543582e / 367a7543c), so design §1.1's identity paragraph is now stale and could be annotated as such.
+The board is quiet — the queue drained to zero todo, with only two jobs still in flight: a scholar ingesting the dialog-DB remainder and the [XS→Rust "Endor" port](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-async-await.md) working its stage-4 async/await child. Two maintainer messages want attention. The more urgent: a Fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`), which twice left two live writers in one worktree by requeuing a job every ~18 min against a 40-min handler wall without killing the prior handler — a main2 infra fix that warrants a deliberate fix-and-deploy, not a board job. Separately, the streamlined-onboarding phase-1 job closed as already-satisfied: everything landed 2026-07-04, and its lone open design point (`.garden`-file-first identity) was deliberately superseded this morning by the location-derived identity scheme (commits 6d543582e/367a7543c), so design §1.1's identity paragraph is now stale and could be annotated as such.
 
 ## Parked for maintainer feedback
 
@@ -49,7 +49,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`xs2rust-endor-stage4-async-await`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-async-await.md) — Stage-4 child: async/await over the job queue + the promise double-settle key...
 
 ### tada (1299)
-- [`scholar-ingest-against-sql`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-against-sql.md) — scholar-ingest-against-sql — done.
+- [`scholar-ingest-against-sql`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-against-sql.md) — Completion report
 - [`deadmail-20260706T133852Z-764cda`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T133852Z-764cda.md) — Completion report
 - [`deadmail-20260706T133039Z-fa81df`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T133039Z-fa81df.md) — Completion report — deadmail-20260706T133039Z-fa81df
 - [`scholar-ingest-dialog-db`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db.md) — Completion report
