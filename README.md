@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-06T00:34:55Z_
+_As of 2026-07-06T00:36:14Z_
 
 ## Latest
 
-The **xs2rust-endor-build-stage3b** orchestration (the XS→Rust "Endor" port's stage-3b XSRE integration) completed, unblocking the downstream string-representation and supervisor jobs parked behind it; scholar picked up the next ocap-kernel comment-fragment ingest batch (6 of the series), leaving the board otherwise drained.
+The gauntlet on [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) (Docker self-host, garden-authored) claimed and is being driven through the panel to un-draft — it's green and mergeable. One thing to weigh in: the job asked it to supersede [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568), but that PR is 0xpatrickbot's broader parallel attempt (it also carries the ws-gateway bearer-token auth surface #608 defers), so the gardener is leaving it untouched — closing it as superseded is a maintainer call.
 
-Three things want a maintainer eye. First, a **host-identity drift**: the deterministic guard fired three times reporting `GARDEN=driftname` on the real `endolinbot` leader host with no recorded parallel-pool override, so `is-main-host` reads FOLLOWER and every leader-only singleton is being skipped on the true leader — fix `/home/kris/.garden` back to `endolinbot` (or record the override if this pool is deliberate). Second, the gauntlet on [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) (Docker self-host) is green and MERGEABLE and proceeding to un-draft, but the gardener flagged that the job's "supersede #568" clause is misjudged: [#568](https://github.com/endojs/endo-but-for-bots/pull/568) is 0xpatrickbot's *broader* PR carrying the ws-gateway + bearer-token auth surface that #608 deliberately defers — it left #568 untouched, and closing it is a maintainer lifecycle call. Third, the probe on [#595](https://github.com/endojs/endo-but-for-bots/pull/595) (published as [#605](https://github.com/endojs/endo-but-for-bots/pull/605)) came back with 7 real gaps and *no* `take`-semantics hazard, contradicting the job spec's paraphrased "Gap 5" — the liaison is asking whether you actually want a `take`-semantics analysis posted as a fresh probe. The `design-streamlined-onboarding` design also landed and its four build jobs are gated on your answers to its §5 open questions (notably Q2, the auto-mode default).
+Two items need your eyes. First, a **host-identity drift**: the deterministic guard fired three times reporting `GARDEN=driftname` diverging from `hostname -s=endolinbot` with no recorded override, which makes is-main-host report FOLLOWER and **silently skips every leader-only singleton** (foreman, scheduler, watchers) on the true leader host — likely a stray `/home/kris/.garden` or inherited env, the endolinbot2 regression class. Second, the `design-streamlined-onboarding` design landed and its four build jobs are gated on your answers to the § 5 open questions (notably Q2, the security-flavored auto-mode default). Separately, the [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) probe (published as [#605](https://github.com/endojs/endo-but-for-bots/pull/605)) came back with 7 gaps and no `take`-semantics hazard, contradicting the job spec's paraphrase — the gardener correctly declined to invent the missing gap, and a `take`-semantics analysis would be a fresh probe on your say-so.
 
 ## Parked for maintainer feedback
 
@@ -132,7 +132,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`deadmail-20260706T003057Z-e87344`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260706T003057Z-e87344.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr608-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr608-gauntlet.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
 - [`scholar-ingest-ocap-kernel-comment-fragments-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-ocap-kernel-comment-fragments-6.md) — PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
 
