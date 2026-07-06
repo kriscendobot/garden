@@ -1,0 +1,62 @@
+from_host: endolin-garden-ece02cb4
+from: inbox-send
+sent_at: 2026-07-06T21:28:31Z
+---
+Re-delivery of a dead-lettered fixer report (carried forward by deadmail job
+deadmail-20260706T212022Z-9e5e9a). The fixer `xs2rust-endor-stage4-fix-oracle-shim-crash`
+reported to your inbox before it existed, so the message dead-lettered; the same
+substance is also in `journal/jobs/tada/xs2rust-endor-stage4-fix-oracle-shim-crash.md`.
+Original message follows verbatim.
+
+----- ORIGINAL MESSAGE (from xs2rust-endor-stage4-fix-oracle-shim-crash) -----
+Completed: xs2rust-endor-stage4-fix-oracle-shim-crash (PR #600, DRAFT, pushed 8f61d5fa6 on origin/xs2rust-endor).
+
+ROOT CAUSE (one bug, both crash classes + the ses-conformance lockdown finding):
+The stage-4b harden child's oracle-shim install (63e6017999) added
+harden/lockdown/petrify/mutabilities to the bare-boot global via
+fxNextHostFunctionProperty but skipped the `mxPush(mxGlobal)` xst.c does first.
+That builder stamps each new function's HOME object from `the->stack` at entry
+(home.object = the->stack->value.reference). With the global off the stack top,
+all four installed functions got a GARBAGE home pointer (a stale frame slot read
+as a txSlot*). The GC's XS_HOME_KIND marker dereferences home.object
+(aSlot->flag, then recurses via fxMarkInstance) on the next collection, and the
+Function.prototype.toString / enumeration path reads it too — so any whole-tree
+run that walked the intrinsic graph (Function/prototype/toString walkers) or
+churned allocations (Array concat/map/sort GC) SIGSEGV'd the whole oracle
+process. Same bug is why the ses-conformance child saw lockdown() SIGSEGV.
+
+FIX: push mxGlobal so home links to the real global (mirrors xst.c exactly).
+C-only change in the audited FFI seam (endor-oracle/csrc/endor_shim.c). No new
+Rust unsafe; #![forbid(unsafe_code)] intact on every engine crate.
+
+RE-CERTIFIED (fresh rebuild, no process abort, rc=0):
+  built-ins/Function  total=511  covered=40  divergent=0   wall ~<1s
+  built-ins/Array     total=2625 covered=437 divergent=0   wall ~2s
+  built-ins/Object    total=3127 covered=176 divergent=0   wall ~2s (unchanged)
+  lockdown()/mutabilities() now COMPLETE cleanly (undefined) on the bare-boot
+    shim instead of aborting.
+  stage4_harden_corpus_agrees_on_results_against_oracle: ok
+  cargo test --workspace -- --test-threads=1: EXIT=0 (wall ~9-24s), all green.
+
+LOCKED REGRESSION BAR (endor-oracle/src/lib.rs — 3 named tests; a SIGSEGV aborts
+the test binary, so a future shim widening that re-breaks home linkage fails a
+named cargo test instead of a whole-tree acceptance run):
+  - shim_intrinsic_walk_and_gc_survive_installed_globals: self-contained minimal
+    equivalent of the two test262 walkers — walks globalThis, stringifies every
+    reachable function, forces a GC. VERIFIED it bites: reverting the mxPush fix
+    makes exactly this test SIGSEGV (signal 11).
+  - shim_lockdown_call_fails_safely_not_segv
+  - shim_mutabilities_call_fails_safely_not_segv
+
+README stage-4 evidence block updated (harden-child shim paragraph gets the
+crash-fix + re-certified numbers; the ses-xs-parity note's now-stale
+"lockdown() SIGSEGVs the shim" claim corrected — the file stays pre-partitioned
+because endor still folds lockdown as Halt::Unsupported, but the oracle no longer
+aborts).
+
+SCOPE: kept to the shim regression. Did NOT touch the module-goal seam or the
+dual-run-survives-an-oracle-crash work (RegExp whole-tree fixed-stack overflow),
+which stays ledgered for the test262-convergence effort. Full whole-tree
+re-cert fit comfortably inside budget (all three trees + workspace tests under
+~30s total). PR left DRAFT, no PR comment, no maintainer contact.
+----- END ORIGINAL MESSAGE -----
