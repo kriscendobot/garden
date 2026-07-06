@@ -56,3 +56,9 @@ done, note that the carried ocap-kernel library-hygiene backlog is fully
 drained.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot
+  gardener: 11
+  claimed_at: 2026-07-06T02:03:08Z
