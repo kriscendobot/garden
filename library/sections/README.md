@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6307 (530 parent indexes + 5777 children).
+Total section files: 6316 (530 parent indexes + 5786 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -1060,6 +1060,11 @@ Total section files: 6307 (530 parent indexes + 5777 children).
 - [dialog-db--rust-dialog-capability-readme--overview-and-chain-example](dialog-db--rust-dialog-capability-readme--overview-and-chain-example.md)
 - [dialog-db--rust-dialog-capability-readme--traits-policy-attenuation-effect](dialog-db--rust-dialog-capability-readme--traits-policy-attenuation-effect.md)
 
+### dialog-db--rust-dialog-csv-readme
+
+- [dialog-db--rust-dialog-csv-readme--overview](dialog-db--rust-dialog-csv-readme--overview.md)
+- [dialog-db--rust-dialog-csv-readme--usage](dialog-db--rust-dialog-csv-readme--usage.md)
+
 ### dialog-db--rust-dialog-effects-readme
 
 - [dialog-db--rust-dialog-effects-readme--capability-domain-effect-hierarchy](dialog-db--rust-dialog-effects-readme--capability-domain-effect-hierarchy.md)
@@ -1078,6 +1083,17 @@ Total section files: 6307 (530 parent indexes + 5777 children).
 - [dialog-db--rust-dialog-query-readme--semantic-attributes](dialog-db--rust-dialog-query-readme--semantic-attributes.md)
 - [dialog-db--rust-dialog-query-readme--semantic-concepts](dialog-db--rust-dialog-query-readme--semantic-concepts.md)
 
+### dialog-db--rust-dialog-remote-s3-readme
+
+- [dialog-db--rust-dialog-remote-s3-readme--overview](dialog-db--rust-dialog-remote-s3-readme--overview.md)
+- [dialog-db--rust-dialog-remote-s3-readme--usage-walkthrough](dialog-db--rust-dialog-remote-s3-readme--usage-walkthrough.md)
+
+### dialog-db--rust-dialog-remote-ucan-s3-readme
+
+- [dialog-db--rust-dialog-remote-ucan-s3-readme--collaboration](dialog-db--rust-dialog-remote-ucan-s3-readme--collaboration.md)
+- [dialog-db--rust-dialog-remote-ucan-s3-readme--overview](dialog-db--rust-dialog-remote-ucan-s3-readme--overview.md)
+- [dialog-db--rust-dialog-remote-ucan-s3-readme--usage-walkthrough](dialog-db--rust-dialog-remote-ucan-s3-readme--usage-walkthrough.md)
+
 ### dialog-db--rust-dialog-repository-guide
 
 - [dialog-db--rust-dialog-repository-guide--collaboration-ucan-delegation](dialog-db--rust-dialog-repository-guide--collaboration-ucan-delegation.md)
@@ -1093,6 +1109,11 @@ Total section files: 6307 (530 parent indexes + 5777 children).
 
 - [dialog-db--rust-dialog-repository-readme--overview](dialog-db--rust-dialog-repository-readme--overview.md)
 - [dialog-db--rust-dialog-repository-readme--usage-walkthrough](dialog-db--rust-dialog-repository-readme--usage-walkthrough.md)
+
+### dialog-db--rust-dialog-storage-readme
+
+- [dialog-db--rust-dialog-storage-readme--r2-configuration](dialog-db--rust-dialog-storage-readme--r2-configuration.md)
+- [dialog-db--rust-dialog-storage-readme--storage-backends](dialog-db--rust-dialog-storage-readme--storage-backends.md)
 
 ### dialog-db--rust-dialog-ucan-readme
 
