@@ -15,6 +15,7 @@ The ed25519 identity a dialog-db *named space* (a profile or a repository) holds
 | [dialog-db--notes-repository--named-spaces-and-credential-format](../sections/dialog-db--notes-repository--named-spaces-and-credential-format.md) | Signer vs verifier; multicodec byte layouts; per-platform storage layout. |
 | [dialog-db--notes-repository--opening-and-operator-setup](../sections/dialog-db--notes-repository--opening-and-operator-setup.md) | `space::Load` returning `Signer`/`Verifier`/`None` and the create-new keypair path. |
 | [dialog-db--notes-space-and-storage--core-types-location-space-storage](../sections/dialog-db--notes-space-and-storage--core-types-location-space-storage.md) | The `credential` provider slot in `Space<A, M, C, D>` that stores/loads these. |
+| [dialog-db--rust-dialog-repository-guide--repository-and-branch-modes](../sections/dialog-db--rust-dialog-repository-guide--repository-and-branch-modes.md) | Repository open/load return Repository<Credential>; create returns Repository<SignerCredential> — the type-level owner-vs-delegate distinction. |
 
 ## See also
 
