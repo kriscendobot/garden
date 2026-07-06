@@ -101,3 +101,9 @@ at `library/` in the `journal2` branch; existing ocap-kernel sources use the
   librarian or a future scholar touching those rows should either create the two
   concept stubs or rewrite the references to point at the topic pages; they are
   out of scope for a KernelRouter comment-fragment cycle.
+
+---
+claim:
+  host: endolinbot
+  gardener: 18
+  claimed_at: 2026-07-06T00:14:17Z
