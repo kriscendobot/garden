@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: xs2rust-endor-build-stage4b
-priority: normal
 role: builder
-posted_by: port-xs-to-rust-memory-safe-engine-s9
-posted_at: 2026-07-06T18:38:21Z
+model: opus
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-06T20:34:20Z -->
 
 ---
 model: opus
