@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-06T19:27:13Z_
+_As of 2026-07-06T19:42:32Z_
 
 ## Latest
 
-The fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper's requeue path (`reaper-requeue-kills-or-waits-for-live-handler`): a job was requeued roughly every 18 min against a 40-min handler wall without killing the prior handler, twice yielding two live writers in one worktree — a main2 infra fix warranting a deliberate fix and deploy, not a board job. A build of Gateway Feature 8 (the `/ocapn` WebSocket endpoint) was **held rather than opened** because it collides with the open draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), which lands only the path-scheme half and defers the socket handoff; the finished branch is a superset but an incompatible parallel rewrite of `src/ocapn-ws.js`, so it needs the maintainer to choose whether to layer on #577, supersede it, or drop it (gardener recommends layering on). Two orchestration/flow snags also want eyes: the `xs2rust-endor-build-stage4` orchestration **halted** after child `xs2rust-endor-stage4-modules` failed (4/8 done), and the foreman is holding a re-post of the endoclaw-timer phase-2 job that may be stuck after draining without progress. Meanwhile a shepherd is working red CI on [endo-but-for-bots#618](https://github.com/endojs/endo-but-for-bots/pull/618), and the onboarding phase-1 job closed as already-landed — flagging that the design's `.garden`-file identity paragraph is now stale, superseded by location-derived identity.
+The endoclaw timer's [phase-3 startup-recovery build](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-endoclaw-timer-phase3-startup-recovery.md) completed, but the foreman flagged that the predecessor phase-2 tick-delivery step keeps recurring without milestone progress and may be stuck — worth a look before re-posting.
+
+Three items need maintainer steering. A gardener building the Gateway `/ocapn` WebSocket endpoint held rather than open a competing draft: its work is a superset of the already-in-flight [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) (which implements only the path-naming half and defers the socket handoff), but the two rewrite `src/ocapn-ws.js` incompatibly — the gardener recommends re-scoping to build the handoff on top of #577. Separately, the fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (requeuing every ~18 min against a 40-min handler, twice yielding two live writers in one worktree); it's a main2 infra fix warranting a deliberate fix-and-deploy, not a board job. And the `xs2rust-endor-build-stage4` orchestration halted after its stage-4 modules child failed (4/8 done, serial halt policy), stalling the downstream `s10` supervisor.
+
+Also closed out: the onboarding phase-1 launcher job, found already landed — its lone remaining design point (`.garden`-file-first identity) was deliberately superseded by the newer location-derived identity, so design §1.1 is now stale. A shepherd is driving red CI on [endo-but-for-bots#618](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr618-shepherd.md).
 
 ## Parked for maintainer feedback
 
@@ -72,19 +76,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`build-endo-but-for-bots-daemon-agent-tools-phase4-live-daemon-integration-test`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-daemon-agent-tools-phase4-live-daemon-integration-test.md) — ---
-- [`build-endo-but-for-bots-endoclaw-timer-phase3-startup-recovery`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-endoclaw-timer-phase3-startup-recovery.md) — ---
 - [`endojs-endo-but-for-bots-pr618-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr618-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #618
 - [`xs2rust-endor-stage4-async-surface`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-async-surface.md) — Stage-4b child: the async-function surface (from ASYNC-AWAIT-HANDOFF.md) + Pr...
 
-### tada (1334)
+### tada (1335)
+- [`build-endo-but-for-bots-endoclaw-timer-phase3-startup-recovery`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-endoclaw-timer-phase3-startup-recovery.md) — Completion report
 - [`xs2rust-endor-stage4-fuzz-decoder-hang`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage4-fuzz-decoder-hang.md) — Completion report — xs2rust-endor-stage4-fuzz-decoder-hang
 - [`build-endo-but-for-bots-daemon-agent-tools-phase4-integration-discovery`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-daemon-agent-tools-phase4-integration-discovery.md) — Completion report
 - [`deadmail-issue-comment-4896469075`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4896469075.md) — Completion report
 - [`port-xs-to-rust-memory-safe-engine-s9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s9.md) — All state verified. The supervision handoff is complete — writing the complet...
-- [`design-opencollective-ertp`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-opencollective-ertp.md) — Inbox is clear and the deliverable is posted. Final report:
-- … and 1329 more
+- … and 1330 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
