@@ -1,11 +1,4 @@
----
-gate: blocked
-blocked_on: port-xs-to-rust-memory-safe-engine-s7
-priority: normal
-roadmap: xs2rust-endor
-posted_by: producer
-posted_at: 2026-07-05T21:42:30Z
----
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-07-06T02:13:05Z -->
 
 # Arm the CESU-8→UTF-16 string-representation revisit (record its orchestration)
 
