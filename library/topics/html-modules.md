@@ -30,6 +30,9 @@
 
 ## See also
 
+- [`virtual-dom`](virtual-dom.md): Koerper and Wizdom (`gutentags/koerper`, `gutentags/wizdom`), the container-free-body-node virtual DOM Guten Tag's components govern their document fragment through.
+- [`module-loader`](module-loader.md): `gutentags/system`, the CommonJS/npm loader whose `gutentag/extension` translates Guten Tag's HTML modules to JavaScript on the fly or at build.
+- [`animation-coordination`](animation-coordination.md): `gutentags/blick`, the component animation controller a Guten Tag scope shares by dependency injection to batch document reads and writes.
 - [`reactive-bindings`](reactive-bindings.md): kriskowal/frb, a synchronous incremental binding query language — the kind of binding layer Guten Tag leaves as bring-your-own.
 - [`web-frontend`](web-frontend.md): cross-cutting browser/CSS technique for the garden's web surfaces; Guten Tag is a component framework such techniques would live inside.
 - [`node-packaging`](node-packaging.md): npm package layout and conventions; Guten Tag's `<tag>.html`/`index.html` packaging convention is an instance.
