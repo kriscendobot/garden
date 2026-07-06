@@ -45,6 +45,7 @@
 | [dialog-db--notes-operator-ir--architecture](../sections/dialog-db--notes-operator-ir--architecture.md) | dialog-db notes/operator-ir.md | The operator-IR architecture retains the SIPS (DependencyGraph plus feasibility) as data precisely so demand-driven incremental maintenance has a concrete structure to attach to, rather than re-walking syntax. |
 | [dialog-db--notes-planning-adornment-and-cost--propagator-model](../sections/dialog-db--notes-planning-adornment-and-cost--propagator-model.md) | dialog-db notes/planning-adornment-and-cost.md | Radul-Sussman propagators: dialog-db's Match binding is a cell-merge over a three-state {unbound, Present, Absent} lattice; generalizing Present-merge from equality to narrowing is the hook for incremental-subscription constraint propagation. |
 | [dialog-db--notes-planning-adornment-and-cost--cost-and-consumption](../sections/dialog-db--notes-planning-adornment-and-cost--cost-and-consumption.md) | dialog-db notes/planning-adornment-and-cost.md | Analysis retains the SIPS DependencyGraph (order plus variable flow) that demand reification and incremental subscriptions consume, rather than discarding it as a validation gate. |
+| [dialog-db--notes-refinements--goal-value-constraints-to-key-ranges](../sections/dialog-db--notes-refinements--goal-value-constraints-to-key-ranges.md) | dialog-db notes/refinements.md | The same narrowed kinds a refinement produces feed demand covers, so subscriptions watch less and partial replication pulls less (M5). |
 
 ## Concepts
 
