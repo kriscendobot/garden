@@ -59,6 +59,8 @@
 | [dialog-db--notes-causal-information-design-decision--problem-and-causal-model](../sections/dialog-db--notes-causal-information-design-decision--problem-and-causal-model.md) | dialog-db notes/causal-information-design-decision.md | Capturing a record's Cause enables compare-and-swap staleness checks; Dialog's planned Provenance {origin, period, moment} and causal assertions. |
 | [dialog-db--notes-causal-information-design-decision--options-considered](../sections/dialog-db--notes-causal-information-design-decision--options-considered.md) | dialog-db notes/causal-information-design-decision.md | Custom Cause primitives vs Proof<T> vs value-based CAS; Automerge's no-CAS merge and Datomic's value-based :db/cas as prior art. |
 | [dialog-db--notes-causal-information-design-decision--decision-causal-is-querying-concern](../sections/dialog-db--notes-causal-information-design-decision--decision-causal-is-querying-concern.md) | dialog-db notes/causal-information-design-decision.md | Causal information kept a querying not modeling concern: plain domain types by default, Proof<T> opt-in, value-based CAS for staleness. |
+| [dialog-db--notes-memory-layout--branch-and-remote-cells](../sections/dialog-db--notes-memory-layout--branch-and-remote-cells.md) | dialog-db notes/memory-layout.md | Per-repository memory cells holding Git-like sync state: local branch revision/upstream and remote address/branch-revision. |
+| [dialog-db--notes-memory-layout--fetch-pull-push-operations](../sections/dialog-db--notes-memory-layout--fetch-pull-push-operations.md) | dialog-db notes/memory-layout.md | How fetch/pull/push read and advance the cells; Revision carries the blake3 NodeReference tree, cause, period, moment. |
 
 ## Concepts
 
