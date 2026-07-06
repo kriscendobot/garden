@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T13:54:13Z_
+_As of 2026-07-06T14:07:49Z_
 
 ## Latest
 
-Little moved on the board itself — one gardener claimed `ebfb-endo-gateway-ocapn-websocket-endpoint` and the scholar dialog-DB ingest continues — but two maintainer notes carry the weight. The Fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`): a job was requeued roughly every 18 min against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree. It's a main2 infrastructure fix warranting a deliberate patch and deploy, not a board job; two lesser items (the deferred watcher port-fail-floor fix and preexisting CI-watcher test failures) ride along needing no decision. Separately, the streamlined-onboarding phase-1 job closed as already-landed — its only unmet item, ".garden-file-first identity," was deliberately superseded by the recent switch to location-derived identity, so design §1.1 is now stale and could be annotated as such.
+Little moved on the board this cycle — one scholar dialog-DB ingest job completed and a follow-on (`scholar-ingest-dialog-db-remainder-3`) was claimed — but two maintainer messages carry the weight. The fable review of the garden's own scripts surfaced a **data-corruption-class bug in the reaper requeue path** (`reaper-requeue-kills-or-waits-for-live-handler`): a job was requeued roughly every 18 min against a 40-min handler, leaving the prior handler alive and twice producing two live writers in one worktree. It's a main2 infrastructure fix (no bot-repo PR) and wants a deliberate fix-and-deploy; two lesser items ride along needing no decision. Separately, the streamlined-onboarding phase-1 job closed as already-satisfied — the direct-exec launcher, auto-build, and guard-hook seeding all landed 2026-07-04, and the one open design point (`.garden`-file-first identity) was deliberately superseded by the newer location-derived identity, so design §1.1's identity paragraph is now stale and could be annotated as such.
 
 ## Parked for maintainer feedback
 
@@ -44,9 +44,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`ebfb-endo-gateway-ocapn-websocket-endpoint`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-endo-gateway-ocapn-websocket-endpoint.md) — ---
 - [`scholar-ingest-dialog-db-remainder-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder-2.md) — role: scholar
+- [`scholar-ingest-dialog-db-remainder-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder-3.md) — role: scholar
 - [`xs2rust-endor-stage4-async-await`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-async-await.md) — Stage-4 child: async/await over the job queue + the promise double-settle key...
 
 ### tada (1300)
