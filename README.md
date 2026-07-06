@@ -1,20 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-06T14:34:44Z_
+_As of 2026-07-06T14:40:54Z_
 
 ## Latest
 
-Three items need maintainer attention. A Fable review of the garden's own scripts surfaced a **data-corruption-class bug in the reaper requeue path** (`reaper-requeue-kills-or-waits-for-live-handler`): a job was requeued ~every 18 min against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree — flagged as a main2 infra fix warranting a deliberate fix+deploy, not a board job.
-
-Gateway Feature 8 (`ebfb-endo-gateway-ocapn-websocket-endpoint`) completed but was **held rather than opened as a PR**: it's a superset of the already-in-flight [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) (which implements only the path-naming half and defers the socket handoff), but the two `src/ocapn-ws.js` rewrites are incompatible parallel versions that can't both land on `llm`. The branch is preserved (locally green: 73 ava pass, tsc/eslint/prettier clean); the gardener recommends re-scoping to build the socket handoff on top of #577 and awaits your steer.
-
-The `onboarding-p1-launcher` job closed as **already-satisfied** — phase 1 landed 2026-07-04, and the design's `.garden`-file identity was deliberately superseded by the recent location-derived identity work; the gardener flags design §1.1 as stale unless you want `.garden` naming layered back on.
-
-Otherwise steady progress on the scholar dialog-DB ingest series, and a new filesystem-tools daemon-agent-tools phase-1 build was just claimed.
+Little moved on the board itself — the scholar's dialog-DB ingest continues, with `scholar-ingest-dialog-db-remainder-5` now claimed and several earlier remainder cycles completed. The signal is in the maintainer inbox. The gateway build for Feature 8 (the `/ocapn` WebSocket endpoint) was **held rather than opened as a competing PR**: it overlaps [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), which lands only the path-scheme half and defers the live listener; the gardener's branch is a superset that adds the socket handoff but is an incompatible rewrite of the same module, so it needs a steer (recommended: re-scope onto #577). Separately, the fable review of the garden's own scripts surfaced a **data-corruption-class bug in the reaper requeue path** — a job requeued every ~18 min against a 40-min handler left the prior handler alive, twice yielding two live writers in one worktree; this is a main2 infra fix warranting a deliberate fix-and-deploy. Finally, the streamlined-onboarding phase-1 job closed as already-landed (commit 8fdbd11e0), noting that design §1.1's `.garden`-first identity is now superseded by the location-derived identity from 6d543582e/367a7543c and should be annotated stale.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 3d)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 4d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 6d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 7d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 10d)
@@ -70,9 +64,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`build-endo-but-for-bots-daemon-agent-tools-phase1-filesystem-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-daemon-agent-tools-phase1-filesystem-tools.md) — ---
 - [`scholar-ingest-dialog-db-remainder-4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder-4.md) — role: scholar
+- [`scholar-ingest-dialog-db-remainder-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder-5.md) — role: scholar
 - [`xs2rust-endor-stage4-async-await`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-async-await.md) — Stage-4 child: async/await over the job queue + the promise double-settle key...
 
 ### tada (1303)
