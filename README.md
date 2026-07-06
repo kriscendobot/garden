@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T12:05:04Z_
+_As of 2026-07-06T12:09:12Z_
 
 ## Latest
 
-Recent completions cleared the board's mid-tier work: the [garden GitHub Pages deploy](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-pages-3be7c8c6b7ba-shepherd.md) went green again via an auto-posted pages-shepherd, `ensure-project-worktree` got a checked-out-branch fix, and the scholar finished its gutentag ingest (a follow-up packages ingest is now in flight). Streamlined-onboarding phases 1–3 are confirmed already landed in main2, with phase 4 (slim) now claimed and running.
-
-The item most worth a maintainer's attention is a message in the inbox: a Fable review of the garden's own scripts surfaced a **data-corruption-class bug in the reaper requeue path** (`reaper-requeue-kills-or-waits-for-live-handler`) — a job requeued ~every 18 min against a 40-min handler wall left the prior handler alive, twice producing two live writers in one worktree. The liaison flagged this as a deliberate main2 fix-and-deploy rather than a board job. Separately, the onboarding-p1 gardener notes that the design's `.garden`-file-first identity is now stale/superseded by the location-derived identity landed in commits 6d543582e/367a7543c, and asks whether that design paragraph should be annotated as superseded.
-
-On the shepherd front, several endo-but-for-bots PRs are being driven on red CI — [#442](https://github.com/endojs/endo-but-for-bots/pull/442), [#605](https://github.com/endojs/endo-but-for-bots/pull/605), and [#286](https://github.com/endojs/endo-but-for-bots/pull/286) — while the parked-for-review queue is unchanged, still topped by [#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), and [#403](https://github.com/endojs/endo-but-for-bots/pull/403).
+The garden's own scripts drew the most consequential news: a fable review (`fable-review-fix-garden-scripts`) surfaced a **data-corruption-class bug in the reaper requeue path** — a job was requeued roughly every 18 min against a 40-min handler wall without killing the prior handler, twice yielding two live writers in one worktree. The liaison flagged it for a deliberate main2 fix + deploy rather than a board job; two lesser ride-alongs (the deferred `watchers-port-fail-floor` fix and preexisting `ci-watcher` test failures on pristine main2) need no decision. Separately, the streamlined-onboarding work closed out: phase 1 was confirmed already landed (commit 8fdbd11e0), phases 3 and 4 reported complete, and the gardener noted that the design's `.garden`-file-first identity paragraph is now **stale** — deliberately superseded by the recent location-derived identity switch (commits 6d543582e/367a7543c), so §1.1 wants annotating unless you want `.garden` naming layered back on top. Otherwise the board was quiet: six jobs in flight (shepherds for [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442), [#605](https://github.com/endojs/endo-but-for-bots/pull/605), and [#286](https://github.com/endojs/endo-but-for-bots/pull/286), plus the scaler, scholar-ingest, and XS→Rust stage-4 jobs), and the top of the parked queue still awaits your review — most notably [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) and the long-waiting [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182)/[#186](https://github.com/endojs/endo-but-for-bots/pull/186).
 
 ## Parked for maintainer feedback
 
@@ -48,22 +44,21 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (6)
 - [`endojs-endo-but-for-bots-pr442-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #442
 - [`endojs-endo-but-for-bots-pr605-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr605-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #605
 - [`improve-scaler-nonblocking-systemctl`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scaler-nonblocking-systemctl.md) — scripts/jobs/install-units.sh
-- [`onboarding-p4-slim`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/onboarding-p4-slim.md) — <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-...
 - [`pr-ebfb-286-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/pr-ebfb-286-shepherd.md) — Repo endojs/endo-but-for-bots — shepherd PR #286 (https://github.com/endojs/e...
 - [`scholar-ingest-gutentag-packages`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-gutentag-packages.md) — role: scholar
 - [`xs2rust-endor-stage4-classes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-classes.md) — Stage-4 child: class definitions, super, new.target
 
-### tada (1276)
+### tada (1277)
+- [`onboarding-p4-slim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/onboarding-p4-slim.md) — Completion report
 - [`onboarding-p3-vocab-tutorial`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/onboarding-p3-vocab-tutorial.md) — All phase 3 work is already complete and committed to main2. No further actio...
 - [`garden-pages-3be7c8c6b7ba-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-pages-3be7c8c6b7ba-shepherd.md) — Completion report
 - [`deadmail-20260706T115225Z-639beb`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T115225Z-639beb.md) — Completion report
 - [`fix-ensure-project-worktree-checked-out-branch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-ensure-project-worktree-checked-out-branch.md) — Completion report
-- [`scholar-ingest-gutentag`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-gutentag.md) — Completion report — scholar-ingest-gutentag
-- … and 1271 more
+- … and 1272 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
