@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T13:19:21Z_
+_As of 2026-07-06T13:22:07Z_
 
 ## Latest
 
-Voice input via Web Speech API landed for chat in [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101), now the freshest PR parked for your review. Two retrospectives on [endojs/endo-but-for-bots#486](https://github.com/endojs/endo-but-for-bots/pull/486) completed and a third is in flight, alongside a scholar dialog-DB ingest and stage-4 generator work on the XS→Rust port.
-
-Two items need your attention in the maintainer inbox. A fable review of the garden's own scripts flagged a data-corruption bug in the reaper requeue path — a job requeued every ~18 min against a 40-min handler wall left the prior handler alive, twice producing two live writers in one worktree; the liaison surfaced it as a main2 fix-and-deploy rather than a board job. Separately, the streamlined-onboarding phase-1 job closed with no changes: the work already landed on 2026-07-04, and its one open design point (`.garden`-file identity) was deliberately superseded by the newer location-derived identity, so the gardener flagged that design paragraph as stale rather than reverting.
+Little moved on the board itself: the last outstanding retrospective on [endo-but-for-bots#486](https://github.com/endojs/endo-but-for-bots/pull/486) completed, leaving the queue drained (two long-running research jobs — a dialog-DB ingest and the XS→Rust stage-4 generators port — remain in flight). The items worth a maintainer's eye are in the inbox, not the board: the fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (a job requeued every ~18 min against a 40-min handler wall, twice yielding two live writers in one worktree), flagged as a deliberate main2 fix-and-deploy rather than a board job. Separately, the streamlined-onboarding phase-1 job was closed as already-landed, with its ".garden-file-first identity" design point noted as superseded by the newer location-derived identity scheme — worth annotating that design paragraph as stale.
 
 ## Parked for maintainer feedback
 
@@ -46,18 +44,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr486-review-69dc0d7a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr486-review-69dc0d7a-retro.md) — Retrospective on endojs/endo-but-for-bots PR #486 (primary: endojs-endo-but-f...
+### doin (2)
 - [`scholar-ingest-dialog-db`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db.md) — ---
 - [`xs2rust-endor-stage4-generators`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-generators.md) — Stage-4 child: generator functions and the iteration protocol closure
 
-### tada (1292)
+### tada (1293)
+- [`endojs-endo-but-for-bots-pr486-review-69dc0d7a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr486-review-69dc0d7a-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr486-review-d14e72bb-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr486-review-d14e72bb-retro.md) — Completion report — endojs-endo-but-for-bots-pr486-review-d14e72bb-retro
 - [`endojs-endo-but-for-bots-pr486-review-7da05a5b-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr486-review-7da05a5b-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr134-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr134-shepherd.md) — Completion report
 - [`pr-ebfb-286-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/pr-ebfb-286-shepherd.md) — Completion report
-- [`garden-pages-98e19acbe02a-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-pages-98e19acbe02a-shepherd.md) — The deploy is green and the live Pages status is built. Job complete — no cod...
-- … and 1287 more
+- … and 1288 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
