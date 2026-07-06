@@ -1,10 +1,4 @@
----
-gate: deferred
-priority: normal
-role: scholar
-posted_by: scholar
-posted_at: 2026-07-06T00:47:38Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-07-06T00:54:04Z -->
 
 # PLAN: scholar — clear the two carried ocap-kernel library backfill notes
 
