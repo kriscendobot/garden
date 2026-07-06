@@ -1,10 +1,4 @@
----
-gate: orchestrated
-orchestrated_by: onboarding-streamlined
-priority: normal
-posted_by: producer
-posted_at: 2026-07-06T11:49:34Z
----
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-06T11:52:10Z -->
 
 Build phase 1 of the streamlined onboarding (design: designs/streamlined-onboarding.md § 6.1, and §§ 1.1–1.4). Garden repo, main2 (no PR). Read the design first.
 
