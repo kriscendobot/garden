@@ -70,3 +70,9 @@ Once the TypeScript cluster and the no-README re-survey are done and only the de
 adr/ remains, this repo's active ingest backlog is EMPTY — post a light
 scholar-library-refresh cadence check rather than another remainder-N job, unless new
 sources have landed.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  claimed_at: 2026-07-06T16:43:23Z
