@@ -1,16 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-06T03:07:24Z_
+_As of 2026-07-06T03:12:09Z_
 
 ## Latest
 
-Two build jobs landed and one was correctly declined. The [#608](https://github.com/endojs/endo-but-for-bots/pull/608) docker-slice gauntlet finished: it's now open, un-drafted, and MERGEABLE with green CI after a panel caught a real must-fix — the documented `docker exec … endo` control command would have failed because `node_modules/.bin` wasn't on the image PATH — plus a bundle of should-fixes (socket-parent mkdir, PID-1 zombie reaping, doc corrections). The fix is correct by construction but not runtime-proven, since the gardener sandbox has no Docker; an end-to-end `docker build`/`docker exec` smoke test still wants a Docker-capable host. Per the proxy's steer, 0xpatrickbot's broader gateway-bearing [#568](https://github.com/endojs/endo-but-for-bots/pull/568) was left untouched (mention-only author) — whether it's closed-as-superseded is a maintainer call.
+Most urgent: the deterministic identity guard on **endolinbot** is firing repeatedly — `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded parallel-pool override, so `is-main-host` reports FOLLOWER and every leader-only singleton is being skipped on the true leader. If this host is meant to be leader, correct `/home/kris/.garden` to `endolinbot` and restart the pool; if it's a deliberate parallel pool, record the override.
 
-The `endoclaw-network-fetch` HTTP-client build was **not** built: the confined-outbound-HTTP capability is already delivered by two open PRs — 0xpatrickbot's mention-only [#566](https://github.com/endojs/endo-but-for-bots/pull/566) (`@endo/exo-http-client`, all CI green) and the garden's own [#286](https://github.com/endojs/endo-but-for-bots/pull/286) building the blessed `cli-http-client.md` design. The gardener recommends shepherding #286 and marking the stale design record Superseded-by cli-http-client.
+On the work side, [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared the panel and was un-drafted as a standalone docker-slice PR (OPEN, MERGEABLE, CI 15/15 green); the panel's one must-fix was that `docker exec <ctr> endo …` would have failed because `node_modules/.bin` wasn't on the image PATH. Per proxy's steer, the broader gateway-bearing [#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot, mention-only) was left untouched — whether it's closed-as-superseded or reconciled is a maintainer call.
 
-Two items need maintainer attention beyond the parked queue: the `streamlined-onboarding` design completed and its §5 open questions (especially the auto-mode security default) gate four build jobs; and probe [#605](https://github.com/endojs/endo-but-for-bots/pull/605) surfaced a spec discrepancy (7 gaps published, no `take`-semantics gap), awaiting a decision on whether a fresh `take`-semantics probe is wanted.
-
-**Infrastructure alarm:** the deterministic identity-drift guard fired three times on host **endolinbot** — `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER and **every leader-only singleton is being skipped on the true leader host**. If endolinbot is the leader, `/home/kris/.garden` (and any inherited `GARDEN`) should be corrected to `endolinbot` and the pool restarted; if it's a deliberate parallel pool, the override needs recording.
+Two build jobs came back **not building** and want disposition rather than a third redundant implementation: the confined-outbound-HTTP pillar (`endoclaw-network-fetch`) is already delivered by the garden's own [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (blessed `cli-http-client.md` design) and by the external [#566](https://github.com/endojs/endo-but-for-bots/pull/566) (mention-only); recommendation is to shepherd #286 and leave #566 be. The endoclaw timer and gateway-bearer-token designs also completed, and a gauntlet for [#609](https://github.com/endojs/endo-but-for-bots/pull/609) (endoclaw timer) is now in flight. The only new board post is an infra fix, `fix-ensure-project-worktree-silent-stale-fetch`.
 
 ## Parked for maintainer feedback
 
@@ -168,8 +166,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`design-daemon-agent-tools-reconcile-mount-git-capabilities`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-daemon-agent-tools-reconcile-mount-git-capabilities.md) — ---
+- [`fix-ensure-project-worktree-silent-stale-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-ensure-project-worktree-silent-stale-fetch.md) — ---
 - [`gauntlet-endo-but-for-bots-pr609-endoclaw-timer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr609-endoclaw-timer.md) — ---
 - [`xs2rust-endor-strings-utf16-test`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-strings-utf16-test.md) — Test/corpus: prove result parity + recalibrated meter for the UTF-16 string s...
 
