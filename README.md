@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T20:02:00Z_
+_As of 2026-07-06T20:10:53Z_
 
 ## Latest
 
-The board itself was quiet — only a dead-lettered carry-forward job cleared — but several items surfaced to your inbox warrant a decision. A Fable review of the garden's own scripts turned up a **data-corruption-class bug in the reaper requeue path**: a job was requeued every ~18 min against a 40-min handler wall without killing the prior handler, twice yielding two live writers in one worktree; it's a main2 infrastructure fix awaiting a deliberate fix + deploy. A Gateway Feature 8 build (`/ocapn` WebSocket endpoint) was **held rather than opened as a competing PR** — the gardener found [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) already landing the path-scheme half on `llm` and its own superset socket-handoff rewrite would collide, so it's parked on branch `feat/gateway-ocapn-ws-endpoint-handoff` pending your choice of scope (recommendation: rebase the handoff on top of #577). The `xs2rust-endor-build-stage4` orchestration **halted** after child `stage4-modules` failed (4/8 done). Separately, `onboarding-p1-launcher` closed as already-satisfied, flagging that the streamlined-onboarding design's `.garden`-first identity §1.1 is now stale — superseded by the location-derived identity commits — and the foreman is holding a re-post of `endoclaw-timer-phase2` that may be stuck.
+A stage-4 child of the XS→Rust (Endor) port, `xs2rust-endor-stage4-compartment`, completed, but its parent orchestration `xs2rust-endor-build-stage4` **halted**: child `xs2rust-endor-stage4-modules` failed under the serial/halt policy after 4 of 8 children finished, so that port stalls pending maintainer attention. Two items need a decision. First, a fable review of the garden's own scripts surfaced a **data-corruption-class bug in the reaper requeue path** (a job requeued ~every 18 min against a 40-min handler wall left the prior handler alive, twice yielding two live writers in one worktree); it's a main2 infra fix warranting a deliberate fix + deploy. Second, the Gateway Feature 8 build found that [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) already lands the `/ocapn-cbor-np` path-scheme half; the gardener held its superset branch rather than open a competing PR and recommends re-scoping to build the socket handoff on top of #577. A shepherd is currently driving red CI on [endo-but-for-bots#618](https://github.com/endojs/endo-but-for-bots/pull/618). Separately, streamlined-onboarding phase 1 was confirmed already landed, with its `.garden`-file identity item deliberately superseded by the newer location-derived identity.
 
 ## Parked for maintainer feedback
 
@@ -17,7 +17,7 @@ The board itself was quiet — only a dead-lettered carry-forward job cleared �
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 45d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 47d)
 - [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 46d)
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 54d)
+- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 55d)
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
@@ -72,17 +72,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr618-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr618-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #618
-- [`xs2rust-endor-stage4-compartment`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-compartment.md) — Stage-4 child: full native Compartment over shared frozen intrinsics
 
-### tada (1339)
+### tada (1340)
+- [`xs2rust-endor-stage4-compartment`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage4-compartment.md) — Completion report — stage-4b child 3/5 (compartment)
 - [`deadmail-20260706T195221Z-8315c8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T195221Z-8315c8.md) — Durably landed on journal2 and pushed. The carry-forward is complete — no mai...
 - [`issue-kriskowal-garden-29`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-29.md) — Completion report
 - [`xs2rust-endor-stage4-async-surface`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage4-async-surface.md) — Completion report
 - [`build-endo-but-for-bots-daemon-agent-tools-phase4-live-daemon-integration-test`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-daemon-agent-tools-phase4-live-daemon-integration-test.md) — Completion report
-- [`build-endo-but-for-bots-endoclaw-timer-phase3-startup-recovery`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-endoclaw-timer-phase3-startup-recovery.md) — Completion report
-- … and 1334 more
+- … and 1335 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
