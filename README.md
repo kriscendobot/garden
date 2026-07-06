@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-06T23:37:43Z_
+_As of 2026-07-06T23:40:44Z_
 
 ## Latest
 
-The M3 pillar advanced sharply: the [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) confined-HttpClient gauntlet finished — all 7 must-fix items resolved, panel re-review passed, and the PR un-drafted into kriskowal's review queue (one deferred design call remains: whether to add a per-request AbortController timeout, which two governing designs disagree on). The [endo-but-for-bots#619](https://github.com/endojs/endo-but-for-bots/pull/619) and [endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616) gauntlets also completed, and [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) was shepherded. The foreman reports M3's flagship `daemon-agent-tools` stack — [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614) → [endo-but-for-bots#615](https://github.com/endojs/endo-but-for-bots/pull/615) → [endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616) → [endo-but-for-bots#618](https://github.com/endojs/endo-but-for-bots/pull/618) — is fully built and CI-green but still Draft, so the milestone's critical path is now maintainer review and merge, not more building.
+Transcript-journal capture began building: a Fable supervisor ([`supervise-transcript-capture`](https://github.com/kriskowal/garden/blob/journal2/jobs/orch/supervise-transcript-capture.md)) is driving a serial orchestration whose first child ([`build-transcript-capture`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-transcript-capture.md)) implements the design's full builder spec and whose second ([`build-liaison-broadcast-reader`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-liaison-broadcast-reader.md)) is parked behind it. Everything lands **inert** — capture spools locally but pushes nowhere until kriskowal performs the arming act (create a private transcripts repo, grant the bot push, run `set-transcripts-remote.sh`, record the authorization); the maintainer's inbox holds the three open questions (private-repo plan of record, whether liaison sessions are in scope, and the idle threshold).
 
-Three items need a decision. A gardener flagged a data-corruption bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`) that twice left two live writers in one worktree — a garden-infrastructure fix warranting a deliberate main2 fix and deploy. Gateway Feature 8 was held rather than opened as a competing PR: the work is a superset of the in-flight [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), and the gardener recommends re-scoping to build the socket handoff on top of it. Elsewhere the transcript-journal-capture design landed on main2 and its supervisor job is now in flight, the xs2rust→Rust port continues through stage 5 (parser-stmt done, scoper claimed) though its stage-4 orchestration halted on a failed `stage4-modules` child.
+On the M3 front, the foreman reports the flagship `daemon-agent-tools` "Claw-like coding" pillar is fully built: the [#614](https://github.com/endojs/endo-but-for-bots/pull/614)→[#615](https://github.com/endojs/endo-but-for-bots/pull/615)→[#616](https://github.com/endojs/endo-but-for-bots/pull/616)→[#618](https://github.com/endojs/endo-but-for-bots/pull/618) stack is CI-green with its last un-draft blocker cleared, so the milestone's critical path is now maintainer review + un-draft + merge rather than more building. Separately, [#566](https://github.com/endojs/endo-but-for-bots/pull/566) (confined `HttpClient`) cleared its gauntlet and is un-drafted into the review queue with all 7 must-fixes resolved; it carries one deferred design call (a per-request timeout backstop the two governing designs disagree on).
+
+Two things warrant a deliberate decision. A fable review of the garden's own scripts found a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`) that twice produced two live writers in one worktree — a main2 infrastructure fix + deploy, surfaced rather than board-posted. And Gateway Feature 8 was **held**: the gardener found its planned `/ocapn` WebSocket work is a superset of open draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577) but an incompatible parallel rewrite of the same module, so it preserved a branch instead of opening a competing PR and is awaiting a steer (recommendation: re-scope onto #577's path scheme). The `xs2rust-endor-build-stage4` orchestration halted on a failed child, and the onboarding phase-1 job closed as already-landed with a note that the design's `.garden`-file identity is now superseded by location-derived identity.
 
 ## Parked for maintainer feedback
 
@@ -83,23 +85,75 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Smaller should-fix follow-ups also in the verdict: drop CONNECT/TRACE from the method allowlist (README advertises them but fetch throws), harden json() result, headersToRecord __proto__ footgun, a couple doc reconciliations, and boundary tests.
 
+- `20260706T233923Z-fe0320` — from gardener:deadmail-20260706T233345Z-ed16be, reply_to `deadmail-20260706T233345Z-ed16be` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T233923Z-fe0320.md)
+
+> Stand-down received — completing, no further action. One heads-up on timing: the
+> stand-down landed AFTER I had already committed + pushed one additive revision to
+> designs/transcript-journal-capture.md on main2 (commit is live). It encodes the
+> maintainer's later dead-lettered directives that the ORIGINAL committed doc did not
+> yet contain: firms Decision 1 to the transcripts2 orphan branch (not journal2),
+> adds Decision 5 (bring-up arming surfacing) and Decision 6 (the liaison
+> broadcast-reader — liaisons drain role/liaison + broadcast on bring-up via
+> read-msgs.sh; they read no broadcast today). Purely spec/doc, no implementation,
+> no branches/units. It's consistent with what supervise-transcript-capture consumes,
+> but if you'd rather the supervisor own all doc edits too, revert commit on main2
+> touching that file. Your call — I'm standing down either way.
+
+- `20260706T234023Z-b6d70e` — from gardener:supervise-transcript-capture, reply_to `supervise-transcript-capture` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T234023Z-b6d70e.md)
+
+> Subject: transcript capture is being built — your arming decision is needed (nothing turns on until you act)
+>
+> The transcript-journal-capture implementation (designs/transcript-journal-capture.md,
+> d9c7ad6c7) is now running as a serial orchestration under
+> supervise-transcript-capture: child 1 `build-transcript-capture` (the full
+> § Builder spec: spool hook before the rm -f, hourly every-host capture timer,
+> set-transcripts-remote.sh, launcher cleanupPeriodDays seed + per-tick reconcile,
+> tests, operator page), then child 2 `build-liaison-broadcast-reader` (liaisons
+> gain a read-msgs.sh drain of role/liaison + broadcast with a per-host seen-key —
+> this makes the cleanupPeriodDays notice already queued on role/liaison
+> deliverable — plus bring-up surfacing in starting.md).
+>
+> Everything lands INERT. Capture spools locally but pushes nowhere until you
+> perform the arming act, which only you can:
+>
+> 1. Create a PRIVATE repo (design's recommendation: kriskowal/garden-transcripts).
+>    The garden origin is public; transcripts are the fleet's raw working memory.
+> 2. Grant the bot (endolinbot / kriscendobot per host) push access to it.
+> 3. Run: scripts/jobs/set-transcripts-remote.sh git@github.com:kriskowal/garden-transcripts.git
+>    (writes config/transcripts-remote on journal2; the branch inside is transcripts2).
+> 4. Record the authorization as a journal `message` entry, per the issue-inbox
+>    arming pattern.
+>
+> Open questions from the design, for your call:
+> - Private repo as plan of record? (Configuring the public origin instead is
+>   possible but publishes the fleet's working memory.)
+> - Liaison sessions in scope? Default YES — the sweep captures them as part of
+>   the garden's transcript, but they contain your own conversational text;
+>   say the word and we exclude the garden-root project dir.
+> - Idle threshold: GARDEN_TRANSCRIPT_IDLE_SECS defaults to 21600 (6h) — a guess
+>   balancing capture latency vs re-capture churn on long liaison sessions. Tune?
+>
+> The fleet-wide deletion disable (cleanupPeriodDays: 36500) needs no arming: the
+> launcher seeds it for new instances and every capture tick reconciles it into
+> existing hosts' settings.json, including this one (verified missing today).
+
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (3)
-- [`deadmail-20260706T233345Z-ed16be`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260706T233345Z-ed16be.md) — Dead-lettered message — pick up its intent
+- [`build-transcript-capture`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-transcript-capture.md) — Build transcript-journal capture (design § Builder spec, items 1–8)
 - [`supervise-transcript-capture`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/supervise-transcript-capture.md) — Fable supervisor: implement transcript-journal capture (design is DONE)
 - [`xs2rust-endor-stage5-scoper`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-scoper.md) — Stage-5 child 4/7: scoper/hoisting pass (xsScope.c)
 
-### tada (1367)
+### tada (1368)
+- [`deadmail-20260706T233345Z-ed16be`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T233345Z-ed16be.md) — Completion report
 - [`xs2rust-endor-stage5-parser-stmt`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-parser-stmt.md) — Completion report
 - [`endojs-endo-but-for-bots-pr619-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr619-gauntlet.md) — Completion report — endojs-endo-but-for-bots-pr619-gauntlet
 - [`endojs-endo-but-for-bots-pr96-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr96-shepherd.md) — Completion report
 - [`design-transcript-journal-capture`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-transcript-journal-capture.md) — Designed and landed designs/transcript-journal-capture.md on main2 (commit d9...
-- [`endojs-endo-but-for-bots-pr616-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr616-gauntlet.md) — The gauntlet ran to termination. Final report below.
-- … and 1362 more
+- … and 1363 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
