@@ -8,3 +8,9 @@ Change exactly two files plus one CLAUDE.md sentence:
 - CLAUDE.md § Container guard: one sentence recording the launcher-seeded SessionStart hook.
 
 Auto-mode default is RESOLVED (bypass, § 5 Q2). Testable host-side without a live fleet. Land whole on main2 (worktree off origin/main2, rebase-CAS push).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 11
+  claimed_at: 2026-07-06T11:52:16Z
