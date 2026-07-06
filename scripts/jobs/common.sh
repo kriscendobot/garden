@@ -2226,13 +2226,25 @@ anchor_blob() {
     || { log "anchor_blob: push of $ref rejected (blob still local in $dir)"; return 1; }
 }
 
-# Bootstrap the env `systemctl --user` needs in non-login/cron/ssh contexts.
-# (pivoker common.sh does the same; lingering via `loginctl enable-linger` is a
-# separate one-time operator step.)
+# Bootstrap the env `systemctl --user` needs in non-login/cron/ssh contexts:
+# USER (some systemd/loginctl paths read it), XDG_RUNTIME_DIR (how `systemctl
+# --user` finds the user bus — absent it fails "No medium found"), and the dbus
+# session address derived from it. All idempotent (`:=` only fills an unset var),
+# so it is safe to call repeatedly and safe when systemd already set them for a
+# user service. Lingering via `loginctl enable-linger` — which creates
+# /run/user/<uid> — is a separate one-time operator step.
 systemd_user_env() {
+  : "${USER:=$(id -un)}"; export USER
   : "${XDG_RUNTIME_DIR:=/run/user/$(id -u)}"; export XDG_RUNTIME_DIR
   : "${DBUS_SESSION_BUS_ADDRESS:=unix:path=$XDG_RUNTIME_DIR/bus}"; export DBUS_SESSION_BUS_ADDRESS
 }
+
+# Apply it at source time so EVERY script sourcing common.sh gets the env
+# globally — not only the calls that route through unit_ctl(). This is what makes
+# a direct `systemctl --user ...` in any fleet script Just Work, retiring the
+# per-instance self-heal. (Login shells are covered separately by
+# /etc/profile.d/garden.sh, since they do not source common.sh.)
+systemd_user_env
 
 # Unit control, indirected so tests can mock it. Set GARDEN_UNIT_CTL to a
 # command that receives the same args as `systemctl --user`.

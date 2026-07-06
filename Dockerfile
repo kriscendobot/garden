@@ -151,13 +151,22 @@ RUN git clone "${VUNDLE_REPO}" /opt/dotfiles/vim/bundle/Vundle.vim \
        ; true
 USER root
 
-# Login-shell PATH via /etc/profile.d (bind-mounted $HOME has no dotfiles).
-# This is the PATH wiring the launcher's `bash -lc 'exec claude ...'` relies on:
-# it prepends the garden/go tool dirs while preserving the default PATH (which
-# already contains /usr/bin, where the global `claude` bin lives), so `claude`
-# resolves on a bare enter.
+# Login-shell env via /etc/profile.d (bind-mounted $HOME has no dotfiles). This is
+# the wiring the launcher's `bash -lc 'exec claude ...'` relies on:
+#   - PATH: prepends the garden/go tool dirs while preserving the default PATH
+#     (which already contains /usr/bin, where the global `claude` bin lives), so
+#     `claude` resolves on a bare enter.
+#   - USER / XDG_RUNTIME_DIR / DBUS: what `systemctl --user` needs to reach the
+#     user bus. A `docker exec` (even `-l`) gets no PAM session, so these are unset
+#     otherwise and every `systemctl --user` — the liaison's and its subprocesses'
+#     — fails "No medium found" until self-healed. Setting them here (idempotent,
+#     `${VAR:-…}`) retires that self-heal for every login shell; fleet scripts are
+#     covered in parallel by common.sh's source-time systemd_user_env.
 RUN printf '%s\n' \
     'export PATH="$HOME/bin:$HOME/go/bin:/opt/go-tools/bin:/usr/local/go/bin:$PATH"' \
+    'export USER="${USER:-$(id -un)}"' \
+    'export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"' \
+    'export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=$XDG_RUNTIME_DIR/bus}"' \
     > /etc/profile.d/garden.sh
 
 ENV PATH="/home/${USERNAME}/bin:/home/${USERNAME}/go/bin:${PATH}"
