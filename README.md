@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-06T03:26:57Z_
+_As of 2026-07-06T03:32:37Z_
 
 ## Latest
 
-[endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared its gauntlet and is now open, un-drafted, and MERGEABLE with green CI (15/15) in the review queue — treated as the standalone Docker self-host slice. The panel's one must-fix was real: `node_modules/.bin` was missing from the image PATH, so the documented `docker exec … endo …` control command would have failed with "endo: not found" (commit 8e6749d8d, plus several doc/hardening should-fixes). Caveat: the fix is correct by construction but not runtime-proven — no Docker in the gardener sandbox, so an end-to-end `docker build`/`docker exec` smoke test still wants a Docker-capable host. Per proxy's steer, 0xpatrickbot's broader gateway-bearing [#568](https://github.com/endojs/endo-but-for-bots/pull/568) was left untouched (mention-only author); whether to close it as superseded is your call. A follow-on `build-endo-but-for-bots-daemon-docker-selfhost` job has just been claimed.
+[endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) — the standalone Docker self-host slice — cleared its gauntlet and is now un-drafted, OPEN/MERGEABLE, CI green (15/15), and in the review queue. The panel caught one real must-fix flagged by four seats independently: the documented `docker exec … endo` command would have failed because `node_modules/.bin` wasn't on the image PATH (commit 8e6749d8d, plus should-fix hardening around socket-parent mkdir, PID-1 zombie reaping, and doc corrections). Honest caveat: no Docker in the sandbox, so the PATH fix is correct by construction but not runtime-proven — an end-to-end `docker build`/`docker exec` smoke test needs a Docker-capable host. Per the proxy's steer, [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot's broader gateway-bearing parallel attempt, mention-only) was left entirely untouched; whether it's closed-as-superseded or reconciled is your call.
 
-Two build jobs were declined as redundant rather than duplicating existing work: `endoclaw-network-fetch` (confined outbound-HTTP pillar) is already delivered by the garden-owned [#286](https://github.com/endojs/endo-but-for-bots/pull/286) on the blessed `cli-http-client` design and by 0xpatrickbot's parallel [#566](https://github.com/endojs/endo-but-for-bots/pull/566) — recommendation is to shepherd #286 and leave #566 alone.
+A build job for the confined-outbound-HTTP pillar was declined as redundant: the capability is already delivered by [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (garden-owned, built on the blessed `cli-http-client.md` design) and, separately, by [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (0xpatrickbot's mention-only take on the original design). Recommendation: shepherd #286 as the garden's vehicle and mark the stale `endoclaw-network-fetch` design record superseded.
 
-Two items need your attention. First, a **host-identity drift alarm fired three times on endolinbot**: `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded parallel-pool override, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, watchers) is being skipped on the true leader — likely a stale `/home/kris/.garden` file. Second, the `design-streamlined-onboarding` design landed and its § 5 open questions await you (notably Q2, the security-flavored auto-mode default) before its four gated build jobs can be posted.
+Operationally urgent: the identity-drift guard fired three times on this host — `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER and **every leader-only singleton is being skipped on the true leader**. Fix is to correct `/home/kris/.garden` to `endolinbot` and restart the pool (or record the override if this is a deliberate parallel pool). Two design decisions also await you: the `streamlined-onboarding` design's §5 open questions (especially Q2, the auto-mode default, which is security-flavored) gate four downstream build jobs, and the #595/#605 probe report surfaced a spec discrepancy needing a yes/no on whether you want a `take`-semantics analysis.
 
 ## Parked for maintainer feedback
 
@@ -166,18 +166,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`build-endo-but-for-bots-daemon-docker-selfhost`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-daemon-docker-selfhost.md) — ---
 - [`gauntlet-endo-but-for-bots-pr609-endoclaw-timer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr609-endoclaw-timer.md) — ---
-- [`xs2rust-endor-strings-utf16-test`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-strings-utf16-test.md) — Test/corpus: prove result parity + recalibrated meter for the UTF-16 string s...
 
-### tada (1244)
+### tada (1245)
+- [`xs2rust-endor-strings-utf16-test`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16-test.md) — Completion report: xs2rust-endor-strings-utf16-test (child 3/3)
 - [`fix-ensure-project-worktree-silent-stale-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-ensure-project-worktree-silent-stale-fetch.md) — Inbox is empty. Job complete.
 - [`design-daemon-agent-tools-reconcile-mount-git-capabilities`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-daemon-agent-tools-reconcile-mount-git-capabilities.md) — **Completion report: design-daemon-agent-tools-reconcile-mount-git-capabiliti...
 - [`deadmail-20260706T030053Z-a1f859`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T030053Z-a1f859.md) — Completion report
 - [`xs2rust-endor-strings-utf16-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16-build.md) — Completion report
-- [`design-gateway-bearer-token-auth-reconcile-endo-gateway`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-gateway-bearer-token-auth-reconcile-endo-gateway.md) — Completion report:
-- … and 1239 more
+- … and 1240 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
