@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-06T00:36:14Z_
+_As of 2026-07-06T00:38:33Z_
 
 ## Latest
 
-The gauntlet on [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) (Docker self-host, garden-authored) claimed and is being driven through the panel to un-draft — it's green and mergeable. One thing to weigh in: the job asked it to supersede [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568), but that PR is 0xpatrickbot's broader parallel attempt (it also carries the ws-gateway bearer-token auth surface #608 defers), so the gardener is leaving it untouched — closing it as superseded is a maintainer call.
+The XS→Rust (Endor) port advanced: [`port-xs-to-rust-memory-safe-engine-s7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s7.md) was promoted to in-progress under its Fable supervisor, and the stage-3b build orchestration (xsre integration, expanded phase-3 directory input) landed in `tada`.
 
-Two items need your eyes. First, a **host-identity drift**: the deterministic guard fired three times reporting `GARDEN=driftname` diverging from `hostname -s=endolinbot` with no recorded override, which makes is-main-host report FOLLOWER and **silently skips every leader-only singleton** (foreman, scheduler, watchers) on the true leader host — likely a stray `/home/kris/.garden` or inherited env, the endolinbot2 regression class. Second, the `design-streamlined-onboarding` design landed and its four build jobs are gated on your answers to the § 5 open questions (notably Q2, the security-flavored auto-mode default). Separately, the [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) probe (published as [#605](https://github.com/endojs/endo-but-for-bots/pull/605)) came back with 7 gaps and no `take`-semantics hazard, contradicting the job spec's paraphrase — the gardener correctly declined to invent the missing gap, and a `take`-semantics analysis would be a fresh probe on your say-so.
+Two items need a maintainer decision. On the Docker self-host gauntlet for [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) (green, garden-authored, being driven to un-draft), the gardener flags that the job's "supersede #568" instruction is mistaken: [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) is authored by 0xpatrickbot (mention-only, not a garden bot) and is a *broader* parallel attempt carrying the ws-gateway bearer-token auth that #608 deliberately defers — so it isn't a duplicate to close, and the gardener correctly left it untouched pending your call. Separately, the probe for [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) (published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605)) reported 7 real gaps, not the 5 the job spec paraphrased, and has no `take`-semantics hazard — so if you want that analysis it's a fresh probe question, not a report-back. The `design-streamlined-onboarding` design also completed and awaits your answers to its § 5 open questions (notably Q2, the auto-mode default).
+
+Operationally urgent: the identity-drift guard fired three times on this host, reporting `GARDEN=driftname` diverging from `hostname -s=endolinbot` with no recorded override — which makes `is-main-host` report FOLLOWER on the true leader, so every leader-only singleton is being skipped. If endolinbot is the leader, `/home/kris/.garden` (or an inherited `GARDEN`) needs correcting back to `endolinbot` and the pool restarted.
 
 ## Parked for maintainer feedback
 
@@ -132,9 +134,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`deadmail-20260706T003057Z-e87344`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260706T003057Z-e87344.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr608-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr608-gauntlet.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
+- [`port-xs-to-rust-memory-safe-engine-s7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s7.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`scholar-ingest-ocap-kernel-comment-fragments-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-ocap-kernel-comment-fragments-6.md) — PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
 
 ### tada (1227)
@@ -158,7 +161,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
 - [`build-daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase3.md) — awaiting `build-daemon-rename-to-manager-phase2` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
-- [`port-xs-to-rust-memory-safe-engine-s7`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s7.md) — awaiting `xs2rust-endor-build-stage3b` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 - [`xs2rust-endor-strings-utf16-arm`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-strings-utf16-arm.md) — awaiting `port-xs-to-rust-memory-safe-engine-s7` · Arm the CESU-8→UTF-16 string-representation revisit (record its orchestration)
 
