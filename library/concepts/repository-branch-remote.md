@@ -18,6 +18,10 @@ Dialog-db's git-like model over structured data, implemented in the `dialog-repo
 | [dialog-db--rust-dialog-repository-guide--writing-semantic-triples](../sections/dialog-db--rust-dialog-repository-guide--writing-semantic-triples.md) | `branch.transaction().assert(..).commit()` folding triples into a branch revision. |
 | [dialog-db--rust-dialog-repository-guide--syncing-remotes-and-upstream](../sections/dialog-db--rust-dialog-repository-guide--syncing-remotes-and-upstream.md) | Remote registration, `set_upstream`, push/pull, `.subject(did)` targeting, on-demand block replication. |
 | [dialog-db--rust-dialog-repository-guide--collaboration-ucan-delegation](../sections/dialog-db--rust-dialog-repository-guide--collaboration-ucan-delegation.md) | Sharing a repository across profiles via UCAN delegation (Alice sets up / invites Bob / Bob joins). |
+| [dialog-db--rust-dialog-remote-s3-readme--overview](../sections/dialog-db--rust-dialog-remote-s3-readme--overview.md) | The direct SigV4-signed S3 remote: a credential-fronted concrete `impl Into<SiteAddress>` behind the generic remote surface. |
+| [dialog-db--rust-dialog-remote-s3-readme--usage-walkthrough](../sections/dialog-db--rust-dialog-remote-s3-readme--usage-walkthrough.md) | `Address`+`S3Credentials` → `remote("origin").create` → open both branches → `set_upstream` → `push`/`pull`. |
+| [dialog-db--rust-dialog-remote-ucan-s3-readme--overview](../sections/dialog-db--rust-dialog-remote-ucan-s3-readme--overview.md) | The UCAN-authorized remote: same S3 backend, but a delegation-verifying access service replaces direct credentials. |
+| [dialog-db--rust-dialog-remote-ucan-s3-readme--usage-walkthrough](../sections/dialog-db--rust-dialog-remote-ucan-s3-readme--usage-walkthrough.md) | The `UcanAddress::new(url)` remote lifecycle — identical create/set_upstream/push/pull surface as any remote. |
 
 ## See also
 
@@ -27,3 +31,4 @@ Dialog-db's git-like model over structured data, implemented in the `dialog-repo
 - [[ucan-delegation]] — how repository access is shared across profiles without sharing keys.
 - [[subject-routing]] — how a remote's `SiteAddress` + subject DID resolve to the site backing a repository.
 - [[dialog-query-rust-api]] — the typed concept/rule query surface a branch exposes.
+- [[content-addressed-storage-backend]] — the storage layer whose `S3` backend the `dialog-remote-s3` / `dialog-remote-ucan-s3` remotes push to.
