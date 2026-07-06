@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6167 (530 parent indexes + 5637 children).
+Total section files: 6186 (530 parent indexes + 5656 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -833,12 +833,43 @@ Total section files: 6167 (530 parent indexes + 5637 children).
 - [dialog-db--notes-concept--claims-and-the-semantic-layer](dialog-db--notes-concept--claims-and-the-semantic-layer.md)
 - [dialog-db--notes-concept--schema-on-read-and-rules](dialog-db--notes-concept--schema-on-read-and-rules.md)
 
+### dialog-db--notes-glossary
+
+- [dialog-db--notes-glossary--terms-architecture-storage-and-sync](dialog-db--notes-glossary--terms-architecture-storage-and-sync.md)
+- [dialog-db--notes-glossary--terms-core-concepts-and-operations](dialog-db--notes-glossary--terms-core-concepts-and-operations.md)
+- [dialog-db--notes-glossary--terms-querying](dialog-db--notes-glossary--terms-querying.md)
+
 ### dialog-db--notes-privacy
 
 - [dialog-db--notes-privacy--privacy-efficiency-tradeoffs](dialog-db--notes-privacy--privacy-efficiency-tradeoffs.md)
 - [dialog-db--notes-privacy--tiered-access-levels](dialog-db--notes-privacy--tiered-access-levels.md)
 - [dialog-db--notes-privacy--tiered-encryption-implementation](dialog-db--notes-privacy--tiered-encryption-implementation.md)
 - [dialog-db--notes-privacy--ucan-authorization-model](dialog-db--notes-privacy--ucan-authorization-model.md)
+
+### dialog-db--notes-query-engine-design
+
+- [dialog-db--notes-query-engine-design--feasibility-and-cost](dialog-db--notes-query-engine-design--feasibility-and-cost.md)
+- [dialog-db--notes-query-engine-design--operator-ir](dialog-db--notes-query-engine-design--operator-ir.md)
+- [dialog-db--notes-query-engine-design--overview-and-pipeline](dialog-db--notes-query-engine-design--overview-and-pipeline.md)
+- [dialog-db--notes-query-engine-design--pointers-and-type-checking](dialog-db--notes-query-engine-design--pointers-and-type-checking.md)
+- [dialog-db--notes-query-engine-design--what-the-papers-contribute](dialog-db--notes-query-engine-design--what-the-papers-contribute.md)
+
+### dialog-db--notes-sync
+
+- [dialog-db--notes-sync--archive](dialog-db--notes-sync--archive.md)
+- [dialog-db--notes-sync--consistency-model](dialog-db--notes-sync--consistency-model.md)
+- [dialog-db--notes-sync--mutable-pointer-protocol](dialog-db--notes-sync--mutable-pointer-protocol.md)
+- [dialog-db--notes-sync--overview-and-goals](dialog-db--notes-sync--overview-and-goals.md)
+- [dialog-db--notes-sync--pull-fetch-and-merge](dialog-db--notes-sync--pull-fetch-and-merge.md)
+
+### dialog-db--notes-version-control
+
+- [dialog-db--notes-version-control--claim-structure-and-history-index](dialog-db--notes-version-control--claim-structure-and-history-index.md)
+- [dialog-db--notes-version-control--conflict-detection](dialog-db--notes-version-control--conflict-detection.md)
+- [dialog-db--notes-version-control--context-and-idea](dialog-db--notes-version-control--context-and-idea.md)
+- [dialog-db--notes-version-control--core-types](dialog-db--notes-version-control--core-types.md)
+- [dialog-db--notes-version-control--cross-repo-merges-forks-and-collaboration](dialog-db--notes-version-control--cross-repo-merges-forks-and-collaboration.md)
+- [dialog-db--notes-version-control--revision](dialog-db--notes-version-control--revision.md)
 
 ### dialog-db--readme
 
