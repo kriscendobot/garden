@@ -78,3 +78,9 @@ Dual-run `built-ins/Promise` (7 baseline — this child should grow it substanti
 `race/`, `any/`, `allSettled/`, `prototype/then/`, `prototype/finally/` subtrees),
 `language/expressions/await`, `language/statements/async-function`,
 `language/statements/async-generator` (or its named fold) — divergent=0, skips named, bars locked.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 10
+  claimed_at: 2026-07-06T13:34:13Z
