@@ -5,3 +5,9 @@ Task: drive #286 through the gauntlet to green and merge-ready (panel review + f
 Do NOT touch PR #566 (author 0xpatrickbot, mention-only-pr-authors allowlist) — it is the external contributor's parallel take; leave it alone absent an @-mention.
 
 Maintainer decision, 2026-07-06 (liaison inbox thread: build-endoclaw-network-fetch / build-endoclaw-network-fetch-http-client-capability).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 90
+  claimed_at: 2026-07-06T11:48:14Z
