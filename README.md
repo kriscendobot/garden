@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-06T00:47:42Z_
+_As of 2026-07-06T00:49:19Z_
 
 ## Latest
 
@@ -154,17 +154,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`port-xs-to-rust-memory-safe-engine-s7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s7.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
-- [`scholar-ingest-ocap-kernel-comment-fragments-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-ocap-kernel-comment-fragments-6.md) — PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
 
-### tada (1229)
+### tada (1230)
+- [`scholar-ingest-ocap-kernel-comment-fragments-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-comment-fragments-6.md) — Completion report
 - [`endojs-endo-but-for-bots-pr608-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr608-gauntlet.md) — Completion report: endojs-endo-but-for-bots-pr608-gauntlet
 - [`deadmail-20260706T003057Z-e87344`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T003057Z-e87344.md) — Completion report
 - [`xs2rust-endor-build-stage3b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b.md) — orchestration xs2rust-endor-build-stage3b — complete
 - [`xs2rust-endor-build-stage3b-xsre-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-xsre-integration.md) — Completion report
-- [`deadmail-20260706T002005Z-8d94ee`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T002005Z-8d94ee.md) — Completion report
-- … and 1224 more
+- … and 1225 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
