@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T14:08:16Z_
+_As of 2026-07-06T14:08:42Z_
 
 ## Latest
 
-A scholar job wrapped up — [`scholar-ingest-dialog-db-remainder-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-2.md) ingested the dialog-db query-planner material — leaving three jobs in flight (the remaining dialog-db ingest, the OCapN WebSocket gateway endpoint for endo-but-for-bots, and the XS→Rust stage-4 async/await port) and an empty todo queue. Two maintainer messages want attention: the Fable review of the garden's own scripts flagged a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`) — a job requeued every ~18 min against a 40-min handler wall, twice leaving two live writers in one worktree — which needs a deliberate main2 fix and deploy rather than a board job; and the streamlined-onboarding phase-1 job closed as already-landed, noting that the design's ".garden-file-first identity" was deliberately superseded by the newer location-derived identity (commits 6d543582e/367a7543c) and so §1.1 of that design is now stale.
+The scholar's SQL dialog-database ingest advanced — `scholar-ingest-against-sql`, `scholar-ingest-dialog-db-remainder`, and `-remainder-2` all completed, with `-remainder-3` now in flight. Two items landed in the maintainer inbox that warrant attention: a fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`), where a job was requeued roughly every 18 min against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree — a main2 infrastructure fix that needs a deliberate fix-and-deploy rather than a board job. Separately, the streamlined-onboarding phase-1 job closed as already-satisfied: the direct-exec launcher, auto-build, and guard-hook seeding all landed 2026-07-04, and the design's `.garden`-file identity is intentionally superseded by the newer location-derived identity (`<hostname>-<basename>-<hash8>`), so that paragraph of the design is now stale. The board is otherwise quiet with an empty todo queue; the deep parked backlog still awaits review, oldest among them [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 45 days.
 
 ## Parked for maintainer feedback
 
@@ -50,7 +50,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`xs2rust-endor-stage4-async-await`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-async-await.md) — Stage-4 child: async/await over the job queue + the promise double-settle key...
 
 ### tada (1301)
-- [`scholar-ingest-dialog-db-remainder-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-2.md) — scholar-ingest-dialog-db-remainder-2 — ingested the dialog-db query-planner/r...
+- [`scholar-ingest-dialog-db-remainder-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-2.md) — Cycle complete. Summary of what I did:
 - [`scholar-ingest-dialog-db-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder.md) — Completion report
 - [`scholar-ingest-against-sql`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-against-sql.md) — Completion report
 - [`deadmail-20260706T133852Z-764cda`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T133852Z-764cda.md) — Completion report
