@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-06T20:13:30Z_
+_As of 2026-07-06T20:15:36Z_
 
 ## Latest
 
-The XS→Rust (Endor) stage-4 port advanced then stalled: the `xs2rust-endor-stage4-compartment` and `-async-surface` children completed, `-lockdown-harden` is in progress, but the serial orchestration **halted** when child `xs2rust-endor-stage4-modules` failed (4/8 done, halt policy), so the downstream `port-xs-to-rust` supervisor stays blocked. A shepherd is driving red CI on [endo-but-for-bots#618](https://github.com/endojs/endo-but-for-bots/pull/618). Three items need maintainer attention: a Fable review of the garden's own scripts surfaced a **data-corruption-class bug** in the reaper requeue path (job requeued every ~18 min against a 40-min handler wall, twice leaving two live writers in one worktree) — a main2 infra fix, not a board job; the Gateway `/ocapn` WebSocket build was **held rather than opened** because it collides with the in-flight [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) (which implements only the path-naming half), with the gardener recommending its work be re-scoped to build atop #577; and the foreman flagged `build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery` as possibly stuck after it drained twice without milestone progress. Separately, the streamlined-onboarding phase-1 job closed as already-landed, noting its design's `.garden`-file identity paragraph is now superseded by location-derived identity.
+Two items need maintainer steering. A gardener building the Gateway `/ocapn` WebSocket endpoint found its work is a superset of open draft [endojs/endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) (path-scheme naming only) but an incompatible parallel rewrite of `src/ocapn-ws.js`, so it held its branch rather than open a competing PR and asks whether to build the socket handoff on top of #577 (its recommendation), supersede it, or drop the branch. Separately, the Fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (two live writers in one worktree, twice) — a main2 infra fix flagged for deliberate fix-and-deploy, not a board job.
+
+On the fleet: the serial `xs2rust-endor-stage4` orchestration **halted** after child `xs2rust-endor-stage4-modules` failed (4/8 done, three later children swept), leaving `xs2rust-endor-stage4-lockdown-harden` still in flight; a shepherd is chasing red CI on [endojs/endo-but-for-bots#618](https://github.com/endojs/endo-but-for-bots/pull/618). The foreman is holding a re-post of the endoclaw timer phase-2 build after it drained twice without milestone progress — possibly stuck. Onboarding phase 1 closed as already-landed, with the design's `.garden`-file identity deliberately superseded by location-derived identity.
 
 ## Parked for maintainer feedback
 
@@ -72,7 +74,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`deadmail-20260706T201018Z-28fa64`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260706T201018Z-28fa64.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr618-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr618-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #618
 - [`xs2rust-endor-stage4-lockdown-harden`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-lockdown-harden.md) — Stage-4 child: lockdown, harden, petrify, mutabilities; intrinsics freeze
 
