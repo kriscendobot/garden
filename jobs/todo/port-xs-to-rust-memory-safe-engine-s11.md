@@ -1,10 +1,7 @@
 ---
-gate: blocked
-blocked_on: xs2rust-endor-stage4-fix-oracle-shim-crash
-priority: normal
-posted_by: producer
-posted_at: 2026-07-06T21:09:15Z
+model: fable
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-07-06T21:23:37Z -->
 
 ---
 model: fable
