@@ -76,3 +76,9 @@ Dual-run `built-ins/Object/defineProperty`, `built-ins/Object/getOwnPropertyDesc
 `built-ins/Object/freeze|seal|preventExtensions|isFrozen|isSealed|isExtensible` (per-subtree),
 plus a re-run of `built-ins/Object` whole-tree — divergent=0, covered strictly above the current
 baseline (Object 63), every skip named. Lock the new sections as cargo-test bars.
+
+---
+claim:
+  host: endolinbot
+  gardener: 9
+  claimed_at: 2026-07-06T03:46:24Z
