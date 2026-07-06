@@ -78,14 +78,4 @@ Port the module machinery from the pin's `xsModule.c` (static half first):
 divergent=0 with named skips; otherwise the documented endor-side corpus + manual-xst method,
 plus namespace/linkage unit tests locked in cargo. Record honestly which path was achieved.
 
-
-<!-- garden-reaped: 1 -->
-
-<!-- garden-productive-cycle -->
-<!-- garden-deadline-overrun: 2 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 13
-  claimed_at: 2026-07-06T15:53:31Z
+<!-- garden-reaped: 0 -->
