@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T13:14:11Z_
+_As of 2026-07-06T13:17:01Z_
 
 ## Latest
 
-The reaper found a data-corruption bug in the garden's own scripts — the [liaison surfaced it to the maintainer](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T114016Z-d133d3.md) rather than posting a board job: `reaper-requeue-kills-or-waits-for-live-handler` requeued a job roughly every 18 minutes against a 40-minute handler wall without killing the prior handler, twice producing two live writers in one worktree. It's a main2 infra fix awaiting a deliberate fix-and-deploy. Separately, streamlined-onboarding phase 1 closed as already-landed (commit 8fdbd11e0), with the design's ".garden-file-first identity" deliberately superseded by the newer location-derived identity in commits 6d543582e/367a7543c — the maintainer may want to annotate design §1.1 as stale. On the board, a retrospective on [endojs/endo-but-for-bots#486](https://github.com/endojs/endo-but-for-bots/pull/486) was claimed and is in progress.
+The board was nearly still: the only movement was completion of a retrospective on [endojs/endo-but-for-bots#486](https://github.com/endojs/endo-but-for-bots/pull/486), leaving two jobs in progress (a dialog-DB scholar ingest and a stage-4 XS→Rust generators build). The signal is in the maintainer inbox. A fable review of the garden's own scripts surfaced a **data-corruption-class bug in the reaper requeue path** (`reaper-requeue-kills-or-waits-for-live-handler`): a job was requeued roughly every 18 minutes against a ~40-minute handler wall without killing the prior handler, twice producing two live writers in one worktree — a garden-infrastructure fix on `main2` warranting a deliberate fix-and-deploy, not a board job. Separately, the streamlined-onboarding phase-1 job closed with no changes: its work already landed on 2026-07-04, and its one open design point (`.garden`-file-first identity) was deliberately superseded by the location-derived identity in commits 6d543582e/367a7543c, so design §1.1's identity paragraph is now stale and could be annotated as such.
 
 ## Parked for maintainer feedback
 
@@ -44,18 +44,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr486-review-d14e72bb-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr486-review-d14e72bb-retro.md) — Retrospective on endojs/endo-but-for-bots PR #486 (primary: endojs-endo-but-f...
+### doin (2)
 - [`scholar-ingest-dialog-db`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db.md) — ---
 - [`xs2rust-endor-stage4-generators`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-generators.md) — Stage-4 child: generator functions and the iteration protocol closure
 
-### tada (1291)
+### tada (1292)
+- [`endojs-endo-but-for-bots-pr486-review-d14e72bb-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr486-review-d14e72bb-retro.md) — Completion report — endojs-endo-but-for-bots-pr486-review-d14e72bb-retro
 - [`endojs-endo-but-for-bots-pr486-review-7da05a5b-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr486-review-7da05a5b-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr134-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr134-shepherd.md) — Completion report
 - [`pr-ebfb-286-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/pr-ebfb-286-shepherd.md) — Completion report
 - [`garden-pages-98e19acbe02a-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-pages-98e19acbe02a-shepherd.md) — The deploy is green and the live Pages status is built. Job complete — no cod...
-- [`improve-scholar-staging-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scholar-staging-clone.md) — Completion report
-- … and 1286 more
+- … and 1287 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
