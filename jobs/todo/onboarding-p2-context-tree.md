@@ -1,10 +1,4 @@
----
-gate: orchestrated
-orchestrated_by: onboarding-streamlined
-priority: normal
-posted_by: producer
-posted_at: 2026-07-06T11:49:38Z
----
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-06T11:55:13Z -->
 
 Build phase 2 of streamlined onboarding (design: designs/streamlined-onboarding.md § 3.2 shape, § 4 migration map). Garden repo, main2. Read the design first.
 
