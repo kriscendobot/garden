@@ -77,3 +77,9 @@ Port the module machinery from the pin's `xsModule.c` (static half first):
 `language/module-code/` dual-run per-subtree IF the oracle seam supports module goal parsing —
 divergent=0 with named skips; otherwise the documented endor-side corpus + manual-xst method,
 plus namespace/linkage unit tests locked in cargo. Record honestly which path was achieved.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 5
+  claimed_at: 2026-07-06T15:10:30Z
