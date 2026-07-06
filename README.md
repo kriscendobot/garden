@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-06T21:07:15Z_
+_As of 2026-07-06T21:09:49Z_
 
 ## Latest
 
-The M3 flagship — Claw-like coding via [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), [#616](https://github.com/endojs/endo-but-for-bots/pull/616), [#618](https://github.com/endojs/endo-but-for-bots/pull/618) — is fully built and CI-green but stuck in Draft; the foreman flags that the milestone's critical path is now maintainer review/un-draft/merge of that stack, not more building. #614's gauntlet completed this cycle. On the XS→Rust (Endor) port, orchestration stage4b finished (as did the SES-conformance child), but the serial stage4 run **halted** on a failed modules child, and a fixer is now on `jobs/doin` chasing an oracle-shim SIGSEGV that blocks stage-4 acceptance. Two items need a maintainer decision: a fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (two live writers in one worktree — a main2 infra fix warranting a deliberate fix+deploy), and a Gateway Feature 8 build was held rather than opening a PR because it collides with the in-flight [#577](https://github.com/endojs/endo-but-for-bots/pull/577) path-scheme work (the builder recommends re-scoping to build the socket handoff on top of #577). Separately, the streamlined-onboarding phase-1 job closed as already-landed, with its `.garden`-file identity item noted as superseded by the newer location-derived identity.
+The XS→Rust (Endor) port dominated the last window: orchestration `xs2rust-endor-build-stage4b` completed and its SES-conformance child landed, but the parallel `xs2rust-endor-build-stage4` run **halted** when child `xs2rust-endor-stage4-modules` failed (4/8 done, serial halt policy), and a fixer is now chasing an oracle-shim SIGSEGV that blocks stage-4 acceptance — with stage 11 of the port newly parked behind it.
+
+On the bot repo, the M3 flagship `daemon-agent-tools` stack is effectively built: the [#614](https://github.com/endojs/endo-but-for-bots/pull/614) gauntlet finished, and gauntlets are in flight on [#615](https://github.com/endojs/endo-but-for-bots/pull/615), [#617](https://github.com/endojs/endo-but-for-bots/pull/617), and [#566](https://github.com/endojs/endo-but-for-bots/pull/566). The foreman flags that phases 1–3 ([#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), [#616](https://github.com/endojs/endo-but-for-bots/pull/616)) are CI-green but still Draft and phase 4 ([#618](https://github.com/endojs/endo-but-for-bots/pull/618)) has cleared its last un-draft blocker — so M3's critical path is now maintainer review + un-draft + merge of the #614→#615→#616→#618 stack, an authority step the fleet cannot self-serve.
+
+Two items need a maintainer decision rather than more building: a gardener held the Gateway `/ocapn` WebSocket-endpoint work (branch pushed, not PR'd) because it's a superset of open draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577) and would collide — it recommends re-scoping onto #577's path scheme. Separately, the liaison surfaced a data-corruption-class reaper-requeue bug in the garden's own scripts (two live writers in one worktree) that warrants a deliberate main2 fix + deploy.
 
 ## Parked for maintainer feedback
 
@@ -104,6 +108,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
 - [`build-daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase3.md) — awaiting `build-daemon-rename-to-manager-phase2` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
+- [`port-xs-to-rust-memory-safe-engine-s11`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s11.md) — awaiting `xs2rust-endor-stage4-fix-oracle-shim-crash` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
 ## Watch set
