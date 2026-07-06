@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/26#issuecomment-4888978127
 > The sealers / getSealedPurses facet in that file is also handy here — sealing a purse into an inert token is how the connector can hand out a balance-viewing reference without granting withdrawal authority. a sealed purse has no methods whatsoever. no balance viewing... unles
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  claimed_at: 2026-07-06T11:35:48Z
