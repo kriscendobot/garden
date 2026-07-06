@@ -21,3 +21,9 @@ sub-packages too. If the full set exceeds one cycle's budget (3-5 sources / ~25
 section writes), file a faithful first pass and post a follow-on scholar-ingest-
 dialog-db job naming exactly what remains. Add new topics for any genuinely new
 domain rather than bending the existing taxonomy. No fork or upstream actions.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  claimed_at: 2026-07-06T13:09:15Z
