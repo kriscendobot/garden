@@ -18,3 +18,9 @@ Classify and act per skills/pages-build-shepherd/SKILL.md:
     verify the new deploy is green.
 Re-fetch the live run state before acting; a NEWER push may already have
 superseded this run (then: nothing to do).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 20
+  claimed_at: 2026-07-06T11:59:45Z
