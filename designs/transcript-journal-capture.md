@@ -8,21 +8,40 @@ author: designer
 
 | Created | 2026-07-06 |
 | Author  | designer (job `design-transcript-journal-capture`) |
-| Status  | Proposed |
+| Status  | Proposed — reference spec; build owned by `supervise-transcript-durability` |
+
+> **Scope of this doc (maintainer directive, 2026-07-06).** This is a **lean
+> reference spec**, not an implementation. The build is owned by a separate Fable
+> supervisor job, `supervise-transcript-durability`; this document exists for it
+> to consume. No branches are created and no units are installed by landing this
+> doc. Two decisions the maintainer has **already made** are recorded here rather
+> than re-argued:
+> - **Storage: a dedicated `transcripts2` orphan branch**, mirroring the
+>   `journal2` pattern. Transcripts are **not** committed to `journal2`.
+> - The build proceeds straight to implementation under the supervisor above.
 
 Claude Code deletes session transcripts after `cleanupPeriodDays` (default 30),
 and the gardener handler deletes each job's transcript the moment the job
 completes. The maintainer wants the opposite posture: deletion disabled across
 the fleet, and the transcripts captured into the garden's versioned record ("the
-journal holds the garden's transcript"). This design specifies both halves:
+journal holds the garden's transcript"). This spec covers four halves:
 
 1. **Capture**: every host spools its finished session transcripts, gzip-compressed
-   and lightly redacted, into a dedicated `transcripts2` orphan branch on a
+   and lightly redacted, into the dedicated `transcripts2` orphan branch on a
    **configurable transcripts remote** (private repo recommended; the garden's
-   own origin is public), pushed with the fleet's usual CAS loop.
+   own origin is public), pushed with the fleet's usual CAS loop. Keyed by
+   `GARDEN` identity and the deterministic job transcript path from
+   `gardener-claude.sh`, plus a sweep for liaison/subagent/ad-hoc sessions.
 2. **Disable deletion**: the `garden` launcher seeds `cleanupPeriodDays: 36500`
    into the settings file it writes, and the capture service reconciles the same
-   setting idempotently on every existing host, every tick.
+   setting idempotently on every existing host, every tick (settings.json is
+   gitignored, so it cannot propagate via git — both prongs are required).
+3. **Bring-up surfacing**: the starting stage offers arming the transcripts
+   remote, the same shape as the issue-inbox arming prompt.
+4. **Liaison broadcast-reader**: liaisons gain a topic-broadcast drain on
+   bring-up (they read no broadcast today), so a fleet-wide notice — such as
+   "transcript durability is armed, disk posture has changed" — actually reaches
+   every liaison.
 
 ## Facts on the ground
 
@@ -66,28 +85,20 @@ the code; the builder can rely on these without re-deriving them.
   clone's object DB and optionally anchor them under `refs/captures/*`
   (skill [prompt-on-failure-capture](../skills/prompt-on-failure-capture/SKILL.md)).
 
-## Decision 1: where the transcripts live
+## Decision 1: where the transcripts live — `transcripts2` orphan branch (decided)
 
-Three candidate stores, as the job posed them:
-
-- **A subtree under `journal2`.** Rejected. `journal2` is the shared job board
-  and message bus; every producer, gardener, and watcher clones, fetches, resets,
-  and pushes it constantly (per-service clones under `$GARDEN_STATE`, plus the
-  `journal/` worktree). Hundreds of MB per host per year landing there taxes
-  every fetch and push fleet-wide, forever. This is the central bloat hazard the
-  design exists to avoid.
-- **Loose blobs via `capture_blob` + `anchor_blob` (`refs/captures/*`).**
-  Rejected as the primary store. It avoids commits, but it gives no tree, no
-  history, no browsable index; pruning means server-side ref surgery GitHub does
-  not expose; and thousands of `refs/captures/*` entries are their own
-  pathology. The primitive stays what it is today: a one-off escalation
-  attachment, not an archive.
-- **A dedicated orphan branch, `transcripts2`, mirroring the `journal2` orphan
-  pattern operationally.** **Recommended.** Bloat is isolated: nothing in the
-  fleet fetches `transcripts2` except the capture service itself (and a human
-  browsing). The proven machinery transfers directly: single-branch clone,
-  reset-to-origin, append-only per-host paths, push-CAS with verification
-  (mirror `_push_journal` / `_verify_pushed` in `common.sh`).
+**Decided by the maintainer: a dedicated `transcripts2` orphan branch**, mirroring
+the `journal2` orphan pattern operationally; transcripts are **not** committed to
+`journal2`. The rationale, recorded for the supervisor rather than re-argued:
+`journal2` is the shared job board and message bus, clone/fetch/reset/pushed
+constantly fleet-wide, so hundreds of MB/year of transcripts there would tax every
+fetch forever — the central bloat hazard. A dedicated orphan branch isolates that
+bloat (nothing fetches `transcripts2` but the capture service and a browsing human)
+and lets the proven journal machinery transfer directly: single-branch clone,
+reset-to-origin, append-only per-host paths, push-CAS with verification (mirror
+`_push_journal` / `_verify_pushed` in `common.sh`). Loose `refs/captures/*` blobs
+(`capture_blob`/`anchor_blob`) stay what they are — one-off escalation attachments,
+not an archive.
 
 **Which remote carries the branch is a separate, safety-weighted choice.** The
 garden's origin is public, and transcripts are the fleet's raw working memory:
@@ -241,6 +252,64 @@ pressure first appears.
   (or check the file out sparsely). A small `find-transcript.sh <base>` wrapper
   is a nice-to-have follow-on, not part of the core build.
 
+## Decision 5: bring-up surfacing
+
+Arming (create the private repo, grant the bot push, run
+`set-transcripts-remote.sh`, record the journal `message` entry) is the
+maintainer's deliberate act, so the starting stage should **offer** it, mirroring
+the issue-inbox arming prompt. Concretely:
+
+- [context/operations/starting.md](../context/operations/starting.md) gains a
+  short optional-arming step alongside the existing issue-inbox/bulletin armings:
+  *"transcript durability — configure a transcripts remote to archive session
+  transcripts and disable Claude Code's 30-day deletion; recommended remote is a
+  private repo. Say the word and I'll run `set-transcripts-remote.sh <url>`."*
+- The liaison offers this during *help* / *start the garden* and asks before
+  running it (consequential: it names an external repo and turns on fleet-wide
+  capture). Left unarmed, the fleet still disables deletion and spools locally;
+  only the push is gated. This is surfacing, not a required bring-up step.
+- The new operator page `context/operations/transcripts.md` (Builder spec item 8)
+  is the linked detail: arming, browsing, and the rotation escape hatch.
+
+## Decision 6: the liaison broadcast-reader (drain `role/liaison` on bring-up)
+
+**The gap.** Gardeners poll `role/gardener` + `broadcast` every work loop
+(`gardener.sh`: `read-msgs.sh "gardener-$id" role/gardener broadcast`), so a
+fleet-wide notice reaches every worker. **Liaisons read no topic broadcast at
+all** — a liaison watches only the maintainer inbox (via the `maintainer-watch.sh`
+Monitor). There is therefore no channel by which a fleet-wide operational notice
+("transcript durability is now armed; local `~/.claude` disk no longer
+self-prunes, size it accordingly") reaches the human-facing liaison on each host.
+This design needs one, and the mechanism is generic — it is the liaison's missing
+half of the same bus contract gardeners already honor.
+
+**The mechanism.** A liaison drains its role topic (and `broadcast`) on bring-up,
+using the existing `read-msgs.sh` with a stable per-host seen-key:
+
+```sh
+read-msgs.sh "liaison-$GARDEN" role/liaison broadcast   # prints unseen, advances cursor
+```
+
+- **Seen-key `liaison-$GARDEN`** — per host, so each liaison tracks its own
+  cursor outside the journal (survives `reset --hard`, exactly like the gardener
+  keys). Every host has one liaison, so one key per host is right.
+- **When.** On bring-up (the liaison already performs the starting stage itself),
+  and thereafter on the same cadence the liaison already runs its maintainer-inbox
+  Monitor — fold the drain into that existing standing Monitor rather than adding
+  a new daemon. A non-empty drain is surfaced to the maintainer verbatim as a
+  fleet notice; an empty drain is silent.
+- **Sender.** Fleet-wide notices are posted with `send-msg.sh role/liaison <body>`
+  (or `broadcast` for all-roles). The transcript build, once armed, posts one such
+  notice; the mechanism is reusable for any future fleet-wide liaison advisory.
+- **Docs.** [roles/liaison/AGENT.md](../roles/liaison/AGENT.md) gains a one-line
+  standing instruction ("drain `role/liaison` + `broadcast` on bring-up and on
+  the maintainer-inbox cadence; surface anything unseen to the maintainer"), and
+  the starting page notes the drain as a bring-up step.
+
+This is a small, self-contained addition that the transcript rollout **needs**
+(to announce the disk-posture change) and that also closes a standing gap: until
+now, nothing the fleet broadcasts could reach a liaison.
+
 ## Secrets and redaction
 
 The transcripts are the garden's own output, so prompt injection is not a
@@ -292,24 +361,32 @@ concern; disclosure is. Two layers:
    inert-when-unarmed spooling, spool drain, idle gating, changed-session
    re-capture, redaction, settings reconcile (absent file, foreign keys
    preserved), and CAS retry against a racing peer commit.
-8. **Docs**: a row in [designs/README.md § Index](README.md) (added with this
-   design); the builder adds a short operator page
-   `context/operations/transcripts.md` (arming, browsing, the rotation escape
-   hatch) and links it from the starting-stage page if the liaison should offer
-   arming during bring-up.
+8. **`roles/liaison/AGENT.md`** (Decision 6): a one-line standing instruction to
+   drain `role/liaison` + `broadcast` via `read-msgs.sh "liaison-$GARDEN" …` on
+   bring-up and on the maintainer-inbox Monitor cadence, surfacing anything unseen
+   to the maintainer. No new daemon — fold into the existing Monitor.
+9. **Bring-up surfacing** (Decision 5): add the optional transcripts-arming step
+   to [context/operations/starting.md](../context/operations/starting.md),
+   mirroring the issue-inbox arming prompt.
+10. **Docs**: a row in [designs/README.md § Index](README.md) (added with this
+    design); a short operator page `context/operations/transcripts.md` (arming,
+    browsing, the rotation escape hatch), linked from the starting-stage page.
 
-Follow-on order: 1 through 7 are one build job. Arming (create the private
-repo, grant the bot push, run `set-transcripts-remote.sh`, record the journal
-`message` entry) is the maintainer's act afterward. The optional local janitor
-and `find-transcript.sh` are separate later jobs, to be filed when wanted.
+Build ownership: this is a **reference spec**; the `supervise-transcript-durability`
+Fable supervisor owns and sequences the build. Items 1–10 are one build arc.
+Arming (create the private repo, grant the bot push, run
+`set-transcripts-remote.sh`, record the journal `message` entry, and post the
+`role/liaison` "durability armed" notice) is the maintainer's act afterward. The
+optional local janitor and `find-transcript.sh` are separate later jobs, to be
+filed when wanted.
 
-## Open questions
+## Open questions (for the supervisor / maintainer)
 
-- **Which remote?** The design recommends a dedicated private repo
-  (`kriskowal/garden-transcripts`); only the maintainer can create it and grant
-  the bot push. Configuring the public origin instead is possible but publishes
-  the fleet's working memory; is the private repo acceptable as the plan of
-  record?
+- **Which remote?** A dedicated private repo (`kriskowal/garden-transcripts`) is
+  recommended; only the maintainer can create it and grant the bot push.
+  Configuring the public origin instead is possible but publishes the fleet's
+  working memory. The branch decision (`transcripts2` orphan) is settled; the
+  remote is the remaining arming choice, left to the maintainer.
 - **Capture liaison sessions too?** The sweep includes them by default (they are
   part of the garden's transcript), but they contain the maintainer's own
   conversational text. Exclude the garden-root project dir if that feels wrong.
