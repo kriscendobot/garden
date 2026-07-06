@@ -1,0 +1,15 @@
+## Completion report — `port-xs-to-rust-memory-safe-engine-s10`
+
+**Stage-4b orchestration: complete, all 5 children succeeded.** I ran the whole-stage-4 acceptance review with full independent reproduction (the s7 pattern) covering all nine children of both orchestrations, at branch tip `1b449a1f0d` of PR endojs/endo-but-for-bots#600 (kept DRAFT), from a fresh checkout with the oracle pin `48ee02d8cfe0` populated and compiled.
+
+**Reproduced exactly, all green:**
+- `cargo test --workspace -- --test-threads=1`: **169 passed, 0 failed, fresh build + run in 23.2s** — the decoder-hang fix is real and the workspace bar is structurally wedge-proof (`Interp::run_bounded`/`Halt::StepLimit` fuel bound verified in code, regression cases locked), fitting the 2400s child budget with two orders of magnitude of margin.
+- Every child's headline dual-run tally, all `divergent=0`: Object 176, statements/expressions class 1/1, generators 74/79, for-of 118, Promise 9, async-function 6, await 6, AsyncFunction 1.
+- Boot-bundle and ses-xs-parity closure bars (honest abort at `boot:no-globalThis-global-object-binding`, zero divergence; parity `total=2 covered=0 divergent=0`, skips named).
+- Double-settle keystone `49e27a89b` is ancestor of tip with the 4b async-surface on top; every ledgered fold self-names in code; `forbid(unsafe_code)` intact on all engine crates.
+
+**Finding F1 (acceptance blocker, new):** whole-tree `built-ins/Function` and `built-ins/Array` dual-runs **SIGSEGV (rc=139)** at tip. I bisected on both axes: the crashing files are the two `Function/prototype/toString` intrinsic-graph walkers plus a second non-walker class under `Array/prototype/{concat,map,sort}` (typed-array/spreadable-sparse concat files); both classes are clean at `c6de4a8468` and crash at **`63e6017999`** — the lockdown-harden child's oracle-shim extension installing harden/lockdown/petrify/mutabilities into the bare-boot machine. It's a C-shim (infrastructure) regression, not endor, but it blocks re-certifying s8's Function=40 / Array=437 no-abort baselines, so acceptance is withheld.
+
+**Actions taken:** findings posted as PR #600 comment issuecomment-4897621932 (with the module-goal seam decision: endor-side corpus + manual-xst suffices for stage 4; the shim seam moves to test262-convergence — reinforced by F1); fixer job `xs2rust-endor-stage4-fix-oracle-shim-crash` (opus) posted with full repro, bars, and budget discipline; continuation `port-xs-to-rust-memory-safe-engine-s11` parked `--blocked --blocked-on` the fixer, carrying the full spec with updated supervisor state (verify fix → post stage-4 acceptance → dispatch the stage-5 compiler-port orchestration); journal progress entry posted (`entries/2026/07/06/210935Z-progress-gardener-22045c.md`).
+
+**Follow-ups:** s11 owns fixer verification, the acceptance comment, and stage-5 dispatch. Incidental repair worth noting: the bare clone's `xs2rust-endor` branch ref was pinned stale by the dead lockdown-harden worktree (checked out by name against convention); I detached it and fast-forwarded — s11's spec carries the recipe if it recurs.
