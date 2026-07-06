@@ -1,11 +1,4 @@
----
-gate: orchestrated
-orchestrated_by: xs2rust-endor-strings-utf16
-priority: normal
-roadmap: xs2rust-endor
-posted_by: producer
-posted_at: 2026-07-05T21:42:21Z
----
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-06T03:04:03Z -->
 
 ---
 model: opus
