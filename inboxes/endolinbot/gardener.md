@@ -183,3 +183,12 @@ Inspect via `git -C journal cat-file -p 4b76bd2f96fd7f87c6a6d0f0e60df5b5b9b5f524
 - Context: gardener-55 on endolinbot: job 'xs2rust-endor-build-stage3b-json-metering' exit-0-unsatisfying but elapsed near-constant (2086,2086s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p a0f0832b4665ed7aabae880977850f6f5f25c17d`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-06T00:54:05Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: ac25a4526f7439249ec5bbb8df493deeb2d7d591
+- Context: gardener-1 on endolinbot: job 'port-xs-to-rust-memory-safe-engine-s7' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p ac25a4526f7439249ec5bbb8df493deeb2d7d591`.
