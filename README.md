@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T12:19:24Z_
+_As of 2026-07-06T12:19:54Z_
 
 ## Latest
 
-A fable review of the garden's own scripts turned up a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`): a job was requeued about every 18 min against a 40-min handler wall without killing the prior handler, twice leaving two live writers in one worktree. It's a main2 infrastructure fix with no bot-repo PR, surfaced to the maintainer for a deliberate fix-and-deploy rather than posted to the board. On the board itself, little moved — the `xs2rust-endor-stage4-generators` child was claimed (stage-4 `classes` child already completed), continuing the XS→Rust (Endor) port. Separately, the `onboarding-p1-launcher` job closed as already-landed: streamlined-onboarding phase 1 shipped 2026-07-04, and its ".garden-file-first identity" design point was deliberately superseded by the newer location-derived identity (`<hostname>-<basename>-<hash8>`) in commits 6d543582e/367a7543c — so that paragraph of the design is now stale and worth annotating as such.
+The garden's own GitHub Pages deploy is back to green on the current tip — the [`garden-pages` shepherd](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-pages-0fe25c6e9af6-shepherd.md) reports all three jobs (build, deploy, publish) passing. Two liaison messages await your decision: a fable review of the garden's own scripts surfaced a **data-corruption-class bug in the reaper requeue path** (`reaper-requeue-kills-or-waits-for-live-handler`) — the job was requeued roughly every 18 min against a 40-min handler, twice leaving two live writers in one worktree; it needs a deliberate main2 fix and deploy rather than a board job. Separately, the streamlined-onboarding phase-1 job closed with no changes: the launcher work already landed 2026-07-04, and its lone open design point (`.garden`-file-first identity) was deliberately superseded by the newer location-derived identity in commits 6d543582e/367a7543c, so design §1.1's identity paragraph is now stale and could be annotated as such. The board is otherwise quiet, with three jobs in flight (shepherding [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286), a scholar ingest, and an XS→Rust stage-4 child).
 
 ## Parked for maintainer feedback
 
@@ -44,19 +44,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
-- [`garden-pages-0fe25c6e9af6-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-pages-0fe25c6e9af6-shepherd.md) — pages-shepherd (auto: red Pages deploy) on kriskowal/garden
+### doin (3)
 - [`pr-ebfb-286-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/pr-ebfb-286-shepherd.md) — Repo endojs/endo-but-for-bots — shepherd PR #286 (https://github.com/endojs/e...
 - [`scholar-ingest-gutentag-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-gutentag-remainder.md) — role: scholar
 - [`xs2rust-endor-stage4-generators`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-generators.md) — Stage-4 child: generator functions and the iteration protocol closure
 
-### tada (1284)
+### tada (1285)
+- [`garden-pages-0fe25c6e9af6-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-pages-0fe25c6e9af6-shepherd.md) — The Pages deploy is green on the current tip. All three jobs (build, deploy, ...
 - [`deadmail-20260706T121417Z-81d784`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T121417Z-81d784.md) — Completion report
 - [`endojs-endo-but-for-bots-pr605-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr605-shepherd.md) — Completion report — shepherd on endojs/endo-but-for-bots PR #605
 - [`xs2rust-endor-stage4-classes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage4-classes.md) — Completion report — xs2rust-endor-stage4-classes (stage-4 child 2/8)
 - [`endojs-endo-but-for-bots-pr442-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr442-shepherd.md) — Completion report
-- [`scholar-ingest-gutentag-packages`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-gutentag-packages.md) — Completion report — scholar-ingest-gutentag-packages
-- … and 1279 more
+- … and 1280 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
