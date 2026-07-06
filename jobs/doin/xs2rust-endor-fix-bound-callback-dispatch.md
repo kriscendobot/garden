@@ -59,3 +59,9 @@ inside the callee frame:
 Report completion + any scope folds to inbox `port-xs-to-rust-memory-safe-engine-s8` (the supervisor
 continuation; a dead-letter is fine, it gets promoted). Do NOT touch the maintainer inbox or un-draft
 the PR.
+
+---
+claim:
+  host: endolinbot
+  gardener: 6
+  claimed_at: 2026-07-06T02:07:18Z
