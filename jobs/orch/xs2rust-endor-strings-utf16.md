@@ -2,7 +2,7 @@
 order: serial
 children: xs2rust-endor-strings-utf16-design xs2rust-endor-strings-utf16-build xs2rust-endor-strings-utf16-test
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-07-06T02:14:42Z
 ---
