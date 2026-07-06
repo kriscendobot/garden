@@ -39,3 +39,9 @@ If none of the above changed, this is a no-op: record the skip verdict and exit.
 The standing hourly scholar-library-cycle otherwise covers general refresh; this
 job just carries the dialog-db-specific re-survey checklist so it is not lost.
 No fork or upstream actions.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  claimed_at: 2026-07-06T16:56:55Z
