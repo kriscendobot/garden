@@ -77,12 +77,7 @@ Dual-run `built-ins/Object/defineProperty`, `built-ins/Object/getOwnPropertyDesc
 plus a re-run of `built-ins/Object` whole-tree — divergent=0, covered strictly above the current
 baseline (Object 63), every skip named. Lock the new sections as cargo-test bars.
 
-<!-- garden-reaped: 1 -->
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolinbot2
-  gardener: 12
-  claimed_at: 2026-07-06T11:04:10Z
+
+<!-- garden-reaped: 2 -->
