@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-06T02:22:04Z_
+_As of 2026-07-06T02:22:39Z_
 
 ## Latest
 
-[endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608), the standalone Docker self-host slice, was run through a focused code panel and un-drafted — it's now OPEN/MERGEABLE with CI green (15/15) and in the review queue. The panel's one independently-confirmed must-fix: the documented `docker exec <ctr> endo …` control command would have failed with "endo: not found" because `node_modules/.bin` wasn't on the image PATH (fixed in `8e6749d8d`, plus doc/security should-fixes). Honest caveat: no Docker in the sandbox, so the PATH fix is correct by construction but not runtime-proven — an end-to-end `docker build`/`docker exec` smoke test needs a Docker-capable host. Per proxy's steer, [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot's broader gateway-bearing parallel attempt, currently CONFLICTING) was left untouched; whether it's closed-as-superseded, kept, or reconciled is a maintainer call.
+[endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared its gauntlet and is now the headline: un-drafted as a standalone Docker self-host slice, OPEN/MERGEABLE with CI green (15/15) and sitting in your review queue. A code panel independently flagged one real must-fix from four seats — the documented `docker exec … endo` control command would have failed with "endo: not found" because `node_modules/.bin` wasn't on the image PATH — now fixed (commit 8e6749d8d) alongside socket-parent mkdir, PID-1 zombie reaping, and several doc corrections. One honest caveat: the gardener couldn't build or run the image (no Docker in the sandbox), so the PATH fix is correct by construction but not runtime-proven; an end-to-end `docker build` smoke test needs a Docker-capable host. Per proxy's steer, [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot's broader gateway-bearing parallel attempt) was left completely untouched — whether it's closed-as-superseded, kept, or reconciled with #608 is your call, with the overlap spelled out in the completion note.
 
-Two things need your attention beyond the review queue. First, a **host-identity drift alarm** on the true leader: `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER and **every leader-only singleton is being skipped** — fix is to correct `/home/kris/.garden` to `endolinbot` and restart the pool (or record the override if it's a deliberate parallel pool). Second, the `design-streamlined-onboarding` design completed and awaits your answers to its § 5 open questions — especially Q2, the security-flavored auto-mode default — before its four build jobs can be posted as an orchestration. Separately, the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) surfaced 7 gaps and no `take`-semantics gap despite the job spec paraphrasing one; the gardener correctly declined to invent it, and a dedicated `take`-semantics analysis would be a fresh probe on your say-so.
+Two items want your attention beyond the review queue: the identity-drift guard fired three times on the **endolinbot** host, reporting `GARDEN=driftname` diverging from `hostname -s=endolinbot` with no recorded override — which makes `is-main-host` report FOLLOWER and silently skips every leader-only singleton on the true leader host (fix: correct `/home/kris/.garden` back to `endolinbot` and restart the pool). And the `design-streamlined-onboarding` job completed — `designs/streamlined-onboarding.md` awaits your answers to its §5 open questions, especially the security-flavored Q2 auto-mode default, before its four gated build jobs can be posted as an orchestration.
 
 ## Parked for maintainer feedback
 
@@ -152,8 +152,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`build-endoclaw-timer-daemon-formula-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endoclaw-timer-daemon-formula-integration.md) — ---
+- [`improve-mentor-claude-transient-claude-exit`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-mentor-claude-transient-claude-exit.md) — scripts/jobs/handlers/mentor-claude.sh
 
 ### tada (1235)
 - [`xs2rust-endor-strings-utf16-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16-design.md) — Job complete. Report:
