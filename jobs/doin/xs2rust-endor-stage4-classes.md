@@ -74,3 +74,9 @@ Dual-run `language/statements/class` per-subtree (it is large — walk subtrees 
 `definition/`, `subclass/`, then aggregate) and `language/expressions/class` similarly;
 divergent=0, every skip named, covered counts recorded in the README evidence block and locked
 as cargo-test bars. Re-run `built-ins/Function` (39 baseline) to confirm no regression.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  claimed_at: 2026-07-06T11:55:42Z
