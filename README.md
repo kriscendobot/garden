@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T18:07:47Z_
+_As of 2026-07-06T18:13:54Z_
 
 ## Latest
 
-Shepherds drove [endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616) and [endo-but-for-bots#615](https://github.com/endojs/endo-but-for-bots/pull/615) (agent-tools shell capability) to green CI, and the daemon-agent-tools Phase 3 git-tools build completed; the endoclaw timer Phase 2 tick-delivery build and the xs2rust Endor Stage-4 module-machinery port are both now in flight. Three items need a maintainer decision. A fable review of the garden's own scripts turned up a **data-corruption-class bug** in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`), which twice left two live writers in one worktree — surfaced as a main2 infra fix (no bot-repo PR) warranting a deliberate fix and deploy. The Gateway Feature 8 build (`/ocapn` WebSocket endpoint) was **held rather than opened as a competing PR**: it is a superset of the already-in-flight draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), which implements only the path-scheme half and explicitly defers the socket handoff, with the gardener recommending rescoping to build atop #577. Separately, the streamlined-onboarding Phase 1 job closed as already-landed, flagging that the design's `.garden`-file identity paragraph is now superseded by the location-derived scheme in commits 6d543582e/367a7543c and could be annotated stale.
+Recent completions cleared CI for [endo-but-for-bots#615](https://github.com/endojs/endo-but-for-bots/pull/615) (agent-tools shell capability) and [endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616), both now green, alongside the phase-3 git-tools build for the daemon agent-tools stack and a deterministic-overrun-alert improvement to the gardener. Four items need maintainer attention. A fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`): a job was requeued every ~18 min against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree — a main2 infra fix warranting a deliberate fix and deploy. The Gateway Feature-8 `/ocapn` WebSocket endpoint build was **held** rather than opened as a PR because it collides with the in-flight [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) (which implements only the path-naming half and defers the socket handoff); the gardener preserved its superset branch and asks whether to re-scope on top of #577 (its recommendation), supersede #577, or drop the branch. The `onboarding-p1-launcher` job closed as already-satisfied, flagging that the design's `.garden`-file identity is now stale, superseded by the location-derived identity landed in 6d543582e/367a7543c. Finally, the foreman reports `build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery` recurred without milestone progress and may be stuck — it and `xs2rust-endor-stage4-modules` are the only two jobs in flight, with an empty todo queue.
 
 ## Parked for maintainer feedback
 
@@ -58,6 +58,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > (c) Drop my branch.
 >
 > Recommendation: (a) — #577 is the sanctioned "one uncovered Phase-1 increment" for the naming and is further along the gauntlet; the socket handoff is a clean follow-on that reuses its path scheme.
+
+- `20260706T181347Z-a1dca0` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T181347Z-a1dca0.md)
+
+> foreman: next step 'build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery' recurred after the previous post drained without milestone progress. Holding the re-post pending review; it may be stuck.
 
 
 ## Board
