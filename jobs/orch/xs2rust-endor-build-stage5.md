@@ -2,7 +2,7 @@
 order: serial
 children: xs2rust-endor-stage5-lexer xs2rust-endor-stage5-parser-expr xs2rust-endor-stage5-parser-stmt xs2rust-endor-stage5-scoper xs2rust-endor-stage5-coder-expr xs2rust-endor-stage5-coder-decl xs2rust-endor-stage5-byte-identity
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-07-06T21:33:32Z
 ---
