@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: supervise-transcript-capture
-priority: normal
 role: builder
-posted_by: orchestrator
-posted_at: 2026-07-06T23:39:51Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-06T23:58:07Z -->
 
 role: builder
 
