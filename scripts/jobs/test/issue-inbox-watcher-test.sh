@@ -87,6 +87,18 @@ exit 0
 EOF
 chmod +x "$MSGSTUB"
 
+# maint-send stub (GARDEN_ISSUE_MAINT_SEND): records each surfaced would-be-maintainer
+# message. $1 is the target inbox ("maintainer"); the body arrives on STDIN. Appends
+# a `---` delimited record (target + body) to IIW_MAINTLOG so a test can assert the
+# author login appears and the untrusted comment body does NOT. Always succeeds.
+MAINTSTUB="$TR/maint-stub.sh"
+cat > "$MAINTSTUB" <<'EOF'
+#!/bin/bash
+{ printf 'MAINT-SEND %s\n' "$1"; cat; printf '\n---\n'; } >> "${IIW_MAINTLOG:?set IIW_MAINTLOG}"
+exit 0
+EOF
+chmod +x "$MAINTSTUB"
+
 # reactji stub: log "<surface> <id> <content>" to IIW_REACTLOG and a "react"
 # marker to IIW_SEQLOG (when set). Tolerant of unset logs (→ /dev/null) and always
 # succeeds, so every run_watcher call uses it INSTEAD of the real gh-calling handler
@@ -115,19 +127,21 @@ cursor_seen() {  # cursor_seen <state-dir> <bare>  -> prints last_seen
     "$JOBS/cursor-get.sh" "issues/$SLUG" | sed -n 's/^last_seen:[[:space:]]*//p' | head -1
 }
 
-run_watcher() {  # run_watcher <state> <bare> <fixture> <postlog> <msglog> <errlog> [reactlog] [seqlog] [reactji]
+run_watcher() {  # run_watcher <state> <bare> <fixture> <postlog> <msglog> <errlog> [reactlog] [seqlog] [reactji] [maintlog]
   # The reactji handler is ALWAYS stubbed (default $REACTSTUB) so a test never hits
-  # the live GitHub API; reactlog/seqlog default to throwaway sinks so the existing
-  # cases need not pass them.
+  # the live GitHub API; reactlog/seqlog/maintlog default to throwaway sinks so the
+  # existing cases need not pass them.
   env GARDEN_STATE="$1" JOURNAL_REMOTE="$2" JOURNAL_BRANCH="$BRANCH" \
       GARDEN_GARDEN_REPO="$REPO" \
       GARDEN_MAINTAINERS_ALLOWLIST="$ALLOW" \
       IIW_FIXTURE="$3" IIW_POSTLOG="$4" IIW_MSGLOG="$5" \
       IIW_REACTLOG="${7:-$TR/react-sink.log}" IIW_SEQLOG="${8:-$TR/seq-sink.log}" \
+      IIW_MAINTLOG="${10:-$TR/maint-sink.log}" \
       GARDEN_ISSUE_SOURCE="$SRCSTUB" \
       GARDEN_ISSUE_REACTJI="${9:-$REACTSTUB}" \
       GARDEN_ISSUE_POST="$POSTSTUB" \
       GARDEN_ISSUE_MSG="$MSGSTUB" \
+      GARDEN_ISSUE_MAINT_SEND="$MAINTSTUB" \
       "$JOBS/issue-inbox-watcher.sh" >/dev/null 2>"$6"
 }
 
@@ -293,6 +307,47 @@ run_watcher "$TR/state-k" "$BARE_K" "$FIX_K" "$PL_K" "$ML_K" "$ERR_K"
 grep -q "POST issue-$SLUG-20" "$PL_K" && ok "the earlier (lost) issue was handed to the poster" || bad "earlier issue never posted ($(cat "$PL_K"))"
 grep -q "MSG issue-$SLUG-21" "$ML_K" && ok "the LATER comment was still delivered despite the earlier lost post (no head-of-line block)" || bad "later comment abandoned after the earlier lost post ($(cat "$ML_K"))"
 [ -z "$(cursor_seen "$TR/state-k" "$BARE_K")" ] && ok "cursor frozen at the floor (did not advance past the lost post)" || bad "cursor advanced past a lost post ($(cursor_seen "$TR/state-k" "$BARE_K"))"
+
+# ============================================================================
+# L — SURFACE the would-be maintainer: a dropped NON-maintainer is surfaced ONCE
+# to the maintainer inbox (structured fields only, never the untrusted comment
+# body), deduped per individual, with a distinct message per distinct author. The
+# drop itself stays intact (dispatches nothing, logs the drop) — the surface is
+# purely additive.
+hr; echo "L — surface a dropped non-maintainer to the maintainer inbox (once per person)"; hr
+BARE_L="$TR/l.git"; seed_bare "$BARE_L"
+FIX_L1="$TR/fix-l1.tsv"; FIX_L2="$TR/fix-l2.tsv"; FIX_L3="$TR/fix-l3.tsv"
+PL_L="$TR/post-l.log"; ML_L="$TR/msg-l.log"; ERR_L="$TR/err-l.log"
+MAINT_L="$TR/maint-l.log"; : >"$PL_L"; : >"$ML_L"; : >"$MAINT_L"
+STATE_L="$TR/state-l"
+SECRET='SECRET-INJECTION-PAYLOAD-do-not-leak-this-body'
+# (1) first comment from a non-maintainer → exactly one surfaced message
+row issue-comment 2026-07-06T10:00:00Z 7001 29 mhofman kriskowal open - - \
+  https://github.com/kriskowal/garden/issues/29#issuecomment-7001 "$SECRET" > "$FIX_L1"
+run_watcher "$STATE_L" "$BARE_L" "$FIX_L1" "$PL_L" "$ML_L" "$ERR_L" \
+  "$TR/react-l.log" "$TR/seq-l.log" "$REACTSTUB" "$MAINT_L"
+[ ! -s "$PL_L" ] && [ ! -s "$ML_L" ] && ok "the non-maintainer interaction still dispatched nothing (drop intact)" || bad "dispatched on a non-maintainer (post=$(cat "$PL_L") msg=$(cat "$ML_L"))"
+grep -qi 'non-maintainer' "$ERR_L" && grep -q 'id=7001' "$ERR_L" && ok "drop still logs non-maintainer + id (existing behavior unchanged)" || bad "drop log missing: $(cat "$ERR_L")"
+[ "$(grep -c '^MAINT-SEND maintainer$' "$MAINT_L")" -eq 1 ] && ok "exactly ONE maintainer message surfaced" || bad "expected 1 surfaced message, got $(grep -c '^MAINT-SEND maintainer$' "$MAINT_L") (maintlog: $(cat "$MAINT_L"))"
+grep -q '@mhofman' "$MAINT_L" && ok "the surfaced message names the author login (@mhofman)" || bad "surfaced message does not name the author ($(cat "$MAINT_L"))"
+grep -q 'add-maintainer.sh mhofman' "$MAINT_L" && ok "the surfaced message gives the exact add command" || bad "no add-maintainer command in the message"
+grep -q "kind: access-request" "$MAINT_L" && ok "the surfaced message tags kind: access-request" || bad "no kind tag in the message"
+grep -qF "$SECRET" "$MAINT_L" && bad "SECURITY: the untrusted comment body LEAKED into the maintainer message" || ok "the untrusted comment body is NOT in the message (structured fields only)"
+
+# (2) a SECOND comment from the SAME non-maintainer → NO additional message (dedup)
+row issue-comment 2026-07-06T11:00:00Z 7002 29 mhofman kriskowal open - - \
+  https://github.com/kriskowal/garden/issues/29#issuecomment-7002 'a second ask from the same person' > "$FIX_L2"
+run_watcher "$STATE_L" "$BARE_L" "$FIX_L2" "$PL_L" "$ML_L" "$ERR_L" \
+  "$TR/react-l.log" "$TR/seq-l.log" "$REACTSTUB" "$MAINT_L"
+[ "$(grep -c '^MAINT-SEND maintainer$' "$MAINT_L")" -eq 1 ] && ok "a second comment from the SAME author surfaced NO new message (dedup marker)" || bad "dedup failed: got $(grep -c '^MAINT-SEND maintainer$' "$MAINT_L") messages"
+
+# (3) a DIFFERENT non-maintainer → its own separate message
+row issue-comment 2026-07-06T12:00:00Z 7003 30 someone-else kriskowal open - - \
+  https://github.com/kriskowal/garden/issues/30#issuecomment-7003 'a different collaborator asks' > "$FIX_L3"
+run_watcher "$STATE_L" "$BARE_L" "$FIX_L3" "$PL_L" "$ML_L" "$ERR_L" \
+  "$TR/react-l.log" "$TR/seq-l.log" "$REACTSTUB" "$MAINT_L"
+[ "$(grep -c '^MAINT-SEND maintainer$' "$MAINT_L")" -eq 2 ] && ok "a DIFFERENT non-maintainer got its own separate message" || bad "expected 2 total messages, got $(grep -c '^MAINT-SEND maintainer$' "$MAINT_L")"
+grep -q '@someone-else' "$MAINT_L" && ok "the second surfaced message names the different author (@someone-else)" || bad "second author not named"
 
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr

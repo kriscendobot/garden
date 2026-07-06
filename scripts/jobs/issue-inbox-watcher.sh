@@ -14,7 +14,10 @@
 #     read the watched repo + the maintainer set from journal config
 #       → poll the repo's issues + issue-comments since a durable cursor
 #       → MAINTAINER-TRUST GATE (deterministic, no LLM) — DROP if the author is
-#         not in the journal maintainer set; this runs BEFORE anything reads body
+#         not in the journal maintainer set; this runs BEFORE anything reads body.
+#         A dropped non-maintainer is ALSO surfaced ONCE to the maintainer inbox
+#         (structured fields only, never the untrusted body) so a would-be
+#         collaborator is noticed, not silently ignored.
 #       → NEW ISSUE  → reactji-acknowledge the issue (👀 on the issue itself),
 #                      then post a generic job keyed to the issue spine, carrying
 #                      the issue note (so the doer replies on the right issue thread)
@@ -61,6 +64,8 @@
 #   GARDEN_ISSUE_SOURCE   <owner/name> <since-iso>      -> TSV lines (see below)
 #   GARDEN_ISSUE_POST     <basename> <body-file>        (post-job.sh)
 #   GARDEN_ISSUE_MSG      <doer> <body-file>            (inbox-send.sh)
+#   GARDEN_ISSUE_MAINT_SEND  maintainer  (body on stdin)  (inbox-send.sh — surface a
+#                             dropped non-maintainer once; GARDEN_NO_MAINTAINER_ALERT=1 suppresses)
 #   GARDEN_ISSUE_REACTJI  <owner/name> <surface> <id> <content>  (comment-reactji-gh.sh)
 #   GARDEN_GARDEN_REPO         override owner/name (else journal config/garden-repo)
 #   GARDEN_MAINTAINERS_ALLOWLIST override file (else journal maintainers/allowlist)
@@ -85,6 +90,11 @@ GARDEN_TAG="issue-inbox"
 : "${GARDEN_ISSUE_SOURCE:=$HERE/handlers/issue-source-gh.sh}"
 : "${GARDEN_ISSUE_POST:=$HERE/post-job.sh}"
 : "${GARDEN_ISSUE_MSG:=$HERE/inbox-send.sh}"
+# Surface a would-be maintainer (a non-maintainer who interacted and was dropped)
+# to the maintainer inbox, ONCE per individual. Routed through inbox-send.sh exactly
+# as identity-drift-guard.sh emits its `kind: error` report, and indirected here so
+# the test can stub it (mirrors the GARDEN_ISSUE_POST / GARDEN_ISSUE_MSG seams).
+: "${GARDEN_ISSUE_MAINT_SEND:=$HERE/inbox-send.sh}"
 : "${GARDEN_ISSUE_REACTJI:=$HERE/handlers/comment-reactji-gh.sh}"
 : "${GARDEN_ISSUE_VERIFY_CLONE:=$GARDEN_STATE/issue-inbox/verify}"
 
@@ -212,6 +222,50 @@ is_maintainer() {  # is_maintainer <login>
     if [ "$a" = "$lc" ]; then _MAINT_CACHE[$lc]=y; return 0; fi
   done
   _MAINT_CACHE[$lc]=n; return 1
+}
+
+# --- surface a WOULD-BE maintainer to the maintainer inbox (once per person) --
+# When the trust gate drops a NON-maintainer, the drop is still terminal (log +
+# discard + slide, all unchanged). But a genuine collaborator asking to interact
+# (the real case: mhofman on #29) would otherwise be silently ignored. So we ALSO
+# surface the individual ONCE to the maintainer inbox, so the operator can notice
+# and decide (add them, or ignore). STRUCTURED FIELDS ONLY — the untrusted comment
+# body NEVER enters this message (the whole point of the gate is that the TEXT is
+# untrusted; prompt-injection discipline, roles/COMMON.md). Dedup with a per-author
+# marker under $GARDEN_STATE, created ONLY after a successful send so a failed send
+# retries on the author's next interaction (no silent loss) while a later comment
+# from the same author sends nothing. Escape hatch: GARDEN_NO_MAINTAINER_ALERT=1
+# suppresses the surface entirely (keeps other callers/tests quiet).
+surface_would_be_maintainer() {  # surface_would_be_maintainer <author> <number> <url>
+  local author="$1" number="$2" url="$3" lc marker dir mb
+  [ "${GARDEN_NO_MAINTAINER_ALERT:-}" = 1 ] && return 0
+  [ -n "$author" ] || return 0
+  lc="$(printf '%s' "$author" | tr '[:upper:]' '[:lower:]')"
+  dir="$GARDEN_STATE/issue-inbox/notified-nonmaintainers"
+  marker="$dir/$lc"
+  [ -e "$marker" ] && return 0                 # already surfaced this individual
+  mb="$(mktemp)"
+  {
+    printf 'kind: access-request\n\n'
+    printf '@%s interacted with the garden'\''s issue inbox on %s #%s but is NOT on\n' "$author" "$REPO" "$number"
+    printf 'the maintainer allowlist, so the interaction was DROPPED (dispatched\n'
+    printf 'nothing). If this is a collaborator you want to let drive the garden by\n'
+    printf 'issue, add them:\n\n'
+    printf '    scripts/jobs/add-maintainer.sh %s\n\n' "$author"
+    printf 'After that, FUTURE issues/comments from @%s will dispatch — but THIS one\n' "$author"
+    printf 'was already dropped, so ask them to re-post it (or re-post it yourself)\n'
+    printf 'if it still matters.\n\n'
+    printf 'Interaction: %s\n\n' "$url"
+    printf 'You are shown this ONCE per individual. Reply or archive to dismiss it.\n'
+  } > "$mb"
+  if GARDEN_SENDER="issue-inbox-watcher" "$GARDEN_ISSUE_MAINT_SEND" maintainer < "$mb" >/dev/null 2>&1; then
+    mkdir -p "$dir" 2>/dev/null || true
+    : > "$marker" 2>/dev/null || true
+    log "surfaced would-be maintainer @$author to the maintainer inbox (once)"
+  else
+    log "WARN: failed to surface would-be maintainer @$author (will retry on their next interaction)"
+  fi
+  rm -f "$mb" 2>/dev/null || true
 }
 
 # --- verify a posted job actually reached origin/journal2 --------------------
@@ -473,6 +527,10 @@ while IFS=$'\t' read -r kind created id number author submitter state closed_by 
   # ── MAINTAINER-TRUST GATE — first, deterministic, before ANYTHING reads body ──
   if ! is_maintainer "$author"; then
     log "non-maintainer ${author:-<none>} on $REPO #${number:-?} ($kind id=${id:-?}); dropped (not triaged)"
+    # Drop semantics UNCHANGED (log + count + slide + continue, dispatch nothing).
+    # ADD: surface this individual to the maintainer inbox ONCE so a genuine
+    # collaborator asking to interact is noticed rather than silently ignored.
+    surface_would_be_maintainer "$author" "${number:-?}" "$url"
     dropped=$((dropped+1)); slide "$created"; continue
   fi
 
