@@ -552,6 +552,8 @@ One-paragraph definition / framing.
 - [[other-concept-id]] — relationship.
 ```
 
+Add rows to the `## Sections that touch this concept` table with the same deterministic `scripts/jobs/insert-sections-table-row.sh <concept-file> "<row>"` used for topic pages — it anchors on the concept-page heading variant too, so the row lands inside the table without hand-constructing the whole-file body. (Before job `improve-sections-table-row-concept-heading` the inserter matched only the bare `## Sections` heading, so concept-page rows had to be placed by hand each cycle.)
+
 The `See also` block is allowed (and encouraged) to point at concept-ids that *contradict* or *abandon* the same concept under a different framing. See `crdt-in-formula-persistence` for a worked example: that page covers both where CRDT *shape* is used and where a bidirectional CRDT was *rejected*.
 
 ### Keyword index shape
