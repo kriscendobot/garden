@@ -13946,3 +13946,18 @@ UCAN | ucan-delegation
 User Controlled Authorization Network | ucan-delegation
 did:key | ucan-delegation
 subject command policy | ucan-delegation
+against SQL | sql-language-critique
+Against SQL | sql-language-critique
+SQL critique | sql-language-critique
+why SQL is bad | sql-language-critique
+SQL is inexpressive | sql-language-critique
+inexpressive incompressible non-porous | sql-language-critique
+porous languages | sql-language-critique
+porousness | sql-language-critique
+Some Were Meant For C | sql-language-critique
+Jamie Brandon | sql-language-critique
+Scattered Thoughts SQL | sql-language-critique
+relational model vs SQL | sql-language-critique
+SQL successor | sql-language-critique
+after SQL | sql-language-critique
+SQL COBOL of 2020 | sql-language-critique
