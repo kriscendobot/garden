@@ -27,6 +27,7 @@
 | [frb--readme--reference-semantics](../sections/frb--readme--reference-semantics.md) | frb README | Normative per-operator observation behavior plus the binder-side (left-hand-side) semantics and the `.*` content target. |
 | [frb--readme--reference-syntax-tree-and-language-interface](../sections/frb--readme--reference-syntax-tree-and-language-interface.md) | frb README | parse/compileObserver/compileBinder and the JSON-serializable syntax-tree node types. |
 | [frb--readme--reference-observers-and-binders](../sections/frb--readme--reference-observers-and-binders.md) | frb README | The `observers`/`binders` module function catalog and the incremental combinators (makeNonReplacing, autoCancelPrevious). |
+| [dialog-db--ts-dialog-experimental-react--overview](../sections/dialog-db--ts-dialog-experimental-react--overview.md) | dialog-db react.ts | dialog-db's React binding: useQuery subscribes a query predicate to component state and re-renders on every transaction; useTransaction is the write side. |
 
 ## Sections (grammar and compiler source)
 
