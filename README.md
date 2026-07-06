@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T13:51:29Z_
+_As of 2026-07-06T13:53:25Z_
 
 ## Latest
 
-Little moved on the board this cycle — a second scholar dialog-DB ingest job (`scholar-ingest-dialog-db-remainder-2`) was claimed while the XS→Rust (Endor) stage-4 port continued churning through its children (generators landed, async/await in flight). The signal is in the two maintainer messages. The liaison surfaced a **data-corruption-class bug** the Fable review of the garden's own scripts turned up in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`): a job was being requeued roughly every 18 min against a 40-min handler wall without killing the prior handler, twice yielding two live writers in one worktree — a garden-infrastructure fix warranting a deliberate main2 fix and deploy rather than a board job. Separately, the `onboarding-p1-launcher` job closed as already-satisfied: streamlined-onboarding phase 1 landed 2026-07-04, and its lone open item (`.garden`-file-first identity) was deliberately superseded by this morning's location-derived identity work — so design §1.1's identity paragraph is now stale and could be annotated as superseded unless you want `.garden` naming layered back on top.
+The scholar's dialog-database ingestion run wrapped up (`scholar-ingest-dialog-db-remainder` completed), leaving only its follow-up remainder pass and the `xs2rust` Stage-4 async/await child still in flight; the board is otherwise drained to zero todo. Two maintainer messages want attention: the liaison surfaced a **data-corruption-class bug** from the Fable review of the garden's own scripts — the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`) requeued a job roughly every 18 min against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree; it's a main2 infrastructure fix warranting a deliberate fix + deploy rather than a board job. Separately, the `onboarding-p1-launcher` job closed as already-satisfied: streamlined-onboarding phase 1 landed 2026-07-04, and its lone open design point (`.garden`-file-first identity) was deliberately superseded by the recent switch to location-derived identity — so that paragraph of the design is now stale and could be annotated as such.
 
 ## Parked for maintainer feedback
 
@@ -44,18 +44,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`scholar-ingest-dialog-db-remainder-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder-2.md) — role: scholar
-- [`scholar-ingest-dialog-db-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder.md) — role: scholar
 - [`xs2rust-endor-stage4-async-await`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-async-await.md) — Stage-4 child: async/await over the job queue + the promise double-settle key...
 
-### tada (1299)
+### tada (1300)
+- [`scholar-ingest-dialog-db-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder.md) — scholar-ingest-dialog-db-remainder — done
 - [`scholar-ingest-against-sql`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-against-sql.md) — Completion report
 - [`deadmail-20260706T133852Z-764cda`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T133852Z-764cda.md) — Completion report
 - [`deadmail-20260706T133039Z-fa81df`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T133039Z-fa81df.md) — Completion report — deadmail-20260706T133039Z-fa81df
 - [`scholar-ingest-dialog-db`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db.md) — Completion report
-- [`xs2rust-endor-stage4-generators`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage4-generators.md) — Completion report — stage-4 child 3/8: generator functions & iteration protocol
-- … and 1294 more
+- … and 1295 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
