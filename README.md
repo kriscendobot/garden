@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T16:53:19Z_
+_As of 2026-07-06T16:57:40Z_
 
 ## Latest
 
-Two shepherds are now driving CI on [endo-but-for-bots#615](https://github.com/endojs/endo-but-for-bots/pull/615) (agent-tools shell capability) after its red CI, following the completed Phase-2 build of that same shell-capability feature; the scholar dialog-db ingest continues to churn (cycle 12 landed, 13 in flight) alongside the Stage-4 XS→Rust module-machinery port.
-
-Three things want a maintainer decision. The liaison surfaced a **data-corruption bug in the reaper requeue path** (`reaper-requeue-kills-or-waits-for-live-handler`): a job was requeued every ~18 min against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree — a garden-infra fix warranting a deliberate main2 fix + deploy, not a board job. A gardener building the gateway `/ocapn` WebSocket endpoint (Feature 8) **held rather than open a competing PR**, having found [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) already implements the path-scheme half and defers the socket handoff its own branch delivers; it recommends re-scoping to build on top of #577 and awaits your steer. And the streamlined-onboarding Phase-1 job closed as already-landed, flagging that the design's `.garden`-file identity was deliberately superseded by the newer location-derived identity (commits 6d543582e / 367a7543c) — so design §1.1 is stale and could be annotated.
+Three items need maintainer attention. A Fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`): a job was requeued roughly every 18 min against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree — a garden-infra fix warranting a deliberate main2 fix + deploy, not a board job. Separately, the build of Gateway Feature 8 (the `/ocapn` WebSocket endpoint) was **held rather than opened as a competing PR**: its work is a superset of the already-in-gauntlet [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) (which implements only the path-naming half and defers the socket handoff), and its `src/ocapn-ws.js` is an incompatible parallel rewrite; the gardener preserved branch `feat/gateway-ocapn-ws-endpoint-handoff` (locally verified — 73 ava pass, tsc/eslint/prettier clean) and recommends re-scoping to build the handoff on top of #577, alongside in-flight stack PRs [#392](https://github.com/endojs/endo-but-for-bots/pull/392) and [#413](https://github.com/endojs/endo-but-for-bots/pull/413). Third, the streamlined-onboarding phase-1 job closed as already-landed (commit 8fdbd11e0), flagging that the design's `.garden`-file-first identity was deliberately superseded by the newer location-derived identity (commits 6d543582e/367a7543c), so design §1.1 is now stale. On the board, a shepherd is driving red CI on [endo-but-for-bots#615](https://github.com/endojs/endo-but-for-bots/pull/615) and scholar dialog-DB ingestion continues.
 
 ## Parked for maintainer feedback
 
@@ -66,9 +64,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr615-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr615-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #615
 - [`scholar-ingest-dialog-db-remainder-13`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder-13.md) — role: scholar
+- [`scholar-refresh-dialog-db`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-refresh-dialog-db.md) — role: scholar
 - [`shepherd-endo-but-for-bots-pr615-agent-tools-shell-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr615-agent-tools-shell-capability.md) — ---
 - [`xs2rust-endor-stage4-modules`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-modules.md) — Stage-4 child: module machinery: ModuleSource, module records, namespaces
 
