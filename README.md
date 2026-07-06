@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T20:51:15Z_
+_As of 2026-07-06T20:53:59Z_
 
 ## Latest
 
-The M3 flagship — Claw-like coding via `daemon-agent-tools` — is essentially built: the foreman reports the [#614](https://github.com/endojs/endo-but-for-bots/pull/614)→[#615](https://github.com/endojs/endo-but-for-bots/pull/615)→[#616](https://github.com/endojs/endo-but-for-bots/pull/616)→[#618](https://github.com/endojs/endo-but-for-bots/pull/618) stack CI-green and mergeable but still Draft, with [#618](https://github.com/endojs/endo-but-for-bots/pull/618)'s last un-draft blocker cleared (shepherd confirms all 24 checks green). The gauntlet finished on [#614](https://github.com/endojs/endo-but-for-bots/pull/614) and is now running on [#615](https://github.com/endojs/endo-but-for-bots/pull/615) and [#617](https://github.com/endojs/endo-but-for-bots/pull/617), so the milestone's critical path is now maintainer review, un-draft, and merge rather than more building. Two items need a decision before proceeding: a gardener held Gateway Feature 8 rather than open a competing PR against draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577) (its work is a superset of #577's path-scheme half — it recommends re-scoping to build the socket handoff on top), and a Fable review flagged a data-corruption-class reaper-requeue bug in the garden's own scripts warranting a deliberate main2 fix and deploy. Meanwhile the `xs2rust-endor-build-stage4` orchestration halted on a failed stage-4 modules child (4/8 done), though the follow-on stage4b run completed.
+The M3 flagship — Claw-like coding via `daemon-agent-tools` — is now fully built and waiting on the maintainer: phases 1–3 ([endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), [#616](https://github.com/endojs/endo-but-for-bots/pull/616)) are CI-green and mergeable but still Draft, and phase 4 ([#618](https://github.com/endojs/endo-but-for-bots/pull/618)) has cleared its last un-draft blocker, so the whole #614→#615→#616→#618 stack needs review, un-draft, and merge — a conductor/authority step the foreman can't post. Gauntlets are in flight on [#615](https://github.com/endojs/endo-but-for-bots/pull/615) and [#617](https://github.com/endojs/endo-but-for-bots/pull/617), plus [#566](https://github.com/endojs/endo-but-for-bots/pull/566) (confined HttpClient); [#614](https://github.com/endojs/endo-but-for-bots/pull/614)'s gauntlet finished. Two items need a decision: a gardener held Gateway Feature 8 rather than open a PR that would collide with the path-scheme draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577), recommending its socket-handoff be re-scoped to build on top of #577; and the liaison surfaced a data-corruption bug in the reaper requeue path (two live writers in one worktree) that wants a deliberate main2 fix and deploy. The XS→Rust (Endor) port advanced — stage-4b orchestration completed and the s10 Fable-supervisor job was claimed — but stage-4 halted when its modules child failed after 4 of 8 sub-jobs.
 
 ## Parked for maintainer feedback
 
@@ -77,18 +77,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (4)
-- [`deadmail-20260706T204713Z-8ae72e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260706T204713Z-8ae72e.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr566-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr566-gauntlet.md) — Run the gauntlet on endojs/endo-but-for-bots PR #566 (confined HttpClient, th...
 - [`endojs-endo-but-for-bots-pr615-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr615-gauntlet.md) — Run the gauntlet on endojs/endo-but-for-bots PR #615 (daemon-agent-tools Phas...
 - [`endojs-endo-but-for-bots-pr617-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr617-gauntlet.md) — ---
+- [`port-xs-to-rust-memory-safe-engine-s10`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s10.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
-### tada (1347)
+### tada (1348)
+- [`deadmail-20260706T204713Z-8ae72e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T204713Z-8ae72e.md) — Completion report
 - [`xs2rust-endor-build-stage4b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage4b.md) — orchestration xs2rust-endor-build-stage4b — complete
 - [`xs2rust-endor-stage4-ses-conformance`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage4-ses-conformance.md) — Completion report
 - [`endojs-endo-but-for-bots-pr614-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr614-gauntlet.md) — Completion report — endojs-endo-but-for-bots-pr614-gauntlet
 - [`deadmail-20260706T203108Z-8e19d7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T203108Z-8e19d7.md) — I've traced the full picture and confirmed how the message bus works. My conc...
-- [`endojs-endo-but-for-bots-pr618-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr618-shepherd.md) — All **24 checks pass** — CI is green on head SHA 6e81647. No non-passing chec...
-- … and 1342 more
+- … and 1343 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -103,7 +103,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
 - [`build-daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase3.md) — awaiting `build-daemon-rename-to-manager-phase2` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
-- [`port-xs-to-rust-memory-safe-engine-s10`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s10.md) — awaiting `xs2rust-endor-build-stage4b` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
 ## Watch set
