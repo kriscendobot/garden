@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6200 (530 parent indexes + 5670 children).
+Total section files: 6218 (530 parent indexes + 5688 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -839,6 +839,14 @@ Total section files: 6200 (530 parent indexes + 5670 children).
 - [dialog-db--notes-glossary--terms-core-concepts-and-operations](dialog-db--notes-glossary--terms-core-concepts-and-operations.md)
 - [dialog-db--notes-glossary--terms-querying](dialog-db--notes-glossary--terms-querying.md)
 
+### dialog-db--notes-layered-rule-resolution
+
+- [dialog-db--notes-layered-rule-resolution--caches](dialog-db--notes-layered-rule-resolution--caches.md)
+- [dialog-db--notes-layered-rule-resolution--layer-stack](dialog-db--notes-layered-rule-resolution--layer-stack.md)
+- [dialog-db--notes-layered-rule-resolution--resolution](dialog-db--notes-layered-rule-resolution--resolution.md)
+- [dialog-db--notes-layered-rule-resolution--rule-storage](dialog-db--notes-layered-rule-resolution--rule-storage.md)
+- [dialog-db--notes-layered-rule-resolution--writes-and-tests](dialog-db--notes-layered-rule-resolution--writes-and-tests.md)
+
 ### dialog-db--notes-operator-ir
 
 - [dialog-db--notes-operator-ir--architecture](dialog-db--notes-operator-ir--architecture.md)
@@ -851,6 +859,12 @@ Total section files: 6200 (530 parent indexes + 5670 children).
 - [dialog-db--notes-planning-adornment-and-cost--feasibility-cost-split](dialog-db--notes-planning-adornment-and-cost--feasibility-cost-split.md)
 - [dialog-db--notes-planning-adornment-and-cost--gaps-and-declarable-feasibility](dialog-db--notes-planning-adornment-and-cost--gaps-and-declarable-feasibility.md)
 - [dialog-db--notes-planning-adornment-and-cost--propagator-model](dialog-db--notes-planning-adornment-and-cost--propagator-model.md)
+
+### dialog-db--notes-polarity-and-negation
+
+- [dialog-db--notes-polarity-and-negation--negated-premises-do-not-infer](dialog-db--notes-polarity-and-negation--negated-premises-do-not-infer.md)
+- [dialog-db--notes-polarity-and-negation--positive-narrowing-not-into-negation](dialog-db--notes-polarity-and-negation--positive-narrowing-not-into-negation.md)
+- [dialog-db--notes-polarity-and-negation--settled-points-absent-and-negated-optional](dialog-db--notes-polarity-and-negation--settled-points-absent-and-negated-optional.md)
 
 ### dialog-db--notes-privacy
 
@@ -873,6 +887,13 @@ Total section files: 6200 (530 parent indexes + 5670 children).
 - [dialog-db--notes-query-engine-design--pointers-and-type-checking](dialog-db--notes-query-engine-design--pointers-and-type-checking.md)
 - [dialog-db--notes-query-engine-design--what-the-papers-contribute](dialog-db--notes-query-engine-design--what-the-papers-contribute.md)
 
+### dialog-db--notes-refinements
+
+- [dialog-db--notes-refinements--goal-value-constraints-to-key-ranges](dialog-db--notes-refinements--goal-value-constraints-to-key-ranges.md)
+- [dialog-db--notes-refinements--kinds-stamped-on-scan-terms](dialog-db--notes-refinements--kinds-stamped-on-scan-terms.md)
+- [dialog-db--notes-refinements--lattice-refined-type](dialog-db--notes-refinements--lattice-refined-type.md)
+- [dialog-db--notes-refinements--storage-boundary-and-limits](dialog-db--notes-refinements--storage-boundary-and-limits.md)
+
 ### dialog-db--notes-rule-pipeline
 
 - [dialog-db--notes-rule-pipeline--narrowing-replanning-and-errors](dialog-db--notes-rule-pipeline--narrowing-replanning-and-errors.md)
@@ -882,6 +903,18 @@ Total section files: 6200 (530 parent indexes + 5670 children).
 
 - [dialog-db--notes-rules--defining-rules-and-grounding](dialog-db--notes-rules--defining-rules-and-grounding.md)
 - [dialog-db--notes-rules--formulas-negation-and-transactions](dialog-db--notes-rules--formulas-negation-and-transactions.md)
+
+### dialog-db--notes-scope-and-delegation
+
+- [dialog-db--notes-scope-and-delegation--problem-and-current-state](dialog-db--notes-scope-and-delegation--problem-and-current-state.md)
+- [dialog-db--notes-scope-and-delegation--proposed-any-rooted-scopes](dialog-db--notes-scope-and-delegation--proposed-any-rooted-scopes.md)
+- [dialog-db--notes-scope-and-delegation--usage-and-ucan-mapping](dialog-db--notes-scope-and-delegation--usage-and-ucan-mapping.md)
+
+### dialog-db--notes-space-and-storage
+
+- [dialog-db--notes-space-and-storage--core-types-location-space-storage](dialog-db--notes-space-and-storage--core-types-location-space-storage.md)
+- [dialog-db--notes-space-and-storage--layouts-and-setup-flow](dialog-db--notes-space-and-storage--layouts-and-setup-flow.md)
+- [dialog-db--notes-space-and-storage--mounting-and-two-level-dispatch](dialog-db--notes-space-and-storage--mounting-and-two-level-dispatch.md)
 
 ### dialog-db--notes-sync
 
