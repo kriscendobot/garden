@@ -20,3 +20,9 @@ This is an external web page: acquire it with scripts/jobs/fetch-source.sh <url>
 (do not hand-roll the fetch), and record source provenance per the conventions.
 Add new topic(s) for it if the SQL-critique domain is not already covered rather
 than bending the existing taxonomy. No fork or upstream actions — library only.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 18
+  claimed_at: 2026-07-06T13:29:08Z
