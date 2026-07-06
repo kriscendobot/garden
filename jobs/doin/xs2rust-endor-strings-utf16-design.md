@@ -44,3 +44,9 @@ supervisor's binding-question/approval loop can ratify it. Because this is a loa
 representation decision, **the build child does not start until this design section is
 accepted** (the orchestration sequences design → build → test; the supervisor
 `port-xs-to-rust-memory-safe-engine-*` owns binding-design approval).
+
+---
+claim:
+  host: endolinbot
+  gardener: 12
+  claimed_at: 2026-07-06T02:16:48Z
