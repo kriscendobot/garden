@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6297 (530 parent indexes + 5767 children).
+Total section files: 6307 (530 parent indexes + 5777 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -1077,6 +1077,22 @@ Total section files: 6297 (530 parent indexes + 5767 children).
 - [dialog-db--rust-dialog-query-readme--overview](dialog-db--rust-dialog-query-readme--overview.md)
 - [dialog-db--rust-dialog-query-readme--semantic-attributes](dialog-db--rust-dialog-query-readme--semantic-attributes.md)
 - [dialog-db--rust-dialog-query-readme--semantic-concepts](dialog-db--rust-dialog-query-readme--semantic-concepts.md)
+
+### dialog-db--rust-dialog-repository-guide
+
+- [dialog-db--rust-dialog-repository-guide--collaboration-ucan-delegation](dialog-db--rust-dialog-repository-guide--collaboration-ucan-delegation.md)
+- [dialog-db--rust-dialog-repository-guide--identity-profile-operator-account](dialog-db--rust-dialog-repository-guide--identity-profile-operator-account.md)
+- [dialog-db--rust-dialog-repository-guide--overview](dialog-db--rust-dialog-repository-guide--overview.md)
+- [dialog-db--rust-dialog-repository-guide--querying-concepts-rules-and-artifacts](dialog-db--rust-dialog-repository-guide--querying-concepts-rules-and-artifacts.md)
+- [dialog-db--rust-dialog-repository-guide--repository-and-branch-modes](dialog-db--rust-dialog-repository-guide--repository-and-branch-modes.md)
+- [dialog-db--rust-dialog-repository-guide--setup-storage-and-operator](dialog-db--rust-dialog-repository-guide--setup-storage-and-operator.md)
+- [dialog-db--rust-dialog-repository-guide--syncing-remotes-and-upstream](dialog-db--rust-dialog-repository-guide--syncing-remotes-and-upstream.md)
+- [dialog-db--rust-dialog-repository-guide--writing-semantic-triples](dialog-db--rust-dialog-repository-guide--writing-semantic-triples.md)
+
+### dialog-db--rust-dialog-repository-readme
+
+- [dialog-db--rust-dialog-repository-readme--overview](dialog-db--rust-dialog-repository-readme--overview.md)
+- [dialog-db--rust-dialog-repository-readme--usage-walkthrough](dialog-db--rust-dialog-repository-readme--usage-walkthrough.md)
 
 ### dialog-db--rust-dialog-ucan-readme
 
