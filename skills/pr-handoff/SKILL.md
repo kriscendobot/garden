@@ -1,7 +1,7 @@
 ---
 created: 2026-05-15
-updated: 2026-06-02
-author: gardener
+updated: 2026-07-05
+author: boatman, gardener
 ---
 
 # Skill: pr-handoff
@@ -22,7 +22,7 @@ Not for: master-merge conflict resolution (weaver), title-only updates on an exi
 
 - `gh auth status` shows `kriskowal` as the active identity on this host. Without kriskowal credentials, stop and message liaison; the bot identity must not push to a primary upstream repo. The boatman's `roles/boatman/AGENT.md` § Operating norms documents this precondition; this skill assumes it has been verified.
 - The dispatch prompt carries `identity_switch_authorized: true`.
-- The dispatch names the source PR (`<fork-owner>/<repo>#<n>` and source branch), the upstream repo (`<owner>/<repo>` and target branch), and the human author identity (`Kris Kowal <kris@cixar.com>` by convention).
+- The dispatch names the source PR (`<fork-owner>/<repo>#<n>` and source branch), the upstream repo (`<owner>/<repo>` and target branch), and the human author identity. The email is a **dispatch input**, not a fixed constant: the maintainer names it. When the dispatch leaves it unspecified, confirm rather than default. The two live values in use are `Kris Kowal <kris@agoric.com>` (the plurality on recent `endojs/endo` commits) and `Kris Kowal <kriskowal@kriskowal.com>`; both are registered on the kriskowal account so either links correctly. The code examples below use `kris@agoric.com` as the illustrative default.
 - The local `origin/master` tracking ref is verified against the live remote before any shape that detaches at it (Shapes 1, 2) or at the upstream branch tip (Shape 3) recomputes. After `git fetch origin`, confirm `git rev-parse origin/master` equals `git ls-remote origin master`; if they disagree, the bare clone's `remote.origin.fetch` refspec is missing or narrow, so force the correct ref with `git fetch origin +refs/heads/master:refs/remotes/origin/master` before detaching. Otherwise the recompute lands on a stale tip.
 
 ## Three procedure shapes
@@ -36,7 +36,7 @@ When: no upstream PR exists yet for the source.
 ```sh
 # 0. Identity for this worktree's commits.
 git -C project config user.name 'Kris Kowal'
-git -C project config user.email 'kris@cixar.com'
+git -C project config user.email 'kris@agoric.com'
 
 # 1. Detach at current upstream master.
 git -C project fetch origin
@@ -76,7 +76,7 @@ When: an upstream PR exists, but the source has been rebased onto a newer master
 ```sh
 # 0. Identity, as above.
 git -C project config user.name 'Kris Kowal'
-git -C project config user.email 'kris@cixar.com'
+git -C project config user.email 'kris@agoric.com'
 
 # 1. Detach at current upstream master.
 git -C project fetch origin
@@ -106,7 +106,7 @@ When: an upstream PR exists, the upstream's current head is "healthy and represe
 ```sh
 # 0. Identity, as above.
 git -C project config user.name 'Kris Kowal'
-git -C project config user.email 'kris@cixar.com'
+git -C project config user.email 'kris@agoric.com'
 
 # 1. Detach at the upstream PR's current head, NOT at origin/master.
 git -C project fetch origin
@@ -143,11 +143,11 @@ Approval-persistence note: a fast-forward append does not dismiss approvals unde
 
 ### Single-author case (dominant)
 
-Source commits typically carry `endolinbot <main.barn5084@fastmail.com>` (the bot) or mixed bot/human attributions. The job is to rewrite every commit's author and committer to the named human, typically `Kris Kowal <kris@cixar.com>`.
+Source commits typically carry `endolinbot <main.barn5084@fastmail.com>` (the bot) or mixed bot/human attributions. The job is to rewrite every commit's author and committer to the named human, typically `Kris Kowal <kris@agoric.com>` (see § Preconditions for how the email is chosen).
 
 The mechanism that **works**:
 
-1. Set local repo config first: `git -C project config user.name 'Kris Kowal' && git -C project config user.email 'kris@cixar.com'`.
+1. Set local repo config first: `git -C project config user.name 'Kris Kowal' && git -C project config user.email 'kris@agoric.com'`.
 2. Cherry-pick the source commit (or commits).
 3. `git -C project commit --amend --reset-author --no-edit` per commit. For multi-commit cherry-picks, the practical form is an interactive rebase (`git rebase -i <base>` with each commit marked `reword` or `edit`, then `--reset-author --no-edit` on each).
 4. Verify with `git -C project log <upstream-master-or-tip>..HEAD --pretty=fuller`: every commit shows the target human as both author and committer.
