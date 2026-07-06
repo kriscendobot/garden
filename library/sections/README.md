@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6261 (530 parent indexes + 5731 children).
+Total section files: 6269 (530 parent indexes + 5739 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -874,6 +874,17 @@ Total section files: 6261 (530 parent indexes + 5731 children).
 - [dialog-db--notes-glossary--terms-architecture-storage-and-sync](dialog-db--notes-glossary--terms-architecture-storage-and-sync.md)
 - [dialog-db--notes-glossary--terms-core-concepts-and-operations](dialog-db--notes-glossary--terms-core-concepts-and-operations.md)
 - [dialog-db--notes-glossary--terms-querying](dialog-db--notes-glossary--terms-querying.md)
+
+### dialog-db--notes-guide
+
+- [dialog-db--notes-guide--absent-is-a-claim](dialog-db--notes-guide--absent-is-a-claim.md)
+- [dialog-db--notes-guide--consuming-optional-values-filter-by-default](dialog-db--notes-guide--consuming-optional-values-filter-by-default.md)
+- [dialog-db--notes-guide--inference-in-an-open-world](dialog-db--notes-guide--inference-in-an-open-world.md)
+- [dialog-db--notes-guide--negation-and-absence](dialog-db--notes-guide--negation-and-absence.md)
+- [dialog-db--notes-guide--producing-values-heads-are-contracts](dialog-db--notes-guide--producing-values-heads-are-contracts.md)
+- [dialog-db--notes-guide--running-example-and-two-layers](dialog-db--notes-guide--running-example-and-two-layers.md)
+- [dialog-db--notes-guide--where-errors-surface](dialog-db--notes-guide--where-errors-surface.md)
+- [dialog-db--notes-guide--why-it-is-layered-this-way](dialog-db--notes-guide--why-it-is-layered-this-way.md)
 
 ### dialog-db--notes-incremental-subscriptions
 
