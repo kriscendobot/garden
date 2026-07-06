@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6104 (529 parent indexes + 5575 children).
+Total section files: 6109 (530 parent indexes + 5579 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -7261,6 +7261,7 @@ Total section files: 6104 (529 parent indexes + 5575 children).
 - [metamask-ocap-kernel--packages-ocap-kernel-src-KernelServiceManager-ts](metamask-ocap-kernel--packages-ocap-kernel-src-KernelServiceManager-ts.md) (index)
 - [metamask-ocap-kernel--packages-ocap-kernel-src-vats-VatHandle-ts](metamask-ocap-kernel--packages-ocap-kernel-src-vats-VatHandle-ts.md) (index)
 - [metamask-ocap-kernel--packages-ocap-kernel-src-vats-VatSupervisor-ts](metamask-ocap-kernel--packages-ocap-kernel-src-vats-VatSupervisor-ts.md) (index)
+- [metamask-ocap-kernel--packages-streams-src-BaseDuplexStream-ts](metamask-ocap-kernel--packages-streams-src-BaseDuplexStream-ts.md) (index)
 
 ### metamask-ocap-kernel--docs-glossary-md
 
@@ -7393,6 +7394,10 @@ Total section files: 6104 (529 parent indexes + 5575 children).
 - [metamask-ocap-kernel--packages-kernel-utils-readme--ocap-kernel-utilities-package-purpose](metamask-ocap-kernel--packages-kernel-utils-readme--ocap-kernel-utilities-package-purpose.md)
 - [metamask-ocap-kernel--packages-kernel-utils-readme--ses-lockdown-patch-requirement](metamask-ocap-kernel--packages-kernel-utils-readme--ses-lockdown-patch-requirement.md)
 
+### metamask-ocap-kernel--packages-kernel-utils-src-exo-ts
+
+- [metamask-ocap-kernel--packages-kernel-utils-src-exo-ts--makeDefaultExo-and-makeDefaultInterface](metamask-ocap-kernel--packages-kernel-utils-src-exo-ts--makeDefaultExo-and-makeDefaultInterface.md)
+
 ### metamask-ocap-kernel--packages-ocap-kernel-readme
 
 - [metamask-ocap-kernel--packages-ocap-kernel-readme--ocap-kernel-core-components-package-purpose](metamask-ocap-kernel--packages-ocap-kernel-readme--ocap-kernel-core-components-package-purpose.md)
@@ -7444,6 +7449,12 @@ Total section files: 6104 (529 parent indexes + 5575 children).
 ### metamask-ocap-kernel--packages-streams-readme
 
 - [metamask-ocap-kernel--packages-streams-readme--ses-compatible-streams-gtor-endo-stream-lineage](metamask-ocap-kernel--packages-streams-readme--ses-compatible-streams-gtor-endo-stream-lineage.md)
+
+### metamask-ocap-kernel--packages-streams-src-BaseDuplexStream-ts
+
+- [metamask-ocap-kernel--packages-streams-src-BaseDuplexStream-ts--reader-with-write-shape-drain-pipe-and-idempotent-close](metamask-ocap-kernel--packages-streams-src-BaseDuplexStream-ts--reader-with-write-shape-drain-pipe-and-idempotent-close.md)
+- [metamask-ocap-kernel--packages-streams-src-BaseDuplexStream-ts--syn-ack-synchronization-handshake-and-four-state-machine](metamask-ocap-kernel--packages-streams-src-BaseDuplexStream-ts--syn-ack-synchronization-handshake-and-four-state-machine.md)
+- [metamask-ocap-kernel--packages-streams-src-BaseDuplexStream-ts--sync-gated-next-write-and-mid-stream-resynchronization](metamask-ocap-kernel--packages-streams-src-BaseDuplexStream-ts--sync-gated-next-write-and-mid-stream-resynchronization.md)
 
 ### ocap-history
 
