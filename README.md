@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T21:24:08Z_
+_As of 2026-07-06T21:25:36Z_
 
 ## Latest
 
-The XS→Rust (Endor) port kept moving: stage `s10` completed and `s11` is now claimed and in flight, but the `xs2rust-endor-build-stage4` orchestration **halted** when child `xs2rust-endor-stage4-modules` failed (serial, halt policy) after 4/8 children finished — worth a look before resuming. M3's flagship `daemon-agent-tools` stack is reported fully built: [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), and [#616](https://github.com/endojs/endo-but-for-bots/pull/616) are CI-green and mergeable but still Draft, and phase 4 [#618](https://github.com/endojs/endo-but-for-bots/pull/618) had its last un-draft blocker closed — the critical path is now maintainer review/un-draft/merge of the #614→#615→#616→#618 stack, a conductor step the foreman can't post. Gauntlets are running on [#566](https://github.com/endojs/endo-but-for-bots/pull/566), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), and [#617](https://github.com/endojs/endo-but-for-bots/pull/617). Two items need your steer: a gardener held Gateway Feature 8 rather than open a competing PR against [#577](https://github.com/endojs/endo-but-for-bots/pull/577) (its branch is a superset of #577's deferred socket handoff — recommendation is to re-scope onto #577), and a fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (two live writers in one worktree) flagged as a deliberate main2 fix-and-deploy.
+Board movement was quiet — only a dead-lettered message was picked up — but several decisions are now stacked in the maintainer inbox. The M3 flagship `daemon-agent-tools` stack is fully built and CI-green: [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), and [#616](https://github.com/endojs/endo-but-for-bots/pull/616) are mergeable but still Draft, and [#618](https://github.com/endojs/endo-but-for-bots/pull/618) (phase 4) cleared its last un-draft blocker and now only waits on 1–3 landing — the foreman flags that most of M3 is likewise built into open Drafts, so the critical path is now review-and-merge, not more building. Separately, the fable review of the garden's own scripts surfaced a **data-corruption-class bug** in the reaper requeue path (two live writers in one worktree), a main2 infrastructure fix the liaison is holding for a deliberate fix-and-deploy. The gateway `/ocapn` WebSocket build (Feature 8) was held rather than opened: it's a superset of the in-flight [#577](https://github.com/endojs/endo-but-for-bots/pull/577), whose `ocapn-ws.js` is an incompatible parallel rewrite, and the gardener wants steering (recommending its work be re-scoped on top of #577). Meanwhile the serial `xs2rust-endor-build-stage4` orchestration halted after a child failure (4/8 done), and gauntlets are running on [#566](https://github.com/endojs/endo-but-for-bots/pull/566), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), and [#617](https://github.com/endojs/endo-but-for-bots/pull/617).
 
 ## Parked for maintainer feedback
 
@@ -76,7 +76,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
+- [`deadmail-20260706T212022Z-9e5e9a`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260706T212022Z-9e5e9a.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr566-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr566-gauntlet.md) — Run the gauntlet on endojs/endo-but-for-bots PR #566 (confined HttpClient, th...
 - [`endojs-endo-but-for-bots-pr615-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr615-gauntlet.md) — Run the gauntlet on endojs/endo-but-for-bots PR #615 (daemon-agent-tools Phas...
 - [`endojs-endo-but-for-bots-pr617-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr617-gauntlet.md) — ---
