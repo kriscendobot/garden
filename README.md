@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-06T03:51:31Z_
+_As of 2026-07-06T03:52:57Z_
 
 ## Latest
 
-A deterministic identity-drift guard fired three times on the true leader host: `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded parallel-pool override, so `is-main-host` reports FOLLOWER and **every leader-only singleton (foreman, scheduler, watchers, recovery) is being skipped** — the fix is to correct `/home/kris/.garden` back to `endolinbot` and restart the pool. Meanwhile the [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) gauntlet finished: it was reframed as the standalone Docker self-host slice, run through a code panel, and un-drafted — now OPEN/MERGEABLE with CI green (15/15). The panel's one must-fix (four seats flagged it independently) was a broken `docker exec … endo` control command because `node_modules/.bin` wasn't on the image PATH; caveat, the gardener couldn't `docker build`, so the fix is correct-by-construction but not runtime-proven. The broader parallel [#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot, mention-only) was left untouched — whether to close it as superseded is a maintainer call. The `endoclaw-network-fetch` HTTP-client build was declined as redundant: the capability is already delivered by garden-owned [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (the blessed `cli-http-client` design) and contributor [#566](https://github.com/endojs/endo-but-for-bots/pull/566); recommendation is to shepherd #286 and mark the stale design record superseded. Two decisions await you: the `streamlined-onboarding` design's §5 Q2 auto-mode default (gating four build jobs), and whether the [#605](https://github.com/endojs/endo-but-for-bots/pull/605) probe should get a fresh `take`-semantics analysis (the report honestly noted the spec's "Gap 5" didn't exist in the published probe). The XS→Rust (Endor) port keeps advancing — stage-8 and the UTF-16 strings orchestration completed, stage-4 accessors now in flight.
+The most urgent signal is operational, not a PR: the deterministic identity-drift guard fired three times from `endolinbot`, reporting that `GARDEN=driftname` diverges from the real hostname with no recorded parallel-pool override — so `is-main-host` reads FOLLOWER on the true leader and **every leader-only singleton (foreman, scheduler, watchers, recovery) is being skipped**. Fix is to correct `/home/kris/.garden` to `endolinbot` and restart the pool (the endolinbot2 regression class).
+
+On the PR side, [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared the gauntlet as the standalone Docker self-host slice: un-drafted, OPEN, MERGEABLE, CI green (15/15), now in the review queue. The panel's one must-fix was a broken `node_modules/.bin` PATH that would have made the documented `docker exec … endo` command fail; the fix is correct by construction but not runtime-proven (no Docker in the sandbox). Per proxy's steer, [#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot's broader gateway-bearing attempt, mention-only, CONFLICTING) was left untouched — whether to close it as superseded is a maintainer call.
+
+Two build jobs deliberately did **not** open new PRs, surfacing overlaps instead: the confined-HTTP-client pillar is already covered by garden-owned [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (blessed `cli-http-client.md` design) and external [#566](https://github.com/endojs/endo-but-for-bots/pull/566) — recommendation is to shepherd #286 and mark the stale `endoclaw-network-fetch` design record superseded. The Docker daemon-selfhost keystone splits three ways ([#134](https://github.com/endojs/endo-but-for-bots/pull/134), #608, #568) and raises a real architecture question: the design record still describes the `ws-gateway.js` path kriskowal said in May was being subsumed by `@endo/gateway`, which has since landed a package skeleton but is not yet wired into the daemon — a decision (refresh #134 / extend #608 / rebuild on `@endo/gateway`) is needed before more work. Separately, the `design-streamlined-onboarding` design is ready for review of its §5 open questions (notably the auto-mode default), gating four build jobs.
 
 ## Parked for maintainer feedback
 
@@ -157,25 +161,49 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Recommendation: The garden's delivery vehicle for this pillar is PR #286 (blessed design, garden-owned) — shepherd it through the gauntlet. #566 is the external contributor's parallel take on the original design; leave it be (mention-only). Mark the endoclaw-network-fetch design record Superseded-by cli-http-client (it currently reads "Not Started", which is stale). If you instead want a garden-owned standalone exo package on master base, say so and I'll build it.
 
+- `20260706T035229Z-97d0d7` — from gardener:build-endo-but-for-bots-daemon-docker-selfhost, reply_to `build-endo-but-for-bots-daemon-docker-selfhost` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T035229Z-97d0d7.md)
+
+> Builder job `build-endo-but-for-bots-daemon-docker-selfhost` (design: `daemon-docker-selfhost.md`, "M3 keystone"): I did NOT open a 4th PR — three overlapping open PRs already implement this, and the maintainer previously deferred the exact approach the design record describes. Surfacing for adjudication.
+>
+> ## Existing open PRs (endojs/endo-but-for-bots)
+> - **#134** (kriscendobot, DRAFT, base `llm`, CHANGES_REQUESTED, last touched 2026-06-28) — the COMPREHENSIVE one: docker/ + `ws-gateway.js` CIDR gate + `daemon-node.js` wiring + tests + static-file serving + a `docker.yml` CI workflow. Stale.
+> - **#608** (kriscendobot, NON-draft, base `master-eecc683`, MERGEABLE, created 2026-07-05) — docker/ files ONLY (Dockerfile, entrypoint, compose, README, .dockerignore). Missing clause 4 (remote authentication) entirely.
+> - **#568** (0xpatrickbot, DRAFT, base `llm`, CONFLICTING, 2026-06-29) — a third-party attempt, 12 files.
+>
+> ## The architecture question (why I'm asking, not building)
+> kriskowal's own review on **#134** (2026-05-13) requested changes and said: *"We need to make progress on the Endo Gateway concept before we can sensibly run under Docker. The Gateway subsumes the ws-gateway.js here with the Weblet virtual host and will require its own entrypoint. The gateway itself is presumably also a daemon, but instantiated at the system level."* Issue #173 (Endo Gateway requirements) is now CLOSED and the `@endo/gateway` package skeleton has landed (`packages/gateway/src/{config,vhost}.js`, `ENDO_HTTP_ADDR`, `0.0.0.0:8920` default) — but the daemon still runs its runtime gateway on `ws-gateway.js`; `@endo/gateway` is not yet wired into the daemon's path.
+>
+> So the design record (`daemon-docker-selfhost.md`, still "Not Started") describes the **ws-gateway.js** approach the maintainer said was being subsumed. Building clause 4 (remote auth) into `ws-gateway.js` now — which #134 already did and which I independently re-verified works — may be building on the foundation the maintainer wants replaced by `@endo/gateway`.
+>
+> ## What I verified (useful either way)
+> I implemented + tested the gateway remote-auth wiring on base `llm`: wired the already-built-but-unwired `cidr.js makeAddressChecker` into `ws-gateway.js` (localhost-only by default, `ENDO_GATEWAY=remote` / `ENDO_GATEWAY_ALLOWED_CIDRS` opt-in, closes disallowed clients with the README's documented "Only local connections allowed", TLS warning), plus `daemon-node.js` env reads and 5 new ava tests in `ws-gateway.test.js` (all green; the reject test is regression-proven — it fails when the gate is removed). This confirms the ws-gateway approach is a ~40-line, testable change. It also confirms **the gateway-bearer-token-auth design (marked Complete) shipped its README + checker + unit tests but its wiring into ws-gateway.js was never landed** — that gap is real regardless of which PR wins.
+>
+> ## Recommendation
+> Consolidate to ONE PR and settle the base architecture first:
+> 1. Decide whether Docker remote-auth wires into **ws-gateway.js** (current design record; #134's approach) or should wait for/build on **`@endo/gateway`** (the maintainer's 2026-05 steer). If ws-gateway is fine for now, the fastest path is to refresh **#134** (rebase, add the CI test kriskowal asked for, address the CHANGES_REQUESTED) rather than start fresh — it already has everything.
+> 2. Close the losers (#568 conflicting third-party; #608 or #134 depending on the choice).
+> 3. Update `daemon-docker-selfhost.md` if the gateway pivot changes the design.
+>
+> I have the verified gateway wiring + tests ready to hand to whichever PR becomes canonical. Tell me which way to go (refresh #134 / extend #608 / rebuild on @endo/gateway) and I'll execute.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`build-endo-but-for-bots-daemon-docker-selfhost`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-daemon-docker-selfhost.md) — ---
-- [`deadmail-issue-comment-4888913059`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4888913059.md) — Dead-lettered message — pick up its intent
 - [`gauntlet-endo-but-for-bots-pr609-endoclaw-timer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr609-endoclaw-timer.md) — ---
 - [`mention-kriskowal-garden-26-fd0eac1c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mention-kriskowal-garden-26-fd0eac1c.md) — attention directive from @-mention on kriskowal/garden #26
 - [`xs2rust-endor-stage4-accessors-attributes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-accessors-attributes.md) — Stage-4 child: accessor properties, full property descriptors, freeze/seal (h...
 
-### tada (1248)
+### tada (1249)
+- [`deadmail-issue-comment-4888913059`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4888913059.md) — Completion report
 - [`port-xs-to-rust-memory-safe-engine-s8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s8.md) — Completion report — port-xs-to-rust-memory-safe-engine-s8
 - [`deadmail-20260706T033150Z-a4206a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T033150Z-a4206a.md) — Completion report
 - [`xs2rust-endor-strings-utf16`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16.md) — orchestration xs2rust-endor-strings-utf16 — complete
 - [`xs2rust-endor-strings-utf16-test`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16-test.md) — Completion report: xs2rust-endor-strings-utf16-test (child 3/3)
-- [`fix-ensure-project-worktree-silent-stale-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-ensure-project-worktree-silent-stale-fetch.md) — Inbox is empty. Job complete.
-- … and 1243 more
+- … and 1244 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
