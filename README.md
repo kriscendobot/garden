@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-06T18:25:48Z_
+_As of 2026-07-06T18:26:55Z_
 
 ## Latest
 
-The XS→Rust (Endor) port hit a wall: the `xs2rust-endor-build-stage4` orchestration **halted** after its module-machinery child ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) blew past the 2400s handler budget on two straight cycles — the reaper poisoned it and parked the work in the plan queue, where it now waits (with three sibling stage-4 children swept) for a maintainer to split the job, raise the timeout, or drop it. Separately, Gateway Feature 8 (the `/ocapn` WebSocket endpoint) was **held rather than opened**: the gardener found its work is a superset of open draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), which lands only the path-naming half, and asks whether to build the socket handoff on top of #577, supersede it, or drop the branch (recommendation: build on top). A fable review of the garden's own scripts surfaced a **data-corruption-class bug in the reaper requeue path** — twice producing two live writers in one worktree — flagged for a deliberate main2 fix and deploy. The foreman also warns that `build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery` may be stuck, having recurred without milestone progress. On the green side, the [endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616) shepherd drove CI to green, and the daemon git-tools phase-3 build, filesystem-watcher work, and the deterministic overrun-alert improvement all completed.
+The **xs2rust-endor-build-stage4** orchestration (Hardened JavaScript port for [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) **halted** after 4/8 children: the serial child `xs2rust-endor-stage4-modules` (module machinery — ModuleSource, records, namespaces) blew its 2400s handler wall twice, so the reaper parked it as a poison job in `plan/` (held pending a human `promote-plan.sh`); the supervisor stage `port-xs-to-rust-memory-safe-engine-s9` was promoted to `doin` to carry the port forward. Triage needs a decision: split the module job, raise its timeout, or fix what runs long.
+
+Three items want maintainer steering. A **garden-infrastructure data-corruption bug** surfaced from the Fable review of the garden's own scripts — the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`) twice left two live writers in one worktree by requeuing a job every ~18 min against a 40-min handler; the liaison flags it as a deliberate main2 fix + deploy (no bot-repo PR). The Gateway `/ocapn` WebSocket handoff build was **held rather than opened as a competing PR**: it's a superset of the in-flight draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) (path-scheme half only) but rewrites the same module incompatibly; the gardener recommends re-scoping to build the socket handoff on top of #577. Separately, the foreman is holding a re-post of `build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery`, which recurred without milestone progress and may be stuck.
+
+No action needed on `onboarding-p1-launcher`: phase 1 already landed (commit 8fdbd11e0), and the design's `.garden`-file identity was deliberately superseded by the location-derived identity in 6d543582e/367a7543c.
 
 ## Parked for maintainer feedback
 
@@ -169,8 +173,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery.md) — ---
+- [`port-xs-to-rust-memory-safe-engine-s9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s9.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
 ### tada (1327)
 - [`xs2rust-endor-build-stage4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage4.md) — orchestration xs2rust-endor-build-stage4 — HALTED
@@ -194,7 +199,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
 - [`build-daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase3.md) — awaiting `build-daemon-rename-to-manager-phase2` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
-- [`port-xs-to-rust-memory-safe-engine-s9`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s9.md) — awaiting `xs2rust-endor-build-stage4` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
 ## Watch set
