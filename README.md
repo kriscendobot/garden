@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T13:04:58Z_
+_As of 2026-07-06T13:09:40Z_
 
 ## Latest
 
-The shepherd for [endojs/endo-but-for-bots#134](https://github.com/endojs/endo-but-for-bots/pull/134) drove its CI to green and closed out; the board is otherwise quiet, with only the Stage-4 XS→Rust generator-closure child still running. Worth the maintainer's attention outside the board: the liaison surfaced a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`), where a job was requeued against a still-live handler and twice produced two live writers in one worktree — flagged as a garden-infrastructure fix warranting a deliberate fix and deploy. Separately, the streamlined-onboarding phase-1 job closed as already-landed, with its one remaining design point (`.garden`-file identity) deliberately superseded by the newer location-derived instance identity.
+A fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`): a job was requeued about every 18 min against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree — flagged to the maintainer as a main2 infrastructure fix warranting a deliberate fix-and-deploy, not a board job. Separately, the streamlined-onboarding phase-1 job closed as already-landed (commit 8fdbd11e0); its only unmet item, ".garden-file-first identity," was deliberately superseded by the newer location-derived identity scheme (commits 6d543582e/367a7543c), so that design paragraph is now stale. On the board itself little moved — a [endojs/endo-but-for-bots#486](https://github.com/endojs/endo-but-for-bots/pull/486) review retrospective and the scholar dialog-db ingest were claimed and are in progress.
 
 ## Parked for maintainer feedback
 
@@ -44,7 +44,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr486-review-7da05a5b-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr486-review-7da05a5b-retro.md) — Retrospective on endojs/endo-but-for-bots PR #486 (primary: endojs-endo-but-f...
+- [`scholar-ingest-dialog-db`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db.md) — ---
 - [`xs2rust-endor-stage4-generators`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-generators.md) — Stage-4 child: generator functions and the iteration protocol closure
 
 ### tada (1290)
@@ -63,9 +65,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`scholar-ingest-dialog-db`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-dialog-db.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr486-review-69dc0d7a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr486-review-69dc0d7a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #486 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr486-review-7da05a5b-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr486-review-7da05a5b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #486 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr486-review-d14e72bb-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr486-review-d14e72bb-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #486 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr96-review-b474e0ee-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr96-review-b474e0ee-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #96 (primary: endojs-endo-but-fo...
 - [`scholar-ingest-against-sql`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-against-sql.md) — _low_ · ---
