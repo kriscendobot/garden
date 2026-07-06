@@ -1,10 +1,4 @@
----
-gate: blocked
-blocked_on: xs2rust-endor-strings-utf16
-priority: normal
-posted_by: producer
-posted_at: 2026-07-06T02:09:35Z
----
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-07-06T03:35:45Z -->
 
 ---
 model: fable
