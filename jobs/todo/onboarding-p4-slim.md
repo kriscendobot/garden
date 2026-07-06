@@ -1,10 +1,4 @@
----
-gate: orchestrated
-orchestrated_by: onboarding-streamlined
-priority: normal
-posted_by: producer
-posted_at: 2026-07-06T11:49:48Z
----
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-06T12:04:14Z -->
 
 Build phase 4 (LAST) of streamlined onboarding (design: designs/streamlined-onboarding.md § 4.1 / § 4.2 migration tables). Garden repo, main2. Read the design first. DEPENDS ON phases 2 and 3 (context/ must already hold the migrated substance).
 
