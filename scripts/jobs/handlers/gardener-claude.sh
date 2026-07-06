@@ -305,6 +305,13 @@ fi
 # GARDEN_SCRATCH_GC_AGE hours of quiescence.
 if [ -n "${GARDEN_COMPLETION_SENTINEL:-}" ] && [ -e "$GARDEN_COMPLETION_SENTINEL" ]; then
   scratch_cleanup "$worktree"
+  # Spool the finished transcript into the capture archive BEFORE the rm below
+  # retires it (designs/transcript-journal-capture.md). transcript_spool is
+  # offline-safe and never fails the handler; it gzip-copies whichever candidate
+  # encoding exists into $GARDEN_TRANSCRIPTS_SPOOL and the hourly capture timer
+  # drains it. Carrying $base records the job identity authoritatively.
+  transcript_spool "$proj_dir/$session_id.jsonl" "$base"
+  transcript_spool "$proj_dir_alt/$session_id.jsonl" "$base"
   # Retire the session transcript too. The session id is DETERMINISTIC from the
   # base, so a later re-post of a drained base would otherwise find this
   # finished session and --resume it: a model whose history ends "job finished,

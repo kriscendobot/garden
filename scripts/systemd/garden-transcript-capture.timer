@@ -1,0 +1,16 @@
+[Unit]
+Description=Garden transcript capture timer
+
+[Timer]
+# Absolute wall-clock schedule (hourly at :20), NOT a relative OnActiveSec/
+# OnUnitActiveSec pair: a relative first-elapse window larger than the fleet's
+# ~1-minute daemon-reload cadence is re-armed before it elapses and can be
+# deferred indefinitely (see garden-library-source-drift-scan.timer for the full
+# rationale). The :20 anchor dodges the :00/:30 clone-keeper and :15/:45
+# journal-worktree-keeper slots so the transcripts fetch/push does not contend
+# with the journal keepers. Persistent=true catches up a missed run.
+OnCalendar=*-*-* *:20:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -126,6 +126,29 @@ export GARDEN
 # the old marker, is never stranded. Remove once no host carries a NOPE marker.
 : "${GARDEN_KILLSWITCH:=$GARDEN_STATE/NOPE}"
 
+# --- transcript capture (designs/transcript-journal-capture.md) ---------------
+#
+# The garden captures every host's finished session transcripts into a dedicated
+# `transcripts2` orphan branch on a configurable transcripts remote, so the
+# journal holds the garden's transcript. All three knobs are overridable so the
+# test harness can point the same code at a throwaway spool/remote.
+#
+# GARDEN_TRANSCRIPTS_BRANCH — the orphan branch transcripts live on, mirroring the
+#   journal2 pattern; it is never merged with main2/journal2 and only the capture
+#   service and a browsing human ever fetch it.
+# GARDEN_TRANSCRIPTS_SPOOL — a per-host staging dir under $GARDEN_STATE (outside
+#   any reset-prone worktree) where the gardener completion hook drops a gzip copy
+#   of a finishing job's transcript BEFORE the handler's `rm -f` retires it (the
+#   false-resume hazard is real, so the rm stays). The hourly capture timer drains
+#   the spool. Spooling happens whether or not a remote is armed, so nothing is
+#   lost while the archive is unconfigured.
+# GARDEN_TRANSCRIPT_IDLE_SECS — the sweep captures a `~/.claude/projects` session
+#   only once its mtime is older than this (default six hours), so a live,
+#   still-growing session is not captured over and over.
+: "${GARDEN_TRANSCRIPTS_BRANCH:=transcripts2}"
+: "${GARDEN_TRANSCRIPTS_SPOOL:=$GARDEN_STATE/transcripts/spool}"
+: "${GARDEN_TRANSCRIPT_IDLE_SECS:=21600}"
+
 # --- bounded git network operations (the stuck-fetch hardening) --------------
 #
 # A journal fetch should finish in well under a second, but git has NO default
@@ -710,6 +733,47 @@ kill_stale_worktree_handlers() {
     cwd="$(readlink "/proc/$pid/cwd" 2>/dev/null || true)"
     [ "$cwd" = "$abs" ] && kill -KILL "$pid" 2>/dev/null || true
   done
+  return 0
+}
+
+# transcript_spool <jsonl-path> [<job-base>] — stage a finishing session's
+# transcript into the capture spool so the hourly sweep (transcript-capture.sh)
+# can archive it even though the gardener completion hook is about to `rm` the
+# original (the false-resume hazard the rm exists to prevent). gzip-copies
+# <jsonl-path> to
+#   $GARDEN_TRANSCRIPTS_SPOOL/<encoded-cwd>/<session-id>.jsonl.gz
+# and appends a pending index row (tab-separated: spooled_at, session_id,
+# job_base-or-'-', encoded_cwd) to $GARDEN_TRANSCRIPTS_SPOOL/pending.tsv. The
+# <encoded-cwd> is the parent directory NAME of the jsonl (Claude Code's project
+# dir), which already carries the `gardener-wt-<base>` pattern the sweep can
+# back-derive a base from. Does NO network work and NEVER fails its caller —
+# every path logs and returns 0 — so the completion path stays fast and
+# offline-safe and the spool survives under $GARDEN_STATE until the timer drains
+# it. A missing/empty source is a silent no-op (returns 0): the hook calls this
+# for BOTH candidate encodings and only one exists. Redaction is NOT applied here
+# (the spool is un-redacted, gzipped raw); the sweep redacts on drain, so
+# redaction lives in exactly one place.
+transcript_spool() {
+  local src="${1:-}" base="${2:--}"
+  [ -n "$src" ] && [ -f "$src" ] || return 0
+  local encoded_cwd sid spool_dir dest now
+  encoded_cwd="$(basename "$(dirname "$src")")"
+  sid="$(basename "$src" .jsonl)"
+  spool_dir="${GARDEN_TRANSCRIPTS_SPOOL}/${encoded_cwd}"
+  if ! mkdir -p "$spool_dir" 2>/dev/null; then
+    log "WARN: transcript_spool: cannot create spool dir $spool_dir; not spooling $sid"
+    return 0
+  fi
+  dest="$spool_dir/$sid.jsonl.gz"
+  if ! gzip -nc -- "$src" > "$dest" 2>/dev/null; then
+    log "WARN: transcript_spool: gzip of $src failed; not spooling $sid"
+    rm -f "$dest" 2>/dev/null || true
+    return 0
+  fi
+  now="$(date -u +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || echo -)"
+  printf '%s\t%s\t%s\t%s\n' "$now" "$sid" "${base:--}" "$encoded_cwd" \
+    >> "${GARDEN_TRANSCRIPTS_SPOOL}/pending.tsv" 2>/dev/null \
+    || log "WARN: transcript_spool: could not append pending index row for $sid"
   return 0
 }
 

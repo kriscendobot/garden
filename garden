@@ -108,10 +108,14 @@ cmd_reset() {
 # only when absent (a hand-edited file is preserved). The container's home IS
 # the bind-mounted repo root, so this one file covers both the user-level
 # (~/.claude/settings.json) and project-level (<repo>/.claude/settings.json)
-# scopes at once. Its sole content is a SessionStart hook running the container
-# guard, making the guard automatic for every session that starts in the garden
-# root — INCLUDING a host-side session, which is exactly where the guard must
-# fire. It deliberately does NOT set a permission defaultMode: the settings file
+# scopes at once. It carries a SessionStart hook running the container guard,
+# making the guard automatic for every session that starts in the garden root —
+# INCLUDING a host-side session, which is exactly where the guard must fire — plus
+# `cleanupPeriodDays: 36500` so Claude Code's 30-day transcript deletion is
+# disabled from the first session (the transcript archive keeps the garden's
+# record; designs/transcript-journal-capture.md). transcript-capture.sh reconciles
+# the same key on existing hosts, since this file is gitignored and cannot
+# propagate via git. It deliberately does NOT set a permission defaultMode: the settings file
 # is visible host-side too, so a settings-level bypass would silently make
 # host-side sessions permissionless. Auto mode rides the launch flag instead
 # (see the exec in cmd_enter), which applies only to the in-container session.
@@ -121,6 +125,7 @@ seed_claude_settings() {
     mkdir -p "${SCRIPT_DIR}/.claude"
     cat > "$settings" <<'JSON'
 {
+  "cleanupPeriodDays": 36500,
   "hooks": {
     "SessionStart": [
       {

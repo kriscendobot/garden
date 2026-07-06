@@ -1,0 +1,20 @@
+[Unit]
+Description=Garden transcript capture (spool drain + idle-session sweep → transcripts2 archive; reconciles cleanupPeriodDays). Runs on EVERY host.
+
+[Service]
+Type=oneshot
+# A systemd stop mid-tick SIGTERMs the run; a signalled shutdown is a CLEAN
+# exit, not a failure. The self-heal wrapper already normalizes 143/130 to 0;
+# this is the belt-and-suspenders so any future bypass of the wrapper still
+# doesn't mark a SIGTERM stop as Failed.
+SuccessExitStatus=143 130 SIGTERM SIGINT
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+# NO is-main-host ExecCondition: each host has its OWN ~/.claude transcripts, so
+# capture (and the cleanupPeriodDays reconcile) must run on every host, not just
+# the leader. Per-host paths (transcripts/<GARDEN>/…, index/<GARDEN>.tsv) are
+# disjoint, so concurrent pushes conflict only at the CAS, never in content.
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-transcript-capture -- @GARDEN_ROOT@/scripts/jobs/transcript-capture.sh
+# The sweep may redact + gzip a large backlog on its first armed tick; give it
+# generous headroom (also covers the self-heal responder on a failed tick, which
+# is itself hard-bounded by SELF_HEAL_RESPONDER_TIMEOUT).
+TimeoutStartSec=900
