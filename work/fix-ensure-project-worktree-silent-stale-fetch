@@ -1,0 +1,4 @@
+host: endolinbot
+gardener: 20
+claimed_at: 2026-07-06T03:12:05Z
+worktree_dir: /home/kris/worktrees/fix-ensure-project-worktree-silent-stale-fetch

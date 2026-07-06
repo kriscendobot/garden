@@ -17,3 +17,9 @@ at minimum emit a prominent stderr staleness warning naming both SHAs) instead
 of silently handing a gardener an old tree. Keep the legitimate no-op case (a
 detached ref/sha that exists on neither side) working. Push HEAD:main2 with a
 rebase CAS loop.
+
+---
+claim:
+  host: endolinbot
+  gardener: 20
+  claimed_at: 2026-07-06T03:12:05Z
