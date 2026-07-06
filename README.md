@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-06T02:25:45Z_
+_As of 2026-07-06T02:28:54Z_
 
 ## Latest
 
-The [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) gauntlet finished: the gardener followed the proxy's steer to treat it as the standalone docker-self-host slice, ran a focused code panel, and un-drafted it — it's now OPEN, MERGEABLE, CI green (15/15), in the review queue. The panel's one must-fix (flagged independently by four seats) was a broken control command: `docker exec … endo …` would have failed with "endo: not found" because `node_modules/.bin` wasn't on the image PATH; fixed alongside socket-parent mkdir, PID-1 zombie reaping, and several doc corrections (commit 8e6749d8d). Honest caveat: no Docker in the sandbox, so the PATH fix is correct by construction but not runtime-proven — an end-to-end `docker build` smoke test needs a Docker-capable host. The parallel, broader gateway-bearing [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot, mention-only) was left untouched; whether it's closed-as-superseded, kept, or reconciled is a maintainer call.
+[endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared the gauntlet and is now OPEN, un-drafted, MERGEABLE, and CI-green (15/15) in the review queue as the standalone docker-self-host slice. A code panel independently flagged one real must-fix — the documented `docker exec <ctr> endo …` control command would have died with "endo: not found" because `node_modules/.bin` was off the image PATH — fixed alongside a bundle of should-fixes (socket-parent mkdir, PID-1 zombie reaping via init, and several doc corrections) in commit 8e6749d8d. Honest caveat: no Docker in the gardener sandbox, so the PATH fix is correct by construction but not runtime-proven; an end-to-end `docker build` + `docker exec endo endo who` smoke test needs a Docker-capable host. Per the proxy's steer, 0xpatrickbot's broader gateway-bearing [#568](https://github.com/endojs/endo-but-for-bots/pull/568) (mention-only author) was left untouched — whether it's closed-as-superseded, kept, or reconciled with #608 is a maintainer call.
 
-Two things need your attention. A deterministic **host-identity drift** guard fired three times on the true leader host: `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER and **every leader-only singleton is being skipped** — likely a stale `/home/kris/.garden` file that should be corrected to `endolinbot` and the pool restarted. Separately, the `design-streamlined-onboarding` design landed and its four build jobs are gated on your answers to `designs/streamlined-onboarding.md` § 5 — especially Q2, the security-flavored auto-mode default. The [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) probe published as [#605](https://github.com/endojs/endo-but-for-bots/pull/605) with 7 gaps (not the spec's paraphrased 5, and no `take`-semantics hazard — the gardener correctly declined to invent it); say the word if you want a fresh `take`-semantics probe.
+**Needs attention:** a deterministic guard fired three times reporting host-identity drift on the true leader — `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER and **every leader-only singleton is being skipped** (foreman, scheduler, watchers, recovery). Likely the gitignored `/home/kris/.garden` file or an inherited `GARDEN`; fix is to correct it to `endolinbot` and restart the pool.
+
+Elsewhere: the `design-streamlined-onboarding` job landed `designs/streamlined-onboarding.md`, whose § 5 open questions (especially Q2, the security-flavored auto-mode default) gate four § 6 build jobs awaiting your answer; and the probe published as [#605](https://github.com/endojs/endo-but-for-bots/pull/605) surfaced 7 gaps with no `take`-semantics hazard, contradicting the job spec's paraphrase — the gardener correctly declined to invent it, and a dedicated `take`-semantics analysis would be a fresh probe on your say-so.
 
 ## Parked for maintainer feedback
 
@@ -152,19 +154,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`build-endoclaw-timer-daemon-formula-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endoclaw-timer-daemon-formula-integration.md) — ---
-- [`deadmail-20260706T022040Z-b35dd7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260706T022040Z-b35dd7.md) — Dead-lettered message — pick up its intent
 - [`improve-mentor-claude-transient-claude-exit`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-mentor-claude-transient-claude-exit.md) — scripts/jobs/handlers/mentor-claude.sh
 - [`xs2rust-endor-strings-utf16-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-strings-utf16-build.md) — Builder: swap endor-vm string storage CESU-8→UTF-16, delete the O(1)-index ha...
 
-### tada (1235)
+### tada (1236)
+- [`deadmail-20260706T022040Z-b35dd7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T022040Z-b35dd7.md) — What the dead-lettered message was
 - [`xs2rust-endor-strings-utf16-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16-design.md) — Job complete. Report:
 - [`xs2rust-endor-fix-bound-callback-dispatch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-fix-bound-callback-dispatch.md) — Completion report
 - [`xs2rust-endor-strings-utf16-arm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16-arm.md) — Completion report
 - [`scholar-clear-ocap-kernel-library-backfill-notes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-clear-ocap-kernel-library-backfill-notes.md) — Completion report
-- [`port-xs-to-rust-memory-safe-engine-s7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s7.md) — Completion report — port-xs-to-rust-memory-safe-engine-s7
-- … and 1230 more
+- … and 1231 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
