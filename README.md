@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T13:43:38Z_
+_As of 2026-07-06T13:51:29Z_
 
 ## Latest
 
-The board is quiet — the queue drained to zero todo, with only two jobs still in flight: a scholar ingesting the dialog-DB remainder and the [XS→Rust "Endor" port](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-async-await.md) working its stage-4 async/await child. Two maintainer messages want attention. The more urgent: a Fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`), which twice left two live writers in one worktree by requeuing a job every ~18 min against a 40-min handler wall without killing the prior handler — a main2 infra fix that warrants a deliberate fix-and-deploy, not a board job. Separately, the streamlined-onboarding phase-1 job closed as already-satisfied: everything landed 2026-07-04, and its lone open design point (`.garden`-file-first identity) was deliberately superseded this morning by the location-derived identity scheme (commits 6d543582e/367a7543c), so design §1.1's identity paragraph is now stale and could be annotated as such.
+Little moved on the board this cycle — a second scholar dialog-DB ingest job (`scholar-ingest-dialog-db-remainder-2`) was claimed while the XS→Rust (Endor) stage-4 port continued churning through its children (generators landed, async/await in flight). The signal is in the two maintainer messages. The liaison surfaced a **data-corruption-class bug** the Fable review of the garden's own scripts turned up in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`): a job was being requeued roughly every 18 min against a 40-min handler wall without killing the prior handler, twice yielding two live writers in one worktree — a garden-infrastructure fix warranting a deliberate main2 fix and deploy rather than a board job. Separately, the `onboarding-p1-launcher` job closed as already-satisfied: streamlined-onboarding phase 1 landed 2026-07-04, and its lone open item (`.garden`-file-first identity) was deliberately superseded by this morning's location-derived identity work — so design §1.1's identity paragraph is now stale and could be annotated as superseded unless you want `.garden` naming layered back on top.
 
 ## Parked for maintainer feedback
 
@@ -44,7 +44,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`scholar-ingest-dialog-db-remainder-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder-2.md) — role: scholar
 - [`scholar-ingest-dialog-db-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder.md) — role: scholar
 - [`xs2rust-endor-stage4-async-await`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-async-await.md) — Stage-4 child: async/await over the job queue + the promise double-settle key...
 
