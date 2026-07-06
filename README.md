@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-06T03:52:57Z_
+_As of 2026-07-06T03:55:13Z_
 
 ## Latest
 
-The most urgent signal is operational, not a PR: the deterministic identity-drift guard fired three times from `endolinbot`, reporting that `GARDEN=driftname` diverges from the real hostname with no recorded parallel-pool override — so `is-main-host` reads FOLLOWER on the true leader and **every leader-only singleton (foreman, scheduler, watchers, recovery) is being skipped**. Fix is to correct `/home/kris/.garden` to `endolinbot` and restart the pool (the endolinbot2 regression class).
+[endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) landed out of draft as the standalone docker-self-host slice — OPEN, MERGEABLE, CI green (15/15), now in the review queue. A focused panel caught one real must-fix (the documented `docker exec … endo` control command would have hit "endo: not found" because `node_modules/.bin` wasn't on the image PATH) plus a bundle of should-fixes; the fix is correct by construction but not runtime-proven, since the gardener sandbox has no Docker. The [endoclaw-timer gauntlet on #609](https://github.com/endojs/endo-but-for-bots/pull/609) also completed.
 
-On the PR side, [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared the gauntlet as the standalone Docker self-host slice: un-drafted, OPEN, MERGEABLE, CI green (15/15), now in the review queue. The panel's one must-fix was a broken `node_modules/.bin` PATH that would have made the documented `docker exec … endo` command fail; the fix is correct by construction but not runtime-proven (no Docker in the sandbox). Per proxy's steer, [#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot's broader gateway-bearing attempt, mention-only, CONFLICTING) was left untouched — whether to close it as superseded is a maintainer call.
+Most of this cycle's substance is **gardeners declining to build duplicates and surfacing disposition calls** rather than opening new PRs. Three overlapping docker-self-host attempts now coexist — [#608](https://github.com/endojs/endo-but-for-bots/pull/608) (docker files only), the comprehensive-but-stale [#134](https://github.com/endojs/endo-but-for-bots/pull/134) (CHANGES_REQUESTED), and 0xpatrickbot's conflicting [#568](https://github.com/endojs/endo-but-for-bots/pull/568) — and the builder is asking a real architecture question: does remote-auth wire into `ws-gateway.js` (the current design record) or wait for `@endo/gateway` per kriskowal's 2026-05 steer? Verified ws-gateway wiring + tests are parked on branch `wip/daemon-docker-selfhost-gateway-remote-auth` for whichever PR wins. Similarly, the confined-HTTP-client pillar is already served by garden-owned [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (blessed `cli-http-client.md` design) and 0xpatrickbot's [#566](https://github.com/endojs/endo-but-for-bots/pull/566), so no third build was started. Both need a maintainer decision on which PR is canonical and how to dispose of the losers.
 
-Two build jobs deliberately did **not** open new PRs, surfacing overlaps instead: the confined-HTTP-client pillar is already covered by garden-owned [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (blessed `cli-http-client.md` design) and external [#566](https://github.com/endojs/endo-but-for-bots/pull/566) — recommendation is to shepherd #286 and mark the stale `endoclaw-network-fetch` design record superseded. The Docker daemon-selfhost keystone splits three ways ([#134](https://github.com/endojs/endo-but-for-bots/pull/134), #608, #568) and raises a real architecture question: the design record still describes the `ws-gateway.js` path kriskowal said in May was being subsumed by `@endo/gateway`, which has since landed a package skeleton but is not yet wired into the daemon — a decision (refresh #134 / extend #608 / rebuild on `@endo/gateway`) is needed before more work. Separately, the `design-streamlined-onboarding` design is ready for review of its §5 open questions (notably the auto-mode default), gating four build jobs.
+Finally, an infrastructure alarm worth acting on: the deterministic identity-drift guard fired three times reporting **`GARDEN=driftname` diverging from `hostname -s=endolinbot`** with no recorded override — which flips this true leader host to FOLLOWER and silently **skips every leader-only singleton** (foreman, scheduler, watchers). If endolinbot is the leader, `/home/kris/.garden` needs correcting to `endolinbot` and the pool restarted.
 
 ## Parked for maintainer feedback
 
@@ -186,24 +186,25 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > I have the verified gateway wiring + tests ready to hand to whichever PR becomes canonical. Tell me which way to go (refresh #134 / extend #608 / rebuild on @endo/gateway) and I'll execute.
 
+- `20260706T035346Z-7823c6` — from gardener:build-endo-but-for-bots-daemon-docker-selfhost, reply_to `build-endo-but-for-bots-daemon-docker-selfhost` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T035346Z-7823c6.md)
+
+> Follow-up to the daemon-docker-selfhost surface: my verified work is pushed (no PR) to branch `wip/daemon-docker-selfhost-gateway-remote-auth` on endojs/endo-but-for-bots, off origin/llm tip (1132289). Contains the ws-gateway.js CIDR wiring + daemon-node.js env reads + 5 green ws-gateway.test.js tests + the docker/ image. Cherry-pick or rebase onto the canonical PR once you decide the direction.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
-- [`build-endo-but-for-bots-daemon-docker-selfhost`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-daemon-docker-selfhost.md) — ---
-- [`gauntlet-endo-but-for-bots-pr609-endoclaw-timer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr609-endoclaw-timer.md) — ---
-- [`mention-kriskowal-garden-26-fd0eac1c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mention-kriskowal-garden-26-fd0eac1c.md) — attention directive from @-mention on kriskowal/garden #26
+### doin (1)
 - [`xs2rust-endor-stage4-accessors-attributes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-accessors-attributes.md) — Stage-4 child: accessor properties, full property descriptors, freeze/seal (h...
 
-### tada (1249)
+### tada (1252)
+- [`build-endo-but-for-bots-daemon-docker-selfhost`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-daemon-docker-selfhost.md) — Completion report: build-endo-but-for-bots-daemon-docker-selfhost
+- [`mention-kriskowal-garden-26-fd0eac1c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mention-kriskowal-garden-26-fd0eac1c.md) — Comment is live and rendered; inbox is empty. This was a design-memo reply ta...
+- [`gauntlet-endo-but-for-bots-pr609-endoclaw-timer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr609-endoclaw-timer.md) — Completion report
 - [`deadmail-issue-comment-4888913059`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4888913059.md) — Completion report
 - [`port-xs-to-rust-memory-safe-engine-s8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s8.md) — Completion report — port-xs-to-rust-memory-safe-engine-s8
-- [`deadmail-20260706T033150Z-a4206a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T033150Z-a4206a.md) — Completion report
-- [`xs2rust-endor-strings-utf16`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16.md) — orchestration xs2rust-endor-strings-utf16 — complete
-- [`xs2rust-endor-strings-utf16-test`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16-test.md) — Completion report: xs2rust-endor-strings-utf16-test (child 3/3)
-- … and 1244 more
+- … and 1247 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
