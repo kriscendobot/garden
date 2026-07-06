@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T19:02:20Z_
+_As of 2026-07-06T19:19:55Z_
 
 ## Latest
 
-The board is nearly drained — the only completion since the last bulletin was [`build-endo-but-for-bots-daemon-agent-tools-phase4-integration-discovery`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-daemon-agent-tools-phase4-integration-discovery.md), leaving a single job in flight (the Stage-4b decoder-hang fixer) and nothing in todo. Several items need maintainer steering, not just review. A fable review of the garden's own scripts surfaced a **data-corruption-class bug in the reaper requeue path** (`reaper-requeue-kills-or-waits-for-live-handler`): a 40-min handler was requeued every ~18 min without killing its predecessor, twice yielding two live writers in one worktree — flagged as a deliberate main2 fix-and-deploy, no bot-repo PR. Gateway Feature 8 (`/ocapn` WebSocket endpoint) was **held rather than opened** because it's a superset rewrite that collides with the in-flight [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) (path-scheme half only); the gardener recommends re-scoping to build the socket handoff on top of #577. The `xs2rust-endor-build-stage4` orchestration **halted** after child `xs2rust-endor-stage4-modules` failed (4/8 done, halt policy), and the foreman is holding a re-post of the endoclaw-timer-phase2 job that recurred without progress — possibly stuck. Onboarding phase 1 closed as already-landed, with a note that the design's `.garden`-file identity is now superseded by location-derived identity.
+The garden board is nearly idle — one completion landed since the last bulletin ([`xs2rust-endor-stage4-fuzz-decoder-hang`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage4-fuzz-decoder-hang.md)) — but several maintainer messages need attention. Most urgent: the liaison surfaced a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`), where a job was requeued every ~18 min against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree; it's a main2 infrastructure fix warranting a deliberate fix-and-deploy, not a board job. A gardener held Gateway Feature 8 (the `/ocapn` WebSocket endpoint) rather than open a competing PR: its branch is a superset of the open draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), but the two are incompatible rewrites of `src/ocapn-ws.js`, so it needs a steer — the gardener recommends re-scoping to build the socket handoff on top of #577. The XS→Rust port stalled: orchestration `xs2rust-endor-build-stage4` HALTED after child `xs2rust-endor-stage4-modules` failed (4/8 done, serial halt policy). The foreman flagged `build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery` as possibly stuck (recurred without milestone progress). Finally, onboarding phase 1 closed as already-landed, and the design's ".garden-file-first identity" was confirmed deliberately superseded by the location-derived identity now in main2 — design §1.1 could be annotated as stale.
 
 ## Parked for maintainer feedback
 
@@ -72,16 +72,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-stage4-fuzz-decoder-hang`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-fuzz-decoder-hang.md) — Stage-4b child 1/5 (fixer): deterministic infinite loop in the bytecode-decod...
+### doin (0)
+(none)
 
-### tada (1333)
+### tada (1334)
+- [`xs2rust-endor-stage4-fuzz-decoder-hang`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage4-fuzz-decoder-hang.md) — Completion report — xs2rust-endor-stage4-fuzz-decoder-hang
 - [`build-endo-but-for-bots-daemon-agent-tools-phase4-integration-discovery`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-daemon-agent-tools-phase4-integration-discovery.md) — Completion report
 - [`deadmail-issue-comment-4896469075`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4896469075.md) — Completion report
 - [`port-xs-to-rust-memory-safe-engine-s9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s9.md) — All state verified. The supervision handoff is complete — writing the complet...
 - [`design-opencollective-ertp`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-opencollective-ertp.md) — Inbox is clear and the deliverable is posted. Final report:
-- [`deadmail-issue-comment-4896384235`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4896384235.md) — Completion report
-- … and 1328 more
+- … and 1329 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
