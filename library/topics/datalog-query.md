@@ -1,0 +1,25 @@
+# Topic: datalog-query
+
+> Abstract: Datalog-style querying over an unschematized store of `{the, of, is, cause}` fact-triples, and the semantic layer (attributes and concepts) that reads typed shapes back out of it — schema-on-read / schema-on-query rather than schema-on-write. Seeded 2026-07-06 from `dialog-db/dialog-db` (Irakli Gozalishvili's embeddable local-first database): the associative claim model, attribute/concept definitions and their derive macros, the bidirectional assert/retract/query mapping, deductive rules as concept-producing disjunctions, the JSON `match`/`when`/`case` Datalog surface with variable-hole unification, and the EAV/AEV/VAE covering indexes that make every access pattern efficient without planning. Lineage: Datomic (facts + Datalog). Distinct from `capability-security` (Dialog's authorization side) and `local-first-sync` (its replication/storage side); this topic is the query and data-modeling face.
+
+## Sections
+
+| Section | Source | One-line abstract |
+|---------|--------|-------------------|
+| [dialog-db--readme--overview](../sections/dialog-db--readme--overview.md) | dialog-db README.md | Dialog is an embeddable database for local-first software targeting schema-on-read Datalog queries, efficient replica sync, WASM + native runtimes, and privacy/user authority. |
+| [dialog-db--notes-concept--claims-and-the-semantic-layer](../sections/dialog-db--notes-concept--claims-and-the-semantic-layer.md) | dialog-db notes/concept.md | Immutable claims `{the, of, is, cause}` at a schema-less associative layer, with attributes and concepts as a semantic layer on top; one entity can satisfy many concepts at once. |
+| [dialog-db--notes-concept--attributes-and-concepts](../sections/dialog-db--notes-concept--attributes-and-concepts.md) | dialog-db notes/concept.md | An attribute is a newtype whose identity is `(the, type, cardinality)` in `domain/name` form; a concept groups attributes over a `this: Entity` and derives identity from its sorted attribute set. |
+| [dialog-db--notes-concept--bidirectional-mapping-assert-retract-query](../sections/dialog-db--notes-concept--bidirectional-mapping-assert-retract-query.md) | dialog-db notes/concept.md | A concept is a bidirectional map: asserting decomposes to per-attribute claims, querying composes matching claims into typed conclusions; a query is a conjunction over `Term::var`/`Term::from` fields. |
+| [dialog-db--notes-concept--schema-on-read-and-rules](../sections/dialog-db--notes-concept--schema-on-read-and-rules.md) | dialog-db notes/concept.md | A concept is a lens over the claim store, not a storage layout; concepts are also the conclusion type of deductive rules, and multiple rules for one concept give logical disjunction. |
+| [dialog-db--notes-architecture-overview--overview](../sections/dialog-db--notes-architecture-overview--overview.md) | dialog-db notes/architecture overview.md | Six design goals and an information model: an immutable append-only fact store combining Probabilistic B-Trees with Datalog for sync, local-first operation, and end-to-end encryption. |
+| [dialog-db--notes-architecture-overview--facts-as-atomic-units](../sections/dialog-db--notes-architecture-overview--facts-as-atomic-units.md) | dialog-db notes/architecture overview.md | The fact is an atomic immutable `{the, of, is, cause}` unit; the store only grows, "deletes" add retraction facts, and cause establishes causality. |
+| [dialog-db--notes-architecture-overview--schema-on-query](../sections/dialog-db--notes-architecture-overview--schema-on-query.md) | dialog-db notes/architecture overview.md | Schema-on-query decouples raw data from interpretation: no predefined schema, any attribute any time, per-application interpretation, organic evolution without migrations. |
+| [dialog-db--notes-architecture-overview--eav-aev-vae-indexing](../sections/dialog-db--notes-architecture-overview--eav-aev-vae-indexing.md) | dialog-db notes/architecture overview.md | Three indexes (EAV, AEV, VAE), each a content-addressed B-tree keyed by a different column ordering, cover every major query pattern without access-pattern planning. |
+| [dialog-db--notes-architecture-overview--datalog-query-language](../sections/dialog-db--notes-architecture-overview--datalog-query-language.md) | dialog-db notes/architecture overview.md | The JSON Datalog surface: a `match` head over a `when` body of `case` triple-patterns with `{"?": "var"}` holes that unify across cases; declarative, recursive, time-travel-capable. |
+
+## See also
+
+- [`local-first-sync`](local-first-sync.md): Dialog's replication and content-addressed storage side — the same facts, the durable/mergeable substrate under the query engine.
+- [`capability-security`](capability-security.md): Dialog's UCAN/ocap authorization side.
+- [`change-propagation`](change-propagation.md): the CRDT / incremental-reflection theory Dialog's query-time merge instantiates.
+- [`patterns`](patterns.md): Endo's @endo/patterns shape-matching language — a different (guard-shaped) take on structural matching over passable values.
