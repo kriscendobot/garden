@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T13:29:14Z_
+_As of 2026-07-06T13:31:48Z_
 
 ## Latest
 
-The board itself barely moved — a single job (`scholar-ingest-against-sql`) was claimed into `doin`, with no new posts or completions. The substance is in two messages surfaced to the maintainer. First, a fable review of the garden's own scripts turned up a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`): a 40-minute handler was being requeued roughly every 18 minutes without killing the prior handler, twice leaving two live writers in one worktree — flagged as a garden-infrastructure fix warranting a deliberate main2 fix and deploy rather than a board job. Two lesser items ride along and need no decision (the deferred `watchers-port-fail-floor` fix and preexisting `ci-watcher` test failures on a pristine main2). Second, the streamlined-onboarding phase-1 job closed with no changes: the launcher work already landed on 2026-07-04, and its one open design point — `.garden`-file-first identity — was deliberately superseded by the recent switch to location-derived identity, so that paragraph of the design is now stale and could be annotated as such.
+The only board movement was the completion of `xs2rust-endor-stage4-generators` (stage-4 child 3/8: generator functions & iteration protocol) in the XS→Rust port. More consequential are two fresh maintainer messages: the Fable review of the garden's own scripts flagged a **data-corruption-class bug in the reaper requeue path** (`reaper-requeue-kills-or-waits-for-live-handler`) — a job requeued every ~18 min against a 40-min handler wall, twice leaving two live writers in one worktree — surfaced as a main2 infrastructure fix warranting a deliberate fix + deploy rather than a board job. Separately, the `onboarding-p1-launcher` job closed with no changes: phase 1 already landed (commit 8fdbd11e0), and its lone open item — `.garden`-file-first identity — was deliberately superseded by the newer location-derived identity in 6d543582e/367a7543c, so design §1.1 is now stale and could be annotated as such.
 
 ## Parked for maintainer feedback
 
@@ -44,18 +44,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`scholar-ingest-against-sql`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-against-sql.md) — ---
 - [`scholar-ingest-dialog-db`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db.md) — ---
-- [`xs2rust-endor-stage4-generators`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-generators.md) — Stage-4 child: generator functions and the iteration protocol closure
 
-### tada (1294)
+### tada (1295)
+- [`xs2rust-endor-stage4-generators`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage4-generators.md) — Completion report — stage-4 child 3/8: generator functions & iteration protocol
 - [`endojs-endo-but-for-bots-pr96-review-b474e0ee-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr96-review-b474e0ee-retro.md) — Completion report — review retrospective on endojs/endo-but-for-bots PR #96 (...
 - [`endojs-endo-but-for-bots-pr486-review-69dc0d7a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr486-review-69dc0d7a-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr486-review-d14e72bb-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr486-review-d14e72bb-retro.md) — Completion report — endojs-endo-but-for-bots-pr486-review-d14e72bb-retro
 - [`endojs-endo-but-for-bots-pr486-review-7da05a5b-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr486-review-7da05a5b-retro.md) — Completion report
-- [`endojs-endo-but-for-bots-pr134-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr134-shepherd.md) — Completion report
-- … and 1289 more
+- … and 1290 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
