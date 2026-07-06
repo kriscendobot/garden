@@ -13904,3 +13904,21 @@ koerper | guten-tag-body-node
 `actualNode` | guten-tag-body-node
 guten tag virtual document | guten-tag-body-node
 `<sp>` significant whitespace | guten-tag-body-node
+Kamera | kamera-single-focus
+kamera | kamera-single-focus
+single-focus enforcement | kamera-single-focus
+single component has focus | kamera-single-focus
+`takeFocus` | kamera-single-focus
+`attention.takeFocus` | kamera-single-focus
+`scope.attention` | kamera-single-focus
+focus management (Guten Tag) | kamera-single-focus
+blur prior focal component | kamera-single-focus
+ndim | (see section: ndim--readme--overview)
+Dimensions (ndim) | (see section: ndim--readme--overview)
+point region box types | (see section: ndim--readme--overview)
+pure and mutable operators | (see section: ndim--readme--overview)
+`addThis` mutable operator | (see section: ndim--readme--overview)
+quadkey tile naming | (see section: ndim--readme--overview)
+single-tag component package | (see section: gutentag-component-demos--readmes--single-tag-demo-packages)
+`<tag>.html` package | (see section: gutentag-component-demos--readmes--single-tag-demo-packages)
+Guten Tag demo components | (see section: gutentag-component-demos--readmes--single-tag-demo-packages)
