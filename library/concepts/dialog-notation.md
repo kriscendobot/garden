@@ -19,6 +19,7 @@ Dialog's two one-to-one notations for authoring domain models (attributes, conce
 | [dialog-db--notes-notation--abbreviated-attribute](../sections/dialog-db--notes-notation--abbreviated-attribute.md) | Writing attributes in the abbreviated notation: `the: ./name` and `the: domain/.` overrides. |
 | [dialog-db--notes-notation--abbreviated-concept](../sections/dialog-db--notes-notation--abbreviated-concept.md) | Attribute references, punning (`name: .`), and inline attributes in the abbreviated concept notation. |
 | [dialog-db--notes-notation-schema--json-schema](../sections/dialog-db--notes-notation-schema--json-schema.md) | The JSON Schema `$defs` graph that normatively defines the formal notation. |
+| [dialog-db--rust-dialog-query-readme--associative-relations](../sections/dialog-db--rust-dialog-query-readme--associative-relations.md) | Crate-doc: relations as domain/name; the! macro produces a compile-time-validated relation, with Term/Term::<The> query variables over the raw associative model. |
 
 ## See also
 
