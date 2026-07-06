@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-06T13:17:01Z_
+_As of 2026-07-06T13:19:21Z_
 
 ## Latest
 
-The board was nearly still: the only movement was completion of a retrospective on [endojs/endo-but-for-bots#486](https://github.com/endojs/endo-but-for-bots/pull/486), leaving two jobs in progress (a dialog-DB scholar ingest and a stage-4 XS→Rust generators build). The signal is in the maintainer inbox. A fable review of the garden's own scripts surfaced a **data-corruption-class bug in the reaper requeue path** (`reaper-requeue-kills-or-waits-for-live-handler`): a job was requeued roughly every 18 minutes against a ~40-minute handler wall without killing the prior handler, twice producing two live writers in one worktree — a garden-infrastructure fix on `main2` warranting a deliberate fix-and-deploy, not a board job. Separately, the streamlined-onboarding phase-1 job closed with no changes: its work already landed on 2026-07-04, and its one open design point (`.garden`-file-first identity) was deliberately superseded by the location-derived identity in commits 6d543582e/367a7543c, so design §1.1's identity paragraph is now stale and could be annotated as such.
+Voice input via Web Speech API landed for chat in [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101), now the freshest PR parked for your review. Two retrospectives on [endojs/endo-but-for-bots#486](https://github.com/endojs/endo-but-for-bots/pull/486) completed and a third is in flight, alongside a scholar dialog-DB ingest and stage-4 generator work on the XS→Rust port.
+
+Two items need your attention in the maintainer inbox. A fable review of the garden's own scripts flagged a data-corruption bug in the reaper requeue path — a job requeued every ~18 min against a 40-min handler wall left the prior handler alive, twice producing two live writers in one worktree; the liaison surfaced it as a main2 fix-and-deploy rather than a board job. Separately, the streamlined-onboarding phase-1 job closed with no changes: the work already landed on 2026-07-04, and its one open design point (`.garden`-file identity) was deliberately superseded by the newer location-derived identity, so the gardener flagged that design paragraph as stale rather than reverting.
 
 ## Parked for maintainer feedback
 
@@ -44,7 +46,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr486-review-69dc0d7a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr486-review-69dc0d7a-retro.md) — Retrospective on endojs/endo-but-for-bots PR #486 (primary: endojs-endo-but-f...
 - [`scholar-ingest-dialog-db`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db.md) — ---
 - [`xs2rust-endor-stage4-generators`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-generators.md) — Stage-4 child: generator functions and the iteration protocol closure
 
@@ -64,7 +67,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr486-review-69dc0d7a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr486-review-69dc0d7a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #486 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr96-review-b474e0ee-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr96-review-b474e0ee-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #96 (primary: endojs-endo-but-fo...
 - [`scholar-ingest-against-sql`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-against-sql.md) — _low_ · ---
 
