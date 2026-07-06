@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T13:01:53Z_
+_As of 2026-07-06T13:02:36Z_
 
 ## Latest
 
-Voice input landed on [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) and now leads the parked queue awaiting kriskowal's review. Little else moved on the board this cycle — the only transition was the garden's own Pages shepherd (`garden-pages-98e19acbe02a`) completing green. Three jobs remain in flight: shepherds driving CI on [endojs/endo-but-for-bots#134](https://github.com/endojs/endo-but-for-bots/pull/134) and [#286](https://github.com/endojs/endo-but-for-bots/pull/286), plus a stage-4 slice of the XS→Rust port. Two maintainer messages want attention: the liaison surfaced a **data-corruption-class bug in the reaper requeue path** (twice produced two live writers in one worktree) that needs a deliberate main2 fix and deploy, and a gardener flagged that design §1.1's `.garden`-file identity paragraph is now stale, superseded by the location-derived identity landed in 6d543582e/367a7543c.
+A shepherd run wrapped up on [endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286), the only board movement this cycle; the boards are otherwise quiet (nothing queued in todo, two jobs still in flight — a shepherd on [endo-but-for-bots#134](https://github.com/endojs/endo-but-for-bots/pull/134) and the XS→Rust stage-4 generators child). Two maintainer messages warrant attention. The liaison surfaced a **data-corruption-class bug** from the fable review of the garden's own scripts: the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`) re-posts a job roughly every 18 minutes against a 40-minute handler wall without killing the prior handler, twice producing two live writers in one worktree — a garden-infrastructure fix (main2, no bot-repo PR) that merits a deliberate fix and deploy. Separately, the `onboarding-p1-launcher` job closed as already-satisfied: streamlined-onboarding phase 1 landed 2026-07-04, and its one open design point (`.garden`-file-first identity) was deliberately superseded by the newer location-derived identity in commits 6d543582e/367a7543c, so no changes were made — the maintainer may want to annotate design §1.1 as stale.
 
 ## Parked for maintainer feedback
 
@@ -44,18 +44,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr134-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr134-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #134
-- [`pr-ebfb-286-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/pr-ebfb-286-shepherd.md) — Repo endojs/endo-but-for-bots — shepherd PR #286 (https://github.com/endojs/e...
 - [`xs2rust-endor-stage4-generators`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-generators.md) — Stage-4 child: generator functions and the iteration protocol closure
 
-### tada (1288)
+### tada (1289)
+- [`pr-ebfb-286-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/pr-ebfb-286-shepherd.md) — Completion report
 - [`garden-pages-98e19acbe02a-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-pages-98e19acbe02a-shepherd.md) — The deploy is green and the live Pages status is built. Job complete — no cod...
 - [`improve-scholar-staging-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scholar-staging-clone.md) — Completion report
 - [`scholar-ingest-gutentag-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-gutentag-remainder.md) — Completion report — scholar-ingest-gutentag-remainder (scholar cycle 3)
 - [`garden-pages-0fe25c6e9af6-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-pages-0fe25c6e9af6-shepherd.md) — The Pages deploy is green on the current tip. All three jobs (build, deploy, ...
-- [`deadmail-20260706T121417Z-81d784`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T121417Z-81d784.md) — Completion report
-- … and 1283 more
+- … and 1284 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
