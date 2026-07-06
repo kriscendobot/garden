@@ -1,16 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-06T02:56:41Z_
+_As of 2026-07-06T02:59:13Z_
 
 ## Latest
 
-The design job to reconcile gateway bearer-token auth against the endo-gateway landed, completing the last in-flight design work; the sole build now running is the endor-vm string-storage swap to UTF-16.
+[endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared the gauntlet as a standalone docker-self-host slice: a focused panel found and fixed a real must-fix (the documented `docker exec … endo` command would have failed because `node_modules/.bin` wasn't on the image PATH) plus a bundle of should-fixes, and it's now OPEN, not-draft, MERGEABLE, CI 15/15 — though the gardener notes it couldn't build/run the image (no Docker in the sandbox), so the PATH fix is correct-by-construction but not runtime-proven. Per the proxy's steer, 0xpatrickbot's broader gateway-bearing [#568](https://github.com/endojs/endo-but-for-bots/pull/568) was left untouched (mention-only author); whether it's closed-as-superseded is yours to call. Two build jobs were declined as duplicate work rather than re-implemented: the endoclaw confined-outbound-HTTP pillar is already delivered by [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (garden-owned, blessed `cli-http-client.md` design — recommended vehicle to shepherd) and externally by [#566](https://github.com/endojs/endo-but-for-bots/pull/566), and probe [#605](https://github.com/endojs/endo-but-for-bots/pull/605) surfaced a spec/report gap (7 gaps, no `take`-semantics hazard) awaiting your decision on whether a fresh probe is wanted.
 
-Two build jobs closed as **no-build, surfacing a decision** rather than shipping duplicate work. The confined-outbound-HTTP pillar (`endoclaw-network-fetch`) is already delivered twice over — [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286), the garden's own build of the maintainer-blessed `cli-http-client.md` design, is recommended for the gauntlet, while [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) is 0xpatrickbot's mention-only parallel take that the garden should leave alone. Separately, the docker-slice PR [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared its panel (one must-fix: `endo` was missing from the image PATH) and is now OPEN, MERGEABLE, CI green (15/15), awaiting review — with the honest caveat that no Docker host was available to smoke-test the build. Per the proxy's steer, the broader gateway-bearing [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot) was left untouched; whether it's superseded by #608 is a maintainer call.
-
-Two items need maintainer input: the `design-streamlined-onboarding` spec awaits answers to its open questions (especially the security-flavored auto-mode default), and the #595 probe (published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605)) surfaced that the job spec's paraphrased "Gap 5 — destructive `take` semantics" doesn't exist in the actual 7-gap probe — the gardener correctly declined to invent it, and a dedicated `take`-semantics analysis would be a fresh probe on your say-so.
-
-Finally, a host-identity drift guard fired repeatedly: **GARDEN=`driftname` diverges from `hostname -s=endolinbot`** with no recorded parallel-pool override, so `is-main-host` reports FOLLOWER and every leader-only singleton is being skipped on the true leader host — if endolinbot is meant to be the leader, correct `/home/kris/.garden` back to `endolinbot` and restart the pool.
+Most urgent: a deterministic host-identity **drift guard fired three times on endolinbot** — `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER and **every leader-only singleton (foreman, scheduler, watchers, recovery, liaison monitors) is being skipped on the true leader host**. Fix is to correct `/home/kris/.garden` to `endolinbot` and restart the pool (or record the override if this is a deliberate parallel pool). Separately, `design-streamlined-onboarding` completed and its four build jobs are gated on your answers to the design's § 5 open questions — especially Q2, the auto-mode default.
 
 ## Parked for maintainer feedback
 
@@ -168,7 +164,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`design-daemon-agent-tools-reconcile-mount-git-capabilities`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-daemon-agent-tools-reconcile-mount-git-capabilities.md) — ---
 - [`xs2rust-endor-strings-utf16-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-strings-utf16-build.md) — Builder: swap endor-vm string storage CESU-8→UTF-16, delete the O(1)-index ha...
 
 ### tada (1240)
