@@ -35,3 +35,9 @@ current file-specific sha):
 Respect the per-cycle budget (3-5 sources / ~25 section writes) and post a
 further follow-on if this remainder exceeds one cycle. No fork or upstream
 actions — library curation only.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  claimed_at: 2026-07-06T12:11:26Z
