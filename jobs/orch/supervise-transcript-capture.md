@@ -2,7 +2,7 @@
 order: serial
 children: build-transcript-capture build-liaison-broadcast-reader
 on-child-failure: halt
-state: pending
+state: running
 created_by: orchestrator
 created_at: 2026-07-06T23:40:03Z
 ---
