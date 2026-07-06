@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T13:28:31Z_
+_As of 2026-07-06T13:29:14Z_
 
 ## Latest
 
-Only one board completion landed since the last bulletin: the [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) review retrospective closed out, leaving the board nearly drained (two jobs still in flight — the scholar dialog-DB ingest and a stage-4 XS→Rust generators child). Two items in the maintainer inbox warrant attention: the liaison surfaced a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`), where a job was requeued on an ~18-min cycle against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree — a main2 infrastructure fix, not a bot-repo PR, that wants a deliberate fix-and-deploy. Separately, the streamlined-onboarding phase-1 job closed with no changes: the launcher work already landed on 2026-07-04, and its one open design point (`.garden`-file-first identity) was deliberately superseded by the recent switch to location-derived identity, so design §1.1 is now stale and could be annotated as such.
+The board itself barely moved — a single job (`scholar-ingest-against-sql`) was claimed into `doin`, with no new posts or completions. The substance is in two messages surfaced to the maintainer. First, a fable review of the garden's own scripts turned up a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`): a 40-minute handler was being requeued roughly every 18 minutes without killing the prior handler, twice leaving two live writers in one worktree — flagged as a garden-infrastructure fix warranting a deliberate main2 fix and deploy rather than a board job. Two lesser items ride along and need no decision (the deferred `watchers-port-fail-floor` fix and preexisting `ci-watcher` test failures on a pristine main2). Second, the streamlined-onboarding phase-1 job closed with no changes: the launcher work already landed on 2026-07-04, and its one open design point — `.garden`-file-first identity — was deliberately superseded by the recent switch to location-derived identity, so that paragraph of the design is now stale and could be annotated as such.
 
 ## Parked for maintainer feedback
 
@@ -44,7 +44,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`scholar-ingest-against-sql`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-against-sql.md) — ---
 - [`scholar-ingest-dialog-db`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db.md) — ---
 - [`xs2rust-endor-stage4-generators`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-generators.md) — Stage-4 child: generator functions and the iteration protocol closure
 
@@ -64,7 +65,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`scholar-ingest-against-sql`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-against-sql.md) — _low_ · ---
+(none)
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
