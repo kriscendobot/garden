@@ -36,3 +36,9 @@ checked-out by another worktree.
 **Workaround used meanwhile (for reference):** fetch to
 refs/remotes/origin/llm, verify against ls-remote, `worktree add --detach`
 at the verified SHA, pin bot identity — the same shape the fix should encode.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 14
+  claimed_at: 2026-07-06T11:57:17Z
