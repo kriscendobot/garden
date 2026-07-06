@@ -1,16 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T03:47:09Z_
+_As of 2026-07-06T03:51:31Z_
 
 ## Latest
 
-[endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared the gauntlet and is now un-drafted as the standalone docker self-host slice — OPEN, MERGEABLE, CI green (15/15), in the review queue. The panel caught a real must-fix (four seats flagged it independently): the documented `docker exec <ctr> endo …` control command would have died with `endo: not found` because `node_modules/.bin` wasn't on the image PATH; that plus a batch of should-fixes landed in `8e6749d8d`. Note two honest caveats for your call: the fix is correct by construction but not runtime-proven (no Docker in the gardener sandbox, so an end-to-end `docker build`/`docker exec` smoke test needs a Docker-capable host), and [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) — 0xpatrickbot's broader gateway-bearing parallel attempt — was left entirely untouched per the mention-only rule; whether it's closed-as-superseded, kept, or reconciled with #608 is yours to decide.
-
-Separately, the `endoclaw-network-fetch` build job was **not** built to avoid duplicating work already delivered: the confined-outbound-HTTP pillar exists in [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (garden-owned, on the blessed `cli-http-client.md` design) and, in parallel, [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (0xpatrickbot, mention-only — leave it be). The gardener recommends shepherding #286 and marking the stale `endoclaw-network-fetch` design record superseded.
-
-The XS→Rust (Endor) port advanced another stage — `port-xs-to-rust-memory-safe-engine-s8` completed and re-queued as s9, with the stage-4 accessors/property-descriptors child now in flight.
-
-One operational flag worth immediate attention: the identity-drift guard fired three times on **endolinbot**, reporting `GARDEN=driftname` diverging from `hostname -s=endolinbot` with no recorded override — meaning `is-main-host` reads FOLLOWER on the true leader host and every leader-only singleton is being silently skipped. If this host is the leader, `/home/kris/.garden` (and any inherited `GARDEN`) needs correcting to `endolinbot` and the pool restarted.
+A deterministic identity-drift guard fired three times on the true leader host: `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded parallel-pool override, so `is-main-host` reports FOLLOWER and **every leader-only singleton (foreman, scheduler, watchers, recovery) is being skipped** — the fix is to correct `/home/kris/.garden` back to `endolinbot` and restart the pool. Meanwhile the [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) gauntlet finished: it was reframed as the standalone Docker self-host slice, run through a code panel, and un-drafted — now OPEN/MERGEABLE with CI green (15/15). The panel's one must-fix (four seats flagged it independently) was a broken `docker exec … endo` control command because `node_modules/.bin` wasn't on the image PATH; caveat, the gardener couldn't `docker build`, so the fix is correct-by-construction but not runtime-proven. The broader parallel [#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot, mention-only) was left untouched — whether to close it as superseded is a maintainer call. The `endoclaw-network-fetch` HTTP-client build was declined as redundant: the capability is already delivered by garden-owned [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (the blessed `cli-http-client` design) and contributor [#566](https://github.com/endojs/endo-but-for-bots/pull/566); recommendation is to shepherd #286 and mark the stale design record superseded. Two decisions await you: the `streamlined-onboarding` design's §5 Q2 auto-mode default (gating four build jobs), and whether the [#605](https://github.com/endojs/endo-but-for-bots/pull/605) probe should get a fresh `take`-semantics analysis (the report honestly noted the spec's "Gap 5" didn't exist in the published probe). The XS→Rust (Endor) port keeps advancing — stage-8 and the UTF-16 strings orchestration completed, stage-4 accessors now in flight.
 
 ## Parked for maintainer feedback
 
@@ -168,9 +162,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (5)
 - [`build-endo-but-for-bots-daemon-docker-selfhost`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-daemon-docker-selfhost.md) — ---
+- [`deadmail-issue-comment-4888913059`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4888913059.md) — Dead-lettered message — pick up its intent
 - [`gauntlet-endo-but-for-bots-pr609-endoclaw-timer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr609-endoclaw-timer.md) — ---
+- [`mention-kriskowal-garden-26-fd0eac1c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mention-kriskowal-garden-26-fd0eac1c.md) — attention directive from @-mention on kriskowal/garden #26
 - [`xs2rust-endor-stage4-accessors-attributes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-accessors-attributes.md) — Stage-4 child: accessor properties, full property descriptors, freeze/seal (h...
 
 ### tada (1248)
