@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6290 (530 parent indexes + 5760 children).
+Total section files: 6297 (530 parent indexes + 5767 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -1067,6 +1067,16 @@ Total section files: 6290 (530 parent indexes + 5760 children).
 ### dialog-db--rust-dialog-operator-readme
 
 - [dialog-db--rust-dialog-operator-readme--profiles-operators-and-capability-environment](dialog-db--rust-dialog-operator-readme--profiles-operators-and-capability-environment.md)
+
+### dialog-db--rust-dialog-query-readme
+
+- [dialog-db--rust-dialog-query-readme--associative-claims](dialog-db--rust-dialog-query-readme--associative-claims.md)
+- [dialog-db--rust-dialog-query-readme--associative-relations](dialog-db--rust-dialog-query-readme--associative-relations.md)
+- [dialog-db--rust-dialog-query-readme--deductive-rules](dialog-db--rust-dialog-query-readme--deductive-rules.md)
+- [dialog-db--rust-dialog-query-readme--formulas](dialog-db--rust-dialog-query-readme--formulas.md)
+- [dialog-db--rust-dialog-query-readme--overview](dialog-db--rust-dialog-query-readme--overview.md)
+- [dialog-db--rust-dialog-query-readme--semantic-attributes](dialog-db--rust-dialog-query-readme--semantic-attributes.md)
+- [dialog-db--rust-dialog-query-readme--semantic-concepts](dialog-db--rust-dialog-query-readme--semantic-concepts.md)
 
 ### dialog-db--rust-dialog-ucan-readme
 
