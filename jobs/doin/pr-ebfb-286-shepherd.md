@@ -8,6 +8,7 @@ Maintainer decision, 2026-07-06 (liaison inbox thread: build-endoclaw-network-fe
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
