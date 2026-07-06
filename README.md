@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T00:29:27Z_
+_As of 2026-07-06T00:31:26Z_
 
 ## Latest
 
-Little moved on the board this cycle — one dead-letter completion — but three maintainer messages want attention. Most urgent: a deterministic identity-drift guard fired three times on the **endolinbot** host, reporting `GARDEN=driftname` diverging from `hostname -s=endolinbot` with no recorded override, which makes `is-main-host` read FOLLOWER and **silently skips every leader-only singleton** (foreman, scheduler, watchers) on the true leader — fix is to correct `/home/kris/.garden` back to `endolinbot` and restart the pool. On the PR front, the gauntlet is driving [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) (Docker self-host, green and MERGEABLE) through the panel to un-draft, but the gardener flagged that its "supersede #568" clause targets [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) — authored by 0xpatrickbot (mention-only list), a *broader* parallel attempt carrying the ws-gateway work #608 defers — so it is left untouched pending an explicit maintainer close/keep call. Two more decisions are parked: the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) reported 7 gaps and no `take`-semantics hazard (contra the job spec's paraphrase), so a dedicated `take`-semantics analysis would be a fresh probe if wanted; and the `design-streamlined-onboarding` job completed, with its four build jobs gated on a review of `designs/streamlined-onboarding.md` and especially its security-flavored auto-mode default question.
+The XS→Rust (Endor) port advanced: the [`xs2rust-endor-build-stage3b-xsre-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-xsre-integration.md) build completed, though the downstream supervisor and string-representation arming jobs remain parked behind later stage-3b work. The most urgent item is infrastructural: a deterministic guard flagged a **host-identity drift on the leader host** — `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, watchers, recovery services) is silently being skipped on the true leader; the fix is correcting `/home/kris/.garden` (or the inherited env) back to `endolinbot` and restarting the pool. A gauntlet is running on [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) (Docker self-host, green and garden-authored), but the gardener has correctly declined to close the overlapping [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) — a broader, non-garden PR from 0xpatrickbot carrying the deferred ws-gateway auth surface — so a maintainer lifecycle call is needed there. Two design/probe items also await you: the completed `design-streamlined-onboarding` doc needs its §5 open questions answered (notably the security-flavored auto-mode default) before its four build jobs can be orchestrated, and the [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) probe report surfaced that [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595)'s spec paraphrase named a `take`-semantics gap the published probe doesn't contain — decide whether you want that analysis as a fresh probe.
 
 ## Parked for maintainer feedback
 
@@ -130,17 +130,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr608-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr608-gauntlet.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
-- [`xs2rust-endor-build-stage3b-xsre-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-xsre-integration.md) — Builder: stage-3b child 9/9 — RegExp built-in + String integration over XSRE,...
 
-### tada (1225)
+### tada (1226)
+- [`xs2rust-endor-build-stage3b-xsre-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-xsre-integration.md) — Completion report
 - [`deadmail-20260706T002005Z-8d94ee`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T002005Z-8d94ee.md) — Completion report
 - [`scholar-ingest-ocap-kernel-comment-fragments-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-comment-fragments-5.md) — Completion report
 - [`endor-run-expanded-phase3-directory-input`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endor-run-expanded-phase3-directory-input.md) — Work is complete. Here is my report.
 - [`scholar-ingest-ocap-kernel-comment-fragments-4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-comment-fragments-4.md) — Completion report
-- [`scholar-ingest-ocap-kernel-comment-fragments-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-comment-fragments-3.md) — Job complete: scholar-ingest-ocap-kernel-comment-fragments-3
-- … and 1220 more
+- … and 1221 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
