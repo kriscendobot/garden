@@ -47,3 +47,9 @@ profile-account-operator, signer-verifier-credential, subject-routing, dialog-no
 deductive-rule, capability-chain. Keep cross-referencing to endo design material where
 concepts meet (ocap / capability-security, content-addressed / durable storage,
 confinement, persistence). No fork or upstream actions.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  claimed_at: 2026-07-06T16:03:44Z
