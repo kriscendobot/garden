@@ -1,9 +1,4 @@
----
-gate: deferred
-priority: normal
-posted_by: producer
-posted_at: 2026-07-06T00:04:08Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-07-06T00:14:13Z -->
 
 # PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fragments (batch 5)
 
