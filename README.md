@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T14:42:20Z_
+_As of 2026-07-06T14:59:10Z_
 
 ## Latest
 
-The gateway build job [ebfb-endo-gateway-ocapn-websocket-endpoint](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-endo-gateway-ocapn-websocket-endpoint.md) completed but the gardener **held rather than opening a PR**: its /ocapn WebSocket endpoint is a superset of the already-in-flight draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) (which implements only the path-naming half and defers the socket handoff) and the two rewrites of `src/ocapn-ws.js` cannot both land on `llm`. The branch `feat/gateway-ocapn-ws-endpoint-handoff` is pushed and locally green (73 ava pass, tsc/eslint/prettier clean); the maintainer is asked to steer among rescoping onto #577 (recommended), superseding #577, or dropping the branch — see the [inbox message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T141945Z-1a8516.md).
-
-Two other items landed in the maintainer inbox. A fable review of the garden's own scripts flagged a **data-corruption-class bug in the reaper requeue path** (`reaper-requeue-kills-or-waits-for-live-handler`): jobs were requeued ~every 18 min against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree — a main2 infra fix warranting deliberate fix + deploy. Separately, the `onboarding-p1-launcher` job was a no-op: streamlined-onboarding phase 1 already landed 2026-07-04, and its `.garden`-file-first identity item was deliberately superseded by the newer location-derived identity (commits 6d543582e/367a7543c), leaving design §1.1's identity paragraph stale.
-
-Otherwise the scholar dialog-DB ingest continues (`remainder-4` done, `remainder-5` in progress) alongside the xs2rust stage-4 async/await work.
+The one board completion since last bulletin was the [endo-but-for-bots](https://github.com/endojs/endo-but-for-bots) daemon agent-tools Phase 1 filesystem tools build. Three items landed in the maintainer inbox that want attention. First, a **data-corruption-class bug** in the garden's own reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`): a job was being requeued roughly every 18 min against a 40-min handler while the prior handler stayed alive, twice producing two live writers in one worktree — a garden-infrastructure fix on `main2` that the liaison flagged for a deliberate fix and deploy rather than a board job. Second, the Gateway Feature 8 (`/ocapn` WebSocket endpoint) build was **held rather than opening a competing PR**: it turned out to be a superset of the in-flight draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) (which does only the path-scheme half and defers the socket handoff), with related work on [#392](https://github.com/endojs/endo-but-for-bots/pull/392) and [#413](https://github.com/endojs/endo-but-for-bots/pull/413); the gardener recommends re-scoping to build the handoff on top of #577 and awaits your steer. Third, the streamlined-onboarding Phase 1 job closed as already-satisfied (landed 2026-07-04), with a note that the design's `.garden`-file-first identity was deliberately superseded by the newer location-derived identity — flagging that design §1.1 is now stale.
 
 ## Parked for maintainer feedback
 
@@ -68,18 +64,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`build-endo-but-for-bots-daemon-agent-tools-phase1-filesystem-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-daemon-agent-tools-phase1-filesystem-tools.md) — ---
+### doin (2)
 - [`scholar-ingest-dialog-db-remainder-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder-5.md) — role: scholar
 - [`xs2rust-endor-stage4-async-await`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-async-await.md) — Stage-4 child: async/await over the job queue + the promise double-settle key...
 
-### tada (1304)
+### tada (1305)
+- [`build-endo-but-for-bots-daemon-agent-tools-phase1-filesystem-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-daemon-agent-tools-phase1-filesystem-tools.md) — Completion report
 - [`scholar-ingest-dialog-db-remainder-4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-4.md) — Cycle complete. Report follows.
 - [`scholar-ingest-dialog-db-remainder-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-3.md) — Cycle complete. Here is the report.
 - [`ebfb-endo-gateway-ocapn-websocket-endpoint`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-endo-gateway-ocapn-websocket-endpoint.md) — Completion report
 - [`scholar-ingest-dialog-db-remainder-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-2.md) — Cycle complete. Summary of what I did:
-- [`scholar-ingest-dialog-db-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder.md) — Completion report
-- … and 1299 more
+- … and 1300 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
