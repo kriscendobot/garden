@@ -80,3 +80,9 @@ Dual-run `built-ins/GeneratorFunction`, `built-ins/GeneratorPrototype` (if prese
 <!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 14
+  claimed_at: 2026-07-06T13:03:09Z
