@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/26#issuecomment-4896384235
 @kriscendobot please dispatch a designer 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 19
+  claimed_at: 2026-07-06T18:40:13Z
