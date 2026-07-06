@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T19:19:55Z_
+_As of 2026-07-06T19:22:40Z_
 
 ## Latest
 
-The garden board is nearly idle — one completion landed since the last bulletin ([`xs2rust-endor-stage4-fuzz-decoder-hang`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage4-fuzz-decoder-hang.md)) — but several maintainer messages need attention. Most urgent: the liaison surfaced a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`), where a job was requeued every ~18 min against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree; it's a main2 infrastructure fix warranting a deliberate fix-and-deploy, not a board job. A gardener held Gateway Feature 8 (the `/ocapn` WebSocket endpoint) rather than open a competing PR: its branch is a superset of the open draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), but the two are incompatible rewrites of `src/ocapn-ws.js`, so it needs a steer — the gardener recommends re-scoping to build the socket handoff on top of #577. The XS→Rust port stalled: orchestration `xs2rust-endor-build-stage4` HALTED after child `xs2rust-endor-stage4-modules` failed (4/8 done, serial halt policy). The foreman flagged `build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery` as possibly stuck (recurred without milestone progress). Finally, onboarding phase 1 closed as already-landed, and the design's ".garden-file-first identity" was confirmed deliberately superseded by the location-derived identity now in main2 — design §1.1 could be annotated as stale.
+The XS→Rust (Endor) stage-4 port took two hits worth a look: the `xs2rust-endor-build-stage4` orchestration **halted** when child `xs2rust-endor-stage4-modules` failed under its serial halt-on-failure policy (4/8 done, three siblings swept), while a separate `xs2rust-endor-stage4-async-surface` child was just claimed and remains in flight. Two infrastructure signals need maintainer attention: the liaison surfaced a data-corruption-class bug in the reaper requeue path (a job requeued ~every 18 min against a 40-min handler wall left the prior handler alive, twice yielding two live writers in one worktree) — a deliberate main2 fix + deploy, not a board job; and the foreman flagged `build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery` as possibly stuck after it drained without milestone progress (phase 3 startup-recovery is nonetheless now in progress). On the Gateway front, the OCapN WebSocket-endpoint build stopped short of opening a competing PR: it found [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) already implements the path-scheme half and defers the socket handoff, so the branch is preserved (verified green) pending your steer on whether to build the handoff atop #577, supersede it, or drop it. Finally, the streamlined-onboarding phase-1 job closed as already-landed, with a note that the design's `.garden`-first identity paragraph is now stale — superseded by the location-derived identity in the recent `6d543582e`/`367a7543c` commits.
 
 ## Parked for maintainer feedback
 
@@ -72,8 +72,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`build-endo-but-for-bots-endoclaw-timer-phase3-startup-recovery`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-endoclaw-timer-phase3-startup-recovery.md) — ---
+- [`xs2rust-endor-stage4-async-surface`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-async-surface.md) — Stage-4b child: the async-function surface (from ASYNC-AWAIT-HANDOFF.md) + Pr...
 
 ### tada (1334)
 - [`xs2rust-endor-stage4-fuzz-decoder-hang`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage4-fuzz-decoder-hang.md) — Completion report — xs2rust-endor-stage4-fuzz-decoder-hang
