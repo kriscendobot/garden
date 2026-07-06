@@ -15,6 +15,10 @@ Dialog's resolution of where optionality lives in the query engine: the associat
 | [dialog-db--notes-scalar-associative-layer--optionality-leaked-into-associative-layer](../sections/dialog-db--notes-scalar-associative-layer--optionality-leaked-into-associative-layer.md) | The root cause: optionality leaked into the associative AttributeQuery; what must be removed. |
 | [dialog-db--notes-scalar-associative-layer--semantic-layer-set-widening](../sections/dialog-db--notes-scalar-associative-layer--semantic-layer-set-widening.md) | The concept layer takes over set-widening as a per-entity left-join; the projection-operator vs coalesce options; blast radius. |
 | [dialog-db--notes-scalar-associative-layer--decisions-optional-attribute-query](../sections/dialog-db--notes-scalar-associative-layer--decisions-optional-attribute-query.md) | As built on feat/operator-ir: OptionalAttributeQuery as a first-class left-join; term-level Option fate; Cardinality::Many. |
+| [dialog-db--notes-guide--running-example-and-two-layers](../sections/dialog-db--notes-guide--running-example-and-two-layers.md) | User-facing: the associative layer is scalar, the optional lookup (this left-join) lives in the semantic layer and reports what it found instead of dropping the entity. |
+| [dialog-db--notes-guide--absent-is-a-claim](../sections/dialog-db--notes-guide--absent-is-a-claim.md) | This operator is the sole producer of Absent; its entity-must-be-bound contract and its four input/output behaviors. |
+| [dialog-db--notes-guide--consuming-optional-values-filter-by-default](../sections/dialog-db--notes-guide--consuming-optional-values-filter-by-default.md) | When a sibling premise proves presence the planner demotes this optional lookup to a plain scalar scan (same semantics, less work). |
+| [dialog-db--notes-guide--why-it-is-layered-this-way](../sections/dialog-db--notes-guide--why-it-is-layered-this-way.md) | Why the contract lives in one operator: one place to be correct, types that tell the truth, and a single node for the future incremental-subscription demand hook. |
 
 ## See also
 
