@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-06T21:36:37Z_
+_As of 2026-07-06T21:37:15Z_
 
 ## Latest
 
-The XS→Rust (Endor) port advanced through stage 4 into stage 5: stage 4b orchestration completed and the oracle-shim crash was fixed, but the **stage-4 modules** orchestration `xs2rust-endor-build-stage4` **HALTED** on a serial child failure (4/8 done), and stage 5 (lexer skeleton) is now in flight with stage 6 parked pending it. Two decisions await kriskowal. First, a **data-corruption-class garden bug**: the fable review found the reaper requeue path leaves a prior handler alive while re-posting the job, twice producing two live writers in one worktree — a main2 infra fix-and-deploy, not a bot-repo PR. Second, M3's flagship **daemon-agent-tools** stack — [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614) → [#615](https://github.com/endojs/endo-but-for-bots/pull/615) → [#616](https://github.com/endojs/endo-but-for-bots/pull/616) → [#618](https://github.com/endojs/endo-but-for-bots/pull/618) — is fully built and CI-green but still Draft; the foreman reports the milestone's critical path is now landing this backlog (review + un-draft + merge), not more building. A gateway build for Feature 8 (/ocapn WebSocket endpoint) was **held rather than opened** because it overlaps draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577); the gardener recommends re-scoping to build the socket handoff atop #577's path scheme. Gauntlets are running on [#566](https://github.com/endojs/endo-but-for-bots/pull/566), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), and #617. Lastly, the foreman flags `build-endo-but-for-bots-endoclaw-timer-phase2` as possibly stuck (recurred with no milestone progress), and onboarding phase-1 closed as already-landed — with design §1.1's `.garden`-file identity now superseded by location-derived identity.
+The XS→Rust (Endor) port advanced another supervisor stage (s11 complete, stage-5 lexer now in flight), but its stage-4 orchestration **halted** on a failed `xs2rust-endor-stage4-modules` child (4/8 done) and needs attention before the port can resume.
+
+The bigger signal is that M3's flagship pillar — Claw-like coding via `daemon-agent-tools` — is now **fully built and waiting on you**: phases 1–3 ([#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), [#616](https://github.com/endojs/endo-but-for-bots/pull/616)) are CI-green and mergeable but still Draft, and phase 4 ([#618](https://github.com/endojs/endo-but-for-bots/pull/618)) cleared its last un-draft blocker, so the stack only needs maintainer review, un-draft, and merge — a conductor step the foreman can't self-authorize. Gauntlets are mid-run on [#566](https://github.com/endojs/endo-but-for-bots/pull/566), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), and [#617](https://github.com/endojs/endo-but-for-bots/pull/617).
+
+Two items need your steer: a gardener building the `/ocapn` WebSocket endpoint found it overlaps open draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577) (which implements only the path-scheme half and defers the socket handoff); it held rather than opening a competing PR and recommends re-scoping to build the handoff on top of #577. Separately, the liaison surfaced a data-corruption-class bug in the garden's own reaper requeue path (live handler left running while the job re-posts, twice producing two live writers in one worktree) — a main2 infra fix warranting deliberate repair and deploy.
 
 ## Parked for maintainer feedback
 
@@ -76,20 +80,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr566-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr566-gauntlet.md) — Run the gauntlet on endojs/endo-but-for-bots PR #566 (confined HttpClient, th...
 - [`endojs-endo-but-for-bots-pr615-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr615-gauntlet.md) — Run the gauntlet on endojs/endo-but-for-bots PR #615 (daemon-agent-tools Phas...
 - [`endojs-endo-but-for-bots-pr617-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr617-gauntlet.md) — ---
-- [`port-xs-to-rust-memory-safe-engine-s11`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s11.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`xs2rust-endor-stage5-lexer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-lexer.md) — Stage-5 child 1/7: endor-compile crate skeleton + lexer/token port (xsLexical.c)
 
-### tada (1351)
+### tada (1352)
+- [`port-xs-to-rust-memory-safe-engine-s11`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s11.md) — Completion report — supervisor s11 (XS→Rust port, PR endojs/endo-but-for-bots...
 - [`deadmail-20260706T212022Z-9e5e9a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T212022Z-9e5e9a.md) — Completion report
 - [`xs2rust-endor-stage4-fix-oracle-shim-crash`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage4-fix-oracle-shim-crash.md) — Completion report
 - [`port-xs-to-rust-memory-safe-engine-s10`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s10.md) — Completion report — port-xs-to-rust-memory-safe-engine-s10
 - [`deadmail-20260706T204713Z-8ae72e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T204713Z-8ae72e.md) — Completion report
-- [`xs2rust-endor-build-stage4b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage4b.md) — orchestration xs2rust-endor-build-stage4b — complete
-- … and 1346 more
+- … and 1347 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
