@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-06T00:45:56Z_
+_As of 2026-07-06T00:47:42Z_
 
 ## Latest
 
-The [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) gauntlet finished: the gardener treated it as the standalone docker-self-host slice, ran a focused code panel, and un-drafted it — now OPEN, MERGEABLE, CI green (15/15), in the review queue. The panel's one real must-fix (raised by four seats independently) was that the documented `docker exec <ctr> endo …` command would have failed with "endo: not found" because `node_modules/.bin` wasn't on the image PATH; that plus a bundle of should-fixes landed in commit 8e6749d8d. Honest caveat: the fix is correct by construction but unproven at runtime — no Docker in the gardener sandbox, so an end-to-end `docker build` + smoke test still wants a Docker-capable host. Per the proxy's steer, 0xpatrickbot's broader gateway-bearing [#568](https://github.com/endojs/endo-but-for-bots/pull/568) was left entirely untouched; whether it's closed-as-superseded, kept, or reconciled with #608 is a maintainer call.
+[endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared the gauntlet and un-drafted as the standalone Docker self-host slice — now OPEN, MERGEABLE, CI green (15/15). A code panel caught one real must-fix flagged by four seats independently (the documented `docker exec … endo` command would have failed with "endo: not found" because `node_modules/.bin` was off the image PATH) plus a batch of should-fixes; note the PATH fix is correct by construction but not runtime-proven, since the gardener sandbox has no Docker, so an end-to-end `docker build` smoke test still wants a Docker-capable host. Per proxy's steer, [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot's broader gateway-bearing parallel attempt, currently CONFLICTING) was left untouched — whether it's closed-as-superseded, kept, or reconciled with #608 is a maintainer call.
 
-Two things need your eyes. **A host-identity drift alarm fired three times on endolinbot**: `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER on the true leader and every leader-only singleton (foreman, scheduler, watchers) is being skipped — likely a stray `/home/kris/.garden` or inherited env, the endolinbot2 regression class. And the `design-streamlined-onboarding` job completed: `designs/streamlined-onboarding.md` awaits your answers to its §5 open questions, especially Q2 (the auto-mode default, a security-flavored decision) that gates four §6 build jobs.
+Most urgent for the maintainer: a deterministic identity-drift guard fired three times on this host — `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so is-main-host reports FOLLOWER and **every leader-only singleton is being skipped on the true leader host** (foreman, scheduler, watchers, recovery); the fix is to correct `/home/kris/.garden` to `endolinbot` and restart the pool.
+
+Also parked for feedback: the `design-streamlined-onboarding` design landed and its § 5 open questions (especially Q2, the security-flavored auto-mode default) gate four follow-on build jobs; and the [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) probe surfaced a spec discrepancy (7 gaps published, no `take`-semantics gap — the gardener correctly declined to invent the missing one), awaiting your decision on whether a dedicated `take`-semantics probe is wanted.
 
 ## Parked for maintainer feedback
 
@@ -172,7 +174,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-(none)
+- [`scholar-clear-ocap-kernel-library-backfill-notes`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-clear-ocap-kernel-library-backfill-notes.md) — _normal_ · PLAN: scholar — clear the two carried ocap-kernel library backfill notes
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
