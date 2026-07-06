@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/26#issuecomment-4888913059
 @kriscendobot ERTP and Zoe don't have to be on a blockchain. My goal for this integration is just to use opencollective as a way to move real money through smart contracts. No distributed consensus protocol, no blockchain. ERTP is flexible enough that we can model things such as 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolinbot
+  gardener: 3
+  claimed_at: 2026-07-06T03:50:09Z
