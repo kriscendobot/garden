@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T11:50:02Z_
+_As of 2026-07-06T11:58:32Z_
 
 ## Latest
 
-Several build jobs came back as deliberate skip-and-surface rather than new PRs, converging on the same finding: the M3 confined-outbound-HTTP and Docker-selfhost pillars are already implemented by open PRs, so a fresh build would be waste. For network-fetch, gardeners point at [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (0xpatrickbot's complete `@endo/exo-http-client`, mention-only, untouched) and the garden's own [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) built on the blessed `cli-http-client` design — #286 is now claimed for shepherding. For Docker selfhost, three overlapping PRs exist ([#134](https://github.com/endojs/endo-but-for-bots/pull/134), [#608](https://github.com/endojs/endo-but-for-bots/pull/608), [#568](https://github.com/endojs/endo-but-for-bots/pull/568)); the gardener verified the ~40-line ws-gateway CIDR remote-auth wiring works and pushed it to a WIP branch, but flags an architecture decision only kriskowal can settle: wire remote-auth into `ws-gateway.js` (current design record, #134's approach) or wait for `@endo/gateway`, which kriskowal's 2026-05 review said would subsume ws-gateway. #134 is now claimed for refresh.
-
-Meanwhile [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared its gauntlet and is un-drafted — OPEN, MERGEABLE, CI green — as the standalone docker-slice PR; the panel's must-fix was a missing `node_modules/.bin` on the image PATH that would have broken the documented `docker exec ... endo` command, though the fix is construction-correct rather than runtime-proven (no Docker in the sandbox). #568 was deliberately left alone; whether to close it as superseded is a maintainer call.
-
-Two things warrant direct attention. First, a **data-corruption reaper bug** surfaced from a Fable review of the garden's own scripts: the requeue path left a prior handler alive while requeuing every ~18 min against a 40-min wall, twice producing two live writers in one worktree — a main2 infrastructure fix awaiting deliberate action. Second, **host-identity drift** is firing repeatedly across both hosts (`endolin-garden-ece02cb4` running as `endolinbot`, `endolin-garden2-5bcdff64` as `endolinbot2`), which the guard reports is disabling the leader gate and skipping every leader-only singleton on the true leader host — worth reconciling `/home/kris/garden*/.garden` against real hostnames or recording the override. A new streamlined-onboarding orchestration was posted (four parked children gated on the design's open § 5 questions), and the [#605](https://github.com/endojs/endo-but-for-bots/pull/605) probe report-back reconfirmed the spec's phantom "Gap 5 take-semantics" item does not exist in the real 7-gap deliverable.
+Two design jobs closed: the buffered-channel/exo-stream consolidation landed as draft [endo-but-for-bots#613](https://github.com/endojs/endo-but-for-bots/pull/613), and an exo Google Sheets design wrapped. Refreshes completed on [endo-but-for-bots#89](https://github.com/endojs/endo-but-for-bots/pull/89) and [endo-but-for-bots#134](https://github.com/endojs/endo-but-for-bots/pull/134), and the XS→Rust (Endor) port advanced through its stage-4 accessors/attributes child into stage-4 classes. The streamlined-onboarding orchestration finished — phases 1 (direct-exec launcher) and 2 (context tree) both landed; note the gardener's report that design §1.1's `.garden`-file identity is now superseded by the newer location-derived identity (commits 6d543582e/367a7543c) and should be annotated stale rather than re-added. Most urgent for the maintainer: a fable review of the garden's own scripts surfaced a **data-corruption bug in the reaper requeue path** (`reaper-requeue-kills-or-waits-for-live-handler`) that twice left two live writers in one worktree; the liaison flagged it as a main2 infrastructure fix warranting a deliberate fix + deploy rather than a board job. Newly claimed garden-infrastructure fixes are also in flight for `ensure-project-worktree.sh` branch-checkout hard-fails and non-blocking scaler systemctl calls.
 
 ## Parked for maintainer feedback
 
@@ -26,280 +22,22 @@ Two things warrant direct attention. First, a **data-corruption reaper bug** sur
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260705T173845Z-99346f` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260705T173845Z-99346f.md)
-
-> The design job `design-streamlined-onboarding` completed. The maintainer should review `designs/streamlined-onboarding.md` and answer its § 5 open questions — especially Q2, the auto-mode default, which is a security-flavored decision. The four § 6 build jobs are gated on that review and should be posted as an orchestration only after you answer.
-
-- `20260705T203815Z-e614d3` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260705T203815Z-e614d3.md)
-
-> On endojs/endo-but-for-bots PR #595 (probe published as PR #605, https://github.com/endojs/endo-but-for-bots/pull/605), the report-back surfaced a spec discrepancy: the job spec paraphrased 5 gaps including a "Gap 5 — destructive one-shot `take` semantics" correctness hazard, but the published probe actually has 7 gaps and no `take`-semantics gap. The gardener correctly did not invent the missing gap. Decision needed: do you specifically want a `take`-semantics analysis? If so, that is a genuinely new probe question rather than a report-back, and I can post it as a fresh probe job on your say-so.
-
-- `20260705T230144Z-12089a` — from identity-drift-guard:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260705T230144Z-12089a.md)
-
-> kind: error
->
-> # Host-identity DRIFT detected (deterministic guard)
->
-> **GARDEN=`driftname`** diverges from **hostname -s=`endolinbot`** on this host,
-> with NO recorded parallel-pool override (checked GARDEN_IDENTITY_OVERRIDE and
-> `/tmp/idg-ubnS9p/state/identity-override`).
->
-> GARDEN is the single key every per-host structure hangs off — claim metadata, the
-> `hosts/<host>` worker count, the journal index, and the leader/follower
-> predicate. An unrecorded divergence silently mislabels all of it (here: up to this
-> host's full gardener pool) and disables the leader gate.
->
-> **Leader impact:** is-main-host reports FOLLOWER: the leader marker names 'endolinbot' (this host's real hostname -s), but the drifted GARDEN=driftname does not match it — every leader-only singleton is being SKIPPED on the true leader host
->
-> **Likely source:** the gitignored per-instance identity file `/home/kris/.garden`
-> (common.sh precedence step 2) or an inherited-env `GARDEN`. This is the
-> endolinbot2 regression class.
->
-> **Fix:** if this host is the leader, correct `/home/kris/.garden` (and any
-> inherited `GARDEN`) to `endolinbot` and restart the pool; if this is a
-> deliberate parallel pool, record the override in `/tmp/idg-ubnS9p/state/identity-override`
-> (or export GARDEN_IDENTITY_OVERRIDE=`driftname`) so this guard stays quiet.
->
-> Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
-> (gardener-scaler preflight). It will not repeat until the drift changes or clears.
-
-- `20260705T230150Z-143d1c` — from identity-drift-guard:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260705T230150Z-143d1c.md)
-
-> kind: error
->
-> # Host-identity DRIFT detected (deterministic guard)
->
-> **GARDEN=`driftname`** diverges from **hostname -s=`endolinbot`** on this host,
-> with NO recorded parallel-pool override (checked GARDEN_IDENTITY_OVERRIDE and
-> `/tmp/idg-ubnS9p/state/identity-override`).
->
-> GARDEN is the single key every per-host structure hangs off — claim metadata, the
-> `hosts/<host>` worker count, the journal index, and the leader/follower
-> predicate. An unrecorded divergence silently mislabels all of it (here: up to this
-> host's full gardener pool) and disables the leader gate.
->
-> **Leader impact:** is-main-host reports FOLLOWER: the leader marker names 'endolinbot' (this host's real hostname -s), but the drifted GARDEN=driftname does not match it — every leader-only singleton is being SKIPPED on the true leader host
->
-> **Likely source:** the gitignored per-instance identity file `/home/kris/.garden`
-> (common.sh precedence step 2) or an inherited-env `GARDEN`. This is the
-> endolinbot2 regression class.
->
-> **Fix:** if this host is the leader, correct `/home/kris/.garden` (and any
-> inherited `GARDEN`) to `endolinbot` and restart the pool; if this is a
-> deliberate parallel pool, record the override in `/tmp/idg-ubnS9p/state/identity-override`
-> (or export GARDEN_IDENTITY_OVERRIDE=`driftname`) so this guard stays quiet.
->
-> Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
-> (gardener-scaler preflight). It will not repeat until the drift changes or clears.
-
-- `20260705T230156Z-3d08c6` — from identity-drift-guard:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260705T230156Z-3d08c6.md)
-
-> kind: error
->
-> # Host-identity DRIFT detected (deterministic guard)
->
-> **GARDEN=`driftname`** diverges from **hostname -s=`endolinbot`** on this host,
-> with NO recorded parallel-pool override (checked GARDEN_IDENTITY_OVERRIDE and
-> `/tmp/idg-ubnS9p/state/identity-override`).
->
-> GARDEN is the single key every per-host structure hangs off — claim metadata, the
-> `hosts/<host>` worker count, the journal index, and the leader/follower
-> predicate. An unrecorded divergence silently mislabels all of it (here: up to this
-> host's full gardener pool) and disables the leader gate.
->
-> **Leader impact:** is-main-host reports FOLLOWER: the leader marker names 'endolinbot' (this host's real hostname -s), but the drifted GARDEN=driftname does not match it — every leader-only singleton is being SKIPPED on the true leader host
->
-> **Likely source:** the gitignored per-instance identity file `/home/kris/.garden`
-> (common.sh precedence step 2) or an inherited-env `GARDEN`. This is the
-> endolinbot2 regression class.
->
-> **Fix:** if this host is the leader, correct `/home/kris/.garden` (and any
-> inherited `GARDEN`) to `endolinbot` and restart the pool; if this is a
-> deliberate parallel pool, record the override in `/tmp/idg-ubnS9p/state/identity-override`
-> (or export GARDEN_IDENTITY_OVERRIDE=`driftname`) so this guard stays quiet.
->
-> Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
-> (gardener-scaler preflight). It will not repeat until the drift changes or clears.
-
-- `20260706T004351Z-de3259` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T004351Z-de3259.md)
-
-> proxy answered a gating question (tentative — review and override):
-> - gardener: endojs-endo-but-for-bots-pr608-gauntlet
-> - question (msgid 20260706T002633Z-2ea5ca.md)
-> - tentative answer: Proxy/tentative — the maintainer may revise.
->
-> Your read is correct and your restraint is right: don't touch #568. Closing or commenting on another contributor's PR (0xpatrickbot, mention-only list) is an outward-facing lifecycle call reserved to the maintainer — I can't authorize that, and neither can you.
->
-> But you don't need it to make progress. Take the second option you laid out: **treat #608 as the standalone docker-slice PR and run it through the panel to un-draft on its own merits.** It's green, MERGEABLE, garden-authored, and deliberately defers the gateway/bearer-token surface — that's a coherent, self-contained change that stands without reference to #568.
->
-> So, concretely:
-> - Drop the "supersede #568" clause from your working framing of the job. Don't close it, don't comment on it, don't @-mention 0xpatrickbot.
-> - Un-draft #608 as the docker self-host slice.
-> - Leave #568 alone as the broader, more-ambitious gateway-bearing parallel attempt. Whether it gets closed-as-superseded, kept, or reconciled with #608 is a maintainer decision — surface it in your completion summary so they can make the call with the overlap spelled out (which you've already done well here).
->
-> If the maintainer later wants #568 closed as superseded, that's their action or an explicit authorization to you — not something to assume from the original job wording.
-
-- `20260706T004447Z-41d568` — from gardener:endojs-endo-but-for-bots-pr608-gauntlet, reply_to `endojs-endo-but-for-bots-pr608-gauntlet` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T004447Z-41d568.md)
-
-> #608 gauntlet done. Followed your steer exactly: treated #608 as the standalone docker-slice PR, ran it through a focused code panel, applied the fixes, and un-drafted it. It's now OPEN / not-draft / MERGEABLE, CI green (15/15), in the maintainer review queue.
->
-> Panel found one real must-fix (raised independently by 4 seats): the documented control command `docker exec <ctr> endo ...` would have failed with "endo: not found" because node_modules/.bin wasn't on the image PATH. Fixed, plus a bundle of should-fixes (socket-parent mkdir, PID-1 zombie reaping via init, a "three trees"->"two" doc error, a too-broad "no HTTP gateway" claim narrowed since web-server-node.js does exist, a socket host-mount security warning, and "bundled worker" wording). Commit 8e6749d8d.
->
-> Caveat (honest): I could NOT build/run the image — no Docker in the gardener sandbox. The PATH fix is deterministically correct by construction (bin lands at node_modules/.bin/endo, now on PATH) but not runtime-proven. If you want an end-to-end `docker build` + `docker exec endo endo who` smoke test, that needs a Docker-capable host.
->
-> #568 (0xpatrickbot's broader gateway-bearing parallel attempt): left completely untouched per your call. Overlap for your decision: #608 is the docker-image slice only (deliberately defers gateway/bearer-token); #568 additionally carries the ws-gateway impl + test, chat main.js, package.json, and the design doc, based on `llm` and currently CONFLICTING. Closed-as-superseded / kept / reconciled is your call.
-
-- `20260706T025117Z-fc0dcd` — from gardener:build-endoclaw-network-fetch-http-client-capability, reply_to `build-endoclaw-network-fetch-http-client-capability` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T025117Z-fc0dcd.md)
-
-> Build job `endoclaw-network-fetch` (HttpClient/HttpClientControl confined-outbound-HTTP pillar, M3): NOT building — the design is already delivered by two open PRs, so a third implementation would be waste. Surfacing for disposition.
->
-> 1. PR #566 `feat(exo-http-client): add confined HttpClient` (base llm, DRAFT, ALL CI GREEN) by 0xpatrickbot — a complete, faithful `@endo/exo-http-client` package: `makeHttpClientAndControl` -> {client, control}, exact-origin allowlist via makeExo/M.interface, per-minute rate limit, response byte cap, redirect:'manual', revoke(). 1060-line impl + 514-line tests. It even EXCEEDS the design with trust-on-first-bind (which cli-http-client.md defers to a separate design). Matches endoclaw-network-fetch's capability shape exactly. Caveat: 0xpatrickbot is on mention-only-pr-authors/allowlist, so the garden must not drive/review #566 unless @-mentioned.
->
-> 2. PR #286 `endo http mk Phase 1 (controller + client cap pair, cli-http-client.md)` (base llm, OPEN) by kriscendobot — the garden's OWN implementation of the maintainer-blessed SUPERSEDING design (cli-http-client.md; design revision PR #163 is MERGED). Daemon+CLI-integrated controller/client pair with ReadableBlob bodies and cancellation.
->
-> History: PR #144 (single formula) was CLOSED with "take this back to design" -> produced cli-http-client.md (#163 merged) -> #286 builds it.
->
-> Recommendation: The garden's delivery vehicle for this pillar is PR #286 (blessed design, garden-owned) — shepherd it through the gauntlet. #566 is the external contributor's parallel take on the original design; leave it be (mention-only). Mark the endoclaw-network-fetch design record Superseded-by cli-http-client (it currently reads "Not Started", which is stale). If you instead want a garden-owned standalone exo package on master base, say so and I'll build it.
-
-- `20260706T035229Z-97d0d7` — from gardener:build-endo-but-for-bots-daemon-docker-selfhost, reply_to `build-endo-but-for-bots-daemon-docker-selfhost` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T035229Z-97d0d7.md)
-
-> Builder job `build-endo-but-for-bots-daemon-docker-selfhost` (design: `daemon-docker-selfhost.md`, "M3 keystone"): I did NOT open a 4th PR — three overlapping open PRs already implement this, and the maintainer previously deferred the exact approach the design record describes. Surfacing for adjudication.
->
-> ## Existing open PRs (endojs/endo-but-for-bots)
-> - **#134** (kriscendobot, DRAFT, base `llm`, CHANGES_REQUESTED, last touched 2026-06-28) — the COMPREHENSIVE one: docker/ + `ws-gateway.js` CIDR gate + `daemon-node.js` wiring + tests + static-file serving + a `docker.yml` CI workflow. Stale.
-> - **#608** (kriscendobot, NON-draft, base `master-eecc683`, MERGEABLE, created 2026-07-05) — docker/ files ONLY (Dockerfile, entrypoint, compose, README, .dockerignore). Missing clause 4 (remote authentication) entirely.
-> - **#568** (0xpatrickbot, DRAFT, base `llm`, CONFLICTING, 2026-06-29) — a third-party attempt, 12 files.
->
-> ## The architecture question (why I'm asking, not building)
-> kriskowal's own review on **#134** (2026-05-13) requested changes and said: *"We need to make progress on the Endo Gateway concept before we can sensibly run under Docker. The Gateway subsumes the ws-gateway.js here with the Weblet virtual host and will require its own entrypoint. The gateway itself is presumably also a daemon, but instantiated at the system level."* Issue #173 (Endo Gateway requirements) is now CLOSED and the `@endo/gateway` package skeleton has landed (`packages/gateway/src/{config,vhost}.js`, `ENDO_HTTP_ADDR`, `0.0.0.0:8920` default) — but the daemon still runs its runtime gateway on `ws-gateway.js`; `@endo/gateway` is not yet wired into the daemon's path.
->
-> So the design record (`daemon-docker-selfhost.md`, still "Not Started") describes the **ws-gateway.js** approach the maintainer said was being subsumed. Building clause 4 (remote auth) into `ws-gateway.js` now — which #134 already did and which I independently re-verified works — may be building on the foundation the maintainer wants replaced by `@endo/gateway`.
->
-> ## What I verified (useful either way)
-> I implemented + tested the gateway remote-auth wiring on base `llm`: wired the already-built-but-unwired `cidr.js makeAddressChecker` into `ws-gateway.js` (localhost-only by default, `ENDO_GATEWAY=remote` / `ENDO_GATEWAY_ALLOWED_CIDRS` opt-in, closes disallowed clients with the README's documented "Only local connections allowed", TLS warning), plus `daemon-node.js` env reads and 5 new ava tests in `ws-gateway.test.js` (all green; the reject test is regression-proven — it fails when the gate is removed). This confirms the ws-gateway approach is a ~40-line, testable change. It also confirms **the gateway-bearer-token-auth design (marked Complete) shipped its README + checker + unit tests but its wiring into ws-gateway.js was never landed** — that gap is real regardless of which PR wins.
->
-> ## Recommendation
-> Consolidate to ONE PR and settle the base architecture first:
-> 1. Decide whether Docker remote-auth wires into **ws-gateway.js** (current design record; #134's approach) or should wait for/build on **`@endo/gateway`** (the maintainer's 2026-05 steer). If ws-gateway is fine for now, the fastest path is to refresh **#134** (rebase, add the CI test kriskowal asked for, address the CHANGES_REQUESTED) rather than start fresh — it already has everything.
-> 2. Close the losers (#568 conflicting third-party; #608 or #134 depending on the choice).
-> 3. Update `daemon-docker-selfhost.md` if the gateway pivot changes the design.
->
-> I have the verified gateway wiring + tests ready to hand to whichever PR becomes canonical. Tell me which way to go (refresh #134 / extend #608 / rebuild on @endo/gateway) and I'll execute.
-
-- `20260706T035346Z-7823c6` — from gardener:build-endo-but-for-bots-daemon-docker-selfhost, reply_to `build-endo-but-for-bots-daemon-docker-selfhost` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T035346Z-7823c6.md)
-
-> Follow-up to the daemon-docker-selfhost surface: my verified work is pushed (no PR) to branch `wip/daemon-docker-selfhost-gateway-remote-auth` on endojs/endo-but-for-bots, off origin/llm tip (1132289). Contains the ws-gateway.js CIDR wiring + daemon-node.js env reads + 5 green ws-gateway.test.js tests + the docker/ image. Cherry-pick or rebase onto the canonical PR once you decide the direction.
-
-- `20260706T040517Z-72bbd0` — from gardener:build-endo-but-for-bots-endoclaw-network-fetch, reply_to `build-endo-but-for-bots-endoclaw-network-fetch` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T040517Z-72bbd0.md)
-
-> Build job `build-endo-but-for-bots-endoclaw-network-fetch` (EndoClaw confined-outbound-HTTP, M3): NOT building — a complete duplicate already exists.
->
-> endojs/endo-but-for-bots#566 "feat(exo-http-client): add confined HttpClient" (DRAFT, base llm, author 0xpatrickbot) already implements designs/endoclaw-network-fetch.md in full:
-> - package @endo/exo-http-client with makeHttpClientAndControl → HttpClient / HttpClientControl exo pair (M.interface guards)
-> - structural exact-origin allowlist (guest cannot construct a URL escaping it)
-> - per-minute rate limits (maxRequestsPerMinute / setMaxRequestsPerMinute + enforceRateLimit)
-> - max-response-byte caps (maxResponseBytes / setMaxResponseBytes, streaming read cancels at the cap)
-> - revocation (client + per-binding), plus an opt-in trust-on-first-bind policy layer beyond the design
-> All CI checks green; it passed a code panel and the author addressed every blocker on 2026-06-29. This satisfies the M3 exit clause "confined outbound HTTP".
->
-> I did NOT open a competing PR (builder norm: skip-and-surface on duplicate) and did NOT touch #566 — 0xpatrickbot is a mention-only PR author, so absent an @-mention I leave their PR alone.
->
-> If you want the garden to instead own its own implementation (or to review/shepherd #566 toward merge — it's still draft), say so and I'll post the appropriate job.
-
-- `20260706T111144Z-efc3d3` — from identity-drift-guard:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T111144Z-efc3d3.md)
-
-> kind: error
->
-> # Host-identity DRIFT detected (deterministic guard)
->
-> **GARDEN=`endolinbot`** diverges from **hostname -s=`endolin-garden-ece02cb4`** on this host,
-> with NO recorded parallel-pool override (checked GARDEN_IDENTITY_OVERRIDE and
-> `/home/kris/garden/.garden-state/identity-override`).
->
-> GARDEN is the single key every per-host structure hangs off — claim metadata, the
-> `hosts/<host>` worker count, the journal index, and the leader/follower
-> predicate. An unrecorded divergence silently mislabels all of it (here: up to this
-> host's full gardener pool) and disables the leader gate.
->
-> **Leader impact:** is-main-host reports FOLLOWER (leader marker='endolin-garden2-5bcdff64', GARDEN=endolinbot)
->
-> **Likely source:** the gitignored per-instance identity file `/home/kris/garden/.garden`
-> (common.sh precedence step 2) or an inherited-env `GARDEN`. This is the
-> endolinbot2 regression class.
->
-> **Fix:** if this host is the leader, correct `/home/kris/garden/.garden` (and any
-> inherited `GARDEN`) to `endolin-garden-ece02cb4` and restart the pool; if this is a
-> deliberate parallel pool, record the override in `/home/kris/garden/.garden-state/identity-override`
-> (or export GARDEN_IDENTITY_OVERRIDE=`endolinbot`) so this guard stays quiet.
->
-> Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
-> (gardener-scaler preflight). It will not repeat until the drift changes or clears.
-
-- `20260706T112610Z-848e2d` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T112610Z-848e2d.md)
-
-> kind: error
->
-> # Host-identity DRIFT detected (deterministic guard)
->
-> **GARDEN=`endolinbot2`** diverges from **hostname -s=`endolin-garden2-5bcdff64`** on this host,
-> with NO recorded parallel-pool override (checked GARDEN_IDENTITY_OVERRIDE and
-> `/home/kris/garden2/.garden-state/identity-override`).
->
-> GARDEN is the single key every per-host structure hangs off — claim metadata, the
-> `hosts/<host>` worker count, the journal index, and the leader/follower
-> predicate. An unrecorded divergence silently mislabels all of it (here: up to this
-> host's full gardener pool) and disables the leader gate.
->
-> **Leader impact:** is-main-host reports FOLLOWER: the leader marker names 'endolin-garden2-5bcdff64' (this host's real hostname -s), but the drifted GARDEN=endolinbot2 does not match it — every leader-only singleton is being SKIPPED on the true leader host
->
-> **Likely source:** the gitignored per-instance identity file `/home/kris/garden2/.garden`
-> (common.sh precedence step 2) or an inherited-env `GARDEN`. This is the
-> endolinbot2 regression class.
->
-> **Fix:** if this host is the leader, correct `/home/kris/garden2/.garden` (and any
-> inherited `GARDEN`) to `endolin-garden2-5bcdff64` and restart the pool; if this is a
-> deliberate parallel pool, record the override in `/home/kris/garden2/.garden-state/identity-override`
-> (or export GARDEN_IDENTITY_OVERRIDE=`endolinbot2`) so this guard stays quiet.
->
-> Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
-> (gardener-scaler preflight). It will not repeat until the drift changes or clears.
-
-- `20260706T112719Z-1768bd` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T112719Z-1768bd.md)
-
-> kind: error
->
-> # Host-identity DRIFT detected (deterministic guard)
->
-> **GARDEN=`endolinbot2`** diverges from **hostname -s=`endolin-garden2-5bcdff64`** on this host,
-> with NO recorded parallel-pool override (checked GARDEN_IDENTITY_OVERRIDE and
-> `/home/kris/garden2/.garden-state/identity-override`).
->
-> GARDEN is the single key every per-host structure hangs off — claim metadata, the
-> `hosts/<host>` worker count, the journal index, and the leader/follower
-> predicate. An unrecorded divergence silently mislabels all of it (here: up to this
-> host's full gardener pool) and disables the leader gate.
->
-> **Leader impact:** is-main-host reports FOLLOWER: the leader marker names 'endolin-garden2-5bcdff64' (this host's real hostname -s), but the drifted GARDEN=endolinbot2 does not match it — every leader-only singleton is being SKIPPED on the true leader host
->
-> **Likely source:** the gitignored per-instance identity file `/home/kris/garden2/.garden`
-> (common.sh precedence step 2) or an inherited-env `GARDEN`. This is the
-> endolinbot2 regression class.
->
-> **Fix:** if this host is the leader, correct `/home/kris/garden2/.garden` (and any
-> inherited `GARDEN`) to `endolin-garden2-5bcdff64` and restart the pool; if this is a
-> deliberate parallel pool, record the override in `/home/kris/garden2/.garden-state/identity-override`
-> (or export GARDEN_IDENTITY_OVERRIDE=`endolinbot2`) so this guard stays quiet.
->
-> Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
-> (gardener-scaler preflight). It will not repeat until the drift changes or clears.
-
-- `20260706T114002Z-ccc540` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T114002Z-ccc540.md)
-
-> On endojs/endo-but-for-bots PR #595 report-back (report `endojs-endo-but-for-bots-pr595-report-back`): the job spec's paraphrase described 5 gaps including a "Gap 5 — destructive one-shot `take` semantics" correctness hazard, but the actual published probe (PR #605, https://github.com/endojs/endo-but-for-bots/pull/605) has 7 gaps and no `take`-semantics gap — that item does not exist in the real deliverable, and the gardener correctly did not invent it. Decision needed: if you specifically expect a `take`-semantics analysis, that is a genuinely new probe question to post, not a report-back. Otherwise no action; PR #605 stays draft as discussion substrate for @kriskowal / @erights.
-
 - `20260706T114016Z-d133d3` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T114016Z-d133d3.md)
 
 > From the fable review of the garden's own scripts (report `fable-review-fix-garden-scripts`): a data-corruption-class bug was found in the reaper requeue path — `reaper-requeue-kills-or-waits-for-live-handler`. The job was requeued roughly every 18 min against a 40-min handler wall while the prior handler was left alive, twice producing two live writers in one worktree (pids/timestamps in the job body). This is a garden-infrastructure fix (main2, no bot-repo PR), so I'm surfacing it rather than posting a board job — it warrants a deliberate fix + deploy. Two lesser items rode along and need no decision: the accepted-but-deferred `watchers-port-fail-floor-to-mention-issue-inbox` fix, and `ci-watcher-test-preexisting-failures` (6/29 failures on a pristine main2 tree, unrelated to that job's changes).
+
+- `20260706T115432Z-634cb5` — from gardener:onboarding-p1-launcher, reply_to `onboarding-p1-launcher` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T115432Z-634cb5.md)
+
+> Job onboarding-p1-launcher (streamlined-onboarding phase 1): no changes made — the work is already landed, and the one remaining design point was deliberately superseded. Detail:
+>
+> Phase 1 landed 2026-07-04 in commit 8fdbd11e0 ("direct-exec launcher, auto-build, guard-hook seed"). Present in current origin/main2:
+>   - garden: auto-build (ensure_container), .claude/settings.json seeding with the SessionStart guard hook (seed_claude_settings), `exec claude --dangerously-skip-permissions` on bare enter (cmd_enter), and the `./garden sh` debug-shell subcommand (cmd_sh).
+>   - Dockerfile: claude CLI install + `command -v claude` build assertion + /etc/profile.d/garden.sh PATH wiring.
+>   - CLAUDE.md § Container guard: the launcher-seeded-hook sentence.
+>
+> The ONLY job item not present is the design's ".garden-file-first identity". It is absent on purpose: commits 6d543582e and 367a7543c (both 2026-07-06, ~8h before this job was promoted) deleted the .garden file and GARDEN env knob from the launcher, replacing them with LOCATION-derived identity (<hostname>-<basename>-<hash8>), citing two concrete bugs the .garden model caused (the "lost container" strand and journal-worktree corruption) and verifying with two concurrent instances. That newer decision achieves the same user-facing goal the design wanted — bare `./garden` needs zero required env vars — via a different, better mechanism.
+>
+> Re-adding .garden-first identity per design §1.1 would revert 6d543582e/367a7543c, so I did not. If you DO want .garden naming back (e.g. as sugar layered on top of location-derivation), please re-post with that reconciliation spelled out; otherwise design §1.1's identity paragraph is stale and could be annotated as superseded. Completing the job as already-satisfied.
 
 
 ## Board
@@ -307,23 +45,23 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (9)
-- [`design-ebfb-buffered-channel-exo-stream-consolidation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-ebfb-buffered-channel-exo-stream-consolidation.md) — Design: consolidate the two buffered-channel.js copies onto @endo/exo-stream
-- [`design-exo-google-sheets`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-exo-google-sheets.md) — Design: @endo/exo-google-sheets — a Google Sheets connector
+- [`deadmail-20260706T115225Z-639beb`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260706T115225Z-639beb.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr442-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #442
 - [`endojs-endo-but-for-bots-pr605-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr605-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #605
-- [`endojs-endo-but-for-bots-pr89-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr89-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #89
-- [`pr-ebfb-134-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/pr-ebfb-134-refresh.md) — Repo endojs/endo-but-for-bots — refresh PR #134 (https://github.com/endojs/en...
+- [`fix-ensure-project-worktree-checked-out-branch`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-ensure-project-worktree-checked-out-branch.md) — Fix: ensure-project-worktree.sh hard-fails when the requested branch is check...
+- [`improve-scaler-nonblocking-systemctl`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scaler-nonblocking-systemctl.md) — scripts/jobs/install-units.sh
 - [`pr-ebfb-286-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/pr-ebfb-286-shepherd.md) — Repo endojs/endo-but-for-bots — shepherd PR #286 (https://github.com/endojs/e...
+- [`scholar-ingest-gutentag-packages`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-gutentag-packages.md) — role: scholar
 - [`scholar-ingest-gutentag`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-gutentag.md) — role: scholar
-- [`xs2rust-endor-stage4-accessors-attributes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-accessors-attributes.md) — Stage-4 child: accessor properties, full property descriptors, freeze/seal (h...
+- [`xs2rust-endor-stage4-classes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-classes.md) — Stage-4 child: class definitions, super, new.target
 
-### tada (1264)
-- [`default-gardeners-20`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/default-gardeners-20.md) — Completion report
-- [`pr-ebfb-605-take-semantics-comment`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/pr-ebfb-605-take-semantics-comment.md) — Completion report
-- [`daily-progress-summary-20260706-113547`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260706-113547.md) — Completion report
-- [`deadmail-issue-comment-4889651367`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4889651367.md) — Completion report: deadmail-issue-comment-4889651367
-- [`deadmail-issue-comment-4888978127`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4888978127.md) — Completion report
-- … and 1259 more
+### tada (1271)
+- [`onboarding-p2-context-tree`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/onboarding-p2-context-tree.md) — Completion report
+- [`design-ebfb-buffered-channel-exo-stream-consolidation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-ebfb-buffered-channel-exo-stream-consolidation.md) — Design job complete. Draft PR **endojs/endo-but-for-bots#613** carries the de...
+- [`endojs-endo-but-for-bots-pr89-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr89-refresh.md) — The refresh is complete. Final report:
+- [`pr-ebfb-134-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/pr-ebfb-134-refresh.md) — Done. Writing the completion report.
+- [`onboarding-p1-launcher`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/onboarding-p1-launcher.md) — Completion report
+- … and 1266 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
