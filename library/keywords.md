@@ -13922,3 +13922,27 @@ quadkey tile naming | (see section: ndim--readme--overview)
 single-tag component package | (see section: gutentag-component-demos--readmes--single-tag-demo-packages)
 `<tag>.html` package | (see section: gutentag-component-demos--readmes--single-tag-demo-packages)
 Guten Tag demo components | (see section: gutentag-component-demos--readmes--single-tag-demo-packages)
+Dialog | dialog-db
+DialogDB | dialog-db
+dialog-db | dialog-db
+Irakli Gozalishvili | dialog-db
+io.gozala | dialog-db
+prolly tree | prolly-tree
+Prolly Tree | prolly-tree
+probabilistic b-tree | prolly-tree
+Probabilistic B-Tree | prolly-tree
+Merkle-CRDT | merkle-crdt
+Merkle CRDT | merkle-crdt
+query-time merge | merkle-crdt
+fact triple | fact-triple
+the of is cause | fact-triple
+retraction fact | fact-triple
+EAV index | fact-triple
+AEV index | fact-triple
+VAE index | fact-triple
+schema-on-read | schema-on-read
+schema-on-query | schema-on-read
+UCAN | ucan-delegation
+User Controlled Authorization Network | ucan-delegation
+did:key | ucan-delegation
+subject command policy | ucan-delegation
