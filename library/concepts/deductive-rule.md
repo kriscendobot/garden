@@ -17,6 +17,7 @@ Dialog's advanced composition beyond stitching attributes into a concept: a rule
 | [dialog-db--notes-notation--abbreviated-deductive-rules](../sections/dialog-db--notes-notation--abbreviated-deductive-rules.md) | The compact abbreviated-notation rule syntax (concept matching, constraints, formulas, negation) and its expansion. |
 | [dialog-db--notes-concept--schema-on-read-and-rules](../sections/dialog-db--notes-concept--schema-on-read-and-rules.md) | Concepts as the conclusion type of deductive rules; multiple rules for one concept give logical disjunction. |
 | [dialog-db--notes-rules--defining-rules-and-grounding](../sections/dialog-db--notes-rules--defining-rules-and-grounding.md) | The Rust-API rule as a function from a conclusion pattern to a tuple of premises; grounding and premise-order independence. |
+| [dialog-db--rust-dialog-query-readme--deductive-rules](../sections/dialog-db--rust-dialog-query-readme--deductive-rules.md) | Crate-doc: rules as fn(Query<T>) -> impl When premise tuples installed with Session::install; multiple rules per concept give disjunction (OR). |
 
 ## See also
 
