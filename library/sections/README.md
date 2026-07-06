@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6096 (527 parent indexes + 5569 children).
+Total section files: 6101 (528 parent indexes + 5573 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -7257,6 +7257,7 @@ Total section files: 6096 (527 parent indexes + 5569 children).
 - [metamask-ocap-kernel--docs-usage-md](metamask-ocap-kernel--docs-usage-md.md) (index)
 - [metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts](metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts.md) (index)
 - [metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts](metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts.md) (index)
+- [metamask-ocap-kernel--packages-ocap-kernel-src-KernelRouter-ts](metamask-ocap-kernel--packages-ocap-kernel-src-KernelRouter-ts.md) (index)
 - [metamask-ocap-kernel--packages-ocap-kernel-src-vats-VatHandle-ts](metamask-ocap-kernel--packages-ocap-kernel-src-vats-VatHandle-ts.md) (index)
 - [metamask-ocap-kernel--packages-ocap-kernel-src-vats-VatSupervisor-ts](metamask-ocap-kernel--packages-ocap-kernel-src-vats-VatSupervisor-ts.md) (index)
 
@@ -7408,6 +7409,13 @@ Total section files: 6096 (527 parent indexes + 5569 children).
 - [metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts--crank-abort-rollback-versus-commit-flush](metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts--crank-abort-rollback-versus-commit-flush.md)
 - [metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts--forever-run-loop-and-crank-lifecycle](metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts--forever-run-loop-and-crank-lifecycle.md)
 - [metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts--immediate-versus-buffered-enqueue-and-decider-authorized-resolution](metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts--immediate-versus-buffered-enqueue-and-decider-authorized-resolution.md)
+
+### metamask-ocap-kernel--packages-ocap-kernel-src-KernelRouter-ts
+
+- [metamask-ocap-kernel--packages-ocap-kernel-src-KernelRouter-ts--deliver-notify-promise-resolution-and-gc-actions](metamask-ocap-kernel--packages-ocap-kernel-src-KernelRouter-ts--deliver-notify-promise-resolution-and-gc-actions.md)
+- [metamask-ocap-kernel--packages-ocap-kernel-src-KernelRouter-ts--deliver-send-refcount-and-endpoint-vanished-splat](metamask-ocap-kernel--packages-ocap-kernel-src-KernelRouter-ts--deliver-send-refcount-and-endpoint-vanished-splat.md)
+- [metamask-ocap-kernel--packages-ocap-kernel-src-KernelRouter-ts--route-message-splat-send-requeue](metamask-ocap-kernel--packages-ocap-kernel-src-KernelRouter-ts--route-message-splat-send-requeue.md)
+- [metamask-ocap-kernel--packages-ocap-kernel-src-KernelRouter-ts--router-and-promise-state-delivery-model](metamask-ocap-kernel--packages-ocap-kernel-src-KernelRouter-ts--router-and-promise-state-delivery-model.md)
 
 ### metamask-ocap-kernel--packages-ocap-kernel-src-vats-VatHandle-ts
 
