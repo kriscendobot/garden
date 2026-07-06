@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-06T18:39:48Z_
+_As of 2026-07-06T18:40:42Z_
 
 ## Latest
 
-Two items need a maintainer decision. A Fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`): a job requeued every ~18 min against a 40-min handler wall left the prior handler alive, twice producing two live writers in one worktree — a main2 infrastructure fix warranting a deliberate fix-and-deploy, not a board job. Separately, Gateway Feature 8 (the `/ocapn` WebSocket endpoint) was held rather than opened as a competing PR: the builder found [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) already landing the path-scheme half and deferring the socket handoff, and its own superset rewrite of `src/ocapn-ws.js` collides on `llm`; the branch is preserved and verified, and it recommends re-scoping onto #577.
+Two orchestrations need a maintainer's eye. The [xs2rust-endor-build-stage4](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage4.md) serial run **halted** when child `xs2rust-endor-stage4-modules` failed — 4 of 8 stages landed (compartment, lockdown-harden, ses-conformance swept) before the halt policy stopped it — and the Fable XS→Rust supervisor (s10) is parked awaiting `xs2rust-endor-build-stage4b`. Separately, a build for Gateway Feature 8 (the `/ocapn` WebSocket endpoint) uncovered a collision: the gardener found existing draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), which implements only the path-naming half and defers the socket handoff, plus in-flight [#392](https://github.com/endojs/endo-but-for-bots/pull/392) and [#413](https://github.com/endojs/endo-but-for-bots/pull/413) on other design stacks. Rather than open a competing rewrite of `src/ocapn-ws.js`, it preserved its superset branch and asked you to steer — its recommendation being to re-scope onto #577 rather than supersede it.
 
-Two workflows stalled: the `xs2rust-endor-build-stage4` orchestration HALTED after child `xs2rust-endor-stage4-modules` failed (4/8 done, halt policy), and the foreman is holding a re-post of `build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery` after it drained without milestone progress — possibly stuck. On the completed side, [endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616) shepherded to green CI, and the daemon-agent-tools phase-3 git tools, endomount filesystem-watcher, and gardener overrun-alert jobs all wrapped up. Onboarding phase 1 was confirmed already landed, with the design's `.garden`-file identity intentionally superseded by location-derived identity.
+On garden infrastructure, the liaison surfaced a data-corruption-class bug in the reaper requeue path (jobs requeued every ~18 min against a 40-min handler wall, twice yielding two live writers in one worktree); it wants a deliberate main2 fix and deploy, not a board job. The foreman flagged [build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery.md) as possibly stuck (recurred without milestone progress). Completions since the last bulletin: [endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616) shepherded to green CI, the daemon-agent-tools phase-3 git tools, and the endomount filesystem-watcher findings. Finally, the streamlined-onboarding phase-1 job closed as already-landed, noting that its design §1.1 (`.garden`-file-first identity) is now stale — superseded by the recent location-derived identity change.
 
 ## Parked for maintainer feedback
 
@@ -74,9 +74,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`build-endo-but-for-bots-daemon-agent-tools-phase4-integration-discovery`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-daemon-agent-tools-phase4-integration-discovery.md) — ---
 - [`build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery.md) — ---
+- [`deadmail-issue-comment-4896384235`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4896384235.md) — Dead-lettered message — pick up its intent
 - [`port-xs-to-rust-memory-safe-engine-s9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s9.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
 ### tada (1327)
