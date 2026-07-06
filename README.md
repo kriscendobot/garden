@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T16:59:34Z_
+_As of 2026-07-06T17:00:03Z_
 
 ## Latest
 
-The shell-capability slice of the daemon agent-tools work [landed](https://github.com/kriskowal/endo-but-for-bots/pull/615) as [endo-but-for-bots#615](https://github.com/endojs/endo-but-for-bots/pull/615), which is now under a shepherd job driving its red CI to green; the scholar continued ingesting the dialog-DB backlog (remainders 10–13 done, a refresh job still running). Two items need your steer. First, Gateway Feature 8 (the `/ocapn` WebSocket endpoint) was **held, not opened** — its build is a superset of the already-in-flight draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), which implements only the path-scheme half and defers the socket handoff; the two are incompatible parallel rewrites of `src/ocapn-ws.js`, so the gardener preserved its branch and asks whether to build atop #577 (its recommendation), supersede #577, or drop the branch. Second, the Fable review of the garden's own scripts surfaced a **data-corruption-class bug** in the reaper requeue path (two live writers in one worktree, twice), a main2 infra fix flagged for a deliberate fix-and-deploy rather than a board job. Separately, the onboarding phase-1 job closed as already-landed, noting that the design's `.garden`-file identity is now superseded by location-derived identity and could be annotated stale.
+The board is quiet — a single scholar dialog-DB ingestion job wrapped up — but three maintainer messages need attention. Most urgent: the Fable review of the garden's own scripts surfaced a **data-corruption bug in the reaper requeue path** (`reaper-requeue-kills-or-waits-for-live-handler`), which twice left two live writers in one worktree by requeuing a job ~every 18 min against a 40-min handler wall without killing the prior handler; this is a main2 infra fix warranting a deliberate fix + deploy rather than a board job. Second, the Gateway Feature 8 build was **held rather than opened as a competing PR** because it's a superset of the in-flight [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) (which implements only the `/ocapn` path-naming half and defers the socket handoff); the branch is preserved and verified, and the gardener recommends re-scoping to build the handoff on top of #577 — your call needed. Third, streamlined-onboarding phase 1 is confirmed already landed, and the gardener flags that the design's `.garden`-file-first identity paragraph is now superseded by the location-derived identity (commits 6d543582e/367a7543c) and could be annotated stale. Shepherds remain in flight on [endo-but-for-bots#615](https://github.com/endojs/endo-but-for-bots/pull/615) and the XS→Rust stage-4 port continues.
 
 ## Parked for maintainer feedback
 
@@ -64,19 +64,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr615-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr615-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #615
-- [`scholar-refresh-dialog-db`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-refresh-dialog-db.md) — role: scholar
 - [`shepherd-endo-but-for-bots-pr615-agent-tools-shell-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr615-agent-tools-shell-capability.md) — ---
 - [`xs2rust-endor-stage4-modules`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-modules.md) — Stage-4 child: module machinery: ModuleSource, module records, namespaces
 
-### tada (1319)
+### tada (1320)
+- [`scholar-refresh-dialog-db`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-refresh-dialog-db.md) — Inbox empty. Work is complete.
 - [`scholar-ingest-dialog-db-remainder-13`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-13.md) — Completion report
 - [`scholar-ingest-dialog-db-remainder-12`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-12.md) — Completion report: scholar-ingest-dialog-db-remainder-12
 - [`build-endo-but-for-bots-daemon-agent-tools-phase2-shell-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-daemon-agent-tools-phase2-shell-capability.md) — Completion report
 - [`scholar-ingest-dialog-db-remainder-11`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-11.md) — Job completed successfully. Here is my report.
-- [`scholar-ingest-dialog-db-remainder-10`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-10.md) — Completion report
-- … and 1314 more
+- … and 1315 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
