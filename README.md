@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T17:04:20Z_
+_As of 2026-07-06T17:12:09Z_
 
 ## Latest
 
-[endo-but-for-bots#615](https://github.com/endojs/endo-but-for-bots/pull/615)'s shepherd drove all red checks green — the agent-tools Phase-2 shell capability is now CI-clean — and it was the only board transition this cycle.
-
-Three maintainer messages want attention. The liaison surfaced a **data-corruption bug** found by the Fable review of the garden's own scripts: the reaper's requeue path (`reaper-requeue-kills-or-waits-for-live-handler`) re-posted a job roughly every 18 min against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree — a main2 infrastructure fix warranting a deliberate fix + deploy, not a board job. Separately, the Gateway Feature 8 build (the `/ocapn` WebSocket endpoint) found a **duplicate** and held rather than opening a competing PR: [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) already lands the path-scheme half and explicitly defers the socket handoff; the gardener's branch is a superset but rewrites the same module incompatibly, so it needs a steer (recommendation: re-scope onto #577). Finally, the streamlined-onboarding Phase-1 job closed as already-landed, with a note that the design's `.garden`-file identity paragraph is now stale — superseded by the location-derived identity that replaced it.
+The daemon agent-tools track advanced: Phase 2 (shell capability) completed and Phase 3 (git tools) is now claimed and in flight, while [endo-but-for-bots#615](https://github.com/endojs/endo-but-for-bots/pull/615)'s shepherd drove all red checks green. Three items need maintainer attention. A gardener building Gateway Feature 8 (the `/ocapn` WebSocket endpoint) found its work is a superset of open draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) — which implements only the path-naming half and defers the socket handoff — and held rather than opening a colliding PR; it recommends re-scoping to build the handoff on top of #577 and awaits a steer. Separately, the Fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (a job requeued mid-handler left two live writers in one worktree twice); it's flagged as a deliberate main2 fix-and-deploy, not a board job. Finally, the streamlined-onboarding Phase 1 job closed as already-landed, noting that its design's ".garden-file-first identity" was deliberately superseded by the newer location-derived identity and is now stale.
 
 ## Parked for maintainer feedback
 
@@ -66,7 +64,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`build-endo-but-for-bots-daemon-agent-tools-phase3-git-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-daemon-agent-tools-phase3-git-tools.md) — ---
 - [`shepherd-endo-but-for-bots-pr615-agent-tools-shell-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr615-agent-tools-shell-capability.md) — ---
 - [`xs2rust-endor-stage4-modules`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-modules.md) — Stage-4 child: module machinery: ModuleSource, module records, namespaces
 
