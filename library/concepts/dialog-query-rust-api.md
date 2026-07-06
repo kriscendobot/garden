@@ -17,6 +17,9 @@ The concrete Rust surface of the `dialog-query` crate — how the associative/se
 | [dialog-db--rust-dialog-query-readme--semantic-concepts](../sections/dialog-db--rust-dialog-query-readme--semantic-concepts.md) | `#[derive(Concept)]` bidirectional map; `Query::<T> { .. }.perform(&session)` conjunction into conclusions; single-attribute queries. |
 | [dialog-db--rust-dialog-query-readme--deductive-rules](../sections/dialog-db--rust-dialog-query-readme--deductive-rules.md) | Rules as `fn(Query<T>) -> impl When` premise tuples installed with `Session::install`; disjunction across rules. |
 | [dialog-db--rust-dialog-query-readme--formulas](../sections/dialog-db--rust-dialog-query-readme--formulas.md) | `#[derive(Formula)]` with `#[output]` and `compute(Input<Self>) -> Vec<Self>`; the built-in formula catalog. |
+| [dialog-db--rust-dialog-repository-readme--usage-walkthrough](../sections/dialog-db--rust-dialog-repository-readme--usage-walkthrough.md) | End-to-end example: a #[derive(Concept)] schema committed via transaction().assert().commit() and read back with query().select(Query::<T>). |
+| [dialog-db--rust-dialog-repository-guide--writing-semantic-triples](../sections/dialog-db--rust-dialog-repository-guide--writing-semantic-triples.md) | Typed writes via branch.transaction().assert(Attribute::of(entity).is(value)).commit() — the associative of/is builder routed into a branch revision. |
+| [dialog-db--rust-dialog-repository-guide--querying-concepts-rules-and-artifacts](../sections/dialog-db--rust-dialog-repository-guide--querying-concepts-rules-and-artifacts.md) | Typed concept queries, deductive-rule queries via .query().install(rule), and raw .claims().select(ArtifactSelector) with automatic remote fallback. |
 
 ## See also
 
