@@ -50,3 +50,9 @@ the orchestrate watcher promotes them once the orchestration record exists):
   (`xs2rust-endor-meter-opcode-cost-instrumentation`).
 - Meter numbers WILL change; that is correct — update expectations to the recalibrated costs,
   never back-fit to CESU-8 byte length or to the C-XS oracle's computrons.
+
+---
+claim:
+  host: endolinbot
+  gardener: 18
+  claimed_at: 2026-07-06T02:13:09Z
