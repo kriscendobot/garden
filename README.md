@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-06T02:46:50Z_
+_As of 2026-07-06T02:51:25Z_
 
 ## Latest
 
-The most urgent signal is a **host-identity drift**: the deterministic guard fired three times reporting `GARDEN=driftname` diverging from `hostname -s=endolinbot` with no recorded parallel-pool override, which means `is-main-host` reads FOLLOWER on the true leader and every leader-only singleton (foreman, scheduler, watchers, recovery) is silently being skipped — likely a stale `/home/kris/.garden` or inherited `GARDEN`, the endolinbot2 regression class, and it wants a fix-and-restart or a recorded override.
+The docker self-host slice [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared its gauntlet and is now un-drafted — OPEN, MERGEABLE, CI green (15/15) — awaiting review. A panel fix corrected a real must-fix (the documented `docker exec … endo` control command would have failed because `node_modules/.bin` wasn't on the image PATH), but the image was never built or run in-sandbox, so an end-to-end `docker build` smoke test on a Docker-capable host is still owed. The broader gateway-bearing parallel attempt [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot, mention-only) was deliberately left untouched; whether it's closed-as-superseded or reconciled with #608 is a maintainer call.
 
-On the work side, [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared its gauntlet and is now OPEN / not-draft / MERGEABLE with CI green (15/15): run as the standalone docker-slice PR, its panel caught a real must-fix (the documented `docker exec … endo` control command would have failed "endo: not found" because `node_modules/.bin` was off the image PATH) plus a bundle of should-fixes, all in commit 8e6749d8d — though the gardener honestly flags the image was never built or run (no Docker in the sandbox), so the PATH fix is correct by construction but not runtime-proven. Per proxy's tentative steer, 0xpatrickbot's broader gateway-bearing [#568](https://github.com/endojs/endo-but-for-bots/pull/568) was left untouched; whether it's closed-as-superseded, kept, or reconciled with #608 is a maintainer call.
+**Needs attention:** a deterministic host-identity drift guard fired three times — `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so is-main-host reports FOLLOWER and every leader-only singleton (foreman, scheduler, watchers) is being skipped on the true leader host. Fix is correcting `/home/kris/.garden` back to `endolinbot` and restarting the pool.
 
-Two other items await you: the `design-streamlined-onboarding` design landed (`designs/streamlined-onboarding.md`) with its four build jobs gated on your answers to its §5 open questions — especially the security-flavored auto-mode default; and the probe published as [#605](https://github.com/endojs/endo-but-for-bots/pull/605) (against [#595](https://github.com/endojs/endo-but-for-bots/pull/595)) surfaced a spec discrepancy — the job paraphrased a "destructive one-shot `take` semantics" gap the published probe doesn't contain, and the gardener correctly declined to invent it, so a genuine `take`-semantics analysis would be a fresh probe on your say-so. Currently in flight: an endoclaw network-fetch HTTP-client capability build, a gateway bearer-token auth design, and the xs2rust UTF-16 string-storage build.
+Two build jobs stood down rather than duplicate existing work: `endoclaw-network-fetch` won't build because the HttpClient capability is already delivered by [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) and the garden's own [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (recommended vehicle: shepherd #286). The `design-streamlined-onboarding` doc landed and its four build jobs are gated on the maintainer answering its open questions — notably the security-flavored auto-mode default. Meanwhile the XS→Rust (Endor) port advanced, with the UTF-16 string-storage build now in flight.
 
 ## Parked for maintainer feedback
 
@@ -148,6 +148,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Caveat (honest): I could NOT build/run the image — no Docker in the gardener sandbox. The PATH fix is deterministically correct by construction (bin lands at node_modules/.bin/endo, now on PATH) but not runtime-proven. If you want an end-to-end `docker build` + `docker exec endo endo who` smoke test, that needs a Docker-capable host.
 >
 > #568 (0xpatrickbot's broader gateway-bearing parallel attempt): left completely untouched per your call. Overlap for your decision: #608 is the docker-image slice only (deliberately defers gateway/bearer-token); #568 additionally carries the ws-gateway impl + test, chat main.js, package.json, and the design doc, based on `llm` and currently CONFLICTING. Closed-as-superseded / kept / reconciled is your call.
+
+- `20260706T025117Z-fc0dcd` — from gardener:build-endoclaw-network-fetch-http-client-capability, reply_to `build-endoclaw-network-fetch-http-client-capability` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T025117Z-fc0dcd.md)
+
+> Build job `endoclaw-network-fetch` (HttpClient/HttpClientControl confined-outbound-HTTP pillar, M3): NOT building — the design is already delivered by two open PRs, so a third implementation would be waste. Surfacing for disposition.
+>
+> 1. PR #566 `feat(exo-http-client): add confined HttpClient` (base llm, DRAFT, ALL CI GREEN) by 0xpatrickbot — a complete, faithful `@endo/exo-http-client` package: `makeHttpClientAndControl` -> {client, control}, exact-origin allowlist via makeExo/M.interface, per-minute rate limit, response byte cap, redirect:'manual', revoke(). 1060-line impl + 514-line tests. It even EXCEEDS the design with trust-on-first-bind (which cli-http-client.md defers to a separate design). Matches endoclaw-network-fetch's capability shape exactly. Caveat: 0xpatrickbot is on mention-only-pr-authors/allowlist, so the garden must not drive/review #566 unless @-mentioned.
+>
+> 2. PR #286 `endo http mk Phase 1 (controller + client cap pair, cli-http-client.md)` (base llm, OPEN) by kriscendobot — the garden's OWN implementation of the maintainer-blessed SUPERSEDING design (cli-http-client.md; design revision PR #163 is MERGED). Daemon+CLI-integrated controller/client pair with ReadableBlob bodies and cancellation.
+>
+> History: PR #144 (single formula) was CLOSED with "take this back to design" -> produced cli-http-client.md (#163 merged) -> #286 builds it.
+>
+> Recommendation: The garden's delivery vehicle for this pillar is PR #286 (blessed design, garden-owned) — shepherd it through the gauntlet. #566 is the external contributor's parallel take on the original design; leave it be (mention-only). Mark the endoclaw-network-fetch design record Superseded-by cli-http-client (it currently reads "Not Started", which is stale). If you instead want a garden-owned standalone exo package on master base, say so and I'll build it.
 
 
 ## Board
