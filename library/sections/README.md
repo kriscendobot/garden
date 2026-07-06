@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6109 (530 parent indexes + 5579 children).
+Total section files: 6123 (530 parent indexes + 5593 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -7193,6 +7193,23 @@ Total section files: 6109 (530 parent indexes + 5579 children).
 - [gtor--readme--reactivity-taxonomy](gtor--readme--reactivity-taxonomy.md)
 - [gtor--readme--signals-and-behaviors](gtor--readme--signals-and-behaviors.md)
 - [gtor--readme--summary-and-glossary](gtor--readme--summary-and-glossary.md)
+
+### gutentag--readme
+
+- [gutentag--readme--argument-calling-conventions](gutentag--readme--argument-calling-conventions.md)
+- [gutentag--readme--arguments-and-scopes](gutentag--readme--arguments-and-scopes.md)
+- [gutentag--readme--body-nodes-and-no-wrapper-element](gutentag--readme--body-nodes-and-no-wrapper-element.md)
+- [gutentag--readme--bootstrapping](gutentag--readme--bootstrapping.md)
+- [gutentag--readme--building-block-tags-text-and-html](gutentag--readme--building-block-tags-text-and-html.md)
+- [gutentag--readme--custom-tags-and-packaging](gutentag--readme--custom-tags-and-packaging.md)
+- [gutentag--readme--html-modules-and-lexical-scope](gutentag--readme--html-modules-and-lexical-scope.md)
+- [gutentag--readme--javascript-implementation-and-hookup](gutentag--readme--javascript-implementation-and-hookup.md)
+- [gutentag--readme--overview](gutentag--readme--overview.md)
+- [gutentag--readme--scope-object-model](gutentag--readme--scope-object-model.md)
+- [gutentag--readme--structural-tags-repeat-reveal-choose](gutentag--readme--structural-tags-repeat-reveal-choose.md)
+- [gutentag--readme--this-space-and-xml](gutentag--readme--this-space-and-xml.md)
+- [gutentag--readme--translation-and-provided-tags](gutentag--readme--translation-and-provided-tags.md)
+- [gutentag--readme--virtual-document-koerper](gutentag--readme--virtual-document-koerper.md)
 
 ### kriskowal-com--giants
 
