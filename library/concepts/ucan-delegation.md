@@ -21,6 +21,7 @@ A **UCAN** (User Controlled Authorization Network) is an offline-verifiable, cry
 | [dialog-db--notes-repository--authorization-chain-and-capability-domains](../sections/dialog-db--notes-repository--authorization-chain-and-capability-domains.md) | Local vs recovered delegation chains from subject to operator; the `dialog-effects` capability domains. |
 | [dialog-db--notes-repository--authorization-delegation-identification](../sections/dialog-db--notes-repository--authorization-delegation-identification.md) | `access::Prove` resolves a chain from a `CertificateStore`; delegations import via `profile.access().save(chain)`. |
 | [dialog-db--rust-dialog-repository-guide--collaboration-ucan-delegation](../sections/dialog-db--rust-dialog-repository-guide--collaboration-ucan-delegation.md) | Sharing a repository across profiles via claim(&cap).delegate(audience) / save(chain); the produced chain carries the full proof path repo -> Alice -> Bob. |
+| [dialog-db--rust-dialog-remote-ucan-s3-readme--collaboration](../sections/dialog-db--rust-dialog-remote-ucan-s3-readme--collaboration.md) | The remote-layer expression: Alice `claim(&repo).delegate(bob.did())`, Bob `save`s the chain and pushes with `.subject(alice_repo.did())` — no bucket secret shared. |
 
 ## See also
 
