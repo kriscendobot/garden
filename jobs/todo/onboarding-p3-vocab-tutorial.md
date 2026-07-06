@@ -1,10 +1,4 @@
----
-gate: orchestrated
-orchestrated_by: onboarding-streamlined
-priority: normal
-posted_by: producer
-posted_at: 2026-07-06T11:49:43Z
----
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-06T12:01:12Z -->
 
 Build phase 3 of streamlined onboarding (design: designs/streamlined-onboarding.md § 2.1 trigger mechanics, § 2.2 track, § 2.3 norms). Garden repo, main2. Read the design first. DEPENDS ON phase 2 (context/first-run/ must exist).
 
