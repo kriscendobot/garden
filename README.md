@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T17:22:14Z_
+_As of 2026-07-06T17:29:58Z_
 
 ## Latest
 
-[endo-but-for-bots#615](https://github.com/endojs/endo-but-for-bots/pull/615) (agent-tools shell capability) is back to green — the shepherd drove its two failing checks to passing and reported nothing red remaining. Otherwise the board is quiet, with only a phase-3 git-tools build and the stage-4 XS→Rust module port still in flight.
-
-Three items need a maintainer decision, surfaced by inbox message rather than the board: a **data-corruption bug in the reaper requeue path** (`reaper-requeue-kills-or-waits-for-live-handler`), where a job was requeued every ~18 min against a 40-min handler and twice left two live writers in one worktree — a main2 infrastructure fix warranting a deliberate fix + deploy. On the bot repo, Gateway Feature 8 (the `/ocapn` WebSocket endpoint) was held rather than opened as a competing PR: it overlaps [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), which lands only the path-naming half and defers the socket handoff; the gardener's superset rewrites the same module incompatibly and recommends re-scoping to build the handoff on top of #577. Finally, streamlined-onboarding phase 1 was closed as already-landed, with a note that the design's `.garden`-file identity is now superseded by the location-derived identity from commits 6d543582e/367a7543c and should be annotated stale unless you want it reintroduced.
+The daemon agent-tools Phase 3 (git tools) build landed, and the shepherd for [endo-but-for-bots#615](https://github.com/endojs/endo-but-for-bots/pull/615) (agent-tools shell capability) drove all checks green. Three items need maintainer attention. A Fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path — a job was requeued ~every 18 min against a 40-min handler while the prior handler stayed alive, twice yielding two live writers in one worktree; it's a main2 infrastructure fix warranting a deliberate fix-and-deploy, not a board job. The Gateway Feature 8 build (`/ocapn` WebSocket endpoint) was held rather than opening a competing PR: it's a superset of the open draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), which implements only the path-scheme half and defers the socket handoff, but the two `src/ocapn-ws.js` rewrites collide on `llm`; the gardener recommends re-scoping to build the handoff on top of #577 (branch preserved, locally verified 73 passing). Finally, streamlined-onboarding Phase 1 was reported already-landed, with the design's `.garden`-file identity now superseded by the location-derived scheme from commits 6d543582e/367a7543c — that design paragraph is stale and could be annotated.
 
 ## Parked for maintainer feedback
 
@@ -14,7 +12,7 @@ Three items need a maintainer decision, surfaced by inbox message rather than th
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 6d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 7d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 10d)
-- [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 20d)
+- [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 21d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 45d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 45d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 47d)
@@ -66,17 +64,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`build-endo-but-for-bots-daemon-agent-tools-phase3-git-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-daemon-agent-tools-phase3-git-tools.md) — ---
+### doin (1)
 - [`xs2rust-endor-stage4-modules`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-modules.md) — Stage-4 child: module machinery: ModuleSource, module records, namespaces
 
-### tada (1322)
+### tada (1323)
+- [`build-endo-but-for-bots-daemon-agent-tools-phase3-git-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-daemon-agent-tools-phase3-git-tools.md) — Completion report
 - [`shepherd-endo-but-for-bots-pr615-agent-tools-shell-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pr615-agent-tools-shell-capability.md) — Completion report: shepherd endojs/endo-but-for-bots PR #615
 - [`endojs-endo-but-for-bots-pr615-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr615-shepherd.md) — All red checks are now green; nothing is failing. The two failures that trigg...
 - [`scholar-refresh-dialog-db`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-refresh-dialog-db.md) — Inbox empty. Work is complete.
 - [`scholar-ingest-dialog-db-remainder-13`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-13.md) — Completion report
-- [`scholar-ingest-dialog-db-remainder-12`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-12.md) — Completion report: scholar-ingest-dialog-db-remainder-12
-- … and 1317 more
+- … and 1318 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
