@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6253 (530 parent indexes + 5723 children).
+Total section files: 6261 (530 parent indexes + 5731 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -889,6 +889,11 @@ Total section files: 6253 (530 parent indexes + 5723 children).
 - [dialog-db--notes-layered-rule-resolution--rule-storage](dialog-db--notes-layered-rule-resolution--rule-storage.md)
 - [dialog-db--notes-layered-rule-resolution--writes-and-tests](dialog-db--notes-layered-rule-resolution--writes-and-tests.md)
 
+### dialog-db--notes-memory-layout
+
+- [dialog-db--notes-memory-layout--branch-and-remote-cells](dialog-db--notes-memory-layout--branch-and-remote-cells.md)
+- [dialog-db--notes-memory-layout--fetch-pull-push-operations](dialog-db--notes-memory-layout--fetch-pull-push-operations.md)
+
 ### dialog-db--notes-operator-ir
 
 - [dialog-db--notes-operator-ir--architecture](dialog-db--notes-operator-ir--architecture.md)
@@ -953,6 +958,14 @@ Total section files: 6253 (530 parent indexes + 5723 children).
 - [dialog-db--notes-refinements--lattice-refined-type](dialog-db--notes-refinements--lattice-refined-type.md)
 - [dialog-db--notes-refinements--storage-boundary-and-limits](dialog-db--notes-refinements--storage-boundary-and-limits.md)
 
+### dialog-db--notes-repository
+
+- [dialog-db--notes-repository--authorization-chain-and-capability-domains](dialog-db--notes-repository--authorization-chain-and-capability-domains.md)
+- [dialog-db--notes-repository--authorization-delegation-identification](dialog-db--notes-repository--authorization-delegation-identification.md)
+- [dialog-db--notes-repository--identity-layers-account-profile-operator](dialog-db--notes-repository--identity-layers-account-profile-operator.md)
+- [dialog-db--notes-repository--named-spaces-and-credential-format](dialog-db--notes-repository--named-spaces-and-credential-format.md)
+- [dialog-db--notes-repository--opening-and-operator-setup](dialog-db--notes-repository--opening-and-operator-setup.md)
+
 ### dialog-db--notes-rule-pipeline
 
 - [dialog-db--notes-rule-pipeline--narrowing-replanning-and-errors](dialog-db--notes-rule-pipeline--narrowing-replanning-and-errors.md)
@@ -980,6 +993,10 @@ Total section files: 6253 (530 parent indexes + 5723 children).
 - [dialog-db--notes-space-and-storage--core-types-location-space-storage](dialog-db--notes-space-and-storage--core-types-location-space-storage.md)
 - [dialog-db--notes-space-and-storage--layouts-and-setup-flow](dialog-db--notes-space-and-storage--layouts-and-setup-flow.md)
 - [dialog-db--notes-space-and-storage--mounting-and-two-level-dispatch](dialog-db--notes-space-and-storage--mounting-and-two-level-dispatch.md)
+
+### dialog-db--notes-subject-routing-options
+
+- [dialog-db--notes-subject-routing-options--overview](dialog-db--notes-subject-routing-options--overview.md)
 
 ### dialog-db--notes-sync
 
