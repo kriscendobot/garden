@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T18:33:17Z_
+_As of 2026-07-06T18:39:03Z_
 
 ## Latest
 
-The board was quiet — a single claim ([build-endo-but-for-bots-daemon-agent-tools-phase4-integration-discovery](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-daemon-agent-tools-phase4-integration-discovery.md)) — but several items now need maintainer decisions. A Fable review of the garden's own scripts surfaced a **data-corruption-class bug in the reaper requeue path**: a job was requeued every ~18 min against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree — a garden-infra fix (main2, no PR) that warrants a deliberate fix + deploy. The **xs2rust-endor-build-stage4** orchestration ([PR #600](https://github.com/endojs/endo-but-for-bots/pull/600)) **HALTED** at 4/8: child `xs2rust-endor-stage4-modules` blew its 2400s handler budget twice and was parked as a poison job, held until a human promotes it, splits it, or raises the timeout. Gateway Feature 8 (the `/ocapn` WebSocket endpoint) was **held rather than opened as a competing PR** — the builder found its work is a superset of the still-draft [PR #577](https://github.com/endojs/endo-but-for-bots/pull/577) (path-scheme half only) and needs steering on whether to build the socket handoff atop #577, supersede it, or drop the branch. Lesser notes: the onboarding phase-1 job closed as already-landed (with a flag that design §1.1's `.garden`-first identity is now stale/superseded), the foreman is holding a possibly-stuck re-post of the endoclaw timer phase-2 job, and [PR #616](https://github.com/endojs/endo-but-for-bots/pull/616) shepherded to green CI.
+The XS→Rust port's stage-4 orchestration [`xs2rust-endor-build-stage4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage4.md) **halted** after its module-machinery child (PR [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) blew its handler wall-clock two cycles running; the reaper parked the work in `plan/` (gate `go-ahead`) — a maintainer must promote, split, or raise the timeout before the port's s10 supervisor stage (now blocked on `stage4b`) can proceed. Separately, the Gateway `/ocapn` WebSocket build was **held rather than PR'd**: it's a superset of the in-flight draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) (which implements only the path-scheme half and defers the socket handoff) but a parallel rewrite of the same module — the gardener recommends re-scoping to build the handoff on top of #577 and awaits your steer. On the green side, [endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616)'s CI shepherd finished clean and the daemon-agent-tools phase-3 git-tools and filesystem-watcher jobs completed. Two items need your attention beyond the parked work: a data-corruption-class bug in the reaper requeue path (surfaced by the Fable review of the garden's own scripts — a garden-infra fix warranting deliberate fix + deploy, not a board job), and a note that the streamlined-onboarding design §1.1's `.garden`-file identity is now stale, superseded by location-derived identity.
 
 ## Parked for maintainer feedback
 
@@ -188,7 +188,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
 - [`synth-and-deploy-minion-town-aws`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/synth-and-deploy-minion-town-aws.md) — _normal_ · Synth, wire custom domain, and live-deploy minion.town to AWS
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
-- [`xs2rust-endor-stage4-modules`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage4-modules.md) — _normal_ · Stage-4 child: module machinery: ModuleSource, module records, namespaces
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 (none)
@@ -196,6 +195,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
 - [`build-daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase3.md) — awaiting `build-daemon-rename-to-manager-phase2` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
+- [`port-xs-to-rust-memory-safe-engine-s10`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s10.md) — awaiting `xs2rust-endor-build-stage4b` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
 ## Watch set
