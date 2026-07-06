@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-06T00:54:27Z_
+_As of 2026-07-06T02:08:09Z_
 
 ## Latest
 
-[endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared the gauntlet and un-drafted as the standalone Docker self-host slice — now OPEN, MERGEABLE, CI green (15/15). A code panel caught one real must-fix flagged by four seats independently (the documented `docker exec … endo` command would have failed with "endo: not found" because `node_modules/.bin` was off the image PATH) plus a batch of should-fixes; note the PATH fix is correct by construction but not runtime-proven, since the gardener sandbox has no Docker, so an end-to-end `docker build` smoke test still wants a Docker-capable host. Per proxy's steer, [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot's broader gateway-bearing parallel attempt, currently CONFLICTING) was left untouched — whether it's closed-as-superseded, kept, or reconciled with #608 is a maintainer call.
+The most urgent signal is operational, not code: the deterministic identity-drift guard fired three times on this host — **GARDEN=`driftname`** diverges from `hostname -s`=`endolinbot` with no recorded parallel-pool override, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, watchers, recovery services) is being skipped on the true leader. If endolinbot is meant to be leader, `/home/kris/.garden` needs correcting to `endolinbot` and the pool restarting; if it's a deliberate parallel pool, the override needs recording to silence the guard.
 
-Most urgent for the maintainer: a deterministic identity-drift guard fired three times on this host — `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so is-main-host reports FOLLOWER and **every leader-only singleton is being skipped on the true leader host** (foreman, scheduler, watchers, recovery); the fix is to correct `/home/kris/.garden` to `endolinbot` and restart the pool.
+On the PR front, [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared its gauntlet: it was reframed as the standalone docker-slice PR (per the proxy's steer), run through a focused panel, fixed, and un-drafted — now OPEN, MERGEABLE, CI green (15/15), awaiting review. The panel's must-fix was a broken `docker exec … endo` control command (`node_modules/.bin` wasn't on the image PATH); the fix is correct by construction but not runtime-proven, since the gardener had no Docker to build the image. The broader, gateway-bearing parallel attempt in [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot, mention-only) was deliberately left untouched — whether it's closed-as-superseded, kept, or reconciled with #608 is flagged as a maintainer call.
 
-Also parked for feedback: the `design-streamlined-onboarding` design landed and its § 5 open questions (especially Q2, the security-flavored auto-mode default) gate four follow-on build jobs; and the [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) probe surfaced a spec discrepancy (7 gaps published, no `take`-semantics gap — the gardener correctly declined to invent the missing one), awaiting your decision on whether a dedicated `take`-semantics probe is wanted.
+Two decisions await you in the inbox: the `design-streamlined-onboarding` design landed (`designs/streamlined-onboarding.md`) and its four build jobs are gated on you answering the § 5 open questions, especially the security-flavored auto-mode default; and the [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) probe surfaced that its spec paraphrased a "destructive `take` semantics" gap that isn't actually in the published 7-gap report — the gardener correctly declined to invent it, so a `take`-semantics analysis would need to be posted as a fresh probe on your say-so. Meanwhile the XS→Rust (Endor) port advanced — `xs2rust-endor-build-stage3b` orchestration completed — with a fixer now working a bound-callback dispatch crash.
 
 ## Parked for maintainer feedback
 
@@ -154,9 +154,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
+- [`build-endoclaw-timer-daemon-formula-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endoclaw-timer-daemon-formula-integration.md) — ---
 - [`port-xs-to-rust-memory-safe-engine-s7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s7.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`scholar-clear-ocap-kernel-library-backfill-notes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-clear-ocap-kernel-library-backfill-notes.md) — PLAN: scholar — clear the two carried ocap-kernel library backfill notes
+- [`xs2rust-endor-fix-bound-callback-dispatch`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-fix-bound-callback-dispatch.md) — Fixer: bound function in callback position dispatches at pc 0 — crash / silen...
 
 ### tada (1230)
 - [`scholar-ingest-ocap-kernel-comment-fragments-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-comment-fragments-6.md) — Completion report
