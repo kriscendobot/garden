@@ -24,13 +24,16 @@ if [ -n "${GARDEN_MOCK_FAIL_UNIT:-}" ]; then
 fi
 
 # Optional hang injection: GARDEN_MOCK_HANG_UNIT names a unit whose
-# enable/disable/restart/show the mock makes hang (a long sleep), so tests can
-# exercise the caller's bounded-`timeout` per-unit skip path — the whole point of
-# unit_ctl_bounded. The sleep is longer than any sane per-unit bound; the caller's
-# `timeout -k` SIGTERMs (then SIGKILLs) this process, which returns rc 124/137.
+# restart/start/stop/show the mock makes hang (a long sleep), so tests can exercise
+# the caller's bounded-`timeout` per-unit skip path — the whole point of
+# unit_ctl_bounded. These are the manager-talking (job-enqueuing) verbs the callers
+# now wrap in unit_ctl_bounded; the cheap `enable`/`disable` file ops are issued
+# unbounded (they do not block on a job), so they are deliberately NOT hangable
+# here. The sleep is longer than any sane per-unit bound; the caller's `timeout -k`
+# SIGTERMs (then SIGKILLs) this process, which returns rc 124/137.
 if [ -n "${GARDEN_MOCK_HANG_UNIT:-}" ]; then
   case "$cmd" in
-    enable|disable|restart|start|stop|show)
+    restart|start|stop|show)
       for a in "$@"; do [ "$a" = "$GARDEN_MOCK_HANG_UNIT" ] && sleep 30; done ;;
   esac
 fi

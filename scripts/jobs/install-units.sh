@@ -180,22 +180,34 @@ scale_skip_note() {
 
 scale() {
   local n="${1:?usage: install-units.sh scale <N>}"
-  # Each `enable --now` is bounded (unit_ctl_bounded): a hung start of one gardener
-  # is skipped and the loop continues, so the whole enable pass always completes
-  # within the scaler's window and a later tick retries any skipped instance.
+  # Enable + start each intended gardener, split into the cheap synchronous file op
+  # and the slow start job so neither blocks the reconcile loop. `enable` just
+  # writes the persistent symlink — it does NOT wait on the unit's start job — so it
+  # is unbounded. `start --no-block` enqueues the start job and returns as soon as
+  # it is queued rather than blocking until the gardener's `claude -p` drains; over
+  # a ~100-unit pool on one busy user manager, blocking `--now` reliably took >5s
+  # and every tick SIGKILLed the lot, so the pool never converged. Non-blocking, the
+  # call finishes well under the bound; it stays wrapped in unit_ctl_bounded purely
+  # as a backstop for a genuinely wedged manager, and on a timeout the unit is
+  # skipped and a later tick retries it (the scaler already tolerates a start whose
+  # convergence is only observed on a later tick).
   for i in $(seq 1 "$n"); do
-    local u="garden-gardener@$i.service" rc=0
-    unit_ctl_bounded enable --now "$u" || rc=$?
-    [ "$rc" -eq 0 ] || scale_skip_note "enable --now" "$u" "$rc"
+    local u="garden-gardener@$i.service" erc=0 rc=0
+    unit_ctl enable "$u" || erc=$?
+    [ "$erc" -eq 0 ] || scale_skip_note "enable" "$u" "$erc"
+    unit_ctl_bounded start --no-block "$u" || rc=$?
+    [ "$rc" -eq 0 ] || scale_skip_note "start --no-block" "$u" "$rc"
   done
-  # Disable any higher-numbered instances still running. A `disable --now` SIGTERMs
-  # the worker immediately — fine when it is idle, but a SIGTERM of a mid-job
-  # gardener kills its in-flight `claude -p` handler, which then requeues and burns
-  # a full TTL cycle (the observed rc=143 transient-handler outage). So gate on the
-  # SAME busy marker deploy-sync.sh gates its restart on (gardener_busy, common.sh):
-  # an extra that is mid-job is DEFERRED — left running for now and SKIPPED — and a
-  # later scaler tick (the 1-minute garden-gardener-scaler.timer) disables it once
-  # it has gone idle, so the worker stops between claims, never mid-call.
+  # Disable any higher-numbered instances still running. `disable` removes the
+  # persistent symlink (cheap, unbounded); `stop --no-block` then enqueues the stop
+  # job — a SIGTERM of the worker — and returns at once rather than blocking on it.
+  # A SIGTERM of an IDLE extra is fine, but a SIGTERM of a mid-job gardener kills its
+  # in-flight `claude -p` handler, which then requeues and burns a full TTL cycle
+  # (the observed rc=143 transient-handler outage). So gate on the SAME busy marker
+  # deploy-sync.sh gates its restart on (gardener_busy, common.sh): an extra that is
+  # mid-job is DEFERRED — left running for now and SKIPPED — and a later scaler tick
+  # (the 1-minute garden-gardener-scaler.timer) stops it once it has gone idle, so
+  # the worker stops between claims, never mid-call.
   local deferred=0
   while read -r unit _; do
     case "$unit" in
@@ -204,14 +216,17 @@ scale() {
         [[ "$idx" =~ ^[0-9]+$ ]] || continue
         [ "$idx" -gt "$n" ] || continue
         if gardener_busy "$idx"; then
-          log "gardener $idx is mid-job; deferring its disable to a later scaler tick (stops between claims, not mid-job)"
+          log "gardener $idx is mid-job; deferring its stop to a later scaler tick (stops between claims, not mid-job)"
           deferred=$((deferred+1))
         else
-          # Bounded: a hung `disable --now` on one idle extra is skipped so the
-          # loop keeps draining the rest — no single unit stalls the whole pass.
-          local drc=0
-          unit_ctl_bounded disable --now "$unit" || drc=$?
-          [ "$drc" -eq 0 ] || scale_skip_note "disable --now" "$unit" "$drc"
+          # Cheap disable, then a non-blocking stop bounded only as a wedged-manager
+          # backstop; a hung stop is skipped so the loop keeps draining the rest —
+          # no single unit stalls the whole pass.
+          local drc=0 src=0
+          unit_ctl disable "$unit" || drc=$?
+          [ "$drc" -eq 0 ] || scale_skip_note "disable" "$unit" "$drc"
+          unit_ctl_bounded stop --no-block "$unit" || src=$?
+          [ "$src" -eq 0 ] || scale_skip_note "stop --no-block" "$unit" "$src"
         fi
         ;;
     esac
@@ -236,7 +251,10 @@ scale() {
 # skipped — so a later tick restarts it once idle. Like the scale path, the worker
 # thus adopts the corrected identity BETWEEN claims, never mid-`claude -p` (a
 # `restart` of a mid-job gardener SIGTERMs the in-flight handler, which requeues
-# and burns a TTL cycle — the rc=143 transient-handler outage). A worker whose live
+# and burns a TTL cycle — the rc=143 transient-handler outage). The restart is
+# issued `--no-block` so it enqueues the restart job and returns at once rather
+# than blocking on it — the same >5s-per-call blocking that SIGKILLed the scaler's
+# `--now` calls. A worker whose live
 # identity cannot be read (not running, or no GARDEN in its environ — i.e. it
 # resolved the kernel-fixed hostname default, which cannot drift) is left alone.
 reconcile_identity() {
@@ -253,14 +271,16 @@ reconcile_identity() {
           deferred=$((deferred+1))
         else
           log "gardener $idx identity '$actual' != host '$want'; restarting to adopt the corrected host identity"
-          # Bounded: a hung `restart` on one unit must not stall the whole
-          # identity reconcile past the scaler window; skip it and continue.
+          # Non-blocking: `restart --no-block` enqueues the restart job and returns
+          # at once rather than blocking until it drains, so it finishes well under
+          # the bound. Still wrapped in unit_ctl_bounded as a wedged-manager backstop
+          # — a hung enqueue is skipped and the loop continues past this unit.
           local rrc=0
-          unit_ctl_bounded restart "$unit" || rrc=$?
+          unit_ctl_bounded restart --no-block "$unit" || rrc=$?
           if [ "$rrc" -eq 0 ]; then
             restarted=$((restarted+1))
           else
-            scale_skip_note "restart" "$unit" "$rrc"
+            scale_skip_note "restart --no-block" "$unit" "$rrc"
           fi
         fi
         ;;
@@ -278,17 +298,24 @@ enable_services() {
   # its missing deploy-sync.sh into an rc-127 crash loop, 2026-06-27) — and it needs
   # no by-name list: deleting a unit from scripts/systemd/ is sufficient to retire it.
   prune_retired
-  # Enable every intended (derived) unit. --now starts it immediately too.
-  # BOUNDED per unit, and one failure never aborts the loop: this runs inside
-  # deploy-garden's DRAINED window, where an unbounded `systemctl` against a
-  # wedged user-manager/dbus used to hang the whole deploy with the fleet
-  # stopped (the reason unit_ctl_bounded exists for the scaler), and a single
-  # failing enable under set -e silently skipped every alphabetically-later
-  # unit. Failures are collected and WARN'd; a later reconcile retries them.
+  # Enable + start every intended (derived) unit, split into the cheap file op and
+  # the slow start job so neither blocks (as the scaler does): `enable` writes the
+  # persistent symlink without waiting on the start job, and `start --no-block`
+  # enqueues the start and returns at once rather than blocking until it drains. The
+  # start stays bounded as a backstop: this runs inside deploy-garden's DRAINED
+  # window, where a blocking `--now` against a wedged user-manager/dbus used to hang
+  # the whole deploy with the fleet stopped (the reason unit_ctl_bounded exists for
+  # the scaler). One failure never aborts the loop — a single failing enable under
+  # set -e silently skipped every alphabetically-later unit. Enablement is the
+  # persistent state drift-verify keys on, so failure keys on the `enable`; a hung
+  # `start` only WARNs (the unit stays enabled and a later tick retries its start).
+  # Failures are collected and WARN'd; a later reconcile retries them.
   local enabled=() failed_units=()
   while read -r u; do
     [ -n "$u" ] || continue
-    if unit_ctl_bounded enable --now "$u"; then
+    if unit_ctl enable "$u"; then
+      unit_ctl_bounded start --no-block "$u" \
+        || log "WARN: 'start --no-block $u' timed out/failed (rc=$?); its start is enqueued-or-retried, unit stays enabled"
       enabled+=("$u")
     else
       failed_units+=("$u")

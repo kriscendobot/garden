@@ -190,11 +190,11 @@ echo 103 > "$PIDS/garden-gardener@3.service"
 mkdir -p "$GARDEN_STATE/gardeners/3"; : > "$GARDEN_STATE/gardeners/3/busy"   # @3 mid-job
 : > "$GARDEN_MOCK_LOG"
 idout="$(GARDEN=testhost GARDEN_PROC="$PROC" GARDEN_MOCK_PIDS="$PIDS" "$JOBS/gardener-scaler.sh" 2>&1)"
-grep -q 'restart garden-gardener@1.service' "$GARDEN_MOCK_LOG" \
-  && ok "drifted idle gardener 1 restarted (adopts corrected identity)" || bad "drifted gardener 1 NOT restarted"
-grep -q 'restart garden-gardener@2.service' "$GARDEN_MOCK_LOG" \
+grep -q 'restart --no-block garden-gardener@1.service' "$GARDEN_MOCK_LOG" \
+  && ok "drifted idle gardener 1 restarted --no-block (adopts corrected identity)" || bad "drifted gardener 1 NOT restarted"
+grep -q 'restart --no-block garden-gardener@2.service' "$GARDEN_MOCK_LOG" \
   && bad "matching gardener 2 was restarted (spurious)" || ok "matching gardener 2 left alone (no spurious restart)"
-grep -q 'restart garden-gardener@3.service' "$GARDEN_MOCK_LOG" \
+grep -q 'restart --no-block garden-gardener@3.service' "$GARDEN_MOCK_LOG" \
   && bad "busy drifted gardener 3 was restarted (mid-job SIGTERM!)" || ok "busy drifted gardener 3 deferred (not restarted)"
 grep -q "gardener 3 identity 'otherhost' != host 'testhost' but mid-job; deferring" <<<"$idout" \
   && ok "deferral logged for the busy drifted worker" || bad "deferral not logged"
