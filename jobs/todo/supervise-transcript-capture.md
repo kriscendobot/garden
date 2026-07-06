@@ -51,11 +51,4 @@ the bring-up + broadcast-reader pieces.
 - Garden-meta only: land code/docs on main2 (push directly, no PR). No project repo, no
   upstream.
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 11
-  claimed_at: 2026-07-06T23:43:31Z
+<!-- garden-reaped: 2 -->
