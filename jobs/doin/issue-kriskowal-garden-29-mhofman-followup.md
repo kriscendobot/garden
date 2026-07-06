@@ -72,3 +72,9 @@ smallest safe version of it; if not, why, and the least-risky path forward.
   prototype/verify if useful, but do NOT comment on, open PRs against, or otherwise
   interact with agoric/agoric-sdk UPSTREAM (roles/COMMON.md § External-repo etiquette).
 - This is a design/research reply, not a merged change.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 19
+  claimed_at: 2026-07-06T23:04:45Z
