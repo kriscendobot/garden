@@ -57,3 +57,9 @@ vector) plus [xs-debugging](skills/xs-debugging/SKILL.md).
   upstream READ-ONLY; do NOT open PRs against or comment on upstream Moddable, and do
   NOT interact with `agoric/agoric-sdk` upstream. Cite sources. Verification/analysis
   reply, not a merged upstream change.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 20
+  claimed_at: 2026-07-06T23:49:28Z
