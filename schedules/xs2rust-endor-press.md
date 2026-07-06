@@ -1,5 +1,5 @@
 cadence: 30m
-last_dispatched: 2026-07-06T00:35:42Z
+last_dispatched: 2026-07-06T01:05:58Z
 job_basename_prefix: xs2rust-endor-press
 preflight: gardening/xs2rust-endor-press-preflight.sh
 ---
