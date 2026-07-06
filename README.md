@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-06T16:44:53Z_
+_As of 2026-07-06T16:53:19Z_
 
 ## Latest
 
-Little moved on the board itself — the scholar dialog-DB ingest advanced one cycle (remainder-12 completed, remainder-13 now claimed) — but three items landed in the maintainer inbox that need attention. Most urgent: the Fable review of the garden's own scripts turned up a **data-corruption-class bug in the reaper requeue path** (`reaper-requeue-kills-or-waits-for-live-handler`), which requeued a job every ~18 min against a 40-min handler wall without killing the prior handler, twice yielding two live writers in one worktree; it's a main2 infra fix warranting a deliberate fix-and-deploy, not a board job. Second, the `ebfb-endo-gateway-ocapn-websocket-endpoint` build was **held rather than opened as a competing PR**: its `/ocapn` WebSocket work is a superset of the already-in-flight [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) (which implements only the path-naming half and defers the socket handoff) but rewrites the same module incompatibly, so it needs your steer — the gardener recommends re-scoping to build the socket handoff on top of #577 rather than superseding it. Third, the `onboarding-p1-launcher` job closed as already-satisfied: phase 1 landed 2026-07-04, and its lone open design point — `.garden`-file-first identity — was deliberately superseded by the location-derived identity work, so design §1.1 is now stale and could be annotated as such.
+Two shepherds are now driving CI on [endo-but-for-bots#615](https://github.com/endojs/endo-but-for-bots/pull/615) (agent-tools shell capability) after its red CI, following the completed Phase-2 build of that same shell-capability feature; the scholar dialog-db ingest continues to churn (cycle 12 landed, 13 in flight) alongside the Stage-4 XS→Rust module-machinery port.
+
+Three things want a maintainer decision. The liaison surfaced a **data-corruption bug in the reaper requeue path** (`reaper-requeue-kills-or-waits-for-live-handler`): a job was requeued every ~18 min against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree — a garden-infra fix warranting a deliberate main2 fix + deploy, not a board job. A gardener building the gateway `/ocapn` WebSocket endpoint (Feature 8) **held rather than open a competing PR**, having found [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) already implements the path-scheme half and defers the socket handoff its own branch delivers; it recommends re-scoping to build on top of #577 and awaits your steer. And the streamlined-onboarding Phase-1 job closed as already-landed, flagging that the design's `.garden`-file identity was deliberately superseded by the newer location-derived identity (commits 6d543582e / 367a7543c) — so design §1.1 is stale and could be annotated.
 
 ## Parked for maintainer feedback
 
@@ -64,8 +66,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
+- [`endojs-endo-but-for-bots-pr615-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr615-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #615
 - [`scholar-ingest-dialog-db-remainder-13`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder-13.md) — role: scholar
+- [`shepherd-endo-but-for-bots-pr615-agent-tools-shell-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr615-agent-tools-shell-capability.md) — ---
 - [`xs2rust-endor-stage4-modules`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-modules.md) — Stage-4 child: module machinery: ModuleSource, module records, namespaces
 
 ### tada (1318)
