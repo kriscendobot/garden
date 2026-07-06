@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-06T18:49:01Z_
+_As of 2026-07-06T18:50:36Z_
 
 ## Latest
 
-Since the last bulletin, the `design-opencollective-ertp` job completed (its deliverable posted, inbox clear). Otherwise the board is quiet on transitions but the maintainer inbox is not: the fable review of the garden's own scripts flagged a **data-corruption bug in the reaper requeue path** (`reaper-requeue-kills-or-waits-for-live-handler`) that twice left two live writers in one worktree — a main2 infra fix warranting a deliberate fix + deploy, not a board job. Two builds are held pending your steer rather than opening competing PRs: Gateway Feature 8 (`/ocapn` WebSocket handoff) is a superset of the open draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) but rewrites the same module incompatibly (recommendation: rescope to build atop #577), and the streamlined-onboarding phase-1 job found its work already landed, with the design's `.garden`-file identity deliberately superseded by location-derived identity. The `xs2rust-endor-build-stage4` orchestration **halted** after child `xs2rust-endor-stage4-modules` failed (4/8 done), and the foreman is holding a re-post of the endoclaw timer phase-2 tick-delivery step, suspecting it may be stuck. Two builders remain in flight (daemon agent-tools phase 4, XS→Rust s9).
+Endor XS→Rust port stage 4 hit trouble: the [`xs2rust-endor-build-stage4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage4.md) orchestration halted after the `xs2rust-endor-stage4-modules` child failed (4 of 8 children done — compartment, lockdown-hardening, and SES-conformance swept before the halt), and a follow-on stage-4b fixer is now chasing a deterministic infinite loop in the bytecode decoder ([`xs2rust-endor-stage4-fuzz-decoder-hang`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-fuzz-decoder-hang.md)); the supervisor's next stage (`port-xs-to-rust-memory-safe-engine-s10`) is blocked awaiting stage-4b.
+
+Two items need maintainer steering. A gardener building Gateway Feature 8 (the `/ocapn` WebSocket endpoint) found its work is a superset of open draft [endojs/endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), held rather than open a competing PR, and recommends re-scoping to build the socket handoff on top of #577 (branch preserved, locally verified — 73 ava pass, clean tsc/eslint/prettier). Separately, a fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (two live writers in one worktree), flagged as a main2 infra fix warranting a deliberate fix + deploy rather than a board job.
+
+Also worth noting: the [endoclaw timer phase-2 tick-delivery build](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery.md) completed, though the foreman reports the next step recurred without milestone progress and may be stuck; the streamlined-onboarding phase-1 job closed as already-landed (its `.garden`-file identity item deliberately superseded by location-derived identity); and the `design-opencollective-ertp` design deliverable posted.
 
 ## Parked for maintainer feedback
 
@@ -72,17 +76,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`build-endo-but-for-bots-daemon-agent-tools-phase4-integration-discovery`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-daemon-agent-tools-phase4-integration-discovery.md) — ---
-- [`port-xs-to-rust-memory-safe-engine-s9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s9.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
+- [`deadmail-issue-comment-4896469075`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4896469075.md) — Dead-lettered message — pick up its intent
+- [`xs2rust-endor-stage4-fuzz-decoder-hang`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-fuzz-decoder-hang.md) — Stage-4b child 1/5 (fixer): deterministic infinite loop in the bytecode-decod...
 
-### tada (1330)
+### tada (1331)
+- [`port-xs-to-rust-memory-safe-engine-s9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s9.md) — All state verified. The supervision handoff is complete — writing the complet...
 - [`design-opencollective-ertp`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-opencollective-ertp.md) — Inbox is clear and the deliverable is posted. Final report:
 - [`deadmail-issue-comment-4896384235`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4896384235.md) — Completion report
 - [`build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery.md) — Completion report
 - [`xs2rust-endor-build-stage4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage4.md) — orchestration xs2rust-endor-build-stage4 — HALTED
-- [`build-endo-but-for-bots-filesystem-watchers-endomount-follow-name-changes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-filesystem-watchers-endomount-follow-name-changes.md) — Findings
-- … and 1325 more
+- … and 1326 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
