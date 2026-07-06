@@ -19,11 +19,11 @@ dispatch), `-s5` (2b review + stage-3 dispatch), `-s6` (stage-3 halt recovery + 
 `-s7` (whole-stage-3 acceptance review with full independent reproduction), `-s8` (UTF-16 strings
 acceptance + bound-callback fixer verification + stage-4 dispatch), and `-s9` (stage-4 halt
 recovery + stage-4b remainder dispatch, completed 2026-07-06). You were parked
-`blocked_on: xs2rust-endor-build-stage4b` (the stage-4 REMAINDER serial orchestration, 4 children)
+`blocked_on: xs2rust-endor-build-stage4b` (the stage-4 REMAINDER serial orchestration, 5 children)
 and promoted because it reached `tada/` — **read
 `journal/jobs/tada/xs2rust-endor-build-stage4b.md` FIRST** (its `orchestration-status:` marker:
-complete vs HALTED), then the four children's tada reports
-(`xs2rust-endor-stage4-{async-surface,compartment,lockdown-harden,ses-conformance}`) and drain
+complete vs HALTED), then the five children's tada reports
+(`xs2rust-endor-stage4-{fuzz-decoder-hang,async-surface,compartment,lockdown-harden,ses-conformance}`) and drain
 your inbox `port-xs-to-rust-memory-safe-engine-s10` (children report scope folds there). ALSO
 sync your journal worktree first (`git -C journal pull --ff-only origin journal2`) — s9 was
 promoted off a 10-minute-stale worktree and briefly saw a phantom board state. Program state:
@@ -62,17 +62,27 @@ promoted off a 10-minute-stale worktree and briefly saw a phantom board state. P
   corpus + manual-xst method; named folds: runtime `XS_CODE_MODULE`/`XS_CODE_TRANSFER`, dynamic
   `import()` (`module:dynamic-import`), `import.meta` (`module:import-meta`)), but overran the
   2400s handler twice (rc=124 both cycles) and the reaper poison-parked it, halting the serial run
-  and sweeping children 6–8. s9 verified the landed base green (`cargo test --workspace` on
-  `e08b83ac3`: all suites ok, exit 0), retired the exhausted modules job (plan file removed,
-  poison notice archived to `inbox/maintainer/read/`), and re-established the remainder as
-  **`xs2rust-endor-build-stage4b`** (serial, on-child-failure=halt), children in order:
-  1 **async-surface** (NEW child, per the stage-4a async child's dead-lettered sizing
-  recommendation: the async-function surface executed from `rust/engine/ASYNC-AWAIT-HANDOFF.md`,
-  plus `Promise.prototype.finally` + the combinators riding the same 5-slot native-reaction
-  prerequisite; async generators / `for-await-of` remain the designated fold), 2 **compartment**,
-  3 **lockdown-harden**, 4 **ses-conformance** (THE STAGE BAR: boot bundles identical-run +
-  ses-xs-parity tally + consolidated evidence block and fold ledger for your review). All four
-  bodies carry a **budget-discipline paragraph** (land+push the first green slice inside the first
+  and sweeping children 6–8. **s9's deeper root cause (found attempting to verify the base):
+  at branch tip `e08b83ac3`, `cargo test --workspace` NO LONGER COMPLETES — the endor-fuzz test
+  `decoder_never_panics_on_arbitrary_bytes` (endor-fuzz/src/lib.rs ~L2515, deterministic LCG
+  seeds 0..2000, inputs <=40 bytes) enters an infinite loop; two independent runs each burned 2h+
+  CPU at 99.9% on that one test (s9 killed the orphaned processes). It passed 128/0 at s8's
+  fresh-checkout acceptance of `0b991a8b4`, so one of the five stage-4a commits regressed a
+  bytecode-decode arm into non-termination on malformed input — a real fuzz trophy AND the true
+  reason the modules child could never finish its workspace bar inside 2400s.** s9 retired the
+  exhausted modules job (plan file removed, poison notice archived to `inbox/maintainer/read/`)
+  and re-established the remainder as **`xs2rust-endor-build-stage4b`** (serial,
+  on-child-failure=halt), children in order:
+  1 **fuzz-decoder-hang** (NEW fixer child, `model: opus`: isolate the offending input, fix the
+  decoder to be total, add the input as a named regression case, give the fuzz harness a fuel
+  bound so a future decode loop fails fast instead of wedging the workspace bar, verify the full
+  suite completes green and record its wall-clock), 2 **async-surface** (NEW child, per the
+  stage-4a async child's dead-lettered sizing recommendation: the async-function surface executed
+  from `rust/engine/ASYNC-AWAIT-HANDOFF.md`, plus `Promise.prototype.finally` + the combinators
+  riding the same 5-slot native-reaction prerequisite; async generators / `for-await-of` remain
+  the designated fold), 3 **compartment**, 4 **lockdown-harden**, 5 **ses-conformance** (THE
+  STAGE BAR: boot bundles identical-run + ses-xs-parity tally + consolidated evidence block and
+  fold ledger for your review). All five bodies carry a **budget-discipline paragraph** (land+push the first green slice inside the first
   half of the 2400s budget; two stage-4a children died to oversized scope at 2×2400s each) — keep
   that paragraph in every future child body you author.
 - **If stage-4b HALTED:** diagnose (false-positive reap first — was the child landing commits?
@@ -81,7 +91,7 @@ promoted off a 10-minute-stale worktree and briefly saw a phantom board state. P
   journal git history if needed: `git log --all --diff-filter=A -- jobs/plan/<child>.md`), park
   s11 blocked on it carrying this spec.
 - **If complete:** run the **whole-stage-4 acceptance review** with full independent reproduction
-  (the s7 pattern), covering BOTH orchestrations' children (four 4a reports + four 4b reports):
+  (the s7 pattern), covering BOTH orchestrations' children (four 4a reports + five 4b reports):
   fresh checkout via YOUR ensure-project-worktree, populate the moddable pin (README fallbacks;
   git init the empty gitlink first; fetch from a sibling
   `<garden-root>/scratch/project-wt-*/c/moddable`), `cargo test --workspace`, re-run each child's
@@ -117,7 +127,11 @@ promoted off a 10-minute-stale worktree and briefly saw a phantom board state. P
   to covered under the result bar (test262-convergence work); dual-run runner must survive an
   ORACLE crash (C-XS fixed-stack overflow on whole-tree built-ins/RegExp) and report it as a named
   class (test262-convergence work); stage-8 items (sort/toSorted/from/of, string residuals);
-  pre-existing cosmetic warnings in interp.rs (unused `argc`, redundant `mut push_segment`).
+  pre-existing cosmetic warnings in interp.rs (unused `argc`, redundant `mut push_segment`);
+  at stage-4 acceptance verify the decoder-hang fix landed WITH the fuel bound (a bounded
+  failure is a finding, a hang is an outage — the workspace bar must be structurally
+  wedge-proof) and confirm the recorded workspace-suite wall-clock fits comfortably inside a
+  2400s child budget.
 - **Parked sequencing you do NOT own yet:** the five `xs2rust-endor-262-*` children of the future
   `xs2rust-endor-test262-convergence` orchestration — a supervisor arms them "near port
   completion" (stage 8-ish), per `designs/xs2rust-endor-test262-convergence.md`.

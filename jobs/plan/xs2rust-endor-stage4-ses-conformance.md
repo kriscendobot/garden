@@ -75,7 +75,7 @@ incrementally after each green cycle — never hold work uncommitted through a s
 If you are resumed with too little time left for even one build cycle, do not start code: land a
 documentation handoff (as `rust/engine/ASYNC-AWAIT-HANDOFF.md` did) and report the fold.
 
-## Scope (stage-4b child 4/4 — the stage-4 acceptance bar itself; depends on ALL stage-4 children, 4a and 4b)
+## Scope (stage-4b child 5/5 — the stage-4 acceptance bar itself; depends on ALL stage-4 children, 4a and 4b)
 
 Close the design's stage-4 bar (§ Staged Roadmap row 4, § Hardened JavaScript and Compartment):
 
@@ -108,6 +108,6 @@ entering this closure child: async generators / `for-await-of` (designated fold,
 4); the module-goal oracle seam (`language/module-code` dual-run structurally skipped; endor-side
 corpus + manual-xst certification per README), runtime `XS_CODE_MODULE`/`XS_CODE_TRANSFER`,
 dynamic `import()`, `import.meta` (stage-4a child 5); `compartment:dynamic-import` if the
-Compartment child named it; anything the async-surface child (stage-4b child 1) reports. Verify
+Compartment child named it; anything the async-surface child (stage-4b child 2) reports. Verify
 each is STILL an honest named skip at closure and enumerate them in the consolidated ledger for
 s10's whole-stage-4 acceptance review.

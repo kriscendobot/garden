@@ -75,7 +75,7 @@ incrementally after each green cycle — never hold work uncommitted through a s
 If you are resumed with too little time left for even one build cycle, do not start code: land a
 documentation handoff (as `rust/engine/ASYNC-AWAIT-HANDOFF.md` did) and report the fold.
 
-## Scope (stage-4b child 2/4; originally 6/8 — the module-map seam from `endor_vm::module` is LANDED, consume it; lockdown lands in the next child)
+## Scope (stage-4b child 3/5; originally 6/8 — the module-map seam from `endor_vm::module` is LANDED, consume it; lockdown lands in the next child)
 
 Grow the stage-1 primordial `Compartment.evaluate` into the full native Compartment
 (`xsModule.c`'s compartment half + the design § Hardened JavaScript and Compartment):

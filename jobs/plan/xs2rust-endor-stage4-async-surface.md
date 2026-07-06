@@ -75,7 +75,7 @@ incrementally after each green cycle — never hold work uncommitted through a s
 If you are resumed with too little time left for even one build cycle, do not start code: land a
 documentation handoff (as `rust/engine/ASYNC-AWAIT-HANDOFF.md` did) and report the fold.
 
-## Scope (stage-4b child 1/4 — the async-await child's dead-lettered fold, now its own full-budget child)
+## Scope (stage-4b child 2/5 — the async-await child's dead-lettered fold, now its own full-budget child)
 
 **Start from `rust/engine/ASYNC-AWAIT-HANDOFF.md`** — the complete C-XS -> endor implementation
 map the stage-4a async child landed precisely so you can EXECUTE instead of re-deriving. The

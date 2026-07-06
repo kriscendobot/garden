@@ -75,7 +75,7 @@ incrementally after each green cycle — never hold work uncommitted through a s
 If you are resumed with too little time left for even one build cycle, do not start code: land a
 documentation handoff (as `rust/engine/ASYNC-AWAIT-HANDOFF.md` did) and report the fold.
 
-## Scope (stage-4b child 3/4; originally 7/8 — depends on stage-4a child 1 (freeze descriptors) and the previous child (Compartment))
+## Scope (stage-4b child 4/5; originally 7/8 — depends on stage-4a child 1 (freeze descriptors) and the previous child (Compartment))
 
 Port `xsLockdown.c`:
 
