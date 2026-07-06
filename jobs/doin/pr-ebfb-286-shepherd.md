@@ -7,3 +7,9 @@ Do NOT touch PR #566 (author 0xpatrickbot, mention-only-pr-authors allowlist) â€
 Maintainer decision, 2026-07-06 (liaison inbox thread: build-endoclaw-network-fetch / build-endoclaw-network-fetch-http-client-capability).
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  claimed_at: 2026-07-06T12:13:14Z
