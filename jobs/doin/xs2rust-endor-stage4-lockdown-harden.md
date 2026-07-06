@@ -98,3 +98,9 @@ needed): post-lockdown intrinsic mutation TypeErrors, harden transitive reach, p
 mutabilities results — result agreement, named skips, cargo bars, README evidence block.
 Re-run one earlier section (e.g. `built-ins/Object`) to confirm freeze machinery introduced no
 regression.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 17
+  claimed_at: 2026-07-06T20:13:12Z
