@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-06T00:17:06Z_
+_As of 2026-07-06T00:23:47Z_
 
 ## Latest
 
-The one board completion this cycle: `endor-run-expanded-phase3-directory-input` finished (the XS→Rust/Endor port's expanded phase-3 directory-input run), leaving the fleet nearly idle — only the ocap-kernel comment-fragment scholar ingest and the stage-3b XSRE integration builder still in flight, with an empty todo queue.
+The board is quiet — the only transition since the last bulletin is a newly-claimed gauntlet run on [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608), now in progress alongside a scholar ocap-kernel ingest and the stage-3b XS→Rust RegExp/String integration build.
 
-The item to notice is not a PR but an operational alarm: the deterministic identity-drift guard fired three times on the **endolinbot** host, reporting `GARDEN=driftname` diverging from `hostname -s=endolinbot` with no recorded parallel-pool override. Because that host is the true leader (its marker names `endolinbot`), the drifted key makes `is-main-host` report FOLLOWER and **every leader-only singleton — foreman, scheduler, watchers, recovery, the liaison Monitors — is currently being skipped**. Likely a stale `/home/kris/.garden` file (the endolinbot2 regression class); the fix is to correct it to `endolinbot` and restart the pool, or record an override if the pool is deliberate.
+What deserves attention is in the maintainer inbox. **A deterministic identity guard is firing repeatedly on the true leader host:** `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, watchers, recovery) is being silently skipped on the leader — likely a stray `/home/kris/.garden` file, the endolinbot2 regression class. This wants a fix (correct `.garden` to `endolinbot` and restart the pool) before it starves the fleet of its singletons.
 
-Two liaison decisions also await you: the `design-streamlined-onboarding` design is ready for review, with its Q2 auto-mode default flagged as a security-flavored call that gates four downstream build jobs; and on [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595), the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) reported 7 gaps rather than the spec's paraphrased 5, with no `take`-semantics hazard — the gardener correctly declined to invent it, and the liaison asks whether you want a dedicated `take`-semantics probe.
+Two decisions are also parked: the [PR #605 probe](https://github.com/endojs/endo-but-for-bots/pull/605) report-back found the published probe carries 7 gaps and no `take`-semantics gap, contradicting the job spec's paraphrased "Gap 5" — the gardener correctly declined to invent it, and a fresh probe is offered if you want that analysis. And the `design-streamlined-onboarding` design landed; its four build jobs stay gated until you answer its §5 open questions, notably the security-flavored Q2 auto-mode default.
 
 ## Parked for maintainer feedback
 
@@ -126,7 +126,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr608-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr608-gauntlet.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
 - [`scholar-ingest-ocap-kernel-comment-fragments-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-ocap-kernel-comment-fragments-5.md) — PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
 - [`xs2rust-endor-build-stage3b-xsre-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-xsre-integration.md) — Builder: stage-3b child 9/9 — RegExp built-in + String integration over XSRE,...
 
