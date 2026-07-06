@@ -46,6 +46,11 @@
 | [dialog-db--rust-dialog-remote-s3-readme--usage-walkthrough](../sections/dialog-db--rust-dialog-remote-s3-readme--usage-walkthrough.md) | dialog-remote-s3 README | Configure an `Address`+`S3Credentials`, add it as a remote, `set_upstream`, then `push`/`pull`. |
 | [dialog-db--rust-dialog-remote-ucan-s3-readme--overview](../sections/dialog-db--rust-dialog-remote-ucan-s3-readme--overview.md) | dialog-remote-ucan-s3 README | A UCAN-authorized remote wrapping S3 — a delegation-verifying access service instead of direct credentials. |
 | [dialog-db--rust-dialog-remote-ucan-s3-readme--usage-walkthrough](../sections/dialog-db--rust-dialog-remote-ucan-s3-readme--usage-walkthrough.md) | dialog-remote-ucan-s3 README | The `UcanAddress::new(access_service_url)` remote lifecycle; identical create/set_upstream/push/pull surface. |
+| [dialog-db--ts-dialog-experimental-session--overview](../sections/dialog-db--ts-dialog-experimental-session--overview.md) | dialog-db session.ts | The JS Session: a did:key handle over the WASM artifacts store and an IndexedDB replica, one deduplicated session per DID. |
+| [dialog-db--ts-dialog-experimental-session--changes-assert-retract](../sections/dialog-db--ts-dialog-experimental-session--changes-assert-retract.md) | dialog-db session.ts | transact applies an assert/retract Changes set atomically, resetting to the latest on-disk state before committing a new Revision. |
+| [dialog-db--ts-dialog-experimental-session--subscriptions-and-reactivity](../sections/dialog-db--ts-dialog-experimental-session--subscriptions-and-reactivity.md) | dialog-db session.ts | A per-DID BroadcastChannel converges every tab's live queries on each commit; a GENESIS broadcast reopens an erased replica. |
+| [dialog-db--ts-dialog-experimental-session--revisions-and-lifecycle](../sections/dialog-db--ts-dialog-experimental-session--revisions-and-lifecycle.md) | dialog-db session.ts | Revisions as IPLD content-addresses, GENESIS the empty-DB marker, and clear erasing this local replica. |
+| [dialog-db--ts-dialog-experimental-react--overview](../sections/dialog-db--ts-dialog-experimental-react--overview.md) | dialog-db react.ts | React hooks over the local replica: useQuery re-renders on each local commit; useTransaction writes to it. |
 
 ## See also
 
