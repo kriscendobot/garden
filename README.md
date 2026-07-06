@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-06T00:23:47Z_
+_As of 2026-07-06T00:27:26Z_
 
 ## Latest
 
-The board is quiet — the only transition since the last bulletin is a newly-claimed gauntlet run on [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608), now in progress alongside a scholar ocap-kernel ingest and the stage-3b XS→Rust RegExp/String integration build.
+A deterministic identity-drift guard fired three times on the true leader host: `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` is reporting FOLLOWER and **every leader-only singleton (foreman, scheduler, watchers, recovery) is being silently skipped** — likely a stale `/home/kris/.garden` or inherited env, the endolinbot2 regression class. This needs a maintainer fix (correct the identity file and restart the pool) before the leader fleet is whole again.
 
-What deserves attention is in the maintainer inbox. **A deterministic identity guard is firing repeatedly on the true leader host:** `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, watchers, recovery) is being silently skipped on the leader — likely a stray `/home/kris/.garden` file, the endolinbot2 regression class. This wants a fix (correct `.garden` to `endolinbot` and restart the pool) before it starves the fleet of its singletons.
+On [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) (Docker self-host), the gardener is driving a green, MERGEABLE, garden-authored PR through the panel to un-draft, but flags that the job's "supersede #568" instruction is misplaced: [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) is 0xpatrickbot's broader parallel PR (it also carries the ws-gateway + bearer-token-auth surface #608 defers), not a bot duplicate — closing it is a maintainer/etiquette call the gardener declined to make. Separately, the [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595) probe (published as [#605](https://github.com/endojs/endo-but-for-bots/pull/605)) surfaced a spec discrepancy — the published probe has 7 gaps and no `take`-semantics gap, contradicting the job spec; the gardener correctly declined to invent it, and a decision is pending on whether a `take`-semantics analysis is wanted as a fresh probe.
 
-Two decisions are also parked: the [PR #605 probe](https://github.com/endojs/endo-but-for-bots/pull/605) report-back found the published probe carries 7 gaps and no `take`-semantics gap, contradicting the job spec's paraphrased "Gap 5" — the gardener correctly declined to invent it, and a fresh probe is offered if you want that analysis. And the `design-streamlined-onboarding` design landed; its four build jobs stay gated until you answer its §5 open questions, notably the security-flavored Q2 auto-mode default.
+Finally, the `design-streamlined-onboarding` design landed and awaits maintainer answers to its §5 open questions (notably Q2, the security-flavored auto-mode default) before its four build jobs can be posted. On the board itself little moved: the `scholar-ingest-ocap-kernel-comment-fragments-5` ingest completed and fragment 6 parked as its follow-on.
 
 ## Parked for maintainer feedback
 
@@ -121,23 +121,31 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
 > (gardener-scaler preflight). It will not repeat until the drift changes or clears.
 
+- `20260706T002633Z-2ea5ca` — from gardener:endojs-endo-but-for-bots-pr608-gauntlet, reply_to `endojs-endo-but-for-bots-pr608-gauntlet` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T002633Z-2ea5ca.md)
+
+> Gauntlet on endojs/endo-but-for-bots #608 (Docker self-host, kriscendobot): proceeding — it's green, MERGEABLE, garden-authored. Driving it through the panel to un-draft.
+>
+> One flag on the "supersede #568" part of the job: #568 is authored by **0xpatrickbot**, NOT a garden bot, and it is a *broader* parallel attempt — it also carries the ws-gateway implementation (packages/daemon/src/ws-gateway.js + test), chat main.js, package.json, and the design doc, i.e. the very gateway-bearer-token-auth surface that #608 deliberately defers. So it isn't a bot duplicate to be closed; it's another contributor's more-ambitious PR that happens to overlap the docker-image slice.
+>
+> 0xpatrickbot is on the mention-only-pr-authors list (ignore feedback unless @-mentioned). Closing or commenting on their PR is a cross-repo/lifecycle etiquette call I won't make unilaterally. I am NOT touching #568. If you want it closed as superseded, that's a maintainer action (or authorize me explicitly). Alternatively #608 could be reframed as the docker slice and #568 kept for the gateway work.
+
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (3)
+- [`deadmail-20260706T002005Z-8d94ee`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260706T002005Z-8d94ee.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr608-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr608-gauntlet.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
-- [`scholar-ingest-ocap-kernel-comment-fragments-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-ocap-kernel-comment-fragments-5.md) — PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
 - [`xs2rust-endor-build-stage3b-xsre-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-xsre-integration.md) — Builder: stage-3b child 9/9 — RegExp built-in + String integration over XSRE,...
 
-### tada (1223)
+### tada (1224)
+- [`scholar-ingest-ocap-kernel-comment-fragments-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-comment-fragments-5.md) — Completion report
 - [`endor-run-expanded-phase3-directory-input`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endor-run-expanded-phase3-directory-input.md) — Work is complete. Here is my report.
 - [`scholar-ingest-ocap-kernel-comment-fragments-4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-comment-fragments-4.md) — Completion report
 - [`scholar-ingest-ocap-kernel-comment-fragments-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-comment-fragments-3.md) — Job complete: scholar-ingest-ocap-kernel-comment-fragments-3
 - [`daemon-docker-selfhost-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daemon-docker-selfhost-build.md) — Completion report
-- [`improve-gardener-memory-confinement`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-memory-confinement.md) — What I did
-- … and 1218 more
+- … and 1219 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -147,7 +155,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-(none)
+- [`scholar-ingest-ocap-kernel-comment-fragments-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-comment-fragments-6.md) — _normal_ · PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
