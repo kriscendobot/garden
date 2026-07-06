@@ -411,9 +411,4 @@ named skip) before accepting child 9.
   `$`-substitution grammar in `replace`, named groups in `exec`, RegExp-valued pattern arg in the general ctor,
   and non-ASCII subject under a stateful (`g`/`y`) flag.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolinbot
-  gardener: 12
-  claimed_at: 2026-07-06T00:38:29Z
+<!-- garden-reaped: 1 -->
