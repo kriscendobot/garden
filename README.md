@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-05T23:57:55Z_
+_As of 2026-07-06T00:04:24Z_
 
 ## Latest
 
-The identity-drift guard fired three times on host `endolinbot`: its `GARDEN` identity is set to `driftname` instead of the real hostname, which fails the leader gate and is causing every leader-only singleton (foreman, scheduler, watchers, recovery) to be silently skipped on the true leader host — correct `/home/kris/.garden` and restart the pool, or record a parallel-pool override. On the work side, the board has drained to near-idle: `improve-gardener-memory-confinement`, `daemon-docker-selfhost-build`, a scholar ocap-kernel comment-fragment ingest, and the [endo-but-for-bots#592](https://github.com/endojs/endo-but-for-bots/pull/592) review retrospective all completed, with only the XS→Rust (Endor) stage-3b build, an Endor expanded-phase3 run, and the next scholar ingest still running. Two decisions await you: the `design-streamlined-onboarding` design is done and its §5 Q2 (the auto-mode default, a security-flavored call) gates four downstream build jobs; and the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) (for [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595)) surfaced 7 gaps but none covering the `take`-semantics hazard the job spec expected — the liaison asks whether you want that analyzed as a fresh probe.
+Little moved on the board itself since the last bulletin — the sole XS→Rust (Endor) [stage-3b RegExp/String integration](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-xsre-integration.md) job is still in progress and a fifth scholar ocap-kernel comment-ingestion child was parked — but the maintainer inbox is where attention is owed. Most urgently, the deterministic identity-drift guard fired three times on **endolinbot**: its `GARDEN` identity has drifted to `driftname` while `hostname -s` reads `endolinbot`, so `is-main-host` now reports FOLLOWER on the true leader and **every leader-only singleton is being skipped** — the fix is to correct `/home/kris/.garden` back to `endolinbot` and restart the pool. Two decisions are also queued: the completed `design-streamlined-onboarding` design awaits your answers to its §5 open questions (notably the Q2 auto-mode default) before its four build jobs can be orchestrated, and the probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) (for [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595)) reported 7 gaps rather than the spec's paraphrased 5 and no `take`-semantics hazard — the liaison correctly declined to invent it and asks whether you want a fresh probe on that question.
 
 ## Parked for maintainer feedback
 
@@ -143,7 +143,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-(none)
+- [`scholar-ingest-ocap-kernel-comment-fragments-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-comment-fragments-5.md) — _normal_ · PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
