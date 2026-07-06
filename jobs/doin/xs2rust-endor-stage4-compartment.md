@@ -97,3 +97,9 @@ isolation, global separation, endowments, shared-intrinsics identity, cross-comp
 and dual-run it bit-consistently (result agreement) with named skips; test262
 `built-ins/Compartment` does not exist upstream, so the corpus + any `staging/` trees are the
 evidence — lock as cargo bars, record numbers in the README.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 9
+  claimed_at: 2026-07-06T19:55:15Z
