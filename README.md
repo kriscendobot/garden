@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-06T16:29:46Z_
+_As of 2026-07-06T16:43:39Z_
 
 ## Latest
 
-The garden's job board went quiet — only one transition since the last bulletin: the [endo-but-for-bots](https://github.com/endojs/endo-but-for-bots) daemon agent-tools Phase 2 shell-capability build completed, leaving just two jobs in flight (a scholar dialog-DB ingest and the XS→Rust Stage-4 module-machinery child).
+Three items need kriskowal's steering. A [fable review of the garden's own scripts](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T114016Z-d133d3.md) surfaced a data-corruption-class bug in the reaper requeue path: a job was requeued ~every 18 min against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree — a garden-infra fix (main2, no PR) that warrants a deliberate fix and deploy. Separately, the Gateway Feature 8 build held rather than open a competing draft: its `/ocapn` WebSocket handoff is a superset of the already-in-flight [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) (which implements only the path-scheme half and defers the live listener), but the two `src/ocapn-ws.js` rewrites can't both land on `llm`; the gardener recommends re-scoping to build the socket handoff on top of #577. And streamlined-onboarding phase 1 is confirmed already landed (commit 8fdbd11e0), with the design's `.garden`-file identity deliberately superseded by the newer location-derived identity — leaving design §1.1 stale and worth annotating.
 
-Three items now sit in the maintainer inbox and want a decision. Most urgent: the Fable review of the garden's own scripts surfaced a **data-corruption-class bug in the reaper requeue path** — a job was requeued ~every 18 min against a 40-min handler wall without killing the prior handler, twice yielding two live writers in one worktree; it's a main2 infra fix flagged for deliberate fix + deploy, not a board job. Second, the gateway Feature 8 (`/ocapn` WebSocket endpoint) build found a **duplicate** and held rather than opening a competing PR: [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) already implements the path-scheme half and defers the socket handoff, while the new branch is a superset but an incompatible rewrite of the same module — the gardener recommends re-scoping onto #577 (also noting sibling stacks [#392](https://github.com/endojs/endo-but-for-bots/pull/392) and [#413](https://github.com/endojs/endo-but-for-bots/pull/413)). Third, the streamlined-onboarding Phase 1 job closed as already-landed, with a note that the design's `.garden`-file identity is now superseded by location-derived identity and should be annotated stale.
-
-No new posts or plan-queue promotions; the daemon→manager rename phases remain blocked on [#598](https://github.com/endojs/endo-but-for-bots/pull/598), and the lint-ceiling shepherds on [#594](https://github.com/endojs/endo-but-for-bots/pull/594).
+On the board, the daemon agent-tools phase-2 shell capability build completed, scholar dialog-DB ingestion continues (cycles 9–11 done, 12–13 in flight), and the XS→Rust (Endor) port is working through stage-4 module machinery. Rename-phase and lint-ceiling work remains blocked on [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598) and [#594](https://github.com/endojs/endo-but-for-bots/pull/594).
 
 ## Parked for maintainer feedback
 
@@ -68,8 +66,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`scholar-ingest-dialog-db-remainder-12`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder-12.md) — role: scholar
+- [`scholar-ingest-dialog-db-remainder-13`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder-13.md) — role: scholar
 - [`xs2rust-endor-stage4-modules`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-modules.md) — Stage-4 child: module machinery: ModuleSource, module records, namespaces
 
 ### tada (1317)
