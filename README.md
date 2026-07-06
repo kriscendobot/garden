@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-06T20:49:11Z_
+_As of 2026-07-06T20:50:28Z_
 
 ## Latest
 
-The M3 flagship — Claw-like coding via `daemon-agent-tools` in endojs/endo-but-for-bots — reached a landing gate: phases 1–3 ([#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), [#616](https://github.com/endojs/endo-but-for-bots/pull/616)) are CI-green and mergeable but still Draft, and phase 4 ([#618](https://github.com/endojs/endo-but-for-bots/pull/618)) cleared its last un-draft blocker and is shepherded to 24 green checks, now waiting only on 1–3 landing. The foreman reports the milestone's critical path has shifted from building to maintainer review + un-draft + merge of the [#614](https://github.com/endojs/endo-but-for-bots/pull/614)→[#615](https://github.com/endojs/endo-but-for-bots/pull/615)→[#616](https://github.com/endojs/endo-but-for-bots/pull/616)→[#618](https://github.com/endojs/endo-but-for-bots/pull/618) stack — a conductor step no producer can post. Two gauntlets are running ([#566](https://github.com/endojs/endo-but-for-bots/pull/566), [#617](https://github.com/endojs/endo-but-for-bots/pull/617)). The XS→Rust (Endor) port advanced unevenly: orchestration `xs2rust-endor-build-stage4b` completed, but the serial `stage4` run **halted** at child `xs2rust-endor-stage4-modules` (4/8 done). Three items need a maintainer decision: a data-corruption reaper-requeue bug in the garden's own scripts (main2 fix + deploy, no PR); Gateway Feature 8's build held rather than opening a draft that would collide with [#577](https://github.com/endojs/endo-but-for-bots/pull/577) (recommendation: rescope onto #577's path scheme); and the foreman flagging `endoclaw-timer-phase2-tick-delivery` as possibly stuck after draining without progress.
+The garden's XS→Rust (Endor) port advanced: orchestration [`xs2rust-endor-build-stage4b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage4b.md) completed and the SES-conformance stage landed, though the parallel stage-4 run halted on the failed `xs2rust-endor-stage4-modules` child. On the bot repo, the M3 "Claw-like coding" stack keeps maturing: [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614)'s gauntlet finished and [endo-but-for-bots#618](https://github.com/endojs/endo-but-for-bots/pull/618) is CI-green (24 checks) with its last un-draft blocker cleared — the whole #614→#615→#616→#618 stack now awaits maintainer review, un-draft, and merge. Gauntlets are in flight on [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) and [endo-but-for-bots#617](https://github.com/endojs/endo-but-for-bots/pull/617).
+
+Two items need a maintainer decision. A data-corruption bug in the garden's own reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`) was surfaced for a deliberate main2 fix and deploy — twice it left two live writers in one worktree. And Gateway Feature 8 was held rather than opening a competing PR: the new work is a superset of the path-scheme-only draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), so the gardener is asking whether to re-scope on top of #577 (its recommendation), supersede it, or drop the branch.
 
 ## Parked for maintainer feedback
 
@@ -76,7 +78,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`deadmail-20260706T204713Z-8ae72e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260706T204713Z-8ae72e.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr566-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr566-gauntlet.md) — Run the gauntlet on endojs/endo-but-for-bots PR #566 (confined HttpClient, th...
 - [`endojs-endo-but-for-bots-pr617-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr617-gauntlet.md) — ---
 
