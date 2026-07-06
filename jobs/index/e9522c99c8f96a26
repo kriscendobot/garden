@@ -1,0 +1,2 @@
+base: improve-scholar-staging-clone
+identity: mentor:scripts/jobs/scholar-staging-clone.sh
