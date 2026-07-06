@@ -13961,3 +13961,35 @@ relational model vs SQL | sql-language-critique
 SQL successor | sql-language-critique
 after SQL | sql-language-critique
 SQL COBOL of 2020 | sql-language-critique
+`Value::Record` | record-value
+`RecordFormat` | record-value
+record value | record-value
+compound atomic value | record-value
+`realize` decode from bytes | record-value
+`TextDocument` automerge record | record-value
+`GeoLocation` record | record-value
+formula scheme | formula-scheme
+polymorphic formula | formula-scheme
+bounded type variable | formula-scheme
+`Sum<N: Number>` | formula-scheme
+NUMERIC bound formula | formula-scheme
+TEXTUAL bound predicate | formula-scheme
+no implicit numeric promotion | formula-scheme
+polymorphic numeric literal | formula-scheme
+`with_numeric` visitor | formula-scheme
+`#[derive(Formula)]` | formula-scheme
+`define_formulas!` | formula-scheme
+`OptionalAttributeQuery` | optional-attribute-query
+`Plan::OptionalScan` | optional-attribute-query
+optional field left-join | optional-attribute-query
+scalar associative layer | optional-attribute-query
+set-widening optional field | optional-attribute-query
+Absent fallback scan | optional-attribute-query
+`maybe` field concept | optional-attribute-query
+dialog issue 348 optional scan | optional-attribute-query
+claim-based serialization | claim-projection
+`Claim` trait constrain | claim-projection
+`Caveat` trait | claim-projection
+remove Serialize from capabilities | claim-projection
+dialog Effect Attenuation Policy bounds | claim-projection
+claim projection UCAN parameters | claim-projection
