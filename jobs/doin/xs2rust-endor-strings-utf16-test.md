@@ -46,3 +46,9 @@ index-heavy / lone-surrogate cases present and green; Miri + `cargo test --works
 meter expectations updated to the frozen recalibrated costs with determinism-per-release
 asserted. Land + push each increment; requeue-safe per the standing work discipline. Report
 to the supervisor inbox `port-xs-to-rust-memory-safe-engine-s7` (or its successor).
+
+---
+claim:
+  host: endolinbot
+  gardener: 18
+  claimed_at: 2026-07-06T03:04:08Z
