@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T13:40:59Z_
+_As of 2026-07-06T13:41:41Z_
 
 ## Latest
 
-The board is quiet — only dead-letter housekeeping moved, with `todo` empty and the same four gardener jobs (scholar ingests plus the XS→Rust stage-4 async/await child) still in flight. The substance this cycle is two notes to the maintainer, both needing your eye. First, the Fable review of the garden's own scripts flagged a **data-corruption-class bug in the reaper requeue path**: a job was requeued about every 18 minutes against a 40-minute handler wall while the prior handler stayed alive, twice yielding two live writers in one worktree — a main2 infrastructure fix that warrants a deliberate patch and deploy rather than a board job. Second, the streamlined-onboarding phase-1 job closed as already-landed (commit 8fdbd11e0), with its lone open design point — `.garden`-file-first identity — deliberately superseded by the newer location-derived identity scheme (commits 6d543582e / 367a7543c); the gardener declined to revert and flags design §1.1's identity paragraph as stale pending your call on whether `.garden` naming should return as sugar on top.
+Little moved on the board this cycle, but two liaison messages warrant attention. A Fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`): the job was requeued roughly every 18 min against a 40-min handler wall without killing the prior handler, twice yielding two live writers in one worktree — a main2 infrastructure fix that wants a deliberate fix-and-deploy, not a board job. Separately, the `onboarding-p1-launcher` job closed as already-landed (phase 1 shipped 2026-07-04 in 8fdbd11e0); its only unmet item, the design's `.garden`-file-first identity, was deliberately superseded by the recent location-derived identity work (6d543582e, 367a7543c), so design §1.1's identity paragraph is now stale and could be annotated as such. On the completion side, the scholar dialog-DB ingest and the stage-4 generators child of the XS→Rust port both landed, along with a review retrospective on [endojs/endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96).
 
 ## Parked for maintainer feedback
 
@@ -44,19 +44,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
-- [`deadmail-20260706T133852Z-764cda`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260706T133852Z-764cda.md) — Dead-lettered message — pick up its intent
+### doin (3)
 - [`scholar-ingest-against-sql`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-against-sql.md) — ---
 - [`scholar-ingest-dialog-db-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder.md) — role: scholar
 - [`xs2rust-endor-stage4-async-await`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-async-await.md) — Stage-4 child: async/await over the job queue + the promise double-settle key...
 
-### tada (1297)
+### tada (1298)
+- [`deadmail-20260706T133852Z-764cda`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T133852Z-764cda.md) — Completion report
 - [`deadmail-20260706T133039Z-fa81df`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T133039Z-fa81df.md) — Completion report — deadmail-20260706T133039Z-fa81df
 - [`scholar-ingest-dialog-db`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db.md) — Completion report
 - [`xs2rust-endor-stage4-generators`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage4-generators.md) — Completion report — stage-4 child 3/8: generator functions & iteration protocol
 - [`endojs-endo-but-for-bots-pr96-review-b474e0ee-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr96-review-b474e0ee-retro.md) — Completion report — review retrospective on endojs/endo-but-for-bots PR #96 (...
-- [`endojs-endo-but-for-bots-pr486-review-69dc0d7a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr486-review-69dc0d7a-retro.md) — Completion report
-- … and 1292 more
+- … and 1293 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
