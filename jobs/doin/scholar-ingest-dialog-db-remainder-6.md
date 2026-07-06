@@ -58,3 +58,9 @@ Existing dialog-db topics: datalog-query, local-first-sync, ucan-authorization,
 change-propagation, content-addressed-storage. Keep cross-referencing to endo
 design material where concepts meet (ocap / capability-security, content-addressed
 / durable storage, confinement, persistence). No fork or upstream actions.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 9
+  claimed_at: 2026-07-06T15:05:58Z
