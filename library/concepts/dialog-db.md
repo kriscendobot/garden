@@ -14,6 +14,8 @@ topics: [datalog-query, local-first-sync, ucan-authorization]
 |---|---|
 | [dialog-db--readme--overview](../sections/dialog-db--readme--overview.md) | The project's framing: embeddable local-first DB, four target properties, Rust/TS layout. |
 | [dialog-db--notes-architecture-overview--overview](../sections/dialog-db--notes-architecture-overview--overview.md) | Six design goals and the fact-store + Prolly-Tree + Datalog information model. |
+| [dialog-db--ts-dialog-experimental-session--overview](../sections/dialog-db--ts-dialog-experimental-session--overview.md) | The JavaScript face: a did:key Session over the WASM artifacts store bridging to @dialog-db/query. |
+| [dialog-db--ts-dialog-experimental-react--overview](../sections/dialog-db--ts-dialog-experimental-react--overview.md) | The React bindings — Provider/useSession/useQuery/useTransaction over a Dialog session. |
 
 ## See also
 
