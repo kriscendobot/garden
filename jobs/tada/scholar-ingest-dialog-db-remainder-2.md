@@ -1,0 +1,3 @@
+scholar-ingest-dialog-db-remainder-2 — ingested the dialog-db query-planner/rules cluster: 5 sources, 14 sections, all at HEAD f777fe7c, none previously present (no idempotency skips).
+
+Sources: notes/rules.md (2), notes/rule-pipeline.md (2), notes/operator-ir.md (3), notes/query-cost-model.md (3), notes/planning-adornment-and-cost.md (4). Topics: datalog-query throughout, with change-propagation on 3 sections. Updated topics/datalog-query.md (+14), topics/change-propagation.md (+3), sources/README.md (+5). Regenerated sections/README.md and topics/README.md counts. Link-check OK on all 5; topics-counts current. Posted follow-on scholar-ingest-dialog-db-remainder-3 for the remainder. Result: entries/2026/07/06/140742Z.
