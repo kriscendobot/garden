@@ -17,6 +17,8 @@ Dialog-db's three-layer identity model for authorizing repository operations. An
 | [dialog-db--notes-repository--opening-and-operator-setup](../sections/dialog-db--notes-repository--opening-and-operator-setup.md) | Building an operator from a profile via `.derive(context).allow(cap).build(storage)`. |
 | [dialog-db--notes-repository--authorization-delegation-identification](../sections/dialog-db--notes-repository--authorization-delegation-identification.md) | `access::Prove` chain resolution; `authority::Identify` returns the current chain. |
 | [dialog-db--rust-dialog-operator-readme--profiles-operators-and-capability-environment](../sections/dialog-db--rust-dialog-operator-readme--profiles-operators-and-capability-environment.md) | The `dialog-operator` crate: Profile as a signing-credential-backed identity, Operator as the DID-routing privilege-narrowed environment. |
+| [dialog-db--rust-dialog-repository-guide--identity-profile-operator-account](../sections/dialog-db--rust-dialog-repository-guide--identity-profile-operator-account.md) | Crate-doc statement of the three keypairs; the subject -> profile -> operator invocation chain; operator derivation is deterministic and revocable. |
+| [dialog-db--rust-dialog-repository-guide--setup-storage-and-operator](../sections/dialog-db--rust-dialog-repository-guide--setup-storage-and-operator.md) | Building the operator from a profile via .derive(context).allow(cap).build(storage); base-directory override; .build takes ownership of storage. |
 
 ## See also
 
