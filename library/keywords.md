@@ -14083,3 +14083,39 @@ two-level dispatch | subject-routing
 DID to storage | subject-routing
 `RemoteAddress` | subject-routing
 `SiteAddress` | subject-routing
+# --- dialog-db notation (scholar-ingest-dialog-db-remainder-8, 2026-07-06) ---
+formal notation | dialog-notation
+abbreviated notation | dialog-notation
+Dialog notation | dialog-notation
+punning | dialog-notation
+structural reference | dialog-notation
+structural identity | dialog-notation
+implicit addressing | dialog-notation
+relative addressing | dialog-notation
+attribute selector | dialog-notation
+`domain/name` | dialog-notation
+64-byte selector | dialog-notation
+reversed domain name | dialog-notation
+`the` component | dialog-notation
+deductive rule | deductive-rule
+`deduce` | deductive-rule
+`when` clause | deductive-rule
+`unless` clause | deductive-rule
+negation as failure | deductive-rule
+closed-world assumption | deductive-rule
+disjunction as rules | deductive-rule
+conjunction of premises | deductive-rule
+rule premise | deductive-rule
+equality constraint | deductive-rule
+`==` constraint | deductive-rule
+formula premise | deductive-rule
+`math/sum` | deductive-rule
+`text/like` | deductive-rule
+`boolean/and` | deductive-rule
+blank variable | deductive-rule
+assertion | fact-triple
+retraction | fact-triple
+`assert!` | fact-triple
+provenance | fact-triple
+`{by, period, moment}` | fact-triple
+period moment | fact-triple
