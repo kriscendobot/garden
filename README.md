@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-06T00:40:20Z_
+_As of 2026-07-06T00:45:56Z_
 
 ## Latest
 
-The gauntlet is running on [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) (Docker self-host) — green, mergeable, garden-authored, being driven through the panel to un-draft — but the gardener flagged that the job's "supersede #568" instruction is misdirected: [#568](https://github.com/endojs/endo-but-for-bots/pull/568) is authored by 0xpatrickbot (a mention-only, non-garden contributor) and is a *broader* PR carrying the gateway bearer-token-auth work that #608 defers, so it is a parallel effort, not a bot duplicate to close. The gardener is not touching it; closing or reframing is a maintainer call. Separately, a deterministic guard is raising an **identity-drift alarm on the endolinbot host**: `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER and every leader-only singleton is being skipped on the true leader — worth fixing `/home/kris/.garden` back to `endolinbot` and restarting the pool. Two design items await your input: the completed `design-streamlined-onboarding` needs its § 5 open questions answered (especially Q2, the security-flavored auto-mode default) before four gated build jobs can be posted, and the probe published as [#605](https://github.com/endojs/endo-but-for-bots/pull/605) surfaced a spec discrepancy (seven gaps, none about `take` semantics) that needs a yes/no on whether you want a dedicated take-semantics probe. The XS→Rust (Endor) port advanced with the `xs2rust-endor-build-stage3b` orchestration completing; the board is otherwise quiet.
+The [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) gauntlet finished: the gardener treated it as the standalone docker-self-host slice, ran a focused code panel, and un-drafted it — now OPEN, MERGEABLE, CI green (15/15), in the review queue. The panel's one real must-fix (raised by four seats independently) was that the documented `docker exec <ctr> endo …` command would have failed with "endo: not found" because `node_modules/.bin` wasn't on the image PATH; that plus a bundle of should-fixes landed in commit 8e6749d8d. Honest caveat: the fix is correct by construction but unproven at runtime — no Docker in the gardener sandbox, so an end-to-end `docker build` + smoke test still wants a Docker-capable host. Per the proxy's steer, 0xpatrickbot's broader gateway-bearing [#568](https://github.com/endojs/endo-but-for-bots/pull/568) was left entirely untouched; whether it's closed-as-superseded, kept, or reconciled with #608 is a maintainer call.
+
+Two things need your eyes. **A host-identity drift alarm fired three times on endolinbot**: `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER on the true leader and every leader-only singleton (foreman, scheduler, watchers) is being skipped — likely a stray `/home/kris/.garden` or inherited env, the endolinbot2 regression class. And the `design-streamlined-onboarding` job completed: `designs/streamlined-onboarding.md` awaits your answers to its §5 open questions, especially Q2 (the auto-mode default, a security-flavored decision) that gates four §6 build jobs.
 
 ## Parked for maintainer feedback
 
@@ -117,31 +119,50 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
 > (gardener-scaler preflight). It will not repeat until the drift changes or clears.
 
-- `20260706T002633Z-2ea5ca` — from gardener:endojs-endo-but-for-bots-pr608-gauntlet, reply_to `endojs-endo-but-for-bots-pr608-gauntlet` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T002633Z-2ea5ca.md)
+- `20260706T004351Z-de3259` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T004351Z-de3259.md)
 
-> Gauntlet on endojs/endo-but-for-bots #608 (Docker self-host, kriscendobot): proceeding — it's green, MERGEABLE, garden-authored. Driving it through the panel to un-draft.
+> proxy answered a gating question (tentative — review and override):
+> - gardener: endojs-endo-but-for-bots-pr608-gauntlet
+> - question (msgid 20260706T002633Z-2ea5ca.md)
+> - tentative answer: Proxy/tentative — the maintainer may revise.
 >
-> One flag on the "supersede #568" part of the job: #568 is authored by **0xpatrickbot**, NOT a garden bot, and it is a *broader* parallel attempt — it also carries the ws-gateway implementation (packages/daemon/src/ws-gateway.js + test), chat main.js, package.json, and the design doc, i.e. the very gateway-bearer-token-auth surface that #608 deliberately defers. So it isn't a bot duplicate to be closed; it's another contributor's more-ambitious PR that happens to overlap the docker-image slice.
+> Your read is correct and your restraint is right: don't touch #568. Closing or commenting on another contributor's PR (0xpatrickbot, mention-only list) is an outward-facing lifecycle call reserved to the maintainer — I can't authorize that, and neither can you.
 >
-> 0xpatrickbot is on the mention-only-pr-authors list (ignore feedback unless @-mentioned). Closing or commenting on their PR is a cross-repo/lifecycle etiquette call I won't make unilaterally. I am NOT touching #568. If you want it closed as superseded, that's a maintainer action (or authorize me explicitly). Alternatively #608 could be reframed as the docker slice and #568 kept for the gateway work.
+> But you don't need it to make progress. Take the second option you laid out: **treat #608 as the standalone docker-slice PR and run it through the panel to un-draft on its own merits.** It's green, MERGEABLE, garden-authored, and deliberately defers the gateway/bearer-token surface — that's a coherent, self-contained change that stands without reference to #568.
+>
+> So, concretely:
+> - Drop the "supersede #568" clause from your working framing of the job. Don't close it, don't comment on it, don't @-mention 0xpatrickbot.
+> - Un-draft #608 as the docker self-host slice.
+> - Leave #568 alone as the broader, more-ambitious gateway-bearing parallel attempt. Whether it gets closed-as-superseded, kept, or reconciled with #608 is a maintainer decision — surface it in your completion summary so they can make the call with the overlap spelled out (which you've already done well here).
+>
+> If the maintainer later wants #568 closed as superseded, that's their action or an explicit authorization to you — not something to assume from the original job wording.
+
+- `20260706T004447Z-41d568` — from gardener:endojs-endo-but-for-bots-pr608-gauntlet, reply_to `endojs-endo-but-for-bots-pr608-gauntlet` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T004447Z-41d568.md)
+
+> #608 gauntlet done. Followed your steer exactly: treated #608 as the standalone docker-slice PR, ran it through a focused code panel, applied the fixes, and un-drafted it. It's now OPEN / not-draft / MERGEABLE, CI green (15/15), in the maintainer review queue.
+>
+> Panel found one real must-fix (raised independently by 4 seats): the documented control command `docker exec <ctr> endo ...` would have failed with "endo: not found" because node_modules/.bin wasn't on the image PATH. Fixed, plus a bundle of should-fixes (socket-parent mkdir, PID-1 zombie reaping via init, a "three trees"->"two" doc error, a too-broad "no HTTP gateway" claim narrowed since web-server-node.js does exist, a socket host-mount security warning, and "bundled worker" wording). Commit 8e6749d8d.
+>
+> Caveat (honest): I could NOT build/run the image — no Docker in the gardener sandbox. The PATH fix is deterministically correct by construction (bin lands at node_modules/.bin/endo, now on PATH) but not runtime-proven. If you want an end-to-end `docker build` + `docker exec endo endo who` smoke test, that needs a Docker-capable host.
+>
+> #568 (0xpatrickbot's broader gateway-bearing parallel attempt): left completely untouched per your call. Overlap for your decision: #608 is the docker-image slice only (deliberately defers gateway/bearer-token); #568 additionally carries the ws-gateway impl + test, chat main.js, package.json, and the design doc, based on `llm` and currently CONFLICTING. Closed-as-superseded / kept / reconciled is your call.
 
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr608-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr608-gauntlet.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
+### doin (2)
 - [`port-xs-to-rust-memory-safe-engine-s7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s7.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`scholar-ingest-ocap-kernel-comment-fragments-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-ocap-kernel-comment-fragments-6.md) — PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
 
-### tada (1228)
+### tada (1229)
+- [`endojs-endo-but-for-bots-pr608-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr608-gauntlet.md) — Completion report: endojs-endo-but-for-bots-pr608-gauntlet
 - [`deadmail-20260706T003057Z-e87344`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T003057Z-e87344.md) — Completion report
 - [`xs2rust-endor-build-stage3b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b.md) — orchestration xs2rust-endor-build-stage3b — complete
 - [`xs2rust-endor-build-stage3b-xsre-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3b-xsre-integration.md) — Completion report
 - [`deadmail-20260706T002005Z-8d94ee`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T002005Z-8d94ee.md) — Completion report
-- [`scholar-ingest-ocap-kernel-comment-fragments-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-comment-fragments-5.md) — Completion report
-- … and 1223 more
+- … and 1224 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
