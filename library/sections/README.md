@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6316 (530 parent indexes + 5786 children).
+Total section files: 6322 (530 parent indexes + 5792 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -1118,6 +1118,18 @@ Total section files: 6316 (530 parent indexes + 5786 children).
 ### dialog-db--rust-dialog-ucan-readme
 
 - [dialog-db--rust-dialog-ucan-readme--ucan-delegation-bridge](dialog-db--rust-dialog-ucan-readme--ucan-delegation-bridge.md)
+
+### dialog-db--ts-dialog-experimental-react
+
+- [dialog-db--ts-dialog-experimental-react--overview](dialog-db--ts-dialog-experimental-react--overview.md)
+
+### dialog-db--ts-dialog-experimental-session
+
+- [dialog-db--ts-dialog-experimental-session--changes-assert-retract](dialog-db--ts-dialog-experimental-session--changes-assert-retract.md)
+- [dialog-db--ts-dialog-experimental-session--overview](dialog-db--ts-dialog-experimental-session--overview.md)
+- [dialog-db--ts-dialog-experimental-session--query-and-selection](dialog-db--ts-dialog-experimental-session--query-and-selection.md)
+- [dialog-db--ts-dialog-experimental-session--revisions-and-lifecycle](dialog-db--ts-dialog-experimental-session--revisions-and-lifecycle.md)
+- [dialog-db--ts-dialog-experimental-session--subscriptions-and-reactivity](dialog-db--ts-dialog-experimental-session--subscriptions-and-reactivity.md)
 
 ### endo--agents
 
