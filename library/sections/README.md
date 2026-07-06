@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6232 (530 parent indexes + 5702 children).
+Total section files: 6253 (530 parent indexes + 5723 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -826,6 +826,12 @@ Total section files: 6232 (530 parent indexes + 5702 children).
 - [dialog-db--notes-capability-sysstem--proposed-capabilities](dialog-db--notes-capability-sysstem--proposed-capabilities.md)
 - [dialog-db--notes-capability-sysstem--subject-ability-policy](dialog-db--notes-capability-sysstem--subject-ability-policy.md)
 
+### dialog-db--notes-causal-information-design-decision
+
+- [dialog-db--notes-causal-information-design-decision--decision-causal-is-querying-concern](dialog-db--notes-causal-information-design-decision--decision-causal-is-querying-concern.md)
+- [dialog-db--notes-causal-information-design-decision--options-considered](dialog-db--notes-causal-information-design-decision--options-considered.md)
+- [dialog-db--notes-causal-information-design-decision--problem-and-causal-model](dialog-db--notes-causal-information-design-decision--problem-and-causal-model.md)
+
 ### dialog-db--notes-claim-based-serialization
 
 - [dialog-db--notes-claim-based-serialization--claim-projection-proposed-change](dialog-db--notes-claim-based-serialization--claim-projection-proposed-change.md)
@@ -837,6 +843,19 @@ Total section files: 6232 (530 parent indexes + 5702 children).
 - [dialog-db--notes-concept--bidirectional-mapping-assert-retract-query](dialog-db--notes-concept--bidirectional-mapping-assert-retract-query.md)
 - [dialog-db--notes-concept--claims-and-the-semantic-layer](dialog-db--notes-concept--claims-and-the-semantic-layer.md)
 - [dialog-db--notes-concept--schema-on-read-and-rules](dialog-db--notes-concept--schema-on-read-and-rules.md)
+
+### dialog-db--notes-dbsp
+
+- [dialog-db--notes-dbsp--context-and-storage-architecture](dialog-db--notes-dbsp--context-and-storage-architecture.md)
+- [dialog-db--notes-dbsp--goal-hypothesis-selective-pull](dialog-db--notes-dbsp--goal-hypothesis-selective-pull.md)
+- [dialog-db--notes-dbsp--query-model-and-exploration](dialog-db--notes-dbsp--query-model-and-exploration.md)
+
+### dialog-db--notes-divergence-clock
+
+- [dialog-db--notes-divergence-clock--atomic-multi-fact-reconciliation-problem](dialog-db--notes-divergence-clock--atomic-multi-fact-reconciliation-problem.md)
+- [dialog-db--notes-divergence-clock--divergence-clock-design](dialog-db--notes-divergence-clock--divergence-clock-design.md)
+- [dialog-db--notes-divergence-clock--indexing-and-convergence-preference](dialog-db--notes-divergence-clock--indexing-and-convergence-preference.md)
+- [dialog-db--notes-divergence-clock--logical-clock-survey](dialog-db--notes-divergence-clock--logical-clock-survey.md)
 
 ### dialog-db--notes-formula
 
@@ -856,6 +875,12 @@ Total section files: 6232 (530 parent indexes + 5702 children).
 - [dialog-db--notes-glossary--terms-core-concepts-and-operations](dialog-db--notes-glossary--terms-core-concepts-and-operations.md)
 - [dialog-db--notes-glossary--terms-querying](dialog-db--notes-glossary--terms-querying.md)
 
+### dialog-db--notes-incremental-subscriptions
+
+- [dialog-db--notes-incremental-subscriptions--codebase-provides-and-build-path](dialog-db--notes-incremental-subscriptions--codebase-provides-and-build-path.md)
+- [dialog-db--notes-incremental-subscriptions--goal-and-replication-model](dialog-db--notes-incremental-subscriptions--goal-and-replication-model.md)
+- [dialog-db--notes-incremental-subscriptions--magic-sets-not-dbsp](dialog-db--notes-incremental-subscriptions--magic-sets-not-dbsp.md)
+
 ### dialog-db--notes-layered-rule-resolution
 
 - [dialog-db--notes-layered-rule-resolution--caches](dialog-db--notes-layered-rule-resolution--caches.md)
@@ -869,6 +894,17 @@ Total section files: 6232 (530 parent indexes + 5702 children).
 - [dialog-db--notes-operator-ir--architecture](dialog-db--notes-operator-ir--architecture.md)
 - [dialog-db--notes-operator-ir--decisions-and-alternatives](dialog-db--notes-operator-ir--decisions-and-alternatives.md)
 - [dialog-db--notes-operator-ir--goals-and-prior-state](dialog-db--notes-operator-ir--goals-and-prior-state.md)
+
+### dialog-db--notes-optional-fields
+
+- [dialog-db--notes-optional-fields--coalesce-slice7-and-marker-traits](dialog-db--notes-optional-fields--coalesce-slice7-and-marker-traits.md)
+- [dialog-db--notes-optional-fields--deferred-followups-and-acceptance](dialog-db--notes-optional-fields--deferred-followups-and-acceptance.md)
+- [dialog-db--notes-optional-fields--motivation-and-v1-retrospective](dialog-db--notes-optional-fields--motivation-and-v1-retrospective.md)
+- [dialog-db--notes-optional-fields--overview](dialog-db--notes-optional-fields--overview.md)
+- [dialog-db--notes-optional-fields--rule-analysis-descriptor-and-resolution](dialog-db--notes-optional-fields--rule-analysis-descriptor-and-resolution.md)
+- [dialog-db--notes-optional-fields--structural-turn-operator-ir-addendum](dialog-db--notes-optional-fields--structural-turn-operator-ir-addendum.md)
+- [dialog-db--notes-optional-fields--type-schemes-the-unshipped-polymorphism](dialog-db--notes-optional-fields--type-schemes-the-unshipped-polymorphism.md)
+- [dialog-db--notes-optional-fields--v2-type-system-and-unifier](dialog-db--notes-optional-fields--v2-type-system-and-unifier.md)
 
 ### dialog-db--notes-planning-adornment-and-cost
 
