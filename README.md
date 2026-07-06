@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T21:20:57Z_
+_As of 2026-07-06T21:24:08Z_
 
 ## Latest
 
-The M3 flagship — Claw-like coding via `daemon-agent-tools` — is fully built and now bottlenecked on review: phases 1–3 ([#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), [#616](https://github.com/endojs/endo-but-for-bots/pull/616)) are CI-green and mergeable but still Draft, and phase 4 ([#618](https://github.com/endojs/endo-but-for-bots/pull/618)) just cleared its last un-draft blocker, so the whole `#614→#615→#616→#618` stack awaits a maintainer un-draft-and-merge pass the foreman cannot post. A fable review of the garden's own scripts surfaced a **data-corruption-class bug** in the reaper requeue path (it left a live handler running while requeuing, twice yielding two writers in one worktree) — a main2 infrastructure fix warranting a deliberate fix + deploy, not a board job. Gateway Feature 8 (the `/ocapn` WebSocket endpoint) is built and locally green but **held rather than opened**, because [#577](https://github.com/endojs/endo-but-for-bots/pull/577) is an incompatible parallel rewrite of the same module; the gardener recommends re-scoping the socket handoff to sit on top of #577 and awaits your call. The `xs2rust-endor-build-stage4` orchestration **halted** after child `xs2rust-endor-stage4-modules` failed (4/8 done), though the follow-on `stage4b` run and the oracle-shim-crash fix both completed. Finally, streamlined-onboarding phase 1 is confirmed already landed, with the design's `.garden`-file identity deliberately superseded by location-derived identity — flag design §1.1 as stale.
+The XS→Rust (Endor) port kept moving: stage `s10` completed and `s11` is now claimed and in flight, but the `xs2rust-endor-build-stage4` orchestration **halted** when child `xs2rust-endor-stage4-modules` failed (serial, halt policy) after 4/8 children finished — worth a look before resuming. M3's flagship `daemon-agent-tools` stack is reported fully built: [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), and [#616](https://github.com/endojs/endo-but-for-bots/pull/616) are CI-green and mergeable but still Draft, and phase 4 [#618](https://github.com/endojs/endo-but-for-bots/pull/618) had its last un-draft blocker closed — the critical path is now maintainer review/un-draft/merge of the #614→#615→#616→#618 stack, a conductor step the foreman can't post. Gauntlets are running on [#566](https://github.com/endojs/endo-but-for-bots/pull/566), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), and [#617](https://github.com/endojs/endo-but-for-bots/pull/617). Two items need your steer: a gardener held Gateway Feature 8 rather than open a competing PR against [#577](https://github.com/endojs/endo-but-for-bots/pull/577) (its branch is a superset of #577's deferred socket handoff — recommendation is to re-scope onto #577), and a fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (two live writers in one worktree) flagged as a deliberate main2 fix-and-deploy.
 
 ## Parked for maintainer feedback
 
@@ -76,10 +76,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr566-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr566-gauntlet.md) — Run the gauntlet on endojs/endo-but-for-bots PR #566 (confined HttpClient, th...
 - [`endojs-endo-but-for-bots-pr615-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr615-gauntlet.md) — Run the gauntlet on endojs/endo-but-for-bots PR #615 (daemon-agent-tools Phas...
 - [`endojs-endo-but-for-bots-pr617-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr617-gauntlet.md) — ---
+- [`port-xs-to-rust-memory-safe-engine-s11`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s11.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
 ### tada (1350)
 - [`xs2rust-endor-stage4-fix-oracle-shim-crash`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage4-fix-oracle-shim-crash.md) — Completion report
@@ -102,7 +103,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
 - [`build-daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase3.md) — awaiting `build-daemon-rename-to-manager-phase2` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
-- [`port-xs-to-rust-memory-safe-engine-s11`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s11.md) — awaiting `xs2rust-endor-stage4-fix-oracle-shim-crash` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
 ## Watch set
