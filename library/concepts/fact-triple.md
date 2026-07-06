@@ -19,6 +19,8 @@ Dialog's atomic unit of knowledge: an immutable **claim** of the form `{the, of,
 | [dialog-db--rust-dialog-repository-readme--overview](../sections/dialog-db--rust-dialog-repository-readme--overview.md) | Crate-doc: information stored as claims {the, of, is, cause} — the relation, entity, value, and provenance — queried with typed concepts or deductive rules. |
 | [dialog-db--rust-dialog-repository-guide--writing-semantic-triples](../sections/dialog-db--rust-dialog-repository-guide--writing-semantic-triples.md) | Data stored as semantic triples the attribute of entity is value; asserted in a branch transaction and committed as a new revision. |
 | [dialog-db--rust-dialog-csv-readme--overview](../sections/dialog-db--rust-dialog-csv-readme--overview.md) | The CSV interchange format serializing each fact as a five-column row (the/of/as/is/cause), with an explicit `as` value-type column. |
+| [dialog-db--ts-dialog-experimental-session--changes-assert-retract](../sections/dialog-db--ts-dialog-experimental-session--changes-assert-retract.md) | JS change model: a Retraction is the set of {the,of,is} facts of one relation; transact commits Assert/Retract instructions atomically. |
+| [dialog-db--ts-dialog-experimental-session--query-and-selection](../sections/dialog-db--ts-dialog-experimental-session--query-and-selection.md) | JS read path: select by a partial the/of/is FactsSelector; fromArtifact re-derives the cause as the content hash of the {the,of,is} triple. |
 
 ## See also
 
