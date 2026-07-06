@@ -36,6 +36,7 @@ The Endo daemon is a Model 4 system. The library's `capability-security` topic c
 - [[pass-invariant-handle-equality]] — Endo-side enforcement of Property A (No Designation Without Authority) at the Handle layer.
 - [[distributed-confinement]] — confinement is achievable *only* in the Model-4 object-capability model; the *Confinement Myth* is the canonical proof that Models 2 and 3 cannot confine while Model 4 can.
 - [[eventual-send]] — the capability-safe operation over a Model-4 reference: the only thing you can do with a reference is send it messages, and the only way it reaches a new holder is as a message argument.
+- [[capability-chain]] — dialog-db's typed-Rust realization of attenuated object-capability delegation (`Subject → Attenuation → Policy → Effect` ability paths), serializable to offline UCAN tokens.
 
 ## Common confusions
 
