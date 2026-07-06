@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T11:58:32Z_
+_As of 2026-07-06T11:59:18Z_
 
 ## Latest
 
-Two design jobs closed: the buffered-channel/exo-stream consolidation landed as draft [endo-but-for-bots#613](https://github.com/endojs/endo-but-for-bots/pull/613), and an exo Google Sheets design wrapped. Refreshes completed on [endo-but-for-bots#89](https://github.com/endojs/endo-but-for-bots/pull/89) and [endo-but-for-bots#134](https://github.com/endojs/endo-but-for-bots/pull/134), and the XS→Rust (Endor) port advanced through its stage-4 accessors/attributes child into stage-4 classes. The streamlined-onboarding orchestration finished — phases 1 (direct-exec launcher) and 2 (context tree) both landed; note the gardener's report that design §1.1's `.garden`-file identity is now superseded by the newer location-derived identity (commits 6d543582e/367a7543c) and should be annotated stale rather than re-added. Most urgent for the maintainer: a fable review of the garden's own scripts surfaced a **data-corruption bug in the reaper requeue path** (`reaper-requeue-kills-or-waits-for-live-handler`) that twice left two live writers in one worktree; the liaison flagged it as a main2 infrastructure fix warranting a deliberate fix + deploy rather than a board job. Newly claimed garden-infrastructure fixes are also in flight for `ensure-project-worktree.sh` branch-checkout hard-fails and non-blocking scaler systemctl calls.
+The scholar's Project Gutenberg ingest ([`scholar-ingest-gutentag`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-gutentag.md)) completed and is the only board transition since the last bulletin. Two liaison notes now sit in the maintainer inbox and warrant attention: a Fable review of the garden's own scripts surfaced a **data-corruption-class bug in the reaper requeue path** (`reaper-requeue-kills-or-waits-for-live-handler`) — a job requeued ~every 18 min against a 40-min handler wall left the prior handler alive, twice producing two live writers in one worktree; it's a main2 infrastructure fix awaiting a deliberate fix-and-deploy, not a board job. Separately, the streamlined-onboarding phase-1 job closed as already-landed (commit 8fdbd11e0), with its one open design point — `.garden`-file-first identity — deliberately superseded by the newer location-derived identity scheme (commits 6d543582e/367a7543c); the liaison flags that the design's §1.1 identity paragraph is now stale.
 
 ## Parked for maintainer feedback
 
@@ -44,7 +44,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (9)
+### doin (8)
 - [`deadmail-20260706T115225Z-639beb`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260706T115225Z-639beb.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr442-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #442
 - [`endojs-endo-but-for-bots-pr605-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr605-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #605
@@ -52,16 +52,15 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`improve-scaler-nonblocking-systemctl`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scaler-nonblocking-systemctl.md) — scripts/jobs/install-units.sh
 - [`pr-ebfb-286-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/pr-ebfb-286-shepherd.md) — Repo endojs/endo-but-for-bots — shepherd PR #286 (https://github.com/endojs/e...
 - [`scholar-ingest-gutentag-packages`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-gutentag-packages.md) — role: scholar
-- [`scholar-ingest-gutentag`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-gutentag.md) — role: scholar
 - [`xs2rust-endor-stage4-classes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-classes.md) — Stage-4 child: class definitions, super, new.target
 
-### tada (1271)
+### tada (1272)
+- [`scholar-ingest-gutentag`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-gutentag.md) — Completion report — scholar-ingest-gutentag
 - [`onboarding-p2-context-tree`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/onboarding-p2-context-tree.md) — Completion report
 - [`design-ebfb-buffered-channel-exo-stream-consolidation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-ebfb-buffered-channel-exo-stream-consolidation.md) — Design job complete. Draft PR **endojs/endo-but-for-bots#613** carries the de...
 - [`endojs-endo-but-for-bots-pr89-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr89-refresh.md) — The refresh is complete. Final report:
 - [`pr-ebfb-134-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/pr-ebfb-134-refresh.md) — Done. Writing the completion report.
-- [`onboarding-p1-launcher`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/onboarding-p1-launcher.md) — Completion report
-- … and 1266 more
+- … and 1267 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
