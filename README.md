@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T18:13:54Z_
+_As of 2026-07-06T18:18:02Z_
 
 ## Latest
 
-Recent completions cleared CI for [endo-but-for-bots#615](https://github.com/endojs/endo-but-for-bots/pull/615) (agent-tools shell capability) and [endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616), both now green, alongside the phase-3 git-tools build for the daemon agent-tools stack and a deterministic-overrun-alert improvement to the gardener. Four items need maintainer attention. A fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`): a job was requeued every ~18 min against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree — a main2 infra fix warranting a deliberate fix and deploy. The Gateway Feature-8 `/ocapn` WebSocket endpoint build was **held** rather than opened as a PR because it collides with the in-flight [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) (which implements only the path-naming half and defers the socket handoff); the gardener preserved its superset branch and asks whether to re-scope on top of #577 (its recommendation), supersede #577, or drop the branch. The `onboarding-p1-launcher` job closed as already-satisfied, flagging that the design's `.garden`-file identity is now stale, superseded by the location-derived identity landed in 6d543582e/367a7543c. Finally, the foreman reports `build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery` recurred without milestone progress and may be stuck — it and `xs2rust-endor-stage4-modules` are the only two jobs in flight, with an empty todo queue.
+Two shepherd runs drove [endojs/endo-but-for-bots#615](https://github.com/endojs/endo-but-for-bots/pull/615) (agent-tools shell capability) and [endojs/endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616) to green CI, and the daemon agent-tools phase-3 git-tools build landed. A gardener paused Gateway Feature 8 (the `/ocapn` WebSocket endpoint) rather than open a competing draft: it found its work is a superset of the already-in-flight [endojs/endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), which implements only the path-naming half, and is asking whether to build the socket handoff atop #577, supersede it, or drop the branch — the branch is pushed but no PR was opened. Two items want a maintainer decision: a data-corruption-class bug in the reaper requeue path (jobs requeued every ~18 min against a 40-min handler wall, twice producing two live writers in one worktree) surfaced as a garden-infrastructure fix, and the foreman is holding a re-post of `build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery` because the prior attempt drained without milestone progress and may be stuck. The onboarding phase-1 job closed as already-satisfied, with a note that the design's `.garden`-file identity paragraph is now superseded by location-derived identity.
 
 ## Parked for maintainer feedback
 
@@ -68,8 +68,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery.md) — ---
+- [`build-endo-but-for-bots-filesystem-watchers-endomount-follow-name-changes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-filesystem-watchers-endomount-follow-name-changes.md) — ---
 - [`xs2rust-endor-stage4-modules`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-modules.md) — Stage-4 child: module machinery: ModuleSource, module records, namespaces
 
 ### tada (1325)
