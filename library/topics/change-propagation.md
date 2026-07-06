@@ -61,6 +61,8 @@
 | [dialog-db--notes-causal-information-design-decision--decision-causal-is-querying-concern](../sections/dialog-db--notes-causal-information-design-decision--decision-causal-is-querying-concern.md) | dialog-db notes/causal-information-design-decision.md | Causal information kept a querying not modeling concern: plain domain types by default, Proof<T> opt-in, value-based CAS for staleness. |
 | [dialog-db--notes-memory-layout--branch-and-remote-cells](../sections/dialog-db--notes-memory-layout--branch-and-remote-cells.md) | dialog-db notes/memory-layout.md | Per-repository memory cells holding Git-like sync state: local branch revision/upstream and remote address/branch-revision. |
 | [dialog-db--notes-memory-layout--fetch-pull-push-operations](../sections/dialog-db--notes-memory-layout--fetch-pull-push-operations.md) | dialog-db notes/memory-layout.md | How fetch/pull/push read and advance the cells; Revision carries the blake3 NodeReference tree, cause, period, moment. |
+| [dialog-db--notes-dbsp-findings--hybrid-hypothesis-validation](../sections/dialog-db--notes-dbsp-findings--hybrid-hypothesis-validation.md) | dialog-db notes/dbsp/findings.mds | LLM evaluation validating the hybrid push-pull DBSP approach: the existing engine already solves DBSP integration's hardest problems. |
+| [dialog-db--notes-dbsp-findings--implementation-strategy-and-metrics](../sections/dialog-db--notes-dbsp-findings--implementation-strategy-and-metrics.md) | dialog-db notes/dbsp/findings.mds | The three-phase DBSP implementation plan (IVM alongside the engine, then unified evaluation) and its success metrics. |
 
 ## Concepts
 
