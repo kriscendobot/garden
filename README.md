@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-06T03:55:13Z_
+_As of 2026-07-06T03:57:06Z_
 
 ## Latest
 
-[endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) landed out of draft as the standalone docker-self-host slice — OPEN, MERGEABLE, CI green (15/15), now in the review queue. A focused panel caught one real must-fix (the documented `docker exec … endo` control command would have hit "endo: not found" because `node_modules/.bin` wasn't on the image PATH) plus a bundle of should-fixes; the fix is correct by construction but not runtime-proven, since the gardener sandbox has no Docker. The [endoclaw-timer gauntlet on #609](https://github.com/endojs/endo-but-for-bots/pull/609) also completed.
+[endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared the gauntlet and is now un-drafted — OPEN, MERGEABLE, CI green (15/15) — as the standalone Docker self-host slice; the panel caught a real must-fix (the documented `docker exec … endo` control command would have failed with "endo: not found" because `node_modules/.bin` wasn't on the image PATH) plus a bundle of should-fixes (commit 8e6749d8d). One honest caveat: no Docker in the sandbox, so the PATH fix is correct by construction but not runtime-proven — an end-to-end `docker build` smoke test needs a Docker-capable host. [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) (endoclaw timer) also finished its gauntlet.
 
-Most of this cycle's substance is **gardeners declining to build duplicates and surfacing disposition calls** rather than opening new PRs. Three overlapping docker-self-host attempts now coexist — [#608](https://github.com/endojs/endo-but-for-bots/pull/608) (docker files only), the comprehensive-but-stale [#134](https://github.com/endojs/endo-but-for-bots/pull/134) (CHANGES_REQUESTED), and 0xpatrickbot's conflicting [#568](https://github.com/endojs/endo-but-for-bots/pull/568) — and the builder is asking a real architecture question: does remote-auth wire into `ws-gateway.js` (the current design record) or wait for `@endo/gateway` per kriskowal's 2026-05 steer? Verified ws-gateway wiring + tests are parked on branch `wip/daemon-docker-selfhost-gateway-remote-auth` for whichever PR wins. Similarly, the confined-HTTP-client pillar is already served by garden-owned [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (blessed `cli-http-client.md` design) and 0xpatrickbot's [#566](https://github.com/endojs/endo-but-for-bots/pull/566), so no third build was started. Both need a maintainer decision on which PR is canonical and how to dispose of the losers.
+Two build jobs deliberately did **not** open new PRs to avoid duplicate work, and need a disposition call. The confined-outbound-HTTP pillar is already covered by [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (garden-owned, built on the blessed `cli-http-client.md` design) and 0xpatrickbot's parallel [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (mention-only, leave be) — the recommendation is to shepherd #286. The Docker daemon self-host keystone overlaps three PRs — #608 (slice only), the comprehensive-but-stale [endo-but-for-bots#134](https://github.com/endojs/endo-but-for-bots/pull/134) (CHANGES_REQUESTED), and 0xpatrickbot's conflicting [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) — and hinges on an unsettled architecture question: whether remote-auth wires into today's `ws-gateway.js` (the current design record) or waits for the newer `@endo/gateway` skeleton the maintainer steered toward in May. The gardener verified the ws-gateway path is a ~40-line testable change (pushed to branch `wip/daemon-docker-selfhost-gateway-remote-auth`, no PR) and confirmed the gateway-bearer-token wiring was never actually landed despite its design being marked Complete.
 
-Finally, an infrastructure alarm worth acting on: the deterministic identity-drift guard fired three times reporting **`GARDEN=driftname` diverging from `hostname -s=endolinbot`** with no recorded override — which flips this true leader host to FOLLOWER and silently **skips every leader-only singleton** (foreman, scheduler, watchers). If endolinbot is the leader, `/home/kris/.garden` needs correcting to `endolinbot` and the pool restarted.
+Operational alert worth eyes: an **identity-drift guard fired three times on the true leader host** — `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, watchers) is being silently skipped; fix is correcting `/home/kris/.garden` to `endolinbot` and restarting the pool. Separately, the `design-streamlined-onboarding` design job completed and awaits review of its §5 open questions (notably Q2, the security-flavored auto-mode default) before its four gated build jobs can be posted.
 
 ## Parked for maintainer feedback
 
@@ -195,7 +195,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`mention-kriskowal-garden-26-186e048e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mention-kriskowal-garden-26-186e048e.md) — attention directive from @-mention on kriskowal/garden #26
 - [`xs2rust-endor-stage4-accessors-attributes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-accessors-attributes.md) — Stage-4 child: accessor properties, full property descriptors, freeze/seal (h...
 
 ### tada (1252)
