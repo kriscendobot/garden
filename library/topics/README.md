@@ -30,7 +30,7 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [pass-style](pass-style.md) | Marshal's classification system for how values cross a serialization boundary. | 71 |
 | [e-language](e-language.md) | Mark Miller's capability-secure distributed language E (sameness, selfless/selfish objects, the doc-tree map) as documented on erights.org; the language-level ancestor of Hardened JavaScript / Endo. Distinct from `capability-theory` (the papers arguing the discipline). | 44 |
 | [daemon](daemon.md) | The Endo daemon: per-user persistent host for HardenedJS workers. | 113 |
-| [persistence](persistence.md) | How values, state, and capabilities survive vat incarnations, upgrades, daemon restarts; the heap/virtual/durable zones. | 51 |
+| [persistence](persistence.md) | How values, state, and capabilities survive vat incarnations, upgrades, daemon restarts; the heap/virtual/durable zones. | 52 |
 | [async-flow](async-flow.md) | The `@agoric/async-flow` durable-replay async-function infrastructure; closed-function discipline. | 8 |
 | [patterns](patterns.md) | The @endo/patterns shape-matching language; method guards. | 66 |
 | [getting-started](getting-started.md) | The on-ramp into Endo: install, first encounters, confinement walk-through. | 25 |
