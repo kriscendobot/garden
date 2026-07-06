@@ -13497,6 +13497,14 @@ caveated fetch network.allowedHosts vat endowment | ocap-kernel
 `makeAllowedGlobals` VatEndowmentsStruct defense-in-depth assert | ocap-kernel
 endowment teardown-first idempotent termination `#terminationPromise` | ocap-kernel
 `StreamReadError` self-terminate on stream read error | ocap-kernel
+`KernelServiceManager` kernel-service registry invocation | ocap-kernel
+`registerKernelServiceObject` dedup-by-name provision-and-pin kref | ocap-kernel
+kernel service dual index by name by kref | ocap-kernel
+`pinObject` GC-exempt service kref survives restart | ocap-kernel
+`invokeKernelService` fire-and-forget E() dispatch | ocap-kernel
+service method `waitForCrank` without crank deadlock promise-chaining | ocap-kernel
+`kser` `kunser` kernel-service methargs marshal | ocap-kernel
+`DELIVERY_FAILED` kernel-service method failure normalize | ocap-kernel
 data-lock | data-lock
 datalock | data-lock
 data lock | data-lock
