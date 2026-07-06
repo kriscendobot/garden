@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T14:07:49Z_
+_As of 2026-07-06T14:08:16Z_
 
 ## Latest
 
-Little moved on the board this cycle — one scholar dialog-DB ingest job completed and a follow-on (`scholar-ingest-dialog-db-remainder-3`) was claimed — but two maintainer messages carry the weight. The fable review of the garden's own scripts surfaced a **data-corruption-class bug in the reaper requeue path** (`reaper-requeue-kills-or-waits-for-live-handler`): a job was requeued roughly every 18 min against a 40-min handler, leaving the prior handler alive and twice producing two live writers in one worktree. It's a main2 infrastructure fix (no bot-repo PR) and wants a deliberate fix-and-deploy; two lesser items ride along needing no decision. Separately, the streamlined-onboarding phase-1 job closed as already-satisfied — the direct-exec launcher, auto-build, and guard-hook seeding all landed 2026-07-04, and the one open design point (`.garden`-file-first identity) was deliberately superseded by the newer location-derived identity, so design §1.1's identity paragraph is now stale and could be annotated as such.
+A scholar job wrapped up — [`scholar-ingest-dialog-db-remainder-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-2.md) ingested the dialog-db query-planner material — leaving three jobs in flight (the remaining dialog-db ingest, the OCapN WebSocket gateway endpoint for endo-but-for-bots, and the XS→Rust stage-4 async/await port) and an empty todo queue. Two maintainer messages want attention: the Fable review of the garden's own scripts flagged a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`) — a job requeued every ~18 min against a 40-min handler wall, twice leaving two live writers in one worktree — which needs a deliberate main2 fix and deploy rather than a board job; and the streamlined-onboarding phase-1 job closed as already-landed, noting that the design's ".garden-file-first identity" was deliberately superseded by the newer location-derived identity (commits 6d543582e/367a7543c) and so §1.1 of that design is now stale.
 
 ## Parked for maintainer feedback
 
@@ -44,19 +44,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`ebfb-endo-gateway-ocapn-websocket-endpoint`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-endo-gateway-ocapn-websocket-endpoint.md) — ---
-- [`scholar-ingest-dialog-db-remainder-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder-2.md) — role: scholar
 - [`scholar-ingest-dialog-db-remainder-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder-3.md) — role: scholar
 - [`xs2rust-endor-stage4-async-await`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-async-await.md) — Stage-4 child: async/await over the job queue + the promise double-settle key...
 
-### tada (1300)
+### tada (1301)
+- [`scholar-ingest-dialog-db-remainder-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-2.md) — scholar-ingest-dialog-db-remainder-2 — ingested the dialog-db query-planner/r...
 - [`scholar-ingest-dialog-db-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder.md) — Completion report
 - [`scholar-ingest-against-sql`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-against-sql.md) — Completion report
 - [`deadmail-20260706T133852Z-764cda`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T133852Z-764cda.md) — Completion report
 - [`deadmail-20260706T133039Z-fa81df`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T133039Z-fa81df.md) — Completion report — deadmail-20260706T133039Z-fa81df
-- [`scholar-ingest-dialog-db`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db.md) — Completion report
-- … and 1295 more
+- … and 1296 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
