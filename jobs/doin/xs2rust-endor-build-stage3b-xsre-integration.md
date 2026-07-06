@@ -43,6 +43,8 @@ Bar: `built-ins/RegExp` + the String regex-method sections dual-run divergent=0 
 growth; `language/literals/regexp` growth at zero divergence; honest named skips (e.g.
 Symbol.match/replace/split protocol dispatch corners) — name them.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot
