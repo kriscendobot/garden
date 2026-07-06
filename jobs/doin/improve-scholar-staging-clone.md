@@ -4,3 +4,9 @@ Add a new sanctioned helper that provisions a scholar's (or any library-writebac
 What to change: create `scripts/jobs/scholar-staging-clone.sh` sourcing `common.sh`. It should take a destination dir (default `$GARDEN_STATE/scholar-staging/journal`, overridable via env) and call the existing `ensure_clone`/`sync_clone` helpers, which (a) clone/hard-reset to the real `origin/journal2` tip — never the deployed worktree branch — and (b) already seed `user.name`/`user.email` from the garden bot config (see `common.sh:1152`, `1159-1160`). Emit the ready staging path on stdout and exit 0. This makes "which tree do I stage in, and is it fresh and commit-capable?" pure script discipline, exactly as `land-journal-edit.sh` did for the land step.
 
 Also update `roles/scholar/AGENT.md` (and any library-writeback procedure that stages multi-file edits) to call this helper for its staging area instead of reusing the deployed `journal/` worktree, closing the loop the note flags ("a scholar's staging clone must track `origin/journal2`, not the deployed read worktree's branch").
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 20
+  claimed_at: 2026-07-06T12:53:43Z
