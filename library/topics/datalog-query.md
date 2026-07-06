@@ -113,6 +113,12 @@
 | [dialog-db--rust-dialog-repository-guide--querying-concepts-rules-and-artifacts](../sections/dialog-db--rust-dialog-repository-guide--querying-concepts-rules-and-artifacts.md) | dialog-db rust/dialog-repository/Guide.md | Typed concept queries, deductive-rule queries (.query().install(rule)), and raw artifact selection with automatic remote fallback. |
 | [dialog-db--rust-dialog-csv-readme--overview](../sections/dialog-db--rust-dialog-csv-readme--overview.md) | dialog-csv README | CSV interchange for `{the, of, is, cause}` artifacts: the five-column (the/of/as/is/cause) row format and typed value set. |
 | [dialog-db--rust-dialog-csv-readme--usage](../sections/dialog-db--rust-dialog-csv-readme--usage.md) | dialog-csv README | Export/import a branch (`branch.export`/`branch.import`) or use `CsvExporter`/`CsvImporter` standalone over any writer/reader. |
+| [dialog-db--ts-dialog-experimental-session--overview](../sections/dialog-db--ts-dialog-experimental-session--overview.md) | dialog-db session.ts | The JS Session: a did:key handle, Querier+transactor over the WASM artifacts store, one deduplicated session per DID. |
+| [dialog-db--ts-dialog-experimental-session--changes-assert-retract](../sections/dialog-db--ts-dialog-experimental-session--changes-assert-retract.md) | dialog-db session.ts | A Change is an Assertion or a Retraction (the facts of one relation), committed atomically into a Revision. |
+| [dialog-db--ts-dialog-experimental-session--query-and-selection](../sections/dialog-db--ts-dialog-experimental-session--query-and-selection.md) | dialog-db session.ts | select over a the/of/is FactsSelector, plus the fact↔artifact and typed-value conversions to the wasm store. |
+| [dialog-db--ts-dialog-experimental-session--subscriptions-and-reactivity](../sections/dialog-db--ts-dialog-experimental-session--subscriptions-and-reactivity.md) | dialog-db session.ts | Query subscriptions re-run on each transaction, propagated across tabs by a per-DID BroadcastChannel. |
+| [dialog-db--ts-dialog-experimental-session--revisions-and-lifecycle](../sections/dialog-db--ts-dialog-experimental-session--revisions-and-lifecycle.md) | dialog-db session.ts | Revisions as IPLD-link strings, GENESIS as the empty-DB marker, close (detach) vs clear (erase IndexedDB). |
+| [dialog-db--ts-dialog-experimental-react--overview](../sections/dialog-db--ts-dialog-experimental-react--overview.md) | dialog-db react.ts | React bindings: DID Provider, memoized useSession, reactive useQuery, pre-bound useTransaction. |
 
 ## See also
 
