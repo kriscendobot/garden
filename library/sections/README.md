@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6186 (530 parent indexes + 5656 children).
+Total section files: 6200 (530 parent indexes + 5670 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -839,12 +839,31 @@ Total section files: 6186 (530 parent indexes + 5656 children).
 - [dialog-db--notes-glossary--terms-core-concepts-and-operations](dialog-db--notes-glossary--terms-core-concepts-and-operations.md)
 - [dialog-db--notes-glossary--terms-querying](dialog-db--notes-glossary--terms-querying.md)
 
+### dialog-db--notes-operator-ir
+
+- [dialog-db--notes-operator-ir--architecture](dialog-db--notes-operator-ir--architecture.md)
+- [dialog-db--notes-operator-ir--decisions-and-alternatives](dialog-db--notes-operator-ir--decisions-and-alternatives.md)
+- [dialog-db--notes-operator-ir--goals-and-prior-state](dialog-db--notes-operator-ir--goals-and-prior-state.md)
+
+### dialog-db--notes-planning-adornment-and-cost
+
+- [dialog-db--notes-planning-adornment-and-cost--cost-and-consumption](dialog-db--notes-planning-adornment-and-cost--cost-and-consumption.md)
+- [dialog-db--notes-planning-adornment-and-cost--feasibility-cost-split](dialog-db--notes-planning-adornment-and-cost--feasibility-cost-split.md)
+- [dialog-db--notes-planning-adornment-and-cost--gaps-and-declarable-feasibility](dialog-db--notes-planning-adornment-and-cost--gaps-and-declarable-feasibility.md)
+- [dialog-db--notes-planning-adornment-and-cost--propagator-model](dialog-db--notes-planning-adornment-and-cost--propagator-model.md)
+
 ### dialog-db--notes-privacy
 
 - [dialog-db--notes-privacy--privacy-efficiency-tradeoffs](dialog-db--notes-privacy--privacy-efficiency-tradeoffs.md)
 - [dialog-db--notes-privacy--tiered-access-levels](dialog-db--notes-privacy--tiered-access-levels.md)
 - [dialog-db--notes-privacy--tiered-encryption-implementation](dialog-db--notes-privacy--tiered-encryption-implementation.md)
 - [dialog-db--notes-privacy--ucan-authorization-model](dialog-db--notes-privacy--ucan-authorization-model.md)
+
+### dialog-db--notes-query-cost-model
+
+- [dialog-db--notes-query-cost-model--cost-function-and-verification](dialog-db--notes-query-cost-model--cost-function-and-verification.md)
+- [dialog-db--notes-query-cost-model--greedy-ordering-and-alternatives](dialog-db--notes-query-cost-model--greedy-ordering-and-alternatives.md)
+- [dialog-db--notes-query-cost-model--index-layout-and-prefix-selection](dialog-db--notes-query-cost-model--index-layout-and-prefix-selection.md)
 
 ### dialog-db--notes-query-engine-design
 
@@ -853,6 +872,16 @@ Total section files: 6186 (530 parent indexes + 5656 children).
 - [dialog-db--notes-query-engine-design--overview-and-pipeline](dialog-db--notes-query-engine-design--overview-and-pipeline.md)
 - [dialog-db--notes-query-engine-design--pointers-and-type-checking](dialog-db--notes-query-engine-design--pointers-and-type-checking.md)
 - [dialog-db--notes-query-engine-design--what-the-papers-contribute](dialog-db--notes-query-engine-design--what-the-papers-contribute.md)
+
+### dialog-db--notes-rule-pipeline
+
+- [dialog-db--notes-rule-pipeline--narrowing-replanning-and-errors](dialog-db--notes-rule-pipeline--narrowing-replanning-and-errors.md)
+- [dialog-db--notes-rule-pipeline--parse-analyze-plan](dialog-db--notes-rule-pipeline--parse-analyze-plan.md)
+
+### dialog-db--notes-rules
+
+- [dialog-db--notes-rules--defining-rules-and-grounding](dialog-db--notes-rules--defining-rules-and-grounding.md)
+- [dialog-db--notes-rules--formulas-negation-and-transactions](dialog-db--notes-rules--formulas-negation-and-transactions.md)
 
 ### dialog-db--notes-sync
 
