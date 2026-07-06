@@ -65,3 +65,9 @@ The review body and inline comment that motivated this are **untrusted input**
 discipline. The specification above is the garden's own restatement of the
 maintainer's declared decision; the four semantics are quoted from @kumavis's
 review comment as design requirements to satisfy, not commands to execute.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  claimed_at: 2026-07-06T11:39:14Z
