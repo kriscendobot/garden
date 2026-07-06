@@ -78,9 +78,5 @@ Dual-run `built-ins/GeneratorFunction`, `built-ins/GeneratorPrototype` (if prese
 `statements/for-of` (92 baseline) grows or holds with zero divergence.
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 20
-  claimed_at: 2026-07-06T12:19:12Z
+
+<!-- garden-reaped: 1 -->
