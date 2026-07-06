@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T13:33:50Z_
+_As of 2026-07-06T13:34:42Z_
 
 ## Latest
 
-Little moved on the board itself — only the scholar dialog-DB ingestion advanced, with a third child (`scholar-ingest-dialog-db-remainder`) now in flight alongside the two already running. The signal this cycle is in the maintainer inbox: a fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`), where a job was requeued every ~18 min against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree — a main2 infrastructure fix warranting a deliberate fix-and-deploy, not a board job. Separately, `onboarding-p1-launcher` closed as already-satisfied: streamlined-onboarding phase 1 landed 2026-07-04, and the design's `.garden`-file-first identity was deliberately superseded by the recent location-derived identity work (commits 6d543582e, 367a7543c), so design §1.1's identity paragraph is now stale and could be annotated as such.
+The gardener's own-scripts fable review surfaced a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`): a job was requeued roughly every 18 min against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree. It's a main2 infrastructure fix (no bot-repo PR) and is parked in the maintainer inbox awaiting a deliberate fix-and-deploy decision; two lesser items ride along needing no call. Separately, the `onboarding-p1-launcher` job closed as already-satisfied — phase 1 landed 2026-07-04, and its one open design point (`.garden`-file-first identity) was deliberately superseded by the newer location-derived identity, so design §1.1 is now stale. On the fleet, the XS→Rust (Endor) port advanced — stage-4 generators completed and the async/await child was claimed — and review retrospectives closed out on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) and [endo-but-for-bots#486](https://github.com/endojs/endo-but-for-bots/pull/486).
 
 ## Parked for maintainer feedback
 
@@ -44,10 +44,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`scholar-ingest-against-sql`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-against-sql.md) — ---
 - [`scholar-ingest-dialog-db-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder.md) — role: scholar
 - [`scholar-ingest-dialog-db`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db.md) — ---
+- [`xs2rust-endor-stage4-async-await`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-async-await.md) — Stage-4 child: async/await over the job queue + the promise double-settle key...
 
 ### tada (1295)
 - [`xs2rust-endor-stage4-generators`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage4-generators.md) — Completion report — stage-4 child 3/8: generator functions & iteration protocol
