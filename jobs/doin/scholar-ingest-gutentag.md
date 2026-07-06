@@ -14,3 +14,9 @@ Scope:
   rather than bending the existing taxonomy (AGENT.md § Do not overfit).
 
 No fork or upstream actions — library curation only.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 15
+  claimed_at: 2026-07-06T11:37:00Z
