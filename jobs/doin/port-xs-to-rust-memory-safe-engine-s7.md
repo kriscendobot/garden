@@ -410,3 +410,9 @@ named skip) before accepting child 9.
 - **Remaining honest named skips (self-name `Halt::Unsupported`):** global `match`/`replace` collection,
   `$`-substitution grammar in `replace`, named groups in `exec`, RegExp-valued pattern arg in the general ctor,
   and non-ASCII subject under a stateful (`g`/`y`) flag.
+
+---
+claim:
+  host: endolinbot
+  gardener: 12
+  claimed_at: 2026-07-06T00:38:29Z
