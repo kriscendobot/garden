@@ -1,1 +1,7 @@
 Run the gauntlet on endojs/endo-but-for-bots PR #615 (daemon-agent-tools Phase 2 — Shell capability `provideShell` + `makeShellTool`, the "claw-like coding capabilities" of M3's exit criterion), a green/mergeable draft already shepherded to all-checks-SUCCESS and stacked atop the landed Phase 1 (#614): clean → panel review → fix-loop → un-draft to drive it toward merge.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 9
+  claimed_at: 2026-07-06T20:51:11Z
