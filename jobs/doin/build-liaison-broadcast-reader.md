@@ -42,3 +42,9 @@ Do NOT arm the remote yourself; the liaison only OFFERS it. Keep the diff to
 those two files (plus any index/link housekeeping the library requires) and
 verify links per the library-link-check script before landing. Garden-meta
 only: commit explicit pathspecs, rebase CAS push to main2, no PR.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 18
+  claimed_at: 2026-07-06T23:58:12Z
