@@ -16,6 +16,7 @@ Dialog's mechanism for making a formula polymorphic where its semantics are — 
 | [dialog-db--notes-formula-schemes--runtime-and-inference](../sections/dialog-db--notes-formula-schemes--runtime-and-inference.md) | Closed-set runtime visitors and per-use unifier-variable inference; the lattice-typed-cells prerequisite. |
 | [dialog-db--notes-formula-schemes--no-implicit-numeric-promotion](../sections/dialog-db--notes-formula-schemes--no-implicit-numeric-promotion.md) | Why a type-mismatched row is filtered rather than promoted; the SQLite/PostgreSQL calibration; literals as the release valve. |
 | [dialog-db--notes-formula-schemes--textual-and-comparison-schemes](../sections/dialog-db--notes-formula-schemes--textual-and-comparison-schemes.md) | The TEXTUAL prefix predicate and numeric comparisons as schemes; prefix refinement and index pushdown. |
+| [dialog-db--rust-dialog-query-readme--formulas](../sections/dialog-db--rust-dialog-query-readme--formulas.md) | Crate-doc: #[derive(Formula)] pure computations (#[output] fields, compute(Input<Self>) -> Vec<Self>) used as rule premises; the built-in formula catalog. |
 
 ## See also
 
