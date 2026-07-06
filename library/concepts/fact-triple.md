@@ -16,6 +16,8 @@ Dialog's atomic unit of knowledge: an immutable **claim** of the form `{the, of,
 | [dialog-db--notes-architecture-overview--facts-as-atomic-units](../sections/dialog-db--notes-architecture-overview--facts-as-atomic-units.md) | Facts as atomic immutable append-only units; retraction facts; the cause edge. |
 | [dialog-db--notes-notation--assertions-and-claims](../sections/dialog-db--notes-notation--assertions-and-claims.md) | The notation view: assert/retract become claims; the `{the, of, is}` assertion, optional `cause` succession, and the `{by, period, moment}` provenance. |
 | [dialog-db--rust-dialog-query-readme--associative-claims](../sections/dialog-db--rust-dialog-query-readme--associative-claims.md) | Crate-doc: a statement is a set of {the, of, is} associations stored as immutable content-addressed claims {the, of, is, cause}; an entity's state is the set of all its claims. |
+| [dialog-db--rust-dialog-repository-readme--overview](../sections/dialog-db--rust-dialog-repository-readme--overview.md) | Crate-doc: information stored as claims {the, of, is, cause} — the relation, entity, value, and provenance — queried with typed concepts or deductive rules. |
+| [dialog-db--rust-dialog-repository-guide--writing-semantic-triples](../sections/dialog-db--rust-dialog-repository-guide--writing-semantic-triples.md) | Data stored as semantic triples the attribute of entity is value; asserted in a branch transaction and committed as a new revision. |
 
 ## See also
 
