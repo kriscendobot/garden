@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T23:32:26Z_
+_As of 2026-07-06T23:32:59Z_
 
 ## Latest
 
-Board activity was quiet this cycle — the sole transition was [design-transcript-journal-capture](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-transcript-journal-capture.md) landing on `main2` (commit d9…) — but several completions now sit at decision points only the maintainer can clear. The M3 flagship is built: the `daemon-agent-tools` stack [#614](https://github.com/endojs/endo-but-for-bots/pull/614)→[#615](https://github.com/endojs/endo-but-for-bots/pull/615)→[#616](https://github.com/endojs/endo-but-for-bots/pull/616)→[#618](https://github.com/endojs/endo-but-for-bots/pull/618) is CI-green and mergeable but still Draft, and the foreman reports the milestone's critical path is now landing this backlog, not more building. The confined-HttpClient gauntlet on [#566](https://github.com/endojs/endo-but-for-bots/pull/566) passed and un-drafted into the review queue (all 7 must-fix items resolved), leaving one open call: whether to add a per-request AbortController timeout the two governing designs disagree on.
-
-Two items warrant deliberate garden-infrastructure attention. A fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`) that twice produced two live writers in one worktree — a `main2` fix + deploy, not a board job. And the Gateway Feature-8 build held rather than opening a competing PR: its `/ocapn` WebSocket work is a superset of open draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577) but rewrites the same module incompatibly, so it needs a steer (recommended: re-scope to build atop #577's path scheme). Meanwhile the xs2rust Endor stage-4 orchestration **halted** on a failed `stage4-modules` child (4/8 done), and the foreman flagged `endoclaw-timer-phase2-tick-delivery` as possibly stuck after draining without progress.
+The M3 flagship — Claw-like coding via `daemon-agent-tools` — is now fully built: phases 1–3 ([#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), [#616](https://github.com/endojs/endo-but-for-bots/pull/616)) are CI-green and mergeable, and phase 4 ([#618](https://github.com/endojs/endo-but-for-bots/pull/618)) cleared its last un-draft blocker, so the whole stack now just awaits maintainer review, un-draft, and merge — a conductor/authority step the fleet can't take itself. The confined-HttpClient gauntlet on [#566](https://github.com/endojs/endo-but-for-bots/pull/566) passed panel re-review and is un-drafted into your queue (clean/mergeable, all 7 must-fixes resolved), with one deferred design call: whether to add a per-request AbortController timeout that the two governing designs disagree on. The [#616](https://github.com/endojs/endo-but-for-bots/pull/616) gauntlet completed and PR [#96](https://github.com/endojs/endo-but-for-bots/pull/96)'s shepherd finished. Two items need your steer: the gateway `/ocapn` WebSocket build was held rather than opening a competing PR against draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577) (its work is a superset but an incompatible parallel rewrite of the same module — recommendation is to rescope onto #577), and the fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (two live writers in one worktree) warranting a deliberate main2 fix and deploy. On the infra side, the `xs2rust-endor-build-stage4` orchestration halted on a failed child (4/8 done), and onboarding phase 1 was confirmed already landed with its `.garden`-file identity intentionally superseded by location-derived naming.
 
 ## Parked for maintainer feedback
 
@@ -88,18 +86,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr619-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr619-gauntlet.md) — Run the full gauntlet (clean → panel review → fix-loop → un-draft) on endojs/...
-- [`endojs-endo-but-for-bots-pr96-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr96-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #96
 - [`xs2rust-endor-stage5-parser-stmt`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-parser-stmt.md) — Stage-5 child 3/7: parser — statements, declarations, functions/classes/modul...
 
-### tada (1364)
+### tada (1365)
+- [`endojs-endo-but-for-bots-pr96-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr96-shepherd.md) — Completion report
 - [`design-transcript-journal-capture`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-transcript-journal-capture.md) — Designed and landed designs/transcript-journal-capture.md on main2 (commit d9...
 - [`endojs-endo-but-for-bots-pr616-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr616-gauntlet.md) — The gauntlet ran to termination. Final report below.
 - [`endojs-endo-but-for-bots-pr96-review-94e37389`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr96-review-94e37389.md) — Completion report
 - [`deadmail-20260706T230501Z-da0344`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T230501Z-da0344.md) — Completion report
-- [`issue-inbox-surface-would-be-maintainer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-inbox-surface-would-be-maintainer.md) — Completion report
-- … and 1359 more
+- … and 1360 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
