@@ -82,6 +82,7 @@ plus namespace/linkage unit tests locked in cargo. Record honestly which path wa
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
