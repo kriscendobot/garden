@@ -251,3 +251,9 @@ schedule the async-function surface as a distinct child rather than re-queueing
 this exhausted job. finally + the combinators share the same native-reaction
 prerequisite and can ride the same child.
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  claimed_at: 2026-07-06T18:26:49Z
