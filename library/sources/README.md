@@ -545,6 +545,14 @@ The per-structure idiomatic APIs. Each package's README sits at `packages/<name>
 | [zip](collections--pkg-zip-readme.md) | zip | 1 | current |
 | [copy](collections--pkg-copy-readme.md) | copy | 1 | current |
 
+### Gutentags component framework (Guten Tag; begin-ingest 2026-07-06)
+
+Kris Kowal's **Guten Tag** ecosystem (`github.com/gutentags`): a reactive web-component framework that defines HTML tags as HTML/XML modules. `gutentags/gutentag` is the core package (loader plus the five building-block tags); the org also holds sibling *component packages* (`koerper` the virtual DOM, `wizdom` a minimal DOM subset, `system` the module loader, `blick` animation coordination, `kamera` focus management, `ndim` point/region types) and single-tag component packages (`list.html`, `dice.html`, `colorim.html`, `tengwar.html`, `accrete.html`). The first cycle (2026-07-06, `scholar-ingest-gutentag`) ingested the core `gutentag` README in full (14 sections), seeding the new [[html-modules]] topic. The sibling component packages and `gutentag`'s own `essays/` example components are deferred to a re-posted `scholar-ingest-gutentag` follow-on.
+
+| Source | Repo | Last-modified | Primary author | Sections | Status |
+|--------|------|---------------|----------------|----------|--------|
+| [README.md](gutentag--readme.md) | gutentags/gutentag | 2017-03-07 | Kris Kowal | 14 | current (core README fully ingested: thesis + HTML-modules/scope model + hookup + body-nodes/virtual-document + bootstrapping + the five building-block tags + accepts calling conventions + this/space/xml; sibling component packages and essays/ deferred) |
+
 ### endojs/endo per-package READMEs, design, and changeset docs (batch ingest 2026-06-16 → 2026-06-24)
 
 Per-package READMEs (the documentation-side closure of the "pivot cluster"), package source-file fragments, design docs, and `.changeset` entries ingested across the June 2026 designs-lane cycles. Grouped by package via the slug; one row per source.
