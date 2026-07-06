@@ -1,12 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-06T02:52:05Z_
+_As of 2026-07-06T02:56:41Z_
 
 ## Latest
 
-A build job for the confined-outbound-HTTP pillar (`endoclaw-network-fetch`) came back **not building**: the gardener found the capability is already delivered twice over and declined to write a third — 0xpatrickbot's [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (a complete, all-green `@endo/exo-http-client`, but mention-only so the garden can't drive it) and the garden's own [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286), which builds the blessed `cli-http-client.md` design. Recommendation: shepherd #286 as the garden's vehicle and mark the stale "Not Started" design record superseded. Separately, the docker self-host slice [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared its panel and is now un-drafted, OPEN, MERGEABLE, CI 15/15 — the panel caught a real `endo: not found` PATH bug in the documented control command; the overlapping, broader gateway attempt [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot's) was deliberately left untouched and awaits your close-as-superseded / keep / reconcile call.
+The design job to reconcile gateway bearer-token auth against the endo-gateway landed, completing the last in-flight design work; the sole build now running is the endor-vm string-storage swap to UTF-16.
 
-**Operational flag worth immediate attention:** the identity-drift guard fired three times from the true leader host — `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER and **every leader-only singleton (foreman, scheduler, watchers, recovery) is being skipped**. Fix is to correct `/home/kris/.garden` to `endolinbot` and restart the pool. Also parked for you: the completed `designs/streamlined-onboarding.md` (its § 5 auto-mode-default question gates four build jobs), and a spec discrepancy on probe [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) where a requested `take`-semantics gap doesn't exist in the published probe.
+Two build jobs closed as **no-build, surfacing a decision** rather than shipping duplicate work. The confined-outbound-HTTP pillar (`endoclaw-network-fetch`) is already delivered twice over — [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286), the garden's own build of the maintainer-blessed `cli-http-client.md` design, is recommended for the gauntlet, while [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) is 0xpatrickbot's mention-only parallel take that the garden should leave alone. Separately, the docker-slice PR [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared its panel (one must-fix: `endo` was missing from the image PATH) and is now OPEN, MERGEABLE, CI green (15/15), awaiting review — with the honest caveat that no Docker host was available to smoke-test the build. Per the proxy's steer, the broader gateway-bearing [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot) was left untouched; whether it's superseded by #608 is a maintainer call.
+
+Two items need maintainer input: the `design-streamlined-onboarding` spec awaits answers to its open questions (especially the security-flavored auto-mode default), and the #595 probe (published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605)) surfaced that the job spec's paraphrased "Gap 5 — destructive `take` semantics" doesn't exist in the actual 7-gap probe — the gardener correctly declined to invent it, and a dedicated `take`-semantics analysis would be a fresh probe on your say-so.
+
+Finally, a host-identity drift guard fired repeatedly: **GARDEN=`driftname` diverges from `hostname -s=endolinbot`** with no recorded parallel-pool override, so `is-main-host` reports FOLLOWER and every leader-only singleton is being skipped on the true leader host — if endolinbot is meant to be the leader, correct `/home/kris/.garden` back to `endolinbot` and restart the pool.
 
 ## Parked for maintainer feedback
 
@@ -164,17 +168,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`design-gateway-bearer-token-auth-reconcile-endo-gateway`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-gateway-bearer-token-auth-reconcile-endo-gateway.md) — ---
+### doin (1)
 - [`xs2rust-endor-strings-utf16-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-strings-utf16-build.md) — Builder: swap endor-vm string storage CESU-8→UTF-16, delete the O(1)-index ha...
 
-### tada (1239)
+### tada (1240)
+- [`design-gateway-bearer-token-auth-reconcile-endo-gateway`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-gateway-bearer-token-auth-reconcile-endo-gateway.md) — Completion report:
 - [`build-endoclaw-network-fetch-http-client-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endoclaw-network-fetch-http-client-capability.md) — Completion report — build-endoclaw-network-fetch-http-client-capability
 - [`build-endoclaw-timer-daemon-formula-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endoclaw-timer-daemon-formula-integration.md) — Completion report
 - [`improve-mentor-claude-transient-claude-exit`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mentor-claude-transient-claude-exit.md) — Completion report
 - [`deadmail-20260706T022040Z-b35dd7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T022040Z-b35dd7.md) — What the dead-lettered message was
-- [`xs2rust-endor-strings-utf16-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16-design.md) — Job complete. Report:
-- … and 1234 more
+- … and 1235 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
