@@ -16,6 +16,7 @@ How dialog-db routes a capability effect to the storage that backs its subject. 
 | [dialog-db--notes-space-and-storage--core-types-location-space-storage](../sections/dialog-db--notes-space-and-storage--core-types-location-space-storage.md) | `Storage<S>` as `Loader` + `Router`; the two-level dispatch and platform defaults. |
 | [dialog-db--notes-space-and-storage--mounting-and-two-level-dispatch](../sections/dialog-db--notes-space-and-storage--mounting-and-two-level-dispatch.md) | Mounting: resolve a location, register the space under its DID. |
 | [dialog-db--notes-memory-layout--fetch-pull-push-operations](../sections/dialog-db--notes-memory-layout--fetch-pull-push-operations.md) | `RemoteAddress`/`SiteAddress` carrying the subject DID for remote routing. |
+| [dialog-db--rust-dialog-repository-guide--syncing-remotes-and-upstream](../sections/dialog-db--rust-dialog-repository-guide--syncing-remotes-and-upstream.md) | A remote pairs a SiteAddress (Ucan or S3) with .subject(did) naming which repository at the site to replicate; the where-vs-which-repo split. |
 
 ## See also
 
