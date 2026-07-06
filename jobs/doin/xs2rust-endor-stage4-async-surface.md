@@ -110,3 +110,9 @@ rejection paths, long chains, combinator matrices) locked as cargo bars; Miri
 (`TMPDIR=$HOME/tmp`) on the new instance/reaction allocation paths; the handoff doc updated or
 retired (fold paragraph in README updated to point at the landed surface); GC-roots note: the new
 `async_run_stack` and async-instance side tables join the roots ledger.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  claimed_at: 2026-07-06T19:22:06Z
