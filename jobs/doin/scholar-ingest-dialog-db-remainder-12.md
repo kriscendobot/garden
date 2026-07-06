@@ -49,3 +49,9 @@ subject-routing, dialog-notation, deductive-rule, capability-chain, dialog-query
 repository-branch-remote. Keep cross-referencing to endo design material where concepts
 meet (ocap / capability-security, content-addressed / durable storage, confinement,
 persistence). No fork or upstream actions.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 13
+  claimed_at: 2026-07-06T16:27:31Z
