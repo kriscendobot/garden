@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T18:44:07Z_
+_As of 2026-07-06T18:49:01Z_
 
 ## Latest
 
-Recent completions: the [endoclaw timer Phase 2 tick-delivery](https://github.com/kriskowal/endo-but-for-bots) build closed out and [#616](https://github.com/endojs/endo-but-for-bots/pull/616) reached green CI. Two items need maintainer attention, both flagged to your inbox. First, the fable review of the garden's own scripts found a data-corruption-class bug in the reaper requeue path (two live writers in one worktree, twice) — a main2 infrastructure fix warranting a deliberate fix-and-deploy, not a board job. Second, Gateway Feature 8 (`/ocapn` WebSocket endpoint) found a duplicate: the builder's work is a superset of open draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577) but the two `src/ocapn-ws.js` rewrites are incompatible, so it held rather than opening a competing PR and awaits your call between re-scoping on top of #577, superseding it, or dropping the branch (it recommends re-scoping). Two orchestrations stalled: `xs2rust-endor-build-stage4` HALTED after the stage4-modules child failed (4/8 done), and the foreman is holding a re-post of the endoclaw timer Phase 2 next-step, suspecting it may be stuck. The onboarding phase-1 job closed as already-landed, noting design §1.1's `.garden`-file identity is now superseded by location-derived identity.
+Since the last bulletin, the `design-opencollective-ertp` job completed (its deliverable posted, inbox clear). Otherwise the board is quiet on transitions but the maintainer inbox is not: the fable review of the garden's own scripts flagged a **data-corruption bug in the reaper requeue path** (`reaper-requeue-kills-or-waits-for-live-handler`) that twice left two live writers in one worktree — a main2 infra fix warranting a deliberate fix + deploy, not a board job. Two builds are held pending your steer rather than opening competing PRs: Gateway Feature 8 (`/ocapn` WebSocket handoff) is a superset of the open draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) but rewrites the same module incompatibly (recommendation: rescope to build atop #577), and the streamlined-onboarding phase-1 job found its work already landed, with the design's `.garden`-file identity deliberately superseded by location-derived identity. The `xs2rust-endor-build-stage4` orchestration **halted** after child `xs2rust-endor-stage4-modules` failed (4/8 done), and the foreman is holding a re-post of the endoclaw timer phase-2 tick-delivery step, suspecting it may be stuck. Two builders remain in flight (daemon agent-tools phase 4, XS→Rust s9).
 
 ## Parked for maintainer feedback
 
@@ -72,18 +72,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`build-endo-but-for-bots-daemon-agent-tools-phase4-integration-discovery`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-daemon-agent-tools-phase4-integration-discovery.md) — ---
-- [`design-opencollective-ertp`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-opencollective-ertp.md) — Designer — OpenCollective ⟷ ERTP off-chain money-movement integration
 - [`port-xs-to-rust-memory-safe-engine-s9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s9.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
-### tada (1329)
+### tada (1330)
+- [`design-opencollective-ertp`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-opencollective-ertp.md) — Inbox is clear and the deliverable is posted. Final report:
 - [`deadmail-issue-comment-4896384235`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4896384235.md) — Completion report
 - [`build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery.md) — Completion report
 - [`xs2rust-endor-build-stage4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage4.md) — orchestration xs2rust-endor-build-stage4 — HALTED
 - [`build-endo-but-for-bots-filesystem-watchers-endomount-follow-name-changes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-filesystem-watchers-endomount-follow-name-changes.md) — Findings
-- [`endojs-endo-but-for-bots-pr616-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr616-shepherd.md) — CI is green. Job complete.
-- … and 1324 more
+- … and 1325 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
