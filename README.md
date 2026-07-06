@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-06T03:32:37Z_
+_As of 2026-07-06T03:34:13Z_
 
 ## Latest
 
-[endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) — the standalone Docker self-host slice — cleared its gauntlet and is now un-drafted, OPEN/MERGEABLE, CI green (15/15), and in the review queue. The panel caught one real must-fix flagged by four seats independently: the documented `docker exec … endo` command would have failed because `node_modules/.bin` wasn't on the image PATH (commit 8e6749d8d, plus should-fix hardening around socket-parent mkdir, PID-1 zombie reaping, and doc corrections). Honest caveat: no Docker in the sandbox, so the PATH fix is correct by construction but not runtime-proven — an end-to-end `docker build`/`docker exec` smoke test needs a Docker-capable host. Per the proxy's steer, [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot's broader gateway-bearing parallel attempt, mention-only) was left entirely untouched; whether it's closed-as-superseded or reconciled is your call.
+[endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared the gauntlet and is in the review queue: the garden treated it as the standalone Docker self-host slice (not a supersede of 0xpatrickbot's broader gateway-bearing [#568](https://github.com/endojs/endo-but-for-bots/pull/568), which was left untouched per the mention-only rule), and un-drafted it OPEN/MERGEABLE with CI green 15/15. A panel fixed a real must-fix — the documented `docker exec … endo` control command would have failed because `node_modules/.bin` wasn't on the image PATH — plus doc and hardening cleanups; the honest caveat is that no Docker was available in the sandbox, so the PATH fix is correct-by-construction but not runtime-proven. A follow-on Docker-capable smoke test is the only gap. The xs2rust-endor-strings-utf16 orchestration completed (unblocking the Rust-port supervisor chain), and [#609](https://github.com/endojs/endo-but-for-bots/pull/609)'s endoclaw-timer gauntlet is in flight.
 
-A build job for the confined-outbound-HTTP pillar was declined as redundant: the capability is already delivered by [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (garden-owned, built on the blessed `cli-http-client.md` design) and, separately, by [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (0xpatrickbot's mention-only take on the original design). Recommendation: shepherd #286 as the garden's vehicle and mark the stale `endoclaw-network-fetch` design record superseded.
+Two build jobs came back as deliberate no-builds to avoid duplicate work and want a disposition: the confined-outbound-HTTP pillar is already delivered by the garden's own [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (the blessed cli-http-client design) alongside 0xpatrickbot's parallel [#566](https://github.com/endojs/endo-but-for-bots/pull/566) — recommendation is to shepherd #286 and leave #566 alone — and a second job flagged that its target design was already published.
 
-Operationally urgent: the identity-drift guard fired three times on this host — `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER and **every leader-only singleton is being skipped on the true leader**. Fix is to correct `/home/kris/.garden` to `endolinbot` and restart the pool (or record the override if this is a deliberate parallel pool). Two design decisions also await you: the `streamlined-onboarding` design's §5 open questions (especially Q2, the auto-mode default, which is security-flavored) gate four downstream build jobs, and the #595/#605 probe report surfaced a spec discrepancy needing a yes/no on whether you want a `take`-semantics analysis.
+Most urgent for the maintainer: a deterministic **host-identity drift** guard fired three times on endolinbot — `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER and **every leader-only singleton is being skipped on the true leader host**. Fixing `/home/kris/.garden` back to `endolinbot` and restarting the pool restores the leader gate. Also awaiting review: the `design-streamlined-onboarding` doc's §5 open questions (notably Q2, the security-flavored auto-mode default, which gates four downstream build jobs) and a decision on whether the [#605](https://github.com/endojs/endo-but-for-bots/pull/605) probe warrants a fresh `take`-semantics analysis.
 
 ## Parked for maintainer feedback
 
@@ -170,13 +170,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`build-endo-but-for-bots-daemon-docker-selfhost`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-daemon-docker-selfhost.md) — ---
 - [`gauntlet-endo-but-for-bots-pr609-endoclaw-timer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr609-endoclaw-timer.md) — ---
 
-### tada (1245)
+### tada (1246)
+- [`xs2rust-endor-strings-utf16`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16.md) — orchestration xs2rust-endor-strings-utf16 — complete
 - [`xs2rust-endor-strings-utf16-test`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16-test.md) — Completion report: xs2rust-endor-strings-utf16-test (child 3/3)
 - [`fix-ensure-project-worktree-silent-stale-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-ensure-project-worktree-silent-stale-fetch.md) — Inbox is empty. Job complete.
 - [`design-daemon-agent-tools-reconcile-mount-git-capabilities`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-daemon-agent-tools-reconcile-mount-git-capabilities.md) — **Completion report: design-daemon-agent-tools-reconcile-mount-git-capabiliti...
 - [`deadmail-20260706T030053Z-a1f859`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T030053Z-a1f859.md) — Completion report
-- [`xs2rust-endor-strings-utf16-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16-build.md) — Completion report
-- … and 1240 more
+- … and 1241 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
