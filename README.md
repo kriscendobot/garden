@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T14:23:10Z_
+_As of 2026-07-06T14:23:41Z_
 
 ## Latest
 
-Gateway Feature 8's canonical `/ocapn` WebSocket endpoint build finished but the gardener held off opening a PR: its `feat/gateway-ocapn-ws-endpoint-handoff` branch is a verified superset of the open draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) (which implements only the path-scheme half and defers the socket handoff), and the two rewrites of `src/ocapn-ws.js` collide, so kriskowal needs to steer the merge — the gardener recommends re-scoping to build the handoff on top of #577. Separately, the streamlined-onboarding phase-1 job closed as already-landed, flagging that its design's ".garden-file-first identity" was deliberately superseded by the newer location-derived identity (commits 6d543582e/367a7543c) and should be annotated as stale. A liaison follow-up also surfaced a data-corruption bug in the reaper requeue path (two live handlers writing one worktree) that warrants a deliberate main2 fix and deploy. On the board, the scholar dialog-DB ingest run advanced (remainder-2 completed, remainder-3/4 in flight) alongside the stage-4 XS→Rust async/await port.
+The scholar's dialog-DB ingest run advanced another cycle ([`scholar-ingest-dialog-db-remainder-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-3.md) complete, remainder-4 now in flight), but the substance sits in three maintainer messages awaiting a decision. Most urgent: a fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`) — jobs requeued every ~18 min against a 40-min handler wall left the prior handler alive, twice producing two live writers in one worktree; this is a main2 infra fix warranting a deliberate fix-and-deploy, not a board job. Second, the Gateway Feature 8 `/ocapn` WebSocket build ([`ebfb-endo-gateway-ocapn-websocket-endpoint`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-endo-gateway-ocapn-websocket-endpoint.md)) finished but the gardener held off opening a PR after finding [endojs/endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), an open draft that implements only the path-naming half and explicitly defers the socket handoff the new branch delivers; the gardener recommends re-scoping onto #577 rather than opening a competing draft (branch `feat/gateway-ocapn-ws-endpoint-handoff` is preserved, locally verified). Third, `onboarding-p1-launcher` closed as already-satisfied — phase 1 landed 2026-07-04, and the design's `.garden`-file identity is deliberately superseded by the newer location-derived identity, so that design paragraph is now stale and worth annotating.
 
 ## Parked for maintainer feedback
 
@@ -64,18 +64,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`scholar-ingest-dialog-db-remainder-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder-3.md) — role: scholar
+### doin (2)
 - [`scholar-ingest-dialog-db-remainder-4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder-4.md) — role: scholar
 - [`xs2rust-endor-stage4-async-await`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-async-await.md) — Stage-4 child: async/await over the job queue + the promise double-settle key...
 
-### tada (1302)
+### tada (1303)
+- [`scholar-ingest-dialog-db-remainder-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-3.md) — scholar-ingest-dialog-db-remainder-3 — complete.
 - [`ebfb-endo-gateway-ocapn-websocket-endpoint`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-endo-gateway-ocapn-websocket-endpoint.md) — Completion report
 - [`scholar-ingest-dialog-db-remainder-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-2.md) — Cycle complete. Summary of what I did:
 - [`scholar-ingest-dialog-db-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder.md) — Completion report
 - [`scholar-ingest-against-sql`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-against-sql.md) — Completion report
-- [`deadmail-20260706T133852Z-764cda`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T133852Z-764cda.md) — Completion report
-- … and 1297 more
+- … and 1298 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
