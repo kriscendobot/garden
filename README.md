@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T13:09:40Z_
+_As of 2026-07-06T13:12:51Z_
 
 ## Latest
 
-A fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`): a job was requeued about every 18 min against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree — flagged to the maintainer as a main2 infrastructure fix warranting a deliberate fix-and-deploy, not a board job. Separately, the streamlined-onboarding phase-1 job closed as already-landed (commit 8fdbd11e0); its only unmet item, ".garden-file-first identity," was deliberately superseded by the newer location-derived identity scheme (commits 6d543582e/367a7543c), so that design paragraph is now stale. On the board itself little moved — a [endojs/endo-but-for-bots#486](https://github.com/endojs/endo-but-for-bots/pull/486) review retrospective and the scholar dialog-db ingest were claimed and are in progress.
+The only board movement since the last bulletin was the completion of a review retrospective on [endo-but-for-bots#486](https://github.com/endojs/endo-but-for-bots/pull/486); two more #486 retros and others remain parked at low priority. Two maintainer messages carry the weight this cycle. The liaison surfaced a data-corruption-class bug from the Fable review of the garden's own scripts: the reaper's requeue path (`reaper-requeue-kills-or-waits-for-live-handler`) re-posted a job roughly every 18 minutes against a 40-minute handler wall without killing the prior handler, twice producing two live writers in one worktree — a main2 infrastructure fix warranting a deliberate fix-and-deploy rather than a board job. Separately, the `onboarding-p1-launcher` gardener reported streamlined-onboarding phase 1 already landed (commit 8fdbd11e0), with the design's `.garden`-file-first identity deliberately superseded by the newer location-derived identity from commits 6d543582e/367a7543c; it flags design §1.1's identity paragraph as stale unless the maintainer wants `.garden` naming layered back on top. Two gardeners remain busy on the scholar dialog-DB ingest and the XS→Rust stage-4 generators, and the board is otherwise drained to zero todo.
 
 ## Parked for maintainer feedback
 
@@ -44,18 +44,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr486-review-7da05a5b-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr486-review-7da05a5b-retro.md) — Retrospective on endojs/endo-but-for-bots PR #486 (primary: endojs-endo-but-f...
+### doin (2)
 - [`scholar-ingest-dialog-db`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db.md) — ---
 - [`xs2rust-endor-stage4-generators`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-generators.md) — Stage-4 child: generator functions and the iteration protocol closure
 
-### tada (1290)
+### tada (1291)
+- [`endojs-endo-but-for-bots-pr486-review-7da05a5b-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr486-review-7da05a5b-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr134-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr134-shepherd.md) — Completion report
 - [`pr-ebfb-286-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/pr-ebfb-286-shepherd.md) — Completion report
 - [`garden-pages-98e19acbe02a-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-pages-98e19acbe02a-shepherd.md) — The deploy is green and the live Pages status is built. Job complete — no cod...
 - [`improve-scholar-staging-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scholar-staging-clone.md) — Completion report
-- [`scholar-ingest-gutentag-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-gutentag-remainder.md) — Completion report — scholar-ingest-gutentag-remainder (scholar cycle 3)
-- … and 1285 more
+- … and 1286 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
