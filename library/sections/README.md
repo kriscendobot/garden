@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6282 (530 parent indexes + 5752 children).
+Total section files: 6290 (530 parent indexes + 5760 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -850,6 +850,11 @@ Total section files: 6282 (530 parent indexes + 5752 children).
 - [dialog-db--notes-dbsp--goal-hypothesis-selective-pull](dialog-db--notes-dbsp--goal-hypothesis-selective-pull.md)
 - [dialog-db--notes-dbsp--query-model-and-exploration](dialog-db--notes-dbsp--query-model-and-exploration.md)
 
+### dialog-db--notes-dbsp-findings
+
+- [dialog-db--notes-dbsp-findings--hybrid-hypothesis-validation](dialog-db--notes-dbsp-findings--hybrid-hypothesis-validation.md)
+- [dialog-db--notes-dbsp-findings--implementation-strategy-and-metrics](dialog-db--notes-dbsp-findings--implementation-strategy-and-metrics.md)
+
 ### dialog-db--notes-divergence-clock
 
 - [dialog-db--notes-divergence-clock--atomic-multi-fact-reconciliation-problem](dialog-db--notes-divergence-clock--atomic-multi-fact-reconciliation-problem.md)
@@ -1048,6 +1053,24 @@ Total section files: 6282 (530 parent indexes + 5752 children).
 ### dialog-db--readme
 
 - [dialog-db--readme--overview](dialog-db--readme--overview.md)
+
+### dialog-db--rust-dialog-capability-readme
+
+- [dialog-db--rust-dialog-capability-readme--capability-space-and-ability-paths](dialog-db--rust-dialog-capability-readme--capability-space-and-ability-paths.md)
+- [dialog-db--rust-dialog-capability-readme--overview-and-chain-example](dialog-db--rust-dialog-capability-readme--overview-and-chain-example.md)
+- [dialog-db--rust-dialog-capability-readme--traits-policy-attenuation-effect](dialog-db--rust-dialog-capability-readme--traits-policy-attenuation-effect.md)
+
+### dialog-db--rust-dialog-effects-readme
+
+- [dialog-db--rust-dialog-effects-readme--capability-domain-effect-hierarchy](dialog-db--rust-dialog-effects-readme--capability-domain-effect-hierarchy.md)
+
+### dialog-db--rust-dialog-operator-readme
+
+- [dialog-db--rust-dialog-operator-readme--profiles-operators-and-capability-environment](dialog-db--rust-dialog-operator-readme--profiles-operators-and-capability-environment.md)
+
+### dialog-db--rust-dialog-ucan-readme
+
+- [dialog-db--rust-dialog-ucan-readme--ucan-delegation-bridge](dialog-db--rust-dialog-ucan-readme--ucan-delegation-bridge.md)
 
 ### endo--agents
 
