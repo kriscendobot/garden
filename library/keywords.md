@@ -4718,6 +4718,9 @@ endowment capability | daemon
 kernel service registerKernelServiceObject | daemon
 VatSupervisor VatHandle | daemon
 KernelQueue KernelRouter KernelServiceManager | daemon
+routeMessage splat send requeue route-outcome MessageRoute | daemon
+ENDPOINT_UNREACHABLE DELIVERY_FAILED OBJECT_REVOKED OBJECT_DELETED kernel-error-codes | daemon
+kref-to-eref translation at delivery boundary translateRefKtoE | daemon
 SubclusterManager system subcluster | daemon
 clist capability list bidirectional mapping | daemon
 channel BaseDuplexStream | daemon
