@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-06T03:05:13Z_
+_As of 2026-07-06T03:05:44Z_
 
 ## Latest
 
-A deterministic identity-drift guard on the leader host is firing repeatedly: `GARDEN=driftname` diverges from `hostname -s=endolinbot`, so `is-main-host` reports FOLLOWER and **every leader-only singleton (foreman, scheduler, watchers, recovery) is being skipped on the true leader** — the fix is to correct `/home/kris/.garden` to `endolinbot` and restart the pool. That is the item to act on first.
+The docker self-host slice landed: [#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared a focused panel (one must-fix — `endo` was missing from the image PATH, plus socket-mkdir, PID-1 zombie reaping, and doc corrections) and is now OPEN, MERGEABLE, CI green 15/15, awaiting review; commit `8e6749d8d`. Note the caveat — no Docker in the sandbox, so the PATH fix is correct by construction but not runtime-proven, and [#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot's broader gateway-bearing parallel, mention-only) was deliberately left untouched for the maintainer to reconcile. The confined-HTTP-client build was **stopped as redundant**: that pillar is already delivered by the garden's own [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (blessed `cli-http-client.md` design) and by external [#566](https://github.com/endojs/endo-but-for-bots/pull/566) (mention-only) — recommendation is to shepherd #286 rather than build a third. A follow-on gauntlet for the endoclaw-timer PR ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)) is now in flight.
 
-On the PR side, [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared the gauntlet as the standalone docker-self-host slice — un-drafted, CI green (15/15), now in the review queue after a panel fix for a `docker exec … endo` PATH break (the bin wasn't on the image PATH); the overlapping, broader gateway-bearing [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot, mention-only) was deliberately left untouched, so close-as-superseded / keep / reconcile is a maintainer call. The `endoclaw-network-fetch` HTTP-client build was declined as redundant — the pillar is already covered by the garden's own [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (blessed `cli-http-client` design, recommended for shepherding) and the external [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566).
+Two items want a maintainer decision: the streamlined-onboarding design completed and its § 5 Q2 auto-mode default is a security-flavored call gating four build jobs; and the [#595](https://github.com/endojs/endo-but-for-bots/pull/595) probe (published as [#605](https://github.com/endojs/endo-but-for-bots/pull/605)) reported 7 gaps rather than the spec's paraphrased 5, with no `take`-semantics hazard — the gardener correctly declined to invent it, so a `take` analysis would be a fresh probe if wanted.
 
-Two design threads need maintainer input: `design-streamlined-onboarding` landed and its §5 Q2 (auto-mode default, security-flavored) gates four build jobs; and the [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) probe for #595 reported 7 gaps with no `take`-semantics hazard, so a `take` analysis would be a fresh probe if wanted.
+Finally, a deterministic guard flagged **host-identity drift** on the true leader: `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER and every leader-only singleton is being skipped — likely a stray `/home/kris/.garden` value that should be corrected to `endolinbot` before the pool is restarted.
 
 ## Parked for maintainer feedback
 
@@ -166,9 +166,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`deadmail-20260706T030053Z-a1f859`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260706T030053Z-a1f859.md) — Dead-lettered message — pick up its intent
 - [`design-daemon-agent-tools-reconcile-mount-git-capabilities`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-daemon-agent-tools-reconcile-mount-git-capabilities.md) — ---
+- [`gauntlet-endo-but-for-bots-pr609-endoclaw-timer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr609-endoclaw-timer.md) — ---
 - [`xs2rust-endor-strings-utf16-test`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-strings-utf16-test.md) — Test/corpus: prove result parity + recalibrated meter for the UTF-16 string s...
 
 ### tada (1241)
