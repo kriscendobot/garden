@@ -51,3 +51,9 @@ push + note progress + exit WITHOUT the completion signal to requeue. Get an iso
 `/home/kris/scripts/jobs/ensure-project-worktree.sh <your-job-base> endojs/endo-but-for-bots xs2rust-endor`.
 Report scope folds / rulings to the supervisor inbox `port-xs-to-rust-memory-safe-engine-s7`
 (or its current successor).
+
+---
+claim:
+  host: endolinbot
+  gardener: 2
+  claimed_at: 2026-07-06T02:25:17Z
