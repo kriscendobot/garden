@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/26#issuecomment-4888938507
 OC is the source of truth. E(purse).getCurrentAmount() is routed through the OC API. It's not clear how much of Zoe we will be using. Escrow might take a form somewhat like https://github.com/dckc/vattr97/blob/main/packages/ertp-ledgerguise/src/escrow-ertp.ts 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolinbot
+  gardener: 2
+  claimed_at: 2026-07-06T04:00:10Z
