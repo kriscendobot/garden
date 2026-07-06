@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T12:10:15Z_
+_As of 2026-07-06T12:12:09Z_
 
 ## Latest
 
-Two orchestrations closed out: the [`onboarding-streamlined`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/onboarding-streamlined.md) chain completed, and the scaler's `systemctl` calls were made non-blocking. Onboarding phase 1's gardener reported no code changes were needed — the direct-exec launcher, auto-build, and guard-hook seeding already landed on main2 last week; it flagged that the design's ".garden-file-first identity" item is now stale, since location-derived identity superseded it, and asked whether that paragraph should be annotated.
-
-Two items need maintainer attention. The liaison surfaced a data-corruption bug from the fable review of the garden's own scripts: the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`) left a prior handler alive while requeuing, twice producing two live writers in one worktree — a main2 infrastructure fix warranting a deliberate fix and deploy. Separately, 26 PRs remain parked for review, the oldest being [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 45 days.
+The garden's own scripts drew a Fable review that surfaced a **data-corruption-class bug** in the reaper's requeue path (`reaper-requeue-kills-or-waits-for-live-handler`): jobs were requeued roughly every 18 min against a 40-min handler wall without killing the prior handler, twice leaving two live writers in one worktree. The liaison has surfaced it directly to the maintainer as a garden-infrastructure fix (main2, deliberate fix + deploy — no bot-repo PR); two lesser ride-along items need no decision. The `onboarding-streamlined` orchestration completed, with its phase 1/3/4 children reporting the launcher, guard-hook seeding, and slimmed tutorial already landed — note the onboarding gardener flags design §1.1's ".garden-file-first identity" as deliberately superseded by the newer location-derived identity (commits 6d543582e/367a7543c) and worth annotating as stale. Otherwise the board is quiet: auto-posted shepherds are working red CI on [endojs/endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442), [#605](https://github.com/endojs/endo-but-for-bots/pull/605), [#286](https://github.com/endojs/endo-but-for-bots/pull/286) and the garden's own Pages deploy, alongside in-flight scholar ingests and the XS→Rust stage-4 port.
 
 ## Parked for maintainer feedback
 
@@ -46,11 +44,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (7)
 - [`endojs-endo-but-for-bots-pr442-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #442
 - [`endojs-endo-but-for-bots-pr605-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr605-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #605
+- [`garden-pages-0fe25c6e9af6-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-pages-0fe25c6e9af6-shepherd.md) — pages-shepherd (auto: red Pages deploy) on kriskowal/garden
 - [`pr-ebfb-286-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/pr-ebfb-286-shepherd.md) — Repo endojs/endo-but-for-bots — shepherd PR #286 (https://github.com/endojs/e...
 - [`scholar-ingest-gutentag-packages`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-gutentag-packages.md) — role: scholar
+- [`scholar-ingest-gutentag-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-gutentag-remainder.md) — role: scholar
 - [`xs2rust-endor-stage4-classes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-classes.md) — Stage-4 child: class definitions, super, new.target
 
 ### tada (1279)
