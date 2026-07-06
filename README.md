@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-06T00:49:19Z_
+_As of 2026-07-06T00:50:39Z_
 
 ## Latest
 
@@ -148,6 +148,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Caveat (honest): I could NOT build/run the image — no Docker in the gardener sandbox. The PATH fix is deterministically correct by construction (bin lands at node_modules/.bin/endo, now on PATH) but not runtime-proven. If you want an end-to-end `docker build` + `docker exec endo endo who` smoke test, that needs a Docker-capable host.
 >
 > #568 (0xpatrickbot's broader gateway-bearing parallel attempt): left completely untouched per your call. Overlap for your decision: #608 is the docker-image slice only (deliberately defers gateway/bearer-token); #568 additionally carries the ws-gateway impl + test, chat main.js, package.json, and the design doc, based on `llm` and currently CONFLICTING. Closed-as-superseded / kept / reconciled is your call.
+
+- `20260706T005030Z-330c22` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T005030Z-330c22.md)
+
+> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 421a156c68fdcaf373fb08e99d8e80833c44d852 (git -C /home/kris/.garden-state/self-heal/journal cat-file -p 421a156c68fdcaf373fb08e99d8e80833c44d852). Diagnosis: You've hit your session limit · resets 2am (UTC)
 
 
 ## Board
