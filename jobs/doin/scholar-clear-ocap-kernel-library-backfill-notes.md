@@ -54,3 +54,9 @@ three topic pages; the two `sources/README.md` wikilinks resolving), indexes
 regenerated, integrity gate passing, and a result entry recorded. When both are
 done, note that the carried ocap-kernel library-hygiene backlog is fully
 drained.
+
+---
+claim:
+  host: endolinbot
+  gardener: 16
+  claimed_at: 2026-07-06T00:54:08Z
