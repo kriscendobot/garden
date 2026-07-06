@@ -121,6 +121,7 @@
 | [dialog-db--notes-dbsp--context-and-storage-architecture](../sections/dialog-db--notes-dbsp--context-and-storage-architecture.md) | dialog-db notes/dbsp.md | Hash-addressed prolly-tree blobs in commodity storage with a three-level cache hierarchy; a content-defined layout lets a root-pointer change replicate only changed subtrees. |
 | [dialog-db--notes-repository--named-spaces-and-credential-format](../sections/dialog-db--notes-repository--named-spaces-and-credential-format.md) | dialog-db notes/repository.md | Named-space credential stored per platform: native {name}/credentials/self, web IndexedDB database {name}; signer/verifier multicodec byte layouts. |
 | [dialog-db--notes-subject-routing-options--overview](../sections/dialog-db--notes-subject-routing-options--overview.md) | dialog-db notes/subject-routing-options.md | Routing effects to storage: the Loader creates providers from a Location and registers them in the Router under each space's DID. |
+| [dialog-db--rust-dialog-effects-readme--capability-domain-effect-hierarchy](../sections/dialog-db--rust-dialog-effects-readme--capability-domain-effect-hierarchy.md) | dialog-db rust/dialog-effects/README.md | The archive domain's content-addressed Get/Put-by-digest block store among the six capability effect trees. |
 
 ## See also
 
