@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T20:15:36Z_
+_As of 2026-07-06T20:16:08Z_
 
 ## Latest
 
-Two items need maintainer steering. A gardener building the Gateway `/ocapn` WebSocket endpoint found its work is a superset of open draft [endojs/endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) (path-scheme naming only) but an incompatible parallel rewrite of `src/ocapn-ws.js`, so it held its branch rather than open a competing PR and asks whether to build the socket handoff on top of #577 (its recommendation), supersede it, or drop the branch. Separately, the Fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (two live writers in one worktree, twice) — a main2 infra fix flagged for deliberate fix-and-deploy, not a board job.
-
-On the fleet: the serial `xs2rust-endor-stage4` orchestration **halted** after child `xs2rust-endor-stage4-modules` failed (4/8 done, three later children swept), leaving `xs2rust-endor-stage4-lockdown-harden` still in flight; a shepherd is chasing red CI on [endojs/endo-but-for-bots#618](https://github.com/endojs/endo-but-for-bots/pull/618). The foreman is holding a re-post of the endoclaw timer phase-2 build after it drained twice without milestone progress — possibly stuck. Onboarding phase 1 closed as already-landed, with the design's `.garden`-file identity deliberately superseded by location-derived identity.
+The M3 flagship pillar — Claw-like coding via `daemon-agent-tools` — is now fully built: [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), and [#616](https://github.com/endojs/endo-but-for-bots/pull/616) are CI-green and mergeable but still Draft, and [#618](https://github.com/endojs/endo-but-for-bots/pull/618) had its last un-draft blocker (the live-daemon integration test) closed, so it awaits only the phases-1–3 stack landing. The foreman notes most other M3 designs are likewise already built into open Drafts, so the milestone's critical path is now maintainer review, un-draft, and merge — a conductor/authority step the fleet cannot self-serve. Two things need steering: a gateway `/ocapn` WebSocket build was held rather than opened because it is a superset of the in-flight draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) and would collide on `src/ocapn-ws.js` (the gardener recommends rescoping to build the socket handoff atop #577), and the `xs2rust-endor-build-stage4` orchestration HALTED after its stage-4 modules child failed (4/8 done). On garden infrastructure, a fable review surfaced a data-corruption-class bug in the reaper requeue path (a job requeued against a still-live handler, twice producing two live writers in one worktree) flagged for a deliberate main2 fix and deploy; separately, streamlined-onboarding phase 1 was confirmed already landed, and the foreman is holding a possibly-stuck `endoclaw-timer-phase2-tick-delivery` re-post pending review.
 
 ## Parked for maintainer feedback
 
@@ -68,6 +66,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260706T182517Z-526c55` — from orchestrator:xs2rust-endor-build-stage4-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T182517Z-526c55.md)
 
 > Orchestration xs2rust-endor-build-stage4 HALTED: child xs2rust-endor-stage4-modules failed (serial, on-child-failure=halt). 4/8 done before halt; swept: xs2rust-endor-stage4-compartment xs2rust-endor-stage4-lockdown-harden xs2rust-endor-stage4-ses-conformance
+
+- `20260706T201600Z-b1183b` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T201600Z-b1183b.md)
+
+> M3's flagship pillar — Claw-like coding capabilities via `endojs/endo-but-for-bots` `daemon-agent-tools` — is fully built: phases 1–3 (#614, #615, #616) are CI-green and mergeable but still Draft, and phase 4 (#618) had its last un-draft blocker (the live-daemon integration test) closed, so it now only awaits phases 1–3 landing. The decision needed is maintainer review + un-draft + merge of the #614→#615→#616→#618 stack (a conductor/authority step the foreman cannot post); nearly all other M3 designs are likewise already built into open Draft PRs, so the milestone's critical path is now landing this backlog rather than more building.
 
 
 ## Board
