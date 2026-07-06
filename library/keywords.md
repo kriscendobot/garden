@@ -14063,6 +14063,14 @@ operator | profile-account-operator
 three-layer identity | profile-account-operator
 delegation chain | profile-account-operator
 recovered access | profile-account-operator
+capability chain | capability-chain
+capability space | capability-chain
+ability path | capability-chain
+attenuation | capability-chain
+Attenuation | capability-chain
+dialog-capability | capability-chain
+Subject | capability-chain
+subject command policy chain | capability-chain
 local access | profile-account-operator
 powerline delegation | profile-account-operator
 `authority::Identify` | profile-account-operator
