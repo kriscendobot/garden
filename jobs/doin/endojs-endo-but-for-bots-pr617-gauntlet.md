@@ -8,3 +8,9 @@ Run the gauntlet on endojs/endo-but-for-bots PR #617 (endoclaw-timer Phase 2, "d
 <!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 17
+  claimed_at: 2026-07-06T22:03:07Z
