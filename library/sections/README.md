@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6269 (530 parent indexes + 5739 children).
+Total section files: 6282 (530 parent indexes + 5752 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -904,6 +904,25 @@ Total section files: 6269 (530 parent indexes + 5739 children).
 
 - [dialog-db--notes-memory-layout--branch-and-remote-cells](dialog-db--notes-memory-layout--branch-and-remote-cells.md)
 - [dialog-db--notes-memory-layout--fetch-pull-push-operations](dialog-db--notes-memory-layout--fetch-pull-push-operations.md)
+
+### dialog-db--notes-notation
+
+- [dialog-db--notes-notation--abbreviated-addressing](dialog-db--notes-notation--abbreviated-addressing.md)
+- [dialog-db--notes-notation--abbreviated-attribute](dialog-db--notes-notation--abbreviated-attribute.md)
+- [dialog-db--notes-notation--abbreviated-concept](dialog-db--notes-notation--abbreviated-concept.md)
+- [dialog-db--notes-notation--abbreviated-deductive-rules](dialog-db--notes-notation--abbreviated-deductive-rules.md)
+- [dialog-db--notes-notation--assertions-and-claims](dialog-db--notes-notation--assertions-and-claims.md)
+- [dialog-db--notes-notation--attribute](dialog-db--notes-notation--attribute.md)
+- [dialog-db--notes-notation--concept](dialog-db--notes-notation--concept.md)
+- [dialog-db--notes-notation--constraints-and-formulas](dialog-db--notes-notation--constraints-and-formulas.md)
+- [dialog-db--notes-notation--deductive-rules](dialog-db--notes-notation--deductive-rules.md)
+- [dialog-db--notes-notation--overview](dialog-db--notes-notation--overview.md)
+- [dialog-db--notes-notation--selectors-domains-and-names](dialog-db--notes-notation--selectors-domains-and-names.md)
+- [dialog-db--notes-notation--structural-identity](dialog-db--notes-notation--structural-identity.md)
+
+### dialog-db--notes-notation-schema
+
+- [dialog-db--notes-notation-schema--json-schema](dialog-db--notes-notation-schema--json-schema.md)
 
 ### dialog-db--notes-operator-ir
 
