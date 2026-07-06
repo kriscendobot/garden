@@ -14153,3 +14153,15 @@ same name same repository identity | repository-branch-remote
 on-demand block replication | repository-branch-remote
 `branch.transaction` | repository-branch-remote
 version control for structured data | repository-branch-remote
+storage backend | content-addressed-storage-backend
+pluggable storage backend | content-addressed-storage-backend
+`dialog-storage` | content-addressed-storage-backend
+`Storage::default` | content-addressed-storage-backend
+`MemoryStorageBackend` | content-addressed-storage-backend
+`FileSystemStorageBackend` | content-addressed-storage-backend
+`IndexedDbStorageBackend` | content-addressed-storage-backend
+S3 backend | content-addressed-storage-backend
+content-addressed storage API | content-addressed-storage-backend
+encoding scheme | content-addressed-storage-backend
+R2 backend | content-addressed-storage-backend
+native vs WASM storage | content-addressed-storage-backend
