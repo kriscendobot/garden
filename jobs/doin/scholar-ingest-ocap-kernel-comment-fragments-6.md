@@ -101,3 +101,9 @@ sources use the `metamask-ocap-kernel--` slug prefix.
   rendered as a concept wikilink. A librarian or a future scholar touching those
   rows should either create the two concept stubs or rewrite the references to
   point at the topic pages; out of scope for an ocap-kernel comment-fragment cycle.
+
+---
+claim:
+  host: endolinbot
+  gardener: 9
+  claimed_at: 2026-07-06T00:34:29Z
