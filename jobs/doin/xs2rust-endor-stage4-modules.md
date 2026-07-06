@@ -79,3 +79,9 @@ divergent=0 with named skips; otherwise the documented endor-side corpus + manua
 plus namespace/linkage unit tests locked in cargo. Record honestly which path was achieved.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 12
+  claimed_at: 2026-07-06T16:43:09Z
