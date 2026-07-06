@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6138 (530 parent indexes + 5608 children).
+Total section files: 6160 (530 parent indexes + 5630 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -806,6 +806,43 @@ Total section files: 6138 (530 parent indexes + 5608 children).
 - [danfinlay-quickjs--native-ses--harden-c-deep-freeze](danfinlay-quickjs--native-ses--harden-c-deep-freeze.md)
 - [danfinlay-quickjs--native-ses--lockdown-freeze-intrinsics](danfinlay-quickjs--native-ses--lockdown-freeze-intrinsics.md)
 - [danfinlay-quickjs--native-ses--xs-transferable-strategies](danfinlay-quickjs--native-ses--xs-transferable-strategies.md)
+
+### dialog-db--notes-architecture-overview
+
+- [dialog-db--notes-architecture-overview--blob-store-and-mutable-pointers](dialog-db--notes-architecture-overview--blob-store-and-mutable-pointers.md)
+- [dialog-db--notes-architecture-overview--causal-temporal-model](dialog-db--notes-architecture-overview--causal-temporal-model.md)
+- [dialog-db--notes-architecture-overview--datalog-query-language](dialog-db--notes-architecture-overview--datalog-query-language.md)
+- [dialog-db--notes-architecture-overview--eav-aev-vae-indexing](dialog-db--notes-architecture-overview--eav-aev-vae-indexing.md)
+- [dialog-db--notes-architecture-overview--facts-as-atomic-units](dialog-db--notes-architecture-overview--facts-as-atomic-units.md)
+- [dialog-db--notes-architecture-overview--merkle-crdt-merge-semantics](dialog-db--notes-architecture-overview--merkle-crdt-merge-semantics.md)
+- [dialog-db--notes-architecture-overview--overview](dialog-db--notes-architecture-overview--overview.md)
+- [dialog-db--notes-architecture-overview--probabilistic-btrees-and-segments](dialog-db--notes-architecture-overview--probabilistic-btrees-and-segments.md)
+- [dialog-db--notes-architecture-overview--schema-on-query](dialog-db--notes-architecture-overview--schema-on-query.md)
+
+### dialog-db--notes-capability-sysstem
+
+- [dialog-db--notes-capability-sysstem--effects-and-providers](dialog-db--notes-capability-sysstem--effects-and-providers.md)
+- [dialog-db--notes-capability-sysstem--overview](dialog-db--notes-capability-sysstem--overview.md)
+- [dialog-db--notes-capability-sysstem--proposed-capabilities](dialog-db--notes-capability-sysstem--proposed-capabilities.md)
+- [dialog-db--notes-capability-sysstem--subject-ability-policy](dialog-db--notes-capability-sysstem--subject-ability-policy.md)
+
+### dialog-db--notes-concept
+
+- [dialog-db--notes-concept--attributes-and-concepts](dialog-db--notes-concept--attributes-and-concepts.md)
+- [dialog-db--notes-concept--bidirectional-mapping-assert-retract-query](dialog-db--notes-concept--bidirectional-mapping-assert-retract-query.md)
+- [dialog-db--notes-concept--claims-and-the-semantic-layer](dialog-db--notes-concept--claims-and-the-semantic-layer.md)
+- [dialog-db--notes-concept--schema-on-read-and-rules](dialog-db--notes-concept--schema-on-read-and-rules.md)
+
+### dialog-db--notes-privacy
+
+- [dialog-db--notes-privacy--privacy-efficiency-tradeoffs](dialog-db--notes-privacy--privacy-efficiency-tradeoffs.md)
+- [dialog-db--notes-privacy--tiered-access-levels](dialog-db--notes-privacy--tiered-access-levels.md)
+- [dialog-db--notes-privacy--tiered-encryption-implementation](dialog-db--notes-privacy--tiered-encryption-implementation.md)
+- [dialog-db--notes-privacy--ucan-authorization-model](dialog-db--notes-privacy--ucan-authorization-model.md)
+
+### dialog-db--readme
+
+- [dialog-db--readme--overview](dialog-db--readme--overview.md)
 
 ### endo--agents
 
