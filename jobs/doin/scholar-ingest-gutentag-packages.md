@@ -30,3 +30,9 @@ not re-ingest it. Respect the per-cycle budget (3-5 sources / ~25 section
 writes) and post a further follow-on if the sibling set exceeds one cycle.
 
 No fork or upstream actions — library curation only.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 12
+  claimed_at: 2026-07-06T11:57:47Z
