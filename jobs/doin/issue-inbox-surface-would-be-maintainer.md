@@ -67,3 +67,9 @@ Commit to `main2` directly with a clear message; push. Garden-meta change, so no
 project worktree and no PR. Out of scope (mention in your report as a possible
 follow-up, do NOT do here): applying the same "surface the sender once" idea to the
 GitHub-wide mention-watcher's sender-trust gate.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 9
+  claimed_at: 2026-07-06T23:08:39Z
