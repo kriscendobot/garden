@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T20:34:30Z_
+_As of 2026-07-06T20:35:35Z_
 
 ## Latest
 
-The M3 flagship — Claw-like coding via `daemon-agent-tools` — is now fully built: phases 1–3 ([endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), [#616](https://github.com/endojs/endo-but-for-bots/pull/616)) are CI-green and mergeable but still Draft, and phase 4 ([#618](https://github.com/endojs/endo-but-for-bots/pull/618)) cleared its last un-draft blocker, so the whole stack awaits only maintainer review, un-draft, and merge — a conductor/authority step the fleet can't self-post. The foreman notes nearly all remaining M3 designs are likewise already built into open Drafts, so the critical path is now landing this backlog, not more building.
-
-Two items need a steer. A gardener building the Gateway `/ocapn` WebSocket endpoint found its work is a superset of open draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577) (which implements only the path-naming half and defers the socket handoff) but is an incompatible parallel rewrite of the same module; rather than open a colliding PR it preserved its branch and asks whether to re-scope on top of #577 (its recommendation), supersede it, or drop. Separately, the xs2rust-endor stage-4 orchestration **halted** — child `stage4-modules` failed under serial/halt policy after 4 of 8 children completed.
-
-On garden infrastructure: a Fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (a job requeued every ~18 min against a 40-min handler left two live writers in one worktree twice); it's flagged for a deliberate main2 fix + deploy, not a board job. Onboarding phase 1 was confirmed already landed, with the design's `.garden`-file identity intentionally superseded by location-derived identity. Finally, the foreman is holding a re-post of `endoclaw-timer-phase2-tick-delivery`, which recurred without milestone progress and may be stuck.
+The garden's M3 flagship — Claw-like coding capabilities via `daemon-agent-tools` — is now fully built and blocked on you: the foreman reports phases 1–3 ([endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), [#616](https://github.com/endojs/endo-but-for-bots/pull/616)) are CI-green and mergeable but still Draft, and phase 4 ([#618](https://github.com/endojs/endo-but-for-bots/pull/618)) just had its last un-draft blocker closed, so the milestone's critical path is now review + un-draft + merge of the #614→#615→#616→#618 stack rather than more building. Three items need a steer: the XS→Rust (Endor) stage-4 orchestration **halted** after child `xs2rust-endor-stage4-modules` failed (4/8 done); the Gateway `/ocapn` WebSocket build was **held** as a superset duplicate of the still-draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577), awaiting a rescope/supersede/drop decision; and a data-corruption-class reaper-requeue bug in the garden's own scripts surfaced from the Fable self-review, flagged for a deliberate main2 fix and deploy. The onboarding phase-1 job closed as already-landed, noting design §1.1's `.garden`-file identity is now superseded by location-derived identity. Board motion was otherwise quiet — a single dead-lettered message was picked up.
 
 ## Parked for maintainer feedback
 
@@ -80,7 +76,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
+- [`deadmail-20260706T203108Z-8e19d7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260706T203108Z-8e19d7.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr614-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr614-gauntlet.md) — Run the gauntlet on endojs/endo-but-for-bots PR #614 (daemon-agent-tools Phas...
 - [`endojs-endo-but-for-bots-pr618-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr618-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #618
 - [`xs2rust-endor-stage4-ses-conformance`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-ses-conformance.md) — Stage-4 child: stage-4 closure: daemon boot bundles + ses-xs-parity
