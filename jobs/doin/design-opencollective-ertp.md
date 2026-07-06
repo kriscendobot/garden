@@ -108,3 +108,9 @@ close the issue — dckc does that.
   "where does the file live" open questions explicit.
 - The report names the comment URL and lists any follow-ups dckc must choose
   between.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 11
+  claimed_at: 2026-07-06T18:43:01Z
