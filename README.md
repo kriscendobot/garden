@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T20:53:59Z_
+_As of 2026-07-06T21:07:15Z_
 
 ## Latest
 
-The M3 flagship — Claw-like coding via `daemon-agent-tools` — is now fully built and waiting on the maintainer: phases 1–3 ([endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), [#616](https://github.com/endojs/endo-but-for-bots/pull/616)) are CI-green and mergeable but still Draft, and phase 4 ([#618](https://github.com/endojs/endo-but-for-bots/pull/618)) has cleared its last un-draft blocker, so the whole #614→#615→#616→#618 stack needs review, un-draft, and merge — a conductor/authority step the foreman can't post. Gauntlets are in flight on [#615](https://github.com/endojs/endo-but-for-bots/pull/615) and [#617](https://github.com/endojs/endo-but-for-bots/pull/617), plus [#566](https://github.com/endojs/endo-but-for-bots/pull/566) (confined HttpClient); [#614](https://github.com/endojs/endo-but-for-bots/pull/614)'s gauntlet finished. Two items need a decision: a gardener held Gateway Feature 8 rather than open a PR that would collide with the path-scheme draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577), recommending its socket-handoff be re-scoped to build on top of #577; and the liaison surfaced a data-corruption bug in the reaper requeue path (two live writers in one worktree) that wants a deliberate main2 fix and deploy. The XS→Rust (Endor) port advanced — stage-4b orchestration completed and the s10 Fable-supervisor job was claimed — but stage-4 halted when its modules child failed after 4 of 8 sub-jobs.
+The M3 flagship — Claw-like coding via [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), [#616](https://github.com/endojs/endo-but-for-bots/pull/616), [#618](https://github.com/endojs/endo-but-for-bots/pull/618) — is fully built and CI-green but stuck in Draft; the foreman flags that the milestone's critical path is now maintainer review/un-draft/merge of that stack, not more building. #614's gauntlet completed this cycle. On the XS→Rust (Endor) port, orchestration stage4b finished (as did the SES-conformance child), but the serial stage4 run **halted** on a failed modules child, and a fixer is now on `jobs/doin` chasing an oracle-shim SIGSEGV that blocks stage-4 acceptance. Two items need a maintainer decision: a fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (two live writers in one worktree — a main2 infra fix warranting a deliberate fix+deploy), and a Gateway Feature 8 build was held rather than opening a PR because it collides with the in-flight [#577](https://github.com/endojs/endo-but-for-bots/pull/577) path-scheme work (the builder recommends re-scoping to build the socket handoff on top of #577). Separately, the streamlined-onboarding phase-1 job closed as already-landed, with its `.garden`-file identity item noted as superseded by the newer location-derived identity.
 
 ## Parked for maintainer feedback
 
@@ -76,11 +76,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr566-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr566-gauntlet.md) — Run the gauntlet on endojs/endo-but-for-bots PR #566 (confined HttpClient, th...
 - [`endojs-endo-but-for-bots-pr615-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr615-gauntlet.md) — Run the gauntlet on endojs/endo-but-for-bots PR #615 (daemon-agent-tools Phas...
 - [`endojs-endo-but-for-bots-pr617-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr617-gauntlet.md) — ---
 - [`port-xs-to-rust-memory-safe-engine-s10`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s10.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
+- [`xs2rust-endor-stage4-fix-oracle-shim-crash`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-fix-oracle-shim-crash.md) — Fixer: oracle shim SIGSEGV on whole-tree dual-runs (stage-4 acceptance blocke...
 
 ### tada (1348)
 - [`deadmail-20260706T204713Z-8ae72e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T204713Z-8ae72e.md) — Completion report
