@@ -1,14 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-06T03:05:44Z_
+_As of 2026-07-06T03:07:24Z_
 
 ## Latest
 
-The docker self-host slice landed: [#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared a focused panel (one must-fix — `endo` was missing from the image PATH, plus socket-mkdir, PID-1 zombie reaping, and doc corrections) and is now OPEN, MERGEABLE, CI green 15/15, awaiting review; commit `8e6749d8d`. Note the caveat — no Docker in the sandbox, so the PATH fix is correct by construction but not runtime-proven, and [#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot's broader gateway-bearing parallel, mention-only) was deliberately left untouched for the maintainer to reconcile. The confined-HTTP-client build was **stopped as redundant**: that pillar is already delivered by the garden's own [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (blessed `cli-http-client.md` design) and by external [#566](https://github.com/endojs/endo-but-for-bots/pull/566) (mention-only) — recommendation is to shepherd #286 rather than build a third. A follow-on gauntlet for the endoclaw-timer PR ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)) is now in flight.
+Two build jobs landed and one was correctly declined. The [#608](https://github.com/endojs/endo-but-for-bots/pull/608) docker-slice gauntlet finished: it's now open, un-drafted, and MERGEABLE with green CI after a panel caught a real must-fix — the documented `docker exec … endo` control command would have failed because `node_modules/.bin` wasn't on the image PATH — plus a bundle of should-fixes (socket-parent mkdir, PID-1 zombie reaping, doc corrections). The fix is correct by construction but not runtime-proven, since the gardener sandbox has no Docker; an end-to-end `docker build`/`docker exec` smoke test still wants a Docker-capable host. Per the proxy's steer, 0xpatrickbot's broader gateway-bearing [#568](https://github.com/endojs/endo-but-for-bots/pull/568) was left untouched (mention-only author) — whether it's closed-as-superseded is a maintainer call.
 
-Two items want a maintainer decision: the streamlined-onboarding design completed and its § 5 Q2 auto-mode default is a security-flavored call gating four build jobs; and the [#595](https://github.com/endojs/endo-but-for-bots/pull/595) probe (published as [#605](https://github.com/endojs/endo-but-for-bots/pull/605)) reported 7 gaps rather than the spec's paraphrased 5, with no `take`-semantics hazard — the gardener correctly declined to invent it, so a `take` analysis would be a fresh probe if wanted.
+The `endoclaw-network-fetch` HTTP-client build was **not** built: the confined-outbound-HTTP capability is already delivered by two open PRs — 0xpatrickbot's mention-only [#566](https://github.com/endojs/endo-but-for-bots/pull/566) (`@endo/exo-http-client`, all CI green) and the garden's own [#286](https://github.com/endojs/endo-but-for-bots/pull/286) building the blessed `cli-http-client.md` design. The gardener recommends shepherding #286 and marking the stale design record Superseded-by cli-http-client.
 
-Finally, a deterministic guard flagged **host-identity drift** on the true leader: `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER and every leader-only singleton is being skipped — likely a stray `/home/kris/.garden` value that should be corrected to `endolinbot` before the pool is restarted.
+Two items need maintainer attention beyond the parked queue: the `streamlined-onboarding` design completed and its §5 open questions (especially the auto-mode security default) gate four build jobs; and probe [#605](https://github.com/endojs/endo-but-for-bots/pull/605) surfaced a spec discrepancy (7 gaps published, no `take`-semantics gap), awaiting a decision on whether a fresh `take`-semantics probe is wanted.
+
+**Infrastructure alarm:** the deterministic identity-drift guard fired three times on host **endolinbot** — `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER and **every leader-only singleton is being skipped on the true leader host**. If endolinbot is the leader, `/home/kris/.garden` (and any inherited `GARDEN`) should be corrected to `endolinbot` and the pool restarted; if it's a deliberate parallel pool, the override needs recording.
 
 ## Parked for maintainer feedback
 
@@ -166,19 +168,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
-- [`deadmail-20260706T030053Z-a1f859`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260706T030053Z-a1f859.md) — Dead-lettered message — pick up its intent
+### doin (3)
 - [`design-daemon-agent-tools-reconcile-mount-git-capabilities`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-daemon-agent-tools-reconcile-mount-git-capabilities.md) — ---
 - [`gauntlet-endo-but-for-bots-pr609-endoclaw-timer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr609-endoclaw-timer.md) — ---
 - [`xs2rust-endor-strings-utf16-test`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-strings-utf16-test.md) — Test/corpus: prove result parity + recalibrated meter for the UTF-16 string s...
 
-### tada (1241)
+### tada (1242)
+- [`deadmail-20260706T030053Z-a1f859`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T030053Z-a1f859.md) — Completion report
 - [`xs2rust-endor-strings-utf16-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16-build.md) — Completion report
 - [`design-gateway-bearer-token-auth-reconcile-endo-gateway`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-gateway-bearer-token-auth-reconcile-endo-gateway.md) — Completion report:
 - [`build-endoclaw-network-fetch-http-client-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endoclaw-network-fetch-http-client-capability.md) — Completion report — build-endoclaw-network-fetch-http-client-capability
 - [`build-endoclaw-timer-daemon-formula-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endoclaw-timer-daemon-formula-integration.md) — Completion report
-- [`improve-mentor-claude-transient-claude-exit`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mentor-claude-transient-claude-exit.md) — Completion report
-- … and 1236 more
+- … and 1237 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
