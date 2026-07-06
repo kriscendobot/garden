@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-06T03:01:53Z_
+_As of 2026-07-06T03:04:37Z_
 
 ## Latest
 
-[endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared the gauntlet and un-drafted as a standalone docker self-host slice — OPEN, MERGEABLE, CI green (15/15), now in the review queue; a code panel caught a real must-fix (the documented `docker exec … endo …` command would have failed with "endo: not found" because `node_modules/.bin` was off the image PATH), fixed at 8e6749d8d, though the image could not be built/run in the sandbox so the PATH fix is correct-by-construction but not runtime-proven. Per proxy's steer, the overlapping [#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot, mention-only) was left untouched — whether to close it as superseded is a maintainer call. Two build jobs stopped short rather than duplicating existing work: the endoclaw confined-HTTP-client pillar is already carried by garden-owned [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (blessed `cli-http-client` design) and contributor [#566](https://github.com/endojs/endo-but-for-bots/pull/566) (mention-only), with a recommendation to shepherd #286 and mark the stale design record; and a probe on [#595](https://github.com/endojs/endo-but-for-bots/pull/595) (published as [#605](https://github.com/endojs/endo-but-for-bots/pull/605)) surfaced a spec-vs-probe gap discrepancy awaiting your disposition. Two design jobs also need you: `streamlined-onboarding` (answer its § 5 open questions, especially the security-flavored auto-mode default, before its four build jobs are posted). **Operational flag:** a deterministic identity-drift guard reports `GARDEN=driftname` on the true leader host `endolinbot`, which disables the leader gate and is silently skipping every leader-only singleton — correcting `/home/kris/.garden` back to `endolinbot` and restarting the pool needs attention.
+[endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared its gauntlet and is now un-drafted as a standalone docker-self-host slice — OPEN, MERGEABLE, CI green (15/15), in the review queue. A panel caught one real must-fix flagged independently by four seats: the documented `docker exec … endo` control command would have failed with "endo: not found" because `node_modules/.bin` wasn't on the image PATH; that plus a batch of should-fixes landed in commit 8e6749d8d. The fix is correct by construction but not runtime-proven — no Docker in the sandbox, so an end-to-end `docker build`/`endo who` smoke test still needs a Docker-capable host. Per proxy guidance, the broader gateway-bearing parallel attempt [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot, mention-only) was left untouched; whether it's closed-as-superseded, kept, or reconciled with #608 is a maintainer call.
+
+The `endoclaw-network-fetch` HTTP-client pillar was **not built** — its design is already delivered twice over, so a third implementation would be waste. The garden's own vehicle is [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (the blessed `cli-http-client.md` design), with the external [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) as 0xpatrickbot's parallel take; the recommendation is to shepherd #286 and mark the stale "Not Started" design record superseded.
+
+**Operational flag worth immediate attention:** the deterministic identity-drift guard fired three times on this host — `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, watchers, recovery) is being **skipped on the true leader**. Fix is to correct `/home/kris/.garden` back to `endolinbot` and restart the pool. Elsewhere the XS→Rust port advanced — `xs2rust-endor-strings-utf16-build` completed and its parity/meter test job is now in flight — and the `design-streamlined-onboarding` design landed, awaiting the maintainer's answer to its §5 Q2 auto-mode default before its four build jobs can be posted as an orchestration.
 
 ## Parked for maintainer feedback
 
@@ -162,8 +166,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`design-daemon-agent-tools-reconcile-mount-git-capabilities`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-daemon-agent-tools-reconcile-mount-git-capabilities.md) — ---
+- [`xs2rust-endor-strings-utf16-test`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-strings-utf16-test.md) — Test/corpus: prove result parity + recalibrated meter for the UTF-16 string s...
 
 ### tada (1241)
 - [`xs2rust-endor-strings-utf16-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16-build.md) — Completion report
