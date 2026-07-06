@@ -384,3 +384,36 @@ landed) and promoted; its intent is carried forward here so your review loop can
 - **FOLLOW-UP for a future increment:** nail the native-handler reaction job's double-settle (adopting promise +
   discarded derived) **bit-exact** — it unblocks BOTH thenable adoption and the combinators in one stroke (they
   share the native-function-reaction-handler job machinery).
+
+---
+
+## Carried-forward child report — stage-3b child 9/9 (RegExp + String integration over XSRE), PR #600 [dead-letter pickup deadmail-20260706T002005Z-8d94ee]
+
+The xsre-integration child's **progress checkpoint** to you was **dead-lettered** (this supervisor inbox was
+parked when it landed) and promoted; its intent is carried forward here so your review loop cannot miss it. This
+is an **interim checkpoint, not a final DONE report**: the child pushed its RegExp/String increments, then exited
+without the completion signal so the job **requeued to finish `String.prototype.split`**, and a live gardener was
+resuming it in the same worktree when this was folded. The child's `jobs/tada/xs2rust-endor-build-stage3b-xsre-integration.md`
+report, when it lands, is the authoritative record — reconcile against it (esp. whether `split` finished or stayed a
+named skip) before accepting child 9.
+
+- **DONE and pushed to `xs2rust-endor` (6 green commits, all bit-exact vs pin `48ee02d8cfe0`, every touched
+  test262 section divergent=0):**
+  - **RegExp core:** `regexp` opcode + `/.../ ` literal, `new RegExp(pat,flags)`, `exec`/`test`, `lastIndex`
+    (side-table backed, get/set), `source`/`flags`/per-flag accessor getters, `toString`, the match-result array
+    (index/input/groups). Metering **raw-exact** incl. the `fxCompileRegExp` code+data `fxNewChunk` buffers and
+    the `toString` 3-concat chunks. → `built-ins/RegExp/prototype/exec` covered=33, `/test`=15;
+    `language/literals/regexp`=21.
+  - **String methods:** `String.prototype.search` (Symbol.search), `match` (Symbol.match, **non-global**),
+    `replace` (Symbol.replace, **non-global + literal no-`$` replacement**). Metering raw-exact. →
+    `built-ins/String/prototype/{search=2,match=3,replace=3}` divergent=0.
+  - Curated corpus `stage3b-regexp.js` (71 programs) + bar test; a JS-surface differential fuzz arm
+    (`differential_regexp_surface`, 1200-seed sweep green). Base corpus 86/86.
+- **REMAINING — single charter item, currently an honest named skip (divergent=0 preserved):**
+  `String.prototype.split` — needs the species-constructor + sticky-splitter machinery (constructs
+  `new RegExp(this, flags+'y')`, then a sticky-exec loop with `fxAdvanceStringIndex` / empty-match handling /
+  capture insertion / limit). Large distinct surface; deferred at the wall to avoid uncommitted work. **The
+  requeued child is finishing this** — confirm from its tada report whether it landed.
+- **Remaining honest named skips (self-name `Halt::Unsupported`):** global `match`/`replace` collection,
+  `$`-substitution grammar in `replace`, named groups in `exec`, RegExp-valued pattern arg in the general ctor,
+  and non-ASCII subject under a stateful (`g`/`y`) flag.
