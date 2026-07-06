@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-06T00:50:39Z_
+_As of 2026-07-06T00:54:27Z_
 
 ## Latest
 
@@ -149,17 +149,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > #568 (0xpatrickbot's broader gateway-bearing parallel attempt): left completely untouched per your call. Overlap for your decision: #608 is the docker-image slice only (deliberately defers gateway/bearer-token); #568 additionally carries the ws-gateway impl + test, chat main.js, package.json, and the design doc, based on `llm` and currently CONFLICTING. Closed-as-superseded / kept / reconciled is your call.
 
-- `20260706T005030Z-330c22` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T005030Z-330c22.md)
-
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 421a156c68fdcaf373fb08e99d8e80833c44d852 (git -C /home/kris/.garden-state/self-heal/journal cat-file -p 421a156c68fdcaf373fb08e99d8e80833c44d852). Diagnosis: You've hit your session limit · resets 2am (UTC)
-
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`port-xs-to-rust-memory-safe-engine-s7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s7.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
+- [`scholar-clear-ocap-kernel-library-backfill-notes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-clear-ocap-kernel-library-backfill-notes.md) — PLAN: scholar — clear the two carried ocap-kernel library backfill notes
 
 ### tada (1230)
 - [`scholar-ingest-ocap-kernel-comment-fragments-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-comment-fragments-6.md) — Completion report
@@ -177,7 +174,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`scholar-clear-ocap-kernel-library-backfill-notes`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-clear-ocap-kernel-library-backfill-notes.md) — _normal_ · PLAN: scholar — clear the two carried ocap-kernel library backfill notes
+(none)
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
