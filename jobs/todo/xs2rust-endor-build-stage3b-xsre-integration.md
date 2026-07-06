@@ -44,9 +44,5 @@ growth; `language/literals/regexp` growth at zero divergence; honest named skips
 Symbol.match/replace/split protocol dispatch corners) — name them.
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolinbot
-  gardener: 14
-  claimed_at: 2026-07-05T23:20:07Z
+
+<!-- garden-reaped: 1 -->
