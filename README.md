@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T15:21:18Z_
+_As of 2026-07-06T15:22:46Z_
 
 ## Latest
 
-A liaison follow-up flags a **data-corruption-class bug in the reaper requeue path** (`reaper-requeue-kills-or-waits-for-live-handler`), surfaced from the Fable review of the garden's own scripts: a job was requeued roughly every 18 min against a 40-min handler wall without killing the prior handler, twice leaving two live writers in one worktree. It's garden infrastructure (main2, no bot-repo PR) and needs a deliberate fix and deploy — the clearest thing for a maintainer to act on.
-
-Two build jobs paused for a decision rather than pushing. The Gateway Feature 8 job found a duplicate and held instead of opening a competing PR: [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) already lands the path-scheme half of the `/ocapn` WebSocket endpoint and explicitly defers the live listener and Noise frame relay, while the new branch is a superset that adds the socket handoff on incompatible parallel rewrites of `src/ocapn-ws.js`; the gardener recommends re-scoping to build atop #577 (verified locally, branch preserved, no PR opened). Separately, the streamlined-onboarding phase-1 job closed as already-landed, noting its lone remaining item — `.garden`-file-first identity — was deliberately superseded by the recent location-derived identity work, so that design paragraph is now stale.
-
-On the board itself little moved: `scholar-ingest-dialog-db-remainder-6` completed, with four jobs still in flight (daemon agent-tools phase 2, the [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614) CI shepherd, scholar remainder 7, and the XS→Rust stage-4 modules port).
+The [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614) shepherd job completed since the last bulletin; the board is otherwise quiet, with three jobs in flight (a phase-2 shell-capability build, a scholar dialog-db ingest, and the XS→Rust stage-4 module port). Three items warrant maintainer attention in the inbox: the fable review of the garden's own scripts surfaced a **data-corruption-class bug in the reaper requeue path** (`reaper-requeue-kills-or-waits-for-live-handler`) that twice left two live writers in one worktree — flagged as a deliberate main2 fix-and-deploy, not a board job. Separately, Gateway Feature 8 was **held rather than opened as a competing PR**: the intended `/ocapn` WebSocket handoff is a superset of the in-flight draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) (which implements only the path-scheme half and defers the socket handoff), and the two rewrites of `src/ocapn-ws.js` collide — the gardener recommends re-scoping to build the handoff on top of #577 and awaits your steer. Finally, the streamlined-onboarding phase-1 job closed as already-landed, noting that design §1.1's `.garden`-file identity is now **superseded** by the location-derived identity from commits 6d543582e/367a7543c and could be annotated stale.
 
 ## Parked for maintainer feedback
 
@@ -68,19 +64,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`build-endo-but-for-bots-daemon-agent-tools-phase2-shell-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-daemon-agent-tools-phase2-shell-capability.md) — ---
-- [`endojs-endo-but-for-bots-pr614-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr614-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #614
 - [`scholar-ingest-dialog-db-remainder-7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder-7.md) — role: scholar
 - [`xs2rust-endor-stage4-modules`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-modules.md) — Stage-4 child: module machinery: ModuleSource, module records, namespaces
 
-### tada (1309)
+### tada (1310)
+- [`endojs-endo-but-for-bots-pr614-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr614-shepherd.md) — Completion report
 - [`scholar-ingest-dialog-db-remainder-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-6.md) — Completion report — scholar-ingest-dialog-db-remainder-6
 - [`deadmail-20260706T150710Z-09b07f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T150710Z-09b07f.md) — The work is complete. Here is my report.
 - [`xs2rust-endor-stage4-async-await`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage4-async-await.md) — Completion report
 - [`scholar-ingest-dialog-db-remainder-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-5.md) — Completion report: scholar-ingest-dialog-db-remainder-5
-- [`build-endo-but-for-bots-daemon-agent-tools-phase1-filesystem-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-daemon-agent-tools-phase1-filesystem-tools.md) — Completion report
-- … and 1304 more
+- … and 1305 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
