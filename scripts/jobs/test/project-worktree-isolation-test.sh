@@ -17,6 +17,9 @@
 #      in-flight uncommitted work is PRESERVED (resume stability).
 #   5. Same base, DIFFERENT repo/branch → DISTINCT paths (no self-collision).
 #   6. Every path lives under $GARDEN_SCRATCH (never the deployed root tree).
+#   7. A branch held checked-out by a standing worktree is still delivered (the
+#      2026-07-06 hard-failure: the old refs/heads fetch died with "refusing to
+#      fetch into branch '...' checked out at ...").
 #
 # Hermetic: throwaway bare "fork" clones + a throwaway garden root, no network.
 
@@ -158,6 +161,29 @@ if out="$(run_helper garden-stale-victim endojs/stale-guard main 2>/dev/null)"; 
   bad "helper handed back a tree despite an undeliverable remote tip (stale!): '$out'"
 else
   ok "helper REFUSES (dies) rather than delivering a stale tree"
+fi
+
+# === 7: branch held checked-out by a standing worktree — must not hard-fail =====
+# Regression for 2026-07-06: a standing monitor worktree holds refs/heads/llm
+# checked out, so the old fetch into +refs/heads/llm:refs/heads/llm died with
+# "fatal: refusing to fetch into branch 'refs/heads/llm' checked out at ...",
+# blocking EVERY job needing that branch on the host. Fetching into the
+# remote-tracking ref (never checked out) and adding --detach off THAT sidesteps it.
+make_fork endojs held-branch llm
+HB_BARE="$GROOT/worktrees/endojs-held-branch.git"
+# stand up a worktree that holds refs/heads/llm checked out, exactly like the real
+# monitor worktree does (a local head over the fetched remote-tracking ref).
+git --git-dir="$HB_BARE" branch llm refs/remotes/origin/llm >/dev/null 2>&1
+git --git-dir="$HB_BARE" worktree add "$TR/held-llm-monitor" llm >/dev/null 2>&1
+if P7="$(run_helper garden-held-branch endojs/held-branch llm 2>/dev/null)"; then
+  [ -n "$P7" ] && [ -d "$P7" ] && [ -f "$P7/error-trace.js" ] \
+    && ok "helper checks out a branch held checked-out by another worktree" \
+    || bad "helper emitted a path but the checkout is empty/missing (P7='$P7')"
+  [ "$(git -C "$P7" symbolic-ref -q HEAD || echo detached)" = detached ] \
+    && ok "held-branch checkout HEAD is detached" \
+    || bad "held-branch checkout HEAD is not detached"
+else
+  bad "helper hard-failed on a branch held checked-out by another worktree (the 2026-07-06 regression)"
 fi
 
 # --- summary -----------------------------------------------------------------

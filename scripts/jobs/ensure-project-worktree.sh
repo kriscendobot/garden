@@ -108,33 +108,45 @@ if git --git-dir="$bare" worktree list --porcelain 2>/dev/null | grep -qxF "work
 fi
 mkdir -p "$GARDEN_SCRATCH"
 
-# Resolve the requested branch into the bare clone's refs/heads/ before the add.
-# The fork worktrees' fetch refspec routes branches into refs/remotes/origin/*,
-# so a bare branch name would not resolve for `worktree add --detach <path>
-# <branch>`; fetching it explicitly into refs/heads/ makes the name resolve. The
-# `+` forces an update if the local head already exists. If the branch is on
-# neither side the fetch is a no-op and the add below surfaces a clear error.
+# Resolve the requested branch into the bare clone's remote-tracking ref
+# (refs/remotes/origin/$branch) before the add, then check the worktree out from
+# THAT ref. We deliberately fetch into the REMOTE-TRACKING ref, never
+# refs/heads/$branch: a standing worktree can legitimately hold refs/heads/$branch
+# checked out (e.g. the endo-but-for-bots monitor worktree holds refs/heads/llm),
+# and git refuses to fetch into a branch checked out in ANY worktree
+# ("fatal: refusing to fetch into branch 'refs/heads/llm' checked out at ..."),
+# which the old +refs/heads/$branch:refs/heads/$branch refspec tripped on every
+# run — the 2026-07-06 hard-failure. Remote-tracking refs are never checked out,
+# so the force-update always succeeds, and a `--detach` add off the remote-tracking
+# ref needs no local head at all. The `+` forces the update if the ref already
+# exists. If the branch is on neither side the fetch is a no-op and the add below
+# surfaces a clear error.
 #
 # ── Silent stale-fetch guard (the 2026-07-06 regression) ─────────────────────
 # A bare `2>/dev/null || true` on the fetch swallows EVERY failure, so a transient
-# network/auth blip silently leaves refs/heads/$branch at a STALE local SHA and
-# the gardener works an old tree with no warning. Observed 2026-07-06 (job
+# network/auth blip silently leaves refs/remotes/origin/$branch at a STALE local
+# SHA and the gardener works an old tree with no warning. Observed 2026-07-06 (job
 # design-daemon-agent-tools-reconcile-mount-git-capabilities): endo-but-for-bots@llm
 # was delivered 8 weeks stale at 68246ad9 — missing the very docs the job named —
 # while origin/llm was at 11322892, and a manual `git fetch origin llm` succeeded
-# moments later. So we verify the local head against the AUTHORITATIVE remote tip
-# (`git ls-remote`) after the fetch, retry once on any divergence, and die rather
-# than hand back a stale tree. The remote lookup itself gets one retry so a blip
-# there does not defeat the guard.
+# moments later. So we verify the remote-tracking head against the AUTHORITATIVE
+# remote tip (`git ls-remote`) after the fetch, retry once on any divergence, and
+# die rather than hand back a stale tree. The remote lookup itself gets one retry
+# so a blip there does not defeat the guard. The fetch's stderr is captured and
+# surfaced via log() rather than discarded, so the next failure mode is visible.
 remote_branch_sha() {
   git --git-dir="$bare" ls-remote origin "refs/heads/${branch}" 2>/dev/null | cut -f1
 }
-local_branch_sha() {
-  git --git-dir="$bare" rev-parse --verify --quiet "refs/heads/${branch}" 2>/dev/null || true
+tracking_branch_sha() {
+  git --git-dir="$bare" rev-parse --verify --quiet "refs/remotes/origin/${branch}" 2>/dev/null || true
 }
 fetch_branch() {
-  git --git-dir="$bare" fetch --quiet origin \
-    "+refs/heads/${branch}:refs/heads/${branch}" 2>/dev/null
+  local err
+  err="$(git --git-dir="$bare" fetch --quiet origin \
+           "+refs/heads/${branch}:refs/remotes/origin/${branch}" 2>&1 >/dev/null)" \
+    || { [ -n "$err" ] && log "WARN: ensure-project-worktree: fetch of ${repo}@${branch} failed: ${err}"; return 1; }
+  [ -n "$err" ] && log "ensure-project-worktree: fetch ${repo}@${branch}: ${err}"
+  return 0
 }
 
 remote_sha="$(remote_branch_sha)"
@@ -143,22 +155,29 @@ remote_sha="$(remote_branch_sha)"
 fetch_branch || true
 
 if [ -n "$remote_sha" ]; then
-  # The branch exists upstream: the local head MUST equal the remote tip, else the
-  # fetch silently failed or delivered a stale ref. Retry once, then refuse.
-  have_sha="$(local_branch_sha)"
+  # The branch exists upstream: the remote-tracking head MUST equal the remote tip,
+  # else the fetch silently failed or delivered a stale ref. Retry once, then refuse.
+  have_sha="$(tracking_branch_sha)"
   if [ "$have_sha" != "$remote_sha" ]; then
-    log "WARN: ensure-project-worktree: refs/heads/${branch} is ${have_sha:-<absent>} but origin/${branch} is ${remote_sha}; retrying fetch"
+    log "WARN: ensure-project-worktree: refs/remotes/origin/${branch} is ${have_sha:-<absent>} but origin/${branch} is ${remote_sha}; retrying fetch"
     fetch_branch || true
   fi
-  now_sha="$(local_branch_sha)"
+  now_sha="$(tracking_branch_sha)"
   if [ "$now_sha" != "$remote_sha" ]; then
-    die "ensure-project-worktree: could not fetch ${repo}@${branch} to ${remote_sha} (local head is ${now_sha:-absent}, likely a transient network/auth failure); refusing to hand back a stale tree"
+    die "ensure-project-worktree: could not fetch ${repo}@${branch} to ${remote_sha} (remote-tracking head is ${now_sha:-absent}, likely a transient network/auth failure); refusing to hand back a stale tree"
   fi
 fi
 # else: the branch is on neither side (a legitimate detached ref/sha checkout) —
 # the fetch is a no-op and the add below resolves $ref locally or errors clearly.
 
-git --git-dir="$bare" worktree add --detach "$wt" "$ref" >/dev/null \
+# What to check out: when the caller wants the branch (the default), use the
+# remote-tracking ref we just fetched and verified — refs/heads/$branch is no
+# longer fetched into and may be absent or held by another worktree. An explicit
+# ref/SHA argument is resolved as given.
+add_ref="$ref"
+[ "$ref" = "$branch" ] && add_ref="refs/remotes/origin/${branch}"
+
+git --git-dir="$bare" worktree add --detach "$wt" "$add_ref" >/dev/null \
   || die "ensure-project-worktree: could not check out $repo@$ref into $wt"
 
 # Pin the bot identity so a subagent's commits cannot drift to the parent shell's
