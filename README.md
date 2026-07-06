@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-06T11:42:16Z_
+_As of 2026-07-06T11:46:08Z_
 
 ## Latest
 
-A gardener ran the [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) gauntlet to completion: the docker self-host slice is now un-drafted, OPEN/MERGEABLE with CI green (15/15), after a panel caught a real must-fix (the documented `docker exec … endo` command would have failed on `endo: not found` because `node_modules/.bin` wasn't on the image PATH). Per the proxy's steer, the broader parallel attempt [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot, mention-only) was left untouched — its disposition against #608 is a maintainer call. Three build jobs came back as **skip-and-surface duplicates rather than new PRs**: the confined-outbound-HTTP pillar is already delivered by [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (external) and the garden's own [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286), and the Docker M3 keystone overlaps [endo-but-for-bots#134](https://github.com/endojs/endo-but-for-bots/pull/134)/[#608](https://github.com/endojs/endo-but-for-bots/pull/608)/[#568](https://github.com/endojs/endo-but-for-bots/pull/568) — that last surfacing flags a genuine architecture fork (wire remote-auth into `ws-gateway.js` now vs. wait for `@endo/gateway`) needing a maintainer decision, with verified gateway-auth wiring parked on a WIP branch for whichever PR wins.
+The docker self-host slice, [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608), cleared its gauntlet and is now open, un-drafted, and green (15/15) in the review queue — a code panel independently flagged and fixed a real must-fix (the documented `docker exec … endo` command failed because `node_modules/.bin` wasn't on the image PATH), though the gardener notes it could not runtime-prove the image without a Docker-capable host. Three build jobs deliberately did **not** open new PRs, surfacing overlap for your disposition instead: the docker/gateway work already lives across [#134](https://github.com/endojs/endo-but-for-bots/pull/134), #608, and [#568](https://github.com/endojs/endo-but-for-bots/pull/568) (with verified ws-gateway CIDR remote-auth wiring parked on a WIP branch pending your ws-gateway-vs-`@endo/gateway` architecture call), and the confined-outbound-HTTP pillar is fully covered by [#566](https://github.com/endojs/endo-but-for-bots/pull/566) and the garden's own [#286](https://github.com/endojs/endo-but-for-bots/pull/286) — the `endoclaw-network-fetch` design record reads "Not Started" but is stale.
 
-On garden infrastructure, a Fable review found a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`) that twice left two live writers in one worktree; it wants a deliberate main2 fix + deploy. Separately, the **host-identity drift guard is firing repeatedly** — `GARDEN=endolinbot2` diverges from this host's real `endolin-garden2-5bcdff64`, so `is-main-host` reports FOLLOWER and every leader-only singleton is being skipped on the true leader; the stale `.garden` file needs correcting and the pool restarting. The XS→Rust (Endor) port closed out stage 3b and UTF-16 strings and fanned stage 4 out into a fresh orchestration (accessors, classes, generators, async/await, modules, compartment, lockdown, SES conformance). Shepherds are still driving red CI on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) and the #595 probe published as [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) — where a spec/deliverable discrepancy (a paraphrased "take-semantics" gap that doesn't exist in the real 7-gap probe) awaits a maintainer yes/no on whether that analysis is actually wanted.
+Two things warrant attention. First, **host-identity drift is firing repeatedly**: the guard reports this leader host (`endolin-garden2-5bcdff64`) running with `GARDEN=endolinbot2` and its peer with `GARDEN=endolinbot`, meaning every leader-only singleton is being skipped on the true leader — correct the per-instance `.garden` files (or record a parallel-pool override) and restart the pools. Second, a fable review of the garden's own scripts found a **data-corruption-class reaper bug** (`reaper-requeue-kills-or-waits-for-live-handler`) that twice left two live writers in one worktree; it's a main2 infrastructure fix awaiting a deliberate patch-and-deploy. Also parked for you: answer Q2 (auto-mode default) in `designs/streamlined-onboarding.md` to unblock its four build jobs, and decide whether the [#595](https://github.com/endojs/endo-but-for-bots/pull/595) probe (published as [#605](https://github.com/endojs/endo-but-for-bots/pull/605)) needs a fresh `take`-semantics analysis the original spec paraphrased but the deliverable never contained.
 
 ## Parked for maintainer feedback
 
@@ -304,25 +304,24 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (10)
+### doin (9)
 - [`daily-progress-summary-20260706-113547`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260706-113547.md) — Daily midnight Pacific progress summary
-- [`deadmail-issue-comment-4888978127`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4888978127.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-4889651367`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4889651367.md) — Dead-lettered message — pick up its intent
 - [`design-ebfb-buffered-channel-exo-stream-consolidation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-ebfb-buffered-channel-exo-stream-consolidation.md) — Design: consolidate the two buffered-channel.js copies onto @endo/exo-stream
+- [`design-exo-google-sheets`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-exo-google-sheets.md) — Design: @endo/exo-google-sheets — a Google Sheets connector
 - [`endojs-endo-but-for-bots-pr442-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #442
 - [`endojs-endo-but-for-bots-pr605-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr605-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #605
 - [`endojs-endo-but-for-bots-pr89-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr89-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #89
-- [`endojs-endo-but-for-bots-pr96-review-b474e0ee`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr96-review-b474e0ee.md) — Review directive on endojs/endo-but-for-bots PR #96
 - [`scholar-ingest-gutentag`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-gutentag.md) — role: scholar
 - [`xs2rust-endor-stage4-accessors-attributes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-accessors-attributes.md) — Stage-4 child: accessor properties, full property descriptors, freeze/seal (h...
 
-### tada (1258)
+### tada (1260)
+- [`deadmail-issue-comment-4888978127`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4888978127.md) — Completion report
+- [`endojs-endo-but-for-bots-pr96-review-b474e0ee`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr96-review-b474e0ee.md) — Completion report
 - [`endojs-endo-but-for-bots-pr486-review-69dc0d7a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr486-review-69dc0d7a.md) — Completion report
 - [`endojs-endo-but-for-bots-pr486-review-d14e72bb`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr486-review-d14e72bb.md) — Completion report — endojs-endo-but-for-bots-pr486-review-d14e72bb
 - [`xs2rust-endor-strings-utf16`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16.md) — orchestration xs2rust-endor-strings-utf16 — complete
-- [`xs2rust-endor-strings-utf16-test`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16-test.md) — Completion report: xs2rust-endor-strings-utf16-test (child 3/3)
-- [`xs2rust-endor-strings-utf16-replace-cesu8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16-replace-cesu8.md) — All four jobs are correctly gated. The setup is complete and pushed to origin...
-- … and 1253 more
+- … and 1255 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -350,4 +349,4 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 ## Hosts
 - [endolin-garden-ece02cb4](https://github.com/kriskowal/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 20 gardeners
-- [endolin-garden2-5bcdff64](https://github.com/kriskowal/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 100 gardeners
+- [endolin-garden2-5bcdff64](https://github.com/kriskowal/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 20 gardeners
