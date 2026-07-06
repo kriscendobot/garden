@@ -80,9 +80,5 @@ Dual-run `built-ins/Promise` (7 baseline — this child should grow it substanti
 `language/statements/async-generator` (or its named fold) — divergent=0, skips named, bars locked.
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 10
-  claimed_at: 2026-07-06T13:34:13Z
+
+<!-- garden-reaped: 1 -->
