@@ -106,7 +106,20 @@ GARDEN_TAG="clone-keeper"
 # basename endojs-endo-but-for-bots.git is exactly the ambiguous case derive_clone_url
 # warns about (owner endojs / name endo-but-for-bots vs owner endojs-endo / name
 # but-for-bots), so the URL is given rather than derived.
-: "${GARDEN_TRACKED_CLONES:=worktrees/endojs-endo-but-for-bots.git|origin|master|ssh://git@github.com/endojs/endo-but-for-bots.git}"
+#
+# The second tracked clone is the kriscendobot/vattr97 fork, registered on
+# maintainer request (kriskowal/garden#26, dckc: "register a fork of dckc/vattr97
+# and put the design there") to hold the OpenCollective⟷ERTP design of record
+# (designs/opencollective-ertp.md). Its `main` mirrors the fork's default branch;
+# <remote> is the fork's own `origin`, so the fast-forward keeps the local bare
+# clone in step with whatever the fleet has pushed to the fork (it does NOT sync
+# the fork from upstream dckc/vattr97 — that is a separate, deliberate act). The
+# fork is NOT on any watcher's safe-to-watch set (§ Monitoring safety constraint);
+# registration here is purely a standing bare clone the fleet can cut design
+# worktrees from. Basename kriscendobot-vattr97.git is unambiguous, but the
+# <clone-url> is pinned explicitly for parity with the endo row.
+: "${GARDEN_TRACKED_CLONES:=worktrees/endojs-endo-but-for-bots.git|origin|master|ssh://git@github.com/endojs/endo-but-for-bots.git
+worktrees/kriscendobot-vattr97.git|origin|main|ssh://git@github.com/kriscendobot/vattr97.git}"
 
 # Base of the canonical upstream URL the keeper reconstructs from a missing clone's
 # dir basename (worktrees/<owner>-<name>.git -> <base>/<owner>/<name>.git) when the
