@@ -53,33 +53,23 @@
 # key, the hosts/<host> worker-count key, the leader predicate's comparand).
 # Resolved with this precedence:
 #   1. an explicit GARDEN already in the environment (an operator/test one-off
-#      override; wins so a `GARDEN=… some-cmd` invocation still works);
-#   2. the gitignored per-instance identity file $GARDEN_ROOT/.garden — the
-#      DURABLE shard config. It is home-directory state, so it is NOT committed
-#      (a top-level dotfile, already covered by .gitignore's /.[!.]*), NOT shared
-#      via git or Claude memory (both of which ARE shared across instances), and
-#      — unlike a login-shell `export GARDEN=…` — it is read by common.sh itself,
-#      so every `systemctl --user` unit that sources this file inherits it. A
-#      login-shell export does NOT reach the systemd --user manager, which is the
-#      trap that made an exported GARDEN silently fail to reach the fleet. Seeded
-#      by ./garden at container creation (GARDEN_HOSTNAME); hand-editable after.
-#   3. `hostname -s` — the single-shard default. The kernel hostname is fixed at
-#      container creation and cannot distinguish two pools on one home directory,
-#      which is exactly why the .garden file exists.
+#      override; wins so a `GARDEN=… some-cmd` invocation still works). This is
+#      NOT a durable configuration knob. A GARDEN pinned for the fleet (e.g. via
+#      ~/.config/environment.d, which the systemd --user manager DOES inherit)
+#      once silently shadowed the derived identity and thrashed the leader
+#      marker between two shards; do not pin it. There is deliberately no
+#      $GARDEN_ROOT/.garden file consulted anymore — identity is derived, not
+#      configured.
+#   2. `hostname -s` — the derived identity, and the normal case. The `./garden`
+#      launcher bakes a location-derived name (<hostname>-<basename>-<hash8> of
+#      the canonical checkout path) into the container's --hostname at creation,
+#      so distinct checkouts on one machine get distinct kernel hostnames and
+#      thus distinct identities automatically — no file or env knob to seed,
+#      edit, or forget. See CLAUDE.md § Host environment and
+#      context/first-run/identity.md.
 # We export GARDEN so child processes (git, the handler, hooks) inherit the
-# resolved identity. NOTE: this does NOT reliably populate the drift-reconcile's
-# view. The gardener-scaler reads the unit's MainPID /proc/<pid>/environ, but the
-# MainPID is the self-heal-run.sh wrapper — the identity is only visible in the
-# gardener.sh child that actually sources this file. So a file-derived identity
-# reads as "unset" to gardener_instance_garden, which treats it as the hostname
-# default (not drifted): a *live* edit of .garden is therefore NOT auto-detected;
-# restart the pool to apply it. (Env-derived identity in the manager env WAS
-# visible in the wrapper environ; the file trades that for durability. Making the
-# reconcile read the gardener.sh child's environ is a follow-up.)
+# resolved identity.
 # See issue kriskowal/garden#11 (Multibot) and designs/multibot-leader-follower.md.
-if [ -z "${GARDEN:-}" ] && [ -r "$GARDEN_ROOT/.garden" ]; then
-  GARDEN="$(head -1 "$GARDEN_ROOT/.garden" 2>/dev/null | tr -d '[:space:]')"
-fi
 : "${GARDEN:=$(hostname -s 2>/dev/null || echo host)}"
 export GARDEN
 

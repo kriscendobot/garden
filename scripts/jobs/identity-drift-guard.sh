@@ -140,14 +140,17 @@ host's full gardener pool) and disables the leader gate.
 
 **Leader impact:** $leader_line
 
-**Likely source:** the gitignored per-instance identity file \`$GARDEN_ROOT/.garden\`
-(common.sh precedence step 2) or an inherited-env \`GARDEN\`. This is the
-endolinbot2 regression class.
+**Likely source:** an inherited-env \`GARDEN\` pinned for the fleet (commonly
+\`~/.config/environment.d/*.conf\`, which the systemd --user manager inherits;
+common.sh precedence step 1). Identity is otherwise DERIVED from \`hostname -s\`;
+there is no \`.garden\` file consulted anymore. This is the endolinbot2 regression
+class.
 
-**Fix:** if this host is the leader, correct \`$GARDEN_ROOT/.garden\` (and any
-inherited \`GARDEN\`) to \`$host_short\` and restart the pool; if this is a
-deliberate parallel pool, record the override in \`$GARDEN_STATE/identity-override\`
-(or export GARDEN_IDENTITY_OVERRIDE=\`$GARDEN\`) so this guard stays quiet.
+**Fix:** remove the pinned \`GARDEN\` (delete the environment.d entry, then
+\`systemctl --user unset-environment GARDEN\` and restart the pool) so identity
+falls back to the derived \`$host_short\`; if this is a deliberate parallel pool,
+record the override in \`$GARDEN_STATE/identity-override\` (or export
+GARDEN_IDENTITY_OVERRIDE=\`$GARDEN\`) so this guard stays quiet.
 
 Posted once per distinct drift state by \`scripts/jobs/identity-drift-guard.sh\`
 (gardener-scaler preflight). It will not repeat until the drift changes or clears.
