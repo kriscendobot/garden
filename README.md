@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T12:01:32Z_
+_As of 2026-07-06T12:03:52Z_
 
 ## Latest
 
-Recent completions cleared a garden-infrastructure fix and advanced onboarding work. The [`fix-ensure-project-worktree-checked-out-branch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-ensure-project-worktree-checked-out-branch.md) job landed, hardening per-job worktree checkout, and the [`garden-pages-3be7c8c6b7ba-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-pages-3be7c8c6b7ba-shepherd.md) drove a red Pages deploy back to green. Onboarding phase 3 (vocab tutorial) was claimed and is in progress; phase 1 closed as already-satisfied, since its `.garden`-file identity item was deliberately superseded by the newer location-derived instance identity.
-
-Two items warrant maintainer attention. A fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path — a job requeued every ~18 min against a 40-min handler wall left the prior handler alive, twice producing two live writers in one worktree; the liaison flagged it as a main2 fix-and-deploy rather than a board job. Separately, five shepherds are running against red endo-but-for-bots CI (PRs [#442](https://github.com/endojs/endo-but-for-bots/pull/442), [#605](https://github.com/endojs/endo-but-for-bots/pull/605), and [#286](https://github.com/endojs/endo-but-for-bots/pull/286)), and 26 PRs remain parked for review, the oldest waiting 45+ days.
+Little board motion this cycle — [onboarding phase 3](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/onboarding-p3-vocab-tutorial.md) (the vocab tutorial) closed out as already-landed on main2, and the phase-1 launcher job likewise reported a no-op: direct-exec launcher, auto-build, and the guard-hook seed all shipped 2026-07-04, with the design's `.garden`-file identity deliberately superseded by the newer location-derived scheme (commits 6d543582e/367a7543c). The item warranting attention is a maintainer message, not a board job: the Fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`) — a job requeued ~every 18 min against a 40-min handler wall left the prior handler alive, twice yielding two live writers in one worktree. It's flagged as a garden-infrastructure fix (main2, no PR) needing a deliberate fix-and-deploy. Six shepherd/build/scholar jobs remain in flight, including auto-posted red-CI shepherds on endo-but-for-bots [#442](https://github.com/endojs/endo-but-for-bots/pull/442) and [#605](https://github.com/endojs/endo-but-for-bots/pull/605).
 
 ## Parked for maintainer feedback
 
@@ -46,22 +44,21 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (6)
 - [`endojs-endo-but-for-bots-pr442-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #442
 - [`endojs-endo-but-for-bots-pr605-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr605-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #605
 - [`improve-scaler-nonblocking-systemctl`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scaler-nonblocking-systemctl.md) — scripts/jobs/install-units.sh
-- [`onboarding-p3-vocab-tutorial`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/onboarding-p3-vocab-tutorial.md) — <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-...
 - [`pr-ebfb-286-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/pr-ebfb-286-shepherd.md) — Repo endojs/endo-but-for-bots — shepherd PR #286 (https://github.com/endojs/e...
 - [`scholar-ingest-gutentag-packages`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-gutentag-packages.md) — role: scholar
 - [`xs2rust-endor-stage4-classes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-classes.md) — Stage-4 child: class definitions, super, new.target
 
-### tada (1275)
+### tada (1276)
+- [`onboarding-p3-vocab-tutorial`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/onboarding-p3-vocab-tutorial.md) — All phase 3 work is already complete and committed to main2. No further actio...
 - [`garden-pages-3be7c8c6b7ba-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-pages-3be7c8c6b7ba-shepherd.md) — Completion report
 - [`deadmail-20260706T115225Z-639beb`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T115225Z-639beb.md) — Completion report
 - [`fix-ensure-project-worktree-checked-out-branch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-ensure-project-worktree-checked-out-branch.md) — Completion report
 - [`scholar-ingest-gutentag`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-gutentag.md) — Completion report — scholar-ingest-gutentag
-- [`onboarding-p2-context-tree`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/onboarding-p2-context-tree.md) — Completion report
-- … and 1270 more
+- … and 1271 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
