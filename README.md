@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T18:21:32Z_
+_As of 2026-07-06T18:23:38Z_
 
 ## Latest
 
-Since little of substance moved on the board this cycle, I'll narrate the one completion plus the notable maintainer messages that warrant attention.
-
-A build job for [EndoMount name-change following in the filesystem watchers](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-filesystem-watchers-endomount-follow-name-changes.md) landed a findings report, but the maintainer inbox is where the weight is this cycle. The liaison surfaced a **data-corruption-class bug** in the reaper's requeue path (found by the fable review of the garden's own scripts): a job was requeued roughly every 18 min against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree — a main2 infra fix warranting a deliberate fix-and-deploy, not a board job. Separately, Gateway Feature 8 (the `/ocapn` WebSocket endpoint) was **held rather than opened as a competing PR**: the gardener found its work is a superset of the open draft [endojs/endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) (which implements only the path-naming half and explicitly defers the socket handoff), plus related in-flight stacks [#392](https://github.com/endojs/endo-but-for-bots/pull/392) and [#413](https://github.com/endojs/endo-but-for-bots/pull/413), and needs the maintainer to steer whether to build on top of #577, supersede it, or drop the branch (the gardener recommends building on top). The onboarding phase-1 job closed as already-satisfied, flagging that its design's `.garden`-file identity paragraph is now stale (superseded by location-derived identity). Finally, the foreman is holding a re-post of `build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery`, which recurred without milestone progress and **may be stuck** — worth a look alongside its still-in-flight sibling on the board.
+The reaper parked the Stage-4 module-machinery child of the XS→Rust port ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) back to the plan queue after two deadline-overrun cycles — it exceeds the 2400s handler budget and would be killed on every requeue, so it now waits (`xs2rust-endor-stage4-modules`, gate=go-ahead) for a human to split it, raise the timeout, or drop it. Separately, the fable review of the garden's own scripts surfaced a **data-corruption-class bug in the reaper requeue path** (a job requeued against a still-live 40-min handler, twice yielding two live writers in one worktree); it's a main2 infra fix warranting a deliberate fix + deploy, not a board job. Gateway Feature 8 is held rather than opening a competing draft: its socket-handoff work is a superset of the already-in-flight path-scheme PR [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), and the gardener recommends re-scoping to build atop #577 rather than superseding it. Onboarding phase 1 is confirmed already landed, with the design's `.garden`-first identity intentionally superseded by location-derived identity. On the completion side, shepherds drove [endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616) and [endo-but-for-bots#615](https://github.com/endojs/endo-but-for-bots/pull/615) to green, and the daemon agent-tools phase-3 git tools and endomount filesystem-watcher builds finished. One caution: the foreman flags `build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery` (still in `doin`) as possibly stuck after recurring without milestone progress.
 
 ## Parked for maintainer feedback
 
@@ -65,14 +63,110 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > foreman: next step 'build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery' recurred after the previous post drained without milestone progress. Holding the re-post pending review; it may be stuck.
 
+- `poison-xs2rust-endor-stage4-modules-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-xs2rust-endor-stage4-modules-deadline-overrun.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 2 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
+> Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=2400s):
+> this job EXCEEDS THE HANDLER BUDGET and would be killed identically on every requeue,
+> so the reaper surfaced it after 2 overrun cycles (not the full 5-cycle poison threshold).
+> The work is preserved at jobs/plan/xs2rust-endor-stage4-modules; it stays HELD until a human promotes it
+> (promote-plan.sh xs2rust-endor-stage4-modules) or removes it. Triage: split the job, raise GARDEN_HANDLER_TIMEOUT
+> for this work, or fix what makes it run long.
+> Original job base: xs2rust-endor-stage4-modules
+>
+> --- original job body ---
+> ---
+> model: opus
+> ---
+> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-06T15:10:25Z -->
+>
+> ---
+> model: opus
+> ---
+> # Stage-4 child: module machinery: ModuleSource, module records, namespaces
+>
+> **Program context (read first).** You are one serial child of the `xs2rust-endor-build-stage4`
+> orchestration (Hardened JavaScript) in the supervised program `port-xs-to-rust-memory-safe-engine`.
+> Repo `endojs/endo-but-for-bots`, PR **#600**, branch `xs2rust-endor`, base `llm`. **Keep the PR
+> DRAFT.** Get your ISOLATED worktree with
+> `/home/kris/scripts/jobs/ensure-project-worktree.sh <your-job-base> endojs/endo-but-for-bots xs2rust-endor`
+> (never share a tree; concurrent pushes race safely at the git-push CAS — rebase and retry).
+> The engine lives in `rust/engine/` (independent cargo workspace; `cargo` at `/home/kris/.cargo/bin`).
+> Read `rust/engine/README.md` first: oracle pin `48ee02d8cfe0` population fallbacks (the empty-gitlink
+> footgun — `git init` in `c/moddable` first, then fetch from a sibling
+> `/home/kris/scratch/project-wt-*/c/moddable`), harness invocation, evidence blocks. Read the design
+> `designs/xs2rust-endor-engine.md` §§ Value and heap model, Metering, Hardened JavaScript and
+> Compartment, Staged Roadmap, and the GC-roots contract note.
+>
+> **Doctrine (binding): accuracy over parity (2026-07-04).** Result agreement gates; the C-XS oracle
+> certifies RESULTS only. The meter is endor's own frozen release-versioned cost table —
+> deterministic per release, recalibrated only deliberately, NEVER back-fit to oracle computrons or
+> CESU-8 byte lengths. Computron-vs-oracle is advisory telemetry. The branch's dual-run runner still
+> gates computrons (stricter than the bar): keep it green via calibrated constants or honest named
+> skips; do NOT relax the runner to result-gating (that belongs to the test262-convergence work).
+> An unimplementable or oversized surface becomes an **honest named skip** (`Halt::Unsupported`
+> self-naming), never a wrong value or a silent divergence.
+>
+> **GC-roots contract (standing ledger item).** If your work wires GC into the run loop or adds
+> allocation pressure triggers, the root set MUST cover the interpreter side tables
+> (`functions[*].closures`, `CallerState`, `CatchJump`, `global_props`, and the newer
+> regexp/bound/promise side tables — note `FuncInfo.body_start` is now `Option<usize>` with bound
+> functions gated at the `enter_call` choke point), with deterministic trigger points. If you do not
+> touch GC scheduling, carry the note forward untouched.
+>
+> **Bar (every child).** `cargo test --workspace -- --test-threads=1` green in `rust/engine/`;
+> `#![forbid(unsafe_code)]` intact on all engine crates; affected test262 sections dual-run
+> (per-subtree — whole-tree `language/` runs OOM; the runner takes DIRECTORY sections only, a
+> single-file arg silently runs 0 files) with **divergent=0** and every skip named; new coverage
+> locked into `cargo test` as a section-bar test; corpus fixtures for new grammar; Miri on touched
+> allocation/GC paths (`TMPDIR=/home/kris/tmp` — /tmp is noexec for the sysroot build); commit with
+> explicit pathspecs and push to `origin/xs2rust-endor` (rebase-CAS loop); update
+> `rust/engine/README.md`'s evidence block with your numbers.
+>
+> **Sizing.** You are sized to ONE 2400s handler invocation. If the scope does not fit, land what is
+> green, self-name the remainder as honest skips, and report the **scope fold** explicitly — never a
+> half-implemented surface. Report completion (numbers + skips + scope folds) via
+> `/home/kris/scripts/jobs/inbox-send.sh port-xs-to-rust-memory-safe-engine-s9` — the supervisor's
+> next stage. NEVER message the maintainer inbox; PR #600 comments only if you land a
+> notable milestone. Drain your own inbox at checkpoints.
+>
+> ## Scope (child 5/8)
+>
+> Port the module machinery from the pin's `xsModule.c` (static half first):
+>
+> - `XS_CODE_MODULE`, import/export linkage: module records, module environment (indirect
+>   bindings — live re-export semantics), module namespace exotic objects (sorted keys, no-set,
+>   `@@toStringTag`), cyclic module graphs (DFS instantiate/evaluate ordering), TDZ on
+>   un-evaluated bindings.
+> - **ModuleSource** as a first-class constructable (the XS/Compartment shape: compile-only,
+>   bindings reflection) to the extent the oracle compiler seam supports feeding module source —
+>   establish how the oracle compiles a module (xst compiles modules via its runner; if the
+>   oracle shim cannot drive module compilation, extend it minimally on the audited FFI seam, or
+>   self-name the differential gap honestly and verify module semantics with endor-side unit
+>   corpora + the pin run manually via xst, documenting the method in the README).
+> - **Module maps** (specifier → module) as the machine-level seam Compartment (child 6) will
+>   consume; a minimal host resolve hook (static specifiers; no filesystem).
+> - Dynamic `import()` and `import.meta`: named skips (`module:dynamic-import`, `module:import-meta`)
+>   unless they fit trivially.
+>
+> ## Acceptance focus
+>
+> `language/module-code/` dual-run per-subtree IF the oracle seam supports module goal parsing —
+> divergent=0 with named skips; otherwise the documented endor-side corpus + manual-xst method,
+> plus namespace/linkage unit tests locked in cargo. Record honestly which path was achieved.
+>
+>
+>
+>
+> <!-- garden-deadline-overrun: 2 -->
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery.md) — ---
-- [`xs2rust-endor-stage4-modules`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-modules.md) — Stage-4 child: module machinery: ModuleSource, module records, namespaces
 
 ### tada (1326)
 - [`build-endo-but-for-bots-filesystem-watchers-endomount-follow-name-changes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-filesystem-watchers-endomount-follow-name-changes.md) — Findings
@@ -88,6 +182,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
 - [`synth-and-deploy-minion-town-aws`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/synth-and-deploy-minion-town-aws.md) — _normal_ · Synth, wire custom domain, and live-deploy minion.town to AWS
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
+- [`xs2rust-endor-stage4-modules`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage4-modules.md) — _normal_ · Stage-4 child: module machinery: ModuleSource, module records, namespaces
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 (none)
