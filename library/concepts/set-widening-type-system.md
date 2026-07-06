@@ -20,6 +20,12 @@ Dialog's v2 type system for optionality in the query engine, as designed in `not
 | [dialog-db--notes-optional-fields--coalesce-slice7-and-marker-traits](../sections/dialog-db--notes-optional-fields--coalesce-slice7-and-marker-traits.md) | Coalesce as a constraint not a formula, RequiredHeadFromOptional, and the double-optional-preventing marker traits. |
 | [dialog-db--notes-optional-fields--deferred-followups-and-acceptance](../sections/dialog-db--notes-optional-fields--deferred-followups-and-acceptance.md) | The deferred follow-ups, the shipped acceptance subset, and the settled open questions. |
 | [dialog-db--notes-optional-fields--structural-turn-operator-ir-addendum](../sections/dialog-db--notes-optional-fields--structural-turn-operator-ir-addendum.md) | The feat/operator-ir rework: optionality leaves the associative layer for a semantic-layer left-join. |
+| [dialog-db--notes-guide--absent-is-a-claim](../sections/dialog-db--notes-guide--absent-is-a-claim.md) | User-facing: the three variable states (unbound/Present/Absent), set-widening as a positive claim about the store, and why a concept needs a required attribute. |
+| [dialog-db--notes-guide--consuming-optional-values-filter-by-default](../sections/dialog-db--notes-guide--consuming-optional-values-filter-by-default.md) | Occurrence-typing narrowing filters Absent rows by default; Coalesce/unwrap_or is the explicit-default opt-in, ordered after its source. |
+| [dialog-db--notes-guide--producing-values-heads-are-contracts](../sections/dialog-db--notes-guide--producing-values-heads-are-contracts.md) | Required head fields promise presence, so binding one from a maybe is rejected (RequiredHeadFromOptional); discharge optionality first. |
+| [dialog-db--notes-guide--negation-and-absence](../sections/dialog-db--notes-guide--negation-and-absence.md) | You cannot negate an optional field (NegatedOptional), and narrowing is computed from positive premises only. |
+| [dialog-db--notes-guide--where-errors-surface](../sections/dialog-db--notes-guide--where-errors-surface.md) | Compile-time type meets vs evaluation-time membership; dialog filters where PostgreSQL errors and SQLite coerces. |
+| [dialog-db--notes-guide--inference-in-an-open-world](../sections/dialog-db--notes-guide--inference-in-an-open-world.md) | Open-world soundness with no required annotation; no implicit numeric promotion; inspectable via TypeEnv::explain/narrowings/dead_optionality. |
 
 ## See also
 
