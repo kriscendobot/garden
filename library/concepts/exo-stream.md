@@ -1,6 +1,6 @@
 ---
 created: 2026-06-17
-updated: 2026-06-17
+updated: 2026-07-06
 author: researcher
 status: draft
 ---
@@ -51,6 +51,20 @@ chain (new protocol). Callers use `iterateBytesReader(readable)` instead of
   identical to upstream; the daemon / CLI callers are NOT yet migrated
   (they still use the old `reader-ref.js` / `ref-reader.js` API).
   Upstream PR #3036 is the migration guide.
+
+## Gap: no non-backpressured push side (design pending)
+
+Every export is pull-based and backpressured by design; nothing covers an
+imperative fire-and-forget `push` from an event-driven producer. Composing
+`@endo/stream` `makeQueue` with `readerFromIterator` does not close the gap:
+`makeReaderPump`'s loop is strictly sequential (await a syn node, then await
+`iterator.next()`), so while parked on an idle producer it cannot observe the
+initiator's early close, deferring `iterator.return()` (and any abort hook)
+until the producer's next value. Design to add a push-fed
+`makeBufferedReader` export, consolidating the twin `buffered-channel.js`
+copies in `packages/floot` and `packages/claude-sandbox`:
+`designs/buffered-channel-exo-stream-consolidation.md` on the `llm` branch
+(endojs/endo-but-for-bots PR #613, dispatched from PR #486 review).
 
 ## See also
 
