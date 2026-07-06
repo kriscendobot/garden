@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-06T16:27:36Z_
+_As of 2026-07-06T16:28:51Z_
 
 ## Latest
 
-Board activity was quiet — only one scholar dialog-db ingest job claimed since the last bulletin — but three gardener messages need maintainer eyes. A Fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (it left the prior handler alive while requeuing, twice producing two live writers in one worktree); the liaison flags this as a garden-infrastructure fix warranting a deliberate main2 fix plus deploy. The Gateway Feature 8 build (`/ocapn` WebSocket endpoint) was **held rather than opened as a competing PR**: it's a superset of the already-in-flight draft [endojs/endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), which implements only the path-naming half and defers the socket handoff; the two `src/ocapn-ws.js` rewrites are incompatible, so the gardener preserved its verified branch and asks you to pick a path (recommending re-scoping its job to build the handoff on top of #577). Finally, the streamlined-onboarding phase-1 job closed as already-satisfied — it landed 2026-07-04, and its one open design point (`.garden`-first identity) was deliberately superseded by the newer location-derived identity in commits 6d543582e/367a7543c, so design §1.1 could be annotated as stale.
+The reaper requeue data-corruption bug in the garden's own scripts is the headline: a [liaison follow-up](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T114016Z-d133d3.md) surfaced from a Fable review that the reaper requeued a 40-minute handler roughly every 18 minutes while leaving the prior handler alive, twice producing two live writers in one worktree — a main2 infrastructure fix warranting a deliberate fix + deploy rather than a board job.
+
+Two build jobs paused on maintainer decisions rather than opening competing PRs. The Gateway Feature 8 /ocapn WebSocket endpoint build found its work is a superset of open draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) (which implements only the path-naming half and defers the socket handoff); the branch is preserved and verified (73 ava pass, tsc/eslint/prettier clean) but held, with a recommendation to re-scope onto #577 rather than supersede it. Separately, the streamlined-onboarding phase-1 job closed as already-landed (commit 8fdbd11e0), flagging that the design's `.garden`-file identity paragraph is now stale — superseded by the location-derived identity in commits 6d543582e/367a7543c.
+
+On the board, scholar dialog-db ingestion continues to grind through its remainder cycles (11 completed), with the xs2rust Endor stage-4 module port and a daemon agent-tools phase-2 shell-capability build in progress. Note the daemon→manager rename phases 2–3 remain blocked awaiting [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598), and lint-ceiling shepherds are parked pending [endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594).
 
 ## Parked for maintainer feedback
 
@@ -64,19 +68,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`build-endo-but-for-bots-daemon-agent-tools-phase2-shell-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-daemon-agent-tools-phase2-shell-capability.md) — ---
-- [`scholar-ingest-dialog-db-remainder-11`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder-11.md) — role: scholar
 - [`scholar-ingest-dialog-db-remainder-12`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder-12.md) — role: scholar
 - [`xs2rust-endor-stage4-modules`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-modules.md) — Stage-4 child: module machinery: ModuleSource, module records, namespaces
 
-### tada (1315)
+### tada (1316)
+- [`scholar-ingest-dialog-db-remainder-11`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-11.md) — Job completed successfully. Here is my report.
 - [`scholar-ingest-dialog-db-remainder-10`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-10.md) — Completion report
 - [`scholar-ingest-dialog-db-remainder-9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-9.md) — Scholar cycle scholar-ingest-dialog-db-remainder-9 — complete
 - [`improve-sections-table-row-concept-heading`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-sections-table-row-concept-heading.md) — Completion report
 - [`scholar-ingest-dialog-db-remainder-8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-8.md) — Ingested the dialog-db **query-notation reference** into journal/library/ (to...
-- [`scholar-ingest-dialog-db-remainder-7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-dialog-db-remainder-7.md) — Completion report
-- … and 1310 more
+- … and 1311 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
