@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-06T03:57:06Z_
+_As of 2026-07-06T04:00:48Z_
 
 ## Latest
 
-[endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared the gauntlet and is now un-drafted — OPEN, MERGEABLE, CI green (15/15) — as the standalone Docker self-host slice; the panel caught a real must-fix (the documented `docker exec … endo` control command would have failed with "endo: not found" because `node_modules/.bin` wasn't on the image PATH) plus a bundle of should-fixes (commit 8e6749d8d). One honest caveat: no Docker in the sandbox, so the PATH fix is correct by construction but not runtime-proven — an end-to-end `docker build` smoke test needs a Docker-capable host. [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) (endoclaw timer) also finished its gauntlet.
+[endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared the gauntlet and is un-drafted — OPEN, MERGEABLE, CI green (15/15), now in the review queue as the standalone Docker self-host slice; the panel's one must-fix was a broken `docker exec … endo` control command (node_modules/.bin wasn't on the image PATH), since fixed, though no one could run an actual `docker build` in the sandbox. Three gardeners paused rather than duplicating work and surfaced disposition calls: the Docker/daemon pillar now has three overlapping PRs ([#608](https://github.com/endojs/endo-but-for-bots/pull/608) docker-only, [#134](https://github.com/endojs/endo-but-for-bots/pull/134) comprehensive-but-stale, [#568](https://github.com/endojs/endo-but-for-bots/pull/568) 0xpatrickbot's conflicting third-party attempt) plus an open architecture question — wire remote-auth into `ws-gateway.js` now or wait for `@endo/gateway` — and the confined-HTTP-client pillar is likewise already covered by [#566](https://github.com/endojs/endo-but-for-bots/pull/566) (external) and the garden's own [#286](https://github.com/endojs/endo-but-for-bots/pull/286), so the `endoclaw-network-fetch` build stopped and recommends shepherding #286 instead. Also completed: the [#609](https://github.com/endojs/endo-but-for-bots/pull/609) endoclaw-timer gauntlet and the `streamlined-onboarding` design (its § 5 open questions await your answer before the gated build jobs post).
 
-Two build jobs deliberately did **not** open new PRs to avoid duplicate work, and need a disposition call. The confined-outbound-HTTP pillar is already covered by [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (garden-owned, built on the blessed `cli-http-client.md` design) and 0xpatrickbot's parallel [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (mention-only, leave be) — the recommendation is to shepherd #286. The Docker daemon self-host keystone overlaps three PRs — #608 (slice only), the comprehensive-but-stale [endo-but-for-bots#134](https://github.com/endojs/endo-but-for-bots/pull/134) (CHANGES_REQUESTED), and 0xpatrickbot's conflicting [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) — and hinges on an unsettled architecture question: whether remote-auth wires into today's `ws-gateway.js` (the current design record) or waits for the newer `@endo/gateway` skeleton the maintainer steered toward in May. The gardener verified the ws-gateway path is a ~40-line testable change (pushed to branch `wip/daemon-docker-selfhost-gateway-remote-auth`, no PR) and confirmed the gateway-bearer-token wiring was never actually landed despite its design being marked Complete.
-
-Operational alert worth eyes: an **identity-drift guard fired three times on the true leader host** — `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, watchers) is being silently skipped; fix is correcting `/home/kris/.garden` to `endolinbot` and restarting the pool. Separately, the `design-streamlined-onboarding` design job completed and awaits review of its §5 open questions (notably Q2, the security-flavored auto-mode default) before its four gated build jobs can be posted.
+**Worth your attention:** a deterministic identity-drift guard fired three times on host `endolinbot` — `GARDEN` is set to `driftname` while `hostname -s` reports `endolinbot`, so `is-main-host` reads FOLLOWER and every leader-only singleton (foreman, scheduler, watchers, bulletin) is being skipped on the true leader; fix is to correct `/home/kris/.garden` back to `endolinbot` and restart the pool.
 
 ## Parked for maintainer feedback
 
@@ -195,7 +193,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
+- [`build-endo-but-for-bots-endoclaw-network-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-endoclaw-network-fetch.md) — ---
+- [`deadmail-issue-comment-4888938507`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4888938507.md) — Dead-lettered message — pick up its intent
 - [`mention-kriskowal-garden-26-186e048e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mention-kriskowal-garden-26-186e048e.md) — attention directive from @-mention on kriskowal/garden #26
 - [`xs2rust-endor-stage4-accessors-attributes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-accessors-attributes.md) — Stage-4 child: accessor properties, full property descriptors, freeze/seal (h...
 
