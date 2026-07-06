@@ -128,6 +128,38 @@ P3="$(run_helper garden-fix-error-trace endojs/endo main)"
 [ "$P3" != "$P1" ] && ok "same base, different repo → DISTINCT path (no self-collision)" \
   || bad "same base collided across repos ('$P3' == '$P1')"
 
+# === 6: silent stale-fetch guard — remote advances but the fetch can't deliver =
+# Regression for the 2026-07-06 stale-tree delivery: when origin advertises a NEW
+# tip (ls-remote succeeds) but the fetch of it fails (a transient blip), the
+# helper must REFUSE rather than silently hand back the stale local ref.
+make_fork endojs stale-guard main
+UP="$TR/upstream-endojs-stale-guard.git"
+SEED="$TR/seed-endojs-stale-guard"
+SG_BARE="$GROOT/worktrees/endojs-stale-guard.git"
+git -C "$UP" config gc.auto 0 >/dev/null 2>&1; git -C "$UP" config receive.autogc false >/dev/null 2>&1
+# establish a fresh baseline (bare refs/heads/main = T1) via one good run
+run_helper garden-stale-baseline endojs/stale-guard main >/dev/null
+# advance upstream to T2, then delete T2's objects so ls-remote still advertises
+# the new tip but a fetch of it fails — the exact transient shape we must catch.
+find "$UP/objects" -type f | sort > "$TR/obj-before"
+( cd "$SEED"
+  printf 'upstream T2 — must-not-be-skipped\n' > error-trace.js
+  git "${git_id[@]}" commit -qam T2
+  git push -q origin main ) >/dev/null 2>&1
+find "$UP/objects" -type f | sort > "$TR/obj-after"
+comm -13 "$TR/obj-before" "$TR/obj-after" | while read -r f; do rm -f "$f"; done
+# sanity: ls-remote still advertises the (now unfetchable) T2 tip
+adv="$(git --git-dir="$SG_BARE" ls-remote origin refs/heads/main 2>/dev/null | cut -f1)"
+seed_t2="$(git -C "$SEED" rev-parse HEAD)"
+[ -n "$adv" ] && [ "$adv" = "$seed_t2" ] && ok "ls-remote advertises the advanced (unfetchable) tip" \
+  || bad "test setup: ls-remote did not advertise T2 (adv='$adv' t2='$seed_t2')"
+# the guard must make the helper DIE, not emit a stale-tree path
+if out="$(run_helper garden-stale-victim endojs/stale-guard main 2>/dev/null)"; then
+  bad "helper handed back a tree despite an undeliverable remote tip (stale!): '$out'"
+else
+  ok "helper REFUSES (dies) rather than delivering a stale tree"
+fi
+
 # --- summary -----------------------------------------------------------------
 echo "----------------------------------------------------------------"
 echo "project-worktree-isolation: $PASS passed, $FAIL failed"

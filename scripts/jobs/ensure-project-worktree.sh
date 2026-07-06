@@ -114,8 +114,49 @@ mkdir -p "$GARDEN_SCRATCH"
 # <branch>`; fetching it explicitly into refs/heads/ makes the name resolve. The
 # `+` forces an update if the local head already exists. If the branch is on
 # neither side the fetch is a no-op and the add below surfaces a clear error.
-git --git-dir="$bare" fetch --quiet origin \
-  "+refs/heads/${branch}:refs/heads/${branch}" 2>/dev/null || true
+#
+# ── Silent stale-fetch guard (the 2026-07-06 regression) ─────────────────────
+# A bare `2>/dev/null || true` on the fetch swallows EVERY failure, so a transient
+# network/auth blip silently leaves refs/heads/$branch at a STALE local SHA and
+# the gardener works an old tree with no warning. Observed 2026-07-06 (job
+# design-daemon-agent-tools-reconcile-mount-git-capabilities): endo-but-for-bots@llm
+# was delivered 8 weeks stale at 68246ad9 — missing the very docs the job named —
+# while origin/llm was at 11322892, and a manual `git fetch origin llm` succeeded
+# moments later. So we verify the local head against the AUTHORITATIVE remote tip
+# (`git ls-remote`) after the fetch, retry once on any divergence, and die rather
+# than hand back a stale tree. The remote lookup itself gets one retry so a blip
+# there does not defeat the guard.
+remote_branch_sha() {
+  git --git-dir="$bare" ls-remote origin "refs/heads/${branch}" 2>/dev/null | cut -f1
+}
+local_branch_sha() {
+  git --git-dir="$bare" rev-parse --verify --quiet "refs/heads/${branch}" 2>/dev/null || true
+}
+fetch_branch() {
+  git --git-dir="$bare" fetch --quiet origin \
+    "+refs/heads/${branch}:refs/heads/${branch}" 2>/dev/null
+}
+
+remote_sha="$(remote_branch_sha)"
+[ -z "$remote_sha" ] && remote_sha="$(remote_branch_sha)"   # one retry past a blip
+
+fetch_branch || true
+
+if [ -n "$remote_sha" ]; then
+  # The branch exists upstream: the local head MUST equal the remote tip, else the
+  # fetch silently failed or delivered a stale ref. Retry once, then refuse.
+  have_sha="$(local_branch_sha)"
+  if [ "$have_sha" != "$remote_sha" ]; then
+    log "WARN: ensure-project-worktree: refs/heads/${branch} is ${have_sha:-<absent>} but origin/${branch} is ${remote_sha}; retrying fetch"
+    fetch_branch || true
+  fi
+  now_sha="$(local_branch_sha)"
+  if [ "$now_sha" != "$remote_sha" ]; then
+    die "ensure-project-worktree: could not fetch ${repo}@${branch} to ${remote_sha} (local head is ${now_sha:-absent}, likely a transient network/auth failure); refusing to hand back a stale tree"
+  fi
+fi
+# else: the branch is on neither side (a legitimate detached ref/sha checkout) —
+# the fetch is a no-op and the add below resolves $ref locally or errors clearly.
 
 git --git-dir="$bare" worktree add --detach "$wt" "$ref" >/dev/null \
   || die "ensure-project-worktree: could not check out $repo@$ref into $wt"
