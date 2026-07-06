@@ -59,3 +59,9 @@ Practical (hard-won, do not rediscover):
 <!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 20
+  claimed_at: 2026-07-06T22:43:11Z
