@@ -840,6 +840,7 @@ External web content ingested in support of Workstream B (the persuasion suite).
 | [Local development](cloudflare-w4p--local-development.md) | https://developers.cloudflare.com/cloudflare-for-platforms/workers-for-platforms/reference/local-development/ | 2026-06-25 | 1 | current (`source_kind: web`; content SHA-256 `b3cfa35a`; test the dispatch Worker locally against a remote namespace via remote = true; ingest 2026-07-02) |
 | [Pricing](cloudflare-w4p--pricing.md) | https://developers.cloudflare.com/cloudflare-for-platforms/workers-for-platforms/reference/pricing/ | 2026-04-21 | 1 | current (`source_kind: web`; content SHA-256 `7399e74e`; subscription + usage allotments + overages + worked example; ingest 2026-07-02) |
 | [API examples](cloudflare-w4p--platform-examples.md) | https://developers.cloudflare.com/cloudflare-for-platforms/workers-for-platforms/reference/platform-examples/ | 2026-05-05 | 3 | current (`source_kind: web`; content SHA-256 `4d02e83c`; REST + TypeScript-SDK deploy/manage recipes: deploy+bindings/tags, static assets, list/delete; ingest 2026-07-02) |
+| [Against SQL (Jamie Brandon — outsider opinion critiquing SQL)](web--brandon-against-sql.md) | https://www.scattered-thoughts.net/writing/against-sql | 2021-07-09 | 7 | current (opinion essay; retrieved 2026-07-06 via direct curl, `source_fetched_via=direct`, content SHA-256 `79cb5821`; seeds the `query-languages` topic; cross-referenced to the daemon-persistence / endo-rust-sqlite SQLite material as the language/interface counterpoint) |
 
 ## Notes
 
