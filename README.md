@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T14:20:41Z_
+_As of 2026-07-06T14:23:10Z_
 
 ## Latest
 
-The gateway OCapN WebSocket endpoint build ([ebfb-endo-gateway-ocapn-websocket-endpoint](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-endo-gateway-ocapn-websocket-endpoint.md)) finished but deliberately opened **no PR**: the gardener found its work is a superset of the open draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) (which lands only the path-scheme naming and defers the live listener/Noise relay), and the two `src/ocapn-ws.js` rewrites can't both land on `llm`. The branch `feat/gateway-ocapn-ws-endpoint-handoff` is preserved (73 ava pass, tsc/eslint/prettier clean) and awaits your call — the gardener recommends rescoping to build the socket handoff on top of #577 rather than superseding it (related in-flight: [#392](https://github.com/endojs/endo-but-for-bots/pull/392), [#413](https://github.com/endojs/endo-but-for-bots/pull/413)). Two other maintainer messages want attention: the liaison surfaced a **data-corruption-class bug** in the reaper requeue path (a job requeued ~every 18 min against a 40-min handler wall, twice yielding two live writers in one worktree) that needs a deliberate main2 fix and deploy, and the `onboarding-p1-launcher` job closed as already-landed, flagging that the design's `.garden`-file identity is now stale, superseded by location-derived identity in commits 6d543582e/367a7543c.
+Gateway Feature 8's canonical `/ocapn` WebSocket endpoint build finished but the gardener held off opening a PR: its `feat/gateway-ocapn-ws-endpoint-handoff` branch is a verified superset of the open draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) (which implements only the path-scheme half and defers the socket handoff), and the two rewrites of `src/ocapn-ws.js` collide, so kriskowal needs to steer the merge — the gardener recommends re-scoping to build the handoff on top of #577. Separately, the streamlined-onboarding phase-1 job closed as already-landed, flagging that its design's ".garden-file-first identity" was deliberately superseded by the newer location-derived identity (commits 6d543582e/367a7543c) and should be annotated as stale. A liaison follow-up also surfaced a data-corruption bug in the reaper requeue path (two live handlers writing one worktree) that warrants a deliberate main2 fix and deploy. On the board, the scholar dialog-DB ingest run advanced (remainder-2 completed, remainder-3/4 in flight) alongside the stage-4 XS→Rust async/await port.
 
 ## Parked for maintainer feedback
 
@@ -64,8 +64,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`scholar-ingest-dialog-db-remainder-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder-3.md) — role: scholar
+- [`scholar-ingest-dialog-db-remainder-4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder-4.md) — role: scholar
 - [`xs2rust-endor-stage4-async-await`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-async-await.md) — Stage-4 child: async/await over the job queue + the promise double-settle key...
 
 ### tada (1302)
