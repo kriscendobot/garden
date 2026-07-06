@@ -1,8 +1,0 @@
-[Unit]
-Description=Garden triager for repo %i
-# Producer: triage one watched repo and post jobs. Driven by its .timer.
-
-[Service]
-Type=oneshot
-Environment=GARDEN_ROOT=@GARDEN_ROOT@
-ExecStart=@GARDEN_ROOT@/scripts/jobs/triager.sh %i

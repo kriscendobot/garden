@@ -1,9 +1,0 @@
-[Unit]
-Description=Garden scheduler timer
-
-[Timer]
-OnActiveSec=15m
-OnUnitActiveSec=15m
-
-[Install]
-WantedBy=timers.target

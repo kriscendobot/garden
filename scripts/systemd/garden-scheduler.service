@@ -1,7 +1,0 @@
-[Unit]
-Description=Garden scheduler (dispatch regularly scheduled jobs)
-
-[Service]
-Type=oneshot
-Environment=GARDEN_ROOT=@GARDEN_ROOT@
-ExecStart=@GARDEN_ROOT@/scripts/jobs/scheduler.sh

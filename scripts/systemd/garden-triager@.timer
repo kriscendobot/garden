@@ -1,9 +1,0 @@
-[Unit]
-Description=Garden triager timer for repo %i
-
-[Timer]
-OnActiveSec=2m
-OnUnitActiveSec=2m
-
-[Install]
-WantedBy=timers.target

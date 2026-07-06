@@ -1,7 +1,0 @@
-[Unit]
-Description=Garden gardener-scaler (reconcile local gardener pool to journal host count)
-
-[Service]
-Type=oneshot
-Environment=GARDEN_ROOT=@GARDEN_ROOT@
-ExecStart=@GARDEN_ROOT@/scripts/jobs/gardener-scaler.sh

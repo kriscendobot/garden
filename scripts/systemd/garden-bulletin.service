@@ -1,7 +1,0 @@
-[Unit]
-Description=Garden bulletin (regenerate the journal bulletin)
-
-[Service]
-Type=oneshot
-Environment=GARDEN_ROOT=@GARDEN_ROOT@
-ExecStart=@GARDEN_ROOT@/scripts/jobs/bulletin.sh

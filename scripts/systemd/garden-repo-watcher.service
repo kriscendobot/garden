@@ -1,7 +1,0 @@
-[Unit]
-Description=Garden repo-watcher (reconcile triager units to the journal watch set)
-
-[Service]
-Type=oneshot
-Environment=GARDEN_ROOT=@GARDEN_ROOT@
-ExecStart=@GARDEN_ROOT@/scripts/jobs/repo-watcher.sh

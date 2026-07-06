@@ -1,9 +1,0 @@
-[Unit]
-Description=Garden watchman timer
-
-[Timer]
-OnActiveSec=2m
-OnUnitActiveSec=2m
-
-[Install]
-WantedBy=timers.target

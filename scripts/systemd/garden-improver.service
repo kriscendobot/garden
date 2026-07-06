@@ -1,7 +1,0 @@
-[Unit]
-Description=Garden improver (watch the log for automation-improvement opportunities)
-
-[Service]
-Type=oneshot
-Environment=GARDEN_ROOT=@GARDEN_ROOT@
-ExecStart=@GARDEN_ROOT@/scripts/jobs/improver.sh

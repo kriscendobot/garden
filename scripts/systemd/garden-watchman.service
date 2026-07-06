@@ -1,7 +1,0 @@
-[Unit]
-Description=Garden watchman (watch main2; broadcast role/skill evolution)
-
-[Service]
-Type=oneshot
-Environment=GARDEN_ROOT=@GARDEN_ROOT@
-ExecStart=@GARDEN_ROOT@/scripts/jobs/watchman.sh
