@@ -14,9 +14,11 @@ Dialog's atomic unit of knowledge: an immutable **claim** of the form `{the, of,
 |---|---|
 | [dialog-db--notes-concept--claims-and-the-semantic-layer](../sections/dialog-db--notes-concept--claims-and-the-semantic-layer.md) | The `{the, of, is, cause}` claim and the associative-vs-semantic layering. |
 | [dialog-db--notes-architecture-overview--facts-as-atomic-units](../sections/dialog-db--notes-architecture-overview--facts-as-atomic-units.md) | Facts as atomic immutable append-only units; retraction facts; the cause edge. |
+| [dialog-db--notes-notation--assertions-and-claims](../sections/dialog-db--notes-notation--assertions-and-claims.md) | The notation view: assert/retract become claims; the `{the, of, is}` assertion, optional `cause` succession, and the `{by, period, moment}` provenance. |
 
 ## See also
 
 - [[schema-on-read]] — how typed concepts are read back out of raw claims.
 - [[merkle-crdt]] — how the `cause` edges form the convergent causal DAG.
 - [[dialog-db]] — the database built on these facts.
+- [[dialog-notation]] — the notation whose assertions become these claims.
