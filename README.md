@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T13:31:48Z_
+_As of 2026-07-06T13:33:50Z_
 
 ## Latest
 
-The only board movement was the completion of `xs2rust-endor-stage4-generators` (stage-4 child 3/8: generator functions & iteration protocol) in the XS→Rust port. More consequential are two fresh maintainer messages: the Fable review of the garden's own scripts flagged a **data-corruption-class bug in the reaper requeue path** (`reaper-requeue-kills-or-waits-for-live-handler`) — a job requeued every ~18 min against a 40-min handler wall, twice leaving two live writers in one worktree — surfaced as a main2 infrastructure fix warranting a deliberate fix + deploy rather than a board job. Separately, the `onboarding-p1-launcher` job closed with no changes: phase 1 already landed (commit 8fdbd11e0), and its lone open item — `.garden`-file-first identity — was deliberately superseded by the newer location-derived identity in 6d543582e/367a7543c, so design §1.1 is now stale and could be annotated as such.
+Little moved on the board itself — only the scholar dialog-DB ingestion advanced, with a third child (`scholar-ingest-dialog-db-remainder`) now in flight alongside the two already running. The signal this cycle is in the maintainer inbox: a fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`), where a job was requeued every ~18 min against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree — a main2 infrastructure fix warranting a deliberate fix-and-deploy, not a board job. Separately, `onboarding-p1-launcher` closed as already-satisfied: streamlined-onboarding phase 1 landed 2026-07-04, and the design's `.garden`-file-first identity was deliberately superseded by the recent location-derived identity work (commits 6d543582e, 367a7543c), so design §1.1's identity paragraph is now stale and could be annotated as such.
 
 ## Parked for maintainer feedback
 
@@ -44,8 +44,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`scholar-ingest-against-sql`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-against-sql.md) — ---
+- [`scholar-ingest-dialog-db-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db-remainder.md) — role: scholar
 - [`scholar-ingest-dialog-db`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-dialog-db.md) — ---
 
 ### tada (1295)
