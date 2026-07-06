@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-06T02:28:54Z_
+_As of 2026-07-06T02:32:50Z_
 
 ## Latest
 
-[endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) cleared the gauntlet and is now OPEN, un-drafted, MERGEABLE, and CI-green (15/15) in the review queue as the standalone docker-self-host slice. A code panel independently flagged one real must-fix — the documented `docker exec <ctr> endo …` control command would have died with "endo: not found" because `node_modules/.bin` was off the image PATH — fixed alongside a bundle of should-fixes (socket-parent mkdir, PID-1 zombie reaping via init, and several doc corrections) in commit 8e6749d8d. Honest caveat: no Docker in the gardener sandbox, so the PATH fix is correct by construction but not runtime-proven; an end-to-end `docker build` + `docker exec endo endo who` smoke test needs a Docker-capable host. Per the proxy's steer, 0xpatrickbot's broader gateway-bearing [#568](https://github.com/endojs/endo-but-for-bots/pull/568) (mention-only author) was left untouched — whether it's closed-as-superseded, kept, or reconciled with #608 is a maintainer call.
+[endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) was un-drafted as a standalone docker-self-host slice — green (15/15), MERGEABLE, and now in the review queue after a focused panel caught a real must-fix (the documented `docker exec … endo` command would have failed because `node_modules/.bin` wasn't on the image PATH), plus a bundle of should-fixes; note the honest caveat that the fix is correct-by-construction but not runtime-proven (no Docker in the sandbox). Per the proxy's steer, [#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot's broader gateway-bearing parallel attempt, mention-only author) was left completely untouched — whether it's closed-as-superseded or reconciled with #608 is your call, and the overlap is spelled out in the completion summary.
 
-**Needs attention:** a deterministic guard fired three times reporting host-identity drift on the true leader — `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER and **every leader-only singleton is being skipped** (foreman, scheduler, watchers, recovery). Likely the gitignored `/home/kris/.garden` file or an inherited `GARDEN`; fix is to correct it to `endolinbot` and restart the pool.
+Worth your attention: a deterministic **host-identity drift guard** fired three times on the true leader host — `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER and **every leader-only singleton is being skipped**. Likely source is a stale `/home/kris/.garden` or inherited `GARDEN`; fix is to correct it to `endolinbot` and restart the pool.
 
-Elsewhere: the `design-streamlined-onboarding` job landed `designs/streamlined-onboarding.md`, whose § 5 open questions (especially Q2, the security-flavored auto-mode default) gate four § 6 build jobs awaiting your answer; and the probe published as [#605](https://github.com/endojs/endo-but-for-bots/pull/605) surfaced 7 gaps with no `take`-semantics hazard, contradicting the job spec's paraphrase — the gardener correctly declined to invent it, and a dedicated `take`-semantics analysis would be a fresh probe on your say-so.
+Two decisions are also parked in your inbox: the `streamlined-onboarding` design completed and its four build jobs are gated on your § 5 answers (especially Q2, the security-flavored auto-mode default), and the [#605](https://github.com/endojs/endo-but-for-bots/pull/605) probe report flagged a spec discrepancy (no `take`-semantics gap exists — a fresh probe would be needed if you want that analysis). On the board itself little moved: the mentor's empty-output handler-kill classification (rc=137/143/offline → transient, not a die) landed as the sole completion.
 
 ## Parked for maintainer feedback
 
@@ -17,8 +17,8 @@ Elsewhere: the `design-streamlined-onboarding` job landed `designs/streamlined-o
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 6d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 9d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 20d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 44d)
-- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 44d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 45d)
+- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 45d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 46d)
 - [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 46d)
 - [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 54d)
@@ -154,18 +154,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`build-endoclaw-timer-daemon-formula-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endoclaw-timer-daemon-formula-integration.md) — ---
-- [`improve-mentor-claude-transient-claude-exit`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-mentor-claude-transient-claude-exit.md) — scripts/jobs/handlers/mentor-claude.sh
 - [`xs2rust-endor-strings-utf16-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-strings-utf16-build.md) — Builder: swap endor-vm string storage CESU-8→UTF-16, delete the O(1)-index ha...
 
-### tada (1236)
+### tada (1237)
+- [`improve-mentor-claude-transient-claude-exit`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mentor-claude-transient-claude-exit.md) — Completion report
 - [`deadmail-20260706T022040Z-b35dd7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T022040Z-b35dd7.md) — What the dead-lettered message was
 - [`xs2rust-endor-strings-utf16-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16-design.md) — Job complete. Report:
 - [`xs2rust-endor-fix-bound-callback-dispatch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-fix-bound-callback-dispatch.md) — Completion report
 - [`xs2rust-endor-strings-utf16-arm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16-arm.md) — Completion report
-- [`scholar-clear-ocap-kernel-library-backfill-notes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-clear-ocap-kernel-library-backfill-notes.md) — Completion report
-- … and 1231 more
+- … and 1232 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
