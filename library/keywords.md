@@ -13993,3 +13993,53 @@ claim-based serialization | claim-projection
 remove Serialize from capabilities | claim-projection
 dialog Effect Attenuation Policy bounds | claim-projection
 claim projection UCAN parameters | claim-projection
+set-widening | set-widening-type-system
+set widening | set-widening-type-system
+Optional<T> | set-widening-type-system
+T ⊆ Optional<T> | set-widening-type-system
+Nothing bit | set-widening-type-system
+`Primitive::NOTHING` | set-widening-type-system
+optional fields | set-widening-type-system
+`TypeScheme` | set-widening-type-system
+Robinson unification | set-widening-type-system
+`Coalesce` | set-widening-type-system
+`unwrap_or` | set-widening-type-system
+Resolution policy | set-widening-type-system
+`RequiredHeadFromOptional` | set-widening-type-system
+rule-level type inference | set-widening-type-system
+demand-driven incremental maintenance | demand-driven-incremental-maintenance
+incremental view maintenance | demand-driven-incremental-maintenance
+IVM | demand-driven-incremental-maintenance
+magic sets | demand-driven-incremental-maintenance
+SIPS | demand-driven-incremental-maintenance
+sideways information passing | demand-driven-incremental-maintenance
+demand transformation | demand-driven-incremental-maintenance
+DBSP | demand-driven-incremental-maintenance
+differential dataflow | demand-driven-incremental-maintenance
+n.p complement predicate | demand-driven-incremental-maintenance
+DRed | demand-driven-incremental-maintenance
+standing subscriptions | demand-driven-incremental-maintenance
+query subscriptions | demand-driven-incremental-maintenance
+`differentiate` | demand-driven-incremental-maintenance
+selective replication | demand-driven-incremental-maintenance
+divergence clock | divergence-clock
+{since, drift, at} | divergence-clock
+commit history encoding | divergence-clock
+logical clock | divergence-clock
+vector clock | divergence-clock
+Merkle clock | divergence-clock
+hybrid logical clock | divergence-clock
+HLC | divergence-clock
+concurrent change detection | divergence-clock
+convergence preference | divergence-clock
+atomic multi-fact update | divergence-clock
+EAVT AEVT VEAT TEAV | divergence-clock
+value-based CAS | value-based-cas
+compare-and-swap | value-based-cas
+staleness detection | value-based-cas
+Proof<T> | value-based-cas
+Provenance | value-based-cas
+causal assertion | value-based-cas
+`db/cas` | value-based-cas
+Datomic cas | value-based-cas
+provenance-aware query | value-based-cas
