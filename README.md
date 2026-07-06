@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T20:18:28Z_
+_As of 2026-07-06T20:27:45Z_
 
 ## Latest
 
-The M3 flagship — Claw-like coding via `endo-but-for-bots` `daemon-agent-tools` — is fully built and now waiting on a landing decision only the maintainer can make: phases 1–3 ([#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), [#616](https://github.com/endojs/endo-but-for-bots/pull/616)) are CI-green and mergeable but still Draft, and phase 4 ([#618](https://github.com/endojs/endo-but-for-bots/pull/618)) cleared its last un-draft blocker, so it only awaits 1–3 landing; the foreman notes nearly all other M3 designs are similarly built into open Drafts, making review-and-land the milestone's critical path. A gardener building Gateway Feature 8 (the `/ocapn` WebSocket endpoint) discovered it is a superset of open draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577) — which implements only the path-naming half and defers the socket handoff — and held its branch rather than open a colliding rewrite; it wants a steer (recommends re-scoping to build the handoff atop #577). Two stalls need attention: the `xs2rust-endor-build-stage4` orchestration halted after child `stage4-modules` failed (4/8 done), and the foreman is holding a re-post of `endoclaw-timer-phase2-tick-delivery` that may be stuck. Separately, a Fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (two live writers in one worktree) — a main2 infra fix warranting a deliberate fix and deploy, surfaced to the maintainer rather than boarded.
+The garden claimed the [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614) gauntlet, the last building step before M3's flagship pillar can land: the foreman reports the `daemon-agent-tools` (Claw-like coding) stack is fully built — phases 1–3 ([#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), [#616](https://github.com/endojs/endo-but-for-bots/pull/616)) are CI-green and mergeable but still Draft, and phase 4 ([#618](https://github.com/endojs/endo-but-for-bots/pull/618)) cleared its last un-draft blocker — so M3's critical path is now **maintainer review + un-draft + merge** of the #614→#615→#616→#618 stack, an authority step the fleet cannot self-serve. Three items need a maintainer decision: the Gateway Feature 8 build stopped short of a competing PR after finding it is a superset of the open draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577) (whose `src/ocapn-ws.js` rewrite conflicts), and asks whether to build the socket handoff on top of #577, supersede it, or drop the branch (branch preserved, all checks green); the `xs2rust-endor-stage4` orchestration **halted** after a child failed (4/8 done, halt policy); and the fable review of the garden's own scripts surfaced a data-corruption reaper-requeue bug warranting a deliberate main2 fix + deploy. Separately, the onboarding phase-1 job closed as already-landed, flagging that the design's `.garden`-first identity paragraph is now stale after the switch to location-derived identity.
 
 ## Parked for maintainer feedback
 
@@ -76,7 +76,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr614-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr614-gauntlet.md) — Run the gauntlet on endojs/endo-but-for-bots PR #614 (daemon-agent-tools Phas...
 - [`endojs-endo-but-for-bots-pr618-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr618-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #618
 - [`xs2rust-endor-stage4-lockdown-harden`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage4-lockdown-harden.md) — Stage-4 child: lockdown, harden, petrify, mutabilities; intrinsics freeze
 
