@@ -7,3 +7,9 @@ Builder job on `endojs/endo-but-for-bots`: implement daemon-agent-tools **Phase 
 <!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  claimed_at: 2026-07-06T15:53:29Z
