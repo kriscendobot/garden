@@ -1,10 +1,13 @@
 #!/bin/bash
 # insert-sections-table-row.sh — deterministically insert one row into a library
-# topic page's "## Sections" Markdown table.
+# page's Sections Markdown table. Handles both a topic page's "## Sections" and a
+# concept page's "## Sections that touch this concept" heading.
 #
 # Usage: insert-sections-table-row.sh <topic-file> <row>
-#   <topic-file>  a topic page (e.g. journal/library/topics/<topic>.md) that
-#                 contains a "## Sections" heading followed by a Markdown table.
+#   <topic-file>  a topic page (e.g. journal/library/topics/<topic>.md) with a
+#                 "## Sections" heading, OR a concept page (journal/library/
+#                 concepts/<concept>.md) with a "## Sections that touch this
+#                 concept" heading, followed by a Markdown table.
 #   <row>         the full Markdown table row to add, pipes included, e.g.
 #                 "| [name](../sections/name.md) | endo pkg/README.md | One-line. |"
 #
@@ -84,10 +87,18 @@ awk -v newrow="$row" '
   END {
     n = NR
 
-    # 1. Locate the "## Sections" heading.
+    # 1. Locate the "## Sections" heading. A topic page uses the bare
+    #    "## Sections"; a concept page uses "## Sections that touch this concept".
+    #    Match BOTH exact forms so concept pages route through this deterministic
+    #    inserter too (job improve-sections-table-row-concept-heading), instead of
+    #    the scholar hand-placing concept-page rows every cycle. The two anchored
+    #    forms are enumerated explicitly rather than matched by a loose "Sections"
+    #    prefix, so no unrelated heading (e.g. a page that merely starts with the
+    #    word "Sections") can be picked up by accident.
     sec = 0
     for (i = 1; i <= n; i++)
-      if (line[i] ~ /^##[ \t]+Sections[ \t]*$/) { sec = i; break }
+      if (line[i] ~ /^##[ \t]+Sections[ \t]*$/ ||
+          line[i] ~ /^##[ \t]+Sections that touch this concept[ \t]*$/) { sec = i; break }
     if (sec == 0) {
       print "insert-sections-table-row: no \"## Sections\" heading in file" > "/dev/stderr"
       exit 3

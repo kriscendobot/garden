@@ -139,6 +139,48 @@ if GARDEN_ROOT="$TR/gardenroot" bash "$SCRIPT" "$TR/clone/library/topics/pass-st
   ok "accepted an edit in an isolated clone (outside the live worktree)"
 else bad "wrongly refused an isolated-clone edit"; fi
 
+# --- Case 9: concept page "## Sections that touch this concept" table ---------
+# A concept page (journal/library/concepts/<c>.md) heads its table with the
+# variant "## Sections that touch this concept", not the bare "## Sections". The
+# inserter must anchor on that heading's table too, so scholars no longer place
+# concept-page rows by hand (job improve-sections-table-row-concept-heading).
+cat > "$TR/concept.md" <<'EOF'
+# Concept: retention-accumulator
+
+> Abstract: how retention accumulates.
+
+## Sections that touch this concept
+
+| Section | Source | One-line abstract |
+|---------|--------|-------------------|
+| [a--overview](../sections/a--overview.md) | endo a/README.md | First. |
+| [b--overview](../sections/b--overview.md) | endo b/README.md | Last original. |
+
+- [`marshal`](../topics/marshal.md): related topic.
+EOF
+bash "$SCRIPT" "$TR/concept.md" "$NEWROW" 2>/dev/null
+assert_in_table "$TR/concept.md" 'b--overview' "Last original."
+if grep -q '^- \[`marshal`\]' "$TR/concept.md"; then ok "concept-page trailing bullets preserved"; else bad "concept-page bullets lost"; fi
+
+# --- Case 10: a heading that merely starts with "Sections" is NOT matched -----
+# The widened match enumerates the two exact forms, so an unrelated heading whose
+# text only begins with the word "Sections" must not be picked up as the anchor.
+cat > "$TR/unrelated.md" <<'EOF'
+# Topic: w
+
+## Sections overview and rationale
+
+Prose, no table here.
+
+## Sections
+
+| Section | Source | One-line abstract |
+|---------|--------|-------------------|
+| [b--overview](../sections/b--overview.md) | endo b/README.md | Last original. |
+EOF
+bash "$SCRIPT" "$TR/unrelated.md" "$NEWROW" 2>/dev/null
+assert_in_table "$TR/unrelated.md" 'b--overview' "Last original."
+
 echo "----------------------------------------------------------------"
 echo "PASS=$PASS FAIL=$FAIL"
 [ "$FAIL" -eq 0 ]
