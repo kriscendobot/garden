@@ -40,9 +40,11 @@ is written twice.
    do, ending with "shall we?". No page — it is this framing.
 
 2. **Identity → [identity.md](identity.md).** Confirm we are in-container (the
-   guard already ran), read `.garden`, and ask the one question only the human
-   can answer: is this name unique among your running instances? On a collision,
-   offer the rename and run it on approval.
+   guard already ran), show the location-derived `GARDEN` identity, and ask the
+   one question only the human can answer: do your hosts have distinct short
+   hostnames (the cross-host tiebreaker — same-host uniqueness is automatic)? On
+   a collision, offer the rename (move the checkout, or a distinct hostname) and
+   run it on approval.
 
 3. **Bot credentials → [auth.md](auth.md).** Probe `gh auth status` and `.ssh/`.
    For missing pieces: generate the bot ssh key, print the public half and wait
@@ -68,9 +70,9 @@ is written twice.
 
 ## Children (stage pages)
 
-- **[identity.md](identity.md)** — the `GARDEN` shard identity: the `.garden`
-  file as the one naming knob, the `GARDEN=… ./garden` convenience form, the
-  uniqueness requirement, and the rename / parallel-pool moves.
+- **[identity.md](identity.md)** — the `GARDEN` shard identity: derived from the
+  checkout's location (unique by construction, no `.garden` file or env knob),
+  the cross-host hostname requirement, and the rename / parallel-pool moves.
 - **[auth.md](auth.md)** — the three credentials (claude login or API key, bot
   ssh key, bot gh token): probes, the liaison-run halves, the human-only browser
   clicks, and the conservative non-bypass launch variant.

@@ -14,11 +14,13 @@ instance," you are here.
 
 ## Precondition: a unique identity
 
-Before anything, the identity in `.garden` must be **unique across all running
-instances** — it keys claims, per-host worker counts, journal index entries, and
-the leader marker. This is the one question only the human can answer; the
-mechanics and the rename move are [../first-run/identity.md](../first-run/identity.md).
-Do not proceed on a default or a collision.
+Before anything, this instance's **location-derived `GARDEN` identity** must be
+**unique across all running instances** — it keys claims, per-host worker counts,
+journal index entries, and the leader marker. Same-host uniqueness is automatic
+(distinct checkout paths yield distinct ids); the one thing only the human can
+guarantee is **distinct short hostnames across hosts**. The mechanics and the
+rename move are [../first-run/identity.md](../first-run/identity.md). Do not
+proceed on a cross-host hostname collision.
 
 ## The bring-up, in order
 
