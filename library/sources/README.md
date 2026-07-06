@@ -275,6 +275,10 @@ synthesis, **not** for direct import.
 | [dialog-db notes/concept.md](dialog-db--notes-concept.md) | dialog-db/dialog-db | 2026-07-05 (commit `f777fe7c`) | Irakli Gozalishvili | 4 | current (first-pass ingest, 2026-07-06; the concept/attribute schema-on-read data model) |
 | [dialog-db notes/capability-sysstem.md](dialog-db--notes-capability-sysstem.md) | dialog-db/dialog-db | 2026-07-05 (commit `f777fe7c`) | Irakli Gozalishvili | 4 | current (first-pass ingest, 2026-07-06; the ocap/UCAN capability-system design sketch; upstream filename typo preserved) |
 | [dialog-db notes/privacy.md](dialog-db--notes-privacy.md) | dialog-db/dialog-db | 2026-07-05 (commit `f777fe7c`) | Irakli Gozalishvili | 4 | current (first-pass ingest, 2026-07-06; the tiered-access L0-L3 privacy RFC: UCAN authorization + nested encryption) |
+| [dialog-db notes/sync.md](dialog-db--notes-sync.md) | dialog-db/dialog-db | 2025-10-20 (commit `bf88f2c3`) | Irakli Gozalishvili | 5 | current (`scholar-ingest-dialog-db-remainder`, 2026-07-06; the sync proposal: mutable pointer CAS, decoupled archive, fetch/differential/integrate merge) |
+| [dialog-db notes/version-control.md](dialog-db--notes-version-control.md) | dialog-db/dialog-db | 2026-07-05 (commit `682d4dcf`) | Irakli Gozalishvili | 6 | current (`scholar-ingest-dialog-db-remainder`, 2026-07-06; edition/origin/version causal encoding, revisions-as-claims, two-tier conflict detection, cross-repo forks/merges) |
+| [dialog-db notes/query-engine-design.md](dialog-db--notes-query-engine-design.md) | dialog-db/dialog-db | 2026-07-01 (commit `ebd8f739`) | Irakli Gozalishvili | 5 | current (`scholar-ingest-dialog-db-remainder`, 2026-07-06; the three-stage pipeline, feasibility/cost gate-rank split, Plan operator IR, magic-sets/SIPS/propagator/DBSP grounding) |
+| [dialog-db notes/glossary.md](dialog-db--notes-glossary.md) | dialog-db/dialog-db | 2025-07-08 (commit `054a7982`) | Argonaut Nautilus, Irakli Gozalishvili | 3 | current (`scholar-ingest-dialog-db-remainder`, 2026-07-06; the system glossary, consolidated into 3 grep-friendly sections) |
 
 ## Ingested
 
