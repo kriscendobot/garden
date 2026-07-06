@@ -4,38 +4,41 @@
 
 set -euo pipefail
 
-IMAGE_NAME="${GARDEN_IMAGE:-garden}"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-# The durable shard identity (the GARDEN name the fleet keys off), resolved
-# .garden-FIRST so bare `./garden` needs zero environment variables:
-#   1. An explicit GARDEN (or deprecated GARDEN_SHARD) env var wins and is
-#      persisted to $HOME/.garden at container creation — the belt-and-
-#      suspenders convenience form `GARDEN=petunias ./garden`.
-#   2. Otherwise a present, gitignored $HOME/.garden file supplies it. This is
-#      the streamlined, preferred way to name an instance: `echo petunias >
-#      .garden` before the first run.
-#   3. Otherwise the default "garden".
-# The file survives independently of the kernel hostname and of any env var —
-# an exported GARDEN never reaches the systemd --user manager, so the file is
-# the durable per-instance identity.
-DEFAULT_SHARD="garden"
-if [[ -n "${GARDEN:-}" ]]; then
-    SHARD_NAME="$GARDEN"
-elif [[ -n "${GARDEN_SHARD:-}" ]]; then
-    SHARD_NAME="$GARDEN_SHARD"
-elif [[ -s "${SCRIPT_DIR}/.garden" ]]; then
-    SHARD_NAME="$(tr -d '[:space:]' < "${SCRIPT_DIR}/.garden")"
-else
-    SHARD_NAME="$DEFAULT_SHARD"
-fi
+# The container's unix user is baked to MATCH the host user running ./garden —
+# same login name and same uid — so the bind-mounted home stays writable and
+# nothing is hardcoded to one maintainer's account. Because the identity is baked
+# at build time, the image is tagged per-user (garden-<user>): two users on one
+# host get separate images instead of clobbering a shared `garden` tag (the drift
+# that a single hardcoded user would cause). HOST_USER/HOST_UID feed --build-arg
+# in cmd_build and `docker exec -u` when entering.
+HOST_USER="$(id -un)"
+HOST_UID="$(id -u)"
+IMAGE_NAME="${GARDEN_IMAGE:-garden-${HOST_USER}}"
 
-# The container name and --hostname derive from the shard identity so a named
-# instance (`echo petunias > .garden`) is self-consistent across re-entries:
-# the same bare `./garden` re-attaches to the same container. GARDEN_CONTAINER
-# and GARDEN_HOSTNAME remain expert overrides for the rare split cases.
-CONTAINER_NAME="${GARDEN_CONTAINER:-$SHARD_NAME}"
-HOSTNAME_NAME="${GARDEN_HOSTNAME:-$SHARD_NAME}"
+# The instance identity — the GARDEN name the fleet keys off — is derived purely
+# from WHERE this checkout lives: <hostname>-<basename>-<hash8> of the canonical
+# path. Location IS the identity, which means:
+#   - two checkouts on one host never collide (distinct paths -> distinct ids),
+#   - re-entering the same directory always re-attaches to the SAME container
+#     (the id is stable across invocations), and
+#   - the id is unique across hosts as long as short-hostnames are — an
+#     assumption the fleet already makes (common.sh falls back to `hostname -s`).
+# There is no .garden file and no env knob to seed, edit, or forget, so the
+# identity can never drift away from the container after creation (the failure
+# that used to strand a container under a name matching neither checkout). Inside
+# the container the fleet resolves this id via the `hostname -s` fallback in
+# scripts/jobs/common.sh — we pin --hostname to it below. GARDEN_CONTAINER /
+# GARDEN_HOSTNAME remain expert overrides for the rare split cases.
+INSTANCE_PATH="$(cd "$SCRIPT_DIR" && pwd -P)"
+_host="$(hostname -s 2>/dev/null | tr '[:upper:] ' '[:lower:]-' | tr -cd 'a-z0-9-')"
+_base="$(basename "$INSTANCE_PATH" | tr '[:upper:] ' '[:lower:]-' | tr -cd 'a-z0-9-')"
+_hash="$(printf %s "$INSTANCE_PATH" | sha256sum | head -c 8)"
+INSTANCE_ID="${_host:-host}-${_base:-garden}-${_hash}"
+
+CONTAINER_NAME="${GARDEN_CONTAINER:-$INSTANCE_ID}"
+HOSTNAME_NAME="${GARDEN_HOSTNAME:-$INSTANCE_ID}"
 
 usage() {
     cat <<EOF
@@ -47,6 +50,9 @@ Commands:
               auto mode as the foreground process.
   sh          Enter the container and open an interactive login shell instead
               of Claude Code — the debugging escape hatch.
+  create      Create/start the container (bringing systemd and the garden
+              --user units up) WITHOUT attaching Claude Code. The headless
+              bring-up path — e.g. standing up a follower.
   build       Build (or rebuild) the container image. Bare \`$(basename "$0")\`
               auto-builds when the image is absent; this is for explicit
               rebuilds.
@@ -54,41 +60,39 @@ Commands:
 
 Environment:
   ANTHROPIC_API_KEY   Forwarded to the container for Claude Code auth.
-  GARDEN_IMAGE        Override image name (default: garden).
-  GARDEN              Name this instance's durable shard identity. Bare
-                      \`$(basename "$0")\` needs NO env vars: the preferred way
-                      to name an instance is \`echo petunias > .garden\` before
-                      the first run. GARDEN=petunias is the equivalent
-                      convenience form — it sets the identity AND writes
-                      \$HOME/.garden at container creation. The container name
-                      and --hostname derive from this identity.
-  GARDEN_SHARD        Deprecated alias for GARDEN (honored for one release
-                      so existing pools that set it keep working; prefer
-                      GARDEN or the .garden file).
+  GARDEN_IMAGE        Override image name (default: garden-<hostuser>, so the
+                      per-user baked image never collides with another user's).
   GARDEN_CONTAINER    Expert override for the container name (default: the
-                      shard identity).
+                      location-derived instance id <hostname>-<basename>-<hash>).
   GARDEN_HOSTNAME     Expert override for the container --hostname (default:
-                      the shard identity).
+                      the same location-derived instance id).
 
 Notes:
   The container runs systemd as PID 1 so the garden's user-mode units
   (scripts/systemd/garden-*) can run. After entering, say \`help\` and the
   liaison walks the first-run setup, or \`start the garden\` to bring the
-  fleet up. The shard identity MUST be unique across instances; to run
-  several, give each a distinct name (\`echo <name> > .garden\`). The identity
-  is captured in the gitignored \$HOME/.garden file so it is durable and
-  per-instance — an exported GARDEN env var does NOT reach the systemd
-  --user units.
+  fleet up.
 
-  Unlike town, garden does NOT forward SSH_AUTH_SOCK. The bot uses its
-  own keys under \$HOME/.ssh/ (i.e. /home/kris/garden/.ssh on the host)
-  so that an agent-forwarded human identity cannot leak into bot actions.
+  Instance identity is derived entirely from this checkout's LOCATION —
+  <hostname>-<basename>-<hash8> of the canonical path — so it needs no env
+  vars or config files and cannot drift. To run several instances on one
+  host, put each in its own directory: distinct paths yield distinct ids,
+  distinct containers, and distinct homes. The container home is MIRRORED to
+  the checkout's own host path — the same absolute path inside the container
+  and on the host — so an absolute path never denotes two different things.
+
+  Unlike town, garden does NOT forward SSH_AUTH_SOCK. The bot uses its own
+  keys under \$HOME/.ssh/ (this checkout's own .ssh on the host) so that an
+  agent-forwarded human identity cannot leak into bot actions.
 EOF
     exit 1
 }
 
 cmd_build() {
-    docker build -t "$IMAGE_NAME" "$SCRIPT_DIR"
+    docker build \
+        --build-arg "USERNAME=${HOST_USER}" \
+        --build-arg "USER_UID=${HOST_UID}" \
+        -t "$IMAGE_NAME" "$SCRIPT_DIR"
 }
 
 cmd_reset() {
@@ -148,24 +152,22 @@ ensure_container() {
             api_key_args=(-e "ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}")
         fi
 
-        # Seed the durable shard identity. The home dir is bind-mounted from
-        # $SCRIPT_DIR, so writing $SCRIPT_DIR/.garden here makes it appear at
-        # /home/kris/.garden inside the container, where common.sh reads it (it
-        # is gitignored, so it never enters shared git history). Written only at
-        # creation and only when absent, so a hand-edited identity is preserved.
-        if [[ ! -e "${SCRIPT_DIR}/.garden" ]]; then
-            printf '%s\n' "$SHARD_NAME" > "${SCRIPT_DIR}/.garden"
-        fi
-
-        # Seed the container guard's SessionStart hook (same host-side move as
-        # .garden, only when absent).
+        # Seed the container guard's SessionStart hook (host-side, only when
+        # absent). The instance identity needs no seeding — it is derived from
+        # the checkout location at every invocation (see INSTANCE_ID above).
         seed_claude_settings
 
         # systemd as PID 1 needs the containerized-systemd flags: a writable
         # cgroup mount, tmpfs at /run and /tmp, the host cgroup namespace,
         # and its clean-shutdown stop signal. --hostname pins this instance's
-        # logical name, which MUST be unique across garden instances (it keys
-        # journal claim metadata, hosts/<host>, and per-host state).
+        # logical name (the location-derived INSTANCE_ID), which keys journal
+        # claim metadata, hosts/<host>, and per-host state.
+        #
+        # Home is MIRRORED: the checkout is bind-mounted at its own host path
+        # (not a fixed /home/<user>), and GARDEN_HOME tells the entrypoint to
+        # relocate the bot user's home there (usermod -d) before systemd starts.
+        # So $HOME, the login shell, and the --user manager all agree on the
+        # mirrored path, and absolute paths mean the same thing inside and out.
         docker run -d \
             --name "$CONTAINER_NAME" \
             --hostname "$HOSTNAME_NAME" \
@@ -174,7 +176,8 @@ ensure_container() {
             -v /sys/fs/cgroup:/sys/fs/cgroup:rw \
             --tmpfs /run --tmpfs /run/lock --tmpfs /tmp \
             --stop-signal SIGRTMIN+3 \
-            -v "${SCRIPT_DIR}:/home/kris" \
+            -e "GARDEN_HOME=${INSTANCE_PATH}" \
+            -v "${INSTANCE_PATH}:${INSTANCE_PATH}" \
             "${api_key_args[@]}" \
             "$IMAGE_NAME" >/dev/null
     elif [[ "$(docker container inspect -f '{{.State.Running}}' "$CONTAINER_NAME")" != "true" ]]; then
@@ -182,12 +185,12 @@ ensure_container() {
     fi
 }
 
-# Drop into the container as kris (uid 1000), NOT root. PID 1 (systemd) must run
-# as root and the ENTRYPOINT owns that, so the image's default USER stays root;
-# we override it here per-exec. Entering as kris means the interactive session
-# (and the `claude` it launches) uses kris's gh/ssh credentials and manages the
-# garden's `systemctl --user` units directly — no `sudo -u kris`, and no
-# root-vs-kris credential split.
+# Drop into the container as the bot user ($HOST_USER, matching the host uid),
+# NOT root. PID 1 (systemd) must run as root and the ENTRYPOINT owns that, so the
+# image's default USER stays root; we override it here per-exec. Entering as the
+# bot user means the interactive session (and the `claude` it launches) uses that
+# user's gh/ssh credentials and manages the garden's `systemctl --user` units
+# directly — no `sudo -u <user>`, and no root-vs-user credential split.
 #
 # `bash -lc` loads /etc/profile.d/garden.sh (PATH) and then `exec claude`
 # replaces the login shell with Claude Code as the foreground process on the
@@ -196,9 +199,19 @@ ensure_container() {
 # settings file), matching the fleet's existing headless posture. Exiting claude
 # exits the exec and returns to the host shell; the container and fleet keep
 # running, and `./garden` re-enters.
+# Bring the instance up WITHOUT attaching: create/start the container (so systemd,
+# lingering, and the garden --user units come up) and report its id, but do not
+# exec claude. The headless bring-up path — useful for scripts and for standing up
+# a follower without opening a liaison session.
+cmd_create() {
+    ensure_container
+    echo "Container '$CONTAINER_NAME' is up (home mirrored at $INSTANCE_PATH)."
+    echo "Enter it with: $(basename "$0")   (or '$(basename "$0") sh' for a shell)"
+}
+
 cmd_enter() {
     ensure_container
-    exec docker exec -it -u kris "$CONTAINER_NAME" \
+    exec docker exec -it -u "$HOST_USER" -w "$INSTANCE_PATH" "$CONTAINER_NAME" \
         /bin/bash -lc 'exec claude --dangerously-skip-permissions'
 }
 
@@ -206,7 +219,7 @@ cmd_enter() {
 # enter behavior verbatim.
 cmd_sh() {
     ensure_container
-    exec docker exec -it -u kris "$CONTAINER_NAME" /bin/bash -l
+    exec docker exec -it -u "$HOST_USER" -w "$INSTANCE_PATH" "$CONTAINER_NAME" /bin/bash -l
 }
 
 if [[ $# -eq 0 ]]; then
@@ -216,6 +229,7 @@ fi
 
 case "$1" in
     sh) shift; cmd_sh "$@" ;;
+    create) shift; cmd_create "$@" ;;
     build) shift; cmd_build "$@" ;;
     reset) shift; cmd_reset "$@" ;;
     -h|--help|help) usage ;;

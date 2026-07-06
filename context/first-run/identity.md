@@ -4,73 +4,82 @@ Every garden instance has one logical name — its **`GARDEN` shard identity** �
 and it **must be unique across every running instance you own**. It keys job
 claims, per-host worker counts (`hosts/<host>`), journal index entries, and the
 leader marker; two instances sharing a name silently corrupt each other's
-per-host state. This page is the naming knob and the uniqueness discipline: the
-`.garden` file as the one place the name lives, `GARDEN=… ./garden` as sugar
-over it, why an exported env var does not reach the fleet, and the rename /
-parallel-pool moves. If your question is "how do I name this instance" or "these
-two instances are stepping on each other," you are in the right place; the
-multi-host leader/follower mechanics that the marker gates are
+per-host state. The good news: you no longer set this name by hand. It is
+**derived from where the checkout lives**, so it is unique by construction and
+cannot drift. This page explains that derivation and how to run several
+instances; the multi-host leader/follower mechanics that the marker gates are
 `../operations/leader-follower.md`.
 
-## The one naming knob: `.garden`
+## Identity is the checkout's location
 
-The streamlined, preferred way to name an instance is one line **before the
-first `./garden`**:
+The launcher computes the identity at container creation from the checkout's
+canonical path:
 
-```sh
-echo petunias > .garden
+```
+<hostname>-<basename>-<hash8>          e.g.  endolin-garden2-5bcdff64
 ```
 
-The launcher reads `.garden` when present and derives the container name and
-`--hostname` from it. Bare `./garden` needs **no environment variables** — every
-default is satisfactory, and an unnamed instance falls back to the container
-hostname. You only name an instance when you run **more than one**.
+- **`hostname`** — the host's short hostname, so instances on different hosts
+  never collide in the shared journal.
+- **`basename`** — the checkout directory's own name, the human-readable middle.
+- **`hash8`** — the first 8 hex of the SHA-256 of the full canonical path, which
+  disambiguates same-named directories at different paths on one host (e.g.
+  `/srv/a/garden` vs `/srv/b/garden`).
 
-The convenience form does the same thing through an env var:
+There is **no `.garden` file and no environment knob** to seed, edit, or forget.
+Because the id is a pure function of location and is pinned into the container's
+`--name` and `--hostname` at creation, it can never drift away from the container
+afterward — the failure that used to strand a container under a name matching no
+checkout is now structurally impossible.
+
+## Running more than one instance
+
+Put each instance in **its own directory**. Distinct paths yield distinct ids,
+distinct containers, and distinct (mirrored) homes automatically:
 
 ```sh
-GARDEN=petunias ./garden
+# two collaborating instances on one host — nothing to name:
+( cd ~/garden  && ./garden create )    # -> <host>-garden-<hashA>
+( cd ~/garden2 && ./garden create )    # -> <host>-garden2-<hashB>
 ```
 
-This sets the container hostname **and** writes `.garden`, so the container is
-built and named from that identity either way. The env var is **sugar over the
-file**, and the file is the documented default. `GARDEN_CONTAINER` /
-`GARDEN_HOSTNAME` remain as expert overrides; `GARDEN_SHARD` is a deprecated
-alias for `GARDEN` for one release.
+The container **home is mirrored** to the checkout's own host path (e.g. a
+checkout at `/srv/garden2` has `$HOME` = `/srv/garden2` inside the container), so
+an absolute path means the same thing inside the container and out, and each
+instance's credentials live in its own `.ssh` / `.config/gh` under that path.
 
 ## How the fleet resolves the identity
 
 Every fleet script resolves `GARDEN` as: **`GARDEN` env → the gitignored
-`.garden` file → `hostname -s`** (`common.sh`). The durable file exists because
-an **exported `GARDEN` does not reach the systemd `--user` units** — they are
-started by the user manager, not your shell, so they read the file, not your
-environment. That is the whole reason the name is written to disk rather than
-left in the environment: set it at container-creation time so it lands in
-`.garden`, and every unit sees it.
+`.garden` file → `hostname -s`** (`common.sh`). With the location-derived scheme
+there is no `.garden` file, so resolution lands on **`hostname -s`** — and the
+launcher has pinned the container's `--hostname` to the computed instance id, so
+every systemd `--user` unit sees exactly that id without any environment
+plumbing. (An exported `GARDEN` still does not reach the `--user` manager; that
+is why the id rides `--hostname` instead.)
 
 ## The uniqueness check (the human's one answer)
 
-The kernel hostname cannot be changed from inside a container (its capabilities
-are zero), so the logical name is **fixed at container creation** via
-`--hostname`/`--name` (both `GARDEN_CONTAINER`). During the tutorial the liaison
-reads `.garden` and asks the single question only the human can answer: **"is
-this name unique among your running garden instances?"** A default or a
-collision is the only thing that needs fixing here.
+Within a host, uniqueness is automatic (distinct paths → distinct ids). The one
+thing only you can guarantee is that your **hosts have distinct short
+hostnames** — the cross-host tiebreaker in the shared journal. If two hosts share
+a hostname, give one a distinct hostname (or use `GARDEN_HOSTNAME`, below) before
+standing up the second.
 
-## Rename, and the parallel-pool move
+## Rename, and expert overrides
 
-To **rename** an existing instance, reset and re-create it under the new name:
+To **rename** an instance, move (or re-clone) the checkout to a new path and
+re-create the container; the id follows the new location:
 
 ```sh
-./garden reset
-echo <unique-name> > .garden   # or: GARDEN=<unique-name> ./garden
-./garden
+./garden reset          # remove the old container
+# move the checkout to its new path, then:
+./garden                # re-create — new path yields the new id
 ```
 
-For a **lighter, per-invocation** identity — a second follower pool on the same
-machine, launched from a checked-out worktree with no Dockerfile change — just
-export `GARDEN=<unique>` for that invocation. Set `GARDEN` at creation only when
-a pool's identity must differ from its hostname.
+`GARDEN_CONTAINER` and `GARDEN_HOSTNAME` remain expert overrides for the rare
+case where the container name or logical id must differ from the location-derived
+default (e.g. two hosts that unavoidably share a short hostname).
 
-Rationale for the container/hostname coupling and the resolution order lives in
+Rationale for the location-derived scheme and the home mirroring lives in
 `CLAUDE.md` § Host environment; this page is the operator's how-to.

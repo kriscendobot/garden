@@ -9,12 +9,14 @@
 # recipe (privileged, writable cgroup mount, tmpfs at /run and /tmp,
 # STOPSIGNAL SIGRTMIN+3 — supplied by the `garden` launcher script).
 #
-# Identity: runs as user `kris` (uid 1000) and uses whatever ssh / gh
-# credentials are present in the bind-mounted /home/kris. The bot's git
-# identity (e.g. endolinbot / kriscendobot) is the repo-local git config,
-# not a separate unix user. The per-host logical name must be UNIQUE
-# across garden instances (see CLAUDE.md § Job system) and is fixed at
-# container creation via the launcher's --hostname.
+# Identity: runs as a unix user matching the HOST user (name + uid, via
+# --build-arg USERNAME/USER_UID) and uses whatever ssh / gh credentials are
+# present in the bind-mounted home. The container home is relocated at runtime
+# to mirror the checkout's host path (entrypoint `usermod -d`, launcher
+# GARDEN_HOME). The bot's git identity (a bot login) is the repo-local git config,
+# not a separate unix user. The per-host logical name is
+# the location-derived instance id (<hostname>-<basename>-<hash>), unique across
+# instances and fixed at container creation via the launcher's --hostname.
 
 FROM ubuntu:24.04
 
@@ -22,6 +24,17 @@ ARG NODE_MAJOR=22
 ARG GO_VERSION=1.23.6
 ARG DOTFILES_REPO=https://github.com/kriskowal/dotfiles.git
 ARG VUNDLE_REPO=https://github.com/VundleVim/Vundle.vim.git
+
+# The unix user is baked to match the HOST user running ./garden (name + uid),
+# passed by the launcher's cmd_build. Nothing is hardcoded to one maintainer's
+# account, and the launcher tags the image per-user (garden-<user>) so builds
+# don't drift or collide across users. (USERNAME is first USED at the useradd
+# step far below, so declaring it here does not invalidate the expensive apt /
+# node / go layers; GARDEN_USER is exported as an ENV late, for the same reason.)
+# Neutral defaults (never the maintainer's account); the launcher always passes
+# the real host user via --build-arg, so these apply only to a bare `docker build`.
+ARG USERNAME=bot
+ARG USER_UID=1000
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -114,21 +127,23 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
 RUN npm install -g @anthropic-ai/claude-code \
     && command -v claude
 
-# Create kris user with uid 1000 to match the host user so the
-# bind-mounted home stays writable.
+# Create the bot user matching the HOST user (name + uid, from --build-arg) so the
+# bind-mounted home stays writable and nothing is pinned to one account. Ubuntu
+# 24.04 ships a default `ubuntu` user at uid 1000; remove it first so USER_UID
+# (often 1000) is free.
 RUN userdel -r ubuntu 2>/dev/null || true \
-    && useradd -m -s /bin/bash -u 1000 -G sudo kris \
-    && echo 'kris ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+    && useradd -m -s /bin/bash -u "${USER_UID}" -G sudo "${USERNAME}" \
+    && echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # Dotfiles in /opt so the bind mount can't mask them.
 RUN git clone "${DOTFILES_REPO}" /opt/dotfiles \
-    && chown -R kris:kris /opt/dotfiles
+    && chown -R "${USERNAME}:${USERNAME}" /opt/dotfiles
 
 # Vundle + plugins.
-USER kris
+USER ${USERNAME}
 RUN git clone "${VUNDLE_REPO}" /opt/dotfiles/vim/bundle/Vundle.vim \
-    && ln -sfn /opt/dotfiles/vim    /home/kris/.vim \
-    && ln -sfn /opt/dotfiles/.vimrc /home/kris/.vimrc \
+    && ln -sfn /opt/dotfiles/vim    "/home/${USERNAME}/.vim" \
+    && ln -sfn /opt/dotfiles/.vimrc "/home/${USERNAME}/.vimrc" \
     && vim -E -u /opt/dotfiles/.vimrc -i NONE \
          -c 'set nomore' \
          -c 'PluginInstall' \
@@ -145,7 +160,7 @@ RUN printf '%s\n' \
     'export PATH="$HOME/bin:$HOME/go/bin:/opt/go-tools/bin:/usr/local/go/bin:$PATH"' \
     > /etc/profile.d/garden.sh
 
-ENV PATH="/home/kris/bin:/home/kris/go/bin:${PATH}"
+ENV PATH="/home/${USERNAME}/bin:/home/${USERNAME}/go/bin:${PATH}"
 
 # Mask systemd units that don't make sense in a container (they would
 # otherwise fail noisily on boot).
@@ -160,12 +175,18 @@ RUN systemctl mask \
         getty-static.service \
     || true
 
-# Enable lingering for kris so systemd starts user@1000.service at boot,
-# which brings up the user-mode garden-* units (installed by
+# Enable lingering for the bot user so systemd starts its user@<uid>.service at
+# boot, which brings up the user-mode garden-* units (installed by
 # scripts/jobs/install-units.sh into ~/.config/systemd/user/) without a
 # logged-in session. This is the headless prerequisite the CLAUDE.md
 # startup procedure relies on.
-RUN mkdir -p /var/lib/systemd/linger && touch /var/lib/systemd/linger/kris
+RUN mkdir -p /var/lib/systemd/linger && touch "/var/lib/systemd/linger/${USERNAME}"
+
+# Bake the bot user's name so the runtime entrypoint (which relocates this user's
+# home to the mirrored checkout path) knows it without a hardcoded account.
+# Declared LATE, after the expensive apt/node/go layers, so it never invalidates
+# their cache.
+ENV GARDEN_USER=${USERNAME}
 
 # Entrypoint links dotfiles and prepares the user-systemd dir before
 # exec'ing systemd as PID 1.
@@ -175,11 +196,11 @@ RUN chmod +x /usr/local/bin/garden-entrypoint
 # systemd's clean-shutdown signal.
 STOPSIGNAL SIGRTMIN+3
 
-# PID 1 is systemd (entrypoint runs as root, its domain); the garden
-# units run as user kris via the user@1000 manager. Interactive access is
-# `docker exec -it -u kris ... bash -l` (the `garden` launcher does this) —
-# entering as kris, not root, so the session uses kris's gh/ssh credentials
+# PID 1 is systemd (entrypoint runs as root, its domain); the garden units run
+# as the bot user via its user@<uid> manager. Interactive access is
+# `docker exec -it -u <hostuser> ... bash -l` (the `garden` launcher does this) —
+# entering as the bot user, not root, so the session uses its gh/ssh credentials
 # and drives `systemctl --user` directly without sudo.
-WORKDIR /home/kris
+WORKDIR /home/${USERNAME}
 ENTRYPOINT ["/usr/local/bin/garden-entrypoint"]
 CMD ["/lib/systemd/systemd"]
