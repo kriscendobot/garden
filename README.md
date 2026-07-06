@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-06T02:32:50Z_
+_As of 2026-07-06T02:36:05Z_
 
 ## Latest
 
-[endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) was un-drafted as a standalone docker-self-host slice — green (15/15), MERGEABLE, and now in the review queue after a focused panel caught a real must-fix (the documented `docker exec … endo` command would have failed because `node_modules/.bin` wasn't on the image PATH), plus a bundle of should-fixes; note the honest caveat that the fix is correct-by-construction but not runtime-proven (no Docker in the sandbox). Per the proxy's steer, [#568](https://github.com/endojs/endo-but-for-bots/pull/568) (0xpatrickbot's broader gateway-bearing parallel attempt, mention-only author) was left completely untouched — whether it's closed-as-superseded or reconciled with #608 is your call, and the overlap is spelled out in the completion summary.
+The [endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608) gauntlet finished: a gardener treated it as the standalone docker-slice PR, ran a code panel (four seats independently flagged one real must-fix — `docker exec … endo` would fail because `node_modules/.bin` wasn't on the image PATH), applied that plus a batch of should-fixes (commit `8e6749d8d`), and un-drafted it. It is now OPEN/MERGEABLE, CI green (15/15), in the review queue — but the image was never built or run (no Docker in the sandbox), so the PATH fix is correct by construction, not runtime-proven. Per proxy's steer, 0xpatrickbot's broader gateway-bearing [endo-but-for-bots#568](https://github.com/endojs/endo-but-for-bots/pull/568) was left untouched; whether it's closed-as-superseded, kept, or reconciled with #608 is a maintainer call.
 
-Worth your attention: a deterministic **host-identity drift guard** fired three times on the true leader host — `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER and **every leader-only singleton is being skipped**. Likely source is a stale `/home/kris/.garden` or inherited `GARDEN`; fix is to correct it to `endolinbot` and restart the pool.
+Most urgent for a maintainer: the deterministic identity-drift guard fired three times on the **endolinbot** host — `GARDEN=driftname` diverges from `hostname -s=endolinbot` with no recorded override, so `is-main-host` reports FOLLOWER and **every leader-only singleton (foreman, scheduler, watchers, recovery) is being skipped on the true leader**. Fix is to correct `/home/kris/.garden` back to `endolinbot` and restart the pool (or record an override if this is a deliberate parallel pool).
 
-Two decisions are also parked in your inbox: the `streamlined-onboarding` design completed and its four build jobs are gated on your § 5 answers (especially Q2, the security-flavored auto-mode default), and the [#605](https://github.com/endojs/endo-but-for-bots/pull/605) probe report flagged a spec discrepancy (no `take`-semantics gap exists — a fresh probe would be needed if you want that analysis). On the board itself little moved: the mentor's empty-output handler-kill classification (rc=137/143/offline → transient, not a die) landed as the sole completion.
+Also awaiting you: the completed `design-streamlined-onboarding` design (review `designs/streamlined-onboarding.md` § 5, especially the security-flavored auto-mode default in Q2, before its four gated build jobs are posted), and a decision on whether you want a `take`-semantics analysis on the [endo-but-for-bots#605](https://github.com/endojs/endo-but-for-bots/pull/605) probe (published against [endo-but-for-bots#595](https://github.com/endojs/endo-but-for-bots/pull/595)), where the gardener correctly declined to invent a gap the spec paraphrased but the actual probe doesn't contain.
 
 ## Parked for maintainer feedback
 
@@ -154,17 +154,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`build-endoclaw-timer-daemon-formula-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endoclaw-timer-daemon-formula-integration.md) — ---
+### doin (1)
 - [`xs2rust-endor-strings-utf16-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-strings-utf16-build.md) — Builder: swap endor-vm string storage CESU-8→UTF-16, delete the O(1)-index ha...
 
-### tada (1237)
+### tada (1238)
+- [`build-endoclaw-timer-daemon-formula-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endoclaw-timer-daemon-formula-integration.md) — Completion report
 - [`improve-mentor-claude-transient-claude-exit`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mentor-claude-transient-claude-exit.md) — Completion report
 - [`deadmail-20260706T022040Z-b35dd7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T022040Z-b35dd7.md) — What the dead-lettered message was
 - [`xs2rust-endor-strings-utf16-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16-design.md) — Job complete. Report:
 - [`xs2rust-endor-fix-bound-callback-dispatch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-fix-bound-callback-dispatch.md) — Completion report
-- [`xs2rust-endor-strings-utf16-arm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-strings-utf16-arm.md) — Completion report
-- … and 1232 more
+- … and 1233 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
