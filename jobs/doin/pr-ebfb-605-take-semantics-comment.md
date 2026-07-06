@@ -5,3 +5,9 @@ The comment should surface, neutrally and for the record, an open maintainer que
 Scope: post exactly one clear comment; do NOT open new analysis/work beyond the comment. Commenting on this garden-authored probe PR is in-scope.
 
 Maintainer directive, 2026-07-06 ("ack and post the question as a PR comment").
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 10
+  claimed_at: 2026-07-06T11:48:26Z
