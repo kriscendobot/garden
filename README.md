@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-07T04:57:49Z_
+_As of 2026-07-07T04:59:11Z_
 
 ## Latest
 
-Two stacks are sitting in your review queue awaiting authority steps the fleet can't take itself. The gauntlet on [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (confined HttpClient, M3 "confined outbound HTTP") passed panel re-review and was un-drafted clean and mergeable — all 7 prior must-fix items resolved and regression-tested — with one deferred design call for you: whether to add a per-request AbortController timeout to backstop a hostile-but-allowlisted server that streams infinitely (the two governing designs disagree on requiring it). Separately, the foreman reports M3's flagship `daemon-agent-tools` pillar is fully built: phases 1–3 ([#614](https://github.com/endojs/endo-but-for-bots/pull/614) → [#615](https://github.com/endojs/endo-but-for-bots/pull/615) → [#616](https://github.com/endojs/endo-but-for-bots/pull/616)) are CI-green and mergeable but still Draft, and phase 4 ([#618](https://github.com/endojs/endo-but-for-bots/pull/618)) cleared its last un-draft blocker — so the milestone's critical path is now landing this backlog, not more building.
+Two decisions sit at the top of the maintainer's queue. First, the M3 flagship — Claw-like coding via `daemon-agent-tools` — is fully built: phases 1–3 ([#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), [#616](https://github.com/endojs/endo-but-for-bots/pull/616)) are CI-green and mergeable but still Draft, and phase 4 ([#618](https://github.com/endojs/endo-but-for-bots/pull/618)) has cleared its last un-draft blocker and only awaits 1–3 landing; the foreman reports M3's critical path is now landing this backlog, not building more. Second, a garden-infrastructure fix needs attention: a fable review of the garden's own scripts turned up a data-corruption-class bug in the reaper requeue path, which twice left two live writers in one worktree — a deliberate main2 fix and deploy, not a board job.
 
-Two items need your direction before work proceeds. A gardener built Gateway Feature 8 (the `/ocapn` WebSocket endpoint handoff) but held rather than open a competing PR: its work is a superset of the in-flight draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577), which implements only the path-naming half and defers the socket handoff, but the two rewrite the same module incompatibly — the recommendation is to re-scope on top of #577. And a fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (twice producing two live writers in one worktree); it's a main2 infrastructure fix warranting a deliberate fix-and-deploy, surfaced rather than board-posted.
-
-On the fleet side, the `xs2rust-endor` stage-4 orchestration halted on a failed child (4/8 done, halt policy), with stage-5 now in progress, and streamlined-onboarding phase 1 was confirmed already landed — its lone open item (`.garden`-file identity) deliberately superseded by the newer location-derived identity scheme.
+Also awaiting steering: Gateway Feature 8 (the `/ocapn` WebSocket endpoint) was held rather than opening a competing PR, because [#577](https://github.com/endojs/endo-but-for-bots/pull/577) already lands the path-scheme half; the gardener recommends re-scoping its socket-handoff work to build on top of #577 and preserved the branch unpushed-to-PR. On the automation side, the `xs2rust-endor-build-stage4` orchestration halted on a failed child (4/8 done) and stage 5 is now in flight, while the foreman flagged that `endoclaw-timer-phase2-tick-delivery` recurred without milestone progress and may be stuck. Finally, `onboarding-p1-launcher` closed as already-satisfied — phase 1 landed 2026-07-04 — with a note that the design's `.garden`-file identity was deliberately superseded by location-derived identity and is now stale.
 
 ## Parked for maintainer feedback
 
@@ -74,16 +72,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260706T201600Z-b1183b` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T201600Z-b1183b.md)
 
 > M3's flagship pillar — Claw-like coding capabilities via `endojs/endo-but-for-bots` `daemon-agent-tools` — is fully built: phases 1–3 (#614, #615, #616) are CI-green and mergeable but still Draft, and phase 4 (#618) had its last un-draft blocker (the live-daemon integration test) closed, so it now only awaits phases 1–3 landing. The decision needed is maintainer review + un-draft + merge of the #614→#615→#616→#618 stack (a conductor/authority step the foreman cannot post); nearly all other M3 designs are likewise already built into open Draft PRs, so the milestone's critical path is now landing this backlog rather than more building.
-
-- `20260706T215117Z-e6d171` — from gardener:endojs-endo-but-for-bots-pr566-gauntlet, reply_to `endojs-endo-but-for-bots-pr566-gauntlet` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T215117Z-e6d171.md)
-
-> Gauntlet on endojs/endo-but-for-bots #566 (confined HttpClient, M3 "confined outbound HTTP") — done: panel re-review passed, PR un-drafted into your review queue, CLEAN/MERGEABLE.
->
-> All 7 prior must-fix items are resolved and regression-tested (40 tests green; tsc + eslint + .d.ts emission verified locally). Panel verdict posted on the PR.
->
-> One design decision is yours to make (recorded as a follow-up, not merge-blocking): the breaker seat found a hostile-but-allowlisted origin streaming infinite zero-length chunks (or trickling below the byte cap) makes fetchBounded never settle — there's no per-request timeout backstop. It's a hostile-SERVER vector outside the guest-confinement model and recoverable via revoke(), but the clean remedy is a per-request AbortController timeout, which the two governing designs disagree on: cli-http-client.md §Defenses mandates it, endoclaw-network-fetch.md omits it. Want me to add the timeout (and reconcile the designs), or defer it?
->
-> Smaller should-fix follow-ups also in the verdict: drop CONNECT/TRACE from the method allowlist (README advertises them but fetch throws), harden json() result, headersToRecord __proto__ footgun, a couple doc reconciliations, and boundary tests.
 
 
 ## Board
