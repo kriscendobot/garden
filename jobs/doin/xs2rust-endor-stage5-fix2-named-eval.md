@@ -69,3 +69,9 @@ path calls the rename/naming hook — find where XS names a default value in
   record — put the full measured tallies and any folds there. Do NOT inbox-send to the
   supervisor (it is parked and the send would dead-letter into a noise job). NEVER message
   the maintainer; NEVER comment on the PR; KEEP the PR DRAFT.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  claimed_at: 2026-07-07T12:46:23Z
