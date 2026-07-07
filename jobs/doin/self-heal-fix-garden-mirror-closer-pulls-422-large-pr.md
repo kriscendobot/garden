@@ -5,3 +5,9 @@ Fix details:
 - Preserve the handler's exact output contract: print one TSV line `<state>\t<merged>` where `state ∈ open|closed` and `merged ∈ true|false`. Map GraphQL `state`: `OPEN → open,false`; `CLOSED → closed,false`; `MERGED → closed,true`. Keep the "never guess a state — die loud on empty/failed, only a clean success prints" invariant unchanged, including the empty-output guard and the `die` on failure.
 - If GraphQL is undesirable, the fallback that also avoids the 422 is the issues endpoint `repos/$repo/issues/$num` for open/closed plus a separate `merged` check — but GraphQL is the single-call, cleaner option.
 - Verify against endojs/endo#3137 that the handler now returns a usable state instead of the 422, and confirm the closer completes a tick with exit 0 when that mapping resolves.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 14
+  claimed_at: 2026-07-07T10:59:34Z
