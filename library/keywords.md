@@ -14181,3 +14181,22 @@ dialog react hooks | dialog-session-js
 `Changes` | dialog-session-js
 `GENESIS` revision | dialog-session-js
 `FactsSelector` | dialog-session-js
+`es_new_descendants_client` | es-descendants-client
+es_new_descendants_client | es-descendants-client
+EndpointSecurity | es-descendants-client
+Endpoint Security framework | es-descendants-client
+`es_client_t` | es-descendants-client
+`es_handler_block_t` | es-descendants-client
+`es_new_client_result_t` | es-descendants-client
+`com.apple.developer.endpoint-security.client` | es-descendants-client
+endpoint security client entitlement | es-descendants-client
+descendant process monitoring | es-descendants-client
+descendants client scope | es-descendants-client
+`ES_RETURN_ERROR` | es-descendants-client
+process muting | es-descendants-client
+path muting target-path muting | es-descendants-client
+ES client no root no TCC | es-descendants-client
+auth events | auth-vs-notify-events
+notify events | auth-vs-notify-events
+auth+notify | auth-vs-notify-events
+ES authorization events allow deny | auth-vs-notify-events
