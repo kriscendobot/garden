@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-07T10:45:48Z_
+_As of 2026-07-07T10:46:21Z_
 
 ## Latest
 
-The **minion.town OAuth deployment** is now orchestrated, and two of its phases have run to the point where only you can unblock them: Phase 3 (Google federation into Cognito) and Phase 5 (GitHub OIDC thunk) each need an OAuth client you must create under your own account, so both parked themselves as go-ahead completion jobs (`minion-town-phase3-completion`, `minion-town-phase5-completion`) rather than failing — nothing is lost, and the remaining phases proceeded in parallel. Phase 5's non-gated work is already **live and HTTPS-verified**: `github-idp.minion.town` serves its OpenID configuration, JWKS, and `/authorize` redirect (an ARM64 Node Lambda fronted by an API Gateway HTTP API, since this AWS account blocks public Lambda Function URLs). To finish either phase, create the Google OAuth Web client and/or GitHub OAuth App with callback `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`, drop the credentials into Secrets Manager (`minion/google-idp-client`, `minion/github-oauth-app` in us-west-1), and promote the parked jobs.
+The **minion.town OAuth deployment** advanced but is now waiting on you. Two federation phases came up live and then parked pending credentials only you can create: Phase 5's GitHub OIDC thunk (Parts A+B) is deployed and verified over HTTPS — `github-idp.minion.town`'s OpenID configuration, JWKS, and `/authorize` endpoints all respond correctly (behind an API Gateway HTTP API, since this AWS account blocks public Lambda Function URLs) — while Phase 3's Google→Cognito wiring is fully staged. Both stalled only on OAuth client credentials: a Google OAuth Web client for `minion/google-idp-client` and a GitHub OAuth App for `minion/github-oauth-app`, each keyed to the Cognito callback `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`. Neither failed the orchestration — both parked go-ahead remainder jobs (`minion-town-phase3-completion`, `minion-town-phase5-completion`) that finish the moment you provision the secret (via Secrets Manager or a reply) and promote them; every other phase ran in parallel.
 
-Separately, mhofman's dead-lettered design correction on garden#29 landed: the exact vatID pins per chain were already folded into [kriskowal/agoric-sdk#9](https://github.com/kriskowal/agoric-sdk/pull/9), and a gardener closed the remaining gap — the Go switch only logged resolved vatIDs, so a new JS-side `writeCriticalPromotionDirective` now wires the v4 critical-vat promotion end-to-end with a test (open question for mhofman: keep resolution JS-side or move it fully into Go). Also worth a glance: @kriscendobot commented on garden issue #29 but isn't on the maintainer allowlist, so the interaction was dropped — add them with `add-maintainer.sh` and ask them to re-post if it still matters.
+Separately, a dead-lettered correction on [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) closed a real end-to-end gap: the critical-vat promotion migration had been logging resolved vatIDs but never writing `upgrade.promoteCriticalVats`, making the v4 migration a no-op. A gardener verified the chainID is available at the `upgradeSwingset` reboot point and wired a JS-side pin table and directive helper with a test; one open design question remains on whether resolution should live in Go instead. A stale `garden-29-promote-vat-critical` branch carrying the superseded label approach can be deleted.
+
+On the fleet, the XS→Rust (Endor) port continued through stage-5 fixes, and an issue-inbox access request notes @kriscendobot commented on garden#29 but isn't on the maintainer allowlist, so that interaction was dropped.
 
 ## Parked for maintainer feedback
 
@@ -253,8 +255,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`deadmail-20260707T104253Z-8c2c23`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260707T104253Z-8c2c23.md) — Dead-lettered message — pick up its intent
+- [`xs2rust-endor-stage5-fix-rejects`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix-rejects.md) — Stage-5 fix 2/5: port the named coder rejects — new.target, optional chaining...
 
 ### tada (1406)
 - [`xs2rust-endor-stage5-fix-cesu8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix-cesu8.md) — Completion report
