@@ -5,14 +5,23 @@
 #   <doer> is the job basename whose doer you want to reach. The inbox exists
 #   only while that doer is alive (created at claim, destroyed at completion).
 #
-# Dead-mail fallback: a message sent to a recipient whose inbox is GONE (the doer
-# already completed and tore down — the race the maintainer named: a reply to a
-# torn-down doer would otherwise be lost) is NOT dropped. It is deposited into the
-# dead-mail queue (inbox/dead/<id>.md, carrying the intended recipient, sender, and
-# body) so garden-deadmail (scripts/jobs/deadmail.sh) can promote the intent into a
-# fresh job a gardener claims. Delivery to a LIVE inbox stays the fast path;
-# dead-lettering is the fallback. Set GARDEN_NO_DEADLETTER=1 to restore the legacy
-# hard failure (used where a caller genuinely wants the send to error out).
+# Parked-recipient staging: when the inbox dir is absent but a job named <doer> is
+# still parked on the board (plan/ or todo/) — a queued/parked doer such as an
+# orchestration supervisor that has not been claimed yet — the message is NOT
+# dead-lettered. It is staged directly into inbox/<doer>/unread/, which claim-job.sh
+# preserves (its inbox create is a non-clobbering mkdir -p + touch .gitkeep), so the
+# doer drains it as a normal unread report the moment it claims. This lets a child
+# report to a parked supervisor reliably instead of resorting to tada-only workarounds.
+#
+# Dead-mail fallback: a message sent to a recipient whose inbox is GONE — the doer
+# already completed and tore down (the race the maintainer named: a reply to a
+# torn-down doer would otherwise be lost) AND it exists in no board category — is
+# NOT dropped. It is deposited into the dead-mail queue (inbox/dead/<id>.md, carrying
+# the intended recipient, sender, and body) so garden-deadmail
+# (scripts/jobs/deadmail.sh) can promote the intent into a fresh job a gardener
+# claims. Delivery to a LIVE inbox stays the fast path; dead-lettering is the
+# fallback. Set GARDEN_NO_DEADLETTER=1 to restore the legacy hard failure (used
+# where a caller genuinely wants the send to error out).
 #
 # Posting is add-only; a rejected push just means re-sync and retry (backoff).
 
@@ -63,6 +72,48 @@ fi
 for attempt in $(seq 1 50); do
   sync_clone "$DIR"
   if [ ! -d "$DIR/inbox/$doer" ]; then
+    # The recipient's inbox is absent. Distinguish two cases before dead-lettering:
+    #
+    #   (a) PARKED-BUT-UNCLAIMED: a job named <doer> is still sitting in plan/ or
+    #       todo/ (e.g. a parked orchestration supervisor) — the doer has NOT run
+    #       yet, so its inbox simply doesn't exist. This is NOT the completed-doer
+    #       race. Pre-create inbox/<doer>/unread/ and deposit the message there
+    #       idempotently. claim-job.sh creates the inbox with a non-clobbering
+    #       `mkdir -p` + `touch .gitkeep`, so the staged message survives the claim
+    #       and the doer drains it as a normal unread report at claim time. This
+    #       moves the hand-carried "no-inbox-send-to-parked-supervisor" discipline
+    #       off the sending agent and into the delivery primitive: a child can report
+    #       to a parked supervisor reliably instead of the report being dead-lettered
+    #       and mis-promoted into an orphan job with no supervisor to act on it.
+    #
+    #   (b) GONE/COMPLETED: <doer> exists in NO board category — the doer completed
+    #       and tore down (the race the maintainer named), or never existed. Fall
+    #       through to the dead-letter path below, preserving today's behavior.
+    if [ -e "$DIR/$JOBS_PLAN/$doer.md" ] || [ -e "$DIR/$JOBS_TODO/$doer.md" ]; then
+      # Idempotent stage to a parked doer's inbox: with a deterministic
+      # GARDEN_MSG_ID, a re-send must not double-deposit. If the message is already
+      # staged (still unread, or already moved to read/ once the doer claimed and
+      # drained it) the send is a no-op success.
+      if [ -e "$DIR/inbox/$doer/unread/$msgid.md" ] || [ -e "$DIR/inbox/$doer/read/$msgid.md" ]; then
+        log "message $msgid already staged for parked inbox/$doer (idempotent skip)"; exit 0
+      fi
+      mkdir -p "$DIR/inbox/$doer/unread"
+      {
+        printf 'from_host: %s\n' "$GARDEN"
+        printf 'from: %s\n'      "${GARDEN_SENDER:-$GARDEN_TAG}"
+        [ -n "${GARDEN_REPLY_TO:-}" ] && printf 'reply_to: %s\n' "$GARDEN_REPLY_TO"
+        [ -n "${GARDEN_BLOCKED_ON:-}" ] && printf 'blocked_on: %s\n' "$GARDEN_BLOCKED_ON"
+        printf 'sent_at: %s\n---\n' "$(date -u +%FT%TZ)"
+        printf '%s\n' "$BODY"
+      } > "$DIR/inbox/$doer/unread/$msgid.md"
+      git -C "$DIR" add "inbox/$doer/unread/$msgid.md"
+      if commit_and_push "$DIR" "inbox($doer) ← $msgid from $GARDEN (staged to parked doer)"; then
+        log "staged $msgid to parked inbox/$doer (drained when the doer claims)"; exit 0
+      fi
+      log "stage to parked '$doer' lost a push race (attempt $attempt); retrying"
+      backoff "$attempt"
+      continue
+    fi
     # The recipient's inbox is gone (the doer completed/tore down, or never
     # existed). Don't drop the message — dead-letter it for garden-deadmail to
     # promote into a job. Legacy hard-fail is opt-in via GARDEN_NO_DEADLETTER=1.
