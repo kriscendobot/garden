@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-07T21:23:37Z_
+_As of 2026-07-07T21:50:42Z_
 
 ## Latest
 
-The XS→Rust (Endor) port advanced another notch: [port-xs-to-rust-memory-safe-engine-s16](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s16.md) landed and the stage-5 fix4 orchestration wrapped, leaving a single job in flight — the fix5 arrow/eval scope-slot classification fold, the last remaining divergence before the s17 supervisor (blocked on it) can resume.
+The minion.town OAuth deployment is now fully orchestrated, and two phases have parked awaiting credentials only kriskowal can create. **Phase 5 (GitHub OIDC thunk)** landed its non-gated work live and HTTPS-verified — `github-idp.minion.town` serves the OpenID configuration, JWKS, and a 302 `/authorize` redirect to github.com off an ARM64 Node Lambda (fronted by an API Gateway HTTP API, since this AWS account blocks public Lambda Function URLs); only the Cognito wiring (Part C) is parked as `minion-town-phase5-completion`. **Phase 3 (Google federation)** parked its remainder as `minion-town-phase3-completion` after the poll window elapsed with no secret. Both are go-ahead jobs that lose nothing by waiting: to unblock, create the Google OAuth Web client (secret `minion/google-idp-client`) and the GitHub OAuth App (secret `minion/github-oauth-app`) in Secrets Manager us-west-1 — or reply to the maintainer messages — then promote the two parked jobs. The proxy has correctly escalated all of this as beyond its authority.
 
-What a maintainer should notice is the pile-up in the inbox: the minion.town OAuth deployment is fully orchestrated, but both federation phases are now **parked pending credentials only you can create**. Phase 3 (Google → Cognito) parked as `minion-town-phase3-completion` after its Google OAuth Web client never arrived in the poll window; Phase 5 (GitHub OIDC thunk) has Parts A+B live and verified over HTTPS (`github-idp.minion.town` well-known + jwks endpoints returning 200, `/authorize` redirecting to github.com) with only the Cognito wiring parked as `minion-town-phase5-completion`, awaiting a GitHub OAuth App. Each needs an OAuth client id/secret dropped into Secrets Manager (us-west-1) or replied back to the gated job, then a go-ahead to promote — nothing else stalled, and the proxy has correctly escalated both as beyond its authority. Separately, the dead-lettered garden#29 correction from mhofman was resolved: the critical-vat-promotion gap in kriscendobot/agoric-sdk#9 is now wired end-to-end (commit 73067903c writes the promotion directive via an available-at-reboot chainID), with one open question flagged for mhofman on whether resolution should live JS-side or move fully into the Go handler.
+Separately, a dead-lettered correction from mhofman on the critical-vat promotion work was picked up and closed end-to-end in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): the gardener verified the chainID is available at the `upgradeSwingset` reboot point and wired a `writeCriticalPromotionDirective` helper (commit 73067903c) so the v4 migration is no longer a no-op, with one open design question for mhofman about whether resolution should live JS- or Go-side, and a stale `garden-29-promote-vat-critical` branch flagged as superseded and deletable. On the board, the XS→Rust (Endor) port advanced through its stage-5 fix4 orchestration to completion and is now grinding on fix5; otherwise the board is quiet, with a single `scholar` ingest job newly claimed.
 
 ## Parked for maintainer feedback
 
@@ -19,7 +19,7 @@ What a maintainer should notice is the pile-up in the inbox: the minion.town OAu
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 46d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 48d)
 - [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 47d)
-- [endojs/endo#3102](https://github.com/endojs/endo/pull/3102) — chore(ci): create custom CHANGELOG generator (waiting 54d)
+- [endojs/endo#3102](https://github.com/endojs/endo/pull/3102) — chore(ci): create custom CHANGELOG generator (waiting 55d)
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
@@ -234,7 +234,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`scholar-ingest-es-new-descendants-client`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-es-new-descendants-client.md) — role: scholar
 - [`xs2rust-endor-stage5-fix5-arrow-scope`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix5-arrow-scope.md) — Stage-5 fix5 1/5 — arrow/eval scope-slot classification fold (the last diverg...
 
 ### tada (1445)
