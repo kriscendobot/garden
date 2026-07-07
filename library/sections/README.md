@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6322 (530 parent indexes + 5792 children).
+Total section files: 6325 (530 parent indexes + 5795 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8369,6 +8369,12 @@ Total section files: 6322 (530 parent indexes + 5792 children).
   - [DNS-PERSIST-01 (emerging)](web--acme-challenge-types--http01-dns01-tls-alpn01--dns-persist-01-emerging.md)
   - [HTTP-01](web--acme-challenge-types--http01-dns01-tls-alpn01--http-01.md)
   - [TLS-ALPN-01](web--acme-challenge-types--http01-dns01-tls-alpn01--tls-alpn-01.md)
+
+### web--apple-es-new-descendants-client
+
+- [web--apple-es-new-descendants-client--client-creation-and-signature](web--apple-es-new-descendants-client--client-creation-and-signature.md)
+- [web--apple-es-new-descendants-client--descendant-monitoring-semantics](web--apple-es-new-descendants-client--descendant-monitoring-semantics.md)
+- [web--apple-es-new-descendants-client--muting-and-client-requirements](web--apple-es-new-descendants-client--muting-and-client-requirements.md)
 
 ### web--aws-marketplace-ami-requirements
 
