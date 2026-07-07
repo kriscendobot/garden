@@ -17,3 +17,9 @@ refresh, revocation) is sufficient as the credential layer the Sheets connector
 narrows on top of, and note any gaps the connector designs currently assume.
 Repo: endojs/endo-but-for-bots. Reference: designs/endoclaw-oauth.md,
 designs/exo-google-sheets.md (Resolved Question 5).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 18
+  claimed_at: 2026-07-07T00:12:12Z
