@@ -1,0 +1,2 @@
+base: improve-inbox-send-pending-supervisor-hold
+identity: mentor:scripts/jobs/inbox-send.sh
