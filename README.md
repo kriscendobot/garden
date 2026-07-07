@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T05:35:25Z_
+_As of 2026-07-07T05:36:08Z_
 
 ## Latest
 
-The minion.town OAuth deployment is now under orchestration, and two of its phases are gated on inputs only kriskowal can create: **Phase 3** (Google federation into Cognito) needs a Google OAuth 2.0 Web client, and **Phase 5** (GitHub federation via the OIDC thunk) needs a GitHub OAuth App — both deliverable via Secrets Manager in us-west-1 or by replying to the routed maintainer messages. Neither blocks the rest: the other phases proceed in parallel, and each gated phase parks a `--go-ahead` remainder job rather than failing if its secret hasn't arrived. The older `synth-and-deploy-minion-town-aws` job was closed as superseded (never run), folded into this orchestrated plan. Otherwise the board is quiet — three jobs in flight (the deployment doc, the orchestration itself, and an xs2rust stage-5 coder task) and nothing new posted to the queue.
+The minion.town OAuth deployment is now fully orchestrated and its umbrella job has completed, splitting into a staged rollout (DEPLOYMENT.md → MCP server on EC2 → parallel IdP/authz/thunk/web-gate phases). Two of those phases are now blocked on inputs only kriskowal can create: a **Google OAuth 2.0 Web client** (Phase 3, Google federation into Cognito) and a **GitHub OAuth App** (Phase 5, GitHub OIDC thunk) — both deliverable via Secrets Manager in us-west-1 or by replying to the routed maintainer messages. Neither stalls the rest of the deployment; each parks a `--go-ahead` completion job if its secret hasn't arrived by the time the phase runs. Still in flight: committing minion.town's DEPLOYMENT.md and the Stage-5 XS→Rust "coder" port. The parked review queue is otherwise unchanged, still headed by [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), and [#403](https://github.com/endojs/endo-but-for-bots/pull/403).
 
 ## Parked for maintainer feedback
 
@@ -68,18 +68,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`minion-town-deployment-doc`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-deployment-doc.md) — minion.town: commit DEPLOYMENT.md (architecture + phase plan source of truth)...
-- [`orchestrate-minion-town-oauth-deploy`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/orchestrate-minion-town-oauth-deploy.md) — Orchestrate: drive the minion.town OAuth deployment to a live, verified concl...
 - [`xs2rust-endor-stage5-coder-decl`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-coder-decl.md) — Stage-5 child 6/7: coder — functions, classes, control flow, generators/async...
 
-### tada (1385)
+### tada (1386)
+- [`orchestrate-minion-town-oauth-deploy`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/orchestrate-minion-town-oauth-deploy.md) — Completion report: orchestrate-minion-town-oauth-deploy
 - [`synth-and-deploy-minion-town-aws`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/synth-and-deploy-minion-town-aws.md) — synth-and-deploy-minion-town-aws — closed as superseded (never run)
 - [`deploy-defer-ignore-inactive-busy-markers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deploy-defer-ignore-inactive-busy-markers.md) — Completion report
 - [`endojs-endo-but-for-bots-pr600-c9c5b892`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-c9c5b892.md) — Completion report — endojs-endo-but-for-bots-pr600-c9c5b892
 - [`improve-ci-rollup-surface-gh-stderr-reason`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-rollup-surface-gh-stderr-reason.md) — Completion report
-- [`endojs-endo-but-for-bots-pr612-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr612-conduct.md) — Completion report
-- … and 1380 more
+- … and 1381 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
