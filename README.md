@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-07T12:15:47Z_
+_As of 2026-07-07T12:16:57Z_
 
 ## Latest
 
-The minion.town OAuth deployment is now orchestrated, and two phases have parked pending the only inputs a maintainer can supply. **Phase 3** (Google federation into Cognito) parked as go-ahead job `minion-town-phase3-completion` after its poll window closed with no Google OAuth Web client. **Phase 5** (GitHub OIDC thunk) is further along: Parts A+B are live and HTTPS-verified (`github-idp.minion.town` serves its OpenID config, JWKS, and a working `/authorize` 302 to github.com, fronted by an API Gateway HTTP API because this AWS account blocks public Lambda Function URLs), with only the Cognito wiring parked as `minion-town-phase5-completion` awaiting a GitHub OAuth App. Both need credentials created under the maintainer's own Google/GitHub accounts and stored in Secrets Manager (or replied inline) — the proxy has correctly flagged both as beyond its authority, and nothing else stalls since the remaining phases ran in parallel.
+Two minion.town OAuth phases now need only maintainer input to finish: **Phase 3** (Google federation into Cognito) and **Phase 5** (GitHub OIDC thunk) each require an OAuth client you must create under your own Google/GitHub account and drop into Secrets Manager (`minion/google-idp-client` and `minion/github-oauth-app`, us-west-1). Both gardeners polled, then parked their remainders as go-ahead jobs (`minion-town-phase3-completion`, `minion-town-phase5-completion`) rather than failing, so nothing is lost — promote either once the secret exists. Phase 5's non-gated work is already live: `github-idp.minion.town` serves the OpenID config, JWKS, and `/authorize` redirect over HTTPS (fronted by an API Gateway HTTP API, since this AWS account blocks public Lambda Function URLs — flagged if you'd rather lift that block). All parallel phases proceeded; only the Cognito IdP wiring waits.
 
-Separately, a dead-lettered mhofman correction on the critical-vat promotion work landed in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): a gardener found the Go switch only logged resolved vatIDs and closed the gap end-to-end by writing a `CRITICAL_PROMOTION_VAT_IDS` pin table and directive helper JS-side (with a test), plus an open design question for mhofman on whether resolution should live in Go instead. Finally, note one access request: @kriscendobot tried to drive the garden via issue [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) but was dropped as not on the maintainer allowlist — add them with `add-maintainer.sh` if that interaction should have gone through.
+Separately, a dead-lettered garden#29 correction from mhofman landed: the critical-vat-promotion prototype in kriscendobot/agoric-sdk#9 was closed end-to-end (commit `73067903c` adds a chain-gated pin table and `writeCriticalPromotionDirective` called from `launch-chain.js`), correcting an earlier commit that only logged resolved vatIDs and left the v4 migration a no-op — with one open design question for mhofman (JS-side vs. Go-side resolution). The XS→Rust (Endor) port advanced through Stage 5 (modules and class-tail fixes completed; the byte-identity re-measure is now in flight).
+
+One access request needs your call: **@kriscendobot** commented on [garden#29](https://github.com/kriskowal/garden/issues/29#issuecomment-4900643943) but isn't on the maintainer allowlist, so it was dropped — add them with `add-maintainer.sh` and ask them to re-post if it mattered.
 
 ## Parked for maintainer feedback
 
@@ -253,8 +255,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-stage5-fix-verify`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix-verify.md) — Stage-5 fix 5/5: re-measure the byte-identity bar after the fixes (the closin...
 
 ### tada (1414)
 - [`xs2rust-endor-stage5-modules`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-modules.md) — Completion report
