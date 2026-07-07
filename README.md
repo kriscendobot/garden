@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T06:14:55Z_
+_As of 2026-07-07T06:17:40Z_
 
 ## Latest
 
-The minion.town OAuth deployment moved from design into an orchestrated rollout: stage 1 (DEPLOYMENT.md → MCP server on EC2 → fan-out) completed, and phases 3–6 (Google IdP, authorization policy, GitHub OIDC thunk, web login gate) are now running in parallel. Two of them are stalled on inputs only you can create and would like your attention: **Phase 3** needs a Google OAuth 2.0 Web client and **Phase 5** needs a GitHub OAuth App, each with the Cognito redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`. Deliver either by dropping the credentials into Secrets Manager (`minion/google-idp-client`, `minion/github-oauth-app`, us-west-1) or by replying to the relevant maintainer message; nothing hard-fails in the meantime — each phase parks a `--go-ahead` remainder you can promote once the secret lands, and the non-gated plumbing proceeds regardless. Separately, @kriscendobot tried to drive the garden through issue [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) but isn't on the maintainer allowlist, so the interaction was dropped; add them with `add-maintainer.sh` and ask them to re-post if it still matters.
+The minion.town OAuth deployment is now fully orchestrated — stage 1 (DEPLOYMENT.md → MCP server → fan-out) and Phase 2 (MCP server) completed, with Phases 3–6 (Google IdP, authz policy, GitHub OIDC thunk, web login gate) now in flight in parallel. Two of those phases need maintainer-only action to finish: **Phase 3** wants a Google OAuth 2.0 Web client and **Phase 5** wants a GitHub OAuth App, each stored as a us-west-1 Secrets Manager secret (`minion/google-idp-client`, `minion/github-oauth-app`) or replied inline to the running job; nothing else stalls, since both phases park `--go-ahead` remainder jobs if the credentials don't arrive in time. Separately, @kriscendobot tried to drive the garden through issue [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) but isn't on the maintainer allowlist, so the interaction was dropped — add them via `add-maintainer.sh` and ask them to re-post if that request still matters. The board is otherwise quiet: todo is empty, six jobs are in progress (the four minion phases plus a dead-lettered comment pickup and an XS→Rust stage-5 coder child).
 
 ## Parked for maintainer feedback
 
@@ -128,22 +128,21 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (6)
 - [`deadmail-issue-comment-4900696368`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4900696368.md) — Dead-lettered message — pick up its intent
-- [`mention-kriskowal-garden-29-00a2b5cb`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mention-kriskowal-garden-29-00a2b5cb.md) — attention directive from @-mention on kriskowal/garden #29
 - [`minion-town-phase3-google-idp`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-phase3-google-idp.md) — minion.town Phase 3: Google federation into Cognito (maintainer-input gated)
 - [`minion-town-phase4-authz-policy`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-phase4-authz-policy.md) — minion.town Phase 4: first-party authorization policy + identity-enriching pr...
 - [`minion-town-phase5-github-oidc-thunk`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-phase5-github-oidc-thunk.md) — minion.town Phase 5: GitHub OIDC thunk (portable wrapper + Lambda + Cognito O...
 - [`minion-town-phase6-web-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-phase6-web-gate.md) — minion.town Phase 6: web login gate (oauth2-proxy behind Caddy forward_auth)
 - [`xs2rust-endor-stage5-coder-decl`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-coder-decl.md) — Stage-5 child 6/7: coder — functions, classes, control flow, generators/async...
 
-### tada (1392)
+### tada (1393)
+- [`mention-kriskowal-garden-29-00a2b5cb`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mention-kriskowal-garden-29-00a2b5cb.md) — **Completion report — attention directive from @-mention on kriskowal/garden ...
 - [`minion-town-oauth-stage1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-oauth-stage1.md) — orchestration minion-town-oauth-stage1 — complete
 - [`minion-town-oauth-fanout`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-oauth-fanout.md) — Completion report
 - [`minion-town-phase2-mcp-server`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase2-mcp-server.md) — Completion report — minion-town-phase2-mcp-server
 - [`mention-kriskowal-garden-29-d1daaa55`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mention-kriskowal-garden-29-d1daaa55.md) — Completion report
-- [`deadmail-issue-comment-4900532627`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4900532627.md) — Completion report
-- … and 1387 more
+- … and 1388 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
