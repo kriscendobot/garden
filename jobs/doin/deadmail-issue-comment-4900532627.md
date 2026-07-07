@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/29#issuecomment-4900532627
 Regarding `agoric-sdk#9157` I believe it's irrelevant since if the startVat fails during an upgrade, we simply abandon the upgrade and continue with the pre-upgrade state. Please prototype a cosmos upgrade which triggers `v288` (ymax1 on agoric-3 mainnet) being marked as critical
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  claimed_at: 2026-07-07T05:40:17Z
