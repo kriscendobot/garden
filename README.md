@@ -1,13 +1,18 @@
 # Garden bulletin
 
-_As of 2026-07-07T23:09:53Z_
+_As of 2026-07-07T23:22:39Z_
 
 ## Latest
 
-Two erights-to-Endo docs translations landed as draft PRs and both need a licensing call before they can leave draft: [endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629) (Miller & Svoboda's "Distributed Capability Confinement," re-exposed with an original Mermaid figure) and [endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630) (Miller's "Grant Matcher Puzzle," E→Jessie/CapTP→OCapN) — the first hinges on whether Miller's public-domain dedication covers a co-author and the figure, the second on permission to republish a copyrighted article. On minion.town, Phase 3 (Google→Cognito federation) is now **parked** as go-ahead job `minion-town-phase3-completion`: the Google OAuth Web client never arrived in the poll window, so the gardener preserved the work rather than failing it — provide the client (Secrets Manager `minion/google-idp-client`, us-west-1) or reply with the creds, then promote. Separately, a gardener is holding before shipping verified-email-only enforcement at the GitHub OIDC thunk and needs confirmation that `kriskowal@kriskowal.com` is a verified primary so the lockout can't lock you out. In agoric-sdk work, the garden#29 critical-vat-promotion gap was closed end-to-end in kriscendobot/agoric-sdk#9 (chainID resolved JS-side via a pin table rather than the Go handler — flagged as an open question for mhofman), and the XS→Rust (Endor) Stage-5 fix5 port continues, with lexer validation done and regexp validation in flight.
+Two new docs translations landed as fork-side draft PRs, both gated on the same unresolved question: [endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629) (Miller & Svoboda's "Distributed Capability Confinement") and [endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630) (Miller's "Grant Matcher Puzzle") re-expose upstream writings for docs.endojs.org and need a licensing/attribution call before they leave draft — #629's public-domain dedication may not cover the co-author or figure, and #630 assumes no license and quotes copyrighted passages. Both stay draft and unpublished until kriskowal decides.
+
+On minion.town, Phase 3 (Google→Cognito federation) is **parked pending a maintainer-provided Google OAuth Web client** — the gardener polled for the `minion/google-idp-client` secret, got nothing, and parked `minion-town-phase3-completion` behind a go-ahead gate so no work is lost; the proxy twice flagged that provisioning that credential is beyond its authority. Separately, a gardener is holding before it enforces verified-email-only login at the GitHub OIDC thunk and asks kriskowal to confirm `kriskowal@kriskowal.com` is a verified primary (or do a fresh sign-in) so the change can't lock him out.
+
+A dead-lettered garden#29 correction was reconciled: the Agoric critical-vat promotion prototype in kriscendobot/agoric-sdk#9 had been logging resolved vatIDs but never writing `upgrade.promoteCriticalVats`, making the v4 migration a no-op; a gardener verified the chainID is available at the `upgradeSwingset` reboot point and wired the directive end-to-end with a test (commit 73067903c), leaving one open design question for mhofman about JS-side vs. Go-side resolution and a stale superseded branch worth deleting. The board is otherwise quiet — no todo backlog, two jobs in flight (minion.town email reconcile and an xs2rust stage-5 regexp-validation fix).
 
 ## Parked for maintainer feedback
 
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 1m)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 5d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 7d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 8d)
@@ -16,27 +21,10 @@ Two erights-to-Endo docs translations landed as draft PRs and both need a licens
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 46d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 46d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 48d)
-- [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 47d)
-- [endojs/endo#3102](https://github.com/endojs/endo/pull/3102) — chore(ci): create custom CHANGELOG generator (waiting 55d)
+- [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 48d)
 
-_Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260707T061444Z-49a26d` — from gardener:minion-town-phase3-google-idp, reply_to `minion-town-phase3-google-idp` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T061444Z-49a26d.md)
-
-> # Reminder: Phase 3 (Google federation) still gated on the Google OAuth client
->
-> The `minion-town-phase3-google-idp` job is live and polling. It needs a **Google OAuth 2.0 Web client** with authorized redirect URI:
->
->     https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse
->
-> Deliver by storing it in Secrets Manager (us-west-1):
->
->     aws secretsmanager create-secret --region us-west-1 \
->       --name minion/google-idp-client \
->       --secret-string '{"client_id":"...","client_secret":"..."}'
->
-> Or just reply to this message and I'll store it myself. Polling ~60 more minutes; if it doesn't arrive I'll park the remainder as `minion-town-phase3-completion` (`--go-ahead`) for you to promote any time after providing the secret.
 
 - `20260707T062404Z-c0c6ef` — from gardener:minion-town-phase3-google-idp, reply_to `minion-town-phase3-google-idp` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T062404Z-c0c6ef.md)
 
