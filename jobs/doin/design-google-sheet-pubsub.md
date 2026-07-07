@@ -19,3 +19,9 @@ says *that* a file changed, not *what*), and the sheet-as-queue motivation
 a mode of exo-google-sheets or its own package/design shared by all
 Drive-family watchers. Repo: endojs/endo-but-for-bots. Reference:
 designs/exo-google-sheets.md (Resolved Question 2), designs/endoclaw-webhooks.md.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 13
+  claimed_at: 2026-07-07T00:12:03Z
