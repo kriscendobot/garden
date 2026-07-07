@@ -65,3 +65,9 @@ issue_spine: issue-kriskowal-garden-32
 issue_url: https://github.com/kriskowal/garden/issues/32#issuecomment-4909689946
 submitter: kriskowal
 ----- END ISSUE NOTE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 20
+  claimed_at: 2026-07-07T22:47:33Z
