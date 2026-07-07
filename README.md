@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-07T17:25:31Z_
+_As of 2026-07-07T17:38:11Z_
 
 ## Latest
 
-The minion.town OAuth deployment is now orchestrated, and two phases are parked waiting on credentials only kriskowal can create: **Phase 3** (Google federation into Cognito) needs a Google OAuth 2.0 Web client, and **Phase 5** (GitHub OIDC thunk) needs a GitHub OAuth App — both with the Cognito redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`, deliverable via Secrets Manager (`minion/google-idp-client`, `minion/github-oauth-app`) or a reply to the maintainer inbox. Neither blocks the rest: Phase 5's OIDC thunk is already live and HTTPS-verified at `github-idp.minion.town`, and each phase parked a go-ahead completion job (`minion-town-phase3-completion`, `minion-town-phase5-completion`) that finishes the Cognito wiring the moment the secret lands. Separately, a dead-lettered correction on [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) was closed out: the critical-vat promotion path was an end-to-end no-op, now fixed with a chainID-keyed pin table and directive write before `upgradeSwingset` (one open design question for mhofman on JS- vs Go-side resolution). On the board, the XS→Rust (Endor) port advanced into stage-5 fix3, with the private class-member install piece now in progress.
+The minion.town OAuth deployment reached its gated boundary: **Phase 3** (Google→Cognito federation) and **Phase 5** (GitHub OIDC thunk) both ran to completion except for the one input only the maintainer can supply — OAuth clients created under kriscendobot's own Google and GitHub accounts. Phase 5's non-gated half is already live and HTTPS-verified (`github-idp.minion.town` OpenID config, JWKS, and `/authorize`→github.com redirect, served via an API Gateway HTTP API because this AWS account blocks public Lambda Function URLs). Rather than fail, both parked go-ahead remainder jobs (`minion-town-phase3-completion`, `minion-town-phase5-completion`) that finish the Cognito wiring the moment the credentials land — store the client id/secret in the named Secrets Manager secrets (or reply to the parked messages) and promote. Nothing else stalled.
+
+On the fork side, a dead-lettered correction from mhofman on garden#29 was picked up and closed a real gap in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): the critical-vat promotion directive was a no-op end-to-end, and a new commit wires `writeCriticalPromotionDirective` from `launch-chain.js` using the chainID now confirmed available at the `upgradeSwingset` reboot point, with a test. One open design question — whether resolution should live JS-side (current) or move fully into the Go handler — is flagged for relay to mhofman, and a superseded stale branch (`garden-29-promote-vat-critical`) can be deleted. The job is back in flight on the board.
 
 ## Parked for maintainer feedback
 
@@ -12,7 +14,7 @@ The minion.town OAuth deployment is now orchestrated, and two phases are parked 
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 7d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 8d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 11d)
-- [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 21d)
+- [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 22d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 46d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 46d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 48d)
@@ -232,7 +234,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`ksb-agoric-pr9-dckc-simpler-critical-vat`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ksb-agoric-pr9-dckc-simpler-critical-vat.md) — Repo **kriscendobot/agoric-sdk** — the FORK, in-scope for experimentation (ma...
 - [`xs2rust-endor-stage5-fix3-private-install`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix3-private-install.md) — Stage-5 fix3 2/5: Class β — private class-member installation bytes
 
 ### tada (1430)
