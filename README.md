@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T22:58:04Z_
+_As of 2026-07-07T22:59:01Z_
 
 ## Latest
 
-Two documentation translations landed as fork-side draft PRs, both flagged for a licensing call before they leave draft: Mark Miller & Melora Svoboda's "Distributed Capability Confinement" ([endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629), re-exposed as original prose with a redrawn Mermaid figure) and Miller's "The Grant Matcher Puzzle" ([endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630), E→Jessie/CapTP→OCapN). Neither should be published until kriskowal confirms permission to republish the copyrighted/co-authored source material. On minion.town, SIWE (Sign-In with Ethereum) work advanced — an on-chain-authorization design is in progress with two follow-up jobs (`deploy-siwe-thunk`, `wire-siwe-onchain-authz`) now parked awaiting go-ahead — while **Phase 3 Google federation is blocked**: the gardener parked `minion-town-phase3-completion` after the required Google OAuth Web client never arrived; unblocking it needs the client id/secret stored in Secrets Manager (or replied into the inbox). The XS→Rust (Endor) port cleared stage-5 lexer-validation, and a dead-lettered garden#29 correction was closed out with an end-to-end fix for the agoric-sdk critical-vat promotion (previously a no-op), with one design question flagged for mhofman on JS-side vs. Go-side resolution.
+Two Endo docs translations landed as draft PRs, both awaiting a licensing call before they leave draft: Mark Miller & Melora Svoboda's "Distributed Capability Confinement" ([endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629), re-exposed as original prose with a redrawn Mermaid figure to sidestep the image and co-author rights) and Miller's "The Grant Matcher Puzzle" ([endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630), E→Jessie/CapTP→OCapN with attributed block quotes) — both explicitly marked do-not-publish until republication permission is confirmed. On minion.town, the SIWE on-chain authorization design completed, while Phase 3 (Google→Cognito federation) is now **parked as `minion-town-phase3-completion`** pending a Google OAuth Web client the maintainer must provision (secret `minion/google-idp-client`, us-west-1); the proxy has twice flagged this as beyond its authority, so it needs kriskowal directly. Separately, a gardener closed the real end-to-end gap in the agoric-sdk#9 critical-vat promotion work (commit 73067903c wires `writeCriticalPromotionDirective` from launch-chain.js, with a test), leaving one open design question for mhofman on whether resolution should live JS-side or in Go. The XS→Rust (Endor) port continues grinding through stage-5 fix5 parity work (lexer validation done, regexp validation in progress).
 
 ## Parked for maintainer feedback
 
@@ -154,16 +154,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (2)
-- [`design-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-siwe-onchain-authz-minion-town.md) — Design: Sign-In with Ethereum (SIWE) for minion.town — the thunk + the on-cha...
 - [`project-xs-changes-to-endor-23b4d6b0`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/project-xs-changes-to-endor-23b4d6b0.md) — Synchronization baseline
+- [`xs2rust-endor-stage5-fix5-regexp-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix5-regexp-validation.md) — Stage-5 fix5 4/5 — regexp compile-time validation parity + module-goal fold a...
 
-### tada (1461)
+### tada (1462)
+- [`design-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-siwe-onchain-authz-minion-town.md) — What I did
 - [`xs2rust-endor-stage5-fix5-lexer-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix5-lexer-validation.md) — Completion report — xs2rust-endor-stage5-fix5-lexer-validation
 - [`deadmail-20260707T224512Z-feabd5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260707T224512Z-feabd5.md) — Completion report
 - [`xs-upstream-watch-20260707-225001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs-upstream-watch-20260707-225001.md) — The projection job is live (already claimed into jobs/doin/ by a peer gardene...
 - [`beans-v2-deflation-further-reqs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/beans-v2-deflation-further-reqs.md) — Folded the HackMD spec's further requirements into the beans-v2 deflation des...
-- [`deadmail-issue-comment-4909689946`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4909689946.md) — The job posted successfully and has already been claimed by a designer garden...
-- … and 1456 more
+- … and 1457 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
