@@ -36,3 +36,9 @@ skills/ — respect the strict split):
 Deliverable: the SKILL.md and the four scripts, added to the CLAUDE.md skills
 inventory line. Open as a normal garden library change (no PR against ourselves;
 push main2 directly per the garden's own conventions).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 5
+  claimed_at: 2026-07-07T00:48:47Z
