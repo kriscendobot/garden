@@ -50,3 +50,9 @@ subtree spot-checks (`language/expressions/addition` — its 4 endor-rejects are
 - Size to ONE 2400s invocation; push what is green and report folds honestly at budget end.
 - Report to `/home/kris/garden2/scripts/jobs/inbox-send.sh port-xs-to-rust-memory-safe-engine-s13` —
   never the maintainer inbox; never comment on the PR; KEEP DRAFT.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  claimed_at: 2026-07-07T10:46:16Z
