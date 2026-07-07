@@ -52,3 +52,9 @@ Cognito broker (Phase 1):
 - **Reconcile the two parked jobs:** `synth-and-deploy-minion-town-aws` (assumed App Runner — superseded by this EC2/Caddy path) and `cognito-mcp-metadata-bridge` (folded into Phases 4/5). Close/annotate them so they don't run stale.
 - Surface any maintainer-input gaps crisply via the message bus; don't stall silently.
 - **Golden path at conclusion:** PKCE client → federated login → token (client_id-validated, `mcp/*` scopes) → `list_minions` 200; read-only token → `summon_minion` denied `insufficient_scope`; browser `/` → Cognito login → signed in; `/mcp` with a Bearer token still works.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 9
+  claimed_at: 2026-07-07T05:23:06Z
