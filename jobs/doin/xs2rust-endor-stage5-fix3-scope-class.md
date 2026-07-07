@@ -57,3 +57,9 @@ improvise. If a sub-case cannot be made byte-exact within budget, leave a LOUD n
   cannot finish, push what is green and report the honest remainder.
 - **Report via your tada completion report ONLY** — do NOT `inbox-send` the supervisor (it is
   parked; a send dead-letters into a noise job).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 5
+  claimed_at: 2026-07-07T16:25:41Z
