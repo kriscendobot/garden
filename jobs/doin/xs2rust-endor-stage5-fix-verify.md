@@ -58,3 +58,9 @@ Report the full tally tables to the supervisor inbox — they are the acceptance
   exact remainder honestly.
 - Report to `/home/kris/garden2/scripts/jobs/inbox-send.sh port-xs-to-rust-memory-safe-engine-s13` —
   never the maintainer inbox; never comment on the PR; KEEP DRAFT.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 11
+  claimed_at: 2026-07-07T12:16:25Z
