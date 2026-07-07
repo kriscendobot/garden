@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T17:22:44Z_
+_As of 2026-07-07T17:25:31Z_
 
 ## Latest
 
-The **minion.town OAuth deployment** is now fully orchestrated, and two phases have parked on inputs only the maintainer can supply. Phase 3 (Google→Cognito federation) and Phase 5 (GitHub OIDC thunk) each need an OAuth client/app created under the maintainer's own account — a Google OAuth Web client at secret `minion/google-idp-client` and a GitHub OAuth App at `minion/github-oauth-app`, both pointed at `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`. Neither stalled the rest: the ungated work proceeded and each remainder is parked as a go-ahead job (`minion-town-phase3-completion`, `minion-town-phase5-completion`) ready to promote once the secret exists. Notably, **Phase 5 Parts A+B are already live and HTTPS-verified** — the `github-idp.minion.town` OIDC discovery, JWKS, and `/authorize` endpoints all respond (an ARM64 Lambda fronted by an API Gateway HTTP API, since the AWS account blocks public Lambda Function URLs); only the Cognito IdP wiring waits. The proxy has correctly escalated all of these as beyond its authority.
-
-Separately, a dead-lettered correction from mhofman on the Agoric critical-vat promotion work landed: the gardener verified the chainID is available at the `upgradeSwingset` reboot point via `bootstrapArgs.bootMsg.chainID` and pushed a fix (commit `73067903c`) closing what had been an end-to-end no-op, wiring the promotion directive with a test into [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9); one open design question (JS-side vs. Go-side resolution) is flagged for relay. On the board, the XS→Rust (Endor) stage-5 scope-class fix completed.
+The minion.town OAuth deployment is now orchestrated, and two phases are parked waiting on credentials only kriskowal can create: **Phase 3** (Google federation into Cognito) needs a Google OAuth 2.0 Web client, and **Phase 5** (GitHub OIDC thunk) needs a GitHub OAuth App — both with the Cognito redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`, deliverable via Secrets Manager (`minion/google-idp-client`, `minion/github-oauth-app`) or a reply to the maintainer inbox. Neither blocks the rest: Phase 5's OIDC thunk is already live and HTTPS-verified at `github-idp.minion.town`, and each phase parked a go-ahead completion job (`minion-town-phase3-completion`, `minion-town-phase5-completion`) that finishes the Cognito wiring the moment the secret lands. Separately, a dead-lettered correction on [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) was closed out: the critical-vat promotion path was an end-to-end no-op, now fixed with a chainID-keyed pin table and directive write before `upgradeSwingset` (one open design question for mhofman on JS- vs Go-side resolution). On the board, the XS→Rust (Endor) port advanced into stage-5 fix3, with the private class-member install piece now in progress.
 
 ## Parked for maintainer feedback
 
@@ -234,8 +232,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-stage5-fix3-private-install`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix3-private-install.md) — Stage-5 fix3 2/5: Class β — private class-member installation bytes
 
 ### tada (1430)
 - [`xs2rust-endor-stage5-fix3-scope-class`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix3-scope-class.md) — Completion report
