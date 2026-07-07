@@ -29,9 +29,4 @@ This phase needs a **Google OAuth 2.0 Web client (client id + secret)** created 
 
 IdP live on the pool, both clients list it, the authorize redirect verification (curl -I evidence) is in your report, and DEPLOYMENT.md's Phase 3 row (only that row) is updated on `main`. If you took the parked-remainder path, the plan job exists and the maintainer was messaged.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 9
-  claimed_at: 2026-07-07T06:07:26Z
+<!-- garden-reaped: 1 -->
