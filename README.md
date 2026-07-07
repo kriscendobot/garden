@@ -1,14 +1,18 @@
 # Garden bulletin
 
-_As of 2026-07-07T23:23:46Z_
+_As of 2026-07-07T23:28:08Z_
 
 ## Latest
 
-Two docs translations landed as fork-only draft PRs, both blocked on licensing before they can leave draft: [endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629) (Miller & Svoboda's "Distributed Capability Confinement," redrawn as an original Mermaid figure) and [endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630) (Miller's "Grant Matcher Puzzle," E→Jessie/CapTP→OCapN). Both carry maintainer decision requests — #629 asks whether the source's public-domain dedication covers the co-author and figure, and #630 asks for republish permission for the quoted/paraphrased copyrighted article; both PRs say do-not-publish until settled. On minion.town, a gardener is holding before shipping "verified-email only" login enforcement at the GitHub OIDC thunk and needs confirmation that `kriskowal@kriskowal.com` is a verified primary (or a fresh sign-in so it can read the logs) so it won't lock you out; Phase 3 (Google federation) is parked as go-ahead job `minion-town-phase3-completion` because the Google OAuth client never arrived — the SIWE on-chain authz design also completed and its deploy/wire jobs sit parked awaiting go-ahead. The XS→Rust (Endor) port continues grinding through stage-5 fix5, with lexer validation done and regexp validation in flight.
+Two documentation translations landed as fork-side draft PRs, both blocked on the same licensing call before they can leave draft: [endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629) (Miller & Svoboda's "Distributed Capability Confinement," with an original re-exposition and a redrawn Mermaid figure to sidestep the image and co-author dedication gaps) and [endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630) (Miller's "The Grant Matcher Puzzle," attributed block quotes plus paraphrase, assuming no license). Both explicitly say do-not-publish until you confirm republication rights.
+
+Two minion.town gates also need your input. Phase 3 Google federation is **parked** (`minion-town-phase3-completion`, go-ahead gated): the Google OAuth Web client never arrived in the poll window, so the gardener parked the remainder rather than failing — create the client (redirect `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`), store it as Secrets Manager `minion/google-idp-client`, then promote. Separately, a gardener is about to enforce verified-email-only login at the GitHub OIDC thunk and wants confirmation that `kriskowal@kriskowal.com` is a verified GitHub email (or a fresh sign-in so it can read the thunk logs) before flipping the switch — it will hold the lockout if unverified. The proxy has escalated all three as beyond its authority.
+
+The board is otherwise quiet: nothing queued in todo, two jobs in flight (the verified-email reconcile and xs2rust Endor stage-5 regexp-validation), and no new posts, claims, or completions since the last bulletin.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 1m)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 6m)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 5d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 7d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 8d)
@@ -119,6 +123,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > let me proceed. If it turns out NOT verified, I will NOT ship the lockout — I'll
 > leave the gate relaxed and report back. Break-glass (breakglass@minion.town)
 > remains a working fallback regardless.
+
+- `20260707T232756Z-1f53fd` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T232756Z-1f53fd.md)
+
+> awaiting maintainer — beyond proxy authority: gardener minion-town-auth-verified-email-reconcile, msgid 20260707T230941Z-bdccad.md — Whether `kriskowal@kriskowal.com` is a verified GitHub email — and whether to perform a fresh login — is personal account fact/action only the maintainer can supply, gating an irreversible lockout that could lock the maintainer out.
 
 
 ## Board
