@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T05:06:53Z_
+_As of 2026-07-07T05:07:25Z_
 
 ## Latest
 
-Two gardener decisions are parked in your inbox and want steering. The Gateway Feature 8 build (`/ocapn` WebSocket endpoint) found it would collide with the in-flight [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), which lands only the path-scheme half and defers the live listener; the gardener held its superset branch rather than opening a competing draft and recommends re-scoping to build the socket handoff on top of #577. Separately, the streamlined-onboarding phase-1 job closed as already-satisfied — the launcher work landed 2026-07-04, and its `.garden`-file identity item was deliberately superseded by the newer location-derived identity, so design §1.1's identity paragraph is now stale and may warrant a "superseded" annotation.
-
-On the board, the deterministic queues largely idled: [endo-but-for-bots#612](https://github.com/endojs/endo-but-for-bots/pull/612) was conducted to completion, [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) wrapped, the CI rollup surface now reports `gh` stderr reasons, and an AWS-administration skill build landed. The lone job still in flight is the XS→Rust (Endor) Stage-5 coder child.
+Little moved on the board this cycle — no new posts, claims, or completions resolved — but one item needs the maintainer's steer: a gardener building the Gateway `/ocapn` WebSocket endpoint (Feature 8) found it overlaps [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), an open draft that implements only the path-scheme half and explicitly defers the live listener and Noise frame relay. Rather than open a competing draft against `llm`, the gardener held its superset work on branch `feat/gateway-ocapn-ws-endpoint-handoff` (locally verified: 73 ava pass, tsc/eslint/prettier clean) and asked you to choose between building the socket handoff *on top of* #577, superseding #577 with the superset, or dropping the branch — recommending the first. The only active job is the XS→Rust (Endor) port, now at Stage-5 child 6/7 (coder).
 
 ## Parked for maintainer feedback
 
@@ -23,19 +21,6 @@ On the board, the deterministic queues largely idled: [endo-but-for-bots#612](ht
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260706T115432Z-634cb5` — from gardener:onboarding-p1-launcher, reply_to `onboarding-p1-launcher` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T115432Z-634cb5.md)
-
-> Job onboarding-p1-launcher (streamlined-onboarding phase 1): no changes made — the work is already landed, and the one remaining design point was deliberately superseded. Detail:
->
-> Phase 1 landed 2026-07-04 in commit 8fdbd11e0 ("direct-exec launcher, auto-build, guard-hook seed"). Present in current origin/main2:
->   - garden: auto-build (ensure_container), .claude/settings.json seeding with the SessionStart guard hook (seed_claude_settings), `exec claude --dangerously-skip-permissions` on bare enter (cmd_enter), and the `./garden sh` debug-shell subcommand (cmd_sh).
->   - Dockerfile: claude CLI install + `command -v claude` build assertion + /etc/profile.d/garden.sh PATH wiring.
->   - CLAUDE.md § Container guard: the launcher-seeded-hook sentence.
->
-> The ONLY job item not present is the design's ".garden-file-first identity". It is absent on purpose: commits 6d543582e and 367a7543c (both 2026-07-06, ~8h before this job was promoted) deleted the .garden file and GARDEN env knob from the launcher, replacing them with LOCATION-derived identity (<hostname>-<basename>-<hash8>), citing two concrete bugs the .garden model caused (the "lost container" strand and journal-worktree corruption) and verifying with two concurrent instances. That newer decision achieves the same user-facing goal the design wanted — bare `./garden` needs zero required env vars — via a different, better mechanism.
->
-> Re-adding .garden-first identity per design §1.1 would revert 6d543582e/367a7543c, so I did not. If you DO want .garden naming back (e.g. as sugar layered on top of location-derivation), please re-post with that reconciliation spelled out; otherwise design §1.1's identity paragraph is stale and could be annotated as superseded. Completing the job as already-satisfied.
 
 - `20260706T141945Z-1a8516` — from gardener:ebfb-endo-gateway-ocapn-websocket-endpoint, reply_to `ebfb-endo-gateway-ocapn-websocket-endpoint` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T141945Z-1a8516.md)
 
