@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-07T19:05:18Z_
+_As of 2026-07-07T19:17:04Z_
 
 ## Latest
 
-The minion.town OAuth deployment is now fully orchestrated, and two phases have parked awaiting credentials only the maintainer can create: Phase 3 (Google→Cognito federation) needs a Google OAuth 2.0 Web client, and Phase 5 (GitHub OIDC thunk) needs a GitHub OAuth App — both with redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`. Phase 5's Parts A+B are already live and HTTPS-verified (`github-idp.minion.town` OIDC discovery, JWKS, and `/authorize`→github.com); only the Cognito wiring waits, parked as `minion-town-phase5-completion`. Phase 3 likewise parked as `minion-town-phase3-completion`. Deliver either credential via Secrets Manager (`minion/google-idp-client` / `minion/github-oauth-app`) or by replying to the gardener's message, then promote the parked job — nothing else stalls. Separately, a dead-lettered correction on [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) landed: mhofman's exact-vatID pin was already folded in, and a follow-up commit closed the real gap (the Go switch only logged vatIDs — nothing wrote `promoteCriticalVats`), wiring the critical-vat promotion end-to-end with a test via a JS-side pin table read at the `upgradeSwingset` reboot. The XS→Rust (Endor) stage-5 fix3 chain continues, with 4 of 5 children reported done and the full byte-identity re-verification now in flight.
+The XS→Rust (Endor) port cleared its stage-5 fix3 gate: `xs2rust-endor-stage5-fix3-verify` completed a full 5/5 byte-identity re-verification, closing out the fix3 child set (eval-residue, private-member installation, keys/field-init) and freeing the parked Fable supervisor job to resume.
+
+Two maintainer inputs now block the minion.town OAuth deployment and need only credentials you alone can create. **Phase 3** (Google → Cognito federation) and **Phase 5** (GitHub OIDC thunk) both parked cleanly after their poll windows lapsed — nothing was lost. Phase 5's non-gated infrastructure is already live and HTTPS-verified (`github-idp.minion.town` OpenID config, JWKS, and `/authorize` → github.com, served via API Gateway since the account blocks public Lambda Function URLs). To finish either, create the OAuth client and store it in Secrets Manager (`minion/google-idp-client` / `minion/github-oauth-app`, us-west-1), then promote `minion-town-phase3-completion` / `minion-town-phase5-completion`.
+
+Separately, a dead-lettered correction from mhofman on the agoric critical-vat work was picked up and landed: [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) now writes `upgrade.promoteCriticalVats` end-to-end (a pin table plus `writeCriticalPromotionDirective`, resolved JS-side from `bootMsg.chainID`), closing a gap where the v4 migration had been an unconditional no-op. One open design question for mhofman: whether resolution should move fully into the Go handler he originally suggested.
 
 ## Parked for maintainer feedback
 
@@ -232,16 +236,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-stage5-fix3-verify`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix3-verify.md) — Stage-5 fix3 5/5: full re-verification of the stage-5 byte-identity bar
+### doin (0)
+(none)
 
-### tada (1434)
+### tada (1435)
+- [`xs2rust-endor-stage5-fix3-verify`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix3-verify.md) — fix3-verify 5/5 — full stage-5 byte-identity re-verification
 - [`xs2rust-endor-stage5-fix3-keys-fieldinit`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix3-keys-fieldinit.md) — Completion report — xs2rust-endor-stage5-fix3-keys-fieldinit (fix3 child 4/5)
 - [`xs2rust-endor-stage5-fix3-eval-residue`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix3-eval-residue.md) — Completion report
 - [`xs2rust-endor-stage5-fix3-private-install`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix3-private-install.md) — Completion report: stage-5 fix3 2/5 — Class β private-member installation bytes
 - [`ksb-agoric-pr9-dckc-simpler-critical-vat`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ksb-agoric-pr9-dckc-simpler-critical-vat.md) — Completion report — ksb-agoric-pr9-dckc-simpler-critical-vat
-- [`xs2rust-endor-stage5-fix3-scope-class`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix3-scope-class.md) — Completion report
-- … and 1429 more
+- … and 1430 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
