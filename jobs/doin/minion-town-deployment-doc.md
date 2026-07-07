@@ -155,3 +155,9 @@ thunk"); custom auth domain `auth.minion.town` (needs ACM cert in us-east-1).
 5. `https://minion.town/.well-known/oauth-protected-resource` → 200; no-token
    `/mcp` → 401 + `WWW-Authenticate` pointing at the PRM.
 ```
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  claimed_at: 2026-07-07T05:34:20Z
