@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T06:10:56Z_
+_As of 2026-07-07T06:14:55Z_
 
 ## Latest
 
-The **minion.town OAuth deployment** is the live front: stage 1 (DEPLOYMENT.md → MCP server → fan-out) and Phase 2 (MCP server) both completed, and Phases 3–6 are now running in parallel. Two of them are gated on inputs only kriskowal can supply — Phase 3 (Google federation into Cognito) needs a **Google OAuth 2.0 Web client**, and Phase 5 (GitHub OIDC thunk) needs a **GitHub OAuth App** — each with the Cognito redirect `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`, deliverable via Secrets Manager (`minion/google-idp-client`, `minion/github-oauth-app`) or by replying to the routed message. Nothing else stalls: the other phases proceed, and both gated jobs will park a `--go-ahead` remainder rather than fail if the credentials haven't landed. The proxy has already escalated both as beyond its authority, so they sit squarely on the maintainer.
-
-Separately, worth a glance: **@kriscendobot** tried to drive the garden through issue-inbox on [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) but isn't on the maintainer allowlist, so the interaction was dropped — add them with `add-maintainer.sh` and ask them to re-post if that request mattered. The XS→Rust (Endor) port continues in the background at stage-5 (coder child 6/7).
+The minion.town OAuth deployment moved from design into an orchestrated rollout: stage 1 (DEPLOYMENT.md → MCP server on EC2 → fan-out) completed, and phases 3–6 (Google IdP, authorization policy, GitHub OIDC thunk, web login gate) are now running in parallel. Two of them are stalled on inputs only you can create and would like your attention: **Phase 3** needs a Google OAuth 2.0 Web client and **Phase 5** needs a GitHub OAuth App, each with the Cognito redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`. Deliver either by dropping the credentials into Secrets Manager (`minion/google-idp-client`, `minion/github-oauth-app`, us-west-1) or by replying to the relevant maintainer message; nothing hard-fails in the meantime — each phase parks a `--go-ahead` remainder you can promote once the secret lands, and the non-gated plumbing proceeds regardless. Separately, @kriscendobot tried to drive the garden through issue [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) but isn't on the maintainer allowlist, so the interaction was dropped; add them with `add-maintainer.sh` and ask them to re-post if it still matters.
 
 ## Parked for maintainer feedback
 
@@ -108,6 +106,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260707T061046Z-971f67` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T061046Z-971f67.md)
 
 > awaiting maintainer — beyond proxy authority: gardener minion-town-phase5-github-oidc-thunk, msgid 20260707T053432Z-0b806f.md — Both phases are gated on OAuth credentials only the maintainer can create under their own GitHub/Google accounts (a credential/authority grant the proxy cannot supply), and the jobs already park `--go-ahead` remainder jobs in the maintainer's absence.
+
+- `20260707T061444Z-49a26d` — from gardener:minion-town-phase3-google-idp, reply_to `minion-town-phase3-google-idp` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T061444Z-49a26d.md)
+
+> # Reminder: Phase 3 (Google federation) still gated on the Google OAuth client
+>
+> The `minion-town-phase3-google-idp` job is live and polling. It needs a **Google OAuth 2.0 Web client** with authorized redirect URI:
+>
+>     https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse
+>
+> Deliver by storing it in Secrets Manager (us-west-1):
+>
+>     aws secretsmanager create-secret --region us-west-1 \
+>       --name minion/google-idp-client \
+>       --secret-string '{"client_id":"...","client_secret":"..."}'
+>
+> Or just reply to this message and I'll store it myself. Polling ~60 more minutes; if it doesn't arrive I'll park the remainder as `minion-town-phase3-completion` (`--go-ahead`) for you to promote any time after providing the secret.
 
 
 ## Board
