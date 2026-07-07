@@ -1,20 +1,20 @@
 # Garden bulletin
 
-_As of 2026-07-07T07:11:16Z_
+_As of 2026-07-07T09:52:27Z_
 
 ## Latest
 
-The minion.town OAuth deployment landed its two orchestrated stages: Phase 5's GitHub OIDC thunk (Parts A+B) is live and verified over HTTPS — `github-idp.minion.town` serves its OpenID configuration, JWKS, and a working `/authorize` redirect from an ARM64 Node Lambda fronted by an API Gateway HTTP API (this AWS account blocks public Lambda Function URLs). Both Phase 3 (Google→Cognito federation) and Phase 5 Part C (Cognito GitHub wiring) completed everything that isn't gated and then **parked** their remainders as go-ahead jobs (`minion-town-phase3-completion`, `minion-town-phase5-completion`) rather than failing — so nothing is lost, but two items now need kriskowal directly: create a **Google OAuth 2.0 Web client** and a **GitHub OAuth App** (both with redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`), store each in Secrets Manager (us-west-1), then promote the parked jobs. The proxy correctly bounced these as beyond its authority — they require credentials only the maintainer can originate.
+The minion.town OAuth deployment reached a checkpoint: the stage-2 orchestration completed, and both federation phases delivered their non-gated work before parking on inputs only kriskowal can create. Phase 5's GitHub OIDC thunk is **live and HTTPS-verified** (`github-idp.minion.town` OpenID config, JWKS, and `/authorize` → github.com all responding; note the account blocks public Lambda Function URLs, so ingress runs through an API Gateway HTTP API), with only the Cognito wiring parked as `minion-town-phase5-completion` pending a GitHub OAuth App. Phase 3 (Google → Cognito) is likewise parked as `minion-town-phase3-completion` pending a Google OAuth Web client; both remainder jobs carry the full work verbatim and finish the moment you provide the credentials (store in Secrets Manager `us-west-1` as `minion/github-oauth-app` / `minion/google-idp-client`, or reply to the gardener) and promote. The proxy correctly escalated all of these as beyond its authority — nothing stalled, since the phases parked rather than failed.
 
-Separately, a dead-lettered garden#29 correction from mhofman was picked up and landed on the agoric-sdk fork: the earlier peer commit only logged resolved vatIDs, so the critical-vat migration was a no-op end-to-end; the follow-up (commit 73067903c) wires `writeCriticalPromotionDirective` into `launch-chain.js` using the chainID available at the `upgradeSwingset` reboot point, closing the gap with a test. One open question for mhofman: resolution now lives JS-side rather than in the Go handler he originally suggested. A stale `garden-29-promote-vat-critical` branch is superseded and can be deleted.
+Separately, a dead-lettered garden#29 correction from mhofman was picked up and landed: the peer's `chainID`-availability assumption was verified wrong, and a follow-up commit (`73067903c`) now wires `writeCriticalPromotionDirective` end-to-end with a test in [kriskowal/agoric-sdk#9](https://github.com/kriskowal/agoric-sdk/pull/9), closing a gap where the critical-vat promotion had been an unconditional no-op. One open design question is flagged for mhofman (resolution now lives JS-side rather than in the Go handler), and a stale `garden-29-promote-vat-critical` branch is superseded and can be deleted.
 
-Finally, @kriscendobot tried to drive the garden via issue [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) but isn't on the maintainer allowlist, so the interaction was dropped — add them with `add-maintainer.sh` and have them re-post if it matters.
+On the XS→Rust (Endor) port, stage-5 continued: the coder-decl handler completed and the 7/7 full-corpus byte-identity differential harness was claimed. Also worth a glance: @kriscendobot tried to drive the garden via issue kriskowal/garden#29 but isn't on the maintainer allowlist, so that interaction was dropped — add them with `add-maintainer.sh` and ask them to re-post if it mattered.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 4d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 7d)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 7d)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 8d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 11d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 21d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 46d)
@@ -256,15 +256,15 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (1)
-- [`xs2rust-endor-stage5-coder-decl`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-coder-decl.md) — Stage-5 child 6/7: coder — functions, classes, control flow, generators/async...
+- [`xs2rust-endor-stage5-byte-identity`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-byte-identity.md) — Stage-5 child 7/7 (STAGE BAR): full-corpus byte-identity differential harness...
 
-### tada (1401)
+### tada (1402)
+- [`xs2rust-endor-stage5-coder-decl`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-coder-decl.md) — Handler summary
 - [`daily-progress-summary-20260707-070509`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260707-070509.md) — Inbox empty, work landed. Here is my completion report.
 - [`minion-town-oauth-stage2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-oauth-stage2.md) — orchestration minion-town-oauth-stage2 — complete
 - [`minion-town-phase5-github-oidc-thunk`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase5-github-oidc-thunk.md) — Completion report — minion.town Phase 5: GitHub OIDC thunk
 - [`minion-town-phase3-google-idp`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase3-google-idp.md) — Completion report
-- [`deadmail-20260707T061609Z-e87f3f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260707T061609Z-e87f3f.md) — Completion report
-- … and 1396 more
+- … and 1397 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
