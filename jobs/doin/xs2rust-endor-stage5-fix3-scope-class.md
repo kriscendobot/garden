@@ -59,3 +59,9 @@ improvise. If a sub-case cannot be made byte-exact within budget, leave a LOUD n
   parked; a send dead-letters into a noise job).
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  claimed_at: 2026-07-07T16:53:23Z
