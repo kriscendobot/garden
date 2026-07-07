@@ -70,9 +70,4 @@ silent mis-emit, and report the honest remainder.
 - **Report via your tada completion report ONLY** — do NOT `inbox-send` the supervisor (it is
   parked; a send dead-letters into a noise job).
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 7
-  claimed_at: 2026-07-07T20:25:11Z
+<!-- garden-reaped: 1 -->
