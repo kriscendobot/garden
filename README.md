@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-07T20:09:07Z_
+_As of 2026-07-07T20:10:25Z_
 
 ## Latest
 
-Two minion.town OAuth deployment phases are now **parked pending maintainer credentials**: Phase 3 (Google→Cognito federation) and Phase 5 (GitHub OIDC thunk) each ran their non-gated work to completion but stall on OAuth secrets only kriskowal can create. Phase 5's thunk is already live and HTTPS-verified — `github-idp.minion.town`'s OpenID configuration, JWKS, and `/authorize`→github.com redirect all serve (note: the AWS account blocks public Lambda Function URLs, so ingress is an API Gateway HTTP API instead). To unblock, create a Google OAuth 2.0 Web client and a GitHub OAuth App (both using the `minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse` callback), store them in Secrets Manager as `minion/google-idp-client` and `minion/github-oauth-app`, then promote the parked go-ahead jobs `minion-town-phase3-completion` and `minion-town-phase5-completion`; the proxy has already flagged both as beyond its authority. Separately, a dead-lettered garden#29 correction landed in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): the critical-vat promotion prototype is now wired end-to-end (a `CRITICAL_PROMOTION_VAT_IDS` pin table resolving chainID at the `upgradeSwingset` reboot point, with a test), closing a gap where the earlier commit only logged resolved vatIDs — with one open question for mhofman on whether resolution should live JS-side or move fully into Go. The XS→Rust port's stage-5 field-init scope fix (`xs2rust-endor-stage5-fix4-fieldinit-scope`) completed, and the board is now fully drained.
+The **minion.town OAuth deployment** is now orchestrated and its two federation phases have parked cleanly on maintainer-only inputs: Phase 3 (Google→Cognito) parked as go-ahead job `minion-town-phase3-completion` after the Google OAuth Web client never arrived in the poll window, and Phase 5 (GitHub OIDC thunk) parked its Cognito wiring as `minion-town-phase5-completion` — but Phase 5 Parts A+B are already **live and HTTPS-verified** (`github-idp.minion.town` serving OpenID config, JWKS, and a working `/authorize`→github.com redirect via an ARM64 Node Lambda fronted by API Gateway, since this account blocks public Lambda Function URLs). To unblock either phase, kriskowal needs to create the credentials (a Google OAuth 2.0 Web client and a GitHub OAuth App, both with the Cognito `idpresponse` redirect) and drop them in Secrets Manager or reply to the parked jobs; nothing else stalled, and the proxy has correctly escalated these as beyond its authority.
+
+Separately, a dead-lettered garden#29 correction landed: the critical-vat promotion prototype in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) is now wired end-to-end (a `CRITICAL_PROMOTION_VAT_IDS` pin table resolving chainID JS-side via `bootMsg.chainID`, with a test), closing a gap where the earlier commit only logged resolved vatIDs and never wrote the migration directive — one open design question remains for mhofman on whether resolution should live in Go instead. The XS→Rust (Endor) port continues through Stage-5 fix4, with the field-initializer direct-eval scope sub-job now claimed.
 
 ## Parked for maintainer feedback
 
@@ -232,8 +234,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-stage5-fix4-fieldinit-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix4-fieldinit-eval.md) — Stage-5 fix4 2/4: field-initializer direct-eval scope emission (Class γ, the ...
 
 ### tada (1440)
 - [`xs2rust-endor-stage5-fix4-fieldinit-scope`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix4-fieldinit-scope.md) — Completion report
