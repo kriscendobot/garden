@@ -14200,3 +14200,18 @@ auth events | auth-vs-notify-events
 notify events | auth-vs-notify-events
 auth+notify | auth-vs-notify-events
 ES authorization events allow deny | auth-vs-notify-events
+
+## Robust Composition thesis (Miller 2006, indexed by thesis-translation design, 2026-07-07)
+
+Robust Composition | robust-composition-thesis
+Miller thesis | robust-composition-thesis
+markm-thesis | robust-composition-thesis
+Miller 2006 dissertation | robust-composition-thesis
+E thesis | robust-composition-thesis
+defensive consistency | robust-composition-thesis
+E-ORDER | robust-composition-thesis
+when-catch | robust-composition-thesis
+A Taste of E | robust-composition-thesis
+A Taste of Pluribus | robust-composition-thesis
+Pluribus | robust-composition-thesis
+thesis translation | robust-composition-thesis
