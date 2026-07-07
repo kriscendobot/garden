@@ -1,12 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-oauth-stage1
-priority: normal
-roadmap: minion.town/mcp-oauth
 role: builder
-posted_by: orchestrator
-posted_at: 2026-07-07T05:33:14Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-07T05:40:03Z -->
 
 # minion.town Phase 2: MCP server live on EC2 behind Caddy, Cognito-verified
 
