@@ -63,3 +63,9 @@ class-tail folds removed from the documented list; `cargo test --workspace --
 - Size to ONE 2400s invocation; push what is green and report folds honestly at budget end.
 - Report to `/home/kris/garden2/scripts/jobs/inbox-send.sh port-xs-to-rust-memory-safe-engine-s13` —
   never the maintainer inbox; never comment on the PR; KEEP DRAFT.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 15
+  claimed_at: 2026-07-07T11:10:35Z
