@@ -70,3 +70,9 @@ endor-rejects (1572+ rejects across the sweep):
 <!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 13
+  claimed_at: 2026-07-07T13:43:09Z
