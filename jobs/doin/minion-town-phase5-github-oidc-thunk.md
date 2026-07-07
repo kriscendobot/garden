@@ -41,3 +41,9 @@ The thunk needs a **GitHub OAuth App (client id + secret)** created by the maint
 Contract doc + thunk source + Caddy file on `main`; Lambda + DNS + Caddy live (discovery endpoint 200); Cognito IdP wired and verified (or the remainder parked per the gate procedure); DEPLOYMENT.md Phase 5 row (only that row) updated; evidence in your report.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  claimed_at: 2026-07-07T06:43:32Z
