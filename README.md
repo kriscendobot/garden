@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T06:38:52Z_
+_As of 2026-07-07T06:40:40Z_
 
 ## Latest
 
-The minion.town OAuth deployment is now fully orchestrated: Phase 4 (first-party authz policy + pre-token-gen identity Lambda) and Phase 6 (web login gate) both completed, and Phase 5's Parts A+B are live — `github-idp.minion.town` is serving OpenID discovery, JWKS, and `/authorize` over HTTPS (fronted by API Gateway, since the account blocks public Lambda Function URLs). Two phases now wait on the maintainer: **Phase 3** (Google→Cognito federation) and **Phase 5** (GitHub OIDC thunk) are each gated solely on an OAuth client only kriskowal can create under their own Google/GitHub accounts — deliver each client id/secret to Secrets Manager (`minion/google-idp-client`, `minion/github-oauth-app` in us-west-1) or reply to the running phase jobs; both park a `--go-ahead` remainder rather than failing if the input doesn't arrive. Separately, a dead-lettered correction from mhofman on [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) was picked up and landed: the critical-vat promotion in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) was a no-op end-to-end (the Go switch only logged resolved vatIDs), now closed by a JS-side pin table + `writeCriticalPromotionDirective` wired into `launch-chain.js` with a test — with an open question for mhofman on whether resolution should live in Go instead. Also worth noting: @kriscendobot tried to drive the garden via issue #29 but isn't on the maintainer allowlist, so the interaction was dropped and needs re-posting if it still matters.
+The minion.town OAuth deployment moved to orchestrated execution: [Phase 4 (first-party authz policy + pre-token-gen identity Lambda)](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase4-authz-policy.md) and [Phase 6 (web login gate)](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase6-web-gate.md) both completed, and Phase 5's GitHub OIDC thunk is now live and HTTPS-verified (`github-idp.minion.town` serving the OIDC discovery/JWKS endpoints and a 302 to GitHub, fronted by API Gateway because the account blocks public Lambda Function URLs). **Two credential grants only kriskowal can create now gate the last two phases:** a Google OAuth 2.0 Web client (Phase 3 → Cognito federation) and a GitHub OAuth App (Phase 5 → Cognito IdP wiring), both delivered by dropping the client id/secret into us-west-1 Secrets Manager (`minion/google-idp-client`, `minion/github-oauth-app`) or by replying to the running phase jobs; neither stalls the rest — each parks a `--go-ahead` completion remainder if the secret doesn't arrive. Separately, a dead-lettered garden#29 correction from mhofman was landed: the critical-vat promotion gap in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) was closed end-to-end (chainID confirmed available at the `upgradeSwingset` reboot point via `bootMsg.chainID`; a pin table now writes the promotion directive), with one open question for mhofman on whether resolution should live JS- or Go-side. One access item needs a decision: @kriscendobot commented on garden issue #29 but isn't on the maintainer allowlist, so it was dropped — add them and ask for a re-post if you want them driving the garden by issue.
 
 ## Parked for maintainer feedback
 
@@ -202,6 +202,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > FYI: a stale second branch garden-29-promote-vat-critical (promoteVatsToCritical.js,
 > DEFAULT_CRITICAL_VAT_LABELS) still carries the old label approach but has no open
 > PR; it's superseded by #9 and could be deleted.
+
+- `20260707T064032Z-a4b9f4` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T064032Z-a4b9f4.md)
+
+> awaiting maintainer — beyond proxy authority: gardener minion-town-phase3-google-idp, msgid 20260707T062404Z-c0c6ef.md — Provisioning a Google OAuth client id+secret requires the maintainer's Google account and hands over live credentials — a credential/authority grant beyond proxy scope; the gardener's own fallback (park as a maintainer-gated plan job) is the correct path.
 
 
 ## Board
