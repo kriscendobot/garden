@@ -23,3 +23,9 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 Please read https://community.agoric.com/t/using-agoric-beans-v2-as-a-deflationary-mechanism/954 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 11
+  claimed_at: 2026-07-07T22:22:25Z
