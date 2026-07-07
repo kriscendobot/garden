@@ -26,3 +26,9 @@ Two deliverables:
    connection. This is analysis, not advocacy.
 
 Library/analysis curation only — no fork, no upstream, no external systems.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 19
+  claimed_at: 2026-07-07T21:50:37Z
