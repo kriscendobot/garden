@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T05:41:08Z_
+_As of 2026-07-07T06:00:51Z_
 
 ## Latest
 
-The minion.town OAuth deployment is now orchestrated end-to-end: the [orchestration job](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/orchestrate-minion-town-oauth-deploy.md) and its DEPLOYMENT.md doc completed, the older `synth-and-deploy-minion-town-aws` job was closed as superseded, and Phase 2 (the Cognito-verified MCP server on EC2 behind Caddy) is now in flight. Two maintainer-gated inputs are blocking downstream phases and need kriskowal's action: **Phase 3** wants a Google OAuth 2.0 Web client (redirect URI `.../oauth2/idpresponse`) and **Phase 5** wants a GitHub OAuth App — both preferably delivered into us-west-1 Secrets Manager, or by replying to the routed messages; neither stalls the parallel phases, since each parks a `--go-ahead` remainder job if the secret hasn't arrived. Elsewhere the deploy service picked up a fix to ignore inactive busy markers, [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) completed, and a dead-lettered message plus an @-mention on [kriskowal/garden#29](https://github.com/kriskowal/garden/pull/29) were claimed for follow-up.
+The minion.town OAuth deployment is now fully orchestrated and running: Phase 2 (the Cognito-verified MCP server on EC2 behind Caddy) is in flight, while two phases have parked on inputs only the maintainer can supply — Phase 3 (Google federation) needs a Google OAuth 2.0 Web client, and Phase 5 (GitHub OIDC thunk) needs a GitHub OAuth App, both requested via unread maintainer messages that spell out the exact redirect URIs and a Secrets Manager drop-off (`minion/google-idp-client`, `minion/github-oauth-app`) or a reply to route the secret to the waiting phase job. Neither blocks the rest of the deployment — the other phases proceed in parallel, and each gated phase parks a `--go-ahead` remainder rather than failing if the input hasn't landed by the time it runs. The XS→Rust (Endor) port continues its stage-5 grind (coder child 6/7). Otherwise the board was quiet, clearing only a dead-mail and a garden-mention completion. Worth a look: the parked-PR queue still holds 26 PRs awaiting review, the oldest — [endojs/endo#3102](https://github.com/endojs/endo/pull/3102)'s custom CHANGELOG generator — waiting 54 days.
 
 ## Parked for maintainer feedback
 
@@ -68,19 +68,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
-- [`deadmail-issue-comment-4900532627`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4900532627.md) — Dead-lettered message — pick up its intent
-- [`mention-kriskowal-garden-29-d1daaa55`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mention-kriskowal-garden-29-d1daaa55.md) — attention directive from @-mention on kriskowal/garden #29
+### doin (2)
 - [`minion-town-phase2-mcp-server`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-phase2-mcp-server.md) — minion.town Phase 2: MCP server live on EC2 behind Caddy, Cognito-verified
 - [`xs2rust-endor-stage5-coder-decl`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-coder-decl.md) — Stage-5 child 6/7: coder — functions, classes, control flow, generators/async...
 
-### tada (1387)
+### tada (1389)
+- [`mention-kriskowal-garden-29-d1daaa55`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mention-kriskowal-garden-29-d1daaa55.md) — Completion report
+- [`deadmail-issue-comment-4900532627`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4900532627.md) — Completion report
 - [`minion-town-deployment-doc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-deployment-doc.md) — Completion report
 - [`orchestrate-minion-town-oauth-deploy`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/orchestrate-minion-town-oauth-deploy.md) — Completion report: orchestrate-minion-town-oauth-deploy
 - [`synth-and-deploy-minion-town-aws`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/synth-and-deploy-minion-town-aws.md) — synth-and-deploy-minion-town-aws — closed as superseded (never run)
-- [`deploy-defer-ignore-inactive-busy-markers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deploy-defer-ignore-inactive-busy-markers.md) — Completion report
-- [`endojs-endo-but-for-bots-pr600-c9c5b892`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-c9c5b892.md) — Completion report — endojs-endo-but-for-bots-pr600-c9c5b892
-- … and 1382 more
+- … and 1384 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
