@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T10:24:17Z_
+_As of 2026-07-07T10:26:22Z_
 
 ## Latest
 
-The minion.town OAuth deployment landed its bulk overnight: the stage-2 orchestration completed, and both federation phases are now built but **parked on you** — Phase 3 (Google→Cognito) and Phase 5 (GitHub OIDC thunk) each ran their non-gated work to completion and then parked a go-ahead remainder rather than failing. Phase 5's thunk is already live and HTTPS-verified (`github-idp.minion.town` openid-configuration, jwks, and `/authorize`→github.com all serving); both stall only on OAuth credentials that only you can create — a Google OAuth Web client (secret `minion/google-idp-client`) and a GitHub OAuth App (secret `minion/github-oauth-app`), both using the Cognito redirect `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`. Store each secret (or reply to the gardener) then promote `minion-town-phase3-completion` / `minion-town-phase5-completion` to finish. The proxy correctly escalated all of these as beyond its authority.
-
-Separately, the XS→Rust (Endor) port advanced through build stage 5 (orchestration complete, byte-identity and coder-decl handlers reported) with stage 13 now queued behind a stage-5 fix. And a dead-lettered garden#29 correction from mhofman was picked up: the critical-vat promotion gap in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) is now closed end-to-end — the gardener verified `chainID` is available at the `upgradeSwingset` reboot point and wired a pin-table directive with a test, leaving one open question for mhofman (JS-side vs. Go-side resolution) and flagging a stale superseded branch for deletion. Finally, an issue-inbox interaction from @kriscendobot on garden#29 was dropped as not-on-allowlist; add them as a maintainer if you want them to drive by issue.
+The XS→Rust (Endor) port advanced through stage 5: the byte-identity build orchestration completed and a gardener is now closing the last gaps, currently fixing CESU-8 string-literal emission (reported to eliminate all 60 remaining byte divergences). Most maintainer-facing activity, though, is parked rather than merged. Two minion.town OAuth deployment phases have hit the same wall and self-parked as go-ahead jobs: **Phase 3** (Google→Cognito federation, `minion-town-phase3-completion`) and **Phase 5** (GitHub OIDC thunk, `minion-town-phase5-completion`). Both are blocked solely on OAuth clients only kriskowal can create — a Google OAuth Web client and a GitHub OAuth App, each pointing at the `minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse` redirect; deliver the credentials to Secrets Manager (`minion/google-idp-client`, `minion/github-oauth-app`) or reply to the queued messages, then promote the parked jobs. Phase 5's non-gated half is already live and HTTPS-verified (`github-idp.minion.town` OIDC discovery, JWKS, and `/authorize`); note it runs behind an API Gateway HTTP API because this AWS account blocks public Lambda Function URLs. Separately, a gardener closed a real gap in the agoric-sdk critical-vat-promotion prototype — the Go switch only logged resolved vatIDs, so the v4 migration was an end-to-end no-op — by pinning the promotion directive JS-side; one open design question (keep resolution in JS vs. move it into Go) is flagged for mhofman. Finally, @kriscendobot tried to drive the garden via issue kriskowal/garden#29 but was dropped as not-on-allowlist; add them with `add-maintainer.sh` and ask them to re-post if it mattered.
 
 ## Parked for maintainer feedback
 
@@ -254,15 +252,15 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (1)
-- [`port-xs-to-rust-memory-safe-engine-s12`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s12.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
+- [`xs2rust-endor-stage5-fix-cesu8`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix-cesu8.md) — Stage-5 fix 1/5: CESU-8 string-literal emission (closes ALL 60 byte divergences)
 
-### tada (1404)
+### tada (1405)
+- [`port-xs-to-rust-memory-safe-engine-s12`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s12.md) — Completion report — port-xs-to-rust-memory-safe-engine-s12
 - [`xs2rust-endor-build-stage5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage5.md) — orchestration xs2rust-endor-build-stage5 — complete
 - [`xs2rust-endor-stage5-byte-identity`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-byte-identity.md) — Completion report
 - [`xs2rust-endor-stage5-coder-decl`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-coder-decl.md) — Handler summary
 - [`daily-progress-summary-20260707-070509`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260707-070509.md) — Inbox empty, work landed. Here is my completion report.
-- [`minion-town-oauth-stage2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-oauth-stage2.md) — orchestration minion-town-oauth-stage2 — complete
-- … and 1399 more
+- … and 1400 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
