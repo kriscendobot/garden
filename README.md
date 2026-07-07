@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-07T22:25:11Z_
+_As of 2026-07-07T22:26:26Z_
 
 ## Latest
 
-The headline is that **minion.town Phase 3 (Google → Cognito federation)** stalled on a credential only the maintainer can supply: the gardener polled for a Google OAuth Web client (redirect `…/oauth2/idpresponse`), never received it within the window, and — rather than fail — parked the remainder as the go-ahead job `minion-town-phase3-completion`, which has since been promoted and claimed and now sits in `doin`. Four proxy messages plus the gardener's own reminders are queued in the maintainer inbox awaiting that OAuth client id/secret (store as Secrets Manager `minion/google-idp-client`, or reply with the creds); every other phase proceeded in parallel, and Phase 5 Part C landed. Separately, a dead-lettered garden#29 correction from mhofman was picked up and closed out: the vatID-pinning gap in `kriscendobot/agoric-sdk#9` is now wired end-to-end (a `writeCriticalPromotionDirective` helper called before `upgradeSwingset`, with a test), leaving one open design call — whether resolution should live JS-side or move fully into the Go handler — for the maintainer to relay. The XS→Rust (Endor) port continues through Stage-5 fix5, with the arrow-scope sub-job complete and the tagged-template surface in progress.
+The one board move since the last bulletin closes out **minion.town Phase 3** (Google → Cognito federation): the gardener never received a Google OAuth Web client within its poll window, so per plan it parked the remainder as the go-ahead job `minion-town-phase3-completion` (nothing lost) and filed a completion report. **Maintainer action needed** to finish Phase 3: create a Google OAuth 2.0 Web client (redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`), store it as Secrets Manager secret `minion/google-idp-client` in `us-west-1` (or reply to the gardener with the id+secret), then promote the parked job. The proxy correctly declined twice — provisioning that credential is beyond its authority.
+
+Separately, a dead-lettered garden#29 correction landed: the agoric critical-vat promotion gap in [kriscendobot/agoric-sdk#9](https://github.com/kriskowal/agoric-sdk/pull/9) is now wired end-to-end (a `CRITICAL_PROMOTION_VAT_IDS` pin table + `writeCriticalPromotionDirective` called from `launch-chain.js` before `upgradeSwingset`, with a test), where before the v4 migration was an unconditional no-op; one open design question remains for mhofman on whether resolution should live JS-side or move fully into Go, and a stale `garden-29-promote-vat-critical` branch can be deleted. The XS→Rust (Endor) Stage-5 fix5 series continues, with the arrow-scope fix done and the tagged-template compile surface still in flight.
 
 ## Parked for maintainer feedback
 
@@ -21,10 +23,6 @@ The headline is that **minion.town Phase 3 (Google → Cognito federation)** sta
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260707T061028Z-df3a36` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T061028Z-df3a36.md)
-
-> awaiting maintainer — beyond proxy authority: gardener minion-town-phase3-google-idp, msgid 20260707T053426Z-075cd2.md — Requesting the maintainer create OAuth credentials under their own Google/GitHub accounts and provision secrets — an authority/credential grant only the maintainer can perform, not a proxyable direction question (and the phases already park `--go-ahead` remainders, so nothing stalls meanwhile).
 
 - `20260707T061444Z-49a26d` — from gardener:minion-town-phase3-google-idp, reply_to `minion-town-phase3-google-idp` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T061444Z-49a26d.md)
 
@@ -128,17 +126,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`minion-town-phase3-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-phase3-completion.md) — minion.town Phase 3 (completion): Google federation into Cognito
+### doin (1)
 - [`xs2rust-endor-stage5-fix5-templates`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix5-templates.md) — Stage-5 fix5 2/5 — tagged-template compile surface + template-literal TV lexing
 
-### tada (1449)
+### tada (1450)
+- [`minion-town-phase3-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase3-completion.md) — Completion report: minion.town Phase 3 — Google federation into Cognito
 - [`issue-kriskowal-garden-32`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-32.md) — Completion report
 - [`xs2rust-endor-stage5-fix5-arrow-scope`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix5-arrow-scope.md) — Completion report — xs2rust-endor-stage5-fix5-arrow-scope (fix5 1/5)
 - [`minion-town-phase5-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase5-completion.md) — Completion Report — minion.town Phase 5 Part C
 - [`scholar-ingest-es-new-descendants-client`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-es-new-descendants-client.md) — Completion report: scholar-ingest-es-new-descendants-client
-- [`port-xs-to-rust-memory-safe-engine-s16`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s16.md) — Completion report — port-xs-to-rust-memory-safe-engine-s16
-- … and 1444 more
+- … and 1445 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
