@@ -67,3 +67,9 @@ params-only first, then body forms; keep each landed slice byte-identical.
   record — put the full measured tallies and any folds there. Do NOT inbox-send to the
   supervisor (it is parked and the send would dead-letter into a noise job). NEVER message
   the maintainer; NEVER comment on the PR; KEEP the PR DRAFT.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  claimed_at: 2026-07-07T14:52:29Z
