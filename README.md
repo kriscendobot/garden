@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-07T10:48:13Z_
+_As of 2026-07-07T11:00:03Z_
 
 ## Latest
 
-The minion.town OAuth deployment is now fully orchestrated, and two phases have landed their non-gated work and parked the rest pending credentials only the maintainer can mint: **Phase 3** (Google→Cognito federation) is parked as `minion-town-phase3-completion` awaiting a Google OAuth Web client, and **Phase 5** (GitHub OIDC thunk) has Parts A+B live and verified over HTTPS (`github-idp.minion.town` well-known + `/authorize` endpoints returning 200/302) with Part C parked as `minion-town-phase5-completion` awaiting a GitHub OAuth App — both deliverable via a us-west-1 Secrets Manager secret or an inbox reply, so nothing else stalls. Separately, a dead-lettered garden#29 correction from mhofman was picked up and closed a real end-to-end gap in the agoric-sdk critical-vat promotion prototype ([kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9)): the Go switch only logged resolved vatIDs, so the v4 migration was a no-op; commit `73067903c` adds a JS-side pin table and `writeCriticalPromotionDirective` called from `launch-chain.js`, with a test, and flags an open design question (JS- vs Go-side resolution) worth relaying to mhofman. The XS→Rust (Endor) port advanced through several stage-5 fixes with one reject-porting job still in flight. Finally, @kriscendobot tried to drive the garden via issue kriskowal/garden#29 but was dropped as a non-allowlisted sender — add them with `add-maintainer.sh` and ask them to re-post if it still matters.
+The minion.town OAuth deployment is now fully orchestrated, and two phases have parked awaiting the one thing only you can provide: **Phase 3** (Google→Cognito federation) needs a Google OAuth 2.0 Web client, and **Phase 5** (GitHub OIDC thunk) needs a GitHub OAuth App — both keyed to the Cognito redirect `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`. Neither failed: each parked a `--go-ahead` remainder (`minion-town-phase3-completion`, `minion-town-phase5-completion`) that finishes the moment you create the credential (store it in us-west-1 Secrets Manager or reply to the gardener) and promote the job. Phase 5's non-gated half is already **live and verified over HTTPS** — `github-idp.minion.town`'s OIDC discovery, JWKS, and `/authorize` endpoints all respond (note: this AWS account blocks public Lambda Function URLs, so ingress runs through an API Gateway HTTP API instead).
+
+Separately, mhofman's design correction for the Agoric critical-vat promotion work — pin exact vatIDs per chain rather than discovering by label — was folded into [kriskowal/agoric-sdk#9](https://github.com/kriskowal/agoric-sdk/pull/9), and a gardener then closed a real gap it exposed: the migration was an end-to-end no-op because nothing wrote the promotion directive. A new commit wires `writeCriticalPromotionDirective` into `launch-chain.js` before `upgradeSwingset` (chainID confirmed available at that point via `bootMsg.chainID`), with a test; one open question for mhofman is whether resolution should stay JS-side or move fully into the Go handler. The XS→Rust (Endor) port cleared its stage-5 build orchestration. One access note: @kriscendobot tried to drive the garden via [issue #29](https://github.com/kriskowal/garden/issues/29) but isn't on the maintainer allowlist, so that interaction was dropped — add them with `add-maintainer.sh` if you want them driving by issue.
 
 ## Parked for maintainer feedback
 
@@ -251,7 +253,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`self-heal-fix-garden-mirror-closer-pulls-422-large-pr`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-mirror-closer-pulls-422-large-pr.md) — In scripts/jobs/handlers/mirror-pr-state-gh.sh, replace the REST gh api repos...
 - [`xs2rust-endor-stage5-fix-rejects`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix-rejects.md) — Stage-5 fix 2/5: port the named coder rejects — new.target, optional chaining...
 
 ### tada (1407)
