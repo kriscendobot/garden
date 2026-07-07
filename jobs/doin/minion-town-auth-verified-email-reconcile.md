@@ -34,3 +34,9 @@ GitHub + Google federate through Cognito (pool `us-west-1_mDaTgjr1m`) into an oa
 Keep coupling loose; secrets only in Secrets Manager; **do not lock out the maintainer**.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 13
+  claimed_at: 2026-07-07T23:23:19Z
