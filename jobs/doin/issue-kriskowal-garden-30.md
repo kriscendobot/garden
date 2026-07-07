@@ -23,3 +23,9 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 Please dispatch a scholar to study https://taskpeace.com/. Capture its gestalt, features, and identify gaps between this and our designs for Endo. Recommend design directions to narrow the gap for maintainer consideration. Produce a report here upon completion of the ingestion an
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 14
+  claimed_at: 2026-07-07T00:09:21Z
