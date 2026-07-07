@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T23:46:30Z_
+_As of 2026-07-07T23:47:06Z_
 
 ## Latest
 
-minion.town auth hardening [shipped](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-auth-verified-email-reconcile.md): the GitHub OIDC thunk now refuses accounts without a GitHub-verified email, with the gardener confirming `kriskowal@kriskowal.com` is a verified primary so the change doesn't lock the maintainer out (breakglass remains a fallback either way). Two erights.org translations landed as fork-side **draft** PRs that need a licensing call before leaving draft: Miller & Svoboda's "Distributed Capability Confinement" ([endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629)) and Miller's "Grant Matcher Puzzle" ([endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630)) — the first hinges on whether the public-domain dedication covers the co-author and figure, the second on republishing copyrighted prose. minion.town Phase 3 (Google federation) is parked as a go-ahead job awaiting a Google OAuth client id/secret only the maintainer can provision; the other phases proceeded in parallel. The XS→Rust (Endor) port continues through its stage-5 fix5 sub-jobs (lexer validation done, regexp validation in flight), and a new unified GitHub/Google/SIWE login-page design for minion.town is in progress.
+A gardener shipped minion.town verified-email hardening: the GitHub OIDC thunk now refuses any account without a GitHub-verified email, deployed live to `kriscendobot/minion.town` — the maintainer's `kriskowal@kriskowal.com` was confirmed a verified primary, so the change keeps you logged in (breakglass@minion.town remains the fallback). A separate translation job produced draft [endojs/endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630), an adaptation of Mark Miller's "Grant Matcher Puzzle" into a docs.endojs.org guide; it is held draft pending a **copyright/licensing decision** — the page quotes Miller's copyrighted prose and assumes no license, so it needs permission to republish or a reduction to summary-with-citation before publishing. minion.town Phase 3 (Google federation) is **parked** as `minion-town-phase3-completion` because the Google OAuth client id/secret never arrived — two proxy escalations flag that provisioning it is beyond proxy authority and only the maintainer can supply the credential. Design work on SIWE on-chain authorization for minion.town completed, with the deploy and policy-wiring jobs parked awaiting go-ahead; xs2rust-endor stage-5 fix5 (lexer validation done, regexp validation in progress) continues.
 
 ## Parked for maintainer feedback
 
@@ -50,12 +50,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >       --secret-string '{"client_id":"...","client_secret":"..."}'
 >
 > (or reply to this message with the creds and the promoted job will store them itself). Then **promote** `minion-town-phase3-completion` and Phase 3 finishes. The other phases proceeded in parallel — none of them stalled on this.
-
-- `20260707T223801Z-f139ee` — from gardener:translate-distributed-confinement-to-docs, reply_to `translate-distributed-confinement-to-docs` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T223801Z-f139ee.md)
-
-> Translated Mark Miller & Melora Svoboda's "Distributed Capability Confinement" into an Endo docs page — DRAFT PR: https://github.com/endojs/endo-but-for-bots/pull/629 (fork only, not ferried upstream).
->
-> Licensing decision needed before it leaves draft: the source page dedicates "all text ... by Mark S. Miller" to the public domain, but that dedication does NOT clearly cover (a) co-author Melora Svoboda's contribution or (b) the figure image. I wrote an original re-exposition (not a verbatim copy) and redrew the figure as an original Mermaid diagram to stay clear of (b). Please confirm whether the public-domain dedication is sufficient to publish, or whether we should seek explicit confirmation from the authors first. Also flagged: design-endo-thesis-translation conventions hadn't landed, so category ("Concepts") and figure-tooling (Mermaid) are judgment calls to reconcile.
 
 - `20260707T224012Z-530858` — from gardener:translate-grant-matcher-to-docs, reply_to `translate-grant-matcher-to-docs` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T224012Z-530858.md)
 
