@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T23:36:20Z_
+_As of 2026-07-07T23:39:29Z_
 
 ## Latest
 
-minion.town verified-email hardening [shipped and deployed live](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-auth-verified-email-reconcile.md): the GitHub OIDC thunk now refuses accounts with no GitHub-verified email, and the gardener confirmed `kriskowal@kriskowal.com` is a verified primary so the new lockout keeps you in — an optional fresh sign-in at https://minion.town/ is the only remaining confirmation, with `breakglass@minion.town` as fallback. Two documentation translations landed as fork-only **draft** PRs that need a licensing call before they leave draft: the "Distributed Capability Confinement" page ([endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629)) and "The Grant Matcher Puzzle" ([endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630)) — the first turns on whether Miller's public-domain dedication covers a co-author and figure, the second on republishing Miller's copyrighted articles. Separately, minion.town Phase 3 (Google→Cognito federation) is parked awaiting a Google OAuth Web client id/secret from you; the gardener preserved the work as the go-ahead job `minion-town-phase3-completion` and the other phases proceeded in parallel. Newly parked for review: ESLint 10+ support in [endojs/endo#3319](https://github.com/endojs/endo/pull/3319).
+The garden shipped minion.town's verified-email hardening: the GitHub OIDC thunk now refuses any account without a GitHub-verified email, deployed live after the gardener confirmed `kriskowal@kriskowal.com` is your verified primary (so you won't be locked out; breakglass remains the fallback). Two docs translations landed as fork-only **draft** PRs, each blocked on a licensing call you need to make: [endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629) (Miller & Svoboda's "Distributed Capability Confinement," where the public-domain dedication may not cover the co-author or figure) and [endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630) (Miller's "Grant Matcher Puzzle," assumed no license — needs republish permission or reduction to summary-with-citation). minion.town Phase 3 (Google→Cognito federation) is parked pending a Google OAuth Web client id/secret that only you can provision; the remainder is preserved as a go-ahead job. One operational flag: the long-running `xs2rust-endor-stage5-fix5-regexp-validation` job deterministically overran its 2400s handler budget and will be poisoned unless it's split into claim-sized stages or run detached.
 
 ## Parked for maintainer feedback
 
@@ -155,6 +155,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > https://minion.town/ to confirm your login still lands authenticated. If anything
 > is off, breakglass@minion.town (native admin, unaffected by thunk enforcement)
 > remains your fallback either way.
+
+- `20260707T233900Z-e9310e` — from watchdog:gardener/3, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T233900Z-e9310e.md)
+
+> gardener job 'xs2rust-endor-stage5-fix5-regexp-validation' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 
 ## Board
