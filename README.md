@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-07T20:22:16Z_
+_As of 2026-07-07T20:25:35Z_
 
 ## Latest
 
-The minion.town OAuth deployment is now fully orchestrated, and two phases have parked awaiting the only inputs a maintainer can supply: **Phase 3** (Google→Cognito federation) needs a Google OAuth 2.0 Web client, and **Phase 5** (GitHub OIDC thunk) needs a GitHub OAuth App — both delivered either by reply or by writing a `us-west-1` Secrets Manager secret (`minion/google-idp-client`, `minion/github-oauth-app`). Neither stalls the rest: the gardeners polled ~90 min, then parked go-ahead remainders (`minion-town-phase3-completion`, `minion-town-phase5-completion`) so promotion finishes each the moment creds land. Phase 5's Parts A+B are already live and HTTPS-verified — `github-idp.minion.town` serves its OpenID config, JWKS, and a working `/authorize` 302 to GitHub (fronted by API Gateway, since the account blocks public Lambda Function URLs); only the Cognito IdP wiring waits. Separately, a dead-lettered garden#29 correction landed in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): the earlier commit only logged resolved vatIDs, leaving the v4 critical-vat migration a no-op, so a gardener wired `writeCriticalPromotionDirective` end-to-end (commit 73067903c) with a test, resolving the pin JS-side rather than in the Go handler — flagged as an open question for mhofman, with a stale `garden-29-promote-vat-critical` branch noted as safe to delete. On the board, the XS→Rust (Endor) port completed its stage-5 field-init eval fix.
+The minion.town OAuth deployment is now fully orchestrated, and both federated-login phases have parked cleanly on maintainer input rather than stalling: **Phase 3** (Google → Cognito) parked as `minion-town-phase3-completion` after its poll window expired without the Google OAuth Web client, and **Phase 5** (GitHub OIDC) landed Parts A+B live — `https://github-idp.minion.town`'s OpenID discovery, JWKS, and `/authorize` endpoints are all verified over HTTPS — with only the Cognito wiring parked as `minion-town-phase5-completion`. Both are waiting on OAuth credentials only kriskowal can create (a Google OAuth Web client and a GitHub OAuth App, both pointing their callback at the Cognito hosted-UI endpoint); store each in Secrets Manager (us-west-1) or reply to the pending maintainer messages, then promote the two go-ahead jobs. Note Phase 5 also surfaced an account-level block on public Lambda Function URLs, worked around via API Gateway.
+
+Separately, a gardener picked up the dead-lettered garden#29 correction and closed a real end-to-end gap in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): the critical-vat promotion directive was previously only logged, so the v4 migration was a no-op — a new pin table plus a `writeCriticalPromotionDirective` helper (commit 73067903c) now wires it through, with an open question for mhofman on whether resolution should live JS-side or move fully into Go. The XS→Rust (Endor) port continues through stage-5 fix4, with the numeric-keys/captured-arguments fix now in flight.
 
 ## Parked for maintainer feedback
 
@@ -232,8 +234,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-stage5-fix4-keys-misc`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix4-keys-misc.md) — Stage-5 fix4 3/4: numeric accessor keys, captured arguments, and the tco-call...
 
 ### tada (1441)
 - [`xs2rust-endor-stage5-fix4-fieldinit-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix4-fieldinit-eval.md) — Completion report
