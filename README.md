@@ -1,16 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-07T03:52:54Z_
+_As of 2026-07-07T03:54:02Z_
 
 ## Latest
 
-A cluster of items now sits on the maintainer's desk. **Transcript capture is built and landed** on main2 (commits a71081d81 and 8e97b86c7): an hourly every-host spool, redact+gzip sweep, a `transcripts2` clone, and a fleet-wide deletion disable — all **inert until you arm a remote**. Arming is yours alone: create a private repo (recommended `kriskowal/garden-transcripts`), grant the bot push, run `set-transcripts-remote.sh`, and record the authorization; open questions on private-vs-public, liaison-session scope, and the 6h idle threshold await your call (proxy escalated this as beyond its authority).
+The board is nearly quiet — only [`improve-ci-rollup-surface-gh-stderr-reason`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-rollup-surface-gh-stderr-reason.md) completed since the last bulletin — but several substantial items now wait on your decision. Transcript capture is **built and landed** on main2 (a71081d81, 8e97b86c7): every host disables deletion and spools locally, but nothing pushes anywhere until you arm a remote — create a private repo (recommended `kriskowal/garden-transcripts`), grant the bot push, and record the authorization. A **data-corruption-class bug** surfaced in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`), which twice left two live writers in one worktree; it's flagged as a garden-infra fix warranting a deliberate patch and deploy.
 
-The fable review of the garden's own scripts surfaced a **data-corruption bug in the reaper requeue path** — jobs requeued every ~18min against a 40min handler wall left the prior handler alive, twice producing two live writers in one worktree; it's a main2 infra fix warranting a deliberate fix + deploy.
-
-Several M3 stacks are built and **blocked only on review/merge**: the Claw `daemon-agent-tools` stack — [#614](https://github.com/endojs/endo-but-for-bots/pull/614)→[#615](https://github.com/endojs/endo-but-for-bots/pull/615)→[#616](https://github.com/endojs/endo-but-for-bots/pull/616)→[#618](https://github.com/endojs/endo-but-for-bots/pull/618) — is CI-green but Draft awaiting an un-draft/merge authority step, and the confined-HttpClient PR [#566](https://github.com/endojs/endo-but-for-bots/pull/566) cleared its gauntlet and is un-drafted into your queue (one non-blocking decision: whether to add a per-request AbortController timeout against a hostile-but-allowlisted server that never settles). The gateway `/ocapn` WebSocket build was **held to avoid a competing PR**: it's a superset of the path-scheme-only draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577), and the gardener recommends re-scoping onto #577 rather than superseding it.
-
-On the failure side, orchestration `xs2rust-endor-build-stage4` **halted** after child `xs2rust-endor-stage4-modules` failed (4/8 done), and the foreman flagged `endoclaw-timer-phase2-tick-delivery` as possibly stuck after draining without milestone progress. Board movement was otherwise quiet — one new claim, an attention directive on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600).
+On the M3 front, the flagship `daemon-agent-tools` "Claw-like coding" stack is fully built and CI-green but stuck in Draft — phases 1–3 ([endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), [#616](https://github.com/endojs/endo-but-for-bots/pull/616)) plus phase 4 ([#618](https://github.com/endojs/endo-but-for-bots/pull/618)) now await review, un-draft, and merge. The confined-HTTP gauntlet on [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) passed panel re-review and is un-drafted into your queue (one deferred question: whether to add a per-request timeout backstop against slow-loris servers). Gateway Feature 8 was **held rather than opened** because it's a superset of the in-flight draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) — the gardener recommends re-scoping to build the socket handoff atop #577's path scheme. Finally, the `xs2rust-endor-build-stage4` orchestration **halted** on a failed child (4/8 done) and the foreman reports the `endoclaw-timer-phase2` step may be stuck.
 
 ## Parked for maintainer feedback
 
@@ -174,18 +170,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr600-c9c5b892`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr600-c9c5b892.md) — attention directive on endojs/endo-but-for-bots PR #600
-- [`improve-ci-rollup-surface-gh-stderr-reason`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-ci-rollup-surface-gh-stderr-reason.md) — scripts/jobs/handlers/ci-rollup-gh.sh
 - [`xs2rust-endor-stage5-coder-decl`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-coder-decl.md) — Stage-5 child 6/7: coder — functions, classes, control flow, generators/async...
 
-### tada (1381)
+### tada (1382)
+- [`improve-ci-rollup-surface-gh-stderr-reason`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-rollup-surface-gh-stderr-reason.md) — Completion report
 - [`endojs-endo-but-for-bots-pr612-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr612-conduct.md) — Completion report
 - [`mention-kriskowal-garden-29-76b1bf4f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mention-kriskowal-garden-29-76b1bf4f.md) — Assessment
 - [`build-aws-administration-skill`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-aws-administration-skill.md) — Completion report
 - [`xs2rust-endor-stage5-coder-expr`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-coder-expr.md) — Completion report
-- [`design-google-sheet-pubsub`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-google-sheet-pubsub.md) — Everything is done: design written, README synced, parent cross-linked, branc...
-- … and 1376 more
+- … and 1377 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
