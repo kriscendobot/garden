@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-07T06:08:24Z_
+_As of 2026-07-07T06:10:56Z_
 
 ## Latest
 
-The **minion.town OAuth deployment** moved off the plan queue into active work: stage 1 orchestration completed (DEPLOYMENT.md → MCP server on EC2 → fan-out), the [phase-2 MCP server](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase2-mcp-server.md) finished, and the four parallel phases are now in flight — Phase 4 (first-party authz policy), Phase 6 (web login gate via oauth2-proxy behind Caddy), and the two federation phases. **Two of them are gated on inputs only kriskowal can create:** Phase 3 (Google federation into Cognito) needs a Google OAuth 2.0 Web client, and Phase 5 (GitHub OIDC thunk) needs a GitHub OAuth App — both deliverable via a Secrets Manager secret in us-west-1 or a reply to the running phase job; each parks a `--go-ahead` remainder rather than failing if the input doesn't arrive in time. The non-gated plumbing (OIDC thunk contract, Lambda, DNS, Caddy) proceeds regardless. Separately, @kriscendobot tried to drive the garden via issue [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) but was dropped for not being on the maintainer allowlist — add them with `add-maintainer.sh` and ask for a re-post if that interaction mattered. The XS→Rust port continues with stage-5 coder work underway.
+The **minion.town OAuth deployment** is the live front: stage 1 (DEPLOYMENT.md → MCP server → fan-out) and Phase 2 (MCP server) both completed, and Phases 3–6 are now running in parallel. Two of them are gated on inputs only kriskowal can supply — Phase 3 (Google federation into Cognito) needs a **Google OAuth 2.0 Web client**, and Phase 5 (GitHub OIDC thunk) needs a **GitHub OAuth App** — each with the Cognito redirect `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`, deliverable via Secrets Manager (`minion/google-idp-client`, `minion/github-oauth-app`) or by replying to the routed message. Nothing else stalls: the other phases proceed, and both gated jobs will park a `--go-ahead` remainder rather than fail if the credentials haven't landed. The proxy has already escalated both as beyond its authority, so they sit squarely on the maintainer.
+
+Separately, worth a glance: **@kriscendobot** tried to drive the garden through issue-inbox on [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) but isn't on the maintainer allowlist, so the interaction was dropped — add them with `add-maintainer.sh` and ask them to re-post if that request mattered. The XS→Rust (Endor) port continues in the background at stage-5 (coder child 6/7).
 
 ## Parked for maintainer feedback
 
@@ -15,7 +17,7 @@ The **minion.town OAuth deployment** moved off the plan queue into active work: 
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 21d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 46d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 46d)
-- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 47d)
+- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 48d)
 - [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 47d)
 - [endojs/endo#3102](https://github.com/endojs/endo/pull/3102) — chore(ci): create custom CHANGELOG generator (waiting 54d)
 
@@ -99,12 +101,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > I'll poll the secret + my inbox every ~5 min for ~90 min. If it hasn't arrived by then I'll park Phase 3 as a maintainer-gated plan job (nothing lost) and report that outcome.
 
+- `20260707T061028Z-df3a36` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T061028Z-df3a36.md)
+
+> awaiting maintainer — beyond proxy authority: gardener minion-town-phase3-google-idp, msgid 20260707T053426Z-075cd2.md — Requesting the maintainer create OAuth credentials under their own Google/GitHub accounts and provision secrets — an authority/credential grant only the maintainer can perform, not a proxyable direction question (and the phases already park `--go-ahead` remainders, so nothing stalls meanwhile).
+
+- `20260707T061046Z-971f67` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T061046Z-971f67.md)
+
+> awaiting maintainer — beyond proxy authority: gardener minion-town-phase5-github-oidc-thunk, msgid 20260707T053432Z-0b806f.md — Both phases are gated on OAuth credentials only the maintainer can create under their own GitHub/Google accounts (a credential/authority grant the proxy cannot supply), and the jobs already park `--go-ahead` remainder jobs in the maintainer's absence.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (7)
+- [`deadmail-issue-comment-4900696368`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4900696368.md) — Dead-lettered message — pick up its intent
+- [`mention-kriskowal-garden-29-00a2b5cb`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mention-kriskowal-garden-29-00a2b5cb.md) — attention directive from @-mention on kriskowal/garden #29
 - [`minion-town-phase3-google-idp`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-phase3-google-idp.md) — minion.town Phase 3: Google federation into Cognito (maintainer-input gated)
 - [`minion-town-phase4-authz-policy`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-phase4-authz-policy.md) — minion.town Phase 4: first-party authorization policy + identity-enriching pr...
 - [`minion-town-phase5-github-oidc-thunk`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-phase5-github-oidc-thunk.md) — minion.town Phase 5: GitHub OIDC thunk (portable wrapper + Lambda + Cognito O...
