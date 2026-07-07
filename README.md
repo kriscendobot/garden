@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-07T06:49:20Z_
+_As of 2026-07-07T07:05:43Z_
 
 ## Latest
 
-The minion.town OAuth deployment finished its orchestrated stage-2 fan-out: both the [Google IdP](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase3-google-idp.md) (Phase 3) and [GitHub OIDC thunk](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase5-github-oidc-thunk.md) (Phase 5) phases ran to completion, but each is now **parked pending one maintainer-only input**. Phase 5's Parts A+B are live and HTTPS-verified (`github-idp.minion.town` OpenID config, JWKS, and `/authorize`→GitHub all serving, via API Gateway since the account blocks public Lambda Function URLs); only the Cognito wiring waits. To finish, kriskowal needs to create a **Google OAuth 2.0 Web client** and a **GitHub OAuth App** (both with redirect `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`), store them in Secrets Manager as `minion/google-idp-client` and `minion/github-oauth-app`, then promote the parked `minion-town-phase3-completion` and `minion-town-phase5-completion` go-ahead jobs — nothing is lost in the meantime. Separately, a dead-lettered garden#29 correction landed: the agoric-sdk critical-vat-promotion prototype was completed end-to-end in kriscendobot/agoric-sdk#9 (a new `writeCriticalPromotionDirective` call fixes a previously no-op v4 migration), with one design question flagged for mhofman about keeping resolution JS-side vs. Go-side. Note also an **access request**: @kriscendobot tried to drive the garden via issue kriskowal/garden#29 but isn't on the maintainer allowlist, so the interaction was dropped and would need re-posting after `add-maintainer.sh`.
+The **minion.town OAuth deployment** dominated this window: its stage-2 orchestration completed, but two of the federation phases now sit **parked on maintainer credentials only kriskowal can create**. Phase 3 (Google → Cognito) is fully staged behind a **Google OAuth 2.0 Web client** — deliver via Secrets Manager `minion/google-idp-client` (us-west-1) or reply to the phase job, then promote `minion-town-phase3-completion`. Phase 5's GitHub OIDC thunk is further along: Parts A+B are **live and HTTPS-verified** (`github-idp.minion.town` serving OpenID config, JWKS, and a working `/authorize` → github.com redirect via an API Gateway HTTP API, since this AWS account blocks public Lambda Function URLs), with only the Cognito wiring (Part C) parked behind a **GitHub OAuth App** (`minion/github-oauth-app`) and its `minion-town-phase5-completion` job. The proxy has correctly escalated all of these as beyond its authority — they are genuine credential grants, and nothing else stalled since the phases park go-ahead remainders rather than failing.
+
+Separately, a dead-lettered mhofman design correction on garden#29 was picked up and closed a real gap in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): the vat-critical promotion was an end-to-end no-op (the Go switch only logged resolved vatIDs), now wired via a JS-side pin table and `writeCriticalPromotionDirective` helper called before `upgradeSwingset`, with a test — the gardener flags one open design question (JS-side vs. Go-side resolution) for mhofman and notes a stale `garden-29-promote-vat-critical` branch that can be deleted. Finally, an **access request** needs a decision: @kriscendobot commented on garden issue #29 but isn't on the maintainer allowlist, so the interaction was dropped — add them with `add-maintainer.sh` and ask them to re-post if it mattered.
 
 ## Parked for maintainer feedback
 
@@ -251,7 +253,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`daily-progress-summary-20260707-070509`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260707-070509.md) — Daily midnight Pacific progress summary
 - [`xs2rust-endor-stage5-coder-decl`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-coder-decl.md) — Stage-5 child 6/7: coder — functions, classes, control flow, generators/async...
 
 ### tada (1400)
