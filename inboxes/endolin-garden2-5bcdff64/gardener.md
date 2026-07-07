@@ -21,3 +21,12 @@ reads entries on its next dispatch.
 - Context: gardener-19 on endolin-garden2-5bcdff64: job 'xs2rust-endor-stage5-coder-decl' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p d3846c1987b263f5e2a38cb2682862e82f46c857`.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-07-07T02:45:16Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: 47919798b3b0dbe59454d4297d45ae3e5976e5fa
+- Context: gardener-8 on endolin-garden2-5bcdff64: job 'xs2rust-endor-stage5-coder-decl' exit-0-unsatisfying but elapsed near-constant (1266,1266s) over 2 cycles — likely a wedged child, not a working one
+
+Inspect via `git -C journal cat-file -p 47919798b3b0dbe59454d4297d45ae3e5976e5fa`.
