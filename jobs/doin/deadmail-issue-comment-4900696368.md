@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/29#issuecomment-4900696368
 I haven't looked at the code yet, but I'm warry of a label-only or label-first approach. In particular, mainnet has both a ymax0 and ymax1 contract. Also, these vats are labelled as `zcf` since they're vats started through zoe, aka I don't believe `ymax` actually shows up in the 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 12
+  claimed_at: 2026-07-07T06:10:19Z
