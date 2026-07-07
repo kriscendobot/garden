@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T05:00:57Z_
+_As of 2026-07-07T05:01:53Z_
 
 ## Latest
 
-A reaper requeue bug surfaced by the Fable review of the garden's own scripts needs a maintainer decision: the requeue path left the prior handler alive while re-posting roughly every 18 minutes against a 40-minute wall, twice producing two live writers in one worktree — a data-corruption-class fault flagged for a deliberate main2 fix and deploy. On the bot repo, Gateway Feature 8 (the `/ocapn` WebSocket endpoint) was held rather than opened as a PR: the gardener found its work is a superset of the in-flight draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), which lands only the path-scheme half, and wants steer on whether to build the socket handoff atop #577 or supersede it. The [endo-but-for-bots#612](https://github.com/endojs/endo-but-for-bots/pull/612) conduct and [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) jobs completed. The long-running XS→Rust (Endor) port advanced to stage 5 after stage 4 halted on a failed `modules` child (serial, halt-on-failure), and the foreman is holding a recurring `endoclaw-timer-phase2` re-post that drained without progress and may be stuck.
+Three items need maintainer eyes. A fable review of the garden's own scripts surfaced a data-corruption bug in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`): a job was requeued about every 18 min against a 40-min handler wall without killing the prior handler, twice leaving two live writers in one worktree — a main2 infrastructure fix flagged for a deliberate fix + deploy. On the gateway front, a builder held Feature 8 (the `/ocapn` WebSocket endpoint) rather than open a competing draft: its work is a superset of the open draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), which does only the path-naming half, but the two rewrite `src/ocapn-ws.js` incompatibly, so the branch is preserved unmerged pending a steer (recommendation: rescope onto #577's path scheme). The XS→Rust (Endor) port hit a serial halt — orchestration `xs2rust-endor-build-stage4` stopped when child `xs2rust-endor-stage4-modules` failed after 4/8 done — though stage 5 has since resumed and `xs2rust-endor-stage5-coder-decl` is now in flight. Elsewhere, [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) and [endo-but-for-bots#612](https://github.com/endojs/endo-but-for-bots/pull/612) completed, an AWS-administration skill and a CI-rollup stderr-reason surfacing landed, and the streamlined-onboarding phase-1 job closed as already-satisfied (its `.garden`-file identity item deliberately superseded by location-derived naming).
 
 ## Parked for maintainer feedback
 
@@ -58,10 +58,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > (c) Drop my branch.
 >
 > Recommendation: (a) — #577 is the sanctioned "one uncovered Phase-1 increment" for the naming and is further along the gauntlet; the socket handoff is a clean follow-on that reuses its path scheme.
-
-- `20260706T181347Z-a1dca0` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T181347Z-a1dca0.md)
-
-> foreman: next step 'build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery' recurred after the previous post drained without milestone progress. Holding the re-post pending review; it may be stuck.
 
 - `20260706T182517Z-526c55` — from orchestrator:xs2rust-endor-build-stage4-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T182517Z-526c55.md)
 
