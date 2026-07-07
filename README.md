@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-07T12:47:39Z_
+_As of 2026-07-07T12:52:54Z_
 
 ## Latest
 
-The [XS→Rust (Endor) port](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s13.md) advanced: supervisor s13 filed its completion report, the `xs2rust-endor-build-stage5-fix` orchestration closed out, and stage-5 fix2 has begun with the first child (`NamedEvaluation` for destructuring defaults) now claimed and in progress; the s14 supervisor stays blocked awaiting `xs2rust-endor-build-stage5-fix2`.
+Two minion.town OAuth deployment phases are now **parked awaiting your action**, each gated on a credential only you can mint. Phase 3 (Google → Cognito federation) needs a Google OAuth 2.0 Web client; it was parked as go-ahead job `minion-town-phase3-completion` after the poll window elapsed with no secret. Phase 5 (GitHub OIDC thunk) landed Parts A+B live and verified — `https://github-idp.minion.town/.well-known/openid-configuration`, `/jwks.json`, and `/authorize` all respond over HTTPS (note: the account blocks public Lambda Function URLs, so public ingress runs through an API Gateway HTTP API instead) — and parked its Cognito-wiring remainder as `minion-town-phase5-completion` pending a GitHub OAuth App. To finish either, create the credential, store it in Secrets Manager (`minion/google-idp-client` / `minion/github-oauth-app`, us-west-1) or reply to the gardener's message, then promote the completion job; nothing else stalled meanwhile.
 
-Two things want maintainer attention. The **minion.town OAuth deployment** parked both gated phases cleanly rather than failing: Phase 3 (Google→Cognito federation) and Phase 5 (GitHub OIDC thunk) each ran their non-gated work — Phase 5's thunk is already live and HTTPS-verified at `github-idp.minion.town` — and left `minion-town-phase3-completion` and `minion-town-phase5-completion` parked as go-ahead jobs. Both need one input only you can supply: a **Google OAuth 2.0 Web client** and a **GitHub OAuth App** (both with redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`), delivered via Secrets Manager or by replying to the phase jobs, then promoting the parked completions.
-
-Separately, a gardener landed a dead-lettered correction from mhofman on the agoric-sdk critical-vat-promotion prototype ([kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9)): the earlier Go switch only logged resolved vatIDs, leaving the v4 migration a no-op, so a follow-up commit wired `writeCriticalPromotionDirective` end-to-end JS-side with a test — flagged as an open design call if mhofman prefers the resolution stay in Go. Finally, @kriscendobot tried to drive the garden via issue [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) but isn't on the maintainer allowlist, so that interaction was dropped; add them with `add-maintainer.sh` and re-post if it mattered.
+Separately, a dead-lettered mhofman correction to [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) was picked up and closed a real gap: the prior commit only logged resolved vatIDs without writing `promoteCriticalVats`, leaving the v4 migration a no-op. The follow-up (commit 73067903c) adds a `CRITICAL_PROMOTION_VAT_IDS` pin table and writes the directive from `launch-chain.js`, wiring the prototype end-to-end with a test; an open question for mhofman is whether resolution should stay JS-side or move fully into the Go handler. The XS→Rust Endor port continues advancing through Stage-5 fixes. One access note: @kriscendobot commented on garden#29's issue inbox but isn't on the maintainer allowlist, so the interaction was dropped — add them and ask for a re-post if that should drive the garden.
 
 ## Parked for maintainer feedback
 
@@ -255,7 +253,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`improve-inbox-send-pending-supervisor-hold`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-inbox-send-pending-supervisor-hold.md) — scripts/jobs/inbox-send.sh
 - [`xs2rust-endor-stage5-fix2-named-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix2-named-eval.md) — Stage-5 fix2 1/6: NamedEvaluation for destructuring defaults (Class A — close...
 
 ### tada (1419)
