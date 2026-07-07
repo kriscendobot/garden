@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-07T14:52:33Z_
+_As of 2026-07-07T15:16:27Z_
 
 ## Latest
 
-The XS→Rust (Endor) port's stage-5 "fix2" campaign is the main board motion: three sub-jobs completed — the NamedEvaluation destructuring-default fix, private member read/write plus class-tail folds, and the Class B/C byte divergences — while the 4/6 slice (direct eval inside a function's EVAL environment) is now claimed and in flight; supervisor s14 remains blocked on the fix2 build.
+The minion.town OAuth deployment is now orchestrated, and two phases have parked awaiting credentials only kriskowal can create. **Phase 3** (Google federation into Cognito) polled out its window with no Google OAuth Web client delivered and parked its remainder as go-ahead job `minion-town-phase3-completion`. **Phase 5** (GitHub OIDC thunk) is further along: Parts A+B are live and HTTPS-verified — `github-idp.minion.town`'s OpenID configuration, JWKS, and `/authorize` redirect all respond — with only the Cognito IdP wiring (Part C) parked as `minion-town-phase5-completion` pending a GitHub OAuth App. Both need creds stored in Secrets Manager (`minion/google-idp-client`, `minion/github-oauth-app`) or replied inline; nothing else stalled, and the proxy has correctly escalated each as beyond its authority. One implementation note worth flagging: this AWS account blocks public Lambda Function URLs, so the thunk's public ingress runs through an API Gateway HTTP API instead — lifting that account-level block would allow switching back.
 
-The bigger maintainer item is the **minion.town OAuth deployment**, now fully orchestrated. Both federation phases landed everything they could without you and then parked cleanly: Phase 5's GitHub OIDC thunk is **live and HTTPS-verified** (`github-idp.minion.town` serving OpenID config, JWKS, and a working `/authorize` 302 to GitHub, fronted by API Gateway because the AWS account blocks public Lambda Function URLs), with only the Cognito wiring parked as `minion-town-phase5-completion`; Phase 3 (Google→Cognito) parked as `minion-town-phase3-completion`. Both wait solely on OAuth credentials **only you can create** — a Google OAuth Web client (`minion/google-idp-client`) and a GitHub OAuth App (`minion/github-oauth-app`), each with the Cognito `idpresponse` redirect URI, dropped into us-west-1 Secrets Manager. Nothing else stalled, and promoting the parked jobs finishes each phase.
-
-A dead-lettered correction from mhofman on [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) was picked up and landed on [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): the critical-vat promotion directive was previously a no-op end-to-end (the Go switch only logged resolved vatIDs), now closed by a JS-side pin table wired into `launch-chain.js` before `upgradeSwingset` — with one open design question for mhofman on whether to move resolution fully into Go. Finally, an issue-inbox interaction from @kriscendobot on the same issue was **dropped** for not being on the maintainer allowlist; add them if they should drive the garden by issue, and ask them to re-post.
+Separately, mhofman's dead-lettered correction on [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) landed in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): a peer had folded in the exact-vatID pinning, but the Go switch only logged resolutions and never wrote `promoteCriticalVats`, leaving the v4 migration a no-op. A follow-up commit closes that gap with a JS-side pin table and directive helper wired end-to-end with a test — with an open question for mhofman on whether resolution should live in Go instead. The XS→Rust (Endor) port continues grinding through stage-5 fix2 byte, private-member, and named-evaluation divergences.
 
 ## Parked for maintainer feedback
 
@@ -66,25 +64,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Or reply to this message — the reply routes to the running phase job's inbox (`minion-town-phase5-github-oidc-thunk`) and it will store the secret itself.
 >
 > The thunk's non-gated work (the reusable 5-endpoint OIDC thunk contract, the Lambda + `github-idp.minion.town` DNS + Caddy plumbing) proceeds regardless; only the Cognito IdP wiring waits. If the input hasn't arrived when Phase 5 runs, it parks a `--go-ahead` remainder job (`minion-town-phase5-completion`) rather than failing.
-
-- `20260707T060118Z-7827d8` — from issue-inbox-watcher, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T060118Z-7827d8.md)
-
-> kind: access-request
->
-> @kriscendobot interacted with the garden's issue inbox on kriskowal/garden #29 but is NOT on
-> the maintainer allowlist, so the interaction was DROPPED (dispatched
-> nothing). If this is a collaborator you want to let drive the garden by
-> issue, add them:
->
->     scripts/jobs/add-maintainer.sh kriscendobot
->
-> After that, FUTURE issues/comments from @kriscendobot will dispatch — but THIS one
-> was already dropped, so ask them to re-post it (or re-post it yourself)
-> if it still matters.
->
-> Interaction: https://github.com/kriskowal/garden/issues/29#issuecomment-4900643943
->
-> You are shown this ONCE per individual. Reply or archive to dismiss it.
 
 - `20260707T060815Z-f5928c` — from gardener:minion-town-phase3-google-idp, reply_to `minion-town-phase3-google-idp` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T060815Z-f5928c.md)
 
