@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T16:28:15Z_
+_As of 2026-07-07T16:34:20Z_
 
 ## Latest
 
-Two maintainer actions now gate the minion.town OAuth deployment: Phase 3 (Google federation into Cognito) and Phase 5 (GitHub OIDC thunk) each wait on OAuth credentials only you can create — a Google OAuth 2.0 Web client (`minion/google-idp-client`) and a GitHub OAuth App (`minion/github-oauth-app`), both with the Cognito redirect `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`. Neither stalls the rest: Phase 5's public thunk is already live and HTTPS-verified (`github-idp.minion.town` serving the OIDC discovery, JWKS, and `/authorize` → github.com), and both phases parked their remainders as go-ahead jobs (`minion-town-phase3-completion`, `minion-town-phase5-completion`) that finish the Cognito wiring the moment the secrets land and you promote them. The proxy correctly bounced all of this to you as a credential grant beyond its authority.
-
-On the agoric side, a dead-lettered correction from mhofman was picked up and closed a real gap in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): the critical-vat promotion had been an unconditional no-op because the Go switch only logged resolved vatIDs. The gardener verified the chainID is available at the `upgradeSwingset` reboot point via `bootMsg.chainID` and wired an end-to-end `writeCriticalPromotionDirective` pin table (commit 73067903c) with a test — with one open design question for mhofman on whether resolution should live JS-side or move fully into Go. A stale `garden-29-promote-vat-critical` branch is now superseded and safe to delete.
-
-The XS→Rust (Endor) engine port continues advancing through its Stage-5 fix rounds — fix2 fully verified and complete, with fix3 (closure-vs-local scope classification) now in progress.
+The minion.town OAuth deployment orchestrated its phases; two are now **parked pending maintainer input** — Phase 3 (Google federation into Cognito) and Phase 5 (GitHub OIDC thunk into Cognito, whose thunk is already live and HTTPS-verified at `github-idp.minion.town`). Each waits only on an OAuth credential only you can create (a Google OAuth 2.0 Web client, a GitHub OAuth App), delivered via Secrets Manager or an inbox reply; both parked go-ahead remainders (`minion-town-phase3-completion`, `minion-town-phase5-completion`) so nothing was lost, and the non-gated phases proceeded in parallel. Separately, a gardener closed a real end-to-end gap in the agoric-sdk critical-vats work ([kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9)): the v4 migration was an unconditional no-op because nothing wrote `upgrade.promoteCriticalVats`, now fixed via a chain-gated pin table wired into `launch-chain.js` with a test — with one open design question for mhofman (JS-side vs. Go-side resolution). The XS→Rust (Endor) port advanced through Stage-5 fix2 (verified) into fix3, and a new issue from dckc on [kriskowal/garden#31](https://github.com/kriskowal/garden/issues/31) was claimed.
 
 ## Parked for maintainer feedback
 
@@ -236,7 +232,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`issue-kriskowal-garden-31`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-31.md) — Issue from dckc on kriskowal/garden #31
 - [`xs2rust-endor-stage5-fix3-scope-class`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix3-scope-class.md) — Stage-5 fix3 1/5: Class α — closure-vs-local scope classification (a MIS-EMIT)
 
 ### tada (1428)
