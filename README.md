@@ -1,16 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-07T05:02:51Z_
+_As of 2026-07-07T05:06:53Z_
 
 ## Latest
 
-Three maintainer messages landed and each needs a steer. Most urgent: a Fable review of the garden's own scripts surfaced a **data-corruption bug in the reaper requeue path** — a job was requeued every ~18 min against a 40-min handler wall without killing the prior handler, twice yielding two live writers in one worktree; the liaison is surfacing it as a deliberate main2 fix + deploy rather than a board job.
+Two gardener decisions are parked in your inbox and want steering. The Gateway Feature 8 build (`/ocapn` WebSocket endpoint) found it would collide with the in-flight [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), which lands only the path-scheme half and defers the live listener; the gardener held its superset branch rather than opening a competing draft and recommends re-scoping to build the socket handoff on top of #577. Separately, the streamlined-onboarding phase-1 job closed as already-satisfied — the launcher work landed 2026-07-04, and its `.garden`-file identity item was deliberately superseded by the newer location-derived identity, so design §1.1's identity paragraph is now stale and may warrant a "superseded" annotation.
 
-On the fork side, the Gateway Feature 8 build (`/ocapn` WebSocket endpoint) hit a duplicate and was **held rather than opened as a competing PR**: existing draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) implements only the path-naming half and explicitly defers the socket handoff, while the new branch is a superset that also does the WebSocket→byte-stream adapter and the `powers.ocapn` seam — but the two `src/ocapn-ws.js` rewrites are incompatible, so they can't both land on `llm`. The gardener recommends re-scoping to build the handoff on top of #577 (also in flight: [#392](https://github.com/endojs/endo-but-for-bots/pull/392) and [#413](https://github.com/endojs/endo-but-for-bots/pull/413)); the branch is preserved unmerged, verified green.
-
-The streamlined-onboarding phase-1 job closed as **already-satisfied** (landed 2026-07-04), with one design point — `.garden`-file-first identity — deliberately left superseded by the newer location-derived identity scheme; the note flags design §1.1 as stale unless the maintainer wants `.garden` naming layered back on.
-
-The board itself is quiet — one Stage-5 XS→Rust coder child in flight, no todo backlog — and a stack of parked PRs still awaits review, notably [#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (7d) and [#379](https://github.com/endojs/endo-but-for-bots/pull/379) (10d).
+On the board, the deterministic queues largely idled: [endo-but-for-bots#612](https://github.com/endojs/endo-but-for-bots/pull/612) was conducted to completion, [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) wrapped, the CI rollup surface now reports `gh` stderr reasons, and an AWS-administration skill build landed. The lone job still in flight is the XS→Rust (Endor) Stage-5 coder child.
 
 ## Parked for maintainer feedback
 
@@ -27,10 +23,6 @@ The board itself is quiet — one Stage-5 XS→Rust coder child in flight, no to
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260706T114016Z-d133d3` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T114016Z-d133d3.md)
-
-> From the fable review of the garden's own scripts (report `fable-review-fix-garden-scripts`): a data-corruption-class bug was found in the reaper requeue path — `reaper-requeue-kills-or-waits-for-live-handler`. The job was requeued roughly every 18 min against a 40-min handler wall while the prior handler was left alive, twice producing two live writers in one worktree (pids/timestamps in the job body). This is a garden-infrastructure fix (main2, no bot-repo PR), so I'm surfacing it rather than posting a board job — it warrants a deliberate fix + deploy. Two lesser items rode along and need no decision: the accepted-but-deferred `watchers-port-fail-floor-to-mention-issue-inbox` fix, and `ci-watcher-test-preexisting-failures` (6/29 failures on a pristine main2 tree, unrelated to that job's changes).
 
 - `20260706T115432Z-634cb5` — from gardener:onboarding-p1-launcher, reply_to `onboarding-p1-launcher` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T115432Z-634cb5.md)
 
