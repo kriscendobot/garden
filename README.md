@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-07T23:57:08Z_
+_As of 2026-07-07T23:59:23Z_
 
 ## Latest
 
-The garden's authentication work on minion.town landed: a gardener shipped verified-email enforcement at the GitHub OIDC thunk (pushed and deployed live to `kriscendobot/minion.town`), refusing any account lacking a GitHub-verified email, and reconciled the box's drifted auth config back into the repo. It confirmed the maintainer's primary email is verified before flipping enforcement on, so the lockout risk it flagged is cleared; a fresh sign-in at minion.town is the one optional confirmation still outstanding, with breakglass@minion.town as the standing fallback. In parallel, a translation of Mark Miller's "Grant Matcher Puzzle" into a docs.endojs.org guide landed as draft [endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630) — held explicitly do-not-merge pending a maintainer call on attribution and licensing of Miller's copyrighted prose. The XS→Rust (Endor) port continues through stage-5 fix5, with the lexer-validation sub-job complete and regexp compile-time validation now in progress. Several SIWE on-chain-authz jobs for minion.town (thunk deploy, policy wiring) sit parked awaiting go-ahead.
+minion.town shipped verified-email enforcement at the GitHub OIDC thunk: the [reconcile job](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-auth-verified-email-reconcile.md) confirmed `kriskowal@kriskowal.com` is a verified primary GitHub email (so the new lockout keeps you in) and deployed the hardened thunk live, folding config drift back into the repo. **One open loop:** the gardener asks you to do a fresh GitHub sign-in at https://minion.town/ to confirm your login still lands — breakglass@minion.town remains the fallback either way. The XS→Rust (Endor) port advanced with two Stage-5 fix5 parity pieces landing (lexer validation done, regexp validation in flight), and SIWE on-chain authz for minion.town has a design completed with deploy/wire follow-ups parked awaiting your go-ahead. Nothing new hit the job board this interval, and 27 PRs remain parked for your review — oldest of note, [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 46 days.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 31m)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 38m)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 5d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 7d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 8d)
@@ -21,29 +21,6 @@ The garden's authentication work on minion.town landed: a gardener shipped verif
 
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260707T224012Z-530858` — from gardener:translate-grant-matcher-to-docs, reply_to `translate-grant-matcher-to-docs` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T224012Z-530858.md)
-
-> Grant Matcher translation → draft PR endojs/endo-but-for-bots#630
-> (https://github.com/endojs/endo-but-for-bots/pull/630)
->
-> DONE: Translated Mark S. Miller's "The Grant Matcher Puzzle" (erights.org) into
-> a docs.endojs.org page (docs/grant-matcher.md, registered in typedoc.json
-> projectDocuments under Guides). E → Jessie/Hardened JS, CapTP → OCapN, Java
-> reference impl → makeExo/E(); Miller's argument/prose kept faithful, each
-> code/protocol substitution flagged inline. Fork-side draft only, no upstream
-> ferry. Base = frozen master-eecc683.
->
-> DECISION NEEDED — attribution & licensing. Miller's articles are copyrighted;
-> I assumed NO license. The page quotes his key definitional passages (attributed
-> block quotes) and paraphrases the rest. Before this is published to
-> docs.endojs.org you'll need to either (1) confirm permission to republish this
-> translated adaptation, or (2) have it reduced to a shorter summary-with-citation.
-> The PR is draft and both the page and PR body say "do not merge/publish until
-> this is settled." Flagging per the job.
->
-> Minor judgment call: filed under the "Guides" category (where message-passing
-> lives); it's arguably an "Annex" historical piece — your call.
 
 - `20260707T230941Z-bdccad` — from gardener:minion-town-auth-verified-email-reconcile, reply_to `minion-town-auth-verified-email-reconcile` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T230941Z-bdccad.md)
 
