@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-07T23:47:06Z_
+_As of 2026-07-07T23:48:07Z_
 
 ## Latest
 
-A gardener shipped minion.town verified-email hardening: the GitHub OIDC thunk now refuses any account without a GitHub-verified email, deployed live to `kriscendobot/minion.town` — the maintainer's `kriskowal@kriskowal.com` was confirmed a verified primary, so the change keeps you logged in (breakglass@minion.town remains the fallback). A separate translation job produced draft [endojs/endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630), an adaptation of Mark Miller's "Grant Matcher Puzzle" into a docs.endojs.org guide; it is held draft pending a **copyright/licensing decision** — the page quotes Miller's copyrighted prose and assumes no license, so it needs permission to republish or a reduction to summary-with-citation before publishing. minion.town Phase 3 (Google federation) is **parked** as `minion-town-phase3-completion` because the Google OAuth client id/secret never arrived — two proxy escalations flag that provisioning it is beyond proxy authority and only the maintainer can supply the credential. Design work on SIWE on-chain authorization for minion.town completed, with the deploy and policy-wiring jobs parked awaiting go-ahead; xs2rust-endor stage-5 fix5 (lexer validation done, regexp validation in progress) continues.
+The garden shipped **minion.town verified-email hardening**: a gardener confirmed `kriskowal@kriskowal.com` is a verified primary GitHub email (so the new lockout keeps the maintainer in), then deployed the tightened OIDC thunk that refuses any account lacking a GitHub-verified email, reconciled the box's auth config back into the repo, and verified the live endpoints. An optional fresh sign-in at minion.town is the only follow-up. A new draft [endojs/endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630) translates Mark Miller's "Grant Matcher Puzzle" into a docs.endojs.org guide, but is explicitly held for a maintainer decision on attribution and licensing (the piece quotes copyrighted material) before it can publish. On the XS→Rust (Endor) port, stage-5 fix5 lexer-validation landed and regexp compile-time validation is now in progress. Several minion.town auth items are parked awaiting your go-ahead — SIWE thunk deploy, on-chain-authz wiring, and a unified GitHub/Google/SIWE login-page design (in progress). Three proxy escalations sit in your inbox flagging work beyond proxy authority: provisioning a **Google OAuth client id/secret** (twice) and the email-verification confirmation now resolved above.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 21m)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 26m)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 5d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 7d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 8d)
@@ -29,27 +29,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260707T064032Z-a4b9f4` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T064032Z-a4b9f4.md)
 
 > awaiting maintainer — beyond proxy authority: gardener minion-town-phase3-google-idp, msgid 20260707T062404Z-c0c6ef.md — Provisioning a Google OAuth client id+secret requires the maintainer's Google account and hands over live credentials — a credential/authority grant beyond proxy scope; the gardener's own fallback (park as a maintainer-gated plan job) is the correct path.
-
-- `20260707T064515Z-a5f34e` — from gardener:minion-town-phase3-google-idp, reply_to `minion-town-phase3-google-idp` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T064515Z-a5f34e.md)
-
-> # minion.town Phase 3 (Google federation) — PARKED pending your input
->
-> The Google OAuth client never arrived within the poll window (secret `minion/google-idp-client` absent, no inbox reply). Per plan I did **not** fail the orchestration — I parked the remainder as a go-ahead job so nothing is lost:
->
-> - **Parked job:** `minion-town-phase3-completion` (gate: go-ahead). It carries the full Phase 3 work verbatim (create Cognito Google IdP on pool `us-west-1_mDaTgjr1m`, add `Google` to both clients' SupportedIdentityProviders with read-modify-write, verify authorize redirect).
-> - **DEPLOYMENT.md** Phase 3 row now reads `parked pending maintainer input`.
->
-> **To unblock:** create the Google OAuth 2.0 Web client with authorized redirect URI
->
->     https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse
->
-> then store it:
->
->     aws secretsmanager create-secret --region us-west-1 \
->       --name minion/google-idp-client \
->       --secret-string '{"client_id":"...","client_secret":"..."}'
->
-> (or reply to this message with the creds and the promoted job will store them itself). Then **promote** `minion-town-phase3-completion` and Phase 3 finishes. The other phases proceeded in parallel — none of them stalled on this.
 
 - `20260707T224012Z-530858` — from gardener:translate-grant-matcher-to-docs, reply_to `translate-grant-matcher-to-docs` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T224012Z-530858.md)
 
