@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T09:52:27Z_
+_As of 2026-07-07T10:13:10Z_
 
 ## Latest
 
-The minion.town OAuth deployment reached a checkpoint: the stage-2 orchestration completed, and both federation phases delivered their non-gated work before parking on inputs only kriskowal can create. Phase 5's GitHub OIDC thunk is **live and HTTPS-verified** (`github-idp.minion.town` OpenID config, JWKS, and `/authorize` → github.com all responding; note the account blocks public Lambda Function URLs, so ingress runs through an API Gateway HTTP API), with only the Cognito wiring parked as `minion-town-phase5-completion` pending a GitHub OAuth App. Phase 3 (Google → Cognito) is likewise parked as `minion-town-phase3-completion` pending a Google OAuth Web client; both remainder jobs carry the full work verbatim and finish the moment you provide the credentials (store in Secrets Manager `us-west-1` as `minion/github-oauth-app` / `minion/google-idp-client`, or reply to the gardener) and promote. The proxy correctly escalated all of these as beyond its authority — nothing stalled, since the phases parked rather than failed.
-
-Separately, a dead-lettered garden#29 correction from mhofman was picked up and landed: the peer's `chainID`-availability assumption was verified wrong, and a follow-up commit (`73067903c`) now wires `writeCriticalPromotionDirective` end-to-end with a test in [kriskowal/agoric-sdk#9](https://github.com/kriskowal/agoric-sdk/pull/9), closing a gap where the critical-vat promotion had been an unconditional no-op. One open design question is flagged for mhofman (resolution now lives JS-side rather than in the Go handler), and a stale `garden-29-promote-vat-critical` branch is superseded and can be deleted.
-
-On the XS→Rust (Endor) port, stage-5 continued: the coder-decl handler completed and the 7/7 full-corpus byte-identity differential harness was claimed. Also worth a glance: @kriscendobot tried to drive the garden via issue kriskowal/garden#29 but isn't on the maintainer allowlist, so that interaction was dropped — add them with `add-maintainer.sh` and ask them to re-post if it mattered.
+The XS→Rust (Endor) port's build [stage 5 orchestration](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage5.md) completed (byte-identity and coder-declaration children landed), unblocking the Fable supervisor's stage-12 follow-on. The larger story is the **minion.town OAuth deployment**, now fully orchestrated and running its phases in parallel: both federation phases stalled on credentials only kriskowal can mint. Phase 5 (GitHub OIDC thunk) has Parts A+B live and HTTPS-verified at `github-idp.minion.town` — but its Cognito wiring is parked as `minion-town-phase5-completion` awaiting a **GitHub OAuth App**; Phase 3 (Google→Cognito) is likewise parked as `minion-town-phase3-completion` awaiting a **Google OAuth Web client** (both want secrets stored in us-west-1 Secrets Manager, or a reply to the phase job). Neither failed — each parked a go-ahead remainder, so nothing is lost; promote them once the credentials exist. Separately, a dead-lettered garden#29 correction from mhofman was picked up and closed out: the agoric-sdk critical-vat-promotion prototype is now wired end-to-end (the earlier peer commit only logged the resolved vatIDs), with one open design question for mhofman on whether resolution should live JS- or Go-side. Finally, note the access request: @kriscendobot tried to drive the garden via [issue #29](https://github.com/kriskowal/garden/issues/29#issuecomment-4900643943) but isn't on the maintainer allowlist, so the interaction was dropped — add them with `add-maintainer.sh` and ask them to re-post if it mattered.
 
 ## Parked for maintainer feedback
 
@@ -255,16 +251,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-stage5-byte-identity`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-byte-identity.md) — Stage-5 child 7/7 (STAGE BAR): full-corpus byte-identity differential harness...
+### doin (0)
+(none)
 
-### tada (1402)
+### tada (1404)
+- [`xs2rust-endor-build-stage5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage5.md) — orchestration xs2rust-endor-build-stage5 — complete
+- [`xs2rust-endor-stage5-byte-identity`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-byte-identity.md) — Completion report
 - [`xs2rust-endor-stage5-coder-decl`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-coder-decl.md) — Handler summary
 - [`daily-progress-summary-20260707-070509`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260707-070509.md) — Inbox empty, work landed. Here is my completion report.
 - [`minion-town-oauth-stage2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-oauth-stage2.md) — orchestration minion-town-oauth-stage2 — complete
-- [`minion-town-phase5-github-oidc-thunk`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase5-github-oidc-thunk.md) — Completion report — minion.town Phase 5: GitHub OIDC thunk
-- [`minion-town-phase3-google-idp`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase3-google-idp.md) — Completion report
-- … and 1397 more
+- … and 1399 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
