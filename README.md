@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-07T11:02:32Z_
+_As of 2026-07-07T11:09:52Z_
 
 ## Latest
 
-The minion.town OAuth deployment has surfaced two maintainer-gated blockers you can clear at any time: **Phase 3 (Google→Cognito federation)** is now parked as go-ahead job `minion-town-phase3-completion`, waiting only on a Google OAuth 2.0 Web client (redirect `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`, delivered via Secrets Manager `minion/google-idp-client`); and **Phase 5 (GitHub OIDC thunk)** has its Parts A+B done and live — `https://github-idp.minion.town/.well-known/openid-configuration`, `jwks.json`, and `/authorize` all verified over HTTPS — with only the Cognito wiring parked as `minion-town-phase5-completion` pending a GitHub OAuth App (secret `minion/github-oauth-app`). Both phases parked rather than failed, so nothing is lost; the proxy correctly bounced both to you as credential grants beyond its authority. Separately, a dead-lettered correction from mhofman on [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) landed in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): the critical-vat promotion prototype is now wired end-to-end (commit 73067903c writes `promoteCriticalVats` from a chainID-keyed pin table in `launch-chain.js`, closing a gap where the earlier Go-side commit only logged the resolved vatIDs), with one open design question for mhofman on whether resolution should live JS-side or Go-side. Worth noting: @kriscendobot tried to drive the garden via the issue inbox but isn't on the maintainer allowlist, so that interaction was dropped — add them with `add-maintainer.sh` and ask them to re-post if it mattered. The board itself was quiet, with only the mirror-closer self-heal fix completing.
+The minion.town OAuth deployment is orchestrated and now waits on the maintainer for two credential grants that only kriskowal can create: a **Google OAuth 2.0 Web client** (Phase 3, Google→Cognito federation) and a **GitHub OAuth App** (Phase 5). Both phases did their non-gated work in parallel and parked go-ahead remainders rather than stalling — Phase 5's GitHub OIDC thunk (Parts A+B) is already live and HTTPS-verified at `github-idp.minion.town` (openid-configuration, jwks.json, and `/authorize`→github.com all responding), backed by an ARM64 Node Lambda fronted by API Gateway because the account blocks public Lambda Function URLs. To finish either, provide the client id/secret (Secrets Manager `minion/google-idp-client` or `minion/github-oauth-app` in us-west-1, or reply to the gardener), then promote `minion-town-phase3-completion` / `minion-town-phase5-completion` from the plan queue; the proxy has correctly flagged both as beyond its authority.
+
+Separately, a dead-lettered garden#29 correction from mhofman landed in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): a prior peer commit resolved per-chain vatIDs but only *logged* them, leaving the v4 `promoteCriticalVats` migration an end-to-end no-op; commit 73067903c closes that gap by writing the promotion directive JS-side from the chainID available at `upgradeSwingset` — with an open question for mhofman on whether resolution should move fully into Go. A stale `garden-29-promote-vat-critical` branch carrying the old label approach is superseded and can be deleted.
+
+Two housekeeping items: @kriscendobot touched the garden's issue inbox but isn't on the maintainer allowlist, so that interaction (garden#29) was dropped and must be re-posted if it matters; and the board is fully drained (only `xs2rust-endor-stage5-fix-rejects` completed since the last bulletin).
 
 ## Parked for maintainer feedback
 
@@ -251,16 +255,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-stage5-fix-rejects`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix-rejects.md) — Stage-5 fix 2/5: port the named coder rejects — new.target, optional chaining...
+### doin (0)
+(none)
 
-### tada (1408)
+### tada (1409)
+- [`xs2rust-endor-stage5-fix-rejects`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix-rejects.md) — Completion report
 - [`self-heal-fix-garden-mirror-closer-pulls-422-large-pr`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-mirror-closer-pulls-422-large-pr.md) — Completion report
 - [`deadmail-20260707T104253Z-8c2c23`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260707T104253Z-8c2c23.md) — I now have the complete picture. Let me record my analysis.
 - [`xs2rust-endor-stage5-fix-cesu8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix-cesu8.md) — Completion report
 - [`port-xs-to-rust-memory-safe-engine-s12`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s12.md) — Completion report — port-xs-to-rust-memory-safe-engine-s12
-- [`xs2rust-endor-build-stage5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage5.md) — orchestration xs2rust-endor-build-stage5 — complete
-- … and 1403 more
+- … and 1404 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
