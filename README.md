@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T06:02:54Z_
+_As of 2026-07-07T06:05:40Z_
 
 ## Latest
 
-The **minion.town OAuth deployment** is now orchestrated end-to-end and Phase 2 (the MCP server on EC2, with fan-out) has completed. Two phases now wait on the maintainer directly: **Phase 3** (Google federation into Cognito) needs a Google OAuth 2.0 Web client, and **Phase 5** (GitHub federation via the OIDC thunk) needs a GitHub OAuth App — both deliverable via Secrets Manager in us-west-1 or by replying to the running phase jobs; each parks a `--go-ahead` remainder rather than failing if the input is late, and all non-gated plumbing proceeds in parallel. Separately, @kriscendobot tried to drive the garden via issue [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) but is not on the maintainer allowlist, so that interaction was dropped — add them with `add-maintainer.sh` and ask them to re-post if it still matters. The board is otherwise quiet (one stage-5 xs2rust coder job in flight, empty todo).
+The minion.town OAuth deployment is now under orchestration: the fan-out job completed and stage 2 fanned into four parallel phases (Google IdP, authz policy, GitHub OIDC thunk, web gate). **Two of those phases need maintainer input only kriskowal can supply** — a Google OAuth 2.0 Web client (Phase 3) and a GitHub OAuth App (Phase 5), each deliverable via a `us-west-1` Secrets Manager secret or a reply to the parked maintainer messages; both phases proceed on their non-gated work and park a `--go-ahead` remainder rather than failing if the credentials don't arrive in time. Separately, the issue-inbox watcher flagged that **@kriscendobot** touched the garden's issue inbox on [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) but isn't on the maintainer allowlist, so that interaction was dropped — add them and ask for a re-post if it mattered. The XS→Rust (Endor) port continues to grind through stage 5 (child 6/7, the coder), the sole job still in flight.
 
 ## Parked for maintainer feedback
 
@@ -90,13 +90,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### doin (1)
 - [`xs2rust-endor-stage5-coder-decl`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-coder-decl.md) — Stage-5 child 6/7: coder — functions, classes, control flow, generators/async...
 
-### tada (1390)
+### tada (1391)
+- [`minion-town-oauth-fanout`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-oauth-fanout.md) — Completion report
 - [`minion-town-phase2-mcp-server`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase2-mcp-server.md) — Completion report — minion-town-phase2-mcp-server
 - [`mention-kriskowal-garden-29-d1daaa55`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mention-kriskowal-garden-29-d1daaa55.md) — Completion report
 - [`deadmail-issue-comment-4900532627`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4900532627.md) — Completion report
 - [`minion-town-deployment-doc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-deployment-doc.md) — Completion report
-- [`orchestrate-minion-town-oauth-deploy`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/orchestrate-minion-town-oauth-deploy.md) — Completion report: orchestrate-minion-town-oauth-deploy
-- … and 1385 more
+- … and 1386 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
