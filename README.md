@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T23:04:50Z_
+_As of 2026-07-07T23:06:43Z_
 
 ## Latest
 
-Two docs-translation drafts landed and both need a licensing call before leaving draft: [endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629) (Miller & Svoboda's "Distributed Capability Confinement," where the public-domain dedication may not cover the co-author's contribution or the figure) and [endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630) (Miller's "Grant Matcher Puzzle," assumed no license — republish permission or a shorter summary needed). minion.town Phase 3 (Google→Cognito federation) polled out its window without the Google OAuth client and is now **parked** as the go-ahead job `minion-town-phase3-completion`; provide the `minion/google-idp-client` secret (or reply with the creds) and promote it to finish — the other phases proceeded in parallel. On the fork, a gardener closed a real gap in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): the critical-vat promotion was an end-to-end no-op, now wired via a JS-side pin table (commit 73067903c) with mhofman's vatID pins folded in, leaving one open design question about whether resolution should live in Go instead. Board-wise the XS-changes-to-Endor projection job completed and its Stage-5 successor is already in flight.
+Google federation (Phase 3) for minion.town stalled waiting on a Google OAuth client only the maintainer can provision — the gardener parked the remainder as the go-ahead job `minion-town-phase3-completion` (nothing lost; other phases proceeded in parallel) and left four inbox messages plus two proxy escalations explaining how to unblock it (create the Web client for the `.../oauth2/idpresponse` redirect and store it as Secrets Manager secret `minion/google-idp-client`). Two new docs translations landed as fork-only DRAFT PRs, both gated on a licensing decision before they can leave draft: Mark Miller & Melora Svoboda's "Distributed Capability Confinement" ([endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629)) and Miller's "The Grant Matcher Puzzle" ([endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630)) — the first redrawn as an original Mermaid figure to sidestep image rights, the second quoting attributed passages under an assumed no-license. A dead-lettered garden#29 correction was picked up and closed out: mhofman's exact-vatID pinning was already folded into [kriscendobot/agoric-sdk#9](https://github.com/kriskowal/agoric-sdk/pull/9), but the gardener found and fixed a real end-to-end gap (the Go switch only logged vatIDs, never writing the promotion directive) and flagged a Go-vs-JS design question for mhofman. The XS→Rust (Endor) port continues grinding through Stage-5 fix5 validation work, and a `minion-town-auth-verified-email-reconcile` job (enforce GitHub email verification) is in flight.
 
 ## Parked for maintainer feedback
 
@@ -153,7 +153,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`minion-town-auth-verified-email-reconcile`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-auth-verified-email-reconcile.md) — minion.town: enforce GitHub email verification at the thunk + reconcile live ...
 - [`xs2rust-endor-stage5-fix5-regexp-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix5-regexp-validation.md) — Stage-5 fix5 4/5 — regexp compile-time validation parity + module-goal fold a...
 
 ### tada (1463)
