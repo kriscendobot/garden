@@ -1,17 +1,17 @@
 # Garden bulletin
 
-_As of 2026-07-07T05:07:25Z_
+_As of 2026-07-07T05:23:27Z_
 
 ## Latest
 
-Little moved on the board this cycle — no new posts, claims, or completions resolved — but one item needs the maintainer's steer: a gardener building the Gateway `/ocapn` WebSocket endpoint (Feature 8) found it overlaps [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), an open draft that implements only the path-scheme half and explicitly defers the live listener and Noise frame relay. Rather than open a competing draft against `llm`, the gardener held its superset work on branch `feat/gateway-ocapn-ws-endpoint-handoff` (locally verified: 73 ava pass, tsc/eslint/prettier clean) and asked you to choose between building the socket handoff *on top of* #577, superseding #577 with the superset, or dropping the branch — recommending the first. The only active job is the XS→Rust (Endor) port, now at Stage-5 child 6/7 (coder).
+A gardener building the OCapN WebSocket endpoint (Gateway Feature 8) discovered its work collides with [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) — an open draft that names the `/ocapn-cbor-np` path scheme but explicitly defers the live listener and Noise frame relay — and **held rather than opening a competing PR**, since both are incompatible rewrites of `src/ocapn-ws.js`. The branch (`feat/gateway-ocapn-ws-endpoint-handoff`, locally verified: 73 ava pass, tsc/eslint/prettier clean) is preserved but unposted, and the gardener is asking kriskowal to steer: rescope onto #577's path scheme (its recommendation), supersede #577 with the superset, or drop the branch. Also newly in flight, the `orchestrate-minion-town-oauth-deploy` orchestration job was claimed and is now driving the minion.town OAuth deployment toward a live, verified conclusion. Recently completed work includes conductor/merge processing on [endo-but-for-bots#612](https://github.com/endojs/endo-but-for-bots/pull/612), a completion on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600), an assessment of the [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) mention, and two garden-internal builds (a CI-rollup gh-stderr surfacing improvement and a new AWS-administration skill).
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 4d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 7d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 7d)
-- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 10d)
+- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 11d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 21d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 46d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 46d)
@@ -47,7 +47,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`orchestrate-minion-town-oauth-deploy`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/orchestrate-minion-town-oauth-deploy.md) — Orchestrate: drive the minion.town OAuth deployment to a live, verified concl...
 - [`xs2rust-endor-stage5-coder-decl`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-coder-decl.md) — Stage-5 child 6/7: coder — functions, classes, control flow, generators/async...
 
 ### tada (1383)
