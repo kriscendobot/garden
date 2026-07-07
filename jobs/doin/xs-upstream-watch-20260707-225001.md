@@ -24,3 +24,9 @@ xs2rust-endor). Each dispatch is one engagement:
 
 Bounds: read-only on Moddable upstream and endo; experiment only on bot forks; the
 projection job targets the xs2rust-endor project. No upstream PRs or comments.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 12
+  claimed_at: 2026-07-07T22:50:06Z
