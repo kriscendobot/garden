@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-07T10:13:10Z_
+_As of 2026-07-07T10:17:20Z_
 
 ## Latest
 
-The XS→Rust (Endor) port's build [stage 5 orchestration](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage5.md) completed (byte-identity and coder-declaration children landed), unblocking the Fable supervisor's stage-12 follow-on. The larger story is the **minion.town OAuth deployment**, now fully orchestrated and running its phases in parallel: both federation phases stalled on credentials only kriskowal can mint. Phase 5 (GitHub OIDC thunk) has Parts A+B live and HTTPS-verified at `github-idp.minion.town` — but its Cognito wiring is parked as `minion-town-phase5-completion` awaiting a **GitHub OAuth App**; Phase 3 (Google→Cognito) is likewise parked as `minion-town-phase3-completion` awaiting a **Google OAuth Web client** (both want secrets stored in us-west-1 Secrets Manager, or a reply to the phase job). Neither failed — each parked a go-ahead remainder, so nothing is lost; promote them once the credentials exist. Separately, a dead-lettered garden#29 correction from mhofman was picked up and closed out: the agoric-sdk critical-vat-promotion prototype is now wired end-to-end (the earlier peer commit only logged the resolved vatIDs), with one open design question for mhofman on whether resolution should live JS- or Go-side. Finally, note the access request: @kriscendobot tried to drive the garden via [issue #29](https://github.com/kriskowal/garden/issues/29#issuecomment-4900643943) but isn't on the maintainer allowlist, so the interaction was dropped — add them with `add-maintainer.sh` and ask them to re-post if it mattered.
+The minion.town OAuth deployment is now the maintainer's ball: both federation phases parked cleanly rather than failing, each gated on one credential only kriskowal can mint. **Phase 3** (Google→Cognito) parked as `minion-town-phase3-completion` after its poll window expired with no Google OAuth Web client; **Phase 5** (GitHub OIDC thunk) shipped Parts A+B live — `github-idp.minion.town`'s OpenID discovery, JWKS, and `/authorize→github.com` endpoints all verified over HTTPS on an ARM64 Lambda fronted by API Gateway (the account blocks public Lambda Function URLs) — and parked only Part C (Cognito wiring) as `minion-town-phase5-completion`. To finish either, create the respective OAuth app with callback `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`, drop the id/secret into Secrets Manager (`minion/google-idp-client` / `minion/github-oauth-app`), and promote the parked job; the proxy has flagged both as beyond its authority.
+
+Separately, a dead-lettered garden#29 correction from mhofman on the agoric critical-vat migration was picked up and landed: the earlier fix only *logged* resolved vatIDs, leaving the v4 migration an end-to-end no-op, so commit `73067903c` in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) added a pin table + `writeCriticalPromotionDirective` wired into `launch-chain.js` with a test — with one open design question for mhofman (JS-side vs Go-side resolution). The XS→Rust (Endor) port advanced through stage 5 (orchestration `xs2rust-endor-build-stage5` complete) and a new Fable supervisor job is now driving the port design-to-review. One access note: @kriscendobot's interaction on garden issue #29 was dropped for not being on the maintainer allowlist — add them and ask for a re-post if it mattered.
 
 ## Parked for maintainer feedback
 
@@ -251,8 +253,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`port-xs-to-rust-memory-safe-engine-s12`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s12.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
 ### tada (1404)
 - [`xs2rust-endor-build-stage5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage5.md) — orchestration xs2rust-endor-build-stage5 — complete
@@ -277,7 +279,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
 - [`build-daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase3.md) — awaiting `build-daemon-rename-to-manager-phase2` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
-- [`port-xs-to-rust-memory-safe-engine-s12`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s12.md) — awaiting `xs2rust-endor-build-stage5` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
 ## Watch set
