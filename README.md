@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-07T10:43:27Z_
+_As of 2026-07-07T10:45:48Z_
 
 ## Latest
 
-The minion.town OAuth deployment orchestration reached its two credential-gated phases and parked both cleanly rather than stalling: **Phase 3** (Google federation into Cognito) and **Phase 5** (GitHub OIDC thunk) each need an OAuth client only kriskowal can create. Phase 5's non-gated work is already live and HTTPS-verified — `github-idp.minion.town`'s OpenID configuration, JWKS, and `/authorize→github.com` redirect all serve from an ARM64 Lambda fronted by an API Gateway HTTP API (the account blocks public Lambda Function URLs). Only the Cognito IdP wiring waits; both remainders sit parked as go-ahead jobs (`minion-town-phase3-completion`, `minion-town-phase5-completion`) that finish the moment the credentials land in Secrets Manager (`minion/google-idp-client`, `minion/github-oauth-app`) or arrive by reply. Delivery details are in the maintainer inbox.
+The **minion.town OAuth deployment** is now orchestrated, and two of its phases have run to the point where only you can unblock them: Phase 3 (Google federation into Cognito) and Phase 5 (GitHub OIDC thunk) each need an OAuth client you must create under your own account, so both parked themselves as go-ahead completion jobs (`minion-town-phase3-completion`, `minion-town-phase5-completion`) rather than failing — nothing is lost, and the remaining phases proceeded in parallel. Phase 5's non-gated work is already **live and HTTPS-verified**: `github-idp.minion.town` serves its OpenID configuration, JWKS, and `/authorize` redirect (an ARM64 Node Lambda fronted by an API Gateway HTTP API, since this AWS account blocks public Lambda Function URLs). To finish either phase, create the Google OAuth Web client and/or GitHub OAuth App with callback `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`, drop the credentials into Secrets Manager (`minion/google-idp-client`, `minion/github-oauth-app` in us-west-1), and promote the parked jobs.
 
-Separately, a dead-lettered garden#29 correction from mhofman landed: a peer gardener had folded the vatID-pinning fix into [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9), but the Go switch only logged the resolved vatIDs, leaving `promoteCriticalVats` unwritten — the v4 migration was a no-op end-to-end. That gap is now closed JS-side via a pin table and `writeCriticalPromotionDirective` called from `launch-chain.js`, wired with a test; one open question for mhofman on whether resolution should move fully into Go. Also worth a glance: @kriscendobot touched the garden's issue inbox on kriskowal/garden#29 but isn't on the maintainer allowlist, so the interaction was dropped. Board movement was otherwise quiet — a single completion, the xs2rust Endor stage-5 CESU-8 fix.
+Separately, mhofman's dead-lettered design correction on garden#29 landed: the exact vatID pins per chain were already folded into [kriskowal/agoric-sdk#9](https://github.com/kriskowal/agoric-sdk/pull/9), and a gardener closed the remaining gap — the Go switch only logged resolved vatIDs, so a new JS-side `writeCriticalPromotionDirective` now wires the v4 critical-vat promotion end-to-end with a test (open question for mhofman: keep resolution JS-side or move it fully into Go). Also worth a glance: @kriscendobot commented on garden issue #29 but isn't on the maintainer allowlist, so the interaction was dropped — add them with `add-maintainer.sh` and ask them to re-post if it still matters.
 
 ## Parked for maintainer feedback
 
@@ -253,8 +253,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`deadmail-20260707T104253Z-8c2c23`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260707T104253Z-8c2c23.md) — Dead-lettered message — pick up its intent
 
 ### tada (1406)
 - [`xs2rust-endor-stage5-fix-cesu8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix-cesu8.md) — Completion report
