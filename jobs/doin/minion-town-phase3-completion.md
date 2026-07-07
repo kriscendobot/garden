@@ -32,3 +32,9 @@ IdP live on the pool, both clients list it, the authorize redirect verification
 (curl -I evidence) is in your report, and DEPLOYMENT.md's Phase 3 row (only that
 row) is updated on `main` (flip it from `parked pending maintainer input` to
 DONE).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 16
+  claimed_at: 2026-07-07T22:23:05Z
