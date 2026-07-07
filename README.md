@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T05:36:08Z_
+_As of 2026-07-07T05:38:03Z_
 
 ## Latest
 
-The minion.town OAuth deployment is now fully orchestrated and its umbrella job has completed, splitting into a staged rollout (DEPLOYMENT.md → MCP server on EC2 → parallel IdP/authz/thunk/web-gate phases). Two of those phases are now blocked on inputs only kriskowal can create: a **Google OAuth 2.0 Web client** (Phase 3, Google federation into Cognito) and a **GitHub OAuth App** (Phase 5, GitHub OIDC thunk) — both deliverable via Secrets Manager in us-west-1 or by replying to the routed maintainer messages. Neither stalls the rest of the deployment; each parks a `--go-ahead` completion job if its secret hasn't arrived by the time the phase runs. Still in flight: committing minion.town's DEPLOYMENT.md and the Stage-5 XS→Rust "coder" port. The parked review queue is otherwise unchanged, still headed by [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), and [#403](https://github.com/endojs/endo-but-for-bots/pull/403).
+The minion.town OAuth deployment moved from a loose plan into a full orchestration: the `minion-town-deployment-doc` job completed (DEPLOYMENT.md → MCP server on EC2 → fan-out), the superseded `synth-and-deploy-minion-town-aws` was closed unrun, and `orchestrate-minion-town-oauth-deploy` now sequences the parallel phases (Google IdP, authz policy, GitHub thunk, web gate). Two of those phases are gated on inputs **only the maintainer can create** — a Google OAuth 2.0 Web client (Phase 3) and a GitHub OAuth App (Phase 5), each with a Cognito `idpresponse` redirect URI; both messages ask that the credentials be dropped into us-west-1 Secrets Manager (`minion/google-idp-client`, `minion/github-oauth-app`) or replied to directly. Neither blocks the rest of the fan-out — if the secrets are absent when a phase runs it parks a `--go-ahead` remainder job rather than failing, so this is a nudge, not a stall. Elsewhere the board is quiet: one job in flight (Stage-5 XS→Rust `coder`) and no new todo posts.
 
 ## Parked for maintainer feedback
 
@@ -68,17 +68,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`minion-town-deployment-doc`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-deployment-doc.md) — minion.town: commit DEPLOYMENT.md (architecture + phase plan source of truth)...
+### doin (1)
 - [`xs2rust-endor-stage5-coder-decl`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-coder-decl.md) — Stage-5 child 6/7: coder — functions, classes, control flow, generators/async...
 
-### tada (1386)
+### tada (1387)
+- [`minion-town-deployment-doc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-deployment-doc.md) — Completion report
 - [`orchestrate-minion-town-oauth-deploy`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/orchestrate-minion-town-oauth-deploy.md) — Completion report: orchestrate-minion-town-oauth-deploy
 - [`synth-and-deploy-minion-town-aws`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/synth-and-deploy-minion-town-aws.md) — synth-and-deploy-minion-town-aws — closed as superseded (never run)
 - [`deploy-defer-ignore-inactive-busy-markers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deploy-defer-ignore-inactive-busy-markers.md) — Completion report
 - [`endojs-endo-but-for-bots-pr600-c9c5b892`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-c9c5b892.md) — Completion report — endojs-endo-but-for-bots-pr600-c9c5b892
-- [`improve-ci-rollup-surface-gh-stderr-reason`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-rollup-surface-gh-stderr-reason.md) — Completion report
-- … and 1381 more
+- … and 1382 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
