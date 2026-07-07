@@ -1,12 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-oauth-stage1
-priority: normal
-roadmap: minion.town/mcp-oauth
 role: builder
-posted_by: orchestrator
-posted_at: 2026-07-07T05:33:10Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-07T05:34:16Z -->
 
 # minion.town: commit DEPLOYMENT.md (architecture + phase plan source of truth) and close superseded PR #2
 
