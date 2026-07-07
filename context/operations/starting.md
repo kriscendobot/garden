@@ -80,6 +80,20 @@ are singletons — leader-only, because two would double-act:
   `cat "$GARDEN_STATE/deploy/upgrade-ready" 2>/dev/null` (silent when up to
   date); on a signal, invoke `scripts/jobs/deploy-garden.sh` ([deploy.md](deploy.md)).
 
+**Also drain the liaison broadcast bus on bring-up** — on **every** host, leader
+and follower. Once the Monitors are armed (and again at natural checkpoints
+thereafter), the liaison reads its own bus addresses with
+
+```sh
+scripts/jobs/read-msgs.sh "liaison-$GARDEN" role/liaison broadcast
+```
+
+(`$GARDEN` is this host's identity from `common.sh`; the per-host seen-key keeps
+each host's own read cursor). Surface anything unseen to the maintainer as a fleet
+notice; an empty drain is silent. Fold it into a standing Monitor you already run —
+no new daemon. See [roles/liaison/AGENT.md](../../roles/liaison/AGENT.md) § the
+broadcast-bus drain.
+
 Singleton rule in general: on the leader host only — foreman, scheduler,
 watchers, bulletin, and these Monitors. Followers run the gardener pool plus
 per-host local infra. The full inventory and rationale are
@@ -100,6 +114,25 @@ per-host local infra. The full inventory and rationale are
   The `garden-issue-inbox.timer` is auto-enabled by step 2 and is **inert** until
   both exist — writing them is the deliberate arming act. Gate is
   allowlist-only, no org fallback (`designs/issue-inbox.md`).
+
+- **Transcript durability** — archive the fleet's session transcripts and keep
+  Claude Code from deleting them. Deletion is disabled fleet-wide with **no
+  arming** (on the moment this build deploys); the **archive** is **inert until
+  you point it at a remote**, and until then every host still disables deletion
+  and **spools** its finished transcripts locally — nothing is lost, only the push
+  is gated. Arming publishes the fleet's raw working memory, so it is the
+  maintainer's deliberate call: create a **private** repo to hold the branch
+  (recommended: `kriskowal/garden-transcripts`), grant the bot push, then
+
+  ```sh
+  scripts/jobs/set-transcripts-remote.sh git@github.com:kriskowal/garden-transcripts.git
+  ```
+
+  and record it with a journal `message` entry. **Offer this; do not arm it
+  yourself** — surface that capture is inert and say the word and I'll run
+  `set-transcripts-remote.sh <url>`. Because local `~/.claude` no longer
+  self-prunes once deletion is off, also note the disk-posture change. Full
+  detail — arming, browsing a transcript, rotation: [transcripts.md](transcripts.md).
 
 - **Bulletin PAT** — the GitHub Pages bulletin reads status without auth, but
   replying from the page needs a fine-grained Personal Access Token (Contents:

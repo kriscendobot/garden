@@ -40,6 +40,24 @@ and the gardener fleet, and helps the maintainer operate the local garden.
   just moves the message unread → read, so you can dismiss a message that needs no
   answer by leaving the reply blank. A still-working gardener receives a
   non-empty reply through its own inbox monitor.
+- **Drain the liaison broadcast bus.** Liaisons have their own bus addresses —
+  `role/liaison` and `broadcast` — for fleet-wide operational notices (gardeners
+  already poll their equivalents every work loop; this is the liaison's missing
+  half of that contract). On bring-up (session preflight / the starting stage) and
+  at natural checkpoints thereafter, drain them with
+
+      scripts/jobs/read-msgs.sh "liaison-$GARDEN" role/liaison broadcast
+
+  where `$GARDEN` is this host's identity from `common.sh`. The per-host seen-key
+  `liaison-$GARDEN` keeps each host's own read cursor (outside the journal, so a
+  `git reset --hard` never loses it), so a fleet-wide broadcast reaches every
+  liaison — leader and follower alike — exactly once per host. Surface anything
+  unseen to the maintainer verbatim as a fleet notice; an empty drain is silent.
+  **Fold this into a standing Monitor you already run — the maintainer-inbox
+  Monitor on the leader, the leader-marker watch on a follower — rather than adding
+  a new daemon.** The transcript-durability arming
+  offered at bring-up ([context/operations/transcripts.md](../../context/operations/transcripts.md))
+  posts exactly such a notice once armed.
 - **Operate local services** for the maintainer: bringing up the systemd user
   units, confirming a unique hostname/`GARDEN` identity, and scaling the local
   gardener pool. The startup procedure and the identity-uniqueness check are
