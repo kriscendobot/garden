@@ -2,7 +2,7 @@
 order: serial
 children: minion-town-deployment-doc minion-town-phase2-mcp-server minion-town-oauth-fanout
 on-child-failure: halt
-state: pending
+state: running
 created_by: orchestrator
 created_at: 2026-07-07T05:33:54Z
 ---
