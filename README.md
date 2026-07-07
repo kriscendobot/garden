@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-07T22:29:02Z_
+_As of 2026-07-07T22:31:26Z_
 
 ## Latest
 
-Google federation (Phase 3) for minion.town stalled and self-parked: the gardener polled for a Google OAuth Web client that never arrived, so rather than fail the orchestration it parked the remainder as `minion-town-phase3-completion` (a go-ahead job) and marked the DEPLOYMENT.md Phase 3 row "parked pending maintainer input" — **maintainer action needed** to finish it (create the Google OAuth client with redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`, store it in Secrets Manager, then promote the job); the other phases proceeded in parallel and Phase 5 Part C completed. On the agoric-sdk side, a dead-lettered garden#29 correction from mhofman was picked up: the critical-vat promotion pin was already folded into [kriscendobot/agoric-sdk#9](https://github.com/kriskowal/agoric-sdk/pull/9), but a peer commit left the v4 migration a no-op (Go switch only logged the resolved vatIDs); the gardener closed that gap end-to-end with a JS-side `writeCriticalPromotionDirective` pin table called before `upgradeSwingset`, with a test — flagged as an open question whether mhofman prefers the resolution moved fully into Go. The XS→Rust (Endor) port advanced through stage-5 fix5 (arrow-scope done, tagged-template/template-literal lexing in progress), and a new design job opened to translate the Endo thesis.
+The XS→Rust (Endor) port kept moving through Stage-5 fix5: the tagged-template/template-literal lowering step [completed](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix5-templates.md) and the lexer/parser validation-parity step (hashbang, strict-mode string escapes) was promoted off the plan queue and is now in progress, alongside the earlier arrow-scope fix. Two new documentation-translation jobs were claimed — distributed-confinement and grant-matcher, both porting endo thesis material into docs.
+
+Two things in the maintainer inbox want attention. First, **minion.town Phase 3 (Google→Cognito federation) is gated on you**: the gardener polled ~90 minutes for a Google OAuth 2.0 Web client (redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`, stored as Secrets Manager secret `minion/google-idp-client` in us-west-1), got nothing, and — rather than fail — parked the remainder as go-ahead job `minion-town-phase3-completion`; create the client and store the secret (or reply with the creds), then promote to finish. The proxy correctly declined to originate that credential. Second, a dead-lettered correction on kriscendobot/[agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) was resolved: a gardener verified the chainID is available at the `upgradeSwingset` reboot point and wired an end-to-end `writeCriticalPromotionDirective` (pin table keyed by chainID) so the v4 critical-vat promotion is no longer a no-op — with one open design question (JS-side resolution vs. mhofman's Go-side handler) flagged for relay.
 
 ## Parked for maintainer feedback
 
@@ -124,17 +126,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
 - [`design-endo-thesis-translation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-thesis-translation.md) — Venue & mechanism
-- [`xs2rust-endor-stage5-fix5-templates`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix5-templates.md) — Stage-5 fix5 2/5 — tagged-template compile surface + template-literal TV lexing
+- [`translate-distributed-confinement-to-docs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/translate-distributed-confinement-to-docs.md) — Source
+- [`translate-grant-matcher-to-docs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/translate-grant-matcher-to-docs.md) — Source
+- [`xs2rust-endor-stage5-fix5-lexer-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix5-lexer-validation.md) — Stage-5 fix5 3/5 — lexer/parser validation parity: hashbang, string strict es...
 
-### tada (1450)
+### tada (1451)
+- [`xs2rust-endor-stage5-fix5-templates`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix5-templates.md) — Completion report — Stage-5 fix5 2/5 (tagged-template + template-literal TV l...
 - [`minion-town-phase3-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase3-completion.md) — Completion report: minion.town Phase 3 — Google federation into Cognito
 - [`issue-kriskowal-garden-32`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-32.md) — Completion report
 - [`xs2rust-endor-stage5-fix5-arrow-scope`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix5-arrow-scope.md) — Completion report — xs2rust-endor-stage5-fix5-arrow-scope (fix5 1/5)
 - [`minion-town-phase5-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase5-completion.md) — Completion Report — minion.town Phase 5 Part C
-- [`scholar-ingest-es-new-descendants-client`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-es-new-descendants-client.md) — Completion report: scholar-ingest-es-new-descendants-client
-- … and 1445 more
+- … and 1446 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
