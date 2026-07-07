@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-07T12:55:27Z_
+_As of 2026-07-07T13:35:43Z_
 
 ## Latest
 
-On the board, the **XS→Rust (Endor) port** stage-5 fix2 chain advanced: the NamedEvaluation-for-destructuring-defaults sub-job completed and the private-member-reads sub-job (2/6) was claimed and is in flight; supervisor s14 stays blocked awaiting the stage-5 fix2 orchestration.
+Two minion.town OAuth phases are now parked awaiting credentials only kriskowal can mint: **Phase 3** (Google→Cognito federation) needs a Google OAuth 2.0 Web client, and **Phase 5** (GitHub OIDC thunk) needs a GitHub OAuth App — both delivered by storing the id/secret in us-west-1 Secrets Manager (`minion/google-idp-client`, `minion/github-oauth-app`) or by replying to the gardeners' inbox messages. Phase 5's non-gated work is already live and HTTPS-verified (`github-idp.minion.town` OpenID config, JWKS, and `/authorize→github.com`, fronted by an API Gateway HTTP API because this account blocks public Lambda Function URLs); each phase parked a `--go-ahead` completion job (`minion-town-phase3-completion`, `minion-town-phase5-completion`) so nothing is lost until you provide the secrets and promote.
 
-The item most needing maintainer attention is the **minion.town OAuth deployment**: Phases 3 (Google→Cognito federation) and 5 (GitHub OIDC thunk) both parked cleanly after their poll windows expired, each gated solely on a credential only kriskowal can create — a Google OAuth 2.0 Web client (`minion/google-idp-client`) and a GitHub OAuth App (`minion/github-oauth-app`), both with the Cognito redirect URI. Phase 5's Parts A+B are already live and HTTPS-verified (`github-idp.minion.town` OIDC discovery, JWKS, and `/authorize` → github.com); only the Cognito wiring waits. Store the secrets (or reply to the gardener) and promote `minion-town-phase3-completion` / `minion-town-phase5-completion` to finish. The proxy correctly routed all of these to you as beyond its authority.
+On the XS→Rust (Endor) port, stage-5 fix2 part 1/6 (NamedEvaluation) completed, but part 2/6 (`xs2rust-endor-stage5-fix2-private-reads`) deterministically overran its 2400s handler budget and the watchdog warns it will be poisoned unless split into claim-sized stages or run detached.
 
-Separately, the dead-lettered [garden#29](https://github.com/kriskowal/garden/issues/29) correction from mhofman was picked up and landed: the critical-vat promotion prototype is now wired end-to-end (chainID resolved JS-side via a pin table at the `upgradeSwingset` reboot point, with a test), closing a gap where an earlier peer commit only logged the resolved vatIDs. One open design question for mhofman — whether resolution should live in Go rather than JS — is flagged for relay. Also note: @kriscendobot tried to drive the garden via the issue inbox but isn't on the maintainer allowlist, so that interaction was dropped; add them if you want them to have that access.
+Separately, a dead-lettered garden#29 correction from mhofman landed in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): a gardener verified the chainID is available at the `upgradeSwingset` reboot point and pushed the missing `writeCriticalPromotionDirective` wiring so the critical-vat promotion is now end-to-end with a test, rather than a logging-only no-op — with an open question for mhofman on keeping resolution JS-side vs. moving it into Go. Finally, note that @kriscendobot touched the garden's issue inbox on [garden#29](https://github.com/kriskowal/garden/issues/29) but isn't on the maintainer allowlist, so that interaction was dropped.
 
 ## Parked for maintainer feedback
 
@@ -249,6 +249,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >     --secret-string '{"client_id":"YOUR_CLIENT_ID","client_secret":"YOUR_CLIENT_SECRET"}'
 >
 > Then promote the parked go-ahead job `minion-town-phase5-completion` (tell the liaison "go ahead / promote minion-town-phase5-completion"). It runs the ready-made deploy/aws/scripts/deploy-cognito-github-idp.sh (creates the Cognito GitHub OIDC IdP and adds GitHub to both app clients, preserving any Google/Phase 3 IdP) and verifies the hosted-UI redirect chains to github.com. Nothing is lost by the wait — the thunk reads the GitHub creds from the secret at runtime, so no thunk redeploy is needed.
+
+- `20260707T133531Z-c7f228` — from watchdog:gardener/3, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T133531Z-c7f228.md)
+
+> gardener job 'xs2rust-endor-stage5-fix2-private-reads' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 
 ## Board
