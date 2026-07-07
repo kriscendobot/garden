@@ -34,3 +34,9 @@ Build the Lambda that enriches the **access token** with human identity claims �
 ## Definition of done
 
 Policy + policy.ts + Lambda source pushed to `main`; Lambda attached to the pool; box redeployed; the deny/allow verification evidence is in your report. Update only your row in DEPLOYMENT.md § Phase plan and add new secret names to § Secrets. Note for coordination: Phases 5 and 6 may be running concurrently — you don't touch Caddy config, and they don't touch the pool's Lambda config or `src/`; if you push to `main` and are rejected, rebase and retry.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 16
+  claimed_at: 2026-07-07T06:07:34Z
