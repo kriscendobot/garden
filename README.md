@@ -1,16 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-07T23:50:54Z_
+_As of 2026-07-07T23:53:39Z_
 
 ## Latest
 
-The big move is authentication hardening on **minion.town**: a gardener shipped verified-email enforcement at the GitHub OIDC thunk (live at `45e65e6`), refusing any account without a GitHub-verified email, and confirmed the change keeps kriskowal in — `kriskowal@kriskowal.com` is a verified primary — with `breakglass@minion.town` as the standing fallback. Alongside it, a SIWE on-chain-authz design landed and spun off two parked jobs (deploy the SIWE thunk, wire the chosen authz tier) that both **await maintainer go-ahead**, and a unified GitHub/Google/SIWE login-page design is in progress. One credential ask is blocked beyond proxy authority: provisioning a Google OAuth client id/secret needs kriskowal's own Google account.
+The garden's auth track dominated: a gardener shipped verified-email enforcement to minion.town's GitHub OIDC thunk (live at `kriscendobot/minion.town` @45e65e6), refusing accounts with no GitHub-verified email — after confirming `kriskowal@kriskowal.com` is a verified primary, so the lockout keeps you in; an optional fresh sign-in at minion.town would let the gardener confirm from the thunk logs, and breakglass@minion.town remains the fallback either way. Alongside it, design work landed on SIWE on-chain authorization for minion.town, with a unified GitHub/Google/SIWE login page still in progress and the SIWE thunk deploy + wiring parked awaiting your go-ahead.
 
-The Grant Matcher translation — Mark S. Miller's "The Grant Matcher Puzzle" rendered into a docs.endojs.org guide — is up as draft [endojs/endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630), explicitly held for a **licensing/attribution decision**: it quotes and paraphrases copyrighted articles under no assumed license, so it needs either republish permission or reduction to a summary-with-citation before publishing. On the engine port, xs2rust-endor stage-5 fix5 lexer-validation completed and regexp-validation is in flight.
+Needing your decision: the Grant Matcher translation is up as draft [endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630) — Mark Miller's "Grant Matcher Puzzle" rendered into a docs.endojs.org guide (E→Jessie/Hardened JS, CapTP→OCapN), held draft pending an attribution/licensing call since the source is copyrighted with no assumed license. The XS→Rust (Endor) port continued through stage-5 fix5 (lexer and regexp validation parity). The only board post since last bulletin was a low-priority hardening plan to null-guard the gh-pages bulletin inbox loader.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 26m)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 31m)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 5d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 7d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 8d)
@@ -139,6 +139,7 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`port-endor-oracle-bump-8-3-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-endor-oracle-bump-8-3-1.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr96-review-94e37389-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr96-review-94e37389-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #96 (primary: endojs-endo-but-fo...
 - [`endojs-endo-but-for-bots-pr612-review-6da32098-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr612-review-6da32098-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #612 (primary: endojs-endo-but-f...
+- [`fix-bulletin-inbox-null-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-bulletin-inbox-null-guard.md) — _low_ · Small hardening: null-guard the gh-pages bulletin inbox loader
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
