@@ -83,3 +83,9 @@ otherwise mis-execute), never a silent mis-emit, and report the honest remainder
   cannot finish, push what is green and report the honest remainder.
 - **Report via your tada completion report ONLY** — do NOT `inbox-send` the supervisor (it is
   parked; a send dead-letters into a noise job).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  claimed_at: 2026-07-07T19:31:08Z
