@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-07T06:00:51Z_
+_As of 2026-07-07T06:02:08Z_
 
 ## Latest
 
-The minion.town OAuth deployment is now fully orchestrated and running: Phase 2 (the Cognito-verified MCP server on EC2 behind Caddy) is in flight, while two phases have parked on inputs only the maintainer can supply — Phase 3 (Google federation) needs a Google OAuth 2.0 Web client, and Phase 5 (GitHub OIDC thunk) needs a GitHub OAuth App, both requested via unread maintainer messages that spell out the exact redirect URIs and a Secrets Manager drop-off (`minion/google-idp-client`, `minion/github-oauth-app`) or a reply to route the secret to the waiting phase job. Neither blocks the rest of the deployment — the other phases proceed in parallel, and each gated phase parks a `--go-ahead` remainder rather than failing if the input hasn't landed by the time it runs. The XS→Rust (Endor) port continues its stage-5 grind (coder child 6/7). Otherwise the board was quiet, clearing only a dead-mail and a garden-mention completion. Worth a look: the parked-PR queue still holds 26 PRs awaiting review, the oldest — [endojs/endo#3102](https://github.com/endojs/endo/pull/3102)'s custom CHANGELOG generator — waiting 54 days.
+The minion.town OAuth deployment moved into execution: the deployment doc landed, the work is now orchestrated into staged phases (the earlier `synth-and-deploy-minion-town-aws` job was closed as superseded, never run), and Phase 2 — the Cognito-verified MCP server on EC2 behind Caddy — is in flight. Two phases are gated on credentials only kriskowal can mint: **Phase 3** (Google federation into Cognito) needs a Google OAuth 2.0 Web client, and **Phase 5** (GitHub federation via the OIDC thunk) needs a GitHub OAuth App — both delivered by dropping the client id/secret into us-west-1 Secrets Manager (or by replying to the parked-input messages). Neither blocks the rest: the other phases proceed in parallel and each gated phase parks a `--go-ahead` remainder job rather than failing if its secret hasn't arrived. Separately, the xs2rust (Endor) port is grinding through Stage 5, with the coder declaration child (6/7) currently claimed.
+
+Two items want a maintainer decision: @kriscendobot tried to drive the garden via issue [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) but isn't on the maintainer allowlist, so the interaction was dropped — add them with `add-maintainer.sh` and ask them to re-post if it mattered. And the parked-PR queue remains deep (26 open), with [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (voice input) now waiting 4 days and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) each at a week.
 
 ## Parked for maintainer feedback
 
@@ -62,6 +64,25 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Or reply to this message — the reply routes to the running phase job's inbox (`minion-town-phase5-github-oidc-thunk`) and it will store the secret itself.
 >
 > The thunk's non-gated work (the reusable 5-endpoint OIDC thunk contract, the Lambda + `github-idp.minion.town` DNS + Caddy plumbing) proceeds regardless; only the Cognito IdP wiring waits. If the input hasn't arrived when Phase 5 runs, it parks a `--go-ahead` remainder job (`minion-town-phase5-completion`) rather than failing.
+
+- `20260707T060118Z-7827d8` — from issue-inbox-watcher, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T060118Z-7827d8.md)
+
+> kind: access-request
+>
+> @kriscendobot interacted with the garden's issue inbox on kriskowal/garden #29 but is NOT on
+> the maintainer allowlist, so the interaction was DROPPED (dispatched
+> nothing). If this is a collaborator you want to let drive the garden by
+> issue, add them:
+>
+>     scripts/jobs/add-maintainer.sh kriscendobot
+>
+> After that, FUTURE issues/comments from @kriscendobot will dispatch — but THIS one
+> was already dropped, so ask them to re-post it (or re-post it yourself)
+> if it still matters.
+>
+> Interaction: https://github.com/kriskowal/garden/issues/29#issuecomment-4900643943
+>
+> You are shown this ONCE per individual. Reply or archive to dismiss it.
 
 
 ## Board
