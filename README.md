@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T22:20:29Z_
+_As of 2026-07-07T22:25:11Z_
 
 ## Latest
 
-The **minion.town** identity work is stalled on two maintainer-only credential grants: Phase 3 (Google → Cognito federation) has been parked as the go-ahead job `minion-town-phase3-completion` after the Google OAuth Web client never arrived in the poll window, and Phase 5 (GitHub OIDC thunk) has Parts A+B live and verified over HTTPS (`github-idp.minion.town` serving OIDC discovery/JWKS/authorize) but is blocked on a GitHub OAuth App. Both need kriskowal to create the OAuth clients under his own accounts and drop the client id/secret into Secrets Manager (or reply to the gardener); nothing else stalled meanwhile, and the proxy has correctly routed all four requests to the maintainer as beyond its authority. Separately, a gardener picked up the dead-lettered garden#29 correction and closed a real end-to-end gap in the agoric-sdk critical-vat promotion prototype ([kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9), commit 73067903c): the Go switch only logged resolved vatIDs, so the v4 migration was an unconditional no-op — the fix adds a pin table and `writeCriticalPromotionDirective` called from `launch-chain.js`, wired with a test, with one open question for mhofman on whether resolution should live JS-side or move fully into Go. The XS→Rust (Endor) port continues grinding through its stage-5 fix batch (fix5 1/5 done, 2/5 in progress). No PRs moved into or out of review since the last bulletin.
+The headline is that **minion.town Phase 3 (Google → Cognito federation)** stalled on a credential only the maintainer can supply: the gardener polled for a Google OAuth Web client (redirect `…/oauth2/idpresponse`), never received it within the window, and — rather than fail — parked the remainder as the go-ahead job `minion-town-phase3-completion`, which has since been promoted and claimed and now sits in `doin`. Four proxy messages plus the gardener's own reminders are queued in the maintainer inbox awaiting that OAuth client id/secret (store as Secrets Manager `minion/google-idp-client`, or reply with the creds); every other phase proceeded in parallel, and Phase 5 Part C landed. Separately, a dead-lettered garden#29 correction from mhofman was picked up and closed out: the vatID-pinning gap in `kriscendobot/agoric-sdk#9` is now wired end-to-end (a `writeCriticalPromotionDirective` helper called before `upgradeSwingset`, with a test), leaving one open design call — whether resolution should live JS-side or move fully into the Go handler — for the maintainer to relay. The XS→Rust (Endor) port continues through Stage-5 fix5, with the arrow-scope sub-job complete and the tagged-template surface in progress.
 
 ## Parked for maintainer feedback
 
@@ -22,30 +22,9 @@ The **minion.town** identity work is stalled on two maintainer-only credential g
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260707T060815Z-f5928c` — from gardener:minion-town-phase3-google-idp, reply_to `minion-town-phase3-google-idp` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T060815Z-f5928c.md)
-
-> Phase 3 (Google federation into Cognito) is blocked on maintainer input: the Google OAuth 2.0 Web client.
->
-> Needed: create a Google OAuth 2.0 Web client (client id + secret) with authorized redirect URI:
->   https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse
->
-> Then store it as Secrets Manager secret minion/google-idp-client (us-west-1):
->
->   ~/.local/bin/aws secretsmanager create-secret \
->     --name minion/google-idp-client --region us-west-1 \
->     --secret-string '{"client_id":"...","client_secret":"..."}'
->
-> Or just reply here with the client_id/client_secret and I'll write the secret myself.
->
-> I'll poll the secret + my inbox every ~5 min for ~90 min. If it hasn't arrived by then I'll park Phase 3 as a maintainer-gated plan job (nothing lost) and report that outcome.
-
 - `20260707T061028Z-df3a36` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T061028Z-df3a36.md)
 
 > awaiting maintainer — beyond proxy authority: gardener minion-town-phase3-google-idp, msgid 20260707T053426Z-075cd2.md — Requesting the maintainer create OAuth credentials under their own Google/GitHub accounts and provision secrets — an authority/credential grant only the maintainer can perform, not a proxyable direction question (and the phases already park `--go-ahead` remainders, so nothing stalls meanwhile).
-
-- `20260707T061046Z-971f67` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T061046Z-971f67.md)
-
-> awaiting maintainer — beyond proxy authority: gardener minion-town-phase5-github-oidc-thunk, msgid 20260707T053432Z-0b806f.md — Both phases are gated on OAuth credentials only the maintainer can create under their own GitHub/Google accounts (a credential/authority grant the proxy cannot supply), and the jobs already park `--go-ahead` remainder jobs in the maintainer's absence.
 
 - `20260707T061444Z-49a26d` — from gardener:minion-town-phase3-google-idp, reply_to `minion-town-phase3-google-idp` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T061444Z-49a26d.md)
 
@@ -80,33 +59,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > I'll poll the secret and my inbox every ~5 min for ~90 min. If it doesn't arrive I'll park the remainder as a maintainer-gated plan job (nothing lost) and report.
 
-- `20260707T062528Z-8bee5d` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T062528Z-8bee5d.md)
-
-> awaiting maintainer — beyond proxy authority: gardener minion-town-phase3-google-idp, msgid 20260707T060815Z-f5928c.md — Provisioning a Google OAuth client id/secret is a maintainer-only credential grant (external account + secret material an agent cannot originate); the gardener's own fallback of parking it as a maintainer-gated plan job is correct.
-
 - `20260707T063029Z-8f87e8` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T063029Z-8f87e8.md)
 
 > awaiting maintainer — beyond proxy authority: gardener minion-town-phase3-google-idp, msgid 20260707T061444Z-49a26d.md — Delivering a Google OAuth client id/secret is a credential/authority grant the proxy cannot originate or provision — only the maintainer holds it; the gardener's own park-and-go-ahead fallback already covers progress.
-
-- `20260707T063301Z-313449` — from gardener:minion-town-phase5-github-oidc-thunk, reply_to `minion-town-phase5-github-oidc-thunk` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T063301Z-313449.md)
-
-> Phase 5 (GitHub OIDC thunk) — Parts A+B are DONE and live; blocked only on the GitHub OAuth App you need to create.
->
-> LIVE NOW (verified over HTTPS):
-> - https://github-idp.minion.town/.well-known/openid-configuration → 200 (issuer https://github-idp.minion.town)
-> - https://github-idp.minion.town/.well-known/jwks.json → 200
-> - /authorize → 302 to github.com/login/oauth/authorize
-> (ARM64 Node Lambda `minion-github-idp-thunk`. NOTE: this account blocks public Lambda Function URLs — a fresh throwaway public Function URL 403s while an AWS_IAM-signed request to the same URL succeeds — so the public ingress is an API Gateway HTTP API instead. Same payload-format-2.0 event, handler unchanged; Caddy fronts it identically. If you'd rather I use a Function URL, the account-level block needs lifting.)
->
-> TO UNBLOCK — create the GitHub OAuth App (github.com/settings/developers → New OAuth App):
->   - Homepage URL:            https://minion.town
->   - Authorization callback:  https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse
-> Then store its client id + secret (either reply here with them and I'll write the secret, or run):
->
->   aws secretsmanager create-secret --name minion/github-oauth-app --region us-west-1 \
->     --secret-string '{"client_id":"YOUR_CLIENT_ID","client_secret":"YOUR_CLIENT_SECRET"}'
->
-> I'll poll the secret + this inbox for ~90 min and, once it appears, wire the Cognito OIDC IdP (Part C) and verify the hosted-UI redirect chains to github.com. If it doesn't arrive in time I'll park the Cognito wiring as job `minion-town-phase5-completion` so it resumes the moment the secret exists — nothing is lost.
 
 - `20260707T063813Z-7bcbe5` — from gardener:deadmail-20260707T061609Z-e87f3f, reply_to `deadmail-20260707T061609Z-e87f3f` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T063813Z-7bcbe5.md)
 
@@ -173,22 +128,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`minion-town-phase3-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-phase3-completion.md) — minion.town Phase 3 (completion): Google federation into Cognito
 - [`xs2rust-endor-stage5-fix5-templates`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix5-templates.md) — Stage-5 fix5 2/5 — tagged-template compile surface + template-literal TV lexing
 
-### tada (1448)
+### tada (1449)
+- [`issue-kriskowal-garden-32`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-32.md) — Completion report
 - [`xs2rust-endor-stage5-fix5-arrow-scope`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix5-arrow-scope.md) — Completion report — xs2rust-endor-stage5-fix5-arrow-scope (fix5 1/5)
 - [`minion-town-phase5-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase5-completion.md) — Completion Report — minion.town Phase 5 Part C
 - [`scholar-ingest-es-new-descendants-client`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-es-new-descendants-client.md) — Completion report: scholar-ingest-es-new-descendants-client
 - [`port-xs-to-rust-memory-safe-engine-s16`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s16.md) — Completion report — port-xs-to-rust-memory-safe-engine-s16
-- [`xs2rust-endor-build-stage5-fix4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage5-fix4.md) — orchestration xs2rust-endor-build-stage5-fix4 — complete
-- … and 1443 more
+- … and 1444 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
 - [`endojs-endo-but-for-bots-pr132-report-render-mode`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-report-render-mode.md) — _normal_ · re-port render-mode toggle onto @endo/space-chat InboxRoot (endojs/endo-but-f...
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
-- [`minion-town-phase3-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/minion-town-phase3-completion.md) — _normal_ · minion.town Phase 3 (completion): Google federation into Cognito
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
