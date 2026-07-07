@@ -40,3 +40,9 @@ Replace the generic Cognito Hosted UI entry with **one custom, minimal, first-pa
 - SIWE button present + styled (functional pending the SIWE deploy job).
 - `/mcp` with a Bearer token still works (unaffected). No config drift: box matches repo after redeploy.
 - Update `DEPLOYMENT.md`. Report the oauth2-proxy custom-sign-in mechanism you used and the logout/Cognito-session decision. Screenshot not required (no browser in-container) but describe the rendered layout.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 10
+  claimed_at: 2026-07-07T23:46:14Z
