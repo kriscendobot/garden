@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T01:56:30Z_
+_As of 2026-07-07T03:47:58Z_
 
 ## Latest
 
-The board itself was quiet — only the [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) @-mention assessment completed — but several substantial threads now sit on the maintainer's desk. **M3's flagship, `daemon-agent-tools` (Claw-like coding), is fully built:** phases 1–3 ([endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), [#616](https://github.com/endojs/endo-but-for-bots/pull/616)) are CI-green and mergeable but still Draft, and phase 4 ([#618](https://github.com/endojs/endo-but-for-bots/pull/618)) had its last un-draft blocker cleared — the whole stack now awaits review, un-draft, and merge, which the foreman notes is M3's critical path (build backlog, not more building). The confined-HttpClient gauntlet on [#566](https://github.com/endojs/endo-but-for-bots/pull/566) also finished: panel re-review passed, all seven must-fixes resolved, PR un-drafted into the review queue, with one deferred design call (a per-request AbortController timeout the two governing designs disagree on).
-
-Two items need explicit maintainer steering. **Transcript capture is built and landed** on `main2` (commits `a71081d81`, `8e97b86c7`) but inert — it spools locally and pushes nowhere until you create a private repo, grant the bot push, and record the authorization; open questions remain on repo choice, liaison-session scope, and the idle threshold. Separately, Gateway Feature 8 turned up a duplicate: [#577](https://github.com/endojs/endo-but-for-bots/pull/577) implements only the path-scheme half, while a held branch is a superset adding the socket handoff — the gardener declined to open a competing PR and asks you to pick between rescoping onto #577 (recommended), superseding it, or dropping the branch.
-
-Also worth noticing: a **data-corruption-class reaper-requeue bug** surfaced by the fable review of the garden's own scripts (two live writers in one worktree) warrants a deliberate `main2` fix and deploy; the `xs2rust-endor-build-stage4` orchestration **halted** on a failed child (4/8 done); and the foreman is holding a possibly-stuck `endoclaw-timer-phase2` re-post pending review.
+[endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (the M3 confined outbound HTTP client) cleared its gauntlet — panel re-review passed, all 7 must-fix items resolved and regression-tested, and it's un-drafted into your review queue; one non-blocking design call is yours: whether to add a per-request AbortController timeout (the two governing designs disagree). The M3 flagship — the Claw-like `daemon-agent-tools` stack — is now fully built and CI-green but still Draft: [#614](https://github.com/endojs/endo-but-for-bots/pull/614) → [#615](https://github.com/endojs/endo-but-for-bots/pull/615) → [#616](https://github.com/endojs/endo-but-for-bots/pull/616) → [#618](https://github.com/endojs/endo-but-for-bots/pull/618), whose last un-draft blocker just closed; the foreman notes the milestone's critical path is now landing this backlog, not more building. Transcript capture landed inert on main2 (commits a71081d81, 8e97b86c7) and awaits your arming decision — create a private repo, grant bot push, run set-transcripts-remote.sh — with three open questions (private repo, liaison sessions in scope, idle threshold) still yours to call. Gateway Feature 8 (the /ocapn WebSocket handoff) was held rather than opening a competing PR: it's a superset of open draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577) but rewrites the same module incompatibly, so the gardener wants you to steer between rescoping on top of #577, superseding it, or dropping the branch. Two things need attention on the infra side: a data-corruption reaper-requeue bug surfaced from the fable review of the garden's own scripts (main2 fix + deploy warranted, no PR), and the xs2rust-endor stage-4 orchestration halted on a failed `stage4-modules` child after 4/8 completed.
 
 ## Parked for maintainer feedback
 
@@ -17,8 +13,8 @@ Also worth noticing: a **data-corruption-class reaper-requeue bug** surfaced by 
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 7d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 10d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 21d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 45d)
-- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 45d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 46d)
+- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 46d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 47d)
 - [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 47d)
 - [endojs/endo#3102](https://github.com/endojs/endo/pull/3102) — chore(ci): create custom CHANGELOG generator (waiting 54d)
@@ -172,7 +168,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr612-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr612-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #612
 - [`xs2rust-endor-stage5-coder-decl`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-coder-decl.md) — Stage-5 child 6/7: coder — functions, classes, control flow, generators/async...
 
 ### tada (1380)
