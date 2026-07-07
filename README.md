@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T05:29:30Z_
+_As of 2026-07-07T05:34:44Z_
 
 ## Latest
 
-No board transitions resolved since the last bulletin: nothing new posted, claimed, or completed. Two jobs remain in flight — an orchestration driving the [minion.town](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/orchestrate-minion-town-oauth-deploy.md) OAuth deployment toward a live, verified conclusion, and stage-5 of the long-running XS→Rust (Endor) port (the `coder` child covering functions, classes, control flow, and generators/async). Worth a maintainer's eye: the parked queue is deep — 26 PRs awaiting review, several now aging past a week, including [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) at 7 days, and [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules) at 21.
+The minion.town OAuth deployment moved into execution: the [`minion-town-deployment-doc`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-deployment-doc.md) job (commit DEPLOYMENT.md as the architecture/phase-plan source of truth) was claimed and the [orchestration](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/orchestrate-minion-town-oauth-deploy.md) is now driving stage 1 (DEPLOYMENT.md → MCP server on EC2 → fan-out) with stage 2 phases running in parallel. **Two inputs now gate this and only kriskowal can supply them:** a Google OAuth 2.0 Web client for Phase 3 (Google→Cognito federation) and a GitHub OAuth App for Phase 5 (GitHub OIDC thunk), both delivered by storing credentials in us-west-1 Secrets Manager (`minion/google-idp-client` and `minion/github-oauth-app`) or by replying to the maintainer messages; neither blocks the other phases, and each parks a `--go-ahead` remainder job rather than failing if its secret is absent. Elsewhere the xs2rust Endor port continues (stage-5 coder child in flight), and the daemon→manager rename Phases 2–3 remain blocked awaiting [endojs/endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598).
 
 ## Parked for maintainer feedback
 
@@ -22,13 +22,54 @@ No board transitions resolved since the last bulletin: nothing new posted, claim
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260707T053426Z-075cd2` — from orchestrator:orchestrate-minion-town-oauth-deploy, reply_to `minion-town-phase3-google-idp` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T053426Z-075cd2.md)
+
+> # Maintainer input needed: Google OAuth client for minion.town Phase 3 (Google federation)
+>
+> The minion.town OAuth deployment is now orchestrated (stage 1: DEPLOYMENT.md → MCP server on EC2 → fan-out; stage 2 parallel: Google IdP / authz policy / GitHub thunk / web gate). **Phase 3 (Google federation into Cognito) is gated on one input only you can create:**
+>
+> A **Google OAuth 2.0 Web client** (Google Cloud Console → APIs & Services → Credentials → Create credentials → OAuth client ID → Web application) with:
+>
+> - Authorized redirect URI: `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`
+>
+> **Preferred delivery** — store it in Secrets Manager (us-west-1); the phase job polls for it:
+>
+>     aws secretsmanager create-secret --region us-west-1 \
+>       --name minion/google-idp-client \
+>       --secret-string '{"client_id":"...","client_secret":"..."}'
+>
+> Or reply to this message — the reply routes to the running phase job's inbox (`minion-town-phase3-google-idp`) and it will store the secret itself.
+>
+> Nothing else stalls on this: the other phases proceed in parallel. If the input hasn't arrived when Phase 3 runs, it parks a `--go-ahead` remainder job (`minion-town-phase3-completion`) rather than failing, and you can promote it any time after providing the secret.
+
+- `20260707T053432Z-0b806f` — from orchestrator:orchestrate-minion-town-oauth-deploy, reply_to `minion-town-phase5-github-oidc-thunk` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T053432Z-0b806f.md)
+
+> # Maintainer input needed: GitHub OAuth App for minion.town Phase 5 (GitHub OIDC thunk)
+>
+> The minion.town OAuth deployment is now orchestrated. **Phase 5 (GitHub federation via the portable OIDC thunk) is gated on one input only you can create:**
+>
+> A **GitHub OAuth App** (github.com → Settings → Developer settings → OAuth Apps → New OAuth App) with:
+>
+> - Homepage URL: `https://minion.town`
+> - Authorization callback URL: `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse` (the Cognito hosted-UI endpoint, per the github-cognito-openid-wrapper pattern — the phase job double-checks this against the wrapper README and will flag any correction)
+>
+> **Preferred delivery** — store it in Secrets Manager (us-west-1); the phase job polls for it:
+>
+>     aws secretsmanager create-secret --region us-west-1 \
+>       --name minion/github-oauth-app \
+>       --secret-string '{"client_id":"...","client_secret":"..."}'
+>
+> Or reply to this message — the reply routes to the running phase job's inbox (`minion-town-phase5-github-oidc-thunk`) and it will store the secret itself.
+>
+> The thunk's non-gated work (the reusable 5-endpoint OIDC thunk contract, the Lambda + `github-idp.minion.town` DNS + Caddy plumbing) proceeds regardless; only the Cognito IdP wiring waits. If the input hasn't arrived when Phase 5 runs, it parks a `--go-ahead` remainder job (`minion-town-phase5-completion`) rather than failing.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`minion-town-deployment-doc`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-deployment-doc.md) — minion.town: commit DEPLOYMENT.md (architecture + phase plan source of truth)...
 - [`orchestrate-minion-town-oauth-deploy`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/orchestrate-minion-town-oauth-deploy.md) — Orchestrate: drive the minion.town OAuth deployment to a live, verified concl...
 - [`xs2rust-endor-stage5-coder-decl`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-coder-decl.md) — Stage-5 child 6/7: coder — functions, classes, control flow, generators/async...
 
