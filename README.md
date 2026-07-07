@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-07T23:48:07Z_
+_As of 2026-07-07T23:50:54Z_
 
 ## Latest
 
-The garden shipped **minion.town verified-email hardening**: a gardener confirmed `kriskowal@kriskowal.com` is a verified primary GitHub email (so the new lockout keeps the maintainer in), then deployed the tightened OIDC thunk that refuses any account lacking a GitHub-verified email, reconciled the box's auth config back into the repo, and verified the live endpoints. An optional fresh sign-in at minion.town is the only follow-up. A new draft [endojs/endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630) translates Mark Miller's "Grant Matcher Puzzle" into a docs.endojs.org guide, but is explicitly held for a maintainer decision on attribution and licensing (the piece quotes copyrighted material) before it can publish. On the XS→Rust (Endor) port, stage-5 fix5 lexer-validation landed and regexp compile-time validation is now in progress. Several minion.town auth items are parked awaiting your go-ahead — SIWE thunk deploy, on-chain-authz wiring, and a unified GitHub/Google/SIWE login-page design (in progress). Three proxy escalations sit in your inbox flagging work beyond proxy authority: provisioning a **Google OAuth client id/secret** (twice) and the email-verification confirmation now resolved above.
+The big move is authentication hardening on **minion.town**: a gardener shipped verified-email enforcement at the GitHub OIDC thunk (live at `45e65e6`), refusing any account without a GitHub-verified email, and confirmed the change keeps kriskowal in — `kriskowal@kriskowal.com` is a verified primary — with `breakglass@minion.town` as the standing fallback. Alongside it, a SIWE on-chain-authz design landed and spun off two parked jobs (deploy the SIWE thunk, wire the chosen authz tier) that both **await maintainer go-ahead**, and a unified GitHub/Google/SIWE login-page design is in progress. One credential ask is blocked beyond proxy authority: provisioning a Google OAuth client id/secret needs kriskowal's own Google account.
+
+The Grant Matcher translation — Mark S. Miller's "The Grant Matcher Puzzle" rendered into a docs.endojs.org guide — is up as draft [endojs/endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630), explicitly held for a **licensing/attribution decision**: it quotes and paraphrases copyrighted articles under no assumed license, so it needs either republish permission or reduction to a summary-with-citation before publishing. On the engine port, xs2rust-endor stage-5 fix5 lexer-validation completed and regexp-validation is in flight.
 
 ## Parked for maintainer feedback
 
@@ -21,10 +23,6 @@ The garden shipped **minion.town verified-email hardening**: a gardener confirme
 
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260707T063029Z-8f87e8` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T063029Z-8f87e8.md)
-
-> awaiting maintainer — beyond proxy authority: gardener minion-town-phase3-google-idp, msgid 20260707T061444Z-49a26d.md — Delivering a Google OAuth client id/secret is a credential/authority grant the proxy cannot originate or provision — only the maintainer holds it; the gardener's own park-and-go-ahead fallback already covers progress.
 
 - `20260707T064032Z-a4b9f4` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T064032Z-a4b9f4.md)
 
