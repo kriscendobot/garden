@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T05:28:34Z_
+_As of 2026-07-07T05:29:30Z_
 
 ## Latest
 
-A gardener finished [`deploy-defer-ignore-inactive-busy-markers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deploy-defer-ignore-inactive-busy-markers.md), which teaches the deploy path to ignore inactive busy-markers — the only board completion since the last bulletin. More consequential is a message awaiting your call: the Gateway Feature 8 build (`/ocapn` WebSocket endpoint) discovered it would collide with the open draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), which lands only the path-scheme half and defers the live listener; rather than open a competing PR, the gardener preserved its superset branch (verified: 73 ava pass, tsc/eslint/prettier clean) and is asking you to steer — its recommendation is to re-scope onto #577 as a follow-on. Two orchestration jobs remain in flight (the minion.town OAuth deployment and the XS→Rust stage-5 coder), and 26 PRs sit parked for your review.
+No board transitions resolved since the last bulletin: nothing new posted, claimed, or completed. Two jobs remain in flight — an orchestration driving the [minion.town](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/orchestrate-minion-town-oauth-deploy.md) OAuth deployment toward a live, verified conclusion, and stage-5 of the long-running XS→Rust (Endor) port (the `coder` child covering functions, classes, control flow, and generators/async). Worth a maintainer's eye: the parked queue is deep — 26 PRs awaiting review, several now aging past a week, including [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) at 7 days, and [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules) at 21.
 
 ## Parked for maintainer feedback
 
@@ -22,26 +22,7 @@ A gardener finished [`deploy-defer-ignore-inactive-busy-markers`](https://github
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260706T141945Z-1a8516` — from gardener:ebfb-endo-gateway-ocapn-websocket-endpoint, reply_to `ebfb-endo-gateway-ocapn-websocket-endpoint` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T141945Z-1a8516.md)
-
-> Gateway Feature 8 (/ocapn WebSocket endpoint) — DUPLICATE FOUND, held rather than opening a competing PR.
->
-> My build job asked for the canonical /ocapn WS endpoint that ACCEPTS the upgrade and HANDS the framed connection to the Noise-over-WebSocket OCapN transport (powers-injected). While pre-flighting for duplicates I found:
->
-> - **PR #577 (open draft, base `llm`): "OCapN WebSocket path scheme (/ocapn-cbor-np) — Phase 1 feature 8"** — implements ONLY the pure-logic path-naming half (OCAPN_WS_PATH, matchOcapnWebSocketPath, parseOcapnWebSocketPath, ocapnWebSocketConnectionHint) and EXPLICITLY defers "the live WebSocket listener and the Noise frame relay ... to a later phase." It touches the same files I do (src/ocapn-ws.js, index.js, types.d.ts, README, package.json, test/ocapn-ws.test.js) with different symbol names.
-> - Also in flight on other design-phase stacks: #392 (phase-4 "OcapnWebSocketHandler" consuming a {reader,writer} pair, base design/gateway-package-phase-3) and #413 (phase-11a HTTP listener wire-up).
->
-> My work is a SUPERSET of #577: it does the path matching PLUS the WebSocket→byte-stream adapter PLUS makeOcapnWebSocketEndpoint.accept() that hands the framed connection to an injected sink, PLUS the makeGateway powers.ocapn seam — i.e. the socket handoff #577 defers. But my src/ocapn-ws.js and #577's are incompatible parallel rewrites of the same module, so they cannot both land on `llm` as-is. Opening a second competing draft PR would collide, so I did NOT open one.
->
-> Preserved (no PR): branch `feat/gateway-ocapn-ws-endpoint-handoff` pushed to endojs/endo-but-for-bots. Locally verified: yarn ava (73 pass incl. 20 new), tsc clean, eslint clean, prettier clean; regression-tested two core paths via mutation.
->
-> Please steer one of:
-> (a) Let #577 land the path-scheme half; re-scope my job to build the socket handoff ON TOP of #577 (my makeOcapnWebSocketEndpoint.accept consuming #577's matchOcapnWebSocketPath instead of my own matcher).
-> (b) Supersede #577 with my superset (I open the PR, #577 closes).
-> (c) Drop my branch.
->
-> Recommendation: (a) — #577 is the sanctioned "one uncovered Phase-1 increment" for the naming and is further along the gauntlet; the socket handoff is a clean follow-on that reuses its path scheme.
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
