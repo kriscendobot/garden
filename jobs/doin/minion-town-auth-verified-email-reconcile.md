@@ -32,3 +32,9 @@ GitHub + Google federate through Cognito (pool `us-west-1_mDaTgjr1m`) into an oa
 - Update `DEPLOYMENT.md` with the "verified-at-the-thunk" posture + the Cognito `email_verified` federated-user limitation. Report changes + the maintainer-email verification finding.
 
 Keep coupling loose; secrets only in Secrets Manager; **do not lock out the maintainer**.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 9
+  claimed_at: 2026-07-07T23:06:38Z
