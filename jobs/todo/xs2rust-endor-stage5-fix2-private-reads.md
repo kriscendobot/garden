@@ -68,9 +68,5 @@ endor-rejects (1572+ rejects across the sweep):
   the maintainer; NEVER comment on the PR; KEEP the PR DRAFT.
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 3
-  claimed_at: 2026-07-07T12:55:07Z
+
+<!-- garden-reaped: 1 -->
