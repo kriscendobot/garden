@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-07T12:52:54Z_
+_As of 2026-07-07T12:54:17Z_
 
 ## Latest
 
-Two minion.town OAuth deployment phases are now **parked awaiting your action**, each gated on a credential only you can mint. Phase 3 (Google → Cognito federation) needs a Google OAuth 2.0 Web client; it was parked as go-ahead job `minion-town-phase3-completion` after the poll window elapsed with no secret. Phase 5 (GitHub OIDC thunk) landed Parts A+B live and verified — `https://github-idp.minion.town/.well-known/openid-configuration`, `/jwks.json`, and `/authorize` all respond over HTTPS (note: the account blocks public Lambda Function URLs, so public ingress runs through an API Gateway HTTP API instead) — and parked its Cognito-wiring remainder as `minion-town-phase5-completion` pending a GitHub OAuth App. To finish either, create the credential, store it in Secrets Manager (`minion/google-idp-client` / `minion/github-oauth-app`, us-west-1) or reply to the gardener's message, then promote the completion job; nothing else stalled meanwhile.
+The minion.town OAuth deployment was fully orchestrated and now waits on you: two credential grants only the maintainer can create are blocking its final wiring. **Phase 3** (Google → Cognito federation) parked as go-ahead job `minion-town-phase3-completion` after its poll window lapsed with no Google OAuth Web client — create one with redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`, drop it in Secrets Manager (`minion/google-idp-client`, us-west-1) or reply to the gardener, then promote the parked job. **Phase 5** (GitHub OIDC thunk) is further along: Parts A+B are live and HTTPS-verified (`github-idp.minion.town` serves its OpenID config, JWKS, and a working `/authorize` 302 to github.com, fronted by API Gateway since this account blocks public Lambda Function URLs), with only the Cognito wiring parked as `minion-town-phase5-completion` pending a GitHub OAuth App. The proxy correctly escalated both rather than acting, and the non-gated work proceeded in parallel, so nothing else stalled.
 
-Separately, a dead-lettered mhofman correction to [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) was picked up and closed a real gap: the prior commit only logged resolved vatIDs without writing `promoteCriticalVats`, leaving the v4 migration a no-op. The follow-up (commit 73067903c) adds a `CRITICAL_PROMOTION_VAT_IDS` pin table and writes the directive from `launch-chain.js`, wiring the prototype end-to-end with a test; an open question for mhofman is whether resolution should stay JS-side or move fully into the Go handler. The XS→Rust Endor port continues advancing through Stage-5 fixes. One access note: @kriscendobot commented on garden#29's issue inbox but isn't on the maintainer allowlist, so the interaction was dropped — add them and ask for a re-post if that should drive the garden.
+Separately, the dead-lettered garden#29 correction from mhofman was picked up and landed into [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): the critical-vat promotion was an end-to-end no-op (the Go switch only logged resolved vatIDs), now closed by a JS-side pin table and `writeCriticalPromotionDirective` helper wired into `launch-chain.js` with a test — flagged as an open design question for mhofman (JS resolution vs. his Go-side suggestion). Two things want your attention: an access-request notice that @kriscendobot's interaction on garden issue #29 was dropped (not on the maintainer allowlist), and a stale `garden-29-promote-vat-critical` branch that is superseded by #9 and safe to delete. The board itself was quiet — one completion (`improve-inbox-send-pending-supervisor-hold`), with the XS→Rust Endor stage-5 fix loop still in flight.
 
 ## Parked for maintainer feedback
 
@@ -253,17 +253,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`improve-inbox-send-pending-supervisor-hold`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-inbox-send-pending-supervisor-hold.md) — scripts/jobs/inbox-send.sh
+### doin (1)
 - [`xs2rust-endor-stage5-fix2-named-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix2-named-eval.md) — Stage-5 fix2 1/6: NamedEvaluation for destructuring defaults (Class A — close...
 
-### tada (1419)
+### tada (1420)
+- [`improve-inbox-send-pending-supervisor-hold`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-inbox-send-pending-supervisor-hold.md) — Completion report
 - [`port-xs-to-rust-memory-safe-engine-s13`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s13.md) — Completion report — supervisor s13 (XS→Rust Endor port, PR endojs/endo-but-fo...
 - [`deadmail-20260707T122934Z-9f3b6c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260707T122934Z-9f3b6c.md) — Completion report
 - [`xs2rust-endor-build-stage5-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage5-fix.md) — orchestration xs2rust-endor-build-stage5-fix — complete
 - [`xs2rust-endor-stage5-fix-verify`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix-verify.md) — Completion report — Stage-5 fix-verify 5/5 (closing tally)
-- [`deadmail-20260707T121514Z-d76c90`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260707T121514Z-d76c90.md) — State is unchanged and confirms the prior conclusion: the modules child's ful...
-- … and 1414 more
+- … and 1415 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
