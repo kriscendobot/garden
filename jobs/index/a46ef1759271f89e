@@ -1,0 +1,2 @@
+base: improve-ci-rollup-surface-gh-stderr-reason
+identity: mentor:scripts/jobs/handlers/ci-rollup-gh.sh
