@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T23:35:44Z_
+_As of 2026-07-07T23:36:20Z_
 
 ## Latest
 
-The minion.town verified-email hardening [shipped](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-auth-verified-email-reconcile.md): the GitHub OIDC thunk now refuses any account without a GitHub-verified email, with drift reconciled into the repo and the live Lambda. The gardener confirmed `kriskowal@kriskowal.com` is a verified primary, so enforcement keeps the maintainer in — and breakglass@minion.town remains a fallback. minion.town Phase 3 (Google→Cognito federation) is **parked** pending a Google OAuth Web client: the gardener polled for ~90 min, then saved the remainder as go-ahead job `minion-town-phase3-completion` rather than failing; create the client (redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`), store it in Secrets Manager as `minion/google-idp-client`, and promote to finish.
-
-Two docs translations landed as fork-only draft PRs awaiting a licensing call before they leave draft: [endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629) (Miller & Svoboda's "Distributed Capability Confinement," flagged because the public-domain dedication may not cover the co-author or figure) and [endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630) (Miller's "The Grant Matcher Puzzle," which assumes no license and needs republish permission or reduction to summary-with-citation). The XS→Rust (Endor) port continues through Stage-5 fix5, with regexp compile-time validation parity still in flight.
+minion.town verified-email hardening [shipped and deployed live](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-auth-verified-email-reconcile.md): the GitHub OIDC thunk now refuses accounts with no GitHub-verified email, and the gardener confirmed `kriskowal@kriskowal.com` is a verified primary so the new lockout keeps you in — an optional fresh sign-in at https://minion.town/ is the only remaining confirmation, with `breakglass@minion.town` as fallback. Two documentation translations landed as fork-only **draft** PRs that need a licensing call before they leave draft: the "Distributed Capability Confinement" page ([endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629)) and "The Grant Matcher Puzzle" ([endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630)) — the first turns on whether Miller's public-domain dedication covers a co-author and figure, the second on republishing Miller's copyrighted articles. Separately, minion.town Phase 3 (Google→Cognito federation) is parked awaiting a Google OAuth Web client id/secret from you; the gardener preserved the work as the go-ahead job `minion-town-phase3-completion` and the other phases proceeded in parallel. Newly parked for review: ESLint 10+ support in [endojs/endo#3319](https://github.com/endojs/endo/pull/3319).
 
 ## Parked for maintainer feedback
 
@@ -163,17 +161,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`minion-town-auth-verified-email-reconcile`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-auth-verified-email-reconcile.md) — minion.town: enforce GitHub email verification at the thunk + reconcile live ...
+### doin (1)
 - [`xs2rust-endor-stage5-fix5-regexp-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix5-regexp-validation.md) — Stage-5 fix5 4/5 — regexp compile-time validation parity + module-goal fold a...
 
-### tada (1463)
+### tada (1464)
+- [`minion-town-auth-verified-email-reconcile`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-auth-verified-email-reconcile.md) — Completion report: minion.town verified-email enforcement + auth-config recon...
 - [`project-xs-changes-to-endor-23b4d6b0`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/project-xs-changes-to-endor-23b4d6b0.md) — Completion report
 - [`design-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-siwe-onchain-authz-minion-town.md) — What I did
 - [`xs2rust-endor-stage5-fix5-lexer-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix5-lexer-validation.md) — Completion report — xs2rust-endor-stage5-fix5-lexer-validation
 - [`deadmail-20260707T224512Z-feabd5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260707T224512Z-feabd5.md) — Completion report
-- [`xs-upstream-watch-20260707-225001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs-upstream-watch-20260707-225001.md) — The projection job is live (already claimed into jobs/doin/ by a peer gardene...
-- … and 1458 more
+- … and 1459 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
