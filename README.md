@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T04:55:16Z_
+_As of 2026-07-07T04:56:50Z_
 
 ## Latest
 
-Several items landed in the maintainer's inbox that gate real merges. The M3 flagship — Claw-like coding via `daemon-agent-tools` — is fully built: phases 1–3 ([endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), [#616](https://github.com/endojs/endo-but-for-bots/pull/616)) are CI-green and mergeable but still Draft, and phase 4 ([#618](https://github.com/endojs/endo-but-for-bots/pull/618)) has cleared its last un-draft blocker, so the whole stack now waits only on review + un-draft + merge. Separately, the confined-HttpClient gauntlet on [#566](https://github.com/endojs/endo-but-for-bots/pull/566) finished — all seven must-fixes resolved, panel-approved, un-drafted into the review queue — leaving one deferred design call (a per-request timeout backstop that two governing designs disagree on).
-
-Two items need steering before more work proceeds. Gateway Feature 8 was held rather than opening a competing PR: the new /ocapn WebSocket handoff is a superset of the in-flight draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577) but rewrites the same module incompatibly (branch pushed, not PR'd) — the recommendation is to re-scope onto #577's path scheme. And transcript-journal capture is being built inert; it spools nowhere until kriskowal creates a private repo and runs the arming step.
-
-On garden infrastructure: a fable review found a data-corruption bug in the reaper requeue path (two live writers in one worktree, twice), surfaced for a deliberate main2 fix + deploy rather than a board job. The xs2rust→Rust (Endor) port halted at stage 4 when a child failed under a halt-on-failure serial orchestration, with stage 5 now partly in flight.
+The M3 flagship — Claw-like coding via `daemon-agent-tools` — is fully built: phases 1–3 ([#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), [#616](https://github.com/endojs/endo-but-for-bots/pull/616)) are CI-green and mergeable but still Draft, and phase 4 ([#618](https://github.com/endojs/endo-but-for-bots/pull/618)) cleared its last un-draft blocker, so the whole stack now awaits maintainer review, un-draft, and merge — a conductor step the fleet can't self-authorize. Similarly, [#566](https://github.com/endojs/endo-but-for-bots/pull/566) (confined HttpClient) passed its gauntlet and is un-drafted into the review queue clean and mergeable, with one deferred design call: whether to add a per-request AbortController timeout to backstop a hostile server that never settles. Two things need steering before more work lands: a build for Gateway Feature 8 (the `/ocapn` WebSocket handoff) was **held rather than opened** because it's a superset of the in-flight [#577](https://github.com/endojs/endo-but-for-bots/pull/577), and the maintainer must pick whether to build on top of #577 or supersede it; and the `xs2rust-endor` stage-4 orchestration **halted** on a failed child after 4/8 completed. Finally, a fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (two live writers in one worktree) — a main2 infrastructure fix flagged for deliberate repair and deploy.
 
 ## Parked for maintainer feedback
 
@@ -98,44 +94,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > no branches/units. It's consistent with what supervise-transcript-capture consumes,
 > but if you'd rather the supervisor own all doc edits too, revert commit on main2
 > touching that file. Your call — I'm standing down either way.
-
-- `20260706T234023Z-b6d70e` — from gardener:supervise-transcript-capture, reply_to `supervise-transcript-capture` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T234023Z-b6d70e.md)
-
-> Subject: transcript capture is being built — your arming decision is needed (nothing turns on until you act)
->
-> The transcript-journal-capture implementation (designs/transcript-journal-capture.md,
-> d9c7ad6c7) is now running as a serial orchestration under
-> supervise-transcript-capture: child 1 `build-transcript-capture` (the full
-> § Builder spec: spool hook before the rm -f, hourly every-host capture timer,
-> set-transcripts-remote.sh, launcher cleanupPeriodDays seed + per-tick reconcile,
-> tests, operator page), then child 2 `build-liaison-broadcast-reader` (liaisons
-> gain a read-msgs.sh drain of role/liaison + broadcast with a per-host seen-key —
-> this makes the cleanupPeriodDays notice already queued on role/liaison
-> deliverable — plus bring-up surfacing in starting.md).
->
-> Everything lands INERT. Capture spools locally but pushes nowhere until you
-> perform the arming act, which only you can:
->
-> 1. Create a PRIVATE repo (design's recommendation: kriskowal/garden-transcripts).
->    The garden origin is public; transcripts are the fleet's raw working memory.
-> 2. Grant the bot (endolinbot / kriscendobot per host) push access to it.
-> 3. Run: scripts/jobs/set-transcripts-remote.sh git@github.com:kriskowal/garden-transcripts.git
->    (writes config/transcripts-remote on journal2; the branch inside is transcripts2).
-> 4. Record the authorization as a journal `message` entry, per the issue-inbox
->    arming pattern.
->
-> Open questions from the design, for your call:
-> - Private repo as plan of record? (Configuring the public origin instead is
->   possible but publishes the fleet's working memory.)
-> - Liaison sessions in scope? Default YES — the sweep captures them as part of
->   the garden's transcript, but they contain your own conversational text;
->   say the word and we exclude the garden-root project dir.
-> - Idle threshold: GARDEN_TRANSCRIPT_IDLE_SECS defaults to 21600 (6h) — a guess
->   balancing capture latency vs re-capture churn on long liaison sessions. Tune?
->
-> The fleet-wide deletion disable (cleanupPeriodDays: 36500) needs no arming: the
-> launcher seeds it for new instances and every capture tick reconciles it into
-> existing hosts' settings.json, including this one (verified missing today).
 
 
 ## Board
