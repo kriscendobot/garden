@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-07T00:48:53Z_
+_As of 2026-07-07T00:57:24Z_
 
 ## Latest
 
-The transcript-journal-capture system is **built and landed on main2** (commits a71081d81, 8e97b86c7) but sits inert — capture spools locally and every host disables journal deletion, yet nothing pushes until kriskowal performs the arming act (create a private repo, grant the bot push, run `set-transcripts-remote.sh`, record authorization); three open questions ride along (private-repo plan of record, whether liaison sessions are in scope, idle threshold). A fable review of the garden's own scripts surfaced a **data-corruption-class bug** in the reaper requeue path (a job requeued ~every 18 min against a 40-min handler wall left the prior handler alive, twice producing two live writers in one worktree) — a main2 infra fix warranting a deliberate fix + deploy.
+The transcript-capture system landed on `main2` (commits a71081d81 and 8e97b86c7): an hourly every-host spool, a blobless `transcripts2` clone, and a fleet-wide deletion disable that reconciles into each host within the hour — but it ships **inert**, spooling nowhere until kriskowal performs the arming act (create a private repo, grant the bot push, run `set-transcripts-remote.sh`, record authorization). Three open questions ride with it: private repo as plan of record, whether liaison sessions are in scope, and the idle threshold.
 
-On the M3 front, the flagship `daemon-agent-tools` stack is fully built and now bottlenecked on landing rather than building: [#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), and [#616](https://github.com/endojs/endo-but-for-bots/pull/616) are CI-green and mergeable but still Draft, and [#618](https://github.com/endojs/endo-but-for-bots/pull/618) had its last un-draft blocker cleared — the whole chain awaits review/un-draft/merge. The confined-HttpClient gauntlet on [#566](https://github.com/endojs/endo-but-for-bots/pull/566) passed panel re-review and is un-drafted into the review queue (all 7 must-fixes resolved), leaving one deferred design call: whether to add a per-request AbortController timeout, which two governing designs disagree on. Gateway Feature 8 was **held rather than opened** — the socket-handoff work is a superset of open draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577) but rewrites the same module incompatibly, so it needs steering (recommended: rescope onto #577's path scheme). Meanwhile the xs2rust→Rust (Endor) port advanced into stage 5, though its **stage-4 orchestration halted** on a failed `modules` child (4/8 done), and the AWS-administration skill job was just claimed.
+The bigger backlog signal is from the foreman: M3's flagship `daemon-agent-tools` "Claw-like coding" pillar is fully built — phases 1–3 ([#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), [#616](https://github.com/endojs/endo-but-for-bots/pull/616)) are CI-green and mergeable, and phase 4 ([#618](https://github.com/endojs/endo-but-for-bots/pull/618)) cleared its last un-draft blocker — so the milestone's critical path is now maintainer review-and-merge of that Draft stack, not more building. Separately, the confined-HttpClient gauntlet on [#566](https://github.com/endojs/endo-but-for-bots/pull/566) passed and un-drafted into your review queue clean; one non-blocking design call awaits you (a per-request timeout backstop against a hostile allowlisted origin, which two governing designs disagree on).
+
+Two items need steering. A fable review of the garden's own scripts found a **data-corruption-class reaper bug** — the requeue path left a prior handler alive while re-posting, twice producing two live writers in one worktree — flagged as a main2 fix-and-deploy, not a board job. And Gateway Feature 8 was held rather than opened as a competing PR: it's a superset of the deferred path-scheme work in [#577](https://github.com/endojs/endo-but-for-bots/pull/577) but an incompatible rewrite of the same module, so the gardener wants a scope call (build atop #577, supersede it, or drop the branch — it recommends building atop #577). Elsewhere, the `xs2rust-endor-build-stage4` orchestration halted on a failed child after 4/8, and stage-5 is mid-run.
 
 ## Parked for maintainer feedback
 
@@ -170,17 +172,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`build-aws-administration-skill`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-aws-administration-skill.md) — Author a new garden skill: skills/aws-administration/SKILL.md, plus the proposed
+### doin (1)
 - [`xs2rust-endor-stage5-coder-decl`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-coder-decl.md) — Stage-5 child 6/7: coder — functions, classes, control flow, generators/async...
 
-### tada (1378)
+### tada (1379)
+- [`build-aws-administration-skill`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-aws-administration-skill.md) — Completion report
 - [`xs2rust-endor-stage5-coder-expr`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-coder-expr.md) — Completion report
 - [`design-google-sheet-pubsub`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-google-sheet-pubsub.md) — Everything is done: design written, README synced, parent cross-linked, branc...
 - [`design-refine-endoclaw-oauth-foundation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-refine-endoclaw-oauth-foundation.md) — Job design-refine-endoclaw-oauth-foundation — complete
 - [`issue-kriskowal-garden-30`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-30.md) — Completion report
-- [`endojs-endo-but-for-bots-pr612-review-6da32098`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr612-review-6da32098.md) — Completion report
-- … and 1373 more
+- … and 1374 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
