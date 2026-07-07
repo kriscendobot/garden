@@ -1,12 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-oauth-stage2
-priority: normal
-roadmap: minion.town/mcp-oauth
 role: builder
-posted_by: orchestrator
-posted_at: 2026-07-07T05:33:28Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-07T06:07:30Z -->
 
 # minion.town Phase 4: first-party authorization policy + identity-enriching pre-token Lambda
 
