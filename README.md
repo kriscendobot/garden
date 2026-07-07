@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-07T22:54:16Z_
+_As of 2026-07-07T22:56:16Z_
 
 ## Latest
 
-Two Endor-thesis translations landed as fork-side draft PRs, both blocked on a maintainer licensing call before they can leave draft: Mark Miller & Melora Svoboda's "Distributed Capability Confinement" ([endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629), an original re-exposition with a redrawn Mermaid figure) and Miller's "The Grant Matcher Puzzle" ([endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630), E→Jessie/CapTP→OCapN). Neither source is cleanly licensed for republication, so confirm permission (or reduce to summary-with-citation) before publishing to docs.endojs.org.
+Two source-text translations landed as fork-only draft PRs, both blocked on a licensing/attribution call before they can leave draft: Miller & Svoboda's "Distributed Capability Confinement" at [endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629) (public-domain dedication may not cover the co-author's contribution or the original figure) and Miller's "Grant Matcher Puzzle" at [endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630) (copyrighted source, assumed no license — needs republish permission or reduction to a cited summary). Both need a maintainer decision.
 
-minion.town Phase 3 (Google→Cognito federation) is **parked awaiting you**: the Google OAuth Web client never arrived in the poll window, so the gardener parked the remainder as the go-ahead job `minion-town-phase3-completion` (nothing lost — other phases proceeded in parallel). To finish, create the client for redirect `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`, store it as Secrets Manager secret `minion/google-idp-client` (us-west-1) or reply with the creds, then promote the job. The proxy correctly declined twice — provisioning that credential is beyond its authority.
+minion.town Phase 3 (Google → Cognito federation) is now **parked** as `minion-town-phase3-completion` (go-ahead gated) after the Google OAuth Web client never arrived in the poll window; the other phases proceeded in parallel and nothing else stalled. To finish it, create the client with redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`, store it as Secrets Manager secret `minion/google-idp-client` (us-west-1), and promote the parked job.
 
-On the Agoric side, a gardener closed the real gap in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): mhofman's pin-exact-vatID correction was folded in earlier but the Go switch only *logged* the resolved IDs, leaving the critical-vat promotion a no-op end-to-end; commit 73067903c now writes the promotion directive JS-side (keyed on the available `chainID`) with a test, and flags one open design question for mhofman (JS-side resolution vs. moving it fully into Go). The board is otherwise quiet — no `todo` backlog, four jobs in flight.
+Separately, mhofman's garden#29 correction on critical-vat promotion was closed out: the pinned-vatID directive is folded into kriscendobot/agoric-sdk#9, and a gardener found and fixed a real gap where the Go switch only logged the resolved vatIDs — the migration was an end-to-end no-op — by wiring a JS-side pin table that writes the promotion directive before `upgradeSwingset`. One open question for mhofman: resolution now lives JS-side rather than in the Go handler he suggested.
 
 ## Parked for maintainer feedback
 
@@ -157,19 +157,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
-- [`deadmail-20260707T224512Z-feabd5`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260707T224512Z-feabd5.md) — Dead-lettered message — pick up its intent
+### doin (3)
 - [`design-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-siwe-onchain-authz-minion-town.md) — Design: Sign-In with Ethereum (SIWE) for minion.town — the thunk + the on-cha...
 - [`project-xs-changes-to-endor-23b4d6b0`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/project-xs-changes-to-endor-23b4d6b0.md) — Synchronization baseline
 - [`xs2rust-endor-stage5-fix5-lexer-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix5-lexer-validation.md) — Stage-5 fix5 3/5 — lexer/parser validation parity: hashbang, string strict es...
 
-### tada (1459)
+### tada (1460)
+- [`deadmail-20260707T224512Z-feabd5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260707T224512Z-feabd5.md) — Completion report
 - [`xs-upstream-watch-20260707-225001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs-upstream-watch-20260707-225001.md) — The projection job is live (already claimed into jobs/doin/ by a peer gardene...
 - [`beans-v2-deflation-further-reqs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/beans-v2-deflation-further-reqs.md) — Folded the HackMD spec's further requirements into the beans-v2 deflation des...
 - [`deadmail-issue-comment-4909689946`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4909689946.md) — The job posted successfully and has already been claimed by a designer garden...
 - [`design-endo-thesis-translation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-thesis-translation.md) — Completion report: design-endo-thesis-translation
-- [`agoric-beans-v2-deflation-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-beans-v2-deflation-design.md) — Completion report
-- … and 1454 more
+- … and 1455 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
