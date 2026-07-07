@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T23:06:43Z_
+_As of 2026-07-07T23:09:53Z_
 
 ## Latest
 
-Google federation (Phase 3) for minion.town stalled waiting on a Google OAuth client only the maintainer can provision — the gardener parked the remainder as the go-ahead job `minion-town-phase3-completion` (nothing lost; other phases proceeded in parallel) and left four inbox messages plus two proxy escalations explaining how to unblock it (create the Web client for the `.../oauth2/idpresponse` redirect and store it as Secrets Manager secret `minion/google-idp-client`). Two new docs translations landed as fork-only DRAFT PRs, both gated on a licensing decision before they can leave draft: Mark Miller & Melora Svoboda's "Distributed Capability Confinement" ([endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629)) and Miller's "The Grant Matcher Puzzle" ([endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630)) — the first redrawn as an original Mermaid figure to sidestep image rights, the second quoting attributed passages under an assumed no-license. A dead-lettered garden#29 correction was picked up and closed out: mhofman's exact-vatID pinning was already folded into [kriscendobot/agoric-sdk#9](https://github.com/kriskowal/agoric-sdk/pull/9), but the gardener found and fixed a real end-to-end gap (the Go switch only logged vatIDs, never writing the promotion directive) and flagged a Go-vs-JS design question for mhofman. The XS→Rust (Endor) port continues grinding through Stage-5 fix5 validation work, and a `minion-town-auth-verified-email-reconcile` job (enforce GitHub email verification) is in flight.
+Two erights-to-Endo docs translations landed as draft PRs and both need a licensing call before they can leave draft: [endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629) (Miller & Svoboda's "Distributed Capability Confinement," re-exposed with an original Mermaid figure) and [endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630) (Miller's "Grant Matcher Puzzle," E→Jessie/CapTP→OCapN) — the first hinges on whether Miller's public-domain dedication covers a co-author and the figure, the second on permission to republish a copyrighted article. On minion.town, Phase 3 (Google→Cognito federation) is now **parked** as go-ahead job `minion-town-phase3-completion`: the Google OAuth Web client never arrived in the poll window, so the gardener preserved the work rather than failing it — provide the client (Secrets Manager `minion/google-idp-client`, us-west-1) or reply with the creds, then promote. Separately, a gardener is holding before shipping verified-email-only enforcement at the GitHub OIDC thunk and needs confirmation that `kriskowal@kriskowal.com` is a verified primary so the lockout can't lock you out. In agoric-sdk work, the garden#29 critical-vat-promotion gap was closed end-to-end in kriscendobot/agoric-sdk#9 (chainID resolved JS-side via a pin table rather than the Go handler — flagged as an open question for mhofman), and the XS→Rust (Endor) Stage-5 fix5 port continues, with lexer validation done and regexp validation in flight.
 
 ## Parked for maintainer feedback
 
@@ -147,6 +147,29 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Minor judgment call: filed under the "Guides" category (where message-passing
 > lives); it's arguably an "Annex" historical piece — your call.
+
+- `20260707T230941Z-bdccad` — from gardener:minion-town-auth-verified-email-reconcile, reply_to `minion-town-auth-verified-email-reconcile` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T230941Z-bdccad.md)
+
+> [minion.town verified-email enforcement — safety check before I ship]
+>
+> I'm about to enforce "verified-email only" at the GitHub OIDC thunk (only a
+> GitHub-verified email is ever emitted; no verified email → login refused). Before
+> shipping I must confirm this won't lock YOU out.
+>
+> Question: Is `kriskowal@kriskowal.com` a **verified** email on your GitHub
+> account (ideally your verified *primary*)? GitHub only allows setting a *verified*
+> email as primary, so if it's your primary it's almost certainly fine — but please
+> confirm.
+>
+> To gather objective proof I'm also deploying a temporary logging build of the
+> thunk. If you can do a fresh GitHub sign-in at https://minion.town/ in the next
+> little while, I'll read the thunk logs and confirm the `verified` flag directly,
+> then flip on enforcement.
+>
+> Either a "yes it's verified" reply OR a fresh login (so I can read the logs) will
+> let me proceed. If it turns out NOT verified, I will NOT ship the lockout — I'll
+> leave the gate relaxed and report back. Break-glass (breakglass@minion.town)
+> remains a working fallback regardless.
 
 
 ## Board
