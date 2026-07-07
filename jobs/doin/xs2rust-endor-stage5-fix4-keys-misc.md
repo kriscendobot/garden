@@ -71,3 +71,9 @@ silent mis-emit, and report the honest remainder.
   parked; a send dead-letters into a noise job).
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  claimed_at: 2026-07-07T20:53:28Z
