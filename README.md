@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T15:58:32Z_
+_As of 2026-07-07T16:11:15Z_
 
 ## Latest
 
-Google/GitHub OAuth credential provisioning for minion.town Phase 3 and Phase 5 both parked as go-ahead jobs after the poll windows lapsed, awaiting maintainer-created OAuth clients — the GitHub OIDC thunk's Parts A+B are already live and verified over HTTPS at [github-idp.minion.town](https://github-idp.minion.town), with only the Cognito IdP wiring ([`minion-town-phase5-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/minion-town-phase5-completion.md)) and the Google federation ([`minion-town-phase3-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/minion-town-phase3-completion.md)) held back. A dead-lettered garden#29 correction from mhofman was picked up and landed in [kriscendobot/agoric-sdk#9](https://github.com/kriskowal/garden/pull/9): a peer had already folded in the directive-key architecture, but the Go switch only logged the resolved vatIDs, so the critical-vat migration was a no-op end-to-end — a follow-up commit now writes the promotion directive JS-side via a pinned chainID, wired and tested (with an open question for mhofman on whether resolution should move fully into Go). On the port front, the XS→Rust (Endor) stage-5 fix2 verification chain advanced: five of six sub-jobs (early errors, eval scope, byte divergences, private reads, named eval) completed and the full 6/6 byte-identity re-verification ([`xs2rust-endor-stage5-fix2-verify`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix2-verify.md)) is now in flight.
+The minion.town OAuth deployment reached its two credential gates and parked cleanly: Phase 3 (Google→Cognito federation) and Phase 5 (GitHub OIDC thunk) each ran their non-gated work to completion, then, when the maintainer-only OAuth credentials never arrived in the poll window, parked go-ahead remainder jobs (`minion-town-phase3-completion`, `minion-town-phase5-completion`) rather than failing. Both need action only kriskowal can take — create a Google OAuth 2.0 Web client and a GitHub OAuth App (redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`) and drop the id/secret into Secrets Manager in us-west-1 (or reply to the parked jobs); promote the two completion jobs afterward and the Cognito wiring finishes. Notably, Phase 5 Parts A+B are already live and HTTPS-verified (`github-idp.minion.town` OIDC discovery, JWKS, and `/authorize`→GitHub), served via API Gateway because this AWS account blocks public Lambda Function URLs. Separately, a dead-lettered garden#29 correction landed: the critical-vat promotion gap in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) is now closed end-to-end (chainID confirmed available at the upgradeSwingset reboot point, a pin-table directive writer wired in with a test), with one open design question for mhofman on JS-side vs. Go-side resolution, and a stale `garden-29-promote-vat-critical` branch flagged for deletion. On the board, the XS→Rust Endor stage-5 fix2 verification pass (`xs2rust-endor-stage5-fix2-verify`) completed.
 
 ## Parked for maintainer feedback
 
@@ -232,16 +232,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-stage5-fix2-verify`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix2-verify.md) — Stage-5 fix2 6/6: full re-verification of the stage-5 byte-identity bar (broa...
+### doin (0)
+(none)
 
-### tada (1425)
+### tada (1426)
+- [`xs2rust-endor-stage5-fix2-verify`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix2-verify.md) — Completion report — xs2rust-endor-stage5-fix2-verify (fix2 6/6: full re-verif...
 - [`xs2rust-endor-stage5-fix2-early-errors`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix2-early-errors.md) — Completion report: Stage-5 fix2 5/6 — missing early errors + import()/import....
 - [`xs2rust-endor-stage5-fix2-eval-scope`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix2-eval-scope.md) — Completion report: Stage-5 fix2 4/6 — in-function direct eval (the EVAL envir...
 - [`xs2rust-endor-stage5-fix2-bytes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix2-bytes.md) — Completion report: stage-5 fix2 3/6 — Class B + Class C byte divergences
 - [`xs2rust-endor-stage5-fix2-private-reads`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix2-private-reads.md) — Job complete: Stage-5 fix2 — private member reads/writes + class-tail folds
-- [`xs2rust-endor-stage5-fix2-named-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix2-named-eval.md) — Completion report: stage-5 fix2 1/6 — NamedEvaluation for destructuring defau...
-- … and 1420 more
+- … and 1421 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
