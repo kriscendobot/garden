@@ -41,3 +41,9 @@ docs.endojs.org/thesis/.
 A DESIGN document (a plan), not the translation itself — a later builder implements the
 docs PR from it. Land the design where the project's design docs belong per your role
 conventions. Surface open questions for the maintainer rather than guessing.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  claimed_at: 2026-07-07T22:28:39Z
