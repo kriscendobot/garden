@@ -70,3 +70,9 @@ UNATTRIBUTED divergence is potential kill-criterion evidence: flag it prominentl
   record — put the full measured tallies and any folds there. Do NOT inbox-send to the
   supervisor (it is parked and the send would dead-letter into a noise job). NEVER message
   the maintainer; NEVER comment on the PR; KEEP the PR DRAFT.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 17
+  claimed_at: 2026-07-07T15:58:27Z
