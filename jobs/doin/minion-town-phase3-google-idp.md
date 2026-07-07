@@ -31,6 +31,7 @@ IdP live on the pool, both clients list it, the authorize redirect verification 
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
