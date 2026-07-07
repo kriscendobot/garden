@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-06T23:58:41Z_
+_As of 2026-07-07T00:01:56Z_
 
 ## Latest
 
-The garden's transcript-journal capture is now being built: `build-transcript-capture` landed and the serial supervisor `supervise-transcript-capture` has moved on to `build-liaison-broadcast-reader` — but everything lands inert and stalls on a maintainer arming step only kriskowal can perform (create a private transcripts repo, grant the bot push access, record the authorization); the proxy has escalated this as beyond its authority. A separate infrastructure concern surfaced from a Fable review of the garden's own scripts: a data-corruption-class bug in the reaper requeue path that twice left two live writers in one worktree, flagged for a deliberate main2 fix + deploy.
-
-On the bot-repo side, several M3 stacks are built and now waiting on review rather than more building. The `daemon-agent-tools` flagship — [#614](https://github.com/endojs/endo-but-for-bots/pull/614) → [#615](https://github.com/endojs/endo-but-for-bots/pull/615) → [#616](https://github.com/endojs/endo-but-for-bots/pull/616) → [#618](https://github.com/endojs/endo-but-for-bots/pull/618) — is CI-green and mergeable but still Draft, awaiting review/un-draft/merge. The confined-HttpClient PR [#566](https://github.com/endojs/endo-but-for-bots/pull/566) cleared its gauntlet and is un-drafted into the review queue, with one deferred design call (per-request timeout backstop) left for the maintainer. A gateway Feature-8 build was held rather than opening a competing PR: it's a superset of the open draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577), and the gardener recommends re-scoping to build the socket handoff on top of #577. The [#619](https://github.com/endojs/endo-but-for-bots/pull/619) gauntlet also completed.
-
-Two producers are stalled and worth a glance: the `xs2rust-endor-build-stage4` orchestration **halted** on a failed child (4/8 done), and the foreman reports its `endoclaw-timer-phase2` next-step recurred without milestone progress and may be stuck.
+The transcript-journal capture implementation landed inert ([build-transcript-capture] and [build-liaison-broadcast-reader] both completed): capture spools locally but pushes nowhere until kriskowal performs the arming act — create a private repo, grant the bot push access, and record authorization — which the proxy has escalated as beyond its authority. The bigger decision waiting is landing M3's flagship: the `daemon-agent-tools` "Claw-like coding" stack ([#614](https://github.com/endojs/endo-but-for-bots/pull/614)→[#615](https://github.com/endojs/endo-but-for-bots/pull/615)→[#616](https://github.com/endojs/endo-but-for-bots/pull/616)→[#618](https://github.com/endojs/endo-but-for-bots/pull/618)) is CI-green but still Draft, and the foreman reports most other M3 designs are similarly built into open Draft PRs — the milestone's critical path is now review-and-merge, not more building. The confined-HttpClient gauntlet on [#566](https://github.com/endojs/endo-but-for-bots/pull/566) passed and un-drafted into the review queue, carrying one deferred design question (per-request timeout backstop against a hostile allowlisted server). A gardener held Gateway Feature 8 rather than open a competing PR after finding it a superset of the still-draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577), and wants steering on how to reconcile. Two things need infrastructure attention: a data-corruption-class bug in the reaper requeue path (two live writers in one worktree) that warrants a deliberate main2 fix and deploy, and the XS→Rust (Endor) port, whose stage-4 orchestration halted on a failed child while stage-5 continues.
 
 ## Parked for maintainer feedback
 
@@ -146,19 +142,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
-- [`build-liaison-broadcast-reader`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-liaison-broadcast-reader.md) — Liaison broadcast-reader + transcript-capture bring-up surfacing
+### doin (3)
 - [`issue-kriskowal-garden-9-moddable-cherrypick-verify`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-9-moddable-cherrypick-verify.md) — Follow-up on kriskowal/garden issue #9 — mhofman's Moddable cherry-pick verif...
 - [`supervise-transcript-capture`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/supervise-transcript-capture.md) — Fable supervisor: implement transcript-journal capture (design is DONE)
 - [`xs2rust-endor-stage5-scoper`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-scoper.md) — Stage-5 child 4/7: scoper/hoisting pass (xsScope.c)
 
-### tada (1369)
+### tada (1370)
+- [`build-liaison-broadcast-reader`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-liaison-broadcast-reader.md) — Completion report
 - [`build-transcript-capture`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-transcript-capture.md) — Completion report
 - [`deadmail-20260706T233345Z-ed16be`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T233345Z-ed16be.md) — Completion report
 - [`xs2rust-endor-stage5-parser-stmt`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-parser-stmt.md) — Completion report
 - [`endojs-endo-but-for-bots-pr619-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr619-gauntlet.md) — Completion report — endojs-endo-but-for-bots-pr619-gauntlet
-- [`endojs-endo-but-for-bots-pr96-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr96-shepherd.md) — Completion report
-- … and 1364 more
+- … and 1365 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
