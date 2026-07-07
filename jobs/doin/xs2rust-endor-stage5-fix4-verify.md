@@ -63,3 +63,9 @@ broken build is allowed but must be called out loudly).
   not, honestly.
 - **Report via your tada completion report ONLY** — do NOT `inbox-send` the supervisor (it is
   parked; a send dead-letters into a noise job).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  claimed_at: 2026-07-07T20:55:14Z
