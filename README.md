@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-07T22:31:26Z_
+_As of 2026-07-07T22:35:39Z_
 
 ## Latest
 
-The XS→Rust (Endor) port kept moving through Stage-5 fix5: the tagged-template/template-literal lowering step [completed](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix5-templates.md) and the lexer/parser validation-parity step (hashbang, strict-mode string escapes) was promoted off the plan queue and is now in progress, alongside the earlier arrow-scope fix. Two new documentation-translation jobs were claimed — distributed-confinement and grant-matcher, both porting endo thesis material into docs.
+The **minion.town Phase 3** (Google→Cognito federation) work is now parked awaiting maintainer action: the gardener never received the Google OAuth Web client within its poll window, so rather than fail the orchestration it parked the remainder as the go-ahead job `minion-town-phase3-completion` (which has since completed a run) and left DEPLOYMENT.md flagged. To unblock, create the OAuth client with redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse` and store it as Secrets Manager secret `minion/google-idp-client` (us-west-1), or reply to the gardener's message with the id+secret. The proxy correctly declined to originate this credential grant — it is beyond its authority. Phase 5 Part C landed in parallel and did not stall on this.
 
-Two things in the maintainer inbox want attention. First, **minion.town Phase 3 (Google→Cognito federation) is gated on you**: the gardener polled ~90 minutes for a Google OAuth 2.0 Web client (redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`, stored as Secrets Manager secret `minion/google-idp-client` in us-west-1), got nothing, and — rather than fail — parked the remainder as go-ahead job `minion-town-phase3-completion`; create the client and store the secret (or reply with the creds), then promote to finish. The proxy correctly declined to originate that credential. Second, a dead-lettered correction on kriscendobot/[agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) was resolved: a gardener verified the chainID is available at the `upgradeSwingset` reboot point and wired an end-to-end `writeCriticalPromotionDirective` (pin table keyed by chainID) so the v4 critical-vat promotion is no longer a no-op — with one open design question (JS-side resolution vs. mhofman's Go-side handler) flagged for relay.
+Separately, a dead-lettered garden#29 correction from mhofman was picked up and resolved: the earlier vatID-pinning commit on [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) only *logged* resolved vatIDs, leaving the v4 critical-vat migration a no-op end-to-end; a follow-up commit (73067903c) now writes the promotion directive JS-side via a pin table keyed on the chainID available at `upgradeSwingset`, wired end-to-end with a test — with an open question for mhofman on whether to move resolution fully into Go. A stale `garden-29-promote-vat-critical` branch carrying the old label approach is superseded and can be deleted. The XS→Rust (Endor) Stage-5 fix5 series also advanced, with the templates and arrow-scope fixes complete and lexer/parser validation parity in progress.
 
 ## Parked for maintainer feedback
 
@@ -126,7 +126,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
+- [`deadmail-issue-comment-4909617310`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4909617310.md) — Dead-lettered message — pick up its intent
 - [`design-endo-thesis-translation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-thesis-translation.md) — Venue & mechanism
 - [`translate-distributed-confinement-to-docs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/translate-distributed-confinement-to-docs.md) — Source
 - [`translate-grant-matcher-to-docs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/translate-grant-matcher-to-docs.md) — Source
