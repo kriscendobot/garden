@@ -1,8 +1,0 @@
-scripts/jobs/inbox-send.sh
-When the recipient inbox dir is absent, do not immediately dead-letter. First check whether the recipient is a *pending-but-unclaimed* job on the board — i.e. `jobs/plan/<doer>.md` or `jobs/todo/<doer>.md` exists (using JOBS_PLAN/JOBS_TODO from common.sh). If so, this is a parked/queued job (e.g. a parked orchestration supervisor), not a torn-down completed doer: pre-create `inbox/<doer>/unread/` and deposit the message there idempotently (same path/CAS/`GARDEN_MSG_ID` skip logic as the live-delivery branch). Because `claim-job.sh:76` creates the inbox with a non-clobbering `mkdir -p` + `touch .gitkeep`, the staged message survives the claim and the supervisor drains it as a normal unread report at claim time — instead of the report being lost to dead-lettering and mis-promoted into an orphan job with no supervisor to act on it. Only fall through to the existing dead-letter path when the recipient exists in NO board category (truly gone/completed), preserving today's behavior for the completed-doer race. This moves the hand-carried "no-inbox-send-to-parked-supervisor" discipline (which cost five dead-lettered child reports in xs2rust-endor fix round 1, per journal entry 124612Z-progress-gardener-0d4a10) off the supervising agent and into the delivery primitive, so children can report to a parked supervisor reliably without the agent resorting to tada-only reporting workarounds. Keep the change confined to the "inbox dir absent" branch; the touched companion is the read side already covered by claim-job.sh, no edit needed there.
-
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 18
-  claimed_at: 2026-07-07T12:52:12Z
