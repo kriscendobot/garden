@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/9#issuecomment-4907678857
 Can you verify the stack overflow using `xst` instead of our worker? You should be able to use [release](https://github.com/Moddable-OpenSource/moddable/releases) xst, from before and after `73aad47b` to confirm. If the pop at the end of the block is indeed the more correct place
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  claimed_at: 2026-07-07T19:20:08Z
