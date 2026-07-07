@@ -16,3 +16,9 @@ Phase 2 of the minion.town OAuth deployment is complete (you run only after it, 
 The command is idempotent (a re-run is a no-op success). Afterwards verify the record exists: `jobs/orch/minion-town-oauth-stage2.md` on the journal (or, if the watcher already finished it, `jobs/tada/minion-town-oauth-stage2.md`). If any child is missing from `jobs/plan/` AND absent from the rest of the lifecycle, do not use `--no-validate` to paper over it — report which child is missing as a failure instead.
 
 Definition of done: the orchestration record is on `origin/journal2` and your report quotes the four children it names.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  claimed_at: 2026-07-07T06:04:15Z
