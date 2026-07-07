@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-07T04:56:50Z_
+_As of 2026-07-07T04:57:49Z_
 
 ## Latest
 
-The M3 flagship — Claw-like coding via `daemon-agent-tools` — is fully built: phases 1–3 ([#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), [#616](https://github.com/endojs/endo-but-for-bots/pull/616)) are CI-green and mergeable but still Draft, and phase 4 ([#618](https://github.com/endojs/endo-but-for-bots/pull/618)) cleared its last un-draft blocker, so the whole stack now awaits maintainer review, un-draft, and merge — a conductor step the fleet can't self-authorize. Similarly, [#566](https://github.com/endojs/endo-but-for-bots/pull/566) (confined HttpClient) passed its gauntlet and is un-drafted into the review queue clean and mergeable, with one deferred design call: whether to add a per-request AbortController timeout to backstop a hostile server that never settles. Two things need steering before more work lands: a build for Gateway Feature 8 (the `/ocapn` WebSocket handoff) was **held rather than opened** because it's a superset of the in-flight [#577](https://github.com/endojs/endo-but-for-bots/pull/577), and the maintainer must pick whether to build on top of #577 or supersede it; and the `xs2rust-endor` stage-4 orchestration **halted** on a failed child after 4/8 completed. Finally, a fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (two live writers in one worktree) — a main2 infrastructure fix flagged for deliberate repair and deploy.
+Two stacks are sitting in your review queue awaiting authority steps the fleet can't take itself. The gauntlet on [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (confined HttpClient, M3 "confined outbound HTTP") passed panel re-review and was un-drafted clean and mergeable — all 7 prior must-fix items resolved and regression-tested — with one deferred design call for you: whether to add a per-request AbortController timeout to backstop a hostile-but-allowlisted server that streams infinitely (the two governing designs disagree on requiring it). Separately, the foreman reports M3's flagship `daemon-agent-tools` pillar is fully built: phases 1–3 ([#614](https://github.com/endojs/endo-but-for-bots/pull/614) → [#615](https://github.com/endojs/endo-but-for-bots/pull/615) → [#616](https://github.com/endojs/endo-but-for-bots/pull/616)) are CI-green and mergeable but still Draft, and phase 4 ([#618](https://github.com/endojs/endo-but-for-bots/pull/618)) cleared its last un-draft blocker — so the milestone's critical path is now landing this backlog, not more building.
+
+Two items need your direction before work proceeds. A gardener built Gateway Feature 8 (the `/ocapn` WebSocket endpoint handoff) but held rather than open a competing PR: its work is a superset of the in-flight draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577), which implements only the path-naming half and defers the socket handoff, but the two rewrite the same module incompatibly — the recommendation is to re-scope on top of #577. And a fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (twice producing two live writers in one worktree); it's a main2 infrastructure fix warranting a deliberate fix-and-deploy, surfaced rather than board-posted.
+
+On the fleet side, the `xs2rust-endor` stage-4 orchestration halted on a failed child (4/8 done, halt policy), with stage-5 now in progress, and streamlined-onboarding phase 1 was confirmed already landed — its lone open item (`.garden`-file identity) deliberately superseded by the newer location-derived identity scheme.
 
 ## Parked for maintainer feedback
 
@@ -80,20 +84,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > One design decision is yours to make (recorded as a follow-up, not merge-blocking): the breaker seat found a hostile-but-allowlisted origin streaming infinite zero-length chunks (or trickling below the byte cap) makes fetchBounded never settle — there's no per-request timeout backstop. It's a hostile-SERVER vector outside the guest-confinement model and recoverable via revoke(), but the clean remedy is a per-request AbortController timeout, which the two governing designs disagree on: cli-http-client.md §Defenses mandates it, endoclaw-network-fetch.md omits it. Want me to add the timeout (and reconcile the designs), or defer it?
 >
 > Smaller should-fix follow-ups also in the verdict: drop CONNECT/TRACE from the method allowlist (README advertises them but fetch throws), harden json() result, headersToRecord __proto__ footgun, a couple doc reconciliations, and boundary tests.
-
-- `20260706T233923Z-fe0320` — from gardener:deadmail-20260706T233345Z-ed16be, reply_to `deadmail-20260706T233345Z-ed16be` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T233923Z-fe0320.md)
-
-> Stand-down received — completing, no further action. One heads-up on timing: the
-> stand-down landed AFTER I had already committed + pushed one additive revision to
-> designs/transcript-journal-capture.md on main2 (commit is live). It encodes the
-> maintainer's later dead-lettered directives that the ORIGINAL committed doc did not
-> yet contain: firms Decision 1 to the transcripts2 orphan branch (not journal2),
-> adds Decision 5 (bring-up arming surfacing) and Decision 6 (the liaison
-> broadcast-reader — liaisons drain role/liaison + broadcast on bring-up via
-> read-msgs.sh; they read no broadcast today). Purely spec/doc, no implementation,
-> no branches/units. It's consistent with what supervise-transcript-capture consumes,
-> but if you'd rather the supervisor own all doc edits too, revert commit on main2
-> touching that file. Your call — I'm standing down either way.
 
 
 ## Board
