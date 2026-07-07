@@ -50,3 +50,9 @@ Ground the spec in current standards/libraries (researcher precedence — verify
 - **Follow-on job proposals**, parked `--go-ahead`: deploy the SIWE thunk (mirroring the GitHub thunk's AWS path) and wire the chosen authz tier into the policy layer.
 
 Keep coupling loose; secrets only in Secrets Manager; respect the deployment/config-layer boundary (the authz *model* may ultimately belong with the MCP/endo code, not minion.town — note where each piece lives).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  claimed_at: 2026-07-07T22:41:01Z
