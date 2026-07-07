@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-07T07:05:43Z_
+_As of 2026-07-07T07:11:16Z_
 
 ## Latest
 
-The **minion.town OAuth deployment** dominated this window: its stage-2 orchestration completed, but two of the federation phases now sit **parked on maintainer credentials only kriskowal can create**. Phase 3 (Google → Cognito) is fully staged behind a **Google OAuth 2.0 Web client** — deliver via Secrets Manager `minion/google-idp-client` (us-west-1) or reply to the phase job, then promote `minion-town-phase3-completion`. Phase 5's GitHub OIDC thunk is further along: Parts A+B are **live and HTTPS-verified** (`github-idp.minion.town` serving OpenID config, JWKS, and a working `/authorize` → github.com redirect via an API Gateway HTTP API, since this AWS account blocks public Lambda Function URLs), with only the Cognito wiring (Part C) parked behind a **GitHub OAuth App** (`minion/github-oauth-app`) and its `minion-town-phase5-completion` job. The proxy has correctly escalated all of these as beyond its authority — they are genuine credential grants, and nothing else stalled since the phases park go-ahead remainders rather than failing.
+The minion.town OAuth deployment landed its two orchestrated stages: Phase 5's GitHub OIDC thunk (Parts A+B) is live and verified over HTTPS — `github-idp.minion.town` serves its OpenID configuration, JWKS, and a working `/authorize` redirect from an ARM64 Node Lambda fronted by an API Gateway HTTP API (this AWS account blocks public Lambda Function URLs). Both Phase 3 (Google→Cognito federation) and Phase 5 Part C (Cognito GitHub wiring) completed everything that isn't gated and then **parked** their remainders as go-ahead jobs (`minion-town-phase3-completion`, `minion-town-phase5-completion`) rather than failing — so nothing is lost, but two items now need kriskowal directly: create a **Google OAuth 2.0 Web client** and a **GitHub OAuth App** (both with redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`), store each in Secrets Manager (us-west-1), then promote the parked jobs. The proxy correctly bounced these as beyond its authority — they require credentials only the maintainer can originate.
 
-Separately, a dead-lettered mhofman design correction on garden#29 was picked up and closed a real gap in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): the vat-critical promotion was an end-to-end no-op (the Go switch only logged resolved vatIDs), now wired via a JS-side pin table and `writeCriticalPromotionDirective` helper called before `upgradeSwingset`, with a test — the gardener flags one open design question (JS-side vs. Go-side resolution) for mhofman and notes a stale `garden-29-promote-vat-critical` branch that can be deleted. Finally, an **access request** needs a decision: @kriscendobot commented on garden issue #29 but isn't on the maintainer allowlist, so the interaction was dropped — add them with `add-maintainer.sh` and ask them to re-post if it mattered.
+Separately, a dead-lettered garden#29 correction from mhofman was picked up and landed on the agoric-sdk fork: the earlier peer commit only logged resolved vatIDs, so the critical-vat migration was a no-op end-to-end; the follow-up (commit 73067903c) wires `writeCriticalPromotionDirective` into `launch-chain.js` using the chainID available at the `upgradeSwingset` reboot point, closing the gap with a test. One open question for mhofman: resolution now lives JS-side rather than in the Go handler he originally suggested. A stale `garden-29-promote-vat-critical` branch is superseded and can be deleted.
+
+Finally, @kriscendobot tried to drive the garden via issue [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) but isn't on the maintainer allowlist, so the interaction was dropped — add them with `add-maintainer.sh` and have them re-post if it matters.
 
 ## Parked for maintainer feedback
 
@@ -253,17 +255,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`daily-progress-summary-20260707-070509`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260707-070509.md) — Daily midnight Pacific progress summary
+### doin (1)
 - [`xs2rust-endor-stage5-coder-decl`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-coder-decl.md) — Stage-5 child 6/7: coder — functions, classes, control flow, generators/async...
 
-### tada (1400)
+### tada (1401)
+- [`daily-progress-summary-20260707-070509`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260707-070509.md) — Inbox empty, work landed. Here is my completion report.
 - [`minion-town-oauth-stage2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-oauth-stage2.md) — orchestration minion-town-oauth-stage2 — complete
 - [`minion-town-phase5-github-oidc-thunk`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase5-github-oidc-thunk.md) — Completion report — minion.town Phase 5: GitHub OIDC thunk
 - [`minion-town-phase3-google-idp`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase3-google-idp.md) — Completion report
 - [`deadmail-20260707T061609Z-e87f3f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260707T061609Z-e87f3f.md) — Completion report
-- [`deadmail-issue-comment-4900696368`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4900696368.md) — Completion report — deadmail-issue-comment-4900696368
-- … and 1395 more
+- … and 1396 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
