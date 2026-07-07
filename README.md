@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T22:35:39Z_
+_As of 2026-07-07T22:38:43Z_
 
 ## Latest
 
-The **minion.town Phase 3** (Google→Cognito federation) work is now parked awaiting maintainer action: the gardener never received the Google OAuth Web client within its poll window, so rather than fail the orchestration it parked the remainder as the go-ahead job `minion-town-phase3-completion` (which has since completed a run) and left DEPLOYMENT.md flagged. To unblock, create the OAuth client with redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse` and store it as Secrets Manager secret `minion/google-idp-client` (us-west-1), or reply to the gardener's message with the id+secret. The proxy correctly declined to originate this credential grant — it is beyond its authority. Phase 5 Part C landed in parallel and did not stall on this.
-
-Separately, a dead-lettered garden#29 correction from mhofman was picked up and resolved: the earlier vatID-pinning commit on [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) only *logged* resolved vatIDs, leaving the v4 critical-vat migration a no-op end-to-end; a follow-up commit (73067903c) now writes the promotion directive JS-side via a pin table keyed on the chainID available at `upgradeSwingset`, wired end-to-end with a test — with an open question for mhofman on whether to move resolution fully into Go. A stale `garden-29-promote-vat-critical` branch carrying the old label approach is superseded and can be deleted. The XS→Rust (Endor) Stage-5 fix5 series also advanced, with the templates and arrow-scope fixes complete and lexer/parser validation parity in progress.
+A gardener translated Mark Miller and Melora Svoboda's "Distributed Capability Confinement" into an Endo docs page, opened as draft [endojs/endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629) (fork-only, not ferried) — but it needs a **licensing call before it leaves draft**: the source's public-domain dedication clearly covers Miller's text only, not Svoboda's co-authored contribution or the original figure, so a maintainer should confirm the dedication suffices or seek the authors' explicit sign-off. Separately, **minion.town Phase 3 (Google → Cognito federation) is parked and awaiting you**: the required Google OAuth Web-client credentials never arrived in the poll window, so the gardener parked the remainder as the go-ahead job `minion-town-phase3-completion` (create the client with redirect `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`, store it as Secrets Manager secret `minion/google-idp-client`, then promote); no other phase stalled. A dead-lettered garden#29 correction also landed — the vatID-pin migration for kriscendobot/agoric-sdk#9 is now wired end-to-end (a `writeCriticalPromotionDirective` helper closes a gap where the v4 migration was previously a no-op), with an open question for mhofman on whether resolution should live JS-side or move fully into Go.
 
 ## Parked for maintainer feedback
 
@@ -121,25 +119,30 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > (or reply to this message with the creds and the promoted job will store them itself). Then **promote** `minion-town-phase3-completion` and Phase 3 finishes. The other phases proceeded in parallel — none of them stalled on this.
 
+- `20260707T223801Z-f139ee` — from gardener:translate-distributed-confinement-to-docs, reply_to `translate-distributed-confinement-to-docs` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T223801Z-f139ee.md)
+
+> Translated Mark Miller & Melora Svoboda's "Distributed Capability Confinement" into an Endo docs page — DRAFT PR: https://github.com/endojs/endo-but-for-bots/pull/629 (fork only, not ferried upstream).
+>
+> Licensing decision needed before it leaves draft: the source page dedicates "all text ... by Mark S. Miller" to the public domain, but that dedication does NOT clearly cover (a) co-author Melora Svoboda's contribution or (b) the figure image. I wrote an original re-exposition (not a verbatim copy) and redrew the figure as an original Mermaid diagram to stay clear of (b). Please confirm whether the public-domain dedication is sufficient to publish, or whether we should seek explicit confirmation from the authors first. Also flagged: design-endo-thesis-translation conventions hadn't landed, so category ("Concepts") and figure-tooling (Mermaid) are judgment calls to reconcile.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
-- [`deadmail-issue-comment-4909617310`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4909617310.md) — Dead-lettered message — pick up its intent
+### doin (4)
+- [`agoric-beans-v2-deflation-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-beans-v2-deflation-design.md) — Design: Agoric "beans v2" as a governance-tunable deflationary mechanism
 - [`design-endo-thesis-translation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-thesis-translation.md) — Venue & mechanism
-- [`translate-distributed-confinement-to-docs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/translate-distributed-confinement-to-docs.md) — Source
 - [`translate-grant-matcher-to-docs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/translate-grant-matcher-to-docs.md) — Source
 - [`xs2rust-endor-stage5-fix5-lexer-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix5-lexer-validation.md) — Stage-5 fix5 3/5 — lexer/parser validation parity: hashbang, string strict es...
 
-### tada (1451)
+### tada (1453)
+- [`translate-distributed-confinement-to-docs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/translate-distributed-confinement-to-docs.md) — Completion report
+- [`deadmail-issue-comment-4909617310`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4909617310.md) — Completion report
 - [`xs2rust-endor-stage5-fix5-templates`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix5-templates.md) — Completion report — Stage-5 fix5 2/5 (tagged-template + template-literal TV l...
 - [`minion-town-phase3-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase3-completion.md) — Completion report: minion.town Phase 3 — Google federation into Cognito
 - [`issue-kriskowal-garden-32`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-32.md) — Completion report
-- [`xs2rust-endor-stage5-fix5-arrow-scope`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix5-arrow-scope.md) — Completion report — xs2rust-endor-stage5-fix5-arrow-scope (fix5 1/5)
-- [`minion-town-phase5-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase5-completion.md) — Completion Report — minion.town Phase 5 Part C
-- … and 1446 more
+- … and 1448 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
