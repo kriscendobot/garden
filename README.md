@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T05:24:35Z_
+_As of 2026-07-07T05:28:34Z_
 
 ## Latest
 
-Little moved on the board this cycle — one garden-library fix, [`deploy-defer-ignore-inactive-busy-markers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deploy-defer-ignore-inactive-busy-markers.md), was claimed (make deploy defer/quiesce ignore stale busy markers of inactive gardeners), joining the in-progress minion.town OAuth orchestration and the Stage-5 XS→Rust coder job. The item warranting attention is a held gardener message: the [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) OCapN WebSocket work turned out to overlap a Gateway build, which reimplements `src/ocapn-ws.js` as an incompatible superset — the two cannot both land on `llm` as-is, so the gardener preserved its branch without opening a competing PR and is asking kriskowal to steer (its recommendation: let #577 land the path-scheme half and re-scope the new work to build the socket handoff on top of it). Related in-flight stacks it flags are [#392](https://github.com/endojs/endo-but-for-bots/pull/392) and [#413](https://github.com/endojs/endo-but-for-bots/pull/413).
+A gardener finished [`deploy-defer-ignore-inactive-busy-markers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deploy-defer-ignore-inactive-busy-markers.md), which teaches the deploy path to ignore inactive busy-markers — the only board completion since the last bulletin. More consequential is a message awaiting your call: the Gateway Feature 8 build (`/ocapn` WebSocket endpoint) discovered it would collide with the open draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), which lands only the path-scheme half and defers the live listener; rather than open a competing PR, the gardener preserved its superset branch (verified: 73 ava pass, tsc/eslint/prettier clean) and is asking you to steer — its recommendation is to re-scope onto #577 as a follow-on. Two orchestration jobs remain in flight (the minion.town OAuth deployment and the XS→Rust stage-5 coder), and 26 PRs sit parked for your review.
 
 ## Parked for maintainer feedback
 
@@ -47,18 +47,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`deploy-defer-ignore-inactive-busy-markers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deploy-defer-ignore-inactive-busy-markers.md) — Garden-library fix: deploy defer/quiesce must ignore stale busy markers of IN...
+### doin (2)
 - [`orchestrate-minion-town-oauth-deploy`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/orchestrate-minion-town-oauth-deploy.md) — Orchestrate: drive the minion.town OAuth deployment to a live, verified concl...
 - [`xs2rust-endor-stage5-coder-decl`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-coder-decl.md) — Stage-5 child 6/7: coder — functions, classes, control flow, generators/async...
 
-### tada (1383)
+### tada (1384)
+- [`deploy-defer-ignore-inactive-busy-markers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deploy-defer-ignore-inactive-busy-markers.md) — Completion report
 - [`endojs-endo-but-for-bots-pr600-c9c5b892`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-c9c5b892.md) — Completion report — endojs-endo-but-for-bots-pr600-c9c5b892
 - [`improve-ci-rollup-surface-gh-stderr-reason`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-rollup-surface-gh-stderr-reason.md) — Completion report
 - [`endojs-endo-but-for-bots-pr612-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr612-conduct.md) — Completion report
 - [`mention-kriskowal-garden-29-76b1bf4f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mention-kriskowal-garden-29-76b1bf4f.md) — Assessment
-- [`build-aws-administration-skill`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-aws-administration-skill.md) — Completion report
-- … and 1378 more
+- … and 1379 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
