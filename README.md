@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-07T00:04:44Z_
+_As of 2026-07-07T00:06:14Z_
 
 ## Latest
 
-Transcript-journal capture is now built and landed inert: the `supervise-transcript-capture` orchestration completed both children (`build-transcript-capture` and `build-liaison-broadcast-reader`), spooling transcripts locally but pushing nowhere — it awaits your arming act (create a private repo, grant the bot push access, run `set-transcripts-remote.sh`, and record authorization), plus three open tuning questions (private-repo plan of record, liaison sessions in scope, idle threshold). Two review-queue items need your decision: the gauntlet on [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (confined HttpClient) is done — un-drafted, clean/mergeable, all seven must-fixes resolved — leaving only whether to add a per-request AbortController timeout (the two governing designs disagree); and the foreman reports M3's flagship `daemon-agent-tools` stack ([#614](https://github.com/endojs/endo-but-for-bots/pull/614)→[#615](https://github.com/endojs/endo-but-for-bots/pull/615)→[#616](https://github.com/endojs/endo-but-for-bots/pull/616)→[#618](https://github.com/endojs/endo-but-for-bots/pull/618)) is fully built and CI-green but still Draft, so M3's critical path is now landing this backlog rather than more building.
+The transcript-journal-capture system is [built and landed on main2](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/supervise-transcript-capture.md) — an hourly every-host spool with fleet-wide deletion disabled, but wholly **inert until the maintainer arms a remote**: it needs a private repo (recommended `kriskowal/garden-transcripts`), bot push access, and a recorded authorization; the proxy has flagged this as beyond its authority. A garden-infrastructure bug also surfaced from the fable self-review: a data-corruption reaper requeue path that twice left two live writers in one worktree, warranting a deliberate main2 fix + deploy.
 
-Two items were held rather than pushed: a gateway `/ocapn` WebSocket endpoint build found it would collide with the in-flight [#577](https://github.com/endojs/endo-but-for-bots/pull/577) (which implements only the path-naming half) and is holding for you to pick a reconciliation; and a Fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (two live writers in one worktree) that wants a deliberate main2 fix and deploy. The `xs2rust-endor-build-stage4` orchestration halted on a failed `stage4-modules` child (4/8 done), with stage-5 children now in progress; and `onboarding-p1-launcher` closed as already-landed, flagging that design §1.1's `.garden`-file identity is now superseded by location-derived identity.
+On the M3 front, the flagship `daemon-agent-tools` stack ([#614](https://github.com/endojs/endo-but-for-bots/pull/614)→[#615](https://github.com/endojs/endo-but-for-bots/pull/615)→[#616](https://github.com/endojs/endo-but-for-bots/pull/616)→[#618](https://github.com/endojs/endo-but-for-bots/pull/618)) is fully built, CI-green, and mergeable but still Draft — the foreman reports the milestone's critical path is now landing this backlog, a conductor/authority step only the maintainer can trigger. The confined-HttpClient gauntlet on [#566](https://github.com/endojs/endo-but-for-bots/pull/566) passed and is un-drafted into the review queue, with one deferred design call (a per-request timeout backstop the two governing designs disagree on). A gateway `/ocapn` WebSocket build was **held rather than opened** because it overlaps [#577](https://github.com/endojs/endo-but-for-bots/pull/577)'s path-scheme half — the gardener recommends re-scoping to build the socket handoff on top of #577. Elsewhere, the xs2rust-endor stage-4 orchestration halted on a failed modules child (4/8 done) and stage-5 work continues; PR [#612](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr612-review-6da32098.md) review is in flight.
 
 ## Parked for maintainer feedback
 
@@ -139,18 +139,44 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > awaiting maintainer — beyond proxy authority: gardener supervise-transcript-capture, msgid 20260706T234023Z-b6d70e.md — The core ask is an arming authorization — creating a private repo, granting the bot push credentials, and recording maintainer authorization to publish the fleet's raw transcripts — an authority grant and outward-facing action reserved to the maintainer.
 
+- `20260707T000526Z-d79f2a` — from gardener:supervise-transcript-capture, reply_to `supervise-transcript-capture` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T000526Z-d79f2a.md)
+
+> Subject: transcript capture is BUILT and landed — ready for your arming decision
+>
+> Follow-up to my 23:40Z note (which has the full arming steps + open questions):
+> the implementation is now complete and landed on main2, verified.
+>
+> - a71081d81 — the full capture system (spool hook before the intact rm -f,
+>   hourly every-host garden-transcript-capture timer, redact+gzip sweep,
+>   blobless+sparse transcripts2 clone, set-transcripts-remote.sh, launcher
+>   cleanupPeriodDays=36500 seed + per-tick reconcile). I re-ran its test suite
+>   myself: 20/20 green. INERT until you arm a remote; meanwhile every host
+>   disables deletion and spools locally, losing nothing.
+> - 8e97b86c7 — liaisons now drain role/liaison + broadcast on bring-up
+>   (per-host seen-key), making the queued cleanupPeriodDays notice deliverable;
+>   starting.md offers the transcript arming during bring-up.
+>
+> This host converges on cleanupPeriodDays=36500 within the hour once the new
+> timer is installed at the next deploy (the reconcile runs every capture tick).
+>
+> To arm: create a PRIVATE repo (recommended kriskowal/garden-transcripts),
+> grant the bot push, run scripts/jobs/set-transcripts-remote.sh <url>, record a
+> journal message entry. Open questions still yours to call: private repo as
+> plan of record? liaison sessions in scope (default yes)? idle threshold
+> (default 21600s)? Operator page: context/operations/transcripts.md.
+
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (3)
+- [`endojs-endo-but-for-bots-pr612-review-6da32098`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr612-review-6da32098.md) — Review directive on endojs/endo-but-for-bots PR #612
 - [`issue-kriskowal-garden-9-moddable-cherrypick-verify`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-9-moddable-cherrypick-verify.md) — Follow-up on kriskowal/garden issue #9 — mhofman's Moddable cherry-pick verif...
-- [`supervise-transcript-capture`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/supervise-transcript-capture.md) — Fable supervisor: implement transcript-journal capture (design is DONE)
 - [`xs2rust-endor-stage5-scoper`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-scoper.md) — Stage-5 child 4/7: scoper/hoisting pass (xsScope.c)
 
 ### tada (1371)
-- [`supervise-transcript-capture`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/supervise-transcript-capture.md) — orchestration supervise-transcript-capture — complete
+- [`supervise-transcript-capture`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/supervise-transcript-capture.md) — Everything is done and verified. Writing the completion report.
 - [`build-liaison-broadcast-reader`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-liaison-broadcast-reader.md) — Completion report
 - [`build-transcript-capture`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-transcript-capture.md) — Completion report
 - [`deadmail-20260706T233345Z-ed16be`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260706T233345Z-ed16be.md) — Completion report
@@ -166,6 +192,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`endojs-endo-but-for-bots-pr96-review-94e37389-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr96-review-94e37389-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #96 (primary: endojs-endo-but-fo...
+- [`endojs-endo-but-for-bots-pr612-review-6da32098-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr612-review-6da32098-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #612 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
