@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: xs2rust-endor-build-stage5-fix3
-priority: normal
 role: fixer
-posted_by: port-xs-to-rust-memory-safe-engine-s14
-posted_at: 2026-07-07T16:24:47Z
+model: opus
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-07T19:04:22Z -->
 
 ---
 model: opus
