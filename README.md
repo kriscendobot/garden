@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-07T14:49:30Z_
+_As of 2026-07-07T14:52:33Z_
 
 ## Latest
 
-The **minion.town OAuth deployment** is now orchestrated and its two federation phases have parked cleanly pending credentials only kriskowal can create: Phase 3 (Google→Cognito) awaits a Google OAuth 2.0 Web client, and Phase 5 (GitHub OIDC thunk) awaits a GitHub OAuth App — both to be dropped into Secrets Manager (`minion/google-idp-client` / `minion/github-oauth-app`, us-west-1) or replied into the running jobs. Notably, Phase 5's non-gated work is already live and HTTPS-verified (`github-idp.minion.town` serving OpenID config, JWKS, and an `/authorize` redirect to github.com); only the Cognito IdP wiring waits, parked as go-ahead job `minion-town-phase5-completion` alongside `minion-town-phase3-completion` — promote either after supplying its secret and it finishes. One caveat the maintainer should note: the AWS account blocks public Lambda Function URLs, so public ingress runs through an API Gateway HTTP API instead.
+The XS→Rust (Endor) port's stage-5 "fix2" campaign is the main board motion: three sub-jobs completed — the NamedEvaluation destructuring-default fix, private member read/write plus class-tail folds, and the Class B/C byte divergences — while the 4/6 slice (direct eval inside a function's EVAL environment) is now claimed and in flight; supervisor s14 remains blocked on the fix2 build.
 
-Separately, a dead-lettered garden#29 correction from mhofman was picked up and landed on [kriskowal/agoric-sdk#9](https://github.com/kriskowal/agoric-sdk/pull/9): the earlier vatID-pinning commit only *logged* resolved vatIDs, leaving the v4 critical-vat migration a no-op end-to-end; a follow-up commit now writes the promotion directive JS-side (a pin table keyed on the chainID available at `upgradeSwingset`) with a test — flagged as an open design call if mhofman prefers it moved fully into Go. A stale `garden-29-promote-vat-critical` branch is superseded by #9 and can be deleted.
+The bigger maintainer item is the **minion.town OAuth deployment**, now fully orchestrated. Both federation phases landed everything they could without you and then parked cleanly: Phase 5's GitHub OIDC thunk is **live and HTTPS-verified** (`github-idp.minion.town` serving OpenID config, JWKS, and a working `/authorize` 302 to GitHub, fronted by API Gateway because the AWS account blocks public Lambda Function URLs), with only the Cognito wiring parked as `minion-town-phase5-completion`; Phase 3 (Google→Cognito) parked as `minion-town-phase3-completion`. Both wait solely on OAuth credentials **only you can create** — a Google OAuth Web client (`minion/google-idp-client`) and a GitHub OAuth App (`minion/github-oauth-app`), each with the Cognito `idpresponse` redirect URI, dropped into us-west-1 Secrets Manager. Nothing else stalled, and promoting the parked jobs finishes each phase.
 
-Also awaiting attention: @kriscendobot hit the issue inbox on garden#29 but isn't on the maintainer allowlist, so that interaction was dropped (re-post needed if it matters). Board work was otherwise quiet — the XS→Rust (Endor) stage-5 fix2 byte-divergence job completed, feeding the still-blocked supervisor stage `s14`.
+A dead-lettered correction from mhofman on [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) was picked up and landed on [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): the critical-vat promotion directive was previously a no-op end-to-end (the Go switch only logged resolved vatIDs), now closed by a JS-side pin table wired into `launch-chain.js` before `upgradeSwingset` — with one open design question for mhofman on whether to move resolution fully into Go. Finally, an issue-inbox interaction from @kriscendobot on the same issue was **dropped** for not being on the maintainer allowlist; add them if they should drive the garden by issue, and ask them to re-post.
 
 ## Parked for maintainer feedback
 
@@ -255,8 +255,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-stage5-fix2-eval-scope`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix2-eval-scope.md) — Stage-5 fix2 4/6: direct eval inside a function (the EVAL environment slice)
 
 ### tada (1423)
 - [`xs2rust-endor-stage5-fix2-bytes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix2-bytes.md) — Completion report: stage-5 fix2 3/6 — Class B + Class C byte divergences
