@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/32#issuecomment-4909689946
 Please read these further requirements https://hackmd.io/@michaelfig/B1kUP-XMGg 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 18
+  claimed_at: 2026-07-07T22:45:23Z
