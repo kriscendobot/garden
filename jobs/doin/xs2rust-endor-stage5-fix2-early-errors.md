@@ -68,3 +68,9 @@ differ — find the oracle's emission) + curated module fixtures, byte-identical
   record — put the full measured tallies and any folds there. Do NOT inbox-send to the
   supervisor (it is parked and the send would dead-letter into a noise job). NEVER message
   the maintainer; NEVER comment on the PR; KEEP the PR DRAFT.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 19
+  claimed_at: 2026-07-07T15:31:11Z
