@@ -1,14 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-07T03:49:36Z_
+_As of 2026-07-07T03:50:59Z_
 
 ## Latest
 
-The board is nearly drained — the only transition since the last bulletin was completion of the conductor job on [endo-but-for-bots#612](https://github.com/endojs/endo-but-for-bots/pull/612), leaving one job in flight (xs2rust stage-5 coder) and nothing in todo.
+A cluster of items now sits on the maintainer's desk. **Transcript capture is built and landed** on main2 (commits a71081d81 and 8e97b86c7): an hourly every-host spool, redact+gzip sweep, a `transcripts2` clone, and a fleet-wide deletion disable — all **inert until you arm a remote**. Arming is yours alone: create a private repo (recommended `kriskowal/garden-transcripts`), grant the bot push, run `set-transcripts-remote.sh`, and record the authorization; open questions on private-vs-public, liaison-session scope, and the 6h idle threshold await your call (proxy escalated this as beyond its authority).
 
-Most of what needs attention has piled up in the maintainer inbox. Transcript capture is now **built and landed** on `main2` (garden infrastructure, no PR) and sits inert pending your arming decision — it needs a private repo, bot push access, and a recorded authorization before it publishes anything; open questions on repo choice, liaison-session scope, and idle threshold are still yours to call. Separately, the fable review of the garden's own scripts surfaced a data-corruption-class bug in the reaper requeue path (two live writers in one worktree) that warrants a deliberate fix-and-deploy.
+The fable review of the garden's own scripts surfaced a **data-corruption bug in the reaper requeue path** — jobs requeued every ~18min against a 40min handler wall left the prior handler alive, twice producing two live writers in one worktree; it's a main2 infra fix warranting a deliberate fix + deploy.
 
-Several stacks are built and waiting only on your review-and-merge authority: the M3 flagship "Claw-like coding" stack [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614)→[#615](https://github.com/endojs/endo-but-for-bots/pull/615)→[#616](https://github.com/endojs/endo-but-for-bots/pull/616)→[#618](https://github.com/endojs/endo-but-for-bots/pull/618) is CI-green but Draft, and the confined-HttpClient gauntlet on [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) passed panel re-review and is un-drafted into your queue (with a deferred per-request-timeout design question). Two items need steering rather than review: the Gateway feature-8 build found it overlaps draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) and held its branch rather than open a competing PR (recommending you rescope it to build atop #577), and the xs2rust stage-4 orchestration **halted** on a failed child after 4/8 completed.
+Several M3 stacks are built and **blocked only on review/merge**: the Claw `daemon-agent-tools` stack — [#614](https://github.com/endojs/endo-but-for-bots/pull/614)→[#615](https://github.com/endojs/endo-but-for-bots/pull/615)→[#616](https://github.com/endojs/endo-but-for-bots/pull/616)→[#618](https://github.com/endojs/endo-but-for-bots/pull/618) — is CI-green but Draft awaiting an un-draft/merge authority step, and the confined-HttpClient PR [#566](https://github.com/endojs/endo-but-for-bots/pull/566) cleared its gauntlet and is un-drafted into your queue (one non-blocking decision: whether to add a per-request AbortController timeout against a hostile-but-allowlisted server that never settles). The gateway `/ocapn` WebSocket build was **held to avoid a competing PR**: it's a superset of the path-scheme-only draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577), and the gardener recommends re-scoping onto #577 rather than superseding it.
+
+On the failure side, orchestration `xs2rust-endor-build-stage4` **halted** after child `xs2rust-endor-stage4-modules` failed (4/8 done), and the foreman flagged `endoclaw-timer-phase2-tick-delivery` as possibly stuck after draining without milestone progress. Board movement was otherwise quiet — one new claim, an attention directive on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600).
 
 ## Parked for maintainer feedback
 
@@ -172,7 +174,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr600-c9c5b892`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr600-c9c5b892.md) — attention directive on endojs/endo-but-for-bots PR #600
 - [`xs2rust-endor-stage5-coder-decl`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-coder-decl.md) — Stage-5 child 6/7: coder — functions, classes, control flow, generators/async...
 
 ### tada (1381)
