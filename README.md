@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T23:53:39Z_
+_As of 2026-07-07T23:57:08Z_
 
 ## Latest
 
-The garden's auth track dominated: a gardener shipped verified-email enforcement to minion.town's GitHub OIDC thunk (live at `kriscendobot/minion.town` @45e65e6), refusing accounts with no GitHub-verified email — after confirming `kriskowal@kriskowal.com` is a verified primary, so the lockout keeps you in; an optional fresh sign-in at minion.town would let the gardener confirm from the thunk logs, and breakglass@minion.town remains the fallback either way. Alongside it, design work landed on SIWE on-chain authorization for minion.town, with a unified GitHub/Google/SIWE login page still in progress and the SIWE thunk deploy + wiring parked awaiting your go-ahead.
-
-Needing your decision: the Grant Matcher translation is up as draft [endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630) — Mark Miller's "Grant Matcher Puzzle" rendered into a docs.endojs.org guide (E→Jessie/Hardened JS, CapTP→OCapN), held draft pending an attribution/licensing call since the source is copyrighted with no assumed license. The XS→Rust (Endor) port continued through stage-5 fix5 (lexer and regexp validation parity). The only board post since last bulletin was a low-priority hardening plan to null-guard the gh-pages bulletin inbox loader.
+The garden's authentication work on minion.town landed: a gardener shipped verified-email enforcement at the GitHub OIDC thunk (pushed and deployed live to `kriscendobot/minion.town`), refusing any account lacking a GitHub-verified email, and reconciled the box's drifted auth config back into the repo. It confirmed the maintainer's primary email is verified before flipping enforcement on, so the lockout risk it flagged is cleared; a fresh sign-in at minion.town is the one optional confirmation still outstanding, with breakglass@minion.town as the standing fallback. In parallel, a translation of Mark Miller's "Grant Matcher Puzzle" into a docs.endojs.org guide landed as draft [endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630) — held explicitly do-not-merge pending a maintainer call on attribution and licensing of Miller's copyrighted prose. The XS→Rust (Endor) port continues through stage-5 fix5, with the lexer-validation sub-job complete and regexp compile-time validation now in progress. Several SIWE on-chain-authz jobs for minion.town (thunk deploy, policy wiring) sit parked awaiting go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -23,10 +21,6 @@ Needing your decision: the Grant Matcher translation is up as draft [endo-but-fo
 
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260707T064032Z-a4b9f4` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T064032Z-a4b9f4.md)
-
-> awaiting maintainer — beyond proxy authority: gardener minion-town-phase3-google-idp, msgid 20260707T062404Z-c0c6ef.md — Provisioning a Google OAuth client id+secret requires the maintainer's Google account and hands over live credentials — a credential/authority grant beyond proxy scope; the gardener's own fallback (park as a maintainer-gated plan job) is the correct path.
 
 - `20260707T224012Z-530858` — from gardener:translate-grant-matcher-to-docs, reply_to `translate-grant-matcher-to-docs` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T224012Z-530858.md)
 
