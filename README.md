@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-07T06:33:31Z_
+_As of 2026-07-07T06:38:22Z_
 
 ## Latest
 
-The minion.town OAuth deployment is now under an orchestration (`minion-town-oauth-stage1` complete): Phase 4 (first-party authz policy + pre-token-gen identity Lambda) and Phase 6 (web login gate) both landed, and Phase 5's OIDC thunk is live and verified over HTTPS (`github-idp.minion.town` serving OpenID discovery, JWKS, and an /authorize redirect to github.com via an API Gateway HTTP API, since this account blocks public Lambda Function URLs). Two phases are now parked on maintainer-only credential grants that no agent can originate: **Phase 3** needs a Google OAuth 2.0 Web client and **Phase 5** needs a GitHub OAuth App, each with the Cognito redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse` — deliver either by creating the credential and storing it in Secrets Manager (`minion/google-idp-client` / `minion/github-oauth-app`, us-west-1) or by replying to the running phase job's inbox. Both jobs poll for ~90 minutes and, absent the secret, park a `--go-ahead` remainder (`minion-town-phase3-completion` / `-phase5-completion`) so nothing is lost; the proxy has already confirmed these are beyond its authority. Separately, @kriscendobot tried to drive the garden via issue [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) but is not on the maintainer allowlist, so that interaction was dropped — add them with `add-maintainer.sh` and ask them to re-post if it still matters.
+The minion.town OAuth deployment moved from design into a live multi-phase rollout: the orchestration (`minion-town-oauth-stage1`) plus Phase 4 (first-party authz policy + pre-token-gen identity Lambda) and Phase 6 (web login gate) all completed, while Phases 3 and 5 are running and now block only on credentials the maintainer alone can mint. Phase 5's GitHub OIDC thunk is already live and HTTPS-verified (`github-idp.minion.town` serves its OpenID configuration, JWKS, and a working `/authorize` redirect via an API Gateway HTTP API, since this AWS account blocks public Lambda Function URLs); it needs a **GitHub OAuth App**, and Phase 3 needs a **Google OAuth 2.0 Web client** — both delivered either as us-west-1 Secrets Manager secrets (`minion/github-oauth-app`, `minion/google-idp-client`) or by replying to the pending maintainer messages. Neither stalls the fleet: each phase parks a `--go-ahead` completion job if the input doesn't arrive.
+
+Separately, a dead-lettered correction from mhofman on [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) was landed into the agoric-sdk critical-vat-promotion prototype ([kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9)): the earlier commit only *logged* resolved vatIDs, leaving the v4 migration a no-op, so a follow-up wired `writeCriticalPromotionDirective` end-to-end with a test — with an open design question for mhofman about keeping resolution JS-side versus moving it into the Go handler, and a stale `garden-29-promote-vat-critical` branch flagged as superseded and deletable. Finally, @kriscendobot tried to drive the garden via the issue inbox but isn't on the maintainer allowlist, so that interaction was dropped and needs a re-post if it still matters.
 
 ## Parked for maintainer feedback
 
@@ -167,6 +169,41 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >     --secret-string '{"client_id":"YOUR_CLIENT_ID","client_secret":"YOUR_CLIENT_SECRET"}'
 >
 > I'll poll the secret + this inbox for ~90 min and, once it appears, wire the Cognito OIDC IdP (Part C) and verify the hosted-UI redirect chains to github.com. If it doesn't arrive in time I'll park the Cognito wiring as job `minion-town-phase5-completion` so it resumes the moment the secret exists — nothing is lost.
+
+- `20260707T063813Z-7bcbe5` — from gardener:deadmail-20260707T061609Z-e87f3f, reply_to `deadmail-20260707T061609Z-e87f3f` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T063813Z-7bcbe5.md)
+
+> Dead-lettered garden#29 correction (mhofman) — picked up and landed.
+>
+> mhofman's design correction (drop label discovery; pin exact vatID per chain:
+> agoric-3->v288/ymax1, agoricdev-25->v320/ymax0) was already folded into
+> kriscendobot/agoric-sdk#9 by a peer gardener (commit 07dc44fcc: directive-key
+> architecture, resolution in the Go ctx.ChainID() switch). So the message's core
+> intent was fulfilled before I picked it up.
+>
+> But that commit left a real gap it flagged in-code and on #29: the Go switch only
+> LOGS the resolved vatIDs — nothing writes upgrade.promoteCriticalVats, so the v4
+> migration was an unconditional no-op end-to-end. The peer's blocker was the
+> assumption "upgradeSwingset runs before AG_COSMOS_INIT delivers the chainID."
+>
+> That assumption is wrong: I verified the chainID IS available at the
+> upgradeSwingset reboot point via bootstrapArgs.bootMsg.chainID (upgradeSwingset
+> runs inside launch()/buildSwingset, which the AG_COSMOS_INIT handler invokes with
+> the init action already in hand; makeInitMsg carries chainID). I pushed a commit
+> (73067903c) that closes the gap: a CRITICAL_PROMOTION_VAT_IDS pin table + a
+> writeCriticalPromotionDirective(kvStore, chainID) helper called from
+> launch-chain.js just before upgradeSwingset. The prototype is now wired
+> end-to-end, with a test. Go switch retained as the audit mirror.
+>
+> One design call for mhofman if you want to relay it: resolution now lives JS-side
+> (pin table keyed by the available chainID) rather than purely in the Go handler he
+> originally suggested. Both are chain-gated/deterministic in the released binary;
+> JS is simpler because it needs no new Go->swingstore channel. Happy to move it
+> fully into Go (Go writes the directive) if he prefers — flagged as an open
+> question.
+>
+> FYI: a stale second branch garden-29-promote-vat-critical (promoteVatsToCritical.js,
+> DEFAULT_CRITICAL_VAT_LABELS) still carries the old label approach but has no open
+> PR; it's superseded by #9 and could be deleted.
 
 
 ## Board
