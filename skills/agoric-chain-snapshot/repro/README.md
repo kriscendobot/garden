@@ -7,6 +7,12 @@ inquisitor's global context (piped on stdin under `INQUISITOR_NO_REPL=1`), so it
 only needs `node:fs`; the endowments (`swingStore`, `runCoreEval`, `EV`,
 `controller`, `kslot`, `runNextBlock`, `stable`, …) are already on `globalThis`.
 
+These drivers verify the **contract-side** `hex.js` `flatMap`→loop fix. For the
+**engine-side** fix (does a cherry-pick of Moddable `73aad47b` clear the overflow,
+and why does kriscendobot/moddable#1 pop at a different place), see
+[`engine-flatmap-ab/`](engine-flatmap-ab/README.md) — it builds three
+`fx_Array_prototype_flatAux` worker variants at `stackCount=4096` and A/Bs them.
+
 ## Files
 
 - **`repro-createvat-driver.mjs`** — the decisive, unambiguous A/B vector. Seeds
