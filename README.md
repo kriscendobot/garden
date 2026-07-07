@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T10:46:21Z_
+_As of 2026-07-07T10:48:13Z_
 
 ## Latest
 
-The **minion.town OAuth deployment** advanced but is now waiting on you. Two federation phases came up live and then parked pending credentials only you can create: Phase 5's GitHub OIDC thunk (Parts A+B) is deployed and verified over HTTPS — `github-idp.minion.town`'s OpenID configuration, JWKS, and `/authorize` endpoints all respond correctly (behind an API Gateway HTTP API, since this AWS account blocks public Lambda Function URLs) — while Phase 3's Google→Cognito wiring is fully staged. Both stalled only on OAuth client credentials: a Google OAuth Web client for `minion/google-idp-client` and a GitHub OAuth App for `minion/github-oauth-app`, each keyed to the Cognito callback `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`. Neither failed the orchestration — both parked go-ahead remainder jobs (`minion-town-phase3-completion`, `minion-town-phase5-completion`) that finish the moment you provision the secret (via Secrets Manager or a reply) and promote them; every other phase ran in parallel.
-
-Separately, a dead-lettered correction on [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) closed a real end-to-end gap: the critical-vat promotion migration had been logging resolved vatIDs but never writing `upgrade.promoteCriticalVats`, making the v4 migration a no-op. A gardener verified the chainID is available at the `upgradeSwingset` reboot point and wired a JS-side pin table and directive helper with a test; one open design question remains on whether resolution should live in Go instead. A stale `garden-29-promote-vat-critical` branch carrying the superseded label approach can be deleted.
-
-On the fleet, the XS→Rust (Endor) port continued through stage-5 fixes, and an issue-inbox access request notes @kriscendobot commented on garden#29 but isn't on the maintainer allowlist, so that interaction was dropped.
+The minion.town OAuth deployment is now fully orchestrated, and two phases have landed their non-gated work and parked the rest pending credentials only the maintainer can mint: **Phase 3** (Google→Cognito federation) is parked as `minion-town-phase3-completion` awaiting a Google OAuth Web client, and **Phase 5** (GitHub OIDC thunk) has Parts A+B live and verified over HTTPS (`github-idp.minion.town` well-known + `/authorize` endpoints returning 200/302) with Part C parked as `minion-town-phase5-completion` awaiting a GitHub OAuth App — both deliverable via a us-west-1 Secrets Manager secret or an inbox reply, so nothing else stalls. Separately, a dead-lettered garden#29 correction from mhofman was picked up and closed a real end-to-end gap in the agoric-sdk critical-vat promotion prototype ([kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9)): the Go switch only logged resolved vatIDs, so the v4 migration was a no-op; commit `73067903c` adds a JS-side pin table and `writeCriticalPromotionDirective` called from `launch-chain.js`, with a test, and flags an open design question (JS- vs Go-side resolution) worth relaying to mhofman. The XS→Rust (Endor) port advanced through several stage-5 fixes with one reject-porting job still in flight. Finally, @kriscendobot tried to drive the garden via issue kriskowal/garden#29 but was dropped as a non-allowlisted sender — add them with `add-maintainer.sh` and ask them to re-post if it still matters.
 
 ## Parked for maintainer feedback
 
@@ -255,17 +251,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`deadmail-20260707T104253Z-8c2c23`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260707T104253Z-8c2c23.md) — Dead-lettered message — pick up its intent
+### doin (1)
 - [`xs2rust-endor-stage5-fix-rejects`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix-rejects.md) — Stage-5 fix 2/5: port the named coder rejects — new.target, optional chaining...
 
-### tada (1406)
+### tada (1407)
+- [`deadmail-20260707T104253Z-8c2c23`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260707T104253Z-8c2c23.md) — I now have the complete picture. Let me record my analysis.
 - [`xs2rust-endor-stage5-fix-cesu8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix-cesu8.md) — Completion report
 - [`port-xs-to-rust-memory-safe-engine-s12`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s12.md) — Completion report — port-xs-to-rust-memory-safe-engine-s12
 - [`xs2rust-endor-build-stage5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage5.md) — orchestration xs2rust-endor-build-stage5 — complete
 - [`xs2rust-endor-stage5-byte-identity`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-byte-identity.md) — Completion report
-- [`xs2rust-endor-stage5-coder-decl`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-coder-decl.md) — Handler summary
-- … and 1401 more
+- … and 1402 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
