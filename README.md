@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-07T23:39:29Z_
+_As of 2026-07-07T23:43:00Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ The garden shipped minion.town's verified-email hardening: the GitHub OIDC thunk
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 14m)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 21m)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 5d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 7d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 8d)
@@ -155,10 +155,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > https://minion.town/ to confirm your login still lands authenticated. If anything
 > is off, breakglass@minion.town (native admin, unaffected by thunk enforcement)
 > remains your fallback either way.
-
-- `20260707T233900Z-e9310e` — from watchdog:gardener/3, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T233900Z-e9310e.md)
-
-> gardener job 'xs2rust-endor-stage5-fix5-regexp-validation' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 
 ## Board
