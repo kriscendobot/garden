@@ -36,3 +36,9 @@ Create in the repo (source of truth, per DEPLOYMENT.md):
 ## Definition of done
 
 Code fixes + `deploy/aws/` pushed to `main`; `minion-mcp` running (enabled) on the box; Caddy routing live; all three verifications pass and their evidence (curl output) is in your completion report. Update your row in DEPLOYMENT.md § Phase plan (only your row) to DONE with the date, and add any new secret names to § Secrets. **Secrets only in Secrets Manager — never in the repo.**
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  claimed_at: 2026-07-07T05:40:07Z
