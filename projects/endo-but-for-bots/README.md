@@ -84,7 +84,9 @@ Source: cleaner result `e31b72` on 2026-05-18 (one-engagement evidence per [`../
 
 ## Per-topic detail
 
-(None yet; the scholar grows this set.)
+- [`taskpeace.md`](taskpeace.md): competitive study of TaskPeace (an MCP-native ranked task queue for AI coding agents) against our ocap agent substrate — gestalt, feature inventory, two-way gap analysis, and eight recommended design directions ([kriskowal/garden#30](https://github.com/kriskowal/garden/issues/30)).
+- [`macos-ci-flake-260.md`](macos-ci-flake-260.md): the macos-15 CI flake investigation (issue #260) — the umbrella cause is DNS, not test flakes.
+- [`xs-from-rust-investigation.md`](xs-from-rust-investigation.md): notes from the XS-from-Rust investigation.
 
 Source entries to consult when growing this directory:
 
