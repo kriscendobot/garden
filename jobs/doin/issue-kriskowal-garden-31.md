@@ -23,3 +23,9 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 In this contract, i.e. this module and all the modules it imports... https://github.com/Agoric/agoric-sdk/blob/master/packages/portfolio-contract/src/portfolio.contract.ts ... there are some exos with interface guards and some without. Please fill in the remaining exos. Take extr
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 20
+  claimed_at: 2026-07-07T16:33:52Z
