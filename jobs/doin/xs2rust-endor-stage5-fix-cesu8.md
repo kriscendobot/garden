@@ -55,3 +55,9 @@ byte-identity fixtures to `endor-compile/tests/coder_byte_identity.rs`.
 - Report completion or fold to the SUPERVISOR inbox:
   `/home/kris/garden2/scripts/jobs/inbox-send.sh port-xs-to-rust-memory-safe-engine-s13` —
   NEVER the maintainer inbox; NEVER comment on the PR; KEEP the PR DRAFT.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 17
+  claimed_at: 2026-07-07T10:25:07Z
