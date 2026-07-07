@@ -1,16 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-07T04:54:15Z_
+_As of 2026-07-07T04:55:16Z_
 
 ## Latest
 
-Little moved on the board this cycle, but the maintainer inbox is stacked with decisions. A data-corruption-class bug surfaced in the garden's own reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`): jobs were re-posted every ~18 min against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree — a main2 infra fix awaiting a deliberate fix-and-deploy.
+Several items landed in the maintainer's inbox that gate real merges. The M3 flagship — Claw-like coding via `daemon-agent-tools` — is fully built: phases 1–3 ([endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), [#616](https://github.com/endojs/endo-but-for-bots/pull/616)) are CI-green and mergeable but still Draft, and phase 4 ([#618](https://github.com/endojs/endo-but-for-bots/pull/618)) has cleared its last un-draft blocker, so the whole stack now waits only on review + un-draft + merge. Separately, the confined-HttpClient gauntlet on [#566](https://github.com/endojs/endo-but-for-bots/pull/566) finished — all seven must-fixes resolved, panel-approved, un-drafted into the review queue — leaving one deferred design call (a per-request timeout backstop that two governing designs disagree on).
 
-On M3, the flagship `daemon-agent-tools` "Claw-like coding" stack is fully built and CI-green but still Draft — [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614) → [#615](https://github.com/endojs/endo-but-for-bots/pull/615) → [#616](https://github.com/endojs/endo-but-for-bots/pull/616) → [#618](https://github.com/endojs/endo-but-for-bots/pull/618), whose last un-draft blocker just cleared — so the milestone's critical path is now landing this backlog, not more building. The confined-HttpClient gauntlet on [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) passed and is un-drafted into the review queue, clean/mergeable, with one deferred design call: whether to add a per-request AbortController timeout (the two governing designs disagree) to backstop a hostile allowlisted server that never settles.
+Two items need steering before more work proceeds. Gateway Feature 8 was held rather than opening a competing PR: the new /ocapn WebSocket handoff is a superset of the in-flight draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577) but rewrites the same module incompatibly (branch pushed, not PR'd) — the recommendation is to re-scope onto #577's path scheme. And transcript-journal capture is being built inert; it spools nowhere until kriskowal creates a private repo and runs the arming step.
 
-Two builds are parked on the maintainer's authority. Gateway Feature 8 (the `/ocapn` WebSocket handoff) was held rather than opening a competing PR — the builder found [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) already implements the path-naming half and its own branch is a superset; it recommends re-scoping to build the socket handoff on top of #577. And transcript-journal-capture is now being built inert under a serial orchestration; nothing publishes until the maintainer creates a private transcripts repo, grants bot push access, runs `set-transcripts-remote.sh`, and records the authorization — a grant only the maintainer can make (a proxy already escalated it as beyond its authority).
-
-On the fleet side, the xs2rust-endor (XS→Rust) port halted its stage-4 orchestration on a child failure (4/8 done) and is now grinding through stage 5, the sole job in flight. Onboarding phase 1 closed as already-landed, with a note that the design's `.garden`-file identity was deliberately superseded by location-derived naming.
+On garden infrastructure: a fable review found a data-corruption bug in the reaper requeue path (two live writers in one worktree, twice), surfaced for a deliberate main2 fix + deploy rather than a board job. The xs2rust→Rust (Endor) port halted at stage 4 when a child failed under a halt-on-failure serial orchestration, with stage 5 now partly in flight.
 
 ## Parked for maintainer feedback
 
@@ -138,10 +136,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > The fleet-wide deletion disable (cleanupPeriodDays: 36500) needs no arming: the
 > launcher seeds it for new instances and every capture tick reconciles it into
 > existing hosts' settings.json, including this one (verified missing today).
-
-- `20260706T235604Z-381c02` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T235604Z-381c02.md)
-
-> awaiting maintainer — beyond proxy authority: gardener supervise-transcript-capture, msgid 20260706T234023Z-b6d70e.md — The core ask is an arming authorization — creating a private repo, granting the bot push credentials, and recording maintainer authorization to publish the fleet's raw transcripts — an authority grant and outward-facing action reserved to the maintainer.
 
 
 ## Board
