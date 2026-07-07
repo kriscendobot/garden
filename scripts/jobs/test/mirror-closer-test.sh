@@ -222,6 +222,77 @@ mapping_of "$BARE_I" up-repo-19.md | grep -q '^closed_at:' && ok "healthy mappin
 mapping_of "$BARE_I" up-repo-18.md | grep -q '^closed_at:' && bad "bad mapping stamped despite an unreadable state" || ok "bad mapping left unresolved (will retry next tick)"
 [ "$rci" -ne 0 ] && ok "tick exits nonzero because a mapping failed (rc=$rci) — failure stays visible" || bad "tick reported healthy despite a failed mapping"
 
+hr; echo "J — mirror-pr-state-gh handler: diff-free GraphQL read maps OPEN/CLOSED/MERGED and the large-PR (endo#3137) 422 is impossible by construction"; hr
+# Exercise the REAL default handler (scripts/jobs/handlers/mirror-pr-state-gh.sh),
+# not the STATESTUB — this is the file that carried the HTTP-422 bug. A fake fleet
+# `gh` is injected via GARDEN_GH (the test seam gh_api_retry/gh_pr_view_retry
+# honor): it serves `gh api graphql` from MC_GQL_STATE/MC_GQL_MERGED (applying the
+# caller's --jq with real jq) and logs 'graphql', but 422s on ANY REST
+# `gh api repos/.../pulls/...` call with the exact large-diff wording the real
+# endpoint returns on endojs/endo#3137. So a handler that read state via the diff-
+# computing REST pulls endpoint would die here; one that reads via diff-free
+# GraphQL succeeds — turning "the 422 is impossible by construction" into a test.
+STATE_HANDLER="$JOBS/handlers/mirror-pr-state-gh.sh"
+GHSTUB="$TR/mirror-state-gh.sh"
+GHLOG="$TR/mirror-state-gh.log"
+cat > "$GHSTUB" <<'EOF'
+#!/bin/bash
+# Fake fleet gh for the mirror-pr-state handler test (see section J).
+[ "$1" = api ] || { echo "stub gh: only 'api' supported (got: $*)" >&2; exit 2; }
+shift
+if [ "$1" = graphql ]; then
+  echo graphql >> "${GH_CALL_LOG:?set GH_CALL_LOG}"
+  # Apply the caller's --jq filter with real jq, exactly as `gh api --jq` would.
+  filter='.'; prev=
+  for a in "$@"; do [ "$prev" = --jq ] && filter="$a"; prev="$a"; done
+  printf '{"data":{"repository":{"pullRequest":{"state":"%s","merged":%s}}}}' \
+    "${MC_GQL_STATE:?set MC_GQL_STATE}" "${MC_GQL_MERGED:?set MC_GQL_MERGED}" | jq -r "$filter"
+  exit 0
+fi
+# ANY other api path is the REST endpoint that computes the changed-file list:
+# fail with the definitive large-diff 422 the real endpoint returns on endo#3137.
+echo "$*" >> "${GH_CALL_LOG:?set GH_CALL_LOG}"
+echo "gh: The request could not be processed because too many files changed (HTTP 422)" >&2
+exit 1
+EOF
+chmod +x "$GHSTUB"
+
+run_state() {  # run_state <gql-state> <gql-merged>  -> echoes handler stdout; rc in $?
+  : > "$GHLOG"
+  env GARDEN_GH="$GHSTUB" GH_CALL_LOG="$GHLOG" MC_GQL_STATE="$1" MC_GQL_MERGED="$2" \
+      "$STATE_HANDLER" endojs/endo 3137 2>/dev/null
+}
+diff_free() {  # assert the last read used GraphQL and NEVER the 422-prone REST pulls endpoint
+  grep -qx graphql "$GHLOG" && ! grep -q 'pulls' "$GHLOG"
+}
+
+# MERGED → closed\ttrue
+out_j="$(run_state MERGED true)"; rc_j=$?
+[ "$rc_j" -eq 0 ] && [ "$out_j" = "$(printf 'closed\ttrue')" ] \
+  && ok "handler maps GraphQL MERGED → 'closed<TAB>true'" || bad "MERGED map wrong (rc=$rc_j, out=$(printf %q "$out_j"))"
+diff_free && ok "MERGED read went through diff-free GraphQL, not the REST pulls endpoint" || bad "MERGED read hit a non-graphql endpoint: $(cat "$GHLOG")"
+
+# CLOSED (not merged) → closed\tfalse
+out_j="$(run_state CLOSED false)"; rc_j=$?
+[ "$rc_j" -eq 0 ] && [ "$out_j" = "$(printf 'closed\tfalse')" ] \
+  && ok "handler maps GraphQL CLOSED → 'closed<TAB>false'" || bad "CLOSED map wrong (rc=$rc_j, out=$(printf %q "$out_j"))"
+
+# OPEN → open\tfalse — this is the endo#3137 large-PR shape: the read SUCCEEDS.
+# Had the handler used the REST pulls endpoint, the stub's 422 would have made it
+# die (rc≠0, empty out); a clean read here is the regression guard for the bug.
+out_j="$(run_state OPEN false)"; rc_j=$?
+[ "$rc_j" -eq 0 ] && [ "$out_j" = "$(printf 'open\tfalse')" ] \
+  && ok "handler maps GraphQL OPEN → 'open<TAB>false' — large-PR read no longer fatal (endo#3137 422 dodged)" \
+  || bad "OPEN map wrong / fatal on large PR (rc=$rc_j, out=$(printf %q "$out_j"))"
+diff_free && ok "large-PR state read used diff-free GraphQL — the 422 endpoint was never touched" || bad "handler hit the 422-prone endpoint: $(cat "$GHLOG")"
+
+# An UNRECOGNIZED state (jq's `else empty` branch — e.g. a null pullRequest or a
+# new enum) must NOT masquerade as a state: empty output → loud die (nonzero).
+out_j="$(run_state BOGUS false 2>/dev/null)"; rc_j=$?
+[ "$rc_j" -ne 0 ] && [ -z "$out_j" ] \
+  && ok "unrecognized GraphQL state → loud die (nonzero, empty), never a guessed state" \
+  || bad "an unrecognized state was not caught (rc=$rc_j, out=$(printf %q "$out_j"))"
+
 # ============================================================================
 # PART 2 — synthetic real-repo end-to-end (REQUIRED)
 # ============================================================================

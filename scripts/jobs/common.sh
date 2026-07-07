@@ -1439,7 +1439,12 @@ _gh_api_stderr_is_transient() {
 # rc with empty stdout on a definitive error (no retry) or after the transient
 # retries are exhausted. See the block comment above for the full contract.
 gh_api_retry() {
-  local attempt=1 out rc errf stderr label a
+  local attempt=1 out rc errf stderr label gh_bin a
+  # The gh binary is "${GARDEN_GH:-gh}" — the same test seam gh_pr_view_retry and
+  # ci-wait-merge.sh use to inject a stub, so a handler's GraphQL/REST read can be
+  # exercised hermetically (e.g. mirror-closer-test.sh's large-PR 422 case) without
+  # PATH/command-hash games. Unset in production → the fleet's pinned `gh` wrapper.
+  gh_bin="${GARDEN_GH:-gh}"
   # A human-readable label for the logs: the first arg that looks like an API
   # path/query (has a `/` or `?`), so `--paginate` / `-X GET` / `--jq` flags do
   # not become the label. The API path always precedes any `--jq` in our callers.
@@ -1450,7 +1455,7 @@ gh_api_retry() {
     # Capture stdout (the payload) and stderr (the diagnostic) separately. The
     # `if` keeps a non-zero gh from tripping the caller's `set -e` before $rc is
     # read; gh's stderr goes to a temp file so the returned stdout stays clean.
-    if out="$(gh api "$@" 2>"$errf")"; then rc=0; else rc=$?; fi
+    if out="$("$gh_bin" api "$@" 2>"$errf")"; then rc=0; else rc=$?; fi
     if [ "$rc" -eq 0 ]; then
       rm -f "$errf"
       printf '%s' "$out"
