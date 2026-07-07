@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T22:38:43Z_
+_As of 2026-07-07T22:40:19Z_
 
 ## Latest
 
-A gardener translated Mark Miller and Melora Svoboda's "Distributed Capability Confinement" into an Endo docs page, opened as draft [endojs/endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629) (fork-only, not ferried) — but it needs a **licensing call before it leaves draft**: the source's public-domain dedication clearly covers Miller's text only, not Svoboda's co-authored contribution or the original figure, so a maintainer should confirm the dedication suffices or seek the authors' explicit sign-off. Separately, **minion.town Phase 3 (Google → Cognito federation) is parked and awaiting you**: the required Google OAuth Web-client credentials never arrived in the poll window, so the gardener parked the remainder as the go-ahead job `minion-town-phase3-completion` (create the client with redirect `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`, store it as Secrets Manager secret `minion/google-idp-client`, then promote); no other phase stalled. A dead-lettered garden#29 correction also landed — the vatID-pin migration for kriscendobot/agoric-sdk#9 is now wired end-to-end (a `writeCriticalPromotionDirective` helper closes a gap where the v4 migration was previously a no-op), with an open question for mhofman on whether resolution should live JS-side or move fully into Go.
+Two doc-translation drafts landed on the fork and both need a licensing call before leaving draft: Mark Miller & Melora Svoboda's "Distributed Capability Confinement" as [endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629) (public-domain dedication may not cover the co-author or figure), and Miller's "Grant Matcher Puzzle" as [endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630) (source is copyrighted, no assumed license) — both are held draft pending maintainer permission. minion.town Phase 3 (Google→Cognito federation) closed out via the parked `minion-town-phase3-completion` job, though the inbox still carries the earlier requests for the Google OAuth Web client (secret `minion/google-idp-client`) in case anything remains to provision. On the agoric-sdk fork, a dead-lettered garden#29 correction was folded into [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): the critical-vat promotion directive is now wired end-to-end (chainID resolved JS-side via a pin table before `upgradeSwingset`), closing a gap where the earlier commit only logged vatIDs — with an open question for mhofman on keeping resolution in JS vs. moving it into the Go handler. The XS→Rust (Endor) stage-5 fix5 series continues, with the template lexer work done and lexer/parser validation parity now in progress.
 
 ## Parked for maintainer feedback
 
@@ -124,6 +124,29 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Translated Mark Miller & Melora Svoboda's "Distributed Capability Confinement" into an Endo docs page — DRAFT PR: https://github.com/endojs/endo-but-for-bots/pull/629 (fork only, not ferried upstream).
 >
 > Licensing decision needed before it leaves draft: the source page dedicates "all text ... by Mark S. Miller" to the public domain, but that dedication does NOT clearly cover (a) co-author Melora Svoboda's contribution or (b) the figure image. I wrote an original re-exposition (not a verbatim copy) and redrew the figure as an original Mermaid diagram to stay clear of (b). Please confirm whether the public-domain dedication is sufficient to publish, or whether we should seek explicit confirmation from the authors first. Also flagged: design-endo-thesis-translation conventions hadn't landed, so category ("Concepts") and figure-tooling (Mermaid) are judgment calls to reconcile.
+
+- `20260707T224012Z-530858` — from gardener:translate-grant-matcher-to-docs, reply_to `translate-grant-matcher-to-docs` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T224012Z-530858.md)
+
+> Grant Matcher translation → draft PR endojs/endo-but-for-bots#630
+> (https://github.com/endojs/endo-but-for-bots/pull/630)
+>
+> DONE: Translated Mark S. Miller's "The Grant Matcher Puzzle" (erights.org) into
+> a docs.endojs.org page (docs/grant-matcher.md, registered in typedoc.json
+> projectDocuments under Guides). E → Jessie/Hardened JS, CapTP → OCapN, Java
+> reference impl → makeExo/E(); Miller's argument/prose kept faithful, each
+> code/protocol substitution flagged inline. Fork-side draft only, no upstream
+> ferry. Base = frozen master-eecc683.
+>
+> DECISION NEEDED — attribution & licensing. Miller's articles are copyrighted;
+> I assumed NO license. The page quotes his key definitional passages (attributed
+> block quotes) and paraphrases the rest. Before this is published to
+> docs.endojs.org you'll need to either (1) confirm permission to republish this
+> translated adaptation, or (2) have it reduced to a shorter summary-with-citation.
+> The PR is draft and both the page and PR body say "do not merge/publish until
+> this is settled." Flagging per the job.
+>
+> Minor judgment call: filed under the "Guides" category (where message-passing
+> lives); it's arguably an "Annex" historical piece — your call.
 
 
 ## Board
