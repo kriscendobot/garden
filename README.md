@@ -1,17 +1,15 @@
 # Garden bulletin
 
-_As of 2026-07-07T04:59:11Z_
+_As of 2026-07-07T05:00:57Z_
 
 ## Latest
 
-Two decisions sit at the top of the maintainer's queue. First, the M3 flagship — Claw-like coding via `daemon-agent-tools` — is fully built: phases 1–3 ([#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), [#616](https://github.com/endojs/endo-but-for-bots/pull/616)) are CI-green and mergeable but still Draft, and phase 4 ([#618](https://github.com/endojs/endo-but-for-bots/pull/618)) has cleared its last un-draft blocker and only awaits 1–3 landing; the foreman reports M3's critical path is now landing this backlog, not building more. Second, a garden-infrastructure fix needs attention: a fable review of the garden's own scripts turned up a data-corruption-class bug in the reaper requeue path, which twice left two live writers in one worktree — a deliberate main2 fix and deploy, not a board job.
-
-Also awaiting steering: Gateway Feature 8 (the `/ocapn` WebSocket endpoint) was held rather than opening a competing PR, because [#577](https://github.com/endojs/endo-but-for-bots/pull/577) already lands the path-scheme half; the gardener recommends re-scoping its socket-handoff work to build on top of #577 and preserved the branch unpushed-to-PR. On the automation side, the `xs2rust-endor-build-stage4` orchestration halted on a failed child (4/8 done) and stage 5 is now in flight, while the foreman flagged that `endoclaw-timer-phase2-tick-delivery` recurred without milestone progress and may be stuck. Finally, `onboarding-p1-launcher` closed as already-satisfied — phase 1 landed 2026-07-04 — with a note that the design's `.garden`-file identity was deliberately superseded by location-derived identity and is now stale.
+A reaper requeue bug surfaced by the Fable review of the garden's own scripts needs a maintainer decision: the requeue path left the prior handler alive while re-posting roughly every 18 minutes against a 40-minute wall, twice producing two live writers in one worktree — a data-corruption-class fault flagged for a deliberate main2 fix and deploy. On the bot repo, Gateway Feature 8 (the `/ocapn` WebSocket endpoint) was held rather than opened as a PR: the gardener found its work is a superset of the in-flight draft [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577), which lands only the path-scheme half, and wants steer on whether to build the socket handoff atop #577 or supersede it. The [endo-but-for-bots#612](https://github.com/endojs/endo-but-for-bots/pull/612) conduct and [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) jobs completed. The long-running XS→Rust (Endor) port advanced to stage 5 after stage 4 halted on a failed `modules` child (serial, halt-on-failure), and the foreman is holding a recurring `endoclaw-timer-phase2` re-post that drained without progress and may be stuck.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 4d)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 6d)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 7d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 7d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 10d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 21d)
@@ -68,10 +66,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260706T182517Z-526c55` — from orchestrator:xs2rust-endor-build-stage4-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T182517Z-526c55.md)
 
 > Orchestration xs2rust-endor-build-stage4 HALTED: child xs2rust-endor-stage4-modules failed (serial, on-child-failure=halt). 4/8 done before halt; swept: xs2rust-endor-stage4-compartment xs2rust-endor-stage4-lockdown-harden xs2rust-endor-stage4-ses-conformance
-
-- `20260706T201600Z-b1183b` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T201600Z-b1183b.md)
-
-> M3's flagship pillar — Claw-like coding capabilities via `endojs/endo-but-for-bots` `daemon-agent-tools` — is fully built: phases 1–3 (#614, #615, #616) are CI-green and mergeable but still Draft, and phase 4 (#618) had its last un-draft blocker (the live-daemon integration test) closed, so it now only awaits phases 1–3 landing. The decision needed is maintainer review + un-draft + merge of the #614→#615→#616→#618 stack (a conductor/authority step the foreman cannot post); nearly all other M3 designs are likewise already built into open Draft PRs, so the milestone's critical path is now landing this backlog rather than more building.
 
 
 ## Board
