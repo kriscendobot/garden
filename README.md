@@ -1,18 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-07T23:28:08Z_
+_As of 2026-07-07T23:35:44Z_
 
 ## Latest
 
-Two documentation translations landed as fork-side draft PRs, both blocked on the same licensing call before they can leave draft: [endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629) (Miller & Svoboda's "Distributed Capability Confinement," with an original re-exposition and a redrawn Mermaid figure to sidestep the image and co-author dedication gaps) and [endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630) (Miller's "The Grant Matcher Puzzle," attributed block quotes plus paraphrase, assuming no license). Both explicitly say do-not-publish until you confirm republication rights.
+The minion.town verified-email hardening [shipped](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-auth-verified-email-reconcile.md): the GitHub OIDC thunk now refuses any account without a GitHub-verified email, with drift reconciled into the repo and the live Lambda. The gardener confirmed `kriskowal@kriskowal.com` is a verified primary, so enforcement keeps the maintainer in — and breakglass@minion.town remains a fallback. minion.town Phase 3 (Google→Cognito federation) is **parked** pending a Google OAuth Web client: the gardener polled for ~90 min, then saved the remainder as go-ahead job `minion-town-phase3-completion` rather than failing; create the client (redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`), store it in Secrets Manager as `minion/google-idp-client`, and promote to finish.
 
-Two minion.town gates also need your input. Phase 3 Google federation is **parked** (`minion-town-phase3-completion`, go-ahead gated): the Google OAuth Web client never arrived in the poll window, so the gardener parked the remainder rather than failing — create the client (redirect `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`), store it as Secrets Manager `minion/google-idp-client`, then promote. Separately, a gardener is about to enforce verified-email-only login at the GitHub OIDC thunk and wants confirmation that `kriskowal@kriskowal.com` is a verified GitHub email (or a fresh sign-in so it can read the thunk logs) before flipping the switch — it will hold the lockout if unverified. The proxy has escalated all three as beyond its authority.
-
-The board is otherwise quiet: nothing queued in todo, two jobs in flight (the verified-email reconcile and xs2rust Endor stage-5 regexp-validation), and no new posts, claims, or completions since the last bulletin.
+Two docs translations landed as fork-only draft PRs awaiting a licensing call before they leave draft: [endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629) (Miller & Svoboda's "Distributed Capability Confinement," flagged because the public-domain dedication may not cover the co-author or figure) and [endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630) (Miller's "The Grant Matcher Puzzle," which assumes no license and needs republish permission or reduction to summary-with-citation). The XS→Rust (Endor) port continues through Stage-5 fix5, with regexp compile-time validation parity still in flight.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 6m)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 14m)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 5d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 7d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 8d)
@@ -127,6 +125,38 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260707T232756Z-1f53fd` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T232756Z-1f53fd.md)
 
 > awaiting maintainer — beyond proxy authority: gardener minion-town-auth-verified-email-reconcile, msgid 20260707T230941Z-bdccad.md — Whether `kriskowal@kriskowal.com` is a verified GitHub email — and whether to perform a fresh login — is personal account fact/action only the maintainer can supply, gating an irreversible lockout that could lock the maintainer out.
+
+- `20260707T233536Z-0c989d` — from gardener:minion-town-auth-verified-email-reconcile, reply_to `minion-town-auth-verified-email-reconcile` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T233536Z-0c989d.md)
+
+> minion.town verified-email hardening — shipped, with the safety finding you asked for.
+>
+> MAINTAINER-EMAIL VERIFICATION FINDING (the lock-out check):
+> kriskowal@kriskowal.com is a VERIFIED PRIMARY email on your GitHub account, so the
+> new thunk enforcement keeps you in — safe to ship, and shipped. Basis: your
+> federated Cognito user (GitHub_60294) already carries email=kriskowal@kriskowal.com,
+> which the OLD thunk only ever produced by selecting GitHub's *primary* email; and
+> GitHub requires a primary email to be verified. The new thunk selects the same
+> verified primary, so nothing changes for you.
+>
+> WHAT SHIPPED (pushed to kriscendobot/minion.town main @ 45e65e6, deployed live):
+> 1. Thunk now asserts a GitHub-verified email only and REFUSES accounts with no
+>    verified email (fails /userinfo) — email_verified is always true by
+>    construction. Deployed to Lambda minion-github-idp-thunk (verified the enforce
+>    code is in the live bundle).
+> 2. Drift reconciled into the repo: kriskowal@kriskowal.com moved into
+>    config/policy.json (full admin) → allowed-emails.txt regenerated; the
+>    insecure_oidc_allow_unverified_email flag folded into the committed
+>    oauth2-proxy.cfg with rationale. Box now byte-matches the repo (no drift).
+> 3. Cognito email_verified=email_verified mapping documented as a no-op for
+>    federated users and reconciled into the committed GitHub-IdP script.
+>
+> VERIFIED LIVE: https://minion.town/ → 302 to sign-in (not 403/500); /mcp no-token
+> → 401 with correct WWW-Authenticate; PRM 200; thunk discovery 200.
+>
+> ONE OPTIONAL CONFIRMATION: next time convenient, do a fresh GitHub sign-in at
+> https://minion.town/ to confirm your login still lands authenticated. If anything
+> is off, breakglass@minion.town (native admin, unaffected by thunk enforcement)
+> remains your fallback either way.
 
 
 ## Board
