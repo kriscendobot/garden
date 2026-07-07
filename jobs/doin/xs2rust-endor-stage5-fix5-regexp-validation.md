@@ -82,3 +82,9 @@ push), and report honestly what remains. A clean partial landing beats a sprawli
 **Reporting:** your tada completion report is the ONLY channel — the supervisor is parked and an
 inbox-send to it dead-letters into a noise job. Do NOT inbox-send the supervisor; do NOT message the
 maintainer; do NOT comment on the PR. State measured before/after numbers per slice in the report.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  claimed_at: 2026-07-07T22:58:35Z
