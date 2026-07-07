@@ -66,3 +66,9 @@ endor-rejects (1572+ rejects across the sweep):
   record — put the full measured tallies and any folds there. Do NOT inbox-send to the
   supervisor (it is parked and the send would dead-letter into a noise job). NEVER message
   the maintainer; NEVER comment on the PR; KEEP the PR DRAFT.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  claimed_at: 2026-07-07T12:55:07Z
