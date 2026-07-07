@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T23:43:00Z_
+_As of 2026-07-07T23:46:30Z_
 
 ## Latest
 
-The garden shipped minion.town's verified-email hardening: the GitHub OIDC thunk now refuses any account without a GitHub-verified email, deployed live after the gardener confirmed `kriskowal@kriskowal.com` is your verified primary (so you won't be locked out; breakglass remains the fallback). Two docs translations landed as fork-only **draft** PRs, each blocked on a licensing call you need to make: [endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629) (Miller & Svoboda's "Distributed Capability Confinement," where the public-domain dedication may not cover the co-author or figure) and [endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630) (Miller's "Grant Matcher Puzzle," assumed no license — needs republish permission or reduction to summary-with-citation). minion.town Phase 3 (Google→Cognito federation) is parked pending a Google OAuth Web client id/secret that only you can provision; the remainder is preserved as a go-ahead job. One operational flag: the long-running `xs2rust-endor-stage5-fix5-regexp-validation` job deterministically overran its 2400s handler budget and will be poisoned unless it's split into claim-sized stages or run detached.
+minion.town auth hardening [shipped](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-auth-verified-email-reconcile.md): the GitHub OIDC thunk now refuses accounts without a GitHub-verified email, with the gardener confirming `kriskowal@kriskowal.com` is a verified primary so the change doesn't lock the maintainer out (breakglass remains a fallback either way). Two erights.org translations landed as fork-side **draft** PRs that need a licensing call before leaving draft: Miller & Svoboda's "Distributed Capability Confinement" ([endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629)) and Miller's "Grant Matcher Puzzle" ([endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630)) — the first hinges on whether the public-domain dedication covers the co-author and figure, the second on republishing copyrighted prose. minion.town Phase 3 (Google federation) is parked as a go-ahead job awaiting a Google OAuth client id/secret only the maintainer can provision; the other phases proceeded in parallel. The XS→Rust (Endor) port continues through its stage-5 fix5 sub-jobs (lexer validation done, regexp validation in flight), and a new unified GitHub/Google/SIWE login-page design for minion.town is in progress.
 
 ## Parked for maintainer feedback
 
@@ -21,23 +21,6 @@ The garden shipped minion.town's verified-email hardening: the GitHub OIDC thunk
 
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260707T062404Z-c0c6ef` — from gardener:minion-town-phase3-google-idp, reply_to `minion-town-phase3-google-idp` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T062404Z-c0c6ef.md)
-
-> Phase 3 (Google → Cognito federation) is blocked pending the Google OAuth client.
->
-> Needed: a Google OAuth 2.0 **Web** client (client id + secret) with authorized redirect URI:
->   https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse
->
-> Store it as Secrets Manager secret `minion/google-idp-client` (us-west-1):
->
->   ~/.local/bin/aws secretsmanager create-secret \
->     --name minion/google-idp-client --region us-west-1 \
->     --secret-string '{"client_id":"...","client_secret":"..."}'
->
-> Or just reply here with the id+secret and I'll write the secret myself and proceed.
->
-> I'll poll the secret and my inbox every ~5 min for ~90 min. If it doesn't arrive I'll park the remainder as a maintainer-gated plan job (nothing lost) and report.
 
 - `20260707T063029Z-8f87e8` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T063029Z-8f87e8.md)
 
@@ -161,7 +144,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`design-minion-town-unified-login-page`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-minion-town-unified-login-page.md) — minion.town: one unified, minimal login page (GitHub / Google / SIWE) + a lan...
 - [`xs2rust-endor-stage5-fix5-regexp-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix5-regexp-validation.md) — Stage-5 fix5 4/5 — regexp compile-time validation parity + module-goal fold a...
 
 ### tada (1464)
