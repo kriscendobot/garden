@@ -75,3 +75,9 @@ the baseline while gaps remain unaddressed.
 
 Basename is keyed by the upstream target sha `23b4d6b0` so next week's watch
 (against a newer `public` HEAD) will not duplicate this projection.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 15
+  claimed_at: 2026-07-07T22:53:35Z
