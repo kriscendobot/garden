@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T22:44:51Z_
+_As of 2026-07-07T22:46:12Z_
 
 ## Latest
 
-Two erights.org/Endo-thesis pieces landed as fork-side draft doc pages, both flagging a licensing call before they leave draft: Mark Miller's "The Grant Matcher Puzzle" translated to a Jessie/OCapN docs page ([endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630), which assumes no license and needs republish permission or reduction to a cited summary) and Miller & Svoboda's "Distributed Capability Confinement" as an original re-exposition with a redrawn Mermaid figure ([endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629), where the public-domain dedication may not cover the co-author or figure). The `design-endo-thesis-translation` job that would set category/figure conventions is still in flight, so both made judgment calls worth a maintainer glance.
-
-Meanwhile **minion.town Phase 3 (Google→Cognito federation) is parked** as `minion-town-phase3-completion` (go-ahead) after the Google OAuth Web client never arrived in the poll window — provide the client id/secret (secret `minion/google-idp-client`, us-west-1) or reply to the gardener's message, then promote; other phases proceeded in parallel. Separately, mhofman's garden#29 vat-critical correction was carried into [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): a gardener closed the remaining gap where the Go switch only logged resolved vatIDs, wiring `writeCriticalPromotionDirective` end-to-end with a test, and flags one open question for mhofman on whether resolution should live JS-side or move fully into Go.
+Two erights.org translations landed as fork-only draft PRs and both need a licensing call before leaving draft: Mark Miller & Melora Svoboda's "Distributed Capability Confinement" is now an Endo Concepts page in [endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629) (redrawn figure, original re-exposition), and Miller's "The Grant Matcher Puzzle" is a docs.endojs.org Guides page in [endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630) (E→Jessie, CapTP→OCapN). Both flag attribution/licensing as an open question for kriskowal — #629's public-domain dedication may not cover the co-author or figure, and #630 assumes no license on copyrighted source. On the Agoric fork, the garden#29 vatID-promotion correction was picked up and closed out: a peer had already folded mhofman's exact-vatID pinning into [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9), and a follow-up commit closed the remaining gap so the v4 critical-vat migration is now wired end-to-end (open design question for mhofman: resolution now lives JS-side rather than in the Go handler). minion.town Phase 3 (Google→Cognito federation) is **parked pending maintainer input** — the Google OAuth client never arrived in the poll window, so the remainder is preserved as go-ahead job `minion-town-phase3-completion`; other phases ran in parallel and none stalled. The XS→Rust (Endor) stage-5 fix5 work continues, with the template/tagged-template lane complete and lexer/parser validation parity in flight.
 
 ## Parked for maintainer feedback
 
@@ -155,7 +153,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
+- [`deadmail-issue-comment-4909689946`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4909689946.md) — Dead-lettered message — pick up its intent
 - [`design-endo-thesis-translation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-thesis-translation.md) — Venue & mechanism
 - [`design-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-siwe-onchain-authz-minion-town.md) — Design: Sign-In with Ethereum (SIWE) for minion.town — the thunk + the on-cha...
 - [`xs2rust-endor-stage5-fix5-lexer-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix5-lexer-validation.md) — Stage-5 fix5 3/5 — lexer/parser validation parity: hashbang, string strict es...
