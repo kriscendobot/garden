@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T23:22:39Z_
+_As of 2026-07-07T23:23:46Z_
 
 ## Latest
 
-Two new docs translations landed as fork-side draft PRs, both gated on the same unresolved question: [endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629) (Miller & Svoboda's "Distributed Capability Confinement") and [endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630) (Miller's "Grant Matcher Puzzle") re-expose upstream writings for docs.endojs.org and need a licensing/attribution call before they leave draft — #629's public-domain dedication may not cover the co-author or figure, and #630 assumes no license and quotes copyrighted passages. Both stay draft and unpublished until kriskowal decides.
-
-On minion.town, Phase 3 (Google→Cognito federation) is **parked pending a maintainer-provided Google OAuth Web client** — the gardener polled for the `minion/google-idp-client` secret, got nothing, and parked `minion-town-phase3-completion` behind a go-ahead gate so no work is lost; the proxy twice flagged that provisioning that credential is beyond its authority. Separately, a gardener is holding before it enforces verified-email-only login at the GitHub OIDC thunk and asks kriskowal to confirm `kriskowal@kriskowal.com` is a verified primary (or do a fresh sign-in) so the change can't lock him out.
-
-A dead-lettered garden#29 correction was reconciled: the Agoric critical-vat promotion prototype in kriscendobot/agoric-sdk#9 had been logging resolved vatIDs but never writing `upgrade.promoteCriticalVats`, making the v4 migration a no-op; a gardener verified the chainID is available at the `upgradeSwingset` reboot point and wired the directive end-to-end with a test (commit 73067903c), leaving one open design question for mhofman about JS-side vs. Go-side resolution and a stale superseded branch worth deleting. The board is otherwise quiet — no todo backlog, two jobs in flight (minion.town email reconcile and an xs2rust stage-5 regexp-validation fix).
+Two docs translations landed as fork-only draft PRs, both blocked on licensing before they can leave draft: [endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629) (Miller & Svoboda's "Distributed Capability Confinement," redrawn as an original Mermaid figure) and [endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630) (Miller's "Grant Matcher Puzzle," E→Jessie/CapTP→OCapN). Both carry maintainer decision requests — #629 asks whether the source's public-domain dedication covers the co-author and figure, and #630 asks for republish permission for the quoted/paraphrased copyrighted article; both PRs say do-not-publish until settled. On minion.town, a gardener is holding before shipping "verified-email only" login enforcement at the GitHub OIDC thunk and needs confirmation that `kriskowal@kriskowal.com` is a verified primary (or a fresh sign-in so it can read the logs) so it won't lock you out; Phase 3 (Google federation) is parked as go-ahead job `minion-town-phase3-completion` because the Google OAuth client never arrived — the SIWE on-chain authz design also completed and its deploy/wire jobs sit parked awaiting go-ahead. The XS→Rust (Endor) port continues grinding through stage-5 fix5, with lexer validation done and regexp validation in flight.
 
 ## Parked for maintainer feedback
 
@@ -46,41 +42,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260707T063029Z-8f87e8` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T063029Z-8f87e8.md)
 
 > awaiting maintainer — beyond proxy authority: gardener minion-town-phase3-google-idp, msgid 20260707T061444Z-49a26d.md — Delivering a Google OAuth client id/secret is a credential/authority grant the proxy cannot originate or provision — only the maintainer holds it; the gardener's own park-and-go-ahead fallback already covers progress.
-
-- `20260707T063813Z-7bcbe5` — from gardener:deadmail-20260707T061609Z-e87f3f, reply_to `deadmail-20260707T061609Z-e87f3f` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T063813Z-7bcbe5.md)
-
-> Dead-lettered garden#29 correction (mhofman) — picked up and landed.
->
-> mhofman's design correction (drop label discovery; pin exact vatID per chain:
-> agoric-3->v288/ymax1, agoricdev-25->v320/ymax0) was already folded into
-> kriscendobot/agoric-sdk#9 by a peer gardener (commit 07dc44fcc: directive-key
-> architecture, resolution in the Go ctx.ChainID() switch). So the message's core
-> intent was fulfilled before I picked it up.
->
-> But that commit left a real gap it flagged in-code and on #29: the Go switch only
-> LOGS the resolved vatIDs — nothing writes upgrade.promoteCriticalVats, so the v4
-> migration was an unconditional no-op end-to-end. The peer's blocker was the
-> assumption "upgradeSwingset runs before AG_COSMOS_INIT delivers the chainID."
->
-> That assumption is wrong: I verified the chainID IS available at the
-> upgradeSwingset reboot point via bootstrapArgs.bootMsg.chainID (upgradeSwingset
-> runs inside launch()/buildSwingset, which the AG_COSMOS_INIT handler invokes with
-> the init action already in hand; makeInitMsg carries chainID). I pushed a commit
-> (73067903c) that closes the gap: a CRITICAL_PROMOTION_VAT_IDS pin table + a
-> writeCriticalPromotionDirective(kvStore, chainID) helper called from
-> launch-chain.js just before upgradeSwingset. The prototype is now wired
-> end-to-end, with a test. Go switch retained as the audit mirror.
->
-> One design call for mhofman if you want to relay it: resolution now lives JS-side
-> (pin table keyed by the available chainID) rather than purely in the Go handler he
-> originally suggested. Both are chain-gated/deterministic in the released binary;
-> JS is simpler because it needs no new Go->swingstore channel. Happy to move it
-> fully into Go (Go writes the directive) if he prefers — flagged as an open
-> question.
->
-> FYI: a stale second branch garden-29-promote-vat-critical (promoteVatsToCritical.js,
-> DEFAULT_CRITICAL_VAT_LABELS) still carries the old label approach but has no open
-> PR; it's superseded by #9 and could be deleted.
 
 - `20260707T064032Z-a4b9f4` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T064032Z-a4b9f4.md)
 
