@@ -34,3 +34,9 @@ work — do NOT assume a license; surface attribution/permission as a maintainer
 in the PR description and, if warranted, to the maintainer inbox.
 
 Open the PR (draft is fine) and report its URL. Work on the endo-but-for-bots fork only.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 16
+  claimed_at: 2026-07-07T22:30:42Z
