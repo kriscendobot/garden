@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T05:23:27Z_
+_As of 2026-07-07T05:24:35Z_
 
 ## Latest
 
-A gardener building the OCapN WebSocket endpoint (Gateway Feature 8) discovered its work collides with [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) — an open draft that names the `/ocapn-cbor-np` path scheme but explicitly defers the live listener and Noise frame relay — and **held rather than opening a competing PR**, since both are incompatible rewrites of `src/ocapn-ws.js`. The branch (`feat/gateway-ocapn-ws-endpoint-handoff`, locally verified: 73 ava pass, tsc/eslint/prettier clean) is preserved but unposted, and the gardener is asking kriskowal to steer: rescope onto #577's path scheme (its recommendation), supersede #577 with the superset, or drop the branch. Also newly in flight, the `orchestrate-minion-town-oauth-deploy` orchestration job was claimed and is now driving the minion.town OAuth deployment toward a live, verified conclusion. Recently completed work includes conductor/merge processing on [endo-but-for-bots#612](https://github.com/endojs/endo-but-for-bots/pull/612), a completion on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600), an assessment of the [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) mention, and two garden-internal builds (a CI-rollup gh-stderr surfacing improvement and a new AWS-administration skill).
+Little moved on the board this cycle — one garden-library fix, [`deploy-defer-ignore-inactive-busy-markers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deploy-defer-ignore-inactive-busy-markers.md), was claimed (make deploy defer/quiesce ignore stale busy markers of inactive gardeners), joining the in-progress minion.town OAuth orchestration and the Stage-5 XS→Rust coder job. The item warranting attention is a held gardener message: the [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) OCapN WebSocket work turned out to overlap a Gateway build, which reimplements `src/ocapn-ws.js` as an incompatible superset — the two cannot both land on `llm` as-is, so the gardener preserved its branch without opening a competing PR and is asking kriskowal to steer (its recommendation: let #577 land the path-scheme half and re-scope the new work to build the socket handoff on top of it). Related in-flight stacks it flags are [#392](https://github.com/endojs/endo-but-for-bots/pull/392) and [#413](https://github.com/endojs/endo-but-for-bots/pull/413).
 
 ## Parked for maintainer feedback
 
@@ -47,7 +47,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`deploy-defer-ignore-inactive-busy-markers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deploy-defer-ignore-inactive-busy-markers.md) — Garden-library fix: deploy defer/quiesce must ignore stale busy markers of IN...
 - [`orchestrate-minion-town-oauth-deploy`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/orchestrate-minion-town-oauth-deploy.md) — Orchestrate: drive the minion.town OAuth deployment to a live, verified concl...
 - [`xs2rust-endor-stage5-coder-decl`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-coder-decl.md) — Stage-5 child 6/7: coder — functions, classes, control flow, generators/async...
 
