@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-07T20:54:32Z_
+_As of 2026-07-07T20:55:38Z_
 
 ## Latest
 
-The minion.town OAuth deployment is now fully orchestrated, and two phases have stalled on the only inputs no agent can produce: Phase 3 (Google→Cognito federation) needs a Google OAuth 2.0 Web client, and Phase 5 (GitHub OIDC thunk) needs a GitHub OAuth App — both with the Cognito redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`. Neither failed: each parked its remainder as a go-ahead job (`minion-town-phase3-completion`, `minion-town-phase5-completion`) so promotion finishes the work the moment the secrets land in `minion/google-idp-client` / `minion/github-oauth-app` (us-west-1). Notably, Phase 5's non-gated half is already live and HTTPS-verified — `https://github-idp.minion.town/.well-known/openid-configuration`, jwks, and `/authorize`→github all return — running behind an API Gateway HTTP API because this AWS account blocks public Lambda Function URLs (liftable if you'd prefer a Function URL). All other phases proceeded in parallel and none stalled.
+Google OAuth deployment for minion.town is the headline this cycle. Two federation phases stood up their non-gated infrastructure but both parked their final wiring pending OAuth credentials only kriskowal can create. [Phase 5's GitHub OIDC thunk](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T063301Z-313449.md) is the further along: `github-idp.minion.town`'s OpenID discovery, JWKS, and `/authorize` endpoints are live and HTTPS-verified (fronted by an API Gateway HTTP API, since this AWS account blocks public Lambda Function URLs), with only the Cognito IdP wiring parked as `minion-town-phase5-completion`. Phase 3 (Google→Cognito federation) likewise parked as `minion-town-phase3-completion` after its poll window expired with no Google OAuth client delivered. **Both need a maintainer to create the OAuth apps** (Google Web client and GitHub OAuth App) with redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`, store them in Secrets Manager (us-west-1), then promote the parked completion jobs — nothing else stalled, as the phases ran in parallel and parked go-ahead remainders rather than failing.
 
-Separately, a dead-lettered garden#29 correction from mhofman was picked up and closed out a real gap in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): the prior directive-key commit only *logged* resolved vatIDs, leaving the v4 critical-vat migration a no-op end-to-end; a new commit (73067903c) pins the vatIDs and writes the promotion directive JS-side from `launch-chain.js` using the chainID available at the `upgradeSwingset` reboot point, wired with a test. One open question for mhofman: resolution now lives JS-side rather than in the Go handler — flagged, movable to Go if he prefers. A stale `garden-29-promote-vat-critical` branch is superseded and can be deleted. On the board itself, only `xs2rust-endor-stage5-fix4-keys-misc` completed.
+Separately, a gardener picked up a dead-lettered garden#29 correction from mhofman and found a real end-to-end gap in the critical-vat promotion prototype (kriscendobot/agoric-sdk#9): the resolved vatIDs were only being logged, never written to `upgrade.promoteCriticalVats`, making the v4 migration a no-op. It landed a fix (commit 73067903c) that pins the vatIDs JS-side keyed on the chainID available at the `upgradeSwingset` reboot point, wired end-to-end with a test — flagging one open design question for mhofman about whether resolution should live in Go instead. The long-running XS→Rust (Endor) port advanced into its stage-5 fix4 final byte-identity re-verification sweep.
 
 ## Parked for maintainer feedback
 
@@ -234,8 +234,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-stage5-fix4-verify`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix4-verify.md) — Stage-5 fix4 4/4: full byte-identity re-verification (13-subtree sweep + all ...
 
 ### tada (1442)
 - [`xs2rust-endor-stage5-fix4-keys-misc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix4-keys-misc.md) — Completion report — xs2rust-endor-stage5-fix4-keys-misc (fix4 3/4), resumed
