@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/32#issuecomment-4909617310
 Please dispatch a designer to post to our fork of agoric-sdk. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 10
+  claimed_at: 2026-07-07T22:35:09Z
