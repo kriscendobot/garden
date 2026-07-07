@@ -23,3 +23,9 @@ It inspects the PR branch HEAD commits and inline replies for a peers
 resolution citing this comment. Exit 2 = NO-OP (already resolved by a peer):
 do NOT edit or push — complete the job as a clean no-op. Exit 0 = proceed.
 (Any other exit fails open → proceed; the push CAS is still the backstop.)
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 10
+  claimed_at: 2026-07-07T05:40:42Z
