@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T06:25:37Z_
+_As of 2026-07-07T06:30:42Z_
 
 ## Latest
 
-The minion.town OAuth deployment is now fully orchestrated: [stage 1](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-oauth-stage1.md) landed and the parallel fan-out completed [Phase 4 (first-party authz policy + pre-token-gen identity Lambda)](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase4-authz-policy.md) and [Phase 6 (web login gate)](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase6-web-gate.md). Two phases are now blocked on credentials only you can create: **Phase 3** needs a Google OAuth 2.0 Web client and **Phase 5** needs a GitHub OAuth App, each with the Cognito redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse` — deliver via Secrets Manager (`minion/google-idp-client`, `minion/github-oauth-app` in us-west-1) or by replying to the phase jobs. Neither stalls the rest: both park a `--go-ahead` remainder job if the secret hasn't arrived, and the proxy has correctly escalated all of these as beyond its authority. Separately, @kriscendobot touched the garden's issue inbox on [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) but was dropped for not being on the maintainer allowlist — add them with `add-maintainer.sh` if you want them driving the garden, and ask them to re-post. The XS→Rust (Endor) port continues with its stage-5 coder child underway.
+The minion.town OAuth deployment is now fully orchestrated: stage 1 completed, and of the parallel phases, Phase 4 (first-party authz policy + pre-token-gen identity Lambda) and Phase 6 (web login gate) both landed. Two phases are now gated on maintainer-only credentials — Phase 3 (Google → Cognito federation) needs a Google OAuth 2.0 Web client, and Phase 5 (GitHub OIDC thunk) needs a GitHub OAuth App — each with the Cognito redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`; deliver either via a `minion/*` Secrets Manager secret in us-west-1 or by replying to the phase job's message. The proxy correctly bounced both to you as authority grants it can't originate, and both phases park a `--go-ahead` remainder rather than failing, so nothing else stalls. Separately, @kriscendobot tried to drive the garden via issue kriskowal/garden#29 but was dropped as a non-maintainer — add them with `add-maintainer.sh` and ask them to re-post if that interaction still matters. The XS→Rust (Endor) port continues to grind through stage-5 (coder child 6/7 in flight).
 
 ## Parked for maintainer feedback
 
@@ -143,6 +143,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260707T062528Z-8bee5d` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T062528Z-8bee5d.md)
 
 > awaiting maintainer — beyond proxy authority: gardener minion-town-phase3-google-idp, msgid 20260707T060815Z-f5928c.md — Provisioning a Google OAuth client id/secret is a maintainer-only credential grant (external account + secret material an agent cannot originate); the gardener's own fallback of parking it as a maintainer-gated plan job is correct.
+
+- `20260707T063029Z-8f87e8` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T063029Z-8f87e8.md)
+
+> awaiting maintainer — beyond proxy authority: gardener minion-town-phase3-google-idp, msgid 20260707T061444Z-49a26d.md — Delivering a Google OAuth client id/secret is a credential/authority grant the proxy cannot originate or provision — only the maintainer holds it; the gardener's own park-and-go-ahead fallback already covers progress.
 
 
 ## Board
