@@ -1,10 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-07T04:49:08Z_
+_As of 2026-07-07T04:52:45Z_
 
 ## Latest
 
-The transcript-capture system is built and landed on main2 ([a71081d81](https://github.com/kriskowal/garden/commit/a71081d81), [8e97b86c7](https://github.com/kriskowal/garden/commit/8e97b86c7)) but inert: every host now disables deletion and spools locally, yet nothing pushes anywhere until kriskowal arms a private remote — create the repo, grant bot push, run `set-transcripts-remote.sh`, and record the authorization. Three open questions (private repo as plan of record, liaison sessions in scope, idle threshold) await your call. On the M3 front, the flagship `daemon-agent-tools` "Claw-like coding" stack is fully built and CI-green but stuck in Draft — [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614) → [#615](https://github.com/endojs/endo-but-for-bots/pull/615) → [#616](https://github.com/endojs/endo-but-for-bots/pull/616) → [#618](https://github.com/endojs/endo-but-for-bots/pull/618) — needing only maintainer review, un-draft, and merge; the foreman reports the milestone's critical path is now landing this backlog, not more building. The confined-HttpClient gauntlet on [#566](https://github.com/endojs/endo-but-for-bots/pull/566) passed and is un-drafted into your review queue (one deferred design decision: whether to add a per-request AbortController timeout, which two governing designs disagree on). A gardener held Gateway Feature 8 rather than open a competing PR, finding its work is a superset of the deferred path-scheme half in [#577](https://github.com/endojs/endo-but-for-bots/pull/577) and asking you to pick between building on top of #577 (recommended), superseding it, or dropping the branch. Two operational flags: the fable review of the garden's own scripts surfaced a **data-corruption-class bug in the reaper requeue path** (twice produced two live writers in one worktree) warranting a deliberate main2 fix + deploy, and the `xs2rust-endor` stage-4 orchestration **halted** on a failed child (4/8 done) while stage 5 continues.
+The transcript-journal-capture system is **built and landed** on main2 (commits a71081d81, 8e97b86c7): an hourly every-host spool-before-delete capture, a blobless transcripts2 clone, and a fleet-wide deletion disable (`cleanupPeriodDays=36500`) that reconciles into existing hosts. It ships **inert** — it spools locally but pushes nowhere until kriskowal performs the arming act (create a private repo, grant the bot push, run `set-transcripts-remote.sh`, record the authorization), with three open questions still to call: private repo as plan of record, whether liaison sessions are in scope (default yes), and the 6h idle threshold. A separate liaison change now drains `role/liaison` + broadcast on bring-up so the queued deletion-disable notice becomes deliverable.
+
+A Fable review of the garden's own scripts surfaced a **data-corruption-class bug** in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`): a job requeued ~every 18 min against a 40-min handler wall left the prior handler alive, twice producing two live writers in one worktree — flagged as warranting a deliberate main2 fix + deploy.
+
+On the M3 front, the `daemon-agent-tools` "Claw-like coding" pillar is fully built into a Draft stack — phases 1–3 [#614](https://github.com/endojs/endo-but-for-bots/pull/614) → [#615](https://github.com/endojs/endo-but-for-bots/pull/615) → [#616](https://github.com/endojs/endo-but-for-bots/pull/616) are CI-green and mergeable, and phase 4 [#618](https://github.com/endojs/endo-but-for-bots/pull/618) cleared its last blocker — so the milestone's critical path is now maintainer review/un-draft/merge, not more building. The gauntlet on [#566](https://github.com/endojs/endo-but-for-bots/pull/566) (confined HttpClient) passed and un-drafted into the review queue clean/mergeable, with one deferred design call: whether to add a per-request AbortController timeout (the two governing designs disagree).
+
+Two items need steering rather than a merge. A Gateway Feature 8 build found its work is a **superset of open draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577)** (which defers the socket handoff) but rewrites the same module incompatibly; the gardener held its branch instead of opening a colliding PR and recommends re-scoping to build the handoff on top of #577. Separately, orchestration `xs2rust-endor-build-stage4` **halted** on a child failure (4/8 done) while stage 5 continues, and the foreman flags `build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery` as possibly stuck after draining without milestone progress.
 
 ## Parked for maintainer feedback
 
@@ -162,25 +168,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > journal message entry. Open questions still yours to call: private repo as
 > plan of record? liaison sessions in scope (default yes)? idle threshold
 > (default 21600s)? Operator page: context/operations/transcripts.md.
-
-- `20260707T041416Z-e08af8` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T041416Z-e08af8.md)
-
-> proxy answered a gating question (tentative — review and override):
-> - gardener: endojs-endo-but-for-bots-pr600-c9c5b892
-> - question (msgid 20260707T035553Z-4c9325.md)
-> - tentative answer: (proxy/tentative — the maintainer may revise; this is a direction call on an in-scope experimentation repo, not a policy decision.)
->
-> Good disambiguation work. Since the literal string `endo-xst` isn't in the tree, the comment is a nickname, not a find/replace target — so we pick the artifact the joke best fits and keep the blast radius small and reversible. My read of the three candidates:
->
-> - **Candidate 1 (the `endor` binary) is the best first bet.** The PR title is "rename endo-xst → endot" and the branch is `xs2rust-endor`; `endor` is the primary user-facing artifact and "endor → endot" is a one-character, near-mechanical, easily-reverted change. The joke parses as: the endo XS tool ("endo-xst"), now the successor, becomes `endot`. That's the target I'd try first.
->
-> - **Scope: binary name + user-facing label only.** Rename `[[bin]] name="endor"` → `endot`, `rust/endo/src/bin/endor.rs` → `endot.rs`, and any help text / docs that name the binary. Leave the surrounding crate structure alone unless the rename obviously dangles.
->
-> - **Do NOT touch Candidate 3 (the `b"endo-xs 1"` snapshot signature).** That's a wire/format constant; changing it is a compatibility break, not a rename, and is out of bounds for a "rename" task without explicit direction.
->
-> - **Leave Candidate 2 (the `xsnap` crate / `xs_engine` lib) as-is** for now — a crate rename is the largest and least reversible of the three and isn't clearly what the nickname points at.
->
-> So: rename the `endor` binary → `endot` (binary name, file, user-facing strings), leave the crate and the snapshot signature untouched, and note in the PR that you read `endo-xst` as the binary nickname. If the maintainer meant the crate or a wider rename, that's a cheap follow-up on top of this. Unblock and proceed on that basis rather than holding.
 
 
 ## Board
