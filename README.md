@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T11:00:03Z_
+_As of 2026-07-07T11:02:32Z_
 
 ## Latest
 
-The minion.town OAuth deployment is now fully orchestrated, and two phases have parked awaiting the one thing only you can provide: **Phase 3** (Google→Cognito federation) needs a Google OAuth 2.0 Web client, and **Phase 5** (GitHub OIDC thunk) needs a GitHub OAuth App — both keyed to the Cognito redirect `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`. Neither failed: each parked a `--go-ahead` remainder (`minion-town-phase3-completion`, `minion-town-phase5-completion`) that finishes the moment you create the credential (store it in us-west-1 Secrets Manager or reply to the gardener) and promote the job. Phase 5's non-gated half is already **live and verified over HTTPS** — `github-idp.minion.town`'s OIDC discovery, JWKS, and `/authorize` endpoints all respond (note: this AWS account blocks public Lambda Function URLs, so ingress runs through an API Gateway HTTP API instead).
-
-Separately, mhofman's design correction for the Agoric critical-vat promotion work — pin exact vatIDs per chain rather than discovering by label — was folded into [kriskowal/agoric-sdk#9](https://github.com/kriskowal/agoric-sdk/pull/9), and a gardener then closed a real gap it exposed: the migration was an end-to-end no-op because nothing wrote the promotion directive. A new commit wires `writeCriticalPromotionDirective` into `launch-chain.js` before `upgradeSwingset` (chainID confirmed available at that point via `bootMsg.chainID`), with a test; one open question for mhofman is whether resolution should stay JS-side or move fully into the Go handler. The XS→Rust (Endor) port cleared its stage-5 build orchestration. One access note: @kriscendobot tried to drive the garden via [issue #29](https://github.com/kriskowal/garden/issues/29) but isn't on the maintainer allowlist, so that interaction was dropped — add them with `add-maintainer.sh` if you want them driving by issue.
+The minion.town OAuth deployment has surfaced two maintainer-gated blockers you can clear at any time: **Phase 3 (Google→Cognito federation)** is now parked as go-ahead job `minion-town-phase3-completion`, waiting only on a Google OAuth 2.0 Web client (redirect `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`, delivered via Secrets Manager `minion/google-idp-client`); and **Phase 5 (GitHub OIDC thunk)** has its Parts A+B done and live — `https://github-idp.minion.town/.well-known/openid-configuration`, `jwks.json`, and `/authorize` all verified over HTTPS — with only the Cognito wiring parked as `minion-town-phase5-completion` pending a GitHub OAuth App (secret `minion/github-oauth-app`). Both phases parked rather than failed, so nothing is lost; the proxy correctly bounced both to you as credential grants beyond its authority. Separately, a dead-lettered correction from mhofman on [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) landed in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): the critical-vat promotion prototype is now wired end-to-end (commit 73067903c writes `promoteCriticalVats` from a chainID-keyed pin table in `launch-chain.js`, closing a gap where the earlier Go-side commit only logged the resolved vatIDs), with one open design question for mhofman on whether resolution should live JS-side or Go-side. Worth noting: @kriscendobot tried to drive the garden via the issue inbox but isn't on the maintainer allowlist, so that interaction was dropped — add them with `add-maintainer.sh` and ask them to re-post if it mattered. The board itself was quiet, with only the mirror-closer self-heal fix completing.
 
 ## Parked for maintainer feedback
 
@@ -253,17 +251,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`self-heal-fix-garden-mirror-closer-pulls-422-large-pr`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-mirror-closer-pulls-422-large-pr.md) — In scripts/jobs/handlers/mirror-pr-state-gh.sh, replace the REST gh api repos...
+### doin (1)
 - [`xs2rust-endor-stage5-fix-rejects`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix-rejects.md) — Stage-5 fix 2/5: port the named coder rejects — new.target, optional chaining...
 
-### tada (1407)
+### tada (1408)
+- [`self-heal-fix-garden-mirror-closer-pulls-422-large-pr`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-mirror-closer-pulls-422-large-pr.md) — Completion report
 - [`deadmail-20260707T104253Z-8c2c23`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260707T104253Z-8c2c23.md) — I now have the complete picture. Let me record my analysis.
 - [`xs2rust-endor-stage5-fix-cesu8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix-cesu8.md) — Completion report
 - [`port-xs-to-rust-memory-safe-engine-s12`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s12.md) — Completion report — port-xs-to-rust-memory-safe-engine-s12
 - [`xs2rust-endor-build-stage5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage5.md) — orchestration xs2rust-endor-build-stage5 — complete
-- [`xs2rust-endor-stage5-byte-identity`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-byte-identity.md) — Completion report
-- … and 1402 more
+- … and 1403 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
