@@ -1,11 +1,4 @@
----
-gate: orchestrated
-orchestrated_by: minion-town-oauth-stage1
-priority: normal
-roadmap: minion.town/mcp-oauth
-posted_by: orchestrator
-posted_at: 2026-07-07T05:33:19Z
----
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-07T06:04:12Z -->
 
 # minion.town: record the stage-2 parallel orchestration (fan-out)
 
