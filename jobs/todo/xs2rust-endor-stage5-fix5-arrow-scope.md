@@ -84,9 +84,4 @@ push), and report honestly what remains. A clean partial landing beats a sprawli
 inbox-send to it dead-letters into a noise job. Do NOT inbox-send the supervisor; do NOT message the
 maintainer; do NOT comment on the PR. State measured before/after numbers per slice in the report.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  claimed_at: 2026-07-07T21:22:10Z
+<!-- garden-reaped: 1 -->
