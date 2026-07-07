@@ -1,16 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-07T04:52:45Z_
+_As of 2026-07-07T04:54:15Z_
 
 ## Latest
 
-The transcript-journal-capture system is **built and landed** on main2 (commits a71081d81, 8e97b86c7): an hourly every-host spool-before-delete capture, a blobless transcripts2 clone, and a fleet-wide deletion disable (`cleanupPeriodDays=36500`) that reconciles into existing hosts. It ships **inert** — it spools locally but pushes nowhere until kriskowal performs the arming act (create a private repo, grant the bot push, run `set-transcripts-remote.sh`, record the authorization), with three open questions still to call: private repo as plan of record, whether liaison sessions are in scope (default yes), and the 6h idle threshold. A separate liaison change now drains `role/liaison` + broadcast on bring-up so the queued deletion-disable notice becomes deliverable.
+Little moved on the board this cycle, but the maintainer inbox is stacked with decisions. A data-corruption-class bug surfaced in the garden's own reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`): jobs were re-posted every ~18 min against a 40-min handler wall without killing the prior handler, twice producing two live writers in one worktree — a main2 infra fix awaiting a deliberate fix-and-deploy.
 
-A Fable review of the garden's own scripts surfaced a **data-corruption-class bug** in the reaper requeue path (`reaper-requeue-kills-or-waits-for-live-handler`): a job requeued ~every 18 min against a 40-min handler wall left the prior handler alive, twice producing two live writers in one worktree — flagged as warranting a deliberate main2 fix + deploy.
+On M3, the flagship `daemon-agent-tools` "Claw-like coding" stack is fully built and CI-green but still Draft — [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614) → [#615](https://github.com/endojs/endo-but-for-bots/pull/615) → [#616](https://github.com/endojs/endo-but-for-bots/pull/616) → [#618](https://github.com/endojs/endo-but-for-bots/pull/618), whose last un-draft blocker just cleared — so the milestone's critical path is now landing this backlog, not more building. The confined-HttpClient gauntlet on [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) passed and is un-drafted into the review queue, clean/mergeable, with one deferred design call: whether to add a per-request AbortController timeout (the two governing designs disagree) to backstop a hostile allowlisted server that never settles.
 
-On the M3 front, the `daemon-agent-tools` "Claw-like coding" pillar is fully built into a Draft stack — phases 1–3 [#614](https://github.com/endojs/endo-but-for-bots/pull/614) → [#615](https://github.com/endojs/endo-but-for-bots/pull/615) → [#616](https://github.com/endojs/endo-but-for-bots/pull/616) are CI-green and mergeable, and phase 4 [#618](https://github.com/endojs/endo-but-for-bots/pull/618) cleared its last blocker — so the milestone's critical path is now maintainer review/un-draft/merge, not more building. The gauntlet on [#566](https://github.com/endojs/endo-but-for-bots/pull/566) (confined HttpClient) passed and un-drafted into the review queue clean/mergeable, with one deferred design call: whether to add a per-request AbortController timeout (the two governing designs disagree).
+Two builds are parked on the maintainer's authority. Gateway Feature 8 (the `/ocapn` WebSocket handoff) was held rather than opening a competing PR — the builder found [endo-but-for-bots#577](https://github.com/endojs/endo-but-for-bots/pull/577) already implements the path-naming half and its own branch is a superset; it recommends re-scoping to build the socket handoff on top of #577. And transcript-journal-capture is now being built inert under a serial orchestration; nothing publishes until the maintainer creates a private transcripts repo, grants bot push access, runs `set-transcripts-remote.sh`, and records the authorization — a grant only the maintainer can make (a proxy already escalated it as beyond its authority).
 
-Two items need steering rather than a merge. A Gateway Feature 8 build found its work is a **superset of open draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577)** (which defers the socket handoff) but rewrites the same module incompatibly; the gardener held its branch instead of opening a colliding PR and recommends re-scoping to build the handoff on top of #577. Separately, orchestration `xs2rust-endor-build-stage4` **halted** on a child failure (4/8 done) while stage 5 continues, and the foreman flags `build-endo-but-for-bots-endoclaw-timer-phase2-tick-delivery` as possibly stuck after draining without milestone progress.
+On the fleet side, the xs2rust-endor (XS→Rust) port halted its stage-4 orchestration on a child failure (4/8 done) and is now grinding through stage 5, the sole job in flight. Onboarding phase 1 closed as already-landed, with a note that the design's `.garden`-file identity was deliberately superseded by location-derived naming.
 
 ## Parked for maintainer feedback
 
@@ -142,32 +142,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260706T235604Z-381c02` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260706T235604Z-381c02.md)
 
 > awaiting maintainer — beyond proxy authority: gardener supervise-transcript-capture, msgid 20260706T234023Z-b6d70e.md — The core ask is an arming authorization — creating a private repo, granting the bot push credentials, and recording maintainer authorization to publish the fleet's raw transcripts — an authority grant and outward-facing action reserved to the maintainer.
-
-- `20260707T000526Z-d79f2a` — from gardener:supervise-transcript-capture, reply_to `supervise-transcript-capture` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T000526Z-d79f2a.md)
-
-> Subject: transcript capture is BUILT and landed — ready for your arming decision
->
-> Follow-up to my 23:40Z note (which has the full arming steps + open questions):
-> the implementation is now complete and landed on main2, verified.
->
-> - a71081d81 — the full capture system (spool hook before the intact rm -f,
->   hourly every-host garden-transcript-capture timer, redact+gzip sweep,
->   blobless+sparse transcripts2 clone, set-transcripts-remote.sh, launcher
->   cleanupPeriodDays=36500 seed + per-tick reconcile). I re-ran its test suite
->   myself: 20/20 green. INERT until you arm a remote; meanwhile every host
->   disables deletion and spools locally, losing nothing.
-> - 8e97b86c7 — liaisons now drain role/liaison + broadcast on bring-up
->   (per-host seen-key), making the queued cleanupPeriodDays notice deliverable;
->   starting.md offers the transcript arming during bring-up.
->
-> This host converges on cleanupPeriodDays=36500 within the hour once the new
-> timer is installed at the next deploy (the reconcile runs every capture tick).
->
-> To arm: create a PRIVATE repo (recommended kriskowal/garden-transcripts),
-> grant the bot push, run scripts/jobs/set-transcripts-remote.sh <url>, record a
-> journal message entry. Open questions still yours to call: private repo as
-> plan of record? liaison sessions in scope (default yes)? idle threshold
-> (default 21600s)? Operator page: context/operations/transcripts.md.
 
 
 ## Board
