@@ -67,6 +67,8 @@ endor-rejects (1572+ rejects across the sweep):
   supervisor (it is parked and the send would dead-letter into a noise job). NEVER message
   the maintainer; NEVER comment on the PR; KEEP the PR DRAFT.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
