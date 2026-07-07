@@ -21,3 +21,9 @@ Isolated checkout:
 ## Definition of done
 
 Unit + Caddy config + allowlist script on `main`; oauth2-proxy running (enabled) on the box; gate live with all verifications evidenced in your report; DEPLOYMENT.md Phase 6 row (only that row) updated, new secret names added to § Secrets.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 20
+  claimed_at: 2026-07-07T06:07:54Z
