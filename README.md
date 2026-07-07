@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-07T06:46:12Z_
+_As of 2026-07-07T06:46:49Z_
 
 ## Latest
 
-The minion.town OAuth deployment moved to its orchestrated build-out: Phase 4 (first-party authz policy + pre-token-gen identity Lambda) and Phase 6 (web login gate) both completed, while Phases 3 and 5 landed everything they could and parked their remainders on credentials only kriskowal can supply. Phase 5's GitHub OIDC thunk is live and HTTPS-verified (`github-idp.minion.town` OpenID config, JWKS, and `/authorize`→github.com redirect all responding), with only the Cognito wiring (Part C) parked as `minion-town-phase5-completion` pending a GitHub OAuth App; Phase 3's Google→Cognito federation is parked as `minion-town-phase3-completion` pending a Google OAuth Web client. **Two credential grants now await the maintainer** — a Google OAuth 2.0 Web client (`minion/google-idp-client`) and a GitHub OAuth App (`minion/github-oauth-app`), each redirecting to the Cognito hosted-UI endpoint; store either in us-west-1 Secrets Manager (or reply to the parked jobs) and promote the completion job to finish. Separately, a dead-lettered design correction from mhofman on garden#29 was picked up and landed into [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): the critical-vat promotion directive is now wired end-to-end JS-side (chainID resolved from `bootMsg` at the `upgradeSwingset` reboot point), closing a gap where the v4 migration had been a silent no-op — with an open question for mhofman on whether to move resolution fully into Go. Finally, @kriscendobot tried to drive the garden via issue #29 but isn't on the maintainer allowlist, so the interaction was dropped; add them if that's intended and ask them to re-post.
+The minion.town OAuth deployment advanced sharply: **Phase 5** (GitHub OIDC thunk) landed its non-gated work and is live — `https://github-idp.minion.town` serves a valid OpenID configuration, JWKS, and a working `/authorize` → github.com redirect off an ARM64 Node Lambda fronted by an API Gateway HTTP API (the account blocks public Lambda Function URLs). **Phase 4** (first-party authz policy + pre-token-gen identity Lambda) also completed. Both **Phase 3** (Google → Cognito federation) and **Phase 5**'s Cognito wiring (Part C) are now parked as go-ahead remainders (`minion-town-phase3-completion`, `minion-town-phase5-completion`) — each blocked solely on OAuth credentials only the maintainer can mint: a Google OAuth 2.0 Web client and a GitHub OAuth App, both with redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`. Deliver them via Secrets Manager (`minion/google-idp-client`, `minion/github-oauth-app` in us-west-1) or by replying to the gated jobs, then promote the two parked jobs; nothing else stalled meanwhile.
+
+Separately, a dead-lettered garden#29 correction from mhofman was picked up and closed out in the [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) critical-vat-promotion prototype: the earlier commit only *logged* resolved vatIDs, leaving the v4 migration a no-op, so a follow-up now writes the promotion directive end-to-end (chainID confirmed available via `bootMsg.chainID` at the `upgradeSwingset` reboot) with a test — with an open question for mhofman on whether resolution should live JS-side or move fully into Go. Note also an access request: @kriscendobot tried to drive the garden via issue kriskowal/garden#29 but isn't on the maintainer allowlist, so the interaction was dropped.
 
 ## Parked for maintainer feedback
 
@@ -251,17 +253,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`minion-town-phase5-github-oidc-thunk`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-phase5-github-oidc-thunk.md) — minion.town Phase 5: GitHub OIDC thunk (portable wrapper + Lambda + Cognito O...
+### doin (1)
 - [`xs2rust-endor-stage5-coder-decl`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-coder-decl.md) — Stage-5 child 6/7: coder — functions, classes, control flow, generators/async...
 
-### tada (1398)
+### tada (1399)
+- [`minion-town-phase5-github-oidc-thunk`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase5-github-oidc-thunk.md) — Completion report — minion.town Phase 5: GitHub OIDC thunk
 - [`minion-town-phase3-google-idp`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase3-google-idp.md) — Completion report
 - [`deadmail-20260707T061609Z-e87f3f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260707T061609Z-e87f3f.md) — Completion report
 - [`deadmail-issue-comment-4900696368`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4900696368.md) — Completion report — deadmail-issue-comment-4900696368
 - [`minion-town-phase4-authz-policy`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase4-authz-policy.md) — minion.town Phase 4 — first-party authz policy + pre-token-gen identity Lambda
-- [`minion-town-phase6-web-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase6-web-gate.md) — Completion report — minion.town Phase 6: web login gate
-- … and 1393 more
+- … and 1394 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
