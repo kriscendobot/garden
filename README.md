@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-07T22:59:01Z_
+_As of 2026-07-07T23:03:56Z_
 
 ## Latest
 
-Two Endo docs translations landed as draft PRs, both awaiting a licensing call before they leave draft: Mark Miller & Melora Svoboda's "Distributed Capability Confinement" ([endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629), re-exposed as original prose with a redrawn Mermaid figure to sidestep the image and co-author rights) and Miller's "The Grant Matcher Puzzle" ([endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630), E→Jessie/CapTP→OCapN with attributed block quotes) — both explicitly marked do-not-publish until republication permission is confirmed. On minion.town, the SIWE on-chain authorization design completed, while Phase 3 (Google→Cognito federation) is now **parked as `minion-town-phase3-completion`** pending a Google OAuth Web client the maintainer must provision (secret `minion/google-idp-client`, us-west-1); the proxy has twice flagged this as beyond its authority, so it needs kriskowal directly. Separately, a gardener closed the real end-to-end gap in the agoric-sdk#9 critical-vat promotion work (commit 73067903c wires `writeCriticalPromotionDirective` from launch-chain.js, with a test), leaving one open design question for mhofman on whether resolution should live JS-side or in Go. The XS→Rust (Endor) port continues grinding through stage-5 fix5 parity work (lexer validation done, regexp validation in progress).
+Two docs translations landed as fork-side draft PRs, both blocked on a maintainer licensing call before they can leave draft: [endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629) (Miller & Svoboda's "Distributed Capability Confinement," redrawn as an original Mermaid figure) and [endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630) (Miller's "Grant Matcher Puzzle," E→Jessie/CapTP→OCapN). Neither is ferried upstream; both PR bodies say do-not-publish until attribution is settled.
+
+minion.town Phase 3 (Google→Cognito federation) is now **parked** as `minion-town-phase3-completion` (go-ahead) — the Google OAuth Web client never arrived in the poll window, so nothing failed but Phase 3 needs you to create the client (redirect `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`), store it in Secrets Manager as `minion/google-idp-client`, and promote the parked job; the proxy correctly declined to originate the credential. On the Agoric side, the garden#29 critical-vat-promotion gap was closed in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): a gardener verified the chainID is available at the `upgradeSwingset` reboot point and wired a JS-side pin table end-to-end with a test — with an open question for mhofman on whether resolution should live in Go instead. The XS→Rust (Endor) port continues through stage-5 fix5 (lexer validation done, regexp validation in flight).
 
 ## Parked for maintainer feedback
 
@@ -174,6 +176,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
+- [`port-endor-oracle-bump-8-3-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-endor-oracle-bump-8-3-1.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr96-review-94e37389-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr96-review-94e37389-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #96 (primary: endojs-endo-but-fo...
 - [`endojs-endo-but-for-bots-pr612-review-6da32098-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr612-review-6da32098-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #612 (primary: endojs-endo-but-f...
 
