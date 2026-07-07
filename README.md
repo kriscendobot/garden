@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T22:19:36Z_
+_As of 2026-07-07T22:20:29Z_
 
 ## Latest
 
-The minion.town OAuth deployment advanced on multiple phases in parallel: Phase 5 Part C (the GitHub OIDC thunk's Cognito wiring) completed, and the thunk's `github-idp.minion.town` OIDC endpoints are live over HTTPS (fronted by an API Gateway HTTP API, since the account blocks public Lambda Function URLs). Two phases now sit gated on credentials only kriskowal can create: **Phase 3** (Google → Cognito federation) is parked as `minion-town-phase3-completion` awaiting a Google OAuth 2.0 Web client, and **Phase 5**'s Cognito IdP wiring awaits a GitHub OAuth App — both deliverable via a `us-west-1` Secrets Manager secret or an inbox reply, with `--go-ahead` remainder jobs already parked so nothing stalls. The XS→Rust (Endor) port kept moving: the stage-5 fix4 orchestration finished, fix5 landed its arrow-scope fix (1/5), and the tagged-template compile-surface fix (2/5) is in progress. Separately, a dead-lettered mhofman correction on garden#29 was picked up and closed out in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): the critical-vat promotion directive, previously a logged-only no-op, is now wired end-to-end (JS-side pin table keyed on the boot-time chainID, with a test), leaving one design question for mhofman about keeping resolution in JS versus Go.
+The **minion.town** identity work is stalled on two maintainer-only credential grants: Phase 3 (Google → Cognito federation) has been parked as the go-ahead job `minion-town-phase3-completion` after the Google OAuth Web client never arrived in the poll window, and Phase 5 (GitHub OIDC thunk) has Parts A+B live and verified over HTTPS (`github-idp.minion.town` serving OIDC discovery/JWKS/authorize) but is blocked on a GitHub OAuth App. Both need kriskowal to create the OAuth clients under his own accounts and drop the client id/secret into Secrets Manager (or reply to the gardener); nothing else stalled meanwhile, and the proxy has correctly routed all four requests to the maintainer as beyond its authority. Separately, a gardener picked up the dead-lettered garden#29 correction and closed a real end-to-end gap in the agoric-sdk critical-vat promotion prototype ([kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9), commit 73067903c): the Go switch only logged resolved vatIDs, so the v4 migration was an unconditional no-op — the fix adds a pin table and `writeCriticalPromotionDirective` called from `launch-chain.js`, wired with a test, with one open question for mhofman on whether resolution should live JS-side or move fully into Go. The XS→Rust (Endor) port continues grinding through its stage-5 fix batch (fix5 1/5 done, 2/5 in progress). No PRs moved into or out of review since the last bulletin.
 
 ## Parked for maintainer feedback
 
@@ -21,27 +21,6 @@ The minion.town OAuth deployment advanced on multiple phases in parallel: Phase 
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260707T053432Z-0b806f` — from orchestrator:orchestrate-minion-town-oauth-deploy, reply_to `minion-town-phase5-github-oidc-thunk` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T053432Z-0b806f.md)
-
-> # Maintainer input needed: GitHub OAuth App for minion.town Phase 5 (GitHub OIDC thunk)
->
-> The minion.town OAuth deployment is now orchestrated. **Phase 5 (GitHub federation via the portable OIDC thunk) is gated on one input only you can create:**
->
-> A **GitHub OAuth App** (github.com → Settings → Developer settings → OAuth Apps → New OAuth App) with:
->
-> - Homepage URL: `https://minion.town`
-> - Authorization callback URL: `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse` (the Cognito hosted-UI endpoint, per the github-cognito-openid-wrapper pattern — the phase job double-checks this against the wrapper README and will flag any correction)
->
-> **Preferred delivery** — store it in Secrets Manager (us-west-1); the phase job polls for it:
->
->     aws secretsmanager create-secret --region us-west-1 \
->       --name minion/github-oauth-app \
->       --secret-string '{"client_id":"...","client_secret":"..."}'
->
-> Or reply to this message — the reply routes to the running phase job's inbox (`minion-town-phase5-github-oidc-thunk`) and it will store the secret itself.
->
-> The thunk's non-gated work (the reusable 5-endpoint OIDC thunk contract, the Lambda + `github-idp.minion.town` DNS + Caddy plumbing) proceeds regardless; only the Cognito IdP wiring waits. If the input hasn't arrived when Phase 5 runs, it parks a `--go-ahead` remainder job (`minion-town-phase5-completion`) rather than failing.
 
 - `20260707T060815Z-f5928c` — from gardener:minion-town-phase3-google-idp, reply_to `minion-town-phase3-google-idp` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T060815Z-f5928c.md)
 
