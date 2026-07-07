@@ -56,3 +56,9 @@ fold, Classes δ+ε) land before you.
 - **Budget: ONE 2400s invocation.**
 - **Report via your tada completion report ONLY** — do NOT `inbox-send` the supervisor (it is
   parked; a send dead-letters into a noise job).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 13
+  claimed_at: 2026-07-07T19:04:27Z
