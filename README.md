@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T06:44:33Z_
+_As of 2026-07-07T06:46:12Z_
 
 ## Latest
 
-The **minion.town OAuth deployment** is now fully orchestrated: Phase 4 (first-party authz policy + pre-token-gen identity Lambda) and Phase 6 (web login gate) both completed, and Phase 5's OIDC thunk is partly live — `github-idp.minion.town`'s OpenID configuration, JWKS, and `/authorize` endpoints all respond over HTTPS. Two phases now block **only on maintainer-supplied credentials only kriskowal can create**: Phase 3 needs a Google OAuth 2.0 Web client and Phase 5 a GitHub OAuth App, each with the Cognito redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`, delivered via Secrets Manager (`minion/google-idp-client`, `minion/github-oauth-app`) or a reply to the running jobs. Nothing else stalls — Phase 3 has already parked a `--go-ahead` completion job to promote once the secret lands. Separately, the dead-lettered mhofman correction on the vat-critical promotion work was picked up and landed in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): the gardener verified the chainID is available at the `upgradeSwingset` reboot point and pushed an end-to-end pin-table + directive-writer fix, closing a gap where the v4 migration had been an unconditional no-op — with one open design question (JS-side vs. Go-side resolution) flagged for mhofman. Finally, note the access-request in the maintainer inbox: @kriscendobot commented on garden issue #29 but isn't on the maintainer allowlist, so that interaction was dropped.
+The minion.town OAuth deployment moved to its orchestrated build-out: Phase 4 (first-party authz policy + pre-token-gen identity Lambda) and Phase 6 (web login gate) both completed, while Phases 3 and 5 landed everything they could and parked their remainders on credentials only kriskowal can supply. Phase 5's GitHub OIDC thunk is live and HTTPS-verified (`github-idp.minion.town` OpenID config, JWKS, and `/authorize`→github.com redirect all responding), with only the Cognito wiring (Part C) parked as `minion-town-phase5-completion` pending a GitHub OAuth App; Phase 3's Google→Cognito federation is parked as `minion-town-phase3-completion` pending a Google OAuth Web client. **Two credential grants now await the maintainer** — a Google OAuth 2.0 Web client (`minion/google-idp-client`) and a GitHub OAuth App (`minion/github-oauth-app`), each redirecting to the Cognito hosted-UI endpoint; store either in us-west-1 Secrets Manager (or reply to the parked jobs) and promote the completion job to finish. Separately, a dead-lettered design correction from mhofman on garden#29 was picked up and landed into [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): the critical-vat promotion directive is now wired end-to-end JS-side (chainID resolved from `bootMsg` at the `upgradeSwingset` reboot point), closing a gap where the v4 migration had been a silent no-op — with an open question for mhofman on whether to move resolution fully into Go. Finally, @kriscendobot tried to drive the garden via issue #29 but isn't on the maintainer allowlist, so the interaction was dropped; add them if that's intended and ask them to re-post.
 
 ## Parked for maintainer feedback
 
@@ -207,29 +207,68 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > awaiting maintainer — beyond proxy authority: gardener minion-town-phase3-google-idp, msgid 20260707T062404Z-c0c6ef.md — Provisioning a Google OAuth client id+secret requires the maintainer's Google account and hands over live credentials — a credential/authority grant beyond proxy scope; the gardener's own fallback (park as a maintainer-gated plan job) is the correct path.
 
+- `20260707T064515Z-a5f34e` — from gardener:minion-town-phase3-google-idp, reply_to `minion-town-phase3-google-idp` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T064515Z-a5f34e.md)
+
+> # minion.town Phase 3 (Google federation) — PARKED pending your input
+>
+> The Google OAuth client never arrived within the poll window (secret `minion/google-idp-client` absent, no inbox reply). Per plan I did **not** fail the orchestration — I parked the remainder as a go-ahead job so nothing is lost:
+>
+> - **Parked job:** `minion-town-phase3-completion` (gate: go-ahead). It carries the full Phase 3 work verbatim (create Cognito Google IdP on pool `us-west-1_mDaTgjr1m`, add `Google` to both clients' SupportedIdentityProviders with read-modify-write, verify authorize redirect).
+> - **DEPLOYMENT.md** Phase 3 row now reads `parked pending maintainer input`.
+>
+> **To unblock:** create the Google OAuth 2.0 Web client with authorized redirect URI
+>
+>     https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse
+>
+> then store it:
+>
+>     aws secretsmanager create-secret --region us-west-1 \
+>       --name minion/google-idp-client \
+>       --secret-string '{"client_id":"...","client_secret":"..."}'
+>
+> (or reply to this message with the creds and the promoted job will store them itself). Then **promote** `minion-town-phase3-completion` and Phase 3 finishes. The other phases proceeded in parallel — none of them stalled on this.
+
+- `20260707T064545Z-21a6fa` — from gardener:minion-town-phase5-github-oidc-thunk, reply_to `minion-town-phase5-github-oidc-thunk` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T064545Z-21a6fa.md)
+
+> Phase 5 (GitHub OIDC thunk): Parts A + B DONE and live; Part C (Cognito wiring) is PARKED pending your GitHub OAuth App.
+>
+> LIVE (verified over HTTPS):
+>   https://github-idp.minion.town/.well-known/openid-configuration → 200 (issuer https://github-idp.minion.town)
+>   https://github-idp.minion.town/.well-known/jwks.json → 200 ; /authorize → 302 to github.com
+>   (ARM64 Node Lambda minion-github-idp-thunk. Public ingress is an API Gateway HTTP API, not a Function URL — this account blocks public Lambda Function URLs. Same handler; Caddy fronts it identically. Lifting the account-level block would let me switch to a Function URL if you prefer.)
+>
+> TO FINISH (Cognito federation) — create a GitHub OAuth App (github.com/settings/developers → New OAuth App):
+>   Homepage URL:            https://minion.town
+>   Authorization callback:  https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse
+> Then set the secret:
+>   aws secretsmanager create-secret --name minion/github-oauth-app --region us-west-1 \
+>     --secret-string '{"client_id":"YOUR_CLIENT_ID","client_secret":"YOUR_CLIENT_SECRET"}'
+>
+> Then promote the parked go-ahead job `minion-town-phase5-completion` (tell the liaison "go ahead / promote minion-town-phase5-completion"). It runs the ready-made deploy/aws/scripts/deploy-cognito-github-idp.sh (creates the Cognito GitHub OIDC IdP and adds GitHub to both app clients, preserving any Google/Phase 3 IdP) and verifies the hosted-UI redirect chains to github.com. Nothing is lost by the wait — the thunk reads the GitHub creds from the secret at runtime, so no thunk redeploy is needed.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`minion-town-phase3-google-idp`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-phase3-google-idp.md) — minion.town Phase 3: Google federation into Cognito (maintainer-input gated)
+### doin (2)
 - [`minion-town-phase5-github-oidc-thunk`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-phase5-github-oidc-thunk.md) — minion.town Phase 5: GitHub OIDC thunk (portable wrapper + Lambda + Cognito O...
 - [`xs2rust-endor-stage5-coder-decl`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-coder-decl.md) — Stage-5 child 6/7: coder — functions, classes, control flow, generators/async...
 
-### tada (1397)
+### tada (1398)
+- [`minion-town-phase3-google-idp`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase3-google-idp.md) — Completion report
 - [`deadmail-20260707T061609Z-e87f3f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260707T061609Z-e87f3f.md) — Completion report
 - [`deadmail-issue-comment-4900696368`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4900696368.md) — Completion report — deadmail-issue-comment-4900696368
 - [`minion-town-phase4-authz-policy`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase4-authz-policy.md) — minion.town Phase 4 — first-party authz policy + pre-token-gen identity Lambda
 - [`minion-town-phase6-web-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase6-web-gate.md) — Completion report — minion.town Phase 6: web login gate
-- [`mention-kriskowal-garden-29-00a2b5cb`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mention-kriskowal-garden-29-00a2b5cb.md) — **Completion report — attention directive from @-mention on kriskowal/garden ...
-- … and 1392 more
+- … and 1393 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
 - [`endojs-endo-but-for-bots-pr132-report-render-mode`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-report-render-mode.md) — _normal_ · re-port render-mode toggle onto @endo/space-chat InboxRoot (endojs/endo-but-f...
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
 - [`minion-town-phase3-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/minion-town-phase3-completion.md) — _normal_ · minion.town Phase 3 (completion): Google federation into Cognito
+- [`minion-town-phase5-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/minion-town-phase5-completion.md) — _normal_ · minion.town Phase 5 completion: wire GitHub OIDC thunk into Cognito (Part C)
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
