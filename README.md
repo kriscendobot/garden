@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-07T11:14:38Z_
+_As of 2026-07-07T11:39:39Z_
 
 ## Latest
 
-The minion.town OAuth deployment is now orchestrated and largely in flight, but two phases are parked waiting on credentials only kriskowal can create: **Phase 3** (Google federation into Cognito) needs a Google OAuth 2.0 Web client, and **Phase 5** (GitHub OIDC thunk) needs a GitHub OAuth App — both with redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`. Phase 5's non-gated work is already live and HTTPS-verified (`github-idp.minion.town` serving OIDC discovery, JWKS, and a working `/authorize` redirect via an API Gateway HTTP API, since the account blocks public Lambda Function URLs); only the Cognito wiring waits. Neither stalled the rest of the deploy — each parked a go-ahead remainder (`minion-town-phase3-completion`, `minion-town-phase5-completion`) that finishes the moment you store the secret and promote it. Deliver via Secrets Manager (`minion/google-idp-client`, `minion/github-oauth-app`, us-west-1) or reply to the running phase job.
+The **minion.town OAuth deployment** is now the maintainer's ball to move: it was decomposed into an orchestrated multi-phase build, and both federation phases have parked awaiting credentials only kriskowal can create. Phase 3 (Google→Cognito) is blocked on a **Google OAuth 2.0 Web client** and Phase 5 (GitHub OIDC thunk) on a **GitHub OAuth App** — each polled its inbox for ~90 min, got nothing, and correctly parked a `--go-ahead` remainder (`minion-town-phase3-completion`, `minion-town-phase5-completion`) rather than failing, so nothing is lost. Phase 5's non-gated work is already live and HTTPS-verified (`github-idp.minion.town` OpenID config, JWKS, and `/authorize` → github.com; note it runs behind an API Gateway HTTP API because this AWS account blocks public Lambda Function URLs). To finish either phase, create the credential, drop it in Secrets Manager (`minion/google-idp-client` / `minion/github-oauth-app`, us-west-1) or reply to the gardener's message, then promote the parked completion job.
 
-Separately, a dead-lettered garden#29 correction from mhofman was picked up and its gap closed: the peer-landed critical-vat-promotion prototype in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) only logged resolved vatIDs, so the v4 migration was a no-op end-to-end; a follow-up commit now writes the promotion directive from `launch-chain.js` (chainID confirmed available at the `upgradeSwingset` reboot point), wired with a test — with one open design question for mhofman on whether resolution should live JS-side or move fully into Go. The XS→Rust (Endor) port continues grinding through its Stage-5 fixes. Also worth a glance: @kriscendobot's issue-inbox interaction on garden#29 was dropped for not being on the maintainer allowlist.
+Separately, a dead-lettered correction from **mhofman** on garden #29 was picked up and closed a real end-to-end gap in the agoric-sdk critical-vat promotion prototype ([kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9)): the earlier peer commit only logged resolved vatIDs, so the v4 migration was a no-op; commit 73067903c now writes the promotion directive JS-side (a chainID-keyed pin table wired into `launch-chain.js`), with an open question for mhofman on whether to move it fully into Go. Elsewhere the self-healing fleet is chewing through the garden mirror-closer's 422 "too many files" failures (one fixed, one in progress) and the xs2rust→Endor stage-5 fixes continue landing. One housekeeping note: an issue-inbox interaction from **@kriscendobot** on garden #29 was dropped because they're not on the maintainer allowlist — add them and ask for a re-post if it mattered.
 
 ## Parked for maintainer feedback
 
@@ -253,7 +253,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`self-heal-fix-garden-mirror-closer-pr-state-422-too-many-files`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-mirror-closer-pr-state-422-too-many-files.md) — Fix scripts/jobs/handlers/mirror-pr-state-gh.sh so reading a mapped PR's stat...
 - [`xs2rust-endor-stage5-fix-class-tail`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix-class-tail.md) — Stage-5 fix 3/5: class tail — computed-key fields, private members, static-bl...
 
 ### tada (1410)
