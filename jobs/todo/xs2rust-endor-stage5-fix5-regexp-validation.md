@@ -84,9 +84,5 @@ inbox-send to it dead-letters into a noise job. Do NOT inbox-send the supervisor
 maintainer; do NOT comment on the PR. State measured before/after numbers per slice in the report.
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  claimed_at: 2026-07-07T22:58:35Z
+
+<!-- garden-reaped: 1 -->
