@@ -2,7 +2,7 @@
 order: serial
 children: xs2rust-endor-stage5-fix3-scope-class xs2rust-endor-stage5-fix3-private-install xs2rust-endor-stage5-fix3-eval-residue xs2rust-endor-stage5-fix3-keys-fieldinit xs2rust-endor-stage5-fix3-verify
 on-child-failure: halt
-state: pending
+state: running
 created_by: port-xs-to-rust-memory-safe-engine-s14
 created_at: 2026-07-07T16:25:07Z
 ---
