@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T11:39:39Z_
+_As of 2026-07-07T11:43:25Z_
 
 ## Latest
 
-The **minion.town OAuth deployment** is now the maintainer's ball to move: it was decomposed into an orchestrated multi-phase build, and both federation phases have parked awaiting credentials only kriskowal can create. Phase 3 (Google→Cognito) is blocked on a **Google OAuth 2.0 Web client** and Phase 5 (GitHub OIDC thunk) on a **GitHub OAuth App** — each polled its inbox for ~90 min, got nothing, and correctly parked a `--go-ahead` remainder (`minion-town-phase3-completion`, `minion-town-phase5-completion`) rather than failing, so nothing is lost. Phase 5's non-gated work is already live and HTTPS-verified (`github-idp.minion.town` OpenID config, JWKS, and `/authorize` → github.com; note it runs behind an API Gateway HTTP API because this AWS account blocks public Lambda Function URLs). To finish either phase, create the credential, drop it in Secrets Manager (`minion/google-idp-client` / `minion/github-oauth-app`, us-west-1) or reply to the gardener's message, then promote the parked completion job.
-
-Separately, a dead-lettered correction from **mhofman** on garden #29 was picked up and closed a real end-to-end gap in the agoric-sdk critical-vat promotion prototype ([kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9)): the earlier peer commit only logged resolved vatIDs, so the v4 migration was a no-op; commit 73067903c now writes the promotion directive JS-side (a chainID-keyed pin table wired into `launch-chain.js`), with an open question for mhofman on whether to move it fully into Go. Elsewhere the self-healing fleet is chewing through the garden mirror-closer's 422 "too many files" failures (one fixed, one in progress) and the xs2rust→Endor stage-5 fixes continue landing. One housekeeping note: an issue-inbox interaction from **@kriscendobot** on garden #29 was dropped because they're not on the maintainer allowlist — add them and ask for a re-post if it mattered.
+The minion.town OAuth deployment fanned out into parallel phases, and two now sit **parked awaiting credentials only kriskowal can create**: Phase 3 (Google→Cognito federation) needs a Google OAuth 2.0 Web client stored at `minion/google-idp-client`, and Phase 5 (GitHub OIDC thunk) needs a GitHub OAuth App at `minion/github-oauth-app` — both keyed to the Cognito redirect `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`. Neither failed: each parked a go-ahead remainder job (`minion-town-phase3-completion`, `minion-town-phase5-completion`) that finishes the Cognito wiring the moment the secret lands. Notably, Phase 5's thunk is already **live and HTTPS-verified** (`github-idp.minion.town` OIDC discovery + JWKS return 200, `/authorize` 302s to github.com) via an API Gateway HTTP API, since this AWS account blocks public Lambda Function URLs. Elsewhere, a dead-lettered design correction from mhofman on [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) was picked up and closed a real end-to-end gap — the critical-vat promotion directive is now written JS-side from the available chainID (commit 73067903c) with a test, rather than merely logged; one open question (move resolution fully into Go?) is flagged for relay. The XS→Rust (Endor) port advanced through more stage-5 fixes, and a self-heal landed for the mirror-PR-state 422-too-many-files failure. One housekeeping item: @kriscendobot's interaction on garden issue #29 was dropped for not being on the maintainer allowlist — add them with `add-maintainer.sh` and ask them to re-post if it still matters.
 
 ## Parked for maintainer feedback
 
@@ -255,15 +253,15 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 ### doin (2)
 - [`self-heal-fix-garden-mirror-closer-pr-state-422-too-many-files`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-mirror-closer-pr-state-422-too-many-files.md) — Fix scripts/jobs/handlers/mirror-pr-state-gh.sh so reading a mapped PR's stat...
-- [`xs2rust-endor-stage5-fix-class-tail`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix-class-tail.md) — Stage-5 fix 3/5: class tail — computed-key fields, private members, static-bl...
+- [`xs2rust-endor-stage5-modules`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-modules.md) — Stage-5 fix 4/5: modules — oracle module-goal compile entry + module parse/sc...
 
-### tada (1410)
+### tada (1411)
+- [`xs2rust-endor-stage5-fix-class-tail`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix-class-tail.md) — Completion report
 - [`deadmail-20260707T110906Z-1c62b9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260707T110906Z-1c62b9.md) — Completion report — dead-lettered message pickup (deadmail-20260707T110906Z-1...
 - [`xs2rust-endor-stage5-fix-rejects`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix-rejects.md) — Completion report
 - [`self-heal-fix-garden-mirror-closer-pulls-422-large-pr`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-mirror-closer-pulls-422-large-pr.md) — Completion report
 - [`deadmail-20260707T104253Z-8c2c23`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260707T104253Z-8c2c23.md) — I now have the complete picture. Let me record my analysis.
-- [`xs2rust-endor-stage5-fix-cesu8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix-cesu8.md) — Completion report
-- … and 1405 more
+- … and 1406 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
