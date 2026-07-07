@@ -191,6 +191,63 @@ draining && bad "drain left engaged after a mid-drain deferral" || ok "drain lif
 grep -q restart "$TR/log" && bad "restarted on a mid-drain deferral" || ok "no restart on a mid-drain deferral"
 
 # ============================================================================
+hr; echo "STALE BUSY MARKER — an INACTIVE gardener's marker is swept, not honored"; hr
+# The forever-defer bug (2026-07-07): a busy marker left by a gardener whose unit
+# is no longer running (a worker killed mid-job during an outage, or an id above
+# the pool size after a downsize) never ages out and no live process removes it,
+# so honoring it as a live long job DEFERS every deploy forever (gardeners/55/busy,
+# empty, 28h old, unit inactive, pool sized to 20 — blocked two deploys until an
+# operator removed it by hand). The fix: check unit liveness (is-active, stubbed
+# via GARDEN_UNIT_CTL) before counting a marker; an inactive unit's marker is STALE
+# — swept + logged, never counted toward the defer check or the quiesce count. The
+# mock's armed set stands in for the running units, so gardener 55 (NOT armed) is
+# inactive while gardener 1 (armed by setup_fixture) is active.
+
+# (a) A stale marker alone must NOT defer: it is swept and the deploy proceeds.
+setup_fixture
+mkdir -p "$TR/state/gardeners/55"; : > "$TR/state/gardeners/55/busy"
+touch -d "10 minutes ago" "$TR/state/gardeners/55/busy"   # old enough to be a "long job" IF honored
+origin_commit scripts/jobs/worker-lib.sh "echo newstale" "fix: worker-lib stale"
+target="$(origin_head)"
+run_deploy GARDEN_DEPLOY_LONG_JOB_THRESHOLD=300 GARDEN_DEPLOY_DRAIN_TIMEOUT=30 GARDEN_DEPLOY_POLL=1
+[ "$RC" -eq 0 ] && ok "exit 0 (a stale marker did not defer)" || bad "exit $RC: $OUT"
+grep -q "DEFERRED" <<<"$OUT" && bad "DEFERRED on a stale marker (should be swept, not honored)" || ok "not deferred on a stale marker"
+grep -q "swept STALE busy marker: gardener 55" <<<"$OUT" && ok "the stale marker sweep is logged (id + age)" || bad "stale sweep not logged: $OUT"
+[ ! -e "$TR/state/gardeners/55/busy" ] && ok "the stale busy marker was removed" || bad "stale marker lingered"
+[ "$(root_head)" = "$target" ] && ok "root advanced (deploy proceeded past the stale marker)" || bad "root not advanced: $OUT"
+grep -q "fleet quiesced" <<<"$OUT" && ok "quiesce reached (stale marker not counted)" || bad "quiesce not reached: $OUT"
+
+# (b) An ACTIVE gardener's long-job marker is honored exactly as before: it defers
+# and is NOT swept.
+setup_fixture
+mkdir -p "$TR/state/gardeners/1"; : > "$TR/state/gardeners/1/busy"   # gardener 1 IS armed → active
+touch -d "10 minutes ago" "$TR/state/gardeners/1/busy"
+origin_commit scripts/jobs/worker-lib.sh "echo newactive" "fix: worker-lib active"
+before="$(root_head)"
+run_deploy GARDEN_DEPLOY_LONG_JOB_THRESHOLD=300 GARDEN_DEPLOY_DRAIN_TIMEOUT=600 GARDEN_DEPLOY_POLL=1
+[ "$RC" -eq 0 ] && ok "exit 0 on an active long job (deferred, not a failure)" || bad "exit $RC: $OUT"
+grep -q "DEFERRED: gardener 1" <<<"$OUT" && ok "the active gardener still defers (honored as before)" || bad "active gardener not honored: $OUT"
+grep -q "swept STALE" <<<"$OUT" && bad "swept an ACTIVE gardener's marker!" || ok "an active marker is never swept"
+[ -e "$TR/state/gardeners/1/busy" ] && ok "the active gardener's marker is preserved" || bad "active marker was removed"
+[ "$(root_head)" = "$before" ] && ok "root NOT advanced (deferred by the live long job)" || bad "root advanced despite a live long job"
+
+# (c) MIXED — one stale + one live: the live one governs, the stale one is swept.
+setup_fixture
+mkdir -p "$TR/state/gardeners/1"; : > "$TR/state/gardeners/1/busy"    # live long job (armed → active)
+touch -d "10 minutes ago" "$TR/state/gardeners/1/busy"
+mkdir -p "$TR/state/gardeners/55"; : > "$TR/state/gardeners/55/busy"  # stale, even older, NOT armed
+touch -d "20 minutes ago" "$TR/state/gardeners/55/busy"
+origin_commit scripts/jobs/worker-lib.sh "echo newmix" "fix: worker-lib mix"
+before="$(root_head)"
+run_deploy GARDEN_DEPLOY_LONG_JOB_THRESHOLD=300 GARDEN_DEPLOY_DRAIN_TIMEOUT=600 GARDEN_DEPLOY_POLL=1
+[ "$RC" -eq 0 ] && ok "exit 0 (deferred by the LIVE long job, not the stale one)" || bad "exit $RC: $OUT"
+grep -q "DEFERRED: gardener 1" <<<"$OUT" && ok "the LIVE gardener 1 governs the deferral (stale 55 excluded)" || bad "live gardener did not govern: $OUT"
+grep -q "swept STALE busy marker: gardener 55" <<<"$OUT" && ok "the stale gardener 55 marker was swept in the mixed case" || bad "stale marker not swept in mixed case: $OUT"
+[ ! -e "$TR/state/gardeners/55/busy" ] && ok "the stale marker was removed in the mixed case" || bad "stale marker lingered in mixed case"
+[ -e "$TR/state/gardeners/1/busy" ] && ok "the live gardener's marker is preserved in the mixed case" || bad "the live marker was swept!"
+[ "$(root_head)" = "$before" ] && ok "root NOT advanced in the mixed case (live long job defers)" || bad "root advanced despite the live long job"
+
+# ============================================================================
 hr; echo "DIRTY ABORT — a tracked edit in the root aborts without clobbering"; hr
 setup_fixture
 printf 'local WIP\n' >> "$TR/root/scripts/jobs/worker-lib.sh"   # tracked-dirty (invariant violation)

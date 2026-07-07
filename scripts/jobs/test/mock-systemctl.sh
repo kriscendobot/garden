@@ -87,5 +87,12 @@ case "$cmd" in
     # echo "enabled"/exit 0 for an armed unit, else "disabled"/exit 1 (mirrors systemctl)
     u="$(unit_arg "$@")"
     if grep -qxF "$u" "$STATE" 2>/dev/null; then echo enabled; else echo disabled; exit 1; fi ;;
+  is-active)
+    # echo "active"/exit 0 for an armed (live) unit, else "inactive"/exit 3
+    # (mirrors systemctl). The armed set stands in for the running unit set, so a
+    # gardener id NOT in $GARDEN_MOCK_STATE models an INACTIVE unit — a stale busy
+    # marker the deploy's liveness check must sweep rather than honor.
+    u="$(unit_arg "$@")"
+    if grep -qxF "$u" "$STATE" 2>/dev/null; then echo active; else echo inactive; exit 3; fi ;;
   *) : ;;
 esac

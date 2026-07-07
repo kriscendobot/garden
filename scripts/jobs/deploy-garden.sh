@@ -117,10 +117,42 @@ trap 'lift_drain_if_we_engaged' EXIT
 trap 'exit 143' TERM
 trap 'exit 130' INT
 
-# Count this host's mid-job gardeners by their busy markers. Zero = quiesced.
+# Is this host's gardener <id> actually a live systemd unit? A busy marker whose
+# unit is INACTIVE is STALE — a worker killed mid-job during an outage, or an id
+# above the current pool size after a downsize — and no live process will ever
+# clear it. Honoring such a marker would DEFER the deploy forever (the real
+# incident: gardeners/55/busy, an empty file 28h old with garden-gardener@55
+# inactive after the pool was sized to 20, blocked two deploys until an operator
+# removed it by hand). Routed through unit_ctl so GARDEN_UNIT_CTL stubs it in the
+# tests exactly like the rest of the deploy's unit control.
+gardener_unit_active() {  # <id> -> exit 0 if the unit is active, non-zero otherwise
+  unit_ctl is-active "garden-gardener@$1.service" >/dev/null 2>&1
+}
+
+# Sweep a stale busy marker (its gardener unit is inactive) and LOG what was
+# removed (id + marker age) so it stays diagnosable — never a silent skip.
+sweep_stale_busy() {  # <id> <age-seconds>
+  rm -f "$GARDEN_STATE/gardeners/$1/busy" 2>/dev/null || true
+  log "swept STALE busy marker: gardener $1 (unit inactive, marker age ${2}s) — not counted as busy/long-job"
+}
+
+# Count this host's mid-job gardeners by their busy markers. Zero = quiesced. A
+# marker whose gardener unit is inactive is STALE: it is swept (and logged), not
+# counted — otherwise a leftover marker would block quiesce forever.
 busy_count() {
-  local n=0 m
-  for m in "$GARDEN_STATE"/gardeners/*/busy; do [ -e "$m" ] && n=$((n+1)); done
+  local n=0 m idx now mtime age
+  now="$(date +%s)"
+  for m in "$GARDEN_STATE"/gardeners/*/busy; do
+    [ -e "$m" ] || continue
+    idx="${m%/busy}"; idx="${idx##*/}"
+    if ! gardener_unit_active "$idx"; then
+      mtime="$(stat -c %Y "$m" 2>/dev/null || echo "$now")"
+      age=$(( now - mtime ))
+      sweep_stale_busy "$idx" "$age"
+      continue
+    fi
+    n=$((n+1))
+  done
   printf '%s\n' "$n"
 }
 
@@ -135,11 +167,18 @@ oldest_busy() {
   now="$(date +%s)"
   for m in "$GARDEN_STATE"/gardeners/*/busy; do
     [ -e "$m" ] || continue
+    idx="${m%/busy}"; idx="${idx##*/}"
     mtime="$(stat -c %Y "$m" 2>/dev/null || echo "$now")"
     age=$(( now - mtime ))
+    # A STALE marker (inactive unit) never counts toward the long-job age; sweep
+    # it and move on so a leftover marker can never defer the deploy forever.
+    if ! gardener_unit_active "$idx"; then
+      sweep_stale_busy "$idx" "$age"
+      continue
+    fi
     if [ "$age" -ge "$oldest" ]; then
       oldest="$age"
-      idx="${m%/busy}"; oldest_idx="${idx##*/}"
+      oldest_idx="$idx"
     fi
   done
   printf '%s %s\n' "$oldest" "$oldest_idx"
