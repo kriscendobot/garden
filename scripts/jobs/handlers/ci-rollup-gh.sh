@@ -53,7 +53,7 @@ require_tools jq "${GARDEN_GH:-gh}"
 # and surfaces the gh stderr in its own WARN. A DEFINITIVE failure (a 404/401/403/422
 # that re-running cannot fix) is NOT retried — it fails fast into the same `exit 1`
 # below (the watcher skips, never guesses).
-json="$(gh_pr_view_retry "$pr" -R "$repo" --json state,statusCheckRollup 2>/dev/null)" \
+json="$(gh_pr_view_retry "$pr" -R "$repo" --json state,statusCheckRollup)" \
   || { log "gh pr view $repo#$pr failed — cannot read CI state (skip, never guess)"; exit 1; }
 [ -n "$json" ] || { log "empty PR state for $repo#$pr — cannot read CI state"; exit 1; }
 
