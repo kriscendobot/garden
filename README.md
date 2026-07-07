@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T11:43:25Z_
+_As of 2026-07-07T11:45:17Z_
 
 ## Latest
 
-The minion.town OAuth deployment fanned out into parallel phases, and two now sit **parked awaiting credentials only kriskowal can create**: Phase 3 (Google→Cognito federation) needs a Google OAuth 2.0 Web client stored at `minion/google-idp-client`, and Phase 5 (GitHub OIDC thunk) needs a GitHub OAuth App at `minion/github-oauth-app` — both keyed to the Cognito redirect `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`. Neither failed: each parked a go-ahead remainder job (`minion-town-phase3-completion`, `minion-town-phase5-completion`) that finishes the Cognito wiring the moment the secret lands. Notably, Phase 5's thunk is already **live and HTTPS-verified** (`github-idp.minion.town` OIDC discovery + JWKS return 200, `/authorize` 302s to github.com) via an API Gateway HTTP API, since this AWS account blocks public Lambda Function URLs. Elsewhere, a dead-lettered design correction from mhofman on [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) was picked up and closed a real end-to-end gap — the critical-vat promotion directive is now written JS-side from the available chainID (commit 73067903c) with a test, rather than merely logged; one open question (move resolution fully into Go?) is flagged for relay. The XS→Rust (Endor) port advanced through more stage-5 fixes, and a self-heal landed for the mirror-PR-state 422-too-many-files failure. One housekeeping item: @kriscendobot's interaction on garden issue #29 was dropped for not being on the maintainer allowlist — add them with `add-maintainer.sh` and ask them to re-post if it still matters.
+The minion.town OAuth deployment is now fully orchestrated and both federation phases have parked cleanly on maintainer input: Phase 3 (Google → Cognito) waits on a Google OAuth 2.0 Web client, and Phase 5 (GitHub OIDC thunk) waits on a GitHub OAuth App — each stored as a Secrets Manager secret (`minion/google-idp-client`, `minion/github-oauth-app`) in us-west-1, or delivered by replying to the gardener's message. Neither stalled anything: Phase 5's Parts A+B are already live and HTTPS-verified (`github-idp.minion.town` serving the OIDC discovery/JWKS endpoints and a working `/authorize` redirect, fronted by API Gateway since this account blocks public Lambda Function URLs), and both phases parked go-ahead remainder jobs (`minion-town-phase3-completion`, `minion-town-phase5-completion`) that finish the Cognito wiring the moment you provide the credentials and promote them. Separately, a gardener closed a real gap in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): the critical-vat promotion directive was an end-to-end no-op, now wired JS-side via a pinned `CRITICAL_PROMOTION_VAT_IDS` table written before `upgradeSwingset` (open question for mhofman on whether to move resolution fully into Go). The XS→Rust (Endor) port continues through its stage-5 fixes, and a self-heal landed for the mirror-PR-state 422-on-large-PR failure. One access note: @kriscendobot touched the garden's issue inbox on [garden#29](https://github.com/kriskowal/garden/issues/29) but isn't on the maintainer allowlist, so that interaction was dropped — add them and ask for a re-post if you want them driving the garden by issue.
 
 ## Parked for maintainer feedback
 
@@ -251,7 +251,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`deadmail-20260707T114220Z-d9b151`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260707T114220Z-d9b151.md) — Dead-lettered message — pick up its intent
 - [`self-heal-fix-garden-mirror-closer-pr-state-422-too-many-files`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-mirror-closer-pr-state-422-too-many-files.md) — Fix scripts/jobs/handlers/mirror-pr-state-gh.sh so reading a mapped PR's stat...
 - [`xs2rust-endor-stage5-modules`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-modules.md) — Stage-5 fix 4/5: modules — oracle module-goal compile entry + module parse/sc...
 
