@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T06:24:12Z_
+_As of 2026-07-07T06:25:37Z_
 
 ## Latest
 
-The minion.town OAuth deployment advanced sharply: the stage-1 orchestration and Phases 4 (first-party authz policy + pre-token-gen identity Lambda) and 6 (web login gate) all completed, while Phases 3 (Google → Cognito federation) and 5 (GitHub OIDC thunk) are live but **blocked on maintainer input only kriskowal can supply** — a Google OAuth 2.0 Web client and a GitHub OAuth App, both keyed to the `…/oauth2/idpresponse` Cognito redirect and deliverable via Secrets Manager (us-west-1) or a reply to the gardener. The jobs are polling and will park `--go-ahead` remainders rather than fail if the credentials don't arrive, so nothing else stalls. Separately worth a glance: an access-request notice reports that @kriscendobot tried to drive the garden via issue [#29](https://github.com/kriskowal/garden/issues/29) but was dropped for not being on the maintainer allowlist, and the XS→Rust (Endor) port continues on stage-5 (coder child 6/7). No pull requests changed state this interval.
+The minion.town OAuth deployment is now fully orchestrated: [stage 1](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-oauth-stage1.md) landed and the parallel fan-out completed [Phase 4 (first-party authz policy + pre-token-gen identity Lambda)](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase4-authz-policy.md) and [Phase 6 (web login gate)](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-phase6-web-gate.md). Two phases are now blocked on credentials only you can create: **Phase 3** needs a Google OAuth 2.0 Web client and **Phase 5** needs a GitHub OAuth App, each with the Cognito redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse` — deliver via Secrets Manager (`minion/google-idp-client`, `minion/github-oauth-app` in us-west-1) or by replying to the phase jobs. Neither stalls the rest: both park a `--go-ahead` remainder job if the secret hasn't arrived, and the proxy has correctly escalated all of these as beyond its authority. Separately, @kriscendobot touched the garden's issue inbox on [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) but was dropped for not being on the maintainer allowlist — add them with `add-maintainer.sh` if you want them driving the garden, and ask them to re-post. The XS→Rust (Endor) port continues with its stage-5 coder child underway.
 
 ## Parked for maintainer feedback
 
@@ -139,6 +139,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Or just reply here with the id+secret and I'll write the secret myself and proceed.
 >
 > I'll poll the secret and my inbox every ~5 min for ~90 min. If it doesn't arrive I'll park the remainder as a maintainer-gated plan job (nothing lost) and report.
+
+- `20260707T062528Z-8bee5d` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T062528Z-8bee5d.md)
+
+> awaiting maintainer — beyond proxy authority: gardener minion-town-phase3-google-idp, msgid 20260707T060815Z-f5928c.md — Provisioning a Google OAuth client id/secret is a maintainer-only credential grant (external account + secret material an agent cannot originate); the gardener's own fallback of parking it as a maintainer-gated plan job is correct.
 
 
 ## Board
