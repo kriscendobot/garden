@@ -1,14 +1,18 @@
 # Garden bulletin
 
-_As of 2026-07-07T14:19:53Z_
+_As of 2026-07-07T14:49:30Z_
 
 ## Latest
 
-The minion.town OAuth deployment reached its gate: Phases 3 (Google federation into Cognito) and 5 (GitHub OIDC thunk) are both **parked pending maintainer input** — each needs an OAuth credential only kriskowal can create (a Google OAuth 2.0 Web client for `minion/google-idp-client`, and a GitHub OAuth App for `minion/github-oauth-app`, both in Secrets Manager us-west-1, or a reply to the running job). Nothing else stalled: Phase 5's Parts A+B are live and HTTPS-verified (`github-idp.minion.town` OIDC discovery, JWKS, and `/authorize`→github.com all serving; public ingress is an API Gateway HTTP API because the account blocks Lambda Function URLs), and both phases parked go-ahead remainder jobs (`minion-town-phase3-completion`, `minion-town-phase5-completion`) that finish the Cognito wiring the moment the secrets land. A gardener also closed a real end-to-end gap in the agoric-sdk critical-vat-promotion prototype ([kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9)): the resolved vatIDs were only being logged, so the v4 migration was a no-op — commit 73067903c now writes the promotion directive JS-side (keyed on the chainID available at `upgradeSwingset`), with an open question for mhofman on whether to move it fully into Go. The XS→Rust (Endor) port advanced several stage-5 fix2 slices (NamedEvaluation, private member reads, class-tail folds) with only the byte-length divergence pass now in flight; the board is otherwise drained. One housekeeping note: @kriscendobot touched the garden's issue inbox on [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) but isn't on the maintainer allowlist, so it was dropped — add them if you want them driving the garden by issue.
+The **minion.town OAuth deployment** is now orchestrated and its two federation phases have parked cleanly pending credentials only kriskowal can create: Phase 3 (Google→Cognito) awaits a Google OAuth 2.0 Web client, and Phase 5 (GitHub OIDC thunk) awaits a GitHub OAuth App — both to be dropped into Secrets Manager (`minion/google-idp-client` / `minion/github-oauth-app`, us-west-1) or replied into the running jobs. Notably, Phase 5's non-gated work is already live and HTTPS-verified (`github-idp.minion.town` serving OpenID config, JWKS, and an `/authorize` redirect to github.com); only the Cognito IdP wiring waits, parked as go-ahead job `minion-town-phase5-completion` alongside `minion-town-phase3-completion` — promote either after supplying its secret and it finishes. One caveat the maintainer should note: the AWS account blocks public Lambda Function URLs, so public ingress runs through an API Gateway HTTP API instead.
+
+Separately, a dead-lettered garden#29 correction from mhofman was picked up and landed on [kriskowal/agoric-sdk#9](https://github.com/kriskowal/agoric-sdk/pull/9): the earlier vatID-pinning commit only *logged* resolved vatIDs, leaving the v4 critical-vat migration a no-op end-to-end; a follow-up commit now writes the promotion directive JS-side (a pin table keyed on the chainID available at `upgradeSwingset`) with a test — flagged as an open design call if mhofman prefers it moved fully into Go. A stale `garden-29-promote-vat-critical` branch is superseded by #9 and can be deleted.
+
+Also awaiting attention: @kriscendobot hit the issue inbox on garden#29 but isn't on the maintainer allowlist, so that interaction was dropped (re-post needed if it matters). Board work was otherwise quiet — the XS→Rust (Endor) stage-5 fix2 byte-divergence job completed, feeding the still-blocked supervisor stage `s14`.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 4d)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 5d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 7d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 8d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 11d)
@@ -251,16 +255,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-stage5-fix2-bytes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix2-bytes.md) — Stage-5 fix2 3/6: remaining byte-length divergences (Classes B+C — async-gen ...
+### doin (0)
+(none)
 
-### tada (1422)
+### tada (1423)
+- [`xs2rust-endor-stage5-fix2-bytes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix2-bytes.md) — Completion report: stage-5 fix2 3/6 — Class B + Class C byte divergences
 - [`xs2rust-endor-stage5-fix2-private-reads`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix2-private-reads.md) — Job complete: Stage-5 fix2 — private member reads/writes + class-tail folds
 - [`xs2rust-endor-stage5-fix2-named-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix2-named-eval.md) — Completion report: stage-5 fix2 1/6 — NamedEvaluation for destructuring defau...
 - [`improve-inbox-send-pending-supervisor-hold`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-inbox-send-pending-supervisor-hold.md) — Completion report
 - [`port-xs-to-rust-memory-safe-engine-s13`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s13.md) — Completion report — supervisor s13 (XS→Rust Endor port, PR endojs/endo-but-fo...
-- [`deadmail-20260707T122934Z-9f3b6c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260707T122934Z-9f3b6c.md) — Completion report
-- … and 1417 more
+- … and 1418 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
