@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T22:56:16Z_
+_As of 2026-07-07T22:58:04Z_
 
 ## Latest
 
-Two source-text translations landed as fork-only draft PRs, both blocked on a licensing/attribution call before they can leave draft: Miller & Svoboda's "Distributed Capability Confinement" at [endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629) (public-domain dedication may not cover the co-author's contribution or the original figure) and Miller's "Grant Matcher Puzzle" at [endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630) (copyrighted source, assumed no license — needs republish permission or reduction to a cited summary). Both need a maintainer decision.
-
-minion.town Phase 3 (Google → Cognito federation) is now **parked** as `minion-town-phase3-completion` (go-ahead gated) after the Google OAuth Web client never arrived in the poll window; the other phases proceeded in parallel and nothing else stalled. To finish it, create the client with redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`, store it as Secrets Manager secret `minion/google-idp-client` (us-west-1), and promote the parked job.
-
-Separately, mhofman's garden#29 correction on critical-vat promotion was closed out: the pinned-vatID directive is folded into kriscendobot/agoric-sdk#9, and a gardener found and fixed a real gap where the Go switch only logged the resolved vatIDs — the migration was an end-to-end no-op — by wiring a JS-side pin table that writes the promotion directive before `upgradeSwingset`. One open question for mhofman: resolution now lives JS-side rather than in the Go handler he suggested.
+Two documentation translations landed as fork-side draft PRs, both flagged for a licensing call before they leave draft: Mark Miller & Melora Svoboda's "Distributed Capability Confinement" ([endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629), re-exposed as original prose with a redrawn Mermaid figure) and Miller's "The Grant Matcher Puzzle" ([endo-but-for-bots#630](https://github.com/endojs/endo-but-for-bots/pull/630), E→Jessie/CapTP→OCapN). Neither should be published until kriskowal confirms permission to republish the copyrighted/co-authored source material. On minion.town, SIWE (Sign-In with Ethereum) work advanced — an on-chain-authorization design is in progress with two follow-up jobs (`deploy-siwe-thunk`, `wire-siwe-onchain-authz`) now parked awaiting go-ahead — while **Phase 3 Google federation is blocked**: the gardener parked `minion-town-phase3-completion` after the required Google OAuth Web client never arrived; unblocking it needs the client id/secret stored in Secrets Manager (or replied into the inbox). The XS→Rust (Endor) port cleared stage-5 lexer-validation, and a dead-lettered garden#29 correction was closed out with an end-to-end fix for the agoric-sdk critical-vat promotion (previously a no-op), with one design question flagged for mhofman on JS-side vs. Go-side resolution.
 
 ## Parked for maintainer feedback
 
@@ -157,24 +153,25 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`design-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-siwe-onchain-authz-minion-town.md) — Design: Sign-In with Ethereum (SIWE) for minion.town — the thunk + the on-cha...
 - [`project-xs-changes-to-endor-23b4d6b0`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/project-xs-changes-to-endor-23b4d6b0.md) — Synchronization baseline
-- [`xs2rust-endor-stage5-fix5-lexer-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix5-lexer-validation.md) — Stage-5 fix5 3/5 — lexer/parser validation parity: hashbang, string strict es...
 
-### tada (1460)
+### tada (1461)
+- [`xs2rust-endor-stage5-fix5-lexer-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix5-lexer-validation.md) — Completion report — xs2rust-endor-stage5-fix5-lexer-validation
 - [`deadmail-20260707T224512Z-feabd5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260707T224512Z-feabd5.md) — Completion report
 - [`xs-upstream-watch-20260707-225001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs-upstream-watch-20260707-225001.md) — The projection job is live (already claimed into jobs/doin/ by a peer gardene...
 - [`beans-v2-deflation-further-reqs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/beans-v2-deflation-further-reqs.md) — Folded the HackMD spec's further requirements into the beans-v2 deflation des...
 - [`deadmail-issue-comment-4909689946`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4909689946.md) — The job posted successfully and has already been claimed by a designer garden...
-- [`design-endo-thesis-translation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-thesis-translation.md) — Completion report: design-endo-thesis-translation
-- … and 1455 more
+- … and 1456 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
+- [`deploy-siwe-thunk-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-siwe-thunk-minion-town.md) — _normal_ · Deploy the SIWE OIDC thunk (mirroring the GitHub thunk's AWS path)
 - [`endojs-endo-but-for-bots-pr132-report-render-mode`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-report-render-mode.md) — _normal_ · re-port render-mode toggle onto @endo/space-chat InboxRoot (endojs/endo-but-f...
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
+- [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`endojs-endo-but-for-bots-pr96-review-94e37389-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr96-review-94e37389-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #96 (primary: endojs-endo-but-fo...
