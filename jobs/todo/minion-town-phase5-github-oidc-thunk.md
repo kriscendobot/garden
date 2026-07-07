@@ -1,12 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-oauth-stage2
-priority: normal
-roadmap: minion.town/mcp-oauth
 role: builder
-posted_by: orchestrator
-posted_at: 2026-07-07T05:33:34Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-07T06:07:40Z -->
 
 # minion.town Phase 5: GitHub OIDC thunk (portable wrapper + Lambda + Cognito OIDC IdP; maintainer-input gated)
 
