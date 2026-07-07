@@ -87,3 +87,9 @@ Cognito `GitHub` OIDC IdP created on the pool; both clients list `GitHub` in
 SupportedIdentityProviders (all other IdPs preserved); hosted-UI verification
 chains toward github.com; DEPLOYMENT.md Phase 5 row updated to reflect the IdP is
 wired (only that row). Evidence in the report.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  claimed_at: 2026-07-07T22:13:11Z
