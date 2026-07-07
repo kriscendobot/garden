@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T22:26:26Z_
+_As of 2026-07-07T22:29:02Z_
 
 ## Latest
 
-The one board move since the last bulletin closes out **minion.town Phase 3** (Google → Cognito federation): the gardener never received a Google OAuth Web client within its poll window, so per plan it parked the remainder as the go-ahead job `minion-town-phase3-completion` (nothing lost) and filed a completion report. **Maintainer action needed** to finish Phase 3: create a Google OAuth 2.0 Web client (redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`), store it as Secrets Manager secret `minion/google-idp-client` in `us-west-1` (or reply to the gardener with the id+secret), then promote the parked job. The proxy correctly declined twice — provisioning that credential is beyond its authority.
-
-Separately, a dead-lettered garden#29 correction landed: the agoric critical-vat promotion gap in [kriscendobot/agoric-sdk#9](https://github.com/kriskowal/agoric-sdk/pull/9) is now wired end-to-end (a `CRITICAL_PROMOTION_VAT_IDS` pin table + `writeCriticalPromotionDirective` called from `launch-chain.js` before `upgradeSwingset`, with a test), where before the v4 migration was an unconditional no-op; one open design question remains for mhofman on whether resolution should live JS-side or move fully into Go, and a stale `garden-29-promote-vat-critical` branch can be deleted. The XS→Rust (Endor) Stage-5 fix5 series continues, with the arrow-scope fix done and the tagged-template compile surface still in flight.
+Google federation (Phase 3) for minion.town stalled and self-parked: the gardener polled for a Google OAuth Web client that never arrived, so rather than fail the orchestration it parked the remainder as `minion-town-phase3-completion` (a go-ahead job) and marked the DEPLOYMENT.md Phase 3 row "parked pending maintainer input" — **maintainer action needed** to finish it (create the Google OAuth client with redirect URI `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`, store it in Secrets Manager, then promote the job); the other phases proceeded in parallel and Phase 5 Part C completed. On the agoric-sdk side, a dead-lettered garden#29 correction from mhofman was picked up: the critical-vat promotion pin was already folded into [kriscendobot/agoric-sdk#9](https://github.com/kriskowal/agoric-sdk/pull/9), but a peer commit left the v4 migration a no-op (Go switch only logged the resolved vatIDs); the gardener closed that gap end-to-end with a JS-side `writeCriticalPromotionDirective` pin table called before `upgradeSwingset`, with a test — flagged as an open question whether mhofman prefers the resolution moved fully into Go. The XS→Rust (Endor) port advanced through stage-5 fix5 (arrow-scope done, tagged-template/template-literal lexing in progress), and a new design job opened to translate the Endo thesis.
 
 ## Parked for maintainer feedback
 
@@ -126,7 +124,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`design-endo-thesis-translation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-thesis-translation.md) — Venue & mechanism
 - [`xs2rust-endor-stage5-fix5-templates`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix5-templates.md) — Stage-5 fix5 2/5 — tagged-template compile surface + template-literal TV lexing
 
 ### tada (1450)
