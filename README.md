@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T11:45:17Z_
+_As of 2026-07-07T11:48:56Z_
 
 ## Latest
 
-The minion.town OAuth deployment is now fully orchestrated and both federation phases have parked cleanly on maintainer input: Phase 3 (Google → Cognito) waits on a Google OAuth 2.0 Web client, and Phase 5 (GitHub OIDC thunk) waits on a GitHub OAuth App — each stored as a Secrets Manager secret (`minion/google-idp-client`, `minion/github-oauth-app`) in us-west-1, or delivered by replying to the gardener's message. Neither stalled anything: Phase 5's Parts A+B are already live and HTTPS-verified (`github-idp.minion.town` serving the OIDC discovery/JWKS endpoints and a working `/authorize` redirect, fronted by API Gateway since this account blocks public Lambda Function URLs), and both phases parked go-ahead remainder jobs (`minion-town-phase3-completion`, `minion-town-phase5-completion`) that finish the Cognito wiring the moment you provide the credentials and promote them. Separately, a gardener closed a real gap in [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9): the critical-vat promotion directive was an end-to-end no-op, now wired JS-side via a pinned `CRITICAL_PROMOTION_VAT_IDS` table written before `upgradeSwingset` (open question for mhofman on whether to move resolution fully into Go). The XS→Rust (Endor) port continues through its stage-5 fixes, and a self-heal landed for the mirror-PR-state 422-on-large-PR failure. One access note: @kriscendobot touched the garden's issue inbox on [garden#29](https://github.com/kriskowal/garden/issues/29) but isn't on the maintainer allowlist, so that interaction was dropped — add them and ask for a re-post if you want them driving the garden by issue.
+The minion.town OAuth deployment reached its maintainer-gated boundary: both **Phase 3 (Google→Cognito federation)** and **Phase 5 (GitHub OIDC thunk)** ran their non-gated work in parallel and then parked, each awaiting one thing only kriskowal can create. Phase 3 needs a Google OAuth 2.0 Web client, and its remainder is now parked as the go-ahead job `minion-town-phase3-completion`; Phase 5's GitHub-side thunk is already live and verified over HTTPS (`github-idp.minion.town` serving OpenID config, JWKS, and an `/authorize` → github.com redirect via an API Gateway HTTP API, since this AWS account blocks public Lambda Function URLs), with only the Cognito IdP wiring parked as `minion-town-phase5-completion`. For each, store the client id/secret in Secrets Manager (`minion/google-idp-client` and `minion/github-oauth-app`, us-west-1) or reply to the routed message, then promote the completion job — nothing was lost by the wait. Separately, a dead-lettered garden#29 correction from mhofman was picked up and landed: the vatID-promotion prototype on the agoric-sdk fork is now wired end-to-end (a chain-keyed pin table plus a `writeCriticalPromotionDirective` helper closing a gap where the Go switch only logged resolved vatIDs), with an open design question flagged about whether resolution should live JS- or Go-side. Also worth noting: @kriscendobot tried to drive the garden via issue #29 but is not on the maintainer allowlist, so the interaction was dropped and would need `add-maintainer.sh` plus a re-post to take effect.
 
 ## Parked for maintainer feedback
 
@@ -251,18 +251,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`deadmail-20260707T114220Z-d9b151`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260707T114220Z-d9b151.md) — Dead-lettered message — pick up its intent
+### doin (2)
 - [`self-heal-fix-garden-mirror-closer-pr-state-422-too-many-files`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-mirror-closer-pr-state-422-too-many-files.md) — Fix scripts/jobs/handlers/mirror-pr-state-gh.sh so reading a mapped PR's stat...
 - [`xs2rust-endor-stage5-modules`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-modules.md) — Stage-5 fix 4/5: modules — oracle module-goal compile entry + module parse/sc...
 
-### tada (1411)
+### tada (1412)
+- [`deadmail-20260707T114220Z-d9b151`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260707T114220Z-d9b151.md) — What this job was
 - [`xs2rust-endor-stage5-fix-class-tail`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix-class-tail.md) — Completion report
 - [`deadmail-20260707T110906Z-1c62b9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260707T110906Z-1c62b9.md) — Completion report — dead-lettered message pickup (deadmail-20260707T110906Z-1...
 - [`xs2rust-endor-stage5-fix-rejects`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix-rejects.md) — Completion report
 - [`self-heal-fix-garden-mirror-closer-pulls-422-large-pr`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-mirror-closer-pulls-422-large-pr.md) — Completion report
-- [`deadmail-20260707T104253Z-8c2c23`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260707T104253Z-8c2c23.md) — I now have the complete picture. Let me record my analysis.
-- … and 1406 more
+- … and 1407 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
