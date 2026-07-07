@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T00:13:41Z_
+_As of 2026-07-07T00:17:19Z_
 
 ## Latest
 
-Transcript-journal capture is now built and landed on `main2` (commits a71081d81 and 8e97b86c7, 20/20 tests green) but ships **inert** — it spools locally and pushes nowhere until kriskowal creates a private transcripts repo, grants the bot push access, and records authorization; the arming decision and three open questions (private repo as plan of record, liaison sessions in scope, idle threshold) await a call. On the product side, the M3 flagship `daemon-agent-tools` stack is fully built and mergeable-but-Draft: phases 1–3 [#614](https://github.com/endojs/endo-but-for-bots/pull/614), [#615](https://github.com/endojs/endo-but-for-bots/pull/615), [#616](https://github.com/endojs/endo-but-for-bots/pull/616) are CI-green and phase 4 [#618](https://github.com/endojs/endo-but-for-bots/pull/618) just cleared its last un-draft blocker, so the milestone's critical path is now maintainer review + un-draft + merge rather than more building. The gauntlet on confined-HttpClient [#566](https://github.com/endojs/endo-but-for-bots/pull/566) passed and is un-drafted into the review queue (one deferred design call: whether to add a per-request timeout backstop against a hostile allowlisted server). Two items are held for steering: Gateway Feature 8 was **not** opened as a PR because it's a superset of existing draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577) and would collide — the gardener recommends re-scoping to build the socket handoff on top of #577; and a data-corruption-class reaper-requeue bug (a job requeued ~every 18 min against a 40-min handler, twice producing two live writers in one worktree) needs a deliberate garden-infra fix and deploy. Separately, the xs2rust→Endor stage-4 orchestration halted on a failed `stage4-modules` child (4/8 done), while stage-5 work continues, and review of [#612](https://github.com/endojs/endo-but-for-bots/pull/612) completed.
+The garden's [transcript-journal-capture](https://github.com/endojs/endo-but-for-bots) system is built and landed on main2 (commits a71081d81, 8e97b86c7, 20/20 tests green) but sits **inert** pending your arming decision — it needs a private repo, bot push access, and `set-transcripts-remote.sh` before anything spools upstream. Separately, the fable review of the garden's own scripts turned up a **data-corruption-class bug** in the reaper requeue path (two live writers in one worktree, twice), flagged as a main2 fix-and-deploy that only you can prioritize. On the bot-repo front, the M3 flagship [daemon-agent-tools](https://github.com/endojs/endo-but-for-bots/pull/614) stack ([#614](https://github.com/endojs/endo-but-for-bots/pull/614)→[#615](https://github.com/endojs/endo-but-for-bots/pull/615)→[#616](https://github.com/endojs/endo-but-for-bots/pull/616)→[#618](https://github.com/endojs/endo-but-for-bots/pull/618)) is fully built and CI-green but still Draft — the milestone's critical path is now landing this backlog, not more building. The confined-HttpClient PR [#566](https://github.com/endojs/endo-but-for-bots/pull/566) cleared its gauntlet and is un-drafted into your review queue (one deferred question: adding a per-request timeout backstop against a hostile streaming server). Two items need a steer: the Gateway Feature 8 build was **held** rather than opening a competing PR because it's a superset of open draft [#577](https://github.com/endojs/endo-but-for-bots/pull/577) (recommendation: rescope onto #577's path scheme), and the xs2rust-endor stage-4 orchestration **halted** on a failing child (`xs2rust-endor-stage4-modules`, 4/8 done).
 
 ## Parked for maintainer feedback
 
@@ -168,19 +168,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`design-google-sheet-pubsub`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-google-sheet-pubsub.md) — design: Google Sheet pubsub (Drive files.watch push notification)
 - [`design-refine-endoclaw-oauth-foundation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-refine-endoclaw-oauth-foundation.md) — design: refine endoclaw-oauth as a suitable connector foundation
-- [`issue-kriskowal-garden-30`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-30.md) — Issue from kriskowal on kriskowal/garden #30
 - [`xs2rust-endor-stage5-coder-expr`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-coder-expr.md) — Stage-5 child 5/7: coder — emitter framework + expression/simple-statement by...
 
-### tada (1374)
+### tada (1375)
+- [`issue-kriskowal-garden-30`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-30.md) — Completion report
 - [`endojs-endo-but-for-bots-pr612-review-6da32098`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr612-review-6da32098.md) — Completion report
 - [`xs2rust-endor-stage5-scoper`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-scoper.md) — Completion report
 - [`issue-kriskowal-garden-9-moddable-cherrypick-verify`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-9-moddable-cherrypick-verify.md) — Completion report
 - [`supervise-transcript-capture`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/supervise-transcript-capture.md) — Everything is done and verified. Writing the completion report.
-- [`build-liaison-broadcast-reader`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-liaison-broadcast-reader.md) — Completion report
-- … and 1369 more
+- … and 1370 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
