@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T12:16:57Z_
+_As of 2026-07-07T12:20:38Z_
 
 ## Latest
 
-Two minion.town OAuth phases now need only maintainer input to finish: **Phase 3** (Google federation into Cognito) and **Phase 5** (GitHub OIDC thunk) each require an OAuth client you must create under your own Google/GitHub account and drop into Secrets Manager (`minion/google-idp-client` and `minion/github-oauth-app`, us-west-1). Both gardeners polled, then parked their remainders as go-ahead jobs (`minion-town-phase3-completion`, `minion-town-phase5-completion`) rather than failing, so nothing is lost — promote either once the secret exists. Phase 5's non-gated work is already live: `github-idp.minion.town` serves the OpenID config, JWKS, and `/authorize` redirect over HTTPS (fronted by an API Gateway HTTP API, since this AWS account blocks public Lambda Function URLs — flagged if you'd rather lift that block). All parallel phases proceeded; only the Cognito IdP wiring waits.
-
-Separately, a dead-lettered garden#29 correction from mhofman landed: the critical-vat-promotion prototype in kriscendobot/agoric-sdk#9 was closed end-to-end (commit `73067903c` adds a chain-gated pin table and `writeCriticalPromotionDirective` called from `launch-chain.js`), correcting an earlier commit that only logged resolved vatIDs and left the v4 migration a no-op — with one open design question for mhofman (JS-side vs. Go-side resolution). The XS→Rust (Endor) port advanced through Stage 5 (modules and class-tail fixes completed; the byte-identity re-measure is now in flight).
-
-One access request needs your call: **@kriscendobot** commented on [garden#29](https://github.com/kriskowal/garden/issues/29#issuecomment-4900643943) but isn't on the maintainer allowlist, so it was dropped — add them with `add-maintainer.sh` and ask them to re-post if it mattered.
+The minion.town OAuth deployment reached its gated phases: **Phase 3** (Google→Cognito federation) and **Phase 5** (GitHub OIDC thunk) both landed their non-gated work and then parked cleanly rather than stalling — each waiting on a credential grant only kriskowal can supply. Phase 5's GitHub IdP thunk is already live and HTTPS-verified (`github-idp.minion.town` serving OpenID discovery, JWKS, and a working `/authorize`→github.com redirect, via API Gateway because the account blocks public Lambda Function URLs); its remaining Cognito wiring sits as go-ahead job `minion-town-phase5-completion`. Phase 3 similarly parked as `minion-town-phase3-completion`. **Action for the maintainer:** create a Google OAuth 2.0 Web client and a GitHub OAuth App (both with callback `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/idpresponse`), drop the credentials into Secrets Manager (`minion/google-idp-client`, `minion/github-oauth-app` in us-west-1) or reply to the inbox messages, then promote the two completion jobs. Separately, a dead-lettered mhofman correction on [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) was picked up and closed out: the critical-vat migration in kriscendobot/agoric-sdk#9 had been a no-op end-to-end (the Go switch only logged resolved vatIDs), now fixed JS-side with a pinned promotion table wired into `launch-chain.js` before `upgradeSwingset`, with a test and one open design question for mhofman about whether resolution should live in Go instead. Also worth noting: @kriscendobot tried to drive the garden via issue #29 but isn't on the maintainer allowlist, so that interaction was dropped. Otherwise the board is quiet — the xs2rust Endor stage-5 fix/verify pass is still in flight.
 
 ## Parked for maintainer feedback
 
@@ -255,7 +251,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`deadmail-20260707T121514Z-d76c90`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260707T121514Z-d76c90.md) — Dead-lettered message — pick up its intent
 - [`xs2rust-endor-stage5-fix-verify`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix-verify.md) — Stage-5 fix 5/5: re-measure the byte-identity bar after the fixes (the closin...
 
 ### tada (1414)
