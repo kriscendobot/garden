@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-07T03:50:59Z_
+_As of 2026-07-07T03:52:54Z_
 
 ## Latest
 
@@ -174,8 +174,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr600-c9c5b892`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr600-c9c5b892.md) — attention directive on endojs/endo-but-for-bots PR #600
+- [`improve-ci-rollup-surface-gh-stderr-reason`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-ci-rollup-surface-gh-stderr-reason.md) — scripts/jobs/handlers/ci-rollup-gh.sh
 - [`xs2rust-endor-stage5-coder-decl`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-coder-decl.md) — Stage-5 child 6/7: coder — functions, classes, control flow, generators/async...
 
 ### tada (1381)
