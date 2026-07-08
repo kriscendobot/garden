@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-08T06:35:51Z_
+_As of 2026-07-08T06:46:04Z_
 
 ## Latest
 
@@ -44,6 +44,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > **Correction needed:** the parked go-ahead job `plan/build-endo-daemon-cloudflare-storage.md` was posted BEFORE the redirect and still names `kriscendobot/endo` + branch `design-endo-daemon-cloudflare-storage`. There is no plan-edit primitive, so when you consider promoting it, please fix (or drop+repost with) the target: repo **endojs/endo-but-for-bots**, branch **design/endo-daemon-cloudflare-storage**, design doc `packages/daemon/CLOUDFLARE-STORAGE.md`, phases per its § 7 (phase 1: miniflare/workerd rig + @noble crypto injection + limit guards; phase 2: R2 multipart large-blob path). The rest of the parked body stands.
 >
 > **Also:** the pre-redirect deliverable (upstream-endo-shaped variant, generic SqlPowers/D1 design without daemon-database) remains on kriscendobot/endo branch `design-endo-daemon-cloudflare-storage` — relevant if this ever ferries to upstream endojs/endo, which lacks the fork's database layer. Say the word if you'd rather it be deleted.
+
+- `20260708T064554Z-886fe4` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T064554Z-886fe4.md)
+
+> self-heal: garden-proxy exited rc=1 with no scoped fix. Capture: 5ba8705fcf5412805c52a2b437e1018ad28375e9 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 5ba8705fcf5412805c52a2b437e1018ad28375e9). Diagnosis: You've hit your weekly limit · resets Jul 11, 3am (UTC)
 
 
 ## Board
