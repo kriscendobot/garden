@@ -85,11 +85,4 @@ maintainer; do NOT comment on the PR. State measured before/after numbers per sl
 
 <!-- garden-deadline-overrun: 1 -->
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  claimed_at: 2026-07-07T23:53:08Z
+<!-- garden-reaped: 2 -->
