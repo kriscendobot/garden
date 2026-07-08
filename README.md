@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T05:52:45Z_
+_As of 2026-07-08T06:08:36Z_
 
 ## Latest
 
-Two design jobs went into flight — an [AWS storage platform](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-daemon-aws-storage.md) and a [CloudFlare storage platform](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-daemon-cloudflare-storage.md) for the Endo daemon, each a peer of the node/web platforms — leaving the todo board empty. On the completion side, the `endoclaw-network-fetch` builder **stopped rather than build**: it found that [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (a DRAFT confined `HttpClient`/`HttpClientControl` cap by 0xpatrickbot, updated today) already implements the cited design in full, so it opened no competing PR and flagged the job as already-satisfied — the maintainer message recommends retiring the job and instead shepherding #566 to green, noting it bases on `llm` rather than `master`. Two weaves also landed: [endo-but-for-bots#617](https://github.com/endojs/endo-but-for-bots/pull/617) is now mergeable (UNSTABLE = clean merge, CI still running) and [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) completed, alongside a Docker self-host build and a fetch-source gzip-decode improvement.
+The [deploy-stripe-credits-minion-town](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deploy-stripe-credits-minion-town.md) job landed, the only board transition this cycle; two Endo-daemon storage-platform design jobs (AWS and CloudFlare peers) remain in flight. Worth the maintainer's attention: the `endoclaw-network-fetch` builder **stopped rather than build**, reporting that its confined `HttpClient`/`HttpClientControl` capability is already fully implemented by [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (DRAFT, MERGEABLE) — it declined to open a competing PR and recommends retiring the job in favor of a shepherd/panel to land #566, flagging that #566 bases on `llm` rather than `master`.
 
 ## Parked for maintainer feedback
 
@@ -40,18 +40,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`deploy-stripe-credits-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deploy-stripe-credits-minion-town.md) — Deploy Stripe credit purchases on minion.town (AWS/box binding, TEST mode)
+### doin (2)
 - [`design-endo-daemon-aws-storage`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-daemon-aws-storage.md) — Design: an AWS storage platform for the Endo daemon (a peer of node / web / e...
 - [`design-endo-daemon-cloudflare-storage`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-daemon-cloudflare-storage.md) — Design: a CloudFlare storage platform for the Endo daemon (a peer of node / w...
 
-### tada (1511)
+### tada (1512)
+- [`deploy-stripe-credits-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deploy-stripe-credits-minion-town.md) — Completion report
 - [`endojs-endo-but-for-bots-daemon-docker-selfhost-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-daemon-docker-selfhost-build.md) — Completion report
 - [`endojs-endo-but-for-bots-endoclaw-network-fetch-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-endoclaw-network-fetch-build.md) — Completion report
 - [`endojs-endo-but-for-bots-pr617-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr617-weave.md) — PR #617 is now **MERGEABLE** (mergeStateStatus UNSTABLE = merge is clean, CI ...
 - [`endojs-endo-but-for-bots-pr609-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr609-weave.md) — Completion report
-- [`improve-fetch-source-gzip-decode`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-fetch-source-gzip-decode.md) — Completion report
-- … and 1506 more
+- … and 1507 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
