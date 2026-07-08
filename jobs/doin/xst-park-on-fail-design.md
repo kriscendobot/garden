@@ -55,3 +55,9 @@ A design document (in the fork's design/RFC style, or as a garden design note un
 
 Report the path/URL of the design doc and a crisp summary of the recommended
 approach and the follow-on build job it implies.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 20
+  claimed_at: 2026-07-08T01:01:27Z
