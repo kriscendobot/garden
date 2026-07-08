@@ -35,6 +35,17 @@ The practical rule: on a topic-matching PR, erights' review is read as technical
 
 The pattern is reusable. Future per-project READMEs may name their own non-default-authority actors and topic-scopes; the section's shape (named actor, topic list, practical rule for in-scope vs. out-of-scope input) is intended to carry over. See `roles/COMMON.md` § Authority structure of upstream projects for the cross-project framing.
 
+### Content-reuse permission (erights' public texts)
+
+Distinct from the two authority axes above (technical review weight, and who may authorize a bot action), erights granted the garden a standing **content-reuse license** for his own writings. Source: [endojs/endo-but-for-bots#632](https://github.com/endojs/endo-but-for-bots/issues/632) (erights, 2026-07-08).
+
+- **Grant.** `@kriscendobot` (and the garden fleet behind it) may reuse and adapt or derive-from any of erights' public texts.
+- **Scope, as erights enumerated it** (a floor, not a ceiling): his thesis; all of erights.org not explicitly attributed to someone else; all his published papers; all his public postings on GitHub.
+- **The one condition.** Keep making clear that an adaptation is *derived from* the original but *is not* the original. erights noted the garden has been doing this well and asked it to continue; the discipline is the whole basis of the grant, so it is not optional.
+- **Extension path.** If a case arises where even this permission is awkward, ask erights on the source issue (or a topic-matching endo thread) and he may extend it further. Do not assume a wider grant than the text above.
+
+Practical effect: the library actively ingests erights.org and the Miller papers into [`../../library/sources/`](../../library/sources/) (the `erights--*`, `web--miller-*`, and `papers--miller-*` pages). Any garden-authored prose (a design, a concept page, a summary) that adapts those sources must carry a plain derived-from-not-the-original attribution to the original text. This license governs *reuse of the texts*; it confers no new authorization to act on any upstream repo (the credential boundary in `roles/COMMON.md` § External-repo etiquette is unchanged).
+
 ## Roadmap
 
 The authoritative roadmap is `designs/README.md` on the `endojs/endo-but-for-bots@llm` branch (the shared endo-project milestone ledger, M1–M11). Groom reconciliation snapshots — which reconcile the ledger with recent progress, sharpen open questions, and re-project the near-term sequence without editing the ledger — land here:
