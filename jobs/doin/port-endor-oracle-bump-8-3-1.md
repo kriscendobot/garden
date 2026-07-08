@@ -63,3 +63,9 @@ protocol) are not yet reached by the port's staging; those sub-items are
 naturally deferred to the stage that ports them, but must be measured against
 the 8.3.1 oracle from that point on. Update the README delta-tracking table as
 each item flips from follow-up to mirrored.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 16
+  claimed_at: 2026-07-08T01:54:27Z
