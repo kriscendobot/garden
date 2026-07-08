@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T05:15:37Z_
+_As of 2026-07-08T05:16:39Z_
 
 ## Latest
 
-The minion.town verified-email hardening shipped and deployed live: the GitHub IdP thunk now refuses accounts without a GitHub-verified email, with the gardener confirming kriskowal@kriskowal.com is a verified primary so the enforcement won't lock you out — the one optional follow-up is a fresh sign-in at https://minion.town/ to confirm. Two items now sit in your inbox needing a call: the same report recommends a CloudWatch billing alarm on Cognito MAU and DynamoDB spend now that signup is open, but it's stalled pending your thresholds and a notification target. On the board, [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) was woven and a fetch-source gzip-decode improvement completed, but overall board movement was quiet this interval. The minion.town buildout stays parked awaiting go-ahead — the open-signup gate flip, account store, SIWE thunk, and Stripe credits are all queued on your authorization.
+No board transitions landed since the last bulletin — the fleet is idle with an empty todo/doin queue. The item most needing your attention is a new maintainer message from the liaison: now that minion.town signup is open, the `open-signup-live-minion-town` report recommends arming a CloudWatch billing alarm on Cognito MAU and DynamoDB spend, but a gardener can't set it until you confirm thresholds and a notification target. Relatedly, the whole minion.town monetization/auth track is stalled awaiting your go-ahead — the Phase A account store, Phase B open-signup gate flip, Phase C styled privilege surfaces, plus the SIWE OIDC thunk, Stripe credits, and on-chain authz jobs are all parked for authorization. On the review side the oldest parked PRs continue to age, notably [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (47d) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) (47d), while [endo#3319](https://github.com/endojs/endo/pull/3319) (ESLint 10+ support) is the freshest at 5h.
 
 ## Parked for maintainer feedback
 
@@ -21,38 +21,6 @@ The minion.town verified-email hardening shipped and deployed live: the GitHub I
 
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260707T233536Z-0c989d` — from gardener:minion-town-auth-verified-email-reconcile, reply_to `minion-town-auth-verified-email-reconcile` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T233536Z-0c989d.md)
-
-> minion.town verified-email hardening — shipped, with the safety finding you asked for.
->
-> MAINTAINER-EMAIL VERIFICATION FINDING (the lock-out check):
-> kriskowal@kriskowal.com is a VERIFIED PRIMARY email on your GitHub account, so the
-> new thunk enforcement keeps you in — safe to ship, and shipped. Basis: your
-> federated Cognito user (GitHub_60294) already carries email=kriskowal@kriskowal.com,
-> which the OLD thunk only ever produced by selecting GitHub's *primary* email; and
-> GitHub requires a primary email to be verified. The new thunk selects the same
-> verified primary, so nothing changes for you.
->
-> WHAT SHIPPED (pushed to kriscendobot/minion.town main @ 45e65e6, deployed live):
-> 1. Thunk now asserts a GitHub-verified email only and REFUSES accounts with no
->    verified email (fails /userinfo) — email_verified is always true by
->    construction. Deployed to Lambda minion-github-idp-thunk (verified the enforce
->    code is in the live bundle).
-> 2. Drift reconciled into the repo: kriskowal@kriskowal.com moved into
->    config/policy.json (full admin) → allowed-emails.txt regenerated; the
->    insecure_oidc_allow_unverified_email flag folded into the committed
->    oauth2-proxy.cfg with rationale. Box now byte-matches the repo (no drift).
-> 3. Cognito email_verified=email_verified mapping documented as a no-op for
->    federated users and reconciled into the committed GitHub-IdP script.
->
-> VERIFIED LIVE: https://minion.town/ → 302 to sign-in (not 403/500); /mcp no-token
-> → 401 with correct WWW-Authenticate; PRM 200; thunk discovery 200.
->
-> ONE OPTIONAL CONFIRMATION: next time convenient, do a fresh GitHub sign-in at
-> https://minion.town/ to confirm your login still lands authenticated. If anything
-> is off, breakglass@minion.town (native admin, unaffected by thunk enforcement)
-> remains your fallback either way.
 
 - `20260708T014900Z-a4afa2` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T014900Z-a4afa2.md)
 
