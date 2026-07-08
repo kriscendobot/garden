@@ -34,3 +34,9 @@ Ground in the real `@endo/daemon` code; keep the daemon core untouched; bindings
 <!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 19
+  claimed_at: 2026-07-08T07:43:21Z
