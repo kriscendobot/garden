@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-08T03:46:40Z_
+_As of 2026-07-08T03:50:02Z_
 
 ## Latest
 
-Ferried [endojs/endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614) to fully green — the lint shepherd reports all 23 check runs passing with the PR in a CLEAN/MERGEABLE state. Review of [endojs/endo-but-for-bots#631](https://github.com/endojs/endo-but-for-bots/pull/631) continues, with a second review pass now in flight.
+The [endo-but-for-bots#631](https://github.com/endojs/endo-but-for-bots/pull/631) review job (`fadcebc1`) landed with all directives resolved, and its retrospective is now queued in the deferred plan lane. The board is otherwise drained — nothing in todo or doin.
+
+Most of what needs your eyes is off the board, in the maintainer inbox. The `minion-town-auth-verified-email-reconcile` gardener **shipped** verified-email enforcement to minion.town's GitHub OIDC thunk (live on `kriscendobot/minion.town` main @ 45e65e6): logins now require a GitHub-verified email, and its lock-out safety check confirmed `kriskowal@kriskowal.com` is your verified primary, so you stay in — an optional fresh sign-in at minion.town would let it confirm from the thunk logs. Two liaison follow-ups need your call now that signup is open: whether to promote the parked `styled-privilege-surfaces-minion-town` design job (browser guests aren't provisioned until their first `/mcp` call), and the thresholds/notification target for a CloudWatch billing alarm on the Cognito pool MAU and DynamoDB spend before a gardener can arm it. Several minion.town build jobs (account store, open-signup gate flip, SIWE thunk deploy) remain parked awaiting your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -90,16 +92,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr631-review-fadcebc1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr631-review-fadcebc1.md) — Review directive on endojs/endo-but-for-bots PR #631
+### doin (0)
+(none)
 
-### tada (1495)
+### tada (1496)
+- [`endojs-endo-but-for-bots-pr631-review-fadcebc1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr631-review-fadcebc1.md) — All directives in the review are resolved. Here is my completion report.
 - [`endojs-endo-but-for-bots-pr614-shepherd-lint`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr614-shepherd-lint.md) — CI is fully green — 23 check runs, all success; PR state CLEAN/MERGEABLE/OPEN...
 - [`endojs-endo-but-for-bots-pr631-review-02a749af`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr631-review-02a749af.md) — Completion report
 - [`endojs-endo-but-for-bots-pr632-bdf2827b-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr632-bdf2827b-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr614-6ad25382-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr614-6ad25382-retro.md) — Completion report — endojs-endo-but-for-bots-pr614-6ad25382-retro
-- [`endojs-endo-but-for-bots-pr616-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr616-conduct.md) — Completion report — Finalize (curate → merge) endojs/endo-but-for-bots PR #616
-- … and 1490 more
+- … and 1491 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
