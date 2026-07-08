@@ -1,14 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-08T06:11:41Z_
+_As of 2026-07-08T06:30:37Z_
 
 ## Latest
 
-The garden's autonomous [endoclaw-network-fetch](https://github.com/endojs/endo-but-for-bots) builder self-halted rather than duplicate work: it found that [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (`feat(exo-http-client): add confined HttpClient`, DRAFT, by 0xpatrickbot) already implements the full confined `HttpClient`/`HttpClientControl` design — every acceptance criterion covered, across new `exo-http-client` and `http-confine` packages. The gardener declined to open a competing PR and instead flagged it to kriskowal, recommending the job be retired and a shepherd/panel be posted to drive #566 to green; note #566 bases on `llm` rather than `master`, worth a reviewer's eye against the base-branch norm. On the weaving front, [endo-but-for-bots#617](https://github.com/endojs/endo-but-for-bots/pull/617) is now MERGEABLE (CI clean) and [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) completed its weave. Two Endo-daemon storage-platform designs (AWS and Cloudflare) are in flight, and the Cloudflare build was newly parked on the plan queue awaiting go-ahead.
+Two Endo-daemon storage designs landed and immediately spawned build follow-ups. The CloudFlare storage design completed on `endojs/endo-but-for-bots` (branch `design/endo-daemon-cloudflare-storage`), delivering a design doc plus a DO-SQLite/R2 scaffold with 6 passing tests — but the parked go-ahead job still names the pre-redirect target (`kriscendobot/endo`), so its repo/branch/doc need fixing before promotion. The AWS storage design is still in flight, and two new build jobs (`build-endo-daemon-aws-storage-wiring`, `deploy-endo-daemon-aws-storage-reference`) are parked awaiting authorization.
+
+The biggest thing to notice: the `endoclaw-network-fetch` builder **stopped rather than build** — a comprehensive draft, [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (confined `HttpClient`/`HttpClientControl` by 0xpatrickbot), already covers every acceptance criterion, so the gardener recommends retiring the job and instead shepherding #566 to green; note it bases on `llm`, not `master`, which a reviewer should eye. On the weave front, [endo-but-for-bots#617](https://github.com/endojs/endo-but-for-bots/pull/617) is now mergeable and [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) also completed its rebase.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 6h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 7h)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 5d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 8d)
@@ -35,6 +37,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Recommendation: retire this job as already-satisfied by #566, and instead post a **shepherd/panel** job to drive #566 to green + out of draft if you want it landed. Say the word and I'll (as a fresh job) do that instead. Note #566 bases on `llm` not `master` — worth a reviewer eye given the base-branch norm.
 
+- `20260708T062911Z-80c4e5` — from gardener:design-endo-daemon-cloudflare-storage, reply_to `design-endo-daemon-cloudflare-storage` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T062911Z-80c4e5.md)
+
+> CloudFlare storage design job: done, with one board correction to apply at promote time.
+>
+> **Delivered** (per the mid-job redirect to endojs/endo-but-for-bots): branch `design/endo-daemon-cloudflare-storage` on endojs/endo-but-for-bots — design doc `packages/daemon/CLOUDFLARE-STORAGE.md` + scaffold (`src/better-sqlite3-do.js` DO-SQLite backend for daemon-database.js, `src/daemon-cloudflare-powers.js` R2 FilePowers + crypto + assembly) + 6 passing AVA tests over mock bindings. daemon-database.js / pet-store.js / daemon-persistence-powers.js run UNCHANGED.
+>
+> **Correction needed:** the parked go-ahead job `plan/build-endo-daemon-cloudflare-storage.md` was posted BEFORE the redirect and still names `kriscendobot/endo` + branch `design-endo-daemon-cloudflare-storage`. There is no plan-edit primitive, so when you consider promoting it, please fix (or drop+repost with) the target: repo **endojs/endo-but-for-bots**, branch **design/endo-daemon-cloudflare-storage**, design doc `packages/daemon/CLOUDFLARE-STORAGE.md`, phases per its § 7 (phase 1: miniflare/workerd rig + @noble crypto injection + limit guards; phase 2: R2 multipart large-blob path). The rest of the parked body stands.
+>
+> **Also:** the pre-redirect deliverable (upstream-endo-shaped variant, generic SqlPowers/D1 design without daemon-database) remains on kriscendobot/endo branch `design-endo-daemon-cloudflare-storage` — relevant if this ever ferries to upstream endojs/endo, which lacks the fork's database layer. Say the word if you'd rather it be deleted.
+
 
 ## Board
 ### todo (0)
@@ -55,7 +67,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
 - [`build-account-store-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-account-store-minion-town.md) — _normal_ · Build: account store + auto-provisioning for minion.town (Phase A — ships dar...
+- [`build-endo-daemon-aws-storage-wiring`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-daemon-aws-storage-wiring.md) — _normal_ · Build: wire the AWS storage platform into a daemon flavour (phases 2-3 of des...
 - [`build-endo-daemon-cloudflare-storage`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-daemon-cloudflare-storage.md) — _normal_ · Build: Endo daemon Cloudflare storage platform (phases 1-2 of the design)
+- [`deploy-endo-daemon-aws-storage-reference`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-endo-daemon-aws-storage-reference.md) — _normal_ · Build: reference deployment + operations for the daemon AWS storage platform ...
 - [`deploy-siwe-thunk-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-siwe-thunk-minion-town.md) — _normal_ · Deploy the SIWE OIDC thunk (mirroring the GitHub thunk's AWS path)
 - [`endojs-endo-but-for-bots-pr132-report-render-mode`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-report-render-mode.md) — _normal_ · re-port render-mode toggle onto @endo/space-chat InboxRoot (endojs/endo-but-f...
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
