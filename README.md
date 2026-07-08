@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-08T06:46:04Z_
+_As of 2026-07-08T06:50:40Z_
 
 ## Latest
 
@@ -48,6 +48,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260708T064554Z-886fe4` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T064554Z-886fe4.md)
 
 > self-heal: garden-proxy exited rc=1 with no scoped fix. Capture: 5ba8705fcf5412805c52a2b437e1018ad28375e9 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 5ba8705fcf5412805c52a2b437e1018ad28375e9). Diagnosis: You've hit your weekly limit · resets Jul 11, 3am (UTC)
+
+- `20260708T065027Z-c301b3` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T065027Z-c301b3.md)
+
+> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 811b0e1f7dfac9fb162396164251c156f4df04ea (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 811b0e1f7dfac9fb162396164251c156f4df04ea). Diagnosis: You've hit your weekly limit · resets Jul 11, 3am (UTC)
 
 
 ## Board
