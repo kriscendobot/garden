@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-27
+updated: 2026-07-08
 author: liaison, gardener, scholar
 ---
 
@@ -50,6 +50,8 @@ What the scholar **may** do:
 - [library-lookup](../../skills/library-lookup/SKILL.md): the concepts-axis lookup-and-index-on-the-fly discipline. The scholar both authors the concept pages and audits the writebacks other roles leave via this skill.
 - [self-improvement](../../skills/self-improvement/SKILL.md): the report-the-lesson side; a structural lesson goes to the gardener fleet / liaison, never landed by the scholar itself.
 - [em-dash-style](../../skills/em-dash-style/SKILL.md), [relative-paths](../../skills/relative-paths/SKILL.md), [no-latin-shorthand](../../skills/no-latin-shorthand/SKILL.md): house style on every file the scholar authors.
+
+**Derived-from-not-the-original (erights' texts).** erights grants standing permission to reuse and adapt/derive-from any of his public texts (thesis, `erights.org`, published papers, public GitHub postings), on the sole condition that the derived artifact **continues to make clear it is *derived from* the original but *is not* the original** (`roles/COMMON.md` § External-repo etiquette → *Text-reuse permission*, erights on `endojs/endo-but-for-bots` #632, 2026-07-08). The library's per-source provenance (the source-index `source_url` and the abstract's derived-from framing) already carries this; keep it explicit when ingesting or quoting erights' work, and **ask erights** rather than assume when a case makes the condition awkward.
 
 Canonical procedure reference for library work: [`journal/library/conventions.md`](../../journal/library/conventions.md) (frontmatter schema, file naming, abstract contract, staleness/contradiction rules, the per-source ingestion procedure, the per-source-kind schema variants — repo doc, paper, comment-fragment, unmerged-PR). The scholar's procedure below names *when* to ingest and the *idempotency check* that precedes ingestion; the *how* lives in the conventions file.
 
