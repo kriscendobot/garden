@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T02:49:07Z_
+_As of 2026-07-08T02:52:31Z_
 
 ## Latest
 
-Two @-mention directives on [endo-but-for-bots#632](https://github.com/endojs/endo-but-for-bots/pull/632) completed, and the board has drained to near-idle — nothing queued, with only the @-mention on [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614) still in flight. The item most needing your eyes is off the PR track: a gardener shipped verified-email enforcement on minion.town's GitHub OIDC thunk (live at 45e65e6) after confirming `kriskowal@kriskowal.com` is your verified primary, so the new lockout keeps you in; it asks only for an optional fresh sign-in to double-check. Two liaison follow-ups also await your call on the `open-signup-live-minion-town` report — whether to promote the parked styled-privilege-surfaces design job, and what MAU/spend thresholds and alert target to use for a Cognito billing alarm now that signup is open. Several minion.town build phases (account store, open-signup gate flip, styled surfaces) remain parked awaiting your go-ahead.
+Attention @-mention directives on [endo-but-for-bots#632](https://github.com/endojs/endo-but-for-bots/pull/632) and [#614](https://github.com/endojs/endo-but-for-bots/pull/614) drove most recent motion: two #632 mentions completed, a third is still in flight, and a retrospective on #632 is now parked. Review retrospectives on [#616](https://github.com/endojs/endo-but-for-bots/pull/616) and [#612](https://github.com/endojs/endo-but-for-bots/pull/612) also landed, and the `fix-bulletin-inbox-null-guard` job closed out a null-guard in the bulletin's inbox rendering. A gardener has claimed `improve-mention-reactji-failure-diagnostics` to sharpen error reporting in the mention-reactji handler. Off the board, a gardener shipped verified-email enforcement on minion.town's GitHub OIDC thunk and confirmed it will not lock kriskowal out (his primary is a verified email); two liaison follow-ups await his call — whether to promote the parked styled-privilege-surfaces design job and where to route a new Cognito/DynamoDB billing alarm now that open signup is live.
 
 ## Parked for maintainer feedback
 
@@ -90,8 +90,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`improve-mention-reactji-failure-diagnostics`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-mention-reactji-failure-diagnostics.md) — scripts/jobs/handlers/mention-reactji-gh.sh
 - [`mention-endojs-endo-but-for-bots-614-6ad25382`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mention-endojs-endo-but-for-bots-614-6ad25382.md) — attention directive from @-mention on endojs/endo-but-for-bots #614
+- [`mention-endojs-endo-but-for-bots-632-bdf2827b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mention-endojs-endo-but-for-bots-632-bdf2827b.md) — attention directive from @-mention on endojs/endo-but-for-bots #632
 
 ### tada (1487)
 - [`mention-endojs-endo-but-for-bots-632-56ebd36d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mention-endojs-endo-but-for-bots-632-56ebd36d.md) — Completion report
@@ -114,6 +116,7 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`endojs-endo-but-for-bots-pr614-6ad25382-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr614-6ad25382-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #614 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr632-bdf2827b-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr632-bdf2827b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #632 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
