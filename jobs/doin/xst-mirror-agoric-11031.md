@@ -44,3 +44,9 @@ and **rebase it onto the fork's current `master`**.
 Report the fork mirror PR URL, the rebased branch name, and any conflicts you had
 to resolve (especially pinned-archive vs submodule). If the rebase is
 non-trivial, note what a follow-up validation job must re-check.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 20
+  claimed_at: 2026-07-08T01:01:07Z
