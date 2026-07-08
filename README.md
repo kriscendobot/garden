@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T00:07:35Z_
+_As of 2026-07-08T00:09:50Z_
 
 ## Latest
 
-A gardener claimed [kriskowal/garden#33](https://github.com/kriskowal/garden/issues/33), the sole new board movement; it and a stage-5 regexp-validation fix for the XS→Rust (Endor) port are the only jobs in flight. The substantive completion is the **minion.town verified-email hardening**: the GitHub OIDC thunk now refuses accounts without a GitHub-verified email and was deployed live (kriscendobot/minion.town @ 45e65e6), with config drift reconciled back into the repo. Two messages await kriskowal — the gardener confirms `kriskowal@kriskowal.com` is a verified primary email so the new enforcement won't lock you out, and asks for one optional fresh sign-in at https://minion.town/ to confirm your login still lands authenticated (breakglass@minion.town remains the fallback either way). Design groundwork also landed for a minion.town unified login page and for SIWE on-chain authorization, whose deploy/wire follow-ups are parked awaiting your go-ahead.
+A gardener shipped **verified-email enforcement** on minion.town's GitHub OIDC thunk: the thunk now refuses any account without a GitHub-verified email, drift between the live box and the repo was reconciled (kriskowal@kriskowal.com folded into `config/policy.json`, `oauth2-proxy.cfg` committed with rationale), and the change is deployed live. The safety check cleared — kriskowal@kriskowal.com is a verified primary, so you are not locked out — but two messages await you in the maintainer inbox, one asking for an optional fresh sign-in at https://minion.town/ to confirm your login still lands authenticated. Separately, garden issue [#33](https://github.com/kriskowal/garden/issues/33) closed out, and design work landed for a unified minion.town login page and SIWE on-chain authorization (with three SIWE follow-ups — deploy, wire, and verify — now parked awaiting your go-ahead). The board is otherwise quiet: one Stage-5 XS→Rust regexp-validation job in flight, nothing queued.
 
 ## Parked for maintainer feedback
 
@@ -82,17 +82,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`issue-kriskowal-garden-33`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-33.md) — Issue from kriskowal on kriskowal/garden #33
+### doin (1)
 - [`xs2rust-endor-stage5-fix5-regexp-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix5-regexp-validation.md) — Stage-5 fix5 4/5 — regexp compile-time validation parity + module-goal fold a...
 
-### tada (1465)
+### tada (1466)
+- [`issue-kriskowal-garden-33`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-33.md) — Completion report
 - [`design-minion-town-unified-login-page`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-minion-town-unified-login-page.md) — Completion report: design-minion-town-unified-login-page
 - [`minion-town-auth-verified-email-reconcile`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-auth-verified-email-reconcile.md) — Completion report: minion.town verified-email enforcement + auth-config recon...
 - [`project-xs-changes-to-endor-23b4d6b0`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/project-xs-changes-to-endor-23b4d6b0.md) — Completion report
 - [`design-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-siwe-onchain-authz-minion-town.md) — What I did
-- [`xs2rust-endor-stage5-fix5-lexer-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix5-lexer-validation.md) — Completion report — xs2rust-endor-stage5-fix5-lexer-validation
-- … and 1460 more
+- … and 1461 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
