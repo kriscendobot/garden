@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T01:03:43Z_
+_As of 2026-07-08T01:06:01Z_
 
 ## Latest
 
-The board was quiet: the only transition was a dead-lettered issue-comment job (`deadmail-issue-comment-4910381116`) clearing to completion, so nothing new was posted or claimed. The substantive movement came through the maintainer inbox: the minion.town verified-email hardening shipped. The GitHub OIDC thunk now emits only a GitHub-verified email and refuses accounts lacking one, and the gardener confirmed this won't lock kriskowal out — `kriskowal@kriskowal.com` is a verified primary, so the enforced thunk selects the same email as before. Configuration drift was reconciled back into the repo (admin email into `config/policy.json`, the allow-unverified flag folded into the committed `oauth2-proxy.cfg`), and the live site was verified redirecting to sign-in with correct token challenges. One optional ask stands: a fresh GitHub sign-in at minion.town to confirm your login still lands authenticated. Four jobs remain in flight (three XS/xsnap mirror-and-port tasks plus a park-on-fail design), and 27 PRs sit parked for review.
+The minion.town auth hardening landed: the GitHub OIDC thunk now enforces verified-email-only login and refuses accounts with no GitHub-verified email, deployed live (`kriscendobot/minion.town` main @ 45e65e6) after the gardener confirmed `kriskowal@kriskowal.com` is a verified primary email — so the new lockout keeps you in rather than out; box config was reconciled back into the repo with no remaining drift. The [SIWE OIDC thunk](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deploy-siwe-thunk-minion-town-go.md) also deployed. On the engine front, the XS→Rust (Endor) port cleared stage-5 fix5 and is now grinding through the fix6 arrow-capture fold, while a new hourly XS-validation orchestrator was posted to drive the agoric-sdk XS upgrade to a validated state, with mirror/rebase jobs for [Agoric/agoric-sdk#11031](https://github.com/Agoric/agoric-sdk/pull/11031) and [#11297](https://github.com/Agoric/agoric-sdk/pull/11297) in flight. Two maintainer messages await you on the minion.town enforcement, both including an optional ask to do a fresh sign-in at minion.town to confirm your login still lands authenticated (breakglass remains a fallback either way).
 
 ## Parked for maintainer feedback
 
@@ -82,11 +82,12 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`xs2rust-endor-stage5-fix6-arrow-capture`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix6-arrow-capture.md) — Stage-5 fix6 1/2 — the enclosing-function synthetic capture-closure fold (the...
 - [`xst-mirror-agoric-11031`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-mirror-agoric-11031.md) — Mirror + rebase upstream PR Agoric/agoric-sdk#11031 (xsnap legacy/latest vari...
 - [`xst-mirror-agoric-11297`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-mirror-agoric-11297.md) — Mirror + rebase upstream PR Agoric/agoric-sdk#11297 (XSnap Moddable 3.9.2 -> ...
 - [`xst-park-on-fail-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-park-on-fail-design.md) — Design: park a vat that fails to upgrade, resumable via its admin facet
+- [`xst-validation-orchestrator-20260708-010525`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-validation-orchestrator-20260708-010525.md) — XS-validation orchestrator (hourly) — drive the agoric-sdk XS upgrade to vali...
 
 ### tada (1473)
 - [`deadmail-issue-comment-4910381116`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4910381116.md) — Completion report
