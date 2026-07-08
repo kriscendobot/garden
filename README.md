@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-08T00:57:03Z_
+_As of 2026-07-08T00:59:10Z_
 
 ## Latest
 
-The SIWE OIDC thunk deploy for minion.town [landed](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deploy-siwe-thunk-minion-town-go.md), mirroring the GitHub thunk's AWS binding, and the XS→Rust (Endor) port opened its next round — orchestration `xs2rust-endor-build-stage5-fix6` with a parked verify child — following stage-5 fix5's clean 5/5 completion. The item most needing your eyes is in your inbox, not the board: the minion.town verified-email hardening **shipped** (thunk now refuses any account without a GitHub-verified email), and the gardener confirmed `kriskowal@kriskowal.com` is your verified primary so the new enforcement keeps you logged in — it asks only that you do a fresh sign-in at minion.town when convenient to confirm, with breakglass@minion.town as the standing fallback. Two long-running jobs remain in flight (a dead-lettered issue-comment pickup and the Fable-supervised XS→Rust port), and the todo board is otherwise drained.
+Endor XS→Rust port advanced: stage-5 fix5 orchestration [`xs2rust-endor-build-stage5-fix5`] landed complete (regexp validation parity and its 5-part verify chain reported done), and the supervisor immediately opened the next round — fix6's [`xs2rust-endor-stage5-fix6-arrow-capture`] child (the enclosing-function synthetic capture-closure fold) is now in flight, with the s18 supervisor job parked behind the fix6 build.
+
+On minion.town, the gardener finished verified-email hardening at the GitHub OIDC thunk and left two maintainer messages: it confirmed `kriskowal@kriskowal.com` is a verified primary on your GitHub account (so the new lockout keeps you in), shipped the enforcement live (kriscendobot/minion.town @ 45e65e6), and reconciled the box-vs-repo drift — it asks only for an optional fresh sign-in at minion.town to confirm. The SIWE OIDC thunk deploy [`deploy-siwe-thunk-minion-town-go`] also completed, while the consequential minion.town account-store, open-signup gate-flip, and styled-privilege-surface builds remain parked awaiting your go-ahead.
+
+Oldest parked reviews still need eyes — [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) (ESLint 10+ support) has been waiting an hour, and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) have sat a week or more.
 
 ## Parked for maintainer feedback
 
@@ -82,9 +86,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`deadmail-issue-comment-4910381116`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4910381116.md) — Dead-lettered message — pick up its intent
 - [`port-xs-to-rust-memory-safe-engine-s17`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s17.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
+- [`xs2rust-endor-stage5-fix6-arrow-capture`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix6-arrow-capture.md) — Stage-5 fix6 1/2 — the enclosing-function synthetic capture-closure fold (the...
 
 ### tada (1471)
 - [`deploy-siwe-thunk-minion-town-go`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deploy-siwe-thunk-minion-town-go.md) — Deploy the SIWE OIDC thunk (AWS binding) — complete
@@ -114,6 +119,7 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
 - [`build-daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase3.md) — awaiting `build-daemon-rename-to-manager-phase2` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
+- [`port-xs-to-rust-memory-safe-engine-s18`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s18.md) — awaiting `xs2rust-endor-build-stage5-fix6` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
 ## Watch set
