@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-08T06:50:57Z_
+_As of 2026-07-08T06:52:04Z_
 
 ## Latest
 
@@ -50,8 +50,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`design-endo-daemon-cloudflare-storage`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-daemon-cloudflare-storage.md) — Design: a CloudFlare storage platform for the Endo daemon (a peer of node / w...
+- [`endojs-endo-but-for-bots-pr637-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr637-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #637
 
 ### tada (1513)
 - [`design-endo-daemon-aws-storage`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-daemon-aws-storage.md) — Completion report
