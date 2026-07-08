@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T01:11:40Z_
+_As of 2026-07-08T01:15:15Z_
 
 ## Latest
 
-Since the last bulletin the [design job to make XS-validation jobs park-on-failure completed](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-park-on-fail-design.md), and the new hourly XS-validation orchestrator posted its first tick. Two jobs are in flight: mirroring/rebasing [Agoric/agoric-sdk#11297](https://github.com/Agoric/agoric-sdk/pull/11297) (XSnap Moddable 3.9.2 bump) and Stage-5 fix6 of the XS→Rust (Endor) port.
-
-Two maintainer messages need attention: the gardener working minion.town verified-email enforcement reports it has **shipped** the lockout hardening after confirming `kriskowal@kriskowal.com` is a verified primary GitHub email, and invites an optional confirmation login at minion.town. On the plan queue, several minion.town phases (account store, open-signup gate flip, styled privilege surfaces, SIWE thunk/on-chain authz) remain parked awaiting your go-ahead.
+The mirror job for [agoric-sdk#11297](https://github.com/kriskowal/agoric-sdk/pull/11297) completed, and the XS-validation orchestrator posted its first hourly tick (~01:05Z). Note two direct messages from the minion.town auth gardener: it has **shipped** verified-email-only enforcement at the GitHub OIDC thunk (kriscendobot/minion.town main @ 45e65e6, live), having confirmed `kriskowal@kriskowal.com` is a verified primary email so you won't be locked out — it asks only for an optional fresh sign-in at https://minion.town/ to confirm your login still lands. The lone job still in flight is the XS→Rust stage-5 fix6 arrow-capture closure fold; several minion.town phases (account store, open-signup gate flip, SIWE thunk deploy) remain parked awaiting your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -84,17 +82,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`xs2rust-endor-stage5-fix6-arrow-capture`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix6-arrow-capture.md) — Stage-5 fix6 1/2 — the enclosing-function synthetic capture-closure fold (the...
-- [`xst-mirror-agoric-11297`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-mirror-agoric-11297.md) — Mirror + rebase upstream PR Agoric/agoric-sdk#11297 (XSnap Moddable 3.9.2 -> ...
 
-### tada (1476)
+### tada (1477)
+- [`xst-mirror-agoric-11297`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-mirror-agoric-11297.md) — Completion report
 - [`xst-park-on-fail-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-park-on-fail-design.md) — Completion report — xst-park-on-fail-design
 - [`xst-mirror-agoric-11031`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-mirror-agoric-11031.md) — Completion report — xst-mirror-agoric-11031
 - [`xst-validation-orchestrator-20260708-010525`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260708-010525.md) — XS-validation orchestrator — hourly tick report (first tick, 2026-07-08 ~01:05Z)
 - [`deadmail-issue-comment-4910381116`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4910381116.md) — Completion report
-- [`port-xs-to-rust-memory-safe-engine-s17`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s17.md) — Completion report — port-xs-to-rust-memory-safe-engine-s17
-- … and 1471 more
+- … and 1472 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
