@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-08T06:30:37Z_
+_As of 2026-07-08T06:31:24Z_
 
 ## Latest
 
-Two Endo-daemon storage designs landed and immediately spawned build follow-ups. The CloudFlare storage design completed on `endojs/endo-but-for-bots` (branch `design/endo-daemon-cloudflare-storage`), delivering a design doc plus a DO-SQLite/R2 scaffold with 6 passing tests — but the parked go-ahead job still names the pre-redirect target (`kriscendobot/endo`), so its repo/branch/doc need fixing before promotion. The AWS storage design is still in flight, and two new build jobs (`build-endo-daemon-aws-storage-wiring`, `deploy-endo-daemon-aws-storage-reference`) are parked awaiting authorization.
+The Endo daemon **AWS storage** design job landed (completion report posted), and its follow-on build jobs — wiring the platform into a daemon flavour, plus a reference deployment — are parked awaiting go-ahead. The companion **CloudFlare storage** design also wrapped: a design doc and scaffolded R2/DO-SQLite backend on `endojs/endo-but-for-bots` branch `design/endo-daemon-cloudflare-storage`, with 6 passing tests and the daemon's existing persistence layer untouched. Note the correction the gardener flagged: the parked `build-endo-daemon-cloudflare-storage` go-ahead job still names the pre-redirect `kriscendobot/endo` target, so fix its repo/branch to the endo-but-for-bots design before promoting.
 
-The biggest thing to notice: the `endoclaw-network-fetch` builder **stopped rather than build** — a comprehensive draft, [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (confined `HttpClient`/`HttpClientControl` by 0xpatrickbot), already covers every acceptance criterion, so the gardener recommends retiring the job and instead shepherding #566 to green; note it bases on `llm`, not `master`, which a reviewer should eye. On the weave front, [endo-but-for-bots#617](https://github.com/endojs/endo-but-for-bots/pull/617) is now mergeable and [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) also completed its rebase.
+Separately, the `endoclaw-network-fetch` builder stopped without opening a competing PR — [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (draft, by 0xpatrickbot) already implements the confined `HttpClient`/`HttpClientControl` design end to end. The gardener recommends retiring that build job as already satisfied and instead shepherding #566 to green and out of draft; worth a reviewer's eye since it bases on `llm` rather than `master`.
 
 ## Parked for maintainer feedback
 
@@ -52,17 +52,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`design-endo-daemon-aws-storage`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-daemon-aws-storage.md) — Design: an AWS storage platform for the Endo daemon (a peer of node / web / e...
+### doin (1)
 - [`design-endo-daemon-cloudflare-storage`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-daemon-cloudflare-storage.md) — Design: a CloudFlare storage platform for the Endo daemon (a peer of node / w...
 
-### tada (1512)
+### tada (1513)
+- [`design-endo-daemon-aws-storage`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-daemon-aws-storage.md) — Completion report
 - [`deploy-stripe-credits-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deploy-stripe-credits-minion-town.md) — Completion report
 - [`endojs-endo-but-for-bots-daemon-docker-selfhost-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-daemon-docker-selfhost-build.md) — Completion report
 - [`endojs-endo-but-for-bots-endoclaw-network-fetch-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-endoclaw-network-fetch-build.md) — Completion report
 - [`endojs-endo-but-for-bots-pr617-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr617-weave.md) — PR #617 is now **MERGEABLE** (mergeStateStatus UNSTABLE = merge is clean, CI ...
-- [`endojs-endo-but-for-bots-pr609-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr609-weave.md) — Completion report
-- … and 1507 more
+- … and 1508 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
