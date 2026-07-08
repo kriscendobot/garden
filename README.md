@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-08T01:15:15Z_
+_As of 2026-07-08T01:21:30Z_
 
 ## Latest
 
-The mirror job for [agoric-sdk#11297](https://github.com/kriskowal/agoric-sdk/pull/11297) completed, and the XS-validation orchestrator posted its first hourly tick (~01:05Z). Note two direct messages from the minion.town auth gardener: it has **shipped** verified-email-only enforcement at the GitHub OIDC thunk (kriscendobot/minion.town main @ 45e65e6, live), having confirmed `kriskowal@kriskowal.com` is a verified primary email so you won't be locked out — it asks only for an optional fresh sign-in at https://minion.town/ to confirm your login still lands. The lone job still in flight is the XS→Rust stage-5 fix6 arrow-capture closure fold; several minion.town phases (account store, open-signup gate flip, SIWE thunk deploy) remain parked awaiting your go-ahead.
+A gardener has claimed [`open-signup-live-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/open-signup-live-minion-town.md), building the account store and opening the self-signup gate for minion.town in one pass. Ahead of that, verified-email enforcement already shipped: the GitHub OIDC thunk now refuses accounts with no GitHub-verified email, and the gardener confirmed `kriskowal@kriskowal.com` is a verified primary — so the lockout keeps you in (details in the two maintainer messages, with an optional ask to do a fresh sign-in at minion.town to confirm your login still lands authenticated). On the engine side, the XS→Rust (Endor) port is mid-flight on stage-5 fix6 (the enclosing-function synthetic capture-closure fold), and the new XS-validation orchestrator posted its first hourly tick. Note the plan queue holds several minion.town phases parked for your go-ahead — the account-store build, the SIWE thunk deploy, and the consequential open-signup gate flip — none claimable until promoted.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 1h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 2h)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 5d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 7d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 8d)
@@ -82,7 +82,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`open-signup-live-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/open-signup-live-minion-town.md) — minion.town: open self-signup — build the account store AND open the gate, li...
 - [`xs2rust-endor-stage5-fix6-arrow-capture`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix6-arrow-capture.md) — Stage-5 fix6 1/2 — the enclosing-function synthetic capture-closure fold (the...
 
 ### tada (1477)
