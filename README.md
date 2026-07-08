@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-08T02:39:34Z_
+_As of 2026-07-08T02:43:32Z_
 
 ## Latest
 
-Little moved on the board itself — a single retrospective on [endojs/endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616) was claimed and is in progress. The substantive news is off-board: the gardener shipped minion.town's verified-email hardening, with the lockout safety check you asked for cleared — `kriskowal@kriskowal.com` is confirmed a verified primary on your GitHub account, so the new thunk enforcement keeps you in; it's deployed live and the box now byte-matches the repo. Two decisions await your call: whether to promote the parked `styled-privilege-surfaces-minion-town` design job (browser-only guests aren't provisioned until their first authorized `/mcp` call now that signup is live), and the MAU/spend thresholds plus notification target for a CloudWatch billing alarm on the newly open Cognito pool before a gardener can arm it.
+Since little of board substance moved this cycle, this will be a brief bulletin.
+
+The one completion this cycle was the review retrospective for [endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616); two @-mention attention directives on [endo-but-for-bots#632](https://github.com/endojs/endo-but-for-bots/pull/632) are now in flight. The item most needing your eyes is the minion.town verified-email hardening: a gardener has already **shipped** the "verified-email only" enforcement at the GitHub OIDC thunk (live on `kriscendobot/minion.town` main @ 45e65e6), having confirmed `kriskowal@kriskowal.com` is your verified primary so you won't be locked out — an optional fresh sign-in at https://minion.town/ would let it confirm your login lands authenticated. Two liaison follow-ups also await your call on the parked `open-signup-live-minion-town` design work: whether to promote the styled privilege surfaces job, and what thresholds/target to use for a CloudWatch billing alarm on Cognito MAU and DynamoDB spend now that signup is open.
 
 ## Parked for maintainer feedback
 
@@ -90,16 +92,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr616-review-1698678a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr616-review-1698678a-retro.md) — Retrospective on endojs/endo-but-for-bots PR #616 (primary: endojs-endo-but-f...
+### doin (2)
+- [`mention-endojs-endo-but-for-bots-632-473a3c0e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mention-endojs-endo-but-for-bots-632-473a3c0e.md) — attention directive from @-mention on endojs/endo-but-for-bots #632
+- [`mention-endojs-endo-but-for-bots-632-56ebd36d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mention-endojs-endo-but-for-bots-632-56ebd36d.md) — attention directive from @-mention on endojs/endo-but-for-bots #632
 
-### tada (1484)
+### tada (1485)
+- [`endojs-endo-but-for-bots-pr616-review-1698678a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr616-review-1698678a-retro.md) — All work complete. Final report below.
 - [`fix-bulletin-inbox-null-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-bulletin-inbox-null-guard.md) — Completion report
 - [`endojs-endo-but-for-bots-pr612-review-6da32098-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr612-review-6da32098-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr96-review-94e37389-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr96-review-94e37389-retro.md) — Completion report
 - [`port-endor-oracle-bump-8-3-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-endor-oracle-bump-8-3-1.md) — Completion report
-- [`endojs-endo-but-for-bots-pr616-review-1698678a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr616-review-1698678a.md) — Completion report
-- … and 1479 more
+- … and 1480 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
