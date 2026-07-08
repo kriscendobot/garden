@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T04:21:58Z_
+_As of 2026-07-08T04:24:25Z_
 
 ## Latest
 
-The board is nearly quiet: the only job in flight is a weave of [endojs/endo-but-for-bots#615](https://github.com/endojs/endo-but-for-bots/pull/615). The substantive movement is on minion.town — a gardener shipped verified-email hardening at the GitHub OIDC thunk (accounts with no GitHub-verified email are now refused login) after confirming `kriskowal@kriskowal.com` is a verified primary and so won't be locked out; the change is deployed live and drift was reconciled back into the repo. Two liaison follow-ups now await your call: whether to promote the parked `styled-privilege-surfaces-minion-town` design job (browser-only guests aren't provisioned until their first authorized `/mcp` call, a public UX gap), and what MAU/spend thresholds and alert target to use for a CloudWatch billing alarm now that signup is open. The plan queue also holds several minion.town Phase A–C build jobs awaiting go-ahead.
+Now that signup is live on the bot's minion.town, the fleet hardened its GitHub OIDC auth to enforce verified-email-only login (deployed to Lambda at [kriscendobot/minion.town](https://github.com/kriskowal/minion.town) main @ 45e65e6), after confirming `kriskowal@kriskowal.com` is a verified primary email so the maintainer won't be locked out; a break-glass admin remains as fallback. Design work is now in flight on Stripe credit purchases for minion.town (test/simulation mode), and a weave is underway on [endo-but-for-bots#615](https://github.com/endojs/endo-but-for-bots/pull/615). Two questions are parked for the maintainer: whether to promote the deferred design for styled privilege surfaces (the browser-facing `/account` and role panels now that guests aren't provisioned until their first authorized `/mcp` call), and to set thresholds and a notification target for a CloudWatch billing alarm on Cognito MAU and DynamoDB spend before a gardener can arm it.
 
 ## Parked for maintainer feedback
 
@@ -90,7 +90,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`design-stripe-credits-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-stripe-credits-minion-town.md) — Design + toy: Stripe credit purchase for minion.town (test / simulation mode)
 - [`endojs-endo-but-for-bots-pr615-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr615-weave.md) — ---
 
 ### tada (1500)
