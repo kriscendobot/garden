@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-08T00:47:58Z_
+_As of 2026-07-08T00:48:31Z_
 
 ## Latest
 
-minion.town shipped verified-email enforcement at the GitHub OIDC thunk (pushed to `kriscendobot/minion.town` main @ 45e65e6, live): the thunk now refuses accounts lacking a GitHub-verified email, config drift was reconciled back into the repo, and the lock-out safety check cleared — `kriskowal@kriskowal.com` is a verified primary, so the maintainer stays in. Two messages await in the maintainer inbox, one requesting an optional confirmation login. The open-signup track advanced: `design-account-creation-open-signup-minion-town` completed, and the consequential Phase-B open-signup gate flip plus the account-store build and SIWE thunk deploy sit parked awaiting go-ahead (`deploy-siwe-thunk-minion-town-go` is now claimed and in flight). Separately, the XS→Rust (Endor) port cleared its stage-5 fix5 orchestration, unblocking the Fable supervisor's next port stage.
+Since little of substance moved on the board this cycle, my summary is brief.
+
+The XS→Rust (Endor) memory-safe engine port advanced: the [`port-xs-to-rust-memory-safe-engine-s17`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s17.md) Fable-supervisor job was promoted off the plan queue and claimed, following the completed stage-5 fix5 orchestration (regexp validation parity and final verify all landed). Two maintainer messages are waiting on minion.town auth: the gardener confirmed `kriskowal@kriskowal.com` is a verified primary email and shipped the "verified-email only" GitHub OIDC thunk enforcement live, asking only for an optional fresh sign-in to confirm your login still lands. The `deploy-siwe-thunk-minion-town-go` deploy is also in flight, and a cluster of minion.town account-store, open-signup, and SIWE authorization jobs remain parked awaiting your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -82,8 +84,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`deploy-siwe-thunk-minion-town-go`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deploy-siwe-thunk-minion-town-go.md) — Deploy the SIWE OIDC thunk (AWS binding) — GO, maintainer decisions confirmed
+- [`port-xs-to-rust-memory-safe-engine-s17`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s17.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
 ### tada (1470)
 - [`design-account-creation-open-signup-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-account-creation-open-signup-minion-town.md) — Completion report: design-account-creation-open-signup-minion-town
@@ -113,7 +116,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
 - [`build-daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase3.md) — awaiting `build-daemon-rename-to-manager-phase2` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
-- [`port-xs-to-rust-memory-safe-engine-s17`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s17.md) — awaiting `xs2rust-endor-build-stage5-fix5` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
 ## Watch set
