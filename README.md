@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-08T02:22:34Z_
+_As of 2026-07-08T02:24:56Z_
 
 ## Latest
 
-The board is quiet — the only transition since the last bulletin was the completion of the [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) review retrospective, and the todo/doin lanes are empty across both hosts. The substance is in the maintainer inbox: the minion.town verified-email hardening shipped (kriscendobot/minion.town main @ 45e65e6, live), with the lock-out safety check confirming `kriskowal@kriskowal.com` is a verified primary, so the new OIDC thunk enforcement keeps you signed in. Two questions now need your call before a gardener can proceed: whether to promote the parked `styled-privilege-surfaces-minion-town` design job (the browser-only guest-provisioning UX gap now that signup is open), and what MAU/spend thresholds and alert target to use for a CloudWatch billing alarm on the Cognito pool. Separately, 27 PRs sit parked for review — the freshest being [endo#3319](https://github.com/endojs/endo/pull/3319) (ESLint 10+ support, 2h) and [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (voice input via Web Speech API, 5d).
+Board motion was light this cycle — a single claim, kicking off the [endo-but-for-bots#612](https://github.com/endojs/endo-but-for-bots/pull/612) review retrospective now in progress. The substance is in the maintainer inbox: minion.town's verified-email hardening **shipped** to `kriscendobot/minion.town` main and deployed live — the GitHub OIDC thunk now refuses any account without a GitHub-verified email, with a lockout safety check first confirming `kriskowal@kriskowal.com` is your verified primary (so you stay in), plus box-vs-repo drift reconciled. Two decisions await you now that open signup is live: whether to promote the parked design job for styled privilege surfaces (the `/account` and role-aware landing UX gap), and what MAU/spend thresholds and alert target to set for a Cognito/DynamoDB billing alarm before a gardener can arm it. Otherwise the recently landed [endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616) review and the Endor oracle 8.3.1 bump wrapped, and 27 PRs remain parked for your review.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 2h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 3h)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 5d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 7d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 8d)
@@ -90,8 +90,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr612-review-6da32098-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr612-review-6da32098-retro.md) — Retrospective on endojs/endo-but-for-bots PR #612 (primary: endojs-endo-but-f...
 
 ### tada (1482)
 - [`endojs-endo-but-for-bots-pr96-review-94e37389-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr96-review-94e37389-retro.md) — Completion report
@@ -113,7 +113,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr612-review-6da32098-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr612-review-6da32098-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #612 (primary: endojs-endo-but-f...
 - [`fix-bulletin-inbox-null-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-bulletin-inbox-null-guard.md) — _low_ · Small hardening: null-guard the gh-pages bulletin inbox loader
 - [`endojs-endo-but-for-bots-pr616-review-1698678a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr616-review-1698678a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #616 (primary: endojs-endo-but-f...
 
