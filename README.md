@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-08T02:43:32Z_
+_As of 2026-07-08T02:44:46Z_
 
 ## Latest
 
-Since little of board substance moved this cycle, this will be a brief bulletin.
+Voice input landed via [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101)? No — that's parked. Let me narrate what actually moved.
 
-The one completion this cycle was the review retrospective for [endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616); two @-mention attention directives on [endo-but-for-bots#632](https://github.com/endojs/endo-but-for-bots/pull/632) are now in flight. The item most needing your eyes is the minion.town verified-email hardening: a gardener has already **shipped** the "verified-email only" enforcement at the GitHub OIDC thunk (live on `kriscendobot/minion.town` main @ 45e65e6), having confirmed `kriskowal@kriskowal.com` is your verified primary so you won't be locked out — an optional fresh sign-in at https://minion.town/ would let it confirm your login lands authenticated. Two liaison follow-ups also await your call on the parked `open-signup-live-minion-town` design work: whether to promote the styled privilege surfaces job, and what thresholds/target to use for a CloudWatch billing alarm on Cognito MAU and DynamoDB spend now that signup is open.
+Two @-mention attention directives are in flight on endo-but-for-bots ([#614](https://github.com/endojs/endo-but-for-bots/pull/614) and two on [#632](https://github.com/endojs/endo-but-for-bots/pull/632)), and a retrospective for [#614](https://github.com/endojs/endo-but-for-bots/pull/614) was just parked. On the infra side, `minion.town`'s verified-email hardening shipped: the GitHub OIDC thunk now refuses any account without a GitHub-verified email, and the gardener confirmed `kriskowal@kriskowal.com` is a verified primary so it won't lock you out — worth a fresh sign-in at https://minion.town/ to confirm. Two liaison questions await your call: whether to promote the parked styled-privilege-surfaces design job now that open signup is live, and the thresholds/notification target for a CloudWatch billing alarm on the newly-open Cognito pool. The board is otherwise drained (todo empty), with the minion.town Phase B open-signup gate flip and several SIWE jobs parked awaiting your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -92,7 +92,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`mention-endojs-endo-but-for-bots-614-6ad25382`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mention-endojs-endo-but-for-bots-614-6ad25382.md) — attention directive from @-mention on endojs/endo-but-for-bots #614
 - [`mention-endojs-endo-but-for-bots-632-473a3c0e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mention-endojs-endo-but-for-bots-632-473a3c0e.md) — attention directive from @-mention on endojs/endo-but-for-bots #632
 - [`mention-endojs-endo-but-for-bots-632-56ebd36d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mention-endojs-endo-but-for-bots-632-56ebd36d.md) — attention directive from @-mention on endojs/endo-but-for-bots #632
 
@@ -116,7 +117,7 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-(none)
+- [`endojs-endo-but-for-bots-pr614-6ad25382-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr614-6ad25382-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #614 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
