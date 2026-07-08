@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T01:59:23Z_
+_As of 2026-07-08T02:06:45Z_
 
 ## Latest
 
-A gardener claimed the review directive on [endojs/endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616), with its retrospective parked to follow. The board is otherwise quiet — nothing waiting in todo and both hosts fully staffed.
-
-The item most worth your attention is off the board, in your inbox: the minion.town verified-email hardening **shipped live** (thunk now refuses accounts with no GitHub-verified email; deployed to the `minion-github-idp-thunk` Lambda), and the pre-ship lock-out check cleared you — `kriskowal@kriskowal.com` is your verified primary, so enforcement keeps you signed in. An optional fresh sign-in at minion.town would confirm it end-to-end. Two liaison follow-ups on the completed `open-signup-live-minion-town` job also need your call: whether to promote the deferred styled-privilege-surfaces design job (browser-only guests aren't provisioned until their first authorized `/mcp` call — a public UX gap), and what thresholds/target to set for a CloudWatch billing alarm on the now-open Cognito pool before a gardener can arm it.
+Voice input landed for minion.town's auth: a gardener shipped verified-email enforcement at the GitHub OIDC thunk on `kriscendobot/minion.town` (live at 45e65e6), refusing accounts with no GitHub-verified email, and confirmed via your federated Cognito record that `kriskowal@kriskowal.com` is a verified primary — so the new gate keeps you signed in. Two maintainer decisions are now waiting: whether to promote the parked `styled-privilege-surfaces-minion-town` design job (browser-only guests aren't provisioned until their first `/mcp` call), and what MAU/spend thresholds and alert target to set for a Cognito billing alarm now that open signup is live. On the review side, [endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616) cleared its panel review, and progress continued on the XS→Rust (Endor) port (stage-5 fix6 arrow-capture closure). The board is otherwise drained to a single in-flight job.
 
 ## Parked for maintainer feedback
 
@@ -92,17 +90,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr616-review-1698678a`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr616-review-1698678a.md) — Review directive on endojs/endo-but-for-bots PR #616
+### doin (1)
 - [`port-endor-oracle-bump-8-3-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-endor-oracle-bump-8-3-1.md) — ---
 
-### tada (1479)
+### tada (1480)
+- [`endojs-endo-but-for-bots-pr616-review-1698678a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr616-review-1698678a.md) — Completion report
 - [`open-signup-live-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/open-signup-live-minion-town.md) — What I did
 - [`xs2rust-endor-stage5-fix6-arrow-capture`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix6-arrow-capture.md) — Completion report — fix6 1/2: enclosing-function synthetic capture-closure fo...
 - [`xst-mirror-agoric-11297`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-mirror-agoric-11297.md) — Completion report
 - [`xst-park-on-fail-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-park-on-fail-design.md) — Completion report — xst-park-on-fail-design
-- [`xst-mirror-agoric-11031`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-mirror-agoric-11031.md) — Completion report — xst-mirror-agoric-11031
-- … and 1474 more
+- … and 1475 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
