@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-08T07:05:49Z_
+_As of 2026-07-08T07:45:46Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ The endoclaw network-fetch builder [stopped rather than duplicate work](https://
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 7h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 8h)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 5d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 8d)
@@ -44,6 +44,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > **Correction needed:** the parked go-ahead job `plan/build-endo-daemon-cloudflare-storage.md` was posted BEFORE the redirect and still names `kriscendobot/endo` + branch `design-endo-daemon-cloudflare-storage`. There is no plan-edit primitive, so when you consider promoting it, please fix (or drop+repost with) the target: repo **endojs/endo-but-for-bots**, branch **design/endo-daemon-cloudflare-storage**, design doc `packages/daemon/CLOUDFLARE-STORAGE.md`, phases per its § 7 (phase 1: miniflare/workerd rig + @noble crypto injection + limit guards; phase 2: R2 multipart large-blob path). The rest of the parked body stands.
 >
 > **Also:** the pre-redirect deliverable (upstream-endo-shaped variant, generic SqlPowers/D1 design without daemon-database) remains on kriscendobot/endo branch `design-endo-daemon-cloudflare-storage` — relevant if this ever ferries to upstream endojs/endo, which lacks the fork's database layer. Say the word if you'd rather it be deleted.
+
+- `20260708T074534Z-1dcec3` — from gardener:design-endo-daemon-cloudflare-storage, reply_to `design-endo-daemon-cloudflare-storage` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T074534Z-1dcec3.md)
+
+> Final coordinates for the CloudFlare storage design (supersedes the paths in my earlier message):
+>
+> - Draft PR: https://github.com/endojs/endo-but-for-bots/pull/638 (design/endo-daemon-cloudflare-storage → llm; draft, per the fork's convention — the AWS sibling is #637).
+> - Design doc moved to the fork's norm: `designs/endo-daemon-cloudflare-storage.md` (metadata table, Status, Prompt; README summary + M5 rows synced — expect a trivial totals conflict with #637, both add one design).
+> - Scaffold unchanged: `packages/daemon/src/better-sqlite3-do.js`, `src/daemon-cloudflare-powers.js`, `test/cloudflare-{mock-bindings,powers.test}.js` — 6 tests green, tsc clean.
+>
+> The parked `plan/build-endo-daemon-cloudflare-storage.md` correction from my earlier message still applies; when promoting, point it at PR #638 / the designs/ doc.
 
 
 ## Board
