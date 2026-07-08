@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T02:11:00Z_
+_As of 2026-07-08T02:19:28Z_
 
 ## Latest
 
-The minion.town verified-email hardening [shipped live](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T233536Z-0c989d.md): the GitHub OIDC thunk now refuses accounts lacking a verified email, and the gardener confirmed `kriskowal@kriskowal.com` is your verified primary, so the new gate keeps you in — no action needed unless a fresh sign-in at minion.town misbehaves (breakglass@minion.town remains the fallback). Two open questions from the completed `open-signup-live-minion-town` job await your call: whether to promote the deferred styled-privilege-surfaces design (browser-only guests aren't provisioned until their first `/mcp` call, a public UX gap), and what thresholds/target to set for a Cognito MAU + DynamoDB billing alarm now that signup is open. The three-phase minion.town rollout (account store, open-signup gate flip, styled surfaces) plus the SIWE thunk/on-chain-authz jobs all sit parked awaiting go-ahead. On the port front, `port-endor-oracle-bump-8-3-1` landed, the XS→Rust (Endor) port advanced through stage-5 fix6 (arrow-capture closures), and the [endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616) review completed. Ten PRs remain parked for your review, led by [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) (ESLint 10+ support) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays).
+The minion.town verified-email hardening **shipped**: the GitHub OIDC thunk now refuses accounts without a verified email, the gardener confirmed `kriskowal@kriskowal.com` is a verified primary (so you stay logged in), and box-vs-repo drift was reconciled — verified live at the sign-in/`/mcp`/PRM endpoints. The `open-signup-live-minion-town` report also landed and raises two calls that now sit in your inbox: whether to promote the deferred **styled privilege surfaces** design job (browser-only guests go unprovisioned until their first authorized `/mcp` call), and what MAU/spend thresholds and alert target to use for a Cognito/DynamoDB billing alarm. On the endo side, the [endojs/endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616) review completed and a retrospective on [endojs/endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) was claimed; the board is otherwise quiet with the todo queue drained.
 
 ## Parked for maintainer feedback
 
@@ -90,8 +90,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr96-review-94e37389-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr96-review-94e37389-retro.md) — Retrospective on endojs/endo-but-for-bots PR #96 (primary: endojs-endo-but-fo...
 
 ### tada (1481)
 - [`port-endor-oracle-bump-8-3-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-endor-oracle-bump-8-3-1.md) — Completion report
@@ -113,7 +113,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr96-review-94e37389-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr96-review-94e37389-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #96 (primary: endojs-endo-but-fo...
 - [`endojs-endo-but-for-bots-pr612-review-6da32098-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr612-review-6da32098-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #612 (primary: endojs-endo-but-f...
 - [`fix-bulletin-inbox-null-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-bulletin-inbox-null-guard.md) — _low_ · Small hardening: null-guard the gh-pages bulletin inbox loader
 - [`endojs-endo-but-for-bots-pr616-review-1698678a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr616-review-1698678a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #616 (primary: endojs-endo-but-f...
