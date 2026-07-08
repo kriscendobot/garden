@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T05:34:04Z_
+_As of 2026-07-08T05:35:51Z_
 
 ## Latest
 
-Now that signup is open, the report `open-signup-live-minion-town` flagged that no CloudWatch billing alarm was armed on the Cognito pool MAU or DynamoDB spend, and the liaison [escalated it to the maintainer](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T014900Z-a4afa2.md) — kriskowal needs to set MAU/spend thresholds and a notification target before a gardener can arm it. On the board, [endo-but-for-bots#617](https://github.com/endojs/endo-but-for-bots/pull/617) came back clean from a weave (now mergeable, CI green), a weave completed on [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609), and fetch-source work landed a gzip-decode improvement alongside a network-fetch build for endoclaw now in progress. The minion.town rollout remains gated on kriskowal: the whole Phase A→C chain (account store, open-signup gate flip, styled privilege surfaces) plus the SIWE and Stripe-credits deploys sit parked awaiting go-ahead.
+The `endoclaw-network-fetch` builder halted and kicked back to you: its brief assumed no in-flight PR, but [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (`feat(exo-http-client): add confined HttpClient`, draft) already implements the full `HttpClient`/`HttpClientControl` design plus a `http-confine` confinement core, so the gardener declined to build a duplicate and recommends retiring the job in favor of a shepherd/panel run to drive #566 green — flagging that it bases on `llm` rather than `master`, which merits a reviewer's eye. On the merge front, [endo-but-for-bots#617](https://github.com/endojs/endo-but-for-bots/pull/617) is now mergeable (clean, CI only UNSTABLE) and [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) also completed its weave. A separate maintainer message asks for your call on CloudWatch billing-alarm thresholds (Cognito MAU and DynamoDB spend) now that minion.town signup is open, plus the notification target, before a gardener can arm it.
 
 ## Parked for maintainer feedback
 
@@ -25,6 +25,19 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260708T014900Z-a4afa2` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T014900Z-a4afa2.md)
 
 > Report `open-signup-live-minion-town` recommends creating a CloudWatch billing alarm on Cognito pool MAU (and DynamoDB spend) now that signup is open, but none was created. This needs your call on thresholds and the notification target before a gardener can arm it via the aws-administration skill — please confirm the MAU/spend limits and where alerts should go.
+
+- `20260708T053541Z-30f34a` — from gardener:endojs-endo-but-for-bots-endoclaw-network-fetch-build, reply_to `endojs-endo-but-for-bots-endoclaw-network-fetch-build` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T053541Z-30f34a.md)
+
+> Builder job `endoclaw-network-fetch` (build the HttpClient/HttpClientControl cap in endojs/endo-but-for-bots): STOPPED — the job body said "no in-flight PR", but there IS a comprehensive one.
+>
+> **PR #566** (`feat(exo-http-client): add confined HttpClient`, DRAFT, MERGEABLE, base `llm`, author 0xpatrickbot, updated 2026-07-08 — today) already implements this exact design:
+> - `packages/exo-http-client` — the `HttpClient` / `HttpClientControl` exo facet pair (`src/http-client.js`, `src/types.ts`, tests)
+> - `packages/http-confine` — shared pure confinement core: origin-parse allowlist, method/header validation, injected-clock per-minute rate limit, max-response-byte cap, redirect checks, timeout/cancel, `revoke()`
+> - updates `designs/endoclaw-network-fetch.md` (the doc this job cites) + adds trust-on-first-bind policy, changesets, docs
+>
+> Every acceptance criterion in the design is covered. Building a second implementation would be a duplicate and would collide on the same branch/design. I did NOT open a competing PR.
+>
+> Recommendation: retire this job as already-satisfied by #566, and instead post a **shepherd/panel** job to drive #566 to green + out of draft if you want it landed. Say the word and I'll (as a fresh job) do that instead. Note #566 bases on `llm` not `master` — worth a reviewer eye given the base-branch norm.
 
 
 ## Board
