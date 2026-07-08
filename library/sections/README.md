@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6325 (530 parent indexes + 5795 children).
+Total section files: 6331 (530 parent indexes + 5801 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8369,6 +8369,15 @@ Total section files: 6325 (530 parent indexes + 5795 children).
   - [DNS-PERSIST-01 (emerging)](web--acme-challenge-types--http01-dns01-tls-alpn01--dns-persist-01-emerging.md)
   - [HTTP-01](web--acme-challenge-types--http01-dns01-tls-alpn01--http-01.md)
   - [TLS-ALPN-01](web--acme-challenge-types--http01-dns01-tls-alpn01--tls-alpn-01.md)
+
+### web--allen-pike-coding-agent-spend
+
+- [web--allen-pike-coding-agent-spend--cheaper-tokens](web--allen-pike-coding-agent-spend--cheaper-tokens.md)
+- [web--allen-pike-coding-agent-spend--cloud-coding-costs](web--allen-pike-coding-agent-spend--cloud-coding-costs.md)
+- [web--allen-pike-coding-agent-spend--fewer-tokens](web--allen-pike-coding-agent-spend--fewer-tokens.md)
+- [web--allen-pike-coding-agent-spend--high-cost-of-free-coding](web--allen-pike-coding-agent-spend--high-cost-of-free-coding.md)
+- [web--allen-pike-coding-agent-spend--overview](web--allen-pike-coding-agent-spend--overview.md)
+- [web--allen-pike-coding-agent-spend--this-is-too-much](web--allen-pike-coding-agent-spend--this-is-too-much.md)
 
 ### web--apple-es-new-descendants-client
 
