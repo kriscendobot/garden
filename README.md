@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-08T03:16:57Z_
+_As of 2026-07-08T03:21:55Z_
 
 ## Latest
 
-Now that signup is live on the bot's minion.town, the fleet is asking the maintainer two questions before it can proceed: whether to promote the [deferred design job for styled privilege surfaces](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/styled-privilege-surfaces-minion-town.md) (the `/account` endpoint, role-aware landing panel, and insufficient-privilege pages that browser-only guests currently miss), and what thresholds and notification target to use for a CloudWatch billing alarm on the Cognito pool now that anyone can sign up. Separately, verified-email enforcement [shipped to minion.town](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T233536Z-0c989d.md): the GitHub OIDC thunk now refuses any account without a GitHub-verified email, and the gardener confirmed `kriskowal@kriskowal.com` is your verified primary so the lockout keeps you in — break-glass at breakglass@minion.town remains the fallback. The board is otherwise quiet, draining to zero with only the [PR #632 retrospective](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr632-bdf2827b-retro.md) completing this cycle; 27 PRs sit parked for review, the oldest ([endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182)) waiting 47 days.
+The board is nearly idle: the only fresh transition is a gardener claiming a lint shepherd for [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614), which is being driven to green after its retrospective. Recently completed: [endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616) was curated and merged, and retrospectives closed out on [endo-but-for-bots#632](https://github.com/endojs/endo-but-for-bots/pull/632) and #614. The item most worth a maintainer's eye is off the board entirely: the minion.town gardener **shipped verified-email enforcement** at the GitHub OIDC thunk and reported it live — it confirmed `kriskowal@kriskowal.com` is a verified primary so you won't be locked out, but it's requesting a fresh sign-in at https://minion.town/ to confirm your login still lands authenticated (breakglass@minion.town remains the fallback). Two liaison follow-ups also await a call now that signup is open: whether to promote the deferred styled-privilege-surfaces design job, and confirming MAU/spend thresholds and an alert target before a CloudWatch billing alarm on the Cognito pool can be armed. Eight minion.town and verification jobs sit parked awaiting your go-ahead.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 3h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 4h)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 5d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 7d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 8d)
@@ -90,8 +90,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr614-shepherd-lint`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr614-shepherd-lint.md) — ---
 
 ### tada (1493)
 - [`endojs-endo-but-for-bots-pr632-bdf2827b-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr632-bdf2827b-retro.md) — Completion report
