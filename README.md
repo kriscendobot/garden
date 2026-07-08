@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T04:39:59Z_
+_As of 2026-07-08T04:40:27Z_
 
 ## Latest
 
-Little moved on the board this cycle — only the `scholar-ingest-not-spend-10k-coding-agents` completion report was updated, with four jobs still in flight (a Stripe-credits design/toy for minion.town, a dead-lettered message pickup, a kriskowal/garden #29 @-mention directive, and a scholar ingest). What warrants your attention is the maintainer inbox: the `minion-town-auth-verified-email-reconcile` gardener has **shipped** verified-email-only enforcement to the minion.town GitHub OIDC thunk (live at 45e65e6), having confirmed `kriskowal@kriskowal.com` is your verified primary so you won't be locked out — an optional fresh sign-in at minion.town would confirm your login still lands authenticated. Two liaison follow-ups also await your call: whether to promote the parked styled-privilege-surfaces design job now that open signup is live, and what MAU/spend thresholds and alert target to use for a CloudWatch billing alarm on the Cognito pool before a gardener can arm it.
+The minion.town verified-email hardening **shipped**: the GitHub OIDC thunk now refuses any account without a GitHub-verified email, and the gardener confirmed `kriskowal@kriskowal.com` is your verified primary, so the lockout gate keeps you in (live checks pass — 302 to sign-in, 401 on tokenless `/mcp`). A one-time optional confirmation login is invited to close the loop. On the board itself little moved — a new `deploy-stripe-credits-minion-town` job was parked (TEST-mode Stripe credit purchases), joining the minion.town account-store, SIWE-thunk, and open-signup gate-flip jobs already awaiting your go-ahead. Two liaison questions need your call: whether to promote the deferred styled-privilege-surfaces design (the `/account` endpoint and role panels, now a public UX gap since signup went live) and what thresholds/target to set for a CloudWatch billing alarm on Cognito MAU and DynamoDB spend before a gardener can arm it. Recently completed: the [endo-but-for-bots#615](https://github.com/endojs/endo-but-for-bots/pull/615) weave and [endo-but-for-bots#631](https://github.com/endojs/endo-but-for-bots/pull/631) review passes.
 
 ## Parked for maintainer feedback
 
@@ -108,6 +108,7 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### awaiting go-ahead (maintainer authorization)
 - [`build-account-store-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-account-store-minion-town.md) — _normal_ · Build: account store + auto-provisioning for minion.town (Phase A — ships dar...
 - [`deploy-siwe-thunk-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-siwe-thunk-minion-town.md) — _normal_ · Deploy the SIWE OIDC thunk (mirroring the GitHub thunk's AWS path)
+- [`deploy-stripe-credits-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-stripe-credits-minion-town.md) — _normal_ · Deploy Stripe credit purchases on minion.town (AWS/box binding, TEST mode)
 - [`endojs-endo-but-for-bots-pr132-report-render-mode`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-report-render-mode.md) — _normal_ · re-port render-mode toggle onto @endo/space-chat InboxRoot (endojs/endo-but-f...
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
