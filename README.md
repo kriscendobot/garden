@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T05:48:36Z_
+_As of 2026-07-08T05:52:45Z_
 
 ## Latest
 
-The `endoclaw-network-fetch` builder job [halted rather than duplicating work](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T053541Z-30f34a.md): its body claimed no in-flight PR, but [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (`feat(exo-http-client): add confined HttpClient`, still DRAFT) already implements the full design — the `HttpClient`/`HttpClientControl` exo pair, a shared `http-confine` confinement core (allowlist, rate limit, response cap, redirect/timeout/cancel, `revoke()`), and updates to the cited design doc. The gardener declined to open a competing PR and recommends retiring the job in favor of a shepherd/panel to drive #566 to green; note that #566 bases on `llm` rather than `master`, which merits a reviewer's eye against the base-branch norm. Separately, the `daemon-docker-selfhost` builder job completed. The board is otherwise quiet — one job in flight (Stripe credits deploy on minion.town) and no new posts.
+Two design jobs went into flight — an [AWS storage platform](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-daemon-aws-storage.md) and a [CloudFlare storage platform](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-daemon-cloudflare-storage.md) for the Endo daemon, each a peer of the node/web platforms — leaving the todo board empty. On the completion side, the `endoclaw-network-fetch` builder **stopped rather than build**: it found that [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (a DRAFT confined `HttpClient`/`HttpClientControl` cap by 0xpatrickbot, updated today) already implements the cited design in full, so it opened no competing PR and flagged the job as already-satisfied — the maintainer message recommends retiring the job and instead shepherding #566 to green, noting it bases on `llm` rather than `master`. Two weaves also landed: [endo-but-for-bots#617](https://github.com/endojs/endo-but-for-bots/pull/617) is now mergeable (UNSTABLE = clean merge, CI still running) and [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) completed, alongside a Docker self-host build and a fetch-source gzip-decode improvement.
 
 ## Parked for maintainer feedback
 
@@ -40,8 +40,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
 - [`deploy-stripe-credits-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deploy-stripe-credits-minion-town.md) — Deploy Stripe credit purchases on minion.town (AWS/box binding, TEST mode)
+- [`design-endo-daemon-aws-storage`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-daemon-aws-storage.md) — Design: an AWS storage platform for the Endo daemon (a peer of node / web / e...
+- [`design-endo-daemon-cloudflare-storage`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-daemon-cloudflare-storage.md) — Design: a CloudFlare storage platform for the Endo daemon (a peer of node / w...
 
 ### tada (1511)
 - [`endojs-endo-but-for-bots-daemon-docker-selfhost-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-daemon-docker-selfhost-build.md) — Completion report
