@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-08T03:50:02Z_
+_As of 2026-07-08T03:55:06Z_
 
 ## Latest
 
-The [endo-but-for-bots#631](https://github.com/endojs/endo-but-for-bots/pull/631) review job (`fadcebc1`) landed with all directives resolved, and its retrospective is now queued in the deferred plan lane. The board is otherwise drained — nothing in todo or doin.
+Since little of substance moved on the board, I'll keep the summary tight.
 
-Most of what needs your eyes is off the board, in the maintainer inbox. The `minion-town-auth-verified-email-reconcile` gardener **shipped** verified-email enforcement to minion.town's GitHub OIDC thunk (live on `kriscendobot/minion.town` main @ 45e65e6): logins now require a GitHub-verified email, and its lock-out safety check confirmed `kriskowal@kriskowal.com` is your verified primary, so you stay in — an optional fresh sign-in at minion.town would let it confirm from the thunk logs. Two liaison follow-ups need your call now that signup is open: whether to promote the parked `styled-privilege-surfaces-minion-town` design job (browser guests aren't provisioned until their first `/mcp` call), and the thresholds/notification target for a CloudWatch billing alarm on the Cognito pool MAU and DynamoDB spend before a gardener can arm it. Several minion.town build jobs (account store, open-signup gate flip, SIWE thunk deploy) remain parked awaiting your go-ahead.
+The gardener's [endo-but-for-bots#631](https://github.com/endojs/endo-but-for-bots/pull/631) review closed out — all directives resolved — and its retrospective is now in flight, while the [#614](https://github.com/endojs/endo-but-for-bots/pull/614) lint shepherd drove CI fully green (23 checks). Awaiting kriskowal: two safety questions on the minion.town verified-email lockout ([confirmed](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T233536Z-0c989d.md) `kriskowal@kriskowal.com` is a verified primary, so enforcement shipped without locking you out) plus two open UX/billing calls — promoting the styled-privilege-surfaces design and setting Cognito MAU/spend alarm thresholds now that minion.town signup is live.
 
 ## Parked for maintainer feedback
 
@@ -92,8 +92,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr631-review-02a749af-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr631-review-02a749af-retro.md) — Retrospective on endojs/endo-but-for-bots PR #631 (primary: endojs-endo-but-f...
 
 ### tada (1496)
 - [`endojs-endo-but-for-bots-pr631-review-fadcebc1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr631-review-fadcebc1.md) — All directives in the review are resolved. Here is my completion report.
@@ -115,7 +115,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr631-review-02a749af-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr631-review-02a749af-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #631 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr631-review-fadcebc1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr631-review-fadcebc1-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #631 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
