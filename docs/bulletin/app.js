@@ -287,13 +287,23 @@ async function load() {
       (it) => it.type === 'file' && it.name.endsWith('.md') && it.name !== '.gitkeep',
     );
     inode.innerHTML = '';
-    if (!items.length) {
-      inode.append(el('p', { class: 'muted', text: 'No unread messages to the maintainer.' }));
-      return;
-    }
+    let rendered = 0;
     for (const item of items) {
-      const file = await GH.getFile(`inbox/maintainer/unread/${item.name}`);
+      // A listed unread file can vanish between the directory listing and this
+      // fetch — it was almost certainly just archived (unread -> read) by a
+      // concurrent reply, or the Contents API transiently 404'd. getFile returns
+      // null in that case (or throws on an unexpected failure); either way SKIP
+      // the item so one missing file never aborts the whole inbox render.
+      let file;
+      try {
+        file = await GH.getFile(`inbox/maintainer/unread/${item.name}`);
+      } catch (e) {
+        console.warn(`bulletin: skipping unread/${item.name} (fetch failed): ${e.message}`);
+        continue;
+      }
+      if (!file) continue;
       const { fm, body } = parseMessage(file.text);
+      rendered++;
       const card = el('div', { class: 'msg' });
       const from = fm.from || 'unknown';
       const replyTo = fm.reply_to && fm.reply_to !== '?' ? fm.reply_to : '(none → liaison)';
@@ -321,6 +331,9 @@ async function load() {
         el('div', { class: 'reply' }, textarea, el('div', { class: 'reply-actions' }, btn, status)),
       );
       inode.append(card);
+    }
+    if (!rendered) {
+      inode.append(el('p', { class: 'muted', text: 'No unread messages to the maintainer.' }));
     }
   } catch (e) {
     inode.innerHTML = `<p class="err">Could not load inbox: ${e.message}</p>`;
