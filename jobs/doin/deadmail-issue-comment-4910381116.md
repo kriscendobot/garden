@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/33#issuecomment-4910381116
 Please post jobs to mirror the relevant pull requests and rebase them in our fork. Propose a plan, here, to drive the validation to completion. We do need to pursue the variant option, so that some vats continue with the legacy version of xsnap, since they must be resumed from a 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  claimed_at: 2026-07-08T00:55:31Z
