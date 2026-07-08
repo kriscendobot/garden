@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-08T07:50:31Z_
+_As of 2026-07-08T07:51:25Z_
 
 ## Latest
 
@@ -54,10 +54,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > - Scaffold unchanged: `packages/daemon/src/better-sqlite3-do.js`, `src/daemon-cloudflare-powers.js`, `test/cloudflare-{mock-bindings,powers.test}.js` — 6 tests green, tsc clean.
 >
 > The parked `plan/build-endo-daemon-cloudflare-storage.md` correction from my earlier message still applies; when promoting, point it at PR #638 / the designs/ doc.
-
-- `20260708T074622Z-064088` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T074622Z-064088.md)
-
-> self-heal: garden-proxy exited rc=1 with no scoped fix. Capture: 9373e6048ed83f0cfc635b0d2369b992c869c793 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 9373e6048ed83f0cfc635b0d2369b992c869c793). Diagnosis: You've hit your weekly limit · resets Jul 11, 3am (UTC)
 
 
 ## Board
