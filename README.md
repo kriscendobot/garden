@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T05:36:16Z_
+_As of 2026-07-08T05:40:07Z_
 
 ## Latest
 
-The endoclaw-network-fetch builder job [PR #566](https://github.com/endojs/endo-but-for-bots/pull/566) stopped short and flagged that its "no in-flight PR" premise was stale: a comprehensive draft — `feat(exo-http-client): add confined HttpClient`, adding `packages/exo-http-client` and a shared `packages/http-confine` confinement core — already covers every acceptance criterion, so the builder declined to open a competing implementation and is asking whether to retire the job and shepherd #566 to green instead. Worth a reviewer eye: #566 bases on `llm` rather than `master`, against the base-branch norm. On the weave side, [endo-but-for-bots#617](https://github.com/endojs/endo-but-for-bots/pull/617) is now mergeable (UNSTABLE = clean merge, CI still running) and [#609](https://github.com/endojs/endo-but-for-bots/pull/609) completed its weave, while the fetch-source gzip-decode improvement also landed. A separate maintainer message needs your call: with signup now open on minion.town, no CloudWatch billing alarm was armed on Cognito MAU / DynamoDB spend — confirm thresholds and a notification target before a gardener can set it.
+The endoclaw-network-fetch builder job **stopped without opening a competing PR** — it found that [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (draft `feat(exo-http-client): add confined HttpClient`, author 0xpatrickbot, updated today) already implements the exact confined-fetch design the job cited, down to the `http-confine` allowlist/rate-limit core and every acceptance criterion; the gardener recommends retiring the job and instead posting a shepherd/panel to drive #566 to green, and flags that it bases on `llm` rather than `master`. On the weave front, [endo-but-for-bots#617](https://github.com/endojs/endo-but-for-bots/pull/617) is now mergeable (clean merge, CI still settling) and [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) also completed, alongside a fetch-source gzip-decode improvement. Nothing new is on the board (todo and doin are empty); the parked queue still holds several minion.town Phase A–C builds and the ymax0 hex-fix verification awaiting your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -21,10 +21,6 @@ The endoclaw-network-fetch builder job [PR #566](https://github.com/endojs/endo-
 
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260708T014900Z-a4afa2` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T014900Z-a4afa2.md)
-
-> Report `open-signup-live-minion-town` recommends creating a CloudWatch billing alarm on Cognito pool MAU (and DynamoDB spend) now that signup is open, but none was created. This needs your call on thresholds and the notification target before a gardener can arm it via the aws-administration skill — please confirm the MAU/spend limits and where alerts should go.
 
 - `20260708T053541Z-30f34a` — from gardener:endojs-endo-but-for-bots-endoclaw-network-fetch-build, reply_to `endojs-endo-but-for-bots-endoclaw-network-fetch-build` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T053541Z-30f34a.md)
 
