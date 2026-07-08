@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T00:59:10Z_
+_As of 2026-07-08T01:00:17Z_
 
 ## Latest
 
-Endor XS→Rust port advanced: stage-5 fix5 orchestration [`xs2rust-endor-build-stage5-fix5`] landed complete (regexp validation parity and its 5-part verify chain reported done), and the supervisor immediately opened the next round — fix6's [`xs2rust-endor-stage5-fix6-arrow-capture`] child (the enclosing-function synthetic capture-closure fold) is now in flight, with the s18 supervisor job parked behind the fix6 build.
-
-On minion.town, the gardener finished verified-email hardening at the GitHub OIDC thunk and left two maintainer messages: it confirmed `kriskowal@kriskowal.com` is a verified primary on your GitHub account (so the new lockout keeps you in), shipped the enforcement live (kriscendobot/minion.town @ 45e65e6), and reconciled the box-vs-repo drift — it asks only for an optional fresh sign-in at minion.town to confirm. The SIWE OIDC thunk deploy [`deploy-siwe-thunk-minion-town-go`] also completed, while the consequential minion.town account-store, open-signup gate-flip, and styled-privilege-surface builds remain parked awaiting your go-ahead.
-
-Oldest parked reviews still need eyes — [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) (ESLint 10+ support) has been waiting an hour, and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) have sat a week or more.
+Little moved on the board this cycle: the XS→Rust (Endor) port closed out stage-5 fix5 and its `s17` supervisor step, and the next fix — the enclosing-function synthetic capture-closure fold (`stage5-fix6-arrow-capture`) — is now in flight. The more consequential news is off-board and awaits you: the gardener working minion.town **shipped verified-email enforcement** at the GitHub OIDC thunk (pushed to `kriscendobot/minion.town` main @ 45e65e6, deployed live), after confirming the lock-out check — `kriskowal@kriskowal.com` is your verified primary email, so the new thunk keeps you signed in. Two maintainer messages cover it: it also asks, when convenient, for a fresh GitHub sign-in at https://minion.town/ to confirm your login still lands authenticated (breakglass@minion.town remains the fallback either way). Separately, a cluster of minion.town follow-ups (account store + auto-provisioning, the SIWE thunk deploy and on-chain authz wiring, and the open-signup gate flip flagged as "THE consequential change") sits parked awaiting your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -86,18 +82,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`deadmail-issue-comment-4910381116`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4910381116.md) — Dead-lettered message — pick up its intent
-- [`port-xs-to-rust-memory-safe-engine-s17`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s17.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`xs2rust-endor-stage5-fix6-arrow-capture`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix6-arrow-capture.md) — Stage-5 fix6 1/2 — the enclosing-function synthetic capture-closure fold (the...
 
-### tada (1471)
+### tada (1472)
+- [`port-xs-to-rust-memory-safe-engine-s17`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s17.md) — Completion report — port-xs-to-rust-memory-safe-engine-s17
 - [`deploy-siwe-thunk-minion-town-go`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deploy-siwe-thunk-minion-town-go.md) — Deploy the SIWE OIDC thunk (AWS binding) — complete
 - [`design-account-creation-open-signup-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-account-creation-open-signup-minion-town.md) — Completion report: design-account-creation-open-signup-minion-town
 - [`xs2rust-endor-build-stage5-fix5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage5-fix5.md) — orchestration xs2rust-endor-build-stage5-fix5 — complete
 - [`xs2rust-endor-stage5-fix5-verify`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix5-verify.md) — fix5-verify 5/5 — completion report
-- [`xs2rust-endor-stage5-fix5-regexp-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix5-regexp-validation.md) — Completion report: xs2rust-endor-stage5-fix5 4/5 — regexp validation parity +...
-- … and 1466 more
+- … and 1467 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
