@@ -30,3 +30,9 @@ Analogous to the AWS storage-platform design (`design-endo-daemon-aws-storage`):
 - Follow-on build job(s) parked `--go-ahead`.
 
 Ground in the real `@endo/daemon` code; keep the daemon core untouched; bindings/creds as injected powers.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 10
+  claimed_at: 2026-07-08T05:52:20Z
