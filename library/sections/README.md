@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6331 (530 parent indexes + 5801 children).
+Total section files: 6344 (530 parent indexes + 5814 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8649,6 +8649,22 @@ Total section files: 6331 (530 parent indexes + 5801 children).
 - [web--miller-grant-matcher-puzzle--overview](web--miller-grant-matcher-puzzle--overview.md)
 - [web--miller-grant-matcher-puzzle--setting-up-the-puzzle](web--miller-grant-matcher-puzzle--setting-up-the-puzzle.md)
 - [web--miller-grant-matcher-puzzle--when-it-works](web--miller-grant-matcher-puzzle--when-it-works.md)
+
+### web--openai-symphony-codex-orchestration
+
+- [web--openai-symphony-codex-orchestration--interactive-agent-ceiling](web--openai-symphony-codex-orchestration--interactive-agent-ceiling.md)
+- [web--openai-symphony-codex-orchestration--issue-tracker-as-control-plane](web--openai-symphony-codex-orchestration--issue-tracker-as-control-plane.md)
+- [web--openai-symphony-codex-orchestration--objectives-over-state-machines](web--openai-symphony-codex-orchestration--objectives-over-state-machines.md)
+- [web--openai-symphony-codex-orchestration--outcomes-and-economics](web--openai-symphony-codex-orchestration--outcomes-and-economics.md)
+- [web--openai-symphony-codex-orchestration--overview](web--openai-symphony-codex-orchestration--overview.md)
+- [web--openai-symphony-codex-orchestration--spec-agent-runner-protocol](web--openai-symphony-codex-orchestration--spec-agent-runner-protocol.md)
+- [web--openai-symphony-codex-orchestration--spec-configuration](web--openai-symphony-codex-orchestration--spec-configuration.md)
+- [web--openai-symphony-codex-orchestration--spec-driven-dogfooding](web--openai-symphony-codex-orchestration--spec-driven-dogfooding.md)
+- [web--openai-symphony-codex-orchestration--spec-orchestration-state-machine](web--openai-symphony-codex-orchestration--spec-orchestration-state-machine.md)
+- [web--openai-symphony-codex-orchestration--spec-problem-and-domain-model](web--openai-symphony-codex-orchestration--spec-problem-and-domain-model.md)
+- [web--openai-symphony-codex-orchestration--spec-tracker-prompt-and-observability](web--openai-symphony-codex-orchestration--spec-tracker-prompt-and-observability.md)
+- [web--openai-symphony-codex-orchestration--spec-workflow-md-contract](web--openai-symphony-codex-orchestration--spec-workflow-md-contract.md)
+- [web--openai-symphony-codex-orchestration--spec-workspace-management-and-safety](web--openai-symphony-codex-orchestration--spec-workspace-management-and-safety.md)
 
 ### web--tailscale-oauth-apps
 
