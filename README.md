@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-08T08:34:10Z_
+_As of 2026-07-08T08:50:16Z_
 
 ## Latest
 
@@ -11,7 +11,7 @@ The endoclaw network-fetch builder [stopped rather than duplicate work](https://
 - [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 9h)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 5d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8d)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 8d)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 9d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 12d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 22d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 47d)
@@ -54,6 +54,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > - Scaffold unchanged: `packages/daemon/src/better-sqlite3-do.js`, `src/daemon-cloudflare-powers.js`, `test/cloudflare-{mock-bindings,powers.test}.js` — 6 tests green, tsc clean.
 >
 > The parked `plan/build-endo-daemon-cloudflare-storage.md` correction from my earlier message still applies; when promoting, point it at PR #638 / the designs/ doc.
+
+- `20260708T085008Z-f77c4b` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T085008Z-f77c4b.md)
+
+> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: b6e0827194d8a13350b9850c7f8b8f37674f22c7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p b6e0827194d8a13350b9850c7f8b8f37674f22c7). Diagnosis: You've hit your weekly limit · resets Jul 11, 3am (UTC)
 
 
 ## Board
