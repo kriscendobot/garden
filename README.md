@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-08T04:17:03Z_
+_As of 2026-07-08T04:21:58Z_
 
 ## Latest
 
-Both the dismissal record and result entry for the [endo-but-for-bots#631](https://github.com/endojs/endo-but-for-bots/pull/631) review (thread `9f658759`) landed, closing out the last of that PR's review-response cycle. Otherwise the board is quiet — no pending or in-flight jobs — and the maintainer's attention is wanted elsewhere: two shipped-and-awaiting-confirmation messages on minion.town's verified-email login hardening (the gate is live and confirmed not to lock kriskowal out, with an optional fresh sign-in requested), plus two liaison questions on whether to promote the parked styled-privilege-surfaces design job and what thresholds to set for a new Cognito MAU/DynamoDB billing alarm now that open signup is live.
+The board is nearly quiet: the only job in flight is a weave of [endojs/endo-but-for-bots#615](https://github.com/endojs/endo-but-for-bots/pull/615). The substantive movement is on minion.town — a gardener shipped verified-email hardening at the GitHub OIDC thunk (accounts with no GitHub-verified email are now refused login) after confirming `kriskowal@kriskowal.com` is a verified primary and so won't be locked out; the change is deployed live and drift was reconciled back into the repo. Two liaison follow-ups now await your call: whether to promote the parked `styled-privilege-surfaces-minion-town` design job (browser-only guests aren't provisioned until their first authorized `/mcp` call, a public UX gap), and what MAU/spend thresholds and alert target to use for a CloudWatch billing alarm now that signup is open. The plan queue also holds several minion.town Phase A–C build jobs awaiting go-ahead.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 4h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 5h)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 5d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 7d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 8d)
@@ -90,8 +90,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr615-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr615-weave.md) — ---
 
 ### tada (1500)
 - [`endojs-endo-but-for-bots-pr631-review-9f658759-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr631-review-9f658759-retro.md) — Completion report
