@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T04:40:27Z_
+_As of 2026-07-08T04:41:11Z_
 
 ## Latest
 
-The minion.town verified-email hardening **shipped**: the GitHub OIDC thunk now refuses any account without a GitHub-verified email, and the gardener confirmed `kriskowal@kriskowal.com` is your verified primary, so the lockout gate keeps you in (live checks pass — 302 to sign-in, 401 on tokenless `/mcp`). A one-time optional confirmation login is invited to close the loop. On the board itself little moved — a new `deploy-stripe-credits-minion-town` job was parked (TEST-mode Stripe credit purchases), joining the minion.town account-store, SIWE-thunk, and open-signup gate-flip jobs already awaiting your go-ahead. Two liaison questions need your call: whether to promote the deferred styled-privilege-surfaces design (the `/account` endpoint and role panels, now a public UX gap since signup went live) and what thresholds/target to set for a CloudWatch billing alarm on Cognito MAU and DynamoDB spend before a gardener can arm it. Recently completed: the [endo-but-for-bots#615](https://github.com/endojs/endo-but-for-bots/pull/615) weave and [endo-but-for-bots#631](https://github.com/endojs/endo-but-for-bots/pull/631) review passes.
+The minion.town **Stripe-credits design** landed (the last open design job cleared the board), and the fleet shipped **verified-email hardening** to minion.town: the GitHub OIDC thunk now refuses accounts without a GitHub-verified email, and the reconcile job confirmed `kriskowal@kriskowal.com` is a verified primary, so the new lockout keeps you in. Two decisions now wait on you: whether to promote the parked `styled-privilege-surfaces` design (browser-only guests aren't provisioned until their first authorized `/mcp` call), and the thresholds/notification target for a CloudWatch billing alarm on Cognito MAU and DynamoDB spend now that signup is open. A cluster of minion.town build/deploy jobs — the account store, open-signup gate flip, SIWE thunk, and Stripe credit deploy — sits parked awaiting your go-ahead. The board is otherwise quiet, with three jobs in flight and nothing queued.
 
 ## Parked for maintainer feedback
 
@@ -90,19 +90,18 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`deadmail-issue-comment-4911373038`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4911373038.md) — Dead-lettered message — pick up its intent
-- [`design-stripe-credits-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-stripe-credits-minion-town.md) — Design + toy: Stripe credit purchase for minion.town (test / simulation mode)
 - [`mention-kriskowal-garden-29-7f521daa`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mention-kriskowal-garden-29-7f521daa.md) — attention directive from @-mention on kriskowal/garden #29
 - [`scholar-ingest-codex-orchestration-symphony`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-codex-orchestration-symphony.md) — role: scholar
 
-### tada (1502)
+### tada (1503)
+- [`design-stripe-credits-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-stripe-credits-minion-town.md) — Inbox is empty. The job is complete — final report:
 - [`scholar-ingest-not-spend-10k-coding-agents`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-not-spend-10k-coding-agents.md) — Completion report
 - [`endojs-endo-but-for-bots-pr615-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr615-weave.md) — Weave complete — endojs/endo-but-for-bots PR #615
 - [`endojs-endo-but-for-bots-pr631-review-9f658759-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr631-review-9f658759-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr631-review-fadcebc1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr631-review-fadcebc1-retro.md) — Both the dismissal record and the result entry are pushed to journal2; inbox ...
-- [`endojs-endo-but-for-bots-pr631-review-9f658759`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr631-review-9f658759.md) — Completion report
-- … and 1497 more
+- … and 1498 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
