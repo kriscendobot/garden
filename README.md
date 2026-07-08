@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T06:08:36Z_
+_As of 2026-07-08T06:11:41Z_
 
 ## Latest
 
-The [deploy-stripe-credits-minion-town](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deploy-stripe-credits-minion-town.md) job landed, the only board transition this cycle; two Endo-daemon storage-platform design jobs (AWS and CloudFlare peers) remain in flight. Worth the maintainer's attention: the `endoclaw-network-fetch` builder **stopped rather than build**, reporting that its confined `HttpClient`/`HttpClientControl` capability is already fully implemented by [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (DRAFT, MERGEABLE) — it declined to open a competing PR and recommends retiring the job in favor of a shepherd/panel to land #566, flagging that #566 bases on `llm` rather than `master`.
+The garden's autonomous [endoclaw-network-fetch](https://github.com/endojs/endo-but-for-bots) builder self-halted rather than duplicate work: it found that [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (`feat(exo-http-client): add confined HttpClient`, DRAFT, by 0xpatrickbot) already implements the full confined `HttpClient`/`HttpClientControl` design — every acceptance criterion covered, across new `exo-http-client` and `http-confine` packages. The gardener declined to open a competing PR and instead flagged it to kriskowal, recommending the job be retired and a shepherd/panel be posted to drive #566 to green; note #566 bases on `llm` rather than `master`, worth a reviewer's eye against the base-branch norm. On the weaving front, [endo-but-for-bots#617](https://github.com/endojs/endo-but-for-bots/pull/617) is now MERGEABLE (CI clean) and [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) completed its weave. Two Endo-daemon storage-platform designs (AWS and Cloudflare) are in flight, and the Cloudflare build was newly parked on the plan queue awaiting go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -16,7 +16,7 @@ The [deploy-stripe-credits-minion-town](https://github.com/kriskowal/garden/blob
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 22d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 47d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 47d)
-- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 48d)
+- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 49d)
 - [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 48d)
 
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
@@ -55,6 +55,7 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
 - [`build-account-store-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-account-store-minion-town.md) — _normal_ · Build: account store + auto-provisioning for minion.town (Phase A — ships dar...
+- [`build-endo-daemon-cloudflare-storage`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-daemon-cloudflare-storage.md) — _normal_ · Build: Endo daemon Cloudflare storage platform (phases 1-2 of the design)
 - [`deploy-siwe-thunk-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-siwe-thunk-minion-town.md) — _normal_ · Deploy the SIWE OIDC thunk (mirroring the GitHub thunk's AWS path)
 - [`endojs-endo-but-for-bots-pr132-report-render-mode`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-report-render-mode.md) — _normal_ · re-port render-mode toggle onto @endo/space-chat InboxRoot (endojs/endo-but-f...
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
