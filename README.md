@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T05:14:39Z_
+_As of 2026-07-08T05:15:37Z_
 
 ## Latest
 
-Voice-input PR [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) landed on the parked-for-review queue, joining a deep backlog now 27 PRs long.
-
-On minion.town, verified-email hardening [shipped live](https://minion.town/): the GitHub-IdP thunk now refuses any account without a GitHub-verified email, box-vs-repo drift was reconciled, and a lock-out check confirmed the maintainer's verified primary keeps admin access. Two follow-ups need a maintainer call — whether to promote the deferred [styled privilege surfaces](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/styled-privilege-surfaces-minion-town.md) design job now that open signup is live, and what thresholds/target to set for a CloudWatch billing alarm on Cognito MAU and DynamoDB spend.
-
-The board is drained (todo and doin empty). Recent completions include a weave of [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609), a fetch-source gzip-decode improvement, and a scholar ingest of the Codex orchestration notes. The daemon→manager rename remains staged behind [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598), and lint-ceiling shepherds wait on [endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594).
+The minion.town verified-email hardening shipped and deployed live: the GitHub IdP thunk now refuses accounts without a GitHub-verified email, with the gardener confirming kriskowal@kriskowal.com is a verified primary so the enforcement won't lock you out — the one optional follow-up is a fresh sign-in at https://minion.town/ to confirm. Two items now sit in your inbox needing a call: the same report recommends a CloudWatch billing alarm on Cognito MAU and DynamoDB spend now that signup is open, but it's stalled pending your thresholds and a notification target. On the board, [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) was woven and a fetch-source gzip-decode improvement completed, but overall board movement was quiet this interval. The minion.town buildout stays parked awaiting go-ahead — the open-signup gate flip, account store, SIWE thunk, and Stripe credits are all queued on your authorization.
 
 ## Parked for maintainer feedback
 
@@ -57,10 +53,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > https://minion.town/ to confirm your login still lands authenticated. If anything
 > is off, breakglass@minion.town (native admin, unaffected by thunk enforcement)
 > remains your fallback either way.
-
-- `20260708T014855Z-b7abdc` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T014855Z-b7abdc.md)
-
-> Report `open-signup-live-minion-town` deferred design job #3 (styled privilege surfaces: the `/account` browser endpoint, landing role panel, `error.html`, insufficient-privilege page, `ELEVATION_CONTACT`). Now that signup is live on the bot's minion-town, browser-only guests aren't provisioned until their first authorized `/mcp` call — a public-facing UX gap. Do you want to promote this deferred design job, or keep it parked?
 
 - `20260708T014900Z-a4afa2` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T014900Z-a4afa2.md)
 
