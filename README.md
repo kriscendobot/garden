@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T04:24:25Z_
+_As of 2026-07-08T04:25:29Z_
 
 ## Latest
 
-Now that signup is live on the bot's minion.town, the fleet hardened its GitHub OIDC auth to enforce verified-email-only login (deployed to Lambda at [kriscendobot/minion.town](https://github.com/kriskowal/minion.town) main @ 45e65e6), after confirming `kriskowal@kriskowal.com` is a verified primary email so the maintainer won't be locked out; a break-glass admin remains as fallback. Design work is now in flight on Stripe credit purchases for minion.town (test/simulation mode), and a weave is underway on [endo-but-for-bots#615](https://github.com/endojs/endo-but-for-bots/pull/615). Two questions are parked for the maintainer: whether to promote the deferred design for styled privilege surfaces (the browser-facing `/account` and role panels now that guests aren't provisioned until their first authorized `/mcp` call), and to set thresholds and a notification target for a CloudWatch billing alarm on Cognito MAU and DynamoDB spend before a gardener can arm it.
+Now that signup is live on the bot's minion.town, a gardener [enforced verified-email-only login at the GitHub OIDC thunk](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T233536Z-0c989d.md) and confirmed the change keeps kriskowal in (kriskowal@kriskowal.com is a verified primary email), reconciling the live box back to byte-match the repo — it now awaits your optional fresh-login confirmation. Two liaison follow-ups need your call: whether to promote the parked design job for minion.town's styled privilege surfaces (the browser `/account` endpoint and role-aware landing/error pages), and what MAU/spend thresholds and alert target to set for the recommended CloudWatch billing alarm on the Cognito pool. On the review front, [endo-but-for-bots#631](https://github.com/endojs/endo-but-for-bots/pull/631) cleared its review directives and retrospective; a [#615 weave](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr615-weave.md), a [Stripe-credits design/toy for minion.town](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-stripe-credits-minion-town.md), and a scholar codex-ingest are in flight. Eight PRs sit parked awaiting your feedback, led by [endo#3319](https://github.com/endojs/endo/pull/3319) (ESLint 10+ support) and [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input).
 
 ## Parked for maintainer feedback
 
@@ -90,9 +90,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`design-stripe-credits-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-stripe-credits-minion-town.md) — Design + toy: Stripe credit purchase for minion.town (test / simulation mode)
 - [`endojs-endo-but-for-bots-pr615-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr615-weave.md) — ---
+- [`scholar-ingest-codex-orchestration-symphony`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-codex-orchestration-symphony.md) — role: scholar
 
 ### tada (1500)
 - [`endojs-endo-but-for-bots-pr631-review-9f658759-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr631-review-9f658759-retro.md) — Completion report
