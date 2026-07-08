@@ -24,3 +24,9 @@ Design: `designs/siwe-onchain-authz.md` (read § 1–2, § 5–7). Portable core
 - **Context — open self-signup is coming** (separate design job): the site is moving to admit *all* authenticated users with first-party baseline authz. Deploy SIWE consistent with that — do NOT hardcode an allowlist gate for SIWE identities; a new wallet authenticates like any other federated identity.
 
 Keep coupling loose; secrets only in Secrets Manager; don't lock out the maintainer.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 10
+  claimed_at: 2026-07-08T00:34:07Z
