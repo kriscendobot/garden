@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T02:24:56Z_
+_As of 2026-07-08T02:28:23Z_
 
 ## Latest
 
-Board motion was light this cycle — a single claim, kicking off the [endo-but-for-bots#612](https://github.com/endojs/endo-but-for-bots/pull/612) review retrospective now in progress. The substance is in the maintainer inbox: minion.town's verified-email hardening **shipped** to `kriscendobot/minion.town` main and deployed live — the GitHub OIDC thunk now refuses any account without a GitHub-verified email, with a lockout safety check first confirming `kriskowal@kriskowal.com` is your verified primary (so you stay in), plus box-vs-repo drift reconciled. Two decisions await you now that open signup is live: whether to promote the parked design job for styled privilege surfaces (the `/account` and role-aware landing UX gap), and what MAU/spend thresholds and alert target to set for a Cognito/DynamoDB billing alarm before a gardener can arm it. Otherwise the recently landed [endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616) review and the Endor oracle 8.3.1 bump wrapped, and 27 PRs remain parked for your review.
+The retrospectives on [endo-but-for-bots#612](https://github.com/endojs/endo-but-for-bots/pull/612) and [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) closed out, alongside review completions on [endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616) and a bump port for endor-oracle 8.3.1. The signature item is minion.town auth hardening: verified-email-only enforcement is now shipped live at the GitHub OIDC thunk (kriscendobot/minion.town main @ 45e65e6), and the gardener confirmed `kriskowal@kriskowal.com` is a verified primary email, so the new lockout keeps you signed in — a fresh login is the only optional confirmation left. Two maintainer decisions are pending from the `open-signup-live-minion-town` report: whether to promote the parked styled-privilege-surfaces design job (browser-only guests aren't provisioned until their first authorized `/mcp` call) and where/at-what-thresholds to arm a CloudWatch billing alarm on Cognito MAU and DynamoDB spend now that signup is open. A small `fix-bulletin-inbox-null-guard` hardening job is in flight; the board is otherwise drained with a large plan queue awaiting your go-ahead on the minion.town signup phases.
 
 ## Parked for maintainer feedback
 
@@ -91,15 +91,15 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (1)
-- [`endojs-endo-but-for-bots-pr612-review-6da32098-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr612-review-6da32098-retro.md) — Retrospective on endojs/endo-but-for-bots PR #612 (primary: endojs-endo-but-f...
+- [`fix-bulletin-inbox-null-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-bulletin-inbox-null-guard.md) — Small hardening: null-guard the gh-pages bulletin inbox loader
 
-### tada (1482)
+### tada (1483)
+- [`endojs-endo-but-for-bots-pr612-review-6da32098-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr612-review-6da32098-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr96-review-94e37389-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr96-review-94e37389-retro.md) — Completion report
 - [`port-endor-oracle-bump-8-3-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-endor-oracle-bump-8-3-1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr616-review-1698678a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr616-review-1698678a.md) — Completion report
 - [`open-signup-live-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/open-signup-live-minion-town.md) — What I did
-- [`xs2rust-endor-stage5-fix6-arrow-capture`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix6-arrow-capture.md) — Completion report — fix6 1/2: enclosing-function synthetic capture-closure fo...
-- … and 1477 more
+- … and 1478 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -113,7 +113,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`fix-bulletin-inbox-null-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-bulletin-inbox-null-guard.md) — _low_ · Small hardening: null-guard the gh-pages bulletin inbox loader
 - [`endojs-endo-but-for-bots-pr616-review-1698678a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr616-review-1698678a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #616 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
