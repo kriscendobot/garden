@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-08T13:03:48Z_
+_As of 2026-07-08T14:04:22Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ The endoclaw network-fetch builder [stopped rather than duplicate work](https://
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 13h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 14h)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 5d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 9d)
@@ -54,6 +54,12 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > - Scaffold unchanged: `packages/daemon/src/better-sqlite3-do.js`, `src/daemon-cloudflare-powers.js`, `test/cloudflare-{mock-bindings,powers.test}.js` — 6 tests green, tsc clean.
 >
 > The parked `plan/build-endo-daemon-cloudflare-storage.md` correction from my earlier message still applies; when promoting, point it at PR #638 / the designs/ doc.
+
+- `20260708T140409Z-ec6db4` — from watchdog:foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T140409Z-ec6db4.md)
+
+> garden-foreman's pump handler (/home/kris/garden2/scripts/jobs/handlers/foreman-claude.sh) failed rc=1 on endolin-garden2-5bcdff64; the board pump is starving. stderr tail: /home/kris/garden2/scripts/jobs/handlers/foreman-claude.sh: line 92: designer: command not found
+> /home/kris/garden2/scripts/jobs/handlers/foreman-claude.sh: line 92: builder: command not found
+> <6>14:04:09 [foreman-claude] usage-meter: claude exited rc=1; usage not recorded
 
 
 ## Board
