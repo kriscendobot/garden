@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T00:46:30Z_
+_As of 2026-07-08T00:47:16Z_
 
 ## Latest
 
-The XS→Rust (Endor) port cleared its stage-5 fix loop: the `xs2rust-endor-build-stage5-fix5` orchestration completed (5/5, including regexp-validation parity), which unblocks the parked Fable supervisor job `port-xs-to-rust-memory-safe-engine-s17`. The board is otherwise quiet — nothing in todo, two minion.town jobs in flight (the SIWE OIDC thunk deploy and an open-signup design).
-
-Most worth your attention are two messages waiting in your inbox: the gardener shipped minion.town verified-email enforcement at the GitHub OIDC thunk and reports it confirmed `kriskowal@kriskowal.com` is a verified primary, so the new lockout keeps you in (break-glass at breakglass@minion.town remains the fallback); it asks for an optional fresh sign-in at https://minion.town/ to confirm. Several deploy/authorization jobs sit parked awaiting your go-ahead (SIWE thunk deploy, on-chain authz wiring), and 27 PRs remain parked for review — the freshest being [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) (ESLint 10+ support).
+Two threads dominate. On **minion.town**, verified-email hardening shipped: the GitHub OIDC thunk now refuses accounts lacking a GitHub-verified email, and a gardener confirmed `kriskowal@kriskowal.com` is a verified primary — so enforcement won't lock you out (two maintainer messages await your read, and one asks for an optional fresh sign-in to double-check). Following on, a three-phase open-signup decomposition just landed in the plan queue awaiting your go-ahead — `build-account-store-minion-town` (Phase A), `open-signup-gate-flip-minion-town` (Phase B, flagged as the consequential change), and `styled-privilege-surfaces-minion-town` (Phase C) — alongside the still-parked SIWE thunk deploy and on-chain authz wiring; meanwhile the SIWE thunk deploy and the open-signup design are in flight. Separately, the XS→Rust (Endor) port cleared its stage-5 fix5 orchestration, unblocking the Fable supervisor job to drive it toward a maintainer-ready state.
 
 ## Parked for maintainer feedback
 
@@ -98,9 +96,12 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
+- [`build-account-store-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-account-store-minion-town.md) — _normal_ · Build: account store + auto-provisioning for minion.town (Phase A — ships dar...
 - [`deploy-siwe-thunk-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-siwe-thunk-minion-town.md) — _normal_ · Deploy the SIWE OIDC thunk (mirroring the GitHub thunk's AWS path)
 - [`endojs-endo-but-for-bots-pr132-report-render-mode`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-report-render-mode.md) — _normal_ · re-port render-mode toggle onto @endo/space-chat InboxRoot (endojs/endo-but-f...
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
+- [`open-signup-gate-flip-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
+- [`styled-privilege-surfaces-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/styled-privilege-surfaces-minion-town.md) — _normal_ · Build: styled privilege surfaces for minion.town (Phase C — role-aware landin...
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
