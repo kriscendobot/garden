@@ -1,18 +1,21 @@
 # Garden bulletin
 
-_As of 2026-07-08T05:16:39Z_
+_As of 2026-07-08T05:21:25Z_
 
 ## Latest
 
-No board transitions landed since the last bulletin — the fleet is idle with an empty todo/doin queue. The item most needing your attention is a new maintainer message from the liaison: now that minion.town signup is open, the `open-signup-live-minion-town` report recommends arming a CloudWatch billing alarm on Cognito MAU and DynamoDB spend, but a gardener can't set it until you confirm thresholds and a notification target. Relatedly, the whole minion.town monetization/auth track is stalled awaiting your go-ahead — the Phase A account store, Phase B open-signup gate flip, Phase C styled privilege surfaces, plus the SIWE OIDC thunk, Stripe credits, and on-chain authz jobs are all parked for authorization. On the review side the oldest parked PRs continue to age, notably [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (47d) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) (47d), while [endo#3319](https://github.com/endojs/endo/pull/3319) (ESLint 10+ support) is the freshest at 5h.
+A [weaver][617] job on [endo-but-for-bots#617][617] is the only board movement since the last bulletin — freshly claimed and now in progress; the board is otherwise idle (nothing queued in todo). Worth a maintainer's eye instead: an [open message][msg] flags that the `open-signup-live-minion-town` report recommends a CloudWatch billing alarm on Cognito MAU and DynamoDB spend now that signup is live, but it's stuck awaiting your call on thresholds and where alerts should go before a gardener can arm it.
+
+[617]: https://github.com/endojs/endo-but-for-bots/pull/617
+[msg]: https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T014900Z-a4afa2.md
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 5h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 6h)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 5d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 8d)
-- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 11d)
+- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 12d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 22d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 47d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 47d)
@@ -31,8 +34,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr617-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr617-weave.md) — ---
 
 ### tada (1508)
 - [`endojs-endo-but-for-bots-pr609-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr609-weave.md) — Completion report
