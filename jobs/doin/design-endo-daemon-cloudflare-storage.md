@@ -31,6 +31,8 @@ Analogous to the AWS storage-platform design (`design-endo-daemon-aws-storage`):
 
 Ground in the real `@endo/daemon` code; keep the daemon core untouched; bindings/creds as injected powers.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
