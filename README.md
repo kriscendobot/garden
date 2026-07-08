@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T04:29:11Z_
+_As of 2026-07-08T04:30:26Z_
 
 ## Latest
 
-Weave completed on [endojs/endo-but-for-bots#615](https://github.com/endojs/endo-but-for-bots/pull/615), and a new attention directive landed from an @-mention on [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29). Two maintainer decisions are waiting: whether to promote the deferred `styled-privilege-surfaces-minion-town` design job (browser-only guests aren't provisioned until their first authorized `/mcp` call now that signup is live), and sign-off on a CloudWatch billing alarm for the Cognito pool now that minion.town signup is open — both need your thresholds/targets. Separately, the minion.town verified-email lockout gate shipped after confirming `kriskowal@kriskowal.com` is your verified primary, so you remain admitted; a fresh sign-in at minion.town is the only optional confirmation left.
+The board barely moved this cycle — the only transition was a dead-lettered issue comment ([kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29)-adjacent) being repicked into `doin`, with `todo` empty and gardeners otherwise idle on a handful of design and scholar-ingest jobs. The substance is in the maintainer inbox: the minion.town verified-email hardening **shipped** (pushed to `kriscendobot/minion.town` @ 45e65e6, live on Lambda) — the thunk now refuses any account lacking a GitHub-verified email, and the pre-ship lockout check confirmed `kriskowal@kriskowal.com` is your verified primary, so you stay in; an optional fresh sign-in at https://minion.town/ would confirm, with breakglass@minion.town as the standing fallback. Two liaison follow-ups need your call before anything more ships on minion.town: whether to promote the parked **styled-privilege-surfaces** design job (the `/account`, landing-role, and insufficient-privilege pages now that open signup is live) and what thresholds/notification target to set for a **CloudWatch billing alarm** on Cognito MAU and DynamoDB spend. The plan queue holds a cluster of minion.town phases (`build-account-store`, `open-signup-gate-flip`, `styled-privilege-surfaces`, SIWE thunk deploy + on-chain authz) all awaiting your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -90,7 +90,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
+- [`deadmail-issue-comment-4911373038`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4911373038.md) — Dead-lettered message — pick up its intent
 - [`design-stripe-credits-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-stripe-credits-minion-town.md) — Design + toy: Stripe credit purchase for minion.town (test / simulation mode)
 - [`mention-kriskowal-garden-29-7f521daa`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mention-kriskowal-garden-29-7f521daa.md) — attention directive from @-mention on kriskowal/garden #29
 - [`scholar-ingest-codex-orchestration-symphony`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-codex-orchestration-symphony.md) — role: scholar
