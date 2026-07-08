@@ -1,10 +1,7 @@
 ---
-gate: deferred
-priority: normal
 role: builder
-posted_by: producer
-posted_at: 2026-07-07T23:03:50Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-07-08T01:54:23Z -->
 
 Bump the endor-oracle `c/moddable` pin from 8.2.3 (`48ee02d8cfe0`) to 8.3.1
 (`23b4d6b0a65f`) and mirror the post-8.2.3 engine-relevant deltas onto the
