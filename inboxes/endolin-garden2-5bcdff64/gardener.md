@@ -48,3 +48,12 @@ Inspect via `git -C journal cat-file -p d9aed1437224ebbf7e88022e21fa40579a0fa97e
 - Context: gardener-2 on endolin-garden2-5bcdff64: job 'design-endo-daemon-cloudflare-storage' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 4debb6e629e4d2a90ba540c97de7dfa33beab454`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-08T06:52:16Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 049076a7e1f30fe3690d22bca23c6b25e826341c
+- Context: gardener-17 on endolin-garden2-5bcdff64: job 'endojs-endo-but-for-bots-pr637-shepherd' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 049076a7e1f30fe3690d22bca23c6b25e826341c`.
