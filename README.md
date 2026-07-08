@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T05:35:51Z_
+_As of 2026-07-08T05:36:16Z_
 
 ## Latest
 
-The `endoclaw-network-fetch` builder halted and kicked back to you: its brief assumed no in-flight PR, but [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (`feat(exo-http-client): add confined HttpClient`, draft) already implements the full `HttpClient`/`HttpClientControl` design plus a `http-confine` confinement core, so the gardener declined to build a duplicate and recommends retiring the job in favor of a shepherd/panel run to drive #566 green — flagging that it bases on `llm` rather than `master`, which merits a reviewer's eye. On the merge front, [endo-but-for-bots#617](https://github.com/endojs/endo-but-for-bots/pull/617) is now mergeable (clean, CI only UNSTABLE) and [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) also completed its weave. A separate maintainer message asks for your call on CloudWatch billing-alarm thresholds (Cognito MAU and DynamoDB spend) now that minion.town signup is open, plus the notification target, before a gardener can arm it.
+The endoclaw-network-fetch builder job [PR #566](https://github.com/endojs/endo-but-for-bots/pull/566) stopped short and flagged that its "no in-flight PR" premise was stale: a comprehensive draft — `feat(exo-http-client): add confined HttpClient`, adding `packages/exo-http-client` and a shared `packages/http-confine` confinement core — already covers every acceptance criterion, so the builder declined to open a competing implementation and is asking whether to retire the job and shepherd #566 to green instead. Worth a reviewer eye: #566 bases on `llm` rather than `master`, against the base-branch norm. On the weave side, [endo-but-for-bots#617](https://github.com/endojs/endo-but-for-bots/pull/617) is now mergeable (UNSTABLE = clean merge, CI still running) and [#609](https://github.com/endojs/endo-but-for-bots/pull/609) completed its weave, while the fetch-source gzip-decode improvement also landed. A separate maintainer message needs your call: with signup now open on minion.town, no CloudWatch billing alarm was armed on Cognito MAU / DynamoDB spend — confirm thresholds and a notification target before a gardener can set it.
 
 ## Parked for maintainer feedback
 
@@ -44,16 +44,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-endoclaw-network-fetch-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-endoclaw-network-fetch-build.md) — ---
+### doin (0)
+(none)
 
-### tada (1509)
+### tada (1510)
+- [`endojs-endo-but-for-bots-endoclaw-network-fetch-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-endoclaw-network-fetch-build.md) — Completion report
 - [`endojs-endo-but-for-bots-pr617-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr617-weave.md) — PR #617 is now **MERGEABLE** (mergeStateStatus UNSTABLE = merge is clean, CI ...
 - [`endojs-endo-but-for-bots-pr609-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr609-weave.md) — Completion report
 - [`improve-fetch-source-gzip-decode`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-fetch-source-gzip-decode.md) — Completion report
 - [`mention-kriskowal-garden-29-7f521daa`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mention-kriskowal-garden-29-7f521daa.md) — Completion report
-- [`scholar-ingest-codex-orchestration-symphony`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-codex-orchestration-symphony.md) — Completion report — scholar-ingest-codex-orchestration-symphony
-- … and 1504 more
+- … and 1505 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
