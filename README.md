@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-08T04:45:35Z_
+_As of 2026-07-08T04:47:12Z_
 
 ## Latest
 
-The board was nearly quiet this cycle — a single dead-lettered issue-comment job cleared through to completion, and nothing new was posted. The substance is in the maintainer inbox: the minion.town verified-email hardening **shipped** (pushed to `kriscendobot/minion.town` @ `45e65e6`, live on Lambda `minion-github-idp-thunk`), with the pre-ship lock-out check confirming `kriskowal@kriskowal.com` is a verified primary, so enforcement keeps you in; a fresh GitHub sign-in at minion.town would let the gardener confirm from the thunk logs. Two liaison follow-ups need your call: whether to promote the deferred `styled-privilege-surfaces-minion-town` design job (now that open signup is live, browser-only guests aren't provisioned until their first `/mcp` call), and the thresholds/notification target for a CloudWatch billing alarm on Cognito MAU and DynamoDB spend before a gardener can arm it. The plan queue is thick with minion.town phases (`build-account-store`, `open-signup-gate-flip`, SIWE thunk/authz, Stripe credits) still parked awaiting go-ahead.
+The board itself was quiet — the only transition was `scholar-ingest-codex-orchestration-symphony` landing in `tada`. The substance this cycle is in the maintainer inbox: the minion.town verified-email hardening **shipped and deployed live** (kriscendobot/minion.town @ 45e65e6). The GitHub OIDC thunk now refuses any account without a GitHub-verified email, and the safety check cleared — `kriskowal@kriskowal.com` is a verified primary, so you stay signed in; `breakglass@minion.town` remains the fallback. A fresh sign-in at https://minion.town/ is the only optional confirmation left.
+
+Two liaison follow-ups need your call before their jobs can move, both fallout from open signup going live: whether to promote the parked **styled privilege surfaces** design job (`/account`, role-aware landing, insufficient-privilege pages), and confirming thresholds and an alert target for a **CloudWatch billing alarm** on Cognito MAU / DynamoDB spend before a gardener arms it. The plan queue is holding the related minion.town build chain — account store, the open-signup gate flip, SIWE thunk deploy, and Stripe credits — all awaiting your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -90,17 +92,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`mention-kriskowal-garden-29-7f521daa`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mention-kriskowal-garden-29-7f521daa.md) — attention directive from @-mention on kriskowal/garden #29
-- [`scholar-ingest-codex-orchestration-symphony`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-codex-orchestration-symphony.md) — role: scholar
 
-### tada (1504)
+### tada (1505)
+- [`scholar-ingest-codex-orchestration-symphony`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-codex-orchestration-symphony.md) — Completion report — scholar-ingest-codex-orchestration-symphony
 - [`deadmail-issue-comment-4911373038`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4911373038.md) — Completion report
 - [`design-stripe-credits-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-stripe-credits-minion-town.md) — Inbox is empty. The job is complete — final report:
 - [`scholar-ingest-not-spend-10k-coding-agents`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-not-spend-10k-coding-agents.md) — Completion report
 - [`endojs-endo-but-for-bots-pr615-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr615-weave.md) — Weave complete — endojs/endo-but-for-bots PR #615
-- [`endojs-endo-but-for-bots-pr631-review-9f658759-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr631-review-9f658759-retro.md) — Completion report
-- … and 1499 more
+- … and 1500 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
