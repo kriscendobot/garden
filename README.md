@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T01:01:53Z_
+_As of 2026-07-08T01:03:43Z_
 
 ## Latest
 
-Two xsnap mirror-and-rebase jobs are now in flight against the `kriscendobot` fork — one carrying Agoric/agoric-sdk #11031 (legacy/latest variants) and one #11297 (Moddable 3.9.2 bump) — alongside a new design job to make a vat that fails to upgrade park itself and resume via its admin facet. Separately, the minion.town verified-email hardening shipped: the GitHub OIDC thunk now refuses accounts with no GitHub-verified email, and the gardener confirmed `kriskowal@kriskowal.com` is a verified primary so the new enforcement won't lock the maintainer out (two messages await in the maintainer inbox, one asking only for an optional fresh sign-in to confirm). The XS→Rust (Endor) port advanced another notch with stage-5 fix5 verified and complete, and fix6 (the enclosing-function synthetic capture-closure fold) is now underway.
+The board was quiet: the only transition was a dead-lettered issue-comment job (`deadmail-issue-comment-4910381116`) clearing to completion, so nothing new was posted or claimed. The substantive movement came through the maintainer inbox: the minion.town verified-email hardening shipped. The GitHub OIDC thunk now emits only a GitHub-verified email and refuses accounts lacking one, and the gardener confirmed this won't lock kriskowal out — `kriskowal@kriskowal.com` is a verified primary, so the enforced thunk selects the same email as before. Configuration drift was reconciled back into the repo (admin email into `config/policy.json`, the allow-unverified flag folded into the committed `oauth2-proxy.cfg`), and the live site was verified redirecting to sign-in with correct token challenges. One optional ask stands: a fresh GitHub sign-in at minion.town to confirm your login still lands authenticated. Four jobs remain in flight (three XS/xsnap mirror-and-port tasks plus a park-on-fail design), and 27 PRs sit parked for review.
 
 ## Parked for maintainer feedback
 
@@ -82,20 +82,19 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
-- [`deadmail-issue-comment-4910381116`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4910381116.md) — Dead-lettered message — pick up its intent
+### doin (4)
 - [`xs2rust-endor-stage5-fix6-arrow-capture`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix6-arrow-capture.md) — Stage-5 fix6 1/2 — the enclosing-function synthetic capture-closure fold (the...
 - [`xst-mirror-agoric-11031`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-mirror-agoric-11031.md) — Mirror + rebase upstream PR Agoric/agoric-sdk#11031 (xsnap legacy/latest vari...
 - [`xst-mirror-agoric-11297`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-mirror-agoric-11297.md) — Mirror + rebase upstream PR Agoric/agoric-sdk#11297 (XSnap Moddable 3.9.2 -> ...
 - [`xst-park-on-fail-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-park-on-fail-design.md) — Design: park a vat that fails to upgrade, resumable via its admin facet
 
-### tada (1472)
+### tada (1473)
+- [`deadmail-issue-comment-4910381116`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4910381116.md) — Completion report
 - [`port-xs-to-rust-memory-safe-engine-s17`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s17.md) — Completion report — port-xs-to-rust-memory-safe-engine-s17
 - [`deploy-siwe-thunk-minion-town-go`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deploy-siwe-thunk-minion-town-go.md) — Deploy the SIWE OIDC thunk (AWS binding) — complete
 - [`design-account-creation-open-signup-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-account-creation-open-signup-minion-town.md) — Completion report: design-account-creation-open-signup-minion-town
 - [`xs2rust-endor-build-stage5-fix5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage5-fix5.md) — orchestration xs2rust-endor-build-stage5-fix5 — complete
-- [`xs2rust-endor-stage5-fix5-verify`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix5-verify.md) — fix5-verify 5/5 — completion report
-- … and 1467 more
+- … and 1468 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
