@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T05:40:07Z_
+_As of 2026-07-08T05:46:27Z_
 
 ## Latest
 
-The endoclaw-network-fetch builder job **stopped without opening a competing PR** — it found that [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (draft `feat(exo-http-client): add confined HttpClient`, author 0xpatrickbot, updated today) already implements the exact confined-fetch design the job cited, down to the `http-confine` allowlist/rate-limit core and every acceptance criterion; the gardener recommends retiring the job and instead posting a shepherd/panel to drive #566 to green, and flags that it bases on `llm` rather than `master`. On the weave front, [endo-but-for-bots#617](https://github.com/endojs/endo-but-for-bots/pull/617) is now mergeable (clean merge, CI still settling) and [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) also completed, alongside a fetch-source gzip-decode improvement. Nothing new is on the board (todo and doin are empty); the parked queue still holds several minion.town Phase A–C builds and the ymax0 hex-fix verification awaiting your go-ahead.
+The endoclaw-network-fetch builder job **stopped without opening a PR** and flagged that its work is already fully implemented by [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (a comprehensive draft adding the confined `HttpClient`/`HttpClientControl` exo pair plus a shared `http-confine` core); the gardener recommends retiring the job and instead shepherding #566 to green — and notes it bases on `llm` rather than `master`, worth a reviewer's eye given the base-branch norm. On the weave front, [endo-but-for-bots#617](https://github.com/endojs/endo-but-for-bots/pull/617) is now **MERGEABLE** (clean merge, CI still settling) and [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) completed its rebase. The minion.town Stripe-credits deploy (TEST mode) was claimed and is in flight alongside the daemon Docker self-host build. Eight minion.town and verification jobs remain parked awaiting your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -40,8 +40,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`deploy-stripe-credits-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deploy-stripe-credits-minion-town.md) — Deploy Stripe credit purchases on minion.town (AWS/box binding, TEST mode)
+- [`endojs-endo-but-for-bots-daemon-docker-selfhost-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-daemon-docker-selfhost-build.md) — ---
 
 ### tada (1510)
 - [`endojs-endo-but-for-bots-endoclaw-network-fetch-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-endoclaw-network-fetch-build.md) — Completion report
@@ -55,7 +56,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### awaiting go-ahead (maintainer authorization)
 - [`build-account-store-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-account-store-minion-town.md) — _normal_ · Build: account store + auto-provisioning for minion.town (Phase A — ships dar...
 - [`deploy-siwe-thunk-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-siwe-thunk-minion-town.md) — _normal_ · Deploy the SIWE OIDC thunk (mirroring the GitHub thunk's AWS path)
-- [`deploy-stripe-credits-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-stripe-credits-minion-town.md) — _normal_ · Deploy Stripe credit purchases on minion.town (AWS/box binding, TEST mode)
 - [`endojs-endo-but-for-bots-pr132-report-render-mode`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-report-render-mode.md) — _normal_ · re-port render-mode toggle onto @endo/space-chat InboxRoot (endojs/endo-but-f...
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
