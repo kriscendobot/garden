@@ -15,3 +15,9 @@ journal/library/, per roles/scholar/AGENT.md:
   overstating a connection.
 
 Library curation only — no fork, no upstream, no external systems.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 10
+  claimed_at: 2026-07-08T04:26:39Z
