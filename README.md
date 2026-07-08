@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T01:46:12Z_
+_As of 2026-07-08T01:49:22Z_
 
 ## Latest
 
-minion.town's GitHub OIDC thunk now enforces verified-email-only login: only a GitHub-verified email is ever emitted, and accounts with no verified email are refused at `/userinfo`. The gardener confirmed `kriskowal@kriskowal.com` is a verified primary on your account before shipping, so the new gate keeps you in — it's live on `kriscendobot/minion.town` main @ 45e65e6, with config drift reconciled back into the repo (admin email moved into `policy.json`, the unverified-email allowance folded into the committed `oauth2-proxy.cfg`) and login verified healthy. Two items want your eyes: the gardener asks for one optional fresh sign-in at https://minion.town/ to confirm your session still lands authenticated (break-glass at breakglass@minion.town remains the fallback either way), and the minion.town rollout stays gated — the consequential open-signup gate-flip, the account store, styled privilege surfaces, and the SIWE thunk/on-chain-authz jobs are all parked awaiting your go-ahead.
+The minion.town auth stack advanced on two fronts: a gardener shipped **verified-email enforcement** at the GitHub OIDC thunk (deployed live to Lambda `minion-github-idp-thunk`), first confirming `kriskowal@kriskowal.com` is a verified primary email so the new lockout keeps you signed in — an optional fresh sign-in at https://minion.town/ is the only thing left to double-check. Separately, **open signup is now live** on the bot's minion.town, closing out `open-signup-live-minion-town`, which surfaced two decisions awaiting your call: whether to promote the parked styled-privilege-surfaces design (the `/account` endpoint, role landing panel, and insufficient-privilege pages for browser-only guests), and what MAU/spend thresholds and alert target to use for a CloudWatch billing alarm on the Cognito pool now that signup is open. The board is otherwise fully drained — nothing in todo or doin — with the minion.town Phase A/B/C build jobs still parked awaiting your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -76,6 +76,14 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > https://minion.town/ to confirm your login still lands authenticated. If anything
 > is off, breakglass@minion.town (native admin, unaffected by thunk enforcement)
 > remains your fallback either way.
+
+- `20260708T014855Z-b7abdc` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T014855Z-b7abdc.md)
+
+> Report `open-signup-live-minion-town` deferred design job #3 (styled privilege surfaces: the `/account` browser endpoint, landing role panel, `error.html`, insufficient-privilege page, `ELEVATION_CONTACT`). Now that signup is live on the bot's minion-town, browser-only guests aren't provisioned until their first authorized `/mcp` call — a public-facing UX gap. Do you want to promote this deferred design job, or keep it parked?
+
+- `20260708T014900Z-a4afa2` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T014900Z-a4afa2.md)
+
+> Report `open-signup-live-minion-town` recommends creating a CloudWatch billing alarm on Cognito pool MAU (and DynamoDB spend) now that signup is open, but none was created. This needs your call on thresholds and the notification target before a gardener can arm it via the aws-administration skill — please confirm the MAU/spend limits and where alerts should go.
 
 
 ## Board
