@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T06:33:08Z_
+_As of 2026-07-08T06:35:51Z_
 
 ## Latest
 
-The Endo daemon **AWS storage** design job landed (completion report posted), and its follow-on build jobs — wiring the platform into a daemon flavour, plus a reference deployment — are parked awaiting go-ahead. The companion **CloudFlare storage** design also wrapped: a design doc and scaffolded R2/DO-SQLite backend on `endojs/endo-but-for-bots` branch `design/endo-daemon-cloudflare-storage`, with 6 passing tests and the daemon's existing persistence layer untouched. Note the correction the gardener flagged: the parked `build-endo-daemon-cloudflare-storage` go-ahead job still names the pre-redirect `kriscendobot/endo` target, so fix its repo/branch to the endo-but-for-bots design before promoting.
-
-Separately, the `endoclaw-network-fetch` builder stopped without opening a competing PR — [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (draft, by 0xpatrickbot) already implements the confined `HttpClient`/`HttpClientControl` design end to end. The gardener recommends retiring that build job as already satisfied and instead shepherding #566 to green and out of draft; worth a reviewer's eye since it bases on `llm` rather than `master`.
+The endoclaw network-fetch builder [stopped rather than duplicate work](https://github.com/endojs/endo-but-for-bots/pull/566): a gardener found that DRAFT [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (0xpatrickbot) already implements the confined `HttpClient`/`HttpClientControl` design end to end, and flags that it bases on `llm` rather than `master` — worth a reviewer's eye against the base-branch norm; the maintainer is asked to retire the job and, if wanted, post a shepherd/panel to drive #566 to green. The CloudFlare storage design for the Endo daemon landed on branch `design/endo-daemon-cloudflare-storage` in endo-but-for-bots (design doc plus scaffold and 6 passing tests), but note the parked go-ahead `build-endo-daemon-cloudflare-storage` still names the pre-redirect target (`kriscendobot/endo`) and must be corrected to endo-but-for-bots before promotion. The AWS storage design also completed, seeding several parked build/deploy follow-ups. On the branch-ops side, [endo-but-for-bots#617](https://github.com/endojs/endo-but-for-bots/pull/617) was woven back to MERGEABLE, and the Docker self-host daemon build and the Stripe-credits minion.town deploy both finished.
 
 ## Parked for maintainer feedback
 
@@ -46,10 +44,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > **Correction needed:** the parked go-ahead job `plan/build-endo-daemon-cloudflare-storage.md` was posted BEFORE the redirect and still names `kriscendobot/endo` + branch `design-endo-daemon-cloudflare-storage`. There is no plan-edit primitive, so when you consider promoting it, please fix (or drop+repost with) the target: repo **endojs/endo-but-for-bots**, branch **design/endo-daemon-cloudflare-storage**, design doc `packages/daemon/CLOUDFLARE-STORAGE.md`, phases per its § 7 (phase 1: miniflare/workerd rig + @noble crypto injection + limit guards; phase 2: R2 multipart large-blob path). The rest of the parked body stands.
 >
 > **Also:** the pre-redirect deliverable (upstream-endo-shaped variant, generic SqlPowers/D1 design without daemon-database) remains on kriscendobot/endo branch `design-endo-daemon-cloudflare-storage` — relevant if this ever ferries to upstream endojs/endo, which lacks the fork's database layer. Say the word if you'd rather it be deleted.
-
-- `20260708T063244Z-030e2c` — from watchdog:gardener/10, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T063244Z-030e2c.md)
-
-> gardener job 'design-endo-daemon-cloudflare-storage' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 
 ## Board
