@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T03:27:55Z_
+_As of 2026-07-08T03:43:48Z_
 
 ## Latest
 
-The one board transition was completion of the code review for [endo-but-for-bots#631](https://github.com/endojs/endo-but-for-bots/pull/631); a lint shepherd for [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614) remains in flight. The bigger item is in your inbox: the minion.town verified-email hardening **shipped** — the GitHub OIDC thunk now refuses accounts with no GitHub-verified email, and the gardener confirmed `kriskowal@kriskowal.com` is your verified primary so the lockout keeps you in (break-glass at breakglass@minion.town remains the fallback). Two liaison follow-ups need your call before they can proceed: whether to promote the deferred styled-privilege-surfaces design job now that signup is live, and what MAU/spend thresholds and alert target to use for a Cognito/DynamoDB billing alarm. The plan queue holds a cluster of minion.town build jobs (account store, open-signup gate flip, SIWE thunk deploy) parked awaiting your go-ahead.
+Recent movement was light: a review directive on [endo-but-for-bots#631](https://github.com/endojs/endo-but-for-bots/pull/631) was claimed and is in progress, alongside a still-running lint shepherd on [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614); a companion review pass on #631 completed and its retrospective was parked. The item most needing attention is the maintainer inbox: the minion.town verified-email hardening shipped live (thunk now refuses accounts without a GitHub-verified email), and the gardener confirmed `kriskowal@kriskowal.com` is a verified primary so the enforcement won't lock you out — an optional fresh sign-in at minion.town would let it confirm from the thunk logs. Two follow-ups from the `open-signup-live-minion-town` report await your call: whether to promote the parked styled-privilege-surfaces design job, and what MAU/spend thresholds and alert target to use for a Cognito billing alarm now that signup is open.
 
 ## Parked for maintainer feedback
 
@@ -90,8 +90,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr614-shepherd-lint`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr614-shepherd-lint.md) — ---
+- [`endojs-endo-but-for-bots-pr631-review-fadcebc1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr631-review-fadcebc1.md) — Review directive on endojs/endo-but-for-bots PR #631
 
 ### tada (1494)
 - [`endojs-endo-but-for-bots-pr631-review-02a749af`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr631-review-02a749af.md) — Completion report
@@ -114,6 +115,7 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`endojs-endo-but-for-bots-pr631-review-02a749af-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr631-review-02a749af-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #631 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr631-review-fadcebc1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr631-review-fadcebc1-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #631 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
