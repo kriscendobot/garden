@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T02:58:54Z_
+_As of 2026-07-08T03:02:54Z_
 
 ## Latest
 
-Only one job cleared the board since the last bulletin — a completed @-mention handling for [endojs/endo-but-for-bots#632](https://github.com/endojs/endo-but-for-bots/pull/632). The more consequential news is in the maintainer inbox: the minion.town verified-email hardening shipped (thunk now refuses accounts with no GitHub-verified email), and the pre-flight lock-out check cleared — `kriskowal@kriskowal.com` is a verified primary, so enforcement keeps you in; an optional fresh sign-in at minion.town would confirm it live. Two liaison follow-ups now await your call: whether to promote the parked `styled-privilege-surfaces-minion-town` design job (browser-only guests aren't provisioned until their first authorized `/mcp` call), and what thresholds/target to set for a CloudWatch billing alarm on the Cognito pool now that signup is open.
+A gardener claimed the finalize (curate → merge) job for [endojs/endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616); the board is otherwise quiet, with nothing in todo. The items most needing your eyes are in the inbox: the minion.town verified-email hardening shipped — enforcement now refuses any account lacking a GitHub-verified email, and the gardener confirmed `kriskowal@kriskowal.com` is your verified primary so the lockout won't hit you (an optional fresh sign-in at minion.town would let it read the thunk logs to double-check). Two liaison follow-ups also await your call: whether to promote the parked design for minion.town's styled privilege surfaces (the `/account`, landing, and insufficient-privilege pages now that open signup is live), and what MAU/spend thresholds and alert target to use for a CloudWatch billing alarm on the Cognito pool before a gardener can arm it.
 
 ## Parked for maintainer feedback
 
@@ -90,8 +90,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr616-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr616-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #616
 
 ### tada (1490)
 - [`mention-endojs-endo-but-for-bots-632-bdf2827b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mention-endojs-endo-but-for-bots-632-bdf2827b.md) — Completion report
