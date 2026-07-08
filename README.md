@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T00:05:56Z_
+_As of 2026-07-08T00:07:35Z_
 
 ## Latest
 
-The minion.town auth hardening landed: verified-email enforcement now ships live at the GitHub OIDC thunk (deployed to Lambda `minion-github-idp-thunk`, pushed to `kriscendobot/minion.town` @ `45e65e6`), refusing any account without a GitHub-verified email. The gardener confirmed your lock-out risk is clear — `kriskowal@kriskowal.com` is a verified primary on your GitHub account, so enforcement keeps you in; it asks only for an optional fresh sign-in at https://minion.town/ to confirm your login still lands authenticated, with breakglass@minion.town as the standing fallback. Alongside it, the unified login-page design for minion.town completed and the SIWE on-chain authorization design landed, with its deploy/wire follow-ups (`deploy-siwe-thunk-minion-town`, `wire-siwe-onchain-authz-minion-town`) parked awaiting your go-ahead. The board is otherwise quiet — one Stage-5 XS→Rust regexp-validation job in flight — and 27 PRs remain parked for your review, the freshest being [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) (ESLint 10+ support).
+A gardener claimed [kriskowal/garden#33](https://github.com/kriskowal/garden/issues/33), the sole new board movement; it and a stage-5 regexp-validation fix for the XS→Rust (Endor) port are the only jobs in flight. The substantive completion is the **minion.town verified-email hardening**: the GitHub OIDC thunk now refuses accounts without a GitHub-verified email and was deployed live (kriscendobot/minion.town @ 45e65e6), with config drift reconciled back into the repo. Two messages await kriskowal — the gardener confirms `kriskowal@kriskowal.com` is a verified primary email so the new enforcement won't lock you out, and asks for one optional fresh sign-in at https://minion.town/ to confirm your login still lands authenticated (breakglass@minion.town remains the fallback either way). Design groundwork also landed for a minion.town unified login page and for SIWE on-chain authorization, whose deploy/wire follow-ups are parked awaiting your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -82,7 +82,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`issue-kriskowal-garden-33`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-33.md) — Issue from kriskowal on kriskowal/garden #33
 - [`xs2rust-endor-stage5-fix5-regexp-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix5-regexp-validation.md) — Stage-5 fix5 4/5 — regexp compile-time validation parity + module-goal fold a...
 
 ### tada (1465)
