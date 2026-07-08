@@ -39,3 +39,12 @@ Inspect via `git -C journal cat-file -p 47919798b3b0dbe59454d4297d45ae3e5976e5fa
 - Context: gardener-2 on endolin-garden2-5bcdff64: job 'minion-town-phase3-google-idp' exit-0-unsatisfying but elapsed near-constant (109,109s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p d9aed1437224ebbf7e88022e21fa40579a0fa97e`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-08T06:43:55Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 4debb6e629e4d2a90ba540c97de7dfa33beab454
+- Context: gardener-2 on endolin-garden2-5bcdff64: job 'design-endo-daemon-cloudflare-storage' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 4debb6e629e4d2a90ba540c97de7dfa33beab454`.
