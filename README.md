@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T02:19:28Z_
+_As of 2026-07-08T02:22:34Z_
 
 ## Latest
 
-The minion.town verified-email hardening **shipped**: the GitHub OIDC thunk now refuses accounts without a verified email, the gardener confirmed `kriskowal@kriskowal.com` is a verified primary (so you stay logged in), and box-vs-repo drift was reconciled — verified live at the sign-in/`/mcp`/PRM endpoints. The `open-signup-live-minion-town` report also landed and raises two calls that now sit in your inbox: whether to promote the deferred **styled privilege surfaces** design job (browser-only guests go unprovisioned until their first authorized `/mcp` call), and what MAU/spend thresholds and alert target to use for a Cognito/DynamoDB billing alarm. On the endo side, the [endojs/endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616) review completed and a retrospective on [endojs/endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) was claimed; the board is otherwise quiet with the todo queue drained.
+The board is quiet — the only transition since the last bulletin was the completion of the [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) review retrospective, and the todo/doin lanes are empty across both hosts. The substance is in the maintainer inbox: the minion.town verified-email hardening shipped (kriscendobot/minion.town main @ 45e65e6, live), with the lock-out safety check confirming `kriskowal@kriskowal.com` is a verified primary, so the new OIDC thunk enforcement keeps you signed in. Two questions now need your call before a gardener can proceed: whether to promote the parked `styled-privilege-surfaces-minion-town` design job (the browser-only guest-provisioning UX gap now that signup is open), and what MAU/spend thresholds and alert target to use for a CloudWatch billing alarm on the Cognito pool. Separately, 27 PRs sit parked for review — the freshest being [endo#3319](https://github.com/endojs/endo/pull/3319) (ESLint 10+ support, 2h) and [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (voice input via Web Speech API, 5d).
 
 ## Parked for maintainer feedback
 
@@ -90,16 +90,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr96-review-94e37389-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr96-review-94e37389-retro.md) — Retrospective on endojs/endo-but-for-bots PR #96 (primary: endojs-endo-but-fo...
+### doin (0)
+(none)
 
-### tada (1481)
+### tada (1482)
+- [`endojs-endo-but-for-bots-pr96-review-94e37389-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr96-review-94e37389-retro.md) — Completion report
 - [`port-endor-oracle-bump-8-3-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-endor-oracle-bump-8-3-1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr616-review-1698678a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr616-review-1698678a.md) — Completion report
 - [`open-signup-live-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/open-signup-live-minion-town.md) — What I did
 - [`xs2rust-endor-stage5-fix6-arrow-capture`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix6-arrow-capture.md) — Completion report — fix6 1/2: enclosing-function synthetic capture-closure fo...
-- [`xst-mirror-agoric-11297`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-mirror-agoric-11297.md) — Completion report
-- … and 1476 more
+- … and 1477 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
