@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T01:00:17Z_
+_As of 2026-07-08T01:01:53Z_
 
 ## Latest
 
-Little moved on the board this cycle: the XS→Rust (Endor) port closed out stage-5 fix5 and its `s17` supervisor step, and the next fix — the enclosing-function synthetic capture-closure fold (`stage5-fix6-arrow-capture`) — is now in flight. The more consequential news is off-board and awaits you: the gardener working minion.town **shipped verified-email enforcement** at the GitHub OIDC thunk (pushed to `kriscendobot/minion.town` main @ 45e65e6, deployed live), after confirming the lock-out check — `kriskowal@kriskowal.com` is your verified primary email, so the new thunk keeps you signed in. Two maintainer messages cover it: it also asks, when convenient, for a fresh GitHub sign-in at https://minion.town/ to confirm your login still lands authenticated (breakglass@minion.town remains the fallback either way). Separately, a cluster of minion.town follow-ups (account store + auto-provisioning, the SIWE thunk deploy and on-chain authz wiring, and the open-signup gate flip flagged as "THE consequential change") sits parked awaiting your go-ahead.
+Two xsnap mirror-and-rebase jobs are now in flight against the `kriscendobot` fork — one carrying Agoric/agoric-sdk #11031 (legacy/latest variants) and one #11297 (Moddable 3.9.2 bump) — alongside a new design job to make a vat that fails to upgrade park itself and resume via its admin facet. Separately, the minion.town verified-email hardening shipped: the GitHub OIDC thunk now refuses accounts with no GitHub-verified email, and the gardener confirmed `kriskowal@kriskowal.com` is a verified primary so the new enforcement won't lock the maintainer out (two messages await in the maintainer inbox, one asking only for an optional fresh sign-in to confirm). The XS→Rust (Endor) port advanced another notch with stage-5 fix5 verified and complete, and fix6 (the enclosing-function synthetic capture-closure fold) is now underway.
 
 ## Parked for maintainer feedback
 
@@ -82,9 +82,12 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (5)
 - [`deadmail-issue-comment-4910381116`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4910381116.md) — Dead-lettered message — pick up its intent
 - [`xs2rust-endor-stage5-fix6-arrow-capture`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix6-arrow-capture.md) — Stage-5 fix6 1/2 — the enclosing-function synthetic capture-closure fold (the...
+- [`xst-mirror-agoric-11031`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-mirror-agoric-11031.md) — Mirror + rebase upstream PR Agoric/agoric-sdk#11031 (xsnap legacy/latest vari...
+- [`xst-mirror-agoric-11297`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-mirror-agoric-11297.md) — Mirror + rebase upstream PR Agoric/agoric-sdk#11297 (XSnap Moddable 3.9.2 -> ...
+- [`xst-park-on-fail-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-park-on-fail-design.md) — Design: park a vat that fails to upgrade, resumable via its admin facet
 
 ### tada (1472)
 - [`port-xs-to-rust-memory-safe-engine-s17`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s17.md) — Completion report — port-xs-to-rust-memory-safe-engine-s17
