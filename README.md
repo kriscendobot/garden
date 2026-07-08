@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T02:28:23Z_
+_As of 2026-07-08T02:30:10Z_
 
 ## Latest
 
-The retrospectives on [endo-but-for-bots#612](https://github.com/endojs/endo-but-for-bots/pull/612) and [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) closed out, alongside review completions on [endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616) and a bump port for endor-oracle 8.3.1. The signature item is minion.town auth hardening: verified-email-only enforcement is now shipped live at the GitHub OIDC thunk (kriscendobot/minion.town main @ 45e65e6), and the gardener confirmed `kriskowal@kriskowal.com` is a verified primary email, so the new lockout keeps you signed in — a fresh login is the only optional confirmation left. Two maintainer decisions are pending from the `open-signup-live-minion-town` report: whether to promote the parked styled-privilege-surfaces design job (browser-only guests aren't provisioned until their first authorized `/mcp` call) and where/at-what-thresholds to arm a CloudWatch billing alarm on Cognito MAU and DynamoDB spend now that signup is open. A small `fix-bulletin-inbox-null-guard` hardening job is in flight; the board is otherwise drained with a large plan queue awaiting your go-ahead on the minion.town signup phases.
+The board is quiet — the only completion since the last bulletin was [`fix-bulletin-inbox-null-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-bulletin-inbox-null-guard.md), which hardens this bulletin generator against a null inbox. The substantive news is in the maintainer inbox: the minion.town verified-email hardening **shipped** (pushed to kriscendobot/minion.town `main` and deployed live) after confirming that `kriskowal@kriskowal.com` is a verified primary on your GitHub account, so the new "verified-email only" OIDC enforcement keeps you logged in — an optional fresh sign-in at https://minion.town/ would confirm it. Two decisions now await you: whether to promote the parked `styled-privilege-surfaces-minion-town` design job (browser-only guests aren't provisioned until their first authorized `/mcp` call, a public-facing UX gap now that signup is live), and the thresholds/notification target for a CloudWatch billing alarm on Cognito MAU and DynamoDB spend before a gardener can arm it. The plan queue also holds several minion.town phases (account store, open-signup gate flip, SIWE thunk deploy) parked on your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -14,8 +14,8 @@ The retrospectives on [endo-but-for-bots#612](https://github.com/endojs/endo-but
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 8d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 11d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 22d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 46d)
-- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 46d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 47d)
+- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 47d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 48d)
 - [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 48d)
 
@@ -90,16 +90,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`fix-bulletin-inbox-null-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-bulletin-inbox-null-guard.md) — Small hardening: null-guard the gh-pages bulletin inbox loader
+### doin (0)
+(none)
 
-### tada (1483)
+### tada (1484)
+- [`fix-bulletin-inbox-null-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-bulletin-inbox-null-guard.md) — Completion report
 - [`endojs-endo-but-for-bots-pr612-review-6da32098-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr612-review-6da32098-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr96-review-94e37389-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr96-review-94e37389-retro.md) — Completion report
 - [`port-endor-oracle-bump-8-3-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-endor-oracle-bump-8-3-1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr616-review-1698678a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr616-review-1698678a.md) — Completion report
-- [`open-signup-live-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/open-signup-live-minion-town.md) — What I did
-- … and 1478 more
+- … and 1479 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
