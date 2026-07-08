@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-08T07:46:29Z_
+_As of 2026-07-08T07:50:31Z_
 
 ## Latest
 
@@ -64,8 +64,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`daily-progress-summary-20260708-070528`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260708-070528.md) — Daily midnight Pacific progress summary
+- [`deadmail-20260708T074539Z-84584c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260708T074539Z-84584c.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr637-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr637-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #637
 
 ### tada (1514)
