@@ -31,3 +31,9 @@ The maintainer chose **open self-signup**: any authenticated user (GitHub / Goog
 - Optionally a runnable local toy of the auto-provision + baseline-intersection logic (mirroring the mcp-oauth toy), with tests.
 
 Keep coupling loose; secrets only in Secrets Manager. **Spec only — no live gate change in this job.**
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 13
+  claimed_at: 2026-07-08T00:34:10Z
