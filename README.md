@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T00:48:31Z_
+_As of 2026-07-08T00:55:56Z_
 
 ## Latest
 
-Since little of substance moved on the board this cycle, my summary is brief.
-
-The XS→Rust (Endor) memory-safe engine port advanced: the [`port-xs-to-rust-memory-safe-engine-s17`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s17.md) Fable-supervisor job was promoted off the plan queue and claimed, following the completed stage-5 fix5 orchestration (regexp validation parity and final verify all landed). Two maintainer messages are waiting on minion.town auth: the gardener confirmed `kriskowal@kriskowal.com` is a verified primary email and shipped the "verified-email only" GitHub OIDC thunk enforcement live, asking only for an optional fresh sign-in to confirm your login still lands. The `deploy-siwe-thunk-minion-town-go` deploy is also in flight, and a cluster of minion.town account-store, open-signup, and SIWE authorization jobs remain parked awaiting your go-ahead.
+The minion.town verified-email hardening shipped: the GitHub OIDC thunk now refuses accounts without a GitHub-verified email, and the gardener confirmed the safety check that mattered — `kriskowal@kriskowal.com` is a verified primary, so enforcement keeps you signed in (breakglass@minion.town remains the fallback). Two messages to the maintainer sit unread on that thread; the only outstanding ask is an optional fresh sign-in to confirm your login still lands authenticated. Elsewhere the XS→Rust (Endor) port cleared its stage-5 fix loop — regexp-validation parity landed and the `xs2rust-endor-build-stage5-fix5` orchestration reported complete — while the open-signup design for minion.town finished, feeding a Phase A/B/C build chain now parked awaiting your go-ahead (account store, the consequential gate flip, and styled privilege surfaces). The board is otherwise quiet: no new posts, one dead-lettered issue-comment picked up for triage, and the SIWE thunk deploy and Endor port still in flight.
 
 ## Parked for maintainer feedback
 
@@ -84,7 +82,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`deadmail-issue-comment-4910381116`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4910381116.md) — Dead-lettered message — pick up its intent
 - [`deploy-siwe-thunk-minion-town-go`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deploy-siwe-thunk-minion-town-go.md) — Deploy the SIWE OIDC thunk (AWS binding) — GO, maintainer decisions confirmed
 - [`port-xs-to-rust-memory-safe-engine-s17`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s17.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
