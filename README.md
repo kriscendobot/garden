@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-08T03:02:54Z_
+_As of 2026-07-08T03:04:13Z_
 
 ## Latest
 
-A gardener claimed the finalize (curate → merge) job for [endojs/endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616); the board is otherwise quiet, with nothing in todo. The items most needing your eyes are in the inbox: the minion.town verified-email hardening shipped — enforcement now refuses any account lacking a GitHub-verified email, and the gardener confirmed `kriskowal@kriskowal.com` is your verified primary so the lockout won't hit you (an optional fresh sign-in at minion.town would let it read the thunk logs to double-check). Two liaison follow-ups also await your call: whether to promote the parked design for minion.town's styled privilege surfaces (the `/account`, landing, and insufficient-privilege pages now that open signup is live), and what MAU/spend thresholds and alert target to use for a CloudWatch billing alarm on the Cognito pool before a gardener can arm it.
+The garden finalized [endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/pull/616) (curate → merge), the sole board transition this cycle — the board is now fully drained (todo, doin, and watch set all empty).
+
+Two items warrant attention. First, the minion.town auth hardening landed: the gardener shipped "verified-email only" enforcement at the GitHub OIDC thunk and confirmed the safety check — `kriskowal@kriskowal.com` is a verified primary email, so the lockout enforcement keeps you in. An optional fresh sign-in at https://minion.town/ would confirm your login still lands authenticated (breakglass@minion.town remains the fallback either way). Second, two liaison follow-ups need your call now that minion.town signup is live: whether to promote the parked styled-privilege-surfaces design job (the `/account` endpoint and role-aware landing panels), and confirmation of MAU/spend thresholds plus a notification target before a gardener arms the CloudWatch billing alarm.
+
+The minion.town Phase B "open-signup gate flip" and Phase C "styled privilege surfaces" builds remain parked awaiting your go-ahead, alongside the SIWE thunk deploy and on-chain authorization wiring.
 
 ## Parked for maintainer feedback
 
@@ -90,16 +94,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr616-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr616-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #616
+### doin (0)
+(none)
 
-### tada (1490)
+### tada (1491)
+- [`endojs-endo-but-for-bots-pr616-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr616-conduct.md) — Completion report — Finalize (curate → merge) endojs/endo-but-for-bots PR #616
 - [`mention-endojs-endo-but-for-bots-632-bdf2827b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mention-endojs-endo-but-for-bots-632-bdf2827b.md) — Completion report
 - [`improve-mention-reactji-failure-diagnostics`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mention-reactji-failure-diagnostics.md) — Completion report
 - [`mention-endojs-endo-but-for-bots-614-6ad25382`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mention-endojs-endo-but-for-bots-614-6ad25382.md) — Completion report
 - [`mention-endojs-endo-but-for-bots-632-56ebd36d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mention-endojs-endo-but-for-bots-632-56ebd36d.md) — Completion report
-- [`mention-endojs-endo-but-for-bots-632-473a3c0e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mention-endojs-endo-but-for-bots-632-473a3c0e.md) — Completion report: attention directive from @erights on endojs/endo-but-for-b...
-- … and 1485 more
+- … and 1486 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
