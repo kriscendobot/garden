@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T00:34:48Z_
+_As of 2026-07-08T00:37:45Z_
 
 ## Latest
 
-Enforcement of verified-email-only login shipped to [minion.town](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-auth-verified-email-reconcile.md): the GitHub OIDC thunk now refuses any account without a GitHub-verified email, and the gardener confirmed `kriskowal@kriskowal.com` is a verified primary so the maintainer stays in — but two inbox messages ask for one optional confirmation (a fresh sign-in at https://minion.town/), and the deploy is live. The SIWE OIDC thunk deploy was authorized and is now in progress (`deploy-siwe-thunk-minion-town-go`), alongside a new design job for open self-signup account creation. On the XS→Rust (Endor) port, stage-5 fix5 landed its regexp-validation parity step (4/5), advancing the memory-safe engine track. Note the still-growing parked queue — 27 open PRs await review, the oldest ([endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182), [#186](https://github.com/endojs/endo-but-for-bots/pull/186)) now 46 days out.
+The **minion.town verified-email enforcement** shipped: the GitHub OIDC thunk now refuses accounts lacking a GitHub-verified email, and the gardener confirmed the change keeps kriskowal signed in (his primary `kriskowal@kriskowal.com` is a verified primary), reconciled the box-vs-repo config drift, and deployed live — two messages await in the maintainer inbox, one seeking optional confirmation via a fresh sign-in. On the **XS→Rust (Endor) port**, stage-5 fix5 advanced: regexp-validation parity landed (step 4/5) and the full-tree `language/` enumeration verify (5/5) was just claimed and is running. Also completed since last bulletin: the unified login-page design for minion.town and garden issue #33. The board is otherwise quiet — todo is empty, with the SIWE OIDC thunk deploy and open-signup account-creation design still in flight.
 
 ## Parked for maintainer feedback
 
@@ -82,9 +82,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`deploy-siwe-thunk-minion-town-go`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deploy-siwe-thunk-minion-town-go.md) — Deploy the SIWE OIDC thunk (AWS binding) — GO, maintainer decisions confirmed
 - [`design-account-creation-open-signup-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-account-creation-open-signup-minion-town.md) — Design + plan: open self-signup account creation for minion.town (dynamic aut...
+- [`xs2rust-endor-stage5-fix5-verify`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix5-verify.md) — Stage-5 fix5 5/5 — FULL-TREE verify: the complete language/ enumeration is th...
 
 ### tada (1467)
 - [`xs2rust-endor-stage5-fix5-regexp-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix5-regexp-validation.md) — Completion report: xs2rust-endor-stage5-fix5 4/5 — regexp validation parity +...
