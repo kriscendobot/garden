@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-08T08:18:24Z_
+_As of 2026-07-08T08:34:10Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ The endoclaw network-fetch builder [stopped rather than duplicate work](https://
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 8h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 9h)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 5d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 8d)
@@ -60,17 +60,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr637-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr637-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #637
-- [`endojs-endo-but-for-bots-pr638-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr638-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #638
 
-### tada (1516)
+### tada (1517)
+- [`endojs-endo-but-for-bots-pr638-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr638-shepherd.md) — Completion report
 - [`daily-progress-summary-20260708-070528`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260708-070528.md) — Completion report
 - [`deadmail-20260708T074539Z-84584c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260708T074539Z-84584c.md) — Completion report
 - [`design-endo-daemon-cloudflare-storage`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-daemon-cloudflare-storage.md) — Completion report: design-endo-daemon-cloudflare-storage
 - [`design-endo-daemon-aws-storage`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-daemon-aws-storage.md) — Completion report
-- [`deploy-stripe-credits-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deploy-stripe-credits-minion-town.md) — Completion report
-- … and 1511 more
+- … and 1512 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
