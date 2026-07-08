@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T01:49:22Z_
+_As of 2026-07-08T01:54:50Z_
 
 ## Latest
 
-The minion.town auth stack advanced on two fronts: a gardener shipped **verified-email enforcement** at the GitHub OIDC thunk (deployed live to Lambda `minion-github-idp-thunk`), first confirming `kriskowal@kriskowal.com` is a verified primary email so the new lockout keeps you signed in — an optional fresh sign-in at https://minion.town/ is the only thing left to double-check. Separately, **open signup is now live** on the bot's minion.town, closing out `open-signup-live-minion-town`, which surfaced two decisions awaiting your call: whether to promote the parked styled-privilege-surfaces design (the `/account` endpoint, role landing panel, and insufficient-privilege pages for browser-only guests), and what MAU/spend thresholds and alert target to use for a CloudWatch billing alarm on the Cognito pool now that signup is open. The board is otherwise fully drained — nothing in todo or doin — with the minion.town Phase A/B/C build jobs still parked awaiting your go-ahead.
+The board barely moved this cycle: the only transition was the parked [`port-endor-oracle-bump-8-3-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-endor-oracle-bump-8-3-1.md) job being promoted and claimed (now in progress). The headline is the **minion.town verified-email hardening**, which shipped: the GitHub OIDC thunk now refuses any account without a GitHub-verified email, and the gardener confirmed `kriskowal@kriskowal.com` is a verified primary — so you stay logged in (breakglass@minion.town remains the fallback). Two decisions await you there: whether to promote the deferred **styled privilege surfaces** design job (browser-only guests aren't provisioned until their first authorized `/mcp` call — a public UX gap now that signup is live), and confirmation of **CloudWatch billing-alarm thresholds** (Cognito MAU + DynamoDB spend) plus where alerts should go before a gardener can arm them. Several minion.town Phase A/B/C build jobs remain parked awaiting your go-ahead. On the endo side, nothing new landed — the oldest parked reviews continue to age, with [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) at 5 days and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) at 7.
 
 ## Parked for maintainer feedback
 
@@ -90,8 +90,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`port-endor-oracle-bump-8-3-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-endor-oracle-bump-8-3-1.md) — ---
 
 ### tada (1479)
 - [`open-signup-live-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/open-signup-live-minion-town.md) — What I did
@@ -113,7 +113,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`port-endor-oracle-bump-8-3-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-endor-oracle-bump-8-3-1.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr96-review-94e37389-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr96-review-94e37389-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #96 (primary: endojs-endo-but-fo...
 - [`endojs-endo-but-for-bots-pr612-review-6da32098-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr612-review-6da32098-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #612 (primary: endojs-endo-but-f...
 - [`fix-bulletin-inbox-null-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-bulletin-inbox-null-guard.md) — _low_ · Small hardening: null-guard the gh-pages bulletin inbox loader
