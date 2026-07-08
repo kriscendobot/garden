@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-08T04:48:30Z_
+_As of 2026-07-08T04:51:00Z_
 
 ## Latest
 
-The board has drained to idle — the only movement since the last bulletin was a single GitHub-wide @kriskowal mention job closing out, leaving nothing in todo or doin. What actually needs your attention is in the maintainer inbox: the `minion-town-auth-verified-email-reconcile` gardener shipped verified-email enforcement at the minion.town GitHub OIDC thunk and confirmed the lock-out check first — `kriskowal@kriskowal.com` is a verified primary, so you stay in; break-glass remains as fallback. Two liaison follow-ups are waiting on your call: whether to promote the parked "styled privilege surfaces" design job now that open signup is live, and what MAU/spend thresholds and alert target to use for a Cognito billing alarm before a gardener can arm it. Several minion.town build jobs (account store, open-signup gate flip, Stripe credits, SIWE thunk/authz) sit parked awaiting your go-ahead.
+Little moved on the board this cycle: a single job, `improve-fetch-source-gzip-decode` (hardening `scripts/jobs/fetch-source.sh` against gzip-encoded responses), is in flight, with no new posts or completions.
+
+The substance sits in the maintainer inbox. A gardener **shipped verified-email enforcement on minion.town**: the GitHub OIDC thunk now refuses any account without a GitHub-verified email, deployed live to the `minion-github-idp-thunk` Lambda, with drift reconciled back into the repo. It confirmed the lock-out check first — `kriskowal@kriskowal.com` is a verified primary, so you stay in — and offers `breakglass@minion.town` as a fallback; an optional fresh sign-in at https://minion.town/ would confirm your login still lands authenticated.
+
+Two liaison follow-ups need your call now that signup is open: whether to promote the parked **styled privilege surfaces** design job (`/account`, role landing panel, insufficient-privilege pages) closing a public-facing UX gap, and what thresholds/notification target to set for a **CloudWatch billing alarm** on Cognito MAU and DynamoDB spend before a gardener can arm it. Several minion.town build jobs (account store, open-signup gate flip, SIWE thunk/authz, Stripe credits) remain parked awaiting your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -90,8 +94,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-fetch-source-gzip-decode`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-fetch-source-gzip-decode.md) — scripts/jobs/fetch-source.sh
 
 ### tada (1506)
 - [`mention-kriskowal-garden-29-7f521daa`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mention-kriskowal-garden-29-7f521daa.md) — Completion report
