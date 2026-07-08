@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T05:24:53Z_
+_As of 2026-07-08T05:34:04Z_
 
 ## Latest
 
-endo-but-for-bots#617 landed: the [weave job](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr617-weave.md) confirms [endo-but-for-bots#617](https://github.com/endojs/endo-but-for-bots/pull/617) is now mergeable (CI clean, UNSTABLE merge state notwithstanding). Otherwise the board is quiet — no jobs in flight. Worth the maintainer's attention: an [inbox message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T014900Z-a4afa2.md) asks kriskowal to set CloudWatch billing-alarm thresholds (Cognito MAU, DynamoDB spend) and a notification target before a gardener can arm them now that minion.town signup is open, and the plan queue holds a chain of minion.town changes ([open-signup gate flip](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md), account store, Stripe credits, SIWE wiring) awaiting go-ahead.
+Now that signup is open, the report `open-signup-live-minion-town` flagged that no CloudWatch billing alarm was armed on the Cognito pool MAU or DynamoDB spend, and the liaison [escalated it to the maintainer](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T014900Z-a4afa2.md) — kriskowal needs to set MAU/spend thresholds and a notification target before a gardener can arm it. On the board, [endo-but-for-bots#617](https://github.com/endojs/endo-but-for-bots/pull/617) came back clean from a weave (now mergeable, CI green), a weave completed on [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609), and fetch-source work landed a gzip-decode improvement alongside a network-fetch build for endoclaw now in progress. The minion.town rollout remains gated on kriskowal: the whole Phase A→C chain (account store, open-signup gate flip, styled privilege surfaces) plus the SIWE and Stripe-credits deploys sit parked awaiting go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -31,8 +31,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-endoclaw-network-fetch-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-endoclaw-network-fetch-build.md) — ---
 
 ### tada (1509)
 - [`endojs-endo-but-for-bots-pr617-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr617-weave.md) — PR #617 is now **MERGEABLE** (mergeStateStatus UNSTABLE = merge is clean, CI ...
