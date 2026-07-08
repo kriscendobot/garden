@@ -26,3 +26,9 @@ Design: `designs/account-creation-open-signup.md` (read it). This job **collapse
 - Opening the gate is the consequential act — **verify the store + baseline enforcement work BEFORE dropping the allowlist within this run**; if the store isn't provably working, do NOT drop the allowlist and surface to the maintainer.
 - Least privilege: a compromise of the account store must never mint write/admin — the role ladder tops at `guest` (and read, if the design kept `resident`); write + admin only via the git-audited overlay.
 - Secrets only in Secrets Manager; keep the store access behind the portable interface (provider-portability).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 18
+  claimed_at: 2026-07-08T01:21:11Z
