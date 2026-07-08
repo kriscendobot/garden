@@ -35,3 +35,9 @@ Design + a runnable, tested toy for **authenticated users purchasing credits** v
 - A **runnable, tested toy** (mirror the mcp-oauth / SIWE toy pattern): create-checkout + a signature-verified webhook handler + the atomic credit + idempotency, proven with tests (valid webhook credits once; duplicate event no-ops; bad signature rejected; identity taken from metadata; rate math at 1¢). Runnable against Stripe test mode with test keys, or a faithful mock if keys are absent — state which.
 - A parked `--go-ahead` deploy follow-on `deploy-stripe-credits-minion-town` (AWS/box binding: routes, `minion/stripe` secret, DynamoDB credit path, Caddy `/billing/*`) naming the Stripe-test-keys precondition.
 - Ground in the **current** Stripe API (verify against the SDK, not memory). Secrets only in Secrets Manager; keep the billing module's config-driven and coupling loose.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 20
+  claimed_at: 2026-07-08T04:23:57Z
