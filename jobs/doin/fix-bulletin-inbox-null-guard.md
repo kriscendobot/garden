@@ -37,3 +37,9 @@ getFile → null) and confirm it renders the rest without the error, and (b) an 
 "no unread messages". Keep it a minimal, defensive change; do not restructure the loader.
 
 Land on `main2` with a clear message; report the fix.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 10
+  claimed_at: 2026-07-08T02:28:14Z
