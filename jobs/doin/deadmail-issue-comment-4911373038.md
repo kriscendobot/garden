@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/29#issuecomment-4911373038
 Following up on the above and https://github.com/kriscendobot/agoric-sdk/pull/9#discussion_r3538524116, I think a migration-less approach is better. This is not a schema change of the DB, merely a value change. The way I see it we should just update the options when processing `A
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 12
+  claimed_at: 2026-07-08T04:30:08Z
