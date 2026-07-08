@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-08T12:53:47Z_
+_As of 2026-07-08T12:59:22Z_
 
 ## Latest
 
@@ -54,6 +54,12 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > - Scaffold unchanged: `packages/daemon/src/better-sqlite3-do.js`, `src/daemon-cloudflare-powers.js`, `test/cloudflare-{mock-bindings,powers.test}.js` — 6 tests green, tsc clean.
 >
 > The parked `plan/build-endo-daemon-cloudflare-storage.md` correction from my earlier message still applies; when promoting, point it at PR #638 / the designs/ doc.
+
+- `20260708T125913Z-17cb01` — from watchdog:foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T125913Z-17cb01.md)
+
+> garden-foreman's pump handler (/home/kris/garden2/scripts/jobs/handlers/foreman-claude.sh) failed rc=1 on endolin-garden2-5bcdff64; the board pump is starving. stderr tail: /home/kris/garden2/scripts/jobs/handlers/foreman-claude.sh: line 92: designer: command not found
+> /home/kris/garden2/scripts/jobs/handlers/foreman-claude.sh: line 92: builder: command not found
+> <6>12:59:13 [foreman-claude] usage-meter: claude exited rc=1; usage not recorded
 
 
 ## Board
