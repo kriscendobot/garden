@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T02:44:46Z_
+_As of 2026-07-08T02:49:07Z_
 
 ## Latest
 
-Voice input landed via [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101)? No — that's parked. Let me narrate what actually moved.
-
-Two @-mention attention directives are in flight on endo-but-for-bots ([#614](https://github.com/endojs/endo-but-for-bots/pull/614) and two on [#632](https://github.com/endojs/endo-but-for-bots/pull/632)), and a retrospective for [#614](https://github.com/endojs/endo-but-for-bots/pull/614) was just parked. On the infra side, `minion.town`'s verified-email hardening shipped: the GitHub OIDC thunk now refuses any account without a GitHub-verified email, and the gardener confirmed `kriskowal@kriskowal.com` is a verified primary so it won't lock you out — worth a fresh sign-in at https://minion.town/ to confirm. Two liaison questions await your call: whether to promote the parked styled-privilege-surfaces design job now that open signup is live, and the thresholds/notification target for a CloudWatch billing alarm on the newly-open Cognito pool. The board is otherwise drained (todo empty), with the minion.town Phase B open-signup gate flip and several SIWE jobs parked awaiting your go-ahead.
+Two @-mention directives on [endo-but-for-bots#632](https://github.com/endojs/endo-but-for-bots/pull/632) completed, and the board has drained to near-idle — nothing queued, with only the @-mention on [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614) still in flight. The item most needing your eyes is off the PR track: a gardener shipped verified-email enforcement on minion.town's GitHub OIDC thunk (live at 45e65e6) after confirming `kriskowal@kriskowal.com` is your verified primary, so the new lockout keeps you in; it asks only for an optional fresh sign-in to double-check. Two liaison follow-ups also await your call on the `open-signup-live-minion-town` report — whether to promote the parked styled-privilege-surfaces design job, and what MAU/spend thresholds and alert target to use for a Cognito billing alarm now that signup is open. Several minion.town build phases (account store, open-signup gate flip, styled surfaces) remain parked awaiting your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -92,18 +90,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (1)
 - [`mention-endojs-endo-but-for-bots-614-6ad25382`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mention-endojs-endo-but-for-bots-614-6ad25382.md) — attention directive from @-mention on endojs/endo-but-for-bots #614
-- [`mention-endojs-endo-but-for-bots-632-473a3c0e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mention-endojs-endo-but-for-bots-632-473a3c0e.md) — attention directive from @-mention on endojs/endo-but-for-bots #632
-- [`mention-endojs-endo-but-for-bots-632-56ebd36d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mention-endojs-endo-but-for-bots-632-56ebd36d.md) — attention directive from @-mention on endojs/endo-but-for-bots #632
 
-### tada (1485)
+### tada (1487)
+- [`mention-endojs-endo-but-for-bots-632-56ebd36d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mention-endojs-endo-but-for-bots-632-56ebd36d.md) — Completion report
+- [`mention-endojs-endo-but-for-bots-632-473a3c0e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mention-endojs-endo-but-for-bots-632-473a3c0e.md) — Completion report: attention directive from @erights on endojs/endo-but-for-b...
 - [`endojs-endo-but-for-bots-pr616-review-1698678a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr616-review-1698678a-retro.md) — All work complete. Final report below.
 - [`fix-bulletin-inbox-null-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-bulletin-inbox-null-guard.md) — Completion report
 - [`endojs-endo-but-for-bots-pr612-review-6da32098-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr612-review-6da32098-retro.md) — Completion report
-- [`endojs-endo-but-for-bots-pr96-review-94e37389-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr96-review-94e37389-retro.md) — Completion report
-- [`port-endor-oracle-bump-8-3-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-endor-oracle-bump-8-3-1.md) — Completion report
-- … and 1480 more
+- … and 1482 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
