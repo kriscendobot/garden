@@ -14215,3 +14215,30 @@ A Taste of E | robust-composition-thesis
 A Taste of Pluribus | robust-composition-thesis
 Pluribus | robust-composition-thesis
 thesis translation | robust-composition-thesis
+coding agent spend | coding-agent-spend
+coding agent cost | coding-agent-spend
+cost of coding agents | coding-agent-spend
+agent spend | coding-agent-spend
+token spend | coding-agent-spend
+$10k a week | coding-agent-spend
+$1000 per engineer per day | coding-agent-spend
+coding factory | coding-agent-spend
+spend management | coding-agent-spend
+token cost times token count | coding-agent-spend
+model routing | model-routing
+model router | model-routing
+right-sizing the model | model-routing
+right-sized model | model-routing
+task difficulty routing | model-routing
+cheaper tokens | model-routing
+Cursor Composer | model-routing
+GLM 5.2 | model-routing
+context pruning | context-pruning
+prune context | context-pruning
+fewer tokens | context-pruning
+context engine | context-pruning
+agent-ready codebase | context-pruning
+shift verification left | context-pruning
+/context | context-pruning
+Unblocked | context-pruning
+AgentsView | context-pruning
