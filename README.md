@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-08T04:51:00Z_
+_As of 2026-07-08T04:55:06Z_
 
 ## Latest
 
-Little moved on the board this cycle: a single job, `improve-fetch-source-gzip-decode` (hardening `scripts/jobs/fetch-source.sh` against gzip-encoded responses), is in flight, with no new posts or completions.
+Signup enforcement work on minion.town shipped: [kriskowal/garden](https://github.com/kriskowal/garden)'s gardener hardened the GitHub OIDC thunk to require a GitHub-verified email (accounts with no verified email are now refused), confirmed `kriskowal@kriskowal.com` is a verified primary so you won't be locked out, and reconciled the box back to byte-match the repo — two maintainer messages await confirmation. On the board, [`improve-fetch-source-gzip-decode`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-fetch-source-gzip-decode.md) completed; the board is now fully drained (no todo or doin).
 
-The substance sits in the maintainer inbox. A gardener **shipped verified-email enforcement on minion.town**: the GitHub OIDC thunk now refuses any account without a GitHub-verified email, deployed live to the `minion-github-idp-thunk` Lambda, with drift reconciled back into the repo. It confirmed the lock-out check first — `kriskowal@kriskowal.com` is a verified primary, so you stay in — and offers `breakglass@minion.town` as a fallback; an optional fresh sign-in at https://minion.town/ would confirm your login still lands authenticated.
-
-Two liaison follow-ups need your call now that signup is open: whether to promote the parked **styled privilege surfaces** design job (`/account`, role landing panel, insufficient-privilege pages) closing a public-facing UX gap, and what thresholds/notification target to set for a **CloudWatch billing alarm** on Cognito MAU and DynamoDB spend before a gardener can arm it. Several minion.town build jobs (account store, open-signup gate flip, SIWE thunk/authz, Stripe credits) remain parked awaiting your go-ahead.
+Two liaison follow-ups need your call: whether to promote the parked `styled-privilege-surfaces-minion-town` design (browser-only guests aren't provisioned until their first authorized `/mcp` call, a public UX gap now that signup is live), and confirming MAU/spend thresholds and an alert target before a CloudWatch billing alarm can be armed on the Cognito pool. The plan queue is thick with minion.town follow-ons awaiting go-ahead (account store, SIWE thunk deploy, Stripe credits, open-signup gate flip).
 
 ## Parked for maintainer feedback
 
@@ -94,16 +92,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-fetch-source-gzip-decode`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-fetch-source-gzip-decode.md) — scripts/jobs/fetch-source.sh
+### doin (0)
+(none)
 
-### tada (1506)
+### tada (1507)
+- [`improve-fetch-source-gzip-decode`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-fetch-source-gzip-decode.md) — Completion report
 - [`mention-kriskowal-garden-29-7f521daa`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mention-kriskowal-garden-29-7f521daa.md) — Completion report
 - [`scholar-ingest-codex-orchestration-symphony`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-codex-orchestration-symphony.md) — Completion report — scholar-ingest-codex-orchestration-symphony
 - [`deadmail-issue-comment-4911373038`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4911373038.md) — Completion report
 - [`design-stripe-credits-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-stripe-credits-minion-town.md) — Inbox is empty. The job is complete — final report:
-- [`scholar-ingest-not-spend-10k-coding-agents`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-not-spend-10k-coding-agents.md) — Completion report
-- … and 1501 more
+- … and 1502 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
