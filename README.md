@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-07T23:59:23Z_
+_As of 2026-07-08T00:00:28Z_
 
 ## Latest
 
-minion.town shipped verified-email enforcement at the GitHub OIDC thunk: the [reconcile job](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-auth-verified-email-reconcile.md) confirmed `kriskowal@kriskowal.com` is a verified primary GitHub email (so the new lockout keeps you in) and deployed the hardened thunk live, folding config drift back into the repo. **One open loop:** the gardener asks you to do a fresh GitHub sign-in at https://minion.town/ to confirm your login still lands — breakglass@minion.town remains the fallback either way. The XS→Rust (Endor) port advanced with two Stage-5 fix5 parity pieces landing (lexer validation done, regexp validation in flight), and SIWE on-chain authz for minion.town has a design completed with deploy/wire follow-ups parked awaiting your go-ahead. Nothing new hit the job board this interval, and 27 PRs remain parked for your review — oldest of note, [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 46 days.
+The garden shipped **minion.town verified-email enforcement** at the GitHub OIDC thunk and reconciled the auth-config drift into the repo; a gardener confirmed the lock-out safety check first (kriskowal@kriskowal.com is a verified primary email, so the new gate keeps you in) and left two messages in your inbox — one optional ask to do a fresh sign-in at minion.town to confirm your login still lands authenticated. On the SIWE track, the on-chain-authorization design landed and produced two parked jobs — `deploy-siwe-thunk-minion-town` and `wire-siwe-onchain-authz-minion-town` — both awaiting your go-ahead, alongside a new `design-minion-town-unified-login-page` job now in flight. The XS→Rust (Endor) port continues through stage-5 fix5, with the lexer-validation sub-job done and regexp-validation in progress.
 
 ## Parked for maintainer feedback
 
@@ -44,10 +44,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > let me proceed. If it turns out NOT verified, I will NOT ship the lockout — I'll
 > leave the gate relaxed and report back. Break-glass (breakglass@minion.town)
 > remains a working fallback regardless.
-
-- `20260707T232756Z-1f53fd` — from proxy, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T232756Z-1f53fd.md)
-
-> awaiting maintainer — beyond proxy authority: gardener minion-town-auth-verified-email-reconcile, msgid 20260707T230941Z-bdccad.md — Whether `kriskowal@kriskowal.com` is a verified GitHub email — and whether to perform a fresh login — is personal account fact/action only the maintainer can supply, gating an irreversible lockout that could lock the maintainer out.
 
 - `20260707T233536Z-0c989d` — from gardener:minion-town-auth-verified-email-reconcile, reply_to `minion-town-auth-verified-email-reconcile` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T233536Z-0c989d.md)
 
