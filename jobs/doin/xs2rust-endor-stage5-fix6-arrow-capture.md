@@ -91,3 +91,9 @@ land it CLEANLY (fix + fixture + green bars + push). If the mechanism resists af
 opcode-level diff, land nothing speculative: write the exact measured opcode delta and your
 attribution into the README ledger + your tada report instead (an honest attributed residual
 beats a divergence-introducing guess).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 15
+  claimed_at: 2026-07-08T00:58:31Z
