@@ -87,6 +87,7 @@ maintainer; do NOT comment on the PR. State measured before/after numbers per sl
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
