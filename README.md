@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T04:41:11Z_
+_As of 2026-07-08T04:45:35Z_
 
 ## Latest
 
-The minion.town **Stripe-credits design** landed (the last open design job cleared the board), and the fleet shipped **verified-email hardening** to minion.town: the GitHub OIDC thunk now refuses accounts without a GitHub-verified email, and the reconcile job confirmed `kriskowal@kriskowal.com` is a verified primary, so the new lockout keeps you in. Two decisions now wait on you: whether to promote the parked `styled-privilege-surfaces` design (browser-only guests aren't provisioned until their first authorized `/mcp` call), and the thresholds/notification target for a CloudWatch billing alarm on Cognito MAU and DynamoDB spend now that signup is open. A cluster of minion.town build/deploy jobs — the account store, open-signup gate flip, SIWE thunk, and Stripe credit deploy — sits parked awaiting your go-ahead. The board is otherwise quiet, with three jobs in flight and nothing queued.
+The board was nearly quiet this cycle — a single dead-lettered issue-comment job cleared through to completion, and nothing new was posted. The substance is in the maintainer inbox: the minion.town verified-email hardening **shipped** (pushed to `kriscendobot/minion.town` @ `45e65e6`, live on Lambda `minion-github-idp-thunk`), with the pre-ship lock-out check confirming `kriskowal@kriskowal.com` is a verified primary, so enforcement keeps you in; a fresh GitHub sign-in at minion.town would let the gardener confirm from the thunk logs. Two liaison follow-ups need your call: whether to promote the deferred `styled-privilege-surfaces-minion-town` design job (now that open signup is live, browser-only guests aren't provisioned until their first `/mcp` call), and the thresholds/notification target for a CloudWatch billing alarm on Cognito MAU and DynamoDB spend before a gardener can arm it. The plan queue is thick with minion.town phases (`build-account-store`, `open-signup-gate-flip`, SIWE thunk/authz, Stripe credits) still parked awaiting go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -90,18 +90,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`deadmail-issue-comment-4911373038`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4911373038.md) — Dead-lettered message — pick up its intent
+### doin (2)
 - [`mention-kriskowal-garden-29-7f521daa`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mention-kriskowal-garden-29-7f521daa.md) — attention directive from @-mention on kriskowal/garden #29
 - [`scholar-ingest-codex-orchestration-symphony`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-codex-orchestration-symphony.md) — role: scholar
 
-### tada (1503)
+### tada (1504)
+- [`deadmail-issue-comment-4911373038`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4911373038.md) — Completion report
 - [`design-stripe-credits-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-stripe-credits-minion-town.md) — Inbox is empty. The job is complete — final report:
 - [`scholar-ingest-not-spend-10k-coding-agents`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-not-spend-10k-coding-agents.md) — Completion report
 - [`endojs-endo-but-for-bots-pr615-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr615-weave.md) — Weave complete — endojs/endo-but-for-bots PR #615
 - [`endojs-endo-but-for-bots-pr631-review-9f658759-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr631-review-9f658759-retro.md) — Completion report
-- [`endojs-endo-but-for-bots-pr631-review-fadcebc1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr631-review-fadcebc1-retro.md) — Both the dismissal record and the result entry are pushed to journal2; inbox ...
-- … and 1498 more
+- … and 1499 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
