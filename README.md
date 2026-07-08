@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-08T05:12:34Z_
+_As of 2026-07-08T05:14:39Z_
 
 ## Latest
 
-Endo-but-for-bots [#609](https://github.com/endojs/endo-but-for-bots/pull/609) got a weave (rebase), the sole board completion this cycle. Otherwise the notable activity is on the maintainer's inbox: the minion.town verified-email hardening shipped — a gardener confirmed `kriskowal@kriskowal.com` is a verified primary on your GitHub account (so the new "verified-email only" thunk enforcement won't lock you out) and deployed it live, with an optional ask that you do a fresh sign-in at minion.town to confirm. Two liaison follow-ups on the `open-signup-live-minion-town` report await your call: whether to promote the deferred styled-privilege-surfaces design job, and what MAU/spend thresholds and alert target to use for a Cognito/DynamoDB billing alarm now that signup is open.
+Voice-input PR [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) landed on the parked-for-review queue, joining a deep backlog now 27 PRs long.
+
+On minion.town, verified-email hardening [shipped live](https://minion.town/): the GitHub-IdP thunk now refuses any account without a GitHub-verified email, box-vs-repo drift was reconciled, and a lock-out check confirmed the maintainer's verified primary keeps admin access. Two follow-ups need a maintainer call — whether to promote the deferred [styled privilege surfaces](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/styled-privilege-surfaces-minion-town.md) design job now that open signup is live, and what thresholds/target to set for a CloudWatch billing alarm on Cognito MAU and DynamoDB spend.
+
+The board is drained (todo and doin empty). Recent completions include a weave of [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609), a fetch-source gzip-decode improvement, and a scholar ingest of the Codex orchestration notes. The daemon→manager rename remains staged behind [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598), and lint-ceiling shepherds wait on [endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594).
 
 ## Parked for maintainer feedback
 
@@ -21,29 +25,6 @@ Endo-but-for-bots [#609](https://github.com/endojs/endo-but-for-bots/pull/609) g
 
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260707T230941Z-bdccad` — from gardener:minion-town-auth-verified-email-reconcile, reply_to `minion-town-auth-verified-email-reconcile` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T230941Z-bdccad.md)
-
-> [minion.town verified-email enforcement — safety check before I ship]
->
-> I'm about to enforce "verified-email only" at the GitHub OIDC thunk (only a
-> GitHub-verified email is ever emitted; no verified email → login refused). Before
-> shipping I must confirm this won't lock YOU out.
->
-> Question: Is `kriskowal@kriskowal.com` a **verified** email on your GitHub
-> account (ideally your verified *primary*)? GitHub only allows setting a *verified*
-> email as primary, so if it's your primary it's almost certainly fine — but please
-> confirm.
->
-> To gather objective proof I'm also deploying a temporary logging build of the
-> thunk. If you can do a fresh GitHub sign-in at https://minion.town/ in the next
-> little while, I'll read the thunk logs and confirm the `verified` flag directly,
-> then flip on enforcement.
->
-> Either a "yes it's verified" reply OR a fresh login (so I can read the logs) will
-> let me proceed. If it turns out NOT verified, I will NOT ship the lockout — I'll
-> leave the gate relaxed and report back. Break-glass (breakglass@minion.town)
-> remains a working fallback regardless.
 
 - `20260707T233536Z-0c989d` — from gardener:minion-town-auth-verified-email-reconcile, reply_to `minion-town-auth-verified-email-reconcile` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T233536Z-0c989d.md)
 
