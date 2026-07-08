@@ -1,18 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-08T04:55:06Z_
+_As of 2026-07-08T05:06:52Z_
 
 ## Latest
 
-Signup enforcement work on minion.town shipped: [kriskowal/garden](https://github.com/kriskowal/garden)'s gardener hardened the GitHub OIDC thunk to require a GitHub-verified email (accounts with no verified email are now refused), confirmed `kriskowal@kriskowal.com` is a verified primary so you won't be locked out, and reconciled the box back to byte-match the repo — two maintainer messages await confirmation. On the board, [`improve-fetch-source-gzip-decode`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-fetch-source-gzip-decode.md) completed; the board is now fully drained (no todo or doin).
-
-Two liaison follow-ups need your call: whether to promote the parked `styled-privilege-surfaces-minion-town` design (browser-only guests aren't provisioned until their first authorized `/mcp` call, a public UX gap now that signup is live), and confirming MAU/spend thresholds and an alert target before a CloudWatch billing alarm can be armed on the Cognito pool. The plan queue is thick with minion.town follow-ons awaiting go-ahead (account store, SIWE thunk deploy, Stripe credits, open-signup gate flip).
+A gardener is mid-flight on a [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) weave — the only board movement since the last bulletin. The larger news is in your inbox: minion.town's verified-email enforcement **shipped** (kriscendobot/minion.town main @ 45e65e6, live), refusing any GitHub account without a verified email; the gardener confirmed `kriskowal@kriskowal.com` is your verified primary so the new thunk keeps you logged in, with breakglass@minion.town as fallback — an optional fresh sign-in would let it read the thunk logs to double-confirm. Two liaison questions from the `open-signup-live-minion-town` report await your call: whether to promote the parked styled-privilege-surfaces design job (browser-only guests aren't provisioned until their first authorized `/mcp` call, a public UX gap), and what MAU/spend thresholds and alert target to use for a Cognito/DynamoDB billing alarm now that signup is open. The plan queue still holds the minion.town Phase A–C build chain (account store, open-signup gate flip, styled surfaces) and the SIWE thunk/authz work parked for your go-ahead.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 5h)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 5d)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 7d)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 8d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 11d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 22d)
@@ -92,8 +90,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr609-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr609-weave.md) — ---
 
 ### tada (1507)
 - [`improve-fetch-source-gzip-decode`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-fetch-source-gzip-decode.md) — Completion report
