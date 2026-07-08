@@ -24,3 +24,9 @@ The design + tested toy landed on `main` (commit 328e7e1: `src/billing/`, `test/
 7. **Verify end-to-end** (report evidence, not inference): a real test-mode purchase with card 4242… credits the signed-in account exactly once (DynamoDB row shows the balance; Stripe dashboard shows the delivery 200); a duplicate redelivery from the dashboard no-ops; a forged-signature POST answers 400; document rows/commands in DEPLOYMENT.md (new phase row + secrets list entries).
 
 Design: `designs/stripe-credits.md` (threat model § 8 is the acceptance frame).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 17
+  claimed_at: 2026-07-08T05:46:03Z
