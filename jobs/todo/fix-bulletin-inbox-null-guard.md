@@ -1,9 +1,4 @@
----
-gate: deferred
-priority: low
-posted_by: producer
-posted_at: 2026-07-07T23:53:34Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=low at=2026-07-08T02:28:11Z -->
 
 # Small hardening: null-guard the gh-pages bulletin inbox loader
 
