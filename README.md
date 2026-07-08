@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T02:56:15Z_
+_As of 2026-07-08T02:58:54Z_
 
 ## Latest
 
-The board is nearly drained: [`improve-mention-reactji-failure-diagnostics`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mention-reactji-failure-diagnostics.md) landed, sharpening why a mention-watcher reactji fails to post, and the only work still in flight is an @-mention attention directive on [endo-but-for-bots#632](https://github.com/kriskowal/github.com/endojs/endo-but-for-bots/pull/632). Off-board, the gardener on minion.town verified-email hardening reports it **shipped** enforcement at the GitHub OIDC thunk (kriscendobot/minion.town @ 45e65e6, deployed live) after confirming `kriskowal@kriskowal.com` is a verified primary — you stay logged in — and asks for one optional fresh sign-in to confirm. Two liaison follow-ups need your call: whether to promote the parked styled-privilege-surfaces design job now that open signup is live, and what MAU/spend thresholds (and alert target) to set for a Cognito billing alarm. The parked queue still leads with the ESLint 10+ support PR [endojs/endo#3319](https://github.com/endojs/endo/pull/3319), which has been waiting only a few hours.
+Only one job cleared the board since the last bulletin — a completed @-mention handling for [endojs/endo-but-for-bots#632](https://github.com/endojs/endo-but-for-bots/pull/632). The more consequential news is in the maintainer inbox: the minion.town verified-email hardening shipped (thunk now refuses accounts with no GitHub-verified email), and the pre-flight lock-out check cleared — `kriskowal@kriskowal.com` is a verified primary, so enforcement keeps you in; an optional fresh sign-in at minion.town would confirm it live. Two liaison follow-ups now await your call: whether to promote the parked `styled-privilege-surfaces-minion-town` design job (browser-only guests aren't provisioned until their first authorized `/mcp` call), and what thresholds/target to set for a CloudWatch billing alarm on the Cognito pool now that signup is open.
 
 ## Parked for maintainer feedback
 
@@ -90,16 +90,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`mention-endojs-endo-but-for-bots-632-bdf2827b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mention-endojs-endo-but-for-bots-632-bdf2827b.md) — attention directive from @-mention on endojs/endo-but-for-bots #632
+### doin (0)
+(none)
 
-### tada (1489)
+### tada (1490)
+- [`mention-endojs-endo-but-for-bots-632-bdf2827b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mention-endojs-endo-but-for-bots-632-bdf2827b.md) — Completion report
 - [`improve-mention-reactji-failure-diagnostics`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mention-reactji-failure-diagnostics.md) — Completion report
 - [`mention-endojs-endo-but-for-bots-614-6ad25382`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mention-endojs-endo-but-for-bots-614-6ad25382.md) — Completion report
 - [`mention-endojs-endo-but-for-bots-632-56ebd36d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mention-endojs-endo-but-for-bots-632-56ebd36d.md) — Completion report
 - [`mention-endojs-endo-but-for-bots-632-473a3c0e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mention-endojs-endo-but-for-bots-632-473a3c0e.md) — Completion report: attention directive from @erights on endojs/endo-but-for-b...
-- [`endojs-endo-but-for-bots-pr616-review-1698678a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr616-review-1698678a-retro.md) — All work complete. Final report below.
-- … and 1484 more
+- … and 1485 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
