@@ -1,0 +1,2 @@
+base: improve-fetch-source-gzip-decode
+identity: mentor:scripts/jobs/fetch-source.sh
