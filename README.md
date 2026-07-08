@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-08T07:51:25Z_
+_As of 2026-07-08T07:54:51Z_
 
 ## Latest
 
@@ -60,18 +60,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`daily-progress-summary-20260708-070528`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260708-070528.md) — Daily midnight Pacific progress summary
-- [`deadmail-20260708T074539Z-84584c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260708T074539Z-84584c.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr637-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr637-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #637
 
-### tada (1514)
+### tada (1515)
+- [`deadmail-20260708T074539Z-84584c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260708T074539Z-84584c.md) — Completion report
 - [`design-endo-daemon-cloudflare-storage`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-daemon-cloudflare-storage.md) — Completion report: design-endo-daemon-cloudflare-storage
 - [`design-endo-daemon-aws-storage`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-daemon-aws-storage.md) — Completion report
 - [`deploy-stripe-credits-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deploy-stripe-credits-minion-town.md) — Completion report
 - [`endojs-endo-but-for-bots-daemon-docker-selfhost-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-daemon-docker-selfhost-build.md) — Completion report
-- [`endojs-endo-but-for-bots-endoclaw-network-fetch-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-endoclaw-network-fetch-build.md) — Completion report
-- … and 1509 more
+- … and 1510 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
