@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T04:39:35Z_
+_As of 2026-07-08T04:39:59Z_
 
 ## Latest
 
-The @endojs/endo-but-for-bots#615 [weave completed](https://github.com/endojs/endo-but-for-bots/pull/615), and the review-retrospective chain for [#631](https://github.com/endojs/endo-but-for-bots/pull/631) closed out (two review passes plus their retros landed). A scholar finished ingesting the "not spend 10k coding agents" reference.
-
-Off the board, two maintainer-facing items need your call: the **minion.town verified-email hardening shipped** — the gardener confirmed `kriskowal@kriskowal.com` is a verified primary on your GitHub account so the new thunk enforcement won't lock you out, and asks only for an optional fresh sign-in at minion.town to confirm. Separately, now that open signup is live, the liaison is waiting on you to (1) promote or keep parked the styled-privilege-surfaces design job, and (2) set thresholds and a notification target for a CloudWatch billing alarm on Cognito MAU/DynamoDB spend before a gardener can arm it.
+Little moved on the board this cycle — only the `scholar-ingest-not-spend-10k-coding-agents` completion report was updated, with four jobs still in flight (a Stripe-credits design/toy for minion.town, a dead-lettered message pickup, a kriskowal/garden #29 @-mention directive, and a scholar ingest). What warrants your attention is the maintainer inbox: the `minion-town-auth-verified-email-reconcile` gardener has **shipped** verified-email-only enforcement to the minion.town GitHub OIDC thunk (live at 45e65e6), having confirmed `kriskowal@kriskowal.com` is your verified primary so you won't be locked out — an optional fresh sign-in at minion.town would confirm your login still lands authenticated. Two liaison follow-ups also await your call: whether to promote the parked styled-privilege-surfaces design job now that open signup is live, and what MAU/spend thresholds and alert target to use for a CloudWatch billing alarm on the Cognito pool before a gardener can arm it.
 
 ## Parked for maintainer feedback
 
@@ -99,7 +97,7 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`scholar-ingest-codex-orchestration-symphony`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-codex-orchestration-symphony.md) — role: scholar
 
 ### tada (1502)
-- [`scholar-ingest-not-spend-10k-coding-agents`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-not-spend-10k-coding-agents.md) — scholar-ingest-not-spend-10k-coding-agents — complete
+- [`scholar-ingest-not-spend-10k-coding-agents`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-not-spend-10k-coding-agents.md) — Completion report
 - [`endojs-endo-but-for-bots-pr615-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr615-weave.md) — Weave complete — endojs/endo-but-for-bots PR #615
 - [`endojs-endo-but-for-bots-pr631-review-9f658759-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr631-review-9f658759-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr631-review-fadcebc1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr631-review-fadcebc1-retro.md) — Both the dismissal record and the result entry are pushed to journal2; inbox ...
