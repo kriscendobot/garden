@@ -105,3 +105,37 @@ phases out as parallel children, and reconciles the superseded parked jobs
 (`synth-and-deploy-minion-town-aws`, `cognito-mcp-metadata-bridge`). It will request
 a Google OAuth client and a GitHub OAuth App from the maintainer (secrets → Secrets
 Manager).
+
+### minion.town billing — Stripe credits (maintainer setup, TEST mode)
+
+Design + tested toy: `designs/stripe-credits.md` + `src/billing/` in
+`kriscendobot/minion.town`. Model: any authenticated user buys credits at **1¢ per
+credit** (config `CREDIT_UNIT_CENTS`); credits accrue to the `credits` field on the
+`minion-town-accounts` DynamoDB row; purchase via Stripe Checkout; a
+**signature-verified** webhook credits **exactly-once** (marker table
+`minion-town-billing-events` + a single `TransactWriteItems`). Obtaining credits only
+— spending/metering is a later phase (debit seam shaped, not built).
+
+**Maintainer setup — from an existing Stripe account, TEST mode only:**
+1. Stripe Dashboard → toggle **Test mode**.
+2. Developers → API keys → copy `sk_test_…` (secret) + `pk_test_…` (publishable).
+3. Developers → Webhooks → **Add endpoint**: URL `https://minion.town/billing/webhook`;
+   events `checkout.session.completed` + `checkout.session.async_payment_succeeded`;
+   reveal + copy its **signing secret** `whsec_…`. (Stripe doesn't verify reachability
+   at creation, so the endpoint may be added before the deploy exists.)
+4. Store all three in Secrets Manager `minion/stripe` (create first time, else
+   `put-secret-value` to update):
+
+   ```sh
+   aws secretsmanager put-secret-value --secret-id minion/stripe --region us-west-1 \
+     --secret-string '{"secret_key":"sk_test_…","publishable_key":"pk_test_…","webhook_secret":"whsec_…"}'
+   ```
+
+   The build **refuses live keys** (`sk_live_`/`pk_live_`). All three fields are
+   required — an empty `webhook_secret` blocks the deploy (it is the signature-
+   verification boundary; without it, webhooks can't be trusted to credit accounts).
+
+**Then** promote the parked builder job `deploy-stripe-credits-minion-town` (the box
+binding: billing routes, the events table, attribute-scoped IAM, Caddy `/billing/*`,
+the "Buy credits" control), which verifies the live test-mode loop end-to-end
+(test card `4242…`).
