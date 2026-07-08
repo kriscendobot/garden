@@ -27,3 +27,9 @@ Design a new **AWS platform** for **Endo daemon storage** — a peer of the exis
 - Follow-on build job(s) parked `--go-ahead`.
 
 Ground in the real `@endo/daemon` code; keep the daemon core untouched; secrets/creds as injected powers.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 10
+  claimed_at: 2026-07-08T05:52:11Z
