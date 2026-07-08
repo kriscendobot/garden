@@ -23,3 +23,9 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 We parked an effort to upgrade Agoric SDK’s version of XS some time ago. We had a candidate but could not rationalize the expense of doing the full release validation gauntlet. Please find the relevant pull requests and issues. 
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  claimed_at: 2026-07-08T00:07:16Z
