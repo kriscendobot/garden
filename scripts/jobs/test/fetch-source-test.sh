@@ -45,34 +45,51 @@ rm -rf "$TR"; mkdir -p "$TR"
 #   STUB_DIRECT_FILE    if set, a successful direct fetch copies this file to the
 #                       output instead of writing STUB_DIRECT_BODY (for binary
 #                       bodies like a real PDF that an env var would not survive)
+#   STUB_DIRECT_CE      if set, a successful direct fetch dumps a response-header
+#                       file (-D) carrying `Content-Encoding: <value>` — drives
+#                       the gzip-decode path. STUB_ARCHIVE_CE / STUB_MIRROR_CE do
+#                       the same for the archive / mirror fetches.
 # It also records each requested URL to $STUB_LOG for assertions.
 STUB="$TR/curl-stub.sh"
 cat >"$STUB" <<'STUB_EOF'
 #!/bin/bash
-# Parse out `-o <path>` and the trailing URL from a curl-shaped arg list.
-out=""; url=""
+# Parse out `-o <path>`, `-D <hdrs>` and the trailing URL from a curl-shaped
+# arg list.
+out=""; url=""; hdrs=""
 while [ $# -gt 0 ]; do
   case "$1" in
     -o) out="$2"; shift 2;;
+    -D) hdrs="$2"; shift 2;;
     --connect-timeout|--max-time) shift 2;;
     -*) shift;;            # other flags (-fsSL etc.)
     *)  url="$1"; shift;;  # last non-flag wins = the URL
   esac
 done
 printf '%s\n' "$url" >>"$STUB_LOG"
+# Write a minimal response-header dump (like curl -D) when a Content-Encoding is
+# requested for this fetch path, so the script's header inspection has input.
+emit_hdrs() {  # $1 = Content-Encoding value (empty -> no header file written)
+  [ -n "$hdrs" ] && [ -n "$1" ] || return 0
+  printf 'HTTP/1.1 200 OK\r\nContent-Encoding: %s\r\n\r\n' "$1" >"$hdrs"
+}
 case "$url" in
   *"/wayback/available"*)
     printf '%s' "${STUB_AVAIL_JSON:-}"; exit "${STUB_AVAIL_RC:-0}" ;;
   *"web.archive.org"*)
-    [ "${STUB_ARCHIVE_RC:-0}" = 0 ] && printf '%s' "${STUB_ARCHIVE_BODY:-}" >"$out"
+    if [ "${STUB_ARCHIVE_RC:-0}" = 0 ]; then
+      printf '%s' "${STUB_ARCHIVE_BODY:-}" >"$out"; emit_hdrs "${STUB_ARCHIVE_CE:-}"
+    fi
     exit "${STUB_ARCHIVE_RC:-0}" ;;
   *"erights.github.io"*)
-    [ "${STUB_MIRROR_RC:-0}" = 0 ] && printf '%s' "${STUB_MIRROR_BODY:-}" >"$out"
+    if [ "${STUB_MIRROR_RC:-0}" = 0 ]; then
+      printf '%s' "${STUB_MIRROR_BODY:-}" >"$out"; emit_hdrs "${STUB_MIRROR_CE:-}"
+    fi
     exit "${STUB_MIRROR_RC:-0}" ;;
   *)
     if [ "${STUB_DIRECT_RC:-0}" = 0 ]; then
       if [ -n "${STUB_DIRECT_FILE:-}" ]; then cp "$STUB_DIRECT_FILE" "$out"
       else printf '%s' "${STUB_DIRECT_BODY:-}" >"$out"; fi
+      emit_hdrs "${STUB_DIRECT_CE:-}"
     fi
     exit "${STUB_DIRECT_RC:-0}" ;;
 esac
@@ -331,6 +348,54 @@ MAN="$(STUB_DIRECT_RC=0 STUB_DIRECT_BODY="just some plain text, not a pdf" "$FET
 [ "$rc" = 0 ] && ok "exit 0" || bad "exit $rc"
 printf '%s' "$MAN" | grep -q '^source_is_pdf=' && bad "source_is_pdf emitted for non-PDF" || ok "no source_is_pdf for non-PDF"
 printf '%s' "$MAN" | grep -q '^source_text_path=' && bad "source_text_path emitted for non-PDF" || ok "no source_text_path for non-PDF"
+
+# === 17. gzip Content-Encoding -> decoded in place before hashing ============
+# The live failure mode (OpenAI Symphony ingest: openai.com 403 -> wayback id_
+# fallback replaying stored `Content-Encoding: gzip`): the saved file is
+# gzip-compressed. The script must decode it in place BEFORE hashing, so the
+# stored bytes are the readable content and source_content_sha256 is the anchor
+# over the DECODED form (transfer-encoding-invariant), with via unchanged.
+hr; echo "CASE 17: Content-Encoding: gzip -> decoded before hashing"
+: >"$STUB_LOG"
+PLAIN="hello gzip decoded body — the readable content a scholar ingests"
+GZ="$TR/sample.gz"
+printf '%s' "$PLAIN" | gzip -c >"$GZ"
+OUT="$TR/case17.out"
+MAN="$(STUB_DIRECT_RC=0 STUB_DIRECT_FILE="$GZ" STUB_DIRECT_CE=gzip \
+       "$FETCH" "$URL" "$OUT" 2>/dev/null)"; rc=$?
+[ "$rc" = 0 ] && ok "exit 0" || bad "exit $rc"
+[ "$(printf '%s' "$MAN" | field source_fetched_via)" = direct ] && ok "via=direct (unchanged)" || bad "via changed"
+[ "$(cat "$OUT")" = "$PLAIN" ] && ok "output decoded in place" || bad "output not decoded"
+got="$(printf '%s' "$MAN" | field source_content_sha256)"
+[ "$got" = "$(sha_of "$PLAIN")" ] && ok "sha anchored over decoded bytes" || bad "sha over compressed bytes ($got)"
+plain_bytes="$(printf '%s' "$PLAIN" | wc -c | tr -d ' ')"
+[ "$(printf '%s' "$MAN" | field source_bytes)" = "$plain_bytes" ] && ok "bytes count decoded length" || bad "bytes not decoded length"
+
+# === 18. gzip advertised but bytes are NOT gzip -> left untouched ============
+# The decode is guarded by `gzip -t`: a mislabelled response (header says gzip,
+# body is plain) must be hashed as-is, never mangled by a failed decode.
+hr; echo "CASE 18: Content-Encoding: gzip but body not gzip -> untouched"
+: >"$STUB_LOG"
+BODY="this claims to be gzip but is plain text"
+OUT="$TR/case18.out"
+MAN="$(STUB_DIRECT_RC=0 STUB_DIRECT_BODY="$BODY" STUB_DIRECT_CE=gzip \
+       "$FETCH" "$URL" "$OUT" 2>/dev/null)"; rc=$?
+[ "$rc" = 0 ] && ok "exit 0" || bad "exit $rc"
+[ "$(cat "$OUT")" = "$BODY" ] && ok "mislabelled body left untouched" || bad "body was mangled"
+got="$(printf '%s' "$MAN" | field source_content_sha256)"
+[ "$got" = "$(sha_of "$BODY")" ] && ok "sha over the raw (unchanged) bytes" || bad "sha mismatch ($got)"
+
+# === 19. identity encoding (no Content-Encoding header) -> untouched =========
+# An ordinary response with no Content-Encoding must never be gzip-touched, even
+# if a header file was dumped for Content-Type detection.
+hr; echo "CASE 19: no Content-Encoding header -> untouched"
+: >"$STUB_LOG"
+BODY19="plain identity-encoded content"
+OUT="$TR/case19.out"
+MAN="$(STUB_DIRECT_RC=0 STUB_DIRECT_BODY="$BODY19" "$FETCH" "$URL" "$OUT" 2>/dev/null)"; rc=$?
+[ "$rc" = 0 ] && ok "exit 0" || bad "exit $rc"
+[ "$(cat "$OUT")" = "$BODY19" ] && ok "identity body untouched" || bad "identity body changed"
+[ "$(printf '%s' "$MAN" | field source_content_sha256)" = "$(sha_of "$BODY19")" ] && ok "sha over raw bytes" || bad "sha mismatch"
 
 hr
 echo "fetch-source-test: $PASS passed, $FAIL failed"

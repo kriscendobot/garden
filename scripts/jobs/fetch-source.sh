@@ -73,6 +73,19 @@
 #                                         # only when a PDF was extracted)
 #   source_text_bytes=<integer>           # byte count of the extracted text
 #
+# WHY GZIP DECODE. `curl` saves the raw response body, and the Wayback `id_`
+# original-bytes form replays the originally-captured payload INCLUDING its stored
+# `Content-Encoding: gzip` — so the saved file is gzip-compressed HTML that looks
+# like binary (this surfaced live in the OpenAI Symphony ingest: openai.com 403 ->
+# wayback id_ fallback, gzip bytes). Before hashing, when the dumped headers
+# advertise `Content-Encoding: gzip` and `gzip -t` validates the bytes, the file
+# is gzip-decoded in place. This closes two failure modes: an ingester reading
+# undecoded binary, and a future curl negotiating a different transfer encoding
+# shifting the `source_content_sha256` anchor and breaking idempotency for the
+# same logical source. The anchor is thus taken over the DECODED, transfer-
+# encoding-invariant content. Identity-encoded (or mislabelled) responses are left
+# untouched, and `source_fetched_via` is unchanged.
+#
 # WHY PDF TEXT EXTRACTION. A paper source is commonly a PDF, and the library
 # ingests text, not bytes. Scholar cycles otherwise hand-run pypdf to get the
 # text (the one manual step in the 2026-06-28 combex-capdesk-polaris cycle's
@@ -114,7 +127,7 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 GARDEN_TAG="fetch-source"
 
-require_tools curl sha256sum jq
+require_tools curl sha256sum jq gzip
 
 CURL="${FETCH_SOURCE_CURL:-curl}"
 CONNECT_TIMEOUT="${FETCH_SOURCE_CONNECT_TIMEOUT:-20}"
@@ -236,6 +249,31 @@ if [ -z "$fetched_via" ]; then
     log "FATAL: archive fallback also failed (curl rc=${rc:-?}); no bytes for $url"
     rm -f "$out"
     exit 1
+  fi
+fi
+
+# --- 3.5 normalize a gzip Content-Encoding to decoded bytes ------------------
+# `_curl` saves the raw response body verbatim. The Wayback `id_` original-bytes
+# form replays the originally-captured payload INCLUDING its stored
+# `Content-Encoding: gzip`, so the saved file can be gzip-compressed HTML that
+# looks like binary. Left as-is two things break: (1) an ingester reads undecoded
+# bytes, and (2) the citable `source_content_sha256` anchor is taken over the
+# COMPRESSED bytes — so a future curl that negotiates a different transfer
+# encoding for the same logical source would shift the hash and defeat
+# idempotency. Normalize to the decoded content BEFORE hashing so the anchor is
+# transfer-encoding-invariant. Guarded: decode only when the fetched headers
+# advertise `Content-Encoding: gzip` (case-insensitive) AND `gzip -t` validates
+# the bytes as real gzip — an identity-encoded or mislabelled response is left
+# untouched. `source_fetched_via` is unchanged; the decode is noted in the log.
+if [ -s "$hdrs" ] && grep -qiE '^content-encoding:[[:space:]]*gzip[[:space:]]*$' "$hdrs" \
+   && gzip -t <"$out" 2>/dev/null; then
+  gz_tmp="$(mktemp -t fetch-source-gz.XXXXXX)"
+  if gzip -dc <"$out" >"$gz_tmp" 2>/dev/null; then
+    mv -f "$gz_tmp" "$out"
+    log "decoded gzip Content-Encoding in place before hashing (anchor over decoded bytes)"
+  else
+    rm -f "$gz_tmp"
+    log "WARNING: Content-Encoding: gzip advertised and gzip -t passed but decode failed; hashing raw bytes"
   fi
 fi
 
