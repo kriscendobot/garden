@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T05:06:52Z_
+_As of 2026-07-08T05:12:34Z_
 
 ## Latest
 
-A gardener is mid-flight on a [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) weave — the only board movement since the last bulletin. The larger news is in your inbox: minion.town's verified-email enforcement **shipped** (kriscendobot/minion.town main @ 45e65e6, live), refusing any GitHub account without a verified email; the gardener confirmed `kriskowal@kriskowal.com` is your verified primary so the new thunk keeps you logged in, with breakglass@minion.town as fallback — an optional fresh sign-in would let it read the thunk logs to double-confirm. Two liaison questions from the `open-signup-live-minion-town` report await your call: whether to promote the parked styled-privilege-surfaces design job (browser-only guests aren't provisioned until their first authorized `/mcp` call, a public UX gap), and what MAU/spend thresholds and alert target to use for a Cognito/DynamoDB billing alarm now that signup is open. The plan queue still holds the minion.town Phase A–C build chain (account store, open-signup gate flip, styled surfaces) and the SIWE thunk/authz work parked for your go-ahead.
+Endo-but-for-bots [#609](https://github.com/endojs/endo-but-for-bots/pull/609) got a weave (rebase), the sole board completion this cycle. Otherwise the notable activity is on the maintainer's inbox: the minion.town verified-email hardening shipped — a gardener confirmed `kriskowal@kriskowal.com` is a verified primary on your GitHub account (so the new "verified-email only" thunk enforcement won't lock you out) and deployed it live, with an optional ask that you do a fresh sign-in at minion.town to confirm. Two liaison follow-ups on the `open-signup-live-minion-town` report await your call: whether to promote the deferred styled-privilege-surfaces design job, and what MAU/spend thresholds and alert target to use for a Cognito/DynamoDB billing alarm now that signup is open.
 
 ## Parked for maintainer feedback
 
@@ -90,16 +90,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr609-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr609-weave.md) — ---
+### doin (0)
+(none)
 
-### tada (1507)
+### tada (1508)
+- [`endojs-endo-but-for-bots-pr609-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr609-weave.md) — Completion report
 - [`improve-fetch-source-gzip-decode`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-fetch-source-gzip-decode.md) — Completion report
 - [`mention-kriskowal-garden-29-7f521daa`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mention-kriskowal-garden-29-7f521daa.md) — Completion report
 - [`scholar-ingest-codex-orchestration-symphony`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-codex-orchestration-symphony.md) — Completion report — scholar-ingest-codex-orchestration-symphony
 - [`deadmail-issue-comment-4911373038`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4911373038.md) — Completion report
-- [`design-stripe-credits-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-stripe-credits-minion-town.md) — Inbox is empty. The job is complete — final report:
-- … and 1502 more
+- … and 1503 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
