@@ -1,13 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T05:21:25Z_
+_As of 2026-07-08T05:24:53Z_
 
 ## Latest
 
-A [weaver][617] job on [endo-but-for-bots#617][617] is the only board movement since the last bulletin — freshly claimed and now in progress; the board is otherwise idle (nothing queued in todo). Worth a maintainer's eye instead: an [open message][msg] flags that the `open-signup-live-minion-town` report recommends a CloudWatch billing alarm on Cognito MAU and DynamoDB spend now that signup is live, but it's stuck awaiting your call on thresholds and where alerts should go before a gardener can arm it.
-
-[617]: https://github.com/endojs/endo-but-for-bots/pull/617
-[msg]: https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T014900Z-a4afa2.md
+endo-but-for-bots#617 landed: the [weave job](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr617-weave.md) confirms [endo-but-for-bots#617](https://github.com/endojs/endo-but-for-bots/pull/617) is now mergeable (CI clean, UNSTABLE merge state notwithstanding). Otherwise the board is quiet — no jobs in flight. Worth the maintainer's attention: an [inbox message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T014900Z-a4afa2.md) asks kriskowal to set CloudWatch billing-alarm thresholds (Cognito MAU, DynamoDB spend) and a notification target before a gardener can arm them now that minion.town signup is open, and the plan queue holds a chain of minion.town changes ([open-signup gate flip](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md), account store, Stripe credits, SIWE wiring) awaiting go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -34,16 +31,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr617-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr617-weave.md) — ---
+### doin (0)
+(none)
 
-### tada (1508)
+### tada (1509)
+- [`endojs-endo-but-for-bots-pr617-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr617-weave.md) — PR #617 is now **MERGEABLE** (mergeStateStatus UNSTABLE = merge is clean, CI ...
 - [`endojs-endo-but-for-bots-pr609-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr609-weave.md) — Completion report
 - [`improve-fetch-source-gzip-decode`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-fetch-source-gzip-decode.md) — Completion report
 - [`mention-kriskowal-garden-29-7f521daa`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mention-kriskowal-garden-29-7f521daa.md) — Completion report
 - [`scholar-ingest-codex-orchestration-symphony`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-codex-orchestration-symphony.md) — Completion report — scholar-ingest-codex-orchestration-symphony
-- [`deadmail-issue-comment-4911373038`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4911373038.md) — Completion report
-- … and 1503 more
+- … and 1504 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
