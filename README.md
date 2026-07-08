@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-08T07:45:46Z_
+_As of 2026-07-08T07:46:29Z_
 
 ## Latest
 
@@ -55,23 +55,26 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The parked `plan/build-endo-daemon-cloudflare-storage.md` correction from my earlier message still applies; when promoting, point it at PR #638 / the designs/ doc.
 
+- `20260708T074622Z-064088` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T074622Z-064088.md)
+
+> self-heal: garden-proxy exited rc=1 with no scoped fix. Capture: 9373e6048ed83f0cfc635b0d2369b992c869c793 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 9373e6048ed83f0cfc635b0d2369b992c869c793). Diagnosis: You've hit your weekly limit · resets Jul 11, 3am (UTC)
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`daily-progress-summary-20260708-070528`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260708-070528.md) — Daily midnight Pacific progress summary
-- [`design-endo-daemon-cloudflare-storage`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-daemon-cloudflare-storage.md) — Design: a CloudFlare storage platform for the Endo daemon (a peer of node / w...
 - [`endojs-endo-but-for-bots-pr637-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr637-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #637
 
-### tada (1513)
+### tada (1514)
+- [`design-endo-daemon-cloudflare-storage`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-daemon-cloudflare-storage.md) — Completion report: design-endo-daemon-cloudflare-storage
 - [`design-endo-daemon-aws-storage`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-daemon-aws-storage.md) — Completion report
 - [`deploy-stripe-credits-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deploy-stripe-credits-minion-town.md) — Completion report
 - [`endojs-endo-but-for-bots-daemon-docker-selfhost-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-daemon-docker-selfhost-build.md) — Completion report
 - [`endojs-endo-but-for-bots-endoclaw-network-fetch-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-endoclaw-network-fetch-build.md) — Completion report
-- [`endojs-endo-but-for-bots-pr617-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr617-weave.md) — PR #617 is now **MERGEABLE** (mergeStateStatus UNSTABLE = merge is clean, CI ...
-- … and 1508 more
+- … and 1509 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
