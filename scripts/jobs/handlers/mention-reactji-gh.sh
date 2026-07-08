@@ -39,8 +39,29 @@ command -v gh >/dev/null 2>&1 || die "gh not on PATH; cannot react on $repo"
 # drift). Posting the same reactji twice from one identity is a GitHub no-op, so
 # the POST is idempotent and safe for gh_api_retry to re-issue: a TRANSIENT blip
 # (5xx / 429 / DNS-TLS-reset) is ridden out under backoff rather than dropping the
-# ack on a single flake, while a DEFINITIVE failure still falls through to exit 1.
+# ack on a single flake, while a DEFINITIVE failure falls through to exit 1 (with a
+# diagnostic WARN) — except a definitive 404 (deleted/absent target), which is a
+# benign ack race classified as a silent skip (exit 0) below.
 [ -n "${GARDEN_BOT_GH_TOKEN:-}" ] && export GH_TOKEN="$GARDEN_BOT_GH_TOKEN"
-gh_api_retry -X POST "$path" -f content="$content" >/dev/null 2>&1 \
-  || { log "reactji POST failed on $path"; exit 1; }
+# Discard the success payload (>/dev/null) but CAPTURE gh_api_retry's stderr
+# diagnostic — its rc, gh's response, and its definitive-vs-transient verdict —
+# instead of dropping it with `2>&1` into the void. Order matters: `2>&1 >/dev/null`
+# points stderr at the command-substitution pipe, then stdout at /dev/null, so the
+# diagnostic is captured while the reaction payload is thrown away. `|| rc=$?`
+# reads the rc without tripping `set -e`; a clean success leaves rc=0.
+rc=0
+reason="$(gh_api_retry -X POST "$path" -f content="$content" 2>&1 >/dev/null)" || rc=$?
+if [ "$rc" -ne 0 ]; then
+  # A DEFINITIVE 404 means the comment/issue was deleted between the mention and
+  # this ack — a benign race, not a failure. Skip silently (exit 0, info log) so a
+  # deleted-comment race stops masquerading as a WARN, and a real 403/permission
+  # failure is the only thing that stands out. gh_api_retry has already ridden out
+  # any transient blip under backoff, so a surviving 404 here is truly definitive.
+  if printf '%s' "$reason" | grep -q 'HTTP 404'; then
+    log "reactji target gone on $path (HTTP 404 — comment/issue deleted before ack); skipping"
+    exit 0
+  fi
+  log "WARN: reactji POST failed on $path (rc=$rc): ${reason:-<no diagnostic>}"
+  exit 1
+fi
 log "reacted $content on $surface ($repo ${cid:-#$number})"
