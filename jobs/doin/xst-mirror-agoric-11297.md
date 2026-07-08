@@ -50,3 +50,9 @@ fork's current `master`**.
 Report the fork mirror PR URL, the rebased branch name, how you re-expressed the
 Moddable bump onto the pinned-archive mechanism, which snapshots you regenerated,
 and any residual test failures a validation job must chase.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 13
+  claimed_at: 2026-07-08T01:01:18Z
