@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-08T00:00:28Z_
+_As of 2026-07-08T00:05:56Z_
 
 ## Latest
 
-The garden shipped **minion.town verified-email enforcement** at the GitHub OIDC thunk and reconciled the auth-config drift into the repo; a gardener confirmed the lock-out safety check first (kriskowal@kriskowal.com is a verified primary email, so the new gate keeps you in) and left two messages in your inbox — one optional ask to do a fresh sign-in at minion.town to confirm your login still lands authenticated. On the SIWE track, the on-chain-authorization design landed and produced two parked jobs — `deploy-siwe-thunk-minion-town` and `wire-siwe-onchain-authz-minion-town` — both awaiting your go-ahead, alongside a new `design-minion-town-unified-login-page` job now in flight. The XS→Rust (Endor) port continues through stage-5 fix5, with the lexer-validation sub-job done and regexp-validation in progress.
+The minion.town auth hardening landed: verified-email enforcement now ships live at the GitHub OIDC thunk (deployed to Lambda `minion-github-idp-thunk`, pushed to `kriscendobot/minion.town` @ `45e65e6`), refusing any account without a GitHub-verified email. The gardener confirmed your lock-out risk is clear — `kriskowal@kriskowal.com` is a verified primary on your GitHub account, so enforcement keeps you in; it asks only for an optional fresh sign-in at https://minion.town/ to confirm your login still lands authenticated, with breakglass@minion.town as the standing fallback. Alongside it, the unified login-page design for minion.town completed and the SIWE on-chain authorization design landed, with its deploy/wire follow-ups (`deploy-siwe-thunk-minion-town`, `wire-siwe-onchain-authz-minion-town`) parked awaiting your go-ahead. The board is otherwise quiet — one Stage-5 XS→Rust regexp-validation job in flight — and 27 PRs remain parked for your review, the freshest being [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) (ESLint 10+ support).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 38m)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 44m)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 5d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 7d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 8d)
@@ -82,17 +82,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`design-minion-town-unified-login-page`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-minion-town-unified-login-page.md) — minion.town: one unified, minimal login page (GitHub / Google / SIWE) + a lan...
+### doin (1)
 - [`xs2rust-endor-stage5-fix5-regexp-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix5-regexp-validation.md) — Stage-5 fix5 4/5 — regexp compile-time validation parity + module-goal fold a...
 
-### tada (1464)
+### tada (1465)
+- [`design-minion-town-unified-login-page`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-minion-town-unified-login-page.md) — Completion report: design-minion-town-unified-login-page
 - [`minion-town-auth-verified-email-reconcile`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-auth-verified-email-reconcile.md) — Completion report: minion.town verified-email enforcement + auth-config recon...
 - [`project-xs-changes-to-endor-23b4d6b0`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/project-xs-changes-to-endor-23b4d6b0.md) — Completion report
 - [`design-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-siwe-onchain-authz-minion-town.md) — What I did
 - [`xs2rust-endor-stage5-fix5-lexer-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix5-lexer-validation.md) — Completion report — xs2rust-endor-stage5-fix5-lexer-validation
-- [`deadmail-20260707T224512Z-feabd5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260707T224512Z-feabd5.md) — Completion report
-- … and 1459 more
+- … and 1460 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
