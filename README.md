@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-08T03:55:06Z_
+_As of 2026-07-08T03:58:05Z_
 
 ## Latest
 
-Since little of substance moved on the board, I'll keep the summary tight.
-
-The gardener's [endo-but-for-bots#631](https://github.com/endojs/endo-but-for-bots/pull/631) review closed out — all directives resolved — and its retrospective is now in flight, while the [#614](https://github.com/endojs/endo-but-for-bots/pull/614) lint shepherd drove CI fully green (23 checks). Awaiting kriskowal: two safety questions on the minion.town verified-email lockout ([confirmed](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260707T233536Z-0c989d.md) `kriskowal@kriskowal.com` is a verified primary, so enforcement shipped without locking you out) plus two open UX/billing calls — promoting the styled-privilege-surfaces design and setting Cognito MAU/spend alarm thresholds now that minion.town signup is live.
+The board is nearly idle — the only transition this cycle was the completion of the retrospective on [endo-but-for-bots#631](https://github.com/endojs/endo-but-for-bots/pull/631)'s review, closing out that PR's review loop. The bigger item is off the board and in your inbox: the minion.town gardener **shipped verified-email enforcement** at the GitHub OIDC thunk (deployed live to `kriscendobot/minion.town` @ 45e65e6), having first confirmed `kriskowal@kriskowal.com` is your verified primary so the lockout can't lock you out; break-glass remains as fallback. Two liaison follow-ups now await your call: whether to promote the parked styled-privilege-surfaces design job (the `/account` and role-panel UX gap now that signup is live), and what MAU/spend thresholds and alert target to use for a CloudWatch billing alarm on the open Cognito pool. Both the `styled-privilege-surfaces-minion-town` build and the consequential `open-signup-gate-flip-minion-town` remain parked awaiting go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -92,16 +90,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr631-review-02a749af-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr631-review-02a749af-retro.md) — Retrospective on endojs/endo-but-for-bots PR #631 (primary: endojs-endo-but-f...
+### doin (0)
+(none)
 
-### tada (1496)
+### tada (1497)
+- [`endojs-endo-but-for-bots-pr631-review-02a749af-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr631-review-02a749af-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr631-review-fadcebc1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr631-review-fadcebc1.md) — All directives in the review are resolved. Here is my completion report.
 - [`endojs-endo-but-for-bots-pr614-shepherd-lint`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr614-shepherd-lint.md) — CI is fully green — 23 check runs, all success; PR state CLEAN/MERGEABLE/OPEN...
 - [`endojs-endo-but-for-bots-pr631-review-02a749af`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr631-review-02a749af.md) — Completion report
 - [`endojs-endo-but-for-bots-pr632-bdf2827b-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr632-bdf2827b-retro.md) — Completion report
-- [`endojs-endo-but-for-bots-pr614-6ad25382-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr614-6ad25382-retro.md) — Completion report — endojs-endo-but-for-bots-pr614-6ad25382-retro
-- … and 1491 more
+- … and 1492 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
