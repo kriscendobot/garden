@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-09T22:36:47Z_
+_As of 2026-07-09T22:38:28Z_
 
 ## Latest
 
-The endoclaw-timer Phase 1 remainder is done and green: [#609](https://github.com/endojs/endo-but-for-bots/pull/609) (the `interval-scheduler` formula) is open, non-draft, and mergeable, with Phase 2/3 stacked in [#617](https://github.com/endojs/endo-but-for-bots/pull/617) and [#619](https://github.com/endojs/endo-but-for-bots/pull/619). The `endo http mk` Phase 1 PR [#286](https://github.com/endojs/endo-but-for-bots/pull/286) was reconciled onto the merged [#566](https://github.com/endojs/endo-but-for-bots/pull/566) http-confine substrate, but CI surfaced a real Node-22-only bug (undici `Headers` cannot survive hardening across CapTP) — a fixer is warranted. Two mount follow-ups opened as drafts: CLI `--deny` flags [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (stacked on [#650](https://github.com/endojs/endo-but-for-bots/pull/650), whose CI a shepherd is driving green) and a Rust `mount_parity` crate [#654](https://github.com/endojs/endo-but-for-bots/pull/654); the agent-tools filesystem wiring [#618](https://github.com/endojs/endo-but-for-bots/pull/618) is conflicting against `llm` and now has a weave in flight, atop landed makers [#614](https://github.com/endojs/endo-but-for-bots/pull/614). A daily `exo-google-sheets` supervisor is now running and posted a gauntlet for the OAuth-foundation design [#621](https://github.com/endojs/endo-but-for-bots/pull/621), the design gate for that whole tree.
-
-What most needs kriskowal's eyes: a cluster of approved-but-stale PRs whose bases drifted ~1194 commits and can no longer be mechanically refreshed — [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal transcript subsystem replaced by the pi-based harness), [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula-introspection superseded, with a `-t` flag collision), [#132](https://github.com/endojs/endo-but-for-bots/pull/132) and [#133](https://github.com/endojs/endo-but-for-bots/pull/133) (chat features needing Preact reimplementation post-migration), and [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (needs a weave on the design index) — each is held untouched pending your call between reimplement, narrow, or close. Also flagged: @kriscendobot's interaction with the garden issue inbox was dropped (not on the maintainer allowlist), and the [#286](https://github.com/endojs/endo-but-for-bots/pull/286) `HttpClientControl` mutators remain unwired pending a Phase 2/3 decision.
+A cluster of previously-approved or "please refresh" PRs stalled this cycle on the same root cause: base `llm` has advanced ~1194 commits and superseded the work, so each needs your decision rather than a mechanical rebase — [#132](https://github.com/endojs/endo-but-for-bots/pull/132) (render-mode toggle, now needs reimplementing as Preact vnodes in `@endo/space-chat`), [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula-introspection collides with a richer introspection subsystem, incl. a `-t` flag collision), [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript fix guards code that no longer exists post pi-harness rewrite; both weave and conduct aborted untouched), [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (genie-integration is green+approved but the design-index needs a semantic weave onto live `llm`), and [#133](https://github.com/endojs/endo-but-for-bots/pull/133) (pending-commands, refreshed but the port needs a Preact re-implementation decision). Most urgent is [#286](https://github.com/endojs/endo-but-for-bots/pull/286): CI surfaced a real, deterministic Node-22-only bug in its new http-client (a hardened undici `Headers` symbol slot breaks CapTP error-decode) — a fixer should be dispatched; separately, a contributor proposes adopting the merged `@endo/http-confine` ([#566](https://github.com/endojs/endo-but-for-bots/pull/566)) as #286's confinement core, and the daemon control-facet wiring remains unwired. New draft work landed: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (mount `--deny` CLI, stacked on #650) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (Rust-side mount-glob parity runner, chosen because the XS boot path isn't buildable in-tree). A daily `exo-google-sheets` supervisor is now running to drive that dependency tree, with design PR [#621](https://github.com/endojs/endo-but-for-bots/pull/621) as the gate; endoclaw-timer Phase 1 was found already satisfied by open, green [#609](https://github.com/endojs/endo-but-for-bots/pull/609). The board is drained (nothing queued), with [#650](https://github.com/endojs/endo-but-for-bots/pull/650) shepherding to green and [#618](https://github.com/endojs/endo-but-for-bots/pull/618) weaving onto `llm` in progress.
 
 ## Parked for maintainer feedback
 
@@ -23,25 +21,6 @@ What most needs kriskowal's eyes: a cluster of approved-but-stale PRs whose base
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260709T183305Z-1012e4` — from issue-inbox-watcher, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T183305Z-1012e4.md)
-
-> kind: access-request
->
-> @kriscendobot interacted with the garden's issue inbox on kriskowal/garden #34 but is NOT on
-> the maintainer allowlist, so the interaction was DROPPED (dispatched
-> nothing). If this is a collaborator you want to let drive the garden by
-> issue, add them:
->
->     scripts/jobs/add-maintainer.sh kriscendobot
->
-> After that, FUTURE issues/comments from @kriscendobot will dispatch — but THIS one
-> was already dropped, so ask them to re-post it (or re-post it yourself)
-> if it still matters.
->
-> Interaction: https://github.com/kriskowal/garden/issues/34#issuecomment-4928338477
->
-> You are shown this ONCE per individual. Reply or archive to dismiss it.
 
 - `20260709T183348Z-35a44f` — from gardener:endojs-endo-but-for-bots-pr286-376f172a, reply_to `endojs-endo-but-for-bots-pr286-376f172a` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T183348Z-35a44f.md)
 
