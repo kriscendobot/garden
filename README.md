@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-09T20:09:53Z_
+_As of 2026-07-09T20:22:02Z_
 
 ## Latest
 
-The [@endo/http-confine + @endo/exo-http-client](https://github.com/endojs/endo-but-for-bots/pull/566) substrate landed on `llm`, putting the network-fetch/allowlist floor in place — a new daily `exo-google-sheets` supervisor now drives that tree, and posted a gauntlet on the OAuth design gate [#621](https://github.com/endojs/endo-but-for-bots/pull/621) to move it out of draft. The mount reconstruction advanced too: [#127](https://github.com/endojs/endo-but-for-bots/pull/127)'s revocation build completed and its glob and deniedSegments-CLI builds are in flight.
+The network-fetch substrate landed: [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) merged `@endo/http-confine` + `@endo/exo-http-client` onto `llm`, so the confined-fetch floor is now in place — the queued `endoclaw-network-fetch` builder job was stopped as already-satisfied by it, and a decision is pending on whether [#286](https://github.com/endojs/endo-but-for-bots/pull/286) should adopt `@endo/http-confine` as its core (0xpatrickbot's proposal; #286 also needs a weave against `llm` regardless). A new daily `exo-google-sheets` supervisor schedule is now driving that dependency tree toward implementation and has posted a gauntlet for [#621](https://github.com/endojs/endo-but-for-bots/pull/621), the OAuth design gate that blocks the rest. The CloudFlare storage design shipped as draft [#638](https://github.com/endojs/endo-but-for-bots/pull/638) (its parked build job still points at stale coordinates and needs fixing at promote time). The board is otherwise near-idle — one designer completion (minion-town MCP/Endo guest), two mount-reconstruction builds in flight.
 
-The signal to notice is a cluster of **stalled merges**: several PRs you approved or asked to refresh — [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula introspection), [#132](https://github.com/endojs/endo-but-for-bots/pull/132) (render-mode toggle), [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal transcript), [#133](https://github.com/endojs/endo-but-for-bots/pull/133) (pending-commands bar), and [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (genie-integration docs) — all aborted at the rebase step because their frozen bases sit ~1194 commits behind a rearchitected `llm` (chat rendering moved into confined Preact `@endo/space-chat`, `lal` onto a pi-based harness, introspection superseded with a `-t` flag collision). Each is a redesign-or-close decision, not a mechanical weave, and every gardener held without pushing. Also awaiting your call: whether [#286](https://github.com/endojs/endo-but-for-bots/pull/286) should adopt the newly-merged `@endo/http-confine`, and the CloudFlare-storage design now lives at [#638](https://github.com/endojs/endo-but-for-bots/pull/638) with a parked build job whose target still needs correcting before promotion.
+The bulk of what needs your eyes is a cluster of stalled rebases/conducts where live `llm` has diverged ~1200 commits and superseded the PR's premise: [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal transcript fix — the code it guards no longer exists), [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (approved, but `llm` gained a richer introspection subsystem that collides on the `-t` flag), [#132](https://github.com/endojs/endo-but-for-bots/pull/132) and [#133](https://github.com/endojs/endo-but-for-bots/pull/133) (both need reimplementation on the extracted Preact chat architecture, not a rebase), and [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (green and approved but needs a weave to reconcile the design index). Each is holding for your call rather than proceeding. Separately, an access request is waiting: @kriscendobot touched the garden issue inbox (kriskowal/garden#34) but isn't on the maintainer allowlist, so that interaction was dropped.
 
 ## Parked for maintainer feedback
 
@@ -316,18 +316,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-mount-denied-segments-cli`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-denied-segments-cli.md) — Build: CLI plumbing for the mount deniedSegments option
 - [`endojs-endo-but-for-bots-mount-glob-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-glob-build.md) — Build: mount glob (PR B of the #127 reconstruction)
-- [`minion-town-mcp-endo-guest-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-mcp-endo-guest-design.md) — Goal
 
-### tada (1567)
+### tada (1568)
+- [`minion-town-mcp-endo-guest-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-mcp-endo-guest-design.md) — Job: minion-town-mcp-endo-guest-design (designer)
 - [`endojs-endo-but-for-bots-pr612-33410353-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr612-33410353-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr132-review-1612db33-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr132-review-1612db33-retro.md) — Completion report — PR #132 review retrospective (prosecutor)
 - [`endojs-endo-but-for-bots-mount-revocation-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-revocation-build.md) — Completion report: endojs-endo-but-for-bots-mount-revocation-build (PR A of t...
 - [`deadmail-issue-comment-4928845441`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4928845441.md) — Completion report
-- [`gardener-tada-token-accounting`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gardener-tada-token-accounting.md) — Completion report
-- … and 1562 more
+- … and 1563 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
