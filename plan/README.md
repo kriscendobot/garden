@@ -21,7 +21,7 @@ of records, so a milestone spanning repositories rolls up as one.
 |---|---|---|---|---|
 | M1 | 7 | 7 | 100% | 0 |
 | M2 | 6 | 6 | 100% | 0 |
-| M3 | 28 | 5 | 17% | 60 |
+| M3 | 28 | 6 | 21% | 59 |
 | M4 | 9 | 1 | 11% | 21 |
 | M6 | 1 | 0 | 0% | 3 |
 | M7 | 11 | 1 | 9% | 22 |
@@ -124,7 +124,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | endopi-jsonl-transcript-format | endo-but-for-bots | M3 | Proposed | M | — |
 | endopi-provider-registry-and-oauth | endo-but-for-bots | M3 | Proposed | M | — |
 | endopi-stdio-rpc-bridge | endo-but-for-bots | M3 | Proposed | M | — |
-| filesystem-watchers | endo-but-for-bots | M3 | Not Started | S | — |
+| filesystem-watchers | endo-but-for-bots | M3 | Complete | S | — |
 | fs-interface-consolidation | endo-but-for-bots | M3 | In Progress | — | — |
 | fs-interface-reconciliation | endo-but-for-bots | M3 | In Progress | — | — |
 | gateway-bearer-token-auth | endo-but-for-bots | M3 | Complete | — | — |
