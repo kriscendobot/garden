@@ -77,3 +77,9 @@ auto-provisioning keyed on `iss+sub`; (d) names the impedance-hunting design
 exercises; (e) records the deferred metering/attenuation and storage/compute
 decoupling as explicit future work with the seams identified. Spec only — no live
 changes, no daemon stood up in this job.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 10
+  claimed_at: 2026-07-09T20:06:29Z
