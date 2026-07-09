@@ -25,9 +25,4 @@ diff — see the design's drift section: `subView` not `subDir`, gate
 standard PR-creation chain (`skills/pr-creation-flow/SKILL.md`). File the
 CLI-plumbing follow-up the design names.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 19
-  claimed_at: 2026-07-09T18:52:06Z
+<!-- garden-reaped: 1 -->
