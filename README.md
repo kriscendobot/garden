@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-09T21:13:31Z_
+_As of 2026-07-09T21:18:01Z_
 
 ## Latest
 
-The mount-extensions reconstruction ([#127](https://github.com/endojs/endo-but-for-bots/pull/127)) finished its orchestrated rebuild — the JSON, submount, grep, and glob builder jobs all completed — and a phase-6 CLI job is now in flight. The network-fetch substrate landed: `@endo/http-confine` + `@endo/exo-http-client` merged to `llm` via [#566](https://github.com/endojs/endo-but-for-bots/pull/566), which in turn raises an adoption question on [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (swap its inline confinement for the shared core) and prompted an already-satisfied builder job to stand down. New drafts opened: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (mount `--deny` CLI, stacked on #650), [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (Rust mount-parity runner, XS path unbuildable in-tree), and CloudFlare daemon storage [#638](https://github.com/endojs/endo-but-for-bots/pull/638).
+The **@endo/http-confine + @endo/exo-http-client** confinement floor landed on `llm` via [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566), and the mount-extension reconstruction (#127) finished its orchestration — mount JSON read/write, submount, and grep builds all merged, with two new draft follow-ups: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (`--deny` CLI flags, stacked on #650) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (a Rust-side mount-glob parity runner, chosen because the XS boot path isn't buildable in-tree).
 
-The main thing to notice is a cluster of **approved/review-requested PRs that can't advance because their frozen bases diverged ~1194 commits from live `llm` and the subsystems they touch were rewritten out from under them** — each needs a maintainer call, not a mechanical fix: [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal transcript fix; `assembleTranscript` gone in the pi-based harness), [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula introspection superseded except `listWorkerTenants`), [#132](https://github.com/endojs/endo-but-for-bots/pull/132) (render-mode toggle needs re-porting to confined Preact `InboxRoot`), [#133](https://github.com/endojs/endo-but-for-bots/pull/133) (pending-commands, a design conflict with the migration's rich error path), and [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (green + approved but wants a weave over the design index). Meanwhile a daily supervisor now drives the exo-google-sheets tree, with OAuth design [#621](https://github.com/endojs/endo-but-for-bots/pull/621) as the gating step. One access note: @kriscendobot hit the garden's issue inbox on kriskowal/garden#34 but isn't on the maintainer allowlist, so the interaction was dropped.
+The signal a maintainer should notice: **a cluster of approved or refresh-requested PRs are now hard-blocked on `llm` divergence (~1194 commits) and each needs a decision, not a rebase.** [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula introspection, approved) collides with a superseding introspection subsystem and a `-t` flag clash; [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript, approved) patches code the pi-based refactor deleted; [#132](https://github.com/endojs/endo-but-for-bots/pull/132) and [#133](https://github.com/endojs/endo-but-for-bots/pull/133) predate the Preact/space-chat migration; and [#89](https://github.com/endojs/endo-but-for-bots/pull/89) is CI-green and approved but conflicts on the design index. Each gardener aborted cleanly (nothing pushed) and is holding for your call. Separately, [#286](https://github.com/endojs/endo-but-for-bots/pull/286) has a proposal to adopt the merged #566 confinement core and needs a path choice.
+
+On the roadmap side, a daily **exo-google-sheets supervisor** schedule is now driving that dependency tree, with [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth foundation design) as the gate and its gauntlet posted; the CloudFlare storage design shipped as draft [#638](https://github.com/endojs/endo-but-for-bots/pull/638) (with a parked build-job target that needs correcting to point at the fork before promotion). Also worth a glance: @kriscendobot tried to drive the garden via issue [#34](https://github.com/kriskowal/garden/issues/34) but was dropped as a non-maintainer, and open signup is now live on minion.town with a recommended CloudWatch billing alarm awaiting your decision to set up.
 
 ## Parked for maintainer feedback
 
@@ -371,7 +373,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-endoclaw-timer-phase4-host-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-endoclaw-timer-phase4-host-integration.md) — ---
 - [`endojs-endo-but-for-bots-mount-cli-phase6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-cli-phase6.md) — ---
 
 ### tada (1576)
