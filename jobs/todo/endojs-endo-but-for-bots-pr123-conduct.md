@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr123-rrc
-priority: normal
 role: conductor
-posted_by: producer
-posted_at: 2026-07-09T18:35:38Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-09T18:46:07Z -->
 
 # conduct (un-draft + merge) endojs/endo-but-for-bots PR #123
 
