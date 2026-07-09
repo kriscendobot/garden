@@ -97,3 +97,9 @@ derivation (c), the report-surfacing choice (d), the host-additive accumulation
 it by editing `usage-meter.sh` / `gardener.sh` / `complete-job.sh` with no further
 design decisions. Note the follow-up builder job is expected but not part of this
 job.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 9
+  claimed_at: 2026-07-09T19:49:50Z
