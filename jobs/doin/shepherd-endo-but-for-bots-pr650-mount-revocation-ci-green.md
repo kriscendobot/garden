@@ -7,3 +7,9 @@ Shepherd endojs/endo-but-for-bots PR #650 ("feat(daemon): mount revocation caret
 <!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  claimed_at: 2026-07-09T23:03:22Z
