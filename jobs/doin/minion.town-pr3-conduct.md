@@ -20,3 +20,9 @@ Do the conductor loop: rebase-onto-base survey, tidy history if warranted,
 confirm CI terminal/green (none configured here), and merge. You own the
 merge method — do not let this directive dictate it. Bot repo, merging is
 authorized.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 15
+  claimed_at: 2026-07-09T23:08:16Z
