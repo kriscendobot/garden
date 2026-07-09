@@ -20,3 +20,9 @@ plus trailing newline; throw when `JSON.stringify` yields undefined), with
 help text, types, interface shapes, and conformance-allowlist entries. Head
 branch `feat/mount-json`, base = head of `feat/mount-grep` (stacked; PR C
 must be open first). Run the standard PR-creation chain.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 13
+  claimed_at: 2026-07-09T20:58:07Z
