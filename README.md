@@ -1,16 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-09T19:23:17Z_
+_As of 2026-07-09T19:24:53Z_
 
 ## Latest
 
-Little moved on the board itself — two PR [#611](https://github.com/endojs/endo-but-for-bots/pull/611) review retrospectives closed out, a new `mount-denied-segments-cli` plan was parked, and the mount-revocation build (PR A of the #127 reconstruction) is still in flight — but the maintainer inbox filled with decisions. The big landing is the endoclaw-network-fetch substrate: `@endo/http-confine` + `@endo/exo-http-client` merged on `llm` via [#566](https://github.com/endojs/endo-but-for-bots/pull/566), which retires the `endoclaw-network-fetch` builder job as a duplicate and unblocks the exo-google-sheets tree — a new daily supervisor now drives that tree, having run the gauntlet on the [#621](https://github.com/endojs/endo-but-for-bots/pull/621) endoclaw-oauth design (the current gate). A CloudFlare-storage design shipped as draft [#638](https://github.com/endojs/endo-but-for-bots/pull/638), though its parked build job still names the wrong repo/branch and needs a fix before promotion.
+The [@endo/http-confine + @endo/exo-http-client](https://github.com/endojs/endo-but-for-bots/pull/566) substrate merged onto `llm`, putting the confined-fetch/allowlist floor in place — which retroactively made a queued `endoclaw-network-fetch` builder job a duplicate (the gardener stopped rather than open a competing PR). On top of that floor, the exo-google-sheets tree ([#612](https://github.com/endojs/endo-but-for-bots/pull/612), merged) now has a daily supervisor schedule driving it, and its next gate — the endoclaw-oauth foundation design [#621](https://github.com/endojs/endo-but-for-bots/pull/621) — cleared the gauntlet and is out of draft into your review queue. A new CloudFlare-storage design landed as draft [#638](https://github.com/endojs/endo-but-for-bots/pull/638).
 
-Several approved/queued branch ops stalled on the same root cause — `llm` has advanced ~1194 commits and superseded the work: rebase/conduct on [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript), [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula-introspection), [#132](https://github.com/endojs/endo-but-for-bots/pull/132) (render-mode toggle), and [#133](https://github.com/endojs/endo-but-for-bots/pull/133) (pending-commands) all need a redesign or your path decision rather than a mechanical weave, and [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (genie-integration) is green but needs a weave against live `llm` before it can conduct. [#286](https://github.com/endojs/endo-but-for-bots/pull/286) awaits your call on whether to adopt the new `@endo/http-confine` core. Finally, @kriscendobot tried to drive the garden via issue [#34](https://github.com/kriskowal/garden/issues/34) but isn't on the maintainer allowlist, so it was dropped — add them if that's intended.
+The bigger signal is a cluster of **approved/ready PRs that can't be conducted because base `llm` has diverged ~1194 commits and superseded them**: [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript — the whole `assembleTranscript` machinery is gone under the pi-based harness), [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula-introspection — flag collision + weaker `inspect`, only `listWorkerTenants` survives as novel), [#132](https://github.com/endojs/endo-but-for-bots/pull/132) and [#133](https://github.com/endojs/endo-but-for-bots/pull/133) (chat features stranded by the Preact confinement migration), and [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (green + approved but conflicts on the design index). Each was left untouched pending your call on redesign-vs-close. Also awaiting you: an adoption decision on [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (whether to fold in the newly-merged `@endo/http-confine`), and an access-request — @kriscendobot hit the issue inbox on garden #34 but isn't allowlisted, so the interaction was dropped.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 43m)
+- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 48m)
 - [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 1d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 7d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9d)
@@ -316,8 +316,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
 - [`endojs-endo-but-for-bots-mount-revocation-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-revocation-build.md) — Build: mount revocation + deny patterns (PR A of the #127 reconstruction)
+- [`endojs-endo-but-for-bots-pr615-review-330a01ca-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr615-review-330a01ca-retro.md) — Retrospective on endojs/endo-but-for-bots PR #615 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr89-review-8f676f32-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr89-review-8f676f32-retro.md) — Retrospective on endojs/endo-but-for-bots PR #89 (primary: endojs-endo-but-fo...
 
 ### tada (1554)
 - [`endojs-endo-but-for-bots-pr611-review-df8b8022-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr611-review-df8b8022-retro.md) — Completion report
@@ -349,8 +351,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr615-review-330a01ca-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr615-review-330a01ca-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #615 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr89-review-8f676f32-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr89-review-8f676f32-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #89 (primary: endojs-endo-but-fo...
 - [`endojs-endo-but-for-bots-pr611-review-a38660ea-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr611-review-a38660ea-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #611 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr123-review-7a525e60-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr123-review-7a525e60-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #123 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr124-review-6332cda5-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr124-review-6332cda5-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #124 (primary: endojs-endo-but-f...
