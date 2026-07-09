@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-09T20:55:09Z_
+_As of 2026-07-09T20:58:12Z_
 
 ## Latest
 
-The endo-but-for-bots mount stack advanced: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (a `--deny`/`--no-deny` CLI follow-up, stacked on #650) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (a Rust-side `mount_parity` glob runner) landed as drafts, and the grep-case-table builder just completed — both the glob and grep parity harnesses are now green. The `@endo/http-confine` substrate merged in [#566](https://github.com/endojs/endo-but-for-bots/pull/566), and a daily supervisor is now driving the exo-google-sheets tree, with [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (refined endoclaw-oauth design) flagged as the gating step.
+The **#127 mount reconstruction stack** is landing: the [mount-grep](https://github.com/kriskowal/endo-but-for-bots), glob, and denied-segments-CLI builder jobs all completed, plus a Rust-side glob parity runner ([endo-but-for-bots#654](https://github.com/endojs/endo-but-for-bots/pull/654)) and the denied-segments CLI follow-up ([endo-but-for-bots#652](https://github.com/endojs/endo-but-for-bots/pull/652)) opened as stacked drafts; the mount JSON read/write and submount builds are now in flight. On the substrate side, `@endo/http-confine` + `@endo/exo-http-client` merged via [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566), which retired the redundant `endoclaw-network-fetch` builder job and unblocked the exo-google-sheets tree — a new daily supervisor is now driving that dependency chain, with the OAuth-foundation design [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) as the current gate.
 
-What needs kriskowal's eye is a cluster of older PRs that have gone stale against a fast-moving `llm` base and can't proceed without a call: [#123](https://github.com/endojs/endo-but-for-bots/pull/123), [#129](https://github.com/endojs/endo-but-for-bots/pull/129), and [#132](https://github.com/endojs/endo-but-for-bots/pull/132) all patch subsystems that `llm` has since rearchitected or superseded — merging as-approved would regress trunk — while [#89](https://github.com/endojs/endo-but-for-bots/pull/89) and [#133](https://github.com/endojs/endo-but-for-bots/pull/133) need weaves/ports before landing, and [#286](https://github.com/endojs/endo-but-for-bots/pull/286) awaits a decision on whether to adopt the newly-merged http-confine core. Separately, @kriscendobot hit the garden's issue inbox on [garden#34](https://github.com/kriskowal/garden/issues/34) but isn't on the maintainer allowlist, so the interaction was dropped pending an `add-maintainer` call.
+The signal that most needs your eyes is a cluster of **approved/directed PRs that stalled on rebase because base `llm` has moved ~1194 commits and superseded them**: [endo-but-for-bots#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula introspection — flag collision + weaker `inspect`), [endo-but-for-bots#132](https://github.com/endojs/endo-but-for-bots/pull/132) (render-mode toggle, now needs a Preact reimplementation), [endo-but-for-bots#133](https://github.com/endojs/endo-but-for-bots/pull/133) (pending-commands bar), [endo-but-for-bots#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal transcript fix — the subsystem it patches no longer exists), and the conduct of [endo-but-for-bots#89](https://github.com/endojs/endo-but-for-bots/pull/89) (design-index merge conflict). Each gardener aborted cleanly and is awaiting your call rather than regressing `llm`. Also pending decisions: [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (whether to adopt `@endo/http-confine` now), and the CloudFlare storage design landed at [endo-but-for-bots#638](https://github.com/endojs/endo-but-for-bots/pull/638) with a parked build job that needs its stale target corrected before promotion.
 
 ## Parked for maintainer feedback
 
@@ -371,7 +371,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-mount-json-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-json-build.md) — Build: mount JSON read/write (PR D of the #127 reconstruction)
 - [`endojs-endo-but-for-bots-mount-provide-submount-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-provide-submount-build.md) — ---
 
 ### tada (1572)
