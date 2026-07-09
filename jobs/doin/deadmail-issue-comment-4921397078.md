@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/29#issuecomment-4921397078
 I left a [review on the PR](https://github.com/kriscendobot/agoric-sdk/pull/9#pullrequestreview-4659486609). Please also consider if it's possible to test this against a mainnet snapshot with the inquisitor tool (feel free to use the cached snapshot from https://github.com/krisko
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 15
+  claimed_at: 2026-07-09T18:30:13Z
