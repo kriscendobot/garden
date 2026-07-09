@@ -23,3 +23,9 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 Please compare and contrast IK and XK, two handshakes that are under consideration for the OCapN Noise Protocol integration. Explain and cite rigorously. 
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  claimed_at: 2026-07-09T18:41:13Z
