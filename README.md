@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-09T23:03:47Z_
+_As of 2026-07-09T23:04:40Z_
 
 ## Latest
 
-Two blocked merges need your call, both because their PRs target frozen `llm` snapshots that live trunk has outrun. [endo-but-for-bots#123](https://github.com/endojs/endo-but-for-bots/pull/123) (fix/lal-transcript) is dead on the vine for both rebase and conduct — the `assembleTranscript`/transcript-node machinery it hardens no longer exists on `llm`, which rearchitected `lal` onto a pi-based harness; the gardener recommends either a designer+fixer re-target or closing it as superseded. [endo-but-for-bots#89](https://github.com/endojs/endo-but-for-bots/pull/89) (genie-integration design) is approved and green but stalled on a semantic `designs/README.md` index conflict, needing a weave before merge.
+Two conductor attempts stalled on the same wall this cycle: [endo-but-for-bots#123](https://github.com/endojs/endo-but-for-bots/pull/123) and [#89](https://github.com/endojs/endo-but-for-bots/pull/89) are both approved and green but sit on frozen snapshot bases that have diverged hard from live `llm` — #123's fix guards an `assembleTranscript` path that no longer exists after the `makePiAgent` rewrite, and #89 conflicts on the `designs/README.md` index. Both need a **weave** (or a redesign call) before they can merge. Separately, CI surfaced a real Node-22-specific bug in [#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s new http-client — hardening freezes undici's lazy `Symbol(headers map sorted)` slot and breaks CapTP error-decode — and a fixer (`fix-ebfb-286-headers-harden-node22`) is now in flight.
 
-On the delivery side, [endo-but-for-bots#618](https://github.com/endojs/endo-but-for-bots/pull/618) (agent-tools Phase 4) was woven onto `llm`, and [endo-but-for-bots#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619) (endoclaw-timer Phases 2–3) were restacked onto [#609](https://github.com/endojs/endo-but-for-bots/pull/609), which a gardener flags as already-complete and ready for the merge path. A real Node-22 regression surfaced in [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286): hardened undici `Headers` breaks CapTP error-decode (green on Node 24, deterministic failure on 22) — a fixer is now in flight.
+On the build side, two new draft PRs landed: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (the `endo mount --deny` CLI follow-up, stacked on #650 and awaiting #650's merge before rebase+gauntlet) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (a Rust-side `mount_parity` crate, chosen over the un-buildable XS-run variant). A new daily `exo-google-sheets` supervisor schedule is driving that dependency tree, with [#621](https://github.com/endojs/endo-but-for-bots/pull/621) as the OAuth-foundation design gate now headed through the gauntlet.
 
-Several jobs stopped short rather than collide with existing work and await your steer: the mount glob parity runner shipped as draft [endo-but-for-bots#654](https://github.com/endojs/endo-but-for-bots/pull/654) (Rust-side, since the XS boot path won't build here) with the XS variant offered as a follow-up; the mount `--deny` CLI landed as draft [endo-but-for-bots#652](https://github.com/endojs/endo-but-for-bots/pull/652), stacked on [#650](https://github.com/endojs/endo-but-for-bots/pull/650) and awaiting that PR's merge before un-drafting; and the filesystem agent-tools build was found already delivered by [#614](https://github.com/endojs/endo-but-for-bots/pull/614)+#618. A daily `exo-google-sheets` supervisor is now running, gating the whole tree on design PR [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (gauntlet posted). Also worth noting: [#133](https://github.com/endojs/endo-but-for-bots/pull/133)'s refresh needs a design decision on how pending-commands interacts with the preact inline-error path, and the [#650](https://github.com/endojs/endo-but-for-bots/pull/650) mount-revocation shepherd overran its handler budget and risks being poisoned unless split into claim-sized stages.
+Three items want a maintainer decision: [#133](https://github.com/endojs/endo-but-for-bots/pull/133)'s preact port needs you to pick how inline `/js`/`/eval` errors surface (gardener recommends the conservative option (a)); the daemon agent-tools filesystem job collides with in-flight [#618](https://github.com/endojs/endo-but-for-bots/pull/618) (conflicting) and landed [#614](https://github.com/endojs/endo-but-for-bots/pull/614), asking whether to weave #618 or extract a clean fs-only slice; and the endoclaw-timer job is already satisfied by open, green [#609](https://github.com/endojs/endo-but-for-bots/pull/609) (with #617/#619 stacked behind it). Also worth noting: the `shepherd-…-pr650-mount-revocation-ci-green` job deterministically overran its handler budget and will be poisoned unless split into claim-sized stages.
 
 ## Parked for maintainer feedback
 
@@ -25,22 +25,6 @@ Several jobs stopped short rather than collide with existing work and await your
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260709T184014Z-216228` — from gardener:endojs-endo-but-for-bots-pr123-rebase, reply_to `endojs-endo-but-for-bots-pr123-rebase` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T184014Z-216228.md)
-
-> weaver escalation — endojs/endo-but-for-bots PR #123 (fix/lal-transcript) rebase BLOCKED: premise superseded.
->
-> The PR patches `assembleTranscript` in packages/lal/agent.js to report broken transcript chains instead of silently truncating. Since the current frozen base (llm-11a76ae), the `llm` roadmap has advanced to 7870da1 and in that window the `lal` package was rearchitected onto a pi-based harness (agent-round.js / round-runner.js / inbox-loop.js). agent.js shrank 1781 -> 325 lines; spawnWorkerLoop now just composes makePiAgent({...}).
->
-> The entire subsystem the PR fixes is GONE from the code: assembleTranscript, getNode, putNode, and the parentMessageId leaf->root chain-walk no longer exist (they survive only in designs/lal-*.md). The rebase produces an irreconcilable ~600-line conflict in agent.js with no honest woven resolution — reimplementing broken-chain detection on the pi-based harness is a redesign, not a conflict resolution, and the weaver does not redesign on the fly.
->
-> Action taken: rebase aborted, nothing pushed, PR base left at llm-11a76ae untouched, no comment posted upstream. The three-step chain you asked for (rebase -> retcon -> conduct) cannot proceed on step 1 as-is.
->
-> Recommendation (need your call):
->   (a) route to a designer+fixer to re-establish the fix's intent — "report broken transcript chains" — against the new pi-based harness (the transcript-memory design docs still describe the invariant), then reopen the chain; or
->   (b) close PR #123 as superseded by the pi-based lal refactor.
->
-> Not proceeding to retcon/conduct until you decide.
 
 - `20260709T184527Z-5dcef9` — from gardener:--help, reply_to `--help` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T184527Z-5dcef9.md)
 
