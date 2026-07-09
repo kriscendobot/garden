@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-09T18:43:43Z_
+_As of 2026-07-09T18:45:35Z_
 
 ## Latest
 
-A cluster of long-approved endo-but-for-bots PRs turned out to be superseded by ~1,194 commits of `llm`-branch drift, and each is now parked for your call rather than merged. The [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (fix/lal-transcript) rebase was aborted — the `lal` package was rearchitected onto a pi-based harness and the `assembleTranscript` chain-walk the PR fixes no longer exists (a `#123` retcon nonetheless just moved into progress); [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula-introspection), though approved, would regress `llm`'s richer introspection subsystem and collides on the `list -t` flag; and [#132](https://github.com/endojs/endo-but-for-bots/pull/132) (per-message Md/Raw/Pre toggle) can't be cleanly refreshed because rendering moved into the confined `@endo/space-chat` `InboxRoot`, making it a reimplementation rather than a rebase. Separately, [#566](https://github.com/endojs/endo-but-for-bots/pull/566) (`@endo/http-confine`) merged, and @0xpatrickbot proposes [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (`endo http mk`) adopt it as its confinement core — three paths offered, your call — while the CloudFlare-storage design landed as draft [#638](https://github.com/endojs/endo-but-for-bots/pull/638) (AWS sibling #637) with a note that its parked build job still points at the wrong repo/branch. [#112](https://github.com/endojs/endo-but-for-bots/pull/112) was confirmed closed-as-superseded (no-op), and an access request flagged that @kriscendobot tried to drive the garden via issue #34 but isn't on the maintainer allowlist, so it was dropped.
+Three jobs closed since the last bulletin: the [endo-but-for-bots#123](https://github.com/endojs/endo-but-for-bots/pull/123) retcon and the [endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124) review both completed, along with garden issue [#35](https://github.com/kriskowal/garden/issues/35); an attention directive on [endo-but-for-bots#612](https://github.com/endojs/endo-but-for-bots/pull/612) was claimed and is in progress, and the board is otherwise empty of `todo` work. The signal worth the maintainer's attention is a cluster of decisions blocked on the ~1194-commit advance of the `llm` base: gardeners have paused rather than regress `llm` on [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (approved but superseded/colliding with a richer introspection subsystem, `-t` flag collision), [#132](https://github.com/endojs/endo-but-for-bots/pull/132) (render-mode toggle needs reimplementing as Preact vnodes in `@endo/space-chat`), and [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (the transcript subsystem it fixes no longer exists post pi-harness refactor) — each awaiting a close-vs-redesign call. Separately, [#286](https://github.com/endojs/endo-but-for-bots/pull/286) has an author proposal to adopt the newly-merged `@endo/http-confine` ([#566](https://github.com/endojs/endo-but-for-bots/pull/566)) and needs a weave against `llm` regardless; the `endoclaw-network-fetch` builder job was stopped as already satisfied by draft [#566](https://github.com/endojs/endo-but-for-bots/pull/566); and the Cloudflare-storage design landed as draft [#638](https://github.com/endojs/endo-but-for-bots/pull/638), whose parked build job still points at stale coordinates that need fixing at promote time. Finally, @kriscendobot hit the garden's issue inbox on [garden#34](https://github.com/kriskowal/garden/issues/34) but was dropped as non-allowlisted — add them via `add-maintainer.sh` if that's a collaborator you want driving the garden.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 3m)
+- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 8m)
 - [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 1d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 7d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9d)
@@ -183,28 +183,30 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Not proceeding to retcon/conduct until you decide.
 
+- `20260709T184527Z-5dcef9` — from gardener:--help, reply_to `--help` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T184527Z-5dcef9.md)
+
+> (empty message)
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (8)
+### doin (6)
 - [`endojs-endo-but-for-bots-mount-ext-reconstruct-127`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-ext-reconstruct-127.md) — Design: reconstruct mount-extensions on llm, split into separate PRs
 - [`endojs-endo-but-for-bots-mount-stream-glob-grep-127`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-stream-glob-grep-127.md) — Design plan: exo-stream variants of mount bulk methods (streamGlob/streamGrep)
-- [`endojs-endo-but-for-bots-pr123-retcon`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr123-retcon.md) — retcon endojs/endo-but-for-bots PR #123
-- [`endojs-endo-but-for-bots-pr124-review-6332cda5`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-review-6332cda5.md) — Review directive on endojs/endo-but-for-bots PR #124
 - [`endojs-endo-but-for-bots-pr129-review-b76233e2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr129-review-b76233e2.md) — Review directive on endojs/endo-but-for-bots PR #129
 - [`endojs-endo-but-for-bots-pr133-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr133-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #133
+- [`endojs-endo-but-for-bots-pr612-33410353`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr612-33410353.md) — attention directive on endojs/endo-but-for-bots PR #612
 - [`endojs-endo-but-for-bots-pr89-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr89-conduct.md) — role: conductor
-- [`issue-kriskowal-garden-35`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-35.md) — Issue from kriskowal on kriskowal/garden #35
 
-### tada (1536)
+### tada (1539)
+- [`issue-kriskowal-garden-35`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-35.md) — Completion report
+- [`endojs-endo-but-for-bots-pr123-retcon`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr123-retcon.md) — Retcon complete. Report follows.
+- [`endojs-endo-but-for-bots-pr124-review-6332cda5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr124-review-6332cda5.md) — Completion report — endojs/endo-but-for-bots PR #124 review (kriskowal, revie...
 - [`deadmail-issue-comment-4928361368`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4928361368.md) — Completion report
 - [`deadmail-issue-comment-4921397078`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4921397078.md) — Completion report
-- [`endojs-endo-but-for-bots-pr123-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr123-rebase.md) — Completion report — endojs/endo-but-for-bots PR #123 rebase (weaver)
-- [`endojs-endo-but-for-bots-pr132-review-1612db33`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr132-review-1612db33.md) — Completion report — endojs/endo-but-for-bots PR #132 review directive
-- [`endojs-endo-but-for-bots-pr127-review-8526a0a6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr127-review-8526a0a6.md) — Completion report
-- … and 1531 more
+- … and 1534 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -238,6 +240,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`endojs-endo-but-for-bots-pr127-review-8526a0a6-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr127-review-8526a0a6-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #127 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr129-review-b76233e2-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr129-review-b76233e2-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #129 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr132-review-1612db33-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-review-1612db33-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #132 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr612-33410353-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr612-33410353-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #612 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
