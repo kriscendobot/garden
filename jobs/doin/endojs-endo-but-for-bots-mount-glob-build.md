@@ -24,3 +24,9 @@ coverage for Rust/Node parity. Head branch `feat/mount-glob`, base = head of
 `feat/mount-revocation` (stacked; PR A must be open first). Run the standard
 PR-creation chain. File the Rust/XS-side case-table runner follow-up the
 design names.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 20
+  claimed_at: 2026-07-09T20:07:10Z
