@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-09T20:07:36Z_
+_As of 2026-07-09T20:09:53Z_
 
 ## Latest
 
-On the board, the [#127](https://github.com/endojs/endo-but-for-bots/pull/127) mount reconstruction advanced: PR A ([mount revocation](https://github.com/endojs/endo-but-for-bots/pull/127)) landed its completion report and PR B (mount glob) was just claimed, while retrospectives closed out for the [#612](https://github.com/endojs/endo-but-for-bots/pull/612) exo-google-sheets design and the [#132](https://github.com/endojs/endo-but-for-bots/pull/132) render-mode review; a new `minion-town-mcp-endo-guest-design` job is now in flight.
+The [@endo/http-confine + @endo/exo-http-client](https://github.com/endojs/endo-but-for-bots/pull/566) substrate landed on `llm`, putting the network-fetch/allowlist floor in place — a new daily `exo-google-sheets` supervisor now drives that tree, and posted a gauntlet on the OAuth design gate [#621](https://github.com/endojs/endo-but-for-bots/pull/621) to move it out of draft. The mount reconstruction advanced too: [#127](https://github.com/endojs/endo-but-for-bots/pull/127)'s revocation build completed and its glob and deniedSegments-CLI builds are in flight.
 
-The bigger signal is a wave of gardener escalations piling into your inbox, most flowing from one root cause: the `llm` base has advanced ~1194 commits and several long-approved PRs no longer rebase cleanly. Rebase/conduct stalled on [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (the `lal` transcript fix — its whole subsystem was rearchitected onto the pi-based harness), [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula introspection now collides with a richer subsystem and a `-t` flag rebind on trunk), [#132](https://github.com/endojs/endo-but-for-bots/pull/132) and [#133](https://github.com/endojs/endo-but-for-bots/pull/133) (both need reimplementation against the confined Preact chat, not a mechanical refresh), and [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (a semantic design-index conflict needing a weave). Each is paused untouched awaiting your call.
-
-Separately: a builder flagged that [#566](https://github.com/endojs/endo-but-for-bots/pull/566) already fully implements the confined `HttpClient` the `endoclaw-network-fetch` job asked for (recommend retiring that job and shepherding #566 instead), [#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s author offers three paths for adopting the merged `@endo/http-confine`, and the CloudFlare-storage design shipped as draft [#638](https://github.com/endojs/endo-but-for-bots/pull/638) with a note that its parked go-ahead job still points at stale coordinates. A daily `exo-google-sheets` supervisor also stood itself up, posting a gauntlet on design PR [#621](https://github.com/endojs/endo-but-for-bots/pull/621), the gate for that whole tree. Finally, @kriscendobot tried to drive the garden via issue [#34](https://github.com/kriskowal/garden/issues/34) but isn't on the maintainer allowlist, so the interaction was dropped.
+The signal to notice is a cluster of **stalled merges**: several PRs you approved or asked to refresh — [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula introspection), [#132](https://github.com/endojs/endo-but-for-bots/pull/132) (render-mode toggle), [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal transcript), [#133](https://github.com/endojs/endo-but-for-bots/pull/133) (pending-commands bar), and [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (genie-integration docs) — all aborted at the rebase step because their frozen bases sit ~1194 commits behind a rearchitected `llm` (chat rendering moved into confined Preact `@endo/space-chat`, `lal` onto a pi-based harness, introspection superseded with a `-t` flag collision). Each is a redesign-or-close decision, not a mechanical weave, and every gardener held without pushing. Also awaiting your call: whether [#286](https://github.com/endojs/endo-but-for-bots/pull/286) should adopt the newly-merged `@endo/http-confine`, and the CloudFlare-storage design now lives at [#638](https://github.com/endojs/endo-but-for-bots/pull/638) with a parked build job whose target still needs correcting before promotion.
 
 ## Parked for maintainer feedback
 
@@ -318,7 +316,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-mount-denied-segments-cli`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-denied-segments-cli.md) — Build: CLI plumbing for the mount deniedSegments option
 - [`endojs-endo-but-for-bots-mount-glob-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-glob-build.md) — Build: mount glob (PR B of the #127 reconstruction)
 - [`minion-town-mcp-endo-guest-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-mcp-endo-guest-design.md) — Goal
 
@@ -352,7 +351,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-mount-denied-segments-cli`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-mount-denied-segments-cli.md) — _low_ · Build: CLI plumbing for the mount deniedSegments option
+(none)
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
