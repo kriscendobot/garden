@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-09T20:49:44Z_
+_As of 2026-07-09T20:50:39Z_
 
 ## Latest
 
-The **endoclaw network-fetch substrate landed on `llm`**: [#566](https://github.com/endojs/endo-but-for-bots/pull/566) shipped `@endo/http-confine` + `@endo/exo-http-client`, which retired the duplicate `endoclaw-network-fetch` builder job and now unblocks the exo-google-sheets tree. That tree got a self-retiring daily supervisor whose day-1 standup names design-gate [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth foundation, gauntlet posted to drive it out of draft) as the deepest next step. The mount `#127` reconstruction advanced on several fronts — PR B (glob) and the `--deny` CLI follow-up [#652](https://github.com/endojs/endo-but-for-bots/pull/652) completed, a Rust-side glob parity runner opened as draft [#654](https://github.com/endojs/endo-but-for-bots/pull/654), and grep/submount builds are in flight — and the CloudFlare storage design landed as draft [#638](https://github.com/endojs/endo-but-for-bots/pull/638).
+The mount-extensions reconstruction advanced: the Rust-side glob parity runner landed as draft [endo-but-for-bots#654](https://github.com/endojs/endo-but-for-bots/pull/654) (a standalone `mount_parity` crate, since the XS-run path isn't buildable in-tree), the `--deny` CLI follow-up opened as draft [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (stacked on the still-open [#650](https://github.com/endojs/endo-but-for-bots/pull/650)), and PR C's grep build plus a submount build are now in flight. On the roadmap, the network-fetch substrate merged — `@endo/http-confine` + `@endo/exo-http-client` via [#566](https://github.com/endojs/endo-but-for-bots/pull/566) — which unblocks the exo-google-sheets tree; a daily supervisor now drives that tree and posted the gauntlet on the OAuth-foundation design [#621](https://github.com/endojs/endo-but-for-bots/pull/621), while the CloudFlare-storage design surfaced as draft [#638](https://github.com/endojs/endo-but-for-bots/pull/638).
 
-The bigger signal is a **wave of stalled rebases where `llm` has diverged ~1194 commits and superseded the PR's premise** — each is untouched and awaiting your call: [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript, the whole `assembleTranscript` machinery replaced by the pi-based harness; blocks its conduct), [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula-introspection, a `-t` flag collision plus a richer inspect on trunk), [#132](https://github.com/endojs/endo-but-for-bots/pull/132) and [#133](https://github.com/endojs/endo-but-for-bots/pull/133) (chat features whose imperative-DOM implementations predate the Preact confinement migration), and conduct-#89 ([#89](https://github.com/endojs/endo-but-for-bots/pull/89)) which needs a weave to reconcile the design-index. Separately, [#286](https://github.com/endojs/endo-but-for-bots/pull/286) asks whether to adopt the freshly-merged `@endo/http-confine` in-PR or as a follow-up. One access note: @kriscendobot commented on garden issue #34 but was dropped for not being on the maintainer allowlist.
+The signal a maintainer should notice is a **decision backlog**: a cluster of approved or "please refresh" PRs have gone un-landable because `llm` advanced ~1194 commits and superseded them. [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript) and [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula-introspection) are approved but would *regress* `llm` if merged — both rebases were aborted untouched; [#132](https://github.com/endojs/endo-but-for-bots/pull/132) and [#133](https://github.com/endojs/endo-but-for-bots/pull/133) need reimplementation onto the confined Preact/`@endo/space-chat` architecture, not a rebase; [#89](https://github.com/endojs/endo-but-for-bots/pull/89) stalled on a design-index conflict needing a weave before conduct; and [#286](https://github.com/endojs/endo-but-for-bots/pull/286) awaits a call on adopting `@endo/http-confine`. Each of these is holding for your steer rather than proceeding. Separately, @kriscendobot tried to drive the garden via issue [#34](https://github.com/kriskowal/garden/issues/34) but isn't on the maintainer allowlist, so it was dropped.
 
 ## Parked for maintainer feedback
 
@@ -371,18 +371,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-mount-glob-rust-runner`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-glob-rust-runner.md) — Wire a Rust/XS-side mount glob (and grep) case-table runner
+### doin (2)
 - [`endojs-endo-but-for-bots-mount-grep-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-grep-build.md) — Build: mount grep (PR C of the #127 reconstruction)
 - [`endojs-endo-but-for-bots-mount-provide-submount-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-provide-submount-build.md) — ---
 
-### tada (1570)
+### tada (1571)
+- [`endojs-endo-but-for-bots-mount-glob-rust-runner`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-glob-rust-runner.md) — Completion report
 - [`endojs-endo-but-for-bots-mount-glob-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-glob-build.md) — Completion report: endojs-endo-but-for-bots-mount-glob-build (PR B of #127)
 - [`endojs-endo-but-for-bots-mount-denied-segments-cli`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-denied-segments-cli.md) — Completion report
 - [`minion-town-mcp-endo-guest-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-mcp-endo-guest-design.md) — Job: minion-town-mcp-endo-guest-design (designer)
 - [`endojs-endo-but-for-bots-pr612-33410353-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr612-33410353-retro.md) — Completion report
-- [`endojs-endo-but-for-bots-pr132-review-1612db33-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr132-review-1612db33-retro.md) — Completion report — PR #132 review retrospective (prosecutor)
-- … and 1565 more
+- … and 1566 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
