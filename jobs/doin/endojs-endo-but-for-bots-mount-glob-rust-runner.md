@@ -34,3 +34,9 @@ Notes:
   the Rust side must mirror that exact collation, not a locale/byte order.
 - Coordinate with PR C (grep) so the grep case table is picked up by the
   same runner rather than a second one.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 11
+  claimed_at: 2026-07-09T20:29:19Z
