@@ -40,6 +40,17 @@ INSTANCE_ID="${_host:-host}-${_base:-garden}-${_hash}"
 CONTAINER_NAME="${GARDEN_CONTAINER:-$INSTANCE_ID}"
 HOSTNAME_NAME="${GARDEN_HOSTNAME:-$INSTANCE_ID}"
 
+# Explicit container DNS. On a systemd-resolved host, /etc/resolv.conf is the
+# loopback stub (127.0.0.53), which Docker cannot pass into a container; it falls
+# back to the host's legacy uplink list, which on a home/LAN network is the router
+# (e.g. 192.168.1.254). That router answers the host but is NOT reachable from the
+# docker bridge, so every in-container lookup times out and the fleet cannot resolve
+# api.anthropic.com — non-DNS egress still works, so it looks like a partial outage.
+# Pin public resolvers so name resolution is independent of the host's DNS shape.
+# Space-separated; override with GARDEN_DNS="1.2.3.4 5.6.7.8" (empty string = let
+# Docker choose, restoring the old behavior).
+GARDEN_DNS="${GARDEN_DNS-1.1.1.1 8.8.8.8}"
+
 usage() {
     cat <<EOF
 Usage: $(basename "$0") [command]
@@ -66,6 +77,9 @@ Environment:
                       location-derived instance id <hostname>-<basename>-<hash>).
   GARDEN_HOSTNAME     Expert override for the container --hostname (default:
                       the same location-derived instance id).
+  GARDEN_DNS          Space-separated DNS servers pinned into the container
+                      (default: "1.1.1.1 8.8.8.8"). Empty string lets Docker
+                      derive resolv.conf from the host (the old behavior).
 
 Notes:
   The container runs systemd as PID 1 so the garden's user-mode units
@@ -162,6 +176,12 @@ ensure_container() {
         # the checkout location at every invocation (see INSTANCE_ID above).
         seed_claude_settings
 
+        # One --dns per configured resolver (see GARDEN_DNS above). Empty = omit,
+        # letting Docker derive resolv.conf from the host as before.
+        local dns_args=()
+        local _d
+        for _d in $GARDEN_DNS; do dns_args+=(--dns "$_d"); done
+
         # systemd as PID 1 needs the containerized-systemd flags: a writable
         # cgroup mount, tmpfs at /run and /tmp, the host cgroup namespace,
         # and its clean-shutdown stop signal. --hostname pins this instance's
@@ -181,6 +201,7 @@ ensure_container() {
             -v /sys/fs/cgroup:/sys/fs/cgroup:rw \
             --tmpfs /run --tmpfs /run/lock --tmpfs /tmp \
             --stop-signal SIGRTMIN+3 \
+            "${dns_args[@]}" \
             -e "GARDEN_HOME=${INSTANCE_PATH}" \
             -v "${INSTANCE_PATH}:${INSTANCE_PATH}" \
             "${api_key_args[@]}" \
