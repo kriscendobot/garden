@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr123-rrc
-priority: normal
 role: fixer
-posted_by: producer
-posted_at: 2026-07-09T18:35:34Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-09T18:43:20Z -->
 
 # retcon endojs/endo-but-for-bots PR #123
 
