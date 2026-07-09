@@ -1,12 +1,13 @@
 ---
 slug: filesystem-watchers
 repository: endo-but-for-bots
-status: Not Started
+status: Complete
 size: S
 milestone: M3
 depends_on: []
 created: 2026-05-07
-updated: 2026-05-07
+updated: 2026-07-09
+landed_by: endojs/endo-but-for-bots#277
 source: imported from origin/llm designs/README.md
 ---
 
@@ -16,7 +17,7 @@ source: imported from origin/llm designs/README.md
 |---|---|
 | **Created** | 2026-05-07 |
 | **Author** | Kris Kowal (prompted) |
-| **Status** | Not Started |
+| **Status** | Complete (landed by endojs/endo-but-for-bots#277) |
 | **Source** | Issue #110 |
 
 ## What is the Problem Being Solved?
