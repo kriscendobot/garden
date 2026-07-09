@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-09T18:45:35Z_
+_As of 2026-07-09T18:49:34Z_
 
 ## Latest
 
-Three jobs closed since the last bulletin: the [endo-but-for-bots#123](https://github.com/endojs/endo-but-for-bots/pull/123) retcon and the [endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124) review both completed, along with garden issue [#35](https://github.com/kriskowal/garden/issues/35); an attention directive on [endo-but-for-bots#612](https://github.com/endojs/endo-but-for-bots/pull/612) was claimed and is in progress, and the board is otherwise empty of `todo` work. The signal worth the maintainer's attention is a cluster of decisions blocked on the ~1194-commit advance of the `llm` base: gardeners have paused rather than regress `llm` on [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (approved but superseded/colliding with a richer introspection subsystem, `-t` flag collision), [#132](https://github.com/endojs/endo-but-for-bots/pull/132) (render-mode toggle needs reimplementing as Preact vnodes in `@endo/space-chat`), and [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (the transcript subsystem it fixes no longer exists post pi-harness refactor) — each awaiting a close-vs-redesign call. Separately, [#286](https://github.com/endojs/endo-but-for-bots/pull/286) has an author proposal to adopt the newly-merged `@endo/http-confine` ([#566](https://github.com/endojs/endo-but-for-bots/pull/566)) and needs a weave against `llm` regardless; the `endoclaw-network-fetch` builder job was stopped as already satisfied by draft [#566](https://github.com/endojs/endo-but-for-bots/pull/566); and the Cloudflare-storage design landed as draft [#638](https://github.com/endojs/endo-but-for-bots/pull/638), whose parked build job still points at stale coordinates that need fixing at promote time. Finally, @kriscendobot hit the garden's issue inbox on [garden#34](https://github.com/kriskowal/garden/issues/34) but was dropped as non-allowlisted — add them via `add-maintainer.sh` if that's a collaborator you want driving the garden.
+Five jobs closed out, and the through-line is that the frozen snapshot bases have drifted far enough that several approved PRs can no longer land as-approved and are now parked on your desk. Weaver/conductor passes on [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (fix/lal-transcript) stalled twice: `llm` rearchitected `lal` onto a pi-based harness and deleted the very `assembleTranscript` machinery the fix hardens, so the rebase is a redesign, not a conflict — the gardener recommends re-targeting or closing. [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (genie-integration design) is green and approved but needs a weave to reconcile a `designs/README.md` index collision before it can merge onto live `llm`. The [#133](https://github.com/endojs/endo-but-for-bots/pull/133) refresh cleaned up the title/description but surfaced a design conflict — the preact confinement migration moved the chat bar and the pending-commands feature would regress inline `/js`/`/eval` error traces — needing your pick among three port options. Separately, the [#612](https://github.com/endojs/endo-but-for-bots/pull/612) directive was routed as a self-retiring daily supervisor schedule that reassesses the exo-google-sheets dependency tree and posts the next unblocked step each day.
+
+Beyond the board, your inbox is thick with decisions: reviews of [#129](https://github.com/endojs/endo-but-for-bots/pull/129), [#132](https://github.com/endojs/endo-but-for-bots/pull/132), and [#286](https://github.com/endojs/endo-but-for-bots/pull/286) all hit the same 1194-commit divergence and are holding for your call, the `endoclaw-network-fetch` builder job flagged [#566](https://github.com/endojs/endo-but-for-bots/pull/566) as already implementing its design, and the CloudFlare storage design landed as draft [#638](https://github.com/endojs/endo-but-for-bots/pull/638) with a note to fix its parked build job's stale target. One access request also needs attention: @kriscendobot tried to drive the garden via issue #34 but isn't on the maintainer allowlist, so the interaction was dropped.
 
 ## Parked for maintainer feedback
 
@@ -187,26 +189,112 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > (empty message)
 
+- `20260709T184557Z-576620` — from gardener:endojs-endo-but-for-bots-pr133-refresh, reply_to `endojs-endo-but-for-bots-pr133-refresh` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T184557Z-576620.md)
+
+> PR #133 "refresh" (endojs/endo-but-for-bots) — status + one decision for you.
+>
+> DONE: refreshed the PR title and description per the GitHub template.
+>   Title is now "feat(chat): pending-commands region with non-blocking command bar";
+>   body follows the template (Description + Security/Scaling/Documentation/Testing/
+>   Compatibility/Upgrade Considerations) and carries a "Refresh status" note.
+>
+> BRANCH REFRESH — needs your call before I can land it correctly:
+> The preact confinement migration relocated the chat bar from
+>   packages/chat/chat-bar-component.js  ->  packages/spaces-util/src/chat-bar-component.js
+> and re-architected command-error surfacing. `showError` now routes a failure to the
+> rich stack-trace bubble (message + stack + clickable worker chip) ONLY while
+> `mode === 'inline'`; otherwise it falls back to the bare send-mode toast.
+>
+> The pending-commands feature's core move is to unlock the bar immediately on dispatch
+> (leave inline mode). So a failed inline /js or /eval would drop out of inline mode and
+> lose the new rich trace — the exact regression that migration was built to prevent
+> ("Treating /js as modal-opening here is what dropped the resolved trace on the floor").
+> Meanwhile the 2026-03 design (designs/chat-pending-commands.md) sketches /eval AS a
+> pending card owning its own error UX. That's a genuine design conflict I won't resolve
+> unilaterally.
+>
+> Options:
+>  (a) Conservative port — pending-card + immediate-unlock for all non-modal commands
+>      EXCEPT inline /js and /eval, which stay on the rich inline-error path. Preserves the
+>      migration's improvement; minor deviation from the design's eval-card example.  [my recommendation]
+>  (b) Design-faithful — pending-card everything including /eval; accept that eval errors
+>      show message-only on the card (lose the rich stack trace + worker chip).
+>  (c) Card + rich detail — pending card for eval AND wire the resolved trace/worker-chip
+>      into the card's error state (best UX, most work).
+>
+> This refresh pass can't do the port+verify itself: it's a re-implementation across
+> packages/spaces-util needing a full monorepo build + playwright component run. If you pick
+> an option (I suggest (a)), reply here and I'll have the liaison post a builder/fixer
+> "port #133 to preact" job to implement and verify it. Reply routes back to my inbox.
+
+- `20260709T184610Z-bb842f` — from gardener:endojs-endo-but-for-bots-pr89-conduct, reply_to `endojs-endo-but-for-bots-pr89-conduct` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T184610Z-bb842f.md)
+
+> Conduct #89 (endo-but-for-bots, "docs(designs): propose genie-integration") STALLED — needs a weave before it can merge.
+>
+> CI is green (build/lint/test/zizmor all pass) and the PR is APPROVED + MERGEABLE against its base. But the base `llm-1132289` is a frozen snapshot ~80 commits (a month) behind live `llm`. Per the conductor loop, a merge must land on the live trunk, not a snapshot, so I attempted the unfreeze rebase onto `llm` — and it conflicts.
+>
+> The conflict is in `designs/README.md` (the canonical design index), and it's a semantic merge, not a mechanical one: the PR changed the index by +26/-8 (adds `scheduler`, marks `endoclaw-timer` superseded-by-scheduler, updates totals/mermaid/M3 milestone list) while trunk independently changed the SAME regions by +55/-14 (new totals, `exo-google-sheets` node, `endoclaw-timer`→In Progress, `endoclaw-network-fetch`→In Progress #566, an 18-design M3 list). Reconciling the design-totals, the mermaid graph, and the M3 milestone list is beyond the conductor's surgical scope. The two new files (genie-integration.md +883, scheduler.md +622) don't exist on trunk, so only the shared index conflicts.
+>
+> I left the PR base unchanged (still llm-1132289) and did not force-push anything.
+>
+> Recommend: post a **weave #89** (rebase docs/design-genie-integration onto live `llm`, resolve the README design-index merge, re-run CI), then re-conduct. Reconciling the index changes what the rendered index shows vs what kriskowal approved, so a light re-look after the weave is prudent.
+
+- `20260709T184819Z-b6396e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T184819Z-b6396e.md)
+
+> The PR #124 review (report endojs-endo-but-for-bots-pr124-review-6332cda5) parked 6 plans awaiting deliberate promotion: 4 sqlite designs + 2 garden-style. Comments C9 and C13 were written as "post a job" — say the word and I'll promote them now rather than leave them parked. Separately, the resume-rebase plan should be promoted only once the XS sqlite bindings are ready — let me know when that gate is met. All of these are your promotion call, so I'm holding rather than acting.
+
+- `20260709T184832Z-f62451` — from gardener:endojs-endo-but-for-bots-pr612-33410353, reply_to `endojs-endo-but-for-bots-pr612-33410353` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T184832Z-f62451.md)
+
+> Actioned your PR #612 directive ("dispatch a supervisor … check in once per day … chase dependencies down until the whole tree is merged and operational").
+>
+> Routed as a DAILY recurring schedule rather than a single blocking job: `exo-google-sheets-impl-supervisor` (cadence=daily) is on journal2 and fires on the next scheduler tick, then once/day. Each fire: reconstructs the dep tree from `designs/exo-google-sheets.md` + `designs/README.md` (esheets ← endoclaw-oauth ← endoclaw-network-fetch; @endo/google-sheets → @endo/exo-google-sheets; webhooks/push deferred per design), assesses live PR/board state, posts the ONE deepest unblocked next step (designer/builder/gauntlet/shepherd), and sends you a one-line standup. It self-retires (deletes its own schedule) when the whole tree is merged + build/test green.
+>
+> Chose a schedule over a static orchestration job because the tree's node states aren't knowable up front — each day's supervisor must reassess and pick the next step. First check-in lands today.
+
+- `20260709T184840Z-b2bc25` — from gardener:endojs-endo-but-for-bots-pr123-conduct, reply_to `endojs-endo-but-for-bots-pr123-conduct` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T184840Z-b2bc25.md)
+
+> STALLED — endojs/endo-but-for-bots PR #123 (fix/lal-transcript) cannot be conducted.
+>
+> The PR is APPROVED, not-draft, mergeable-onto-its-snapshot, and CI just kicked
+> off. But the conductor's mandatory unfreeze-before-merge step hits a hard wall:
+>
+> - PR base is the frozen snapshot `llm-11a76ae`; live trunk `llm` has diverged
+>   hard (llm is 569 commits ahead of the merge-base; the snapshot carries 29
+>   unique commits). `llm` is a rebased/force-updated branch, so this is real
+>   divergence, not "behind".
+> - The PR's one commit hardens `assembleTranscript` in `packages/lal/agent.js`.
+>   On live `llm`, agent.js was rewritten from 1781 lines to 325 lines around a
+>   new `makePiAgent` architecture — **`assembleTranscript` and the whole
+>   transcript-node machinery (getNode/putNode/nodeCache) no longer exist there.**
+> - `git rebase --onto origin/llm origin/llm-11a76ae` therefore conflicts on the
+>   entire file: it's a semantic re-implementation against a replaced module, not
+>   a surgical conflict.
+>
+> This is beyond the conductor's surgical scope. It needs a **weave/redesign
+> decision**: either port the broken-chain hardening onto the new makePiAgent
+> agent.js, or judge the fix obsolete (the code it guards is gone). I did NOT
+> merge, did NOT edit the PR base, and pushed nothing — PR #123 is untouched
+> (base still llm-11a76ae, state OPEN).
+>
+> Recommend posting a **weave #123** job (or a designer/builder pass to re-target
+> the fix onto the new agent.js) before re-attempting conduct.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (2)
 - [`endojs-endo-but-for-bots-mount-ext-reconstruct-127`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-ext-reconstruct-127.md) — Design: reconstruct mount-extensions on llm, split into separate PRs
-- [`endojs-endo-but-for-bots-mount-stream-glob-grep-127`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-stream-glob-grep-127.md) — Design plan: exo-stream variants of mount bulk methods (streamGlob/streamGrep)
 - [`endojs-endo-but-for-bots-pr129-review-b76233e2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr129-review-b76233e2.md) — Review directive on endojs/endo-but-for-bots PR #129
-- [`endojs-endo-but-for-bots-pr133-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr133-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #133
-- [`endojs-endo-but-for-bots-pr612-33410353`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr612-33410353.md) — attention directive on endojs/endo-but-for-bots PR #612
-- [`endojs-endo-but-for-bots-pr89-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr89-conduct.md) — role: conductor
 
-### tada (1539)
-- [`issue-kriskowal-garden-35`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-35.md) — Completion report
-- [`endojs-endo-but-for-bots-pr123-retcon`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr123-retcon.md) — Retcon complete. Report follows.
-- [`endojs-endo-but-for-bots-pr124-review-6332cda5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr124-review-6332cda5.md) — Completion report — endojs/endo-but-for-bots PR #124 review (kriskowal, revie...
-- [`deadmail-issue-comment-4928361368`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4928361368.md) — Completion report
-- [`deadmail-issue-comment-4921397078`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4921397078.md) — Completion report
-- … and 1534 more
+### tada (1544)
+- [`endojs-endo-but-for-bots-pr612-33410353`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr612-33410353.md) — Completion report
+- [`endojs-endo-but-for-bots-pr123-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr123-conduct.md) — Completion report
+- [`endojs-endo-but-for-bots-mount-stream-glob-grep-127`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-stream-glob-grep-127.md) — Completion report
+- [`endojs-endo-but-for-bots-pr133-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr133-refresh.md) — Completion report — endojs-endo-but-for-bots-pr133-refresh
+- [`endojs-endo-but-for-bots-pr89-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr89-conduct.md) — Message delivered to the maintainer. My conduct job has reached a legitimate ...
+- … and 1539 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
