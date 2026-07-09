@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-09T23:20:19Z_
+_As of 2026-07-09T23:22:00Z_
 
 ## Latest
 
-Two lint-green shepherds landed — [#656](https://github.com/endojs/endo-but-for-bots/pull/656) (mount provide-submount) and [#609](https://github.com/endojs/endo-but-for-bots/pull/609) (endoclaw-timer Phase 1, whose interval-scheduler formula a builder confirmed is already fully delivered and merge-ready). Several jobs stalled at decisions only kriskowal can make: conducting [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (fix/lal-transcript) hit a hard wall — live `llm` rewrote `agent.js` around a new `makePiAgent`, deleting the very `assembleTranscript` machinery the fix hardens, so it needs a weave or an obsolescence call rather than a merge. CI on [#286](https://github.com/endojs/endo-but-for-bots/pull/286) surfaced a real Node-22-only failure (undici Headers' lazy internal slot gets frozen and breaks CapTP error-decode), awaiting a fixer. Two builders hit "already built" impasses — the daemon fs agent-tools ask overlaps landed #614 plus conflicting draft #618, and the Rust/XS mount-glob runner wasn't buildable (XS boot bundles absent), so a gardener shipped the design-sanctioned Rust-side parity crate as draft [#654](https://github.com/endojs/endo-but-for-bots/pull/654) instead. The new exo-google-sheets daily supervisor posted its first standup, driving design PR [#621](https://github.com/endojs/endo-but-for-bots/pull/621) toward review as the tree's gating step, and a draft CLI follow-up [#652](https://github.com/endojs/endo-but-for-bots/pull/652) is stacked on #650 pending its merge. Finally, the `shepherd-pr650-mount-revocation` job deterministically overran its handler budget and needs splitting or detaching before it gets poisoned.
+[endo-but-for-bots#656](https://github.com/endojs/endo-but-for-bots/pull/656) (mount provide-submount) and [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) (endoclaw-timer Phase 1) were both shepherded to lint/CI green, and [kriscendobot/minion.town#3](https://github.com/kriscendobot/minion.town/pull/3) was conducted through merge (its retrospective is now in flight). A self-heal landed for the minion.town triager that had been swallowing errors. Several items now want a maintainer call: [endo-but-for-bots#123](https://github.com/endojs/endo-but-for-bots/pull/123) stalled at conduct — its `assembleTranscript` fix no longer applies against the rewritten `makePiAgent` agent.js, so it needs a **weave #123** or an obsolescence ruling rather than a merge; and [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) has a real Node-22-only CI failure (undici Headers frozen across CapTP) that wants a **fixer**. New draft follow-ups arrived stacked and deliberately left un-drafted — CLI mount `--deny` at [endo-but-for-bots#652](https://github.com/endojs/endo-but-for-bots/pull/652) (on #650) and the Rust mount-glob parity runner at [endo-but-for-bots#654](https://github.com/endojs/endo-but-for-bots/pull/654) — each pending its predecessor landing. Two builder jobs hit "already delivered" impasses (daemon fs agent-tools overlapping [#618](https://github.com/endojs/endo-but-for-bots/pull/618)/[#614](https://github.com/endojs/endo-but-for-bots/pull/614); interval-scheduler duplicating [#609](https://github.com/endojs/endo-but-for-bots/pull/609)) and opened nothing. Finally, the exo-google-sheets push now runs as a daily supervisor whose day-1 step was **run the gauntlet [#621](https://github.com/endojs/endo-but-for-bots/pull/621)** (the OAuth design gate), and the shepherd for [endo-but-for-bots#650](https://github.com/endojs/endo-but-for-bots/pull/650) overran its handler budget and needs splitting or detaching before it gets poisoned.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 25m)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 30m)
 - [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 4h)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 7d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9d)
@@ -212,8 +212,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
 - [`design-auto-provision-fork-watchers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-auto-provision-fork-watchers.md) — Design: auto-provision per-repo watchers when the garden creates a fork
+- [`improve-triager-failure-circuit-breaker`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-triager-failure-circuit-breaker.md) — scripts/jobs/triager.sh
+- [`kriscendobot-minion.town-pr3-review-3c9cea83-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr3-review-3c9cea83-retro.md) — Retrospective on kriscendobot/minion.town PR #3 (primary: kriscendobot-minion...
 
 ### tada (1592)
 - [`shepherd-endo-but-for-bots-pr656-mount-provide-submount-lint-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pr656-mount-provide-submount-lint-green.md) — Completion report
@@ -245,7 +247,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`kriscendobot-minion.town-pr3-review-3c9cea83-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr3-review-3c9cea83-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #3 (primary: kriscendobot-minion...
+(none)
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
