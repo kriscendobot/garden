@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-09T22:58:39Z_
+_As of 2026-07-09T23:01:39Z_
 
 ## Latest
 
-Three approved branch-ops stalled on a diverged base and now need your call, all against `endojs/endo-but-for-bots`: [#129](https://github.com/endojs/endo-but-for-bots/pull/129) sits ~1194 commits behind `llm`, whose newer introspection subsystem supersedes ~90% of it (only `listWorkerTenants` is genuinely novel) — the gardener recommends closing as superseded or re-slicing to that one method; [#123](https://github.com/endojs/endo-but-for-bots/pull/123) fixes an `assembleTranscript` path that no longer exists after `lal` was rearchitected onto a pi-based harness (rebase aborted, needs a redesign or a close); and [#89](https://github.com/endojs/endo-but-for-bots/pull/89) is green and approved but wants a **weave** to reconcile a `designs/README.md` index conflict before conduct. On the fix side, [#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s http-client is deterministically red on Node 22 (hardened undici `Headers` breaks CapTP error-decode) — a fixer job is in flight. New mount follow-ups landed as drafts: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (CLI `--deny` flags, stacked on #650) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (a Rust-side glob parity runner, since the XS-run path isn't buildable in-tree). The endoclaw-timer Phase 1 remainder is already satisfied by green, non-draft [#609](https://github.com/endojs/endo-but-for-bots/pull/609) (a duplicate build was declined), and a self-retiring daily supervisor now drives the exo-google-sheets tree, having pushed design gate [#621](https://github.com/endojs/endo-but-for-bots/pull/621) into the gauntlet. Also worth a glance: several minion.town items await your go-ahead (a CloudWatch billing alarm, the open-signup gate flip, a human-only login click-through), and a shepherd job for [#650](https://github.com/endojs/endo-but-for-bots/pull/650) overran its handler budget and needs splitting.
+Two conduct attempts stalled on frozen-base divergence and need your call. [endo-but-for-bots#123](https://github.com/endojs/endo-but-for-bots/pull/123) (fix/lal-transcript) can't rebase or merge — the `lal` package was rearchitected onto a pi-based harness and `assembleTranscript` no longer exists, so the weaver recommends either redesigning the fix or closing #123 as superseded; and [endo-but-for-bots#89](https://github.com/endojs/endo-but-for-bots/pull/89) (genie-integration docs) is approved and green but hits a semantic `designs/README.md` index conflict against live `llm`, awaiting a weave. A real Node-22 bug surfaced in [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) — hardening a live undici `Headers` breaks CapTP error-decode — and a fixer (`fix-ebfb-286-headers-harden-node22`) is now working it. On the ready side, [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) (endoclaw-timer Phase 1) is green, non-draft, and mergeable — a duplicate build job was closed rather than re-opened — and the agent-tools Phase 4 weave onto `llm` landed. New draft stacks opened for review: [endo-but-for-bots#652](https://github.com/endojs/endo-but-for-bots/pull/652) (`endo mount --deny` CLI, stacked on #650) and [endo-but-for-bots#654](https://github.com/endojs/endo-but-for-bots/pull/654) (Rust `mount_parity` runner), both deliberately held draft pending their base merges. The exo-google-sheets push is now a daily supervisor driving [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (OAuth foundation design) through the gauntlet as the tree's gating step. Decisions also await on the [endo-but-for-bots#133](https://github.com/endojs/endo-but-for-bots/pull/133) preact port and on the `daemon-agent-tools` overlap with landed [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614) vs. conflicting [endo-but-for-bots#618](https://github.com/endojs/endo-but-for-bots/pull/618); note too that the mount-revocation CI shepherd for #650 overran its handler budget and risks poisoning unless split.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 3m)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 11m)
 - [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 4h)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 7d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9d)
@@ -21,27 +21,6 @@ Three approved branch-ops stalled on a diverged base and now need your call, all
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260709T183829Z-f94cd2` — from gardener:endojs-endo-but-for-bots-pr129-review-b76233e2, reply_to `endojs-endo-but-for-bots-pr129-review-b76233e2` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T183829Z-f94cd2.md)
-
-> ⚠️ PR #129 (endojs/endo-but-for-bots, feat/formula-introspection → llm) — pausing before rebase/merge. Your APPROVED review asked to "rebase, run the gauntlet, retcon, conduct", but the branch is **1194 commits behind `llm`** and in the interim `llm` gained a **more capable introspection subsystem that supersedes and collides with ~90% of this PR**. Merging as-approved would REGRESS `llm`. Findings (all verified against origin/llm):
->
-> SUPERSEDED / COLLIDING:
-> • `inspect` command + daemon `inspect()` — `llm` already ships a richer version: `diagnostics().getFormula` + `renderHuman` (reference / reference-list rendering, `--identifier` flag). PR's is the older, simpler `{id, formula}` form. add/add conflict.
-> • `list --types` (`-t` boolean) — DIRECT FLAG COLLISION: `llm`'s `list` already binds `-t,--type <formulaType>` (+ `-g,--grouped`, `INVENTORY_GROUPS`, locate()-derived types). PR rebinds `-t` to a boolean `--types`. Same command, same short flag, incompatible semantics.
-> • daemon `listWithTypes()` / `identifyType()` — superseded by `llm`'s locate()-based typing + `getTypeForId`.
-> • `getFormulaGraph` — already on `llm`'s `diagnostics()` facet.
->
-> GENUINELY NOVEL (no `llm` equivalent — `llm` has no tenant concept at all):
-> • daemon `listWorkerTenants()` — "list capabilities whose formulas reference a given worker." Daemon-only; I don't see a `workers tenants` CLI subcommand wired in the PR despite the title.
->
-> All 10 conflict hunks (6 files) trace to this overlap. Resolving in the PR's favor regresses `llm` (flag collision, weaker inspect); resolving in `llm`'s favor guts the PR down to the one `listWorkerTenants` method — a materially different change than what was approved.
->
-> I've ABORTED the rebase; the fork branch is untouched (nothing pushed). How would you like to proceed?
->   (A) Close #129 as superseded; optionally re-file `listWorkerTenants` as a small standalone follow-up.
->   (B) Rebase keeping ONLY `listWorkerTenants` (+ interface/types/CLI), deferring to `llm` for inspect/list/graph — a much smaller PR than approved. Then gauntlet/retcon/conduct that.
->   (C) Rebase taking the PR's side wholesale — NOT recommended (regresses `llm`).
-> My recommendation: (A) if you don't need worker-tenants now, else (B). Holding for your call.
 
 - `20260709T183847Z-402e32` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T183847Z-402e32.md)
 
