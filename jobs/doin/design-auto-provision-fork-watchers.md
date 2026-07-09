@@ -69,3 +69,9 @@ own-fork-vs-upstream distinction; CLAUDE.md's constraint text is updated. If the
 design surfaces a decision the maintainer must make (e.g. exactly which orgs count
 as trusted for own-fork comments), stop and route it to the maintainer inbox rather
 than guessing.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  claimed_at: 2026-07-09T22:56:32Z
