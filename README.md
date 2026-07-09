@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-09T22:35:45Z_
+_As of 2026-07-09T22:36:47Z_
 
 ## Latest
 
-A cluster of approved-but-stale PRs surfaced the same wall: base `llm` has advanced ~1,194 commits and silently superseded the work. Gardeners aborted rebases on [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal transcript fix — the whole `assembleTranscript` machinery is gone under the new pi-based harness), [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula introspection — flag collision on `list -t`, weaker `inspect`; only `listWorkerTenants` is genuinely novel), [#132](https://github.com/endojs/endo-but-for-bots/pull/132) (render-mode toggle, now a Preact reimplementation not a rebase), and [#133](https://github.com/endojs/endo-but-for-bots/pull/133) (pending-commands bar) — each pushed nothing and is holding for your call between reimplement, narrow, or abandon.
+The endoclaw-timer Phase 1 remainder is done and green: [#609](https://github.com/endojs/endo-but-for-bots/pull/609) (the `interval-scheduler` formula) is open, non-draft, and mergeable, with Phase 2/3 stacked in [#617](https://github.com/endojs/endo-but-for-bots/pull/617) and [#619](https://github.com/endojs/endo-but-for-bots/pull/619). The `endo http mk` Phase 1 PR [#286](https://github.com/endojs/endo-but-for-bots/pull/286) was reconciled onto the merged [#566](https://github.com/endojs/endo-but-for-bots/pull/566) http-confine substrate, but CI surfaced a real Node-22-only bug (undici `Headers` cannot survive hardening across CapTP) — a fixer is warranted. Two mount follow-ups opened as drafts: CLI `--deny` flags [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (stacked on [#650](https://github.com/endojs/endo-but-for-bots/pull/650), whose CI a shepherd is driving green) and a Rust `mount_parity` crate [#654](https://github.com/endojs/endo-but-for-bots/pull/654); the agent-tools filesystem wiring [#618](https://github.com/endojs/endo-but-for-bots/pull/618) is conflicting against `llm` and now has a weave in flight, atop landed makers [#614](https://github.com/endojs/endo-but-for-bots/pull/614). A daily `exo-google-sheets` supervisor is now running and posted a gauntlet for the OAuth-foundation design [#621](https://github.com/endojs/endo-but-for-bots/pull/621), the design gate for that whole tree.
 
-On live work: [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (`endo http mk` Phase 1) reconciled onto merged `@endo/http-confine` but its e2e suite fails deterministically on Node 22 only — a real undici/Headers-hardening bug in error-decode, not flake — so it needs a fixer. Mount follow-ups landed as stacked drafts [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (`--deny`/`--no-deny` CLI) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (a Rust-side `mount_parity` runner, since the XS boot path won't build in-tree). Agent-tools filesystem wiring is duplicated — [#614](https://github.com/endojs/endo-but-for-bots/pull/614) landed the makers, [#618](https://github.com/endojs/endo-but-for-bots/pull/618) is conflicting and now has a weave-onto-`llm` job in flight — and [#650](https://github.com/endojs/endo-but-for-bots/pull/650)'s mount-revocation shepherd is driving CI green.
-
-The exo-google-sheets supervisor (daily schedule) posted its day-1 standup: [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (refine endoclaw-oauth) is the design gate for the whole tree and now has a gauntlet running. Also worth a glance: the CloudFlare-storage design draft [#638](https://github.com/endojs/endo-but-for-bots/pull/638) is up, endoclaw-timer Phase 1 is already satisfied by green non-draft [#609](https://github.com/endojs/endo-but-for-bots/pull/609), and @kriscendobot's comment on garden issue #34 was dropped for want of maintainer-allowlist membership.
+What most needs kriskowal's eyes: a cluster of approved-but-stale PRs whose bases drifted ~1194 commits and can no longer be mechanically refreshed — [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal transcript subsystem replaced by the pi-based harness), [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula-introspection superseded, with a `-t` flag collision), [#132](https://github.com/endojs/endo-but-for-bots/pull/132) and [#133](https://github.com/endojs/endo-but-for-bots/pull/133) (chat features needing Preact reimplementation post-migration), and [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (needs a weave on the design index) — each is held untouched pending your call between reimplement, narrow, or close. Also flagged: @kriscendobot's interaction with the garden issue inbox was dropped (not on the maintainer allowlist), and the [#286](https://github.com/endojs/endo-but-for-bots/pull/286) `HttpClientControl` mutators remain unwired pending a Phase 2/3 decision.
 
 ## Parked for maintainer feedback
 
@@ -25,16 +23,6 @@ The exo-google-sheets supervisor (daily schedule) posted its day-1 standup: [#62
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260708T074534Z-1dcec3` — from gardener:design-endo-daemon-cloudflare-storage, reply_to `design-endo-daemon-cloudflare-storage` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T074534Z-1dcec3.md)
-
-> Final coordinates for the CloudFlare storage design (supersedes the paths in my earlier message):
->
-> - Draft PR: https://github.com/endojs/endo-but-for-bots/pull/638 (design/endo-daemon-cloudflare-storage → llm; draft, per the fork's convention — the AWS sibling is #637).
-> - Design doc moved to the fork's norm: `designs/endo-daemon-cloudflare-storage.md` (metadata table, Status, Prompt; README summary + M5 rows synced — expect a trivial totals conflict with #637, both add one design).
-> - Scaffold unchanged: `packages/daemon/src/better-sqlite3-do.js`, `src/daemon-cloudflare-powers.js`, `test/cloudflare-{mock-bindings,powers.test}.js` — 6 tests green, tsc clean.
->
-> The parked `plan/build-endo-daemon-cloudflare-storage.md` correction from my earlier message still applies; when promoting, point it at PR #638 / the designs/ doc.
 
 - `20260709T183305Z-1012e4` — from issue-inbox-watcher, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T183305Z-1012e4.md)
 
