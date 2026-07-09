@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-09T22:57:35Z_
+_As of 2026-07-09T22:58:39Z_
 
 ## Latest
 
-Four approved-or-review-flagged PRs stalled on the same root cause and now await your call: base `llm` advanced ~1194 commits and superseded them. [#132](https://github.com/endojs/endo-but-for-bots/pull/132) (render-mode toggle) and [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula introspection) collide with confined-Preact and locate()-based subsystems that now own that ground; [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal transcript fix) guards code deleted by the pi-based `lal` rearchitecture; and [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (genie-integration design) is green and approved but its unfreeze rebase conflicts on the shared `designs/README.md` index — each gardener aborted cleanly with nothing pushed and a recommended path (weave, slim-down, or close-as-superseded). Separately, [#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s http-client fails deterministically on Node 22 (hardened undici `Headers` breaks CapTP error-decode); a fixer job is already in flight. New draft PRs landed: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (mount `--deny` CLI, stacked on [#650](https://github.com/endojs/endo-but-for-bots/pull/650)) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (Rust `mount_parity` crate, the design-sanctioned fallback since the XS boot path won't build here). The exo-google-sheets push is now a daily supervisor schedule that posted a gauntlet on design PR [#621](https://github.com/endojs/endo-but-for-bots/pull/621), the gate for the whole OAuth tree. Watch two operational flags: the [#650](https://github.com/endojs/endo-but-for-bots/pull/650) mount-revocation shepherd overran its 2400s handler budget and will be poisoned unless split, and the foreman reports the endoclaw-timer phase-4 host-integration step may be stuck.
+Three approved branch-ops stalled on a diverged base and now need your call, all against `endojs/endo-but-for-bots`: [#129](https://github.com/endojs/endo-but-for-bots/pull/129) sits ~1194 commits behind `llm`, whose newer introspection subsystem supersedes ~90% of it (only `listWorkerTenants` is genuinely novel) — the gardener recommends closing as superseded or re-slicing to that one method; [#123](https://github.com/endojs/endo-but-for-bots/pull/123) fixes an `assembleTranscript` path that no longer exists after `lal` was rearchitected onto a pi-based harness (rebase aborted, needs a redesign or a close); and [#89](https://github.com/endojs/endo-but-for-bots/pull/89) is green and approved but wants a **weave** to reconcile a `designs/README.md` index conflict before conduct. On the fix side, [#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s http-client is deterministically red on Node 22 (hardened undici `Headers` breaks CapTP error-decode) — a fixer job is in flight. New mount follow-ups landed as drafts: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (CLI `--deny` flags, stacked on #650) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (a Rust-side glob parity runner, since the XS-run path isn't buildable in-tree). The endoclaw-timer Phase 1 remainder is already satisfied by green, non-draft [#609](https://github.com/endojs/endo-but-for-bots/pull/609) (a duplicate build was declined), and a self-retiring daily supervisor now drives the exo-google-sheets tree, having pushed design gate [#621](https://github.com/endojs/endo-but-for-bots/pull/621) into the gauntlet. Also worth a glance: several minion.town items await your go-ahead (a CloudWatch billing alarm, the open-signup gate flip, a human-only login click-through), and a shepherd job for [#650](https://github.com/endojs/endo-but-for-bots/pull/650) overran its handler budget and needs splitting.
 
 ## Parked for maintainer feedback
 
@@ -21,25 +21,6 @@ Four approved-or-review-flagged PRs stalled on the same root cause and now await
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260709T183817Z-7798be` — from gardener:endojs-endo-but-for-bots-pr132-review-1612db33, reply_to `endojs-endo-but-for-bots-pr132-review-1612db33` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T183817Z-7798be.md)
-
-> Re: endojs/endo-but-for-bots PR #132 "feat(chat): per-message render mode toggle (Md/Raw/Pre)" — your review said "Please refresh." I investigated; the refresh is NOT a clean rebase and needs your decision before I spend build effort.
->
-> Finding: base `llm` advanced ~1194 commits since the PR's merge-base. During that window the chat message-rendering was REFACTORED OUT of `packages/chat/inbox-component.js` (now a thin host wrapper) and INTO the confined `@endo/space-chat` `InboxRoot` Preact component (`packages/space-chat/src/inbox.js`, ~1550 lines, already does markdown/code-fence rendering but has NO per-message Md/Raw/Pre toggle).
->
-> The PR implements the toggle in the OLD imperative-DOM style (createElement/appendChild/className/expando props) inside inbox-component.js. That paradigm no longer exists on `llm` — rendering is now confined Preact vnodes (h()/hooks, no direct DOM). So:
->  - `packages/chat/inbox-component.js`: hard conflict; the PR's ~800-line inline render loop + toggle collides with the extracted thin wrapper. Cannot be mechanically resolved without LOSING the feature.
->  - `packages/chat/index.css`: the `.render-mode-toggle/.render-mode-btn/.md-preformatted` classes auto-merged cleanly but are now ORPHANED (no JS references them).
->  - `packages/chat/test/unit/command-executor.test.js`: add/add adjacency (base added a `js trace` test; PR added blob-viewer view/cat/edit tests at EOF) — mechanically resolvable by keeping both, but note the PR bundles openBlobViewer tests unrelated to the render-mode toggle.
->
-> Bottom line: a lossless refresh REQUIRES reimplementing the Md/Raw/Pre toggle as Preact vnodes in `@endo/space-chat` InboxRoot (state placement per message, toggle UI in the message actions row, literal/preformatted body variants alongside the existing MessageBody markdown path). That's a designer+builder task, not a rebase. I left the PR branch byte-for-byte untouched (no push).
->
-> Please choose:
->  (a) I post a builder job to reimplement the Md/Raw/Pre toggle on the new confined InboxRoot architecture (recommended);
->  (b) post a designer job first to spec how the toggle should integrate with the extracted markdown pipeline, then build;
->  (c) close/abandon #132 as superseded by the base's markdown rendering;
->  (d) something else.
 
 - `20260709T183829Z-f94cd2` — from gardener:endojs-endo-but-for-bots-pr129-review-b76233e2, reply_to `endojs-endo-but-for-bots-pr129-review-b76233e2` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T183829Z-f94cd2.md)
 
