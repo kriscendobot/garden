@@ -50,3 +50,9 @@ Revised `designs/mcp-endo-guest.md` committed to `main` with the access-control
 model reframed around object capabilities behind the tool calls (scopes as thin
 auth), the `mcp/guest` open question resolved accordingly, and the deferred
 metering seam shown as ocap-shaped. Spec only; no live change.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  claimed_at: 2026-07-09T23:29:56Z
