@@ -1,25 +1,25 @@
 # Garden bulletin
 
-_As of 2026-07-08T14:04:22Z_
+_As of 2026-07-09T18:42:38Z_
 
 ## Latest
 
-The endoclaw network-fetch builder [stopped rather than duplicate work](https://github.com/endojs/endo-but-for-bots/pull/566): a gardener found that DRAFT [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (0xpatrickbot) already implements the confined `HttpClient`/`HttpClientControl` design end to end, and flags that it bases on `llm` rather than `master` — worth a reviewer's eye against the base-branch norm; the maintainer is asked to retire the job and, if wanted, post a shepherd/panel to drive #566 to green. The CloudFlare storage design for the Endo daemon landed on branch `design/endo-daemon-cloudflare-storage` in endo-but-for-bots (design doc plus scaffold and 6 passing tests), but note the parked go-ahead `build-endo-daemon-cloudflare-storage` still names the pre-redirect target (`kriscendobot/endo`) and must be corrected to endo-but-for-bots before promotion. The AWS storage design also completed, seeding several parked build/deploy follow-ups. On the branch-ops side, [endo-but-for-bots#617](https://github.com/endojs/endo-but-for-bots/pull/617) was woven back to MERGEABLE, and the Docker self-host daemon build and the Stripe-credits minion.town deploy both finished.
+The confined-networking track landed: [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (`feat(exo-http-client): confined HttpClient` + shared `@endo/http-confine` core) cleared its gauntlet and merged to `llm`, which retired the `endoclaw-network-fetch` builder job as already-satisfied — and now forces a call on [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (`endo http mk` Phase 1), where @0xpatrickbot proposes swapping its inline mechanics for the new `@endo/http-confine` imports; that PR also needs a weave against `llm` and a small doc fix regardless of the path chosen. The bigger thing to notice: four approved/refresh directives all halted on the same root cause — `llm` has advanced ~1194 commits and superseded the PRs they targeted. [endo-but-for-bots#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript), [endo-but-for-bots#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula-introspection, direct `-t` flag collision), and [endo-but-for-bots#132](https://github.com/endojs/endo-but-for-bots/pull/132) (per-message render-mode toggle) each produce irreconcilable conflicts because their subsystems were rearchitected on `llm` (pi-based lal harness, richer `diagnostics()` introspection, confined Preact `InboxRoot`); all three were left untouched pending your decision (reimplement vs. close-as-superseded), and [endo-but-for-bots#112](https://github.com/endojs/endo-but-for-bots/pull/112) was confirmed closed as superseded. On the design side, the CloudFlare daemon-storage design shipped as draft [endo-but-for-bots#638](https://github.com/endojs/endo-but-for-bots/pull/638) (AWS sibling #637), with a note that its parked build-go job still points at stale `kriscendobot/endo` coordinates and needs fixing at promote time. minion.town open signup is now live (with a follow-up flagged for a CloudWatch billing alarm), and the XS→Rust Endor port ground through stage-5 fixes toward the stage-6 arrow-capture work. One access note: @kriscendobot touched garden issue #34 but isn't on the maintainer allowlist, so the interaction was dropped.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 14h)
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 5d)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8d)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 9d)
-- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 12d)
-- [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 22d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 47d)
-- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 47d)
-- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 49d)
-- [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 48d)
+- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 3m)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 1d)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 7d)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9d)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 10d)
+- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 13d)
+- [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 24d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 48d)
+- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 48d)
+- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 50d)
 
-_Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `20260708T053541Z-30f34a` — from gardener:endojs-endo-but-for-bots-endoclaw-network-fetch-build, reply_to `endojs-endo-but-for-bots-endoclaw-network-fetch-build` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T053541Z-30f34a.md)
@@ -55,27 +55,156 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The parked `plan/build-endo-daemon-cloudflare-storage.md` correction from my earlier message still applies; when promoting, point it at PR #638 / the designs/ doc.
 
-- `20260708T140409Z-ec6db4` — from watchdog:foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T140409Z-ec6db4.md)
+- `20260709T183305Z-1012e4` — from issue-inbox-watcher, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T183305Z-1012e4.md)
 
-> garden-foreman's pump handler (/home/kris/garden2/scripts/jobs/handlers/foreman-claude.sh) failed rc=1 on endolin-garden2-5bcdff64; the board pump is starving. stderr tail: /home/kris/garden2/scripts/jobs/handlers/foreman-claude.sh: line 92: designer: command not found
-> /home/kris/garden2/scripts/jobs/handlers/foreman-claude.sh: line 92: builder: command not found
-> <6>14:04:09 [foreman-claude] usage-meter: claude exited rc=1; usage not recorded
+> kind: access-request
+>
+> @kriscendobot interacted with the garden's issue inbox on kriskowal/garden #34 but is NOT on
+> the maintainer allowlist, so the interaction was DROPPED (dispatched
+> nothing). If this is a collaborator you want to let drive the garden by
+> issue, add them:
+>
+>     scripts/jobs/add-maintainer.sh kriscendobot
+>
+> After that, FUTURE issues/comments from @kriscendobot will dispatch — but THIS one
+> was already dropped, so ask them to re-post it (or re-post it yourself)
+> if it still matters.
+>
+> Interaction: https://github.com/kriskowal/garden/issues/34#issuecomment-4928338477
+>
+> You are shown this ONCE per individual. Reply or archive to dismiss it.
+
+- `20260709T183348Z-35a44f` — from gardener:endojs-endo-but-for-bots-pr286-376f172a, reply_to `endojs-endo-but-for-bots-pr286-376f172a` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T183348Z-35a44f.md)
+
+> **Attention — decision needed on endo-but-for-bots PR #286** (feat: `endo http mk` Phase 1)
+>
+> @0xpatrickbot proposes PR #286 adopt the newly-merged `@endo/http-confine` (#566)
+> as its confinement core, swapping the ~80 lines of inline origin/method/redirect
+> mechanics in `packages/daemon/src/http-client.js` for imports
+> (`parseAllowedOrigins`, `checkOriginAllowed`, `makeHttpConfinement` with
+> `allowedMethods: new Set(['GET','HEAD'])`). Everything Phase-1-visible (formula
+> split, `request()` record interface, `endo http mk`, GET/HEAD gate) stays as
+> designed; Phases 2–4 (rate limit, byte caps, timeouts, revocation, header
+> validation, redirect revalidation) would then come mostly free.
+>
+> Grounded (verified, not just relaying the comment):
+> - `@endo/http-confine` does exist on `llm` (#566 merged).
+> - gh already reports #286 as CONFLICTING — housekeeping note #1 (drift vs `llm`
+>   on `host.js`/`types.d.ts`) is real; that's a weave, independent of adoption.
+> - `llm` HEAD records `designs/endoclaw-network-fetch.md` as In Progress /
+>   realized by the shipped packages, while #286 flips it to "Superseded by
+>   cli-http-client" — housekeeping note #2 (a silent self-contradictory merge) is
+>   real. Author suggests dropping the Superseded flip and treating the two as
+>   sibling tracks.
+>
+> The author explicitly leaves the call to you and offers three paths:
+>   1. Our automation takes the adoption in this PR (I'd post a builder/fixer job).
+>   2. They send the adoption as a commit for your review.
+>   3. Land Phase 1 as-is; adoption becomes a post-merge follow-up (the forward
+>      pointer in `designs/http-confine.md` already covers it).
+>
+> Also note #2 (drop the Superseded flip) is a small doc fix worth doing regardless,
+> and #286 needs a weave against `llm` regardless of which path you pick.
+>
+> Which path? And want me to also post a weave for the `llm` conflict now?
+
+- `20260709T183405Z-496ff4` — from gardener:endojs-endo-but-for-bots-pr112-621048e3, reply_to `endojs-endo-but-for-bots-pr112-621048e3` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T183405Z-496ff4.md)
+
+> Attention directive on endojs/endo-but-for-bots PR #112 — routed as a DEFERRAL, no edit made.
+>
+> Findings:
+> - PR #112 ("feat(ocapn-noise): Noise IK netlayer, #59 stack 2/3") is CLOSED (not merged). You closed it at 2026-07-09T03:46:03Z with the comment "We will reconstruct these changes when implementation settles on the llm branch."
+> - It was already marked (2026-05-07) "Superseded by #137 (the consolidated PR against llm)".
+> - The comment is future-tense and conditional — an intent to reconstruct LATER on llm, not a request for work now. No code edit or push is warranted; treating this as a clean no-op on the PR.
+>
+> Suggested routing: park a plan-queue reminder — "reconstruct the OCapN-Noise layer-2 (Noise IK netlayer) changes on the llm branch once implementation settles" — so the intent survives. Promote it when the llm implementation is ready. Say the word and I (or a fresh designer/builder job) can pick it up against llm.
+
+- `20260709T183817Z-7798be` — from gardener:endojs-endo-but-for-bots-pr132-review-1612db33, reply_to `endojs-endo-but-for-bots-pr132-review-1612db33` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T183817Z-7798be.md)
+
+> Re: endojs/endo-but-for-bots PR #132 "feat(chat): per-message render mode toggle (Md/Raw/Pre)" — your review said "Please refresh." I investigated; the refresh is NOT a clean rebase and needs your decision before I spend build effort.
+>
+> Finding: base `llm` advanced ~1194 commits since the PR's merge-base. During that window the chat message-rendering was REFACTORED OUT of `packages/chat/inbox-component.js` (now a thin host wrapper) and INTO the confined `@endo/space-chat` `InboxRoot` Preact component (`packages/space-chat/src/inbox.js`, ~1550 lines, already does markdown/code-fence rendering but has NO per-message Md/Raw/Pre toggle).
+>
+> The PR implements the toggle in the OLD imperative-DOM style (createElement/appendChild/className/expando props) inside inbox-component.js. That paradigm no longer exists on `llm` — rendering is now confined Preact vnodes (h()/hooks, no direct DOM). So:
+>  - `packages/chat/inbox-component.js`: hard conflict; the PR's ~800-line inline render loop + toggle collides with the extracted thin wrapper. Cannot be mechanically resolved without LOSING the feature.
+>  - `packages/chat/index.css`: the `.render-mode-toggle/.render-mode-btn/.md-preformatted` classes auto-merged cleanly but are now ORPHANED (no JS references them).
+>  - `packages/chat/test/unit/command-executor.test.js`: add/add adjacency (base added a `js trace` test; PR added blob-viewer view/cat/edit tests at EOF) — mechanically resolvable by keeping both, but note the PR bundles openBlobViewer tests unrelated to the render-mode toggle.
+>
+> Bottom line: a lossless refresh REQUIRES reimplementing the Md/Raw/Pre toggle as Preact vnodes in `@endo/space-chat` InboxRoot (state placement per message, toggle UI in the message actions row, literal/preformatted body variants alongside the existing MessageBody markdown path). That's a designer+builder task, not a rebase. I left the PR branch byte-for-byte untouched (no push).
+>
+> Please choose:
+>  (a) I post a builder job to reimplement the Md/Raw/Pre toggle on the new confined InboxRoot architecture (recommended);
+>  (b) post a designer job first to spec how the toggle should integrate with the extracted markdown pipeline, then build;
+>  (c) close/abandon #132 as superseded by the base's markdown rendering;
+>  (d) something else.
+
+- `20260709T183829Z-f94cd2` — from gardener:endojs-endo-but-for-bots-pr129-review-b76233e2, reply_to `endojs-endo-but-for-bots-pr129-review-b76233e2` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T183829Z-f94cd2.md)
+
+> ⚠️ PR #129 (endojs/endo-but-for-bots, feat/formula-introspection → llm) — pausing before rebase/merge. Your APPROVED review asked to "rebase, run the gauntlet, retcon, conduct", but the branch is **1194 commits behind `llm`** and in the interim `llm` gained a **more capable introspection subsystem that supersedes and collides with ~90% of this PR**. Merging as-approved would REGRESS `llm`. Findings (all verified against origin/llm):
+>
+> SUPERSEDED / COLLIDING:
+> • `inspect` command + daemon `inspect()` — `llm` already ships a richer version: `diagnostics().getFormula` + `renderHuman` (reference / reference-list rendering, `--identifier` flag). PR's is the older, simpler `{id, formula}` form. add/add conflict.
+> • `list --types` (`-t` boolean) — DIRECT FLAG COLLISION: `llm`'s `list` already binds `-t,--type <formulaType>` (+ `-g,--grouped`, `INVENTORY_GROUPS`, locate()-derived types). PR rebinds `-t` to a boolean `--types`. Same command, same short flag, incompatible semantics.
+> • daemon `listWithTypes()` / `identifyType()` — superseded by `llm`'s locate()-based typing + `getTypeForId`.
+> • `getFormulaGraph` — already on `llm`'s `diagnostics()` facet.
+>
+> GENUINELY NOVEL (no `llm` equivalent — `llm` has no tenant concept at all):
+> • daemon `listWorkerTenants()` — "list capabilities whose formulas reference a given worker." Daemon-only; I don't see a `workers tenants` CLI subcommand wired in the PR despite the title.
+>
+> All 10 conflict hunks (6 files) trace to this overlap. Resolving in the PR's favor regresses `llm` (flag collision, weaker inspect); resolving in `llm`'s favor guts the PR down to the one `listWorkerTenants` method — a materially different change than what was approved.
+>
+> I've ABORTED the rebase; the fork branch is untouched (nothing pushed). How would you like to proceed?
+>   (A) Close #129 as superseded; optionally re-file `listWorkerTenants` as a small standalone follow-up.
+>   (B) Rebase keeping ONLY `listWorkerTenants` (+ interface/types/CLI), deferring to `llm` for inspect/list/graph — a much smaller PR than approved. Then gauntlet/retcon/conduct that.
+>   (C) Rebase taking the PR's side wholesale — NOT recommended (regresses `llm`).
+> My recommendation: (A) if you don't need worker-tenants now, else (B). Holding for your call.
+
+- `20260709T183847Z-402e32` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T183847Z-402e32.md)
+
+> open-signup-live-minion-town (bullet 3): now that open signup is live on minion.town, the report recommends creating a CloudWatch billing alarm on Cognito pool MAU and DynamoDB spend. This is an AWS-administration change under your account, not a bot-repo job — do you want a gardener to draft/apply it, or will you set it up?
+
+- `20260709T183852Z-b43d27` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T183852Z-b43d27.md)
+
+> design-minion-town-unified-login-page: the GitHub/Google end-to-end login-button clicks in a real browser remain a human-only verification gap that the garden can't close autonomously. Flagging for you to click through once when convenient. (The optional wallet-page centering CSS tweak will ride along with the parked deploy-siwe-thunk-minion-town job.)
+
+- `20260709T184014Z-216228` — from gardener:endojs-endo-but-for-bots-pr123-rebase, reply_to `endojs-endo-but-for-bots-pr123-rebase` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T184014Z-216228.md)
+
+> weaver escalation — endojs/endo-but-for-bots PR #123 (fix/lal-transcript) rebase BLOCKED: premise superseded.
+>
+> The PR patches `assembleTranscript` in packages/lal/agent.js to report broken transcript chains instead of silently truncating. Since the current frozen base (llm-11a76ae), the `llm` roadmap has advanced to 7870da1 and in that window the `lal` package was rearchitected onto a pi-based harness (agent-round.js / round-runner.js / inbox-loop.js). agent.js shrank 1781 -> 325 lines; spawnWorkerLoop now just composes makePiAgent({...}).
+>
+> The entire subsystem the PR fixes is GONE from the code: assembleTranscript, getNode, putNode, and the parentMessageId leaf->root chain-walk no longer exist (they survive only in designs/lal-*.md). The rebase produces an irreconcilable ~600-line conflict in agent.js with no honest woven resolution — reimplementing broken-chain detection on the pi-based harness is a redesign, not a conflict resolution, and the weaver does not redesign on the fly.
+>
+> Action taken: rebase aborted, nothing pushed, PR base left at llm-11a76ae untouched, no comment posted upstream. The three-step chain you asked for (rebase -> retcon -> conduct) cannot proceed on step 1 as-is.
+>
+> Recommendation (need your call):
+>   (a) route to a designer+fixer to re-establish the fix's intent — "report broken transcript chains" — against the new pi-based harness (the transcript-memory design docs still describe the invariant), then reopen the chain; or
+>   (b) close PR #123 as superseded by the pi-based lal refactor.
+>
+> Not proceeding to retcon/conduct until you decide.
 
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (8)
+- [`deadmail-issue-comment-4928361368`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4928361368.md) — Dead-lettered message — pick up its intent
+- [`endojs-endo-but-for-bots-mount-ext-reconstruct-127`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-ext-reconstruct-127.md) — Design: reconstruct mount-extensions on llm, split into separate PRs
+- [`endojs-endo-but-for-bots-mount-stream-glob-grep-127`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-stream-glob-grep-127.md) — Design plan: exo-stream variants of mount bulk methods (streamGlob/streamGrep)
+- [`endojs-endo-but-for-bots-pr124-review-6332cda5`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-review-6332cda5.md) — Review directive on endojs/endo-but-for-bots PR #124
+- [`endojs-endo-but-for-bots-pr129-review-b76233e2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr129-review-b76233e2.md) — Review directive on endojs/endo-but-for-bots PR #129
+- [`endojs-endo-but-for-bots-pr133-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr133-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #133
+- [`endojs-endo-but-for-bots-pr89-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr89-conduct.md) — role: conductor
+- [`issue-kriskowal-garden-35`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-35.md) — Issue from kriskowal on kriskowal/garden #35
 
-### tada (1518)
-- [`endojs-endo-but-for-bots-pr637-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr637-shepherd.md) — Completion report
-- [`endojs-endo-but-for-bots-pr638-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr638-shepherd.md) — Completion report
-- [`daily-progress-summary-20260708-070528`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260708-070528.md) — Completion report
-- [`deadmail-20260708T074539Z-84584c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260708T074539Z-84584c.md) — Completion report
-- [`design-endo-daemon-cloudflare-storage`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-daemon-cloudflare-storage.md) — Completion report: design-endo-daemon-cloudflare-storage
-- … and 1513 more
+### tada (1535)
+- [`deadmail-issue-comment-4921397078`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4921397078.md) — Completion report
+- [`endojs-endo-but-for-bots-pr123-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr123-rebase.md) — Completion report — endojs/endo-but-for-bots PR #123 rebase (weaver)
+- [`endojs-endo-but-for-bots-pr132-review-1612db33`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr132-review-1612db33.md) — Completion report — endojs/endo-but-for-bots PR #132 review directive
+- [`endojs-endo-but-for-bots-pr127-review-8526a0a6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr127-review-8526a0a6.md) — Completion report
+- [`endojs-endo-but-for-bots-pr89-review-8f676f32`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr89-review-8f676f32.md) — Completion report
+- … and 1530 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -84,15 +213,31 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`build-endo-daemon-cloudflare-storage`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-daemon-cloudflare-storage.md) — _normal_ · Build: Endo daemon Cloudflare storage platform (phases 1-2 of the design)
 - [`deploy-endo-daemon-aws-storage-reference`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-endo-daemon-aws-storage-reference.md) — _normal_ · Build: reference deployment + operations for the daemon AWS storage platform ...
 - [`deploy-siwe-thunk-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-siwe-thunk-minion-town.md) — _normal_ · Deploy the SIWE OIDC thunk (mirroring the GitHub thunk's AWS path)
+- [`ebfb-124-resume-rebase-review-fixups`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ebfb-124-resume-rebase-review-fixups.md) — _normal_ · ---
+- [`ebfb-124-sqlite-iterate-streaming`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ebfb-124-sqlite-iterate-streaming.md) — _normal_ · ---
+- [`ebfb-124-sqlite-nongeneralised-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ebfb-124-sqlite-nongeneralised-design.md) — _normal_ · ---
+- [`ebfb-124-sqlite-pragma-simple`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ebfb-124-sqlite-pragma-simple.md) — _normal_ · ---
+- [`ebfb-124-sqlite-shutdown-checkpoint`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ebfb-124-sqlite-shutdown-checkpoint.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr132-report-render-mode`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-report-render-mode.md) — _normal_ · re-port render-mode toggle onto @endo/space-chat InboxRoot (endojs/endo-but-f...
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
+- [`garden-style-typist-codepoints`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/garden-style-typist-codepoints.md) — _normal_ · ---
+- [`garden-style-url-not-path`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/garden-style-url-not-path.md) — _normal_ · ---
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
 - [`styled-privilege-surfaces-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/styled-privilege-surfaces-minion-town.md) — _normal_ · Build: styled privilege surfaces for minion.town (Phase C — role-aware landin...
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-(none)
+- [`endojs-endo-but-for-bots-pr611-review-df8b8022-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr611-review-df8b8022-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #611 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr615-review-330a01ca-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr615-review-330a01ca-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #615 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr611-review-f53955a2-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr611-review-f53955a2-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #611 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr89-review-8f676f32-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr89-review-8f676f32-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #89 (primary: endojs-endo-but-fo...
+- [`endojs-endo-but-for-bots-pr611-review-a38660ea-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr611-review-a38660ea-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #611 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr123-review-7a525e60-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr123-review-7a525e60-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #123 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr124-review-6332cda5-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr124-review-6332cda5-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #124 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr127-review-8526a0a6-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr127-review-8526a0a6-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #127 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr129-review-b76233e2-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr129-review-b76233e2-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #129 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr132-review-1612db33-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-review-1612db33-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #132 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
