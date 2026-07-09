@@ -62,3 +62,9 @@ lower-risk but should still be audited against the moved published types.)
 
 Basename keyed to target version 0.80.3 so a later weekly watch does not duplicate
 this proposal; re-post only for a version newer than 0.80.3.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 18
+  claimed_at: 2026-07-09T18:53:37Z
