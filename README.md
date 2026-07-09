@@ -1,18 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-09T20:29:42Z_
+_As of 2026-07-09T20:38:36Z_
 
 ## Latest
 
-The mount `deniedSegments` CLI follow-up landed as draft [endo-but-for-bots#652](https://github.com/endojs/endo-but-for-bots/pull/652), stacked on the still-open [#650](https://github.com/endojs/endo-but-for-bots/pull/650) — it stays draft until #650 merges, then wants a rebase + gauntlet. Behind it, the mount-glob reconstruction (PR B) and its Rust/XS case-table runner are both in flight.
+A cluster of approved-but-stalled PRs now needs your call: rebase/conduct attempts on [#132](https://github.com/endojs/endo-but-for-bots/pull/132), [#129](https://github.com/endojs/endo-but-for-bots/pull/129), [#123](https://github.com/endojs/endo-but-for-bots/pull/123), and [#89](https://github.com/endojs/endo-but-for-bots/pull/89) all halted because base `llm` has advanced ~1194 commits and superseded or collided with the changes — #132's render-mode toggle predates the Preact confinement migration, #129's `inspect`/`list --types` collides with a richer introspection subsystem (including a hard `-t` flag collision), #123's `assembleTranscript` fix targets code that the pi-based `lal` rearchitecture deleted, and #89's design-index edit conflicts semantically. Each gardener aborted cleanly without pushing and is holding for a weave/redesign/close decision.
 
-The bigger news is a wave of gardener escalations all waiting on your call, most stemming from PRs whose frozen bases have drifted ~1,200 commits behind live `llm`. Three approved/ready PRs stalled because `llm` has since superseded their code: [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript — the whole `assembleTranscript` machinery was rewritten onto a pi-based harness), [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula-introspection — flag collision and a richer inspect subsystem now on `llm`, leaving only `listWorkerTenants` genuinely novel), and [#132](https://github.com/endojs/endo-but-for-bots/pull/132) (render-mode toggle — rendering moved into confined Preact, so the refresh is a reimplementation, not a rebase). [#133](https://github.com/endojs/endo-but-for-bots/pull/133) has a refreshed description but needs a port decision, and [#89](https://github.com/endojs/endo-but-for-bots/pull/89) is green and approved but blocked on a semantic `designs/README.md` conflict needing a weave.
-
-On the network-fetch track, [#566](https://github.com/endojs/endo-but-for-bots/pull/566) (`@endo/http-confine` + `@endo/exo-http-client`) merged, which retired the `endoclaw-network-fetch` builder job as already-satisfied and gave [#286](https://github.com/endojs/endo-but-for-bots/pull/286) an adoption path (author 0xpatrickbot offers three routes; it also needs a weave). A new daily supervisor now drives the exo-google-sheets tree, whose current gate is design PR [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (gauntlet posted). Finally, the CloudFlare storage design shipped as draft [#638](https://github.com/endojs/endo-but-for-bots/pull/638), and @kriscendobot hit the issue inbox on garden#34 but was dropped for not being on the maintainer allowlist.
+On the network-fetch track, [#566](https://github.com/endojs/endo-but-for-bots/pull/566) (`@endo/http-confine` + `@endo/exo-http-client`) has merged to `llm`, which makes the standalone `endoclaw-network-fetch` builder job redundant and prompts [#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s author (0xpatrickbot) to offer adopting `@endo/http-confine` as its confinement core — three paths offered, plus a note that #286 needs a weave regardless. The CloudFlare-storage design landed as draft [#638](https://github.com/endojs/endo-but-for-bots/pull/638) (with a parked build job whose target coordinates need fixing at promote time), and a new draft [#652](https://github.com/endojs/endo-but-for-bots/pull/652) adds the mount `--deny` CLI, stacked on [#650](https://github.com/endojs/endo-but-for-bots/pull/650) and awaiting its merge before un-drafting. A daily `exo-google-sheets` supervisor is now running; day 1 identifies design PR [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth foundation) as the gate for the whole tree and posted a gauntlet to drive it out of draft. Two `mount-glob` build jobs remain in flight, with the Rust/XS parity runner blocked on an unbuildable XS boot path (gardener recommends the Rust-side runner instead). Finally, @kriscendobot hit the garden's issue inbox on [garden#34](https://github.com/kriskowal/garden/issues/34#issuecomment-4928338477) but isn't on the maintainer allowlist, so that interaction was dropped — add them and ask for a re-post if it mattered.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 1h)
+- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 2h)
 - [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 1d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 7d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9d)
@@ -334,6 +332,27 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > break-and-observe. eslint, tsc, prettier, and the banner probe are green. The
 > full monorepo local-verify gate and daemon-backed CLI tests require a live
 > `endo` daemon binary not present in this sandbox; GitHub CI exercises those.
+
+- `20260709T203825Z-00f82d` — from gardener:endojs-endo-but-for-bots-mount-glob-rust-runner, reply_to `endojs-endo-but-for-bots-mount-glob-rust-runner` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T203825Z-00f82d.md)
+
+> Impasse on job `endojs-endo-but-for-bots-mount-glob-rust-runner` (Rust/XS mount glob case-table runner). Need a steer before I build, because the task's literal ask isn't buildable in this tree.
+>
+> TASK asks: a runner in the Rust workspace that materializes mount-fixture-manifest.json and iterates mount-glob-cases.json, asserting **the XS-run mount.js** produces byte-identical results.
+>
+> BLOCKER (verified, not stale): the XS worker/SES-boot path is not buildable from endo-but-for-bots as it stands.
+> - rust/endo/xsnap `include_str!`s three generated bundles — ses_boot.js, worker_bootstrap.js, daemon_bootstrap.js — all gitignored and ABSENT, so the xsnap crate cannot even compile. No cargo test touching XS can build here.
+> - The worker/SES-boot generators (`bundle-bus-worker-xs.mjs` + the SES boot generator + the `bus-worker-xs.js` entry) are absent and NOT in git history (rust/endo/README §"Not yet runnable" #2).
+> - The daemon bundler (`bundle-bus-daemon-rust-xs.mjs`) currently FAILS on Node-only imports (@endo/git, a @endo/platform/fs/lite path) — pre-existing (README #1).
+> - No prebuilt `endor` binary or bundles anywhere on the host; node_modules absent (full monorepo install needed).
+> - mount.js's glob is a pure walk over injected filePowers, but it's packaged as an exo (makeExo/E/harden) whose graph needs the same failing compartment-mapper bundle — no clean minimal XS harness without fixing the boot path.
+>
+> So "run the real mount.js under XS and diff the case table" cannot be built or verified here today.
+>
+> OPTIONS:
+>   A) Build the **Rust-side** parity runner now — the design's other sanctioned form (mount-extensions-reconstruction §"Test strategy": "a Rust-side OR XS-supervisor-side runner"; the glob language "is specified normatively so a Rust implementation can match it"). A standalone workspace crate (no xsnap dep, so it compiles/tests independently) that materializes the manifest exactly like _mount-fixture.js (root subdir + escape-target sibling, base64 probe, optional-symlink skip) and iterates the glob (and later grep) case tables against a Rust glob mirroring the normative spec + UTF-16 sort + requiresSymlink gate. Verifiable today; a real durable guard; coordinates with PR C via the same harness.
+>   B) The **XS-supervisor-side** runner as written in the task — but this first needs the XS boot path unblocked: make the git backend injectable + extend the bundler exclude list, author the worker/SES-boot generators + bus-worker-xs.js entry (README calls this ~half a day of bundler hygiene plus locating/authoring the missing worker path). That's a separate, larger prerequisite job; the runner is trivial once it lands.
+>
+> Recommendation: do A now (it's the design-sanctioned, verifiable guard and unblocks PR C's grep table), and file B as a tracked follow-up gated on the XS boot path becoming buildable. Confirm A, or tell me to pursue B (and whether to take on the boot-path prerequisite)?
 
 
 ## Board
