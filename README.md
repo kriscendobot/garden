@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-09T22:40:59Z_
+_As of 2026-07-09T22:43:34Z_
 
 ## Latest
 
-The [agent-tools Phase 4 weave onto `llm` (#618)](https://github.com/endojs/endo-but-for-bots/pull/618) landed, and two shepherds are now in flight driving [#609](https://github.com/endojs/endo-but-for-bots/pull/609) (endoclaw-timer) and [#650](https://github.com/endojs/endo-but-for-bots/pull/650) (mount-revocation) to green CI.
+A cluster of approved and refresh-tagged PRs turned out to be superseded by ~1194 commits of `llm` drift, and gardeners paused rather than regress trunk: [#132](https://github.com/endojs/endo-but-for-bots/pull/132)'s render-mode toggle was written in an imperative-DOM style that no longer exists (rendering moved into the confined `@endo/space-chat` Preact `InboxRoot`); [#129](https://github.com/endojs/endo-but-for-bots/pull/129)'s formula-introspection collides with a richer subsystem now on `llm` (including a hard `-t` flag collision), leaving only `listWorkerTenants` genuinely novel; and [#123](https://github.com/endojs/endo-but-for-bots/pull/123)'s transcript fix targets an `assembleTranscript`/`agent.js` path that the pi-based `lal` rewrite deleted, blocking both its rebase and its conduct. Each awaits your call (close vs. redesign), as does the [#133](https://github.com/endojs/endo-but-for-bots/pull/133) pending-commands refresh (three port options across the preact chat-bar migration) and the [#286](https://github.com/endojs/endo-but-for-bots/pull/286) `endo http mk` adoption question.
 
-The bigger signal is a cluster of **refresh/rebase escalations that all stalled on the same cause**: `llm` has advanced ~1194 commits and superseded the code several approved PRs were built on. [#132](https://github.com/endojs/endo-but-for-bots/pull/132) (render-mode toggle), [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula introspection), [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal transcript), and [#133](https://github.com/endojs/endo-but-for-bots/pull/133) (pending-commands bar) each hit conflicts that are redesigns, not mechanical rebases — the gardeners aborted with branches untouched and each needs a designer/builder decision from you. [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (genie-integration) is approved and green but needs a weave to resolve a `designs/README.md` index conflict before it can conduct.
-
-On the network-fetch track, [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (`endo http mk` Phase 1) now has a real Node-22-specific CI failure — undici's lazy `Symbol(headers map sorted)` slot is frozen by `harden`, breaking error-decode across CapTP — plus an open question about adopting the merged [`@endo/http-confine` (#566)](https://github.com/endojs/endo-but-for-bots/pull/566) as its confinement core. The mount work advanced with two stacked drafts: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (CLI `--deny` flags, stacked on #650) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (a Rust-side mount-glob parity runner, since the XS boot path isn't buildable in-tree). The exo-google-sheets daily supervisor opened its day-1 standup and posted a gauntlet to drive design PR [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth foundation) out of draft — the gate blocking the rest of that tree.
+Notably, [#286](https://github.com/endojs/endo-but-for-bots/pull/286) also surfaced a real, deterministic Node-22 CI failure — hardening freezes undici's lazy `Symbol(headers map sorted)` slot so the client can't decode a Headers-carrying error across CapTP (green on Node 24) — a fixer candidate, not flake. On the moving side, the agent-tools Phase-4 weave onto `llm` ([#618](https://github.com/endojs/endo-but-for-bots/pull/618)) completed; the endoclaw-timer daemon graduation was found already satisfied by green, non-draft [#609](https://github.com/endojs/endo-but-for-bots/pull/609) (with [#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619) restacked on it); the mount track opened stacked drafts [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (CLI `--deny`) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (a Rust-side glob parity runner, chosen because the XS boot path won't build here); and a self-retiring daily supervisor now drives the exo-google-sheets tree, posting a gauntlet on design PR [#621](https://github.com/endojs/endo-but-for-bots/pull/621). Three shepherds are running CI/lint to green on [#609](https://github.com/endojs/endo-but-for-bots/pull/609), [#650](https://github.com/endojs/endo-but-for-bots/pull/650), and [#656](https://github.com/endojs/endo-but-for-bots/pull/656).
 
 ## Parked for maintainer feedback
 
@@ -360,9 +358,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`shepherd-endo-but-for-bots-pr609-endoclaw-timer-lint-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr609-endoclaw-timer-lint-green.md) — ---
 - [`shepherd-endo-but-for-bots-pr650-mount-revocation-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr650-mount-revocation-ci-green.md) — ---
+- [`shepherd-endo-but-for-bots-pr656-mount-provide-submount-lint-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr656-mount-provide-submount-lint-green.md) — ---
 
 ### tada (1585)
 - [`weave-endo-but-for-bots-pr618-agent-tools-phase4-onto-llm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr618-agent-tools-phase4-onto-llm.md) — Completion report
