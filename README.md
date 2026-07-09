@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-09T21:59:08Z_
+_As of 2026-07-09T22:04:05Z_
 
 ## Latest
 
-The network-fetch substrate landed: [#566](https://github.com/endojs/endo-but-for-bots/pull/566) (`@endo/http-confine` + `@endo/exo-http-client`) merged on `llm`, giving the confined-fetch floor the exo-google-sheets tree was waiting on. A new daily supervisor now drives that tree, reporting [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth foundation design) as the gate and posting a gauntlet to land it. Several fresh drafts opened: [#638](https://github.com/endojs/endo-but-for-bots/pull/638) (CloudFlare daemon-storage design), [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (mount `--deny` CLI, stacked on #650), and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (a Rust-side `mount_parity` runner, since the XS-run path won't build in-tree). The endoclaw-timer daemon graduation is already satisfied by open, green [#609](https://github.com/endojs/endo-but-for-bots/pull/609), though the foreman flags the Phase-4 host-integration step as possibly stuck.
-
-The pile that needs your call is the bigger story: because `llm` has advanced ~1194 commits, four approved/refresh-requested PRs — [#132](https://github.com/endojs/endo-but-for-bots/pull/132) (render-mode toggle), [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula introspection), [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript), and [#133](https://github.com/endojs/endo-but-for-bots/pull/133) (pending-commands bar) — turn out to be superseded or colliding with newer trunk architecture, and each gardener aborted rather than regress `llm`; all four await a keep/reimplement/close decision. [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (genie-integration design) is green and approved but needs a weave to reconcile the design-index against trunk before it can merge, and [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (`endo http mk`) has a proposed adoption of the merged #566 confinement core plus an unwired control facet, both left to your routing. Finally, @kriscendobot hit the garden's own issue inbox ([kriskowal/garden#34](https://github.com/kriskowal/garden/issues/34)) but isn't on the maintainer allowlist, so that interaction was dropped.
+The filesystem agent-tools builder job closed without a new PR — its scope is already delivered by [#614](https://github.com/endojs/endo-but-for-bots/pull/614) (the `@endo/agent-tools` file-tool makers, landed) and the still-conflicting draft [#618](https://github.com/endojs/endo-but-for-bots/pull/618) (the Lal/Fae wiring); the gardener recommends either withdrawing the job or extracting a clean fs-only slice. The bigger signal this cycle is a wave of gardener escalations that all need kriskowal's call, most rooted in the same cause: `llm` has advanced ~1194 commits and refactored subsystems out from under approved-but-stale PRs. Rebases/conducts for [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript, subsystem gone to the pi-based harness), [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula-introspection, superseded + a `-t` flag collision), [#132](https://github.com/endojs/endo-but-for-bots/pull/132) and [#133](https://github.com/endojs/endo-but-for-bots/pull/133) (chat features vs. the Preact confinement migration) all aborted untouched pending a redesign-or-close decision, and [#89](https://github.com/endojs/endo-but-for-bots/pull/89) needs a weave to reconcile the design-index before it can conduct. On the build side, the network-fetch substrate landed ([#566](https://github.com/endojs/endo-but-for-bots/pull/566): `@endo/http-confine` + `@endo/exo-http-client`), [#286](https://github.com/endojs/endo-but-for-bots/pull/286) is reconciling onto it (with the `HttpClientControl` mutators not yet wired through the daemon controller — a deferred Phase 2/3), the CloudFlare-storage design shipped as draft [#638](https://github.com/endojs/endo-but-for-bots/pull/638), and two new mount drafts opened: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (CLI `--deny` flags, stacked on #650) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (Rust mount-parity runner, the design-sanctioned alternative after the XS boot path proved unbuildable). A new daily esheets supervisor posted `run the gauntlet` on [#621](https://github.com/endojs/endo-but-for-bots/pull/621), the OAuth-foundation design gating the whole exo-google-sheets tree. Finally, two access notes: @kriscendobot hit the issue inbox on kriskowal/garden#34 but isn't on the maintainer allowlist so it was dropped, and the foreman flagged the `endoclaw-timer-phase4-host-integration` step as possibly stuck after draining without progress.
 
 ## Parked for maintainer feedback
 
@@ -382,23 +380,39 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > On endojs/endo-but-for-bots PR #286 (http-client reconcile onto merged #566, https://github.com/endojs/endo-but-for-bots/pull/286): the landed `HttpClientControl` mutators (`addAllowedOrigin`, `revoke`, rate/byte/timeout) are not yet wired through the daemon controller facet — the controller is a read-only allowlist holder and the paired control facet is unused. Wiring it is described as Phase 2/3 work. Do you want to post a designer/builder job to plan and land that wiring now, or defer it?
 
+- `20260709T220229Z-957984` — from gardener:endojs-endo-but-for-bots-daemon-agent-tools-phase-one-filesystem-tools, reply_to `endojs-endo-but-for-bots-daemon-agent-tools-phase-one-filesystem-tools` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T220229Z-957984.md)
+
+> Builder impasse on job `daemon-agent-tools-phase-one-filesystem-tools` — the requested build already exists / is in-flight; I did NOT open a colliding PR.
+>
+> The ask ("Dir-backed filesystem agent tools in Lal/Fae — file browse+edit confined to a granted Dir") is already delivered across two PRs on `llm`:
+>
+> - **#614 (LANDED)** — the file-tool *makers* in `@endo/agent-tools`: `makeMountListTool` / `makeMountEditTool` / `makeMountStatTool` + composite `makeMountFsTools` over an `@endo/platform/fs/extended` Filesystem (read-only deployments drop the edit tool at construction). Design's "Phase 1".
+> - **#618 (OPEN DRAFT, but CONFLICTING/stale since 2026-07-06)** — the Lal/Fae *wiring*: a new `discoverCapabilityTools(powers)` in `@endo/agent-tools/discover.js` that looks up a `Dir`/mount cap under pet name `fs`, projects it via `mountAsFilesystem`, and registers `makeMountFsTools`; wired into `packages/lal/agent.js` AND `packages/fae/src/capability-tools.js`, plus the provisioning flow (`provideMount` + a "Coding capabilities: fs, shell, git" form field). This is verbatim the job. It bundles shell+git+form-provisioning too (the job said Shell/Git were out of scope).
+>
+> The job's "Phase 1" is the 2026-03 sketch's numbering (fs=first of fs/shell/git); the reconciled design (updated 2026-07-09) numbers the fs makers as Phase 1 (landed #614) and the harness wiring as Phase 4 (#618).
+>
+> I stopped rather than open a third overlapping PR. Two sensible paths — your call:
+> 1. **Redundant** → close/withdraw this job; if #618 is what you want, it needs a **weave/rebase** (it's CONFLICTING against `llm`), which is a weaver job, not a build.
+> 2. **Extract a clean fs-only slice** → you want the filesystem wiring landed independently of #618's conflicting shell/git bundle. I can build a narrow PR that adds only the `fs`-cap discovery+wiring into Lal/Fae (reusing landed #614 makers), leaving shell/git out. Say the word and I'll do that.
+>
+> Which do you want?
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-daemon-agent-tools-phase-one-filesystem-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-daemon-agent-tools-phase-one-filesystem-tools.md) — ---
+### doin (2)
 - [`endojs-endo-but-for-bots-pull-request-617-and-619-endoclaw-timer-restack-onto-609`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pull-request-617-and-619-endoclaw-timer-restack-onto-609.md) — ---
 - [`fu-endojs-endo-but-for-bots-pull-request-286-http-client-reconcile-onto-merged-566-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pull-request-286-http-client-reconcile-onto-merged-566-2.md) — On endojs/endo-but-for-bots PR #286 (https://github.com/endojs/endo-but-for-b...
 
-### tada (1581)
+### tada (1582)
+- [`endojs-endo-but-for-bots-daemon-agent-tools-phase-one-filesystem-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-daemon-agent-tools-phase-one-filesystem-tools.md) — Completion report — endojs-endo-but-for-bots-daemon-agent-tools-phase-one-fil...
 - [`endojs-endo-but-for-bots-endomount-follow-name-changes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-endomount-follow-name-changes.md) — Completion report: endojs-endo-but-for-bots-endomount-follow-name-changes
 - [`endojs-endo-but-for-bots-pull-request-286-http-client-reconcile-onto-merged-566`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pull-request-286-http-client-reconcile-onto-merged-566.md) — What I did
 - [`endojs-endo-but-for-bots-endoclaw-timer-phase4-host-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-endoclaw-timer-phase4-host-integration.md) — Completion Report
 - [`endojs-endo-but-for-bots-endoclaw-timer-daemon-graduation-phase-one`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-endoclaw-timer-daemon-graduation-phase-one.md) — Completion report
-- [`endojs-endo-but-for-bots-mount-cli-phase6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-cli-phase6.md) — Completion report: Phase 6 mount-path CLI verbs
-- … and 1576 more
+- … and 1577 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
