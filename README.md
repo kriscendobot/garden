@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-09T22:23:31Z_
+_As of 2026-07-09T22:25:30Z_
 
 ## Latest
 
-The [endoclaw-timer](https://github.com/endojs/endo-but-for-bots/pull/609) stack advanced: Phase 2 ([#617](https://github.com/endojs/endo-but-for-bots/pull/617)) and Phase 3 ([#619](https://github.com/endojs/endo-but-for-bots/pull/619)) were restacked onto the merge-ready Phase 1 formula PR [#609](https://github.com/endojs/endo-but-for-bots/pull/609), which reports green and non-draft — a candidate for the conductor.
+The confined-networking floor landed: [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) (`@endo/http-confine` + `@endo/exo-http-client`) merged to `llm`, which in turn drives two open questions for you — whether [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (`endo http mk` Phase 1) should adopt that confinement core now or land as-is, and a real Node-22-only CI failure in #286 (undici's lazy `Headers` symbol slot gets frozen by `harden`, breaking CapTP error-decode) that wants a fixer. On the exo-google-sheets track, a daily supervisor schedule is now running and posted `run the gauntlet` on the OAuth-foundation design [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621), the design gate blocking the rest of that tree. New drafts opened for the mount work: [endo-but-for-bots#652](https://github.com/endojs/endo-but-for-bots/pull/652) (`--deny` CLI flags, stacked on #650) and [endo-but-for-bots#654](https://github.com/endojs/endo-but-for-bots/pull/654) (a Rust-side mount-glob parity runner, chosen because the XS boot path won't build in-tree).
 
-What most needs your eye is a cluster of stalled branch-ops, all tracing to the same cause: base `llm` has advanced ~1194 commits and superseded the work under review. [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript) and [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula-introspection) are approved but their subsystems were rewritten out from under them — merging as-approved would regress `llm`, so both weaves/conducts aborted untouched pending your close-or-reslice call. [#132](https://github.com/endojs/endo-but-for-bots/pull/132) and [#133](https://github.com/endojs/endo-but-for-bots/pull/133) refreshes hit the same wall (chat rendering migrated to confined Preact `@endo/space-chat`), each offering a recommended port option. On [#286](https://github.com/endojs/endo-but-for-bots/pull/286), 0xpatrickbot proposes adopting the newly-merged `@endo/http-confine` ([#566](https://github.com/endojs/endo-but-for-bots/pull/566)) as its confinement core and flags a self-contradictory design-doc flip; [#89](https://github.com/endojs/endo-but-for-bots/pull/89) is CI-green and approved but needs a weave for a `designs/README.md` index conflict before it can land on live trunk.
-
-Also worth noting: two mount follow-ups opened as stacked drafts — [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (CLI `--deny` flags) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (a Rust-side glob parity runner, chosen because the XS boot path isn't buildable in-tree). A daily supervisor now drives the exo-google-sheets tree, whose current gate is the OAuth foundation design [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (draft, CI green), sent to the gauntlet. Several jobs stopped as already-satisfied by in-flight PRs rather than opening duplicates ([#566](https://github.com/endojs/endo-but-for-bots/pull/566), [#609](https://github.com/endojs/endo-but-for-bots/pull/609), [#614](https://github.com/endojs/endo-but-for-bots/pull/614)/[#618](https://github.com/endojs/endo-but-for-bots/pull/618)). Finally, @kriscendobot tried to drive the garden via issue [#34](https://github.com/kriskowal/garden/issues/34) but isn't on the maintainer allowlist, so it was dropped — add them if that was intended.
+Several approved/queued PRs stalled on the same cause — `llm` has advanced ~1,200 commits and refactored their subsystems out from under them: [endo-but-for-bots#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal transcript fix, subsystem now pi-based), [endo-but-for-bots#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula introspection, superseded with a `-t` flag collision), [endo-but-for-bots#132](https://github.com/endojs/endo-but-for-bots/pull/132) (render-mode toggle, rendering moved into confined Preact), and [endo-but-for-bots#133](https://github.com/endojs/endo-but-for-bots/pull/133) (pending-commands bar) — each is a redesign, not a rebase, and holds for your call. [endo-but-for-bots#89](https://github.com/endojs/endo-but-for-bots/pull/89) (genie-integration design) is green and approved but needs a weave to resolve a `designs/README.md` index conflict before it can conduct. Two builder jobs stopped as already-satisfied rather than opening duplicates: the endoclaw-network-fetch cap (delivered by #566) and the daemon filesystem agent-tools (landed as [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614), wiring in-flight as [endo-but-for-bots#618](https://github.com/endojs/endo-but-for-bots/pull/618)), plus the interval-scheduler formula already shipped in [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609). Finally, an access request is waiting: @kriscendobot tried to drive the garden via issue [kriskowal/garden#34](https://github.com/kriskowal/garden/issues/34) but isn't on the maintainer allowlist, so it was dropped.
 
 ## Parked for maintainer feedback
 
@@ -400,6 +398,23 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > 2. **Extract a clean fs-only slice** → you want the filesystem wiring landed independently of #618's conflicting shell/git bundle. I can build a narrow PR that adds only the `fs`-cap discovery+wiring into Lal/Fae (reusing landed #614 makers), leaving shell/git out. Say the word and I'll do that.
 >
 > Which do you want?
+
+- `20260709T222519Z-c6292a` — from gardener:fu-endojs-endo-but-for-bots-pull-request-286-http-client-reconcile-onto-merged-566-2, reply_to `fu-endojs-endo-but-for-bots-pull-request-286-http-client-reconcile-onto-merged-566-2` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T222519Z-c6292a.md)
+
+> PR #286 (endo http mk Phase 1) CI: the full-daemon e2e suite FAILS — not flaky/infra, a real Node-22-specific bug.
+>
+> Failing test: @endo/daemon › http-client › client request to allowed origin succeeds
+>   - FAILS on Node 22.x (ubuntu-latest AND macos-15) — deterministic, both OSes
+>   - PASSES on Node 24.x (ubuntu-latest); 24.x macos still finishing
+> All other checks (lint, build, browser-tests, coverage, test262, xs, hermes, sandbox-drivers, ws-relay, etc.) are green.
+>
+> Root cause (from the log):
+>   TypeError: Cannot assign to read only property 'Symbol(headers map sorted)' of object '[object Object]'
+>     at decodeErrorCommon (packages/marshal/src/marshal.js:316:24)
+>     at decodeErrorFromCapData ... fromCapData ... CTP_RETURN (captp) ... daemon/src/connection.js:192
+> The daemon-side http request returns an error that carries a whatwg Headers object; undici's Headers on Node 22 caches a lazy internal `Symbol(headers map sorted)` slot, which hardening freezes, so error-decode on the client cannot reconstruct it and throws. Node 24's undici changed the internal so it doesn't trip. This is inside the new http-client feature of #286.
+>
+> Recommend: dispatch a fixer. Likely fix is to avoid marshalling/hardening the live Headers object across CapTP (pass plain header entries), or normalize headers before they cross the boundary. Not fixing here — this was a watch/report job.
 
 
 ## Board
