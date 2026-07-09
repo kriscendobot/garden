@@ -24,3 +24,9 @@ un-draft) and drive #621 to a mergeable, un-drafted state in the maintainer's
 review queue. This is a DESIGN PR (docs only) — the panel reviews the design's
 soundness/completeness as a build foundation, not code. Read-only on upstream
 otherwise; standard bot-identity push to the PR head branch.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 11
+  claimed_at: 2026-07-09T18:52:45Z
