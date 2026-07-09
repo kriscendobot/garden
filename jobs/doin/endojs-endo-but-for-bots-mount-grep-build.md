@@ -21,3 +21,9 @@ files. Extend the shared case tables with `mount-grep-cases.json` per the
 design's grep coverage list. Head branch `feat/mount-grep`, base = head of
 `feat/mount-glob` (stacked; PR B must be open first). Run the standard
 PR-creation chain.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  claimed_at: 2026-07-09T20:40:08Z
