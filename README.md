@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-09T20:58:12Z_
+_As of 2026-07-09T21:01:42Z_
 
 ## Latest
 
-The **#127 mount reconstruction stack** is landing: the [mount-grep](https://github.com/kriskowal/endo-but-for-bots), glob, and denied-segments-CLI builder jobs all completed, plus a Rust-side glob parity runner ([endo-but-for-bots#654](https://github.com/endojs/endo-but-for-bots/pull/654)) and the denied-segments CLI follow-up ([endo-but-for-bots#652](https://github.com/endojs/endo-but-for-bots/pull/652)) opened as stacked drafts; the mount JSON read/write and submount builds are now in flight. On the substrate side, `@endo/http-confine` + `@endo/exo-http-client` merged via [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566), which retired the redundant `endoclaw-network-fetch` builder job and unblocked the exo-google-sheets tree — a new daily supervisor is now driving that dependency chain, with the OAuth-foundation design [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) as the current gate.
-
-The signal that most needs your eyes is a cluster of **approved/directed PRs that stalled on rebase because base `llm` has moved ~1194 commits and superseded them**: [endo-but-for-bots#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula introspection — flag collision + weaker `inspect`), [endo-but-for-bots#132](https://github.com/endojs/endo-but-for-bots/pull/132) (render-mode toggle, now needs a Preact reimplementation), [endo-but-for-bots#133](https://github.com/endojs/endo-but-for-bots/pull/133) (pending-commands bar), [endo-but-for-bots#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal transcript fix — the subsystem it patches no longer exists), and the conduct of [endo-but-for-bots#89](https://github.com/endojs/endo-but-for-bots/pull/89) (design-index merge conflict). Each gardener aborted cleanly and is awaiting your call rather than regressing `llm`. Also pending decisions: [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (whether to adopt `@endo/http-confine` now), and the CloudFlare storage design landed at [endo-but-for-bots#638](https://github.com/endojs/endo-but-for-bots/pull/638) with a parked build job that needs its stale target corrected before promotion.
+The mount #127 reconstruction stack keeps advancing: [endo-but-for-bots#652](https://github.com/endojs/endo-but-for-bots/pull/652) (submount build) completed, with the mount JSON read/write build (PR D) now the sole job in flight, following recent green completions on the grep, glob, denied-segments-CLI, and Rust glob-parity ([endo-but-for-bots#654](https://github.com/endojs/endo-but-for-bots/pull/654)) fronts. The more important signal is a backlog of gardener escalations awaiting your call: several previously approved or "please refresh" PRs turned out to be stranded by ~1194 commits of `llm` drift and were halted rather than merged into a regression — [endo-but-for-bots#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal transcript, subsystem rewritten onto the pi-based harness), [endo-but-for-bots#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula introspection, superseded except for `listWorkerTenants`), [endo-but-for-bots#132](https://github.com/endojs/endo-but-for-bots/pull/132) and [endo-but-for-bots#133](https://github.com/endojs/endo-but-for-bots/pull/133) (chat features needing a Preact reimplementation), and [endo-but-for-bots#89](https://github.com/endojs/endo-but-for-bots/pull/89) (green + approved but needing a weave of the design index). Separately, `@endo/http-confine` landed via [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566), which prompts an adoption decision on [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286); the CloudFlare-storage design shipped as draft [endo-but-for-bots#638](https://github.com/endojs/endo-but-for-bots/pull/638) (with a parked build job whose target needs correcting before promotion); and a new daily supervisor is now driving the exo-google-sheets tree toward its design gate at [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621). Also worth a glance: @kriscendobot tried to drive the garden via issue #34 but was dropped as non-maintainer.
 
 ## Parked for maintainer feedback
 
@@ -371,17 +369,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-mount-json-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-json-build.md) — Build: mount JSON read/write (PR D of the #127 reconstruction)
-- [`endojs-endo-but-for-bots-mount-provide-submount-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-provide-submount-build.md) — ---
 
-### tada (1572)
+### tada (1573)
+- [`endojs-endo-but-for-bots-mount-provide-submount-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-provide-submount-build.md) — Completion Report
 - [`endojs-endo-but-for-bots-mount-grep-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-grep-build.md) — All gates green. The builder deliverable is complete. Final report:
 - [`endojs-endo-but-for-bots-mount-glob-rust-runner`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-glob-rust-runner.md) — Completion report
 - [`endojs-endo-but-for-bots-mount-glob-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-glob-build.md) — Completion report: endojs-endo-but-for-bots-mount-glob-build (PR B of #127)
 - [`endojs-endo-but-for-bots-mount-denied-segments-cli`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-denied-segments-cli.md) — Completion report
-- [`minion-town-mcp-endo-guest-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-mcp-endo-guest-design.md) — Job: minion-town-mcp-endo-guest-design (designer)
-- … and 1567 more
+- … and 1568 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
