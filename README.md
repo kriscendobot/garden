@@ -1,10 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-09T23:22:00Z_
+_As of 2026-07-09T23:24:20Z_
 
 ## Latest
 
-[endo-but-for-bots#656](https://github.com/endojs/endo-but-for-bots/pull/656) (mount provide-submount) and [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) (endoclaw-timer Phase 1) were both shepherded to lint/CI green, and [kriscendobot/minion.town#3](https://github.com/kriscendobot/minion.town/pull/3) was conducted through merge (its retrospective is now in flight). A self-heal landed for the minion.town triager that had been swallowing errors. Several items now want a maintainer call: [endo-but-for-bots#123](https://github.com/endojs/endo-but-for-bots/pull/123) stalled at conduct — its `assembleTranscript` fix no longer applies against the rewritten `makePiAgent` agent.js, so it needs a **weave #123** or an obsolescence ruling rather than a merge; and [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) has a real Node-22-only CI failure (undici Headers frozen across CapTP) that wants a **fixer**. New draft follow-ups arrived stacked and deliberately left un-drafted — CLI mount `--deny` at [endo-but-for-bots#652](https://github.com/endojs/endo-but-for-bots/pull/652) (on #650) and the Rust mount-glob parity runner at [endo-but-for-bots#654](https://github.com/endojs/endo-but-for-bots/pull/654) — each pending its predecessor landing. Two builder jobs hit "already delivered" impasses (daemon fs agent-tools overlapping [#618](https://github.com/endojs/endo-but-for-bots/pull/618)/[#614](https://github.com/endojs/endo-but-for-bots/pull/614); interval-scheduler duplicating [#609](https://github.com/endojs/endo-but-for-bots/pull/609)) and opened nothing. Finally, the exo-google-sheets push now runs as a daily supervisor whose day-1 step was **run the gauntlet [#621](https://github.com/endojs/endo-but-for-bots/pull/621)** (the OAuth design gate), and the shepherd for [endo-but-for-bots#650](https://github.com/endojs/endo-but-for-bots/pull/650) overran its handler budget and needs splitting or detaching before it gets poisoned.
+On the board, the only completion this cycle was the [minion.town#3](https://github.com/kriscendobot/minion.town/pull/3) review retrospective; the substance is in the maintainer inbox, which is stacking up decisions.
+
+Two new draft PRs landed and both need a sequencing call once their bases settle: [endo-but-for-bots#652](https://github.com/endojs/endo-but-for-bots/pull/652) adds `--deny`/`--no-deny` to `endo mount`/`mktmp` (stacked on the still-draft #650, so it wants a rebase + gauntlet after #650 merges), and [endo-but-for-bots#654](https://github.com/endojs/endo-but-for-bots/pull/654) is a self-contained `rust/mount_parity` crate — the gardener hit an impasse because the literal ask (run the real `mount.js` under XS) isn't buildable in-tree today, so it shipped the design-sanctioned Rust-side parity runner instead and is asking whether that stands or whether to unblock the XS boot path.
+
+Three items are blocked pending your steer: [endo-but-for-bots#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript) is approved but **cannot be conducted** — live `llm` rewrote `agent.js` and deleted the very machinery the fix hardens, so it needs a weave/redesign, not a merge; [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) has a real (not flaky) Node-22 CI failure where undici's `Headers` gets frozen across CapTP and fails to decode, wanting a fixer; and the daemon-agent fs-tools job collided with already-landed [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614) plus the conflicting draft [endo-but-for-bots#618](https://github.com/endojs/endo-but-for-bots/pull/618), so the builder stopped rather than open a third overlapping PR.
+
+Moving forward cleanly: [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) (endoclaw-timer Phase 1 interval-scheduler) is green, non-draft, and mergeable — ready for the conductor — and the new daily exo-google-sheets supervisor (from your #612 directive) ran day 1, identifying the OAuth foundation design [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) as the gate for the whole tree and posting a gauntlet to drive it out of draft. Two operational flags worth noting: the `shepherd-endo-but-for-bots-pr650` job overran its 2400s handler budget and risks poisoning unless split, and the foreman is holding a re-post of the endoclaw-timer Phase 4 host-integration step that drained twice without progress.
 
 ## Parked for maintainer feedback
 
@@ -212,18 +218,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`design-auto-provision-fork-watchers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-auto-provision-fork-watchers.md) — Design: auto-provision per-repo watchers when the garden creates a fork
 - [`improve-triager-failure-circuit-breaker`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-triager-failure-circuit-breaker.md) — scripts/jobs/triager.sh
-- [`kriscendobot-minion.town-pr3-review-3c9cea83-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr3-review-3c9cea83-retro.md) — Retrospective on kriscendobot/minion.town PR #3 (primary: kriscendobot-minion...
 
-### tada (1592)
+### tada (1593)
+- [`kriscendobot-minion.town-pr3-review-3c9cea83-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr3-review-3c9cea83-retro.md) — Completion report
 - [`shepherd-endo-but-for-bots-pr656-mount-provide-submount-lint-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pr656-mount-provide-submount-lint-green.md) — Completion report
 - [`shepherd-endo-but-for-bots-pr609-endoclaw-timer-lint-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pr609-endoclaw-timer-lint-green.md) — Shepherd report — endojs/endo-but-for-bots PR #609
 - [`self-heal-fix-garden-triager-kriscendobot-minion-town-claude-swallows-error`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-claude-swallows-error.md) — Completion report
 - [`minion.town-pr3-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion.town-pr3-conduct.md) — Completion report
-- [`kriscendobot-minion.town-pr3-review-3c9cea83`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr3-review-3c9cea83.md) — Completion report
-- … and 1587 more
+- … and 1588 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
