@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-09T22:30:35Z_
+_As of 2026-07-09T22:34:05Z_
 
 ## Latest
 
-The confined network-fetch substrate landed on `llm`: [#566](https://github.com/endojs/endo-but-for-bots/pull/566) merged `@endo/http-confine` + `@endo/exo-http-client`, and the daemon agent-tools file makers ([#614](https://github.com/endojs/endo-but-for-bots/pull/614)) and interval-scheduler formula ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)) are both green — but a watch job found the http-client feature in [#286](https://github.com/endojs/endo-but-for-bots/pull/286) fails a deterministic, Node-22-only e2e test (undici `Headers` frozen slot breaks CapTP error-decode); a fixer is recommended. Two jobs are in flight — a shepherd driving [#650](https://github.com/endojs/endo-but-for-bots/pull/650) (mount revocation) to green, and a fresh weave rebasing the agent-tools Phase-4 wiring [#618](https://github.com/endojs/endo-but-for-bots/pull/618) onto live `llm`.
+The headline is a real blocker: [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (`endo http mk` Phase 1) now has all checks green except a deterministic Node-22-only failure in the new http-client — undici's lazy `Symbol(headers map sorted)` slot gets frozen by hardening and can't be re-decoded across CapTP — so a fixer is needed (pass plain header entries rather than marshalling a live `Headers`). Separately, several approved/refresh-requested PRs turned out to be superseded by ~1194 commits of `llm` drift and were halted before any push: [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula introspection) and [#132](https://github.com/endojs/endo-but-for-bots/pull/132) (render-mode toggle) collide with newer subsystems, [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript) patches code the pi-based rewrite deleted, [#133](https://github.com/endojs/endo-but-for-bots/pull/133) needs a preact re-port, and conduct of [#89](https://github.com/endojs/endo-but-for-bots/pull/89) stalled on a semantic `designs/README.md` conflict — each is now parked with a maintainer decision (weave, redesign, or close).
 
-The bigger signal is a stack of approved/refresh-requested PRs that gardeners **stopped before touching** because `llm` has diverged ~1194 commits and superseded them: [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript — the whole `assembleTranscript` machinery is gone under the new pi-based harness), [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula introspection — flag collision + weaker `inspect`, only `listWorkerTenants` survives), [#132](https://github.com/endojs/endo-but-for-bots/pull/132) (render-mode toggle — needs reimplementation as Preact vnodes in `@endo/space-chat`), [#133](https://github.com/endojs/endo-but-for-bots/pull/133) (pending-commands bar), and [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (genie-integration docs, blocked on a semantic `designs/README.md` index conflict). Each aborted cleanly with nothing pushed and awaits your call — mostly close-as-superseded vs. redesign-against-`llm`.
-
-New design and scaffold work is parked for review: the CloudFlare storage design draft [#638](https://github.com/endojs/endo-but-for-bots/pull/638) (AWS sibling [#637](https://github.com/endojs/endo-but-for-bots/pull/637)), plus draft follow-ups [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (mount `--deny` CLI, stacked on #650) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (Rust mount-parity runner, since the XS-run path won't build in-tree). A new daily `exo-google-sheets` supervisor is now driving that tree, with OAuth-foundation design [#621](https://github.com/endojs/endo-but-for-bots/pull/621) in the gauntlet as the gating step. Note also an access request: @kriscendobot tried to drive the garden via issue [#34](https://github.com/kriskowal/garden/issues/34) but is not on the maintainer allowlist, so it was dropped.
+On the build side, the endoclaw-timer Phase 1 daemon formula landed green as [#609](https://github.com/endojs/endo-but-for-bots/pull/609) (with Phase 2/3 stacked as #617/#619), and the requested filesystem agent-tools work was found already delivered by the landed [#614](https://github.com/endojs/endo-but-for-bots/pull/614) plus the conflicting draft [#618](https://github.com/endojs/endo-but-for-bots/pull/618) (now in a weave). New draft PRs opened for the mount follow-ups — [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (`--deny` CLI, stacked on #650) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (Rust-side mount-glob parity runner, since the XS boot path isn't buildable) — and the CloudFlare storage design landed as draft [#638](https://github.com/endojs/endo-but-for-bots/pull/638) (with a note to fix the still-parked build job's stale target). A daily exo-google-sheets supervisor is now running and has posted the gauntlet on design gate [#621](https://github.com/endojs/endo-but-for-bots/pull/621). Two housekeeping notes for kriskowal: @kriscendobot hit the issue inbox on garden#34 but isn't allowlisted (its interaction was dropped), and the foreman flagged the endoclaw-timer Phase 4 host-integration step as possibly stuck after draining without progress.
 
 ## Parked for maintainer feedback
 
@@ -25,19 +23,6 @@ New design and scaffold work is parked for review: the CloudFlare storage design
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260708T053541Z-30f34a` — from gardener:endojs-endo-but-for-bots-endoclaw-network-fetch-build, reply_to `endojs-endo-but-for-bots-endoclaw-network-fetch-build` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T053541Z-30f34a.md)
-
-> Builder job `endoclaw-network-fetch` (build the HttpClient/HttpClientControl cap in endojs/endo-but-for-bots): STOPPED — the job body said "no in-flight PR", but there IS a comprehensive one.
->
-> **PR #566** (`feat(exo-http-client): add confined HttpClient`, DRAFT, MERGEABLE, base `llm`, author 0xpatrickbot, updated 2026-07-08 — today) already implements this exact design:
-> - `packages/exo-http-client` — the `HttpClient` / `HttpClientControl` exo facet pair (`src/http-client.js`, `src/types.ts`, tests)
-> - `packages/http-confine` — shared pure confinement core: origin-parse allowlist, method/header validation, injected-clock per-minute rate limit, max-response-byte cap, redirect checks, timeout/cancel, `revoke()`
-> - updates `designs/endoclaw-network-fetch.md` (the doc this job cites) + adds trust-on-first-bind policy, changesets, docs
->
-> Every acceptance criterion in the design is covered. Building a second implementation would be a duplicate and would collide on the same branch/design. I did NOT open a competing PR.
->
-> Recommendation: retire this job as already-satisfied by #566, and instead post a **shepherd/panel** job to drive #566 to green + out of draft if you want it landed. Say the word and I'll (as a fresh job) do that instead. Note #566 bases on `llm` not `master` — worth a reviewer eye given the base-branch norm.
 
 - `20260708T062911Z-80c4e5` — from gardener:design-endo-daemon-cloudflare-storage, reply_to `design-endo-daemon-cloudflare-storage` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260708T062911Z-80c4e5.md)
 
