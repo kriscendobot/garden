@@ -1,16 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-09T19:50:19Z_
+_As of 2026-07-09T19:57:01Z_
 
 ## Latest
 
-The board itself barely moved — a dead-lettered issue-comment job cycled to completion and a new [`gardener-tada-token-accounting`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gardener-tada-token-accounting.md) design (deterministic per-engagement token-spend accounting on the tada report) was claimed — but the maintainer inbox filled with decisions that need your call.
+Little moved on the board itself — only a token-accounting job completed — but a wave of gardeners checked in with rebase/merge work blocked on maintainer calls, and the common thread is worth noticing: base `llm` has advanced far enough (≈1194 commits) that several approved or refresh-requested PRs are now superseded rather than mechanically rebasable. [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript) and [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula-introspection) both aborted with nothing pushed — the code they patch was rearchitected away on `llm` (pi-based lal harness; a richer introspection subsystem with a `-t` flag collision), so each needs a redesign-or-close decision, not a weave. [#132](https://github.com/endojs/endo-but-for-bots/pull/132) (render-mode toggle) and [#133](https://github.com/endojs/endo-but-for-bots/pull/133) (pending-commands bar) hit the same wall against the Preact confinement migration and are parked pending your choice of how to reimplement; [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (genie-integration design) is green and approved but stalled on a `designs/README.md` index conflict that wants a weave before conduct.
 
-The headline: [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) merged, landing `@endo/http-confine` + `@endo/exo-http-client` — the network-fetch/allowlist substrate is now in place on `llm`. That has two knock-ons awaiting you: the `endoclaw-network-fetch` builder job is redundant (a gardener stopped rather than open a duplicate), and [#286](https://github.com/endojs/endo-but-for-bots/pull/286) ("endo http mk" Phase 1) has a proposal to adopt the new confinement core — the author leaves the path to you and flags a needed weave against `llm` plus a doc fix.
-
-A cluster of approved-or-"refresh"-requested PRs stalled because base `llm` advanced ~1194 commits and superseded them: [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula introspection — `llm` now ships a richer, colliding version), [#132](https://github.com/endojs/endo-but-for-bots/pull/132) (render-mode toggle — the DOM paradigm it targets was refactored into confined Preact), [#133](https://github.com/endojs/endo-but-for-bots/pull/133) (pending-commands bar — a genuine design conflict on error UX), [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript fix — the subsystem it hardens no longer exists), and [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (genie-integration — a semantic design-index conflict). Each gardener aborted cleanly without pushing and is holding for your decision.
-
-Also new: the CloudFlare storage design landed as draft [#638](https://github.com/endojs/endo-but-for-bots/pull/638) (with a correction needed on its parked build job's target repo/branch), a daily `exo-google-sheets` implementation supervisor spun up and posted a gauntlet on the design-gate PR [#621](https://github.com/endojs/endo-but-for-bots/pull/621), and an access request flagged that @kriscendobot touched the garden's issue inbox but isn't on the maintainer allowlist — that interaction was dropped.
+On the forward track, the endoclaw-network-fetch substrate landed: [#566](https://github.com/endojs/endo-but-for-bots/pull/566) merged `@endo/http-confine` + `@endo/exo-http-client` on `llm` — which makes the `endoclaw-network-fetch` builder job a duplicate (recommend retiring it) and prompts an adoption decision on [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (`endo http mk` Phase 1), where 0xpatrickbot offers three paths and flags a doc self-contradiction plus a needed weave regardless. A new daily supervisor now drives the exo-google-sheets tree ([#612](https://github.com/endojs/endo-but-for-bots/pull/612)); day 1 posted the gauntlet on the OAuth foundation design [#621](https://github.com/endojs/endo-but-for-bots/pull/621), the current gate for the whole stack. The CloudFlare-storage design landed as draft [#638](https://github.com/endojs/endo-but-for-bots/pull/638), with a note that its parked build job still points at stale coordinates and needs fixing at promote time. Finally, @kriscendobot hit the issue inbox on kriskowal/garden#34 but isn't on the maintainer allowlist, so that interaction was dropped — add them and ask for a repost if you want it to land.
 
 ## Parked for maintainer feedback
 
@@ -320,18 +316,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`deadmail-issue-comment-4928845441`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4928845441.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-mount-revocation-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-revocation-build.md) — Build: mount revocation + deny patterns (PR A of the #127 reconstruction)
-- [`gardener-tada-token-accounting`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gardener-tada-token-accounting.md) — Design: deterministic per-engagement token-spend accounting on the tada report
 
-### tada (1562)
+### tada (1563)
+- [`gardener-tada-token-accounting`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gardener-tada-token-accounting.md) — Completion report
 - [`deadmail-issue-comment-4928899096`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4928899096.md) — Completion report
 - [`endojs-endo-but-for-bots-pr127-review-8526a0a6-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr127-review-8526a0a6-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr129-review-b76233e2-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr129-review-b76233e2-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr124-review-6332cda5-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr124-review-6332cda5-retro.md) — Completion report — review retrospective (second loop), endojs/endo-but-for-b...
-- [`endojs-endo-but-for-bots-pr123-review-7a525e60-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr123-review-7a525e60-retro.md) — Completion report
-- … and 1557 more
+- … and 1558 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
