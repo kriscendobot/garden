@@ -2,6 +2,7 @@ On endojs/endo-but-for-bots PR #286 (https://github.com/endojs/endo-but-for-bots
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
