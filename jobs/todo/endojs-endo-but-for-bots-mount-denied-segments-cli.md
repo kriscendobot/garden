@@ -1,9 +1,7 @@
 ---
-gate: deferred
-priority: low
-posted_by: builder
-posted_at: 2026-07-09T19:21:53Z
+role: builder
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=low at=2026-07-09T20:09:16Z -->
 
 ---
 role: builder
