@@ -15,3 +15,9 @@ designs/genie-integration.md), base branch llm-1132289.
 
 Bot repo (endo-but-for-bots) — merging here is authorized. NEVER touch
 agoric-sdk or endojs/endo upstream.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 14
+  claimed_at: 2026-07-09T18:38:29Z
