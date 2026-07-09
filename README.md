@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-09T18:53:54Z_
+_As of 2026-07-09T18:54:35Z_
 
 ## Latest
 
-The [@endo/http-confine](https://github.com/endojs/endo-but-for-bots/pull/566) confinement substrate (PR #566) merged onto `llm`, laying the fetch/allowlist floor for the endoclaw stack; a new daily [exo-google-sheets](https://github.com/endojs/endo-but-for-bots/pull/621) supervisor ran day 1 and posted a gauntlet to drive the endoclaw-oauth design PR #621 (now in flight) out of draft — the design gate for that whole dependency tree. A CloudFlare-storage design landed as draft [#638](https://github.com/endojs/endo-but-for-bots/pull/638) (AWS sibling [#637](https://github.com/endojs/endo-but-for-bots/pull/637)).
+The **@endo/http-confine + @endo/exo-http-client** substrate landed on `llm` via [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566), putting the confined-fetch/allowlist floor in place — which retires the in-flight `endoclaw-network-fetch` builder job (a gardener stopped rather than build a duplicate) and unblocks the exo-google-sheets tree. A new daily supervisor now drives that tree to implementation; its first check-in posted **run the gauntlet** on [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (the endoclaw-oauth foundation design, the deepest unmet gate) to push it out of draft into review. The CloudFlare-storage design shipped as draft [#638](https://github.com/endojs/endo-but-for-bots/pull/638) (its parked build job still names stale coordinates and needs a fix at promote time).
 
-The headline for the maintainer: **a cluster of approved/refresh PRs turned out to be superseded by ~1194-commit drift on `llm` and each needs a decision, not a rebase.** [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript) — the whole `assembleTranscript` subsystem it patches was rewritten onto a pi-based harness and no longer exists; both weave and conduct aborted. [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula-introspection, approved) collides with a richer introspection subsystem now on `llm`, including a hard `-t` flag collision; only `listWorkerTenants` is genuinely novel. [#132](https://github.com/endojs/endo-but-for-bots/pull/132) (render-mode toggle) and [#133](https://github.com/endojs/endo-but-for-bots/pull/133) (pending-commands bar) both need reimplementation against the confined Preact/`@endo/space-chat` architecture. [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (genie-integration) is green and approved but stalls on a design-index merge conflict, needing a weave before conduct. Separately, [#286](https://github.com/endojs/endo-but-for-bots/pull/286) awaits your call on whether to adopt the new `@endo/http-confine` core, and the retired `endoclaw-network-fetch` builder job flagged that PR #566 already satisfies it. An access-request also surfaced: @kriscendobot tried to drive the garden via issue #34 but isn't on the maintainer allowlist.
+The bigger signal is a cluster of **APPROVED-but-superseded PRs** that gardeners paused rather than merge: base `llm` advanced ~1194 commits and rearchitected the subsystems these PRs touch, so each rebase/conduct produced irreconcilable conflicts. [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript) hits a `lal` package rewritten onto a pi-based harness; [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula-introspection) collides with a richer introspection subsystem and a `-t` flag conflict; [#132](https://github.com/endojs/endo-but-for-bots/pull/132) (render-mode toggle) and [#133](https://github.com/endojs/endo-but-for-bots/pull/133) (pending-commands) both predate the Preact confinement migration; and conducting [#89](https://github.com/endojs/endo-but-for-bots/pull/89) needs a weave to resolve a `designs/README.md` index conflict. Each is awaiting your call (redesign-onto-new-architecture vs. close-as-superseded). Also needing a decision: [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (`endo http mk` Phase 1), where the author offers three paths to adopt #566 as its confinement core. Separately, @kriscendobot hit the garden's issue inbox on kriskowal/garden#34 but isn't on the maintainer allowlist, so the interaction was dropped.
 
 ## Parked for maintainer feedback
 
@@ -316,20 +316,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-mount-revocation-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-revocation-build.md) — Build: mount revocation + deny patterns (PR A of the #127 reconstruction)
 - [`endojs-endo-but-for-bots-pr129-review-b76233e2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr129-review-b76233e2.md) — Review directive on endojs/endo-but-for-bots PR #129
 - [`gauntlet-endo-but-for-bots-pr621-endoclaw-oauth`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr621-endoclaw-oauth.md) — Run the gauntlet on endojs/endo-but-for-bots#621 (base llm).
-- [`pi-release-watch-20260709-185001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/pi-release-watch-20260709-185001.md) — WEEKLY Pi-release watch → keep the endo-but-for-bots harnesses aligned with the
 - [`propose-pi-bump-0.80.3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/propose-pi-bump-0.80.3.md) — State
 
-### tada (1547)
+### tada (1548)
+- [`pi-release-watch-20260709-185001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/pi-release-watch-20260709-185001.md) — Report
 - [`esheets-supervisor-20260709-185001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260709-185001.md) — Completion report
 - [`endojs-endo-but-for-bots-pr123-rrc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr123-rrc.md) — orchestration endojs-endo-but-for-bots-pr123-rrc — complete
 - [`endojs-endo-but-for-bots-mount-ext-reconstruct-127`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-ext-reconstruct-127.md) — Report: endojs-endo-but-for-bots-mount-ext-reconstruct-127
 - [`endojs-endo-but-for-bots-pr612-33410353`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr612-33410353.md) — Completion report
-- [`endojs-endo-but-for-bots-pr123-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr123-conduct.md) — Completion report
-- … and 1542 more
+- … and 1543 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
