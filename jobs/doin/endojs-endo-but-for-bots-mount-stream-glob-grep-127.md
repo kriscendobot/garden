@@ -37,3 +37,9 @@ This is a **plan only** (not the implementation), and it is **not blocked** by t
 mount-extensions reconstruction — but it shares the same mount fixture, so
 coordinate the test-fixture shape with that effort. To be prioritized by the
 foreman.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 17
+  claimed_at: 2026-07-09T18:37:26Z
