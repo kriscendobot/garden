@@ -1,0 +1,259 @@
+#!/bin/bash
+# fork-watch-provisioner.sh — map the garden's OWN-FORK bare clones into the
+# journal watch sets, so a fork the garden creates is watched without a human.
+#
+# Usage: fork-watch-provisioner.sh      (no arguments; invoked at the top of every
+#                                        repo-watcher.sh tick, and runnable by hand)
+#
+# ── Why this exists (the missed minion.town approvals) ───────────────────────
+# The per-repo watchers are armed from two journal-backed sets that
+# repo-watcher.sh reconciles to systemd units: repos/ → garden-triager@<slug>
+# (commit watch) and comment-repos/ → garden-comment-watcher@ + garden-ci-watcher@
+# (comment + CI). Both sets were provisioned MANUALLY, so watch membership never
+# followed fork creation: the garden held a bare clone of kriscendobot/minion.town
+# and worked its PRs, yet three kriskowal APPROVED reviews on minion.town#3
+# (2026-07-09) went unwatched because nobody had added the slug to either set.
+# This script closes that class: the standing bare clones under
+# worktrees/<owner>-<name>.git ARE the deterministic record of which forks the
+# garden works (ensure-project-worktree.sh cuts every project checkout from them),
+# so reconciling that record into the watch sets makes provisioning automatic for
+# every creation path — a gardener's by-hand clone, clone-keeper's repair, an
+# import script — with no LLM anywhere. Design:
+# designs/auto-provision-fork-watchers.md. Maintainer authorization: journal
+# broadcast msgs/broadcast/20260709T225552Z-e61229.md (kriskowal, 2026-07-09,
+# "watch the garden's own forks").
+#
+# ── Own forks ONLY (the monitoring-safety line) ───────────────────────────────
+# Auto-provisioning is scoped HARD to owners listed in the journal's
+# config/fork-owners (the garden's bot logins; seeded: kriscendobot). A bare
+# clone of any OTHER owner — upstream, a third party, a contributor's fork — is
+# never auto-added: widening surveillance onto a repo we don't own keeps the
+# existing explicit per-repo maintainer-authorization bar (CLAUDE.md § Monitoring
+# safety constraint). Listed owners must carry no '-' (the <owner>-<name> slug
+# convention splits on the FIRST dash); a dashed entry is skipped with a warning.
+#
+# ── The sender-gate coupling (load-bearing) ───────────────────────────────────
+# Own forks may be PUBLIC, so repo-gating (the bar that clears
+# endojs/endo-but-for-bots) cannot make their COMMENT surveillance safe. Every
+# comment-repos/ arming record this script writes therefore carries
+# `sender-gate: required`, which comment-watcher.sh reads and enforces: any
+# comment whose author is not on trusted-senders/allowlist, maintainers/allowlist,
+# or a current endojs/Agoric org member is dropped in plain code before any text
+# reaches a job, a reactji, or `claude -p` (the same substitute defense as
+# mention-watcher.sh). This script is the ONLY writer of own-fork comment-repos
+# entries and ships in the same tree as the comment-watcher's gate, so an own
+# fork can never be comment-armed by a deployed tree that lacks the gate. The
+# ci-watcher rides the same set and reads only CI status (no external text) — no
+# extra surface. The commit triager (repos/) reads our own fork's commits.
+#
+# ── Unwatch stays meaningful: the opt-out tombstone ───────────────────────────
+# Deleting repos/<slug> or comment-repos/<slug> is the established unwatch signal
+# — but a reconciler would re-add it on the next tick. To unwatch an
+# auto-provisioned own fork durably, ALSO add a journal watch-optout/<slug> file
+# (any content); the provisioner never re-adds a tombstoned slug. Removing the
+# tombstone re-enables auto-provisioning.
+#
+# ── What one tick does ────────────────────────────────────────────────────────
+#   1. DISCOVER (every host): scan $GARDEN_WORKTREES/*.git for slugs whose owner
+#      is in config/fork-owners; for each not tombstoned and missing from
+#      repos/ or comment-repos/ at the origin tip, CAS-land the missing arming
+#      record(s) — one commit, retried through the standard sync/commit_and_push
+#      loop, idempotent (a peer landing first makes ours a no-op).
+#   2. MATERIALIZE (leader only): the triager hard-requires a bare clone at
+#      $GARDEN_REPOS/<slug>.git and the per-repo units are leader-gated, so for
+#      every own-fork slug armed in repos/ whose clone is missing on THIS host,
+#      clone it (bounded, staged into a sibling temp, atomically mv -T'd — the
+#      clone-keeper discipline) so a just-armed triager never dies "no bare
+#      clone". A persistent clone failure throttle-escalates to the maintainer.
+#
+# Inert until config/fork-owners exists on origin/journal2 — writing it is the
+# deliberate arming act, so deploying this script is harmless (the issue-inbox
+# arming shape).
+#
+# Config (overridable; tests point these at fixtures):
+#   GARDEN_FORKWATCH_CLONE        journal clone this producer works in
+#   GARDEN_WORKTREES              standing bare-clone shelf (default worktrees/)
+#   GARDEN_REPOS                  triager clone shelf (default repos/)
+#   GARDEN_FORK_CLONE_URL_BASE    clone-URL base for materialization
+#                                 (default ssh://git@github.com)
+#   GARDEN_FORKWATCH_MATERIALIZE  1 force on, 0 force off, empty → is_main_host
+
+set -euo pipefail
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=common.sh
+source "$HERE/common.sh"
+GARDEN_TAG="fork-watch"
+
+: "${GARDEN_WORKTREES:=$GARDEN_ROOT/worktrees}"
+: "${GARDEN_REPOS:=$GARDEN_ROOT/repos}"
+: "${GARDEN_FORK_CLONE_URL_BASE:=ssh://git@github.com}"
+: "${GARDEN_FORKWATCH_MATERIALIZE:=}"
+AUTH_MSG="msgs/broadcast/20260709T225552Z-e61229.md"
+
+fleet_draining && { log "fleet draining; skipping"; exit 0; }
+
+DIR="${GARDEN_FORKWATCH_CLONE:-$GARDEN_STATE/fork-watch/journal}"
+ensure_clone "$DIR"
+sync_clone "$DIR"     # may exit EX_TEMPFAIL on a connectivity outage — skip tick
+
+tip_has() {  # tip_has <journal2-relative-path>
+  git -C "$DIR" cat-file -e "origin/$JOURNAL_BRANCH:$1" 2>/dev/null
+}
+
+# --- the own-fork owner set (journal data; extensible, no code change) --------
+# config/fork-owners on origin/journal2: one GitHub login per line, '#' comments
+# and blanks ignored, case-insensitive. Absent/empty → this script is INERT.
+declare -a OWNERS=()
+while IFS= read -r line; do
+  line="${line%%#*}"; line="$(printf '%s' "$line" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')"
+  [ -n "$line" ] || continue
+  case "$line" in
+    *-*) log "WARN: config/fork-owners entry '$line' contains '-' (ambiguous against the <owner>-<name> slug split); skipping it"; continue ;;
+  esac
+  OWNERS+=("$line")
+done < <(git -C "$DIR" show "origin/$JOURNAL_BRANCH:config/fork-owners" 2>/dev/null || true)
+
+if [ "${#OWNERS[@]}" -eq 0 ]; then
+  log "inert: no fork owners configured (config/fork-owners absent or empty on origin/$JOURNAL_BRANCH)"
+  clone_unlock "$DIR"
+  exit 0
+fi
+
+owner_listed() {  # owner_listed <lowercase-login>
+  local o
+  for o in "${OWNERS[@]}"; do [ "$o" = "$1" ] && return 0; done
+  return 1
+}
+
+# slug_owner_lc <slug> — the owner half of the FIRST-dash split, lowercased.
+slug_owner_lc() { printf '%s' "${1%%-*}" | tr '[:upper:]' '[:lower:]'; }
+
+# --- 1. DISCOVER: local own-fork bare clones missing from the watch sets ------
+declare -a NEW=()
+shopt -s nullglob
+for bare in "$GARDEN_WORKTREES"/*.git; do
+  slug="$(basename "$bare" .git)"
+  case "$slug" in *-*) ;; *) continue ;; esac          # no owner/name split → not a fork shelf entry
+  owner_listed "$(slug_owner_lc "$slug")" || continue  # own forks ONLY
+  [ -f "$bare/HEAD" ] || continue                      # not actually a bare repo
+  tip_has "watch-optout/$slug" && continue             # deliberately unwatched — never re-add
+  if ! tip_has "repos/$slug" || ! tip_has "comment-repos/$slug"; then
+    NEW+=("$slug")
+  fi
+done
+shopt -u nullglob
+
+write_triager_record() {  # write_triager_record <out-path> <owner/name>
+  {
+    printf '# garden-triager arming record (auto-provisioned)\n'
+    printf 'repo: %s\n' "$2"
+    printf 'armed_at: %s\n' "$(date -u +%FT%TZ)"
+    printf 'authorized_by: kriskowal\n'
+    printf 'authorization: %s ("watch the garden'\''s own forks",\n' "$AUTH_MSG"
+    printf '  2026-07-09). Own-fork commit triage (the laxer repos/ bar), added\n'
+    printf '  automatically by scripts/jobs/fork-watch-provisioner.sh because a bare\n'
+    printf '  clone of this own fork exists on a garden host. Design:\n'
+    printf '  designs/auto-provision-fork-watchers.md. To unwatch durably, delete this\n'
+    printf '  file AND add watch-optout/%s.\n' "${2//\//-}"
+  } > "$1"
+}
+
+write_comment_record() {  # write_comment_record <out-path> <owner/name>
+  {
+    printf '# garden-comment-watcher arming record (auto-provisioned)\n'
+    printf 'repo: %s\n' "$2"
+    printf 'sender-gate: required\n'
+    printf 'armed_at: %s\n' "$(date -u +%FT%TZ)"
+    printf 'authorized_by: kriskowal\n'
+    printf 'authorization: %s ("watch the garden'\''s own forks",\n' "$AUTH_MSG"
+    printf '  2026-07-09), added automatically by\n'
+    printf '  scripts/jobs/fork-watch-provisioner.sh. Own forks may be PUBLIC, so\n'
+    printf '  repo-gating cannot clear their comment surveillance; the sender-gate:\n'
+    printf '  required line above makes comment-watcher.sh drop any comment whose\n'
+    printf '  author is not on trusted-senders/allowlist, maintainers/allowlist, or a\n'
+    printf '  current endojs/Agoric org member — in plain code, before any text\n'
+    printf '  reaches a job, a reactji, or claude -p. The ci-watcher rides this same\n'
+    printf '  set and reads only CI status. Design:\n'
+    printf '  designs/auto-provision-fork-watchers.md. To unwatch durably, delete this\n'
+    printf '  file AND add watch-optout/%s.\n' "${2//\//-}"
+  } > "$1"
+}
+
+if [ "${#NEW[@]}" -gt 0 ]; then
+  log "discovered ${#NEW[@]} own fork(s) missing watch membership: ${NEW[*]}"
+  landed=""
+  for attempt in $(seq 1 50); do
+    sync_clone "$DIR"
+    for slug in "${NEW[@]}"; do
+      tip_has "watch-optout/$slug" && continue   # tombstoned by a racing peer
+      owner="${slug%%-*}"; name="${slug#*-}"
+      if [ ! -e "$DIR/repos/$slug" ]; then
+        mkdir -p "$DIR/repos"
+        write_triager_record "$DIR/repos/$slug" "$owner/$name"
+        git -C "$DIR" add "repos/$slug"
+      fi
+      if [ ! -e "$DIR/comment-repos/$slug" ]; then
+        mkdir -p "$DIR/comment-repos"
+        write_comment_record "$DIR/comment-repos/$slug" "$owner/$name"
+        git -C "$DIR" add "comment-repos/$slug"
+      fi
+    done
+    if git -C "$DIR" diff --cached --quiet; then
+      log "watch membership already landed at tip (a peer won the race) — no-op"
+      landed=1; break
+    fi
+    if commit_and_push "$DIR" "fork-watch: auto-provision ${NEW[*]} (auth $AUTH_MSG)"; then
+      log "armed ${NEW[*]} in repos/ + comment-repos/ (sender-gated) on origin/$JOURNAL_BRANCH"
+      landed=1; break
+    fi
+    backoff "$attempt"
+  done
+  if [ -z "$landed" ]; then
+    # Never wedge the tick: the next tick retries, and repo-watcher's reconcile
+    # of the already-armed set must still run.
+    log "WARN: could not land watch membership for ${NEW[*]} after retries; retrying next tick"
+  fi
+fi
+
+# --- 2. MATERIALIZE (leader only): triager clones for armed own forks ---------
+# triager.sh dies without a bare clone at $GARDEN_REPOS/<slug>.git, and the
+# per-repo units are leader-gated, so the leader must hold the clone. Staged
+# into a sibling temp and atomically mv -T'd so a partial/timed-out or racing
+# clone never half-populates the tracked path (the clone-keeper discipline).
+materialize=""
+case "$GARDEN_FORKWATCH_MATERIALIZE" in
+  1) materialize=1 ;;
+  0) : ;;
+  *) is_main_host && materialize=1 ;;
+esac
+
+if [ -n "$materialize" ]; then
+  while IFS= read -r slug; do
+    [ -n "$slug" ] || continue
+    [ "$slug" = .gitkeep ] && continue
+    owner_listed "$(slug_owner_lc "$slug")" || continue   # only own forks; hand-armed repos are the operator's clone
+    tb="$GARDEN_REPOS/$slug.git"
+    [ -e "$tb" ] && continue
+    owner="${slug%%-*}"; name="${slug#*-}"
+    src="$GARDEN_FORK_CLONE_URL_BASE/$owner/$name.git"
+    tmp="${tb%.git}.provision.$$.git"
+    rm -rf "$tmp"
+    mkdir -p "$GARDEN_REPOS"
+    if timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
+         git clone -q --bare "$src" "$tmp" 2>/dev/null; then
+      git -C "$tmp" config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' || true
+      if mv -T "$tmp" "$tb" 2>/dev/null; then
+        log "materialized triager clone $tb from $src"
+      else
+        rm -rf "$tmp"   # a racing tick landed it first — theirs stands
+      fi
+    else
+      rm -rf "$tmp"
+      msg="fork-watch: could not clone $src into $tb — the armed garden-triager@$slug will die 'no bare clone' every tick until this clone exists. Retried next tick; if it persists the source is unreachable from this host (ssh key/auth?) and needs manual attention."
+      log "WARN: $msg"
+      alert_maintainer "fork-watch-clone-failed-$slug" "$msg"
+    fi
+  done < <(git -C "$DIR" ls-tree --name-only "origin/$JOURNAL_BRANCH" repos/ 2>/dev/null | sed 's|^repos/||')
+fi
+
+clone_unlock "$DIR"

@@ -131,6 +131,18 @@
 # comment-repos/ directory (NOT repos/, which arms the laxer commit-triager), so
 # the stricter comment bar cannot be widened by accident.
 #
+# ── Own-fork mode: the SENDER GATE (auto-provisioned, possibly-public repos) ──
+# The garden's OWN forks are auto-provisioned into comment-repos/ by
+# fork-watch-provisioner.sh (standing maintainer authorization
+# msgs/broadcast/20260709T225552Z-e61229.md; design
+# designs/auto-provision-fork-watchers.md). An own fork may be PUBLIC, so
+# repo-gating cannot clear it; its arming file instead carries
+# `sender-gate: required`, and this watcher then trust-checks EVERY comment's
+# AUTHOR in plain code before any of its text reaches a job, a reactji, a reply,
+# or `claude -p` — dropping (logged) anyone not on trusted-senders/allowlist,
+# maintainers/allowlist, or in the endojs/Agoric orgs. See load_sender_gate /
+# gate_trusted below.
+#
 # The per-comment I/O is indirected so tests substitute deterministic stubs:
 #   GARDEN_COMMENT_SOURCE  <owner/name> <since-iso> <bot-login>  -> TSV lines
 #   GARDEN_COMMENT_REACTJI <owner/name> <surface> <comment-id> <content>
@@ -207,6 +219,10 @@ VERIFY="$GARDEN_COMMENT_VERIFY_CLONE"
 # Unset → auto-derive from journal config/garden-repo + comment-repos/<slug>; set to
 # 1 forces it on, 0 forces it off (the test pins both directions deterministically).
 : "${GARDEN_COMMENT_PR_ONLY:=}"
+# Own-fork SENDER GATE (see load_sender_gate below). Unset → auto-derive from the
+# arming file comment-repos/<slug> (`sender-gate: required`); 1 forces it on, 0
+# forces it off (the test pins both directions deterministically).
+: "${GARDEN_COMMENT_SENDER_GATE:=}"
 
 # --- silent-blindness self-test (NOT an inactivity detector) -----------------
 # The 2026-06-24 outage hid for ~16h because a broken source (jq absent) emitted
@@ -425,6 +441,75 @@ load_mention_only_authors() {
     done < <(git -C "$VERIFY" show "origin/$JOURNAL_BRANCH:mention-only-pr-authors/allowlist" 2>/dev/null || true)
   fi
   log "loaded ${#MENTION_ONLY_AUTHORS[@]} mention-only PR-author(s) from $src"
+}
+
+# --- the OWN-FORK SENDER GATE (deterministic, no LLM; the auto-provision bar) -
+# An auto-provisioned OWN fork (fork-watch-provisioner.sh; design
+# designs/auto-provision-fork-watchers.md; authorization
+# msgs/broadcast/20260709T225552Z-e61229.md) may be PUBLIC, so repo-gating — the
+# bar that clears endojs/endo-but-for-bots — cannot make its comment surveillance
+# safe: anyone on the internet can comment. The substitute defense mirrors
+# mention-watcher.sh / the issue-inbox: when the arming file comment-repos/<slug>
+# declares `sender-gate: required`, EVERY comment is trust-checked in plain code
+# BEFORE any of its text reaches a job, a reactji, a reply, or `claude -p`. An
+# author who is not on trusted-senders/allowlist, maintainers/allowlist, or a
+# current endojs/Agoric org member is dropped (logged, cursor slides) — unlike
+# the ungated repos, where the mechanical verb table is deliberately
+# trust-independent. The gate fronts the WHOLE per-comment pipeline (verb table
+# included), not just the ambiguous/attention paths is_trusted already covers.
+SENDER_GATE=""
+load_sender_gate() {
+  SENDER_GATE=""
+  if [ -n "$GARDEN_COMMENT_SENDER_GATE" ]; then
+    [ "$GARDEN_COMMENT_SENDER_GATE" = 0 ] || SENDER_GATE=1
+    log "sender gate forced ${SENDER_GATE:+on}${SENDER_GATE:-off} via GARDEN_COMMENT_SENDER_GATE"
+    return
+  fi
+  verify_fetch || true
+  local armed
+  armed="$(git -C "$VERIFY" show "origin/$JOURNAL_BRANCH:comment-repos/$slug" 2>/dev/null || true)"
+  if printf '%s' "$armed" | grep -Eqi '^[[:space:]]*sender-gate:[[:space:]]*required[[:space:]]*$'; then
+    SENDER_GATE=1
+    log "sender gate ON: comment-repos/$slug declares sender-gate: required — untrusted authors dropped before any dispatch"
+  fi
+}
+
+# --- the maintainers allowlist (journal data; the gate's third trust source) --
+# Same read path as load_allowlist: maintainers/allowlist on origin/journal2 (one
+# login per line, '#' comments and blanks ignored, case-insensitive), the list
+# the issue-inbox trusts to DRIVE the garden — a strict superset of trust for
+# commenting on our own fork. A file override (GARDEN_MAINTAINERS_ALLOWLIST)
+# lets the test supply a fixture. Loaded only when the sender gate is armed.
+declare -a MAINTAINERS=()
+load_maintainers() {
+  MAINTAINERS=()
+  local line src
+  if [ -n "${GARDEN_MAINTAINERS_ALLOWLIST:-}" ] && [ -f "$GARDEN_MAINTAINERS_ALLOWLIST" ]; then
+    src="file:$GARDEN_MAINTAINERS_ALLOWLIST"
+    while IFS= read -r line; do
+      line="${line%%#*}"; line="$(printf '%s' "$line" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')"
+      [ -n "$line" ] && MAINTAINERS+=("$line")
+    done < "$GARDEN_MAINTAINERS_ALLOWLIST"
+  else
+    src="journal:maintainers/allowlist"
+    verify_fetch || true
+    while IFS= read -r line; do
+      line="${line%%#*}"; line="$(printf '%s' "$line" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')"
+      [ -n "$line" ] && MAINTAINERS+=("$line")
+    done < <(git -C "$VERIFY" show "origin/$JOURNAL_BRANCH:maintainers/allowlist" 2>/dev/null || true)
+  fi
+  log "loaded ${#MAINTAINERS[@]} maintainer(s) from $src (sender-gate trust source)"
+}
+
+# rc 0 = the author clears the own-fork sender gate: is_trusted (the sender
+# allowlist OR a current endojs/Agoric org member) OR on maintainers/allowlist.
+gate_trusted() {  # gate_trusted <login>
+  local login="$1" lc m
+  [ -n "$login" ] || return 1
+  is_trusted "$login" && return 0
+  lc="$(printf '%s' "$login" | tr '[:upper:]' '[:lower:]')"
+  for m in "${MAINTAINERS[@]}"; do [ "$m" = "$lc" ] && return 0; done
+  return 1
 }
 
 # --- PR-ONLY mode detection (no overlap with the issue-inbox) ----------------
@@ -1099,6 +1184,8 @@ fi
 load_allowlist
 load_mention_only_authors
 load_pr_only
+load_sender_gate
+[ -n "$SENDER_GATE" ] && load_maintainers
 
 hw="$last_seen"; failed=0; acted=0; fail_floor=""
 # --- head-of-line safety: one un-postable item must NOT block later ones -------
@@ -1154,6 +1241,17 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
   # (post_reply already refuses author==bot; this is the earlier, stronger gate).
   if [ -n "$author" ] && [ "$author" = "$GARDEN_BOT_LOGIN" ]; then
     log "SELF: comment cid=$cid on #${pr:-?} is the bot's own ($author) — not self-triggering a job; sliding cursor [url=$url]"
+    slide "$created"; continue
+  fi
+
+  # --- OWN-FORK SENDER GATE (fronts the WHOLE pipeline; see load_sender_gate) --
+  # On a sender-gated repo (an auto-provisioned own fork, possibly public), an
+  # untrusted author's comment is dropped HERE — before the verb table, the
+  # reactji, the reply, and the job mint — so no untrusted text ever reaches a
+  # job body or `claude -p` from this surface. Logged, never silent; the cursor
+  # slides (mirroring the mention-watcher's logged-and-discarded discipline).
+  if [ -n "$SENDER_GATE" ] && ! gate_trusted "$author"; then
+    log "DROP (sender-gate): untrusted author $author on #${pr:-?} ($surface) — own-fork sender gate; no reactji, no reply, no job; sliding cursor [cid=$cid $url]"
     slide "$created"; continue
   fi
 

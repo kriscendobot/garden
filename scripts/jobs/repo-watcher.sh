@@ -34,6 +34,21 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 GARDEN_TAG="repo-watcher"
 
+# --- own-fork auto-provisioning (BEFORE the reconcile) -----------------------
+# Map this host's own-fork bare clones (worktrees/<owner>-<name>.git, owner in
+# the journal's config/fork-owners) into the repos/ + comment-repos/ watch sets,
+# so a fork the garden creates is watched without a human — comment surveillance
+# sender-gated per designs/auto-provision-fork-watchers.md (maintainer
+# authorization msgs/broadcast/20260709T225552Z-e61229.md). Runs FIRST so a fork
+# provisioned this tick is armed by the reconcile below in the SAME tick (the
+# sync_clone after it fetches the just-landed membership). Best-effort: a
+# provisioning failure (offline, CAS storm) must never block reconciling the
+# already-armed set. Inert until config/fork-owners exists on the journal.
+PROVISIONER="${GARDEN_FORK_PROVISIONER:-$HERE/fork-watch-provisioner.sh}"
+if [ -x "$PROVISIONER" ]; then
+  "$PROVISIONER" || log "WARN: fork-watch-provisioner failed (rc=$?); continuing to reconcile"
+fi
+
 DIR="${GARDEN_WATCHER_CLONE:-$GARDEN_STATE/repo-watcher/journal}"
 ensure_clone "$DIR"
 sync_clone "$DIR"

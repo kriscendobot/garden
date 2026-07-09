@@ -1707,5 +1707,64 @@ grep -qi 'WARN: retro post lost' "$LOG_RL" && ok "the lost retro is a loud WARN"
 [ "$(cursor_seen "$TR/state-rl" "$BARE_RL")" = 2026-07-03T10:00:00Z ] && ok "cursor advanced past the primary (retro loss did NOT freeze it)" || bad "cursor frozen by a lost retro ($(cursor_seen "$TR/state-rl" "$BARE_RL"))"
 
 # ============================================================================
+hr; echo "SG — own-fork SENDER GATE: untrusted author dropped BEFORE the verb table"; hr
+# On a sender-gated repo (an auto-provisioned own fork, possibly public; arming
+# file declares `sender-gate: required`), an untrusted author's comment must be
+# dropped before ANY dispatch — even a clear mechanical verb that would mint a
+# job on an ungated repo (case A proves "please rebase" mints trust-independently
+# there). No job, no reactji, a logged DROP, and the cursor still slides. The
+# gate mode is DERIVED from the arming file (GARDEN_COMMENT_SENDER_GATE unset),
+# so this also exercises the detection path.
+BARE_SG="$TR/sg.git"; seed_bare "$BARE_SG"
+sgv="$TR/sg-seed"; git clone -q --single-branch --branch "$BRANCH" "$BARE_SG" "$sgv"
+mkdir -p "$sgv/comment-repos"
+printf 'repo: endojs/endo-but-for-bots\nsender-gate: required\n' > "$sgv/comment-repos/$SLUG"
+git -C "$sgv" add -A; git -C "$sgv" "${git_id[@]}" commit -q -m "arm sender gate"
+git -C "$sgv" push -q origin "HEAD:$BRANCH"; rm -rf "$sgv"
+FIX_SG="$TR/fix-sg.tsv"; RLOG_SG="$TR/react-sg.log"; : > "$RLOG_SG"
+LOG_SG="$TR/log-sg.txt"; : > "$LOG_SG"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-07-09T23:00:00Z issue-comment 990 3 drive-by-rando \
+  https://github.com/kriscendobot/minion.town/pull/3#issuecomment-990 \
+  'Please rebase this on #3' > "$FIX_SG"
+CW_LOG="$LOG_SG" run_watcher "$TR/state-sg" "$BARE_SG" "$FIX_SG" "$RLOG_SG"
+[ "$(todo_count "$BARE_SG")" -eq 0 ] && ok "untrusted verb comment minted NO job behind the gate" || bad "gate leaked a job (todo=$(todo_count "$BARE_SG"))"
+[ ! -s "$RLOG_SG" ] && ok "no reactji for the untrusted author" || bad "reactji posted: $(cat "$RLOG_SG")"
+grep -q 'DROP (sender-gate)' "$LOG_SG" && ok "drop is logged with the sender-gate reason" || bad "no sender-gate DROP log ($(cat "$LOG_SG"))"
+[ "$(cursor_seen "$TR/state-sg" "$BARE_SG")" = 2026-07-09T23:00:00Z ] && ok "cursor slid past the gated drop" || bad "cursor frozen ($(cursor_seen "$TR/state-sg" "$BARE_SG"))"
+
+hr; echo "SG2 — sender gate: maintainers/allowlist author passes; same verb mints the job"; hr
+# The same repo/gate, but the author is on maintainers/allowlist (the gate's
+# third trust source, beyond trusted-senders + org membership — both denied here:
+# empty sender allowlist, /bin/false org probe). The verb path must work normally.
+BARE_S2="$TR/s2.git"; seed_bare "$BARE_S2"
+s2v="$TR/s2-seed"; git clone -q --single-branch --branch "$BRANCH" "$BARE_S2" "$s2v"
+mkdir -p "$s2v/comment-repos"
+printf 'repo: endojs/endo-but-for-bots\nsender-gate: required\n' > "$s2v/comment-repos/$SLUG"
+git -C "$s2v" add -A; git -C "$s2v" "${git_id[@]}" commit -q -m "arm sender gate"
+git -C "$s2v" push -q origin "HEAD:$BRANCH"; rm -rf "$s2v"
+MAINT_SG="$TR/maintainers-sg"; printf 'kriskowal\n' > "$MAINT_SG"
+FIX_S2="$TR/fix-s2.tsv"; RLOG_S2="$TR/react-s2.log"; : > "$RLOG_S2"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-07-09T23:10:00Z issue-comment 991 3 kriskowal \
+  https://github.com/kriscendobot/minion.town/pull/3#issuecomment-991 \
+  'Please rebase this on #3' > "$FIX_S2"
+env GARDEN_STATE="$TR/state-s2" JOURNAL_REMOTE="$BARE_S2" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_REPOS="$TR/norepos" \
+    CW_FIXTURE="$FIX_S2" CW_REACTJI_LOG="$RLOG_S2" \
+    GARDEN_COMMENT_SOURCE="$SRCSTUB" \
+    GARDEN_COMMENT_REACTJI="$REACTSTUB" \
+    GARDEN_COMMENT_REPLY="$REPLYSTUB" \
+    GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
+    GARDEN_RETRO_POST="$JOBS/post-plan.sh" \
+    GARDEN_COMMENT_TRUST=/bin/false \
+    GARDEN_TRUSTED_ALLOWLIST=/dev/null \
+    GARDEN_MAINTAINERS_ALLOWLIST="$MAINT_SG" \
+    GARDEN_PR_MERGEABLE="$MERGEABLE_OPEN" \
+    "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>&1
+[ "$(todo_count "$BARE_S2")" -eq 1 ] && ok "maintainers/allowlist author's verb minted the job through the gate" || bad "gated maintainer's directive dropped (todo=$(todo_count "$BARE_S2"))"
+grep -qx "issue-comment 991 eyes" "$RLOG_S2" && ok "reactji posted for the gate-passing author" || bad "reactji missing ($(cat "$RLOG_S2"))"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]
