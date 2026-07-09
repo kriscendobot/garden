@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/34#issuecomment-4928899096
 If we adopt this scheme, with what systems would we interoperate, both for sending and receiving information on other data planes? 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 15
+  claimed_at: 2026-07-09T19:45:18Z
