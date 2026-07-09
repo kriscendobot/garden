@@ -1,14 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-09T19:03:41Z_
+_As of 2026-07-09T19:12:32Z_
 
 ## Latest
 
-The network-fetch substrate landed: [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) merged `@endo/http-confine` + `@endo/exo-http-client` on `llm`, giving the fetch/allowlist floor the exo-google-sheets tree depends on — a fresh esheets supervisor now checks in daily and just posted the gauntlet on its next design gate, [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth). The dominant signal, though, is `llm` divergence knocking several approved/parked PRs off their tracks and back to you for a call: rebase and conduct both stalled on [endo-but-for-bots#123](https://github.com/endojs/endo-but-for-bots/pull/123) (the `assembleTranscript` subsystem no longer exists on the pi-based harness), [endo-but-for-bots#129](https://github.com/endojs/endo-but-for-bots/pull/129) was aborted as ~90% superseded by `llm`'s richer introspection (with a `-t` flag collision), and [endo-but-for-bots#132](https://github.com/endojs/endo-but-for-bots/pull/132) and [endo-but-for-bots#133](https://github.com/endojs/endo-but-for-bots/pull/133) need Preact reimplementation rather than a rebase. [endo-but-for-bots#89](https://github.com/endojs/endo-but-for-bots/pull/89) is green and approved but wants a weave to reconcile the design index, and [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) awaits your pick on whether to adopt the newly-merged `@endo/http-confine`. Also worth a glance: the CloudFlare storage design surfaced as draft [endo-but-for-bots#638](https://github.com/endojs/endo-but-for-bots/pull/638), and @kriscendobot tried to drive the garden via issue #34 but was dropped for not being on the maintainer allowlist.
+The gauntlet on [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (the refined `endoclaw-oauth` foundation design) completed, driving it out of draft into your review queue — this is the design gate the new daily `exo-google-sheets` supervisor flagged as the single deepest unblocked step for the whole sheets tree; nothing below it builds until #621 merges. The fetch substrate under it already landed: [#566](https://github.com/endojs/endo-but-for-bots/pull/566) (`@endo/http-confine` + `@endo/exo-http-client`) merged on `llm`, which retired the `endoclaw-network-fetch` builder job as duplicate and prompts an adoption decision on [#286](https://github.com/endojs/endo-but-for-bots/pull/286).
+
+The bigger signal is a cluster of approved/refresh-requested PRs that **cannot proceed mechanically** because base `llm` has diverged ~1194 commits and refactored the code they touch out from under them — each is paused awaiting your call, not stalled silently: [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript; the whole `assembleTranscript` machinery is gone under the pi-based harness), [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula-introspection; flag collision + superseded inspect), [#132](https://github.com/endojs/endo-but-for-bots/pull/132) and [#133](https://github.com/endojs/endo-but-for-bots/pull/133) (chat features needing reimplementation on the confined Preact/`@endo/space-chat` architecture), and [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (green + approved, but conduct needs a weave to reconcile the `designs/README.md` index). Also new: the CloudFlare storage design landed as draft [#638](https://github.com/endojs/endo-but-for-bots/pull/638) (the parked build job still points at stale coordinates and needs fixing at promote time), and @kriscendobot hit the garden's own issue inbox (#34) but isn't on the maintainer allowlist, so it was dropped.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 27m)
+- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 35m)
 - [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 1d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 7d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9d)
@@ -314,18 +316,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-mount-revocation-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-revocation-build.md) — Build: mount revocation + deny patterns (PR A of the #127 reconstruction)
-- [`gauntlet-endo-but-for-bots-pr621-endoclaw-oauth`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr621-endoclaw-oauth.md) — Run the gauntlet on endojs/endo-but-for-bots#621 (base llm).
 - [`propose-pi-bump-0.80.3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/propose-pi-bump-0.80.3.md) — State
 
-### tada (1550)
+### tada (1551)
+- [`gauntlet-endo-but-for-bots-pr621-endoclaw-oauth`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr621-endoclaw-oauth.md) — Completion report
 - [`deadmail-issue-comment-4928522971`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4928522971.md) — Completion report
 - [`endojs-endo-but-for-bots-pr129-review-b76233e2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr129-review-b76233e2.md) — Completion report — PR #129 review job
 - [`pi-release-watch-20260709-185001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/pi-release-watch-20260709-185001.md) — Report
 - [`esheets-supervisor-20260709-185001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260709-185001.md) — Completion report
-- [`endojs-endo-but-for-bots-pr123-rrc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr123-rrc.md) — orchestration endojs-endo-but-for-bots-pr123-rrc — complete
-- … and 1545 more
+- … and 1546 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
