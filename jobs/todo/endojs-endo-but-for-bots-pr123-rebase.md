@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr123-rrc
-priority: normal
 role: weaver
-posted_by: producer
-posted_at: 2026-07-09T18:35:28Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-09T18:37:04Z -->
 
 # rebase endojs/endo-but-for-bots PR #123 onto a fresh frozen base
 
