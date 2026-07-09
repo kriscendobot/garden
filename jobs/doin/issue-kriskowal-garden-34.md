@@ -23,3 +23,9 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 The Endo daemon would benefit loadContent to go with its storeContent. To that end, we need a portable locator for content-addressed blobs that captures one or more locations the content can be obtained from. For example, if we know that <hash> was at one time retained on the pee
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 10
+  claimed_at: 2026-07-09T18:29:18Z
