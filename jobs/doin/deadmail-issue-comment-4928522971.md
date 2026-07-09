@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/34#issuecomment-4928522971
 What would a magnet URL look like if a connection hint were Git? Does magnet extend to trees or just files? Confirm this layering: An OCapN locator represents a capability to download content from a particular peer over OCapN, and might provide the capability to reveal a magnet l
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  claimed_at: 2026-07-09T19:00:08Z
