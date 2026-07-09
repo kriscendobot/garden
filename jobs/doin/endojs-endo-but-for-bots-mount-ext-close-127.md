@@ -20,3 +20,9 @@ cross-linking the four replacement PRs and design PR #648
 delete its branch). Authorization: the maintainer's 2026-07-09 review on #127
 ("Create fresh PRs and close this") is the lifecycle directive; per the
 project's standing authorizations it is self-authorizing.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  claimed_at: 2026-07-09T21:10:09Z
