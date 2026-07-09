@@ -1,10 +1,7 @@
 ---
-gate: deferred
-priority: normal
 role: builder
-posted_by: producer
-posted_at: 2026-07-09T20:28:17Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-07-09T20:29:15Z -->
 
 # Wire a Rust/XS-side mount glob (and grep) case-table runner
 
