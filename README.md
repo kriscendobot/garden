@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-09T21:23:03Z_
+_As of 2026-07-09T21:28:30Z_
 
 ## Latest
 
-The confinement floor landed: [`@endo/http-confine` + `@endo/exo-http-client` merged on `llm` (#566)](https://github.com/endojs/endo-but-for-bots/pull/566), which unblocks the exo-google-sheets tree — the daily supervisor now points at [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (the OAuth foundation design, gauntleted out of draft) as the deepest next gate, and flags that a stale builder job would have duplicated #566. The bigger signal is a pileup of **old PRs that need your call before any further build**: base `llm` has advanced ~1194 commits and superseded the work on [#132](https://github.com/endojs/endo-but-for-bots/pull/132) (render-mode toggle, now needs reimplementing as Preact vnodes), [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula-introspection, ~90% collides with a richer `llm` subsystem), [#133](https://github.com/endojs/endo-but-for-bots/pull/133) (pending-commands, a design-vs-migration conflict on inline error UX), and [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript, whose target module no longer exists) — all had rebase/conduct/refresh aborted with nothing pushed, each awaiting an (a)/(b)/(c) decision. Separately, [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (genie-integration) is CI-green and approved but stalled on a semantic `designs/README.md` conflict needing a weave, and [#286](https://github.com/endojs/endo-but-for-bots/pull/286) awaits a path choice on adopting `@endo/http-confine`. New draft work landed on the mount track — CLI follow-up [#652](https://github.com/endojs/endo-but-for-bots/pull/652) and the Rust parity runner [#654](https://github.com/endojs/endo-but-for-bots/pull/654) — plus the CloudFlare-storage design draft [#638](https://github.com/endojs/endo-but-for-bots/pull/638), whose parked build job still names the wrong repo/branch and needs fixing at promote time. Also worth a glance: @kriscendobot hit the issue inbox on garden #34 but was dropped for not being on the maintainer allowlist.
+The mount-path CLI reconstruction closed out its last step with [endo-but-for-bots#652](https://github.com/endojs/endo-but-for-bots/pull/652) (the `--deny`/`--no-deny` flags for `endo mount`/`endo mktmp`, stacked draft on #650) and a Rust-side glob parity runner in draft [#654](https://github.com/endojs/endo-but-for-bots/pull/654) — the latter chose the design-sanctioned Rust path because the XS boot path won't build in-tree. The network-fetch substrate landed: [#566](https://github.com/endojs/endo-but-for-bots/pull/566) merged `@endo/http-confine` + `@endo/exo-http-client` onto `llm`, which retires the `endoclaw-network-fetch` builder job as already-satisfied and unblocks the `exo-google-sheets` tree (now driven by a daily supervisor whose day-1 standup names design PR [#621](https://github.com/endojs/endo-but-for-bots/pull/621) as the gate). The CloudFlare-storage design shipped as draft [#638](https://github.com/endojs/endo-but-for-bots/pull/638) (its parked build job still points at stale coordinates and needs correcting at promote time).
+
+What the maintainer should notice most: a cluster of approved/reviewed PRs are stalled because base `llm` advanced ~1194 commits and superseded their premises — [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal transcript machinery deleted), [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (introspection collides, `-t` flag clash), [#132](https://github.com/endojs/endo-but-for-bots/pull/132) (render-mode toggle needs Preact reimplementation), [#133](https://github.com/endojs/endo-but-for-bots/pull/133) (chat-bar migration), and [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (design-index conflict) — each awaits a close-vs-reweave decision rather than a mechanical rebase. Also queued for you: a path choice on adopting `@endo/http-confine` into [#286](https://github.com/endojs/endo-but-for-bots/pull/286), and an access request — @kriscendobot hit the issue inbox on garden #34 but isn't an allowlisted maintainer, so it was dropped.
 
 ## Parked for maintainer feedback
 
@@ -373,17 +375,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-endoclaw-timer-phase4-host-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-endoclaw-timer-phase4-host-integration.md) — ---
-- [`endojs-endo-but-for-bots-mount-cli-phase6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-cli-phase6.md) — ---
 
-### tada (1576)
+### tada (1577)
+- [`endojs-endo-but-for-bots-mount-cli-phase6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-cli-phase6.md) — Completion report: Phase 6 mount-path CLI verbs
 - [`endojs-endo-but-for-bots-mount-ext-rebuild-orch-127`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-ext-rebuild-orch-127.md) — orchestration endojs-endo-but-for-bots-mount-ext-rebuild-orch-127 — complete
 - [`endojs-endo-but-for-bots-mount-ext-close-127`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-ext-close-127.md) — Completion report
 - [`endojs-endo-but-for-bots-mount-json-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-json-build.md) — Build: mount JSON read/write — PR D of the #127 reconstruction
 - [`endojs-endo-but-for-bots-mount-provide-submount-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-provide-submount-build.md) — Completion Report
-- [`endojs-endo-but-for-bots-mount-grep-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-grep-build.md) — All gates green. The builder deliverable is complete. Final report:
-- … and 1571 more
+- … and 1572 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
