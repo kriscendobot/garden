@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-mount-ext-rebuild-orch-127
-priority: normal
-posted_by: producer
-posted_at: 2026-07-09T18:51:24Z
+role: builder
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-09T20:40:03Z -->
 
 ---
 role: builder
