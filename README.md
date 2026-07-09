@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-09T23:30:12Z_
+_As of 2026-07-09T23:31:06Z_
 
 ## Latest
 
-A new maintainer directive kicked off `minion-town-mcp-guest-ocap-access-control` (guest ocap access control for minion.town), now the sole active job alongside the triager circuit-breaker work.
-
-Several items need your steer. [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) (endoclaw-timer Phase 1) is open, non-draft, green, and mergeable — a duplicate build job confirmed it's ready for the conductor/merge path. [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (http-client reconcile onto merged #566) has a real, deterministic CI failure — error-decode chokes on a frozen undici `Headers` slot on Node 22 (green on Node 24) — and wants a fixer; its landed control facet also remains unwired. [endo-but-for-bots#123](https://github.com/endojs/endo-but-for-bots/pull/123) stalled at conduct: its base snapshot has diverged hard from live `llm` (`assembleTranscript` no longer exists after the makePiAgent rewrite), so it needs a weave or an obsolescence call rather than a merge. Two builder jobs came back as no-ops because the work already exists — the daemon fs agent-tools (landed [#614](https://github.com/endojs/endo-but-for-bots/pull/614), conflicting draft [#618](https://github.com/endojs/endo-but-for-bots/pull/618)) and the timer formula.
-
-On the mount track, two stacked drafts landed for review: [endo-but-for-bots#652](https://github.com/endojs/endo-but-for-bots/pull/652) (`--deny`/`--no-deny` CLI flags, stacked on [#650](https://github.com/endojs/endo-but-for-bots/pull/650)) and [endo-but-for-bots#654](https://github.com/endojs/endo-but-for-bots/pull/654) (a Rust `mount_parity` crate, chosen because the XS-run path won't build in-tree), both awaiting a rebase-then-gauntlet once their bases merge. The exo-google-sheets push now runs as a daily supervisor schedule; day one advanced the OAuth design gate [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) into the gauntlet, with nothing buildable until it merges. Note two reliability signals: the foreman is holding a re-post of the endoclaw-timer phase-4 job it suspects is stuck, and the mount-revocation CI shepherd for [#650](https://github.com/endojs/endo-but-for-bots/pull/650) overran its handler budget and needs splitting into claim-sized stages.
+Two escalations lead: [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s http-client feature has a real, Node-22-specific CI failure (hardened undici `Headers` can't be re-decoded across CapTP) that needs a fixer, and a shepherd is now driving the CLI slice's lint green. The conductor on [endo-but-for-bots#123](https://github.com/endojs/endo-but-for-bots/pull/123) stalled — the fix targets an `assembleTranscript` path that no longer exists on live `llm` (rewritten around `makePiAgent`), so it wants a weave or obsolescence call rather than a merge. On the exo-google-sheets push, a daily supervisor is now standing up and has posted a gauntlet against the design gate [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621); nothing downstream is buildable until it merges. New mount follow-ups landed as drafts: the `--deny` CLI PR [endo-but-for-bots#652](https://github.com/endojs/endo-but-for-bots/pull/652) (stacked on #650, awaiting its merge before rebase+gauntlet) and a Rust-side glob parity runner [endo-but-for-bots#654](https://github.com/endojs/endo-but-for-bots/pull/654) (Option A, since the XS-run path won't build in-tree). The endoclaw-timer Phase 1 PR [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) is green, non-draft, and ready for the merge path. Worth noticing: the mount-revocation shepherd on [endo-but-for-bots#650](https://github.com/endojs/endo-but-for-bots/pull/650) deterministically overran its handler budget and needs to be split into claim-sized stages, and two builder jobs came back as already-satisfied duplicates (#609 and the daemon fs-tools ask, covered by #614/#618).
 
 ## Parked for maintainer feedback
 
@@ -208,9 +204,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`improve-triager-failure-circuit-breaker`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-triager-failure-circuit-breaker.md) — scripts/jobs/triager.sh
 - [`minion-town-mcp-guest-ocap-access-control`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-mcp-guest-ocap-access-control.md) — Maintainer directive (2026-07-09)
+- [`shepherd-endo-but-for-bots-pr286-cli-http-client-lint-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr286-cli-http-client-lint-green.md) — ---
 
 ### tada (1594)
 - [`design-auto-provision-fork-watchers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-auto-provision-fork-watchers.md) — Completion report
