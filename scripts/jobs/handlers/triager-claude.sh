@@ -63,15 +63,35 @@ command -v claude >/dev/null 2>&1 || die "claude not on PATH; cannot triage $slu
 # the non-advancing-cursor retry semantics are unchanged.
 errfile="$(mktemp "${TMPDIR:-/tmp}/triage-claude.XXXXXX.err")"
 trap 'rm -f "$errfile"' EXIT
-# NB: capture rc in the `else` branch, not via `if ! ...; then rc=$?` — after a
-# `!`-negated pipeline `$?` is the logical negation (0), losing claude's real
-# exit code.
-if out="$(claude -p --dangerously-skip-permissions "$prompt" 2>"$errfile")"; then
-  :
-else
-  rc=$?
-  die "claude -p exited $rc while triaging $slug: $(tail -c 500 "$errfile")"
-fi
+# Bounded retry with a short backoff: a transient non-zero exit from `claude -p`
+# (an API blip, a rate-limit, a momentary kill) is not a reason to fail the unit
+# — triager.sh leaves the cursor unadvanced and re-triages on the next ~2-minute
+# tick anyway, so the SAME prompt usually succeeds on a re-roll. Absorbing the
+# blip in-tick avoids marking garden-triager@<repo> Failed and burning a
+# self-heal responder on a fault that self-recovers seconds later. Only a
+# genuinely PERSISTENT failure (all attempts exhausted) escalates to `die`, and
+# then it carries claude's stderr into the failure path so a future self-heal
+# diagnosis has a real signature instead of a blank 2-line capture.
+attempts=3
+delays=(3 9)   # backoff BETWEEN attempts: attempt1 -> 3s -> attempt2 -> 9s -> attempt3
+attempt=1
+while :; do
+  # NB: capture rc in the `else` branch, not via `if ! ...; then rc=$?` — after a
+  # `!`-negated pipeline `$?` is the logical negation (0), losing claude's real
+  # exit code.
+  if out="$(claude -p --dangerously-skip-permissions "$prompt" 2>"$errfile")"; then
+    break
+  else
+    rc=$?
+    if [ "$attempt" -ge "$attempts" ]; then
+      die "claude -p exited $rc while triaging $slug after $attempt attempt(s): $(tail -c 500 "$errfile")"
+    fi
+    delay="${delays[$((attempt-1))]:-9}"
+    log "claude -p exited $rc while triaging $slug (attempt $attempt/$attempts); retrying in ${delay}s: $(tail -c 200 "$errfile")"
+    sleep "$delay"
+    attempt=$((attempt+1))
+  fi
+done
 
 # parse JOB..ENDJOB blocks and post each
 posted=0; base=""; body=""
