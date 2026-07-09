@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/34#issuecomment-4928361368
 Tell me more about prior art for magnet URIs. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  claimed_at: 2026-07-09T18:40:25Z
