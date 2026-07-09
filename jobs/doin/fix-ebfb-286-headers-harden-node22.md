@@ -54,3 +54,9 @@ Request) are being marshalled the same way.
 - local-verify + CI green; changeset added if the fix touches a published package.
 - Reply on the PR review thread that surfaced this (or a completion comment)
   summarizing the fix, per review-feedback-followup norms.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 14
+  claimed_at: 2026-07-09T22:52:15Z
