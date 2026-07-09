@@ -68,3 +68,9 @@ PRs follow from it. Post the plan and route the build.
 A SEPARATE, independent plan for exo-stream variants (`streamGlob`/`streamGrep`)
 is being posted as its own designer job (inline cid 3548861664) — do not fold
 that into this one; reference it if the fixture/test design should anticipate it.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 16
+  claimed_at: 2026-07-09T18:37:42Z
