@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-09T23:16:08Z_
+_As of 2026-07-09T23:20:19Z_
 
 ## Latest
 
-[Shepherd drove PR #609](https://github.com/endojs/endo-but-for-bots/pull/609) (endoclaw-timer Phase 1 interval-scheduler formula) to lint-green; it's now OPEN, non-draft, CLEAN with all CI green — ready for the conductor, and a gardener flagged it already satisfies a duplicate build job so that job can close. The Node-22 Headers-harden bug in [PR #286](https://github.com/endojs/endo-but-for-bots/pull/286)'s http-client (a real `Symbol(headers map sorted)` freeze crash on the CapTP error-decode path, not flaky infra) was fixed. Two items need a maintainer steer: [PR #123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript hardening) is **stalled at conduct** — its frozen base snapshot has diverged hard from live `llm`, where `assembleTranscript` and the transcript-node machinery no longer exist, so it wants a weave/redesign rather than a merge; and the daemon-agent-tools filesystem job is redundant with landed [#614](https://github.com/endojs/endo-but-for-bots/pull/614) plus conflicting draft [#618](https://github.com/endojs/endo-but-for-bots/pull/618), so the gardener stopped short of a third overlapping PR pending your call to withdraw, weave #618, or extract a clean fs-only slice. New draft stacks landed for review — [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (mount `--deny` CLI, stacked on [#650](https://github.com/endojs/endo-but-for-bots/pull/650)) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (Rust mount-parity runner, the design-sanctioned fallback since the XS boot path won't build in-tree) — both left draft pending sequencing. The esheets daily supervisor's day-1 check names [#621](https://github.com/endojs/endo-but-for-bots/pull/621) as the OAuth design gate and posted a gauntlet to move it out of draft. Finally, the watchdog reports `shepherd-…-pr650-mount-revocation-ci-green` deterministically overran its 2400s handler budget and will be poisoned unless split into claim-sized stages or run detached.
+Two lint-green shepherds landed — [#656](https://github.com/endojs/endo-but-for-bots/pull/656) (mount provide-submount) and [#609](https://github.com/endojs/endo-but-for-bots/pull/609) (endoclaw-timer Phase 1, whose interval-scheduler formula a builder confirmed is already fully delivered and merge-ready). Several jobs stalled at decisions only kriskowal can make: conducting [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (fix/lal-transcript) hit a hard wall — live `llm` rewrote `agent.js` around a new `makePiAgent`, deleting the very `assembleTranscript` machinery the fix hardens, so it needs a weave or an obsolescence call rather than a merge. CI on [#286](https://github.com/endojs/endo-but-for-bots/pull/286) surfaced a real Node-22-only failure (undici Headers' lazy internal slot gets frozen and breaks CapTP error-decode), awaiting a fixer. Two builders hit "already built" impasses — the daemon fs agent-tools ask overlaps landed #614 plus conflicting draft #618, and the Rust/XS mount-glob runner wasn't buildable (XS boot bundles absent), so a gardener shipped the design-sanctioned Rust-side parity crate as draft [#654](https://github.com/endojs/endo-but-for-bots/pull/654) instead. The new exo-google-sheets daily supervisor posted its first standup, driving design PR [#621](https://github.com/endojs/endo-but-for-bots/pull/621) toward review as the tree's gating step, and a draft CLI follow-up [#652](https://github.com/endojs/endo-but-for-bots/pull/652) is stacked on #650 pending its merge. Finally, the `shepherd-pr650-mount-revocation` job deterministically overran its handler budget and needs splitting or detaching before it gets poisoned.
 
 ## Parked for maintainer feedback
 
@@ -212,17 +212,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`design-auto-provision-fork-watchers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-auto-provision-fork-watchers.md) — Design: auto-provision per-repo watchers when the garden creates a fork
-- [`shepherd-endo-but-for-bots-pr656-mount-provide-submount-lint-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr656-mount-provide-submount-lint-green.md) — ---
 
-### tada (1591)
+### tada (1592)
+- [`shepherd-endo-but-for-bots-pr656-mount-provide-submount-lint-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pr656-mount-provide-submount-lint-green.md) — Completion report
 - [`shepherd-endo-but-for-bots-pr609-endoclaw-timer-lint-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pr609-endoclaw-timer-lint-green.md) — Shepherd report — endojs/endo-but-for-bots PR #609
 - [`self-heal-fix-garden-triager-kriscendobot-minion-town-claude-swallows-error`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-claude-swallows-error.md) — Completion report
 - [`minion.town-pr3-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion.town-pr3-conduct.md) — Completion report
 - [`kriscendobot-minion.town-pr3-review-3c9cea83`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr3-review-3c9cea83.md) — Completion report
-- [`fix-ebfb-286-headers-harden-node22`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-ebfb-286-headers-harden-node22.md) — Completion report — fix-ebfb-286-headers-harden-node22
-- … and 1586 more
+- … and 1587 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
