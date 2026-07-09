@@ -1,0 +1,11 @@
+# config/fork-owners — GitHub owners whose repos count as the garden's OWN forks
+# for automatic watcher provisioning (scripts/jobs/fork-watch-provisioner.sh maps
+# each local bare clone worktrees/<owner>-<name>.git with a listed <owner> into
+# the repos/ and comment-repos/ watch sets, sender-gated for comments).
+# One login per line; '#' comments and blank lines ignored; case-insensitive.
+# A listed owner must contain NO '-' (the <owner>-<name> slug convention splits
+# on the FIRST dash, so a dashed owner would be misparsed; the provisioner skips
+# such entries with a warning).
+# Widening authorization: msgs/broadcast/20260709T225552Z-e61229.md (kriskowal,
+# 2026-07-09, "watch the garden's own forks").
+kriscendobot
