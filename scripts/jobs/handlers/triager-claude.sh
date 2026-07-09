@@ -47,7 +47,22 @@ command -v claude >/dev/null 2>&1 || die "claude not on PATH; cannot triage $slu
 # approver; the default permission gate would deny every tool call (the triager
 # needs gh especially). Bypass is the intended fleet posture (operator
 # pre-consents via skipDangerousModePermissionPrompt in ~/.claude). Non-root.
-out="$(claude -p --dangerously-skip-permissions "$prompt")"
+# Capture claude's exit status and stderr so a failure is diagnosable rather
+# than an opaque abort inside the command substitution under `set -e`. This lets
+# a self-heal responder distinguish a transient API/DNS/quota blip (leave the
+# cursor to retry) from a deterministic error (post a fix). The success path and
+# the non-advancing-cursor retry semantics are unchanged.
+errfile="$(mktemp "${TMPDIR:-/tmp}/triage-claude.XXXXXX.err")"
+trap 'rm -f "$errfile"' EXIT
+# NB: capture rc in the `else` branch, not via `if ! ...; then rc=$?` — after a
+# `!`-negated pipeline `$?` is the logical negation (0), losing claude's real
+# exit code.
+if out="$(claude -p --dangerously-skip-permissions "$prompt" 2>"$errfile")"; then
+  :
+else
+  rc=$?
+  die "claude -p exited $rc while triaging $slug: $(tail -c 500 "$errfile")"
+fi
 
 # parse JOB..ENDJOB blocks and post each
 posted=0; base=""; body=""
