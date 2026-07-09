@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-09T22:54:21Z_
+_As of 2026-07-09T22:57:35Z_
 
 ## Latest
 
-A cluster of maintainer-directed PRs stalled on one root cause: base `llm` has advanced ~1194 commits and the changes they carry are now superseded or rewritten out of the tree, so gardeners aborted rather than regress trunk and are holding for your call. [endo-but-for-bots#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal transcript fix) and [endo-but-for-bots#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula introspection) both hit irreconcilable rebases — the code they patch no longer exists or collides with a richer `llm` subsystem — and each offers a close-vs-redesign decision. [endo-but-for-bots#132](https://github.com/endojs/endo-but-for-bots/pull/132) (Md/Raw/Pre toggle) and [endo-but-for-bots#133](https://github.com/endojs/endo-but-for-bots/pull/133) (pending-commands bar) collide the same way with the confined-Preact chat migration and need reimplementation, not a refresh.
-
-On [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (`endo http mk` Phase 1), CI surfaced a real Node-22-only failure — hardened undici `Headers` breaks CapTP error decode — and a fixer job is now in flight; separately @0xpatrickbot proposes the PR adopt the newly-merged [endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566) http-confine core, and the landed control-facet mutators still need daemon wiring — both awaiting your steer. New draft PRs [endo-but-for-bots#652](https://github.com/endojs/endo-but-for-bots/pull/652) and [endo-but-for-bots#654](https://github.com/endojs/endo-but-for-bots/pull/654) stack onto the mount revocation/glob line, and the exo-google-sheets push kicked off a daily supervisor that posted a gauntlet for design gate [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621). Shepherds for [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609), [endo-but-for-bots#650](https://github.com/endojs/endo-but-for-bots/pull/650), and [endo-but-for-bots#656](https://github.com/endojs/endo-but-for-bots/pull/656) are still driving CI green.
+Four approved-or-review-flagged PRs stalled on the same root cause and now await your call: base `llm` advanced ~1194 commits and superseded them. [#132](https://github.com/endojs/endo-but-for-bots/pull/132) (render-mode toggle) and [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula introspection) collide with confined-Preact and locate()-based subsystems that now own that ground; [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal transcript fix) guards code deleted by the pi-based `lal` rearchitecture; and [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (genie-integration design) is green and approved but its unfreeze rebase conflicts on the shared `designs/README.md` index — each gardener aborted cleanly with nothing pushed and a recommended path (weave, slim-down, or close-as-superseded). Separately, [#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s http-client fails deterministically on Node 22 (hardened undici `Headers` breaks CapTP error-decode); a fixer job is already in flight. New draft PRs landed: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (mount `--deny` CLI, stacked on [#650](https://github.com/endojs/endo-but-for-bots/pull/650)) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (Rust `mount_parity` crate, the design-sanctioned fallback since the XS boot path won't build here). The exo-google-sheets push is now a daily supervisor schedule that posted a gauntlet on design PR [#621](https://github.com/endojs/endo-but-for-bots/pull/621), the gate for the whole OAuth tree. Watch two operational flags: the [#650](https://github.com/endojs/endo-but-for-bots/pull/650) mount-revocation shepherd overran its 2400s handler budget and will be poisoned unless split, and the foreman reports the endoclaw-timer phase-4 host-integration step may be stuck.
 
 ## Parked for maintainer feedback
 
@@ -23,40 +21,6 @@ On [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286)
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260709T183348Z-35a44f` — from gardener:endojs-endo-but-for-bots-pr286-376f172a, reply_to `endojs-endo-but-for-bots-pr286-376f172a` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T183348Z-35a44f.md)
-
-> **Attention — decision needed on endo-but-for-bots PR #286** (feat: `endo http mk` Phase 1)
->
-> @0xpatrickbot proposes PR #286 adopt the newly-merged `@endo/http-confine` (#566)
-> as its confinement core, swapping the ~80 lines of inline origin/method/redirect
-> mechanics in `packages/daemon/src/http-client.js` for imports
-> (`parseAllowedOrigins`, `checkOriginAllowed`, `makeHttpConfinement` with
-> `allowedMethods: new Set(['GET','HEAD'])`). Everything Phase-1-visible (formula
-> split, `request()` record interface, `endo http mk`, GET/HEAD gate) stays as
-> designed; Phases 2–4 (rate limit, byte caps, timeouts, revocation, header
-> validation, redirect revalidation) would then come mostly free.
->
-> Grounded (verified, not just relaying the comment):
-> - `@endo/http-confine` does exist on `llm` (#566 merged).
-> - gh already reports #286 as CONFLICTING — housekeeping note #1 (drift vs `llm`
->   on `host.js`/`types.d.ts`) is real; that's a weave, independent of adoption.
-> - `llm` HEAD records `designs/endoclaw-network-fetch.md` as In Progress /
->   realized by the shipped packages, while #286 flips it to "Superseded by
->   cli-http-client" — housekeeping note #2 (a silent self-contradictory merge) is
->   real. Author suggests dropping the Superseded flip and treating the two as
->   sibling tracks.
->
-> The author explicitly leaves the call to you and offers three paths:
->   1. Our automation takes the adoption in this PR (I'd post a builder/fixer job).
->   2. They send the adoption as a commit for your review.
->   3. Land Phase 1 as-is; adoption becomes a post-merge follow-up (the forward
->      pointer in `designs/http-confine.md` already covers it).
->
-> Also note #2 (drop the Superseded flip) is a small doc fix worth doing regardless,
-> and #286 needs a weave against `llm` regardless of which path you pick.
->
-> Which path? And want me to also post a weave for the `llm` conflict now?
 
 - `20260709T183817Z-7798be` — from gardener:endojs-endo-but-for-bots-pr132-review-1612db33, reply_to `endojs-endo-but-for-bots-pr132-review-1612db33` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T183817Z-7798be.md)
 
@@ -362,7 +326,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
+- [`design-auto-provision-fork-watchers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-auto-provision-fork-watchers.md) — Design: auto-provision per-repo watchers when the garden creates a fork
 - [`fix-ebfb-286-headers-harden-node22`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-ebfb-286-headers-harden-node22.md) — Fix: PR #286 http-client fails on Node 22 — hardened undici Headers breaks Ca...
 - [`shepherd-endo-but-for-bots-pr609-endoclaw-timer-lint-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr609-endoclaw-timer-lint-green.md) — ---
 - [`shepherd-endo-but-for-bots-pr650-mount-revocation-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr650-mount-revocation-ci-green.md) — ---
