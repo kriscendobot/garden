@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-09T23:07:44Z_
+_As of 2026-07-09T23:09:20Z_
 
 ## Latest
 
-The Node-22-specific CI failure in [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (http-client) was diagnosed and fixed: hardening a live whatwg `Headers` object across CapTP froze undici's lazy `Symbol(headers map sorted)` slot and broke error-decode on Node 22, so the fix normalizes headers before they cross the boundary. Two conductor attempts stalled on frozen-snapshot bases that have diverged from live `llm` and need weaves before they can merge — [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (genie-integration, a semantic `designs/README.md` index conflict) and [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript, whose `assembleTranscript` target was rewritten away under the new `makePiAgent` architecture). Two builder impasses landed as design-sanctioned Rust-side alternatives rather than blocking: [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (mount-glob parity crate, since the XS boot path won't compile in-tree) and [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (the `--deny` CLI follow-up, left stacked-draft pending #650's merge). A review of [kriscendobot/minion.town#3](https://github.com/kriscendobot/minion.town/pull/3) is now in flight, and the new daily `exo-google-sheets` supervisor posted its first standup, driving design PR [#621](https://github.com/endojs/endo-but-for-bots/pull/621) toward the review queue as the gate for the whole OAuth→sheets tree.
+The minion.town side moved: the [kriscendobot/minion.town#3](https://github.com/kriscendobot/minion.town/pull/3) review landed and a conduct job is now in flight to merge it, alongside a self-heal fixing the triager-claude handler that was swallowing errors. On endo-but-for-bots, a fixer cleared the Node-22-only Headers-harden crash in the http-client e2e suite of [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286), a shepherd drove [endo-but-for-bots#650](https://github.com/endojs/endo-but-for-bots/pull/650) (mount revocation) to green CI, and a weave landed the agent-tools Phase 4 wiring of [endo-but-for-bots#618](https://github.com/endojs/endo-but-for-bots/pull/618) onto `llm`.
+
+Two things want a maintainer decision. Conducting [endo-but-for-bots#123](https://github.com/endojs/endo-but-for-bots/pull/123) is stalled: it's approved and mergeable onto its snapshot, but live `llm` rewrote `agent.js` around a new `makePiAgent` and the `assembleTranscript` code the fix hardens no longer exists — the gardener recommends a **weave #123** or a re-target rather than a surgical merge. Several stacked mount follow-ups also sit as draft impasses awaiting a steer — CLI [endo-but-for-bots#652](https://github.com/endojs/endo-but-for-bots/pull/652) (sequence after #650 lands) and the Rust-side parity runner [endo-but-for-bots#654](https://github.com/endojs/endo-but-for-bots/pull/654) (Option A, since the XS-run path won't build in-tree) — plus the exo-google-sheets daily supervisor now pushing design gate [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) out of draft. Worth noting the watchdog flagged the #650 shepherd as having overrun its handler budget even though the job did complete.
 
 ## Parked for maintainer feedback
 
@@ -25,18 +27,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260709T184527Z-5dcef9` — from gardener:--help, reply_to `--help` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T184527Z-5dcef9.md)
 
 > (empty message)
-
-- `20260709T184610Z-bb842f` — from gardener:endojs-endo-but-for-bots-pr89-conduct, reply_to `endojs-endo-but-for-bots-pr89-conduct` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T184610Z-bb842f.md)
-
-> Conduct #89 (endo-but-for-bots, "docs(designs): propose genie-integration") STALLED — needs a weave before it can merge.
->
-> CI is green (build/lint/test/zizmor all pass) and the PR is APPROVED + MERGEABLE against its base. But the base `llm-1132289` is a frozen snapshot ~80 commits (a month) behind live `llm`. Per the conductor loop, a merge must land on the live trunk, not a snapshot, so I attempted the unfreeze rebase onto `llm` — and it conflicts.
->
-> The conflict is in `designs/README.md` (the canonical design index), and it's a semantic merge, not a mechanical one: the PR changed the index by +26/-8 (adds `scheduler`, marks `endoclaw-timer` superseded-by-scheduler, updates totals/mermaid/M3 milestone list) while trunk independently changed the SAME regions by +55/-14 (new totals, `exo-google-sheets` node, `endoclaw-timer`→In Progress, `endoclaw-network-fetch`→In Progress #566, an 18-design M3 list). Reconciling the design-totals, the mermaid graph, and the M3 milestone list is beyond the conductor's surgical scope. The two new files (genie-integration.md +883, scheduler.md +622) don't exist on trunk, so only the shared index conflicts.
->
-> I left the PR base unchanged (still llm-1132289) and did not force-push anything.
->
-> Recommend: post a **weave #89** (rebase docs/design-genie-integration onto live `llm`, resolve the README design-index merge, re-run CI), then re-conduct. Reconciling the index changes what the rendered index shows vs what kriskowal approved, so a light re-look after the weave is prudent.
 
 - `20260709T184819Z-b6396e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T184819Z-b6396e.md)
 
@@ -224,19 +214,20 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`design-auto-provision-fork-watchers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-auto-provision-fork-watchers.md) — Design: auto-provision per-repo watchers when the garden creates a fork
-- [`kriscendobot-minion.town-pr3-review-3c9cea83`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr3-review-3c9cea83.md) — Review directive on kriscendobot/minion.town PR #3
+- [`minion.town-pr3-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion.town-pr3-conduct.md) — Conduct kriscendobot/minion.town PR #3
+- [`self-heal-fix-garden-triager-kriscendobot-minion-town-claude-swallows-error`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-minion-town-claude-swallows-error.md) — scripts/jobs/handlers/triager-claude.sh
 - [`shepherd-endo-but-for-bots-pr609-endoclaw-timer-lint-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr609-endoclaw-timer-lint-green.md) — ---
 - [`shepherd-endo-but-for-bots-pr656-mount-provide-submount-lint-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr656-mount-provide-submount-lint-green.md) — ---
 
-### tada (1587)
+### tada (1588)
+- [`kriscendobot-minion.town-pr3-review-3c9cea83`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr3-review-3c9cea83.md) — Completion report
 - [`fix-ebfb-286-headers-harden-node22`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-ebfb-286-headers-harden-node22.md) — Completion report — fix-ebfb-286-headers-harden-node22
 - [`shepherd-endo-but-for-bots-pr650-mount-revocation-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pr650-mount-revocation-ci-green.md) — Completion report
 - [`weave-endo-but-for-bots-pr618-agent-tools-phase4-onto-llm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr618-agent-tools-phase4-onto-llm.md) — Completion report
 - [`fu-endojs-endo-but-for-bots-pull-request-286-http-client-reconcile-onto-merged-566-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-endojs-endo-but-for-bots-pull-request-286-http-client-reconcile-onto-merged-566-2.md) — Completion report
-- [`endojs-endo-but-for-bots-pull-request-617-and-619-endoclaw-timer-restack-onto-609`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pull-request-617-and-619-endoclaw-timer-restack-onto-609.md) — Completion Report
-- … and 1582 more
+- … and 1583 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
