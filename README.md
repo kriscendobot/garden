@@ -1,16 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-09T18:49:34Z_
+_As of 2026-07-09T18:50:42Z_
 
 ## Latest
 
-Five jobs closed out, and the through-line is that the frozen snapshot bases have drifted far enough that several approved PRs can no longer land as-approved and are now parked on your desk. Weaver/conductor passes on [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (fix/lal-transcript) stalled twice: `llm` rearchitected `lal` onto a pi-based harness and deleted the very `assembleTranscript` machinery the fix hardens, so the rebase is a redesign, not a conflict — the gardener recommends re-targeting or closing. [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (genie-integration design) is green and approved but needs a weave to reconcile a `designs/README.md` index collision before it can merge onto live `llm`. The [#133](https://github.com/endojs/endo-but-for-bots/pull/133) refresh cleaned up the title/description but surfaced a design conflict — the preact confinement migration moved the chat bar and the pending-commands feature would regress inline `/js`/`/eval` error traces — needing your pick among three port options. Separately, the [#612](https://github.com/endojs/endo-but-for-bots/pull/612) directive was routed as a self-retiring daily supervisor schedule that reassesses the exo-google-sheets dependency tree and posts the next unblocked step each day.
+A wave of long-parked endo-but-for-bots PRs hit the same wall this cycle: their base `llm` has advanced ~1194 commits and superseded the code they touch, so several conduct/rebase/refresh jobs stalled awaiting your call rather than regressing trunk. [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript) can't weave or conduct — the `assembleTranscript` machinery it hardens no longer exists on the pi-based harness; [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula-introspection) is approved but ~90% collides with `llm`'s richer introspection subsystem (including a `-t` flag clash), leaving only `listWorkerTenants` genuinely novel; [#132](https://github.com/endojs/endo-but-for-bots/pull/132)'s Md/Raw/Pre toggle needs reimplementing as Preact vnodes in the extracted `@endo/space-chat` InboxRoot; and [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (genie-integration) is CI-green and approved but wants a weave to reconcile the `designs/README.md` index before it can land on live trunk. Each gardener aborted cleanly with nothing pushed and laid out A/B/C options for you.
 
-Beyond the board, your inbox is thick with decisions: reviews of [#129](https://github.com/endojs/endo-but-for-bots/pull/129), [#132](https://github.com/endojs/endo-but-for-bots/pull/132), and [#286](https://github.com/endojs/endo-but-for-bots/pull/286) all hit the same 1194-commit divergence and are holding for your call, the `endoclaw-network-fetch` builder job flagged [#566](https://github.com/endojs/endo-but-for-bots/pull/566) as already implementing its design, and the CloudFlare storage design landed as draft [#638](https://github.com/endojs/endo-but-for-bots/pull/638) with a note to fix its parked build job's stale target. One access request also needs attention: @kriscendobot tried to drive the garden via issue #34 but isn't on the maintainer allowlist, so the interaction was dropped.
+Two housekeeping decisions also await: [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (`endo http mk` Phase 1) — @0xpatrickbot proposes adopting the newly-merged [@endo/http-confine (#566)](https://github.com/endojs/endo-but-for-bots/pull/566) as its confinement core and dropping a self-contradictory "Superseded" doc flip; and [#133](https://github.com/endojs/endo-but-for-bots/pull/133), whose title/description were refreshed but whose port to the Preact chat bar needs a design call to avoid regressing rich inline error traces. Separately, the `endoclaw-network-fetch` builder job was stopped as already satisfied by #566, and the CloudFlare storage design shipped as draft [#638](https://github.com/endojs/endo-but-for-bots/pull/638) — note its parked go-ahead job still names stale `kriscendobot/endo` coordinates that need fixing before promotion. Two new recurring supervisors came online (a daily `@endo/exo-google-sheets` driver per your [#612](https://github.com/endojs/endo-but-for-bots/pull/612) directive, and a weekly Pi-release watch), and @kriscendobot's attempt to drive the garden via issue #34 was dropped — they're not on the maintainer allowlist.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 8m)
+- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 14m)
 - [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 1d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 7d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9d)
@@ -284,9 +284,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
 - [`endojs-endo-but-for-bots-mount-ext-reconstruct-127`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-ext-reconstruct-127.md) — Design: reconstruct mount-extensions on llm, split into separate PRs
 - [`endojs-endo-but-for-bots-pr129-review-b76233e2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr129-review-b76233e2.md) — Review directive on endojs/endo-but-for-bots PR #129
+- [`esheets-supervisor-20260709-185001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260709-185001.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
+- [`pi-release-watch-20260709-185001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/pi-release-watch-20260709-185001.md) — WEEKLY Pi-release watch → keep the endo-but-for-bots harnesses aligned with the
 
 ### tada (1544)
 - [`endojs-endo-but-for-bots-pr612-33410353`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr612-33410353.md) — Completion report
