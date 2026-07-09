@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-09T21:11:37Z_
+_As of 2026-07-09T21:13:31Z_
 
 ## Latest
 
-The mount-extension reconstruction for [endo-but-for-bots#127](https://github.com/endojs/endo-but-for-bots/pull/127) wrapped its final close-out job, and the `endoclaw-network-fetch` substrate landed on `llm`: [#566](https://github.com/endojs/endo-but-for-bots/pull/566) merged `@endo/http-confine` + `@endo/exo-http-client`, unblocking the fetch/allowlist floor beneath the exo-google-sheets tree.
+The mount-extensions reconstruction ([#127](https://github.com/endojs/endo-but-for-bots/pull/127)) finished its orchestrated rebuild — the JSON, submount, grep, and glob builder jobs all completed — and a phase-6 CLI job is now in flight. The network-fetch substrate landed: `@endo/http-confine` + `@endo/exo-http-client` merged to `llm` via [#566](https://github.com/endojs/endo-but-for-bots/pull/566), which in turn raises an adoption question on [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (swap its inline confinement for the shared core) and prompted an already-satisfied builder job to stand down. New drafts opened: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (mount `--deny` CLI, stacked on #650), [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (Rust mount-parity runner, XS path unbuildable in-tree), and CloudFlare daemon storage [#638](https://github.com/endojs/endo-but-for-bots/pull/638).
 
-The bigger signal is a stack of gardener messages awaiting your call, most from the same cause — the frozen PR bases have drifted ~1194 commits behind `llm`, which independently re-architected the subsystems these PRs touch. Three approved/ready PRs stalled at rebase because merging them would *regress* trunk: [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula-introspection — `llm` now ships a richer `diagnostics()` and a colliding `-t` flag; only `listWorkerTenants` is genuinely novel), [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript — `assembleTranscript` is gone under the new pi-based harness), and [#132](https://github.com/endojs/endo-but-for-bots/pull/132) (render-mode toggle — chat rendering moved into confined `@endo/space-chat` Preact). Each needs a redesign-vs-close decision, not a weave. Similarly, [#133](https://github.com/endojs/endo-but-for-bots/pull/133) got its description refreshed but its port to the Preact chat bar poses an eval-error-UX design conflict, and [#89](https://github.com/endojs/endo-but-for-bots/pull/89) is green+approved but needs a weave to reconcile the `designs/README.md` index against trunk before it can conduct. [#112](https://github.com/endojs/endo-but-for-bots/pull/112) was found already closed by you as superseded.
-
-On the build side: the CloudFlare storage design shipped as draft [#638](https://github.com/endojs/endo-but-for-bots/pull/638) (its parked go-ahead job needs its stale `kriscendobot/endo` target corrected before promotion), the mount CLI follow-up [#652](https://github.com/endojs/endo-but-for-bots/pull/652) and Rust parity runner [#654](https://github.com/endojs/endo-but-for-bots/pull/654) are up as stacked drafts, and the new daily `exo-google-sheets` supervisor posted a gauntlet on OAuth design gate [#621](https://github.com/endojs/endo-but-for-bots/pull/621). Note also [#286](https://github.com/endojs/endo-but-for-bots/pull/286) asks whether to adopt the freshly-merged `@endo/http-confine`, and an issue-inbox access request flagged that @kriscendobot tried to drive the garden via [issue #34](https://github.com/kriskowal/garden/issues/34) but isn't on the maintainer allowlist.
+The main thing to notice is a cluster of **approved/review-requested PRs that can't advance because their frozen bases diverged ~1194 commits from live `llm` and the subsystems they touch were rewritten out from under them** — each needs a maintainer call, not a mechanical fix: [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal transcript fix; `assembleTranscript` gone in the pi-based harness), [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula introspection superseded except `listWorkerTenants`), [#132](https://github.com/endojs/endo-but-for-bots/pull/132) (render-mode toggle needs re-porting to confined Preact `InboxRoot`), [#133](https://github.com/endojs/endo-but-for-bots/pull/133) (pending-commands, a design conflict with the migration's rich error path), and [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (green + approved but wants a weave over the design index). Meanwhile a daily supervisor now drives the exo-google-sheets tree, with OAuth design [#621](https://github.com/endojs/endo-but-for-bots/pull/621) as the gating step. One access note: @kriscendobot hit the garden's issue inbox on kriskowal/garden#34 but isn't on the maintainer allowlist, so the interaction was dropped.
 
 ## Parked for maintainer feedback
 
@@ -373,16 +371,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-mount-cli-phase6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-cli-phase6.md) — ---
 
-### tada (1575)
+### tada (1576)
+- [`endojs-endo-but-for-bots-mount-ext-rebuild-orch-127`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-ext-rebuild-orch-127.md) — orchestration endojs-endo-but-for-bots-mount-ext-rebuild-orch-127 — complete
 - [`endojs-endo-but-for-bots-mount-ext-close-127`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-ext-close-127.md) — Completion report
 - [`endojs-endo-but-for-bots-mount-json-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-json-build.md) — Build: mount JSON read/write — PR D of the #127 reconstruction
 - [`endojs-endo-but-for-bots-mount-provide-submount-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-provide-submount-build.md) — Completion Report
 - [`endojs-endo-but-for-bots-mount-grep-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-grep-build.md) — All gates green. The builder deliverable is complete. Final report:
-- [`endojs-endo-but-for-bots-mount-glob-rust-runner`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-glob-rust-runner.md) — Completion report
-- … and 1570 more
+- … and 1571 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
