@@ -32,3 +32,9 @@ exactly as the programmatic option does.
 
 Run the standard PR-creation chain (`skills/pr-creation-flow/SKILL.md`) on a
 frozen base per `skills/frozen-base-branch/SKILL.md`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  claimed_at: 2026-07-09T20:09:20Z
