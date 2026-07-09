@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-09T23:05:24Z_
+_As of 2026-07-09T23:07:44Z_
 
 ## Latest
 
-The mount-revocation CI shepherd for [endo-but-for-bots#650](https://github.com/endojs/endo-but-for-bots/pull/650) drove that PR to green and completed — though the watchdog flagged that it overran its 2400s handler budget and should be split into claim-sized stages next time. Two conductor attempts stalled on the same root cause and each needs a **weave** before it can merge: [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (genie-integration design) and [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript), both sitting on frozen base snapshots that have diverged hard from live `llm` — #123's fix guards an `assembleTranscript` that no longer exists after the `makePiAgent` rewrite, so it may be obsolete. CI on [#286](https://github.com/endojs/endo-but-for-bots/pull/286) surfaced a real Node-22-only bug (hardening freezes undici's lazy `Headers` slot, breaking CapTP error-decode); a fixer is now in flight. Several builder jobs came back as impasses because the work already exists — daemon agent-tools ([#614 landed, #618 conflicting](https://github.com/endojs/endo-but-for-bots/pull/618)) and endoclaw-timer Phase 1 ([#609](https://github.com/endojs/endo-but-for-bots/pull/609), open and green) — awaiting your call to close as duplicates or extract clean slices. New draft PRs opened: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (mount `--deny` CLI, stacked on #650) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (Rust-side mount-glob parity runner, since the XS boot path isn't buildable). A daily exo-google-sheets supervisor is now running; its day-1 report puts the OAuth foundation design [#621](https://github.com/endojs/endo-but-for-bots/pull/621) as the gating node, with a gauntlet posted to drive it out of draft. Finally, the [#133](https://github.com/endojs/endo-but-for-bots/pull/133) refresh is blocked on a genuine design conflict (preact migration's rich inline-error path vs. the pending-command card owning its own error UX) and needs your decision before it can be ported.
+The Node-22-specific CI failure in [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (http-client) was diagnosed and fixed: hardening a live whatwg `Headers` object across CapTP froze undici's lazy `Symbol(headers map sorted)` slot and broke error-decode on Node 22, so the fix normalizes headers before they cross the boundary. Two conductor attempts stalled on frozen-snapshot bases that have diverged from live `llm` and need weaves before they can merge — [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (genie-integration, a semantic `designs/README.md` index conflict) and [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript, whose `assembleTranscript` target was rewritten away under the new `makePiAgent` architecture). Two builder impasses landed as design-sanctioned Rust-side alternatives rather than blocking: [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (mount-glob parity crate, since the XS boot path won't compile in-tree) and [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (the `--deny` CLI follow-up, left stacked-draft pending #650's merge). A review of [kriscendobot/minion.town#3](https://github.com/kriscendobot/minion.town/pull/3) is now in flight, and the new daily `exo-google-sheets` supervisor posted its first standup, driving design PR [#621](https://github.com/endojs/endo-but-for-bots/pull/621) toward the review queue as the gate for the whole OAuth→sheets tree.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 11m)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 16m)
 - [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 4h)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 7d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9d)
@@ -25,44 +25,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260709T184527Z-5dcef9` — from gardener:--help, reply_to `--help` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T184527Z-5dcef9.md)
 
 > (empty message)
-
-- `20260709T184557Z-576620` — from gardener:endojs-endo-but-for-bots-pr133-refresh, reply_to `endojs-endo-but-for-bots-pr133-refresh` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T184557Z-576620.md)
-
-> PR #133 "refresh" (endojs/endo-but-for-bots) — status + one decision for you.
->
-> DONE: refreshed the PR title and description per the GitHub template.
->   Title is now "feat(chat): pending-commands region with non-blocking command bar";
->   body follows the template (Description + Security/Scaling/Documentation/Testing/
->   Compatibility/Upgrade Considerations) and carries a "Refresh status" note.
->
-> BRANCH REFRESH — needs your call before I can land it correctly:
-> The preact confinement migration relocated the chat bar from
->   packages/chat/chat-bar-component.js  ->  packages/spaces-util/src/chat-bar-component.js
-> and re-architected command-error surfacing. `showError` now routes a failure to the
-> rich stack-trace bubble (message + stack + clickable worker chip) ONLY while
-> `mode === 'inline'`; otherwise it falls back to the bare send-mode toast.
->
-> The pending-commands feature's core move is to unlock the bar immediately on dispatch
-> (leave inline mode). So a failed inline /js or /eval would drop out of inline mode and
-> lose the new rich trace — the exact regression that migration was built to prevent
-> ("Treating /js as modal-opening here is what dropped the resolved trace on the floor").
-> Meanwhile the 2026-03 design (designs/chat-pending-commands.md) sketches /eval AS a
-> pending card owning its own error UX. That's a genuine design conflict I won't resolve
-> unilaterally.
->
-> Options:
->  (a) Conservative port — pending-card + immediate-unlock for all non-modal commands
->      EXCEPT inline /js and /eval, which stay on the rich inline-error path. Preserves the
->      migration's improvement; minor deviation from the design's eval-card example.  [my recommendation]
->  (b) Design-faithful — pending-card everything including /eval; accept that eval errors
->      show message-only on the card (lose the rich stack trace + worker chip).
->  (c) Card + rich detail — pending card for eval AND wire the resolved trace/worker-chip
->      into the card's error state (best UX, most work).
->
-> This refresh pass can't do the port+verify itself: it's a re-implementation across
-> packages/spaces-util needing a full monorepo build + playwright component run. If you pick
-> an option (I suggest (a)), reply here and I'll have the liaison post a builder/fixer
-> "port #133 to preact" job to implement and verify it. Reply routes back to my inbox.
 
 - `20260709T184610Z-bb842f` — from gardener:endojs-endo-but-for-bots-pr89-conduct, reply_to `endojs-endo-but-for-bots-pr89-conduct` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T184610Z-bb842f.md)
 
@@ -264,17 +226,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 ### doin (4)
 - [`design-auto-provision-fork-watchers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-auto-provision-fork-watchers.md) — Design: auto-provision per-repo watchers when the garden creates a fork
-- [`fix-ebfb-286-headers-harden-node22`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-ebfb-286-headers-harden-node22.md) — Fix: PR #286 http-client fails on Node 22 — hardened undici Headers breaks Ca...
+- [`kriscendobot-minion.town-pr3-review-3c9cea83`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr3-review-3c9cea83.md) — Review directive on kriscendobot/minion.town PR #3
 - [`shepherd-endo-but-for-bots-pr609-endoclaw-timer-lint-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr609-endoclaw-timer-lint-green.md) — ---
 - [`shepherd-endo-but-for-bots-pr656-mount-provide-submount-lint-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr656-mount-provide-submount-lint-green.md) — ---
 
-### tada (1586)
+### tada (1587)
+- [`fix-ebfb-286-headers-harden-node22`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-ebfb-286-headers-harden-node22.md) — Completion report — fix-ebfb-286-headers-harden-node22
 - [`shepherd-endo-but-for-bots-pr650-mount-revocation-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pr650-mount-revocation-ci-green.md) — Completion report
 - [`weave-endo-but-for-bots-pr618-agent-tools-phase4-onto-llm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr618-agent-tools-phase4-onto-llm.md) — Completion report
 - [`fu-endojs-endo-but-for-bots-pull-request-286-http-client-reconcile-onto-merged-566-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-endojs-endo-but-for-bots-pull-request-286-http-client-reconcile-onto-merged-566-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pull-request-617-and-619-endoclaw-timer-restack-onto-609`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pull-request-617-and-619-endoclaw-timer-restack-onto-609.md) — Completion Report
-- [`endojs-endo-but-for-bots-daemon-agent-tools-phase-one-filesystem-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-daemon-agent-tools-phase-one-filesystem-tools.md) — Completion report — endojs-endo-but-for-bots-daemon-agent-tools-phase-one-fil...
-- … and 1581 more
+- … and 1582 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -298,7 +260,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-(none)
+- [`kriscendobot-minion.town-pr3-review-3c9cea83-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr3-review-3c9cea83-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #3 (primary: kriscendobot-minion...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
@@ -307,7 +269,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
 ## Watch set
-(none)
+kriscendobot-minion.town
 
 ## Hosts
 - [endolin-garden-ece02cb4](https://github.com/kriskowal/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 20 gardeners
