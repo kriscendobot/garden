@@ -2,7 +2,7 @@
 order: serial
 children: endojs-endo-but-for-bots-pr123-rebase endojs-endo-but-for-bots-pr123-retcon endojs-endo-but-for-bots-pr123-conduct
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-07-09T18:35:56Z
 ---
