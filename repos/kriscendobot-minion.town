@@ -1,0 +1,9 @@
+# garden-triager arming record
+repo: kriscendobot/minion.town
+armed_at: 2026-07-09T23:06:05Z
+authorized_by: kriskowal
+authorization: msgs/broadcast/20260709T225552Z-e61229.md ("watch the garden's
+  own forks", 2026-07-09) — own-fork commit triage (the laxer repos/ bar). First
+  concrete instance of designs/auto-provision-fork-watchers.md: the fleet missed
+  three kriskowal APPROVED reviews on kriscendobot/minion.town#3 because the
+  repo was in neither watch set.
