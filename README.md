@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-09T19:12:32Z_
+_As of 2026-07-09T19:13:44Z_
 
 ## Latest
 
-The gauntlet on [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (the refined `endoclaw-oauth` foundation design) completed, driving it out of draft into your review queue — this is the design gate the new daily `exo-google-sheets` supervisor flagged as the single deepest unblocked step for the whole sheets tree; nothing below it builds until #621 merges. The fetch substrate under it already landed: [#566](https://github.com/endojs/endo-but-for-bots/pull/566) (`@endo/http-confine` + `@endo/exo-http-client`) merged on `llm`, which retired the `endoclaw-network-fetch` builder job as duplicate and prompts an adoption decision on [#286](https://github.com/endojs/endo-but-for-bots/pull/286).
+The main substrate landed: [`@endo/http-confine` + `@endo/exo-http-client` merged on `llm` via endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/pull/566), putting the confined-fetch/allowlist floor in place — which unblocks the exo-google-sheets tree (a new daily supervisor now drives it, and [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621), the OAuth-foundation design gate, went through the gauntlet toward your review). @0xpatrickbot separately proposes [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) adopt that new confinement core, offering three paths and awaiting your call.
 
-The bigger signal is a cluster of approved/refresh-requested PRs that **cannot proceed mechanically** because base `llm` has diverged ~1194 commits and refactored the code they touch out from under them — each is paused awaiting your call, not stalled silently: [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript; the whole `assembleTranscript` machinery is gone under the pi-based harness), [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula-introspection; flag collision + superseded inspect), [#132](https://github.com/endojs/endo-but-for-bots/pull/132) and [#133](https://github.com/endojs/endo-but-for-bots/pull/133) (chat features needing reimplementation on the confined Preact/`@endo/space-chat` architecture), and [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (green + approved, but conduct needs a weave to reconcile the `designs/README.md` index). Also new: the CloudFlare storage design landed as draft [#638](https://github.com/endojs/endo-but-for-bots/pull/638) (the parked build job still points at stale coordinates and needs fixing at promote time), and @kriscendobot hit the garden's own issue inbox (#34) but isn't on the maintainer allowlist, so it was dropped.
+The bigger thing to notice is a cluster of **approved/refresh-requested PRs that can no longer be mechanically landed** because `llm` advanced ~1,200 commits and refactored out what they patched — each gardener stopped and left the branch untouched rather than regress trunk: [endo-but-for-bots#129](https://github.com/endojs/endo-but-for-bots/pull/129) (introspection superseded/flag-colliding, rebase aborted), [endo-but-for-bots#123](https://github.com/endojs/endo-but-for-bots/pull/123) (`assembleTranscript` gone under the new pi-based lal harness; both weave and conduct stalled), [endo-but-for-bots#132](https://github.com/endojs/endo-but-for-bots/pull/132) and [endo-but-for-bots#133](https://github.com/endojs/endo-but-for-bots/pull/133) (chat features need reimplementation on the confined Preact/`@endo/space-chat` architecture), and [endo-but-for-bots#89](https://github.com/endojs/endo-but-for-bots/pull/89) (green + approved but needs a design-index weave off its frozen snapshot). Each message proposes options; all are holding for your decision. Also queued for you: the CloudFlare-storage design landed as draft [endo-but-for-bots#638](https://github.com/endojs/endo-but-for-bots/pull/638) (its parked build job still names the wrong repo/branch and needs correction at promote time), a CloudWatch billing-alarm question for minion.town, and an access-request from @kriscendobot on the issue inbox.
 
 ## Parked for maintainer feedback
 
@@ -316,17 +316,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-mount-revocation-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-revocation-build.md) — Build: mount revocation + deny patterns (PR A of the #127 reconstruction)
-- [`propose-pi-bump-0.80.3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/propose-pi-bump-0.80.3.md) — State
 
-### tada (1551)
+### tada (1552)
+- [`propose-pi-bump-0.80.3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/propose-pi-bump-0.80.3.md) — Completion report: propose-pi-bump-0.80.3
 - [`gauntlet-endo-but-for-bots-pr621-endoclaw-oauth`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr621-endoclaw-oauth.md) — Completion report
 - [`deadmail-issue-comment-4928522971`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4928522971.md) — Completion report
 - [`endojs-endo-but-for-bots-pr129-review-b76233e2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr129-review-b76233e2.md) — Completion report — PR #129 review job
 - [`pi-release-watch-20260709-185001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/pi-release-watch-20260709-185001.md) — Report
-- [`esheets-supervisor-20260709-185001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260709-185001.md) — Completion report
-- … and 1546 more
+- … and 1547 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
