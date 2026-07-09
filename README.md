@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-09T23:04:40Z_
+_As of 2026-07-09T23:05:24Z_
 
 ## Latest
 
-Two conductor attempts stalled on the same wall this cycle: [endo-but-for-bots#123](https://github.com/endojs/endo-but-for-bots/pull/123) and [#89](https://github.com/endojs/endo-but-for-bots/pull/89) are both approved and green but sit on frozen snapshot bases that have diverged hard from live `llm` — #123's fix guards an `assembleTranscript` path that no longer exists after the `makePiAgent` rewrite, and #89 conflicts on the `designs/README.md` index. Both need a **weave** (or a redesign call) before they can merge. Separately, CI surfaced a real Node-22-specific bug in [#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s new http-client — hardening freezes undici's lazy `Symbol(headers map sorted)` slot and breaks CapTP error-decode — and a fixer (`fix-ebfb-286-headers-harden-node22`) is now in flight.
-
-On the build side, two new draft PRs landed: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (the `endo mount --deny` CLI follow-up, stacked on #650 and awaiting #650's merge before rebase+gauntlet) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (a Rust-side `mount_parity` crate, chosen over the un-buildable XS-run variant). A new daily `exo-google-sheets` supervisor schedule is driving that dependency tree, with [#621](https://github.com/endojs/endo-but-for-bots/pull/621) as the OAuth-foundation design gate now headed through the gauntlet.
-
-Three items want a maintainer decision: [#133](https://github.com/endojs/endo-but-for-bots/pull/133)'s preact port needs you to pick how inline `/js`/`/eval` errors surface (gardener recommends the conservative option (a)); the daemon agent-tools filesystem job collides with in-flight [#618](https://github.com/endojs/endo-but-for-bots/pull/618) (conflicting) and landed [#614](https://github.com/endojs/endo-but-for-bots/pull/614), asking whether to weave #618 or extract a clean fs-only slice; and the endoclaw-timer job is already satisfied by open, green [#609](https://github.com/endojs/endo-but-for-bots/pull/609) (with #617/#619 stacked behind it). Also worth noting: the `shepherd-…-pr650-mount-revocation-ci-green` job deterministically overran its handler budget and will be poisoned unless split into claim-sized stages.
+The mount-revocation CI shepherd for [endo-but-for-bots#650](https://github.com/endojs/endo-but-for-bots/pull/650) drove that PR to green and completed — though the watchdog flagged that it overran its 2400s handler budget and should be split into claim-sized stages next time. Two conductor attempts stalled on the same root cause and each needs a **weave** before it can merge: [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (genie-integration design) and [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript), both sitting on frozen base snapshots that have diverged hard from live `llm` — #123's fix guards an `assembleTranscript` that no longer exists after the `makePiAgent` rewrite, so it may be obsolete. CI on [#286](https://github.com/endojs/endo-but-for-bots/pull/286) surfaced a real Node-22-only bug (hardening freezes undici's lazy `Headers` slot, breaking CapTP error-decode); a fixer is now in flight. Several builder jobs came back as impasses because the work already exists — daemon agent-tools ([#614 landed, #618 conflicting](https://github.com/endojs/endo-but-for-bots/pull/618)) and endoclaw-timer Phase 1 ([#609](https://github.com/endojs/endo-but-for-bots/pull/609), open and green) — awaiting your call to close as duplicates or extract clean slices. New draft PRs opened: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (mount `--deny` CLI, stacked on #650) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (Rust-side mount-glob parity runner, since the XS boot path isn't buildable). A daily exo-google-sheets supervisor is now running; its day-1 report puts the OAuth foundation design [#621](https://github.com/endojs/endo-but-for-bots/pull/621) as the gating node, with a gauntlet posted to drive it out of draft. Finally, the [#133](https://github.com/endojs/endo-but-for-bots/pull/133) refresh is blocked on a genuine design conflict (preact migration's rich inline-error path vs. the pending-command card owning its own error UX) and needs your decision before it can be ported.
 
 ## Parked for maintainer feedback
 
@@ -266,20 +262,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`design-auto-provision-fork-watchers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-auto-provision-fork-watchers.md) — Design: auto-provision per-repo watchers when the garden creates a fork
 - [`fix-ebfb-286-headers-harden-node22`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-ebfb-286-headers-harden-node22.md) — Fix: PR #286 http-client fails on Node 22 — hardened undici Headers breaks Ca...
 - [`shepherd-endo-but-for-bots-pr609-endoclaw-timer-lint-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr609-endoclaw-timer-lint-green.md) — ---
-- [`shepherd-endo-but-for-bots-pr650-mount-revocation-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr650-mount-revocation-ci-green.md) — ---
 - [`shepherd-endo-but-for-bots-pr656-mount-provide-submount-lint-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr656-mount-provide-submount-lint-green.md) — ---
 
-### tada (1585)
+### tada (1586)
+- [`shepherd-endo-but-for-bots-pr650-mount-revocation-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pr650-mount-revocation-ci-green.md) — Completion report
 - [`weave-endo-but-for-bots-pr618-agent-tools-phase4-onto-llm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr618-agent-tools-phase4-onto-llm.md) — Completion report
 - [`fu-endojs-endo-but-for-bots-pull-request-286-http-client-reconcile-onto-merged-566-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-endojs-endo-but-for-bots-pull-request-286-http-client-reconcile-onto-merged-566-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pull-request-617-and-619-endoclaw-timer-restack-onto-609`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pull-request-617-and-619-endoclaw-timer-restack-onto-609.md) — Completion Report
 - [`endojs-endo-but-for-bots-daemon-agent-tools-phase-one-filesystem-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-daemon-agent-tools-phase-one-filesystem-tools.md) — Completion report — endojs-endo-but-for-bots-daemon-agent-tools-phase-one-fil...
-- [`endojs-endo-but-for-bots-endomount-follow-name-changes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-endomount-follow-name-changes.md) — Completion report: endojs-endo-but-for-bots-endomount-follow-name-changes
-- … and 1580 more
+- … and 1581 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
