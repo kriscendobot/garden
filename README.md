@@ -1,17 +1,15 @@
 # Garden bulletin
 
-_As of 2026-07-09T23:38:54Z_
+_As of 2026-07-09T23:40:50Z_
 
 ## Latest
 
-A new daily [exo-google-sheets supervisor](https://github.com/endojs/endo-but-for-bots/pull/612) schedule now drives the dependency tree from design #612 toward implementation; day-one standup reports the network-fetch substrate landed ([#566](https://github.com/endojs/endo-but-for-bots/pull/566)) and posts the gauntlet on [#621](https://github.com/endojs/endo-but-for-bots/pull/621), the OAuth-foundation design gate that must merge before any build proceeds. Two mount follow-ups opened as stacked drafts: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) adds `--deny`/`--no-deny` to the CLI (on [#650](https://github.com/endojs/endo-but-for-bots/pull/650)), and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) lands a Rust-side `mount_parity` crate (on [#653](https://github.com/endojs/endo-but-for-bots/pull/653)) — the gardener chose the design-sanctioned Rust runner after finding the XS-run path unbuildable, and awaits a steer on whether that suffices or the XS variant is wanted.
-
-Several jobs stalled as already-satisfied or out-of-scope: conducting [#123](https://github.com/endojs/endo-but-for-bots/pull/123) is blocked because live `llm` rewrote `agent.js` and the fix's target code is gone (needs a weave/redesign, not a merge); the endoclaw-timer phase-1 job is a duplicate of green, non-draft [#609](https://github.com/endojs/endo-but-for-bots/pull/609); and the daemon filesystem-tools job collides with landed [#614](https://github.com/endojs/endo-but-for-bots/pull/614) plus conflicting draft [#618](https://github.com/endojs/endo-but-for-bots/pull/618). Needs attention: [#286](https://github.com/endojs/endo-but-for-bots/pull/286) has a deterministic Node-22 CI failure (undici `Headers` frozen across CapTP) wanting a fixer, its control-facet wiring is still deferred, the mount-revocation shepherd for [#650](https://github.com/endojs/endo-but-for-bots/pull/650) overran its handler budget and risks poisoning, and the foreman flagged the endoclaw-timer phase-4 host-integration job as possibly stuck.
+A new self-heal job is in flight to give the minion.town triager's `claude` call a bounded retry, but the notable movement is a cluster of gardener stalls and impasses needing your steer. The exo-google-sheets push kicked off as a daily supervisor: it posted `run the gauntlet #621` to drive the endoclaw-oauth foundation design ([#621](https://github.com/endojs/endo-but-for-bots/pull/621)) out of draft — the gate for the whole sheets tree, since nothing downstream is buildable until it merges. Two mount follow-ups landed as stacked drafts awaiting their predecessors: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (the `--deny` CLI, stacked on unmerged #650) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (a Rust-side `mount_parity` crate, the design-sanctioned alternative after the XS-run path proved unbuildable in-tree). Three jobs hit hard walls: the conductor on [#123](https://github.com/endojs/endo-but-for-bots/pull/123) can't merge because its transcript-hardening fix targets an `agent.js` that live `llm` rewrote away (recommends a weave or obsolescence call), and two builder jobs found their work already delivered — filesystem agent-tools by [#614](https://github.com/endojs/endo-but-for-bots/pull/614)/[#618](https://github.com/endojs/endo-but-for-bots/pull/618) and the endoclaw-timer daemon formula by [#609](https://github.com/endojs/endo-but-for-bots/pull/609). CI surfaced a real Node-22-specific bug in [#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s http-client (a hardened undici `Headers` slot breaks CapTP error decode), warranting a fixer, and the shepherd on [#650](https://github.com/endojs/endo-but-for-bots/pull/650) overran its handler budget and needs to be split or detached before the reaper poisons it.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 44m)
-- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 4h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 49m)
+- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 5h)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 7d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 10d)
@@ -206,7 +204,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`self-heal-fix-garden-triager-kriscendobot-minion-town-claude-call-bounded-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-minion-town-claude-call-bounded-retry.md) — In scripts/jobs/handlers/triager-claude.sh, the single triage invocation at l...
 - [`shepherd-endo-but-for-bots-pr286-cli-http-client-lint-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr286-cli-http-client-lint-green.md) — ---
 - [`shepherd-endo-but-for-bots-pr653-mount-glob-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr653-mount-glob-ci-green.md) — ---
 
