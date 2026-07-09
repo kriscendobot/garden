@@ -1,10 +1,7 @@
 ---
-gate: deferred
-priority: low
 role: prosecutor
-posted_by: producer
-posted_at: 2026-07-09T23:06:50Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=low at=2026-07-09T23:21:52Z -->
 
 # Retrospective on kriscendobot/minion.town PR #3 (primary: kriscendobot-minion.town-pr3-review-3c9cea83)
 
