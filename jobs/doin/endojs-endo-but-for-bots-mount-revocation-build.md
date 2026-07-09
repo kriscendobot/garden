@@ -26,3 +26,9 @@ standard PR-creation chain (`skills/pr-creation-flow/SKILL.md`). File the
 CLI-plumbing follow-up the design names.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 20
+  claimed_at: 2026-07-09T19:33:15Z
