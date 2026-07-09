@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-09T22:13:38Z_
+_As of 2026-07-09T22:23:31Z_
 
 ## Latest
 
-The network-fetch substrate landed on `llm`: [#566](https://github.com/endojs/endo-but-for-bots/pull/566) merged `@endo/http-confine` + `@endo/exo-http-client`, and that ripple made several queued builds redundant — gardeners found the `endoclaw-network-fetch`, filesystem-agent-tools ([#614](https://github.com/endojs/endo-but-for-bots/pull/614) landed, [#618](https://github.com/endojs/endo-but-for-bots/pull/618) conflicting), and interval-scheduler ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)) work already delivered and declined to open duplicates. The [#286](https://github.com/endojs/endo-but-for-bots/pull/286) reconcile onto #566 completed, though its `HttpClientControl` mutators aren't yet wired through the daemon controller (Phase 2/3 follow-up flagged).
+The [endoclaw-timer](https://github.com/endojs/endo-but-for-bots/pull/609) stack advanced: Phase 2 ([#617](https://github.com/endojs/endo-but-for-bots/pull/617)) and Phase 3 ([#619](https://github.com/endojs/endo-but-for-bots/pull/619)) were restacked onto the merge-ready Phase 1 formula PR [#609](https://github.com/endojs/endo-but-for-bots/pull/609), which reports green and non-draft — a candidate for the conductor.
 
-The item most needing your eyes: a cluster of **approved/refresh PRs is stalled because base `llm` diverged ~1194 commits** and superseded the underlying code — [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript, subsystem rewritten onto pi-harness), [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula-introspection, flag collision + weaker inspect), [#132](https://github.com/endojs/endo-but-for-bots/pull/132) and [#133](https://github.com/endojs/endo-but-for-bots/pull/133) (chat features vs. the Preact confinement migration), and [#89](https://github.com/endojs/endo-but-for-bots/pull/89) (design-index conflict). Each gardener aborted cleanly and is asking whether to redesign against the new architecture or close as superseded — none proceeded unilaterally.
+What most needs your eye is a cluster of stalled branch-ops, all tracing to the same cause: base `llm` has advanced ~1194 commits and superseded the work under review. [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript) and [#129](https://github.com/endojs/endo-but-for-bots/pull/129) (formula-introspection) are approved but their subsystems were rewritten out from under them — merging as-approved would regress `llm`, so both weaves/conducts aborted untouched pending your close-or-reslice call. [#132](https://github.com/endojs/endo-but-for-bots/pull/132) and [#133](https://github.com/endojs/endo-but-for-bots/pull/133) refreshes hit the same wall (chat rendering migrated to confined Preact `@endo/space-chat`), each offering a recommended port option. On [#286](https://github.com/endojs/endo-but-for-bots/pull/286), 0xpatrickbot proposes adopting the newly-merged `@endo/http-confine` ([#566](https://github.com/endojs/endo-but-for-bots/pull/566)) as its confinement core and flags a self-contradictory design-doc flip; [#89](https://github.com/endojs/endo-but-for-bots/pull/89) is CI-green and approved but needs a weave for a `designs/README.md` index conflict before it can land on live trunk.
 
-New drafts opened: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (`--deny` mount CLI, stacked on [#650](https://github.com/endojs/endo-but-for-bots/pull/650)) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (Rust-side `mount_parity` runner, after the XS-run path proved unbuildable), plus the CloudFlare-storage design [#638](https://github.com/endojs/endo-but-for-bots/pull/638). A daily `exo-google-sheets` supervisor is now live and posted a gauntlet on the OAuth design gate [#621](https://github.com/endojs/endo-but-for-bots/pull/621). Finally, @kriscendobot tried to drive the garden via issue [#34](https://github.com/kriskowal/garden/issues/34) but isn't on the maintainer allowlist, so it was dropped — add them if that's intended.
+Also worth noting: two mount follow-ups opened as stacked drafts — [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (CLI `--deny` flags) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (a Rust-side glob parity runner, chosen because the XS boot path isn't buildable in-tree). A daily supervisor now drives the exo-google-sheets tree, whose current gate is the OAuth foundation design [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (draft, CI green), sent to the gauntlet. Several jobs stopped as already-satisfied by in-flight PRs rather than opening duplicates ([#566](https://github.com/endojs/endo-but-for-bots/pull/566), [#609](https://github.com/endojs/endo-but-for-bots/pull/609), [#614](https://github.com/endojs/endo-but-for-bots/pull/614)/[#618](https://github.com/endojs/endo-but-for-bots/pull/618)). Finally, @kriscendobot tried to drive the garden via issue [#34](https://github.com/kriskowal/garden/issues/34) but isn't on the maintainer allowlist, so it was dropped — add them if that was intended.
 
 ## Parked for maintainer feedback
 
@@ -406,18 +406,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pull-request-617-and-619-endoclaw-timer-restack-onto-609`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pull-request-617-and-619-endoclaw-timer-restack-onto-609.md) — ---
+### doin (2)
 - [`fu-endojs-endo-but-for-bots-pull-request-286-http-client-reconcile-onto-merged-566-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pull-request-286-http-client-reconcile-onto-merged-566-2.md) — On endojs/endo-but-for-bots PR #286 (https://github.com/endojs/endo-but-for-b...
 - [`shepherd-endo-but-for-bots-pr650-mount-revocation-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr650-mount-revocation-ci-green.md) — ---
 
-### tada (1582)
+### tada (1583)
+- [`endojs-endo-but-for-bots-pull-request-617-and-619-endoclaw-timer-restack-onto-609`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pull-request-617-and-619-endoclaw-timer-restack-onto-609.md) — Completion Report
 - [`endojs-endo-but-for-bots-daemon-agent-tools-phase-one-filesystem-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-daemon-agent-tools-phase-one-filesystem-tools.md) — Completion report — endojs-endo-but-for-bots-daemon-agent-tools-phase-one-fil...
 - [`endojs-endo-but-for-bots-endomount-follow-name-changes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-endomount-follow-name-changes.md) — Completion report: endojs-endo-but-for-bots-endomount-follow-name-changes
 - [`endojs-endo-but-for-bots-pull-request-286-http-client-reconcile-onto-merged-566`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pull-request-286-http-client-reconcile-onto-merged-566.md) — What I did
 - [`endojs-endo-but-for-bots-endoclaw-timer-phase4-host-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-endoclaw-timer-phase4-host-integration.md) — Completion Report
-- [`endojs-endo-but-for-bots-endoclaw-timer-daemon-graduation-phase-one`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-endoclaw-timer-daemon-graduation-phase-one.md) — Completion report
-- … and 1577 more
+- … and 1578 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
