@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/29#issuecomment-4928845441
 Can you verify that the options change is reflected in the "data exports" so that it's reflected in the cosmos db? Regarding the a3p test, can you at least author the test? For the vatId think what we want is to rely in the deterministic nature of deployment: in `g:ymax1` assert 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 20
+  claimed_at: 2026-07-09T19:40:07Z
