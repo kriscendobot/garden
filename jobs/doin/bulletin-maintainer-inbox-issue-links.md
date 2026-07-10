@@ -70,3 +70,9 @@ and full issue/PR URLs as working hyperlinks — verified on the live bulletin a
 by a test assertion, committed and pushed to `main2` with the bulletin service
 reposting the change. The `tada` report gives the SHA, the file(s) touched, the
 repo-resolution rule implemented, and the live-render observation.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  claimed_at: 2026-07-10T21:22:51Z
