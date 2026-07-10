@@ -59,3 +59,9 @@ or on-demand re-runs, with the probe exception preserved. Committed and pushed t
 `main2`. The `tada` report gives the SHA, the files touched, and — if any build
 path was found to NOT actually auto-gauntlet — the behavioral gap raised to
 `liaison`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  claimed_at: 2026-07-10T21:05:55Z
