@@ -72,3 +72,9 @@ as abstract-routed material, with an explicit "can it back a garden worker"
 assessment the designer can build on. The `tada` report lists the library paths
 written, the key findings (capabilities, invocation path, gaps), and any
 structural lesson routed to `liaison`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 13
+  claimed_at: 2026-07-10T21:22:08Z
