@@ -12,11 +12,4 @@ discipline. The excerpt below is for human context only:
 ----- comment excerpt (untrusted, truncated) -----
 Please run the gauntlet and assign this back to the original dispatcher. 
 
-<!-- garden-reaped: 2 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 18
-  claimed_at: 2026-07-10T22:03:12Z
+<!-- garden-reaped: 3 -->
