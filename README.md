@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-10T23:35:53Z_
+_As of 2026-07-10T23:40:27Z_
 
 ## Latest
 
@@ -777,7 +777,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (8)
+### doin (9)
+- [`deadmail-issue-comment-4940396976`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4940396976.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr677-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr677-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #677
 - [`endojs-endo-but-for-bots-pr678-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr678-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #678
 - [`endojs-endo-but-for-bots-pr679-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr679-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #679
