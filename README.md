@@ -1,19 +1,17 @@
 # Garden bulletin
 
-_As of 2026-07-10T01:34:08Z_
+_As of 2026-07-10T01:42:17Z_
 
 ## Latest
 
-The mount-extensions stack on endo-but-for-bots kept moving: [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now green — a gardener rebased it onto the fixed [#650](https://github.com/endojs/endo-but-for-bots/pull/650) base after the durable "wake open followNameChanges streams on revoke" fix landed there, unblocking grep ([#655](https://github.com/endojs/endo-but-for-bots/pull/655), whose CI-green shepherd just completed) and json ([#657](https://github.com/endojs/endo-but-for-bots/pull/657)). Still in flight: a gauntlet on [#650](https://github.com/endojs/endo-but-for-bots/pull/650) and a shepherd on the Rust mount-parity crate [#654](https://github.com/endojs/endo-but-for-bots/pull/654). A new draft [#652](https://github.com/endojs/endo-but-for-bots/pull/652) adds `--deny`/`--no-deny` to `endo mount`/`mktmp`, stacked on #650 and awaiting a rebase+gauntlet once #650 lands.
+The mount-CLI stack advanced hard. [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now fully green after a rebase onto its fixed base [#650](https://github.com/endojs/endo-but-for-bots/pull/650), where the durable `revoke`-wakes-open-streams fix landed; [#655](https://github.com/endojs/endo-but-for-bots/pull/655) (mount-grep) shepherded to green, and gauntlets are running on [#650](https://github.com/endojs/endo-but-for-bots/pull/650) and [#658](https://github.com/endojs/endo-but-for-bots/pull/658). Two follow-ons opened as drafts stacked on their frozen bases and left for later rebase+gauntlet: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (mount `--deny` CLI) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (a Rust-side glob parity runner, chosen because the XS-run path isn't buildable in-tree — the gardener wants a steer on whether the Rust guard suffices or the XS variant is required). The endoclaw-timer phases also moved: [#617](https://github.com/endojs/endo-but-for-bots/pull/617) (phase 2) and [#619](https://github.com/endojs/endo-but-for-bots/pull/619) (phase 3) went green, and phase 1 was found already satisfied by the open, clean [#609](https://github.com/endojs/endo-but-for-bots/pull/609). A new daily supervisor for the exo-google-sheets tree started (design [#612](https://github.com/endojs/endo-but-for-bots/pull/612) merged) and posted a gauntlet on [#621](https://github.com/endojs/endo-but-for-bots/pull/621), the OAuth-foundation design gate blocking the rest of the build.
 
-Several items need a maintainer steer. The conductor on [#123](https://github.com/endojs/endo-but-for-bots/pull/123) **stalled**: it's approved but its frozen base has diverged hard from `llm` (agent.js was rewritten around a new `makePiAgent`, deleting the very `assembleTranscript` machinery the fix hardens) — it needs a weave/redesign call, not a merge. Two builder jobs hit impasses because the requested work already exists: the daemon filesystem agent-tools ask is covered by landed #614 plus conflicting draft [#618](https://github.com/endojs/endo-but-for-bots/pull/618), and the interval-scheduler formula by green, non-draft [#609](https://github.com/endojs/endo-but-for-bots/pull/609). The mount-glob Rust runner gardener proceeded with the design-sanctioned Rust-side parity crate ([#654](https://github.com/endojs/endo-but-for-bots/pull/654)) after finding the XS-run path unbuildable, and wants confirmation that's the durable guard.
-
-Two more flags: [#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s http-client e2e fails deterministically on Node 22 (undici Headers' lazy `Symbol(headers map sorted)` slot is frozen by hardening, breaking error-decode) and wants a fixer. The esheets push-to-implementation supervisor is now a daily schedule, reporting design PR [#621](https://github.com/endojs/endo-but-for-bots/pull/621) as the gate for the whole tree. Two shepherds (#650 CI-green, #652 CLI CI-green) deterministically overran the 2400s handler budget and need splitting into claim-sized stages.
+Three things want your eyes: [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript) is **stalled** — approved but unmergeable, because live `llm` rewrote `agent.js` around `makePiAgent` and the `assembleTranscript` code it hardens no longer exists; it needs a weave or a call that the fix is obsolete. [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (http-client) has a real, deterministic Node-22 bug — hardening freezes undici's lazy `Headers` slot so CapTP error-decode throws — and wants a fixer. Separately, the shepherd jobs for [#650](https://github.com/endojs/endo-but-for-bots/pull/650) and [#652](https://github.com/endojs/endo-but-for-bots/pull/652) each overran the 2400s handler budget and will be poisoned unless split into claim-sized stages.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 2h)
-- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 6h)
+- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 7h)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 7d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 10d)
@@ -232,17 +230,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`gauntlet-endo-but-for-bots-pr650-mount-revocation-caretaker-deny-patterns`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr650-mount-revocation-caretaker-deny-patterns.md) — Run the gauntlet on endojs/endo-but-for-bots PR #650 (feat/mount-revocation, ...
+- [`gauntlet-endo-but-for-bots-pr658-mount-cli-path-verbs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr658-mount-cli-path-verbs.md) — Run the gauntlet on endojs/endo-but-for-bots PR #658 (feat/mount-cli-path-ver...
 - [`shepherd-endo-but-for-bots-pr654-mount-glob-rust-parity-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr654-mount-glob-rust-parity-ci-green.md) — ---
 
-### tada (1606)
+### tada (1607)
+- [`self-heal-fix-garden-triager-kriscendobot-minion-town-empty-log-range-first-triage`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-empty-log-range-first-triage.md) — Completion report
 - [`shepherd-endo-but-for-bots-pr655-mount-grep-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pr655-mount-grep-ci-green.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-minion-town-first-triage-empty-log-range`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-first-triage-empty-log-range.md) — Completion report
 - [`shepherd-endo-but-for-bots-pr619-endoclaw-timer-phase3-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pr619-endoclaw-timer-phase3-ci-green.md) — Completion report
 - [`shepherd-endo-but-for-bots-pr617-endoclaw-timer-phase2-lint-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pr617-endoclaw-timer-phase2-lint-green.md) — CI is green on head SHA c778295 — no failures, no pending checks across all 2...
-- [`shepherd-endo-but-for-bots-pr652-mount-deny-cli-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pr652-mount-deny-cli-ci-green.md) — Completion report
-- … and 1601 more
+- … and 1602 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
