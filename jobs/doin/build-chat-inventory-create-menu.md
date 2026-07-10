@@ -70,3 +70,9 @@ locally verified (button renders, menu opens, filesystem create works). The `tad
 report links the PR, states what is live vs placeholder for UAT, and names any
 design gap hit. This build is the thing the maintainer will user-acceptance-test,
 so the report should tell them exactly which flows are ready to exercise.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  claimed_at: 2026-07-10T20:58:33Z
