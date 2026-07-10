@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-10T23:22:21Z_
+_As of 2026-07-10T23:22:36Z_
 
 ## Latest
 
@@ -685,6 +685,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260710T232210Z-73cde5` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T232210Z-73cde5.md)
 
 > self-heal: garden-triager@kriscendobot-agoric-3-proposals exited rc=1 with no scoped fix. Capture: 5b3292878419027c1f87821065824206cf90b4b2 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 5b3292878419027c1f87821065824206cf90b4b2). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
+
+- `20260710T232229Z-6ab1ec` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T232229Z-6ab1ec.md)
+
+> self-heal: garden-triager@kriscendobot-ocapn exited rc=1 with no scoped fix. Capture: b1b74a55328df794e77aba81bb9722a4cf047fd9 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p b1b74a55328df794e77aba81bb9722a4cf047fd9). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
 
 - `poison-endojs-endo-but-for-bots-pr592-cancel-in-options-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-endojs-endo-but-for-bots-pr592-cancel-in-options-requeue-exhausted.md)
 
