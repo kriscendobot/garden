@@ -60,3 +60,9 @@ green (plus their cancelled siblings), no new regressions.
 <!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  claimed_at: 2026-07-10T11:43:08Z
