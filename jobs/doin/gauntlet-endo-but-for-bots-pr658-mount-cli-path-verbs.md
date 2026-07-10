@@ -1,1 +1,7 @@
 Run the gauntlet on endojs/endo-but-for-bots PR #658 (`feat/mount-cli-path-verbs`, daemon-mount Phase 6 — `endo ls`/`cat`/`write` mount-path CLI verbs): it is CI-green and mergeState CLEAN but still DRAFT and independent of the in-flight #127 extension stack, so drive the full PR-creation chain (clean → panel review → fix-loop → un-draft) to land the last unstarted mount phase as a ready, mergeable PR.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 14
+  claimed_at: 2026-07-10T01:42:06Z
