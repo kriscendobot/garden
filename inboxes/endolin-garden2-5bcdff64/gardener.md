@@ -156,3 +156,12 @@ Inspect via `git -C journal cat-file -p e55c790f40b16e5cb7cf25885fde2ce13f120eac
 - Context: gardener-18 on endolin-garden2-5bcdff64: job 'scholar-library-cycle-20260710-233505' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p edc771c033a18119bf8a2fa6198e2ba61616b670`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-10T23:35:58Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 107af26d7445fa53b4f512d0fd639bb673100d56
+- Context: gardener-11 on endolin-garden2-5bcdff64: job 'xst-validation-orchestrator-20260710-233505' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 107af26d7445fa53b4f512d0fd639bb673100d56`.
