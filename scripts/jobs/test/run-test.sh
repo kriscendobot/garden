@@ -633,6 +633,10 @@ CALLS="$TR/bul-calls"; CAP="$TR/bul-digest"
 # asserted. A generous TTL keeps every tick in this subtest inside one refresh
 # window, so the stub must be invoked exactly once across all the run_bul passes.
 PCALLS="$TR/bul-parked-calls"; : > "$PCALLS"
+# Fake worktrees dir so a bare `#N` in a maintainer message resolves to the
+# originating fork's repo (worktrees/<owner>-<repo>.git) deterministically, not
+# against the host's real clones.
+BWT="$TR/bul-worktrees"; mkdir -p "$BWT/endojs-endo-but-for-bots.git"
 # run ONE pass of the continuous loop with the journalist + parked query stubbed
 run_bul() {
   : > "$CALLS"
@@ -641,6 +645,7 @@ run_bul() {
       GARDEN_BULLETIN_STUB_CALLS="$CALLS" GARDEN_BULLETIN_STUB_CAPTURE="$CAP" \
       GARDEN_BULLETIN_PARKED_CMD="$HERE/bulletin-parked-stub.sh" \
       GARDEN_BULLETIN_PARKED_CALLS="$PCALLS" GARDEN_BULLETIN_PARKED_TTL=600 \
+      GARDEN_WORKTREES="$BWT" \
       "$JOBS/bulletin.sh" >/dev/null 2>&1
 }
 ohead() { git ls-remote "$BARE" "refs/heads/$BRANCH" | awk '{print $1}'; }
@@ -706,6 +711,31 @@ grep -qF 'blob/journal2/inbox/maintainer/unread/bul-maint-1.md' "$BV/README.md" 
 nfence=$(grep -cE '^> ```' "$BV/README.md" || true)
 { [ "$nfence" -ge 2 ] && [ $((nfence % 2)) -eq 0 ]; } \
   && ok "fence-containing body stays balanced inside the blockquote (no broken Markdown)" || bad "body fence unbalanced ($nfence)"
+rm -rf "$BV"
+
+# (5b) issue/PR references in the maintainer inbox render as WORKING hyperlinks.
+#      A message from a doer whose base resolves to endojs/endo-but-for-bots links
+#      owner/repo#N, a full issue/PR URL, and a bare #N (to the RESOLVED repo);
+#      references inside a fenced code block stay plain. A second message from an
+#      UNRESOLVABLE doer (foreman) leaves its bare #N as plain text (no mislink).
+lmsg="$(printf 'from_host: h\nfrom: gardener:endojs-endo-but-for-bots-linktest\nreply_to: endojs-endo-but-for-bots-linktest\nsent_at: t1\n---\nOpened endojs/endo-but-for-bots#650 (CLI follow-up for #652).\nSee https://github.com/endojs/endo-but-for-bots/pull/653.\n\n```\nleave #999 and endojs/endo-but-for-bots#111 plain in a fence\n```\n')"
+push_change "inbox/maintainer/unread/bul-maint-2.md" "$lmsg" "seed maintainer message with issue refs"
+umsg="$(printf 'from_host: h\nfrom: foreman\nreply_to:\nsent_at: t2\n---\nUnresolvable doer note mentioning #4242 which must stay plain text.\n')"
+push_change "inbox/maintainer/unread/bul-maint-3.md" "$umsg" "seed unresolvable maintainer message"
+run_bul
+rm -rf "$BV"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$BV"
+{ grep -qF '[endojs/endo-but-for-bots#650](https://github.com/endojs/endo-but-for-bots/issues/650)' "$BV/README.md" \
+  && grep -qF '[#652](https://github.com/endojs/endo-but-for-bots/issues/652)' "$BV/README.md" \
+  && grep -qF '[https://github.com/endojs/endo-but-for-bots/pull/653](https://github.com/endojs/endo-but-for-bots/pull/653)' "$BV/README.md"; } \
+  && ok "maintainer inbox links owner/repo#N, bare #N (resolved repo), and a full issue/PR URL" || bad "issue/PR references not linked in the maintainer inbox"
+# fenced references stay plain (no link markup applied inside the code fence)
+{ grep -qF '> leave #999 and endojs/endo-but-for-bots#111 plain in a fence' "$BV/README.md" \
+  && ! grep -qF '[#999](' "$BV/README.md"; } \
+  && ok "references inside a fenced code block stay plain (not autolinked)" || bad "fenced references were autolinked"
+# unresolvable bare #N is left plain — present as text, but never turned into a link
+{ grep -qF '#4242 which must stay plain text' "$BV/README.md" \
+  && ! grep -qF '[#4242](' "$BV/README.md"; } \
+  && ok "bare #N with an unresolvable repo stays plain text (no mislink)" || bad "unresolvable bare #N was linked"
 rm -rf "$BV"
 
 # (6) restructured layout: `## Latest` LEADS, a deterministic parked-for-maintainer

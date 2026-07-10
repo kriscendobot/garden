@@ -123,6 +123,12 @@ GARDEN_TAG="bulletin"
 # journal2 branch.
 : "${GARDEN_BLOB_BASE:=https://github.com/kriskowal/garden/blob/journal2}"
 
+# Where the garden's bare fork clones live (worktrees/<owner>-<repo>.git). Used to
+# resolve a maintainer message's originating project repo so a bare `#N` in the
+# body links to that project, not the garden. Overridable for tests; defaults to
+# the garden root's worktrees/ (this script sits at scripts/jobs/).
+: "${GARDEN_WORKTREES:=$HERE/../../worktrees}"
+
 DIR="${GARDEN_BULLETIN_CLONE:-$GARDEN_STATE/bulletin/journal}"
 ensure_clone "$DIR"
 
@@ -288,23 +294,91 @@ render_plan_queue() {
   if [ -n "$blocked" ]; then printf '%s' "$blocked"; else printf '(none)\n'; fi
 }
 
+# Resolve the project repo a maintainer message came from, as "owner/repo", from
+# the originating doer's base (the reply_to / from job base). A gardener's job base
+# is "<owner>-<repo>-<slug>" and each fork has a bare clone worktrees/<owner>-<repo>.git,
+# so we match the base against the known bare clones (longest wins) and split the
+# clone name at its first "-" into owner/repo. Prints nothing when the base matches
+# no known clone — the caller then leaves a bare `#N` as plain text rather than
+# mislink it. A wrong link is worse than none.
+resolve_doer_repo() {
+  local base="$1" d name best=""
+  base="${base#gardener:}"
+  [ -n "$base" ] && [ -d "$GARDEN_WORKTREES" ] || return 0
+  for d in "$GARDEN_WORKTREES"/*.git; do
+    [ -d "$d" ] || continue
+    name="$(basename "$d" .git)"
+    if [ "$base" = "$name" ] || [ "${base#"$name"-}" != "$base" ]; then
+      [ "${#name}" -gt "${#best}" ] && best="$name"
+    fi
+  done
+  [ -n "$best" ] || return 0
+  printf '%s/%s\n' "${best%%-*}" "${best#*-}"
+}
+
 # Render a maintainer message body as a Markdown blockquote so the bulletin is
 # self-contained and followable: everything after the frontmatter delimiter, each
 # line prefixed with "> " (blank lines become a bare ">"), with leading/trailing
 # blank lines trimmed. Prefixing every body line keeps any fenced code block
 # balanced inside the quote, so a Markdown- or fence-containing body cannot break
 # the surrounding bulletin. An empty body renders as "> (empty message)".
+#
+# Issue/PR references in the body are turned into working Markdown links (both the
+# GitHub-rendered journal2 README and the gh-pages client render [label](url)):
+# full GitHub issue/PR URLs, "owner/repo#N", and — when the originating repo is
+# passed as $2 — a bare "#N" pointing at that project. Linking is skipped inside
+# fenced code blocks, and formed links are held aside so nothing is double-linked.
+# With no resolved repo ($2 empty), a bare "#N" is left as plain text.
 msg_body_quote() {
-  awk '
+  awk -v repo="${2:-}" '
+    function linkify(s,   i) {
+      # Protect already-formed links and each reference kind behind SOH/STX
+      # sentinels so a later pass cannot re-link inside an earlier one.
+      split("", store); nstore=0
+      # 1) full GitHub issue/PR URLs -> [url](url)
+      s = protect(s, "https?://github\\.com/[A-Za-z0-9._-]+/[A-Za-z0-9._-]+/(issues|pull)/[0-9]+", "url")
+      # 2) owner/repo#N -> [owner/repo#N](https://github.com/owner/repo/issues/N)
+      s = protect(s, "[A-Za-z0-9][A-Za-z0-9._-]*/[A-Za-z0-9._-]+#[0-9]+", "slug")
+      # 3) bare #N -> project link, only when the originating repo is known
+      if (repo != "") s = protect(s, "#[0-9]+", "bare")
+      # restore
+      while (match(s, /\001[0-9]+\002/)) {
+        i = substr(s, RSTART+1, RLENGTH-2) + 0
+        s = substr(s, 1, RSTART-1) store[i] substr(s, RSTART+RLENGTH)
+      }
+      return s
+    }
+    function protect(s, re, kind,   out, matched, link, hp) {
+      out = ""
+      while (match(s, re)) {
+        matched = substr(s, RSTART, RLENGTH)
+        if (kind == "url") {
+          link = "[" matched "](" matched ")"
+        } else if (kind == "slug") {
+          hp = index(matched, "#")
+          link = "[" matched "](https://github.com/" substr(matched, 1, hp-1) "/issues/" substr(matched, hp+1) ")"
+        } else {
+          link = "[" matched "](https://github.com/" repo "/issues/" substr(matched, 2) ")"
+        }
+        store[nstore] = link
+        out = out substr(s, 1, RSTART-1) "\001" nstore "\002"
+        nstore++
+        s = substr(s, RSTART+RLENGTH)
+      }
+      return out s
+    }
     b { body[++n] = $0 }
     /^---$/ { b=1 }
     END {
       s=1; while (s<=n && body[s] ~ /^[[:space:]]*$/) s++
       e=n; while (e>=s && body[e] ~ /^[[:space:]]*$/) e--
       if (s>e) { print "> (empty message)"; exit }
+      fence=0
       for (i=s; i<=e; i++) {
+        if (body[i] ~ /^[[:space:]]*```/) { fence = !fence; print "> " body[i]; continue }
         if (body[i] ~ /^[[:space:]]*$/) print ">"
-        else print "> " body[i]
+        else if (fence) print "> " body[i]
+        else print "> " linkify(body[i])
       }
     }
   ' "$1"
@@ -501,7 +575,7 @@ parked_section() {
 # Compute the deterministic dashboard for the current synced state of $DIR and
 # print it to stdout. This is the always-works base; it reuses the v1 board logic.
 compute_dashboard() {
-  local watch hosts_block h g maint m mf rt frm link now board parked plan
+  local watch hosts_block h g maint m mf rt frm repo link now board parked plan
   board=$(render_board)
   plan=$(render_plan_queue)
   parked=$(parked_section)
@@ -526,8 +600,12 @@ compute_dashboard() {
     rt=$(sed -n 's/^reply_to:[[:space:]]*//p' "$mf" | head -1)
     frm=$(sed -n 's/^from:[[:space:]]*//p' "$mf" | head -1)
     link="$GARDEN_BLOB_BASE/inbox/maintainer/unread/$m"
+    # Resolve the originating project repo so a bare `#N` in the body links to
+    # that project (not the garden). Prefer reply_to (the clean job base); fall
+    # back to the from field. Empty when unresolvable → bare `#N` stays plain.
+    repo=$(resolve_doer_repo "${rt:-$frm}")
     maint+="- \`${m%.md}\` — from ${frm:-?}, reply_to \`${rt:-?}\` · [open message]($link)"$'\n\n'
-    maint+="$(msg_body_quote "$mf")"$'\n\n'
+    maint+="$(msg_body_quote "$mf" "$repo")"$'\n\n'
   done
   [ -n "$maint" ] || maint="(no pending maintainer messages)"$'\n'
 
