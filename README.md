@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-10T06:56:15Z_
+_As of 2026-07-10T07:11:21Z_
 
 ## Latest
 
-The mount stack cleared its main blocker: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now green after a rebase onto the durable revoke-stream fix that landed on its base [#650](https://github.com/endojs/endo-but-for-bots/pull/650), unblocking the stacked grep/json followers. But the dominant signal is a **merge bottleneck**: the foreman reports M3 is saturated in flight with no unblocked build step left to post — the mount chain (#650/#652/#653) and the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) are build-complete and gauntleted but sitting unmerged on the fork's `llm` branch, stranding every stacked follower behind a ~60-PR ready backlog that needs conductor/maintainer review, not more building.
+The mount stack cleared its blocker: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now green after a rebase onto its fixed base, which absorbed a durable revoke-wakes-streams fix on base [#650](https://github.com/endojs/endo-but-for-bots/pull/650) — unblocking the stacked grep ([#655](https://github.com/endojs/endo-but-for-bots/pull/655)) and json ([#657](https://github.com/endojs/endo-but-for-bots/pull/657)) followers. The `minion-town-endo-root-host-bootstrap` job also landed ([minion.town#7](https://github.com/kriscendobot/minion.town/pull/7)), though live validation is gated behind two undeployed prerequisites that only kriskowal can complete.
 
-A conductor stalled on [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (its hardening targets an `assembleTranscript` path that was deleted in the makePiAgent rewrite of `llm` — needs a weave or an obsolescence call), and the [#286](https://github.com/endojs/endo-but-for-bots/pull/286) http-client CI surfaced a real Node-22 bug (a frozen undici `Headers` slot fails to decode across CapTP — wants a fixer). The [#644](https://github.com/endojs/endo-but-for-bots/pull/644) git-amend gauntlet found a new correctness bug (a staged index silently folded into a reword) but declined to push, since 0xpatrickbot's own fleet is concurrently rewriting the branch. Several jobs closed as already-done duplicates (timer #609, fs-tools #614/#618, daemon-locator terminology). The exo-google-sheets daily supervisor kicked off, posting a gauntlet on OAuth-foundation design [#621](https://github.com/endojs/endo-but-for-bots/pull/621) as the tree's design gate. On the agoric-sdk fork, shepherds traced #9/#10 red checks to a stale base and codegen drift owned by the mergeable #8, and the [agoric-sdk#12](https://github.com/kriscendobot/agoric-sdk/pull/12) XS 16.7.1 fixer is holding two consensus-affecting calls (golden-snapshot regeneration and a METER_TYPE bump) for your decision. Finbot landed its SES-compartments increment on `main`. Note also a cluster of shepherd/gauntlet jobs (#652, #654, #655, #659) that deterministically overran the 2400s handler budget and risk poisoning — they need splitting into claim-sized stages.
+The dominant signal, echoed twice by the foreman, is that **M3 is saturated in flight and now blocked on merges, not work**: the mount chain (#650/[#652](https://github.com/endojs/endo-but-for-bots/pull/652)/#653/[#656](https://github.com/endojs/endo-but-for-bots/pull/656)/[#658](https://github.com/endojs/endo-but-for-bots/pull/658)) and the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) are build-complete and gauntleted but sitting unmerged on `llm`, stranding every stacked follower behind them. The board is drained to zero `todo` with a ~60-PR ready backlog awaiting review/merge or a `go-ahead` on the parked next tranche.
+
+A few items need a decision: the conductor on [#123](https://github.com/endojs/endo-but-for-bots/pull/123) stalled because its fix targets an `assembleTranscript` path that no longer exists on the rewritten `llm` agent.js (needs a weave or an obsolescence call); [#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s http-client fails deterministically on Node 22 (an undici Headers slot frozen across CapTP — wants a fixer); and [#644](https://github.com/endojs/endo-but-for-bots/pull/644) is being pushed by an outside fleet (0xpatrickbot) concurrently, so our panel filed request-changes without pushing. Note also a cluster of shepherd/gauntlet jobs (PRs 650, 652, 654, 655, 659) that overran the 2400s handler budget and risk poisoning — they need splitting into claim-sized stages.
 
 ## Parked for maintainer feedback
 
@@ -329,25 +331,54 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Recommendation: weave #9 (rebase onto master) if you want it green; otherwise it's a known-stale-base prototype red. I did not push anything to keep the draft clean.
 
+- `20260710T070940Z-d51352` — from gardener:minion-town-endo-root-host-bootstrap, reply_to `minion-town-endo-root-host-bootstrap` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T070940Z-d51352.md)
+
+> Builder job `minion-town-endo-root-host-bootstrap` (root-host out-of-band mechanism) — delivered a PR, but LIVE validation is blocked and needs your call.
+>
+> DONE (PR kriscendobot/minion.town#7, against main):
+> - The out-of-band root-host mechanism, transplant-shaped in `src/endo/`:
+>   bind/repoint an email→root facet, and promote a guest→its own host. Grounded
+>   on the real EndoHost primitives (provideHost/provideGuest/invite consume-once).
+> - SSM admin wrapper `deploy/aws/scripts/endo-root-host.sh` (mirrors set-account-role.sh; guard = the endo-daemon socket, not a scope).
+> - Design delta: `designs/mcp-endo-guest.md` § 10 (mechanism, ocap guard, sequencing, design deltas discovered).
+> - Unit-validated end-to-end vs an in-memory daemon backend: 13/13 tests, typecheck clean.
+>
+> BLOCKED (why "validate in production" is not in this PR):
+> The mechanism presupposes design Gate 2 (endo-daemon.service + CapTP-over-UDS
+> control path), which is NOT stood up (no src/endo control path, no daemon unit;
+> DEPLOYMENT.md stops at Phase 10). Gate 2 is itself gated behind Gate 1 (Claude ↔
+> live MCP — a human/browser OAuth validation) by the design's strict ordering.
+> So production validation needs two prerequisite gates first, one of which only
+> you (a human at claude.ai + GitHub-federated login) can complete. I also could
+> not build a local daemon: the sandbox denies native builds (better-sqlite3/node-gyp).
+>
+> PROPOSED DECOMPOSITION (orchestration job, serial), for your go-ahead:
+>   1. Gate 1 — validate Claude against the live MCP (needs you; a gardener can't).
+>   2. Gate 2 — deploy endo-daemon.service + the src/endo control path, incl. the
+>      RootHost socket adapter (src/endo/root-host-socket, the seam I left).
+>   3. Live-validate THIS mechanism on the box: bind a root, repoint it, promote a
+>      guest — recorded evidence (endo list, CLI JSON, app-log sub).
+>
+> Want me to file that orchestration job now (children parked, orchestrator serial),
+> or will you drive Gate 1 first and have me pick up Gate 2 after? PR #7 is
+> reviewable on its own merits meanwhile.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (2)
 - [`gauntlet-endo-but-for-bots-pr661-agent-tools-http-client`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr661-agent-tools-http-client.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
-- [`minion-town-endo-root-host-bootstrap`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-endo-root-host-bootstrap.md) — The gap
-- [`minion-town-mcp-client-setup-page`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-mcp-client-setup-page.md) — What to build
-- [`xst-integrate-variant-bump`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-integrate-variant-bump.md) — xst-integrate-variant-bump — route the Moddable 5.5.0 bump through the varian...
 - [`xst-park-on-fail-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-park-on-fail-build.md) — xst-park-on-fail-build — build the parked-vat + admin-facet resume capability
 
-### tada (1661)
-- [`xst-validation-orchestrator-20260710-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260710-065003.md) — XS-validation orchestrator — hourly tick report (2026-07-10 ~06:52Z)
-- [`endojs-endo-but-for-bots-pr288-e950e913-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr288-e950e913-retro.md) — Completion report
-- [`kriscendobot-agoric-sdk-pr9-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr9-shepherd.md) — Shepherd report — kriscendobot/agoric-sdk PR #9
-- [`ebfb-pr580-merge`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr580-merge.md) — Completion report — Merge endojs/endo-but-for-bots PR #580 (conductor)
-- [`self-heal-fix-garden-triager-kriscendobot-agoric-sdk-revparse-verify-quiet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-sdk-revparse-verify-quiet.md) — Completion report
-- … and 1656 more
+### tada (1667)
+- [`minion-town-endo-root-host-bootstrap`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-endo-root-host-bootstrap.md) — Completion report — minion-town-endo-root-host-bootstrap
+- [`daily-progress-summary-20260710-070504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260710-070504.md) — Completion report
+- [`self-heal-fix-garden-triager-kriscendobot-endo-revparse-verify-quiet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-endo-revparse-verify-quiet.md) — Completion report
+- [`self-heal-fix-garden-triager-revparse-verify-quiet-newline-pollution`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-revparse-verify-quiet-newline-pollution.md) — Completion report
+- [`xst-integrate-variant-bump`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-integrate-variant-bump.md) — Completion report — xst-integrate-variant-bump
+- … and 1662 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
