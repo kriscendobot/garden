@@ -102,3 +102,12 @@ Inspect via `git -C journal cat-file -p be7f5ba9b7dfdd89fe3ab6ddabda9ef71f550c03
 - Context: gardener-6 on endolin-garden-ece02cb4: job 'gauntlet-endo-but-for-bots-pull-request-667-genie-stdio-jsonl-rpc-bridge' exit-0-unsatisfying but elapsed near-constant (37,37s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p a184ce2cb49ea67f491f858a1b23ebf92a1ddca9`.
+
+## lane 0 -- elapsed-constancy-overrun-suspect failure at 2026-07-10T17:28:05Z
+
+- PR: (none)
+- State: elapsed-constancy-overrun-suspect
+- Transcript SHA: e02c7978c47e9ee7a4678c67ddc743981852e9c2
+- Context: gardener-3 on endolin-garden-ece02cb4: job 'gauntlet-endo-but-for-bots-pull-request-672-genie-subscription-oauth' transient-classified (rc=1) but elapsed near-constant (252,252s) over 2 cycles — likely deterministic overrun, not a blip
+
+Inspect via `git -C journal cat-file -p e02c7978c47e9ee7a4678c67ddc743981852e9c2`.
