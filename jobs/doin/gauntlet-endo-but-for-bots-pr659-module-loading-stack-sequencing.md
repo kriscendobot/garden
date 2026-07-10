@@ -7,3 +7,9 @@ Run the gauntlet on endojs/endo-but-for-bots PR #659 ("design: accept and sequen
 <!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  claimed_at: 2026-07-10T04:23:09Z
