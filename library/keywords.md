@@ -14268,3 +14268,29 @@ objectives not transitions | objectives-over-state-machine
 give agents objectives | objectives-over-state-machine
 give them tools and let them cook | objectives-over-state-machine
 agent-fleet orchestration | symphony-orchestrator
+cost ledger | cost-ledger
+attributed cost ledger | cost-ledger
+costs.jsonl | cost-ledger
+per-run cost record | cost-ledger
+CostRecord | cost-ledger
+invoke cost | cost-ledger
+total_cost_usd | cost-ledger
+token accounting | cost-ledger
+per-task cost stanza | cost-ledger
+devoker:cost | cost-ledger
+token cost tracking | cost-ledger
+unum | unum
+devoker | unum
+evoker | unum
+self-evocation | unum
+televoke | unum
+vigil charge | vigil-charge
+vigil-charge | vigil-charge
+charge pulse | vigil-charge
+initiative pulse | vigil-charge
+initiative budget | vigil-charge
+health-gated heartbeat | vigil-charge
+verified-quiet window | vigil-charge
+proactive-spend gate | vigil-charge
+per-persona model tiers | model-routing
+persona_models | model-routing
