@@ -7,7 +7,7 @@ source_date: 2026-07-09
 source_authors: [jcorbin]
 ingested: 2026-07-10
 ingested_by: scholar
-section_count: 5
+section_count: 15
 status: current
 notes: |
   Sibling-implementation ingest of jcorbin's **unum** monorepo, hosted on
@@ -54,6 +54,24 @@ and the **vigil-charge initiative budget** ([[vigil-charge]]) — a health-gated
 rate limit on *proactive* agent invocations that spends a "charge" accumulated
 only over verified-quiet health rounds.
 
+**Remainder ingest (2026-07-10, job `scholar-ingest-unum-remainder`).** A second
+cycle carried the rest of the transferable veins beyond the token-spend/orchestration
+core. The richest is the **LORE corpus** — ~67 distilled incident lessons, consolidated
+aggressively into a corpus-shape section plus four thematic sibling sections (claim
+lifecycle, journal/git-ref durability, crash-safe lifecycle guards, engineering
+discipline for a self-editing harness) rather than mirrored one-to-one — much of it a
+direct analogue of the garden's own git-push-CAS job board, stale-claim reaper, and
+`land-journal-edit`/`journal-entry` producer-clone discipline. Also ingested: unum's own
+dimension-by-dimension **garden-vs-devoker fleet comparison** (an outside sibling reading
+this garden's architecture back to it), the **devoker four-layer architecture** plus the
+vigil/refinery engine, the **systemd resource-slice quota** profiles (a *non-token* agent
+budget — [[resource-slice-budget]] — complementing the cost ledger), the standalone
+**notify-server** durable proxy (persist-then-dispatch plus Routedown), and the
+**operations standards** for a self-editing monorepo. Declined this cycle (low
+cross-cutting value / unum-specific): the command-by-command `devoker/DESIGN.md` surface,
+the `evoke/` persona/soul config shapes, and the `STANDARDS/{golang,bash,monorepo}.md`
+idiom files. No further `-2` follow-on posted — the transferable veins are covered.
+
 Note (`ref/kris_garden/`): unum vendors a snapshot of *this* garden under
 `ref/` for comparison. That subtree is the garden's own material and is excluded
 from this ingest; only unum's own code and docs are curated here.
@@ -67,3 +85,13 @@ from this ingest; only unum's own code and docs are curated here.
 | [Cost attribution, aggregation, and surfacing](../sections/unum--cost-attribution-and-aggregation.md) | coding-agent-economics | current |
 | [Per-persona model tiers](../sections/unum--per-persona-model-tiers.md) | coding-agent-economics | current |
 | [The vigil-charge initiative budget](../sections/unum--vigil-charge-initiative-budget.md) | agent-fleet-orchestration | current |
+| [The LORE corpus — a distilled-incident lesson library](../sections/unum--lore-corpus-shape.md) | agent-fleet-orchestration, repository-governance | current |
+| [Claim-lifecycle hazards — atomicity, liveness proof, landed≠done](../sections/unum--lore-claim-lifecycle.md) | agent-fleet-durability, agent-fleet-orchestration | current |
+| [Git-ref journal durability — RMW-CAS, primitive selection, cutover](../sections/unum--lore-journal-durability.md) | agent-fleet-durability, persistence | current |
+| [Crash-safe automated-lifecycle guards](../sections/unum--lore-crash-safe-guards.md) | agent-fleet-durability | current |
+| [Engineering discipline for a self-editing harness](../sections/unum--lore-engineering-discipline.md) | repository-governance, testing | current |
+| [Garden systemd lanes vs devoker invokers — a comparison](../sections/unum--garden-vs-devoker-fleet.md) | agent-fleet-orchestration | current |
+| [Devoker's four-layer architecture and vigil/refinery engine](../sections/unum--devoker-four-layer-architecture.md) | agent-fleet-orchestration, process-monitoring | current |
+| [Host provisioning and systemd resource-slice quotas](../sections/unum--make-user-host-resource-quota.md) | coding-agent-economics, agent-fleet-orchestration | current |
+| [notify-server — a durable notification proxy (Routedown)](../sections/unum--notify-server-routedown.md) | agent-fleet-orchestration | current |
+| [Operations standards for a self-editing monorepo](../sections/unum--operations-standards.md) | repository-governance, agent-conventions | current |
