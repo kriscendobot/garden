@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-10T00:17:29Z_
+_As of 2026-07-10T00:29:53Z_
 
 ## Latest
 
-[endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob, PR B of the mount stack) went fully green and now merges clean: while shepherding it, the durable source fix — waking open `followNameChanges` streams on mount revoke — landed on its base [#650](https://github.com/endojs/endo-but-for-bots/pull/650), so the shepherd rebased onto the fixed base, dropped its now-redundant deflake commit, and force-pushed; all 23 checks pass and the grep/json follow-ons can now rebase onto it. Two shepherds are still in flight — [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (mount `--deny` CLI) and [#617](https://github.com/endojs/endo-but-for-bots/pull/617) (endoclaw-timer Phase 2 lint). A few things need your steer: [#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s http-client e2e fails deterministically on Node 22 (a hardened undici `Headers` slot that can't be re-decoded across CapTP) and wants a fixer; [#123](https://github.com/endojs/endo-but-for-bots/pull/123) stalled the conductor because its base snapshot diverged and `assembleTranscript` no longer exists on live `llm` — it needs a weave or an obsolescence call, not a merge; and the new esheets daily supervisor is driving the OAuth-foundation design [#621](https://github.com/endojs/endo-but-for-bots/pull/621) through the gauntlet as the gate for the whole exo-google-sheets tree. Also worth noting: [#609](https://github.com/endojs/endo-but-for-bots/pull/609) (endoclaw-timer Phase 1) is green, non-draft, and ready for the merge path.
+The mount-glob stack cleared its blocker: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) is green after a shepherd rebased it onto [#650](https://github.com/endojs/endo-but-for-bots/pull/650)'s newly-landed durable fix (waking open `followNameChanges` streams on mount revoke), so the stacked grep (#655) and json (#657) PRs can now rebase and proceed. Two new drafts came up on the same lineage: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (CLI `--deny`/`--no-deny` for `endo mount`, stacked on #650 and now being shepherded to green) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (a Rust-side mount-parity runner — the builder took the design-sanctioned Option A after finding the XS-run path unbuildable here, and is asking whether that stands or you want the XS variant).
+
+A few items want your call. [#286](https://github.com/endojs/endo-but-for-bots/pull/286) has a real Node-22-only failure (undici's `Headers` gets frozen across CapTP and can't be decoded) that needs a fixer. [#123](https://github.com/endojs/endo-but-for-bots/pull/123) is stalled at conduct: its base snapshot has diverged hard from live `llm` — `assembleTranscript` and the transcript machinery it hardens no longer exist there — so it needs a weave/redesign, not a merge. Two build jobs came back as redundant: the endoclaw-timer Phase 1 ask is already covered by the open, green [#609](https://github.com/endojs/endo-but-for-bots/pull/609), and the daemon filesystem-tools ask overlaps landed [#614](https://github.com/endojs/endo-but-for-bots/pull/614) plus conflicting draft [#618](https://github.com/endojs/endo-but-for-bots/pull/618) (builder awaits a redundant-vs-clean-slice decision).
+
+On the roadmap side, a daily supervisor now drives the exo-google-sheets dependency tree; its first check-in posted a gauntlet on the design gate [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth foundation), which must merge before any implementation node unblocks. Shepherds remain in flight on [#617](https://github.com/endojs/endo-but-for-bots/pull/617) and [#619](https://github.com/endojs/endo-but-for-bots/pull/619).
 
 ## Parked for maintainer feedback
 
@@ -224,8 +228,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`shepherd-endo-but-for-bots-pr617-endoclaw-timer-phase2-lint-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr617-endoclaw-timer-phase2-lint-green.md) — ---
+- [`shepherd-endo-but-for-bots-pr619-endoclaw-timer-phase3-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr619-endoclaw-timer-phase3-ci-green.md) — ---
 - [`shepherd-endo-but-for-bots-pr652-mount-deny-cli-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr652-mount-deny-cli-ci-green.md) — ---
 
 ### tada (1600)
