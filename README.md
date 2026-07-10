@@ -1,14 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-10T22:13:51Z_
+_As of 2026-07-10T22:18:31Z_
 
 ## Latest
 
-The four-layer glob/grep `@endo/platform` pushdown stack for [#127](https://github.com/endojs/endo-but-for-bots/issues/127) is built and gauntleted, un-drafted into review as [#678](https://github.com/endojs/endo-but-for-bots/pull/678) (search engine), [#679](https://github.com/endojs/endo-but-for-bots/pull/679) (glob delegate), [#680](https://github.com/endojs/endo-but-for-bots/pull/680) (grep decoupled), and [#681](https://github.com/endojs/endo-but-for-bots/pull/681) (agent tools); two merge-gate calls await you — land design [#675](https://github.com/endojs/endo-but-for-bots/pull/675) first so changelog links resolve, and decide whether normative grep ships its unbounded-regex ReDoS surface or waits on the conservative-subset `@endo/regexp` matcher designed at [#676](https://github.com/endojs/endo-but-for-bots/pull/676). The mount stack advanced too: [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is green after a rebase onto the landed followNameChanges-revoke fix, and a draft CLI follow-up [#652](https://github.com/endojs/endo-but-for-bots/pull/652) and Rust parity crate [#654](https://github.com/endojs/endo-but-for-bots/pull/654) are up but blocked on their bases.
+The mount glob/grep `@endo/platform` pushdown stack is built, gauntleted, and un-drafted into the review queue as four layered PRs — [#678](https://github.com/endojs/endo-but-for-bots/pull/678) (search engine), [#679](https://github.com/endojs/endo-but-for-bots/pull/679) (`EndoMount.glob`), [#680](https://github.com/endojs/endo-but-for-bots/pull/680) (`EndoMount.grep`), and [#681](https://github.com/endojs/endo-but-for-bots/pull/681) (agent tools) — with two flagged merge-gate calls: whether to gate normative grep on the conservative-regexp subset (design [#676](https://github.com/endojs/endo-but-for-bots/pull/676)) before it ships, and landing design [#675](https://github.com/endojs/endo-but-for-bots/pull/675) first so changelog links resolve. Upstream in that chain, [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) went green after a shepherd rebased it onto the base's durable revoke-wake fix.
 
-The dominant signal, repeated by the foreman four times today, is that the fleet has run out of *buildable* work — the mount chain, the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)), gateway, and http-client threads are all green, mergeable, and gauntleted but sitting unmerged on `llm`, so every stacked follower is stalled on a merge/ferry decision only you can make. Meanwhile several jobs self-reported as already-satisfied duplicates and opened nothing: the daemon-locator-terminology design is already merged, [#609](https://github.com/endojs/endo-but-for-bots/pull/609) already covers the interval-scheduler job, and the mvs-resolver build hit an unresolved architectural split between [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (`@endo/exo-npm`) and [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (daemon-side) that needs your ruling on which home wins.
+The dominant signal is a merge bottleneck: the foreman reported four times that M3 has **no unblocked build work left** — the daemon-mount stack, the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)), and a large ready backlog are all CI-green and mergeable but sitting unmerged on `llm`, blocking every stacked follower. Progress now needs review/merge attention, not more building.
 
-A few items need explicit decisions or cleanup: the Docker self-host build halted as re-declined work and asks you to retire the stale `daemon-docker-selfhost` design record so producers stop re-spawning it; agent-tools PR [#618](https://github.com/endojs/endo-but-for-bots/pull/618) was closed by you over capability-leak concerns and handed to @kumavis; and the XS-validation effort ([garden#33](https://github.com/kriskowal/garden/issues/33)) is fully green on fork PRs [#13](https://github.com/kriscendobot/agoric-sdk/pull/13)/[#14](https://github.com/kriscendobot/agoric-sdk/pull/14) and blocked only on two calls (waive the Depot-gated integration leg, and whether green-draft #14 counts as "landed"). Two jobs poisoned to the plan queue after requeue exhaustion — the #592 watchDirectory-cancel fixer and the [#661](https://github.com/endojs/endo-but-for-bots/pull/661) http-client gauntlet — and finbot landed its SES-compartments, multi-instrument, and cyclical-forecaster increments but has tripped a triage circuit-breaker and sits outside the authorized watch set.
+Several jobs hit impasses worth a decision: the MVS resolver exists in two competing homes ([#403](https://github.com/endojs/endo-but-for-bots/pull/403)'s `@endo/exo-npm` vs [#671](https://github.com/endojs/endo-but-for-bots/pull/671)'s daemon `registry.js`) and needs a "which wins" call; the Docker-selfhost build was halted as re-attempting already-declined work (asks to retire the stale design record); and kriskowal closed [#618](https://github.com/endojs/endo-but-for-bots/pull/618) over capability-leak concerns, handing the security judgment to @kumavis. On the design-approval side, [#595](https://github.com/endojs/endo-but-for-bots/pull/595) was approved and queued for merge.
+
+On the Agoric fork, the XS-validation effort ([garden#33](https://github.com/kriskowal/garden/issues/33)) is fully green — [#13](https://github.com/kriscendobot/agoric-sdk/pull/13) and [#14](https://github.com/kriscendobot/agoric-sdk/pull/14) at 69 pass / 0 fail — and blocked only on two maintainer calls (waive the Depot-gated full-chain integration leg, and whether green draft #14 counts as "landed"); the golden-snapshot and `METER_TYPE` consensus questions on [#12](https://github.com/kriscendobot/agoric-sdk/pull/12) also await a ruling. Finbot cleared its stranded-branch backlog, landing SES-compartments, multi-instrument portfolios, and a cyclical forecaster (424 tests green, wallet-untouched), though its triager tripped a circuit-breaker and it sits outside the authorized watch set. Finally, watchdogs reported ~15 gardener jobs deterministically overrunning the 2400s handler budget (shepherds, gauntlets, agoric fixers) — a recurring sign these are too large for a single claim and want splitting or detaching.
 
 ## Parked for maintainer feedback
 
@@ -600,6 +602,42 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration endojs-endo-but-for-bots-pr592-review-orch HALTED: child endojs-endo-but-for-bots-pr592-cancel-in-options failed (serial, on-child-failure=halt). 0/2 done before halt; swept: endojs-endo-but-for-bots-pr592-watchdir-coverage
 
+- `20260710T221740Z-b80a5e` — from gardener:pr-ebfb-600-comment-4930373900-followup, reply_to `pr-ebfb-600-comment-4930373900-followup` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T221740Z-b80a5e.md)
+
+> Re follow-up on endo-but-for-bots PR #600, comment 4930373900 — reporting instead of guessing.
+>
+> **What the comment actually is.** Comment 4930373900 is kriscendobot's *own* auto-reply
+> ("On it — I've posted a job (`endojs-endo-but-for-bots-pr600-rebase`) and will follow up
+> here when it lands." / `garden-reply:1601`), not maintainer feedback. So there is no
+> maintainer text on the PR calling for an action; the follow-up job was spawned off the
+> bot's own promise.
+>
+> **The promised job never landed.** `endojs-endo-but-for-bots-pr600-rebase` is on no queue
+> (plan/todo/doing/tada/dead) and has zero trace in journal git history — the reply was
+> posted but the rebase job was never committed to the board. The source directive
+> (`garden-reply:1601`) is unrecoverable: no matching GitHub comment/review on #600 around
+> 2026-07-09, and nothing in the message bus. Given the known (now-fixed) classifier bug that
+> misroutes directives to "rebase" (`garden-fix-comment-classifier-misroutes-directive-to-rebase`),
+> I can't confirm a rebase was ever actually requested.
+>
+> **Current state of #600.** Draft, base `llm`, head `xs2rust-endor`, mergeable=CONFLICTING.
+> Head is 323 commits ahead / 102 behind `llm` (merge-base 1132289243). Net conflict surface
+> is tiny — a single file, `designs/README.md` (the design index). Head last moved 2026-07-08
+> (stage-5 fix round 5, mid-supervisor-acceptance); `llm` last moved 2026-07-10.
+>
+> **Why I didn't just do it.** A true 323-commit rebase force-pushes an active multi-stage
+> program branch whose supervisor reviews reference specific tip SHAs (a7d23eb38, etc.) and
+> may collide with in-flight #600 build worktrees. A merge-from-base would resolve the one
+> conflict cleanly but adds a merge commit, against the garden's linear-history culture. Which
+> one you want is a judgment call on an active program PR, on a premise (that a rebase was
+> asked for) I can't verify.
+>
+> **Recommendation.** If you do want #600 brought current, say "rebase #600" (or "weave #600")
+> and I'll post a fresh dedicated weaver job — flagging it's a 323-commit rebase best
+> coordinated with the stage-5 build. If this was a misroute/no-op, no action needed; the
+> vanished job means nothing is silently pending. No PR comment posted (the comment didn't ask
+> for one, and it's the bot's own).
+
 - `poison-endojs-endo-but-for-bots-pr592-cancel-in-options-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-endojs-endo-but-for-bots-pr592-cancel-in-options-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -688,18 +726,18 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (4)
+- [`design-minion-town-ertp-credits`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-minion-town-ertp-credits.md) — Design: reflect minion.town credits with ERTP for attenuated third-party rede...
 - [`kriscendobot-agoric-sdk-pr8-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr8-gauntlet.md) — gauntlet directive on kriscendobot/agoric-sdk PR #8
 - [`kriscendobot-agoric-sdk-pr8-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr8-shepherd.md) — shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #8
 - [`message-forbid-partial-issue-refs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/message-forbid-partial-issue-refs.md) — Forbid partially-qualified issue/PR references in posted messages (upstream fix)
-- [`pr-ebfb-600-comment-4930373900-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/pr-ebfb-600-comment-4930373900-followup.md) — Follow up on maintainer feedback on endojs/endo-but-for-bots PR #600.
 
-### tada (1781)
+### tada (1782)
+- [`pr-ebfb-600-comment-4930373900-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/pr-ebfb-600-comment-4930373900-followup.md) — Completion report: pr-ebfb-600-comment-4930373900-followup
 - [`endo-reminder-plugin-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-reminder-plugin-design.md) — Completion report
 - [`endojs-endo-but-for-bots-pr592-review-orch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr592-review-orch.md) — orchestration endojs-endo-but-for-bots-pr592-review-orch — HALTED
 - [`endojs-endo-but-for-bots-pr609-review-4a711718`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr609-review-4a711718.md) — Completion report
 - [`orch-spark-gardeners`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/orch-spark-gardeners.md) — orchestration orch-spark-gardeners — complete
-- [`design-spark-gardeners`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-spark-gardeners.md) — Completion report — design-spark-gardeners
-- … and 1776 more
+- … and 1777 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
