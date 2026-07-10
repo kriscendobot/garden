@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-10T01:59:45Z_
+_As of 2026-07-10T02:02:31Z_
 
 ## Latest
 
-The mount-revocation stack cleared its CI blockers: [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is green after a rebase onto the fixed [#650](https://github.com/endojs/endo-but-for-bots/pull/650) base — the durable "wake open followNameChanges streams on revoke" fix landed there — unblocking the grep ([#655](https://github.com/endojs/endo-but-for-bots/pull/655)) and json rebases; the Rust-side glob parity runner shipped as draft [#654](https://github.com/endojs/endo-but-for-bots/pull/654), and CLI follow-ups [#652](https://github.com/endojs/endo-but-for-bots/pull/652) and [#658](https://github.com/endojs/endo-but-for-bots/pull/658) are in flight. Note four shepherd jobs across this stack overran the 2400s handler budget and were flagged for splitting.
-
-Three items want a maintainer decision. [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (http-client reconcile) has a real Node-22-specific failure — hardening freezes undici's lazy `Symbol(headers map sorted)` slot so CapTP error-decode throws; a fixer is recommended. Conducting [#123](https://github.com/endojs/endo-but-for-bots/pull/123) stalled: its `assembleTranscript` hardening targets code that no longer exists on the diverged `llm` trunk (agent.js was rewritten around `makePiAgent`), so it needs a weave/redesign, not a merge. And two builder jobs hit duplicate-work impasses — the daemon filesystem agent-tools are already delivered by landed [#614](https://github.com/endojs/endo-but-for-bots/pull/614) plus conflicting draft [#618](https://github.com/endojs/endo-but-for-bots/pull/618), and the interval-scheduler by open green [#609](https://github.com/endojs/endo-but-for-bots/pull/609).
-
-On the exo-google-sheets push, a daily supervisor is now running; day 1 posted a gauntlet on design PR [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (the endoclaw-oauth foundation), which gates the whole tree and awaits review before any implementation can start.
+The mount-extensions stack on endo-but-for-bots is where nearly all motion happened. [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) went fully green after a shepherd rebased it onto the fixed [#650](https://github.com/endojs/endo-but-for-bots/pull/650) base — dropping a now-redundant deflake commit once the durable "wake open streams on revoke" fix landed there — which in turn unblocks grep ([#655](https://github.com/endojs/endo-but-for-bots/pull/655)) and json (#657); its Rust-parity runner [#654](https://github.com/endojs/endo-but-for-bots/pull/654) and the grep shepherd also reported complete, and the CLI-path-verbs gauntlet on [#658](https://github.com/endojs/endo-but-for-bots/pull/658) finished (the one board transition since the last bulletin). A few things want a maintainer's eye: the conductor stalled on [#123](https://github.com/endojs/endo-but-for-bots/pull/123) because live `llm` rewrote `agent.js` around `makePiAgent` and the fix's target code no longer exists — it needs a weave/redesign call, not a merge; [#286](https://github.com/endojs/endo-but-for-bots/pull/286) has a real Node-22-only marshalling bug (hardening a live undici `Headers` object across CapTP) awaiting a fixer; and the shepherds for [#652](https://github.com/endojs/endo-but-for-bots/pull/652), #654, and #650's CI deterministically overran their 2400s handler budget and will be poisoned unless split into claim-sized stages. Separately, the new daily exo-google-sheets supervisor filed its day-1 standup, naming design PR [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth foundation) as the gate blocking the whole implementation tree and posting a gauntlet to drive it out of draft.
 
 ## Parked for maintainer feedback
 
@@ -236,17 +232,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`gauntlet-endo-but-for-bots-pr653-mount-glob`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr653-mount-glob.md) — Run the gauntlet on endojs/endo-but-for-bots PR #653 ("feat(daemon): mount gl...
-- [`gauntlet-endo-but-for-bots-pr658-mount-cli-path-verbs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr658-mount-cli-path-verbs.md) — Run the gauntlet on endojs/endo-but-for-bots PR #658 (feat/mount-cli-path-ver...
 
-### tada (1609)
+### tada (1610)
+- [`gauntlet-endo-but-for-bots-pr658-mount-cli-path-verbs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr658-mount-cli-path-verbs.md) — Completion report — gauntlet-endo-but-for-bots-pr658-mount-cli-path-verbs
 - [`shepherd-endo-but-for-bots-pr654-mount-glob-rust-parity-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pr654-mount-glob-rust-parity-ci-green.md) — Completion report
 - [`gauntlet-endo-but-for-bots-pr650-mount-revocation-caretaker-deny-patterns`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr650-mount-revocation-caretaker-deny-patterns.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-minion-town-empty-log-range-first-triage`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-empty-log-range-first-triage.md) — Completion report
 - [`shepherd-endo-but-for-bots-pr655-mount-grep-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pr655-mount-grep-ci-green.md) — Completion report
-- [`self-heal-fix-garden-triager-kriscendobot-minion-town-first-triage-empty-log-range`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-first-triage-empty-log-range.md) — Completion report
-- … and 1604 more
+- … and 1605 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
