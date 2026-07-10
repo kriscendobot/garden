@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-10T23:35:20Z_
+_As of 2026-07-10T23:35:53Z_
 
 ## Latest
 
@@ -777,7 +777,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (8)
 - [`endojs-endo-but-for-bots-pr677-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr677-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #677
 - [`endojs-endo-but-for-bots-pr678-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr678-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #678
 - [`endojs-endo-but-for-bots-pr679-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr679-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #679
@@ -785,6 +785,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`endojs-endo-but-for-bots-pr681-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr681-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #681
 - [`scholar-library-cycle-20260710-233505`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260710-233505.md) — Hourly scholar library cycle
 - [`self-heal-fix-garden-triager-kriscendobot-ocapn-missing-bare-clone-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-ocapn-missing-bare-clone-die.md) — **Repo/host:** garden meta-repo (main2), this instance (kriscendobot-ocapn sl...
+- [`xst-validation-orchestrator-20260710-233505`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-validation-orchestrator-20260710-233505.md) — XS-validation orchestrator (hourly) — drive the agoric-sdk XS upgrade to vali...
 
 ### tada (1808)
 - [`design-token-cost-ledger`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-token-cost-ledger.md) — Job design-token-cost-ledger complete.
