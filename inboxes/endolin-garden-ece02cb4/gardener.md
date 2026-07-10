@@ -75,3 +75,12 @@ Inspect via `git -C journal cat-file -p b0a1225026f36f1f388e4b212c220b80e8448786
 - Context: gardener-13 on endolin-garden-ece02cb4: job 'kriscendobot-agoric-sdk-pr13-shepherd' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p b0a1225026f36f1f388e4b212c220b80e8448786`.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-07-10T11:55:52Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: 4eb62734ebabd7ab4b8b87ac5fa1b6cfab81dea6
+- Context: gardener-15 on endolin-garden-ece02cb4: job 'kriscendobot-agoric-sdk-pr14-fix-chaininfo-snapshots' exit-0-unsatisfying but elapsed near-constant (148,148s) over 2 cycles — likely a wedged child, not a working one
+
+Inspect via `git -C journal cat-file -p 4eb62734ebabd7ab4b8b87ac5fa1b6cfab81dea6`.
