@@ -2,7 +2,7 @@
 order: serial
 children: endojs-endo-but-for-bots-pr592-cancel-in-options endojs-endo-but-for-bots-pr592-watchdir-coverage
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-07-10T17:07:45Z
 ---
