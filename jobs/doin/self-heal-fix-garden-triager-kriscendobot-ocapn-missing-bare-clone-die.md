@@ -7,3 +7,9 @@
 2. **Stop the fatal `die` on a missing clone.** Replace the hard `die` with self-provision-or-skip, matching `comment-watcher.sh:312`'s precedent and reusing `clone-keeper.sh`'s existing logic: derive the upstream URL from the slug (`<owner>-<name>` split on the first `-` → `$GARDEN_CLONE_URL_BASE/<owner>/<name>.git`, default `https://github.com`), do a bounded atomic `git clone --bare` into a sibling temp + `mv -T` into place, set the fetch refspec per `WORKTREES.md`, then fall through to the normal fetch/rev-parse. If the source is unreachable, `log` and `exit 0` so the next tick retries (no crash-loop); escalate a persistently unreachable/underivable source to the maintainer inbox as clone-keeper does, rather than dying forever.
 
 **Done when:** a triager tick for a slug with no local clone provisions it (or skips cleanly) instead of exiting 1, `garden-triager@*` units leave the `activating` crash-loop, and existing `triager.sh` / `comment-watcher.sh` tests still pass (extend the test harness's `GARDEN_REPOS`/no-repo cases to cover the new non-fatal path).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 9
+  claimed_at: 2026-07-10T22:54:17Z
