@@ -48,3 +48,12 @@ Inspect via `git -C journal cat-file -p e729813ec647f015d0e4fbb88ab6b9a1af0e5de4
 - Context: gardener-13 on endolin-garden-ece02cb4: job 'self-heal-fix-garden-triager-kriscendobot-endo-revparse-verify' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p b0a1225026f36f1f388e4b212c220b80e8448786`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-10T08:35:40Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 6f9794aaa0ba08ac0d3ca49b21e919641eeb92b1
+- Context: gardener-17 on endolin-garden-ece02cb4: job 'xst-validation-orchestrator-20260710-083510' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 6f9794aaa0ba08ac0d3ca49b21e919641eeb92b1`.
