@@ -59,3 +59,9 @@ On branch `xst/integrate-variant-bump`, build that variant-gated test lane in
 Both lanes runnable and green (or honestly-marked) by one documented switch;
 default lane unchanged and byte-stable; results recorded on PR #13 and in the
 tada report.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  claimed_at: 2026-07-10T07:52:22Z
