@@ -59,8 +59,49 @@ proceed on a cross-host hostname collision.
    the leader/follower gate only bites when a second host joins
    ([leader-follower.md](leader-follower.md)).
 
-**Verify after:** `systemctl --user list-units 'garden-*' --state=failed` should
-be **empty**. Show the one-line result.
+5. **Check for a stale drain and uncork it.** A re-start is very likely the
+   aftermath of a deploy/upgrade: `deploy-garden.sh` ([deploy.md](deploy.md))
+   drains the fleet, and although a *successful* deploy lifts its own drain, an
+   **operator-engaged** drain (a prior `stand down` / `drain`) — or a deploy
+   killed hard before its lift — leaves the **draining marker** in place, and
+   the marker **outlives** the upgrade. A gardener that starts while the marker
+   is present logs `fleet draining; exiting cleanly` and exits — so units are
+   installed, linger is on, nothing is *failed*, yet **0 gardeners actually
+   run**. Probe (read-only, run freely):
+
+   ```sh
+   scripts/jobs/drain-fleet.sh status
+   ```
+
+   If it reports `DRAINING`, propose and — on a yes — lift it, then nudge the
+   scaler to reconcile the pool back up:
+
+   ```sh
+   scripts/jobs/drain-fleet.sh off
+   systemctl --user start garden-gardener-scaler.service
+   ```
+
+   (An intentional pause you want to keep draining is the exception — leave the
+   marker and say so.) After a deploy you also often want to reactivate any
+   in-flight claims the drain/outage stranded: run [restore](../../skills/restore/SKILL.md)
+   as the companion (it requeues orphaned `doin/` claims so the re-claiming
+   gardener `--resume`s the interrupted session).
+
+**Verify after — prove the pool is POSITIVELY live, not merely not-failed.** An
+empty `--state=failed` list is **necessary but not sufficient**: a gardener that
+exits cleanly under a drain marker is a *success*, so a fully-drained fleet shows
+zero failed units while zero gardeners run. So check both:
+
+```sh
+systemctl --user list-units 'garden-*' --state=failed --no-legend                  # want: empty
+systemctl --user list-units 'garden-gardener@*' --state=active --no-legend | wc -l  # want: > 0
+```
+
+Reconcile that active count against this host's declared target — the `gardeners:`
+value in the journal `hosts/$GARDEN` file (set in step 3). **Signature to catch:
+the scaler logged `scaled gardener pool to N` yet the active count is 0 ⇒ suspect
+a stale drain marker** (step 5) — the units were created but each gardener
+exited on the drain. Show the one-line counts.
 
 ## The liaison's three Monitors
 

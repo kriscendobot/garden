@@ -144,8 +144,16 @@ maintainer.
   ([context/first-run/identity.md](../../context/first-run/identity.md)). **Only
   the leader runs the maintainer-inbox Monitor and the singletons** (gated by
   `scripts/jobs/is-main-host.sh`); a **follower stand-up brings up the gardener
-  pool only** — its singleton timers fire but skip cleanly until promoted. The
-  command-level bring-up is [context/operations/starting.md](../../context/operations/starting.md).
+  pool only** — its singleton timers fire but skip cleanly until promoted.
+  **Standing up is not done until the drain is lifted and the pool is verified
+  *positively* live.** A re-start is usually the aftermath of a deploy/upgrade,
+  which drains the fleet, and a stale draining marker makes every gardener exit
+  cleanly on start — zero failed units, yet zero gardeners running. So the
+  bring-up ends by probing `drain-fleet.sh status`, uncorking it (ask-before-acting)
+  if draining, and confirming *active* `garden-gardener@*` units > 0 — an empty
+  `--state=failed` list alone is not proof. The command-level bring-up, the
+  uncork step, and the positive-liveness check are
+  [context/operations/starting.md](../../context/operations/starting.md).
 - **"stand down" / "drain" / "stop the garden" / "halt the garden"** → the
   graceful dual of standing up. **Drain** (workers finish in-flight claims, take
   no new ones) with `scripts/jobs/drain-fleet.sh on` and lift with `off`; **fully
@@ -184,6 +192,18 @@ autonomous background service.
   sha. A host with **no liaison session** simply accumulates the signal until a
   liaison runs (or an operator runs `deploy-garden.sh` by hand). Command-level
   detail: [context/operations/deploy.md](../../context/operations/deploy.md).
+- **Drain aftermath.** `deploy-garden.sh` drains before merging and lifts its own
+  drain on the success and self-abort paths, but a drain it did **not** engage (an
+  operator `stand down` it honored) or a hard kill before its lift can leave the
+  draining marker behind — and the marker outlives the deploy. So a re-start after
+  a deploy must treat un-drain as part of standing up (§ stand up, above;
+  [starting.md](../../context/operations/starting.md) step 5). We deliberately
+  keep the un-drain **operator-confirmed at re-start** rather than teaching the
+  deploy to force-lift every drain: an unconditional auto-lift would silently
+  resume a fleet the operator had *intentionally* paused, undermining the
+  deliberate-deploy posture ([deliberate-deploy](../../designs/deliberate-deploy.md)).
+  The trade-off is the maintainer's to revisit; the safe default is the checked,
+  confirmed uncork at re-start.
 
 ### Restore after an outage (vocabulary)
 

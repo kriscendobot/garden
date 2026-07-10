@@ -45,3 +45,18 @@ upgrade-ready signal), lifts the drain, and restarts so every unit picks up the
 new code. A lesson you encode reaches a *running* agent mid-flight through the
 watchman's broadcast; the deploy is how the *deployed root and its units* take
 up the change.
+
+## The drain can outlive the deploy
+
+A *successful* deploy lifts the drain it engaged (and its abort belt lifts a drain
+it engaged on any failure), but a drain the deploy did **not** engage — an operator
+`stand down` / `drain` it honored rather than lifted, or a hard kill before its
+lift — leaves the **draining marker** behind, and that marker **outlives** the
+deploy. A gardener that starts while the marker is present logs `fleet draining;
+exiting cleanly` and exits: units installed, linger on, nothing *failed*, yet **0
+gardeners running**. That is why a re-start ([starting.md](starting.md) step 5)
+probes `drain-fleet.sh status`, uncorks a stale drain (operator-confirmed), and
+verifies gardeners are *positively* active — never trusting an empty
+`--state=failed` list alone. The un-drain is kept deliberately on the re-start
+surface, not force-lifted by the deploy, so a fleet an operator *intentionally*
+paused is never silently resumed ([deliberate-deploy](../../designs/deliberate-deploy.md)).
