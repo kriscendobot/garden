@@ -1,10 +1,7 @@
 ---
-gate: deferred
-priority: normal
 role: designer
-posted_by: producer
-posted_at: 2026-07-10T05:34:23Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-07-10T05:39:03Z -->
 
 # Design: additive, two-pass migration to extensionless `exports` subpaths
 
