@@ -7,3 +7,9 @@ Bug 2 — `head -400` SIGPIPE under pipefail (exit 141): even after Bug 1, `git 
 After both edits, verify with: `bash scripts/jobs/handlers/triager-claude.sh kriscendobot-minion.town "" 35e9b4a53a7c7b29eb85dfe3e2397bc9fcbe9cfa repos/kriscendobot-minion.town.git </dev/null` exits 0 and logs `posted N job(s)`. Also confirm the incremental path (non-empty `old`) still produces `$old..$new`.
 
 Optional hardening (same file, cheap and worth doing while here): the handler currently dies before any log on failure, which blinded this whole self-heal cycle — consider capturing `claude`'s stderr and logging a diagnostic on the `out="$(claude -p …)"` line so future failures leave a signature in the self-heal blob instead of nothing.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 15
+  claimed_at: 2026-07-10T04:15:00Z
