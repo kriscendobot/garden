@@ -96,3 +96,9 @@ documented in `skills/message-bus/SKILL.md` and covered by a test. Committed and
 pushed to `main2`. The `tada` report gives the SHA, the files touched, the exact
 forbidden/allowed rule implemented, the list of send primitives wired, and the
 real-path rejection/acceptance observation.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 15
+  claimed_at: 2026-07-10T22:13:35Z
