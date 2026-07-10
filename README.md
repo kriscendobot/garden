@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-10T03:57:51Z_
+_As of 2026-07-10T04:04:54Z_
 
 ## Latest
 
-The mount-glob stack cleared its CI blocker: [#653](https://github.com/endojs/endo-but-for-bots/pull/653) is green after a shepherd rebased it onto its now-fixed base [#650](https://github.com/endojs/endo-but-for-bots/pull/650) (whose durable `whenRevoked` fix for idle `followNameChanges` streams landed), unblocking the grep ([#655](https://github.com/endojs/endo-but-for-bots/pull/655)) and json ([#657](https://github.com/endojs/endo-but-for-bots/pull/657)) follow-ons — with gauntlets now running on [#655](https://github.com/endojs/endo-but-for-bots/pull/655) and [#659](https://github.com/endojs/endo-but-for-bots/pull/659). A new Rust-side mount parity crate shipped as draft [#654](https://github.com/endojs/endo-but-for-bots/pull/654) and the CLI `--deny` follow-up as draft [#652](https://github.com/endojs/endo-but-for-bots/pull/652), both stacked and awaiting a steer on sequencing (and, for #654, whether the Rust runner suffices versus the not-yet-buildable XS-run variant).
+The mount feature stack drove most of the movement. [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now green: a durable `whenRevoked` fix landed on its base [#650](https://github.com/endojs/endo-but-for-bots/pull/650) (waking idle `followNameChanges` streams on revoke), and #653 was rebased clean onto it, dropping a redundant deflake commit. Gauntlets completed on [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (mount `--deny` CLI segments) and [#656](https://github.com/endojs/endo-but-for-bots/pull/656) (provideSubmount); gauntlets on [#655](https://github.com/endojs/endo-but-for-bots/pull/655) (mount-grep) and [#659](https://github.com/endojs/endo-but-for-bots/pull/659) (module-loading stack sequencing) are in flight, and new stacked drafts landed for the CLI `--deny` follow-up [#652](https://github.com/endojs/endo-but-for-bots/pull/652) and the Rust-side glob parity runner [#654](https://github.com/endojs/endo-but-for-bots/pull/654).
 
-Several jobs closed as already-satisfied rather than opening duplicates — the daemon locator-terminology build (merged via #34), the interval-scheduler formula ([#609](https://github.com/endojs/endo-but-for-bots/pull/609), ready to merge), and the daemon fs agent-tools wiring (landed #614 plus conflicting draft [#618](https://github.com/endojs/endo-but-for-bots/pull/618), which needs a weave). 
+Two items need your call. [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript hardening) is **stalled at conduct** — it's approved and green, but live `llm` rewrote `agent.js` around `makePiAgent` and the `assembleTranscript` machinery it guards no longer exists, so it needs a weave/redesign decision, not a merge. And [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (http-client) has a real, deterministic Node-22 failure — undici's frozen `Headers` slot breaks CapTP error-decode — pending a fixer. Separately, the esheets daily supervisor named [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth foundation design) as the gate blocking the whole tree and posted a gauntlet to drive it out of draft.
 
-Two items need your decision. A daily supervisor now drives the exo-google-sheets tree and has posted a gauntlet on design PR [#621](https://github.com/endojs/endo-but-for-bots/pull/621), the OAuth-foundation gate that blocks all downstream implementation. And [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript hardening) is **stalled for a weave** — its target `assembleTranscript` was deleted in the `makePiAgent` rewrite of `agent.js`, so the conductor cannot rebase it onto live `llm`. Separately, [#286](https://github.com/endojs/endo-but-for-bots/pull/286) has a real Node-22 CI failure (a hardened undici `Headers` object failing to decode across CapTP) that wants a fixer. Note also that several shepherd jobs are deterministically overrunning the 2400s handler budget and risk being poisoned unless split into claim-sized stages.
+Worth noticing operationally: four mount-stack shepherd jobs (#650, #652, #653-parity/#654) deterministically overran the 2400s handler budget and risk poisoning — they need splitting into claim-sized stages or running detached. Several "build" jobs also came back as already-landed duplicates (daemon locator terminology, interval-scheduler #609, daemon fs agent-tools), suggesting the board is re-posting work that's already merged.
 
 ## Parked for maintainer feedback
 
@@ -254,7 +254,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr590-6028a212-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr590-6028a212-retro.md) — Retrospective on endojs/endo-but-for-bots PR #590 (primary: endojs-endo-but-f...
 - [`gauntlet-endo-but-for-bots-pr655-mount-grep`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr655-mount-grep.md) — ---
 - [`gauntlet-endo-but-for-bots-pr659-module-loading-stack-sequencing`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr659-module-loading-stack-sequencing.md) — ---
 
@@ -288,7 +289,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr590-6028a212-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr590-6028a212-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #590 (primary: endojs-endo-but-f...
+(none)
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
