@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: requeue-exhausted
+poison_count: 1
+requeue_cycles: 5
+deadline_overruns: 1
+poisoned_at: 2026-07-10T22:03:05Z
+poisoned_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-07-10T22:03:05Z
+---
+
+---
 role: fixer
 ---
 <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-10T17:10:33Z -->
@@ -59,11 +73,3 @@ branch; then post inline replies to BOTH review comments (ids 3560627735 and
 
 
 <!-- garden-deadline-overrun: 1 -->
-
-<!-- garden-reaped: 4 -->
-
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 17
-  claimed_at: 2026-07-10T20:53:13Z
