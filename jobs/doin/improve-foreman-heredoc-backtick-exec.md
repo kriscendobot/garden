@@ -1,2 +1,8 @@
 scripts/jobs/handlers/foreman-claude.sh
 The foreman prompt is built with an UNQUOTED heredoc opener `prompt="$(cat <<EOF` (line 38), so bash performs command substitution on the heredoc body. Lines 73–74 contain the literal markdown backticks `` Use `designer` for a design-only step and `builder` for a mergeable-feature step. `` — bash executes `` `designer` `` and `` `builder` `` as commands, emitting `foreman-claude.sh: line 92: designer: command not found` and failing the handler with rc=1 on every foreman tick (observed continuously ~08:09→08:34, roughly every 5 min; the foreman never posts a job while this stands). Fix by escaping those two backtick pairs so they reach the prompt as literal backticks instead of being evaluated — change them to `` \`designer\` `` and `` \`builder\` `` (or single-quote them: 'designer' / 'builder'). Do NOT blanket-quote the `EOF` delimiter: the heredoc legitimately relies on `$(cat "$digest")` (line 89) and other `$var` interpolation, which quoting would break. After the edit, audit the rest of the heredoc body (lines 38–91) for any other unescaped backticks or `$(...)`/`` `...` `` that are meant as literal prompt text, and add a shellcheck/`bash -n` style guard or a comment noting the delimiter is intentionally unquoted so this class of bug does not regress.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  claimed_at: 2026-07-10T09:24:03Z
