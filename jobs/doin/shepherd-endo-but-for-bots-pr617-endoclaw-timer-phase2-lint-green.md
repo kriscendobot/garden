@@ -6,6 +6,7 @@ Shepherd endojs/endo-but-for-bots PR #617 ("endoclaw-timer Phase 2 — deliver i
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
