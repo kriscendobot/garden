@@ -2,6 +2,7 @@ Run the gauntlet on endojs/endo-but-for-bots PR #668 (endopi-edit-tool, the LLM 
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
