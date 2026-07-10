@@ -46,3 +46,9 @@ Every layer of the #127 stack has been through the gauntlet: cleaned, panel-
 reviewed with the design tensions explicitly weighed, fix-looped, and un-drafted
 (or halted with a named design problem). The `tada` report lists each layer, its
 gauntlet outcome, and any tension referred back up for re-design.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 19
+  claimed_at: 2026-07-10T21:19:15Z
