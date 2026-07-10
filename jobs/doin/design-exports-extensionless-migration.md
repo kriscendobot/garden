@@ -96,3 +96,9 @@ eligibility delineation (question 1), the conditional/wildcard/`types` handling
 (2–3), the codemods + verification checks (4–5), the per-package changeset note,
 and the orchestration decomposition — concrete enough to execute with no further
 design decisions.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 10
+  claimed_at: 2026-07-10T05:39:07Z
