@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-10T17:50:51Z_
+_As of 2026-07-10T17:59:11Z_
 
 ## Latest
 
@@ -12,8 +12,8 @@ A few things need your explicit call: the XS-validation effort on kriscendobot/a
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 56m)
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 18h)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 1h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 19h)
 - [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 23h)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 8d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 10d)
@@ -457,22 +457,21 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (6)
 - [`endojs-endo-but-for-bots-pr288-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr288-gauntlet.md) — gauntlet directive on endojs/endo-but-for-bots PR #288
 - [`endojs-endo-but-for-bots-pr592-01edab2b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-01edab2b.md) — attention directive on endojs/endo-but-for-bots PR #592
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
 - [`endojs-endo-but-for-bots-pr618-6a3affe0`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr618-6a3affe0.md) — attention directive on endojs/endo-but-for-bots PR #618
 - [`endojs-endo-but-for-bots-pr650-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr650-conduct.md) — Conduct (merge) endojs/endo-but-for-bots PR #650
-- [`endojs-endo-but-for-bots-pr653-review-344a347f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr653-review-344a347f.md) — Review directive on endojs/endo-but-for-bots PR #653
 - [`readme-control-surface-illustrations`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/readme-control-surface-illustrations.md) — Document novel control-surface uses in the garden README
 
-### tada (1742)
+### tada (1743)
+- [`endojs-endo-but-for-bots-pr653-review-344a347f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr653-review-344a347f.md) — Completion report
 - [`gauntlet-endo-but-for-bots-pull-request-672-genie-subscription-oauth`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pull-request-672-genie-subscription-oauth.md) — Completion report — gauntlet on endojs/endo-but-for-bots #672 "feat(genie): w...
 - [`endojs-endo-but-for-bots-pr592-review-aa1b0c84`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr592-review-aa1b0c84.md) — Completion report
 - [`endojs-endo-but-for-bots-pr592-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr592-refresh.md) — Completion report
 - [`endojs-endo-but-for-bots-pr650-review-d4abc76c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr650-review-d4abc76c.md) — Completion report
-- [`design-endoclaw-oauth-caretaker-attenuation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endoclaw-oauth-caretaker-attenuation.md) — Both asks are complete and pushed to PR #621. The inbox is empty, and the PR ...
-- … and 1737 more
+- … and 1738 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
