@@ -1,16 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-10T05:23:34Z_
+_As of 2026-07-10T05:33:06Z_
 
 ## Latest
 
-The gauntlet on [endo-but-for-bots#659](https://github.com/endojs/endo-but-for-bots/pull/659) (module-loading stack sequencing) completed, and the board has nearly drained — todo is empty, with only four jobs in flight: a design for Endo content locators (magnet URNs), attention directives on [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), and gauntlets on [endo-but-for-bots#657](https://github.com/endojs/endo-but-for-bots/pull/657) (mount-json) and [endo-but-for-bots#661](https://github.com/endojs/endo-but-for-bots/pull/661) (agent-tools http-client).
+The [mount-glob PR #653](https://github.com/endojs/endo-but-for-bots/pull/653) went green after a rebase onto its fixed base [#650](https://github.com/endojs/endo-but-for-bots/pull/650) (a durable `whenRevoked` fix for open `followNameChanges` streams landed there and superseded a test-only deflake), unblocking the stacked mount followers — grep [#655](https://github.com/endojs/endo-but-for-bots/pull/655), json [#657](https://github.com/endojs/endo-but-for-bots/pull/657), the deny-CLI [#652](https://github.com/endojs/endo-but-for-bots/pull/652), and the new Rust-side glob parity crate in [#654](https://github.com/endojs/endo-but-for-bots/pull/654). The magnet-URN content-locators design also completed and the module-loading-sequencing gauntlet on [#659](https://github.com/endojs/endo-but-for-bots/pull/659) finished.
 
-The signal to act on: **the foreman reports M3 is fully saturated and now stalled on *merge*, not on missing work.** The mount chain ([#650](https://github.com/endojs/endo-but-for-bots/pull/650)/[#652](https://github.com/endojs/endo-but-for-bots/pull/652)/[#653](https://github.com/endojs/endo-but-for-bots/pull/653)/[#656](https://github.com/endojs/endo-but-for-bots/pull/656)/[#658](https://github.com/endojs/endo-but-for-bots/pull/658)) and the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) are build-complete and gauntleted but sitting unmerged on `llm`, blocking every stacked follower; roughly 60 ready fork PRs await review. The fleet needs a conductor/merge pass or a go-ahead on the parked next-tranche jobs (endo-gateway/AWS-storage, daemon→manager rename) to have unblocked work to claim.
+Two items want a decision. The http-client reconcile [#286](https://github.com/endojs/endo-but-for-bots/pull/286) has a real, deterministic Node-22 failure — undici's frozen `Headers` breaks error-decode across CapTP — so it needs a fixer, not a merge. And conductor work on [#123](https://github.com/endojs/endo-but-for-bots/pull/123) is stalled: live `llm` rewrote `agent.js` around `makePiAgent` and deleted the very `assembleTranscript` machinery the PR hardens, so it needs a weave/redesign call, not a surgical merge. Separately, note [#644](https://github.com/endojs/endo-but-for-bots/pull/644) is being pushed by a second fleet (0xpatrickbot) concurrently — our panel requested changes but did not push, to avoid racing.
 
-Two items need a human decision beyond merge. [endo-but-for-bots#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript fix) is **stalled and un-conductable**: its base snapshot has diverged hard from live `llm`, where `agent.js` was rewritten around a new `makePiAgent` and the very function the PR hardens no longer exists — it needs a weave/redesign call, not a merge. And on [endo-but-for-bots#644](https://github.com/endojs/endo-but-for-bots/pull/644) (git commit amend/reword), our gauntlet found a new correctness bug (a staged index silently folded into a "message-only" reword) but held off pushing because a second fleet (0xpatrickbot) is concurrently rewriting the same branch.
-
-On the good-news side, [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is green after a rebase onto a durable revoke-wakes-streams fix that landed on its base, unblocking grep ([#655](https://github.com/endojs/endo-but-for-bots/pull/655)) and json ([#657](https://github.com/endojs/endo-but-for-bots/pull/657)). Several builder jobs correctly stopped on discovering their scope was already merged or in-flight (daemon locator terminology, interval-scheduler [#609](https://github.com/endojs/endo-but-for-bots/pull/609), fs agent-tools [#614](https://github.com/endojs/endo-but-for-bots/pull/614)/[#618](https://github.com/endojs/endo-but-for-bots/pull/618)) rather than opening duplicates. Two watch-items also want a fixer: [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s CI fails deterministically on Node 22 (a hardened undici `Headers` slot breaks CapTP error-decode), and a cluster of shepherd/gauntlet jobs ([#650](https://github.com/endojs/endo-but-for-bots/pull/650), [#652](https://github.com/endojs/endo-but-for-bots/pull/652), [#654](https://github.com/endojs/endo-but-for-bots/pull/654), [#655](https://github.com/endojs/endo-but-for-bots/pull/655)) keep overrunning the 2400s handler budget and should be split into claim-sized stages before the reaper poisons them.
+The loudest signal is the foreman's: M3 is saturated in flight with no unblocked build step left, and roughly sixty gauntleted fork PRs — the mount chain and the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) among them — are sitting unmerged on `llm`, blocking every stacked follower. Forward progress now depends on review/merge attention and on promoting the go-ahead-gated next tranche (endo-gateway/AWS-storage, daemon→manager rename), not on more queued work.
 
 ## Parked for maintainer feedback
 
@@ -284,19 +282,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
-- [`design-endo-content-locators-magnet-urn`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-content-locators-magnet-urn.md) — Design: Endo content locators (magnet URNs) for readable blobs and trees
+### doin (3)
 - [`endojs-endo-but-for-bots-pr288-e950e913`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr288-e950e913.md) — attention directive on endojs/endo-but-for-bots PR #288
 - [`gauntlet-endo-but-for-bots-pr657-mount-json`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr657-mount-json.md) — ---
 - [`gauntlet-endo-but-for-bots-pr661-agent-tools-http-client`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr661-agent-tools-http-client.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
 
-### tada (1632)
+### tada (1633)
+- [`design-endo-content-locators-magnet-urn`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-content-locators-magnet-urn.md) — Completion report
 - [`deadmail-issue-comment-4932224277`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4932224277.md) — Completion report — deadmail-issue-comment-4932224277
 - [`gauntlet-endo-but-for-bots-pr659-module-loading-stack-sequencing`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr659-module-loading-stack-sequencing.md) — Gauntlet complete. Final report:
 - [`self-heal-fix-garden-triager-kriscendobot-minion-town-handler-swallows-claude-error`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-handler-swallows-claude-error.md) — The requested fix is already present and hardened well beyond the spec — no c...
 - [`build-daemon-agent-tools-http-client-tool-wiring`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-daemon-agent-tools-http-client-tool-wiring.md) — Completion report — build-daemon-agent-tools-http-client-tool-wiring
-- [`gauntlet-endo-but-for-bots-pr655-mount-grep`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr655-mount-grep.md) — Completion report
-- … and 1627 more
+- … and 1628 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
