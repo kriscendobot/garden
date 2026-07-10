@@ -1,19 +1,15 @@
 # Garden bulletin
 
-_As of 2026-07-10T12:37:06Z_
+_As of 2026-07-10T12:39:47Z_
 
 ## Latest
 
-The M3 mount stack is now green top-to-bottom: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) rebased onto its fixed base and passes all 23 checks, and the mount chain ([#650](https://github.com/endojs/endo-but-for-bots/pull/650), [#652](https://github.com/endojs/endo-but-for-bots/pull/652), #653, [#656](https://github.com/endojs/endo-but-for-bots/pull/656), [#658](https://github.com/endojs/endo-but-for-bots/pull/658)) plus the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609), [#617](https://github.com/endojs/endo-but-for-bots/pull/617), [#619](https://github.com/endojs/endo-but-for-bots/pull/619)) are all build-complete, gauntleted, mergeable — and unmerged. The foreman has now signaled three times that the fleet has **no unblocked build work left**: every downstream slice (mount-json #657, the git-verb stack behind [#644](https://github.com/endojs/endo-but-for-bots/pull/644), module-loading behind #659) is stalled on these ready PRs. Forward progress needs merge/authorization attention, not more queued builds.
-
-Two efforts are parked on decisions only you can make. The **XS-validation** effort ([garden#33](https://github.com/kriskowal/garden/pull/33)) has fully converged — both engine trains validated at the package level, agoric-sdk fork PRs [#13](https://github.com/kriscendobot/agoric-sdk/pull/13) and [#14](https://github.com/kriscendobot/agoric-sdk/pull/14) green — and waits only on a Leg-4 integration waiver and a "landed" call; [#12](https://github.com/kriscendobot/agoric-sdk/pull/12) additionally needs your ruling on regenerating golden snapshots and bumping METER_TYPE (both consensus-affecting). Separately, the Docker-selfhost build halted as complete-as-declined (re-attempting the already-closed [#134](https://github.com/endojs/endo-but-for-bots/pull/134) direction) and asks that the stale design record be tombstoned so producers stop re-spawning it.
-
-Two snags worth noting: conducting [#123](https://github.com/endojs/endo-but-for-bots/pull/123) is blocked because live `llm` rewrote the file it hardens out of existence — it needs a weave/redesign, not a merge; and [#661](https://github.com/endojs/endo-but-for-bots/pull/661)'s gauntlet was poisoned and parked after five requeue cycles. Several shepherd/gauntlet jobs also keep overrunning the 2400s handler budget and want splitting into claim-sized stages. On the fork side, finbot landed its SES-compartments capability-attenuation cornerstone on `main`.
+The M3 backlog is now merge-bound, not work-bound: the foreman escalated three times that the fleet has **no unblocked build work** — the daemon-mount stack ([#650](https://github.com/endojs/endo-but-for-bots/pull/650), [#653](https://github.com/endojs/endo-but-for-bots/pull/653), [#655](https://github.com/endojs/endo-but-for-bots/pull/655), [#657](https://github.com/endojs/endo-but-for-bots/pull/657), [#658](https://github.com/endojs/endo-but-for-bots/pull/658)) and the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609), [#617](https://github.com/endojs/endo-but-for-bots/pull/617), [#619](https://github.com/endojs/endo-but-for-bots/pull/619)) are all CI-green and mergeable but sitting unmerged on `llm`, blocking every stacked follower. [#653](https://github.com/endojs/endo-but-for-bots/pull/653) reached green after a shepherd rebased it onto its fixed base (a `followNameChanges`-on-revoke deflake landed on base [#650](https://github.com/endojs/endo-but-for-bots/pull/650)). Several jobs halted as already-done or declined: the Docker-selfhost build ([build-endo-daemon-docker-selfhost](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-daemon-docker-selfhost.md)) re-attempts the closed [#134](https://github.com/endojs/endo-but-for-bots/pull/134) line and wants its stale design record retired; the daemon-locator-terminology and daemon-agent-tools-filesystem jobs found their scope already merged. On the agoric fork, the XS-validation effort ([garden#33](https://github.com/kriskowal/garden/issues/33)) has converged green on both engine trains but is blocked solely on two maintainer calls (waive the Depot-gated integration Leg 4; whether draft [PR #14](https://github.com/kriscendobot/agoric-sdk/pull/14) counts as landed), with related golden-snapshot/METER_TYPE consensus questions open on [PR #12](https://github.com/kriscendobot/agoric-sdk/pull/12). finbot landed its multi-instrument/yield increment directly on `main`. Watch the noise: many shepherd/gauntlet jobs (#652, #654, #655, #659, agoric #13/#14) are deterministically overrunning the 2400s handler budget and risk poisoning, and [#661](https://github.com/endojs/endo-but-for-bots/pull/661)'s gauntlet already poisoned out and is parked pending promotion.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 13h)
-- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 17h)
+- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 18h)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 7d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 10d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 11d)
@@ -429,6 +425,33 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Job report `build-endo-daemon-docker-selfhost` closed the Docker-selfhost build as complete-as-declined (consistent with the earlier decline of endo PR #134). Its one open follow-up is a garden-library judgment call, not a project-repo job: it asks to **retire the stale `daemon-docker-selfhost` design record** so producers stop re-spawning this build into the same wall. Want me to retire/tombstone that design record in the garden repo? (The other follow-up — "re-post if Docker-selfhost is genuinely wanted again" — is conditional, nothing to do now.)
 
+- `20260710T123828Z-7aca43` — from gardener:finbot-progress-20260710-123501, reply_to `finbot-progress-20260710-123501` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T123828Z-7aca43.md)
+
+> finbot progress (cycle 20260710-123501):
+>
+> ADVANCED: Landed the **multi-instrument portfolios + yield-bearing instruments**
+> increment on kriscendobot/finbot@main (071c58f..bf7ebf4). Rebased the stranded
+> feat/additional-instruments stack onto current main — the rebase revealed 5 of its
+> 6 commits were already patch-equivalent on main (driver, richer-forecasting,
+> forecast-eval, volatility-tolerance, richer-instrument-models, llm-role-dispatch,
+> substrate-adapters all previously landed), leaving exactly ONE genuinely-new
+> commit: multi-asset target allocation with per-tick yield/APR accrual (DRIP),
+> correlation-cluster penalty in the analyzer, carried through clone()/forecaster
+> forks. Verified GREEN: 410 tests pass, all six auditor invariants PASS,
+> finbot-ooda --seed=7 reports walletTouched: false (safety gate holds; no live
+> wallet, no key/funds wired). Deleted the now-merged feat/additional-instruments.
+>
+> NEXT UNBLOCKED: rebase + land feat/cyclical-forecaster (1 unique commit:
+> seasonal + residual-GBM cyclical-structure-aware forecaster). One increment,
+> deferred to next cycle per the one-increment-per-dispatch guardrail.
+>
+> DECISION STILL OPEN (re-flagged from prior cycle): finbot's "no self-PR,
+> fast-forward main" convention keeps stranding builder branches behind a diverging
+> main, so every cycle pays rebase cost. Options: (a) let builders land finbot
+> increments directly on main; (b) stand up a weaver/conductor sweep to
+> fast-forward promptly. No action needed from you if the current per-cycle rebase
+> cadence is acceptable — it is small so far.
+
 - `poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -445,19 +468,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
-- [`finbot-progress-20260710-123501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260710-123501.md) — Push progress on kriscendobot/finbot (every 6h)
+### doin (3)
 - [`kriscendobot-agoric-sdk-pr13-fix-chaininfo-snapshots`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr13-fix-chaininfo-snapshots.md) — fixer (shepherd→fixer auto-chain) on kriscendobot/agoric-sdk PR #13
 - [`shepherd-endo-but-for-bots-pull-request-660-marshal-captp-patterns-reexports-fix-lint`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pull-request-660-marshal-captp-patterns-reexports-fix-lint.md) — ---
 - [`shepherd-endo-but-for-bots-pull-request-661-agent-tools-http-client-rebase-onto-fixed-lint-llm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pull-request-661-agent-tools-http-client-rebase-onto-fixed-lint-llm.md) — ---
 
-### tada (1711)
+### tada (1712)
+- [`finbot-progress-20260710-123501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260710-123501.md) — Completion report — finbot-progress-20260710-123501
 - [`kriscendobot-agoric-sdk-pr14-fix-chaininfo-snapshots`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr14-fix-chaininfo-snapshots.md) — Completion report
 - [`build-endo-daemon-docker-selfhost`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-daemon-docker-selfhost.md) — What I found
 - [`xst-validation-orchestrator-20260710-120503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260710-120503.md) — XS-validation orchestrator — tick report (2026-07-10 ~12:05Z)
 - [`build-endo-registry-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-registry-capability.md) — Completion report
-- [`self-heal-fix-garden-pages-watcher-pages-source-401-bad-credentials-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-pages-watcher-pages-source-401-bad-credentials-retry.md) — Completion report
-- … and 1706 more
+- … and 1707 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
