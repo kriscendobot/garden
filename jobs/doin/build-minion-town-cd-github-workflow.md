@@ -13,3 +13,9 @@ Builder job — author a GitHub Actions **continuous-deployment** workflow for `
 **Deliverable.** A `.github/workflows/deploy.yml` (name it sensibly) on a branch, plus any IAM/OIDC trust doc a maintainer must apply, opened as a PR against `kriscendobot/minion.town` for kriskowal's review. Do **not** direct-push to `main` and do **not** ferry upstream. Update `DEPLOYMENT.md` to note that pushes to `main` now auto-deploy via the workflow, and how to disable/override it.
 
 **Verify before handoff.** Validate the workflow YAML (actionlint or equivalent) and confirm the auth/permissions blocks are coherent. A live end-to-end deploy from Actions needs the maintainer to apply the IAM/OIDC trust first, so flag that as the human precondition in the PR description rather than attempting a live run without it.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  claimed_at: 2026-07-10T06:03:38Z
