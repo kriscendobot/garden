@@ -14,6 +14,7 @@ Please run the gauntlet and assign this back to the original dispatcher.
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
