@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-10T02:59:34Z_
+_As of 2026-07-10T03:04:35Z_
 
 ## Latest
 
-The mount-revocation stack moved most: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now green — a shepherd rebased it onto the fixed base [#650](https://github.com/endojs/endo-but-for-bots/pull/650) after a durable `whenRevoked` fix landed there, unblocking the stacked grep (#655) and json (#657) follow-ups. Two new drafts came up on that stack: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (`--deny`/`--no-deny` CLI, stacked on #650) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (a Rust-side `mount_parity` crate, the design-sanctioned alternative after the XS-run path proved unbuildable in-tree). The Phase-4 agent-tools gauntlet on [#618](https://github.com/endojs/endo-but-for-bots/pull/618) completed, and a daily esheets supervisor now drives that tree, posting a gauntlet on design gate [#621](https://github.com/endojs/endo-but-for-bots/pull/621).
+The mount-extensions stack advanced: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) cleared the gauntlet and is fully green — a gardener rebased it onto the now-fixed base [#650](https://github.com/endojs/endo-but-for-bots/pull/650) after the durable "wake open streams on revoke" fix landed there, unblocking the stacked grep (#655) and json (#657) follow-ons. Fresh drafts sit behind it: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (mount `--deny` CLI, stacked on #650) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (a Rust-side mount-glob parity runner, since the XS boot path isn't buildable in-tree) — both wait on their bases merging before a rebase + gauntlet.
 
-Several items need your steer: [#123](https://github.com/endojs/endo-but-for-bots/pull/123) is **stalled** — its transcript-hardening fix targets an `assembleTranscript` that no longer exists on live `llm` (agent.js was rewritten around `makePiAgent`), so it needs a weave/redesign, not a conduct. [#286](https://github.com/endojs/endo-but-for-bots/pull/286) has a real Node-22 CI failure (undici Headers hardening breaks CapTP error-decode) awaiting a fixer. And several builder jobs reported their asks were already landed or in-flight — locator-terminology (merged), interval-scheduler [#609](https://github.com/endojs/endo-but-for-bots/pull/609), and the fs agent-tools wiring [#618](https://github.com/endojs/endo-but-for-bots/pull/618) — so no duplicate PRs were opened. Note also a cluster of shepherd jobs (PRs #650, #652, #653, #654) that deterministically overran the 2400s handler budget and will be poisoned unless split into claim-sized stages.
+Three things want a maintainer decision. [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript) is **stalled at conduct** — its target `assembleTranscript` was deleted in the `makePiAgent` rewrite on live `llm`, so it needs a weave/redesign call, not a merge. [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (http-client) has a real Node-22-only failure — undici's frozen `Headers` symbol slot breaks error-decode across CapTP — and wants a fixer. And the exo-google-sheets daily supervisor named [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth foundation design) as the gate for the whole sheets tree, posting a gauntlet to drive it out of draft. Separately, several "already satisfied" builder impasses (locator-terminology, [#609](https://github.com/endojs/endo-but-for-bots/pull/609) interval-scheduler, agent-tools fs wiring via #614/#618) surfaced duplicate jobs worth closing, and the watchdog flagged the pr650/pr652/pr654 shepherd jobs as deterministically overrunning the claim-scoped handler budget — they need splitting or detaching.
 
 ## Parked for maintainer feedback
 
@@ -252,17 +252,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`gauntlet-endo-but-for-bots-pr653-mount-glob`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr653-mount-glob.md) — Run the gauntlet on endojs/endo-but-for-bots PR #653 ("feat(daemon): mount gl...
+### doin (1)
 - [`mount-glob-parity-contract-hardening`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mount-glob-parity-contract-hardening.md) — <!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-07-10T0...
 
-### tada (1615)
+### tada (1616)
+- [`gauntlet-endo-but-for-bots-pr653-mount-glob`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr653-mount-glob.md) — Completion report — gauntlet on endojs/endo-but-for-bots PR #653 ("feat(daemo...
 - [`gauntlet-endo-but-for-bots-pr618-agent-tools-phase4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr618-agent-tools-phase4.md) — Completion report — gauntlet-endo-but-for-bots-pr618-agent-tools-phase4
 - [`self-heal-fix-garden-triager-kriscendobot-minion-town-handler-claude-no-diagnostic`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-handler-claude-no-diagnostic.md) — Completion report
 - [`design-endo-but-for-bots-module-loading-stack-registry-mvs-snapshot-import-sequencing`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-but-for-bots-module-loading-stack-registry-mvs-snapshot-import-sequencing.md) — Completion report — design job design-endo-but-for-bots-module-loading-stack-...
 - [`build-endo-but-for-bots-daemon-locator-terminology`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-daemon-locator-terminology.md) — Completion report
-- [`self-heal-fix-garden-triager-kriscendobot-minion-town-handler-error-unsurfaced`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-handler-error-unsurfaced.md) — What I found
-- … and 1610 more
+- … and 1611 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
