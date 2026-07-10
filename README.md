@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-10T08:04:16Z_
+_As of 2026-07-10T08:07:15Z_
 
 ## Latest
 
@@ -365,6 +365,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > or will you drive Gate 1 first and have me pick up Gate 2 after? PR #7 is
 > reviewable on its own merits meanwhile.
 
+- `20260710T080657Z-b2a12b` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T080657Z-b2a12b.md)
+
+> self-heal: garden-triager@kriscendobot-agoric-sdk exited rc=1 with no scoped fix. Capture: 2f131b35374b9b62693863cfc7998cf9bcbfdfba (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 2f131b35374b9b62693863cfc7998cf9bcbfdfba). Diagnosis: You've hit your session limit · resets 9:10am (UTC)
+
 - `poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -381,17 +385,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`kriscendobot-agoric-3-proposals-pr1-2fb936b8-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-3-proposals-pr1-2fb936b8-retro.md) — Retrospective on kriscendobot/agoric-3-proposals PR #1 (primary: kriscendobot...
-- [`xst-latest-test-lane`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-latest-test-lane.md) — Variant-gated latest test lane for the integrated XS 5.5.0 branch
+### doin (1)
+- [`self-heal-fix-garden-triager-kriscendobot-endo-revparse-verify`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-endo-revparse-verify.md) — In scripts/jobs/triager.sh, the new_sha resolution (lines 55-57) is corrupted...
 
-### tada (1682)
+### tada (1684)
+- [`xst-latest-test-lane`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-latest-test-lane.md) — Completion report — xst-latest-test-lane
+- [`kriscendobot-agoric-3-proposals-pr1-2fb936b8-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-3-proposals-pr1-2fb936b8-retro.md) — Confirmed on origin/journal2 (commit 1e80e4f15). Inbox empty. Job complete.
 - [`kriscendobot-agoric-3-proposals-pr1-204d2e99-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-3-proposals-pr1-204d2e99-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr612-c5154e29-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr612-c5154e29-retro.md) — Completion report
 - [`xst-validation-orchestrator-20260710-075013`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260710-075013.md) — XS-validation orchestrator — hourly tick report (2026-07-10 ~07:52Z)
-- [`endojs-endo-but-for-bots-pr580-review-3b37d970-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr580-review-3b37d970-retro.md) — Completion report
-- [`kriscendobot-agoric-sdk-pr7-ef1c360b-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr7-ef1c360b-retro.md) — Completion report
-- … and 1677 more
+- … and 1679 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
