@@ -24,16 +24,26 @@ slug="${1:?slug}"; old="${2:-}"; new="${3:?new}"; bare="${4:?bare}"
 role_brief="$GARDEN_ROOT/roles/triager/AGENT.md"
 
 range="${old:+$old..}$new"
+# Select the git-log range without EVER handing `git log` an empty revision.
+# The old `"${old:+$old..$new}"` expansion collapsed to the empty string on a
+# cold start (empty $old, i.e. no cursor yet), so `git log --stat ""` failed with
+# `fatal: ambiguous argument ''` (exit 128) — which, in the pipe below, pipefail
+# propagates. That crashed the FIRST triage of any repo (observed on
+# garden-triager@kriscendobot-minion.town the day repos/ gained its first
+# auto-provisioned own fork, 2026-07-09) and froze the cursor at <none> so it
+# recurred every restart. When $old is set, diff old..new; when empty, describe
+# just the new tip (-1 $new) — a real cold-start change summary, never "".
+#
 # `|| true`: under `set -euo pipefail`, `git log | head -400` dies of SIGPIPE
-# whenever the log outruns head's 400-line cap — which is EXACTLY the cold-start
-# case (empty $old → full history), so the FIRST triage of any repo with a real
-# history crash-looped the unit every tick and froze the cursor at <none>
-# (observed on garden-triager@kriscendobot-minion.town the day repos/ gained its
-# first auto-provisioned own fork, 2026-07-09; the repos/ set was empty before,
-# so the cold-start path had never run). head's truncation is the intent, not an
-# error; a genuine git failure still yields empty $changes, which the prompt
-# tolerates (the triager sees an empty change list).
-changes="$(git --git-dir="$bare" log --no-merges --stat "${old:+$old..$new}" 2>/dev/null | head -400 || true)"
+# whenever the log outruns head's 400-line cap. head's truncation is the intent,
+# not an error, and a genuine git failure degrades to empty $changes (which the
+# prompt tolerates — the triager just sees an empty change list) rather than
+# aborting the handler with no captured stderr.
+if [ -n "$old" ]; then
+  changes="$(git --git-dir="$bare" log --no-merges --stat "$old..$new" 2>/dev/null | head -400 || true)"
+else
+  changes="$(git --git-dir="$bare" log --no-merges --stat -1 "$new" 2>/dev/null | head -400 || true)"
+fi
 
 prompt="$(cat <<EOF
 You are a garden triager (role brief: $role_brief) for repository '$slug'.
