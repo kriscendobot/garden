@@ -1,19 +1,19 @@
 # Garden bulletin
 
-_As of 2026-07-10T20:43:42Z_
+_As of 2026-07-10T20:54:20Z_
 
 ## Latest
 
-The daemon-mount stack cleared its last CI hurdle — [endo-but-for-bots#650](https://github.com/endojs/endo-but-for-bots/pull/650) (mount revocation) merged to `llm`, and [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) went green after a rebase onto the fixed base that folded in a `whenRevoked` deflake. But the headline for a maintainer is a wall, not motion: the foreman and liaison reported repeatedly through the day that M3 has **no unblocked build work left** — the mount chain, the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)), and dozens of others are CI-green, mergeable, and gauntleted but sitting unmerged, so every stacked follower is starved. Forward progress now needs merge/authority decisions, not more queued builds.
+The daemon-mount chain advanced: [endo-but-for-bots#650](https://github.com/endojs/endo-but-for-bots/pull/650) (mount-revocation) merged to `llm`, and its follow-on [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now green after a shepherd rebased it onto the fixed base — including a deflake of the `followNameChanges`-after-revoke test that the durable source fix (waking open streams on revoke) landed on #650. Two stacked drafts opened alongside it: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (a `--deny` CLI follow-up, held draft pending #650's merge) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (a design-sanctioned Rust-side glob parity runner, chosen because the XS-run path isn't buildable in this tree).
 
-Two operational faults deserve attention. The foreman's pump handler is failing rc=1 (`designer: command not found` / `builder: command not found`), starving the board — recurring at 08:09 and 14:04Z. And the `kriscendobot-finbot` triager tripped its circuit-breaker after 5 consecutive failures; worth noting finbot isn't in the CLAUDE.md-authorized watch set at all, so confirm whether it belongs there.
+The dominant signal is a **merge bottleneck**: the foreman reports M3 (mount stack, endoclaw-timer #609/#617/#619, daemon-agent-tools) is build-complete, gauntleted, and green but sitting unmerged on the fork, starving every stacked follower — forward progress now needs maintainer/conductor merge attention, not more build work. Relatedly, kriskowal archived [#618](https://github.com/endojs/endo-but-for-bots/pull/618) over capability-leak concerns (deferred to @kumavis), and the [#661](https://github.com/endojs/endo-but-for-bots/pull/661) http-client gauntlet is reaper-poisoned and parked awaiting a go-ahead. A CI note worth flagging: [#286](https://github.com/endojs/endo-but-for-bots/pull/286) has a real Node-22-specific failure (hardening a live undici `Headers` across CapTP) that wants a fixer.
 
-Decisions are queued up: kriskowal closed [#618](https://github.com/endojs/endo-but-for-bots/pull/618) (agent-tools Phase 4) over capability-leak concerns and deferred to @kumavis — the fleet stood down. [#286](https://github.com/endojs/endo-but-for-bots/pull/286) has a real, non-flaky Node-22 bug (undici's lazily-cached `Headers` symbol slot frozen by hardening) and wants a fixer. The mvs-resolver build is parked on an unsettled home split between [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (`@endo/exo-npm`) and [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon`). The XS-validation effort ([garden#33](https://github.com/kriskowal/garden/issues/33)) is engineering-complete and green on both engine trains but has been holding since ~13:20Z on two maintainer calls (waive the Depot-gated integration leg; whether green draft fork PR #14 counts as landed). A rash of gauntlet/shepherd jobs also overran the 2400s handler budget and risk poisoning — those need splitting into claim-sized stages.
+On the Agoric fork, the XS-validation effort ([kriscendobot/agoric-sdk#13](https://github.com/kriscendobot/agoric-sdk/pull/13) and [#14](https://github.com/kriscendobot/agoric-sdk/pull/14)) is engineering-complete and green but blocked on two maintainer calls (waive the Depot-gated full-chain integration leg; whether green draft #14 counts as "landed") plus two within-consensus decisions on golden-snapshot regen and a METER_TYPE bump. Separately, several watchdogs report long shepherd/gauntlet jobs deterministically overrunning the 2400s handler budget (they'll be poisoned unless split), and the foreman pump has twice failed with a `designer: command not found` handler bug worth a look.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 3h)
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 21h)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 4h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 22h)
 - [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 1d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 8d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 10d)
@@ -543,9 +543,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`build-endo-glob-grep-pushdown`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-glob-grep-pushdown.md) — Build: implement the glob/grep @endo/platform pushdown across the #127 stack
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
+- [`scholar-ingest-unum-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-unum-remainder.md) — Ingest remainder: jcorbin's unum (tangled.org) — beyond the token-spend/orche...
 - [`scholar-ingest-unum`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-unum.md) — Ingest source: jcorbin's unum (tangled.org) — patterns useful for the garden
 
 ### tada (1757)
