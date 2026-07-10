@@ -1,10 +1,4 @@
----
-gate: orchestrated
-orchestrated_by: orch-endo-glob-grep-pushdown
-priority: normal
-posted_by: producer
-posted_at: 2026-07-10T19:38:35Z
----
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-10T21:19:06Z -->
 
 # Run the gauntlet on each layer of the endo #127 glob/grep stack
 
