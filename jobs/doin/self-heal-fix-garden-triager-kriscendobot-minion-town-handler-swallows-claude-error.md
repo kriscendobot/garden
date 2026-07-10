@@ -3,3 +3,9 @@ Failure signature: `garden-triager@kriscendobot-minion.town` exited 1 with only 
 Fix: capture the claude invocation explicitly instead of relying on `set -e`. E.g. redirect stderr to a temp file and check the status:
   `if ! out="$(claude -p --dangerously-skip-permissions "$prompt" 2>"$errfile")"; then die "claude -p failed (exit $?) triaging $slug: $(tail -c 500 "$errfile")"; fi`
 so a recurring API/network failure surfaces its exit code and stderr tail in the journal, distinguishing a transient outage from a real handler bug. Keep the behavior of leaving the cursor unadvanced on failure (parent already handles retry). No change to the happy path or the JOB-block parsing.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  claimed_at: 2026-07-10T05:12:32Z
