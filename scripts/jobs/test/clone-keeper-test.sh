@@ -248,8 +248,11 @@ hr; echo "DEFAULT — the shipped GARDEN_TRACKED_CLONES row names the real fork 
 # (the six-week-stale hazard), and pin an explicit fourth clone-url re-clone source
 # (the fork basename is exactly the ambiguous case derive_clone_url cannot split).
 # Parse the default straight out of the script rather than running it (the run
-# paths all override GARDEN_TRACKED_CLONES with hermetic fixtures).
-DEF="$(sed -n 's/^: "${GARDEN_TRACKED_CLONES:=\(.*\)}"$/\1/p' "$KEEPER")"
+# paths all override GARDEN_TRACKED_CLONES with hermetic fixtures). The shipped
+# default is a MULTI-LINE value (one tracked-clone row per line), so anchor on the
+# assignment line and capture the FIRST row after ':=' — the endo fork clone — which
+# is what these assertions check (a trailing '}"' lives on the LAST row's line).
+DEF="$(sed -n 's/^: "${GARDEN_TRACKED_CLONES:=\(.*\)$/\1/p' "$KEEPER" | head -1)"
 IFS='|' read -r d_dir d_remote d_branch d_url <<<"$DEF"
 [ "$d_dir" = "worktrees/endojs-endo-but-for-bots.git" ] && ok "default tracks the real fork clone (not the phantom endojs-endo.git)" || bad "default dir is '$d_dir', expected worktrees/endojs-endo-but-for-bots.git"
 [ "$d_branch" = "master" ] && ok "default tracks the passive upstream-mirror branch master" || bad "default branch is '$d_branch', expected master"

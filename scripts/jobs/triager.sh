@@ -46,13 +46,51 @@ fleet_draining && { log "fleet draining; skipping"; exit 0; }
 
 BARE="$GARDEN_REPOS/$slug.git"
 # The watch set is journal-shared across hosts, but bare clones are host-local, so a
-# host that arms this timer need not hold the clone. The triager genuinely needs the
-# local clone to diff refs against its cursor (unlike comment-watcher.sh, which polls
-# via gh), so the correct behavior on a clone-less host is a benign no-op, not a crash
-# — a hard die here drives an every-tick systemd failure/restart on such a host. The
-# host that DOES hold the clone triages this repo. Genuinely-broken cases downstream
-# (fetch failure, unresolvable ref) keep their hard failure.
-[ -d "$BARE" ] || { log "no bare clone at $BARE on this host; skipping triage (a host that holds the clone triages this repo)"; exit 0; }
+# host that arms this timer need not already hold the clone. The triager needs a local
+# clone to diff refs against its cursor (unlike comment-watcher.sh, which polls via
+# gh), so a missing clone must never be a hard die — that drove an every-tick systemd
+# failure/restart on any clone-less host. Some watched repos (ocapn, agoric-3-proposals,
+# cosgov) have no clone on ANY host, so a plain skip would leave them un-triaged
+# forever; instead SELF-PROVISION the standing bare clone, reusing the same derive-URL
+# + bounded-atomic-clone logic clone-keeper.sh uses to re-create a vanished tracked
+# clone (worktrees/<owner>-<name>.git → $GARDEN_CLONE_URL_BASE/<owner>/<name>.git),
+# then fall through to the normal fetch. If the upstream is unreachable, skip cleanly
+# (exit 0) so the next tick retries — no crash loop; a persistently unreachable or an
+# underivable source escalates to the maintainer inbox rather than dying forever.
+if [ ! -d "$BARE" ]; then
+  if [ "${GARDEN_TRIAGE_SELF_PROVISION:-1}" != 1 ]; then
+    log "no bare clone at $BARE on this host; skipping triage (self-provision disabled)"
+    exit 0
+  fi
+  if src="$(derive_clone_url "$BARE")"; then
+    if bounded_clone "$src" "$BARE"; then
+      # A fresh bare clone carries no fetch refspec; set it exactly as
+      # ensure-project-worktree.sh / WORKTREES.md prescribe so the fetch below (and
+      # any worktree later cut from this clone) tracks origin/* rather than freezing.
+      git -C "$BARE" config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' || true
+      log "provisioned missing bare clone $slug at $BARE from $src"
+    else
+      # The source is known but the clone did not complete — usually transient
+      # (offline, DNS, a half-open connection reaped by the timeout), so we do NOT
+      # wedge: skip and retry next tick. A PERSISTENTLY unreachable source (deleted
+      # fork, wrong owner/name, firewalled) would otherwise re-warn every tick into a
+      # log nobody reads, so it ALSO escalates — alert_maintainer is throttled per
+      # dedup key and never fails its caller, so a blip alerts at most once per window.
+      pmsg="triager: bare clone for $slug is MISSING at $BARE and the self-provision clone from '$src' failed (unreachable/offline?). Retried next tick; if this persists the source is bad (deleted fork, wrong owner/name, or firewalled) and $slug cannot be triaged until it is restored."
+      log "WARN: $pmsg (skipping this tick)"
+      alert_maintainer "triager-provision-failed-${slug//[^A-Za-z0-9._-]/_}" "$pmsg"
+      exit 0
+    fi
+  else
+    # The slug does not fit <owner>-<name>, so no upstream URL can be derived and the
+    # clone can never self-heal on any tick. Escalate (once, throttled) so a human
+    # restores the clone or fixes the watch entry, rather than skipping silently forever.
+    nmsg="triager: bare clone for $slug is MISSING at $BARE and no upstream URL could be derived from the slug (expected <owner>-<name>). It cannot be auto-provisioned — add the clone by hand or fix the watch entry; $slug is not being triaged until then."
+    log "STALE: $nmsg"
+    alert_maintainer "triager-provision-nourl-${slug//[^A-Za-z0-9._-]/_}" "$nmsg"
+    exit 0
+  fi
+fi
 
 git --git-dir="$BARE" fetch -q --all --prune || die "fetch failed for $slug"
 

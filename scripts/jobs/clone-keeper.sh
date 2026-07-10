@@ -121,10 +121,10 @@ GARDEN_TAG="clone-keeper"
 : "${GARDEN_TRACKED_CLONES:=worktrees/endojs-endo-but-for-bots.git|origin|master|ssh://git@github.com/endojs/endo-but-for-bots.git
 worktrees/kriscendobot-vattr97.git|origin|main|ssh://git@github.com/kriscendobot/vattr97.git}"
 
-# Base of the canonical upstream URL the keeper reconstructs from a missing clone's
-# dir basename (worktrees/<owner>-<name>.git -> <base>/<owner>/<name>.git) when the
-# tracked source is a bare remote name. Overridable for offline tests.
-: "${GARDEN_CLONE_URL_BASE:=https://github.com}"
+# The canonical-upstream-URL base (GARDEN_CLONE_URL_BASE) the keeper reconstructs
+# from a missing clone's dir basename lives in common.sh, alongside the shared
+# is_own_git_repo / is_remote_location / derive_clone_url / bounded_clone helpers
+# (triager.sh self-provisions with the same logic). Overridable for offline tests.
 
 # Bounded ref fetch for an arbitrary remote/branch, mirroring common.sh's
 # journal_fetch (which is hardwired to the journal branch): each attempt is
@@ -149,91 +149,10 @@ bounded_fetch() {
   done
 }
 
-# True when $abs is ITS OWN bare git repo, not a discovered ANCESTOR repo. The
-# tracked clones live under worktrees/ inside the garden root, which is itself a git
-# repo, so a plain `rev-parse --git-dir` on a missing/corrupt dir would walk up and
-# succeed against the garden repo — a false positive. We require the resolved
-# absolute git-dir to equal $abs. Fails (non-zero) when $abs is missing (git cannot
-# chdir) or is a non-repo dir (git discovers an ancestor whose git-dir != $abs).
-is_own_git_repo() {
-  local abs="$1" gd a g
-  gd="$(git -C "$abs" rev-parse --absolute-git-dir 2>/dev/null || true)"
-  [ -n "$gd" ] || return 1
-  a="$(realpath -m "$abs" 2>/dev/null || echo "$abs")"
-  g="$(realpath -m "$gd" 2>/dev/null || echo "$gd")"
-  [ "$a" = "$g" ]
-}
-
-# True when $1 is a fetchable/cloneable URL or path rather than a bare remote NAME
-# (like "origin"). A location source drives a missing clone's re-clone directly; a
-# bare name cannot be resolved once the clone is gone, so the keeper falls back to
-# deriving the URL from the dir basename (derive_clone_url) for a bare-name source.
-is_remote_location() {
-  case "$1" in
-    *://*|*@*:*|*/*) return 0 ;;
-    *) return 1 ;;
-  esac
-}
-
-# Reconstruct the canonical upstream URL of a MISSING tracked clone from its dir
-# basename. The garden names standing bare clones worktrees/<owner>-<name>.git (the
-# forward map ensure-project-worktree.sh builds), so a vanished clone's upstream can
-# be derived deterministically by reversing it: strip the .git suffix, split on the
-# FIRST '-' into <owner>/<name>, and form <GARDEN_CLONE_URL_BASE>/<owner>/<name>.git.
-# Echoes the URL and returns 0 when derivable; returns 1 when the basename does not
-# fit the <owner>-<name>.git shape (no .git suffix, or no '-' to split on).
-derive_clone_url() {
-  local abs="$1" bn owner name
-  bn="$(basename -- "$abs")"
-  case "$bn" in *.git) bn="${bn%.git}" ;; *) return 1 ;; esac
-  case "$bn" in *-*) ;; *) return 1 ;; esac
-  owner="${bn%%-*}"
-  name="${bn#*-}"
-  [ -n "$owner" ] && [ -n "$name" ] || return 1
-  printf '%s/%s/%s.git\n' "$GARDEN_CLONE_URL_BASE" "$owner" "$name"
-}
-
-# Bounded bare clone of <src> into <abs>, mirroring bounded_fetch's timeout+retry
-# discipline (git has no IO timeout of its own). We NEVER clone straight into the
-# tracked path: git clone removes its own target on an internal error, but a
-# timeout SIGTERM can leave a partial tree, and a concurrent keeper tick (or a
-# worktree being cut off this clone) could observe that half-populated $abs. So we
-# clone into a SIBLING temp path and, only on a fully-successful clone, atomically
-# `mv -T` it into place. The temp is a sibling of $abs (same directory, hence same
-# filesystem) so the rename is a genuine atomic rename(2): $abs is only ever fully
-# absent or fully complete, never partial. `mv -T` also refuses to move INTO an
-# existing dir, so if a racing tick recreated $abs first, our rename fails, we
-# discard our temp, and — since the other tick's clone already stands — report
-# success. Every temp is scrubbed on failure and between retries so nothing leaks.
-# Returns 0 on success, the last non-zero rc after the retry budget is spent.
-bounded_clone() {
-  local src="$1" abs="$2" attempt=1 rc=0 tmp
-  mkdir -p "$(dirname "$abs")"
-  while :; do
-    tmp="${abs%/}.reclone.$$.$attempt"
-    rm -rf "$tmp"
-    if timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" git clone -q --bare "$src" "$tmp" 2>/dev/null; then
-      # Atomically publish the completed clone. `mv -T` renames the temp onto $abs
-      # only when $abs is still absent; if a racing tick already recreated it, the
-      # rename fails and the other tick's clone stands — discard ours, report ok.
-      if mv -T "$tmp" "$abs" 2>/dev/null; then
-        return 0
-      fi
-      rm -rf "$tmp"
-      is_own_git_repo "$abs" && return 0
-      rc=1
-    else
-      rc=$?
-      rm -rf "$tmp"
-    fi
-    [ "$rc" -eq 124 ] && log "clone of $src into $abs timed out (>${GARDEN_FETCH_TIMEOUT}s) on attempt $attempt"
-    if [ "$attempt" -ge "$GARDEN_FETCH_RETRIES" ]; then
-      log "clone of $src into $abs failed after $attempt attempt(s) (last rc=$rc)"
-      return "$rc"
-    fi
-    backoff "$attempt"; attempt=$((attempt+1))
-  done
-}
+# is_own_git_repo, is_remote_location, derive_clone_url, and bounded_clone are
+# shared helpers defined in common.sh (triager.sh self-provisions a never-held clone
+# with the same derive-URL + bounded-atomic-clone logic). They were factored out of
+# this keeper verbatim; see common.sh § standing bare-clone provisioning helpers.
 
 # Fetch + fast-forward one tracked clone. Self-contained: every failure path is
 # logged and returns 0, so one unreachable/diverged clone never aborts the rest.

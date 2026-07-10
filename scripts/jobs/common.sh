@@ -458,6 +458,96 @@ backoff() {
   sleep "$(printf '%d.%03d' "$((ms / 1000))" "$((ms % 1000))")"
 }
 
+# --- standing bare-clone provisioning helpers (shared) -----------------------
+# The garden keeps its standing upstream bare clones under
+# worktrees/<owner>-<name>.git. clone-keeper.sh re-creates a vanished tracked clone
+# and triager.sh self-provisions a watched repo whose clone this host has never
+# held; both need the SAME derive-URL + bounded-atomic-clone logic, so it lives
+# here rather than being copied. Base of the canonical upstream URL reconstructed
+# from a clone's dir basename; overridable for offline tests.
+: "${GARDEN_CLONE_URL_BASE:=https://github.com}"
+
+# True when $abs is ITS OWN bare git repo, not a discovered ANCESTOR repo. The
+# standing clones live under worktrees/ inside the garden root, which is itself a
+# git repo, so a plain `rev-parse --git-dir` on a missing/corrupt dir would walk up
+# and succeed against the garden repo — a false positive. Require the resolved
+# absolute git-dir to equal $abs. Fails when $abs is missing (git cannot chdir) or
+# is a non-repo dir (git discovers an ancestor whose git-dir != $abs).
+is_own_git_repo() {
+  local abs="$1" gd a g
+  gd="$(git -C "$abs" rev-parse --absolute-git-dir 2>/dev/null || true)"
+  [ -n "$gd" ] || return 1
+  a="$(realpath -m "$abs" 2>/dev/null || echo "$abs")"
+  g="$(realpath -m "$gd" 2>/dev/null || echo "$gd")"
+  [ "$a" = "$g" ]
+}
+
+# True when $1 is a fetchable/cloneable URL or path rather than a bare remote NAME
+# (like "origin"). A location source drives a clone directly; a bare name cannot be
+# resolved once the clone is gone, so callers derive the URL from the dir basename.
+is_remote_location() {
+  case "$1" in
+    *://*|*@*:*|*/*) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
+# Reconstruct the canonical upstream URL of a bare clone from its dir basename. The
+# garden names standing bare clones worktrees/<owner>-<name>.git, so the upstream is
+# derived by reversing it: strip the .git suffix, split on the FIRST '-' into
+# <owner>/<name>, and form <GARDEN_CLONE_URL_BASE>/<owner>/<name>.git. Echoes the URL
+# and returns 0 when derivable; returns 1 when the basename does not fit the
+# <owner>-<name>.git shape (no .git suffix, or no '-' to split on). The FIRST-'-'
+# split is ambiguous for hyphenated owners/names — the caller treats it as a last
+# resort behind any explicitly-configured source.
+derive_clone_url() {
+  local abs="$1" bn owner name
+  bn="$(basename -- "$abs")"
+  case "$bn" in *.git) bn="${bn%.git}" ;; *) return 1 ;; esac
+  case "$bn" in *-*) ;; *) return 1 ;; esac
+  owner="${bn%%-*}"
+  name="${bn#*-}"
+  [ -n "$owner" ] && [ -n "$name" ] || return 1
+  printf '%s/%s/%s.git\n' "$GARDEN_CLONE_URL_BASE" "$owner" "$name"
+}
+
+# Bounded bare clone of <src> into <abs>, mirroring bounded_fetch's timeout+retry
+# discipline (git has no IO timeout of its own). We NEVER clone straight into the
+# tracked path: git clone removes its own target on an internal error, but a
+# timeout SIGTERM can leave a partial tree, and a concurrent tick (or a worktree
+# being cut off this clone) could observe that half-populated $abs. So we clone into
+# a SIBLING temp path and, only on a fully-successful clone, atomically `mv -T` it
+# into place — a genuine atomic rename(2) on the same filesystem, so $abs is only
+# ever fully absent or fully complete. `mv -T` also refuses to move INTO an existing
+# dir, so if a racing tick recreated $abs first our rename fails, we discard our
+# temp, and report success. Every temp is scrubbed on failure and between retries.
+# Returns 0 on success, the last non-zero rc after the retry budget is spent.
+bounded_clone() {
+  local src="$1" abs="$2" attempt=1 rc=0 tmp
+  mkdir -p "$(dirname "$abs")"
+  while :; do
+    tmp="${abs%/}.reclone.$$.$attempt"
+    rm -rf "$tmp"
+    if timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" git clone -q --bare "$src" "$tmp" 2>/dev/null; then
+      if mv -T "$tmp" "$abs" 2>/dev/null; then
+        return 0
+      fi
+      rm -rf "$tmp"
+      is_own_git_repo "$abs" && return 0
+      rc=1
+    else
+      rc=$?
+      rm -rf "$tmp"
+    fi
+    [ "$rc" -eq 124 ] && log "clone of $src into $abs timed out (>${GARDEN_FETCH_TIMEOUT}s) on attempt $attempt"
+    if [ "$attempt" -ge "$GARDEN_FETCH_RETRIES" ]; then
+      log "clone of $src into $abs failed after $attempt attempt(s) (last rc=$rc)"
+      return "$rc"
+    fi
+    backoff "$attempt"; attempt=$((attempt+1))
+  done
+}
+
 # Idle-poll backoff with full jitter (per kriskowal #10, "use exponential
 # back-off with full jitter, generally") — the SECOND-scale analog of backoff()
 # for a steady poll loop rather than a tight CAS retry. A ~100-gardener fleet
