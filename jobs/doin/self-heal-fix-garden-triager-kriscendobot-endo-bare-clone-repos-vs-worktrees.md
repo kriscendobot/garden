@@ -1,7 +1,0 @@
-`scripts/jobs/triager.sh` fails every tick with `FATAL: no bare clone at $GARDEN_ROOT/repos/<slug>.git`. Its `GARDEN_REPOS` default (line 25: `: "${GARDEN_REPOS:=$GARDEN_ROOT/repos}"`) points at a `repos/` directory that no script ever provisions and that does not exist. The canonical standing bare clones live at `$GARDEN_ROOT/worktrees/<owner>-<repo>.git` (see `ensure-project-worktree.sh:63` and `clone-keeper.sh`, which keeps exactly those fresh), and the needed clone `worktrees/kriscendobot-endo.git` already exists — the triager just looks in the wrong dir. Fix: change the `GARDEN_REPOS` default in `triager.sh` to `$GARDEN_ROOT/worktrees` (and update the line-7 header comment `$GARDEN_REPOS/<slug>.git` accordingly). For consistency, align `comment-watcher.sh:179`'s identical `:=$GARDEN_ROOT/repos` default to `$GARDEN_ROOT/worktrees` so any downstream reuse of `BARE` finds the real clone (its missing-clone path is already non-fatal, so this is safe). Do not add a new provisioner or a `repos/` symlink — the worktrees/ location is authoritative. Sanity-check that the triager slug (`<owner>-<repo>`) matches the `<owner>-<repo>.git` basename so `$GARDEN_REPOS/$slug.git` resolves to the existing clone. If `comment-watcher-test.sh` (which sets `GARDEN_REPOS=$TR/norepos`) or a triager test pins the old default, update expectations to the worktrees path.
-
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 3
-  claimed_at: 2026-07-10T22:53:30Z
