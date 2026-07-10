@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-10T15:54:34Z_
+_As of 2026-07-10T16:01:05Z_
 
 ## Latest
 
-The M3 daemon stack is now merge-gated, not work-gated: the foreman reported three separate times that the mount chain ([#650](https://github.com/endojs/endo-but-for-bots/pull/650)/[#653](https://github.com/endojs/endo-but-for-bots/pull/653)/[#655](https://github.com/endojs/endo-but-for-bots/pull/655)/[#657](https://github.com/endojs/endo-but-for-bots/pull/657)/[#658](https://github.com/endojs/endo-but-for-bots/pull/658)), the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)), and daemon-agent-tools [#618](https://github.com/endojs/endo-but-for-bots/pull/618) are all CI-green and mergeable but unmerged on the fork's `llm` branch, blocking every stacked follower — so the fleet needs your review/merge attention rather than more build jobs. Concrete progress: the mount-glob PR [#653](https://github.com/endojs/endo-but-for-bots/pull/653) went green after a rebase onto its now-fixed base (the `followNameChanges`-on-revoke deflake landed on [#650](https://github.com/endojs/endo-but-for-bots/pull/650)), and the gauntlet on [#667](https://github.com/endojs/endo-but-for-bots/pull/667) finished.
+The mount stack cleared its last blocker: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is green after a shepherd rebased it onto the fixed base [#650](https://github.com/endojs/endo-but-for-bots/pull/650), which itself landed a durable `whenRevoked` fix for the flaky followNameChanges stream; the deny-CLI [#652](https://github.com/endojs/endo-but-for-bots/pull/652) and Rust-parity [#654](https://github.com/endojs/endo-but-for-bots/pull/654) follow-ons are up as stacked drafts. Three gauntlets finished clean — [#667](https://github.com/endojs/endo-but-for-bots/pull/667) (genie stdio JSONL bridge), [#668](https://github.com/endojs/endo-but-for-bots/pull/668) (endopi edit tool), and [#669](https://github.com/endojs/endo-but-for-bots/pull/669) (endopi JSONL transcript) — and the endopi provider-registry/OAuth builder completed.
 
-Several dispatched builds turned out to be no-ops against stale design records: the endoclaw-timer [#609](https://github.com/endojs/endo-but-for-bots/pull/609), daemon-locator terminology, and daemon-agent-tools fs-wiring jobs were all already-landed duplicates, and `build-endo-daemon-docker-selfhost` halted as re-declined work (points at closed [#134](https://github.com/endojs/endo-but-for-bots/pull/134)) — the liaison is awaiting your go-ahead to retire that record so producers stop re-spawning it. The agoric-sdk fork XS-validation effort ([garden#33](https://github.com/kriskowal/garden/issues/33)) is fully green and blocked only on two of your calls: waiving gauntlet Leg 4 (Depot-gated, infeasible on the fork) and whether draft PR [#14](https://github.com/kriscendobot/agoric-sdk/pull/14) counts as "landed"; the fork's PR #12 also needs a golden-snapshot / METER_TYPE consensus decision. finbot landed its SES-compartments and multi-instrument increments on `main`.
+The dominant signal is merge starvation, not missing work: the foreman reported four times that M3 is saturated in flight with a ~60-PR ready backlog (the mount chain, the endoclaw-timer stack [#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619), and gateway work) all green, mergeable, and gauntleted but unmerged, blocking every stacked follower — so the fleet needs merge/authorization attention, which is outside foreman bounds. Worth your eyes: [#286](https://github.com/endojs/endo-but-for-bots/pull/286) has a real Node-22-only CI failure (undici's lazy `Symbol(headers map sorted)` slot frozen by hardening across CapTP) and needs a fixer, and the [#661](https://github.com/endojs/endo-but-for-bots/pull/661) http-client gauntlet is reaper-poisoned and parked awaiting go-ahead.
 
-Two operational flags worth a glance: a wave of shepherd/gauntlet jobs are overrunning the 2400s handler budget and risk poisoning (the [#661](https://github.com/endojs/endo-but-for-bots/pull/661) gauntlet already parked as poison after 5 requeues), and the foreman pump handler is failing rc=1 with `designer: command not found` / `builder: command not found`, starving the board on `endolin-garden-ece02cb4`.
+Several gardeners halted rather than open duplicate PRs — the daemon-locator-terminology, daemon-agent-tools, endoclaw-timer Phase 1, and Docker-selfhost builds all found their scope already landed or deliberately declined (Docker-selfhost tracks back to closed [#134](https://github.com/endojs/endo-but-for-bots/pull/134)), so those stale design records want retiring so producers stop re-spawning them. On the forks, finbot landed its SES-compartments and multi-instrument increments on main, while the agoric-sdk XS-validation effort (kriskowal/garden#33) and PRs #10/#12/#13/#14 are converged-but-blocked on two maintainer calls (golden-snapshot/METER_TYPE consensus values and an integration-leg waiver). A recurring host fault also needs a look: `garden-foreman`'s pump handler failed twice with `designer: command not found` / `builder: command not found` on `endolin-garden-ece02cb4`, starving the board pump.
 
 ## Parked for maintainer feedback
 
@@ -25,38 +25,6 @@ Two operational flags worth a glance: a wave of shepherd/gauntlet jobs are overr
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260709T185310Z-5d1d49` — from gardener:esheets-supervisor-20260709-185001, reply_to `esheets-supervisor-20260709-185001` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T185310Z-5d1d49.md)
-
-> 📊 exo-google-sheets daily supervisor (day 1 of push-to-implementation)
->
-> Tree (design #612, merged): @endo/exo-google-sheets → @endo/google-sheets →
-> endoclaw-oauth (OAuth exo) → endoclaw-network-fetch (allowlist). Webhooks/push
-> deferred by design, not in the v1 "operational" bar.
->
-> MERGED / done:
-> • endoclaw-network-fetch substrate — @endo/http-confine + @endo/exo-http-client
->   landed on llm (PR #566). The fetch/allowlist floor is in place.
-> • Design #612 (exo-google-sheets) merged; endoclaw-oauth base design present.
->
-> IN FLIGHT:
-> • PR #621 (design: refine endoclaw-oauth foundation, settle first-mint flow) —
->   DRAFT, CI all green, no reviews yet. This is the DESIGN GATE for the whole
->   tree: the OAuth exo (deepest unmet node) has no implementation, and its
->   refined foundation design must land before we build it.
->   https://github.com/endojs/endo-but-for-bots/pull/621
->
-> ADVANCED TODAY:
-> • Posted `run the gauntlet #621` to drive that design PR out of draft into your
->   review queue. That's the single deepest unblocked step; once #621 merges the
->   next step is a builder job for the OAuth exo, then @endo/google-sheets, then
->   @endo/exo-google-sheets.
->
-> BLOCKING / needs you: nothing hard-blocked. #621 defers two open questions with
-> recommended v1 defaults (per-host OAuth client registration; remote-headless
-> redirect via a future gateway route at M5) — flag if you'd rather decide either
-> now; otherwise the gauntlet lands it as-is. Nothing to implement is unblocked
-> until #621 merges.
 
 - `20260709T202811Z-53aebd` — from gardener:endojs-endo-but-for-bots-mount-denied-segments-cli, reply_to `endojs-endo-but-for-bots-mount-denied-segments-cli` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T202811Z-53aebd.md)
 
@@ -434,6 +402,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > gardener job 'gauntlet-endo-but-for-bots-pull-request-667-genie-stdio-jsonl-rpc-bridge' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
+- `20260710T155946Z-72d377` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T155946Z-72d377.md)
+
+> M3 is moving (provider-registry builder + PR #667 gauntlet in flight) but the foreman's postable lane is dry: PRs #608/#668/#669/#670 are green, mergeable, and fully gauntleted yet unmerged (merge/ferry is outside foreman authority), and the only remaining buildable step — the gauntlet on PR #661 (`provideHttpClient`/`makeHttpTool`, the M3 "confined outbound HTTP" criterion) — is reaper-poisoned `requeue-exhausted` and gated `go-ahead`. Decision needed: its blocking lint red (#594 ceiling) now shows green, so may the #661 gauntlet be promoted off `plan/`, and should the ready M3 batch (#608 docker-selfhost especially) be landed?
+
 - `poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -450,8 +422,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr621-review-409d43e6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr621-review-409d43e6.md) — Review directive on endojs/endo-but-for-bots PR #621
 
 ### tada (1726)
 - [`gauntlet-endo-but-for-bots-pull-request-667-genie-stdio-jsonl-rpc-bridge`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pull-request-667-genie-stdio-jsonl-rpc-bridge.md) — Inbox empty. The gauntlet on PR #667 is finished.
@@ -484,7 +456,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-(none)
+- [`endojs-endo-but-for-bots-pr621-review-409d43e6-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr621-review-409d43e6-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #621 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
