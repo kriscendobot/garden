@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-10T17:46:22Z_
+_As of 2026-07-10T17:50:51Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ A few things need your explicit call: the XS-validation effort on kriscendobot/a
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 50m)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 56m)
 - [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 18h)
 - [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 23h)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 8d)
@@ -457,12 +457,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (7)
 - [`endojs-endo-but-for-bots-pr288-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr288-gauntlet.md) — gauntlet directive on endojs/endo-but-for-bots PR #288
 - [`endojs-endo-but-for-bots-pr592-01edab2b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-01edab2b.md) — attention directive on endojs/endo-but-for-bots PR #592
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
 - [`endojs-endo-but-for-bots-pr618-6a3affe0`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr618-6a3affe0.md) — attention directive on endojs/endo-but-for-bots PR #618
 - [`endojs-endo-but-for-bots-pr650-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr650-conduct.md) — Conduct (merge) endojs/endo-but-for-bots PR #650
+- [`endojs-endo-but-for-bots-pr653-review-344a347f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr653-review-344a347f.md) — Review directive on endojs/endo-but-for-bots PR #653
 - [`readme-control-surface-illustrations`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/readme-control-surface-illustrations.md) — Document novel control-surface uses in the garden README
 
 ### tada (1742)
@@ -501,6 +502,7 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`endojs-endo-but-for-bots-pr650-review-d4abc76c-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr650-review-d4abc76c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #650 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr592-01edab2b-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr592-01edab2b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #592 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr592-review-aa1b0c84-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr592-review-aa1b0c84-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #592 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr653-review-344a347f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr653-review-344a347f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #653 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
