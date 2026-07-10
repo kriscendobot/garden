@@ -1,7 +1,3 @@
-cadence: 30m
-last_dispatched: 2026-07-10T08:35:10Z
-job_basename_prefix: xst-validation-orchestrator
----
 ---
 role: orchestrator
 model: claude-fable-5
