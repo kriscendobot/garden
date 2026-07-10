@@ -239,6 +239,14 @@ walk traversed.
 
 ## Notes from the field
 
+- _2026-07-10_: a job may name its seed PR by a **pre-reconstruction number**
+  whose PR is already closed and split into a replacement stack (endo #127 →
+  closed, reconstructed as #650/#653/#655/#657 per the review's "create fresh
+  PRs and close this"). A closed seed is not a dead seed: walk its closing
+  comments to the live replacement PRs and design/build against those layers,
+  never against the referenced diff. The job body may also name the wrong fork
+  for the same reason (stale identity carried from the original directive) —
+  verify where the live stack actually is before provisioning a worktree.
 - _2026-05-15_: skill landed as part of the general-contractor carving. The walk's
   four-verdict shape matches the contractor's *Refill* step's branches.
 - _2026-06-24_: migrated into v2. The general-contractor is retired; the walk is
