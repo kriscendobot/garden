@@ -30,6 +30,7 @@ PR is not draft; if it were, un-draft before merge. Bot repo only.
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
