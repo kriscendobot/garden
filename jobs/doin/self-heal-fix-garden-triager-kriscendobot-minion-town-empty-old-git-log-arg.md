@@ -1,3 +1,9 @@
 In scripts/jobs/handlers/triager-claude.sh, the `changes=` line uses the revision argument `"${old:+$old..$new}"`. On a first-ever triage of a repo `old` is empty, so this expands to a single empty-string argument; `git log … ""` exits 128 ("ambiguous argument ''"), and under `set -euo pipefail` (with the `| head -400` pipe) pipefail + set -e abort the handler silently because the error is hidden by `2>/dev/null`. The triager then dies with "triage handler failed" and, since the cursor only advances on success, retries forever — this is what took down garden-triager@kriscendobot-minion.town on its first triage (`<none> → 35e9b4a…`).
 
 Fix: change the git-log revision argument from `"${old:+$old..$new}"` to `"${old:+$old..}$new"` (the same form already used correctly on the preceding `range=` line), so an empty `old` yields just `$new` (log from the repo's root) instead of an empty string. Verify by reproducing: `git log --no-merges --stat ""` exits 128 while `git log --no-merges --stat "$new"` succeeds. Optionally cap history for the fresh-repo case (e.g. add `-n 50`) and consider not swallowing git's stderr on this line so a future failure is diagnosable. Add/extend a comment-watcher-style test that exercises the handler (or at least the range-arg computation) with an empty `old` to guard against regression.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 17
+  claimed_at: 2026-07-10T04:42:41Z
