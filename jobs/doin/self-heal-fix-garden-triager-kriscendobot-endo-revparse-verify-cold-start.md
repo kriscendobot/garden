@@ -1,3 +1,9 @@
 In `scripts/jobs/triager.sh` (lines ~55-56), the ref-resolution uses `git rev-parse "refs/remotes/origin/$ref" || git rev-parse "$ref"` **without `--verify`**. On a cold-start bare clone where `refs/remotes/origin/master` does not yet exist, the first `rev-parse` echoes the literal ref string to stdout *and* exits non-zero; the `||` fallback then appends the real SHA, so `new_sha` becomes the two-line value `refs/remotes/origin/master\n<sha>`. That garbage propagates to the triage handler and blows up as `fatal: ambiguous argument 'refs/remotes/origin/master\n<sha>': unknown revision` (exit 1), matching this failure. Fix: make both branches use `git rev-parse --verify -q` (add `^{commit}` to be safe), e.g.
 `new_sha="$(git --git-dir="$BARE" rev-parse --verify -q "refs/remotes/origin/$ref^{commit}" || git --git-dir="$BARE" rev-parse --verify -q "$ref^{commit}")"`
 so a non-existent ref produces no stdout and only a non-zero exit, letting the fallback resolve cleanly (or `die` cleanly if neither exists). `--verify -q` suppresses both the echo-back and stderr. Confirmed by reproduction in the kriscendobot-endo bare clone: without `--verify` the fallback concatenates `refs/remotes/origin/DOESNOTEXIST` + the SHA; with `--verify -q` it returns a single clean SHA. Add/extend a cold-start test (there are already cold-start tests per recent commits) covering "remote-tracking ref absent, local heads/master present."
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 10
+  claimed_at: 2026-07-10T11:08:10Z
