@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-10T21:40:21Z_
+_As of 2026-07-10T21:42:51Z_
 
 ## Latest
 
@@ -589,22 +589,21 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (6)
 - [`bulletin-maintainer-inbox-issue-links`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/bulletin-maintainer-inbox-issue-links.md) — Render issue/PR numbers as hyperlinks in the bulletin's maintainer inbox
 - [`design-spark-gardeners`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-spark-gardeners.md) — Design: introduce Spark gardeners
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
-- [`endojs-endo-but-for-bots-pr595-merge`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr595-merge.md) — Conductor: un-draft and merge endojs/endo-but-for-bots PR #595
 - [`gauntlet-endo-glob-grep-stack`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-glob-grep-stack.md) — Run the gauntlet on each layer of the endo #127 glob/grep stack
 - [`kriscendobot-agoric-sdk-pr8-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr8-gauntlet.md) — gauntlet directive on kriscendobot/agoric-sdk PR #8
 - [`kriscendobot-agoric-sdk-pr8-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr8-shepherd.md) — shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #8
 
-### tada (1772)
+### tada (1773)
+- [`endojs-endo-but-for-bots-pr595-merge`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr595-merge.md) — Completion report
 - [`scholar-muse-spark-harness`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-muse-spark-harness.md) — Completion report — scholar-muse-spark-harness
 - [`endojs-endo-but-for-bots-pr609-review-e181c4ae`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr609-review-e181c4ae.md) — Completion report — PR #609 review (kriskowal, review 4673457078)
 - [`endojs-endo-but-for-bots-pr595-review-fa80bee2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr595-review-fa80bee2.md) — Completion report
 - [`xst-validation-orchestrator-20260710-212003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260710-212003.md) — XS-validation orchestrator — tick report (2026-07-10 ~21:25Z, tick posted 21:...
-- [`build-chat-inventory-create-menu`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-chat-inventory-create-menu.md) — Completion report
-- … and 1767 more
+- … and 1768 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
