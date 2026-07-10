@@ -9,3 +9,9 @@ new_sha="$(git --git-dir="$BARE" rev-parse --verify -q "refs/remotes/origin/$ref
 ```
 
 (`--verify -q` already suppresses stderr on failure, so the `2>/dev/null` redirects become redundant and can be dropped.) Reproduction: `repos/kriscendobot-endo.git` has only `refs/heads/master` (no `refs/remotes/origin/master`); the current code yields a two-line value there, the fixed code yields the single SHA `f859ca06...`. Add/extend a case in `scripts/jobs/test/triager-test.sh` covering a bare clone whose branches live under `refs/heads/*` only (no remote-tracking refs), asserting `new_sha` is a single line / valid SHA.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  claimed_at: 2026-07-10T06:36:14Z
