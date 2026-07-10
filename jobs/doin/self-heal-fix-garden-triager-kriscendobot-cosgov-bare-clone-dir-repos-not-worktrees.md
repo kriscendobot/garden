@@ -7,3 +7,9 @@ Failure signature (every triager tick, leader host): `FATAL: no bare clone at /h
 (B) Genuinely-missing clone should not FATAL-storm — cosgov-specific but general. After (A), `worktrees/kriscendobot-cosgov.git` still does not exist: the fork was auto-armed today by fork-watch-provisioner.sh (arming record journal/repos/kriscendobot-cosgov, armed_at 2026-07-10T06:01:51Z) but no bare clone was created on this host, and repo-watcher.sh arms the unit without cloning the fork. Preferred fix: make triager.sh clone-on-demand when `$BARE` is absent — derive the fork URL the same way clone-keeper.sh does (its `derive_clone_url`: strip `.git`, split basename on first `-` into `<owner>/<name>`, form `$GARDEN_CLONE_URL_BASE/<owner>/<name>.git`) and do a bounded `git clone --bare` before proceeding, so triage coverage for a newly-armed fork actually starts. Acceptable fallback if clone-on-demand is out of scope: mirror comment-watcher.sh:312 and degrade a missing bare clone to a clean skip (`log` + `exit 0`) instead of `die`, so an armed-but-uncloned fork no longer FATAL-storms the self-heal responder every tick. Either way, add a short comment tying the behavior to this failure signature.
 
 Verify: run scripts/jobs/test/comment-watcher-test.sh (exercises GARDEN_REPOS) and any triager test, then confirm `bash scripts/jobs/triager.sh kriscendobot-endo` on the leader resolves worktrees/kriscendobot-endo.git and exits 0.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 10
+  claimed_at: 2026-07-10T22:55:21Z
