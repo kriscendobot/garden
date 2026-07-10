@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-24
+updated: 2026-07-10
 author: gardener, liaison
 ---
 
@@ -37,6 +37,7 @@ A gardener claims a `design` job off the board and wears this role. The job may 
 - **Name a tracking issue or note "to be filed" when deferring cross-package work to a follow-up.** A bare "out of scope; left to a follow-up" gives a future reader no anchor. Name the tracking issue, PR, or followup ledger entry; or, if no anchor exists yet, explicitly write "to be filed".
 - **Cite implementation internals by name (named export, function name, method name), not by line number.** Line numbers stale on every refactor; symbol names survive. Where the symbol is anonymous, name the enclosing symbol and describe the location relative to it.
 - **`exo-` package-name prefix on `@endo/*` packages that export passable interfaces over CapTP.** A design proposing a new `@endo/<name>` package whose primary surface is passable interfaces exchanged over CapTP carries an `exo-` prefix (e.g., `@endo/exo-registry`). Packages that do not export over CapTP do not carry the prefix. The project's own `designs/CLAUDE.md` style guide is the canonical source if it exists.
+- **Prefer the `cancelled` `Promise<never>` argument pattern over an imperative `cancel()` method for cancellable capabilities.** When a design gives a holder the ability to end a capability's lifetime (a subscription, timer, interval, connection, worker), thread a `cancelled` `Promise<never>` argument into its maker — the caller retains the promise's `reject` and the resource tears itself down via `cancelled.catch(...)` — rather than exposing an imperative `cancel()` method on the returned facet. This is the Endo daemon's standard cancellation shape (`context.cancelled`, `delay(ms, cancelled)`, `makeDaemonicGoPowers({ cancelled })`), and it keeps cancellation authority with whoever holds the promise instead of with anyone holding the handle. (Maintainer directive, `endojs/endo-but-for-bots#609`.)
 
 ## External-repo etiquette
 
