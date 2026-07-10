@@ -327,14 +327,18 @@ resolve_doer_repo() {
 # GitHub-rendered journal2 README and the gh-pages client render [label](url)):
 # full GitHub issue/PR URLs, "owner/repo#N", and — when the originating repo is
 # passed as $2 — a bare "#N" pointing at that project. Linking is skipped inside
-# fenced code blocks, and formed links are held aside so nothing is double-linked.
-# With no resolved repo ($2 empty), a bare "#N" is left as plain text.
+# fenced code blocks AND inline `code` spans, and formed links are held aside so
+# nothing is double-linked. With no resolved repo ($2 empty), a bare "#N" is left
+# as plain text.
 msg_body_quote() {
   awk -v repo="${2:-}" '
     function linkify(s,   i) {
       # Protect already-formed links and each reference kind behind SOH/STX
       # sentinels so a later pass cannot re-link inside an earlier one.
       split("", store); nstore=0
+      # 0) hold inline `code` spans verbatim so a `#N` / `owner/repo#N` inside a
+      #    code span is never linkified (a link inside backticks renders literally)
+      s = protect(s, "`[^`]*`", "code")
       # 1) full GitHub issue/PR URLs -> [url](url)
       s = protect(s, "https?://github\\.com/[A-Za-z0-9._-]+/[A-Za-z0-9._-]+/(issues|pull)/[0-9]+", "url")
       # 2) owner/repo#N -> [owner/repo#N](https://github.com/owner/repo/issues/N)
@@ -352,7 +356,9 @@ msg_body_quote() {
       out = ""
       while (match(s, re)) {
         matched = substr(s, RSTART, RLENGTH)
-        if (kind == "url") {
+        if (kind == "code") {
+          link = matched
+        } else if (kind == "url") {
           link = "[" matched "](" matched ")"
         } else if (kind == "slug") {
           hp = index(matched, "#")

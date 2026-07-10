@@ -718,7 +718,7 @@ rm -rf "$BV"
 #      owner/repo#N, a full issue/PR URL, and a bare #N (to the RESOLVED repo);
 #      references inside a fenced code block stay plain. A second message from an
 #      UNRESOLVABLE doer (foreman) leaves its bare #N as plain text (no mislink).
-lmsg="$(printf 'from_host: h\nfrom: gardener:endojs-endo-but-for-bots-linktest\nreply_to: endojs-endo-but-for-bots-linktest\nsent_at: t1\n---\nOpened endojs/endo-but-for-bots#650 (CLI follow-up for #652).\nSee https://github.com/endojs/endo-but-for-bots/pull/653.\n\n```\nleave #999 and endojs/endo-but-for-bots#111 plain in a fence\n```\n')"
+lmsg="$(printf 'from_host: h\nfrom: gardener:endojs-endo-but-for-bots-linktest\nreply_to: endojs-endo-but-for-bots-linktest\nsent_at: t1\n---\nOpened endojs/endo-but-for-bots#650 (CLI follow-up for #652). Run `rebase #650` first.\nSee https://github.com/endojs/endo-but-for-bots/pull/653.\n\n```\nleave #999 and endojs/endo-but-for-bots#111 plain in a fence\n```\n')"
 push_change "inbox/maintainer/unread/bul-maint-2.md" "$lmsg" "seed maintainer message with issue refs"
 umsg="$(printf 'from_host: h\nfrom: foreman\nreply_to:\nsent_at: t2\n---\nUnresolvable doer note mentioning #4242 which must stay plain text.\n')"
 push_change "inbox/maintainer/unread/bul-maint-3.md" "$umsg" "seed unresolvable maintainer message"
@@ -732,6 +732,10 @@ rm -rf "$BV"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$BV"
 { grep -qF '> leave #999 and endojs/endo-but-for-bots#111 plain in a fence' "$BV/README.md" \
   && ! grep -qF '[#999](' "$BV/README.md"; } \
   && ok "references inside a fenced code block stay plain (not autolinked)" || bad "fenced references were autolinked"
+# references inside an inline `code` span stay plain (a link inside backticks
+# would render as literal text) — the `#650` in `rebase #650` must NOT be linked
+grep -qF '`rebase #650`' "$BV/README.md" \
+  && ok "reference inside an inline code span stays plain (not autolinked)" || bad "inline-code-span reference was autolinked"
 # unresolvable bare #N is left plain — present as text, but never turned into a link
 { grep -qF '#4242 which must stay plain text' "$BV/README.md" \
   && ! grep -qF '[#4242](' "$BV/README.md"; } \
