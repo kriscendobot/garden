@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-10T06:33:46Z_
+_As of 2026-07-10T06:36:30Z_
 
 ## Latest
 
-The M3 mount and endoclaw-timer chains are now build-complete but jammed on merge: the foreman twice flagged (see its two notes) that [mount-glob #653](https://github.com/endojs/endo-but-for-bots/pull/653) is green (rebased onto the fixed base [#650](https://github.com/endojs/endo-but-for-bots/pull/650) after a durable revoke-wakes-streams fix landed there), the interval-scheduler [#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619) timer stack is gauntleted, and roughly 60 ready fork PRs are sitting unmerged on `llm`, blocking every stacked follower — the fleet has no unblocked build work left, so the bottleneck is now merge/review attention, not more jobs.
-
-Several shepherd/gauntlet jobs deterministically overran the 2400s handler budget and risk poisoning ([#652 deny-CLI](https://github.com/endojs/endo-but-for-bots/pull/652), [#654 rust-parity](https://github.com/endojs/endo-but-for-bots/pull/654), [#655 grep gauntlet](https://github.com/endojs/endo-but-for-bots/pull/655), plus the module-loading #659 gauntlet); these need splitting into claim-sized stages. Two items want a maintainer decision beyond the fleet's scope: conducting [#123](https://github.com/endojs/endo-but-for-bots/pull/123) is stalled because live `llm` rewrote away the code its fix guards (needs a weave-or-obsolete call), and the [#286 http-client](https://github.com/endojs/endo-but-for-bots/pull/286) e2e suite has a real Node-22-only Headers-hardening bug awaiting a fixer. On the design front, the exo-google-sheets daily supervisor posted a gauntlet on [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (the OAuth-foundation design gate). Off in the forks, finbot landed its SES-compartments capability-attenuation increment on `main`, and the agoric-sdk XS 16.7.1 fixer ([PR #12](https://github.com/kriscendobot/agoric-sdk/pull/12)) is holding two consensus-affecting questions (golden snapshot hashes, METER_TYPE bump) for your call.
+The mount-glob stack cleared its last red: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) is now green after a shepherd rebased it onto the durable `followNameChanges`-on-revoke fix that landed on its base #650, unblocking the stacked grep [#655](https://github.com/endojs/endo-but-for-bots/pull/655) and json [#657](https://github.com/endojs/endo-but-for-bots/pull/657) (the latter's gauntlet just completed). Both foremen are now signaling the same wall: M3 is saturated in flight and the bottleneck is merge attention, not build work — the mount chain (#650/#652/#653/#656/#658) and the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) are built and gauntleted but sitting unmerged on `llm`, stranding every stacked follower behind a ~60-PR ready backlog. On the agoric-sdk fork, the XS 16.7.1 fixer for [PR #12](https://github.com/kriscendobot/agoric-sdk/pull/12) is holding two consensus-affecting calls for you — whether to regenerate the golden snapshot hashes and whether to bump `METER_TYPE` to xs-meter-37 — while [PR #10](https://github.com/kriscendobot/agoric-sdk/pull/10)'s only red check (`test-codegen`) is global drift owned by the mergeable PR #8, not the docs PR itself. Also worth a decision: conducting [#123](https://github.com/endojs/endo-but-for-bots/pull/123) stalled because its fix targets an `assembleTranscript` path that no longer exists on the rewritten `makePiAgent` `agent.js` — it needs a weave/redesign, not a merge. Several shepherd/gauntlet jobs (#650, #652, #654, #655, #659) deterministically overran the 2400s handler budget and risk poisoning unless split into claim-sized stages.
 
 ## Parked for maintainer feedback
 
@@ -306,6 +304,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Next unblocked increment (next cycle): rebase+land feat/additional-instruments (smaller delta). Decision for you: either let builders land finbot increments directly on main (garden-style), or stand up a weaver/conductor sweep to fast-forward branches promptly — otherwise every cycle keeps paying rebase cost on stranding branches.
 
+- `20260710T063539Z-33f87e` — from gardener:kriscendobot-agoric-sdk-pr10-shepherd, reply_to `kriscendobot-agoric-sdk-pr10-shepherd` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T063539Z-33f87e.md)
+
+> shepherd on kriscendobot/agoric-sdk PR #10 (docs: beans-v2 design) — the only red check is `test-codegen`, and it is NOT this PR's fault. The PR changes one markdown file (designs/beans-v2-deflation.md); test-codegen fails because `yarn codegen` regenerates packages/orchestration/src/fetched-chain-info.js, a file PR #10 never touches. PR #10 is behind:0 from master, so master itself carries the stale generated file — a global codegen drift.
+>
+> This is already owned by PR #8 (regen-fetched-chain-info), which is OPEN, non-draft, MERGEABLE, and has test-codegen=SUCCESS. Fixing it inside a docs PR would duplicate PR #8 and create a conflicting generated-file diff — the wrong place.
+>
+> Recommended: merge PR #8 to master, then refresh (weave) PR #10 so its CI re-runs green. I did not push anything to PR #10 (correct scope). next: liaison (merge #8 is a human/conductor decision).
+
 
 ## Board
 ### todo (0)
@@ -313,18 +319,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 ### doin (5)
 - [`ebfb-pr580-merge`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr580-merge.md) — Merge endojs/endo-but-for-bots PR #580
-- [`gauntlet-endo-but-for-bots-pr657-mount-json`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr657-mount-json.md) — ---
 - [`gauntlet-endo-but-for-bots-pr661-agent-tools-http-client`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr661-agent-tools-http-client.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
-- [`kriscendobot-agoric-sdk-pr10-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr10-shepherd.md) — shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #10
 - [`kriscendobot-agoric-sdk-pr9-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr9-shepherd.md) — shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #9
+- [`self-heal-fix-garden-triager-kriscendobot-agoric-sdk-revparse-verify-quiet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-agoric-sdk-revparse-verify-quiet.md) — In scripts/jobs/triager.sh, the ref-resolution at lines ~55–56 concatenates s...
+- [`self-heal-fix-garden-triager-kriscendobot-endo-revparse-stdout-echo`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-endo-revparse-stdout-echo.md) — In scripts/jobs/triager.sh (lines ~55-56), the ref-resolution captures a two-...
 
-### tada (1653)
+### tada (1655)
+- [`kriscendobot-agoric-sdk-pr10-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-shepherd.md) — Shepherd report — kriscendobot/agoric-sdk PR #10
+- [`gauntlet-endo-but-for-bots-pr657-mount-json`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr657-mount-json.md) — Ran the gauntlet on endojs/endo-but-for-bots #657 (mount JSON read/write, PR ...
 - [`kriscendobot-agoric-sdk-pr11-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr11-shepherd.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr12-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr12-fixer.md) — Completion report — fixer: XS 16.7.1 engine-behavior failures, kriscendobot/a...
 - [`finbot-progress-20260710-062011`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260710-062011.md) — Completion report — finbot-progress-20260710-062011
-- [`endojs-endo-but-for-bots-pr612-c5154e29`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr612-c5154e29.md) — Completion report
-- [`ebfb-hex-native-dispatch-opt`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-hex-native-dispatch-opt.md) — Completion report
-- … and 1648 more
+- … and 1650 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
