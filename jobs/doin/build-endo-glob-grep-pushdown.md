@@ -69,3 +69,9 @@ built, the commits/branches per layer, and any design gaps hit.
 <!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 10
+  claimed_at: 2026-07-10T20:53:10Z
