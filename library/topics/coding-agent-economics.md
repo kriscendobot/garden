@@ -17,6 +17,7 @@ The cost and economics of running LLM coding agents at scale: how spend accrues,
 | [unum: token/compute cost ledger](../sections/unum--token-cost-ledger.md) | coding-agent-economics | unum's per-run attributed cost ledger (costs.jsonl): capture from the Claude CLI result event; raw tokens + CLI-computed dollars. |
 | [unum: cost attribution and aggregation](../sections/unum--cost-attribution-and-aggregation.md) | coding-agent-economics | Grouping the ledger by task/day/model; the three surfaces (invoke cost table, per-task TADA cost stanza, live operator chip). |
 | [unum: per-persona model tiers](../sections/unum--per-persona-model-tiers.md) | coding-agent-economics | Right-sizing the model per persona in durable config (liaison/foreman sonnet, steward opus, invoker fable); a coarse instance of model-routing. |
+| [Systemd resource-slice quotas — a non-token budget](../sections/unum--make-user-host-resource-quota.md) | coding-agent-economics, agent-fleet-orchestration | A different budget kind than the token/compute cost ledger: per-agent host CPU/memory/task slice quotas (light 200%/2G, medium 400%/4G, heavy 800%/8G), validated against host capacity. |
 
 ## See also
 
