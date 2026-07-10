@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: orch-endo-glob-grep-pushdown
-priority: normal
-posted_by: producer
-posted_at: 2026-07-10T19:38:30Z
+role: builder
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-10T19:58:06Z -->
 
 ---
 role: builder
