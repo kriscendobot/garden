@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-10T05:13:06Z_
+_As of 2026-07-10T05:14:13Z_
 
 ## Latest
 
-The mount stack cleared its CI blockers: [#653 (mount-glob)](https://github.com/endojs/endo-but-for-bots/pull/653) is now green after a rebase onto its fixed base [#650](https://github.com/endojs/endo-but-for-bots/pull/650) (a `whenRevoked` fix landed there, deflaking the `followNameChanges`-after-revoke test), the [#655 (mount-grep)](https://github.com/endojs/endo-but-for-bots/pull/655) gauntlet completed, and two follow-ups opened as drafts — [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (`--deny`/`--no-deny` CLI, stacked on #650) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (a Rust-side `mount_parity` crate, chosen over the un-buildable XS-run variant). **The chief signal for the maintainer is a merge bottleneck, not missing work:** the foreman reports the mount chain (#650/#652/#653/#656/#658) and the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) are build-complete and gauntleted but sitting unmerged on `llm`, blocking every stacked follower. Two items need a decision beyond conduct: [#123](https://github.com/endojs/endo-but-for-bots/pull/123) is approved but unconductable — its `assembleTranscript` fix targets a module that `llm` has since rewritten around `makePiAgent`, so it needs a weave or an obsolescence call; and [#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s CI has a real Node-22-only failure (undici Headers frozen across CapTP) awaiting a fixer. The esheets daily supervisor opened day one, driving design gate [#621](https://github.com/endojs/endo-but-for-bots/pull/621) toward review, while the [#644](https://github.com/endojs/endo-but-for-bots/pull/644) gauntlet flagged a new `reword` correctness bug and a concurrency collision with 0xpatrickbot's fleet on the same branch. Several long-running shepherd/gauntlet jobs (#652, #654, #655, #659) overran the 2400s handler budget and risk being poisoned — they need splitting into claim-sized stages.
+The mount-glob stack cleared its blocker: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) is now green after a durable fix landed on its base [#650](https://github.com/endojs/endo-but-for-bots/pull/650) (waking open `followNameChanges` streams on revoke), and a rebase dropped the redundant deflake commit — unblocking the stacked [#655](https://github.com/endojs/endo-but-for-bots/pull/655) (grep, gauntlet complete) and [#657](https://github.com/endojs/endo-but-for-bots/pull/657) (json). New draft follow-ups arrived alongside: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (mount `--deny` CLI, stacked on #650) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (Rust-side mount-glob parity runner, chosen after the XS-run path proved unbuildable in-tree). The git-verb gauntlet on [#644](https://github.com/endojs/endo-but-for-bots/pull/644) returned request-changes with a fresh correctness bug (a `reword` amend silently folds a staged index into a "message-only" commit), and flagged that a second fleet (0xpatrickbot) is pushing to the same branch concurrently.
+
+The dominant signal is merge pressure, not missing work. The foreman reports M3 saturated in flight — the mount chain (#650/#652/#653/#656/#658) and the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) are build-complete and gauntleted but sitting unmerged on `llm`, blocking every stacked follower — so forward progress now depends on reviewing/merging the ready backlog. Several builder jobs hit the same "already landed" wall (daemon-locator-terminology, daemon-agent-tools filesystem wiring behind [#614](https://github.com/endojs/endo-but-for-bots/pull/614)/[#618](https://github.com/endojs/endo-but-for-bots/pull/618)) and stopped rather than open duplicates. Two items need a human steer: conduct on [#123](https://github.com/endojs/endo-but-for-bots/pull/123) stalled because its fix targets an `assembleTranscript` path that no longer exists on the rewritten `llm` agent.js (needs a weave/redesign call), and the exo-google-sheets daily supervisor gated the whole tree on design PR [#621](https://github.com/endojs/endo-but-for-bots/pull/621), now driven toward review via the gauntlet. Watch also that several long-running shepherd/gauntlet jobs (#650, #652, #654, #655, #659) are deterministically overrunning the 2400s handler budget and risk being poisoned unless split into claim-sized stages.
 
 ## Parked for maintainer feedback
 
@@ -269,22 +271,25 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Milestone M3's build threads are stalled on merge, not on missing work: the mount chain (#650/#652/#653/#656/#658) and the endoclaw-timer stack (#609/#617/#619) are build-complete and gauntleted but sitting unmerged on the fork's `llm` branch, which blocks every stacked follower (mount-json #657 conflicting on unmerged grep, the git-verb stack #644→#645→#646, and the module-loading builds behind design #659). Please review/merge the ready M3 fork PRs — and/or promote the `go-ahead`-gated next-tranche jobs (endo-gateway/AWS-storage, daemon-rename-to-manager) — so the fleet has unblocked work to claim.
 
+- `20260710T051333Z-6e9180` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T051333Z-6e9180.md)
+
+> M3 (Remote Access and Coding Capabilities) is saturated in flight across all pillars — the next confined-outbound-HTTP slice (live `policyAuthority` wiring for the `tofu-prompt`/`tofu-attenuator` consent modes #661 deferred, designed in `trust-on-first-bind.md`) is blocked on the in-flight http-client PR #661, and every other pillar's next increment (timer #609/#617/#619, gateway #577/#578/#579, mount #655 series) is likewise blocked on in-flight predecessors, so no unblocked build step remains to post. Forward progress now depends on reviewing/merging the ~60-PR ready backlog — a merge/authority decision outside foreman bounds — so the fleet needs merge attention (conductor/maintainer), not more build work queued.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`gauntlet-endo-but-for-bots-pr659-module-loading-stack-sequencing`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr659-module-loading-stack-sequencing.md) — ---
-- [`self-heal-fix-garden-triager-kriscendobot-minion-town-handler-swallows-claude-error`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-minion-town-handler-swallows-claude-error.md) — scripts/jobs/handlers/triager-claude.sh
 
-### tada (1629)
+### tada (1630)
+- [`self-heal-fix-garden-triager-kriscendobot-minion-town-handler-swallows-claude-error`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-handler-swallows-claude-error.md) — The requested fix is already present and hardened well beyond the spec — no c...
 - [`build-daemon-agent-tools-http-client-tool-wiring`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-daemon-agent-tools-http-client-tool-wiring.md) — Completion report — build-daemon-agent-tools-http-client-tool-wiring
 - [`gauntlet-endo-but-for-bots-pr655-mount-grep`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr655-mount-grep.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-minion-town-empty-old-git-log-arg`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-empty-old-git-log-arg.md) — The job's fix is already fully landed on origin/main2 — no new work was neede...
 - [`gauntlet-endo-but-for-bots-pr644-git-commit-amend-reword`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr644-git-commit-amend-reword.md) — Completion report — gauntlet on endojs/endo-but-for-bots #644
-- [`self-heal-fix-garden-triager-kriscendobot-minion-town-first-triage-emptyrange-sigpipe`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-first-triage-emptyrange-sigpipe.md) — Completion report
-- … and 1624 more
+- … and 1625 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
