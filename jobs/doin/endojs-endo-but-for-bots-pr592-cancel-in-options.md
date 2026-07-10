@@ -56,3 +56,9 @@ and @endo/daemon; the watch-directory unit tests and daemon
 mount.test.js / endo.test.js pass (cite the counts); push to the PR head
 branch; then post inline replies to BOTH review comments (ids 3560627735 and
 3560633818) citing the resolving commit (skills/pr-review-thread-replies).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 17
+  claimed_at: 2026-07-10T17:10:37Z
