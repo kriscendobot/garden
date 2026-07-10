@@ -32,6 +32,12 @@
 | [SPEC §11–§13 tracker, prompt, observability](../sections/web--openai-symphony-codex-orchestration--spec-tracker-prompt-and-observability.md) | Symphony (OpenAI) | Three Linear-compatible adapter ops + normalization; no first-class tracker writes (the agent mutates tickets); strict prompt rendering with attempt; key=value logs, runtime snapshot, token accounting. |
 | [unum: self-evocation orchestrator](../sections/unum--overview.md) | unum (jcorbin) | unum as a third convergent design: a file-backed task board (TODO/TOQU/TADA) driving devoker's invoker/televoke/vigil/refinery, steered by Telegram personas. |
 | [unum: vigil-charge initiative budget](../sections/unum--vigil-charge-initiative-budget.md) | unum (jcorbin) | A health-gated budget on proactive agent turns: accumulate charge over verified-quiet health rounds, spend it at a threshold to fire an initiative pulse. |
+| [The LORE corpus — distilled-incident lessons](../sections/unum--lore-corpus-shape.md) | unum LORE/INDEX.md | A steward-curated library of ~67 distilled hard-won lessons mined from completed tasks; captures the corpus shape and the distillation practice. |
+| [Claim-lifecycle hazards](../sections/unum--lore-claim-lifecycle.md) | unum LORE | A claim's liveness must be provable from durable state (a held flock), never inferred from occupancy; claim state moves atomically across board+ledger+worktree; landed branch ≠ done. |
+| [Garden lanes vs devoker invokers](../sections/unum--garden-vs-devoker-fleet.md) | unum LORE | An outside sibling's dimension-by-dimension comparison of this garden's fleet against devoker: persistent declared-count lanes vs demand-materialized burst workers. |
+| [Devoker four-layer architecture and vigil/refinery](../sections/unum--devoker-four-layer-architecture.md) | unum devoker/DESIGN.md | Evoker→Invoker→Agent→Model layering, single-binary argv[0] dispatch, and the vigil health-monitor / occupancy-aware burst / refinery engine. |
+| [Host provisioning and systemd resource-slice quotas](../sections/unum--make-user-host-resource-quota.md) | unum devoker/DESIGN.md | Plan-then-apply host provisioning; per-alter CPU/memory/task slice quota profiles (light/medium/heavy) — a non-token agent budget. |
+| [notify-server — durable notification proxy](../sections/unum--notify-server-routedown.md) | unum notify_server/DESIGN.md | A standalone HTTP proxy: persist-then-dispatch with retry/backoff behind a Markdown Routedown routing config. |
 
 ## See also
 
