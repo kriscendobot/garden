@@ -1,1 +1,7 @@
 In `scripts/jobs/triager.sh` the `new_sha` resolution (lines ~55-56) uses bare `git rev-parse "refs/remotes/origin/$ref"` and `git rev-parse "$ref"`. Bare `rev-parse` echoes the argument string to **stdout** when it cannot resolve the ref (only the error goes to stderr, which `2>/dev/null` swallows). For `kriscendobot-endo` the bare clone has no `refs/remotes/origin/master`, so the first rev-parse fails-but-prints `refs/remotes/origin/master`, the `||` fallback appends the real SHA `f859ca06…`, and `new_sha` becomes a two-line value `refs/remotes/origin/master\nf859ca06…`. That flows into `git log`, which dies with `fatal: ambiguous argument 'refs/remotes/origin/master\nf859ca…': unknown revision` — the exact FATAL in the triage failure (1/5 consecutive), leaving the cursor unadvanced so systemd re-runs the identical failure. Fix: make both rev-parse calls use `--verify -q` (i.e. `git --git-dir="$BARE" rev-parse --verify -q "refs/remotes/origin/$ref"` then `|| git --git-dir="$BARE" rev-parse --verify -q "$ref"`), which prints **nothing** on stdout when resolution fails and exits non-zero, so only the successfully-resolved single SHA is captured; keep the final `|| die "cannot resolve ref …"` guard for the case where neither form resolves. Verify by running the triager against a bare clone lacking `refs/remotes/origin/<ref>` and confirming `new_sha` is a single 40-char SHA and triage proceeds without the ambiguous-argument fatal.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 12
+  claimed_at: 2026-07-10T10:07:22Z
