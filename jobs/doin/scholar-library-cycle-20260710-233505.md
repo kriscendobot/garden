@@ -29,3 +29,9 @@ Translated from v1 `schedule/garden/20260514T010000Z--72f1f4.md`
 The v1 trigger/short-id/fired machinery is dropped: v2 schedules are recurring
 specs keyed by cadence, not pre-computed per-fire event files. The v1 original
 is retained on `journal-v1` and `origin/journal`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 18
+  claimed_at: 2026-07-10T23:35:14Z
