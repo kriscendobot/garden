@@ -2,11 +2,4 @@ Run the gauntlet on endojs/endo-but-for-bots draft PR #667 (`feat(genie): stdio 
 
 <!-- garden-deadline-overrun: 1 -->
 
-<!-- garden-reaped: 2 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 6
-  claimed_at: 2026-07-10T15:43:14Z
+<!-- garden-reaped: 3 -->
