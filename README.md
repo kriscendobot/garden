@@ -1,16 +1,18 @@
 # Garden bulletin
 
-_As of 2026-07-10T12:11:25Z_
+_As of 2026-07-10T12:15:22Z_
 
 ## Latest
 
-The board has nearly stalled — a single new claim (`build-endo-daemon-docker-selfhost`) — because the fleet has run out of unblocked build work. Three separate foreman messages converge on the same headline: milestone M3 is saturated in flight, and the ready daemon-mount stack ([#650](https://github.com/endojs/endo-but-for-bots/pull/650), [#653](https://github.com/endojs/endo-but-for-bots/pull/653), [#655](https://github.com/endojs/endo-but-for-bots/pull/655), [#657](https://github.com/endojs/endo-but-for-bots/pull/657), [#658](https://github.com/endojs/endo-but-for-bots/pull/658)), the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609), [#617](https://github.com/endojs/endo-but-for-bots/pull/617), [#619](https://github.com/endojs/endo-but-for-bots/pull/619)), and daemon-agent-tools [#618](https://github.com/endojs/endo-but-for-bots/pull/618) are all CI-green and mergeable but unmerged — so every stacked follower (mount-json [#657](https://github.com/endojs/endo-but-for-bots/pull/657), the git-verb stack behind [#644](https://github.com/endojs/endo-but-for-bots/pull/644), the module-loading builds) is blocked. Forward progress now needs your merge/authority decisions on that ~60-PR backlog, not more queued build work.
+The M3 daemon-mount and endoclaw-timer stacks are jammed at the merge gate: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) went green after a rebase onto its fixed base [#650](https://github.com/endojs/endo-but-for-bots/pull/650), but the foreman now reports (three times) that the entire mount chain (#650/#652/#653/#656/#658) and the timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) are build-complete, CI-green, and mergeable but sitting unmerged on `llm` — starving every stacked follower and leaving no unblocked build work to dispatch. **The fleet needs merge/authority attention, not more jobs.**
 
-One bright spot: [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) went green after a shepherd rebased it onto the durable revoke-wake fix that landed on base [#650](https://github.com/endojs/endo-but-for-bots/pull/650), unblocking the grep/json followers. Against that, several builder jobs hit **already-landed** work and correctly refused to open duplicates — daemon-locator-terminology (shipped via #34), daemon-agent-tools makers ([#614](https://github.com/endojs/endo-but-for-bots/pull/614)), and endoclaw-timer Phase 1 ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)). The conductor on [#123](https://github.com/endojs/endo-but-for-bots/pull/123) stalled: its fix targets an `assembleTranscript` that no longer exists on the rewritten `llm` agent.js, so it needs a weave/redesign call, not a merge.
+Several dispatched jobs came back as no-ops because the work already exists: [build-endo-daemon-docker-selfhost](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-daemon-docker-selfhost.md) halted as re-declined work (superseded by closed [#134](https://github.com/endojs/endo-but-for-bots/pull/134) and the @endo/gateway direction — its stale design record should be marked Superseded so producers stop re-spawning it); daemon-locator-terminology is already merged; endoclaw-timer graduation is already [#609](https://github.com/endojs/endo-but-for-bots/pull/609); and daemon-agent-tools fs is split across landed [#614](https://github.com/endojs/endo-but-for-bots/pull/614) and conflicting draft [#618](https://github.com/endojs/endo-but-for-bots/pull/618).
 
-Two operational flags worth attention: the leader host's foreman pump failed with `designer: command not found` / `builder: command not found`, starving the board, and a session-limit hit (reset 09:10 UTC) knocked out two triagers. A cluster of long shepherd/gauntlet jobs (#650, #652, #654, #655, #659, plus agoric #13/#14) deterministically overran the 2400s handler budget and risk poisoning — they need splitting into claim-sized stages. The [#661](https://github.com/endojs/endo-but-for-bots/pull/661) http-client gauntlet was parked after exhausting five requeue cycles on the known lint-ceiling ([#594](https://github.com/endojs/endo-but-for-bots/pull/594)).
+Two things need a real fix, not a merge: conducting [#123](https://github.com/endojs/endo-but-for-bots/pull/123) is **stalled** — its transcript-hardening target was rewritten out of existence on live `llm`, so it needs a weave/redesign, not a surgical merge; and [#286](https://github.com/endojs/endo-but-for-bots/pull/286) has a real Node-22-only CI failure (undici `Headers` hardening trips error-decode across CapTP) awaiting a fixer. A panel on [#644](https://github.com/endojs/endo-but-for-bots/pull/644) requested changes (a new `reword` bug folding staged changes into a message-only amend) but flagged that a second fleet (0xpatrickbot) is pushing to the same branch concurrently.
 
-On the `kriscendobot/agoric-sdk` fork, the XS-validation effort ([garden#33](https://github.com/kriskowal/garden/issues/33)) has converged — PRs [#13](https://github.com/kriscendobot/agoric-sdk/pull/13) and [#14](https://github.com/kriscendobot/agoric-sdk/pull/14) are green — but is now blocked solely on two maintainer calls: whether to waive integration Leg 4 (Depot-gated runners, infeasible on the fork) and whether green draft #14 counts as "landed." Fork PR [#12](https://github.com/kriscendobot/agoric-sdk/pull/12) additionally awaits your consensus decisions on regenerating XS 16.7.1 golden snapshots and bumping `METER_TYPE`. Separately, finbot landed its SES-compartments capability-attenuation increment on `main`, and minion.town root-host bootstrap ([#7](https://github.com/kriscendobot/minion.town/pull/7)) is up but gated on two prerequisite deployment gates only you can drive.
+Decisions are stacking up in your inbox: the XS-validation effort ([garden#33](https://github.com/kriskowal/garden/issues/33)) is fully green and blocked only on two calls — waiving the Depot-gated integration leg, and whether green draft fork PR [#14](https://github.com/kriscendobot/agoric-sdk/pull/14) counts as "landed" — plus the fixer on [agoric-sdk#12](https://github.com/kriscendobot/agoric-sdk/pull/12) wants your ruling on regenerating consensus-tied golden snapshots and a `METER_TYPE` bump. Elsewhere, finbot landed its SES-compartments increment, and [minion.town#7](https://github.com/kriscendobot/minion.town/pull/7) delivered the root-host bootstrap but is blocked behind two deployment gates (one of which only you can clear).
+
+Operational note: a run of shepherd/gauntlet jobs deterministically overran the 2400s handler budget and risk poisoning (they need splitting into claim-sized stages), the [#661](https://github.com/endojs/endo-but-for-bots/pull/661) gauntlet was poison-parked after five requeues, and an ~08:10Z session-limit exhaustion briefly knocked out the foreman pump and two triagers.
 
 ## Parked for maintainer feedback
 
@@ -411,6 +413,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > On "waive + landed" I will post the final #33 summary and remove the hourly schedule. Reply to this message and it routes back to my inbox (or to the next tick as a fresh job if I have completed).
 
+- `20260710T121239Z-960b47` — from gardener:build-endo-daemon-docker-selfhost, reply_to `build-endo-daemon-docker-selfhost` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T121239Z-960b47.md)
+
+> HALTING build job `build-endo-daemon-docker-selfhost` — it re-attempts DECLINED work, not building.
+>
+> The job asks me to build the `daemon-docker-selfhost` design in endojs/endo-but-for-bots (Docker image bundling daemon/worker/CLI, persistent state, external gateway HTTP/WS, remote bearer-token auth) and open a mergeable PR.
+>
+> That is exactly the line you already built and **closed** on 2026-07-09 as PR #134 ("feat(daemon,docker): daemon Docker self-hosting + gateway remote-auth wiring", CLOSED 2026-07-09T05:53Z), with the rationale that it "is headed rapidly in another direction" — toward `@endo/gateway` + `@endo/mcp` packages grown ORGANICALLY with the Garden's AWS bring-up, maintainer-paced, not via a fleet-dispatched build job.
+>
+> Root cause: the design record `journal/plan/designs/endo-but-for-bots/daemon-docker-selfhost.md` is still `status: Not Started`, `milestone: M3`, untouched since the roadmap import. A design→PR / milestone producer spawned this build off that stale record, unaware of the decline. It will keep re-spawning until the record is retired.
+>
+> I did NOT build anything and will NOT open a PR. Recommend:
+>   1. Mark the `daemon-docker-selfhost` design record Superseded/Declined (point it at closed PR #134 and the @endo/gateway + @endo/mcp direction) so producers stop re-spawning it.
+>   2. Same check for any sibling M3 records that #134 subsumed (gateway-bearer-token-auth, etc.).
+>
+> If the direction has in fact reversed and you DO want a fresh Docker-selfhost PR, reply and re-post and I'll build it. Otherwise I'm marking this job complete-as-declined so it doesn't requeue another gardener into the same wall.
+
 - `poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -427,18 +445,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`build-endo-daemon-docker-selfhost`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-daemon-docker-selfhost.md) — ---
+### doin (2)
 - [`kriscendobot-agoric-sdk-pr13-fix-chaininfo-snapshots`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr13-fix-chaininfo-snapshots.md) — fixer (shepherd→fixer auto-chain) on kriscendobot/agoric-sdk PR #13
 - [`kriscendobot-agoric-sdk-pr14-fix-chaininfo-snapshots`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr14-fix-chaininfo-snapshots.md) — fixer on kriscendobot/agoric-sdk PR #14 — regenerate chain-info baggage snaps...
 
-### tada (1709)
+### tada (1710)
+- [`build-endo-daemon-docker-selfhost`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-daemon-docker-selfhost.md) — What I found
 - [`xst-validation-orchestrator-20260710-120503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260710-120503.md) — XS-validation orchestrator — tick report (2026-07-10 ~12:05Z)
 - [`build-endo-registry-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-registry-capability.md) — Completion report
 - [`self-heal-fix-garden-pages-watcher-pages-source-401-bad-credentials-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-pages-watcher-pages-source-401-bad-credentials-retry.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-endo-rev-parse-verify-quiet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-endo-rev-parse-verify-quiet.md) — Report
-- [`self-heal-fix-garden-triager-kriscendobot-agoric-sdk-revparse-verify-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-sdk-revparse-verify-guard.md) — Completion report
-- … and 1704 more
+- … and 1705 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
