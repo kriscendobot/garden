@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-09T23:57:29Z_
+_As of 2026-07-10T00:06:42Z_
 
 ## Latest
 
-Lint is green on the [#286](https://github.com/endojs/endo-but-for-bots/pull/286) http-client reconcile, but the full-daemon e2e suite fails deterministically on Node 22 (both OSes) and passes on Node 24 — a real undici `Headers` hardening bug in error-decode across CapTP, not flakiness — so #286 needs a fixer; separately its `HttpClientControl` mutators are still unwired through the daemon controller facet. Two conduct/merge attempts hit walls worth a decision: [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (fix/lal-transcript) is **stalled** because live `llm` rewrote `agent.js` around `makePiAgent` and deleted the `assembleTranscript` machinery the fix guards — it needs a weave or an obsolescence call, not a merge — while the endoclaw-timer Phase 1 job and the daemon fs-tools Phase 1 job both turned out already satisfied by open PRs ([#609](https://github.com/endojs/endo-but-for-bots/pull/609); [#614](https://github.com/endojs/endo-but-for-bots/pull/614)/[#618](https://github.com/endojs/endo-but-for-bots/pull/618), the latter conflicting and awaiting a weave). New draft stacks landed for review: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (`--deny` CLI, stacked on #650) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (Rust `mount_parity` runner, the design-sanctioned fallback after the XS-run path proved unbuildable in-tree). A new daily supervisor is now driving the exo-google-sheets tree, with design gate [#621](https://github.com/endojs/endo-but-for-bots/pull/621) sent through the gauntlet as the deepest unblocked step. Two operational flags: the [#650](https://github.com/endojs/endo-but-for-bots/pull/650) mount-revocation shepherd overran its handler budget (poison risk — needs splitting or detaching), and the [#653](https://github.com/endojs/endo-but-for-bots/pull/653) shepherd deflaked a mount-revocation test that still lives green-by-luck in #650 and should get the same fix before it resurfaces upstream.
+The mount-extensions stack advanced on several fronts: a gardener shepherded [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) to green by deflaking a racy revocation-stream test inherited from its base [#650](https://github.com/endojs/endo-but-for-bots/pull/650) — worth noting the same flaky test still lurks in #650 and should get the same fix before it surfaces upstream. Draft follow-ups landed for the CLI `--deny` flag ([#652](https://github.com/endojs/endo-but-for-bots/pull/652), stacked on #650) and a Rust-side `mount_parity` crate ([#654](https://github.com/endojs/endo-but-for-bots/pull/654)); the latter's gardener took the design-sanctioned Rust path because the XS-run mount.js variant isn't buildable in-tree, and is awaiting your steer on whether that's acceptable as the durable guard.
+
+Two items need a decision. [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (http-client) has a real, deterministic Node-22 failure — hardening a live undici `Headers` object breaks error-decode across CapTP — and wants a fixer. Conducting [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript) is stalled: its fix targets an `assembleTranscript` that no longer exists on the rewritten `llm` agent.js, so it needs a weave/redesign, not a merge.
+
+Several build jobs turned out to be already-satisfied duplicates rather than new work — endoclaw-timer Phase 1 ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)) and the daemon fs agent-tools ([#614](https://github.com/endojs/endo-but-for-bots/pull/614) landed, [#618](https://github.com/endojs/endo-but-for-bots/pull/618) conflicting) — with gardeners correctly declining to open colliding PRs. The new exo-google-sheets daily supervisor kicked off day one, posting a gauntlet on the OAuth design gate [#621](https://github.com/endojs/endo-but-for-bots/pull/621); nothing downstream is buildable until it merges. Three shepherds remain in flight ([#617](https://github.com/endojs/endo-but-for-bots/pull/617), #652, #653).
 
 ## Parked for maintainer feedback
 
@@ -216,7 +220,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`shepherd-endo-but-for-bots-pr617-endoclaw-timer-phase2-lint-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr617-endoclaw-timer-phase2-lint-green.md) — ---
 - [`shepherd-endo-but-for-bots-pr652-mount-deny-cli-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr652-mount-deny-cli-ci-green.md) — ---
 - [`shepherd-endo-but-for-bots-pr653-mount-glob-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr653-mount-glob-ci-green.md) — ---
 
