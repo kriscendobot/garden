@@ -98,3 +98,9 @@ lives and why, how many illustrations landed, the surfaces covered, the commit
 SHA(s), and any shortfall against the ~40 target with its reason.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  claimed_at: 2026-07-10T19:43:29Z
