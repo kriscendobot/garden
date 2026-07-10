@@ -178,12 +178,19 @@ maintainer.
   standing marker-watch (above) observes the change and stands itself up, so no one
   need touch that host. Leadership is **manual, no automatic failover**: if the
   leader dies the singletons stay down until the marker is re-pointed by hand.
-- **"hand off leadership to <host>" / "move the leader to <host>"** → the graceful
-  handoff, in order: the **outgoing** leader **drains** and **stands down** its
-  leader Monitors (maintainer-inbox + deploy-on-upgrade), *then* the marker is
-  re-pointed with `set-main-host.sh <new>` (which **raises the new leader** via its
-  standing watch). Stand-down-then-re-point avoids a window with two live
-  maintainer-inbox Monitors. Full contract:
+- **"hand off leadership to <host>" / "move the leader to <host>" / "assume
+  leadership"** → the graceful **incoming-initiated, confirmed 5-step handshake**:
+  the incoming leader signals the outgoing on `role/liaison`, the outgoing stands
+  down its two liaison Monitors (maintainer-inbox + deploy-on-upgrade) and confirms
+  ready, *then* the incoming re-points the marker (`set-main-host.sh <incoming>`),
+  arms its own Monitors, and signals "leadership assumed". The **systemd singletons
+  are marker-gated** and flip on their own when the marker moves; only the two
+  liaison Monitors need manual sequencing, which is what the handshake is for.
+  **Invariant:** the outgoing Monitors go down before the marker moves before the
+  incoming Monitors come up, so there are **never two live maintainer-inbox
+  Monitors**. Never move the marker before the readiness confirmation. If the
+  outgoing leader cannot confirm (crashed, unattended), this reduces to manual
+  designation (re-point the marker by hand; no automatic failover). Full contract:
   [context/operations/leader-follower.md](../../context/operations/leader-follower.md).
 
 ### Deploy-on-upgrade Monitor (auto-deploy this host on an upgrade signal)
