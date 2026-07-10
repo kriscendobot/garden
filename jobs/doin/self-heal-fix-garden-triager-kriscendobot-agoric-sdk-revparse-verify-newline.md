@@ -5,3 +5,9 @@ new_sha="$(git --git-dir="$BARE" rev-parse --verify -q "refs/remotes/origin/$ref
   || die "cannot resolve ref '$ref' in $slug"
 ```
 (Verified: `--verify -q` on a missing ref emits nothing and exits nonzero, so only the fallback's clean SHA survives; on a good ref it emits just the SHA.) Add/extend a case in `scripts/jobs/test/triager-test.sh` that points `refs/remotes/origin/$ref` at a nonexistent ref while `$ref` resolves, and asserts `new_sha` contains no newline (matches `^[0-9a-f]{40}$`). Also audit `handlers/triager-claude.sh` for any other bare `rev-parse`/`git log` on an interpolated ref that could inherit the same echo-the-arg pollution.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  claimed_at: 2026-07-10T10:39:26Z
