@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-10T21:15:14Z_
+_As of 2026-07-10T21:24:02Z_
 
 ## Latest
 
-[minion.town#5](https://github.com/kriscendobot/minion.town/pull/5) merged (commit b18cce90, 21:09Z) and [minion.town#6](https://github.com/kriscendobot/minion.town/pull/6) was conducted; the `@endo/regexp` conservative-subset design landed and its builder job is now parked, blocked until [endo-but-for-bots#676](https://github.com/endojs/endo-but-for-bots/pull/676) merges. Earlier in the day the mount stack cleared: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) went fully green after a rebase onto the durable revoke-wake fix that landed on its base #650.
+The glob/grep `@endo/platform` pushdown build for the [#127](https://github.com/endojs/endo-but-for-bots/pull/127) stack landed four stacked branches (engine, glob-delegated, grep-decoupled, and mount-search agent tools), locally verified across 122 tests and now moving through the per-layer gauntlet; the mount-glob PR [#653](https://github.com/endojs/endo-but-for-bots/pull/653) also went green after a rebase onto its fixed base, unblocking the grep ([#655](https://github.com/endojs/endo-but-for-bots/pull/655)) and json ([#657](https://github.com/endojs/endo-but-for-bots/pull/657)) followers.
 
-The signal a maintainer should act on is **merge attention**: the foreman has now escalated four separate times (05:11, 09:57, 15:59Z and again) that milestone M3 is saturated — the daemon-mount chain (#650/#652/#653/#655/#657/#658), the endoclaw-timer stack (#609/#617/#619), and the gateway PRs are all CI-green, mergeable, and gauntleted but sitting unmerged on the `llm` branch, so every stacked follower is blocked and the fleet has no unblocked build work to claim. Several jobs also came back as duplicate/already-built impasses (mvs-resolver split across [#403](https://github.com/endojs/endo-but-for-bots/pull/403)/[#671](https://github.com/endojs/endo-but-for-bots/pull/671), the daemon-locator-terminology and Docker-selfhost builds already landed or declined), which points to stale design records re-spawning work.
+The recurring signal across three foreman escalations is that **M3 is saturated but stalled on merges, not missing work**: the daemon-mount chain ([#650](https://github.com/endojs/endo-but-for-bots/pull/650), #653, #655, #657, [#658](https://github.com/endojs/endo-but-for-bots/pull/658)) and the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609), [#617](https://github.com/endojs/endo-but-for-bots/pull/617), [#619](https://github.com/endojs/endo-but-for-bots/pull/619)) are CI-green, mergeable, and gauntleted but sitting unmerged on the fork's `llm`, blocking every stacked follower — the fleet needs merge/authority attention it can't self-supply. Worth noting: kriskowal closed the Phase-4 daemon-agent-tools PR [#618](https://github.com/endojs/endo-but-for-bots/pull/618) over a capability-leak concern (dynamic tool discovery possibly leaking shell caps), deferring a reopen decision to @kumavis; the fleet stood down cleanly.
 
-Two things want a direct decision: [endo-but-for-bots#618](https://github.com/endojs/endo-but-for-bots/pull/618) (Phase-4 capability tool-discovery) was closed by kriskowal over a shell-capability leak concern and handed to @kumavis; and the XS-validation effort (kriskowal/garden#33) is green on both engine trains but idling on two waivers only the maintainer can grant. Operationally, note a rash of handler-budget overruns — roughly a dozen gauntlet/shepherd jobs are hitting the 2400s wall and risk poisoning — and the `kriscendobot-finbot` triager has tripped its circuit-breaker; per the monitoring-safety constraint only `endojs/endo-but-for-bots` is an authorized watch target, so finbot's presence in the set is worth confirming.
+Several efforts are parked purely on your decisions: the XS-validation effort ([garden#33](https://github.com/kriskowal/garden/issues/33)) is fully green on fork PRs [#13](https://github.com/kriscendobot/agoric-sdk/pull/13)/[#14](https://github.com/kriscendobot/agoric-sdk/pull/14) and waiting only on a `force:integration` waiver and a "landed" call; the #661 HTTP-client gauntlet is poison-parked awaiting go-ahead now that its blocking lint ceiling ([#594](https://github.com/endojs/endo-but-for-bots/pull/594)) reads green; and finbot cleared its last stranded branch (cyclical forecaster landed, no branches remain) but keeps re-flagging that its no-self-PR/fast-forward convention strands builder branches each cycle. Also flagged: many shepherd/gauntlet jobs are deterministically overrunning the 2400s handler budget and need splitting into claim-sized stages.
 
 ## Parked for maintainer feedback
 
@@ -539,6 +539,15 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > than a native-RegExp fallback). No action needed from me on those; accepting/rejecting
 > #676 is your call and is what unblocks the parked build.
 
+- `20260710T211740Z-94f05e` — from gardener:build-endo-glob-grep-pushdown, reply_to `build-endo-glob-grep-pushdown` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T211740Z-94f05e.md)
+
+> Build complete: glob/grep @endo/platform pushdown across the #127 stack. Four stacked branches on endojs/endo-but-for-bots, all locally verified (122 tests):
+> - P feat/platform-search (prior run) — engine
+> - B' feat/mount-glob-delegated (prior run) — glob delegates
+> - C' feat/mount-grep-delegated (this run) — grep decoupled, M.await path guard
+> - T feat/agent-tools-mount-search (this run) — mountGlob/mountGrep tools + primer
+> One design gap surfaced: code-mode declare-const entries can't land (agentry fs-types.js is generated from the extended Filesystem guards; glob/grep reach code mode only after the deferred Filesystem consolidation). Noted, not papered over. Ready for the per-layer gauntlet.
+
 - `poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -555,18 +564,21 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`build-chat-inventory-create-menu`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-chat-inventory-create-menu.md) — Build: Chat inventory + create menu and new-agent wizard
-- [`build-endo-glob-grep-pushdown`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-glob-grep-pushdown.md) — Build: implement the glob/grep @endo/platform pushdown across the #127 stack
+### doin (6)
+- [`bulletin-maintainer-inbox-issue-links`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/bulletin-maintainer-inbox-issue-links.md) — Render issue/PR numbers as hyperlinks in the bulletin's maintainer inbox
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
+- [`gauntlet-endo-glob-grep-stack`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-glob-grep-stack.md) — Run the gauntlet on each layer of the endo #127 glob/grep stack
+- [`kriscendobot-agoric-sdk-pr8-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr8-gauntlet.md) — gauntlet directive on kriscendobot/agoric-sdk PR #8
+- [`kriscendobot-agoric-sdk-pr8-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr8-shepherd.md) — shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #8
+- [`scholar-muse-spark-harness`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-muse-spark-harness.md) — Research: harnessing Meta's Muse Spark via Simon Willison's tool
 
-### tada (1766)
+### tada (1769)
+- [`xst-validation-orchestrator-20260710-212003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260710-212003.md) — XS-validation orchestrator — tick report (2026-07-10 ~21:25Z, tick posted 21:...
+- [`build-chat-inventory-create-menu`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-chat-inventory-create-menu.md) — Completion report
+- [`build-endo-glob-grep-pushdown`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-glob-grep-pushdown.md) — Completion report
 - [`scholar-ingest-unum-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-unum-remainder.md) — Completion report
 - [`deadmail-20260710T210902Z-16083a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260710T210902Z-16083a.md) — Completion report
-- [`kriscendobot-minion.town-pr6-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr6-conduct.md) — Completion report
-- [`kriscendobot-minion.town-pr5-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr5-conduct.md) — PR #5 is **MERGED** — merge commit b18cce90, merged at 2026-07-10T21:09:01Z, ...
-- [`design-endo-regexp-conservative-subset`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-regexp-conservative-subset.md) — Completion report
-- … and 1761 more
+- … and 1764 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
