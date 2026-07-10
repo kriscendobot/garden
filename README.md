@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-10T00:06:42Z_
+_As of 2026-07-10T00:10:56Z_
 
 ## Latest
 
-The mount-extensions stack advanced on several fronts: a gardener shepherded [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) to green by deflaking a racy revocation-stream test inherited from its base [#650](https://github.com/endojs/endo-but-for-bots/pull/650) — worth noting the same flaky test still lurks in #650 and should get the same fix before it surfaces upstream. Draft follow-ups landed for the CLI `--deny` flag ([#652](https://github.com/endojs/endo-but-for-bots/pull/652), stacked on #650) and a Rust-side `mount_parity` crate ([#654](https://github.com/endojs/endo-but-for-bots/pull/654)); the latter's gardener took the design-sanctioned Rust path because the XS-run mount.js variant isn't buildable in-tree, and is awaiting your steer on whether that's acceptable as the durable guard.
-
-Two items need a decision. [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (http-client) has a real, deterministic Node-22 failure — hardening a live undici `Headers` object breaks error-decode across CapTP — and wants a fixer. Conducting [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript) is stalled: its fix targets an `assembleTranscript` that no longer exists on the rewritten `llm` agent.js, so it needs a weave/redesign, not a merge.
-
-Several build jobs turned out to be already-satisfied duplicates rather than new work — endoclaw-timer Phase 1 ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)) and the daemon fs agent-tools ([#614](https://github.com/endojs/endo-but-for-bots/pull/614) landed, [#618](https://github.com/endojs/endo-but-for-bots/pull/618) conflicting) — with gardeners correctly declining to open colliding PRs. The new exo-google-sheets daily supervisor kicked off day one, posting a gauntlet on the OAuth design gate [#621](https://github.com/endojs/endo-but-for-bots/pull/621); nothing downstream is buildable until it merges. Three shepherds remain in flight ([#617](https://github.com/endojs/endo-but-for-bots/pull/617), #652, #653).
+A single self-healing fixup closed on the board (garden triager hardening for kriscendobot/minion.town, already present on `main2`), while the real motion is in the gardener reports. Two items need a maintainer decision: [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s http-client e2e test fails deterministically on Node 22 (a hardened undici `Headers` object can't be decoded across CapTP) and wants a fixer, and [endo-but-for-bots#123](https://github.com/endojs/endo-but-for-bots/pull/123) is stuck at conduct — its `assembleTranscript` hardening targets a module that no longer exists on the rebased `llm` trunk, so it needs a **weave/redesign** call before merge. New draft PRs landed for the mount work: [endo-but-for-bots#652](https://github.com/endojs/endo-but-for-bots/pull/652) (CLI `--deny` follow-up, stacked on #650) and [endo-but-for-bots#654](https://github.com/endojs/endo-but-for-bots/pull/654) (Rust-side mount-glob parity runner, the design-sanctioned Option A since the XS boot path isn't buildable here) — both awaiting your steer. A shepherd deflaked [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) by fixing a racy revoke-stream test inherited from base [endo-but-for-bots#650](https://github.com/endojs/endo-but-for-bots/pull/650), which still carries the same flake. The new esheets daily supervisor opened day 1 by posting a gauntlet for [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621), the OAuth-foundation design gate that blocks the whole exo-google-sheets tree. Two builder jobs stopped on discovering their work already exists — [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) (interval-scheduler formula) and the agent filesystem tools across [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614)/[endo-but-for-bots#618](https://github.com/endojs/endo-but-for-bots/pull/618) — the latter needing a rebase, not a rebuild. Housekeeping to note: shepherd `pr650-mount-revocation-ci-green` overran its 2400s handler budget and should be split or detached, and the foreman is holding re-posts on two timer/mount shepherd steps that drained without progress.
 
 ## Parked for maintainer feedback
 
@@ -225,13 +221,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`shepherd-endo-but-for-bots-pr652-mount-deny-cli-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr652-mount-deny-cli-ci-green.md) — ---
 - [`shepherd-endo-but-for-bots-pr653-mount-glob-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr653-mount-glob-ci-green.md) — ---
 
-### tada (1598)
+### tada (1599)
+- [`self-heal-fix-garden-triager-kriscendobot-minion-town-handler-claude-silent-exit`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-handler-claude-silent-exit.md) — The requested hardening is already fully present on main2. Two commits alread...
 - [`shepherd-endo-but-for-bots-pr286-cli-http-client-lint-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pr286-cli-http-client-lint-green.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-minion-town-claude-call-bounded-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-claude-call-bounded-retry.md) — Completion report
 - [`minion-town-mcp-guest-ocap-access-control`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-mcp-guest-ocap-access-control.md) — Revised designs/mcp-endo-guest.md on kriscendobot/minion.town and pushed dire...
 - [`improve-triager-failure-circuit-breaker`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-triager-failure-circuit-breaker.md) — Completion report
-- [`design-auto-provision-fork-watchers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-auto-provision-fork-watchers.md) — Completion report
-- … and 1593 more
+- … and 1594 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
