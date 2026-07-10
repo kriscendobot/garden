@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-10T01:07:30Z_
+_As of 2026-07-10T01:10:42Z_
 
 ## Latest
 
-The mount stack advanced hard toward green: [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) and [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (mount `--deny` CLI) both shepherded to passing CI, and the durable revoke-wakes-open-streams source fix landed on the base [#650](https://github.com/endojs/endo-but-for-bots/pull/650) — [#653](https://github.com/endojs/endo-but-for-bots/pull/653) rebased onto it clean, unblocking grep [#655](https://github.com/endojs/endo-but-for-bots/pull/655) and the new Rust-parity runner [#654](https://github.com/endojs/endo-but-for-bots/pull/654), both now in shepherding. The endoclaw-timer daemon stack also greened, phases 2 and 3 ([#617](https://github.com/endojs/endo-but-for-bots/pull/617), [#619](https://github.com/endojs/endo-but-for-bots/pull/619)), with the Phase 1 formula sitting ready on [#609](https://github.com/endojs/endo-but-for-bots/pull/609).
+The endo-but-for-bots mount stack advanced most: [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now fully green after a shepherd rebased it onto its fixed base [#650](https://github.com/endojs/endo-but-for-bots/pull/650) — the durable `whenRevoked` fix for idle `followNameChanges` streams landed on #650, so the earlier test-only deflake was dropped. The [#652](https://github.com/endojs/endo-but-for-bots/pull/652) mount-deny CLI shepherd also completed green, while [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (Rust glob parity) and [#655](https://github.com/endojs/endo-but-for-bots/pull/655) (grep) are still being driven to green. The endoclaw-timer chain moved too: shepherds closed out [#617](https://github.com/endojs/endo-but-for-bots/pull/617) (phase 2) and [#619](https://github.com/endojs/endo-but-for-bots/pull/619) (phase 3), and [#609](https://github.com/endojs/endo-but-for-bots/pull/609) (phase 1) is reported merge-ready.
 
-Several items need your call. The conductor STALLED on [#123](https://github.com/endojs/endo-but-for-bots/pull/123): its transcript-hardening fix targets an `agent.js` that live `llm` has since rewritten around `makePiAgent`, so `assembleTranscript` no longer exists — it wants a weave or an obsolescence ruling, not a merge. CI on [#286](https://github.com/endojs/endo-but-for-bots/pull/286) surfaced a real Node-22-only bug (undici Headers freeze breaks CapTP error-decode) awaiting a fixer. The filesystem agent-tools job collided with landed [#614](https://github.com/endojs/endo-but-for-bots/pull/614) plus conflicting draft [#618](https://github.com/endojs/endo-but-for-bots/pull/618) — builder wants either a weave of #618 or a clean fs-only slice. On the exo-google-sheets push, design gate [#621](https://github.com/endojs/endo-but-for-bots/pull/621) is in gauntlet and blocks everything downstream. Two shepherd jobs (mount-deny CLI, PR #650 CI-green) overran the 2400s handler budget and risk poisoning unless split.
+Three items want a maintainer decision. Conductor **stalled on [#123](https://github.com/endojs/endo-but-for-bots/pull/123)**: it's approved but its base snapshot has diverged hard from live `llm` (the guarded `assembleTranscript` no longer exists after the `makePiAgent` rewrite), so it needs a weave or an obsolescence call rather than a merge. [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (http-client) has a real, deterministic **Node-22 CI failure** — undici's lazily-cached `Headers` slot gets frozen and breaks CapTP error-decode; a fixer is recommended. And the esheets daily supervisor flags [#621](https://github.com/endojs/endo-but-for-bots/pull/621) as the OAuth design gate blocking the whole exo-google-sheets tree, with a gauntlet posted to drive it out of draft.
+
+Worth noting operationally: two mount-stack shepherd jobs (for #650 and #652) deterministically overran the 2400s handler budget and were flagged for splitting or detached runs, and the board is essentially drained (0 todo, 3 in flight).
 
 ## Parked for maintainer feedback
 
@@ -230,7 +232,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`self-heal-fix-garden-triager-kriscendobot-minion-town-first-triage-empty-log-range`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-minion-town-first-triage-empty-log-range.md) — In scripts/jobs/handlers/triager-claude.sh (~line 27), the triage handler cra...
 - [`shepherd-endo-but-for-bots-pr654-mount-glob-rust-parity-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr654-mount-glob-rust-parity-ci-green.md) — ---
 - [`shepherd-endo-but-for-bots-pr655-mount-grep-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr655-mount-grep-ci-green.md) — ---
 
