@@ -6,6 +6,7 @@ Shepherd `endojs/endo-but-for-bots` DRAFT PR #667 (`feat(genie): stdio JSONL RPC
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
