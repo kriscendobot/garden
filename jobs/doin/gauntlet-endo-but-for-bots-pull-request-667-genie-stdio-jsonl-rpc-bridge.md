@@ -4,6 +4,7 @@ Run the gauntlet on endojs/endo-but-for-bots draft PR #667 (`feat(genie): stdio 
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
