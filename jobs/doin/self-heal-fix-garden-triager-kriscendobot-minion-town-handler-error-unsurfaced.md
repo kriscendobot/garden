@@ -10,3 +10,9 @@ Fix: capture `claude`'s exit status and output explicitly instead of letting `se
   fi
 
 Preserve current behavior otherwise: still return non-zero so triager.sh leaves the cursor unadvanced and the change re-triages on the next timer tick (this is the desired retry path for a transient API/network failure). The goal is purely to surface the failure reason so a recurring failure can be told apart from a one-off blip — do not add retries or swallow the error. Keep it a scoped edit to this one handler; triager.sh's cursor/retry logic is already correct.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 7
+  claimed_at: 2026-07-10T02:11:19Z
