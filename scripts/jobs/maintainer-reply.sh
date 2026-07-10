@@ -55,13 +55,21 @@ if [ -z "$(printf '%s' "$REPLY" | tr -d '[:space:]')" ]; then
   exit 0
 fi
 
+# Forbid a partially-qualified issue/PR reference in the maintainer's reply (bare
+# `#N`) so it resolves unambiguously in the doer's inbox (see check-issue-refs.sh).
+if [ "${GARDEN_SKIP_REF_CHECK:-0}" != "1" ]; then
+  printf '%s\n' "$REPLY" | "$HERE/check-issue-refs.sh" - \
+    || die "reply not delivered — fully-qualify the issue/PR reference(s) reported above, then retry"
+fi
+
 doer="$(sed -n 's/^reply_to:[[:space:]]*//p' "$DIR/$f" | head -1)"
 [ -n "$doer" ] || die "message $id has no reply_to; cannot route a reply"
 
 # deliver the resolved reply into the originating doer's inbox via a temp file
+# (the reply already passed the ref check above; bypass the redundant re-check).
 tmp="$(mktemp)"; trap 'rm -f "$tmp"' EXIT
 printf '%s\n' "$REPLY" > "$tmp"
-GARDEN_SENDER=maintainer "$HERE/inbox-send.sh" "$doer" "$tmp"
+GARDEN_SENDER=maintainer GARDEN_SKIP_REF_CHECK=1 "$HERE/inbox-send.sh" "$doer" "$tmp"
 # archive the maintainer message (no-op if already archived)
 "$HERE/maintainer-archive.sh" "$id" || true
 log "replied to doer '$doer' and archived $id"

@@ -51,7 +51,7 @@ while IFS= read -r line; do
   if [[ "$line" =~ ^MSG[[:space:]]+(.+)$ ]]; then
     addr="${BASH_REMATCH[1]}"; body=""
   elif [ "$line" = "ENDMSG" ] && [ -n "$addr" ]; then
-    printf '%s' "$body" | "$HERE/../send-msg.sh" "$addr"
+    printf '%s' "$body" | GARDEN_SKIP_REF_CHECK=1 "$HERE/../send-msg.sh" "$addr"
     sent=$((sent+1)); addr=""; body=""
   elif [ -n "$addr" ]; then
     body+="$line"$'\n'

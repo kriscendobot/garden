@@ -258,7 +258,7 @@ surface_would_be_maintainer() {  # surface_would_be_maintainer <author> <number>
     printf 'Interaction: %s\n\n' "$url"
     printf 'You are shown this ONCE per individual. Reply or archive to dismiss it.\n'
   } > "$mb"
-  if GARDEN_SENDER="issue-inbox-watcher" "$GARDEN_ISSUE_MAINT_SEND" maintainer < "$mb" >/dev/null 2>&1; then
+  if GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="issue-inbox-watcher" "$GARDEN_ISSUE_MAINT_SEND" maintainer < "$mb" >/dev/null 2>&1; then
     mkdir -p "$dir" 2>/dev/null || true
     : > "$marker" 2>/dev/null || true
     log "surfaced would-be maintainer @$author to the maintainer inbox (once)"
@@ -604,7 +604,7 @@ while IFS=$'\t' read -r kind created id number author submitter state closed_by 
       # The id for a comment is the GitHub comment id ($id, field 3 of the row).
       react_ack issue-comment "$id"
       mb="$(mktemp)"; write_comment_msg "$mb" "$REPO" "$number" "$spine" "$url" "$nf" "$bf"
-      if GARDEN_SENDER="issue-inbox" GARDEN_MSG_ID="issue-comment-$id" \
+      if GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="issue-inbox" GARDEN_MSG_ID="issue-comment-$id" \
            "$GARDEN_ISSUE_MSG" "$spine" "$mb" >/dev/null 2>&1; then
         log "delivered comment on #$number to issue doer ($spine) — or dead-lettered for promotion"
         acted=$((acted+1)); slide "$created"

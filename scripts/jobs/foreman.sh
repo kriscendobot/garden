@@ -110,7 +110,7 @@ note_once() {
   local key="$1" text="$2" last
   last="$(cat "$NOTED" 2>/dev/null || true)"
   [ "$key" = "$last" ] && return 0
-  printf '%s\n' "$text" | GARDEN_SENDER=foreman "$HERE/inbox-send.sh" maintainer
+  printf '%s\n' "$text" | GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER=foreman "$HERE/inbox-send.sh" maintainer
   printf '%s\n' "$key" > "$NOTED"
 }
 

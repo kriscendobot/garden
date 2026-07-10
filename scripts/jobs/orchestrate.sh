@@ -158,7 +158,7 @@ finish_orch() {  # <base> <summary-file> [<child-to-sweep>...]
 # a notify failure must never wedge the tick). Body on stdin.
 orch_notify() {  # <subject> ; body on stdin
   local subject="$1"
-  GARDEN_SENDER="orchestrator:${subject}" "$HERE/inbox-send.sh" maintainer >/dev/null 2>&1 || \
+  GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="orchestrator:${subject}" "$HERE/inbox-send.sh" maintainer >/dev/null 2>&1 || \
     log "orchestration notify to maintainer failed (non-fatal): $subject"
 }
 

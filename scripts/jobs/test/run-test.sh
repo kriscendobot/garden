@@ -2711,5 +2711,35 @@ grep -q 'is-main-host' "$MH_SRC/garden-gardener@.service" \
   || ok "gardener service NOT gated (runs on every host)"
 
 # ============================================================================
+hr; echo "SUBTEST 29 — ISSUE-REF GATE: forbid partial #N in author-written sends"; hr
+# check-issue-refs.sh (the deterministic, Markdown-aware gate) forbids an
+# apparently partially-qualified issue/PR reference in a message body so a bare
+# `#N` never enters the bus. These rule assertions need no journal — they run the
+# checker directly, so the pre-existing SUBTEST 6 `no reply_to` failure cannot
+# mask them. Then the real send path (send-msg.sh broadcast) is exercised against
+# the throwaway $BARE journal to confirm the gate fires before the push.
+CHK="$JOBS/check-issue-refs.sh"
+chk() { printf '%s\n' "$1" | "$CHK" - >/dev/null 2>&1; echo $?; }   # rc: 0 clean, 1 rejected
+[ "$(chk 'please look at #652 today')" -eq 1 ]                           && ok "bare #652 is rejected"                       || bad "bare #652 not rejected"
+[ "$(chk 'see endojs/endo-but-for-bots#650 thanks')" -eq 0 ]            && ok "owner/repo#N passes"                         || bad "owner/repo#N wrongly rejected"
+[ "$(chk 'see https://github.com/kriskowal/garden/pull/27 done')" -eq 0 ] && ok "full issue/PR URL passes"                  || bad "full URL wrongly rejected"
+[ "$(chk "$(printf '```\nrun the gauntlet #7\n```')")" -eq 0 ]          && ok "bare #N inside a fenced block passes"         || bad "fenced-block #N wrongly rejected"
+[ "$(chk 'the `rebase #652` command example')" -eq 0 ]                  && ok "bare #N inside an inline code span passes"    || bad "inline-span #N wrongly rejected"
+[ "$(chk "$(printf '# Heading 2\nbody text')")" -eq 0 ]                 && ok "an ATX heading line is not flagged"           || bad "ATX heading wrongly flagged"
+[ "$(chk 'partial owner#5 and GH-42 forms')" -eq 1 ]                    && ok "owner#N and GH-N rejected as partial"         || bad "owner#N / GH-N not rejected"
+# the failure report names the offending ref AND a remedy
+refrep="$(printf 'look at #652\n' | "$CHK" - 2>&1 1>/dev/null || true)"
+case "$refrep" in *'#652'*fully-qualify*) ok "rejection report names the ref and the remedy";; *) bad "report missing ref/remedy: $refrep";; esac
+# real send path: send-msg.sh broadcast runs the gate before the CAS push
+send_rc() {  # send_rc <state-suffix> <body> [skip=0|1]
+  printf '%s\n' "$2" | env GARDEN_STATE="$TR/state-refchk-$1" GARDEN=refchk-host \
+     JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" GARDEN_SKIP_REF_CHECK="${3:-0}" \
+     "$JOBS/send-msg.sh" broadcast >/dev/null 2>&1; echo $?
+}
+[ "$(send_rc rej 'urgent: fix #652 now')" -ne 0 ]                       && ok "send-msg.sh rejects a bare #N (not posted)"   || bad "send-msg.sh posted a bare #N"
+[ "$(send_rc pass 'urgent: fix kriskowal/garden#652 now')" -eq 0 ]      && ok "send-msg.sh posts a fully-qualified ref"      || bad "send-msg.sh rejected a qualified ref"
+[ "$(send_rc byp 'urgent: fix #652 now' 1)" -eq 0 ]                     && ok "GARDEN_SKIP_REF_CHECK=1 bypasses the gate (machine/relay path)" || bad "bypass did not post"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]

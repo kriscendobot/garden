@@ -107,7 +107,7 @@ route_rejected() {
   local label="$1" detail="$2"
   printf 'A garden-follow-up action block was REJECTED and dropped (not retried):\n  %s\n\nProducer output:\n%s\n' \
     "$label" "$detail" \
-    | GARDEN_SENDER="liaison:follow-up" "$HERE/../inbox-send.sh" maintainer >/dev/null 2>&1 \
+    | GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="liaison:follow-up" "$HERE/../inbox-send.sh" maintainer >/dev/null 2>&1 \
     || log "route_rejected: could not deliver rejected '$label' to maintainer (dropped)"
 }
 
@@ -240,7 +240,7 @@ while IFS= read -r line; do
       state="";;
     "ENDMAINTAINER")
       if [ "$state" = MAINT ]; then
-        run_producer "MAINTAINER" env GARDEN_SENDER="liaison:follow-up" "$HERE/../inbox-send.sh" maintainer
+        run_producer "MAINTAINER" env GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="liaison:follow-up" "$HERE/../inbox-send.sh" maintainer
       fi
       state="";;
     *)

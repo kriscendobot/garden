@@ -158,7 +158,7 @@ mb="$(mktemp)"
   printf 'constraint only `endojs/endo-but-for-bots` is currently authorized for watching —\n'
   printf 'worth confirming `%s` belongs in the set.\n' "$slug"
 } > "$mb"
-if GARDEN_SENDER="triager:$slug" "$HERE/inbox-send.sh" maintainer "$mb"; then
+if GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="triager:$slug" "$HERE/inbox-send.sh" maintainer "$mb"; then
   log "posted triage circuit-breaker maintainer-inbox report for $slug ($new_sha)"
 else
   log "WARN: could not post triage circuit-breaker maintainer report for $slug (breaker stays open)"

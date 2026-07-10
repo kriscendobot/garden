@@ -36,6 +36,21 @@ stay extensionless — they are keyed by the job's spine basename.
   message that needs no answer.
 - The still-working gardener receives the reply through its own `inbox-read.sh`.
 
+## Fully-qualify issue/PR references
+
+Issue/PR references in a message **body** must be **fully-qualified**:
+`owner/repo#N` or a full `https://github.com/owner/repo/(issues|pull)/N` URL —
+these resolve without knowing who sent them, so they render unambiguously
+everywhere. A bare `#N` (or a bare `owner#N` / `GH-N`) is **rejected**: every
+author-written send primitive (`message-user.sh`, `send-msg.sh`, `inbox-send.sh`,
+`maintainer-reply.sh`) runs the deterministic, Markdown-aware
+`check-issue-refs.sh` on the body before the push and refuses to post it,
+printing each offending reference and the remedy. References inside **fenced code
+blocks** (```` ``` ````/`~~~`) and **inline `code` spans** are exempt (a
+`` `rebase #652` `` command example is vocabulary, not a reference), as is an ATX
+heading marker. Machine/relay producers that forward generated or external bodies
+bypass the gate with `GARDEN_SKIP_REF_CHECK=1`.
+
 ## Notes
 
 Both directions CAS over the journal push: senders add (retry), the receiver

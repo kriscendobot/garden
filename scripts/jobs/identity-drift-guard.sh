@@ -61,7 +61,7 @@ emit_maintainer() {
   if [ -n "$GARDEN_IDENTITY_GUARD_MAINTAINER_EMIT" ]; then
     bash -c "$GARDEN_IDENTITY_GUARD_MAINTAINER_EMIT"
   else
-    GARDEN_SENDER="identity-drift-guard:$host_short" "$HERE/inbox-send.sh" maintainer
+    GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="identity-drift-guard:$host_short" "$HERE/inbox-send.sh" maintainer
   fi
 }
 : "${GARDEN_IDENTITY_GUARD_EMIT:=}"

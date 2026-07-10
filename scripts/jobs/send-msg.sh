@@ -87,6 +87,15 @@ elif [ ! -t 0 ];                                then BODY="$(cat)"
 else BODY="(empty message)"
 fi
 
+# Forbid partially-qualified issue/PR references in an AUTHOR-written body (bare
+# `#N`), so the reference resolves unambiguously wherever it renders (see
+# skills/message-bus/SKILL.md, check-issue-refs.sh). Machine/relay callers that
+# broadcast generated bodies set GARDEN_SKIP_REF_CHECK=1 to bypass.
+if [ "${GARDEN_SKIP_REF_CHECK:-0}" != "1" ]; then
+  printf '%s\n' "$BODY" | "$HERE/check-issue-refs.sh" - \
+    || die "message not posted — fully-qualify the issue/PR reference(s) reported above, then retry"
+fi
+
 for attempt in $(seq 1 50); do
   sync_clone "$DIR"
   mkdir -p "$DIR/msgs/$addr"

@@ -423,7 +423,7 @@ alert_maintainer() {
     return 0
   fi
   printf '%s\n' "$msg" \
-    | GARDEN_SENDER="watchdog:${GARDEN_TAG:-jobs}" \
+    | GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="watchdog:${GARDEN_TAG:-jobs}" \
       "$GARDEN_ROOT/scripts/jobs/inbox-send.sh" maintainer >/dev/null 2>&1 || true
   return 0
 }

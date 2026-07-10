@@ -337,7 +337,7 @@ restart_long_running_fleet "$old_sha" "$new_sha" 0
 # tree change; this makes the deploy itself announce). Guardable for tests.
 if [ "$GARDEN_DEPLOY_NO_BROADCAST" != "1" ]; then
   printf '%s deployed to %s — reread your role and skills as needed.\n' "$GARDEN_MAIN_BRANCH" "$new_sha" \
-    | GARDEN_SENDER=deploy-garden "$HERE/send-msg.sh" broadcast >/dev/null 2>&1 \
+    | GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER=deploy-garden "$HERE/send-msg.sh" broadcast >/dev/null 2>&1 \
     || log "post-deploy broadcast skipped (no journal?)"
 fi
 

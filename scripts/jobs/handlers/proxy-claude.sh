@@ -57,7 +57,7 @@ answer_question() {  # answer_question <msgid> <doer> <reply-text>
     printf -- '- question (msgid %s)\n' "$msgid"
     printf -- '- tentative answer: %s\n' "$reply"
   } > "$repf"
-  GARDEN_SENDER="proxy" "$HERE/../inbox-send.sh" maintainer "$repf"
+  GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="proxy" "$HERE/../inbox-send.sh" maintainer "$repf"
   rm -f "$rf" "$repf"
 }
 
@@ -66,7 +66,7 @@ defer_question() {  # defer_question <msgid> <doer> <reason>
   nf="$(mktemp)"
   printf 'awaiting maintainer — beyond proxy authority: gardener %s, msgid %s — %s\n' \
     "$doer" "$msgid" "$reason" > "$nf"
-  GARDEN_SENDER="proxy" "$HERE/../inbox-send.sh" maintainer "$nf"
+  GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="proxy" "$HERE/../inbox-send.sh" maintainer "$nf"
   rm -f "$nf"
 }
 
