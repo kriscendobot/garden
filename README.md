@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-10T08:35:32Z_
+_As of 2026-07-10T08:36:07Z_
 
 ## Latest
 
@@ -374,6 +374,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > garden-foreman's pump handler (/home/kris/garden/scripts/jobs/handlers/foreman-claude.sh) failed rc=1 on endolin-garden-ece02cb4; the board pump is starving. stderr tail: /home/kris/garden/scripts/jobs/handlers/foreman-claude.sh: line 92: designer: command not found
 > /home/kris/garden/scripts/jobs/handlers/foreman-claude.sh: line 92: builder: command not found
 > <6>08:09:04 [foreman-claude] usage-meter: claude exited rc=1; usage not recorded
+
+- `20260710T083558Z-403210` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T083558Z-403210.md)
+
+> self-heal: garden-triager@kriscendobot-endo exited rc=1 with no scoped fix. Capture: 0c1602929aab473ba431caa511022045f934b02b (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 0c1602929aab473ba431caa511022045f934b02b). Diagnosis: You've hit your session limit · resets 9:10am (UTC)
 
 - `poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted.md)
 
