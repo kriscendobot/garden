@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-10T06:18:16Z_
+_As of 2026-07-10T06:22:51Z_
 
 ## Latest
 
@@ -295,23 +295,23 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (9)
-- [`ebfb-hex-native-dispatch-opt`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-hex-native-dispatch-opt.md) — Optimize the @endo/hex package dispatch across platforms
 - [`ebfb-pr580-merge`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr580-merge.md) — Merge endojs/endo-but-for-bots PR #580
+- [`endojs-endo-but-for-bots-pr612-c5154e29`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr612-c5154e29.md) — attention directive on endojs/endo-but-for-bots PR #612
+- [`finbot-progress-20260710-062011`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260710-062011.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`gauntlet-endo-but-for-bots-pr657-mount-json`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr657-mount-json.md) — ---
 - [`gauntlet-endo-but-for-bots-pr661-agent-tools-http-client`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr661-agent-tools-http-client.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
-- [`kriscendobot-agoric-3-proposals-pr1-204d2e99`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-3-proposals-pr1-204d2e99.md) — attention directive on kriscendobot/agoric-3-proposals PR #1
 - [`kriscendobot-agoric-sdk-pr10-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr10-shepherd.md) — shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #10
 - [`kriscendobot-agoric-sdk-pr11-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr11-shepherd.md) — shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #11
 - [`kriscendobot-agoric-sdk-pr12-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr12-fixer.md) — fixer: XS 16.7.1 engine-behavior test failures on kriscendobot/agoric-sdk PR #12
 - [`kriscendobot-agoric-sdk-pr9-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr9-shepherd.md) — shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #9
 
-### tada (1646)
+### tada (1649)
+- [`ebfb-hex-native-dispatch-opt`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-hex-native-dispatch-opt.md) — Completion report
+- [`kriscendobot-agoric-3-proposals-pr1-2fb936b8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-3-proposals-pr1-2fb936b8.md) — Done. The directive resolved cleanly.
+- [`kriscendobot-agoric-3-proposals-pr1-204d2e99`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-3-proposals-pr1-204d2e99.md) — Completion report
 - [`endojs-endo-but-for-bots-pr580-review-3b37d970`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr580-review-3b37d970.md) — Completion report
 - [`build-minion-town-cd-github-workflow`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-minion-town-cd-github-workflow.md) — Completion report
-- [`kriscendobot-agoric-sdk-pr12-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr12-shepherd.md) — Completion report: shepherd on kriscendobot/agoric-sdk PR #12
-- [`endojs-endo-but-for-bots-pr592-review-79bd1b73`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr592-review-79bd1b73.md) — Completion report — review directive on endojs/endo-but-for-bots PR #592
-- [`kriscendobot-agoric-sdk-pr7-ef1c360b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr7-ef1c360b.md) — Completion report
-- … and 1641 more
+- … and 1644 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -344,6 +344,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`kriscendobot-agoric-sdk-pr7-ef1c360b-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr7-ef1c360b-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #7 (primary: kriscendobot-agoric-...
 - [`endojs-endo-but-for-bots-pr580-review-3b37d970-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr580-review-3b37d970-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #580 (primary: endojs-endo-but-f...
 - [`kriscendobot-agoric-3-proposals-pr1-204d2e99-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-3-proposals-pr1-204d2e99-retro.md) — _low_ · Retrospective on kriscendobot/agoric-3-proposals PR #1 (primary: kriscendobot...
+- [`kriscendobot-agoric-3-proposals-pr1-2fb936b8-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-3-proposals-pr1-2fb936b8-retro.md) — _low_ · Retrospective on kriscendobot/agoric-3-proposals PR #1 (primary: kriscendobot...
+- [`endojs-endo-but-for-bots-pr612-c5154e29-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr612-c5154e29-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #612 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
