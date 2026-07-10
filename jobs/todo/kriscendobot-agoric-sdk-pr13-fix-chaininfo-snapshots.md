@@ -49,11 +49,4 @@ fork PR. Leave it.
 
 <!-- garden-deadline-overrun: 1 -->
 
-<!-- garden-reaped: 2 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 18
-  claimed_at: 2026-07-10T12:23:14Z
+<!-- garden-reaped: 3 -->
