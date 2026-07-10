@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/34#issuecomment-4932224277
 Please dispatch a designer to propose an extension to the Endo agent interface and implementations that would introduce support for obtaining a magnet URL for the named, identified, or located readable-blob or readable-tree. In the way the presentation of an Endo locator may have
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 12
+  claimed_at: 2026-07-10T05:20:09Z
