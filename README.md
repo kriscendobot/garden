@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-10T21:42:51Z_
+_As of 2026-07-10T21:45:35Z_
 
 ## Latest
 
-The loudest signal is a merge bottleneck: the M3 mount chain ([#650](https://github.com/endojs/endo-but-for-bots/pull/650), [#652](https://github.com/endojs/endo-but-for-bots/pull/652), [#653](https://github.com/endojs/endo-but-for-bots/pull/653), [#656](https://github.com/endojs/endo-but-for-bots/pull/656), [#658](https://github.com/endojs/endo-but-for-bots/pull/658)) and the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609), [#617](https://github.com/endojs/endo-but-for-bots/pull/617), [#619](https://github.com/endojs/endo-but-for-bots/pull/619)) are build-complete, gauntleted, and green but sitting unmerged on `llm`, and every stacked follower — mount-json [#657](https://github.com/endojs/endo-but-for-bots/pull/657), the git-verb stack behind [#644](https://github.com/endojs/endo-but-for-bots/pull/644), module-loading behind [#659](https://github.com/endojs/endo-but-for-bots/pull/659) — is blocked on them. The foreman has now escalated this four times; forward progress needs merge/authority attention, not more build work. Meanwhile [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) was shepherded to fully green after a rebase onto its fixed base, and two draft follow-ups landed for review: the CLI `--deny` follow-up [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (stacked on #650, awaiting #650's merge before rebase) and a Rust-side mount-glob parity runner [#654](https://github.com/endojs/endo-but-for-bots/pull/654).
+The glob/grep `@endo/platform` pushdown stack (#127) cleared its gauntlet and un-drafted into review as four stacked layers — [#678](https://github.com/endojs/endo-but-for-bots/pull/678) (search engine), [#679](https://github.com/endojs/endo-but-for-bots/pull/679) (`EndoMount.glob`), [#680](https://github.com/endojs/endo-but-for-bots/pull/680) (`EndoMount.grep`), and [#681](https://github.com/endojs/endo-but-for-bots/pull/681) (agent tools) — flagging two merge-gate calls: whether to gate normative grep on the conservative-regexp subset ([#676](https://github.com/endojs/endo-but-for-bots/pull/676)) before it ships its unbounded-RegExp ReDoS surface, and landing design PR [#675](https://github.com/endojs/endo-but-for-bots/pull/675) first so changelog links resolve. The loudest recurring signal is a merge bottleneck: the foreman reports M3 is saturated with green, mergeable, fully-gauntleted work sitting unmerged on `llm` — the mount chain ([#650](https://github.com/endojs/endo-but-for-bots/pull/650)/[#652](https://github.com/endojs/endo-but-for-bots/pull/652)/[#653](https://github.com/endojs/endo-but-for-bots/pull/653)/#656/#658), the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) — blocking every stacked follower, so the fleet needs review/merge attention more than new build work.
 
-Notable decisions await you. The XS-validation effort on the agoric-sdk fork ([#13](https://github.com/kriscendobot/agoric-sdk/pull/13), [#14](https://github.com/kriscendobot/agoric-sdk/pull/14)) is fully green and blocked only on two calls — whether to waive the Depot-gated `force:integration` leg (its package-suite substitute is green) and whether green-on-fork draft #14 counts as "landed" — plus a within-consensus question on golden-snapshot hashes and a `METER_TYPE` bump. Kriskowal closed [#618](https://github.com/endojs/endo-but-for-bots/pull/618) (daemon-agent-tools Phase 4) on capability-leak grounds, deferring to @kumavis; the fleet stood down. Design PR [#595](https://github.com/endojs/endo-but-for-bots/pull/595) was approved and sent to conductor merge, pending a scope call on which of its two approved designs to build. Several jobs surfaced duplicate/collision impasses without opening redundant PRs — the mvs-resolver home is contested between [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (`@endo/exo-npm`) and [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon`), and the Docker-selfhost build job was closed as duplicate of the earlier-declined line, leaving a stale design record to retire. finbot landed three increments to green (SES compartments, multi-instrument portfolios, cyclical forecaster), clearing all stranded branches. One operational pattern worth noticing: a large batch of shepherd/gauntlet jobs are deterministically overrunning the 2400s handler budget and getting poisoned — they need splitting into claim-sized stages or detaching.
+Decisions are also stacking up in the maintainer inbox: the XS-validation effort ([garden#33](https://github.com/kriskowal/garden/issues/33)) has re-escalated three times and is fully green on fork PRs #13/#14, blocked only on waiving the Depot-gated `force:integration` leg and calling draft PR #14 "landed"; [#661](https://github.com/endojs/endo-but-for-bots/pull/661)'s HTTP-client gauntlet is reaper-poisoned and parked awaiting a `go-ahead` promotion now that its blocking lint ceiling shows green; and a `mvs-resolver` build halted on an unsettled architectural split between [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (`@endo/exo-npm`) and [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon`). Separately, kriskowal closed [#618](https://github.com/endojs/endo-but-for-bots/pull/618) over a capability-leak concern in dynamic tool discovery, handing the reopen decision to @kumavis; the fleet stood down. Several dispatched jobs (daemon-locator-terminology, daemon-agent-tools Phase 1, Docker self-host [#134](https://github.com/endojs/endo-but-for-bots/pull/134)) resolved as already-landed or previously-declined, suggesting a few stale design records are re-spawning work.
 
 ## Parked for maintainer feedback
 
@@ -573,6 +573,23 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > word (e.g. "build #595 captp only" / "probe the ses-api design" / "build both")
 > and I'll post it. Naming stays flexible in flight per your note.
 
+- `20260710T214427Z-d5167f` — from gardener:gauntlet-endo-glob-grep-stack, reply_to `gauntlet-endo-glob-grep-stack` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T214427Z-d5167f.md)
+
+> Gauntlet complete on the #127 glob/grep `@endo/platform` pushdown stack (endojs/endo-but-for-bots) — all four layers panel-reviewed with your design tensions weighed, and un-drafted into your queue:
+>
+> - P #678 — `@endo/platform/fs/search` engine
+> - B′ #679 — `EndoMount.glob` delegates
+> - C′ #680 — `EndoMount.grep` decoupled (+ pipeline)
+> - T #681 — agent tools + primer
+>
+> Design tensions all confirmed genuinely resolved by the panels (clean platform/daemon seam via `provideSearch`, intrinsic batching so `Promise<Array>`↔future-stream can't drift, grep decoupled + real CapTP `grep(pattern, glob(g))` pipelining, `isConservativeRegex` native seam). One must-fix (stale coupled-API prose in the grep contract fixture) was fixed and re-pushed. I did NOT halt — but TWO things want your call in review:
+>
+> 1. **grep ReDoS — normative JS grep ships an unbounded `new RegExp(pattern).test()`.** A guest-supplied catastrophic pattern can block the daemon event loop. It's **pre-existing** (identical to merged-track #655; glob was made ReDoS-safe, grep deliberately kept ECMA-262 semantics) so the pushdown is behavior-preserving — I treated it as a design-note, not a stack regression. But the pushdown makes grep a reusable `@endo/platform` primitive, so it's the natural moment to decide: gate grep on the conservative subset (your #676 recommendation — "the subset be the whole grep language") / a linear matcher BEFORE it ships normatively, or accept the interim exposure with follow-up R (native `hostGrepFiles`) gated on @endo/regexp #676. Your decision unblocks nothing here; it's a merge-gate judgment.
+>
+> 2. **Merge ordering:** the impl stack's source/changesets cite `designs/platform-search-pushdown.md`, which lives on the design PR #675 (not in the stack), per the design-then-impl convention. **Land #675 on `llm` before/with this stack** so the changelog link resolves.
+>
+> Full per-layer verdicts + should-fix follow-ups (two latent engine correctness bugs I left as recorded follow-ups rather than edit the 620-line engine blind, since this worktree can't run the endo suite) are posted as comments on each PR.
+
 - `poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -589,21 +606,19 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
-- [`bulletin-maintainer-inbox-issue-links`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/bulletin-maintainer-inbox-issue-links.md) — Render issue/PR numbers as hyperlinks in the bulletin's maintainer inbox
+### doin (4)
 - [`design-spark-gardeners`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-spark-gardeners.md) — Design: introduce Spark gardeners
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
-- [`gauntlet-endo-glob-grep-stack`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-glob-grep-stack.md) — Run the gauntlet on each layer of the endo #127 glob/grep stack
 - [`kriscendobot-agoric-sdk-pr8-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr8-gauntlet.md) — gauntlet directive on kriscendobot/agoric-sdk PR #8
 - [`kriscendobot-agoric-sdk-pr8-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr8-shepherd.md) — shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #8
 
-### tada (1773)
+### tada (1775)
+- [`gauntlet-endo-glob-grep-stack`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-glob-grep-stack.md) — Completion report — gauntlet-endo-glob-grep-stack
+- [`bulletin-maintainer-inbox-issue-links`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/bulletin-maintainer-inbox-issue-links.md) — Completion report: bulletin-maintainer-inbox-issue-links
 - [`endojs-endo-but-for-bots-pr595-merge`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr595-merge.md) — Completion report
 - [`scholar-muse-spark-harness`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-muse-spark-harness.md) — Completion report — scholar-muse-spark-harness
 - [`endojs-endo-but-for-bots-pr609-review-e181c4ae`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr609-review-e181c4ae.md) — Completion report — PR #609 review (kriskowal, review 4673457078)
-- [`endojs-endo-but-for-bots-pr595-review-fa80bee2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr595-review-fa80bee2.md) — Completion report
-- [`xst-validation-orchestrator-20260710-212003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260710-212003.md) — XS-validation orchestrator — tick report (2026-07-10 ~21:25Z, tick posted 21:...
-- … and 1768 more
+- … and 1770 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
