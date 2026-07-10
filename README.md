@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-10T07:29:59Z_
+_As of 2026-07-10T07:38:05Z_
 
 ## Latest
 
-The board is nearly idle — only the [release-automation major-bump design (#665)](https://github.com/endojs/endo-but-for-bots/pull/665) and an XS-upgrade build wrapped up — because the real bottleneck is now merge, not build: both the foreman and the esheets supervisor report M3 saturated in flight, with a ~60-PR ready backlog on the fork's `llm` branch blocking every stacked follower until a human reviews and merges. The mount stack cleared its last CI blocker — [#653 (mount-glob)](https://github.com/endojs/endo-but-for-bots/pull/653) is green after a rebase onto the durable revoke-wake fix that landed on base [#650](https://github.com/endojs/endo-but-for-bots/pull/650), unblocking grep/json followers — but the gauntlet for [#661 (http-client agent tool)](https://github.com/endojs/endo-but-for-bots/pull/661) exhausted 5 requeue cycles and is now poisoned/parked awaiting go-ahead. A few threads need your steer: [#123 (lal-transcript)](https://github.com/endojs/endo-but-for-bots/pull/123) is approved but unmergeable — its fix targets an `agent.js` that no longer exists on `llm`, so it needs a weave or an obsolescence call; [#286 (http-client)](https://github.com/endojs/endo-but-for-bots/pull/286) has a real Node-22 undici/Headers hardening bug wanting a fixer; and the daily esheets supervisor is driving [#621 (endoclaw-oauth design)](https://github.com/endojs/endo-but-for-bots/pull/621) through the gauntlet as the design gate for the whole OAuth→Sheets tree. On the Agoric fork, shepherds diagnosed [#9](https://github.com/kriscendobot/agoric-sdk/pull/9)/[#10](https://github.com/kriscendobot/agoric-sdk/pull/10) as stale-base codegen drift (remedy: merge #8, then weave) and [#12](https://github.com/kriscendobot/agoric-sdk/pull/12) is holding two consensus-affecting decisions (golden snapshot regen, METER_TYPE bump) for your call. Note also several duplicate-detection stops (jobs whose work already landed) and a cluster of shepherd/gauntlet jobs overrunning the 2400s handler budget — a signal those need splitting into claim-sized stages.
+The mount stack cleared its blocker: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now green after a gardener rebased it onto the fixed base [#650](https://github.com/endojs/endo-but-for-bots/pull/650), where the durable `whenRevoked` source fix for the flaky followNameChanges-on-revoke test landed — unblocking the stacked grep ([#655](https://github.com/endojs/endo-but-for-bots/pull/655)) and json ([#657](https://github.com/endojs/endo-but-for-bots/pull/657)) followers, plus new draft PRs for the mount `--deny` CLI ([#652](https://github.com/endojs/endo-but-for-bots/pull/652)) and a Rust glob-parity crate ([#654](https://github.com/endojs/endo-but-for-bots/pull/654)).
+
+The recurring theme, stated twice by the foreman, is that **M3 is now merge-bound, not work-bound**: the mount chain (#650/#652/#653/#655/#657) and the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) are build-complete and gauntleted but sitting unmerged on the fork's `llm`, blocking every stacked follower — so the fleet needs review/merge attention or a go-ahead on the parked next-tranche jobs.
+
+A few items need your steer. The conductor **stalled on [#123](https://github.com/endojs/endo-but-for-bots/pull/123)** (lal-transcript): `llm` diverged hard and rewrote `agent.js` around `makePiAgent`, so the transcript machinery the fix hardens no longer exists — it needs a weave/redesign decision, not a merge. [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (http-client reconcile) has a real Node-22-only undici Headers hardening bug across the CapTP boundary and wants a fixer. The [#661](https://github.com/endojs/endo-but-for-bots/pull/661) HTTP-client-tool gauntlet was **poisoned after 5 requeues** and parked held pending promotion. On the agoric-sdk fork, the [#12](https://github.com/kriscendobot/agoric-sdk/pull/12) XS 16.7.1 fixer is holding two within-consensus questions for you (golden snapshot regeneration and a METER_TYPE bump), while [#10](https://github.com/kriscendobot/agoric-sdk/pull/10) and [#9](https://github.com/kriscendobot/agoric-sdk/pull/9) are red only from stale-base codegen drift that merging [#8](https://github.com/kriscendobot/agoric-sdk/pull/8) would clear. Separately, several long shepherd/gauntlet jobs (#650, #652, #654, #655, #659) are overrunning the 2400s handler budget and risk poisoning unless split into claim-sized stages. Also worth noting: finbot landed its SES-compartments capability-attenuation increment on `main`, and a daily supervisor is now driving the exo-google-sheets tree toward implementation via design gate [#621](https://github.com/endojs/endo-but-for-bots/pull/621).
 
 ## Parked for maintainer feedback
 
@@ -375,16 +379,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`design-explode-platform-into-dimension-packages`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-explode-platform-into-dimension-packages.md) — Design (LOW PRIORITY): explode @endo/platform into focused per-dimension endo...
+- [`self-heal-fix-garden-triager-kriscendobot-agoric-sdk-rev-parse-verify-echoback`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-agoric-sdk-rev-parse-verify-echoback.md) — In scripts/jobs/triager.sh lines 55–56, the ref-resolution uses bare git rev-...
 - [`xst-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-gauntlet.md) — xst-gauntlet — run the XS-upgrade validation gauntlet on the integrated branch
 
-### tada (1671)
+### tada (1673)
+- [`self-heal-fix-garden-triager-kriscendobot-endo-revparse-verify-concat`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-endo-revparse-verify-concat.md) — This job is already complete. The fix and tests described in the spec are ful...
+- [`endojs-endo-but-for-bots-pr595-review-dc9b727f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr595-review-dc9b727f-retro.md) — Completion report
 - [`xst-park-on-fail-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-park-on-fail-build.md) — Completion report — xst-park-on-fail-build
 - [`release-automation-major-bump-exports-trigger`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/release-automation-major-bump-exports-trigger.md) — Design job complete. PR endojs/endo-but-for-bots#665 (draft, base llm) carrie...
 - [`endojs-endo-but-for-bots-pr592-review-79bd1b73-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr592-review-79bd1b73-retro.md) — Completion report
-- [`xst-validation-orchestrator-20260710-072013`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260710-072013.md) — XS-validation orchestrator — hourly tick report (2026-07-10 ~07:22Z)
-- [`minion-town-endo-root-host-bootstrap`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-endo-root-host-bootstrap.md) — Completion report — minion-town-endo-root-host-bootstrap
-- … and 1666 more
+- … and 1668 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -409,8 +415,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr595-review-dc9b727f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr595-review-dc9b727f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #595 (primary: endojs-endo-but-f...
-- [`design-explode-platform-into-dimension-packages`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/design-explode-platform-into-dimension-packages.md) — _low_ · Design (LOW PRIORITY): explode @endo/platform into focused per-dimension endo...
 - [`endojs-endo-but-for-bots-pr442-c4a11879-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr442-c4a11879-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #442 (primary: endojs-endo-but-f...
 - [`kriscendobot-agoric-sdk-pr7-ef1c360b-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr7-ef1c360b-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #7 (primary: kriscendobot-agoric-...
 - [`endojs-endo-but-for-bots-pr580-review-3b37d970-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr580-review-3b37d970-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #580 (primary: endojs-endo-but-f...
