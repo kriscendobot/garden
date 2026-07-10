@@ -1,0 +1,13 @@
+XS-validation orchestrator — hourly tick report (2026-07-10 ~09:45Z, requeued 08:35Z dispatch)
+
+**Assessment.** This tick was a reaped-and-requeued 08:35Z dispatch, claimed after the fresh 09:20Z peer tick had already run — so I first verified the peer's actions to avoid double-acting. The peer had posted this hour's progress comment (issuecomment-4933898208, including the park-on-fail "landed" question to the submitter) and posted `xst-force-integration`. Since then, `xst-force-integration` completed with a **definitive verdict: gauntlet Leg 4 (full-chain `force:integration`) is infeasible on the fork as provisioned** — every consequential `integration.yml` job targets Depot cloud runners provisioned only for the upstream Agoric org (fork has 0 runners; fork OIDC gets `permission_denied` on Depot), the container has no docker for a local a3p run, and the gap is purely fork-infrastructure/pre-existing, not attributable to the variant split or the Moddable bump. All four original workstreams have `tada/` reports; both engine trains are validated at the package level on `xst/integrate-variant-bump` (fork PR #13); park-on-fail v1 is up as draft fork PR #14 (34/34 tests); shepherds are live on PRs #13 and #14.
+
+**Advanced by one step — escalation (tick step 4).** The effort is now stuck on two decisions only the maintainer can make, so this tick's step was the escalation, not a new build job:
+1. Posted the Leg-4 infeasibility verdict and the decision menu — (a) connect the fork to a Depot org, (b) provide a docker-capable host for local a3p-integration, or (c) waive Leg 4 accepting the green package-suite substitute — on issue #33: https://github.com/kriskowal/garden/issues/33#issuecomment-4934079088
+2. Messaged the maintainer directly via the message bus (delivered `20260710T094650Z-557e87`) with both blocking decisions: the Leg-4 host-capability call and the park-on-fail "landed" call (re-raised from the 09:22Z comment, still unanswered).
+
+Deliberately did **not** commission the park-on-fail remainders (panic→park hook, critical-vat policy) — doing so would preempt the maintainer's pending answer on whether they gate "landed."
+
+**No duplication, no new jobs posted.** Inbox drained twice, empty. Upstream Agoric/agoric-sdk untouched; the empirical Leg-4 probe ran fork-only and was cleaned up (run cancelled, label removed) by the builder.
+
+**Follow-ups for the next tick:** watch for the maintainer's answers (inbox reply or issue #33 comment) on the two decisions; on (1a)/(1b) post the re-run of Leg 4, on (1c)+park-yes run the done-check (final summary, maintainer message, remove `schedules/xst-validation-orchestrator.md`). The schedule stays in place — the effort is blocked on maintainer input, not done.
