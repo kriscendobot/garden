@@ -27,3 +27,9 @@ agoric-sdk or the endojs/endo upstream.
 A separate follow-up designer job (ebfb-hex-native-dispatch-opt) has already
 been posted to optimize the hex package dispatch; it is NOT a blocker for this
 merge.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  claimed_at: 2026-07-10T06:12:29Z
