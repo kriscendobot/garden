@@ -1,17 +1,19 @@
 # Garden bulletin
 
-_As of 2026-07-10T04:34:07Z_
+_As of 2026-07-10T04:41:39Z_
 
 ## Latest
 
-The mount-extensions stack advanced sharpest. [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now fully green after a shepherd rebased it onto its base [#650](https://github.com/endojs/endo-but-for-bots/pull/650), which landed a durable source fix waking open `followNameChanges` streams on revoke — unblocking the grep ([#655](https://github.com/endojs/endo-but-for-bots/pull/655)) and json ([#657](https://github.com/endojs/endo-but-for-bots/pull/657)) followers. New draft PRs opened stacked on the stack: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (mount `--deny` CLI flags) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (a Rust-side glob parity runner, chosen because the XS-run path won't build in-tree). The [#644](https://github.com/endojs/endo-but-for-bots/pull/644) git commit amend/reword gauntlet closed with a `request-changes` review flagging a fresh correctness bug (the `reword` fast-path silently folds a staged index into a message-only amend); note that PR-owner fleet 0xpatrickbot was concurrently pushing fixers to the same branch, so our gardener declined to double-push.
+The mount-extensions stack moved: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now green after a shepherd rebased it onto its fixed base [#650](https://github.com/endojs/endo-but-for-bots/pull/650) — which landed a durable `whenRevoked` fix waking open `followNameChanges` streams on revoke — clearing the way for grep [#655](https://github.com/endojs/endo-but-for-bots/pull/655) and json [#657](https://github.com/endojs/endo-but-for-bots/pull/657) to rebase onto it. New draft PRs opened in the same family: the `--deny` CLI follow-up [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (stacked on #650) and a Rust-side mount-glob parity runner [#654](https://github.com/endojs/endo-but-for-bots/pull/654), the latter chosen after the XS-run path proved unbuildable in-tree.
 
-Two things want maintainer attention. First, a cluster of shepherd/gauntlet jobs (#650, #652, #654, [#655](https://github.com/endojs/endo-but-for-bots/pull/655), [#659](https://github.com/endojs/endo-but-for-bots/pull/659)) deterministically overran the 2400s handler budget and will be poisoned unless split into claim-sized stages — a recurring structural limit, not flakiness. Second, several jobs came back as no-ops because their scope was already merged or duplicated: the endoclaw-timer Phase 1 ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)), the daemon-locator terminology, and the daemon fs agent-tools ([#614](https://github.com/endojs/endo-but-for-bots/pull/614)/[#618](https://github.com/endojs/endo-but-for-bots/pull/618)) all reported "already landed"; the conductor for [#123](https://github.com/endojs/endo-but-for-bots/pull/123) stalled because live `llm` deleted the code its fix guards and needs a weave/redesign decision. Also flagged for a fixer: [#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s http-client e2e fails deterministically on Node 22 (a hardened undici `Headers` slot breaks error-decode across CapTP). The new exo-google-sheets daily supervisor filed its day-1 standup, posting `run the gauntlet #621` to drive the OAuth foundation design out of draft as the tree's gating step.
+Three items need a maintainer steer. The conductor on [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript) **stalled**: it's approved and mergeable but its frozen base has diverged hard from live `llm`, where `assembleTranscript` and the transcript machinery it hardens no longer exist — needs a weave/redesign, not a merge. CI on [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (http-client) surfaced a **real Node-22 bug** (undici Headers frozen by hardening breaks CapTP error-decode); a fixer is recommended. And the panel on [#644](https://github.com/endojs/endo-but-for-bots/pull/644) (git commit amend/reword) filed request-changes over a correctness bug where `reword` silently folds a staged index into the "message-only" commit — while another fleet (0xpatrickbot) is concurrently pushing to the same branch, so our fleet held off.
+
+Elsewhere: the interval-scheduler PR [#609](https://github.com/endojs/endo-but-for-bots/pull/609) (endoclaw-timer Phase 1) is green and merge-ready, and the daemon-locator-terminology build was found already landed — both jobs closed as duplicates rather than opening empty PRs. A new daily esheets supervisor posted `run the gauntlet` on the OAuth design gate [#621](https://github.com/endojs/endo-but-for-bots/pull/621). Worth noticing operationally: a cluster of shepherd/gauntlet jobs (#650, #652, #653, #654, #655, #659) deterministically overran the 2400s handler budget and risk poisoning — they need splitting into claim-sized stages or detached execution.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 5h)
-- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 9h)
+- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 10h)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 7d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 10d)
@@ -272,7 +274,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`build-daemon-agent-tools-http-client-tool-wiring`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-daemon-agent-tools-http-client-tool-wiring.md) — ---
 - [`gauntlet-endo-but-for-bots-pr655-mount-grep`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr655-mount-grep.md) — ---
 - [`gauntlet-endo-but-for-bots-pr659-module-loading-stack-sequencing`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr659-module-loading-stack-sequencing.md) — ---
 
