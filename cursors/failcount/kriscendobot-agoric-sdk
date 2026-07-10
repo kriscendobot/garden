@@ -1,4 +1,4 @@
-fail_sha: refs/remotes/origin/master
-37a4fa31964909c7876f8dcdf2f9bfd722d3f42c
-fail_count: 1
-last_failed_at: 2026-07-10T11:09:49Z
+fail_sha: 
+fail_count: 0
+cleared_at: 2026-07-10T11:10:12Z
+cleared_by: self-heal-fix-garden-triager-kriscendobot-agoric-sdk-revparse-verify-guard
