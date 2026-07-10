@@ -65,3 +65,9 @@ surface preserved with grep taking paths (not glob-as-option), streaming seams
 left per design, and the agent-tool-surface + primer updated. Each layer is
 locally verified and ready for its gauntlet. The `tada` report lists the layers
 built, the commits/branches per layer, and any design gaps hit.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 16
+  claimed_at: 2026-07-10T19:58:10Z
