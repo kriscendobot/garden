@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-10T17:35:24Z_
+_As of 2026-07-10T17:38:35Z_
 
 ## Latest
 
@@ -457,11 +457,12 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr288-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr288-gauntlet.md) — gauntlet directive on endojs/endo-but-for-bots PR #288
 - [`endojs-endo-but-for-bots-pr592-01edab2b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-01edab2b.md) — attention directive on endojs/endo-but-for-bots PR #592
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
 - [`endojs-endo-but-for-bots-pr650-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr650-conduct.md) — Conduct (merge) endojs/endo-but-for-bots PR #650
+- [`readme-control-surface-illustrations`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/readme-control-surface-illustrations.md) — Document novel control-surface uses in the garden README
 
 ### tada (1742)
 - [`gauntlet-endo-but-for-bots-pull-request-672-genie-subscription-oauth`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pull-request-672-genie-subscription-oauth.md) — Completion report — gauntlet on endojs/endo-but-for-bots #672 "feat(genie): w...
