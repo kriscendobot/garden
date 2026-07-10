@@ -65,6 +65,8 @@
 | [pi-agent-sync (athanor)](../sections/athanor--readme--pi-agent-sync.md) | local-model-serving, llm-agent-frameworks | Athanor publishes local MLX/llama.cpp models into pi-agent's (badlogic/pi-mono) provider registry; the serving-side surface that endo-but-for-bots' endopi provider-registry-and-oauth design re-imagines under least authority. |
 | [Symphony overview (fleet orchestration)](../sections/web--openai-symphony-codex-orchestration--overview.md) | Symphony (OpenAI) | OpenAI's Symphony turns a Linear board into a control plane for coding agents; the multi-agent management layer above single-agent frameworks (see agent-fleet-orchestration). |
 | [Symphony spec-as-product and dogfooding](../sections/web--openai-symphony-codex-orchestration--spec-driven-dogfooding.md) | Symphony (OpenAI) | Symphony ships as a single SPEC.md with an Elixir reference impl and uses Codex App Server; the reference-implementation-as-product posture. |
+| [overview (Muse Spark via llm-meta-ai)](../sections/web--willison-muse-spark-1-1--overview.md) | frontier-model-apis, llm-agent-frameworks | Simon Willison's LLM CLI + `llm-meta-ai` plugin as the harness for Meta's Muse Spark 1.1; the entry point connecting a hosted frontier model to a scriptable tool-calling loop. |
+| [llm-meta-ai invocation and features](../sections/web--simonw-llm-meta-ai--invocation-and-features.md) | llm-agent-frameworks | The full harness path (install/auth/model/attachments/tools/schemas) and the tool-execution-loop mechanism that makes an agentic loop reachable for Muse Spark through `llm`. |
 
 ## See also
 
