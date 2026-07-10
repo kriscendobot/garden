@@ -8,3 +8,9 @@ Fix:
 3. Optional but recommended: on handler failure, surface why. The triager's `die "triage handler failed"` gives no cause; consider having the handler not suppress git's stderr for this diagnostic step, or log a bounded reason, so a future recurrence lands a real signature in the self-heal blob instead of an empty one.
 
 Add/adjust a test alongside the existing handler tests covering the empty-`old` (first-triage) path so this regression is caught: assert the handler succeeds and produces a non-empty change summary when `old` is empty.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  claimed_at: 2026-07-10T03:12:08Z
