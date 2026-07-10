@@ -8,6 +8,7 @@ Run the gauntlet on endojs/endo-but-for-bots PR #659 ("design: accept and sequen
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
