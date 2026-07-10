@@ -10,3 +10,9 @@ a review-thread response, or a design tweak — and do it within work-job bounds
 If the follow-up needs a maintainer decision, exceeds work-job bounds, or the
 comment is ambiguous, report back to the maintainer inbox rather than guessing.
 Post a PR comment/review reply only if the comment explicitly asks for one.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 11
+  claimed_at: 2026-07-10T22:12:30Z
