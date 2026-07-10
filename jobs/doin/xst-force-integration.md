@@ -49,3 +49,9 @@ paths is feasible, in order of preference:
   5.5.0 bump, or is pre-existing on the fork baseline (compare against fork
   master where cheap). Do NOT force-fix consensus-sensitive behavior without
   flagging it.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  claimed_at: 2026-07-10T09:22:28Z
