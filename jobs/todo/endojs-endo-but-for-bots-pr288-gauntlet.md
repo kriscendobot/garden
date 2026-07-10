@@ -15,10 +15,4 @@ Please run the gauntlet.
 
 <!-- garden-deadline-overrun: 1 -->
 
-<!-- garden-reaped: 3 -->
-
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 18
-  claimed_at: 2026-07-10T18:23:28Z
+<!-- garden-reaped: 4 -->
