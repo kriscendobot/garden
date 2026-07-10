@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: orch-spark-gardeners
-priority: normal
-posted_by: producer
-posted_at: 2026-07-10T21:19:47Z
+role: designer
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-10T21:40:04Z -->
 
 ---
 role: designer
