@@ -13,3 +13,9 @@ Harden line 50 to capture and report the failure before returning nonzero. Concr
     rm -f "$err"
 
 so a recurring `claude -p` failure emits a distinct signature (exit code + stderr head) that a future self-heal/mentor tick can classify as environmental-vs-code rather than a blank FATAL. Keep the non-zero exit so triager.sh still leaves the cursor to retry. Do not change the retry/cursor semantics — only add the diagnostic.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 10
+  claimed_at: 2026-07-10T00:09:56Z
