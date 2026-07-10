@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-10T15:02:39Z_
+_As of 2026-07-10T15:16:34Z_
 
 ## Latest
 
-The endopi tool stack advanced: [endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) (provider-registry OAuth) cleared the gauntlet and is un-drafted, while shepherds rebased [#667](https://github.com/endojs/endo-but-for-bots/pull/667) (genie stdio JSONL-RPC bridge), [#668](https://github.com/endojs/endo-but-for-bots/pull/668) (endopi edit tool), and [#669](https://github.com/endojs/endo-but-for-bots/pull/669) (endopi JSONL transcript format) onto the fixed-lint `llm` base — all three are now claimed for the gauntlet. Earlier, [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) went fully green after a deflake-then-rebase onto its fixed base, unblocking the grep/json followers.
+The endopi tool stack advanced: the gauntlet finished on [endo-but-for-bots#668](https://github.com/endojs/endo-but-for-bots/pull/668) (edit tool) and [#670](https://github.com/endojs/endo-but-for-bots/pull/670) (provider-registry OAuth, now un-drafted and mergeable), with [#667](https://github.com/endojs/endo-but-for-bots/pull/667) (genie stdio JSONL bridge) and [#669](https://github.com/endojs/endo-but-for-bots/pull/669) (endopi JSONL transcript) still in the gauntlet after both were rebased onto the lint-fixed `llm`. The mount stack cleared its last hurdle — [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is green after a rebase onto the durable revoke-wake fix that landed on base [#650](https://github.com/endojs/endo-but-for-bots/pull/650).
 
-The signal a maintainer should act on: the foreman reports M3 is **saturated with ready-but-unmerged work** — the daemon-mount chain (#650/#653/#655/#657/#658), the endoclaw-timer stack (#609/#617/#619), and agent-tools #618 are all CI-green and mergeable but stranded on `llm`, blocking every stacked follower, so the fleet has no unblocked build step left to claim; forward progress now needs review/merge attention, not more queued work. Separately, the Docker-selfhost build halted itself as complete-as-declined (re-attempting the already-closed [#134](https://github.com/endojs/endo-but-for-bots/pull/134) line) and the liaison is asking whether to retire the stale design record that keeps re-spawning it; the XS-validation effort (garden#33) has converged on both fork trains and is blocked only on two maintainer decisions (a Leg-4 integration waiver and whether draft fork PR #14 counts as landed).
+The dominant signal is a merge bottleneck, not a work shortage: the foreman reported three times that M3 is saturated and the fleet has **no unblocked build work** because the mount chain ([#650](https://github.com/endojs/endo-but-for-bots/pull/650)/[#652](https://github.com/endojs/endo-but-for-bots/pull/652)/[#653](https://github.com/endojs/endo-but-for-bots/pull/653)/[#656](https://github.com/endojs/endo-but-for-bots/pull/656)/[#658](https://github.com/endojs/endo-but-for-bots/pull/658)), the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)), and daemon-agent-tools [#618](https://github.com/endojs/endo-but-for-bots/pull/618) are all CI-green and mergeable but sitting unmerged on the fork's `llm`, blocking every stacked follower. Several things need your decision: conducting [#123](https://github.com/endojs/endo-but-for-bots/pull/123) is blocked because live `llm` deleted the code it hardens (needs a weave or a call that the fix is obsolete); the XS-validation effort (garden#33) is fully green but parked on two calls — waive the Depot-gated integration leg, and whether draft fork PRs [agoric-sdk#13](https://github.com/kriscendobot/agoric-sdk/pull/13)/[#14](https://github.com/kriscendobot/agoric-sdk/pull/14) count as "landed"; and the agoric-sdk XS-16.7.1 fixer wants your ruling on regenerating golden snapshot hashes and bumping `METER_TYPE`. On the operational side, the [#661](https://github.com/endojs/endo-but-for-bots/pull/661) HTTP-client gauntlet exhausted its requeues and is parked as poison, the `build-endo-daemon-docker-selfhost` job halted as re-attempting the already-declined [#134](https://github.com/endojs/endo-but-for-bots/pull/134) direction, the foreman pump is crashing on a `designer: command not found` shell bug, and a run of gauntlet/shepherd jobs keep overrunning the 2400s handler budget — a recurring sign those stages need splitting into claim-sized stages.
 
 ## Parked for maintainer feedback
 
@@ -484,18 +484,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`gauntlet-endo-but-for-bots-pull-request-667-genie-stdio-jsonl-rpc-bridge`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-667-genie-stdio-jsonl-rpc-bridge.md) — Run the gauntlet on endojs/endo-but-for-bots draft PR #667 (feat(genie): stdi...
-- [`gauntlet-endo-but-for-bots-pull-request-668-endopi-edit-tool`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-668-endopi-edit-tool.md) — Run the gauntlet on endojs/endo-but-for-bots PR #668 (endopi-edit-tool, the L...
 - [`gauntlet-endo-but-for-bots-pull-request-669-endopi-jsonl-transcript-format`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-669-endopi-jsonl-transcript-format.md) — Run the gauntlet on endojs/endo-but-for-bots PR #669 (endopi-jsonl-transcript...
 
-### tada (1721)
+### tada (1722)
+- [`gauntlet-endo-but-for-bots-pull-request-668-endopi-edit-tool`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pull-request-668-endopi-edit-tool.md) — Completion report
 - [`gauntlet-endo-but-for-bots-pull-request-670-provider-registry-oauth`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pull-request-670-provider-registry-oauth.md) — The gauntlet is complete. Final state: PR #670 is **un-drafted**, mergeStateS...
 - [`xst-validation-orchestrator-20260710-142002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260710-142002.md) — XS-validation orchestrator — tick report (2026-07-10 ~14:20Z)
 - [`shepherd-endo-but-for-bots-pull-request-669-endopi-jsonl-transcript-format-rebase-onto-fixed-lint-llm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pull-request-669-endopi-jsonl-transcript-format-rebase-onto-fixed-lint-llm.md) — Completion report
 - [`shepherd-endo-but-for-bots-pull-request-667-genie-stdio-jsonl-rpc-bridge-rebase-onto-fixed-lint-llm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pull-request-667-genie-stdio-jsonl-rpc-bridge-rebase-onto-fixed-lint-llm.md) — CI is green on PR #667. No push or garden change was needed. Report follows.
-- [`shepherd-endo-but-for-bots-pull-request-668-endopi-edit-tool-rebase-onto-fixed-lint-llm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pull-request-668-endopi-edit-tool-rebase-onto-fixed-lint-llm.md) — Completion report
-- … and 1716 more
+- … and 1717 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
