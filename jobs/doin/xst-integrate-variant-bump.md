@@ -48,3 +48,9 @@ Integration contract:
 Record a `pr-mirrors`-style note is NOT needed (this is fork-original work, not a
 mirror). Deterministic branch + Draft PR + a thorough completion report are the
 deliverables.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 9
+  claimed_at: 2026-07-10T06:52:14Z
