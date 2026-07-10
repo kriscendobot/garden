@@ -121,3 +121,9 @@ attenuation".
   (Reference-status `designs/` doc by default).
 - PR #621 stays draft; no PR comments posted absent authorization.
 - Report names the files changed and any open questions surfaced.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 20
+  claimed_at: 2026-07-10T16:48:13Z
