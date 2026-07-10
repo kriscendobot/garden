@@ -32,7 +32,10 @@ it cannot yet attribute spend per job / role / model, and a completed job's
 `tada/` report carries no cost block. Every gardener job is a `claude -p` run
 whose transcript carries the same `usage`, and the job base is a natural
 attribution key — so the pattern is directly buildable. Routed to the liaison as
-a self-improvement during the unum ingest (cycle 2026-07-10).
+a self-improvement during the unum ingest (cycle 2026-07-10), and realized the
+same day as the garden design `designs/token-cost-ledger.md` on `main2` (which
+widens the accepted `designs/tada-token-accounting.md` record into this
+concept's attributed CostRecord shape).
 
 ## Sections that touch this concept
 
