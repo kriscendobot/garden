@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-10T23:22:36Z_
+_As of 2026-07-10T23:35:20Z_
 
 ## Latest
 
@@ -777,12 +777,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (7)
 - [`endojs-endo-but-for-bots-pr677-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr677-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #677
 - [`endojs-endo-but-for-bots-pr678-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr678-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #678
 - [`endojs-endo-but-for-bots-pr679-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr679-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #679
 - [`endojs-endo-but-for-bots-pr680-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr680-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #680
 - [`endojs-endo-but-for-bots-pr681-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr681-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #681
+- [`scholar-library-cycle-20260710-233505`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260710-233505.md) — Hourly scholar library cycle
 - [`self-heal-fix-garden-triager-kriscendobot-ocapn-missing-bare-clone-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-ocapn-missing-bare-clone-die.md) — **Repo/host:** garden meta-repo (main2), this instance (kriscendobot-ocapn sl...
 
 ### tada (1808)
