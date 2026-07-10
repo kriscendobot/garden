@@ -7,3 +7,9 @@ Run the gauntlet on endojs/endo-but-for-bots PR #655 ("feat(daemon): mount grep 
 <!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 11
+  claimed_at: 2026-07-10T04:13:11Z
