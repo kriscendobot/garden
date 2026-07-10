@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-10T02:19:02Z_
+_As of 2026-07-10T02:27:27Z_
 
 ## Latest
 
-The daemon locator-terminology build closed out as a no-op: the gardener found the design [already merged on `llm`](https://github.com/endojs/endo-but-for-bots/pull/34) (commits for the `endo://` locator scheme + `@`-delimited hints) and declined to open a duplicate, recommending the design be marked complete with the `LOCAL_NODE` storage-normalization phase split off as a separate M-sized job. It was one of several "already delivered" impasses this cycle — the interval-scheduler build maps to open green [#609](https://github.com/endojs/endo-but-for-bots/pull/609), and the daemon fs agent-tools ask is split across landed [#614](https://github.com/endojs/endo-but-for-bots/pull/614) and stale/conflicting draft [#618](https://github.com/endojs/endo-but-for-bots/pull/618) (now in the gauntlet), where the wiring PR needs a weave before it can land.
+The endo-but-for-bots mount stack advanced: [#653 (mount-glob)](https://github.com/endojs/endo-but-for-bots/pull/653) is green again after a gardener rebased it onto the now-fixed [#650 (mount-revocation)](https://github.com/endojs/endo-but-for-bots/pull/650) base — the durable `whenRevoked` deflake landed on #650, so the redundant test-only patch was dropped — which unblocks the stacked grep ([#655](https://github.com/endojs/endo-but-for-bots/pull/655)) and json ([#657](https://github.com/endojs/endo-but-for-bots/pull/657)) followups; gauntlets are now running on #653 and on [#618 (agent-tools phase 4)](https://github.com/endojs/endo-but-for-bots/pull/618). New draft PRs opened for the mount CLI deny flags ([#652](https://github.com/endojs/endo-but-for-bots/pull/652), stacked on #650) and a Rust-side glob parity crate ([#654](https://github.com/endojs/endo-but-for-bots/pull/654)), both awaiting a steer on sequencing.
 
-The mount stack advanced: [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now fully green after a rebase onto the fixed [#650](https://github.com/endojs/endo-but-for-bots/pull/650) base (whose durable `whenRevoked` stream-wake fix landed independently), unblocking grep [#655](https://github.com/endojs/endo-but-for-bots/pull/655) and json [#657](https://github.com/endojs/endo-but-for-bots/pull/657) to rebase; the Rust-side mount-parity guard shipped as draft [#654](https://github.com/endojs/endo-but-for-bots/pull/654), and a new deny-CLI follow-up landed as draft [#652](https://github.com/endojs/endo-but-for-bots/pull/652), stacked on #650.
+Three things need a decision. [#286 (http-client reconcile)](https://github.com/endojs/endo-but-for-bots/pull/286) has a real, deterministic Node-22 failure — hardening freezes undici's lazy `Symbol(headers map sorted)` slot so CapTP error-decode throws; it passes on Node 24 and wants a fixer. [#123 (lal-transcript fix)](https://github.com/endojs/endo-but-for-bots/pull/123) is approved but the conductor stalled: its frozen base diverged hard from `llm`, where `assembleTranscript` was rewritten out of existence — it needs a weave/redesign, not a merge. And the esheets daily supervisor reports [#621 (endoclaw-oauth foundation)](https://github.com/endojs/endo-but-for-bots/pull/621) is now the design gate for the whole exo-google-sheets tree; a gauntlet was posted to drive it out of draft.
 
-Three things want a decision. **[#123](https://github.com/endojs/endo-but-for-bots/pull/123)** (fix/lal-transcript) is **stalled at conduct** — it's approved and green, but its frozen snapshot base has diverged hard from `llm`, where `agent.js` was rewritten around `makePiAgent` and the `assembleTranscript` machinery it hardens no longer exists; the conductor merged nothing and recommends a weave or a judgment that the fix is obsolete. **[#286](https://github.com/endojs/endo-but-for-bots/pull/286)** (http-client) has a real, deterministic **Node-22-only CI failure** — undici's lazy `Symbol(headers map sorted)` slot on a live `Headers` object breaks error-decode across CapTP when hardened; a fixer is warranted (green on Node 24). And the esheets supervisor posted the gauntlet on OAuth design gate [#621](https://github.com/endojs/endo-but-for-bots/pull/621), the deepest unblocked node for the exo-google-sheets tree — nothing downstream builds until it merges. Separately, watchdog flagged that the shepherd jobs for #650, #652, and #654 each **overran the 2400s handler budget** and risk poisoning — they need splitting into claim-sized stages or a detached run.
+Several jobs turned out to be already-satisfied duplicates — daemon locator-terminology (merged via #34), agent-tools phase 1 ([#614](https://github.com/endojs/endo-but-for-bots/pull/614) landed, [#618](https://github.com/endojs/endo-but-for-bots/pull/618) is the conflicting wiring), and interval-scheduler ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)) — with no colliding PRs opened. Watch for a recurring operational signal: four shepherd jobs (#650, #652, #653, #654 CI-green) deterministically overran the 2400s handler budget, and the foreman is holding two stuck re-posts (endoclaw-timer phase 4, and the #653 shepherd) pending review.
 
 ## Parked for maintainer feedback
 
@@ -19,8 +19,8 @@ Three things want a decision. **[#123](https://github.com/endojs/endo-but-for-bo
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 10d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 13d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 24d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 48d)
-- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 48d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 49d)
+- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 49d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 50d)
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
@@ -254,7 +254,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`design-endo-but-for-bots-module-loading-stack-registry-mvs-snapshot-import-sequencing`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-but-for-bots-module-loading-stack-registry-mvs-snapshot-import-sequencing.md) — ---
 - [`gauntlet-endo-but-for-bots-pr618-agent-tools-phase4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr618-agent-tools-phase4.md) — ---
 - [`gauntlet-endo-but-for-bots-pr653-mount-glob`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr653-mount-glob.md) — Run the gauntlet on endojs/endo-but-for-bots PR #653 ("feat(daemon): mount gl...
 
