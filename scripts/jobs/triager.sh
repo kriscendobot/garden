@@ -52,8 +52,8 @@ ref="$GARDEN_WATCH_REF"
 if [ -z "$ref" ]; then
   ref="$(git --git-dir="$BARE" symbolic-ref --short HEAD 2>/dev/null || echo master)"
 fi
-new_sha="$(git --git-dir="$BARE" rev-parse --verify -q "refs/remotes/origin/$ref" 2>/dev/null \
-            || git --git-dir="$BARE" rev-parse --verify -q "$ref" 2>/dev/null)" \
+new_sha="$(git --git-dir="$BARE" rev-parse --verify -q "refs/remotes/origin/$ref" \
+            || git --git-dir="$BARE" rev-parse --verify -q "$ref")" \
   || die "cannot resolve ref '$ref' in $slug"
 
 # The poll cursor lives in the JOURNAL (durable + shared), not host-local state,
