@@ -2,7 +2,7 @@
 order: serial
 children: scholar-muse-spark-harness design-spark-gardeners
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-07-10T21:19:53Z
 ---
