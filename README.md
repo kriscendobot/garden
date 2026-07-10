@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-10T07:43:06Z_
+_As of 2026-07-10T07:46:17Z_
 
 ## Latest
 
-Two build stacks reached the finish line but are jammed on merge, and the foreman is now explicitly asking for review attention. The mount-glob PR [#653](https://github.com/endojs/endo-but-for-bots/pull/653) went green after a rebase onto its fixed base [#650](https://github.com/endojs/endo-but-for-bots/pull/650) (a durable `whenRevoked` fix for idle `followNameChanges` streams landed there), unblocking the stacked grep [#655](https://github.com/endojs/endo-but-for-bots/pull/655) and json [#657](https://github.com/endojs/endo-but-for-bots/pull/657) followers, plus the CLI [#652](https://github.com/endojs/endo-but-for-bots/pull/652) and Rust-parity [#654](https://github.com/endojs/endo-but-for-bots/pull/654) drafts. The endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) is likewise build-complete and gauntleted but sitting unmerged on `llm`; the foreman reports M3 saturated with a ~60-PR ready backlog and no unblocked build work left to post — forward progress now needs merge/authority decisions, not more building.
+The board is quiet — only [`design-explode-platform-into-dimension-packages`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-explode-platform-into-dimension-packages.md) completed since the last bulletin — but the message queue tells the real story: Milestone M3 is merge-blocked, not work-blocked. The mount chain ([#650](https://github.com/endojs/endo-but-for-bots/pull/650)/[#652](https://github.com/endojs/endo-but-for-bots/pull/652)/[#653](https://github.com/endojs/endo-but-for-bots/pull/653)/#656/#658) and the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) are build-complete and gauntleted but sitting unmerged on the fork's `llm` branch, and the foreman escalated **twice** that the fleet has no unblocked build step left — forward progress now needs review/merge of the ready backlog, a maintainer/conductor call. On the bright side, [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now fully green after a rebase onto its fixed base, unblocking the grep (#655) and json (#657) followers.
 
-A few items need a maintainer steer. Conductor **stalled on [#123](https://github.com/endojs/endo-but-for-bots/pull/123)**: its base snapshot has diverged hard from live `llm`, where `agent.js` was rewritten around `makePiAgent` and the `assembleTranscript` machinery the fix hardens no longer exists — recommend weave-or-obsolete before re-conducting. The http-client reconcile [#286](https://github.com/endojs/endo-but-for-bots/pull/286) has a real Node-22-only CI failure (undici's lazy `Headers` symbol gets frozen by hardening across CapTP) needing a fixer. The agent-tools HTTP-client gauntlet [#661](https://github.com/endojs/endo-but-for-bots/pull/661) was poisoned after five requeue cycles and parked in `plan/` pending promotion. The esheets daily supervisor opened day 1 and posted a gauntlet on design gate [#621](https://github.com/endojs/endo-but-for-bots/pull/621).
-
-On the fork side, the agoric-sdk XS 16.7.1 mirror ([#12](https://github.com/kriscendobot/agoric-sdk/pull/12)) is waiting on two consensus calls (golden-snapshot regeneration and a `METER_TYPE` bump); shepherds on [#10](https://github.com/kriscendobot/agoric-sdk/pull/10) and [#9](https://github.com/kriscendobot/agoric-sdk/pull/9) trace their red checks to fetched-chain-info drift/stale base, both pointing at merging [#8](https://github.com/kriscendobot/agoric-sdk/pull/8) then weaving. finbot landed its SES-compartments increment on `main` but flags a recurring stranding problem — nobody is fast-forwarding builder branches promptly. The minion.town root-host bootstrap ([#7](https://github.com/kriscendobot/minion.town/pull/7)) is delivered but blocked behind two deployment gates, one of which only the maintainer can clear.
+A few items want your direct attention: [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (http-client reconcile) has a **real Node-22 bug** — undici's lazily-cached `Headers` slot gets frozen and breaks CapTP error-decode — and needs a fixer; [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript) is stalled because live `llm` rewrote `agent.js` out from under the fix, so it needs a weave/redesign rather than a conduct. The gauntlet on [#661](https://github.com/endojs/endo-but-for-bots/pull/661) exhausted its requeues and is parked as poison (held on go-ahead). On the fork-experiment side, agoric-sdk PRs #9/#10/#12 are all diagnosed as stale-base red (codegen drift owned by #8), and #12's fixer is holding on two within-consensus decisions (golden snapshot hashes, METER_TYPE bump). Several gardeners also reported jobs already satisfied by existing PRs ([#609](https://github.com/endojs/endo-but-for-bots/pull/609), locator terminology, daemon-agent-tools #614/#618), so no duplicates were opened. One operational note worth watching: multiple shepherd/gauntlet jobs are deterministically overrunning the 2400s handler budget and risk poisoning — they need splitting into claim-sized stages.
 
 ## Parked for maintainer feedback
 
@@ -379,16 +377,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`design-explode-platform-into-dimension-packages`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-explode-platform-into-dimension-packages.md) — Design (LOW PRIORITY): explode @endo/platform into focused per-dimension endo...
+### doin (0)
+(none)
 
-### tada (1675)
+### tada (1676)
+- [`design-explode-platform-into-dimension-packages`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-explode-platform-into-dimension-packages.md) — Design job complete: designs/platform-dimension-packages.md authored on branc...
 - [`xst-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-gauntlet.md) — Completion report — xst-gauntlet
 - [`self-heal-fix-garden-triager-kriscendobot-agoric-sdk-rev-parse-verify-echoback`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-sdk-rev-parse-verify-echoback.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-endo-revparse-verify-concat`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-endo-revparse-verify-concat.md) — This job is already complete. The fix and tests described in the spec are ful...
 - [`endojs-endo-but-for-bots-pr595-review-dc9b727f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr595-review-dc9b727f-retro.md) — Completion report
-- [`xst-park-on-fail-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-park-on-fail-build.md) — Completion report — xst-park-on-fail-build
-- … and 1670 more
+- … and 1671 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
