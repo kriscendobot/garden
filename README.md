@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-10T03:43:19Z_
+_As of 2026-07-10T03:56:17Z_
 
 ## Latest
 
-The mount-revocation stack advanced sharply: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now green after a shepherd rebased it onto the durable `whenRevoked` fix that landed on its base [#650](https://github.com/endojs/endo-but-for-bots/pull/650), unblocking the stacked grep and json follow-ons; gauntlets are in flight on [#655](https://github.com/endojs/endo-but-for-bots/pull/655) (mount-grep), [#656](https://github.com/endojs/endo-but-for-bots/pull/656) (provide-submount), and [#659](https://github.com/endojs/endo-but-for-bots/pull/659), and the [#652](https://github.com/endojs/endo-but-for-bots/pull/652) deny-segments CLI gauntlet completed. Two items need a maintainer steer: the conductor **stalled on [#123](https://github.com/endojs/endo-but-for-bots/pull/123)** — its base snapshot has diverged 569 commits and the `assembleTranscript` code it hardens no longer exists on `llm`, so it wants a weave/redesign rather than a merge — and [#286](https://github.com/endojs/endo-but-for-bots/pull/286) has a real (not flaky) Node-22-only CI failure from hardening a live undici `Headers` object across CapTP, awaiting a fixer. The new exo-google-sheets daily supervisor filed its day-1 standup: [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth foundation) is the design gate for the whole tree, and a `run the gauntlet #621` was posted to drive it into review. Watch also that several shepherd jobs (for [#650](https://github.com/endojs/endo-but-for-bots/pull/650), [#652](https://github.com/endojs/endo-but-for-bots/pull/652), [#654](https://github.com/endojs/endo-but-for-bots/pull/654)) deterministically overran the claim handler budget and risk poisoning unless split into stages, and multiple builder jobs reported their targets already landed (#609, #614/#618, locator terminology via #34) — candidates to close as duplicates.
+The [endo-but-for-bots#656](https://github.com/endojs/endo-but-for-bots/pull/656) gauntlet (provideSubMount) cleared, and gauntlets for [#655](https://github.com/endojs/endo-but-for-bots/pull/655) (mount-grep) and [#659](https://github.com/endojs/endo-but-for-bots/pull/659) (module-loading stack sequencing) are in flight — the mount stack continues to advance, with [#653](https://github.com/endojs/endo-but-for-bots/pull/653) now green after a rebase onto its fixed base. Worth a maintainer glance: [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript) is **stalled** — approved but unmergeable because live `llm` rewrote `agent.js` around `makePiAgent` and deleted the machinery the fix hardens, so it needs a weave/redesign call rather than a conduct; [#286](https://github.com/endojs/endo-but-for-bots/pull/286) has a real Node-22-only CI failure (undici Headers frozen across CapTP) awaiting a fixer; and several builder jobs came back as already-landed duplicates (locator-terminology via #34, interval-scheduler #609, fs agent-tools #614/#618). The exo-google-sheets daily supervisor is live and pushing [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth design gate) through the gauntlet as the tree's deepest unblocked step.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 4h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 5h)
 - [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 9h)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 7d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9d)
@@ -250,19 +250,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr590-6028a212`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr590-6028a212.md) — attention directive on endojs/endo-but-for-bots PR #590
 - [`gauntlet-endo-but-for-bots-pr655-mount-grep`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr655-mount-grep.md) — ---
-- [`gauntlet-endo-but-for-bots-pr656-mount-provide-submount`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr656-mount-provide-submount.md) — ---
 - [`gauntlet-endo-but-for-bots-pr659-module-loading-stack-sequencing`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr659-module-loading-stack-sequencing.md) — ---
 
-### tada (1620)
+### tada (1621)
+- [`gauntlet-endo-but-for-bots-pr656-mount-provide-submount`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr656-mount-provide-submount.md) — Completion report — gauntlet on endojs/endo-but-for-bots PR #656 (provideSubM...
 - [`self-heal-fix-garden-triager-kriscendobot-minion-town-opaque-claude-failure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-opaque-claude-failure.md) — Verification
 - [`gauntlet-endo-but-for-bots-pr652-mount-cli-deny-segments`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr652-mount-cli-deny-segments.md) — Completion report — gauntlet on endojs/endo-but-for-bots PR #652
 - [`self-heal-fix-garden-triager-kriscendobot-minion-town-empty-old-git-log-range`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-empty-old-git-log-range.md) — Job complete. Here is my report.
 - [`mount-glob-parity-contract-hardening`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mount-glob-parity-contract-hardening.md) — Completion report
-- [`gauntlet-endo-but-for-bots-pr653-mount-glob`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr653-mount-glob.md) — Completion report — gauntlet on endojs/endo-but-for-bots PR #653 ("feat(daemo...
-- … and 1615 more
+- … and 1616 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
