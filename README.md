@@ -100,6 +100,11 @@ deterministically. `#N` is a pull-request number.
 Five planes, one job board. Everything below becomes a job that a worker
 claims; the surfaces differ only in where you're standing.
 
+To learn the levers by example instead, the
+[control-surface gallery](context/control-surface-gallery.md) narrates about
+forty real maintainer dispatches: each one a lever pulled in a novel or
+instructive way, cited back to the journal entry that records it.
+
 ### The claude CLI: the liaison
 
 Open a `claude` session with the garden root as the working directory. That

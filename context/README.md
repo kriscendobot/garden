@@ -32,6 +32,12 @@ and `designs/streamlined-onboarding.md` for why it exists.
   here to *do* an operation on a running instance, or to answer `help <topic>`
   for an operator.
 
+- **[control-surface-gallery.md](control-surface-gallery.md)** — a living
+  gallery of real maintainer dispatches, one worked illustration per novel or
+  instructive control-surface use, grouped by surface and cited back to the
+  journal. Read here to learn (or show) what steering the garden looks like in
+  practice, not for procedure; new illustrations land here.
+
 ## Convention
 
 Cross-references **within** this tree are relative (`first-run/identity.md`,
