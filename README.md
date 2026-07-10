@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-10T13:42:02Z_
+_As of 2026-07-10T13:55:13Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ Infra had a rough window: a session-limit outage around 08–09Z tripped self-he
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 14h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 15h)
 - [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 19h)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 7d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 10d)
@@ -474,18 +474,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`gauntlet-endo-but-for-bots-pull-request-670-provider-registry-oauth`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-670-provider-registry-oauth.md) — Run the gauntlet on endojs/endo-but-for-bots draft PR #670 (feat(lal): subscr...
-- [`shepherd-endo-but-for-bots-pull-request-667-genie-stdio-jsonl-rpc-bridge-rebase-onto-fixed-lint-llm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pull-request-667-genie-stdio-jsonl-rpc-bridge-rebase-onto-fixed-lint-llm.md) — ---
 - [`shepherd-endo-but-for-bots-pull-request-669-endopi-jsonl-transcript-format-rebase-onto-fixed-lint-llm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pull-request-669-endopi-jsonl-transcript-format-rebase-onto-fixed-lint-llm.md) — ---
 
-### tada (1717)
+### tada (1718)
+- [`shepherd-endo-but-for-bots-pull-request-667-genie-stdio-jsonl-rpc-bridge-rebase-onto-fixed-lint-llm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pull-request-667-genie-stdio-jsonl-rpc-bridge-rebase-onto-fixed-lint-llm.md) — CI is green on PR #667. No push or garden change was needed. Report follows.
 - [`shepherd-endo-but-for-bots-pull-request-668-endopi-edit-tool-rebase-onto-fixed-lint-llm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pull-request-668-endopi-edit-tool-rebase-onto-fixed-lint-llm.md) — Completion report
 - [`xst-validation-orchestrator-20260710-132001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260710-132001.md) — XS-validation orchestrator — tick report (2026-07-10 ~13:20Z)
 - [`shepherd-endo-but-for-bots-pull-request-660-marshal-captp-patterns-reexports-fix-lint`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pull-request-660-marshal-captp-patterns-reexports-fix-lint.md) — Completion report
 - [`shepherd-endo-but-for-bots-pull-request-661-agent-tools-http-client-rebase-onto-fixed-lint-llm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pull-request-661-agent-tools-http-client-rebase-onto-fixed-lint-llm.md) — Completion report
-- [`kriscendobot-agoric-sdk-pr13-fix-chaininfo-snapshots`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr13-fix-chaininfo-snapshots.md) — Completion report
-- … and 1712 more
+- … and 1713 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
