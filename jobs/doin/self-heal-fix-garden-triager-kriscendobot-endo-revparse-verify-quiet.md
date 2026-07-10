@@ -9,3 +9,9 @@ new_sha="$(git --git-dir="$BARE" rev-parse --verify -q "refs/remotes/origin/$ref
 ```
 
 (`--verify -q` makes `2>/dev/null` redundant but harmless to keep or drop.) After the change, verify by hand against the kriscendobot-endo bare clone that `new_sha` is a single 40-char SHA, and confirm the existing cold-start / SIGPIPE triager tests still pass. This also clears the currently-stuck cursor (left at `<none>`) once a clean single-line SHA is produced.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 16
+  claimed_at: 2026-07-10T07:06:21Z
