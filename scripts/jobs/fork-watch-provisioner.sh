@@ -73,7 +73,10 @@
 # Config (overridable; tests point these at fixtures):
 #   GARDEN_FORKWATCH_CLONE        journal clone this producer works in
 #   GARDEN_WORKTREES              standing bare-clone shelf (default worktrees/)
-#   GARDEN_REPOS                  triager clone shelf (default worktrees/)
+#   GARDEN_REPOS                  triager clone shelf (default worktrees/) —
+#                                 MUST match triager.sh's GARDEN_REPOS default so
+#                                 a clone materialized here lands where the triager
+#                                 reads it (see the default below)
 #   GARDEN_FORK_CLONE_URL_BASE    clone-URL base for materialization
 #                                 (default ssh://git@github.com)
 #   GARDEN_FORKWATCH_MATERIALIZE  1 force on, 0 force off, empty → is_main_host
@@ -85,6 +88,15 @@ source "$HERE/common.sh"
 GARDEN_TAG="fork-watch"
 
 : "${GARDEN_WORKTREES:=$GARDEN_ROOT/worktrees}"
+# The triager shelf MUST agree with triager.sh (and comment-watcher.sh), whose
+# GARDEN_REPOS default is worktrees/ — the garden's standing bare clones live at
+# worktrees/<owner>-<name>.git per CLAUDE.md § Layout, and no repos/ dir exists.
+# When this defaulted to repos/ the leader materialized each armed fork's clone
+# into repos/<slug>.git while the triager looked in worktrees/<slug>.git, so a
+# just-armed fork (e.g. kriscendobot-cosgov, armed 2026-07-10) was never actually
+# cloned where the triager reads and garden-triager@<slug> either skipped forever
+# or FATAL-stormed "no bare clone at .../repos/<slug>.git". Keep it equal to
+# GARDEN_WORKTREES so materialize-here lands where triage-reads.
 : "${GARDEN_REPOS:=$GARDEN_ROOT/worktrees}"
 : "${GARDEN_FORK_CLONE_URL_BASE:=ssh://git@github.com}"
 : "${GARDEN_FORKWATCH_MATERIALIZE:=}"
