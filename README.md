@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-10T10:56:51Z_
+_As of 2026-07-10T11:02:42Z_
 
 ## Latest
 
@@ -391,6 +391,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Milestone M3 (Remote Access and Coding Capabilities): the fleet has no unblocked build work because the active daemon-mount stack (`endojs/endo-but-for-bots` #650, #653, #655, #657, #658), the endoclaw-timer stack (#609, #617, #619), and daemon-agent-tools #618 are all CI-green and MERGEABLE but unmerged, and the next phases can only be built atop them. Decision needed: review and merge (or request changes on) that ready M3 stack so subsequent phases become buildable — the remaining M3 threads (gateway, Docker self-host) are maintainer-paced and not fleet-dispatchable.
 
+- `20260710T110104Z-0ab1cf` — from watchdog:gardener/15, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T110104Z-0ab1cf.md)
+
+> gardener job 'kriscendobot-agoric-sdk-pr13-fix-chaininfo-snapshots' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 - `poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -407,19 +411,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
-- [`build-endopi-jsonl-transcript-format`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endopi-jsonl-transcript-format.md) — ---
+### doin (3)
 - [`build-endopi-provider-registry-oauth`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endopi-provider-registry-oauth.md) — ---
 - [`kriscendobot-agoric-sdk-pr13-fix-chaininfo-snapshots`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr13-fix-chaininfo-snapshots.md) — fixer (shepherd→fixer auto-chain) on kriscendobot/agoric-sdk PR #13
 - [`kriscendobot-agoric-sdk-pr14-fix-chaininfo-snapshots`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr14-fix-chaininfo-snapshots.md) — fixer on kriscendobot/agoric-sdk PR #14 — regenerate chain-info baggage snaps...
 
-### tada (1701)
+### tada (1702)
+- [`build-endopi-jsonl-transcript-format`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endopi-jsonl-transcript-format.md) — Completion report — build-endopi-jsonl-transcript-format
 - [`xst-validation-orchestrator-20260710-105007`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260710-105007.md) — **XS-validation orchestrator — tick report (2026-07-10 ~10:55Z, dispatch 10:5...
 - [`self-heal-fix-garden-triager-kriscendobot-agoric-sdk-revparse-verify-newline`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-sdk-revparse-verify-newline.md) — All requested work is already present and committed on origin/main2, and I ve...
 - [`self-heal-fix-garden-triager-kriscendobot-endo-revparse-verify-quiet-newline`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-endo-revparse-verify-quiet-newline.md) — Completion report
 - [`build-endopi-edit-tool`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endopi-edit-tool.md) — Completion report
-- [`build-endopi-stdio-jsonl-rpc-bridge`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endopi-stdio-jsonl-rpc-bridge.md) — Completion report: build-endopi-stdio-jsonl-rpc-bridge
-- … and 1696 more
+- … and 1697 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
