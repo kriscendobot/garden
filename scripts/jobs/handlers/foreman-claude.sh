@@ -35,6 +35,12 @@ digest="${1:?usage: foreman-claude.sh <digest-file>}"
 role_brief="$GARDEN_ROOT/roles/foreman/AGENT.md"
 common_brief="$GARDEN_ROOT/roles/COMMON.md"
 
+# NOTE: the EOF delimiter is INTENTIONALLY UNQUOTED — the body relies on shell
+# interpolation of $common_brief/$role_brief (line ~39) and $(cat "$digest")
+# (near the end). Consequence: any LITERAL backtick or $(...) in the prompt text
+# would be evaluated by bash. Escape all such literals as \` and \$( so they
+# reach the prompt verbatim (see the \`designer\`/\`builder\` lines below). Do NOT
+# quote EOF to "fix" this — that would break the two legitimate interpolations.
 prompt="$(cat <<EOF
 You are the garden foreman (role briefs: $common_brief then $role_brief),
 running as the autonomous garden-foreman idle-pump service. The board is idle and
@@ -70,8 +76,8 @@ repo (owner/name), the PR/design/branch, and the task>
 ENDJOB
 
 The ROLE line names the role a gardener wears to do the work; it selects the
-work's default model (a designer runs on Fable, a builder on Opus). Use `designer`
-for a design-only step and `builder` for a mergeable-feature step. Omit the line
+work's default model (a designer runs on Fable, a builder on Opus). Use \`designer\`
+for a design-only step and \`builder\` for a mergeable-feature step. Omit the line
 only if no single role fits.
 
 or, if the next step is genuinely blocked on a maintainer decision:
