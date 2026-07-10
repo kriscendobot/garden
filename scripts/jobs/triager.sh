@@ -55,6 +55,13 @@ fi
 new_sha="$(git --git-dir="$BARE" rev-parse --verify -q "refs/remotes/origin/$ref" \
             || git --git-dir="$BARE" rev-parse --verify -q "$ref")" \
   || die "cannot resolve ref '$ref' in $slug"
+# Fail loudly on a poisoned new_sha rather than handing a bad revision downstream.
+# `--verify -q` (above) already keeps a failed rev-parse from echoing its unresolved
+# argument to stdout, so this should always hold; the assert is a cheap tripwire that
+# catches any future regression (e.g. a dropped -q gluing 'refs/…\n<sha>' together)
+# at the source instead of as an "ambiguous argument" fatal deep in the handler.
+[[ "$new_sha" =~ ^[0-9a-f]{40}$ ]] \
+  || die "resolved a malformed new_sha for '$ref' in $slug (want a single 40-hex SHA, got: $(printf '%q' "$new_sha"))"
 
 # The poll cursor lives in the JOURNAL (durable + shared), not host-local state,
 # so a restarted or failed run resumes from the last committed position.
