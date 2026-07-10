@@ -1,16 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-10T16:42:13Z_
+_As of 2026-07-10T16:45:30Z_
 
 ## Latest
 
-The mount stack cleared its last CI blocker: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is green after a shepherd rebased it onto the durable revoke-wake fix that landed on base [#650](https://github.com/endojs/endo-but-for-bots/pull/650), unblocking the grep/json followers; new draft PRs also went up for the mount `--deny` CLI ([#652](https://github.com/endojs/endo-but-for-bots/pull/652)) and a Rust mount-parity guard crate ([#654](https://github.com/endojs/endo-but-for-bots/pull/654), the design-sanctioned substitute after the XS-run path proved unbuildable in-tree). A real, non-flaky Node-22 bug surfaced in the http-client feature of [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (undici Headers frozen across CapTP), awaiting a fixer.
+The dominant signal is a merge bottleneck: three separate foreman reports now say Milestone M3 is build-saturated but stalled on review — the daemon-mount chain ([#650](https://github.com/endojs/endo-but-for-bots/pull/650), [#653](https://github.com/endojs/endo-but-for-bots/pull/653), [#655](https://github.com/endojs/endo-but-for-bots/pull/655), [#657](https://github.com/endojs/endo-but-for-bots/pull/657), [#658](https://github.com/endojs/endo-but-for-bots/pull/658)), the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609), [#617](https://github.com/endojs/endo-but-for-bots/pull/617), [#619](https://github.com/endojs/endo-but-for-bots/pull/619)), and daemon-agent-tools [#618](https://github.com/endojs/endo-but-for-bots/pull/618) are all green and mergeable but unmerged, blocking every stacked follower. The fleet has no unblocked build work; forward progress now needs merge/authority decisions, not more building. On the green side, [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) was rebased onto the fixed base and is fully green, unblocking the grep/json followers.
 
-**The dominant signal is merge, not build.** The foreman and liaison escalated repeatedly that M3 is saturated in flight — the mount chain, the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)), and daemon-agent-tools are all CI-green, mergeable, and gauntleted but unmerged, starving every stacked follower. The postable lane is dry; forward progress now needs review/merge attention (conductor or maintainer) plus promotion of the `go-ahead`-gated next tranche. Several gardeners also stopped on duplicate-work impasses rather than open colliding PRs: the daemon-locator-terminology design is already merged, the fs agent-tools already exist across [#614](https://github.com/endojs/endo-but-for-bots/pull/614)/[#618](https://github.com/endojs/endo-but-for-bots/pull/618), the MVS resolver lives in both [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (unresolved `@endo/daemon` vs `@endo/exo-npm` home split), and Docker-selfhost re-spawned from a stale design record despite the earlier decline — the liaison asks whether to tombstone that record.
+Several jobs came back as no-ops the maintainer should note, mostly stale design records re-spawning already-done or declined work: the daemon-locator-terminology build is already merged, the timer Phase-1 job is satisfied by open green [#609](https://github.com/endojs/endo-but-for-bots/pull/609), and the Docker-selfhost build re-attempts the line already closed as [#134](https://github.com/endojs/endo-but-for-bots/pull/134) — the liaison is asking whether to tombstone that design record. An mvs-resolver build hit a genuine architectural split (the algorithm now lives in both [#403](https://github.com/endojs/endo-but-for-bots/pull/403)'s `@endo/exo-npm` and [#671](https://github.com/endojs/endo-but-for-bots/pull/671)'s daemon registry) and is parked for a decision on which home wins. A real CI bug also surfaced: [#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s http-client e2e fails deterministically on Node 22 (undici Headers frozen across CapTP) and wants a fixer.
 
-Two decision-blocked efforts need your call: the XS-validation work (kriskowal/garden#33) has agoric-sdk fork PRs [#13](https://github.com/kriscendobot/agoric-sdk/pull/13) and [#14](https://github.com/kriscendobot/agoric-sdk/pull/14) fully green but hangs on a Leg-4 integration waiver and a "does draft #14 count as landed" call, plus a golden-snapshot / METER_TYPE consensus question on [#12](https://github.com/kriscendobot/agoric-sdk/pull/12); and #644's git-verb gauntlet found a new correctness bug (`reword` folds a staged index) while 0xpatrickbot's fleet was concurrently pushing to the same branch.
-
-Two operational red flags worth noticing: the foreman pump handler is failing (`designer: command not found` at foreman-claude.sh:92) and starving the board, and a triager/self-heal hit the Claude session limit (reset 9:10am UTC). Many shepherd/gauntlet jobs are also deterministically overrunning the 2400s handler budget and risk poisoning — they need splitting into claim-sized stages or detached runs.
+Two decision threads are waiting: the XS-validation effort ([garden#33](https://github.com/kriskowal/garden/issues/33)) is fully green but blocked on a Leg-4 integration waiver and a "landed" call on fork PRs [#13](https://github.com/kriscendobot/agoric-sdk/pull/13)/[#14](https://github.com/kriscendobot/agoric-sdk/pull/14); and the agoric-sdk XS 16.7.1 fixer ([#12](https://github.com/kriscendobot/agoric-sdk/pull/12)) needs consensus calls on regenerating golden snapshots and bumping METER_TYPE. Two infra irritants recur in the logs: the foreman pump is intermittently failing rc=1 (`designer: command not found` in `foreman-claude.sh`), and a string of shepherd/gauntlet jobs keep overrunning the 2400s handler budget and getting poisoned — they need splitting into claim-sized stages.
 
 ## Parked for maintainer feedback
 
@@ -445,16 +443,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (2)
-- [`doc-startup-drain-restore-check`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/doc-startup-drain-restore-check.md) — The gap (observed 2026-07-10 on endolin-garden-ece02cb4)
+- [`endojs-endo-but-for-bots-pr621-review-659246fc`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr621-review-659246fc.md) — Review directive on endojs/endo-but-for-bots PR #621
 - [`gauntlet-endo-but-for-bots-pull-request-672-genie-subscription-oauth`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-672-genie-subscription-oauth.md) — Run the gauntlet (panel review → fix-loop → un-draft) on endojs/endo-but-for-...
 
-### tada (1732)
+### tada (1733)
+- [`doc-startup-drain-restore-check`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/doc-startup-drain-restore-check.md) — Completion report
 - [`endojs-endo-but-for-bots-pr644-fix-git-commit-amend-reword-changes-requested`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr644-fix-git-commit-amend-reword-changes-requested.md) — Completion report
 - [`endojs-endo-but-for-bots-pr621-review-409d43e6-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr621-review-409d43e6-retro.md) — Completion report
 - [`ebfb-endo-gateway-oauth-flow-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-endo-gateway-oauth-flow-design.md) — Job ebfb-endo-gateway-oauth-flow-design — complete
 - [`ebfb-endoclaw-fetch-bytes-stream-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-endoclaw-fetch-bytes-stream-design.md) — Completion report:
-- [`builder-endo-but-for-bots-mvs-resolver`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/builder-endo-but-for-bots-mvs-resolver.md) — Completion report: builder-endo-but-for-bots-mvs-resolver
-- … and 1727 more
+- … and 1728 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -479,7 +477,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-(none)
+- [`endojs-endo-but-for-bots-pr621-review-659246fc-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr621-review-659246fc-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #621 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
