@@ -11,3 +11,9 @@ fi
 ```
 
 Also harden diagnosability: this failed with zero captured stderr, so the FATAL was undiagnosable from logs alone. Consider guarding the assignment (e.g. append `|| true` so an empty/failed log yields empty `changes` rather than killing the handler) so a bad ref degrades to "empty change summary" instead of a silent crash. Reproduced deterministically against `repos/kriscendobot-minion.town.git`: empty-old expansion → `fatal: ambiguous argument ''`, assign-exit=128.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  claimed_at: 2026-07-10T01:10:36Z
