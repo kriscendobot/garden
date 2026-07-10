@@ -11,3 +11,9 @@ Harden the endo-but-for-bots mount-glob shared cross-language parity contract so
 Also optional (Node-side polish, non-parity): tighten the "** matches zero or more directory levels" wording across the four doc surfaces to note trailing ** also matches file descendants; drop the two redundant mid-walk names.sort() calls in glob's walk (the final sort governs output order). Consider a caller-visible truncation signal for GLOB_MAX_RESULTS, or continue to defer to the streaming search variants.
 
 Post as a fixer/assayer job against endojs/endo-but-for-bots when #654's parity direction is settled, so the shared fixture is revised once for both PRs.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  claimed_at: 2026-07-10T02:54:22Z
