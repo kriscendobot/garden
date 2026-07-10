@@ -18,3 +18,9 @@ State at dispatch (2026-07-10, verified by the review gardener):
 
 The review carried NO inline comments and NO body asks beyond "conduct", so there
 is no fixer/designer work outstanding — this is a clean finalization.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 11
+  claimed_at: 2026-07-10T21:08:42Z
