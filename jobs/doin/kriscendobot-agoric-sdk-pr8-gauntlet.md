@@ -13,3 +13,9 @@ discipline. The excerpt below is for human context only:
 Please run the gauntlet and assign this back to the original dispatcher. 
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  claimed_at: 2026-07-10T21:53:12Z
