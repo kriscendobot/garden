@@ -1,1 +1,7 @@
 In `scripts/jobs/triager.sh`, the `new_sha` computation (lines ~55-56) corrupts the resolved SHA on the cold-start / unpopulated-remote-tracking path. A bare `git rev-parse "refs/remotes/origin/$ref"` echoes the literal unresolved token to **stdout** (exit 128) when the ref doesn't exist; inside the `$( primary || fallback )` command substitution that stray line is captured and then concatenated with the fallback `git rev-parse "$ref"`'s real SHA, yielding a two-line value like `refs/remotes/origin/master\n<sha>`. That value flows into the handler and blows up as `fatal: ambiguous argument 'refs/remotes/origin/master\n<sha>'`, failing triage for kriscendobot-endo (signature: `change on kriscendobot-endo:master: <none> → refs/remotes/origin/master\n<sha>; triaging` → `fatal: ambiguous argument`). Fix: add `--verify -q` (and ideally `^{commit}`) to **both** rev-parse calls so an unresolved ref prints nothing and exits nonzero cleanly instead of echoing the token — e.g. `git --git-dir="$BARE" rev-parse --verify -q "refs/remotes/origin/$ref^{commit}" 2>/dev/null || git --git-dir="$BARE" rev-parse --verify -q "$ref^{commit}" 2>/dev/null`. Keep the existing `|| die "cannot resolve ref..."`. Add/extend a test in the triager test suite covering the case where `refs/remotes/origin/<ref>` is absent but the local `<ref>` resolves, asserting `new_sha` is a single 40-hex SHA with no embedded newline.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  claimed_at: 2026-07-10T10:37:53Z
