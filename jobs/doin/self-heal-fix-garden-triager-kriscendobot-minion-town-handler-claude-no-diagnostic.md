@@ -7,3 +7,9 @@ Change: instrument the `claude -p` invocation and the post loop so a handler fai
 - Keep the existing contract intact: still return non-zero to triager.sh so the cursor stays unadvanced and the change re-triages; the only change is that the failure now names its cause.
 
 Rationale: the cursor-retry design means a genuinely transient claude failure is *supposed* to retry, but today every retry is blind and burns a fresh `claude -p` per tick with no way to distinguish transient from structural. Emitting claude's exit code + stderr tail lets the next self-heal tick (or a human) classify the failure instead of re-diagnosing an empty blob. Verify by forcing `GARDEN_TRIAGE_HANDLER`'s claude call to fail (e.g. a stub that exits non-zero to stderr) and confirming the diagnostic line appears in the service log while the cursor stays put.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 10
+  claimed_at: 2026-07-10T02:41:27Z
