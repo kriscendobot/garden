@@ -1,18 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-10T12:07:13Z_
+_As of 2026-07-10T12:09:09Z_
 
 ## Latest
 
-The daemon-mount stack cleared its last CI hurdle: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now green after a shepherd rebased it onto its fixed base [#650](https://github.com/endojs/endo-but-for-bots/pull/650), which itself landed a durable source fix waking open `followNameChanges` streams on revoke. That unblocks the stacked grep ([#655](https://github.com/endojs/endo-but-for-bots/pull/655)) and json ([#657](https://github.com/endojs/endo-but-for-bots/pull/657)) followers, and two new drafts opened alongside — the `--deny` CLI follow-up [#652](https://github.com/endojs/endo-but-for-bots/pull/652) and the Rust-side glob parity runner [#654](https://github.com/endojs/endo-but-for-bots/pull/654).
+The mount-glob shepherd converged: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) is now green after a durable revoke-wakes-streams fix landed on its base [#650](https://github.com/endojs/endo-but-for-bots/pull/650) and #653 was rebased onto it, unblocking the stacked grep ([#655](https://github.com/endojs/endo-but-for-bots/pull/655)) and json ([#657](https://github.com/endojs/endo-but-for-bots/pull/657)) followers; the Rust mount-parity crate ([#654](https://github.com/endojs/endo-but-for-bots/pull/654)) and the mount `--deny` CLI ([#652](https://github.com/endojs/endo-but-for-bots/pull/652)) shipped as drafts pending #650's merge.
 
-The dominant theme, though, is **merge starvation**: three separate foreman escalations report that M3 is saturated in flight with *no unblocked build work left* — the mount chain, the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)), and daemon-agent-tools [#618](https://github.com/endojs/endo-but-for-bots/pull/618) are all CI-green and mergeable but sitting unmerged on `llm`, blocking every stacked follower. Forward progress now needs your review/merge attention, not more queued work.
+The dominant signal is a merge bottleneck: the foreman reported three times that M3 has **no unblocked build work left** — the mount chain (#650/#652/#653/#655/#657/#658), the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)), and daemon-agent-tools [#618](https://github.com/endojs/endo-but-for-bots/pull/618) are all CI-green and mergeable but sitting unmerged on the fork's `llm`, so forward motion now needs review/merge decisions, not more jobs. Relatedly, several builder jobs came back as "already landed" duplicates (registry #403, daemon-locator terminology, interval-scheduler #609, fs agent-tools #614/#618), and [#123](https://github.com/endojs/endo-but-for-bots/pull/123) conduct **stalled** — its fix targets an `assembleTranscript` that no longer exists on live `llm`, so it needs a weave/redesign call, not a merge.
 
-A few things need a decision: the conductor **stalled on [#123](https://github.com/endojs/endo-but-for-bots/pull/123)** because live `llm` rewrote `agent.js` around a new `makePiAgent` and the fix's target (`assembleTranscript`) no longer exists — it wants a weave or an obsolescence call. The http-client reconcile [#286](https://github.com/endojs/endo-but-for-bots/pull/286) has a real Node-22-only failure (undici `Headers` frozen across CapTP) awaiting a fixer. The agent-tools http-client gauntlet [#661](https://github.com/endojs/endo-but-for-bots/pull/661) exhausted its requeues and was **poisoned/parked** (held on go-ahead). And the exo-google-sheets daily supervisor posted `run the gauntlet` on OAuth-foundation design [#621](https://github.com/endojs/endo-but-for-bots/pull/621), the gate the whole sheets tree waits on.
+On the agoric-sdk fork, the XS 16.7.1 validation effort (garden#33) has converged green on PRs [#13](https://github.com/kriscendobot/agoric-sdk/pull/13) and [#14](https://github.com/kriscendobot/agoric-sdk/pull/14) but is blocked solely on two maintainer decisions — waive the Depot-gated full-chain integration leg, and whether draft #14 counts as "landed" — while the [#12](https://github.com/kriscendobot/agoric-sdk/pull/12) fixer needs your call on regenerating golden snapshot hashes and bumping `METER_TYPE` (both consensus-affecting). Elsewhere: finbot landed its SES-compartments capability-attenuation cornerstone on `main`, and the minion.town endo root-host bootstrap shipped as [kriscendobot/minion.town#7](https://github.com/kriscendobot/minion.town/pull/7), blocked on human-gated deployment gates.
 
-On the agoric-sdk fork, the XS 16.7.1 upgrade work ([#12](https://github.com/kriscendobot/agoric-sdk/pull/12)/[#13](https://github.com/kriscendobot/agoric-sdk/pull/13)/[#14](https://github.com/kriscendobot/agoric-sdk/pull/14)) is mid-flight — it needs your call on two consensus-affecting values (golden snapshot hashes and the `METER_TYPE` bump), and the XS-validation effort (garden#33) is blocked on Depot-runner access and a "landed" call. Shepherds also traced red checks on [#9](https://github.com/kriscendobot/agoric-sdk/pull/9)/[#10](https://github.com/kriscendobot/agoric-sdk/pull/10) to stale bases and codegen drift that PR #8 already fixes. Elsewhere, finbot landed its SES-compartments cornerstone on `main`, and minion.town opened a root-host bootstrap PR (#7) blocked behind two human-only OAuth/daemon gates.
-
-Two operational warnings worth noticing: a spate of shepherd/gauntlet jobs are **deterministically overrunning the 2400s handler budget** (#650, #652, #654, #655, #659, and the agoric fixers) and will be poisoned unless split into claim-sized stages; and the foreman pump on `endolin-garden` failed with `designer: command not found` / `builder: command not found` while the session limit was hit (resets 09:10 UTC), so the board briefly starved.
+Two operational flags worth notice: a session-limit exhaustion around 09:10Z UTC knocked over triagers and the foreman pump, and the foreman handler additionally failed with `designer: command not found` / `builder: command not found` at `foreman-claude.sh:92` — a real bug starving the board. Separately, a wave of shepherd/gauntlet jobs (#650, #652, #654, #655, #659, agoric #13/#14) are deterministically overrunning the 2400s handler budget and risk poisoning unless split into claim-sized stages, and the [#661](https://github.com/endojs/endo-but-for-bots/pull/661) HTTP-client gauntlet was already poisoned and parked after five requeues.
 
 ## Parked for maintainer feedback
 
@@ -403,6 +401,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > gardener job 'kriscendobot-agoric-sdk-pr14-fix-chaininfo-snapshots' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
+- `20260710T120818Z-defd50` — from gardener:xst-validation-orchestrator-20260710-120503, reply_to `xst-validation-orchestrator-20260710-120503` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T120818Z-defd50.md)
+
+> XS-validation effort (kriskowal/garden#33): all engineering has now converged — fork PR #14 (park-on-fail) is fully green after the snapshot regen, and PR #13 (integration) has its fix pushed with CI mid-run, zero failures so far. The effort is blocked ONLY on your two decisions, escalated ~09:45Z and re-consolidated here:
+>
+> 1. **Leg 4 (`force:integration`) waiver** — the full-chain leg is infeasible on the fork (Depot-gated runners, empirically verified). Accept the package-level substitute (xsnap + SwingSet suites green on BOTH variants, legacy byte-stable, A/B divergence all explained by the engine delta) as sufficient for "validated"? Or should we provision Depot/docker for a real full-chain run?
+>
+> 2. **Park-on-fail "landed"** — does draft fork PR #14, now green, count as landed for the done-check? Or should it be un-drafted / run through the gauntlet first?
+>
+> On "waive + landed" I will post the final #33 summary and remove the hourly schedule. Reply to this message and it routes back to my inbox (or to the next tick as a fresh job if I have completed).
+
 - `poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -419,18 +427,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`kriscendobot-agoric-sdk-pr13-fix-chaininfo-snapshots`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr13-fix-chaininfo-snapshots.md) — fixer (shepherd→fixer auto-chain) on kriscendobot/agoric-sdk PR #13
 - [`kriscendobot-agoric-sdk-pr14-fix-chaininfo-snapshots`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr14-fix-chaininfo-snapshots.md) — fixer on kriscendobot/agoric-sdk PR #14 — regenerate chain-info baggage snaps...
-- [`xst-validation-orchestrator-20260710-120503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-validation-orchestrator-20260710-120503.md) — XS-validation orchestrator (hourly) — drive the agoric-sdk XS upgrade to vali...
 
-### tada (1708)
+### tada (1709)
+- [`xst-validation-orchestrator-20260710-120503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260710-120503.md) — XS-validation orchestrator — tick report (2026-07-10 ~12:05Z)
 - [`build-endo-registry-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-registry-capability.md) — Completion report
 - [`self-heal-fix-garden-pages-watcher-pages-source-401-bad-credentials-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-pages-watcher-pages-source-401-bad-credentials-retry.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-endo-rev-parse-verify-quiet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-endo-rev-parse-verify-quiet.md) — Report
 - [`self-heal-fix-garden-triager-kriscendobot-agoric-sdk-revparse-verify-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-sdk-revparse-verify-guard.md) — Completion report
-- [`self-heal-fix-garden-triager-kriscendobot-endo-revparse-verify-cold-start`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-endo-revparse-verify-cold-start.md) — Completion report
-- … and 1703 more
+- … and 1704 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
