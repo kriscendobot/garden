@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/29#issuecomment-4940396976
 @kriscendobot any reason you cannot run the a3p test yourself and observe the vatID / test outcome? Regarding the need to not terminate the ymax vat, I agree. I think it's fine to leave it running since that's something that actually happened on mainnet (we should consider replic
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 11
+  claimed_at: 2026-07-10T23:40:16Z
