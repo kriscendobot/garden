@@ -8,3 +8,9 @@ if ! out="$(claude -p --dangerously-skip-permissions "$prompt" 2>&1)"; then
 fi
 ```
 This turns the silent `set -e` abort into a tagged `[triage-claude] FATAL: …` line that names the real reason, so the next occurrence is diagnosable and a transient API/DNS blip is distinguishable from a deterministic (e.g. prompt-too-large) failure. Keep the retry-on-failure semantics (cursor still not advanced) — this change is diagnostic surfacing only, not a behavior change to the retry loop. Note the recent DNS-pinning commit dbd6b324a may already have resolved the underlying api.anthropic.com connectivity on the minion.town host; this fix ensures the *next* such failure leaves a readable signature instead of two opaque lines.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 9
+  claimed_at: 2026-07-10T05:43:13Z
