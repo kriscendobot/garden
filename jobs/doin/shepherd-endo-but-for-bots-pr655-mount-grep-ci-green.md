@@ -6,6 +6,7 @@ Shepherd endojs/endo-but-for-bots PR #655 ("feat(daemon): mount grep, PR C of #1
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
