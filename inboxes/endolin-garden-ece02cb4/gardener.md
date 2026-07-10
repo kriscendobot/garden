@@ -156,3 +156,12 @@ Inspect via `git -C journal cat-file -p c1e61cf3848a559a6b3d83d14dcddf2403332d4e
 - Context: gardener-1 on endolin-garden-ece02cb4: job 'xst-validation-orchestrator-20260710-180513' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 1615c49ff023c4213899e7f3d9f5f9c2b625c1cc`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-10T18:23:36Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: dab2671ab8ce6b2afd159b272f82b676c96375eb
+- Context: gardener-18 on endolin-garden-ece02cb4: job 'endojs-endo-but-for-bots-pr288-gauntlet' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p dab2671ab8ce6b2afd159b272f82b676c96375eb`.
