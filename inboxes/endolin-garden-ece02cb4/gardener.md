@@ -201,3 +201,12 @@ Inspect via `git -C journal cat-file -p be68bd60cf955c59acac52dad67aa7f8a09da278
 - Context: gardener-6 on endolin-garden-ece02cb4: job 'xst-validation-orchestrator-20260710-190513' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 6deba42b8e9c3be1fc36a48c46d636c35fcb45db`.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-07-10T19:47:20Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: 58e4389987c7fa16a5f53902e1816efe44930bb6
+- Context: gardener-12 on endolin-garden-ece02cb4: job 'endojs-endo-but-for-bots-pr650-conduct' exit-0-unsatisfying but elapsed near-constant (211,211s) over 2 cycles — likely a wedged child, not a working one
+
+Inspect via `git -C journal cat-file -p 58e4389987c7fa16a5f53902e1816efe44930bb6`.
