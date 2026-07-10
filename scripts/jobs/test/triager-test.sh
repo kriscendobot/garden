@@ -254,6 +254,52 @@ set -e
 [ -z "$(cursor_field "activity/$SLUG" last_sha)" ] && ok "activity cursor NOT advanced past the poisoned change" || bad "cursor advanced to $(cursor_field "activity/$SLUG" last_sha) (want empty; a bad sha must not be committed)"
 
 # ============================================================================
+hr; echo "G — cold-start, ref DERIVED from HEAD (no GARDEN_WATCH_REF): remote-tracking ref absent, local heads/master present"; hr
+# The production shape that first tripped the bug (garden-triager on a fresh bare):
+# GARDEN_WATCH_REF is UNSET, so the triager derives `ref` from the bare's HEAD via
+# `symbolic-ref --short HEAD` (→ master). On a cold-start `git clone --bare`, the bare
+# has refs/heads/master but NO refs/remotes/origin/master, so the PRIMARY verify-rev-parse
+# (refs/remotes/origin/master^{commit}) fails and the FALLBACK (master^{commit}) resolves.
+# E exercises the fallback but pins the ref with GARDEN_WATCH_REF, so it never covers the
+# symbolic-ref derivation path (lines ~56-58). This case leaves GARDEN_WATCH_REF empty and
+# uses the `master` default branch, exactly matching the reported cold-start failure.
+rm -rf "$TR/state6"; STATE="$TR/state6"
+rm -rf "$BARE"; seed_journal
+# A dedicated source on `master` (the earlier SRC is on $REF=main); its HEAD becomes the
+# bare's HEAD after a bare clone, so symbolic-ref --short HEAD resolves to `master`.
+SRCM="$TR/src-master"
+git init -q "$SRCM"; git -C "$SRCM" checkout -q -b master
+echo cold > "$SRCM/f"; git -C "$SRCM" add -A; git -C "$SRCM" "${git_id[@]}" commit -q -m cold
+MSHA="$(git -C "$SRCM" rev-parse HEAD)"
+rm -rf "$REPOS/$SLUG.git"
+git clone -q --bare "$SRCM" "$REPOS/$SLUG.git"
+# sanity: HEAD derives to master, the local head is present, the remote-tracking ref is not
+[ "$(git -C "$REPOS/$SLUG.git" symbolic-ref --short HEAD)" = master ] \
+  && ok "fixture: bare HEAD derives to master (symbolic-ref path exercised)" || bad "fixture: bare HEAD is not master"
+git -C "$REPOS/$SLUG.git" rev-parse --verify -q refs/heads/master >/dev/null \
+  && ok "fixture: local refs/heads/master present" || bad "fixture: refs/heads/master missing"
+git -C "$REPOS/$SLUG.git" rev-parse --verify -q "refs/remotes/origin/master" >/dev/null 2>&1 \
+  && bad "fixture invalid: refs/remotes/origin/master unexpectedly present" \
+  || ok "fixture: remote-tracking refs/remotes/origin/master absent (cold-start shape)"
+: > "$CALLS"
+# NOTE: no GARDEN_WATCH_REF in this env — the triager must derive the ref itself.
+set +e
+env GARDEN=testhost GARDEN_STATE="$STATE" \
+    JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_REPOS="$REPOS" \
+    GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_RC=0 CALL_LOG="$CALLS" \
+    GARDEN_TRIAGE_FAIL_THRESHOLD=5 \
+    "$JOBS/triager.sh" "$SLUG" >>"$TR/triager.out" 2>&1
+rc=$?
+set -e
+[ "$rc" -eq 0 ] && ok "cold-start tick derives ref=master and resolves via fallback (exit 0)" || bad "tick exit = $rc (a corrupted two-line new_sha would die 'ambiguous argument')"
+[ "$(calls)" -eq 1 ] && ok "handler invoked exactly once (single-line CALL_LOG → new_sha carried no newline)" || bad "CALL_LOG line count = $(calls) (want 1; >1 means new_sha injected a newline)"
+handler_new_sha="$(cut -f3 "$CALLS" | head -1)"
+[ "$handler_new_sha" = "$MSHA" ] && ok "new_sha passed to the handler is the clean resolved SHA" || bad "new_sha = [$handler_new_sha] (want $MSHA — corrupted 'refs/remotes/origin/master\\n<sha>')"
+[ "$(cursor_field "activity/$SLUG" ref)" = master ] && ok "cursor records the DERIVED ref (master)" || bad "cursor ref = $(cursor_field "activity/$SLUG" ref) (want master)"
+[ "$(cursor_field "activity/$SLUG" last_sha)" = "$MSHA" ] && ok "activity cursor advanced to the clean sha" || bad "cursor = $(cursor_field "activity/$SLUG" last_sha) (want $MSHA)"
+
+# ============================================================================
 hr
 echo "TOTAL: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
