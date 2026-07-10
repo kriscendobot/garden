@@ -30,6 +30,8 @@
 | [SPEC §9 workspace management and safety](../sections/web--openai-symphony-codex-orchestration--spec-workspace-management-and-safety.md) | Symphony (OpenAI) | Per-issue workspace reused across runs; lifecycle hooks; the three safety invariants (cwd==workspace, path inside root, sanitized key). |
 | [SPEC §10 Codex App Server agent-runner protocol](../sections/web--openai-symphony-codex-orchestration--spec-agent-runner-protocol.md) | Symphony (OpenAI) | Line-delimited JSON-RPC over stdio; initialize→initialized→thread/start→turn/start handshake; streaming turns; approval policy; linear_graphql dynamic tool keeps the token off subagents. |
 | [SPEC §11–§13 tracker, prompt, observability](../sections/web--openai-symphony-codex-orchestration--spec-tracker-prompt-and-observability.md) | Symphony (OpenAI) | Three Linear-compatible adapter ops + normalization; no first-class tracker writes (the agent mutates tickets); strict prompt rendering with attempt; key=value logs, runtime snapshot, token accounting. |
+| [unum: self-evocation orchestrator](../sections/unum--overview.md) | unum (jcorbin) | unum as a third convergent design: a file-backed task board (TODO/TOQU/TADA) driving devoker's invoker/televoke/vigil/refinery, steered by Telegram personas. |
+| [unum: vigil-charge initiative budget](../sections/unum--vigil-charge-initiative-budget.md) | unum (jcorbin) | A health-gated budget on proactive agent turns: accumulate charge over verified-quiet health rounds, spend it at a threshold to fire an initiative pulse. |
 
 ## See also
 
