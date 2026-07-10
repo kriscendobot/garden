@@ -97,10 +97,4 @@ and pushed directly to `main2`. The `tada` report states: where the gallery
 lives and why, how many illustrations landed, the surfaces covered, the commit
 SHA(s), and any shortfall against the ~40 target with its reason.
 
-<!-- garden-reaped: 1 -->
-
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 8
-  claimed_at: 2026-07-10T18:43:11Z
+<!-- garden-reaped: 2 -->
