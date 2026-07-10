@@ -188,7 +188,7 @@ source "$HERE/common.sh"
 
 slug="${1:?usage: comment-watcher.sh <repo-slug>}"
 GARDEN_TAG="comment-watcher/$slug"
-: "${GARDEN_REPOS:=$GARDEN_ROOT/repos}"
+: "${GARDEN_REPOS:=$GARDEN_ROOT/worktrees}"
 : "${GARDEN_BOT_LOGIN:=kriscendobot}"
 : "${GARDEN_COMMENT_SOURCE:=$HERE/handlers/comment-source-gh.sh}"
 : "${GARDEN_COMMENT_REACTJI:=$HERE/handlers/comment-reactji-gh.sh}"

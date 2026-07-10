@@ -4,7 +4,9 @@
 # Usage: triager.sh <repo-slug>          e.g. kriscendobot-endo
 #
 # One timer-driven instance per watched repo. It fetches the repo's bare clone
-# under $GARDEN_REPOS/<slug>.git, diffs the watched refs against a last-seen
+# under $GARDEN_REPOS/<slug>.git (the garden's standing bare clones, kept in
+# $GARDEN_ROOT/worktrees/<slug>.git per CLAUDE.md § Layout), diffs the watched
+# refs against a last-seen
 # marker kept OUTSIDE any reset-prone worktree, and for each new change hands
 # off to the triage handler — which wears the "triager" role (via `claude -p`)
 # to decide what jobs to create, posting them with post-job.sh for gardeners.
@@ -33,7 +35,7 @@ source "$HERE/common.sh"
 
 slug="${1:?usage: triager.sh <repo-slug>}"
 GARDEN_TAG="triager/$slug"
-: "${GARDEN_REPOS:=$GARDEN_ROOT/repos}"
+: "${GARDEN_REPOS:=$GARDEN_ROOT/worktrees}"
 : "${GARDEN_TRIAGE_HANDLER:=$HERE/handlers/triager-claude.sh}"
 : "${GARDEN_WATCH_REF:=}"   # empty → use the bare clone's HEAD branch
 # Consecutive-failure circuit-breaker threshold: after this many failures of the
