@@ -73,7 +73,7 @@
 # Config (overridable; tests point these at fixtures):
 #   GARDEN_FORKWATCH_CLONE        journal clone this producer works in
 #   GARDEN_WORKTREES              standing bare-clone shelf (default worktrees/)
-#   GARDEN_REPOS                  triager clone shelf (default repos/)
+#   GARDEN_REPOS                  triager clone shelf (default worktrees/)
 #   GARDEN_FORK_CLONE_URL_BASE    clone-URL base for materialization
 #                                 (default ssh://git@github.com)
 #   GARDEN_FORKWATCH_MATERIALIZE  1 force on, 0 force off, empty → is_main_host
@@ -85,7 +85,7 @@ source "$HERE/common.sh"
 GARDEN_TAG="fork-watch"
 
 : "${GARDEN_WORKTREES:=$GARDEN_ROOT/worktrees}"
-: "${GARDEN_REPOS:=$GARDEN_ROOT/repos}"
+: "${GARDEN_REPOS:=$GARDEN_ROOT/worktrees}"
 : "${GARDEN_FORK_CLONE_URL_BASE:=ssh://git@github.com}"
 : "${GARDEN_FORKWATCH_MATERIALIZE:=}"
 AUTH_MSG="msgs/broadcast/20260709T225552Z-e61229.md"
