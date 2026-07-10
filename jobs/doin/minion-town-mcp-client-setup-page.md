@@ -53,3 +53,9 @@ An authenticated MCP-client setup page live behind the gate, linked from the
 landing page, its instructions verified against the live client/metadata,
 validated in production, and delivered as a PR against
 `kriscendobot/minion.town` `main`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 7
+  claimed_at: 2026-07-10T06:56:11Z
