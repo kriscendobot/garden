@@ -1,16 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-10T22:35:51Z_
+_As of 2026-07-10T22:36:58Z_
 
 ## Latest
 
-The #127 platform-search stack advanced on two fronts: [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) was shepherded green after a flaky `mount-revocation` test was deflaked and the branch rebased onto its fixed base, and a fresh four-layer glob/grep `@endo/platform` pushdown was built and gauntleted into your queue as [#678](https://github.com/endojs/endo-but-for-bots/pull/678) (engine), [#679](https://github.com/endojs/endo-but-for-bots/pull/679) (glob), [#680](https://github.com/endojs/endo-but-for-bots/pull/680) (grep), and [#681](https://github.com/endojs/endo-but-for-bots/pull/681) (agent tools) — two merge-gate calls flagged there: grep still ships an unbounded `RegExp` (ReDoS) pending the conservative-subset `@endo/regexp` design [#676](https://github.com/endojs/endo-but-for-bots/pull/676), and design PR [#675](https://github.com/endojs/endo-but-for-bots/pull/675) should land first so changelog links resolve.
+The glob/grep `@endo/platform` pushdown stack for endo-but-for-bots #127 cleared its per-layer gauntlet and is un-drafted into the review queue — [#678](https://github.com/endojs/endo-but-for-bots/pull/678) (engine), [#679](https://github.com/endojs/endo-but-for-bots/pull/679) (`EndoMount.glob`), [#680](https://github.com/endojs/endo-but-for-bots/pull/680) (`EndoMount.grep` + pipeline), and [#681](https://github.com/endojs/endo-but-for-bots/pull/681) (agent tools); land design [#675](https://github.com/endojs/endo-but-for-bots/pull/675) with them so the changelog links resolve, and note the panel's flagged merge-gate call on grep ReDoS (unbounded `RegExp` in normative grep, pre-existing from #655) pending the conservative-subset `@endo/regexp` work in [#676](https://github.com/endojs/endo-but-for-bots/pull/676). Separately, [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now green after a rebase onto its fixed base, unblocking the grep/json followers. On the agoric-sdk fork, the XS-16.7.1 validation effort ([garden#33](https://github.com/kriskowal/garden/issues/33)) has fully converged — fork PRs [#13](https://github.com/kriscendobot/agoric-sdk/pull/13) and [#14](https://github.com/kriscendobot/agoric-sdk/pull/14) hold green — and is now blocked only on two maintainer decisions: whether to waive the Depot-gated full-chain `force:integration` leg, and whether green-on-fork counts as "landed" for park-on-fail. finbot cleared its last stranded branches (SES-compartments, multi-instrument portfolios, and the cyclical forecaster all landed on `main`; 424 tests green, wallet-safety gate holding).
 
-The recurring signal from the foreman is that **M3 is merge-blocked, not work-blocked**: the mount chain ([#650](https://github.com/endojs/endo-but-for-bots/pull/650)/[#652](https://github.com/endojs/endo-but-for-bots/pull/652)/#653/#658), the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)), and daemon-agent-tools are CI-green and mergeable but sitting unmerged on `llm`, stalling every stacked follower. You closed daemon-agent-tools Phase 4 [#618](https://github.com/endojs/endo-but-for-bots/pull/618) over capability-leak concerns, deferring to @kumavis. A real Node-22-only undici `Headers` hardening bug surfaced in http-client [#286](https://github.com/endojs/endo-but-for-bots/pull/286) and wants a fixer.
-
-Several gardeners halted rather than open duplicates — the `mvs-resolver`, `daemon-locator-terminology`, `endoclaw-timer` Phase 1, and Docker-selfhost builds were all found already implemented or previously declined (the last mirrors closed endo [#134](https://github.com/endojs/endo-but-for-bots/pull/134)), each awaiting a design-record retirement or scope call from you.
-
-On the fork side, the XS-validation effort (garden#33) is engineering-complete and green — kriscendobot/agoric-sdk [#13](https://github.com/kriscendobot/agoric-sdk/pull/13) and [#14](https://github.com/kriscendobot/agoric-sdk/pull/14) at 69/0 — but blocked solely on two decisions (waive the Depot-gated `force:integration` leg, and whether the green draft #14 counts as "landed"); PR [#12](https://github.com/kriscendobot/agoric-sdk/pull/12) also needs your call on golden-snapshot and `METER_TYPE` consensus bumps. finbot landed its last three stranded branches (SES-compartments, multi-instrument, cyclical forecaster; 424 tests green, wallet-safety gate holding), leaving no stranded branches — though its triager tripped a circuit-breaker and, per the monitoring-safety constraint, `kriscendobot-finbot` isn't in the authorized watch set and is worth removing. Two notes for attention: a broad swath of shepherd/gauntlet jobs deterministically overran the 2400s handler budget (they need splitting into claim-sized stages), and self-heal caught session-limit exhaustion around 08:00–18:00Z.
+Worth your attention: the foreman is now reporting the fleet's postable lane as **dry** — M3 has no unblocked build step left because the mount, endoclaw-timer, and agent-tools stacks are all CI-green, mergeable, and gauntleted but **unmerged**, so every stacked follower waits on a merge/authority decision only you (or a conductor) can make. Also notable — kriskowal archived daemon-agent-tools Phase 4 [#618](https://github.com/endojs/endo-but-for-bots/pull/618) over a capability-leak concern (shell caps) and deferred to @kumavis, so the fleet stood down there; the Docker-selfhost build was halted as complete-as-declined (consistent with the earlier closure of [#134](https://github.com/endojs/endo-but-for-bots/pull/134)), leaving a garden-library ask to retire the stale design record. Two housekeeping signals: a wave of gardener jobs (several gauntlet/shepherd runs) are deterministically overrunning the 2400s handler budget and need splitting into claim-sized stages, and the `kriscendobot-finbot` triager tripped its circuit-breaker — worth confirming that repo belongs in the watch set given the monitoring-safety constraint.
 
 ## Parked for maintainer feedback
 
@@ -725,18 +721,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`agoric-sdk-pr9-drive-20260710-223503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-pr9-drive-20260710-223503.md) — Drive kriscendobot/agoric-sdk PR #9 to approval (every 6h)
-- [`kriscendobot-agoric-sdk-pr8-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr8-gauntlet.md) — gauntlet directive on kriscendobot/agoric-sdk PR #8
 - [`kriscendobot-agoric-sdk-pr8-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr8-shepherd.md) — shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #8
 
-### tada (1788)
+### tada (1789)
+- [`kriscendobot-agoric-sdk-pr8-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr8-gauntlet.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr10-review-b17025f7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-b17025f7.md) — Completion report
 - [`design-minion-town-ertp-credits`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-minion-town-ertp-credits.md) — Completion report
 - [`encode-graceful-leader-handoff-handshake`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/encode-graceful-leader-handoff-handshake.md) — Completion report
 - [`message-forbid-partial-issue-refs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/message-forbid-partial-issue-refs.md) — Work complete. Report follows.
-- [`kriscendobot-agoric-sdk-pr9-f0af0f7a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr9-f0af0f7a.md) — Completion report
-- … and 1783 more
+- … and 1784 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
