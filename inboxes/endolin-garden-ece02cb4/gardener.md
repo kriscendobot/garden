@@ -111,3 +111,12 @@ Inspect via `git -C journal cat-file -p a184ce2cb49ea67f491f858a1b23ebf92a1ddca9
 - Context: gardener-3 on endolin-garden-ece02cb4: job 'gauntlet-endo-but-for-bots-pull-request-672-genie-subscription-oauth' transient-classified (rc=1) but elapsed near-constant (252,252s) over 2 cycles — likely deterministic overrun, not a blip
 
 Inspect via `git -C journal cat-file -p e02c7978c47e9ee7a4678c67ddc743981852e9c2`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-10T17:33:36Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: be6fc8fbd936bd0e38373d8fda3d1e35f8b421f5
+- Context: gardener-4 on endolin-garden-ece02cb4: job 'endojs-endo-but-for-bots-pr650-conduct' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p be6fc8fbd936bd0e38373d8fda3d1e35f8b421f5`.
