@@ -329,6 +329,35 @@ grep -q "no bare clone at .*$NOSLUG.git on this host; skipping triage" "$SKIPOUT
 [ ! -s "$CALLS" ] && ok "handler never invoked (nothing to diff without the clone)" || bad "handler ran ($(grep -c . "$CALLS") calls; want 0)"
 
 # ============================================================================
+hr; echo "I — default GARDEN_REPOS resolves to \$GARDEN_ROOT/worktrees, not /repos"; hr
+# Regression guard for the original defect: GARDEN_REPOS defaulted to
+# \$GARDEN_ROOT/repos, a path nothing provisions, so BARE was unresolvable and EVERY
+# tick died. The canonical standing-bare-clone location is \$GARDEN_ROOT/worktrees
+# (ensure-project-worktree.sh, clone-keeper.sh, WORKTREES.md). Run with GARDEN_REPOS
+# UNSET and a controlled GARDEN_ROOT; the resolved $BARE the skip log names must sit
+# under worktrees/, never repos/. (Every other case sets GARDEN_REPOS explicitly, so
+# without this case the default could silently regress to /repos undetected.)
+rm -rf "$TR/state8"; STATE="$TR/state8"
+GROOT="$TR/groot"; rm -rf "$GROOT"; mkdir -p "$GROOT/worktrees"   # canonical clone dir exists, empty
+DEFOUT="$TR/triager-default.out"; : > "$DEFOUT"; : > "$CALLS"
+set +e
+env GARDEN=testhost GARDEN_ROOT="$GROOT" GARDEN_STATE="$STATE" \
+    JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_WATCH_REF="$REF" \
+    GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_RC=0 CALL_LOG="$CALLS" \
+    GARDEN_TRIAGE_FAIL_THRESHOLD=5 \
+    "$JOBS/triager.sh" "$SLUG" >>"$DEFOUT" 2>&1   # NOTE: GARDEN_REPOS deliberately unset
+rc=$?
+set -e
+[ "$rc" -eq 0 ] && ok "default-path tick exits 0" || bad "tick exit = $rc (want 0)"
+grep -q "no bare clone at $GROOT/worktrees/$SLUG.git" "$DEFOUT" \
+  && ok "default resolved BARE under worktrees/ (\$GARDEN_ROOT/worktrees/$SLUG.git)" \
+  || bad "default did NOT resolve under worktrees/ (log: $(grep 'no bare clone' "$DEFOUT" || echo '<none>'))"
+! grep -q "no bare clone at $GROOT/repos/$SLUG.git" "$DEFOUT" \
+  && ok "default did NOT resolve under the un-provisioned repos/ (the original bug)" \
+  || bad "default still resolves under repos/ — the wrong-default regression is back"
+
+# ============================================================================
 hr
 echo "TOTAL: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
