@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-10T17:59:11Z_
+_As of 2026-07-10T18:05:44Z_
 
 ## Latest
 
@@ -457,13 +457,14 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (7)
 - [`endojs-endo-but-for-bots-pr288-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr288-gauntlet.md) — gauntlet directive on endojs/endo-but-for-bots PR #288
 - [`endojs-endo-but-for-bots-pr592-01edab2b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-01edab2b.md) — attention directive on endojs/endo-but-for-bots PR #592
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
 - [`endojs-endo-but-for-bots-pr618-6a3affe0`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr618-6a3affe0.md) — attention directive on endojs/endo-but-for-bots PR #618
 - [`endojs-endo-but-for-bots-pr650-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr650-conduct.md) — Conduct (merge) endojs/endo-but-for-bots PR #650
 - [`readme-control-surface-illustrations`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/readme-control-surface-illustrations.md) — Document novel control-surface uses in the garden README
+- [`xst-validation-orchestrator-20260710-180513`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-validation-orchestrator-20260710-180513.md) — XS-validation orchestrator (hourly) — drive the agoric-sdk XS upgrade to vali...
 
 ### tada (1743)
 - [`endojs-endo-but-for-bots-pr653-review-344a347f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr653-review-344a347f.md) — Completion report
