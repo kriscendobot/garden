@@ -98,6 +98,7 @@ model-routing and vigil-charge noted as follow-ons and the open questions named.
 `tada` report gives the SHA, the storage decision made, and the recommended build
 phasing.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
