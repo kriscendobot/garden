@@ -66,6 +66,8 @@ left per design, and the agent-tool-surface + primer updated. Each layer is
 locally verified and ready for its gauntlet. The `tada` report lists the layers
 built, the commits/branches per layer, and any design gaps hit.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
