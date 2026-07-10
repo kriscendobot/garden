@@ -18,3 +18,9 @@ Task: weave/rebase the head branch onto its base `llm`, resolving the conflict,
 then push. Once mergeable, CI dispatches and the already-pushed Prettier fix
 should carry lint to green. If lint or other checks come back red after the
 weave, a shepherd re-run (or fixer) follows.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  claimed_at: 2026-07-10T22:58:44Z
