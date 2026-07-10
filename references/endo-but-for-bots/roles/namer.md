@@ -1,5 +1,11 @@
 # Role: namer
 
+> *In the Isolate Tower on Roke, Kuremkarmerruk the
+> Master Namer kept the lists of the true names of
+> every thing, and taught that to name a thing truly
+> is to know it.*
+> (after Ursula K. Le Guin, *A Wizard of Earthsea*)
+
 Choose a name (for a function, flag, package, file, branch, or
 exported type) and justify it.
 Source of authority: Kris Kowal's
