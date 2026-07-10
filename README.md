@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-10T13:03:39Z_
+_As of 2026-07-10T13:07:50Z_
 
 ## Latest
 
-The [#661 http-client agent-tool](https://github.com/endojs/endo-but-for-bots/pull/661) shepherd landed green after rebasing onto the fixed lint base, and two more lint/rebase shepherds are in flight ([#660](https://github.com/endojs/endo-but-for-bots/pull/660) marshal captp reexports, [#667](https://github.com/endojs/endo-but-for-bots/pull/667) genie stdio JSONL bridge). The daemon-mount stack cleared its last blocker: [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now fully green after a rebase onto #650's durable revoke-wake fix, unblocking the stacked grep/json followers. The loudest signal is from the foreman, repeated three times: **M3 is build-saturated and now waits on merges, not code** — the mount chain (#650/#652/#653/#655/#657/#658) and endoclaw-timer stack (#609/#617/#619) are all CI-green, mergeable, and stranded unmerged on `llm`, blocking every stacked follower, and ~60 ready PRs need review/merge attention. Several gardeners reported duplicate-work impasses rather than opening colliding PRs (daemon-locator-terminology, daemon-agent-tools fs wiring, endoclaw-timer Phase 1 #609), and the [Docker-selfhost build](https://github.com/endojs/endo-but-for-bots/pull/134) was halted as re-declined work — its follow-up asks you to retire the stale design record so producers stop re-spawning it. On the fork side, agoric-sdk chain-info snapshot fixes for [#13](https://github.com/kriscendobot/agoric-sdk/pull/13) and [#14](https://github.com/kriscendobot/agoric-sdk/pull/14) completed and the XS-validation effort (garden#33) is fully green, blocked only on two of your decisions (waive the Depot-gated integration leg; whether draft #14 counts as landed); finbot landed its multi-instrument-portfolio increment. One PR needs a real decision, not a merge: [#123](https://github.com/endojs/endo-but-for-bots/pull/123) can't be conducted because its fix targets an `assembleTranscript` path that no longer exists on the rewritten `makePiAgent` `agent.js` — it needs a weave/redesign call. Note also the [#661 gauntlet](https://github.com/endojs/endo-but-for-bots/pull/661) job was poisoned after 5 requeue cycles and parked pending promotion, and several shepherd/gauntlet jobs are overrunning the 2400s handler budget and need splitting into claim-sized stages.
+The mount-glob stack cleared its last blocker: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) is now green after a rebase onto the durable `whenRevoked` fix that landed on its base #650, unblocking the stacked grep ([#655](https://github.com/endojs/endo-but-for-bots/pull/655)) and json ([#657](https://github.com/endojs/endo-but-for-bots/pull/657)) followers. Lint-ceiling shepherds also cleared [#660](https://github.com/endojs/endo-but-for-bots/pull/660) (marshal/captp) and rebased [#661](https://github.com/endojs/endo-but-for-bots/pull/661) (agent-tools http-client), though the gauntlet on #661 exhausted five requeue cycles and is now parked as a poison job awaiting a human promote.
+
+The loudest signal is repeated: the foreman reports M3 is **build-complete but merge-starved** — the mount chain (#650/#652/#653/#655/#656/#657/#658), the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)), and daemon-agent-tools [#618](https://github.com/endojs/endo-but-for-bots/pull/618) are all CI-green and mergeable but sitting unmerged on the fork's `llm`, so no unblocked build step remains and the fleet needs review/merge attention, not more queued work. Separately, [#123](https://github.com/endojs/endo-but-for-bots/pull/123) can't be conducted — its transcript-hardening fix targets an `assembleTranscript` that no longer exists on the rewritten `makePiAgent` agent.js, so it needs a weave/redesign call, not a merge.
+
+Two efforts are blocked solely on maintainer decisions: the agoric-sdk XS-validation push has fork PRs [agoric-sdk#13](https://github.com/kriscendobot/agoric-sdk/pull/13) and [#14](https://github.com/kriscendobot/agoric-sdk/pull/14) both green, awaiting your calls on waiving the Depot-gated integration leg and whether the park-on-fail slice counts as landed (plus golden-snapshot/METER_TYPE consensus questions on [#12](https://github.com/kriscendobot/agoric-sdk/pull/12)); and the Docker-selfhost build was halted as complete-as-declined, pending your go-ahead to retire the stale design record so producers stop respawning it. Meanwhile finbot landed its SES-compartments and multi-instrument increments directly on `main`, and the exo-google-sheets supervisor posted `run the gauntlet` on design [#621](https://github.com/endojs/endo-but-for-bots/pull/621) as the tree's next gate.
 
 ## Parked for maintainer feedback
 
@@ -468,17 +472,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`shepherd-endo-but-for-bots-pull-request-660-marshal-captp-patterns-reexports-fix-lint`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pull-request-660-marshal-captp-patterns-reexports-fix-lint.md) — ---
+### doin (1)
 - [`shepherd-endo-but-for-bots-pull-request-667-genie-stdio-jsonl-rpc-bridge-rebase-onto-fixed-lint-llm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pull-request-667-genie-stdio-jsonl-rpc-bridge-rebase-onto-fixed-lint-llm.md) — ---
 
-### tada (1714)
+### tada (1715)
+- [`shepherd-endo-but-for-bots-pull-request-660-marshal-captp-patterns-reexports-fix-lint`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pull-request-660-marshal-captp-patterns-reexports-fix-lint.md) — Completion report
 - [`shepherd-endo-but-for-bots-pull-request-661-agent-tools-http-client-rebase-onto-fixed-lint-llm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pull-request-661-agent-tools-http-client-rebase-onto-fixed-lint-llm.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr13-fix-chaininfo-snapshots`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr13-fix-chaininfo-snapshots.md) — Completion report
 - [`finbot-progress-20260710-123501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260710-123501.md) — Completion report — finbot-progress-20260710-123501
 - [`kriscendobot-agoric-sdk-pr14-fix-chaininfo-snapshots`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr14-fix-chaininfo-snapshots.md) — Completion report
-- [`build-endo-daemon-docker-selfhost`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-daemon-docker-selfhost.md) — What I found
-- … and 1709 more
+- … and 1710 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
