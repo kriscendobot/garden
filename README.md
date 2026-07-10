@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-10T01:02:21Z_
+_As of 2026-07-10T01:07:30Z_
 
 ## Latest
 
-The mount-extensions stack advanced sharply: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now fully green after a rebase onto its fixed base — a durable `whenRevoked` fix landed on [#650](https://github.com/endojs/endo-but-for-bots/pull/650) that woke idle `followNameChanges` streams and deflaked the shared test, unblocking the rest of the stack; [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (mount `--deny` CLI) reached green as well, and shepherding of [#655](https://github.com/endojs/endo-but-for-bots/pull/655) (mount-grep) is now in flight. A new draft [#654](https://github.com/endojs/endo-but-for-bots/pull/654) adds a Rust-side `mount_parity` crate as the design-sanctioned parity guard, since the XS-run variant isn't buildable in-tree — the gardener wants a steer on whether the Rust runner is acceptable or the XS boot path should be unblocked first. On the endoclaw-timer front, phases 2 and 3 ([#617](https://github.com/endojs/endo-but-for-bots/pull/617), [#619](https://github.com/endojs/endo-but-for-bots/pull/619)) went green atop the already-ready phase-1 [#609](https://github.com/endojs/endo-but-for-bots/pull/609).
+The mount stack advanced hard toward green: [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) and [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (mount `--deny` CLI) both shepherded to passing CI, and the durable revoke-wakes-open-streams source fix landed on the base [#650](https://github.com/endojs/endo-but-for-bots/pull/650) — [#653](https://github.com/endojs/endo-but-for-bots/pull/653) rebased onto it clean, unblocking grep [#655](https://github.com/endojs/endo-but-for-bots/pull/655) and the new Rust-parity runner [#654](https://github.com/endojs/endo-but-for-bots/pull/654), both now in shepherding. The endoclaw-timer daemon stack also greened, phases 2 and 3 ([#617](https://github.com/endojs/endo-but-for-bots/pull/617), [#619](https://github.com/endojs/endo-but-for-bots/pull/619)), with the Phase 1 formula sitting ready on [#609](https://github.com/endojs/endo-but-for-bots/pull/609).
 
-Two items need your eyes. Conducting [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript) is **stalled**: it's approved and mergeable onto its snapshot, but live `llm` rewrote `agent.js` around `makePiAgent` and deleted the `assembleTranscript` machinery the fix hardens — it needs a weave or an obsolescence call, not a merge. And a new daily `esheets` supervisor kicked off, posting `run the gauntlet #621` to drive the endoclaw-oauth foundation design ([#621](https://github.com/endojs/endo-but-for-bots/pull/621)) out of draft as the gate for the whole exo-google-sheets tree. Separately, [#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s http-client e2e fails deterministically on Node 22 (a frozen undici `Headers` slot breaking error-decode across CapTP) and wants a fixer; two mount shepherd jobs (#650, #652) also overran the handler budget and should be split into claim-sized stages.
+Several items need your call. The conductor STALLED on [#123](https://github.com/endojs/endo-but-for-bots/pull/123): its transcript-hardening fix targets an `agent.js` that live `llm` has since rewritten around `makePiAgent`, so `assembleTranscript` no longer exists — it wants a weave or an obsolescence ruling, not a merge. CI on [#286](https://github.com/endojs/endo-but-for-bots/pull/286) surfaced a real Node-22-only bug (undici Headers freeze breaks CapTP error-decode) awaiting a fixer. The filesystem agent-tools job collided with landed [#614](https://github.com/endojs/endo-but-for-bots/pull/614) plus conflicting draft [#618](https://github.com/endojs/endo-but-for-bots/pull/618) — builder wants either a weave of #618 or a clean fs-only slice. On the exo-google-sheets push, design gate [#621](https://github.com/endojs/endo-but-for-bots/pull/621) is in gauntlet and blocks everything downstream. Two shepherd jobs (mount-deny CLI, PR #650 CI-green) overran the 2400s handler budget and risk poisoning unless split.
 
 ## Parked for maintainer feedback
 
@@ -230,7 +230,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`shepherd-endo-but-for-bots-pr654-mount-glob-rust-parity-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr654-mount-glob-rust-parity-ci-green.md) — ---
 - [`shepherd-endo-but-for-bots-pr655-mount-grep-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr655-mount-grep-ci-green.md) — ---
 
 ### tada (1604)
