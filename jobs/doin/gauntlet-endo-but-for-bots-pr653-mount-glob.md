@@ -2,6 +2,7 @@ Run the gauntlet on endojs/endo-but-for-bots PR #653 ("feat(daemon): mount glob 
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
