@@ -1,17 +1,21 @@
 # Garden bulletin
 
-_As of 2026-07-10T15:38:27Z_
+_As of 2026-07-10T15:44:33Z_
 
 ## Latest
 
-The daemon-mount stack cleared its last CI blocker: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) went green after a rebase onto its fixed base [#650](https://github.com/endojs/endo-but-for-bots/pull/650), which landed a durable source fix waking open `followNameChanges` streams on revoke — unblocking the stacked grep ([#655](https://github.com/endojs/endo-but-for-bots/pull/655)) and json ([#657](https://github.com/endojs/endo-but-for-bots/pull/657)) followers. The endopi line advanced too: [#668](https://github.com/endojs/endo-but-for-bots/pull/668) (edit-tool) and [#670](https://github.com/endojs/endo-but-for-bots/pull/670) (provider-registry OAuth, now un-drafted) cleared the gauntlet, with [#667](https://github.com/endojs/endo-but-for-bots/pull/667) and [#669](https://github.com/endojs/endo-but-for-bots/pull/669) still in flight.
+The mount daemon stack cleared its last CI blocker: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now green after a rebase onto its fixed base, [#650](https://github.com/endojs/endo-but-for-bots/pull/650), which itself landed a durable fix waking open `followNameChanges` streams on revoke — so the grep ([#655](https://github.com/endojs/endo-but-for-bots/pull/655)) and json ([#657](https://github.com/endojs/endo-but-for-bots/pull/657)) followers can rebase. The endopi gauntlet chain kept moving: [#669](https://github.com/endojs/endo-but-for-bots/pull/669), [#668](https://github.com/endojs/endo-but-for-bots/pull/668), and [#670](https://github.com/endojs/endo-but-for-bots/pull/670) are through the panel and un-drafted.
 
-The headline for a maintainer is that **M3 is merge-blocked, not work-blocked**: the foreman has now reported three times that the mount chain ([#650](https://github.com/endojs/endo-but-for-bots/pull/650)/[#653](https://github.com/endojs/endo-but-for-bots/pull/653)/[#655](https://github.com/endojs/endo-but-for-bots/pull/655)/[#657](https://github.com/endojs/endo-but-for-bots/pull/657)/#658), the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)), and daemon-agent-tools [#618](https://github.com/endojs/endo-but-for-bots/pull/618) are all CI-green and mergeable but sitting unmerged on the fork's `llm` branch, so every stacked follower stalls and the fleet has run out of unblocked build steps to claim. The HTTP-client gauntlet [#661](https://github.com/endojs/endo-but-for-bots/pull/661) exhausted its requeues and is now parked as a poison job awaiting a `go-ahead`. Separately, the XS-validation effort (garden#33) has fully converged — fork PRs [kriscendobot/agoric-sdk#13](https://github.com/kriscendobot/agoric-sdk/pull/13) and [#14](https://github.com/kriscendobot/agoric-sdk/pull/14) are green — and is blocked only on your two calls: whether to waive the Depot-gated `force:integration` leg for the package-level substitute, and whether draft #14 counts as landed. The Docker-selfhost build was halted complete-as-declined (consistent with the earlier close of [endo#134](https://github.com/endojs/endo-but-for-bots/pull/134)); its one open thread is a garden-library request to retire the stale design record so producers stop re-spawning it.
+The dominant signal from the foreman (three times now) is that **M3 is merge-starved, not work-starved**: the mount chain (#650/#652/#653/#655/#657/#658), the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)), and daemon-agent-tools [#618](https://github.com/endojs/endo-but-for-bots/pull/618) are all CI-green and mergeable but unmerged on `llm`, blocking every stacked follower — the fleet has no unblocked build step left to claim, so this now needs conductor/maintainer merge attention.
+
+A few things want your decision: the XS 16.7.1 fork-validation effort (kriskowal/garden#33) has both fork PRs green and is blocked only on two calls — waiving the Depot-gated integration leg, and whether draft PR #14 counts as "landed." The agoric-sdk PR #12 fixer is holding on two within-consensus questions (golden snapshot regen, `METER_TYPE` bump). And [#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s http-client has a real Node-22-only bug (hardened undici `Headers` fails to decode across CapTP) that needs a fixer dispatched.
+
+Worth noticing operationally: the [#661](https://github.com/endojs/endo-but-for-bots/pull/661) agent-tools-http-client gauntlet was **poisoned and parked** after five requeue cycles; many shepherd/gauntlet jobs are deterministically overrunning the 2400s handler budget (they need splitting into claim-sized stages); and the foreman pump handler is failing `rc=1` with `designer: command not found` / `builder: command not found` on `endolin-garden-ece02cb4` — a real bug starving the board. Several jobs also turned out to be no-ops against already-merged work (locator-terminology, interval-scheduler #609) or re-declined direction (Docker self-host, previously closed as endo #134).
 
 ## Parked for maintainer feedback
 
 - [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 16h)
-- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 20h)
+- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 21h)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 8d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 10d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 11d)
@@ -448,18 +452,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`builder-endo-but-for-bots-endopi-provider-registry-and-oauth`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/builder-endo-but-for-bots-endopi-provider-registry-and-oauth.md) — ---
 - [`gauntlet-endo-but-for-bots-pull-request-667-genie-stdio-jsonl-rpc-bridge`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-667-genie-stdio-jsonl-rpc-bridge.md) — Run the gauntlet on endojs/endo-but-for-bots draft PR #667 (feat(genie): stdi...
-- [`gauntlet-endo-but-for-bots-pull-request-669-endopi-jsonl-transcript-format`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-669-endopi-jsonl-transcript-format.md) — Run the gauntlet on endojs/endo-but-for-bots PR #669 (endopi-jsonl-transcript...
 
-### tada (1723)
+### tada (1724)
+- [`gauntlet-endo-but-for-bots-pull-request-669-endopi-jsonl-transcript-format`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pull-request-669-endopi-jsonl-transcript-format.md) — Completion report: gauntlet on endojs/endo-but-for-bots PR #669
 - [`xst-validation-orchestrator-20260710-153513`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260710-153513.md) — XS-validation orchestrator — tick report (2026-07-10 ~15:35Z)
 - [`gauntlet-endo-but-for-bots-pull-request-668-endopi-edit-tool`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pull-request-668-endopi-edit-tool.md) — Completion report
 - [`gauntlet-endo-but-for-bots-pull-request-670-provider-registry-oauth`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pull-request-670-provider-registry-oauth.md) — The gauntlet is complete. Final state: PR #670 is **un-drafted**, mergeStateS...
 - [`xst-validation-orchestrator-20260710-142002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260710-142002.md) — XS-validation orchestrator — tick report (2026-07-10 ~14:20Z)
-- [`shepherd-endo-but-for-bots-pull-request-669-endopi-jsonl-transcript-format-rebase-onto-fixed-lint-llm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pull-request-669-endopi-jsonl-transcript-format-rebase-onto-fixed-lint-llm.md) — Completion report
-- … and 1718 more
+- … and 1719 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
