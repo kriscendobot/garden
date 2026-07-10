@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-10T06:42:23Z_
+_As of 2026-07-10T06:53:40Z_
 
 ## Latest
 
-[endo-but-for-bots#580](https://github.com/endojs/endo-but-for-bots/pull/580) merged (conductor), and the mount stack cleared a blocker: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is green again after a rebase onto the now-fixed #650 base, and the gauntlet ran on [endo-but-for-bots#657](https://github.com/endojs/endo-but-for-bots/pull/657) (mount-json); the gauntlet on [endo-but-for-bots#661](https://github.com/endojs/endo-but-for-bots/pull/661) (agent-tools http-client) is still in flight. Two triager self-heal fixes landed and the shepherd on [kriscendobot/agoric-sdk#10](https://github.com/kriscendobot/agoric-sdk/pull/10) closed out (its lone red check is upstream codegen drift owned by PR #8, not the docs PR). The headline for the maintainer is that the fleet is now merge-bound, not work-bound: the foreman reports M3 saturated in flight with no unblocked build step left, and a ~60-PR ready backlog on the fork's `llm` branch (the mount and endoclaw-timer stacks are build-complete and gauntleted but unmerged, stranding every stacked follower) awaits a review/merge decision only you can make. Three items need a direct steer — conducting [endo-but-for-bots#123](https://github.com/endojs/endo-but-for-bots/pull/123) stalled because its fix targets an `agent.js` that live `llm` has since rewritten (needs a weave or an obsolescence call), [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) has a real Node-22-only CI failure (a frozen undici `Headers` slot) wanting a fixer, and the agoric-sdk XS-16.7.1 fork PR #12 is holding on two within-consensus questions (golden snapshot regen and a METER_TYPE bump). Several long shepherd/gauntlet jobs (#650, #652, #654, #655, #659) also overran the 2400s handler budget and risk poisoning unless split into claim-sized stages.
+The headline is a merge bottleneck, not a work shortage: the foreman reports M3 is saturated in flight, with the mount chain ([#650](https://github.com/endojs/endo-but-for-bots/pull/650)/[#652](https://github.com/endojs/endo-but-for-bots/pull/652)/[#653](https://github.com/endojs/endo-but-for-bots/pull/653)/[#656](https://github.com/endojs/endo-but-for-bots/pull/656)/[#658](https://github.com/endojs/endo-but-for-bots/pull/658)) and the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) build-complete and gauntleted but sitting unmerged on `llm`, stranding every stacked follower — so forward progress now needs review/merge attention rather than more build jobs. On the good-news side, [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) went green after a shepherd rebased it onto its fixed base, and [#580](https://github.com/endojs/endo-but-for-bots/pull/580) merged.
+
+Two items need a maintainer decision. Conducting [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript) is **stalled**: the fix targets an `assembleTranscript` path that live `llm` has since deleted in a `makePiAgent` rewrite, so it needs a weave/redesign call, not a merge. And [#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s http-client suite has a real Node-22 bug (undici `Headers` hardening breaks CapTP error-decode) that wants a fixer. Several builder jobs came back as no-ops because the work already exists — daemon-locator-terminology is already merged, the filesystem agent-tools live in [#614](https://github.com/endojs/endo-but-for-bots/pull/614)/[#618](https://github.com/endojs/endo-but-for-bots/pull/618), and the interval-scheduler is [#609](https://github.com/endojs/endo-but-for-bots/pull/609) — so those slots are free rather than blocked.
+
+On the agoric-sdk fork, shepherds cleared [#9](https://github.com/kriscendobot/agoric-sdk/pull/9) and [#10](https://github.com/kriscendobot/agoric-sdk/pull/10) as stale-base/codegen-drift reds (fixable by merging #8 then weaving), while the [#12](https://github.com/kriscendobot/agoric-sdk/pull/12) fixer (XS 16.7.1 bump) is holding on two consensus-affecting questions for you — whether to regenerate the golden snapshot hashes and whether to bump `METER_TYPE` to `xs-meter-37`. Watchdogs also flagged five shepherd/gauntlet jobs deterministically overrunning the 2400s handler budget; they'll be poisoned unless split into claim-sized stages.
 
 ## Parked for maintainer feedback
 
@@ -312,22 +316,38 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Recommended: merge PR #8 to master, then refresh (weave) PR #10 so its CI re-runs green. I did not push anything to PR #10 (correct scope). next: liaison (merge #8 is a human/conductor decision).
 
+- `20260710T065145Z-32f978` — from gardener:kriscendobot-agoric-sdk-pr9-shepherd, reply_to `kriscendobot-agoric-sdk-pr9-shepherd` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T065145Z-32f978.md)
+
+> shepherd on kriscendobot/agoric-sdk PR #9 (prototype: promote ymax vat to critical, garden#29) — diagnosis, no push made:
+>
+> The 3 red checks are all base-staleness / environmental, NOT caused by the PR diff:
+> - test-codegen: fails on packages/orchestration/src/fetched-chain-info.js drift. That file is unchanged by this PR and is regenerated by fetching the LIVE chain registry (non-deterministic). Upstream fixed it in master commit 88a5a67322 "chore(orchestration): refresh fetched chain info" — which is absent from this PR's base.
+> - test-quick (node-old): the failures are in packages/orchestration (3) and packages/portfolio-deploy (1, "upgrade not faked") — both byte-identical to master here; the PR doesn't touch them.
+> - test-quick (node-new): cancelled by concurrency, not a real failure.
+>
+> Root cause: PR #9's base is 503 commits behind upstream/master. The remedy is a rebase/weave onto current master (picks up the chain-info refresh + evolved orchestration/portfolio packages), which is out of shepherd scope and design-consequential on a prototype.
+>
+> The checks that actually exercise this PR's SwingSet/cosmic-swingset upgrade changes (test-swingset, test-boot, test-cosmic-swingset, test-portfolio-contract) are still PENDING — their verdict isn't in yet.
+>
+> Recommendation: weave #9 (rebase onto master) if you want it green; otherwise it's a known-stale-base prototype red. I did not push anything to keep the draft clean.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`gauntlet-endo-but-for-bots-pr661-agent-tools-http-client`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr661-agent-tools-http-client.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
-- [`kriscendobot-agoric-sdk-pr9-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr9-shepherd.md) — shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #9
+- [`xst-integrate-variant-bump`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-integrate-variant-bump.md) — xst-integrate-variant-bump — route the Moddable 5.5.0 bump through the varian...
+- [`xst-park-on-fail-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-park-on-fail-build.md) — xst-park-on-fail-build — build the parked-vat + admin-facet resume capability
 
-### tada (1658)
+### tada (1661)
+- [`xst-validation-orchestrator-20260710-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260710-065003.md) — XS-validation orchestrator — hourly tick report (2026-07-10 ~06:52Z)
+- [`endojs-endo-but-for-bots-pr288-e950e913-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr288-e950e913-retro.md) — Completion report
+- [`kriscendobot-agoric-sdk-pr9-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr9-shepherd.md) — Shepherd report — kriscendobot/agoric-sdk PR #9
 - [`ebfb-pr580-merge`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr580-merge.md) — Completion report — Merge endojs/endo-but-for-bots PR #580 (conductor)
 - [`self-heal-fix-garden-triager-kriscendobot-agoric-sdk-revparse-verify-quiet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-sdk-revparse-verify-quiet.md) — Completion report
-- [`self-heal-fix-garden-triager-kriscendobot-endo-revparse-stdout-echo`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-endo-revparse-stdout-echo.md) — Completion report
-- [`kriscendobot-agoric-sdk-pr10-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-shepherd.md) — Shepherd report — kriscendobot/agoric-sdk PR #10
-- [`gauntlet-endo-but-for-bots-pr657-mount-json`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr657-mount-json.md) — Ran the gauntlet on endojs/endo-but-for-bots #657 (mount JSON read/write, PR ...
-- … and 1653 more
+- … and 1656 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -351,7 +371,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr288-e950e913-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr288-e950e913-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #288 (primary: endojs-endo-but-f...
 - [`release-automation-major-bump-exports-trigger`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/release-automation-major-bump-exports-trigger.md) — _low_ · Design (LOW PRIORITY): release-automation trigger — flag .js-export cleanup o...
 - [`endojs-endo-but-for-bots-pr592-review-79bd1b73-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr592-review-79bd1b73-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #592 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr595-review-dc9b727f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr595-review-dc9b727f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #595 (primary: endojs-endo-but-f...
