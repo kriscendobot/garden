@@ -13,3 +13,9 @@ discipline. The excerpt below is for human context only:
 Please run the gauntlet. 
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  claimed_at: 2026-07-10T17:33:30Z
