@@ -19,6 +19,8 @@ The garden runs a concrete, deterministic instance of the measure-then-throttle 
 | [overview](../sections/web--allen-pike-coding-agent-spend--overview.md) | The $10k/week anecdote: cost climbs past a human engineer's rate after a year of automating the coding loop. |
 | [This is too much](../sections/web--allen-pike-coding-agent-spend--this-is-too-much.md) | The transition point every team hits and the shift from "use more agents" to "get the most out of the spend." |
 | [Cloud coding costs](../sections/web--allen-pike-coding-agent-spend--cloud-coding-costs.md) | Cost is the multiplicand of token cost and token count; cloud coding is where it runs away. |
+| [unum--token-cost-ledger](../sections/unum--token-cost-ledger.md) | unum's built per-run attributed cost ledger — the measure-and-attribute instrument the garden's fleet quota gate lacks. |
+| [unum--cost-attribution-and-aggregation](../sections/unum--cost-attribution-and-aggregation.md) | Grouping the ledger by task/day/model and baking per-task spend into the completed-task archive. |
 
 ## See also
 
