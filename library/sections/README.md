@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6344 (530 parent indexes + 5814 children).
+Total section files: 6349 (530 parent indexes + 5819 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8360,6 +8360,14 @@ Total section files: 6344 (530 parent indexes + 5814 children).
 - [system--readme--history](system--readme--history.md)
 - [system--readme--overview](system--readme--overview.md)
 - [system--readme--usage-and-bootstrapping](system--readme--usage-and-bootstrapping.md)
+
+### unum
+
+- [unum--cost-attribution-and-aggregation](unum--cost-attribution-and-aggregation.md)
+- [unum--overview](unum--overview.md)
+- [unum--per-persona-model-tiers](unum--per-persona-model-tiers.md)
+- [unum--token-cost-ledger](unum--token-cost-ledger.md)
+- [unum--vigil-charge-initiative-budget](unum--vigil-charge-initiative-budget.md)
 
 ### web--acme-challenge-types
 
