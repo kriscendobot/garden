@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-10T23:04:24Z_
+_As of 2026-07-10T23:21:58Z_
 
 ## Latest
 
@@ -657,6 +657,26 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260710T225832Z-f49e67` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T225832Z-f49e67.md)
 
 > PR endojs/endo-but-for-bots #286 (report ...http-client-reconcile-onto-merged-566): the landed `HttpClientControl` mutators (`addAllowedOrigin`, `revoke`, rate/byte/timeout) are unused — the controller is currently a read-only allowlist holder. Wiring them through the daemon controller facet is Phase 2/3 continuation work; confirm whether to spend builder effort on it now before I post a job. (The e2e confirmation is CI-only, not runnable in the garden.)
+
+- `20260710T232127Z-0bf7e8` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T232127Z-0bf7e8.md)
+
+> self-heal: garden-triager@kriscendobot-agoric-sdk exited rc=1 with no scoped fix. Capture: 0f5f7366b605f0932b0079aabb72fa1724bc7ea3 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 0f5f7366b605f0932b0079aabb72fa1724bc7ea3). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
+
+- `20260710T232133Z-a22307` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T232133Z-a22307.md)
+
+> self-heal: garden-triager@kriscendobot-cosgov exited rc=1 with no scoped fix. Capture: 014fb3bfe31c0c9d8de45fe8ac9da0113c043600 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 014fb3bfe31c0c9d8de45fe8ac9da0113c043600). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
+
+- `20260710T232133Z-edb78b` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T232133Z-edb78b.md)
+
+> self-heal: garden-triager@kriscendobot-endo exited rc=1 with no scoped fix. Capture: 00348948455e75d369c3be8e10003f6e35b20ac2 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 00348948455e75d369c3be8e10003f6e35b20ac2). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
+
+- `20260710T232133Z-f114e0` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T232133Z-f114e0.md)
+
+> self-heal: garden-triager@kriscendobot-finbot exited rc=1 with no scoped fix. Capture: 980f2d6ef4e84d709f0877f977c3411c46f36e2b (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 980f2d6ef4e84d709f0877f977c3411c46f36e2b). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
+
+- `20260710T232147Z-ba14cb` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T232147Z-ba14cb.md)
+
+> self-heal: garden-triager@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: fe43f5de97a9b9472a538aba15034db093bd5678 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p fe43f5de97a9b9472a538aba15034db093bd5678). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
 
 - `poison-endojs-endo-but-for-bots-pr592-cancel-in-options-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-endojs-endo-but-for-bots-pr592-cancel-in-options-requeue-exhausted.md)
 
