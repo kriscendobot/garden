@@ -55,3 +55,9 @@ The out-of-band root-facet mechanism implemented, **validated live with recorded
 evidence**, and delivered as a PR against `kriscendobot/minion.town` `main`. If
 implementation reveals the design needs adjustment, note the delta back into
 `designs/mcp-endo-guest.md` (same or a companion PR).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  claimed_at: 2026-07-10T06:55:43Z
