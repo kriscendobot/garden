@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-10T03:33:18Z_
+_As of 2026-07-10T03:36:28Z_
 
 ## Latest
 
-The mount-extensions stack is the main throughline: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is green and merged-ready after a shepherd rebased it onto the deflaked `feat/mount-revocation` base, and its gauntlet completed alongside [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (CLI `--deny` segments) and [#618](https://github.com/endojs/endo-but-for-bots/pull/618) (agent-tools Phase 4). Three more gauntlets are now in flight — [#655](https://github.com/endojs/endo-but-for-bots/pull/655) (mount-grep), [#656](https://github.com/endojs/endo-but-for-bots/pull/656) (provide-submount), and [#659](https://github.com/endojs/endo-but-for-bots/pull/659) (module-loading stack sequencing) — plus new stacked drafts [#652](https://github.com/endojs/endo-but-for-bots/pull/652) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (a Rust-side mount-glob parity crate, offered in lieu of an XS-run runner the tree can't build).
+The mount-glob stack moved to green: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) rebased onto its fixed base [#650](https://github.com/endojs/endo-but-for-bots/pull/650) (which landed a durable `whenRevoked` fix waking idle `followNameChanges` streams on revoke), all 23 checks passing, unblocking grep [#655](https://github.com/endojs/endo-but-for-bots/pull/655) and json [#657](https://github.com/endojs/endo-but-for-bots/pull/657) to rebase — both, plus submount [#656](https://github.com/endojs/endo-but-for-bots/pull/656) and module-loading [#659](https://github.com/endojs/endo-but-for-bots/pull/659), are now in the gauntlet. The gauntlet on CLI deny-segments [#652](https://github.com/endojs/endo-but-for-bots/pull/652) completed, and a Rust-side mount parity crate landed as draft [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (the design-sanctioned alternative to the not-yet-buildable XS-run variant).
 
-Two items want a maintainer decision. [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (http-client reconcile) has a real, deterministic Node-22 CI failure — undici's lazy `Symbol(headers map sorted)` slot gets frozen by hardening and breaks error-decode across CapTP; it passes on Node 24 and needs a fixer to stop marshalling live `Headers`. And [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript) stalled in conduct: its base snapshot has diverged hard from `llm`, where `assembleTranscript` no longer exists after the `makePiAgent` rewrite — the conductor recommends a **weave #123** or a decision that the fix is obsolete.
+Three items want maintainer decisions. Conducting [#123](https://github.com/endojs/endo-but-for-bots/pull/123) **stalled**: its `assembleTranscript` hardening targets code deleted from live `llm` (agent.js rewritten around `makePiAgent`), so it needs a weave/redesign call, not a merge. The http-client reconcile [#286](https://github.com/endojs/endo-but-for-bots/pull/286) has a **real Node-22 CI failure** — undici's lazy `Headers` slot gets frozen by hardening and can't be decoded across CapTP — awaiting a fixer. And the new exo-google-sheets daily supervisor posted a gauntlet on [#621](https://github.com/endojs/endo-but-for-bots/pull/621), the OAuth-foundation design gate the whole sheets tree blocks on.
 
-Several build jobs reported their scope already landed rather than opening duplicate PRs — the `interval-scheduler` formula ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)), the daemon locator terminology, and the Lal/Fae filesystem agent-tools wiring. On the exo-google-sheets front, a new daily supervisor stood itself up and posted `run the gauntlet #621` to drive the endoclaw-oauth foundation design out of draft; nothing downstream unblocks until [#621](https://github.com/endojs/endo-but-for-bots/pull/621) merges. Finally, the watchdog flagged four shepherd jobs (PRs #650, #652, #653, #654) that deterministically overran the 2400s handler budget and will be poisoned unless split into claim-sized stages.
+Several builder jobs hit already-done impasses (no colliding PRs opened): the interval-scheduler is already shipped in [#609](https://github.com/endojs/endo-but-for-bots/pull/609), the daemon-locator terminology is merged, and the fs agent-tools wiring overlaps landed [#614](https://github.com/endojs/endo-but-for-bots/pull/614) plus conflicting draft [#618](https://github.com/endojs/endo-but-for-bots/pull/618) (which needs a weave). Finally, four shepherd jobs (pr650/pr652/pr653/pr654) deterministically overran the 2400s handler budget and risk poisoning — they need splitting into claim-sized stages or detaching.
 
 ## Parked for maintainer feedback
 
@@ -254,7 +254,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
+- [`endojs-endo-but-for-bots-pr590-6028a212`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr590-6028a212.md) — attention directive on endojs/endo-but-for-bots PR #590
 - [`gauntlet-endo-but-for-bots-pr655-mount-grep`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr655-mount-grep.md) — ---
 - [`gauntlet-endo-but-for-bots-pr656-mount-provide-submount`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr656-mount-provide-submount.md) — ---
 - [`gauntlet-endo-but-for-bots-pr659-module-loading-stack-sequencing`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr659-module-loading-stack-sequencing.md) — ---
@@ -289,7 +290,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-(none)
+- [`endojs-endo-but-for-bots-pr590-6028a212-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr590-6028a212-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #590 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
