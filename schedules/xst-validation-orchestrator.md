@@ -1,4 +1,4 @@
-cadence: 30m
+cadence: hourly
 last_dispatched: 2026-07-10T09:50:02Z
 job_basename_prefix: xst-validation-orchestrator
 ---
