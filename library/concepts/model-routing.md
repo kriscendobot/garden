@@ -17,6 +17,7 @@ The garden's coarse, deterministic analogue is its per-role model-tier map (`ski
 | Section | One-line summary |
 |---|---|
 | [Cheaper tokens](../sections/web--allen-pike-coding-agent-spend--cheaper-tokens.md) | Right-size the model to the task; the mid-2026 price spread and the hard problem of routing by difficulty. |
+| [unum--per-persona-model-tiers](../sections/unum--per-persona-model-tiers.md) | unum's per-persona model tiers: right-sizing decided per role up front in durable config, not by a runtime difficulty router. |
 
 ## See also
 
