@@ -69,3 +69,9 @@ the endo/exo boundary per dimension (2), specifies the compat umbrella + next-ma
 removal policy (3), the per-package scaffolding and dependency graph (4), and the
 orchestration plan (5) — concrete enough to execute as follow-up build tranches
 with no further design decisions.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 15
+  claimed_at: 2026-07-10T07:34:17Z
