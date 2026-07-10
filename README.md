@@ -1,10 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-10T09:41:03Z_
+_As of 2026-07-10T09:47:42Z_
 
 ## Latest
 
-The mount chain (#650/#652/#653/#656/#658) and the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) are build-complete and gauntleted but stalled unmerged on the fork's `llm`, and the foreman reports M3 saturated in flight with no unblocked build step left — forward progress now depends on merge attention (a conductor/maintainer decision), not more queued work. A durable source fix ("wake open followNameChanges streams on mount revoke") landed on base [#650](https://github.com/endojs/endo-but-for-bots/pull/650); a shepherd rebased [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) onto it and it is now fully green, unblocking grep [#655](https://github.com/endojs/endo-but-for-bots/pull/655) and json [#657](https://github.com/endojs/endo-but-for-bots/pull/657). Two items need your steer: the conductor for [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript) hit a hard wall — the fix targets an `assembleTranscript` that no longer exists on the rewritten `llm` agent.js, so it needs a weave/redesign, not a merge; and the mount-glob Rust parity runner shipped as draft [#654](https://github.com/endojs/endo-but-for-bots/pull/654) via the design-sanctioned Option A because the XS-run path isn't buildable in-tree. Watch the CI on [#286](https://github.com/endojs/endo-but-for-bots/pull/286): a real Node-22 undici/Headers hardening bug fails the http-client e2e (needs a fixer), and the gauntlet for [#661](https://github.com/endojs/endo-but-for-bots/pull/661) was poisoned after 5 requeues and parked in `plan/` awaiting go-ahead. On the agoric-sdk fork, shepherds diagnosed [#9](https://github.com/kriskowal/agoric-sdk/pull/9)/[#10](https://github.com/kriskowal/agoric-sdk/pull/10) as stale-base codegen drift (remedy: merge PR #8 then weave), and the [#12](https://github.com/kriskowal/agoric-sdk/pull/12) XS 16.7.1 fixer is holding two within-consensus calls (golden snapshot hashes, METER_TYPE bump) for you. Note a mid-morning session-limit outage (~08:00–08:35Z, resets 09:10 UTC) that starved the foreman pump and tripped triager self-heals.
+The mount-glob stack cleared its last hurdle: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) is **green** — a gardener rebased it onto the just-landed `followNameChanges`-revoke fix on base [#650](https://github.com/endojs/endo-but-for-bots/pull/650), dropped its now-redundant deflake commit, and all 23 checks pass; grep [#655](https://github.com/endojs/endo-but-for-bots/pull/655) and json [#657](https://github.com/endojs/endo-but-for-bots/pull/657) can now rebase onto it.
+
+The headline for you is a **merge bottleneck, not a work shortage**: both the foreman and the esheets supervisor report M3 saturated in flight, with the mount chain ([#650](https://github.com/endojs/endo-but-for-bots/pull/650)/[#652](https://github.com/endojs/endo-but-for-bots/pull/652)/#653/#656/#658) and the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) build-complete and gauntleted but sitting unmerged on `llm` — blocking every stacked follower and leaving the board with no unblocked build step to post. The foreman is asking for conductor/maintainer merge attention or promotion of the go-ahead-gated next tranche.
+
+Two things need your decision to unstick. The conductor **stalled on [#123](https://github.com/endojs/endo-but-for-bots/pull/123)**: it's approved but its `assembleTranscript` hardening targets code that no longer exists on live `llm` (agent.js was rewritten around `makePiAgent`), so it needs a weave/redesign call, not a merge. And the [#661](https://github.com/endojs/endo-but-for-bots/pull/661) http-client gauntlet was **poisoned after 5 requeue cycles** and parked in the plan queue, held until you promote or drop it.
+
+Fleet health also wants a glance: several shepherd/gauntlet jobs ([#650](https://github.com/endojs/endo-but-for-bots/pull/650), [#652](https://github.com/endojs/endo-but-for-bots/pull/652), [#654](https://github.com/endojs/endo-but-for-bots/pull/654), [#655](https://github.com/endojs/endo-but-for-bots/pull/655), [#659](https://github.com/endojs/endo-but-for-bots/pull/659)) deterministically overran the 2400s handler budget and face poisoning unless split into claim-sized stages, and a session-limit outage (reset 09:10 UTC) knocked over the kriscendobot triagers and starved the foreman pump. Separately, [#286](https://github.com/endojs/endo-but-for-bots/pull/286) has a real Node-22-specific bug (undici `Headers` frozen across CapTP) that wants a fixer, and the agoric-sdk fork shepherds ([#9](https://github.com/kriscendobot/agoric-sdk/pull/9), [#10](https://github.com/kriscendobot/agoric-sdk/pull/10), [#12](https://github.com/kriscendobot/agoric-sdk/pull/12)) are all stale-base/codegen-drift red pending a merge of fork PR #8 — with #12 awaiting your consensus call on golden-snapshot regeneration and the METER_TYPE bump.
 
 ## Parked for maintainer feedback
 
@@ -373,6 +379,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > self-heal: garden-triager@kriscendobot-endo exited rc=1 with no scoped fix. Capture: 0c1602929aab473ba431caa511022045f934b02b (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 0c1602929aab473ba431caa511022045f934b02b). Diagnosis: You've hit your session limit · resets 9:10am (UTC)
 
+- `20260710T094650Z-557e87` — from gardener:xst-validation-orchestrator-20260710-083510, reply_to `xst-validation-orchestrator-20260710-083510` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T094650Z-557e87.md)
+
+> XS-validation effort (kriskowal/garden#33) is now blocked on two decisions only you can make; everything else is green.
+>
+> 1. **Gauntlet Leg 4 (`force:integration`) is infeasible on the fork as provisioned.** The fork's integration.yml jobs all target Depot cloud runners (upstream-Agoric-org-only; fork OIDC maps to no Depot project — verified empirically, run 29082957968, cancelled + label removed), and the gardener container has no docker for a local a3p run. Options: (a) connect kriscendobot/agoric-sdk to a Depot org, (b) provide a docker-capable host for local a3p-integration, or (c) waive Leg 4, accepting the already-green package-suite substitute. Evidence: journal2:jobs/tada/xst-force-integration.md and PR #13 comment issuecomment-4933929249.
+>
+> 2. **Park-on-fail "landed" call.** Draft fork PR kriscendobot/agoric-sdk#14 (kernel-first slice, 34/34 tests green) is up, with named remainders (panic→park detection hook, critical-vat policy). Does the current slice count as "landed" for the effort's done-check, or should the remainders (or a subset) be built first?
+>
+> State otherwise: both engine trains (legacy XS 13.3.0 / latest XS 16.7.1) validated at the package level on xst/integrate-variant-bump (fork PR #13) — snapshot goldens byte-stable, transcript replay zero-divergence, A/B divergence harness clean, variant-gated test lane landed. Full log on issue #33 (latest: issuecomment-4934079088). Upstream Agoric/agoric-sdk untouched. Reply routes to my inbox; the hourly orchestrator will act on your answers.
+
 - `poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -389,18 +405,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`kriscendobot-agoric-sdk-pr13-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr13-shepherd.md) — shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #13
 - [`kriscendobot-agoric-sdk-pr14-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr14-shepherd.md) — shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #14
-- [`xst-validation-orchestrator-20260710-083510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-validation-orchestrator-20260710-083510.md) — XS-validation orchestrator (hourly) — drive the agoric-sdk XS upgrade to vali...
 
-### tada (1690)
+### tada (1691)
+- [`xst-validation-orchestrator-20260710-083510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260710-083510.md) — XS-validation orchestrator — hourly tick report (2026-07-10 ~09:45Z, requeued...
 - [`self-heal-fix-garden-triager-revparse-verify-quiet-multiline-new-sha`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-revparse-verify-quiet-multiline-new-sha.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-endo-revparse-echoes-missing-ref`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-endo-revparse-echoes-missing-ref.md) — Completion report
 - [`xst-force-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-force-integration.md) — Completion report
 - [`improve-foreman-heredoc-backtick-exec`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-foreman-heredoc-backtick-exec.md) — Completion report
-- [`xst-validation-orchestrator-20260710-092002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260710-092002.md) — XS-validation orchestrator — hourly tick report (2026-07-10 ~09:22Z)
-- … and 1685 more
+- … and 1686 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
