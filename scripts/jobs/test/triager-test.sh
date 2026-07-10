@@ -300,6 +300,35 @@ handler_new_sha="$(cut -f3 "$CALLS" | head -1)"
 [ "$(cursor_field "activity/$SLUG" last_sha)" = "$MSHA" ] && ok "activity cursor advanced to the clean sha" || bad "cursor = $(cursor_field "activity/$SLUG" last_sha) (want $MSHA)"
 
 # ============================================================================
+hr; echo "H — missing bare clone on this host: graceful skip (exit 0), NOT a hard die"; hr
+# The watch set is journal-shared across hosts, but bare clones are host-local, so a
+# host that arms this timer need not hold the clone (the live failure of
+# garden-triager@kriscendobot-finbot on a host whose repos/ holds no clone). The
+# missing-$BARE path must be a benign no-op — exit 0 with a skip log — not a die that
+# drives an every-tick systemd failure/restart. The handler must never run (there is
+# nothing to diff against the cursor).
+rm -rf "$TR/state7"; STATE="$TR/state7"
+rm -rf "$BARE"; seed_journal
+NOSLUG=kriscendobot-finbot                     # a slug with NO bare clone in $REPOS
+rm -rf "$REPOS/$NOSLUG.git"                     # ensure the clone is genuinely absent
+[ ! -d "$REPOS/$NOSLUG.git" ] && ok "fixture: no bare clone at \$GARDEN_REPOS/$NOSLUG.git (clone-less host shape)" || bad "fixture invalid: $NOSLUG.git unexpectedly present"
+: > "$CALLS"
+SKIPOUT="$TR/triager-skip.out"; : > "$SKIPOUT"
+set +e
+env GARDEN=testhost GARDEN_STATE="$STATE" \
+    JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_REPOS="$REPOS" GARDEN_WATCH_REF="$REF" \
+    GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_RC=0 CALL_LOG="$CALLS" \
+    GARDEN_TRIAGE_FAIL_THRESHOLD=5 \
+    "$JOBS/triager.sh" "$NOSLUG" >>"$SKIPOUT" 2>&1
+rc=$?
+set -e
+[ "$rc" -eq 0 ] && ok "clone-less tick exits 0 (benign no-op, not a crash-looping die)" || bad "tick exit = $rc (want 0: a missing bare clone must skip, not die)"
+grep -q "no bare clone at .*$NOSLUG.git on this host; skipping triage" "$SKIPOUT" \
+  && ok "skip log names the missing clone and the host-local reason" || bad "skip log missing (want 'no bare clone … on this host; skipping triage')"
+[ ! -s "$CALLS" ] && ok "handler never invoked (nothing to diff without the clone)" || bad "handler ran ($(grep -c . "$CALLS") calls; want 0)"
+
+# ============================================================================
 hr
 echo "TOTAL: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

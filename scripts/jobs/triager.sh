@@ -43,7 +43,14 @@ GARDEN_TAG="triager/$slug"
 fleet_draining && { log "fleet draining; skipping"; exit 0; }
 
 BARE="$GARDEN_REPOS/$slug.git"
-[ -d "$BARE" ] || die "no bare clone at $BARE (clone the repo first)"
+# The watch set is journal-shared across hosts, but bare clones are host-local, so a
+# host that arms this timer need not hold the clone. The triager genuinely needs the
+# local clone to diff refs against its cursor (unlike comment-watcher.sh, which polls
+# via gh), so the correct behavior on a clone-less host is a benign no-op, not a crash
+# — a hard die here drives an every-tick systemd failure/restart on such a host. The
+# host that DOES hold the clone triages this repo. Genuinely-broken cases downstream
+# (fetch failure, unresolvable ref) keep their hard failure.
+[ -d "$BARE" ] || { log "no bare clone at $BARE on this host; skipping triage (a host that holds the clone triages this repo)"; exit 0; }
 
 git --git-dir="$BARE" fetch -q --all --prune || die "fetch failed for $slug"
 
