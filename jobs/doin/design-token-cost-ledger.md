@@ -99,3 +99,9 @@ model-routing and vigil-charge noted as follow-ons and the open questions named.
 phasing.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  claimed_at: 2026-07-10T22:53:43Z
