@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-10T08:09:13Z_
+_As of 2026-07-10T08:28:49Z_
 
 ## Latest
 
@@ -391,7 +391,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`kriscendobot-agoric-sdk-pr14-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr14-shepherd.md) — shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #14
 - [`self-heal-fix-garden-triager-kriscendobot-endo-revparse-verify`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-endo-revparse-verify.md) — In scripts/jobs/triager.sh, the new_sha resolution (lines 55-57) is corrupted...
 
 ### tada (1684)
