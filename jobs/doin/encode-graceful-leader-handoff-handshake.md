@@ -78,3 +78,9 @@ incoming-initiated, confirmed 5-step leader-handoff handshake with the
 marker-gating reconciliation, the no-two-Monitors invariant, and the dead-leader
 fallback — committed and pushed to `main2`. The `tada` report gives the SHA and the
 files touched.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  claimed_at: 2026-07-10T22:24:28Z
