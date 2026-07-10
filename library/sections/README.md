@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6349 (530 parent indexes + 5819 children).
+Total section files: 6359 (530 parent indexes + 5829 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8364,6 +8364,16 @@ Total section files: 6349 (530 parent indexes + 5819 children).
 ### unum
 
 - [unum--cost-attribution-and-aggregation](unum--cost-attribution-and-aggregation.md)
+- [unum--devoker-four-layer-architecture](unum--devoker-four-layer-architecture.md)
+- [unum--garden-vs-devoker-fleet](unum--garden-vs-devoker-fleet.md)
+- [unum--lore-claim-lifecycle](unum--lore-claim-lifecycle.md)
+- [unum--lore-corpus-shape](unum--lore-corpus-shape.md)
+- [unum--lore-crash-safe-guards](unum--lore-crash-safe-guards.md)
+- [unum--lore-engineering-discipline](unum--lore-engineering-discipline.md)
+- [unum--lore-journal-durability](unum--lore-journal-durability.md)
+- [unum--make-user-host-resource-quota](unum--make-user-host-resource-quota.md)
+- [unum--notify-server-routedown](unum--notify-server-routedown.md)
+- [unum--operations-standards](unum--operations-standards.md)
 - [unum--overview](unum--overview.md)
 - [unum--per-persona-model-tiers](unum--per-persona-model-tiers.md)
 - [unum--token-cost-ledger](unum--token-cost-ledger.md)
