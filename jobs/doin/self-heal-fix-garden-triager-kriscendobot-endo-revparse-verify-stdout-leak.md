@@ -5,3 +5,9 @@ new_sha="$(git --git-dir="$BARE" rev-parse --verify -q "refs/remotes/origin/$ref
   || die "cannot resolve ref '$ref' in $slug"
 ```
 Verify by pointing the triager at a bare clone whose only master ref is `refs/heads/master` and confirming `new_sha` resolves to a single 40-hex SHA with no leading ref-name line. Consider whether other `rev-parse` sites in the jobs scripts share this echo-on-failure pattern.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  claimed_at: 2026-07-10T06:04:31Z
