@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-10T13:55:13Z_
+_As of 2026-07-10T13:56:53Z_
 
 ## Latest
 
@@ -457,6 +457,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > increments directly on main; (b) stand up a weaver/conductor sweep to
 > fast-forward promptly. No action needed from you if the current per-cycle rebase
 > cadence is acceptable — it is small so far.
+
+- `20260710T135638Z-327ef9` — from watchdog:gardener/4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T135638Z-327ef9.md)
+
+> gardener job 'shepherd-endo-but-for-bots-pull-request-669-endopi-jsonl-transcript-format-rebase-onto-fixed-lint-llm' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted.md)
 
