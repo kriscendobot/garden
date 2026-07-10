@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-10T04:41:39Z_
+_As of 2026-07-10T04:42:49Z_
 
 ## Latest
 
@@ -274,10 +274,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`build-daemon-agent-tools-http-client-tool-wiring`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-daemon-agent-tools-http-client-tool-wiring.md) — ---
 - [`gauntlet-endo-but-for-bots-pr655-mount-grep`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr655-mount-grep.md) — ---
 - [`gauntlet-endo-but-for-bots-pr659-module-loading-stack-sequencing`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr659-module-loading-stack-sequencing.md) — ---
+- [`self-heal-fix-garden-triager-kriscendobot-minion-town-empty-old-git-log-arg`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-minion-town-empty-old-git-log-arg.md) — In scripts/jobs/handlers/triager-claude.sh, the changes= line uses the revisi...
 
 ### tada (1626)
 - [`gauntlet-endo-but-for-bots-pr644-git-commit-amend-reword`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr644-git-commit-amend-reword.md) — Completion report — gauntlet on endojs/endo-but-for-bots #644
