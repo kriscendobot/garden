@@ -7,3 +7,9 @@ new_sha="$(git --git-dir="$BARE" rev-parse --verify -q "refs/remotes/origin/$ref
   || die "cannot resolve ref '$ref' in $slug"
 ```
 `--verify` resolves exactly one object and, with `-q`, prints nothing and exits non-zero on failure (no bad-ref echo), so only the fallback's real SHA is captured. The explicit `2>/dev/null` can be dropped since `-q` already suppresses the error. Verify with a bare clone that lacks `refs/remotes/origin/master` but has `refs/heads/master` that `new_sha` is a single clean SHA. Sanity-check no other watcher script (`ci-watcher.sh`, `comment-watcher.sh`) shares the same `rev-parse … 2>/dev/null || rev-parse` pattern; apply the same `--verify -q` guard if so.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 19
+  claimed_at: 2026-07-10T07:06:57Z
