@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-10T18:38:46Z_
+_As of 2026-07-10T18:40:37Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ A few things need your explicit call: the XS-validation effort on kriscendobot/a
 
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 1h)
 - [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 19h)
-- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 23h)
+- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 1d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 8d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 10d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 11d)
@@ -457,6 +457,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > Next unblocked increment (next cycle): pick a fresh design axis, since the branch backlog is now empty. Cleanest pure-build candidate is the **ensemble-forecasting open axis** — GARCH / implied-vol forecasting (designs/ensemble-forecasting.md:118) or the histogram-projection-render skill stub (line 72). Both are simulator-side and safe (no wallet).
 >
 > Needs a maintainer decision: the cap-attenuation next step — choosing the CapTP transport to replace the `spawnSigningWorker` gated stub and doing a first live paper-wallet/test-net run — is security-weighted and gated behind `live_authorized`. That is the deepest remaining axis but I will NOT advance it without explicit maintainer authorization.
+
+- `20260710T184026Z-a5d76c` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T184026Z-a5d76c.md)
+
+> self-heal: garden-triager@kriscendobot-finbot exited rc=1 with no scoped fix. Capture: 9866e3fecbdeea6afd69aecb76069d7aa26acadc (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 9866e3fecbdeea6afd69aecb76069d7aa26acadc). Diagnosis: You've hit your session limit · resets 7:10pm (UTC)
 
 - `poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted.md)
 
