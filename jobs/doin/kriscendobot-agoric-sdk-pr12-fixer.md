@@ -56,3 +56,9 @@ regenerating within-consensus values.
 
 Repo scope: kriscendobot/agoric-sdk fork experimentation is permitted; upstream
 agoric/agoric-sdk stays comment-and-link-free (COMMON.md External-repo etiquette).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  claimed_at: 2026-07-10T06:10:57Z
