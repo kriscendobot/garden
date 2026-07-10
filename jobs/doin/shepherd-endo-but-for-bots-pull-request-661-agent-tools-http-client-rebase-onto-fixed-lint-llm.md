@@ -6,6 +6,7 @@ Shepherd `endojs/endo-but-for-bots` PR #661 (`feat(daemon): provideHttpClient + 
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
