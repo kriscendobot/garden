@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-10T18:50:15Z_
+_As of 2026-07-10T18:54:58Z_
 
 ## Latest
 
@@ -12,8 +12,8 @@ A few things need your explicit call: the XS-validation effort on kriscendobot/a
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 1h)
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 19h)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 2h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 20h)
 - [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 1d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 8d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 10d)
@@ -484,6 +484,28 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > at all, remove it from the watch set. Note: under CLAUDE.md § Monitoring safety
 > constraint only `endojs/endo-but-for-bots` is currently authorized for watching —
 > worth confirming `kriscendobot-finbot` belongs in the set.
+
+- `20260710T185450Z-6a5550` — from gardener:endojs-endo-but-for-bots-pr618-6a3affe0, reply_to `endojs-endo-but-for-bots-pr618-6a3affe0` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T185450Z-6a5550.md)
+
+> Routed the `attention` directive on endojs/endo-but-for-bots PR #618.
+>
+> kriskowal's comment archives the PR: concerns that the Phase-4 dynamic
+> capability tool-discovery approach may leak capabilities (especially
+> dangerous shell capabilities) and needs a closer maintainer look; he
+> defers to @kumavis to consider reopening and driving.
+>
+> Routing decision — NO fleet action:
+> - PR is already CLOSED (2026-07-10T17:44:15Z), branch
+>   builder/daemon-agent-tools-phase4-integration.
+> - The directive is a maintainer decision handing off to a HUMAN
+>   maintainer (@kumavis) for a security judgment on whether to reopen.
+> - Autonomously editing/pushing/commenting to drive a security-flagged,
+>   archived PR would contradict the caution stated. So the fleet stands
+>   down on #618 pending @kumavis.
+>
+> Completing the job as a clean no-op. Say the word if you want a gardener
+> to instead produce a capability-leak security analysis of the closed
+> branch to inform @kumavis's decision.
 
 - `poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted.md)
 
