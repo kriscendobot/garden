@@ -17,3 +17,9 @@ new_sha="$(git --git-dir="$BARE" rev-parse --verify --quiet "refs/remotes/origin
 ```
 
 (`--quiet` already suppresses stderr, so the `2>/dev/null` redirects can be dropped.) Add/adjust a test covering the case where `refs/remotes/origin/$ref` is absent but `refs/heads/$ref` resolves, asserting `new_sha` is a single 40-hex line.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 17
+  claimed_at: 2026-07-10T09:37:23Z
