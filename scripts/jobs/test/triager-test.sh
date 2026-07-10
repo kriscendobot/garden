@@ -182,6 +182,36 @@ done
 [ "$(maint_unread)" -eq 0 ] && ok "no maintainer report ever posted with the breaker disabled" || bad "maintainer reports = $(maint_unread) (want 0)"
 
 # ============================================================================
+hr; echo "E — primary ref unresolvable, fallback resolves: new_sha is a single clean SHA"; hr
+# Reproduce garden-triager@kriscendobot-agoric-sdk: the bare has refs/heads/<ref> but
+# NO refs/remotes/origin/<ref>, so rev-parse of the PRIMARY ref fails and the FALLBACK
+# (rev-parse "<ref>") resolves. Without `--verify -q`, the failed primary rev-parse
+# echoes its literal argument to STDOUT (exit 128, unsuppressed by 2>/dev/null) and the
+# `||` fallback appends the real SHA — a corrupted TWO-LINE new_sha. The fix makes
+# rev-parse silent + empty-on-failure so new_sha is one clean line.
+rm -rf "$TR/state4"; STATE="$TR/state4"
+rm -rf "$BARE"; seed_journal
+# A plain `git clone --bare` of a local path populates refs/heads/* only (no
+# refs/remotes/origin/*), and a subsequent `fetch --all --prune` is a clean no-op that
+# leaves it that way — exactly the production shape that tripped the bug.
+rm -rf "$REPOS/$SLUG.git"
+git clone -q --bare "$SRC" "$REPOS/$SLUG.git"
+# sanity: the primary ref really is absent and the fallback really is present
+git -C "$REPOS/$SLUG.git" rev-parse --verify -q "refs/remotes/origin/$REF" >/dev/null 2>&1 \
+  && bad "fixture invalid: refs/remotes/origin/$REF unexpectedly present" \
+  || ok "fixture: primary ref refs/remotes/origin/$REF is absent (fallback path exercised)"
+HEADSHA="$(git -C "$SRC" rev-parse HEAD)"
+: > "$CALLS"
+set +e; run_triager 0 5; rc=$?; set -e
+[ "$rc" -eq 0 ] && ok "tick resolves via fallback and succeeds (exit 0)" || bad "tick exit = $rc (a corrupted two-line new_sha would die 'ambiguous argument')"
+# calls() counts NON-EMPTY lines in CALL_LOG; a newline-injected new_sha would split the
+# single handler-invocation record across TWO lines, so calls==1 IS the single-line guard.
+[ "$(calls)" -eq 1 ] && ok "handler invoked exactly once (CALL_LOG is a single line → new_sha carried no newline)" || bad "CALL_LOG line count = $(calls) (want 1; >1 means new_sha injected a newline)"
+handler_new_sha="$(cut -f3 "$CALLS" | head -1)"
+[ "$handler_new_sha" = "$HEADSHA" ] && ok "new_sha passed to the handler is the clean resolved SHA" || bad "new_sha = [$handler_new_sha] (want $HEADSHA — corrupted 'refs/remotes/origin/$REF\\n<sha>')"
+[ "$(cursor_field "activity/$SLUG" last_sha)" = "$HEADSHA" ] && ok "activity cursor advanced to the clean sha" || bad "cursor = $(cursor_field "activity/$SLUG" last_sha) (want $HEADSHA)"
+
+# ============================================================================
 hr
 echo "TOTAL: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
