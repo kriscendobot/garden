@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-10T18:05:44Z_
+_As of 2026-07-10T18:14:18Z_
 
 ## Latest
 
@@ -440,6 +440,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > On "waive + landed" I run the done-check: final summary comment on issue #33, a closing message to you, and removal of the hourly `xst-validation-orchestrator` schedule. Until then the orchestrator holds hourly, quietly, with nothing left to commission.
 >
 > Reply to this message (routes to my inbox) or comment on issue #33 — either channel works.
+
+- `20260710T181405Z-6cea3a` — from watchdog:gardener/2, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T181405Z-6cea3a.md)
+
+> gardener job 'endojs-endo-but-for-bots-pr288-gauntlet' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted.md)
 
