@@ -1,3 +1,9 @@
 In `scripts/jobs/pages-watcher.sh`, the source-failure branch (lines ~143–164) dies immediately on any non-transient source error, including a GitHub `HTTP 401: Bad credentials`. GitHub returns a transient 401 during OAuth/installation-token rotation; this one self-recovered (the identical `gh run list`/`gh api …/actions/workflows/303635685/runs` call succeeds moments later), yet it produced `FATAL: pages run source failed for kriskowal/garden (rc=1)` and a spurious systemd restart + self-heal invocation.
 
 Change: before `die`, when the source stderr matches an auth-401 signature (`grep -qiE 'HTTP 401|Bad credentials'`) and is NOT already a transient net error, retry the source invocation once after a short bounded sleep (reuse the same `timeout`-wrapped, reaped invocation path so no git child is orphaned). If the retry succeeds, continue the tick normally; if the retry still returns 401, `log "WARN: pages run source auth failed twice (persistent 401) — skipping tick"` and `exit 0` OR keep the existing `die` — but do NOT die on the first transient 401. Preserve the existing silent-failure discipline: a persistent auth failure must still be surfaced loudly (a WARN+skip that repeats every tick, or the die), never swallowed into "no runs / all green". Add a factored helper (e.g. `is_transient_auth_error` in common.sh) alongside `is_transient_net_error` and cover it in `scripts/jobs/test/pages-watcher-test.sh` with a stub source that emits `HTTP 401: Bad credentials` once then a valid TSV, asserting the tick recovers instead of dying.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  claimed_at: 2026-07-10T11:59:09Z
