@@ -76,3 +76,9 @@ Spark-gardener harness seam, the capability-based routing (what Spark can/can't
 do), fleet + model-selection + token-spend integration, and the routing-control
 mechanism — open questions named, not hidden. The `tada` report links the design,
 the SHA, and the recommended build phasing.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  claimed_at: 2026-07-10T21:40:08Z
