@@ -56,3 +56,9 @@ fork). Fork infrastructure limitation, expected-red on any fork PR. Leave it.
 
 After pushing, watch CI to convergence on the new head: the four suites above
 green (plus their cancelled siblings), no new regressions.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 16
+  claimed_at: 2026-07-10T10:54:26Z
