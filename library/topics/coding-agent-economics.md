@@ -14,6 +14,9 @@ The cost and economics of running LLM coding agents at scale: how spend accrues,
 | [Cheaper tokens](../sections/web--allen-pike-coding-agent-spend--cheaper-tokens.md) | coding-agent-economics | Right-size the model to the task; the mid-2026 price spread and the hard problem of routing tasks by difficulty. |
 | [Fewer tokens](../sections/web--allen-pike-coding-agent-spend--fewer-tokens.md) | coding-agent-economics | Agent-ready codebases, shift verification left, prune context, watch cloud-harness behavior, do not do needless work. |
 | [The high cost of free coding](../sections/web--allen-pike-coding-agent-spend--high-cost-of-free-coding.md) | coding-agent-economics | Bigger messes are the price of building better software; the prize is on the other side. |
+| [unum: token/compute cost ledger](../sections/unum--token-cost-ledger.md) | coding-agent-economics | unum's per-run attributed cost ledger (costs.jsonl): capture from the Claude CLI result event; raw tokens + CLI-computed dollars. |
+| [unum: cost attribution and aggregation](../sections/unum--cost-attribution-and-aggregation.md) | coding-agent-economics | Grouping the ledger by task/day/model; the three surfaces (invoke cost table, per-task TADA cost stanza, live operator chip). |
+| [unum: per-persona model tiers](../sections/unum--per-persona-model-tiers.md) | coding-agent-economics | Right-sizing the model per persona in durable config (liaison/foreman sonnet, steward opus, invoker fable); a coarse instance of model-routing. |
 
 ## See also
 
