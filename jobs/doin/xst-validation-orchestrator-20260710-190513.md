@@ -78,3 +78,9 @@ submitter: kriskowal
 - Idempotence: rely on deterministic basenames so a re-post never duplicates work.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  claimed_at: 2026-07-10T20:13:20Z
