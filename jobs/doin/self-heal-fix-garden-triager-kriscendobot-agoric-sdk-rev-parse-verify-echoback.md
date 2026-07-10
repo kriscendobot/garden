@@ -5,3 +5,9 @@ In `scripts/jobs/triager.sh` lines 55–56, the ref-resolution uses bare `git re
       || die "cannot resolve ref '$ref' in $slug"
 
 With `--verify --quiet`, a failed lookup prints nothing to stdout and exits non-zero, so only the successful fallback's SHA is captured. Verify by running the triager against `kriscendobot-agoric-sdk` (whose bare clone lacks `refs/remotes/origin/master`) and confirming `new_sha` is a single clean 40-hex SHA and no "ambiguous argument" fatal occurs. Consider clearing the stuck `cursors/failcount/kriscendobot-agoric-sdk` failcount after the fix lands.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 16
+  claimed_at: 2026-07-10T07:37:12Z
