@@ -6,6 +6,8 @@ Shepherd endojs/endo-but-for-bots PR #652 (`feat/mount-cli-denied-segments`, mou
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
