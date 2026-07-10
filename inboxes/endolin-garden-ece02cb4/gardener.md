@@ -39,3 +39,12 @@ Inspect via `git -C journal cat-file -p ddf19dff486ab0b558b9b8cbd368a345044cdb59
 - Context: gardener-12 on endolin-garden-ece02cb4: job 'endojs-endo-but-for-bots-pr616-gauntlet' exit-0-unsatisfying but elapsed near-constant (881,881s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p e729813ec647f015d0e4fbb88ab6b9a1af0e5de4`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-10T08:07:00Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: b0a1225026f36f1f388e4b212c220b80e8448786
+- Context: gardener-13 on endolin-garden-ece02cb4: job 'self-heal-fix-garden-triager-kriscendobot-endo-revparse-verify' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p b0a1225026f36f1f388e4b212c220b80e8448786`.
