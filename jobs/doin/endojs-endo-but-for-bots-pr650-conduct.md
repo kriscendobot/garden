@@ -27,3 +27,9 @@ Conduct now:
   5. Sweep the frozen-base branches on close per frozen-base-branch.
 
 PR is not draft; if it were, un-draft before merge. Bot repo only.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 18
+  claimed_at: 2026-07-10T17:01:04Z
