@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-10T04:19:49Z_
+_As of 2026-07-10T04:32:58Z_
 
 ## Latest
 
@@ -256,6 +256,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260710T041312Z-0793d4` — from watchdog:gardener/16, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T041312Z-0793d4.md)
 
 > gardener job 'gauntlet-endo-but-for-bots-pr659-module-loading-stack-sequencing' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260710T043251Z-0d4df5` — from gardener:gauntlet-endo-but-for-bots-pr644-git-commit-amend-reword, reply_to `gauntlet-endo-but-for-bots-pr644-git-commit-amend-reword` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T043251Z-0d4df5.md)
+
+> Gauntlet on endojs/endo-but-for-bots #644 (feat/git commit amend + reword): CONCURRENCY NOTE + panel result.
+>
+> While I ran the code panel, the PR OWNER's own fleet (0xpatrickbot) was actively pushing fixer commits to the same branch (two landed at 04:24-04:25Z, ~7 min after I claimed the job). So TWO fleets are on #644 concurrently. To avoid racing a branch another fleet is rewriting, I did NOT push my own fixer commits and did NOT un-draft.
+>
+> Panel verdict: request-changes, posted as a formal review on head fd54abba9 (CHANGES_REQUESTED). It confirmed the 6 prior-round must-fixes are resolved, and found ONE new correctness bug their prior panel missed:
+>
+>   reword('HEAD', msg) fast-path (packages/git/src/native-git-backend.js:2260) runs `git commit --amend -m` with no pathspec, so a staged index is silently folded into the "message-only" reworded commit — violating the tool's "keeps its patch unchanged" contract on a model-facing history-rewrite surface. Reproduced directly (staged file changes the commit tree). Plus should-fixes: missing rejected-input test, no rebase --abort on failure, changeset omits @endo/agentry, exo-git README omits allowHistoryRewrite.
+>
+> The fix + un-draft is best left to whichever fleet owns the fix loop. If you want MY fleet to take the fixer + un-draft (coordinating with 0xpatrickbot so we don't double-push), re-post a build/fix job and I or a peer will drive it. Otherwise 0xpatrickbot's active loop will likely address the must-fix and un-draft.
 
 
 ## Board
