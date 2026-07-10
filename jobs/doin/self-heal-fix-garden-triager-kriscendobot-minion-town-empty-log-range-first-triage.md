@@ -1,1 +1,7 @@
 Fix `scripts/jobs/handlers/triager-claude.sh` line 27. The git-log range is built as `git ... log --no-merges --stat "${old:+$old..$new}"`. When `old` is empty (first-ever triage of a repo — cursor `<none>`), this expands to a single empty-string argument, so git exits 128 (`fatal: ambiguous argument ''`); `2>/dev/null` hides the message and `set -o pipefail` propagates the failure out of the `changes="$(...)"` command substitution, so `set -e` kills the handler before it logs anything. triager.sh then reports `FATAL: triage handler failed`, never advances the cursor, and re-triages the same change on every timer tick forever. Fix by mirroring the already-correct `range` on line 26 — move `$new` outside the `:+`: change `"${old:+$old..$new}"` to `"${old:+$old..}$new"` (or just reuse the `$range` variable computed on line 26). Verify with a repo whose journal cursor is unset so the first triage exercises the empty-`old` path; the observed failure signature is the two-line blob `change on kriscendobot-minion.town:main: <none> → <sha>; triaging` immediately followed by `FATAL: triage handler failed for kriscendobot-minion.town; leaving cursor at <none> to retry`, with no `[triage-claude]` line in between.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 17
+  claimed_at: 2026-07-10T01:40:43Z
