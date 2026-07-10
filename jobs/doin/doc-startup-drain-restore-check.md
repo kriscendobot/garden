@@ -19,3 +19,9 @@ On a leader re-start (`start the garden`), every startup probe looked healthy �
 ## Scope / definition of done
 
 Documentation + role-brief edit in `main2` (garden's own repo — direct push, no PR, per CLAUDE.md § Conventions). Net effect: a future `start the garden` on a drained-post-upgrade instance deterministically detects the drain, uncorks it (with the ask-before-acting contract), reconciles the pool, and verifies gardeners are positively running before declaring the garden up. Keep edits tight and consistent with the surrounding prose; no executable changes required unless you judge a positive-liveness helper worth adding under `scripts/jobs/`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 16
+  claimed_at: 2026-07-10T16:39:47Z
