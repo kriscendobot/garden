@@ -29,3 +29,9 @@ Conduct now:
 PR is not draft; if it were, un-draft before merge. Bot repo only.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  claimed_at: 2026-07-10T17:33:27Z
