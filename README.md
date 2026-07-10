@@ -1,17 +1,17 @@
 # Garden bulletin
 
-_As of 2026-07-10T19:40:52Z_
+_As of 2026-07-10T19:57:15Z_
 
 ## Latest
 
-The [#288 gauntlet](https://github.com/endojs/endo-but-for-bots/pull/288) completed and a new glob/grep-pushdown design job ([design-endo-glob-grep-pushdown](https://github.com/endojs/endo-but-for-bots)) was claimed under a fresh orchestration, but the headline is a merge bottleneck: the M3 daemon-mount stack ([#650](https://github.com/endojs/endo-but-for-bots/pull/650), [#653](https://github.com/endojs/endo-but-for-bots/pull/653), #655/#657/#658) and the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) are all CI-green, gauntleted, and mergeable but sitting unmerged on the fork's `llm` branch — the foreman has escalated four times that the fleet has no unblocked build work left and needs conductor/maintainer merge attention, not more queued jobs. A shepherd rebased [#653](https://github.com/endojs/endo-but-for-bots/pull/653) onto its fixed base and drove all 23 checks green (the durable `followNameChanges`-on-revoke fix landed on base [#650](https://github.com/endojs/endo-but-for-bots/pull/650)); [#650](https://github.com/endojs/endo-but-for-bots/pull/650) is now in conduct/merge. Several build jobs came back as already-satisfied duplicates — daemon-locator-terminology, interval-scheduler [#609](https://github.com/endojs/endo-but-for-bots/pull/609), the filesystem agent-tools ([#614](https://github.com/endojs/endo-but-for-bots/pull/614) landed, [#618](https://github.com/endojs/endo-but-for-bots/pull/618) now closed by kriskowal over shell-capability-leak concerns and handed to @kumavis), the Docker-selfhost re-decline, and an mvs-resolver collision between [#403](https://github.com/endojs/endo-but-for-bots/pull/403) and [#671](https://github.com/endojs/endo-but-for-bots/pull/671) — all awaiting a maintainer steer rather than a PR.
+The garden's newest output is a design draft — [endo-but-for-bots#675](https://github.com/endojs/endo-but-for-bots/pull/675), the glob/grep pushdown design — but the dominant signal from the fleet is a merge bottleneck, not missing work. Three separate foreman messages report M3 (Remote Access and Coding Capabilities) saturated in flight: the daemon-mount stack ([#650](https://github.com/endojs/endo-but-for-bots/pull/650), [#652](https://github.com/endojs/endo-but-for-bots/pull/652), [#653](https://github.com/endojs/endo-but-for-bots/pull/653), #655, #656, #657, #658) and the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609), #617, #619) are all CI-green, gauntleted, and mergeable but sitting unmerged on the fork's `llm` branch, which blocks every stacked follower. [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) went green after a shepherd rebased it onto the durable revocation fix that landed on base [#650](https://github.com/endojs/endo-but-for-bots/pull/650); [#650](https://github.com/endojs/endo-but-for-bots/pull/650) itself is now in the conduct/merge lane.
 
-A few things need decisions or carry real risk: [#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s http-client e2e test fails deterministically on Node 22 (a hardened undici `Headers` symbol slot), needing a fixer; the [#661](https://github.com/endojs/endo-but-for-bots/pull/661) http-client gauntlet is reaper-poisoned and parked awaiting `go-ahead` now that the [#594](https://github.com/endojs/endo-but-for-bots/pull/594) lint ceiling shows green; and the agoric-sdk XS-validation effort (garden#33) is fully green on fork PRs #13/#14 but blocked on two maintainer calls (waive the Depot-gated integration leg, and whether the draft park-on-fail PR counts as "landed"). Operationally, the foreman pump handler failed twice with `designer: command not found` / `builder: command not found`, several shepherd/gauntlet jobs are overrunning the 2400s handler budget, and the `kriscendobot-finbot` triager tripped its circuit-breaker — worth noting finbot is being watched despite only `endojs/endo-but-for-bots` being authorized under the monitoring-safety constraint.
+Several jobs came back as impasses rather than PRs, worth a decision each: `mvs-resolver` found the resolver already implemented in two competing PRs ([#403](https://github.com/endojs/endo-but-for-bots/pull/403) in a new `@endo/exo-npm` vs [#671](https://github.com/endojs/endo-but-for-bots/pull/671) in `@endo/daemon`) with an unsettled home; the Docker-selfhost build halted as re-attempting the already-declined [#134](https://github.com/endojs/endo-but-for-bots/pull/134) line and asks that its stale design record be retired; and the daemon-locator-terminology and endoclaw-timer-phase-one jobs each found their scope already merged. kriskowal closed [#618](https://github.com/endojs/endo-but-for-bots/pull/618) (agent-tools Phase 4) over a capability-leak concern, deferring a reopen decision to @kumavis. The XS-validation effort (kriskowal/garden#33) is engineering-complete and green on fork PRs [#13](https://github.com/kriscendobot/agoric-sdk/pull/13) and [#14](https://github.com/kriscendobot/agoric-sdk/pull/14) but has been holding hourly since ~09:45Z on two maintainer calls (waive the Depot-gated integration leg; does a green draft count as "landed"). Operationally, note two recurring watchdog signals: a wave of shepherd/gauntlet jobs deterministically overran the 2400s handler budget and will be poisoned unless split, the foreman pump failed twice with a `designer: command not found` handler bug, and the `kriscendobot-finbot` triager tripped its circuit breaker (session-limit failures, plus a reminder that only `endojs/endo-but-for-bots` is authorized for watching).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 2h)
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 20h)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 3h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 21h)
 - [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 1d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 8d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 10d)
@@ -509,6 +509,18 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > gardener job 'endojs-endo-but-for-bots-pr592-cancel-in-options' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2513s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
+- `20260710T195622Z-9f738f` — from gardener:esheets-supervisor-20260710-185003, reply_to `esheets-supervisor-20260710-185003` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T195622Z-9f738f.md)
+
+> 📊 esheets daily standup (2026-07-10) — @endo/exo-google-sheets tree
+>
+> MERGED: endoclaw-network-fetch floor (exo-http-client + http-confine on `llm`, #566).
+>
+> IN FLIGHT (deepest node): endoclaw-oauth design refinement — endojs/endo-but-for-bots#621, OPEN, un-drafted, all 5 CI green. You reviewed it 3× today; your 16:42 directive (compose the caretaker pattern with recursive partition/delegation = "caretaker attenuation", child caps narrowed-never-expanded) was addressed this afternoon by a peer designer job: `designs/endoclaw-oauth.md` revised (new partition()/delegation semantics, conjunction-not-snapshot monotonicity) + a named pattern doc `designs/caretaker-attenuation.md`, both pushed to the PR head (6e1de440c4). No package code exists yet for the OAuth exo, @endo/google-sheets, or @endo/exo-google-sheets — all blocked on #621 landing.
+>
+> ADVANCED TODAY: nothing new posted — the caretaker revision you asked for is already on #621 and you're actively iterating the PR, so a redundant build/panel job would only be noise.
+>
+> BLOCKING (maintainer decisions on #621): (1) re-review + merge the revised design — reviewDecision is still CHANGES_REQUESTED from your 15:59 review, which the revision now addresses; (2) answer the two open questions the reviser surfaced — OQ3: should mint/partition expose a `delegable:false` legibility knob (it can't truly prevent proxy delegation)? OQ4: GC policy for revoked subtrees (lazy-plus-sweep suggested). Once #621 merges I'll post the builder job for the OAuth exo, then chase google-sheets → exo-google-sheets down the tree. Webhooks/push stays deferred per design (not in the v1 operational bar).
+
 - `poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -525,21 +537,19 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
-- [`design-endo-glob-grep-pushdown`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-glob-grep-pushdown.md) — Design: push glob/grep down into @endo/platform, design forward for streaming
+### doin (4)
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
 - [`endojs-endo-but-for-bots-pr650-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr650-conduct.md) — Conduct (merge) endojs/endo-but-for-bots PR #650
-- [`esheets-supervisor-20260710-185003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260710-185003.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
 - [`readme-control-surface-illustrations`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/readme-control-surface-illustrations.md) — Document novel control-surface uses in the garden README
 - [`xst-validation-orchestrator-20260710-190513`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-validation-orchestrator-20260710-190513.md) — XS-validation orchestrator (hourly) — drive the agoric-sdk XS upgrade to vali...
 
-### tada (1748)
+### tada (1750)
+- [`esheets-supervisor-20260710-185003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260710-185003.md) — Completion report
+- [`design-endo-glob-grep-pushdown`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-glob-grep-pushdown.md) — Design job complete — draft PR [#675](https://github.com/endojs/endo-but-for-...
 - [`endojs-endo-but-for-bots-pr288-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr288-gauntlet.md) — Completion report — gauntlet on endojs/endo-but-for-bots PR #288
 - [`endojs-endo-but-for-bots-pr592-01edab2b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr592-01edab2b.md) — **Completion report — endojs/endo-but-for-bots PR #592 ("Please rebase, retco...
 - [`xst-validation-orchestrator-20260710-180513`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260710-180513.md) — XS-validation orchestrator — tick report (2026-07-10 ~19:15Z, tick posted 18:...
-- [`endojs-endo-but-for-bots-pr618-6a3affe0`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr618-6a3affe0.md) — Completion report
-- [`finbot-progress-20260710-183515`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260710-183515.md) — Completion report — finbot-progress-20260710-183515
-- … and 1743 more
+- … and 1745 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
