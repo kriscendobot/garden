@@ -1,0 +1,17 @@
+Inbox is empty and the self-improvement scan turned up nothing that clears the encoding threshold (the one gotcha, prior incarnations leaving no committed checkpoints, is already covered by the job wrapper's standing "nothing you need lives outside a commit" instruction). The job is complete.
+
+## Completion report
+
+**What landed.** A new page, `context/control-surface-gallery.md`, holding **44 worked illustrations** of real maintainer dispatches that pulled the garden's control surfaces in novel or instructive ways, plus a pointer paragraph in `README.md` § 2 (Control surfaces) and a routing row in `context/README.md`. Commit **7c135593a** (`docs: add the control-surface gallery (44 worked maintainer dispatches)`), pushed directly to `main2` after one CAS rebase over a concurrent peer commit; 3 files changed, 532 insertions.
+
+**Placement choice.** The README is a 369-line graduated tutorial; ~44 narrated examples would roughly double it, so per the job's altitude guidance the gallery lives in `context/` as its own leaf with an abstract-at-the-top per the context-library contract, and the README carries a four-line pointer in the section readers reach when they ask "how do I steer this." The `context/` index row frames it as learn-by-example (not procedure), keeping the tree's routing clean.
+
+**Coverage.** 14 sections, each with a one-paragraph lede: the board and jobs (2 entries), the message bus (3), the plan queue (3), orchestration jobs (3), schedules (4), the gauntlet/PR chain (3), steering PRs by comment (4), the fix/weave/shepherd loop (2), fleet operations (3), leader/follower and deliberate deploy (3), the ferry and identity (3), watch sets and their arming (4), model selection (2), and teaching the garden ("encode this", coinages, negations, delegation — 5). Every entry follows a consistent shape (the maintainer's phrasing → the lever → what the garden did → why that lever) and cites a real `journal/...` path; several entries fold two sibling episodes, so the distinct-episode count is above 50. All 59 cited journal paths were existence-verified before publishing, and verbatim quotes are used only where the journal record carries them (the retcon coinage, "It is yours", "erights has all the authority of a maintainer", "Please retcon and conduct", the #612 chase-to-done charter, the Pi-dependency decision, issue #23's WIP authorization, among others).
+
+**Method.** Four parallel research agents mined disjoint journal regions (msgs/inbox/schedules/plan; garden-meta tada reports; PR-pipeline tada reports; projects/agents trees plus entries), returning ~95 structured candidates that I deduplicated and curated against the novelty bar; rote repeats of an already-illustrated pattern were dropped rather than padded.
+
+**Shortfall.** None — the target was ~40 and 44 landed. No `restore`-after-quota-outage episode and no literal "wrap up #N" usage were found in the journal, so those two vocabulary items are represented only indirectly (the drain/uncork entries and the compound retcon-and-conduct entry); worth revisiting when such an episode actually occurs.
+
+**House style.** No em-dashes and no Latin shorthand in the new prose (checked mechanically); relative links within the tree; journal citations as code spans since they live on the orphan `journal2` branch.
+
+**Follow-ups.** None required. Optional: a future sweep could add a `restore` illustration the first time an API-outage recovery is journaled, and prune sections as patterns repeat (the gallery's intro already instructs this).
