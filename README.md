@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-10T03:26:25Z_
+_As of 2026-07-10T03:33:18Z_
 
 ## Latest
 
-The mount-extensions stack advanced the most: [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is green and merged its gauntlet after being rebased onto the durable revoke-wake fix that landed on its base [#650](https://github.com/endojs/endo-but-for-bots/pull/650), and [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (mount `--deny` CLI) cleared the gauntlet too; the two next links, [#655](https://github.com/endojs/endo-but-for-bots/pull/655) (grep) and [#656](https://github.com/endojs/endo-but-for-bots/pull/656) (provide-submount), are now running the gauntlet, and a Rust-side parity runner shipped as draft [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (the XS-run variant is not buildable in-tree). Two things want your eye: several `shepherd-…-ci-green` jobs (for #650, #652, #654) deterministically overran the claim-scoped handler budget and will be poisoned unless split or detached, and [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (http-client reconcile) is red on a real Node-22 undici bug — hardening freezes a lazy `Symbol(headers map sorted)` slot so error-decode throws across CapTP — needing a fixer. Conducting [#123](https://github.com/endojs/endo-but-for-bots/pull/123) stalled: its transcript hardening targets an `assembleTranscript` that no longer exists on the rewritten `makePiAgent` `agent.js`, so it needs a weave/redesign, not a merge. Meanwhile the esheets daily supervisor opened its push-to-implementation campaign around the OAuth design gate [#621](https://github.com/endojs/endo-but-for-bots/pull/621), and three builder jobs reported their asks already landed — interval-scheduler ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)), fs agent-tools ([#614](https://github.com/endojs/endo-but-for-bots/pull/614)/[#618](https://github.com/endojs/endo-but-for-bots/pull/618)), and daemon-locator-terminology — so those jobs are duplicates rather than new work.
+The mount-extensions stack is the main throughline: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is green and merged-ready after a shepherd rebased it onto the deflaked `feat/mount-revocation` base, and its gauntlet completed alongside [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (CLI `--deny` segments) and [#618](https://github.com/endojs/endo-but-for-bots/pull/618) (agent-tools Phase 4). Three more gauntlets are now in flight — [#655](https://github.com/endojs/endo-but-for-bots/pull/655) (mount-grep), [#656](https://github.com/endojs/endo-but-for-bots/pull/656) (provide-submount), and [#659](https://github.com/endojs/endo-but-for-bots/pull/659) (module-loading stack sequencing) — plus new stacked drafts [#652](https://github.com/endojs/endo-but-for-bots/pull/652) and [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (a Rust-side mount-glob parity crate, offered in lieu of an XS-run runner the tree can't build).
+
+Two items want a maintainer decision. [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (http-client reconcile) has a real, deterministic Node-22 CI failure — undici's lazy `Symbol(headers map sorted)` slot gets frozen by hardening and breaks error-decode across CapTP; it passes on Node 24 and needs a fixer to stop marshalling live `Headers`. And [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript) stalled in conduct: its base snapshot has diverged hard from `llm`, where `assembleTranscript` no longer exists after the `makePiAgent` rewrite — the conductor recommends a **weave #123** or a decision that the fix is obsolete.
+
+Several build jobs reported their scope already landed rather than opening duplicate PRs — the `interval-scheduler` formula ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)), the daemon locator terminology, and the Lal/Fae filesystem agent-tools wiring. On the exo-google-sheets front, a new daily supervisor stood itself up and posted `run the gauntlet #621` to drive the endoclaw-oauth foundation design out of draft; nothing downstream unblocks until [#621](https://github.com/endojs/endo-but-for-bots/pull/621) merges. Finally, the watchdog flagged four shepherd jobs (PRs #650, #652, #653, #654) that deterministically overran the 2400s handler budget and will be poisoned unless split into claim-sized stages.
 
 ## Parked for maintainer feedback
 
@@ -250,9 +254,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`gauntlet-endo-but-for-bots-pr655-mount-grep`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr655-mount-grep.md) — ---
 - [`gauntlet-endo-but-for-bots-pr656-mount-provide-submount`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr656-mount-provide-submount.md) — ---
+- [`gauntlet-endo-but-for-bots-pr659-module-loading-stack-sequencing`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr659-module-loading-stack-sequencing.md) — ---
 
 ### tada (1619)
 - [`gauntlet-endo-but-for-bots-pr652-mount-cli-deny-segments`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr652-mount-cli-deny-segments.md) — Completion report — gauntlet on endojs/endo-but-for-bots PR #652
