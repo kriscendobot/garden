@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6359 (530 parent indexes + 5829 children).
+Total section files: 6365 (530 parent indexes + 5835 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8636,6 +8636,16 @@ Total section files: 6359 (530 parent indexes + 5829 children).
 
 - [web--mdn-selectedcontent--element-semantics-and-cloning](web--mdn-selectedcontent--element-semantics-and-cloning.md)
 
+### web--meta-muse-spark-1-1-blog
+
+- [web--meta-muse-spark-1-1-blog--access-and-api](web--meta-muse-spark-1-1-blog--access-and-api.md)
+- [web--meta-muse-spark-1-1-blog--capabilities](web--meta-muse-spark-1-1-blog--capabilities.md)
+
+### web--meta-muse-spark-1-1-eval-report
+
+- [web--meta-muse-spark-1-1-eval-report--attractor-states](web--meta-muse-spark-1-1-eval-report--attractor-states.md)
+- [web--meta-muse-spark-1-1-eval-report--safety-and-agentic-robustness](web--meta-muse-spark-1-1-eval-report--safety-and-agentic-robustness.md)
+
 ### web--miller-equality-argument-passing-rules
 
 - [web--miller-equality-argument-passing-rules--vat-based-rules](web--miller-equality-argument-passing-rules--vat-based-rules.md)
@@ -8684,6 +8694,10 @@ Total section files: 6359 (530 parent indexes + 5829 children).
 - [web--openai-symphony-codex-orchestration--spec-workflow-md-contract](web--openai-symphony-codex-orchestration--spec-workflow-md-contract.md)
 - [web--openai-symphony-codex-orchestration--spec-workspace-management-and-safety](web--openai-symphony-codex-orchestration--spec-workspace-management-and-safety.md)
 
+### web--simonw-llm-meta-ai
+
+- [web--simonw-llm-meta-ai--invocation-and-features](web--simonw-llm-meta-ai--invocation-and-features.md)
+
 ### web--tailscale-oauth-apps
 
 - [web--tailscale-oauth-apps--requirements-and-limitations](web--tailscale-oauth-apps--requirements-and-limitations.md)
@@ -8713,6 +8727,10 @@ Total section files: 6359 (530 parent indexes + 5829 children).
   - [Role hierarchy and metadata files](web--tuf-signed-update-framework--overview--role-hierarchy-and-metadata-files.md)
   - [Security properties](web--tuf-signed-update-framework--overview--security-properties.md)
   - [Threat model](web--tuf-signed-update-framework--overview--threat-model.md)
+
+### web--willison-muse-spark-1-1
+
+- [web--willison-muse-spark-1-1--overview](web--willison-muse-spark-1-1--overview.md)
 
 ### wizdom--readme
 
