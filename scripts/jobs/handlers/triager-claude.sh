@@ -56,11 +56,17 @@ command -v claude >/dev/null 2>&1 || die "claude not on PATH; cannot triage $slu
 # approver; the default permission gate would deny every tool call (the triager
 # needs gh especially). Bypass is the intended fleet posture (operator
 # pre-consents via skipDangerousModePermissionPrompt in ~/.claude). Non-root.
-# Capture claude's exit status and stderr so a failure is diagnosable rather
-# than an opaque abort inside the command substitution under `set -e`. This lets
-# a self-heal responder distinguish a transient API/DNS/quota blip (leave the
-# cursor to retry) from a deterministic error (post a fix). The success path and
-# the non-advancing-cursor retry semantics are unchanged.
+# Capture claude's exit status AND its combined stdout+stderr so a failure is
+# diagnosable rather than an opaque abort inside the command substitution under
+# `set -e`. stderr goes to $errfile (kept out of the success parse, which reads
+# only clean stdout); on failure BOTH the stderr tail and the captured stdout
+# tail ($out) are logged, because `claude -p` prints its error diagnostic to
+# stdout as often as to stderr — capturing only stderr reproduced the very
+# "empty service-log tail" that made kriscendobot-minion.town:main
+# (<none> -> 35e9b4a5) undiagnosable. This also lets a self-heal responder
+# distinguish a transient API/DNS/quota blip (leave the cursor to retry) from a
+# deterministic error (post a fix). The success path and the non-advancing-cursor
+# retry semantics are unchanged.
 errfile="$(mktemp "${TMPDIR:-/tmp}/triage-claude.XXXXXX.err")"
 trap 'rm -f "$errfile"' EXIT
 # Bounded retry with a short backoff: a transient non-zero exit from `claude -p`
@@ -83,11 +89,22 @@ while :; do
     break
   else
     rc=$?
+    # Combined diagnostic: stderr tail (from $errfile) AND stdout tail (from
+    # $out, still assigned even when the command substitution's command exits
+    # nonzero). Both via `tail -c`, which returns the whole string when it is
+    # shorter than the cap — unlike `${out: -400}`, whose negative offset
+    # resolves before the start and yields the EMPTY string for the common
+    # short-message case, which would reproduce the very empty-tail signature
+    # this handler exists to kill. Logging both closes the "empty service-log
+    # tail" gap when claude errors to stdout instead of stderr.
+    err_tail="$(tail -c 400 "$errfile" 2>/dev/null || true)"
+    out_tail="$(printf '%s' "$out" | tail -c 400)"
+    diag="stderr=[$err_tail] stdout=[$out_tail]"
     if [ "$attempt" -ge "$attempts" ]; then
-      die "claude -p exited $rc while triaging $slug after $attempt attempt(s): $(tail -c 500 "$errfile")"
+      die "claude -p exited $rc while triaging $slug after $attempt attempt(s): $diag"
     fi
     delay="${delays[$((attempt-1))]:-9}"
-    log "claude -p exited $rc while triaging $slug (attempt $attempt/$attempts); retrying in ${delay}s: $(tail -c 200 "$errfile")"
+    log "claude -p exited $rc while triaging $slug (attempt $attempt/$attempts); retrying in ${delay}s: $diag"
     sleep "$delay"
     attempt=$((attempt+1))
   fi
