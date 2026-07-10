@@ -12,3 +12,9 @@ new_sha="$(git --git-dir="$BARE" rev-parse --verify -q "refs/remotes/origin/$ref
   || die "cannot resolve ref '$ref' in $slug"
 ```
 (The `2>/dev/null` becomes unnecessary since `-q` silences stderr, but keeping it is harmless.) Verify with a bare clone lacking `refs/remotes/origin/*`: `new_sha` must be a single 40-hex SHA with no embedded newline. Consider a guard/regex assert that `new_sha` matches `^[0-9a-f]{40}$` before handing it to the triage handler, to fail loudly on any future poisoning rather than passing a bad revision downstream.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  claimed_at: 2026-07-10T06:34:44Z
