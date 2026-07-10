@@ -39,3 +39,9 @@ lands.
 
 Origin: maintainer review directive on endojs/endo-but-for-bots#621
 (inline comment 3560264811). Filed by a gardener resolving that review.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 15
+  claimed_at: 2026-07-10T16:04:40Z
