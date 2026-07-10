@@ -2,7 +2,7 @@
 order: serial
 children: design-endo-glob-grep-pushdown build-endo-glob-grep-pushdown gauntlet-endo-glob-grep-stack
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-07-10T19:39:00Z
 ---
