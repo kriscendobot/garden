@@ -12,6 +12,8 @@
 #   E. no Pages runs reported → no job
 #   F. newest run red but a shepherd already exists for that SHA → idempotent skip
 #   G. a red tip on a DIFFERENT SHA → a distinct job (basename keys on the head SHA)
+#   H. source emits a transient HTTP 401 once then a valid TSV → the tick RETRIES and
+#      recovers (posts the job, exits 0) instead of dying on the first 401
 #
 # Usage: pages-watcher-test.sh
 set -euo pipefail
@@ -136,6 +138,35 @@ board_has "$BARE_G" "garden-pages-aaaa11112222-shepherd" \
   && board_has "$BARE_G" "garden-pages-bbbb33334444-shepherd" \
   && ok "each distinct red SHA got its own job" || bad "distinct-SHA jobs missing"
 [ "$(todo_count "$BARE_G")" -eq 2 ] && ok "exactly two jobs for two distinct red SHAs" || bad "expected two, got $(todo_count "$BARE_G")"
+
+# ============================================================================
+hr; echo "H — transient 401 on first source call → retry recovers (no die, one job)"; hr
+# Stub source: emit `HTTP 401: Bad credentials` (rc 1) on the FIRST call, then the
+# valid fixture on every later call — the self-recovering rotation blip from the wild.
+FLIP401="$TR/flip401-stub.sh"
+cat > "$FLIP401" <<'EOF'
+#!/bin/bash
+c="${FLIP401_COUNTER:?set FLIP401_COUNTER}"
+n=0; [ -f "$c" ] && n="$(cat "$c")"; n=$((n+1)); printf '%s' "$n" > "$c"
+if [ "$n" -eq 1 ]; then
+  echo "gh: HTTP 401: Bad credentials (https://api.github.com/repos/x/y/actions/workflows/303635685/runs)" >&2
+  exit 1
+fi
+cat "${PAGES_FIXTURE:?set PAGES_FIXTURE}"
+EOF
+chmod +x "$FLIP401"
+BARE_H="$TR/h.git"; seed_bare "$BARE_H"
+FIX_H="$TR/fix-h.tsv"; runline 950 completed failure fee1deadbeef9876 > "$FIX_H"
+CTR_H="$TR/h-counter"; : > "$CTR_H"
+if env GARDEN_STATE="$TR/state-h" JOURNAL_REMOTE="$BARE_H" JOURNAL_BRANCH="$BRANCH" \
+       GARDEN_GARDEN_REPO="$REPO" \
+       GARDEN_PAGES_SOURCE="$FLIP401" PAGES_FIXTURE="$FIX_H" FLIP401_COUNTER="$CTR_H" \
+       GARDEN_PAGES_AUTH_RETRY_SLEEP=0 \
+       GARDEN_PAGES_POST="$JOBS/post-job.sh" \
+       "$JOBS/pages-watcher.sh" >/dev/null 2>&1; then rc_h=0; else rc_h=$?; fi
+[ "$rc_h" -eq 0 ] && ok "tick exited 0 (recovered; did not die on the transient 401)" || bad "tick failed (rc=$rc_h) instead of recovering"
+board_has "$BARE_H" "garden-pages-fee1deadbeef-shepherd" && ok "posted shepherd after the 401 retry recovered" || bad "shepherd job missing after retry"
+[ "$(cat "$CTR_H")" -eq 2 ] && ok "source invoked exactly twice (one 401 + one success)" || bad "expected 2 source calls, got $(cat "$CTR_H")"
 
 # ============================================================================
 hr

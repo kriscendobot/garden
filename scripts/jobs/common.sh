@@ -262,6 +262,25 @@ is_transient_net_error() {
     'connection timed out|error connecting to api\.github\.com|check your internet connection|read tcp .* i/o timeout|TLS handshake timeout|could not resolve host'
 }
 
+# is_transient_auth_error <stderr-file-or-string> — true (0) when the given text
+# bears the fingerprint of a TRANSIENT auth failure: GitHub returns an `HTTP 401:
+# Bad credentials` for a brief window while an OAuth/installation token rotates,
+# then the very next identical call succeeds. This is the auth-side sibling of
+# is_transient_net_error: a watcher whose source dies on a 401 uses this to decide
+# to RETRY once (the blip self-heals) rather than to `die` on the first 401 and
+# detonate a systemd restart + self-heal. A truly revoked/misconfigured credential
+# still fails the retry and is surfaced loudly there. Same argument contract as
+# is_transient_net_error (a file is slurped; a non-file string is matched directly).
+is_transient_auth_error() {
+  local blob
+  if [ -f "$1" ]; then
+    blob="$(cat "$1" 2>/dev/null || true)"
+  else
+    blob="$1"
+  fi
+  printf '%s' "$blob" | grep -qiE 'HTTP 401|Bad credentials'
+}
+
 # True when this host's fleet is draining: the new draining marker OR the
 # deprecated legacy killswitch marker exists. Keys on EXISTENCE only — an empty
 # marker drains just as a prose-filled one does.

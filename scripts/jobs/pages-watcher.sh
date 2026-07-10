@@ -140,27 +140,64 @@ trap 'cleanup' EXIT
 trap 'cleanup; exit 143' TERM
 trap 'cleanup; exit 130' INT
 
-src_rc=0
-if command -v timeout >/dev/null 2>&1; then
-  timeout --signal=TERM --kill-after="$GARDEN_PAGES_KILL_AFTER" "${GARDEN_PAGES_SOURCE_TIMEOUT_SECS}s" \
-    "$GARDEN_PAGES_SOURCE" "$REPO" "$GARDEN_PAGES_WORKFLOW" > "$SRC" 2>"$ERRF" &
-  SOURCE_TIMEOUT_PID=$!
-  wait "$SOURCE_TIMEOUT_PID" || src_rc=$?
-  SOURCE_TIMEOUT_PID=""
-else
-  "$GARDEN_PAGES_SOURCE" "$REPO" "$GARDEN_PAGES_WORKFLOW" > "$SRC" 2>"$ERRF" || src_rc=$?
-fi
+# Bounded backoff before a 401-retry; tests set it to 0 to keep the run fast.
+: "${GARDEN_PAGES_AUTH_RETRY_SLEEP:=5}"
+
+# run_source — invoke the Pages-run source ONCE into $SRC/$ERRF, setting src_rc.
+# Wrapped in `timeout` and reaped through SOURCE_TIMEOUT_PID/cleanup so a hung or
+# signalled `gh`/git child cannot outlive the tick or orphan into the unit cgroup.
+# Factored so the 401-retry below reuses the identical bounded, reaped path.
+run_source() {
+  src_rc=0
+  if command -v timeout >/dev/null 2>&1; then
+    timeout --signal=TERM --kill-after="$GARDEN_PAGES_KILL_AFTER" "${GARDEN_PAGES_SOURCE_TIMEOUT_SECS}s" \
+      "$GARDEN_PAGES_SOURCE" "$REPO" "$GARDEN_PAGES_WORKFLOW" > "$SRC" 2>"$ERRF" &
+    SOURCE_TIMEOUT_PID=$!
+    wait "$SOURCE_TIMEOUT_PID" || src_rc=$?
+    SOURCE_TIMEOUT_PID=""
+  else
+    "$GARDEN_PAGES_SOURCE" "$REPO" "$GARDEN_PAGES_WORKFLOW" > "$SRC" 2>"$ERRF" || src_rc=$?
+  fi
+}
+
+run_source
 if [ "$src_rc" -ne 0 ]; then
   sed 's/^/  source: /' "$ERRF" >&2 || true
   # A transient connectivity failure is not a broken enumeration — degrade the same
   # way the ci-watcher does: skip the tick rather than die, so a GitHub outage doesn't
-  # detonate a systemd restart storm. A structural failure (auth, 404, malformed) still
+  # detonate a systemd restart storm. A structural failure (404, malformed) still
   # dies loud — that IS a bug to surface.
   if is_transient_net_error "$ERRF"; then
     log "WARN: pages run source unreachable (transient network) — skipping tick (never guess)"
     exit 0
   fi
-  die "pages run source failed for $REPO (rc=$src_rc; see source stderr above)"
+  # GitHub returns a transient `HTTP 401: Bad credentials` for a brief window while an
+  # OAuth/installation token rotates; the identical call succeeds moments later. Retry
+  # ONCE (same reaped, timeout-wrapped path) after a short backoff before treating a 401
+  # as structural, so a rotation blip doesn't detonate a systemd restart + self-heal.
+  if is_transient_auth_error "$ERRF"; then
+    log "WARN: pages run source auth failed (HTTP 401) — retrying once after ${GARDEN_PAGES_AUTH_RETRY_SLEEP}s backoff"
+    [ "$GARDEN_PAGES_AUTH_RETRY_SLEEP" -gt 0 ] 2>/dev/null && sleep "$GARDEN_PAGES_AUTH_RETRY_SLEEP"
+    run_source
+    if [ "$src_rc" -ne 0 ]; then
+      sed 's/^/  source(retry): /' "$ERRF" >&2 || true
+      if is_transient_net_error "$ERRF"; then
+        log "WARN: pages run source unreachable (transient network) on retry — skipping tick (never guess)"
+        exit 0
+      fi
+      # Still 401 after the retry — a persistent auth failure (a revoked/misconfigured
+      # credential), not a rotation blip. Surface it loudly and skip the tick; the WARN
+      # repeats every tick until the credential is fixed (never swallowed into "all green").
+      if is_transient_auth_error "$ERRF"; then
+        log "WARN: pages run source auth failed twice (persistent 401) — skipping tick"
+        exit 0
+      fi
+      die "pages run source failed for $REPO (rc=$src_rc; see source stderr above)"
+    fi
+    # Retry succeeded — the 401 was transient; fall through and process the runs.
+  else
+    die "pages run source failed for $REPO (rc=$src_rc; see source stderr above)"
+  fi
 fi
 
 # The NEWEST run is the first non-empty line. Its state decides the whole tick.
