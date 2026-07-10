@@ -14,8 +14,10 @@
 # pipefail that ALSO aborts the handler.
 #
 # The fix: use "${old:+$old..}$new" (empty old → log from $new alone, identical to
-# the `range=` line) and relax pipefail for the log|head pipe (`{ git ... || true;
-# } | head`). This test drives the real handler with a stub `claude` and asserts:
+# the `range=` line) and cap the summary with `sed -n '1,400p'` instead of
+# `head -400` — sed consumes the whole stream, so git reaches a clean exit and no
+# SIGPIPE reaches pipefail (no blanket `|| true` masking real git failures). This
+# test drives the real handler with a stub `claude` and asserts:
 #   1. empty `old` (first triage) → handler exits 0 and the CHANGES block handed
 #      to claude is NON-EMPTY.
 #   2. a >400-line first-triage diff → handler still exits 0 (SIGPIPE guarded).

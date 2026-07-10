@@ -24,26 +24,26 @@ slug="${1:?slug}"; old="${2:-}"; new="${3:?new}"; bare="${4:?bare}"
 role_brief="$GARDEN_ROOT/roles/triager/AGENT.md"
 
 range="${old:+$old..}$new"
-# Select the git-log range without EVER handing `git log` an empty revision.
-# The old `"${old:+$old..$new}"` expansion collapsed to the empty string on a
-# cold start (empty $old, i.e. no cursor yet), so `git log --stat ""` failed with
-# `fatal: ambiguous argument ''` (exit 128) — which, in the pipe below, pipefail
-# propagates. That crashed the FIRST triage of any repo (observed on
-# garden-triager@kriscendobot-minion.town the day repos/ gained its first
-# auto-provisioned own fork, 2026-07-09) and froze the cursor at <none> so it
-# recurred every restart. When $old is set, diff old..new; when empty, describe
-# just the new tip (-1 $new) — a real cold-start change summary, never "".
+# Build the git-log change summary WITHOUT ever handing `git log` an empty
+# revision and WITHOUT letting the pipe's SIGPIPE abort the handler.
 #
-# `|| true`: under `set -euo pipefail`, `git log | head -400` dies of SIGPIPE
-# whenever the log outruns head's 400-line cap. head's truncation is the intent,
-# not an error, and a genuine git failure degrades to empty $changes (which the
-# prompt tolerates — the triager just sees an empty change list) rather than
-# aborting the handler with no captured stderr.
-if [ -n "$old" ]; then
-  changes="$(git --git-dir="$bare" log --no-merges --stat "$old..$new" 2>/dev/null | head -400 || true)"
-else
-  changes="$(git --git-dir="$bare" log --no-merges --stat -1 "$new" 2>/dev/null | head -400 || true)"
-fi
+# Revision: "${old:+$old..}$new" mirrors the `range=` line above — an incremental
+# triage logs $old..$new; a FIRST triage (empty $old, no cursor yet) logs the
+# full history down to $new. The old `"${old:+$old..$new}"` trapped $new inside
+# the `:+` alternate, so an empty $old collapsed the whole thing to "" and
+# `git log --stat ""` died with `fatal: bad revision ''` (exit 128), which
+# pipefail propagated — crash-looping the FIRST triage of any repo (observed on
+# garden-triager@kriscendobot-minion.town the day repos/ gained its first
+# auto-provisioned own fork, 2026-07-09; the frozen <none> cursor made it recur
+# every ~2-minute restart).
+#
+# `sed -n '1,400p'` caps the summary at 400 lines just like the old `head -400`,
+# but sed CONSUMES the whole stream instead of closing the pipe at line 400. With
+# `head`, a >400-line history made head close the pipe early; git died of SIGPIPE
+# (exit 141) and pipefail propagated that too. sed lets git run to a clean exit,
+# so a genuine git failure still surfaces through pipefail (leaving its stderr as
+# a signature) instead of being masked by a blanket `|| true`.
+changes="$(git --git-dir="$bare" log --no-merges --stat "${old:+$old..}$new" | sed -n '1,400p')"
 
 prompt="$(cat <<EOF
 You are a garden triager (role brief: $role_brief) for repository '$slug'.
