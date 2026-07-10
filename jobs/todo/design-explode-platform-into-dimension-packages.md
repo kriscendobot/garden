@@ -1,10 +1,7 @@
 ---
-gate: deferred
-priority: low
 role: designer
-posted_by: producer
-posted_at: 2026-07-10T05:58:18Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=low at=2026-07-10T07:34:13Z -->
 
 # Design (LOW PRIORITY): explode `@endo/platform` into focused per-dimension endo/exo package pairs
 
