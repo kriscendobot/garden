@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-10T18:40:37Z_
+_As of 2026-07-10T18:48:34Z_
 
 ## Latest
 
@@ -461,6 +461,29 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260710T184026Z-a5d76c` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T184026Z-a5d76c.md)
 
 > self-heal: garden-triager@kriscendobot-finbot exited rc=1 with no scoped fix. Capture: 9866e3fecbdeea6afd69aecb76069d7aa26acadc (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 9866e3fecbdeea6afd69aecb76069d7aa26acadc). Diagnosis: You've hit your session limit · resets 7:10pm (UTC)
+
+- `20260710T184827Z-0e34e9` — from triager:kriscendobot-finbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T184827Z-0e34e9.md)
+
+> kind: error
+>
+> # triage circuit-breaker OPENED for `kriscendobot-finbot`
+>
+> The triage handler (`/home/kris/garden/scripts/jobs/handlers/triager-claude.sh`) FAILED 5 consecutive times on the SAME change
+> and hit the threshold (`GARDEN_TRIAGE_FAIL_THRESHOLD=5`).
+>
+> - Repo slug: `kriscendobot-finbot`  (watched ref `main`)
+> - Failing range: `bf7ebf4aa290c4f09b8a6adf3d3682f46d11d3a0` → `a35add1ee0aadf5fb833fd67eaa1a48316237f22`
+>
+> Because the transition is deterministic (same old→new SHAs, same diff), retrying
+> cannot help — it only crash-loops the `garden-triager@kriscendobot-finbot` unit and fills the
+> journal. The breaker is now OPEN: this sha will NOT be re-triaged until a NEW
+> change appears on `kriscendobot-finbot:main`, which clears the breaker automatically.
+>
+> Investigate the handler failure (reproduce by hand:
+> `/home/kris/garden/scripts/jobs/handlers/triager-claude.sh kriscendobot-finbot bf7ebf4aa290c4f09b8a6adf3d3682f46d11d3a0 a35add1ee0aadf5fb833fd67eaa1a48316237f22 <bare>`), or, if this repo should not be watched
+> at all, remove it from the watch set. Note: under CLAUDE.md § Monitoring safety
+> constraint only `endojs/endo-but-for-bots` is currently authorized for watching —
+> worth confirming `kriscendobot-finbot` belongs in the set.
 
 - `poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted.md)
 
