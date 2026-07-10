@@ -61,3 +61,9 @@ branch; then post inline replies to BOTH review comments (ids 3560627735 and
 <!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 4 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 17
+  claimed_at: 2026-07-10T20:53:13Z
