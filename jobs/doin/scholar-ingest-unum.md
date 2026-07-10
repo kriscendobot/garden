@@ -66,3 +66,9 @@ garden, the indexes updated, and any structural lesson routed to `liaison`. The
 `tada` report lists the library paths written, the key token-spend patterns found
 (or "no transferable token-spend pattern found, here is what `unum` does
 instead"), and any self-improvement message raised.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  claimed_at: 2026-07-10T20:39:44Z
