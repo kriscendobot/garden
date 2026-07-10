@@ -14294,3 +14294,39 @@ verified-quiet window | vigil-charge
 proactive-spend gate | vigil-charge
 per-persona model tiers | model-routing
 persona_models | model-routing
+claim state triple | claim-state-triple
+board ledger worktree atomicity | claim-state-triple
+false-stranded claim cascade | claim-state-triple
+admission lock flock | claim-state-triple
+`.claimlocks` | claim-state-triple
+branch-landed not task-done | claim-state-triple
+`claimed_host` breadcrumb | claim-state-triple
+journal-ref RMW-CAS | journal-ref-rmw-cas
+read-modify-write CAS | journal-ref-rmw-cas
+`UpdateFileOnRef` | journal-ref-rmw-cas
+write-once vs RMW primitive | journal-ref-rmw-cas
+journal-then-untrack | journal-ref-rmw-cas
+git rm --cached data-loss window | journal-ref-rmw-cas
+killswitch source guard | killswitch-source-guard
+breadcrumb before killswitch | killswitch-source-guard
+durable write ordering | killswitch-source-guard
+session resume model guard | killswitch-source-guard
+`session_model` | killswitch-source-guard
+context-exhaustion roll-forward | killswitch-source-guard
+keep claimed recap | killswitch-source-guard
+design out the hazard | design-out-the-hazard
+designed out not coordinated around | design-out-the-hazard
+isolation over locks | design-out-the-hazard
+lighter cut | design-out-the-hazard
+key state on tree-hash not commit-message | design-out-the-hazard
+resource-slice budget | resource-slice-budget
+systemd resource quota | resource-slice-budget
+quota-profile light medium heavy | resource-slice-budget
+non-token agent budget | resource-slice-budget
+`make user quota` | resource-slice-budget
+log and swallow | log-and-swallow
+silent failure | log-and-swallow
+fail loud without failing the push | log-and-swallow
+schema duplication drift | log-and-swallow
+no dead parsed fields | log-and-swallow
+seam injection fake-runner | log-and-swallow
