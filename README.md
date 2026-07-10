@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-10T02:14:57Z_
+_As of 2026-07-10T02:18:03Z_
 
 ## Latest
 
-The endo-but-for-bots mount stack advanced hard. [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now green after a rebase onto the fixed base — the durable `whenRevoked` stream-wake fix landed on base [#650](https://github.com/endojs/endo-but-for-bots/pull/650), so the shepherd dropped its redundant deflake commit; all 23 checks pass and the gauntlet is running on it now. [#650](https://github.com/endojs/endo-but-for-bots/pull/650) (mount-revocation) and [#658](https://github.com/endojs/endo-but-for-bots/pull/658) (mount CLI path verbs) both cleared the gauntlet, and the Rust-side glob parity runner [#654](https://github.com/endojs/endo-but-for-bots/pull/654) shepherded to green. Follow-on drafts [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (mount `--deny` CLI) and the grep/json PRs are stacked and ready to rebase onto the unblocked base.
+The mount-extensions stack moved the most. [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now green: a durable source fix — waking open `followNameChanges` streams on revoke — landed on its base [#650](https://github.com/endojs/endo-but-for-bots/pull/650), so the shepherd rebased onto it, dropped a redundant deflake commit, and all 23 checks pass; the glob stack ([#655](https://github.com/endojs/endo-but-for-bots/pull/655), [#657](https://github.com/endojs/endo-but-for-bots/pull/657)) is unblocked. New drafts stacked on this work: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (`--deny`/`--no-deny` CLI, needs a rebase+gauntlet after #650 lands), [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (a Rust-side mount-glob parity crate, chosen because the XS-run path can't build in-tree), and [#658](https://github.com/endojs/endo-but-for-bots/pull/658) (mount CLI path verbs, gauntlet complete).
 
-Several items need a maintainer steer. [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (http-client reconcile) has a real, deterministic Node-22 failure — hardening freezes undici's lazy `Symbol(headers map sorted)` slot so CapTP error-decode throws; a fixer is recommended. Conducting [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript fix) is stalled: its frozen snapshot base has diverged 569 commits and the `assembleTranscript` machinery it hardens no longer exists on live `llm` — it needs a weave or a call that the fix is obsolete. [#618](https://github.com/endojs/endo-but-for-bots/pull/618) (agent-tools Phase 4 fs wiring) is in the gauntlet but flagged conflicting/stale, with the builder asking whether to weave it or extract a clean fs-only slice. On the exo-google-sheets track, a new daily supervisor stood up and posted a gauntlet on the OAuth design gate [#621](https://github.com/endojs/endo-but-for-bots/pull/621), which must merge before any implementation work unblocks. Note also a cluster of watchdog overrun warnings: four shepherd jobs (PRs #650, #652, #653, #654) hit the 2400s handler-budget wall and risk poisoning — they should be split into claim-sized stages.
+Two items need a maintainer decision. [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (http-client reconcile) has a real, deterministic Node-22 bug — hardening freezes undici's lazy `Symbol(headers map sorted)` slot, breaking error-decode across CapTP — and wants a fixer. Conducting [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript) stalled: it's approved but its snapshot base has diverged hard from `llm`, where `assembleTranscript` and the transcript-node machinery no longer exist under the new `makePiAgent` architecture, so it needs a weave or an obsolescence call rather than a merge.
+
+Several jobs came back as already-satisfied duplicates: [#609](https://github.com/endojs/endo-but-for-bots/pull/609) (interval-scheduler, endoclaw-timer Phase 1) is open, green, and ready to merge; the daemon-locator-terminology design is already landed via #34; and the daemon agent-tools filesystem wiring already exists across landed [#614](https://github.com/endojs/endo-but-for-bots/pull/614) and conflicting draft [#618](https://github.com/endojs/endo-but-for-bots/pull/618). On the exo-google-sheets push, a daily supervisor is now running and posted [#621](https://github.com/endojs/endo-but-for-bots/pull/621) into the gauntlet as the OAuth-foundation design gate blocking the rest of the tree. Watch the watchdog notices: four shepherd jobs (#650, #652, #653, #654 CI) overran the 2400s handler budget and risk poisoning — they need splitting into claim-sized stages or a detached run.
 
 ## Parked for maintainer feedback
 
@@ -228,6 +230,24 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260710T014722Z-82612e` — from watchdog:gardener/6, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T014722Z-82612e.md)
 
 > gardener job 'shepherd-endo-but-for-bots-pr654-mount-glob-rust-parity-ci-green' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260710T021754Z-9348e3` — from gardener:build-endo-but-for-bots-daemon-locator-terminology, reply_to `build-endo-but-for-bots-daemon-locator-terminology` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T021754Z-9348e3.md)
+
+> Re: build-endo-but-for-bots-daemon-locator-terminology (design daemon-locator-terminology.md, M3/S)
+>
+> This design is ALREADY IMPLEMENTED AND MERGED on endojs/endo-but-for-bots @ llm — there is no fresh feature to build, and opening a "fresh feature PR" would be an empty/duplicate PR. I did NOT open one.
+>
+> Already landed (commits 5bd2f09d69 "locator scheme with @-delimited connection hints (closes #34)" and 24b8dcb688 "align locator hint terminology"):
+>   • New terminology types in types.d.ts: PeerKey, FormulaAddress, FormulaKey, ConnectionHint, PeerLocator, FormulaLocator
+>   • New endo:// locator format with @-delimited connection hints (locator.js): parseLocator returns hints; formatLocatorWithHints; hintsFromLocator; internalizeLocator/externalizeId
+>   • locateWithHints fully wired (host.js, interfaces.js, types.d.ts, help.md, help-text-data.js)
+>   • directory.locate() already returns a locator WITH hints; isLocalKey plumbed into directory
+>   • Comprehensive locator.test.js covering the design's locator test-plan (parse/format round-trip, URL-encoded @ // hints, externalize/internalize local+remote round-trips)
+>
+> NOT implemented — and I believe intentionally out of scope for this size-S job:
+>   • The "LOCAL_NODE Normalization" section (sentinel-based STORAGE, repairIds startup DB-repair pass, normalizeId, internalizeLocator taking isLocalKey to fold local keys → LOCAL_NODE, externalizeId replacing LOCAL_NODE → agentKey). The LOCAL_NODE sentinel exists in locator.js but storage still uses real node numbers; there is no repairIds/normalizeId anywhere in src/. This is a large, high-risk core-identity + on-disk migration — not size-S — and the design says it "builds on daemon-256-bit-identifiers.md", so it reads as a separate/later phase.
+>
+> Recommendation: mark this design Complete/Landed (terminology + locator format shipped via #34), and if the LOCAL_NODE storage-normalization phase is actually wanted, post it as a SEPARATE, larger job (M-sized) rather than folding it in here. Tell me which and I'll proceed.
 
 
 ## Board
