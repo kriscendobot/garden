@@ -1,19 +1,19 @@
 # Garden bulletin
 
-_As of 2026-07-10T07:38:05Z_
+_As of 2026-07-10T07:43:06Z_
 
 ## Latest
 
-The mount stack cleared its blocker: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now green after a gardener rebased it onto the fixed base [#650](https://github.com/endojs/endo-but-for-bots/pull/650), where the durable `whenRevoked` source fix for the flaky followNameChanges-on-revoke test landed — unblocking the stacked grep ([#655](https://github.com/endojs/endo-but-for-bots/pull/655)) and json ([#657](https://github.com/endojs/endo-but-for-bots/pull/657)) followers, plus new draft PRs for the mount `--deny` CLI ([#652](https://github.com/endojs/endo-but-for-bots/pull/652)) and a Rust glob-parity crate ([#654](https://github.com/endojs/endo-but-for-bots/pull/654)).
+Two build stacks reached the finish line but are jammed on merge, and the foreman is now explicitly asking for review attention. The mount-glob PR [#653](https://github.com/endojs/endo-but-for-bots/pull/653) went green after a rebase onto its fixed base [#650](https://github.com/endojs/endo-but-for-bots/pull/650) (a durable `whenRevoked` fix for idle `followNameChanges` streams landed there), unblocking the stacked grep [#655](https://github.com/endojs/endo-but-for-bots/pull/655) and json [#657](https://github.com/endojs/endo-but-for-bots/pull/657) followers, plus the CLI [#652](https://github.com/endojs/endo-but-for-bots/pull/652) and Rust-parity [#654](https://github.com/endojs/endo-but-for-bots/pull/654) drafts. The endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) is likewise build-complete and gauntleted but sitting unmerged on `llm`; the foreman reports M3 saturated with a ~60-PR ready backlog and no unblocked build work left to post — forward progress now needs merge/authority decisions, not more building.
 
-The recurring theme, stated twice by the foreman, is that **M3 is now merge-bound, not work-bound**: the mount chain (#650/#652/#653/#655/#657) and the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) are build-complete and gauntleted but sitting unmerged on the fork's `llm`, blocking every stacked follower — so the fleet needs review/merge attention or a go-ahead on the parked next-tranche jobs.
+A few items need a maintainer steer. Conductor **stalled on [#123](https://github.com/endojs/endo-but-for-bots/pull/123)**: its base snapshot has diverged hard from live `llm`, where `agent.js` was rewritten around `makePiAgent` and the `assembleTranscript` machinery the fix hardens no longer exists — recommend weave-or-obsolete before re-conducting. The http-client reconcile [#286](https://github.com/endojs/endo-but-for-bots/pull/286) has a real Node-22-only CI failure (undici's lazy `Headers` symbol gets frozen by hardening across CapTP) needing a fixer. The agent-tools HTTP-client gauntlet [#661](https://github.com/endojs/endo-but-for-bots/pull/661) was poisoned after five requeue cycles and parked in `plan/` pending promotion. The esheets daily supervisor opened day 1 and posted a gauntlet on design gate [#621](https://github.com/endojs/endo-but-for-bots/pull/621).
 
-A few items need your steer. The conductor **stalled on [#123](https://github.com/endojs/endo-but-for-bots/pull/123)** (lal-transcript): `llm` diverged hard and rewrote `agent.js` around `makePiAgent`, so the transcript machinery the fix hardens no longer exists — it needs a weave/redesign decision, not a merge. [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (http-client reconcile) has a real Node-22-only undici Headers hardening bug across the CapTP boundary and wants a fixer. The [#661](https://github.com/endojs/endo-but-for-bots/pull/661) HTTP-client-tool gauntlet was **poisoned after 5 requeues** and parked held pending promotion. On the agoric-sdk fork, the [#12](https://github.com/kriscendobot/agoric-sdk/pull/12) XS 16.7.1 fixer is holding two within-consensus questions for you (golden snapshot regeneration and a METER_TYPE bump), while [#10](https://github.com/kriscendobot/agoric-sdk/pull/10) and [#9](https://github.com/kriscendobot/agoric-sdk/pull/9) are red only from stale-base codegen drift that merging [#8](https://github.com/kriscendobot/agoric-sdk/pull/8) would clear. Separately, several long shepherd/gauntlet jobs (#650, #652, #654, #655, #659) are overrunning the 2400s handler budget and risk poisoning unless split into claim-sized stages. Also worth noting: finbot landed its SES-compartments capability-attenuation increment on `main`, and a daily supervisor is now driving the exo-google-sheets tree toward implementation via design gate [#621](https://github.com/endojs/endo-but-for-bots/pull/621).
+On the fork side, the agoric-sdk XS 16.7.1 mirror ([#12](https://github.com/kriscendobot/agoric-sdk/pull/12)) is waiting on two consensus calls (golden-snapshot regeneration and a `METER_TYPE` bump); shepherds on [#10](https://github.com/kriscendobot/agoric-sdk/pull/10) and [#9](https://github.com/kriscendobot/agoric-sdk/pull/9) trace their red checks to fetched-chain-info drift/stale base, both pointing at merging [#8](https://github.com/kriscendobot/agoric-sdk/pull/8) then weaving. finbot landed its SES-compartments increment on `main` but flags a recurring stranding problem — nobody is fast-forwarding builder branches promptly. The minion.town root-host bootstrap ([#7](https://github.com/kriscendobot/minion.town/pull/7)) is delivered but blocked behind two deployment gates, one of which only the maintainer can clear.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 8h)
-- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 12h)
+- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 13h)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 7d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 10d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 10d)
@@ -379,18 +379,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (1)
 - [`design-explode-platform-into-dimension-packages`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-explode-platform-into-dimension-packages.md) — Design (LOW PRIORITY): explode @endo/platform into focused per-dimension endo...
-- [`self-heal-fix-garden-triager-kriscendobot-agoric-sdk-rev-parse-verify-echoback`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-agoric-sdk-rev-parse-verify-echoback.md) — In scripts/jobs/triager.sh lines 55–56, the ref-resolution uses bare git rev-...
-- [`xst-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-gauntlet.md) — xst-gauntlet — run the XS-upgrade validation gauntlet on the integrated branch
 
-### tada (1673)
+### tada (1675)
+- [`xst-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-gauntlet.md) — Completion report — xst-gauntlet
+- [`self-heal-fix-garden-triager-kriscendobot-agoric-sdk-rev-parse-verify-echoback`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-sdk-rev-parse-verify-echoback.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-endo-revparse-verify-concat`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-endo-revparse-verify-concat.md) — This job is already complete. The fix and tests described in the spec are ful...
 - [`endojs-endo-but-for-bots-pr595-review-dc9b727f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr595-review-dc9b727f-retro.md) — Completion report
 - [`xst-park-on-fail-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-park-on-fail-build.md) — Completion report — xst-park-on-fail-build
-- [`release-automation-major-bump-exports-trigger`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/release-automation-major-bump-exports-trigger.md) — Design job complete. PR endojs/endo-but-for-bots#665 (draft, base llm) carrie...
-- [`endojs-endo-but-for-bots-pr592-review-79bd1b73-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr592-review-79bd1b73-retro.md) — Completion report
-- … and 1668 more
+- … and 1670 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
