@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr592-review-orch
-priority: normal
 role: fixer
-posted_by: producer
-posted_at: 2026-07-10T17:07:20Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-10T17:10:33Z -->
 
 # Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
 
