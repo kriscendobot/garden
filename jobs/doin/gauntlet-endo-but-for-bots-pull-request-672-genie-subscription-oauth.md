@@ -2,6 +2,7 @@ Run the gauntlet (panel review → fix-loop → un-draft) on endojs/endo-but-for
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
