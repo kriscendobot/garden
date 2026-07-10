@@ -97,3 +97,9 @@ the three surfaces, and how it **feeds** (not replaces) `usage-meter.sh` — wit
 model-routing and vigil-charge noted as follow-ons and the open questions named. The
 `tada` report gives the SHA, the storage decision made, and the recommended build
 phasing.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 14
+  claimed_at: 2026-07-10T22:48:27Z
