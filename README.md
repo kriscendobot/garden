@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-10T16:09:15Z_
+_As of 2026-07-10T16:10:39Z_
 
 ## Latest
 
-The daemon-mount stack cleared its last CI hurdle: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now green after a shepherd rebased it onto the fixed base [#650](https://github.com/endojs/endo-but-for-bots/pull/650), which itself landed a durable `whenRevoked` fix that wakes idle `followNameChanges` streams; the stacked CLI follow-up [#652](https://github.com/endojs/endo-but-for-bots/pull/652) and the Rust glob-parity guard [#654](https://github.com/endojs/endo-but-for-bots/pull/654) went up as drafts. The dominant signal, though, is a merge bottleneck: the foreman has escalated four times that M3 is saturated — the mount chain, the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609), [#617](https://github.com/endojs/endo-but-for-bots/pull/617), [#619](https://github.com/endojs/endo-but-for-bots/pull/619)), and the agent-tools/gateway work are all green, mergeable, and gauntleted but sitting unmerged on `llm`, so every stacked follower is blocked and the board has run dry of buildable work. Several jobs also came back as no-ops against already-landed or in-flight work (locator-terminology, interval-scheduler #609, the Docker-selfhost line re-declined per closed [#134](https://github.com/endojs/endo-but-for-bots/pull/134)), and the `mvs-resolver` build hit an unresolved architectural split over whether the resolver belongs in `@endo/daemon` ([#671](https://github.com/endojs/endo-but-for-bots/pull/671)) or a new `@endo/exo-npm` ([#403](https://github.com/endojs/endo-but-for-bots/pull/403)) — a maintainer call is needed before it can proceed.
+The mount-glob stack cleared its last CI blocker: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) is now green after a shepherd rebased it onto the durable `whenRevoked` fix that landed on its base #650, unblocking the grep ([#655](https://github.com/endojs/endo-but-for-bots/pull/655)) and json ([#657](https://github.com/endojs/endo-but-for-bots/pull/657)) followers. The dominant signal, repeated by the foreman four times through the window, is that the fleet has run out of buildable M3 work: the daemon-mount chain (#650/#653/#655/#658), the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)), and daemon-agent-tools [#618](https://github.com/endojs/endo-but-for-bots/pull/618) are all CI-green and mergeable but sitting unmerged on `llm`, and every stacked follower is blocked behind them — forward progress now needs merge/ferry attention, not more build jobs.
 
-Worth a direct look: [#286](https://github.com/endojs/endo-but-for-bots/pull/286) has a real Node-22-only bug (undici's `Headers` gets hardened across CapTP and fails error-decode) that needs a fixer; and on the Agoric fork, the XS 16.7.1 validation effort ([kriscendobot/agoric-sdk#13](https://github.com/kriscendobot/agoric-sdk/pull/13), [#14](https://github.com/kriscendobot/agoric-sdk/pull/14)) is fully green but parked on two decisions only you can make — whether to waive the Depot-gated integration leg, and whether the fixer should bump `METER_TYPE`/regenerate golden snapshots given the consensus implications. Finbot landed its SES-compartments and multi-instrument increments on `main`. Two operational faults recurred: the foreman pump handler is failing with `designer:/builder: command not found`, and a steady stream of shepherd/gauntlet jobs are overrunning the 2400s handler budget and risk being poisoned — both suggest jobs that need splitting into claim-sized stages.
+Several dispatched jobs came back as no-ops after finding the work already done or contested: the `mvs-resolver` builder halted rather than open a third copy of an algorithm that already lives in both [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (in `@endo/daemon`) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (in a new `@endo/exo-npm`) — an unsettled architectural split needing your call on which home wins. Similarly, the timer Phase-1 job matched existing [#609](https://github.com/endojs/endo-but-for-bots/pull/609), the daemon-agent-tools fs job matched [#618](https://github.com/endojs/endo-but-for-bots/pull/618), the locator-terminology build was already merged, and the Docker-selfhost build was halted as re-attempting the work you declined when you closed #134 (the liaison asks whether to tombstone that stale design record so it stops re-spawning).
+
+On the fork-experiment side, the XS 16.7.1 validation effort (kriskowal/garden#33) has both fork PRs green — [kriscendobot/agoric-sdk#13](https://github.com/kriscendobot/agoric-sdk/pull/13) (integration) and [#14](https://github.com/kriscendobot/agoric-sdk/pull/14) (park-on-fail) — and is now blocked solely on two maintainer decisions: whether to waive the Depot-gated full-chain integration leg for the green package-level substitute, and whether the draft slices count as "landed." A related fixer needs your steer on the consensus-affecting golden-snapshot hashes and `METER_TYPE` bump. Two operational notes worth a glance: the foreman pump handler failed twice with `designer: command not found` / `builder: command not found` (line 92 of `foreman-claude.sh`), and a run of shepherd/gauntlet jobs are deterministically overrunning the 2400s handler budget and getting poisoned — both point at splitting those jobs into claim-sized stages.
 
 ## Parked for maintainer feedback
 
@@ -440,18 +442,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`builder-endo-but-for-bots-mvs-resolver`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/builder-endo-but-for-bots-mvs-resolver.md) — ---
+### doin (2)
 - [`ebfb-endo-gateway-oauth-flow-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-endo-gateway-oauth-flow-design.md) — Design: the gateway OAuth (redirect) flow — per cloud provider
 - [`ebfb-endoclaw-fetch-bytes-stream-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-endoclaw-fetch-bytes-stream-design.md) — Design: binary media on the Endo fetch surface (bytes() / stream())
 
-### tada (1727)
+### tada (1728)
+- [`builder-endo-but-for-bots-mvs-resolver`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/builder-endo-but-for-bots-mvs-resolver.md) — Completion report: builder-endo-but-for-bots-mvs-resolver
 - [`endojs-endo-but-for-bots-pr621-review-409d43e6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr621-review-409d43e6.md) — Completion report
 - [`gauntlet-endo-but-for-bots-pull-request-667-genie-stdio-jsonl-rpc-bridge`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pull-request-667-genie-stdio-jsonl-rpc-bridge.md) — Inbox empty. The gauntlet on PR #667 is finished.
 - [`builder-endo-but-for-bots-endopi-provider-registry-and-oauth`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/builder-endo-but-for-bots-endopi-provider-registry-and-oauth.md) — Completion report
 - [`gauntlet-endo-but-for-bots-pull-request-669-endopi-jsonl-transcript-format`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pull-request-669-endopi-jsonl-transcript-format.md) — Completion report: gauntlet on endojs/endo-but-for-bots PR #669
-- [`xst-validation-orchestrator-20260710-153513`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260710-153513.md) — XS-validation orchestrator — tick report (2026-07-10 ~15:35Z)
-- … and 1722 more
+- … and 1723 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
