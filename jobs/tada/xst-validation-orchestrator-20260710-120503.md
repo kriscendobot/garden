@@ -1,0 +1,9 @@
+## XS-validation orchestrator — tick report (2026-07-10 ~12:05Z)
+
+**Assessment.** Both snapshot-drift fixers converged since the last tick. Fork PR #14 (`kriskowal-park-on-upgrade-failure`) got its chain-info baggage snapshot regeneration (head `a31b3baac`, 11:15Z) and its full CI matrix is now **all SUCCESS/SKIPPED** — the 4 genuine failures reported at the 10:55Z tick are cleared. Fork PR #13 (`xst/integrate-variant-bump`) got the same regeneration class plus a buildXsnap jsdoc/formatting cleanup (head `ba9a2957b`, 11:31Z); CI is mid-run with 27 green, 0 red, ~42 pending. Both fixer jobs remain healthily claimed in `doin/` (11:23Z and 11:53Z) — no nudge needed. All four workstreams (variants #11, bump #12, park-on-fail #14, gauntlet on #13) are now done or in final CI, so the effort is blocked solely on the two maintainer decisions escalated at 09:45Z: the Leg-4 `force:integration` waiver (Depot-gated, infeasible on the fork) and whether green draft PR #14 counts as "landed". Inbox and issue #33 show no maintainer answer yet (~2.5 h).
+
+**Advanced by one step.** With all engineering converged, the right step was a consolidated re-escalation rather than a new job: sent the maintainer a single decision request over the bus (delivered `20260710T120818Z-defd50`) laying out both decisions and the "waive + landed → done-check" consequence.
+
+**Reported.** Posted the material-progress comment on kriskowal/garden#33 (issuecomment-4935098141): PR #14 green, PR #13 mid-run zero-red, decisions re-pinged.
+
+**Follow-ups for the next tick:** confirm PR #13's matrix converges green (modulo the expected fork-infra red); watch for the maintainer's two answers — on "waive + landed", run the done-check (final #33 summary, maintainer message, delete `schedules/xst-validation-orchestrator.md` via CAS push). Schedule left in place — blocked on decisions, not done.
