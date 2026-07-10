@@ -47,6 +47,8 @@ NOTE — out of scope, do NOT try to fix: **test-ymax-planner-build** fails with
 on the fork). Fork infrastructure limitation, not PR-caused, expected-red on any
 fork PR. Leave it.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
