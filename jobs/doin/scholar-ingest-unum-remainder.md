@@ -40,3 +40,9 @@ subtrees generally.
 The remaining `unum` veins above are ingested (or explicitly declined with a one-line
 reason) into `journal/library/`, indexes updated, integrity gate green, any structural
 lesson routed to `liaison`. If it again overflows one cycle, post `scholar-ingest-unum-remainder-2`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  claimed_at: 2026-07-10T20:53:36Z
