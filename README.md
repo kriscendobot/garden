@@ -1,18 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-10T01:48:18Z_
+_As of 2026-07-10T01:57:30Z_
 
 ## Latest
 
-The mount-fixture PR stack advanced sharply. The [#650](https://github.com/endojs/endo-but-for-bots/pull/650) mount-revocation gauntlet completed, and a durable source fix landed on its base (waking open `followNameChanges` streams on revoke); that flipped [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) to conflicting, but a shepherd rebased onto the fixed base and drove all 23 checks green, unblocking the rest of the stack. [#655](https://github.com/endojs/endo-but-for-bots/pull/655) (mount-grep) shepherded to green as well. New draft follow-ups are up: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (mount `--deny` CLI, stacked on #650), [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (a Rust-side glob parity crate, chosen because the XS-run path won't build in-tree), and a gauntlet is running on [#658](https://github.com/endojs/endo-but-for-bots/pull/658) (mount CLI path verbs).
+The mount-fs stack is the main story: [#650](https://github.com/endojs/endo-but-for-bots/pull/650) (mount-revocation with caretaker deny patterns) cleared its gauntlet and landed a durable fix that wakes open `followNameChanges` streams on revoke; that advanced [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob), which a shepherd rebased onto the fixed base and drove to all-green (23 checks), unblocking [#655](https://github.com/endojs/endo-but-for-bots/pull/655) (grep, now green) and the still-shepherding Rust parity crate in [#654](https://github.com/endojs/endo-but-for-bots/pull/654). New follow-ups opened as drafts: [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (`--deny`/`--no-deny` CLI flags, stacked on #650) and [#658](https://github.com/endojs/endo-but-for-bots/pull/658) (mount CLI path verbs, in gauntlet).
 
-Two things need a maintainer decision. [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (http-client reconcile onto #566) has a **real, deterministic** Node-22 failure — hardening freezes undici's lazy `Symbol(headers map sorted)` slot, so error-decode throws across CapTP; it wants a fixer to normalize headers before the boundary. And [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript) cannot be conducted: it's approved but its `assembleTranscript` hardening targets code that no longer exists on live `llm` (agent.js was rewritten around `makePiAgent`), so it needs a weave/redesign, not a merge.
-
-On the exo-google-sheets push, a new daily supervisor posted a gauntlet on [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (the endoclaw-oauth foundation design), the deepest unblocked step gating that whole tree. Several duplicate-detection stops are worth noting — the endoclaw-timer Phase 1 job is already satisfied by open, green [#609](https://github.com/endojs/endo-but-for-bots/pull/609) (with [#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619) stacked), and the daemon fs agent-tools job is covered by landed [#614](https://github.com/endojs/endo-but-for-bots/pull/614) plus conflicting draft [#618](https://github.com/endojs/endo-but-for-bots/pull/618). Finally, four mount-stack shepherd jobs (#650, #652, #653, #654) deterministically overran the 2400s handler budget — they need splitting into claim-sized stages or detached runs.
+Two items need a maintainer steer. [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (http-client reconcile) has a real, deterministic Node-22 failure — undici's lazy `Symbol(headers map sorted)` slot gets frozen by hardening and breaks CapTP error-decode — and wants a fixer to stop marshalling live Headers across the boundary. Conducting [#123](https://github.com/endojs/endo-but-for-bots/pull/123) stalled: it's approved but its transcript-hardening target was deleted when `llm`'s `agent.js` was rewritten around `makePiAgent`, so it needs a weave/redesign, not a merge. Separately, the new exo-google-sheets daily supervisor posted `run the gauntlet` on [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (the OAuth-foundation design gate blocking the whole tree), and gardeners flagged two builds as already-satisfied duplicates ([#609](https://github.com/endojs/endo-but-for-bots/pull/609) endoclaw-timer Phase 1; [#614](https://github.com/endojs/endo-but-for-bots/pull/614)/[#618](https://github.com/endojs/endo-but-for-bots/pull/618) daemon fs tools). Note the recurring watchdog reports: several shepherd jobs (#650, #652, #654) overran the 2400s handler budget and risk poisoning unless split into claim-sized stages.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 2h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 3h)
 - [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 7h)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 7d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9d)
@@ -236,7 +234,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`gauntlet-endo-but-for-bots-pr653-mount-glob`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr653-mount-glob.md) — Run the gauntlet on endojs/endo-but-for-bots PR #653 ("feat(daemon): mount gl...
 - [`gauntlet-endo-but-for-bots-pr658-mount-cli-path-verbs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr658-mount-cli-path-verbs.md) — Run the gauntlet on endojs/endo-but-for-bots PR #658 (feat/mount-cli-path-ver...
 - [`shepherd-endo-but-for-bots-pr654-mount-glob-rust-parity-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr654-mount-glob-rust-parity-ci-green.md) — ---
 
