@@ -1,10 +1,7 @@
 ---
-gate: deferred
-priority: low
 role: designer
-posted_by: producer
-posted_at: 2026-07-10T05:34:28Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=low at=2026-07-10T07:19:05Z -->
 
 # Design (LOW PRIORITY): release-automation trigger — flag `.js`-export cleanup on a planned major bump
 
