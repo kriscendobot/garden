@@ -22,10 +22,13 @@ None. A throwaway `npm` directory holding `mermaid` and `jsdom`.
 
 ## Procedure
 
-1. Extract each fenced block to its own file:
+1. Extract each fenced block to its own file, in a directory private to this
+   run (fixed `/tmp/mm-N.mmd` paths collide with a concurrent peer's extraction
+   and leave stale blocks that then validate as yours):
 
    ```sh
-   awk '/^```mermaid$/{f=1;n++;file="/tmp/mm-"n".mmd";next} /^```$/{f=0} f{print > file}' path/to/doc.md
+   mmdir="$(mktemp -d /tmp/mm.XXXXXX)"
+   awk -v d="$mmdir" '/^```mermaid$/{f=1;n++;file=d"/mm-"n".mmd";next} /^```$/{f=0} f{print > file}' path/to/doc.md
    ```
 
 2. One-time setup in a scratch directory:
@@ -60,7 +63,7 @@ None. A throwaway `npm` directory holding `mermaid` and `jsdom`.
    ```
 
    ```sh
-   node check.mjs /tmp/mm-*.mmd
+   node check.mjs "$mmdir"/mm-*.mmd
    ```
 
 ## Output shape
