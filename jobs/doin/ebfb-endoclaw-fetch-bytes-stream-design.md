@@ -30,3 +30,9 @@ nothing.
 
 Origin: maintainer review directive on endojs/endo-but-for-bots#621
 (inline comment 3560153009). Filed by a gardener resolving that review.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  claimed_at: 2026-07-10T16:04:11Z
