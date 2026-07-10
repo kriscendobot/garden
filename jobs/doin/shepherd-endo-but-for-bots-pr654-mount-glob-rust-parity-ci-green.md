@@ -7,3 +7,9 @@ Shepherd `endojs/endo-but-for-bots` PR #654 (`test/mount-glob-rust-parity-runner
 <!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 9
+  claimed_at: 2026-07-10T01:53:09Z
