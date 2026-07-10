@@ -14330,3 +14330,24 @@ fail loud without failing the push | log-and-swallow
 schema duplication drift | log-and-swallow
 no dead parsed fields | log-and-swallow
 seam injection fake-runner | log-and-swallow
+Muse Spark | muse-spark
+Muse Spark 1.1 | muse-spark
+muse-spark-1.1 | muse-spark
+meta-ai/muse-spark-1.1 | muse-spark
+Meta Model API | muse-spark
+Meta AI API | muse-spark
+Meta Superintelligence Labs | muse-spark
+Spark model | muse-spark
+llm-meta-ai | llm-meta-ai
+llm CLI | llm-meta-ai
+LLM CLI | llm-meta-ai
+Datasette LLM | llm-meta-ai
+llm.datasette.io | llm-meta-ai
+Simon Willison llm | llm-meta-ai
+META_AI_TOKEN | llm-meta-ai
+llm keys set meta-ai | llm-meta-ai
+llm tool loop | llm-meta-ai
+Spark gardener | muse-spark-garden-worker-fit
+Spark-backed worker | muse-spark-garden-worker-fit
+Muse Spark garden worker | muse-spark-garden-worker-fit
+non-Claude gardener | muse-spark-garden-worker-fit
