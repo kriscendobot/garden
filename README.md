@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-10T00:56:16Z_
+_As of 2026-07-10T01:02:21Z_
 
 ## Latest
 
-The mount stack cleared its CI gate: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) went green after a rebase onto its base [#650](https://github.com/endojs/endo-but-for-bots/pull/650), whose durable `whenRevoked` fix superseded a flaky followNameChanges deflake; [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (the `--deny`/`--no-deny` mount CLI follow-up) also passed shepherding, and a new Rust-side parity runner landed as draft [#654](https://github.com/endojs/endo-but-for-bots/pull/654) since the XS-run variant isn't buildable in this tree. The endoclaw-timer daemon phases all shepherded to green — Phase 1 [#609](https://github.com/endojs/endo-but-for-bots/pull/609), Phase 2 [#617](https://github.com/endojs/endo-but-for-bots/pull/617), Phase 3 [#619](https://github.com/endojs/endo-but-for-bots/pull/619) — and the exo-google-sheets daily supervisor kicked off, pushing OAuth-foundation design [#621](https://github.com/endojs/endo-but-for-bots/pull/621) through the gauntlet as the gating step for that whole tree.
+The mount-extensions stack advanced sharply: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now fully green after a rebase onto its fixed base — a durable `whenRevoked` fix landed on [#650](https://github.com/endojs/endo-but-for-bots/pull/650) that woke idle `followNameChanges` streams and deflaked the shared test, unblocking the rest of the stack; [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (mount `--deny` CLI) reached green as well, and shepherding of [#655](https://github.com/endojs/endo-but-for-bots/pull/655) (mount-grep) is now in flight. A new draft [#654](https://github.com/endojs/endo-but-for-bots/pull/654) adds a Rust-side `mount_parity` crate as the design-sanctioned parity guard, since the XS-run variant isn't buildable in-tree — the gardener wants a steer on whether the Rust runner is acceptable or the XS boot path should be unblocked first. On the endoclaw-timer front, phases 2 and 3 ([#617](https://github.com/endojs/endo-but-for-bots/pull/617), [#619](https://github.com/endojs/endo-but-for-bots/pull/619)) went green atop the already-ready phase-1 [#609](https://github.com/endojs/endo-but-for-bots/pull/609).
 
-Two items need a decision: [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (http-client reconcile) has a real, deterministic Node-22 failure — hardening freezes undici's lazy `Symbol(headers map sorted)` slot so error-decode throws across CapTP — and wants a fixer; and conducting [#123](https://github.com/endojs/endo-but-for-bots/pull/123) is stalled because live `llm` rewrote `agent.js` around `makePiAgent` and deleted the `assembleTranscript` machinery the fix hardens, so it needs a weave or an obsolescence call rather than a merge. Several builder jobs also reported their asks already delivered by in-flight PRs (agent-tools fs wiring in #614/#618, interval-scheduler in #609), and two shepherd jobs overran the 2400s handler budget and should be split into claim-sized stages.
+Two items need your eyes. Conducting [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript) is **stalled**: it's approved and mergeable onto its snapshot, but live `llm` rewrote `agent.js` around `makePiAgent` and deleted the `assembleTranscript` machinery the fix hardens — it needs a weave or an obsolescence call, not a merge. And a new daily `esheets` supervisor kicked off, posting `run the gauntlet #621` to drive the endoclaw-oauth foundation design ([#621](https://github.com/endojs/endo-but-for-bots/pull/621)) out of draft as the gate for the whole exo-google-sheets tree. Separately, [#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s http-client e2e fails deterministically on Node 22 (a frozen undici `Headers` slot breaking error-decode across CapTP) and wants a fixer; two mount shepherd jobs (#650, #652) also overran the handler budget and should be split into claim-sized stages.
 
 ## Parked for maintainer feedback
 
@@ -230,8 +230,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`shepherd-endo-but-for-bots-pr655-mount-grep-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr655-mount-grep-ci-green.md) — ---
 
 ### tada (1604)
 - [`shepherd-endo-but-for-bots-pr619-endoclaw-timer-phase3-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pr619-endoclaw-timer-phase3-ci-green.md) — Completion report
