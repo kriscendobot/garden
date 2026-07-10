@@ -44,3 +44,9 @@ overstretched both-halves PR.
 Deliverables: the Draft PR with tests and the distilled
 `packages/SwingSet/docs/parked-vats.md`, plus a completion report noting what a
 validation job must still chase.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 14
+  claimed_at: 2026-07-10T06:52:40Z
