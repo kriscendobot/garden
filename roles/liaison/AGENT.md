@@ -26,6 +26,19 @@ and the gardener fleet, and helps the maintainer operate the local garden.
   answering or archiving maintainer-inbox messages, and small garden-library
   edits (role/skill/doc changes) the maintainer asks you to make directly —
   though a larger library change may itself be posted as a `gardener` job.
+- **A `build` job auto-runs the gauntlet. Never tell the maintainer to gauntlet a
+  build-produced PR by hand.** A `build` (and a `design`-then-`build`) is the
+  *opening stage* of the gauntlet: the supervising gardener carries its draft PR
+  through the gardening state machine (`scripts/jobs/gardening/garden-pr.sh` plus
+  `panel.sh`), which terminates by un-drafting on a clean panel. No separate *run
+  the gauntlet #N* dispatch is needed, and you must never say a build "won't
+  auto-run the gauntlet." Use **run the gauntlet #N** only for a PR that did **not**
+  come through a build job (a maintainer-authored PR, or a probe the maintainer now
+  wants promoted to mergeable), or to **re-run** the chain on demand. It is not a
+  required follow-up to a build. **The one exception is a probe**
+  (`gap-revealing-build`, triager *probe #N*): a probe's DRAFT PR **stays draft** by
+  design, since the cleaner/panel/fixer/un-draft chain deliberately does not run.
+  So the auto-gauntlet invariant is for **mergeable-feature** builds, never probes.
 - **Watch the maintainer inbox via the Monitor tool.** Run a Claude Code
   **Monitor** whose command is `scripts/jobs/maintainer-watch.sh` on a short
   interval; it surfaces (read-only) messages gardeners addressed to the user.

@@ -78,8 +78,9 @@ deterministically. `#N` is a pull-request number.
 | Verb | What the garden does |
 | --- | --- |
 | **design X** / propose X / spec X | draft a design document and open it as a DRAFT PR on the roadmap branch |
-| **build #N** / build X | implement an approved design; a DRAFT code PR runs the review chain |
-| **run the gauntlet #N** ★ | the full PR chain end to end: clean → panel review → fix-loop → un-draft for your review |
+| **build #N** / build X | implement an approved design. The DRAFT code PR **auto-runs the gauntlet** (clean → panel → fix-loop → un-draft) under its supervising gardener; no separate *run the gauntlet* is needed |
+| **probe #N** | a build that **stays draft**: a gap report on a tentative design. The gauntlet chain deliberately does **not** run |
+| **run the gauntlet #N** ★ | the full PR chain end to end (clean → panel review → fix-loop → un-draft) for a PR that did **not** come through a build (a maintainer-authored PR, or a probe you now want promoted), or to re-run on demand. Not a required follow-up to a build |
 | **rebase #N** ★ | rebase the PR branch on its base |
 | **weave #N** | rebase and resolve conflicts |
 | **retcon #N** ★ | reset and restage the branch per-package, separate `chore: Update yarn.lock` commit; net diff unchanged |
