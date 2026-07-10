@@ -120,16 +120,42 @@ while :; do
   fi
 done
 
-# parse JOB..ENDJOB blocks and post each
-posted=0; base=""; body=""
+# parse JOB..ENDJOB blocks and post each.
+# Post DELIBERATELY: capture post-job.sh's exit code and stderr rather than
+# letting a single non-zero post abort the whole parse loop under `set -e` with
+# no context (the same silent-abort class this handler exists to kill, one layer
+# down from the `claude -p` call). A failing post names its offending basename +
+# stderr tail and we keep posting the remaining blocks so one bad block does not
+# swallow its siblings; if ANY post failed we `die` at the end, which returns
+# non-zero to triager.sh so the cursor stays unadvanced and the change
+# re-triages (contract preserved) — but now the failure names its cause.
+postfile="$(mktemp "${TMPDIR:-/tmp}/triage-claude.XXXXXX.post")"
+trap 'rm -f "$errfile" "$postfile"' EXIT
+posted=0; failed=0; base=""; body=""
 while IFS= read -r line; do
   if [[ "$line" =~ ^JOB[[:space:]]+(.+)$ ]]; then
     base="${BASH_REMATCH[1]}"; body=""
   elif [ "$line" = "ENDJOB" ] && [ -n "$base" ]; then
-    printf '%s' "$body" | "$HERE/../post-job.sh" "$base"
-    posted=$((posted+1)); base=""; body=""
+    # NB: `if cmd; then; else prc=$?` — no `!` negation, so `$?` in the else
+    # branch is the pipeline's real exit code (pipefail carries post-job.sh's).
+    if printf '%s' "$body" | "$HERE/../post-job.sh" "$base" 2>"$postfile"; then
+      posted=$((posted+1))
+    else
+      prc=$?
+      post_tail="$(tail -c 400 "$postfile" 2>/dev/null || true)"
+      log "post-job.sh exited $prc for basename '$base' while triaging $slug: stderr=[$post_tail]"
+      failed=$((failed+1))
+    fi
+    base=""; body=""
   elif [ -n "$base" ]; then
     body+="$line"$'\n'
   fi
 done <<< "$out"
-log "posted $posted job(s) from $slug triage"
+if [ "$failed" -gt 0 ]; then
+  log "posted $posted job(s) from $slug triage ($failed post failure(s))"
+else
+  log "posted $posted job(s) from $slug triage"
+fi
+if [ "$failed" -gt 0 ]; then
+  die "$failed job post(s) failed during $slug triage; leaving cursor unadvanced to re-triage"
+fi
