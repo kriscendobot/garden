@@ -70,3 +70,9 @@ Run each leg on the integrated branch and record pass/fail with evidence:
 - Summarize results in the PR #13 body/comment on the FORK and in your completion
   report: per-leg verdict table, divergences found, coverage gaps, and whether the
   integrated branch is fit to call "validated" pending the park-on-fail build.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 11
+  claimed_at: 2026-07-10T07:22:04Z
