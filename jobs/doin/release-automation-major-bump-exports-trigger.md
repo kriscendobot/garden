@@ -41,3 +41,9 @@ blocker to authoring, but its notice is inert until such packages exist.
 A design (or directly the CI/release-automation check) that fires the
 informational notice on major-bump PRs for packages with retained `.js` exports,
 non-blocking, with a clear message pointing at the cleanup.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 20
+  claimed_at: 2026-07-10T07:19:11Z
