@@ -61,6 +61,7 @@ green (plus their cancelled siblings), no new regressions.
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
