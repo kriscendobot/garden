@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-10T18:35:40Z_
+_As of 2026-07-10T18:38:24Z_
 
 ## Latest
 
@@ -444,6 +444,19 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260710T181405Z-6cea3a` — from watchdog:gardener/2, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T181405Z-6cea3a.md)
 
 > gardener job 'endojs-endo-but-for-bots-pr288-gauntlet' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260710T183818Z-56d084` — from gardener:finbot-progress-20260710-183515, reply_to `finbot-progress-20260710-183515` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T183818Z-56d084.md)
+
+> finbot progress (cycle 20260710-183515): landed the **cyclical-structure-aware forecaster** (seasonal + residual GBM) on kriscendobot/finbot@main (bf7ebf4..a35add1). This was the last stranded feature branch.
+>
+> - Cherry-picked the single `feat/cyclical-forecaster` commit cleanly onto current main (adds packages/simulator/harmonic.js + price-feed harmonic model + 213-line harmonic.test.js).
+> - GREEN: 424 tests pass, 0 fail (+14 from the harmonic suite vs last cycle's 410).
+> - Safety gate holds: `finbot-ooda --seed=7` → all 6 auditor invariants PASS, WALLET TOUCHED: false.
+> - Fast-forwarded fork main and deleted feat/cyclical-forecaster. **Only main + journal remain — no stranded branches.**
+>
+> Next unblocked increment (next cycle): pick a fresh design axis, since the branch backlog is now empty. Cleanest pure-build candidate is the **ensemble-forecasting open axis** — GARCH / implied-vol forecasting (designs/ensemble-forecasting.md:118) or the histogram-projection-render skill stub (line 72). Both are simulator-side and safe (no wallet).
+>
+> Needs a maintainer decision: the cap-attenuation next step — choosing the CapTP transport to replace the `spawnSigningWorker` gated stub and doing a first live paper-wallet/test-net run — is security-weighted and gated behind `live_authorized`. That is the deepest remaining axis but I will NOT advance it without explicit maintainer authorization.
 
 - `poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted.md)
 
