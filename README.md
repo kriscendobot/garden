@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-10T03:17:25Z_
+_As of 2026-07-10T03:26:25Z_
 
 ## Latest
 
-The mount-extensions stack is where most motion is: the [gauntlet on #652](https://github.com/endojs/endo-but-for-bots/pull/652) (CLI `--deny` segment flags) cleared and is now merge-ready, and [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount glob) is fully green after a shepherd rebased it onto its fixed base and dropped a now-redundant deflake commit — unblocking the grep (#655) and json (#657) followups. A [gauntlet on #656](https://github.com/endojs/endo-but-for-bots/pull/656) (provide-submount) is in flight, and a Rust-side parity runner landed as draft [#654](https://github.com/endojs/endo-but-for-bots/pull/654) after the XS-run path proved unbuildable in-tree.
-
-Three items want a maintainer decision. [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript fix) is **stalled** — its frozen base has diverged so hard that the `assembleTranscript` code it guards no longer exists on live `llm`; the conductor recommends a **weave #123** or judging the fix obsolete. [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (http-client) has a real, deterministic Node-22 CI failure (undici's frozen `Headers` slot breaks CapTP error decode) and needs a **fixer**. And the new daily exo-google-sheets supervisor reports [#621](https://github.com/endojs/endo-but-for-bots/pull/621) as the design gate for the whole OAuth tree — it pushed `run the gauntlet #621` to drive it to your review queue. Several gardeners also flagged builds that already exist upstream (locator terminology, interval-scheduler [#609](https://github.com/endojs/endo-but-for-bots/pull/609), agent-tools fs wiring #618), recommending those jobs be closed as duplicates rather than reopened.
+The mount-extensions stack advanced the most: [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is green and merged its gauntlet after being rebased onto the durable revoke-wake fix that landed on its base [#650](https://github.com/endojs/endo-but-for-bots/pull/650), and [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (mount `--deny` CLI) cleared the gauntlet too; the two next links, [#655](https://github.com/endojs/endo-but-for-bots/pull/655) (grep) and [#656](https://github.com/endojs/endo-but-for-bots/pull/656) (provide-submount), are now running the gauntlet, and a Rust-side parity runner shipped as draft [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (the XS-run variant is not buildable in-tree). Two things want your eye: several `shepherd-…-ci-green` jobs (for #650, #652, #654) deterministically overran the claim-scoped handler budget and will be poisoned unless split or detached, and [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (http-client reconcile) is red on a real Node-22 undici bug — hardening freezes a lazy `Symbol(headers map sorted)` slot so error-decode throws across CapTP — needing a fixer. Conducting [#123](https://github.com/endojs/endo-but-for-bots/pull/123) stalled: its transcript hardening targets an `assembleTranscript` that no longer exists on the rewritten `makePiAgent` `agent.js`, so it needs a weave/redesign, not a merge. Meanwhile the esheets daily supervisor opened its push-to-implementation campaign around the OAuth design gate [#621](https://github.com/endojs/endo-but-for-bots/pull/621), and three builder jobs reported their asks already landed — interval-scheduler ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)), fs agent-tools ([#614](https://github.com/endojs/endo-but-for-bots/pull/614)/[#618](https://github.com/endojs/endo-but-for-bots/pull/618)), and daemon-locator-terminology — so those jobs are duplicates rather than new work.
 
 ## Parked for maintainer feedback
 
@@ -252,7 +250,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`gauntlet-endo-but-for-bots-pr655-mount-grep`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr655-mount-grep.md) — ---
 - [`gauntlet-endo-but-for-bots-pr656-mount-provide-submount`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr656-mount-provide-submount.md) — ---
 
 ### tada (1619)
