@@ -1,17 +1,19 @@
 # Garden bulletin
 
-_As of 2026-07-10T16:26:41Z_
+_As of 2026-07-10T16:37:12Z_
 
 ## Latest
 
-[endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is green again: a gardener rebased it onto the durable "wake open followNameChanges streams on revoke" fix that landed on its base [#650](https://github.com/endojs/endo-but-for-bots/pull/650), force-pushed, and turned all 23 checks green — unblocking the stacked grep ([#655](https://github.com/endojs/endo-but-for-bots/pull/655)) and json ([#657](https://github.com/endojs/endo-but-for-bots/pull/657)) followers. The gauntlet on [#644](https://github.com/endojs/endo-but-for-bots/pull/644) (git commit amend/reword) posted a changes-requested review flagging a fresh correctness bug — `reword`'s `--amend -m` fast-path silently folds a staged index into a message-only reword — but deliberately did **not** push fixes or un-draft because a second fleet (0xpatrickbot) is concurrently rewriting the same branch.
+The gauntlet on [endo-but-for-bots#644](https://github.com/endojs/endo-but-for-bots/pull/644) (git commit amend/reword) completed with a formal request-changes: the panel found a new correctness bug the prior round missed — `reword('HEAD', msg)` silently folds a staged index into a message-only commit — but held off pushing fixes because the PR owner's own fleet (0xpatrickbot) is rewriting the same branch concurrently. On the mount stack, [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now green after a rebase onto the durable revoke-wake fix that landed on base [#650](https://github.com/endojs/endo-but-for-bots/pull/650), and the Rust-side parity guard shipped as draft [endo-but-for-bots#654](https://github.com/endojs/endo-but-for-bots/pull/654) (the XS-run variant was infeasible in-tree).
 
-The dominant signal is a merge bottleneck, not missing work: the foreman escalated four separate times that the whole M3 stack — the mount chain (#650/[#652](https://github.com/endojs/endo-but-for-bots/pull/652)/#653/[#658](https://github.com/endojs/endo-but-for-bots/pull/658)), the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)), and daemon-agent-tools [#618](https://github.com/endojs/endo-but-for-bots/pull/618) — is CI-green, mergeable, and gauntleted but sitting unmerged on the fork's `llm` branch, starving every downstream follower; the fleet needs review/merge attention, not more builds queued. Several builders correctly refused to open duplicates against already-landed or in-flight work (#609 endoclaw-timer phase 1, daemon-locator-terminology, and an unresolved resolver-home split between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403)); the Docker-selfhost build halted as complete-as-declined, re-spawned from a stale design record behind the earlier-closed [#134](https://github.com/endojs/endo-but-for-bots/pull/134). On the fork side, finbot landed its SES-compartments and multi-instrument-portfolio increments on `kriscendobot/finbot@main`, and the agoric-sdk XS-validation effort (garden#33) is fully green but blocked on two maintainer calls — a Leg 4 integration waiver and whether draft [agoric-sdk#14](https://github.com/kriscendobot/agoric-sdk/pull/14) counts as "landed." Two operational warnings worth noting: many long shepherd/gauntlet jobs deterministically overran the 2400s handler budget (poison risk unless split or detached), and the foreman pump failed twice with `designer: command not found` / `builder: command not found`.
+The dominant signal is a merge bottleneck: the foreman reported four times that M3 is saturated with CI-green, mergeable, fully-gauntleted PRs — the mount chain (#650/#652/#653/#655/#658), the endoclaw-timer stack (#609/#617/#619), and gateway/agent-tools work — sitting unmerged on the fork's `llm` branch, so every stacked follower is blocked and the fleet has no buildable step left to post. Forward progress now needs merge/review attention, not more build work. Several decisions are also parked: the agoric-sdk XS-validation effort (kriskowal/garden#33) is green but blocked on your calls about golden-snapshot/METER_TYPE consensus values and whether draft [agoric-sdk#14](https://github.com/kriscendobot/agoric-sdk/pull/14) counts as "landed"; an `mvs-resolver` build hit an impasse over whether the resolver's home is `@endo/daemon` ([endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671)) or `@endo/exo-npm` ([endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403)); and the Docker-selfhost build was halted as complete-as-declined, with a request to retire its stale design record so producers stop re-spawning it. finbot advanced on its own fork (SES-compartments and multi-instrument portfolios landed on `main`).
+
+Worth noting operationally: the foreman pump handler failed twice with `designer: command not found` / `builder: command not found` (a real bug starving the board), a session limit was hit around 09:10Z, and a large batch of shepherd/gauntlet jobs deterministically overran the 2400s handler budget — these are being flagged for splitting into claim-sized stages before the reaper poisons them.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 17h)
-- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 21h)
+- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 22h)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 8d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 10d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 11d)
@@ -440,16 +442,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr644-fix-git-commit-amend-reword-changes-requested`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr644-fix-git-commit-amend-reword-changes-requested.md) — ---
+### doin (0)
+(none)
 
-### tada (1731)
+### tada (1732)
+- [`endojs-endo-but-for-bots-pr644-fix-git-commit-amend-reword-changes-requested`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr644-fix-git-commit-amend-reword-changes-requested.md) — Completion report
 - [`endojs-endo-but-for-bots-pr621-review-409d43e6-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr621-review-409d43e6-retro.md) — Completion report
 - [`ebfb-endo-gateway-oauth-flow-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-endo-gateway-oauth-flow-design.md) — Job ebfb-endo-gateway-oauth-flow-design — complete
 - [`ebfb-endoclaw-fetch-bytes-stream-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-endoclaw-fetch-bytes-stream-design.md) — Completion report:
 - [`builder-endo-but-for-bots-mvs-resolver`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/builder-endo-but-for-bots-mvs-resolver.md) — Completion report: builder-endo-but-for-bots-mvs-resolver
-- [`endojs-endo-but-for-bots-pr621-review-409d43e6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr621-review-409d43e6.md) — Completion report
-- … and 1726 more
+- … and 1727 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
