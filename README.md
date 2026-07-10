@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-10T00:10:56Z_
+_As of 2026-07-10T00:17:29Z_
 
 ## Latest
 
-A single self-healing fixup closed on the board (garden triager hardening for kriscendobot/minion.town, already present on `main2`), while the real motion is in the gardener reports. Two items need a maintainer decision: [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s http-client e2e test fails deterministically on Node 22 (a hardened undici `Headers` object can't be decoded across CapTP) and wants a fixer, and [endo-but-for-bots#123](https://github.com/endojs/endo-but-for-bots/pull/123) is stuck at conduct — its `assembleTranscript` hardening targets a module that no longer exists on the rebased `llm` trunk, so it needs a **weave/redesign** call before merge. New draft PRs landed for the mount work: [endo-but-for-bots#652](https://github.com/endojs/endo-but-for-bots/pull/652) (CLI `--deny` follow-up, stacked on #650) and [endo-but-for-bots#654](https://github.com/endojs/endo-but-for-bots/pull/654) (Rust-side mount-glob parity runner, the design-sanctioned Option A since the XS boot path isn't buildable here) — both awaiting your steer. A shepherd deflaked [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) by fixing a racy revoke-stream test inherited from base [endo-but-for-bots#650](https://github.com/endojs/endo-but-for-bots/pull/650), which still carries the same flake. The new esheets daily supervisor opened day 1 by posting a gauntlet for [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621), the OAuth-foundation design gate that blocks the whole exo-google-sheets tree. Two builder jobs stopped on discovering their work already exists — [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) (interval-scheduler formula) and the agent filesystem tools across [endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/pull/614)/[endo-but-for-bots#618](https://github.com/endojs/endo-but-for-bots/pull/618) — the latter needing a rebase, not a rebuild. Housekeeping to note: shepherd `pr650-mount-revocation-ci-green` overran its 2400s handler budget and should be split or detached, and the foreman is holding re-posts on two timer/mount shepherd steps that drained without progress.
+[endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob, PR B of the mount stack) went fully green and now merges clean: while shepherding it, the durable source fix — waking open `followNameChanges` streams on mount revoke — landed on its base [#650](https://github.com/endojs/endo-but-for-bots/pull/650), so the shepherd rebased onto the fixed base, dropped its now-redundant deflake commit, and force-pushed; all 23 checks pass and the grep/json follow-ons can now rebase onto it. Two shepherds are still in flight — [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (mount `--deny` CLI) and [#617](https://github.com/endojs/endo-but-for-bots/pull/617) (endoclaw-timer Phase 2 lint). A few things need your steer: [#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s http-client e2e fails deterministically on Node 22 (a hardened undici `Headers` slot that can't be re-decoded across CapTP) and wants a fixer; [#123](https://github.com/endojs/endo-but-for-bots/pull/123) stalled the conductor because its base snapshot diverged and `assembleTranscript` no longer exists on live `llm` — it needs a weave or an obsolescence call, not a merge; and the new esheets daily supervisor is driving the OAuth-foundation design [#621](https://github.com/endojs/endo-but-for-bots/pull/621) through the gauntlet as the gate for the whole exo-google-sheets tree. Also worth noting: [#609](https://github.com/endojs/endo-but-for-bots/pull/609) (endoclaw-timer Phase 1) is green, non-draft, and ready for the merge path.
 
 ## Parked for maintainer feedback
 
@@ -211,23 +211,30 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Heads-up: the SAME flaky test still exists in #650 (currently green by timing luck). It should get the same deflake there (or #650 fixed + #653 rebased) so it doesn't resurface upstream. I can't push to feat/mount-revocation from this job (not #653's head). Also a latent design note: an open followNameChanges stream on a revoked-but-idle mount never trips until the next fs event — worth a durable source fix (revoke() actively waking the stream) if you want the documented "revoke trips any open stream" contract honored for idle streams.
 
+- `20260710T001650Z-9e7573` — from gardener:shepherd-endo-but-for-bots-pr653-mount-glob-ci-green, reply_to `shepherd-endo-but-for-bots-pr653-mount-glob-ci-green` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T001650Z-9e7573.md)
+
+> #653 (mount-glob) is GREEN. Resolution: while I was investigating, the durable source fix landed on the base #650 as `fix(daemon): wake open followNameChanges streams on mount revoke` (adds a `whenRevoked` promise, races each event pull against it — exactly the fix I'd flagged). That advanced #653's base, flipping it to CONFLICTING (dirty) so CI stopped dispatching.
+>
+> I rebased feat/mount-glob onto the fixed base (dropping my now-redundant/​conflicting test-only deflake commit), keeping just the glob feature commit. Force-pushed with lease to the PR head (6680a60c20). All 23 checks now pass — the 4 red `test (Node,OS)` matrix jobs are green, including the previously-hung `mount-revocation › open followNameChanges stream fails after revoke`. mergeable_state: clean. Green run: https://github.com/endojs/endo-but-for-bots/actions/runs/29058573797
+>
+> Stack is unblocked: grep (#655) and json (#657) can now rebase onto the green #653. Did not post a PR comment (no commenting authorization in the job body).
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`shepherd-endo-but-for-bots-pr617-endoclaw-timer-phase2-lint-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr617-endoclaw-timer-phase2-lint-green.md) — ---
 - [`shepherd-endo-but-for-bots-pr652-mount-deny-cli-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr652-mount-deny-cli-ci-green.md) — ---
-- [`shepherd-endo-but-for-bots-pr653-mount-glob-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-endo-but-for-bots-pr653-mount-glob-ci-green.md) — ---
 
-### tada (1599)
+### tada (1600)
+- [`shepherd-endo-but-for-bots-pr653-mount-glob-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pr653-mount-glob-ci-green.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-minion-town-handler-claude-silent-exit`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-handler-claude-silent-exit.md) — The requested hardening is already fully present on main2. Two commits alread...
 - [`shepherd-endo-but-for-bots-pr286-cli-http-client-lint-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-endo-but-for-bots-pr286-cli-http-client-lint-green.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-minion-town-claude-call-bounded-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-claude-call-bounded-retry.md) — Completion report
 - [`minion-town-mcp-guest-ocap-access-control`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-mcp-guest-ocap-access-control.md) — Revised designs/mcp-endo-guest.md on kriscendobot/minion.town and pushed dire...
-- [`improve-triager-failure-circuit-breaker`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-triager-failure-circuit-breaker.md) — Completion report
-- … and 1594 more
+- … and 1595 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
