@@ -1,9 +1,4 @@
----
-gate: deferred
-priority: normal
-posted_by: producer
-posted_at: 2026-07-10T02:41:31Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-07-10T02:54:16Z -->
 
 Harden the endo-but-for-bots mount-glob shared cross-language parity contract so the #654 Rust/XS parity runner cannot pass while diverging from the Node reference. Surfaced by the garden review panel on PR #653 (feat(daemon): mount glob). All items are additive to the shared fixture/case table under packages/daemon/test/; none change mount.js behavior.
 
