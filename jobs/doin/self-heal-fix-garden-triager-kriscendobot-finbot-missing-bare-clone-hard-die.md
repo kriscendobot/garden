@@ -1,9 +1,0 @@
-In `scripts/jobs/triager.sh:32`, the missing-bare-clone check is a hard `die "no bare clone at $BARE (clone the repo first)"`, which exits 1 and drives an every-tick systemd failure/restart on any host that lacks a local bare clone for a journal-shared `repos/<slug>` watch entry. This is the live failure of `garden-triager@kriscendobot-finbot` on host `endolin-garden2-5bcdff64`, whose `repos/` directory holds no clone at all while the journal watch set (shared across hosts) includes `kriscendobot-finbot`.
-
-Change the check to a graceful skip instead of a fatal error, mirroring the existing precedent in `scripts/jobs/comment-watcher.sh:312`: when `$BARE` is absent, `log "no bare clone at $BARE on this host; skipping triage (a host that holds the clone triages this repo)"` and `exit 0`. The triager genuinely needs the local clone to diff refs against its cursor (unlike the comment-watcher which polls via `gh`), so the correct behavior on a clone-less host is a benign no-op, not a crash — the watch set is journal-shared but clones are host-local, so not every host arming the timer will hold the clone. Keep the hard-failure behavior for the genuinely-broken cases downstream (fetch failure, unresolvable ref). Add/extend a triager.sh test asserting the missing-`$BARE` path exits 0 with the skip log rather than dying.
-
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 11
-  claimed_at: 2026-07-10T22:52:53Z
