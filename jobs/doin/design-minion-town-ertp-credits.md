@@ -101,3 +101,9 @@ ocap hazards addressed; gives **detailed, diagrammed** peering-arrangement and
 third-party-file-transfer use cases plus a couple more; situates the pieces across
 minion.town and Endo; and names the open questions. The `tada` report links the PR
 and lists the use cases covered and the key open questions.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 17
+  claimed_at: 2026-07-10T22:17:51Z
