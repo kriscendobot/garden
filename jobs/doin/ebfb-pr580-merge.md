@@ -28,6 +28,7 @@ A separate follow-up designer job (ebfb-hex-native-dispatch-opt) has already
 been posted to optimize the hex package dispatch; it is NOT a blocker for this
 merge.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
