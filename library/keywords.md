@@ -14351,3 +14351,4 @@ Spark gardener | muse-spark-garden-worker-fit
 Spark-backed worker | muse-spark-garden-worker-fit
 Muse Spark garden worker | muse-spark-garden-worker-fit
 non-Claude gardener | muse-spark-garden-worker-fit
+`verifyPaymentProof` | (see section: endo-but-for-bots--llm-designs-gateway-package--ten-feature-decomposition-of-one-package-with-one-factory-many-configurations--resource-ledger-in-gateway-not-daemon-decision-8)
