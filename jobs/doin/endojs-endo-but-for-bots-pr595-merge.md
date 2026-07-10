@@ -22,3 +22,9 @@ Task (finalization/curation step):
 4. Frozen-base sweep per your usual discipline if applicable.
 
 Do NOT switch identity; commit/merge under the bot identity. This is a bot repo.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 15
+  claimed_at: 2026-07-10T21:32:29Z
