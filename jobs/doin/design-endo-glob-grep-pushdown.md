@@ -91,3 +91,9 @@ resolved or their open questions named, the `@endo/platform`/daemon seam defined
 the streaming+batching+pipeline future designed, and the agent-tool-surface/primer
 work specified. The `tada` report links the design artifact and lists the per-layer
 implementation map.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 16
+  claimed_at: 2026-07-10T19:40:09Z
