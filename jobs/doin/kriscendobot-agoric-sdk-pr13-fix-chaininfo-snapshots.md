@@ -46,3 +46,9 @@ NOTE — out of scope, do NOT try to fix: **test-ymax-planner-build** fails with
 `permission_denied: Invalid token` on `depot build` (missing DEPOT_TOKEN secret
 on the fork). Fork infrastructure limitation, not PR-caused, expected-red on any
 fork PR. Leave it.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 15
+  claimed_at: 2026-07-10T10:20:42Z
