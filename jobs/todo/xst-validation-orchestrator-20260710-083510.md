@@ -77,8 +77,4 @@ submitter: kriskowal
 - Advance by roughly one step per tick — do not fan out dozens of jobs at once.
 - Idempotence: rely on deterministic basenames so a re-post never duplicates work.
 
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 17
-  claimed_at: 2026-07-10T08:35:24Z
+<!-- garden-reaped: 1 -->
