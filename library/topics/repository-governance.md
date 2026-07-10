@@ -64,6 +64,9 @@
 | [cask--status--shape-and-roadmap](../sections/cask--status--shape-and-roadmap.md) | cask status | The CASK roadmap document's shape (Implemented / In Progress / Planned three-tier structure, casknet/casksock opcode lists, the stable Go interface set) captured per "shape not rows". |
 | [cask--style--pluralization](../sections/cask--style--pluralization.md) | cask style | CASK's one-rule style guide: prefer regular English plurals (indexes/matrixes/vertexes/appendixes) over Latin/Greek forms, in code and prose. |
 | [cask--contributing--markdown-and-spelling-conventions](../sections/cask--contributing--markdown-and-spelling-conventions.md) | cask CONTRIBUTING.md | The 80-column one-sentence-per-line wrap discipline, line-end punctuation caution, tables-over-ASCII / Mermaid-over-ASCII-art, and regular-plurals spelling. |
+| [The LORE corpus — distilled-incident lessons](../sections/unum--lore-corpus-shape.md) | unum LORE/INDEX.md | Steward-written durable lessons kept distinct from STANDARDS (how-to-code), skills (how-to-operate), and TADA (per-task records); mined from a lesson frontmatter field. |
+| [Engineering discipline for a self-editing harness](../sections/unum--lore-engineering-discipline.md) | unum LORE | Design-out-the-hazard over coordinate-around, the lighter cut, fail-loud-without-failing-the-push, cross-reference-never-inline-copy schemas, no dead parsed fields, seam injection. |
+| [Operations standards for a self-editing monorepo](../sections/unum--operations-standards.md) | unum STANDARDS/operations.md | Safety invariants (never break the evocation loop, killswitch always works), don't-stage-on-production, config resolution order, and the lesson-capture pipeline that feeds LORE. |
 
 ## See also
 
