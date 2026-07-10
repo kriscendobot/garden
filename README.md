@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-10T08:28:49Z_
+_As of 2026-07-10T08:35:32Z_
 
 ## Latest
 
@@ -391,9 +391,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`kriscendobot-agoric-sdk-pr14-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr14-shepherd.md) — shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #14
 - [`self-heal-fix-garden-triager-kriscendobot-endo-revparse-verify`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-endo-revparse-verify.md) — In scripts/jobs/triager.sh, the new_sha resolution (lines 55-57) is corrupted...
+- [`xst-validation-orchestrator-20260710-083510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-validation-orchestrator-20260710-083510.md) — XS-validation orchestrator (hourly) — drive the agoric-sdk XS upgrade to vali...
 
 ### tada (1684)
 - [`xst-latest-test-lane`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-latest-test-lane.md) — Completion report — xst-latest-test-lane
