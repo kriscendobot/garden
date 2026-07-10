@@ -1,16 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-10T22:42:35Z_
+_As of 2026-07-10T22:48:32Z_
 
 ## Latest
 
-The four-layer `@endo/platform` glob/grep pushdown stack for #127 was built and gauntleted end-to-end — [#678](https://github.com/endojs/endo-but-for-bots/pull/678) (search engine), [#679](https://github.com/endojs/endo-but-for-bots/pull/679) (`EndoMount.glob`), [#680](https://github.com/endojs/endo-but-for-bots/pull/680) (`EndoMount.grep`), and [#681](https://github.com/endojs/endo-but-for-bots/pull/681) (agent tools) — all un-drafted into the review queue; the panels flag that normative grep still ships an unbounded `RegExp`, a ReDoS merge-gate question, and ask that design PR [#675](https://github.com/endojs/endo-but-for-bots/pull/675) land alongside it so changelog links resolve. Upstream of that, [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now green after a rebase onto the fixed [#650](https://github.com/endojs/endo-but-for-bots/pull/650) base, unblocking the mount stack.
+The glob/grep `@endo/platform` pushdown stack for #127 is built, gauntleted, and un-drafted into review as four layers — [#678](https://github.com/endojs/endo-but-for-bots/pull/678) (search engine), [#679](https://github.com/endojs/endo-but-for-bots/pull/679) (glob), [#680](https://github.com/endojs/endo-but-for-bots/pull/680) (grep), and [#681](https://github.com/endojs/endo-but-for-bots/pull/681) (agent tools); the panel flags a grep ReDoS merge-gate decision (gate on the conservative subset now vs. accept interim exposure behind [#676](https://github.com/endojs/endo-but-for-bots/pull/676)) and asks that design PR [#675](https://github.com/endojs/endo-but-for-bots/pull/675) land first so changelog links resolve. The mount stack is unblocked: [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is fully green after a rebase onto the fixed base, and the Rust-side glob-parity runner shipped as draft [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (the XS-run variant being unbuildable in-tree).
 
-The dominant signal is merge pressure: the foreman escalated repeatedly through the day that M3 is saturated in flight with **no unblocked build work left** — the mount chain (#650/#652/#653/#656/#658), the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)), and agent-tools [#618](https://github.com/endojs/endo-but-for-bots/pull/618) are all CI-green and mergeable but sitting unmerged on the fork's `llm`, blocking every stacked follower. Forward progress now needs review/merge attention, not more queued builds. Note [#618](https://github.com/endojs/endo-but-for-bots/pull/618) was closed by kriskowal over a capability-leak concern (dynamic shell-tool discovery) and handed to @kumavis for a security call.
+The dominant signal is **merge attention**: the foreman reports repeatedly (and the esheets/finbot supervisors echo) that the M3 daemon-mount chain, the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)), and others are CI-green and mergeable but sitting unmerged on `llm`, starving every stacked follower — no build work remains to post until you review/merge or promote the go-ahead-gated next tranche. Design PR [#595](https://github.com/endojs/endo-but-for-bots/pull/595) was approved and a conductor merge job posted (a build-scope call awaits you). Note two withdrawals: the Docker-selfhost build was halted as complete-as-declined (matching your earlier close of #134; the stale design record wants tombstoning), and you archived [#618](https://github.com/endojs/endo-but-for-bots/pull/618) over capability-leak concerns, deferring to @kumavis.
 
-On the agoric-sdk fork, the XS-16.7.1 validation effort ([garden#33](https://github.com/kriskowal/garden/issues/33)) has fully converged — PRs [#13](https://github.com/kriscendobot/agoric-sdk/pull/13) and [#14](https://github.com/kriscendobot/agoric-sdk/pull/14) are green (69/0) — and is blocked **only** on two maintainer decisions repeatedly re-escalated: waive the Depot-gated `force:integration` leg, and whether green-draft #14 counts as "landed." A fixer also needs steers on two consensus-affecting values (golden snapshot hashes, `METER_TYPE` bump) for [#12](https://github.com/kriscendobot/agoric-sdk/pull/12).
-
-Two items warrant a closer look. The finbot triager tripped its **circuit-breaker after 5 consecutive failures** and self-heal reports session-limit exhaustion — and the triager itself notes `kriscendobot-finbot` is **not in the authorized watch set** (only `endojs/endo-but-for-bots` is), worth confirming it belongs there. Separately, [#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s http-client e2e deterministically fails on Node 22 (a real undici `Headers` hardening bug, not flake) and wants a fixer. Housekeeping asks are stacking up: the stale `daemon-docker-selfhost` design record keeps re-spawning declined builds and should be tombstoned, the `mvs-resolver` home is contested between [#403](https://github.com/endojs/endo-but-for-bots/pull/403) and [#671](https://github.com/endojs/endo-but-for-bots/pull/671), and two poison jobs (#592 cancel-refactor, [#661](https://github.com/endojs/endo-but-for-bots/pull/661) http-client gauntlet) are parked awaiting go-ahead. Handler-budget overruns (2400s wall) continue to plague long gauntlet/shepherd jobs across the fleet.
+Two efforts are engineering-complete and blocked only on your decisions: the XS-validation effort ([garden#33](https://github.com/kriskowal/garden/issues/33)) holds green fork PRs [#13](https://github.com/kriscendobot/agoric-sdk/pull/13) and [#14](https://github.com/kriscendobot/agoric-sdk/pull/14) pending a `force:integration` waiver and a "landed" call; and the mvs-resolver build is parked on an unsettled home split between [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (`@endo/exo-npm`) and [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon`). Also worth noticing: finbot landed its last stranded branches (SES-compartments, multi-instrument, cyclical forecaster) onto `main`, but its triager circuit-breaker has since **opened** — and under the monitoring-safety constraint `kriscendobot-finbot` may not belong in the watch set at all, worth confirming. A wave of shepherd/gauntlet jobs also overran the 2400s handler budget and risk poisoning; they need splitting into claim-sized stages.
 
 ## Parked for maintainer feedback
 
@@ -739,16 +737,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`design-token-cost-ledger`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-token-cost-ledger.md) — Design: an attributed per-job token-cost ledger for the garden fleet
+- [`endojs-endo-but-for-bots-pr653-review-344a347f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr653-review-344a347f-retro.md) — Retrospective on endojs/endo-but-for-bots PR #653 (primary: endojs-endo-but-f...
 
-### tada (1793)
+### tada (1795)
+- [`kriscendobot-minion.town-pr6-review-4b7ec28b-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr6-review-4b7ec28b-retro.md) — Completion report
+- [`endojs-endo-but-for-bots-pr675-review-afcfffe9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr675-review-afcfffe9-retro.md) — Completion report — review-retrospective (prosecutor) on endojs/endo-but-for-...
 - [`endojs-endo-but-for-bots-pr592-review-aa1b0c84-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr592-review-aa1b0c84-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr592-01edab2b-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr592-01edab2b-retro.md) — Empty inbox. Job complete.
 - [`agoric-sdk-pr9-drive-20260710-223503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-pr9-drive-20260710-223503.md) — Completion report
-- [`kriscendobot-agoric-sdk-pr8-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr8-shepherd.md) — Completion report
-- [`kriscendobot-agoric-sdk-pr8-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr8-gauntlet.md) — Completion report
-- … and 1788 more
+- … and 1790 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -774,9 +773,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr653-review-344a347f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr653-review-344a347f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #653 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr675-review-afcfffe9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr675-review-afcfffe9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #675 (primary: endojs-endo-but-f...
-- [`kriscendobot-minion.town-pr6-review-4b7ec28b-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr6-review-4b7ec28b-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #6 (primary: kriscendobot-minion...
 - [`endojs-endo-but-for-bots-pr609-review-e181c4ae-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr609-review-e181c4ae-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #609 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr595-review-fa80bee2-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr595-review-fa80bee2-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #595 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr609-review-4a711718-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr609-review-4a711718-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #609 (primary: endojs-endo-but-f...
