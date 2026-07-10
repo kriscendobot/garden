@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-10T07:11:21Z_
+_As of 2026-07-10T07:13:46Z_
 
 ## Latest
 
-The mount stack cleared its blocker: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now green after a rebase onto its fixed base, which absorbed a durable revoke-wakes-streams fix on base [#650](https://github.com/endojs/endo-but-for-bots/pull/650) — unblocking the stacked grep ([#655](https://github.com/endojs/endo-but-for-bots/pull/655)) and json ([#657](https://github.com/endojs/endo-but-for-bots/pull/657)) followers. The `minion-town-endo-root-host-bootstrap` job also landed ([minion.town#7](https://github.com/kriscendobot/minion.town/pull/7)), though live validation is gated behind two undeployed prerequisites that only kriskowal can complete.
+The mount stack cleared its last red: [endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now fully green after a shepherd rebased it onto its fixed base [#650](https://github.com/endojs/endo-but-for-bots/pull/650) — the durable `whenRevoked` deflake landed on #650 itself, unblocking the grep ([#655](https://github.com/endojs/endo-but-for-bots/pull/655)) and json ([#657](https://github.com/endojs/endo-but-for-bots/pull/657)) followers. New draft PRs went up: the mount `--deny` CLI follow-up [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (stacked on #650, awaiting its merge before rebase+gauntlet), the Rust mount-parity crate [#654](https://github.com/endojs/endo-but-for-bots/pull/654), and the endo-root-host mechanism for minion.town ([minion.town#7](https://github.com/kriskowal/minion.town/pull/7), blocked on two prerequisite deployment gates one of which only kriskowal can complete).
 
-The dominant signal, echoed twice by the foreman, is that **M3 is saturated in flight and now blocked on merges, not work**: the mount chain (#650/[#652](https://github.com/endojs/endo-but-for-bots/pull/652)/#653/[#656](https://github.com/endojs/endo-but-for-bots/pull/656)/[#658](https://github.com/endojs/endo-but-for-bots/pull/658)) and the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) are build-complete and gauntleted but sitting unmerged on `llm`, stranding every stacked follower behind them. The board is drained to zero `todo` with a ~60-PR ready backlog awaiting review/merge or a `go-ahead` on the parked next tranche.
+The dominant signal from both the foreman and half the gardener inbox is that **the fleet is merge-blocked, not work-blocked**: M3 is saturated in flight with a ~60-PR ready backlog, and multiple builder jobs came back reporting their ask is *already landed or in-flight* rather than opening duplicates — interval-scheduler ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)), the fs agent-tools ([#614](https://github.com/endojs/endo-but-for-bots/pull/614) landed / [#618](https://github.com/endojs/endo-but-for-bots/pull/618) conflicting), and daemon-locator-terminology (merged). Two items need a maintainer decision beyond merging: [#123](https://github.com/endojs/endo-but-for-bots/pull/123) (lal-transcript) **cannot be conducted** — its base snapshot diverged hard from live `llm` where `assembleTranscript` no longer exists, so it needs a weave/redesign call — and [#286](https://github.com/endojs/endo-but-for-bots/pull/286) has a real Node-22-specific bug (undici `Headers` hardening breaks CapTP error-decode) awaiting a fixer.
 
-A few items need a decision: the conductor on [#123](https://github.com/endojs/endo-but-for-bots/pull/123) stalled because its fix targets an `assembleTranscript` path that no longer exists on the rewritten `llm` agent.js (needs a weave or an obsolescence call); [#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s http-client fails deterministically on Node 22 (an undici Headers slot frozen across CapTP — wants a fixer); and [#644](https://github.com/endojs/endo-but-for-bots/pull/644) is being pushed by an outside fleet (0xpatrickbot) concurrently, so our panel filed request-changes without pushing. Note also a cluster of shepherd/gauntlet jobs (PRs 650, 652, 654, 655, 659) that overran the 2400s handler budget and risk poisoning — they need splitting into claim-sized stages.
+Operationally, watch the reaper: the gauntlet on [#661](https://github.com/endojs/endo-but-for-bots/pull/661) exhausted 5 requeues and is now **parked in plan behind a go-ahead gate**, and a cluster of shepherd/gauntlet jobs (#650, #652, #654, #655, #659) are deterministically overrunning the 2400s handler budget — they need splitting into claim-sized stages or detached runs. On the agoric-sdk fork, shepherds traced [#9](https://github.com/kriscendobot/agoric-sdk/pull/9) and [#10](https://github.com/kriscendobot/agoric-sdk/pull/10) reds to stale-base codegen drift (fix is to merge [#8](https://github.com/kriscendobot/agoric-sdk/pull/8) then weave), and the [#12](https://github.com/kriscendobot/agoric-sdk/pull/12) XS 16.7.1 fixer is holding on two consensus-affecting questions (golden snapshot hashes and a `METER_TYPE` bump) for your call. Finbot landed its SES-compartments increment on `main`, with two more green branches stranded awaiting prompt fast-forwards.
 
 ## Parked for maintainer feedback
 
@@ -363,13 +363,23 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > or will you drive Gate 1 first and have me pick up Gate 2 after? PR #7 is
 > reviewable on its own merits meanwhile.
 
+- `poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-gauntlet-endo-but-for-bots-pr661-agent-tools-http-client-requeue-exhausted.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/gauntlet-endo-but-for-bots-pr661-agent-tools-http-client; it stays HELD until a human promotes it
+> (promote-plan.sh gauntlet-endo-but-for-bots-pr661-agent-tools-http-client) or removes it, so nothing is lost.
+> Original job base: gauntlet-endo-but-for-bots-pr661-agent-tools-http-client
+>
+> --- original job body ---
+> Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-but-for-bots DRAFT PR #661 `feat(daemon): provideHttpClient + makeHttpTool (daemon-agent-tools Phase 3.6)` on base `llm`, advancing the just-built HTTP-client agent tool wiring toward mergeable; the sole remaining red check is the known repo-wide lint projectService ceiling (tracked by #594), so treat that lint failure as pre-existing and out of scope.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`gauntlet-endo-but-for-bots-pr661-agent-tools-http-client`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr661-agent-tools-http-client.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
+### doin (1)
 - [`xst-park-on-fail-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-park-on-fail-build.md) — xst-park-on-fail-build — build the parked-vat + admin-facet resume capability
 
 ### tada (1667)
@@ -396,6 +406,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
 - [`garden-style-typist-codepoints`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/garden-style-typist-codepoints.md) — _normal_ · ---
 - [`garden-style-url-not-path`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/garden-style-url-not-path.md) — _normal_ · ---
+- [`gauntlet-endo-but-for-bots-pr661-agent-tools-http-client`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/gauntlet-endo-but-for-bots-pr661-agent-tools-http-client.md) — _normal_ · ---
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
 - [`styled-privilege-surfaces-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/styled-privilege-surfaces-minion-town.md) — _normal_ · Build: styled privilege surfaces for minion.town (Phase C — role-aware landin...
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
