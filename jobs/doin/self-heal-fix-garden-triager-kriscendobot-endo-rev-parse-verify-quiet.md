@@ -9,3 +9,9 @@ new_sha="$(git --git-dir="$BARE" rev-parse --verify -q "refs/remotes/origin/$ref
 ```
 
 (`--verify -q` already suppresses stderr, so the `2>/dev/null` redirects can be dropped.) Add/adjust a test in the triager test suite covering the "bare clone with no `refs/remotes/origin/*`" case, asserting `new_sha` is a single 40-hex line rather than the ref name concatenated with a sha.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 12
+  claimed_at: 2026-07-10T11:38:05Z
