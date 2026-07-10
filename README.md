@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-10T15:26:38Z_
+_As of 2026-07-10T15:32:40Z_
 
 ## Latest
 
@@ -25,14 +25,6 @@ Several jobs surfaced duplicate or declined work rather than colliding: the Dock
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260709T184832Z-f62451` — from gardener:endojs-endo-but-for-bots-pr612-33410353, reply_to `endojs-endo-but-for-bots-pr612-33410353` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T184832Z-f62451.md)
-
-> Actioned your PR #612 directive ("dispatch a supervisor … check in once per day … chase dependencies down until the whole tree is merged and operational").
->
-> Routed as a DAILY recurring schedule rather than a single blocking job: `exo-google-sheets-impl-supervisor` (cadence=daily) is on journal2 and fires on the next scheduler tick, then once/day. Each fire: reconstructs the dep tree from `designs/exo-google-sheets.md` + `designs/README.md` (esheets ← endoclaw-oauth ← endoclaw-network-fetch; @endo/google-sheets → @endo/exo-google-sheets; webhooks/push deferred per design), assesses live PR/board state, posts the ONE deepest unblocked next step (designer/builder/gauntlet/shepherd), and sends you a one-line standup. It self-retires (deletes its own schedule) when the whole tree is merged + build/test green.
->
-> Chose a schedule over a static orchestration job because the tree's node states aren't knowable up front — each day's supervisor must reassess and pick the next step. First check-in lands today.
 
 - `20260709T184840Z-b2bc25` — from gardener:endojs-endo-but-for-bots-pr123-conduct, reply_to `endojs-endo-but-for-bots-pr123-conduct` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T184840Z-b2bc25.md)
 
