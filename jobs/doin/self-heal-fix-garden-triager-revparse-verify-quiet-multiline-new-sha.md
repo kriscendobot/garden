@@ -9,3 +9,9 @@ new_sha="$(git --git-dir="$BARE" rev-parse --verify -q "refs/remotes/origin/$ref
 ```
 
 With `--verify -q`, the first call prints nothing and returns non-zero when the remote-tracking ref is absent, so only the fallback's single-line SHA is captured. Verify `new_sha` is a single 40-hex line for a bare clone whose branch lives under `refs/heads/` (no `refs/remotes/origin/*`), and add a guard/test covering the bare-clone case (the recent cold-start tests in commits c14da9355 / 35db0c0a7 are the natural place). Note the same echo-on-failure trap would also bite any other `rev-parse` used with `||` fallbacks; audit line 53's `symbolic-ref` path too (it already uses `2>/dev/null || echo master`, which is fine since symbolic-ref does not echo its arg).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 19
+  claimed_at: 2026-07-10T09:38:06Z
