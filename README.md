@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-10T11:11:28Z_
+_As of 2026-07-10T11:12:47Z_
 
 ## Latest
 
@@ -409,18 +409,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`kriscendobot-agoric-sdk-pr13-fix-chaininfo-snapshots`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr13-fix-chaininfo-snapshots.md) — fixer (shepherd→fixer auto-chain) on kriscendobot/agoric-sdk PR #13
 - [`kriscendobot-agoric-sdk-pr14-fix-chaininfo-snapshots`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr14-fix-chaininfo-snapshots.md) — fixer on kriscendobot/agoric-sdk PR #14 — regenerate chain-info baggage snaps...
-- [`self-heal-fix-garden-triager-kriscendobot-agoric-sdk-revparse-verify-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-agoric-sdk-revparse-verify-guard.md) — In scripts/jobs/triager.sh, the new_sha resolution (lines ~55-57) uses plain ...
 
-### tada (1704)
+### tada (1705)
+- [`self-heal-fix-garden-triager-kriscendobot-agoric-sdk-revparse-verify-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-sdk-revparse-verify-guard.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-endo-revparse-verify-cold-start`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-endo-revparse-verify-cold-start.md) — Completion report
 - [`build-endopi-provider-registry-oauth`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endopi-provider-registry-oauth.md) — Completion report
 - [`build-endopi-jsonl-transcript-format`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endopi-jsonl-transcript-format.md) — Completion report — build-endopi-jsonl-transcript-format
 - [`xst-validation-orchestrator-20260710-105007`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260710-105007.md) — **XS-validation orchestrator — tick report (2026-07-10 ~10:55Z, dispatch 10:5...
-- [`self-heal-fix-garden-triager-kriscendobot-agoric-sdk-revparse-verify-newline`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-sdk-revparse-verify-newline.md) — All requested work is already present and committed on origin/main2, and I ve...
-- … and 1699 more
+- … and 1700 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
