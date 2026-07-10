@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-10T02:02:31Z_
+_As of 2026-07-10T02:08:16Z_
 
 ## Latest
 
-The mount-extensions stack on endo-but-for-bots is where nearly all motion happened. [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) went fully green after a shepherd rebased it onto the fixed [#650](https://github.com/endojs/endo-but-for-bots/pull/650) base — dropping a now-redundant deflake commit once the durable "wake open streams on revoke" fix landed there — which in turn unblocks grep ([#655](https://github.com/endojs/endo-but-for-bots/pull/655)) and json (#657); its Rust-parity runner [#654](https://github.com/endojs/endo-but-for-bots/pull/654) and the grep shepherd also reported complete, and the CLI-path-verbs gauntlet on [#658](https://github.com/endojs/endo-but-for-bots/pull/658) finished (the one board transition since the last bulletin). A few things want a maintainer's eye: the conductor stalled on [#123](https://github.com/endojs/endo-but-for-bots/pull/123) because live `llm` rewrote `agent.js` around `makePiAgent` and the fix's target code no longer exists — it needs a weave/redesign call, not a merge; [#286](https://github.com/endojs/endo-but-for-bots/pull/286) has a real Node-22-only marshalling bug (hardening a live undici `Headers` object across CapTP) awaiting a fixer; and the shepherds for [#652](https://github.com/endojs/endo-but-for-bots/pull/652), #654, and #650's CI deterministically overran their 2400s handler budget and will be poisoned unless split into claim-sized stages. Separately, the new daily exo-google-sheets supervisor filed its day-1 standup, naming design PR [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth foundation) as the gate blocking the whole implementation tree and posting a gauntlet to drive it out of draft.
+The endo-but-for-bots **mount** stack moved the most. [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) went green after a shepherd rebased it onto the fixed base [#650](https://github.com/endojs/endo-but-for-bots/pull/650), which itself landed a durable `whenRevoked` fix waking idle `followNameChanges` streams on revoke; [#650](https://github.com/endojs/endo-but-for-bots/pull/650) also cleared its gauntlet. The Rust-side parity runner [#654](https://github.com/endojs/endo-but-for-bots/pull/654) (a standalone `mount_parity` crate, chosen because the XS-run path won't build in-tree — the SES boot bundles are absent) and mount-grep [#655](https://github.com/endojs/endo-but-for-bots/pull/655) were shepherded to green, and mount-cli-path-verbs [#658](https://github.com/endojs/endo-but-for-bots/pull/658) passed its gauntlet; [#652](https://github.com/endojs/endo-but-for-bots/pull/652) (the `--deny` CLI follow-up) is up as a draft stacked on #650. The agent-tools phase-4 gauntlet on [#618](https://github.com/endojs/endo-but-for-bots/pull/618) is now running.
+
+Two items want a maintainer decision. Conducting [#123](https://github.com/endojs/endo-but-for-bots/pull/123) stalled: the fix hardens an `assembleTranscript` that no longer exists on live `llm` (agent.js was rewritten around `makePiAgent`), so it needs a **weave/redesign** rather than a merge. And [#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s http-client e2e test fails deterministically on Node 22 (undici's lazy `Symbol(headers map sorted)` slot gets frozen and can't be decoded across CapTP) — green on Node 24 — so it wants a **fixer** to stop marshalling live Headers across the boundary. Separately, the exo-google-sheets daily supervisor gated the whole tree on design [#621](https://github.com/endojs/endo-but-for-bots/pull/621) and posted a gauntlet to drive it out of draft. Note also that four mount-stack shepherd jobs (#650, #652, #653, #654) overran the claim-scoped handler budget and risk poisoning — they should be split into claim-sized stages or run detached.
 
 ## Parked for maintainer feedback
 
@@ -232,7 +234,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`gauntlet-endo-but-for-bots-pr618-agent-tools-phase4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr618-agent-tools-phase4.md) — ---
 - [`gauntlet-endo-but-for-bots-pr653-mount-glob`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr653-mount-glob.md) — Run the gauntlet on endojs/endo-but-for-bots PR #653 ("feat(daemon): mount gl...
 
 ### tada (1610)
