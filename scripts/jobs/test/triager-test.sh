@@ -228,8 +228,9 @@ cat > "$SHIMDIR/git" <<EOF
 #!/bin/bash
 # poison ONLY the triager's primary verify-rev-parse of refs/remotes/origin/$REF;
 # pass everything else (fallback, symbolic-ref, fetch, cursor clones) to real git.
+# The triager peels with ^{commit}, so the primary arg is refs/remotes/origin/<ref>^{commit}.
 for _a in "\$@"; do [ "\$_a" = rev-parse ] && _rp=1; done
-if [ "\${_rp:-}" = 1 ] && [ "\${@: -1}" = "refs/remotes/origin/$REF" ]; then
+if [ "\${_rp:-}" = 1 ] && [ "\${@: -1}" = "refs/remotes/origin/$REF^{commit}" ]; then
   printf 'refs/remotes/origin/$REF\n%s\n' "$SHA1"   # the exact production corruption
   exit 0
 fi

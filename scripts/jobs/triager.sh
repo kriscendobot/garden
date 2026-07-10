@@ -47,13 +47,17 @@ BARE="$GARDEN_REPOS/$slug.git"
 
 git --git-dir="$BARE" fetch -q --all --prune || die "fetch failed for $slug"
 
-# resolve the ref to watch
+# resolve the ref to watch. --verify -q keeps a missing primary ref from echoing its
+# unresolved name to stdout (which the `||` fallback would then glue onto the real SHA —
+# the two-line new_sha that produced the "ambiguous argument" fatal on bare clones whose
+# refs are not under refs/remotes/origin/, e.g. kriscendobot-agoric-sdk). The ^{commit}
+# peel also normalizes an annotated-tag ref to its commit before the downstream diff.
 ref="$GARDEN_WATCH_REF"
 if [ -z "$ref" ]; then
   ref="$(git --git-dir="$BARE" symbolic-ref --short HEAD 2>/dev/null || echo master)"
 fi
-new_sha="$(git --git-dir="$BARE" rev-parse --verify -q "refs/remotes/origin/$ref" \
-            || git --git-dir="$BARE" rev-parse --verify -q "$ref")" \
+new_sha="$(git --git-dir="$BARE" rev-parse --verify -q "refs/remotes/origin/$ref^{commit}" \
+            || git --git-dir="$BARE" rev-parse --verify -q "$ref^{commit}")" \
   || die "cannot resolve ref '$ref' in $slug"
 # Fail loudly on a poisoned new_sha rather than handing a bad revision downstream.
 # `--verify -q` (above) already keeps a failed rev-parse from echoing its unresolved
