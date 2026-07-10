@@ -102,3 +102,12 @@ Inspect via `git -C journal cat-file -p 7edcac1e234bdb047b4b15d33889e9c72efdc248
 - Context: gardener-15 on endolin-garden2-5bcdff64: job 'gauntlet-endo-but-for-bots-pr653-mount-glob' exit-0-unsatisfying but elapsed near-constant (210,210s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p 99a1134b9c84b18f6e4dbecde1b431efda3d6036`.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-07-10T06:40:13Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: e8c013656a8cde82fc3b0c7e224b441327713102
+- Context: gardener-10 on endolin-garden2-5bcdff64: job 'gauntlet-endo-but-for-bots-pr661-agent-tools-http-client' exit-0-unsatisfying but elapsed near-constant (402,402s) over 2 cycles — likely a wedged child, not a working one
+
+Inspect via `git -C journal cat-file -p e8c013656a8cde82fc3b0c7e224b441327713102`.
