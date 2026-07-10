@@ -111,3 +111,9 @@ retention). Open the draft design PR against the `llm` roadmap branch per the
 designer's default. Note in the report that PR #609 should be closed/re-based
 onto the new design once it lands (leave the disposition of #609 itself to the
 maintainer/liaison).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  claimed_at: 2026-07-10T21:58:50Z
