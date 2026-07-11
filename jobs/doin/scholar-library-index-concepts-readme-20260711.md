@@ -11,3 +11,9 @@ Add an inventory line for each, in the appropriate section of `concepts/README.m
 - `robust-composition-thesis` — Mark S. Miller's 2006 PhD dissertation *Robust Composition* (Johns Hopkins), the consolidated statement of the E-language research program and intellectual foundation of the ocap approach. Topics: capability-theory, capability-security, eventual-send.
 
 Recompute the gap on the live tree before editing (a concurrent library cycle may already have reconciled it; if so this is an idempotent no-op). Keep the index navigable — one abstract line per concept, placed under the right heading, not a bare append. Land the edit with `scripts/jobs/land-journal-edit.sh journal/library/concepts/README.md` (the only sanctioned way to land a library content edit; never hand-git the live journal worktree).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 18
+  claimed_at: 2026-07-11T16:53:35Z
