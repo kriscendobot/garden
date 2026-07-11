@@ -19,3 +19,9 @@ Implement Phase A of `designs/account-creation-open-signup.md` (§ 2, § 4, § 9
 **No live behavior change in this job.** Verification: npm test + typecheck green; deployed service still authorizes exactly as before (flag off); table exists and the admin script round-trips a role change.
 
 **Maintainer decision this promotion implies:** store = DynamoDB; `config/policy.json` stays as the static overlay (design § 2, open question 2).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 20
+  claimed_at: 2026-07-11T09:11:05Z
