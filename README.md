@@ -1,14 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-11T11:09:07Z_
+_As of 2026-07-11T11:14:16Z_
 
 ## Latest
 
-The garden's **deployed root is stale** and that's the headline: `/home/kris/garden2` sits ~56 commits behind `main2`, so its `garden-triager@*` units keep FATAL-looping on the old `GARDEN_REPOS=$GARDEN_ROOT/repos` default. Five self-heal gardeners independently confirmed the code fix (shared `bare_clone_dir()` defaulting to `worktrees/`, plus an opt-in self-provision path) is already landed and green on `main2` — the only thing left is a deliberate drained `deploy-garden.sh` from the leader to actually clear the crash-loop. All eight own-fork bare clones now exist under `worktrees/`, so post-deploy the triagers should tick cleanly. Three enabled instances (`ocapn`, `cosgov`, `agoric-3-proposals`) will still lack clones and intersect the watch-set authorization bar — a separate call for you.
+The headline is a **deploy gap**: the triager crash-loop fix is fully landed and green on `main2` (`GARDEN_REPOS` now defaults to `worktrees/`, a missing bare clone is a clean skip rather than a FATAL, with opt-in self-provisioning), but the deployed root `/home/kris/garden2` sits ~56 commits behind, so every `garden-triager@*` unit keeps FATAL-looping against the stale `/repos` default. Five separate self-heal gardeners converge on the same conclusion — no code work remains; a drained `deploy-garden.sh` on the leader is the one action that will quiet the fleet. After deploy, three watched instances (`kriscendobot-{ocapn,cosgov,agoric-3-proposals}`) still lack any clone and need either provisioning or disabling, a decision that intersects the § Monitoring watch-set authorization bar.
 
-On **finbot**, four cycles landed a run of simulator increments directly on `kriscendobot/finbot@main` (multi-instrument portfolios, cyclical/harmonic forecaster, GARCH(1,1), and now GJR-GARCH leverage effect — 445 tests green, wallet-touched still false); the branch backlog is now empty. Note a triage circuit-breaker opened for `kriscendobot-finbot`, and the recurring maintainer question stands: whether finbot should keep its no-self-PR/fast-forward convention (which keeps stranding branches) and whether cap-attenuation Phase 2 (live paper-wallet run, gated behind `live_authorized`) is authorized.
+On **kriscendobot/finbot@main**, a rapid direct-push cadence cleared the entire stranded-branch backlog and then pushed into fresh territory: SES-compartments (the capability-attenuation cornerstone), multi-instrument yield-bearing portfolios, the cyclical/harmonic forecaster, and now GARCH(1,1) and GJR-GARCH conditional-volatility surfaces — 445 tests green with the wallet-safety gate holding (all six auditor invariants PASS, `walletTouched:false`). Two things want your eye: finbot's "no self-PR, fast-forward main" convention keeps stranding branches (the gardener asks whether to let builders land directly or stand up a weaver/conductor sweep), a triage circuit-breaker OPENED on `kriscendobot-finbot`, and the deepest remaining axis — cap-attenuation Phase 2, a live CapTP transport and first paper-wallet run — stays gated behind explicit `live_authorized`.
 
-[kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/issues/9) is now **blocked solely on your decision**: the shepherd's dprint fix took fork CI from 4 reds to 1, every PR-attributable check passes, and both reviewers' asks are addressed — say `rebase #9` (onto ~503 commits of master, clearing the last codegen red, then un-draft + request SwingSet review) or `freeze #9` (un-draft the frozen-base prototype as-is). Separately, the [OCapN-Noise-WS demo](https://github.com/endojs/endo-but-for-bots/pull/688) is live and round-tripping a capability on minion.town, and two jobs ([endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/pull/688) shepherd and `ocapn-pet-daemon-dockerfile-minion`) deterministically overran the 2400s handler budget and need splitting or detaching before the reaper poisons them.
+[kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (garden#29, promote ymax vat → critical) is now blocked *solely* on you: the shepherd's `dprint` fix took fork CI from 4 reds to 1, every PR-attributable check passes, and both reviewers' asks are addressed — the lone remaining red is known stale-base codegen noise. Say `rebase #9` (onto ~503-commit-newer master, then un-draft + request SwingSet review) or `freeze #9` (un-draft the frozen-base prototype as-is).
+
+Elsewhere: the OCapN-Noise-WS demo is live and reproducible on minion.town (Caddy TLS → loopback WS → Noise IK → capability round-trip), with an offer to promote it to the full Pet Daemon bootstrap and land the Caddy route durably. Two jobs deterministically overran the 2400s handler budget and will be poisoned unless split — [endojs/endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/pull/688)'s shepherd and `ocapn-pet-daemon-dockerfile-minion`. The minion.town styled-privilege-surfaces build needs an `ELEVATION_CONTACT` value (shipping with a safe plain-text default meanwhile). The parked queue is unchanged at 26, still fronted by [endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) (per-package lint) and the [#59 ocapn-noise](https://github.com/endojs/endo-but-for-bots/pull/113) stack.
 
 ## Parked for maintainer feedback
 
@@ -357,8 +359,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`scholar-ingest-source-habitat-chronicles-4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-habitat-chronicles-4.md) — Source
 
 ### tada (1896)
 - [`ebfb-124-sqlite-nongeneralised-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-124-sqlite-nongeneralised-design.md) — Inbox empty; the job is complete. Final report:
@@ -387,7 +389,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`scholar-ingest-source-habitat-chronicles-4`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-source-habitat-chronicles-4.md) — _low_ · Source
 - [`endojs-endo-but-for-bots-pr660-review-62ee5cda-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr660-review-62ee5cda-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #660 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr660-7dd088b1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr660-7dd088b1-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #660 (primary: endojs-endo-but-f...
 
