@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T07:02:00Z_
+_As of 2026-07-11T07:05:50Z_
 
 ## Latest
 
-A triager crash-loop fix landed on `main2` (through 4c0e275b0b): `triager.sh` and `comment-watcher.sh` now resolve their bare clone through a shared resolver defaulting to `worktrees/` rather than the nonexistent `repos/`, with tests green (triager 68/0, comment-watcher 213/0). But five self-heal gardeners all converge on the same live blocker — the deployed root `/home/kris/garden2` is ~56 commits behind `origin/main2`, so every `garden-triager@*` unit still FATAL-loops on the stale `repos/` default. A drained `deploy-garden.sh` is the one remaining step, and only the leader can run it; after deploy, three watched own-forks (cosgov, ocapn, agoric-3-proposals) still lack a clone under `worktrees/`, and provisioning them intersects the watch-set authorization bar. Separately, `kriscendobot-finbot`'s triage breaker OPENED and that repo is outside the currently-authorized watch set — worth confirming it belongs.
+The headline for the maintainer is a **stale-deploy crash-loop**: five self-heal gardeners converged on the same finding — the fix that defaults `GARDEN_REPOS` to `worktrees/` (and makes a missing bare clone a clean skip, not a FATAL) is already landed and green on `main2` (through `4c0e275b0b`, triager tests 68/0), but the deployed root `/home/kris/garden2` sits ~56 commits behind, so every `garden-triager@*` unit keeps FATAL-looping on the old `/repos` path. A gardener can't run the drained deploy; a deliberate `deploy-garden.sh` will clear it and let all eight own-fork triagers tick cleanly. Separately, three watched instances (`kriscendobot-{ocapn,cosgov,agoric-3-proposals}`) have no clone under `worktrees/` and will still skip after deploy — resolving them intersects the watch-set authorization bar, so it's flagged rather than silently armed. A triage circuit-breaker also opened on `kriscendobot-finbot`, worth confirming that repo belongs in the set at all.
 
-Finbot landed five green increments by direct-push to `kriscendobot/finbot@main`: SES-compartments capability attenuation, multi-instrument yield-bearing portfolios, a cyclical (seasonal + residual-GBM) forecaster, and GARCH(1,1) plus GJR-GARCH volatility surfaces — 445 tests pass, all six auditor invariants hold, wallet untouched throughout. The feature-branch backlog is now empty; the recurring decision is whether builders may land finbot increments directly on main or a weaver/conductor sweep should fast-forward branches promptly, and Phase-2 cap-attenuation (CapTP transport + first live paper-wallet run) stays gated behind explicit `live_authorized`.
+On the project side, **finbot** advanced hard this cycle — a run of direct-push increments landed green on `kriscendobot/finbot@main`: the SES-compartments capability-attenuation cornerstone, multi-instrument yield-bearing portfolios, the cyclical/harmonic forecaster, and then GARCH(1,1) and GJR-GARCH conditional-vol surfaces (445 tests, all six auditor invariants PASS, wallet untouched). The branch backlog is now empty. Two decisions stay open: whether to let builders land finbot increments directly on main vs. standing up a weaver/conductor fast-forward sweep (branches keep stranding behind a diverging main), and the security-gated cap-attenuation Phase 2 (live CapTP transport + first paper-wallet run), which no gardener will touch without explicit authorization.
 
-On [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/issues/9), a shepherd fixed the one PR-attributable red (a `dprint` miss); the remaining reds are stale-base noise that is spreading (test-boot drift now ~9 shards), sharpening the still-pending call to rebase onto master and un-draft vs. keep it a frozen-base prototype. The OCapN-Noise-WS demo is live and reproducible on minion.town (end-to-end TLS→Noise IK→OCapN capability invoke), and the endor-xst test262 runner core landed as a draft — awaiting a follow-up to bump the `c/moddable` submodule pin to 8.3.1.
+Elsewhere: the **OCapN-Noise-WS demo is live and reproducible on minion.town** (Caddy TLS → loopback WS → Noise IK → capability round-trip), with follow-up offers to promote it to the full Pet Daemon bootstrap and land the Caddy route durably. The **endor-xst** runner core landed (still draft, PR #600), flagging that the branch's `c/moddable` gitlink is pinned to 8.0.1 while HEAD's oracle expects 8.3.1 — a submodule pointer the pin-bump commit missed. And on [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9), a shepherd fixed the one PR-attributable red (a `dprint` miss), but stale-base `test-boot` noise is spreading (1→9 red shards) — the pending rebase-vs-frozen-prototype call is drifting a green fork CI further out of reach.
 
 ## Parked for maintainer feedback
 
@@ -335,7 +335,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`daily-progress-summary-20260711-070503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260711-070503.md) — Daily midnight Pacific progress summary
 - [`xs2rust-endor-262-xst-async-done`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-262-xst-async-done.md) — Builder: endor-xst async/$DONE + job-drain wiring (PR #600, test262-convergen...
 
 ### tada (1876)
