@@ -53,3 +53,9 @@ sequence of `endojs/endo-but-for-bots` PR reviews, each with state + what-it-unb
 rebase notes, led by a one-paragraph bottleneck summary and the single first review to do.
 Landed via the producer clone (CAS-pushed to `origin/journal2`). The `tada` report gives
 the journal path, the PR count reviewed, and the top-of-sequence recommendation.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  claimed_at: 2026-07-11T16:43:47Z
