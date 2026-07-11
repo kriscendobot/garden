@@ -1,6 +1,3 @@
-once: 2026-07-11T16:00:00Z
-job_basename_prefix: xs2rust-xst-reactivate
----
 # Reactivate xs2rust + xst-validation (Saturday resume of the temporary pause)
 
 The maintainer temporarily paused two efforts until Saturday morning. Resume them.
