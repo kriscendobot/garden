@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T16:44:10Z_
+_As of 2026-07-11T16:45:47Z_
 
 ## Latest
 
-Multiple triager self-heal jobs confirmed the `GARDEN_REPOS` path fix (repos/ → worktrees/) is already landed and green on `main2`, but they all converge on one maintainer action: the **deployed root `/home/kris/garden2` is stale (~56 commits behind), so `garden-triager@*` units are still crash-looping at runtime** — a drained `deploy-garden.sh` is needed to actually clear the flapping. The finbot fork saw a heavy build cadence, all direct-pushed to `kriscendobot/finbot@main`: SES-compartments capability attenuation, multi-instrument yield-bearing portfolios, a cyclical/harmonic forecaster, GARCH(1,1), GJR-GARCH leverage, and an inference-driven DECIDE stage (451 tests green, wallet-gate holds) — the branch backlog is now empty, though a triage circuit-breaker opened on the fork and cap-attenuation Phase 2 (live wallet) still awaits explicit `live_authorized`.
+The garden's own triager fleet is crash-looping and the fix is landed but undeployed: five self-heal jobs converged on the same diagnosis — `GARDEN_REPOS` now defaults to `worktrees/` (and a missing bare clone is a clean skip, with opt-in self-provisioning) on `main2`, tests green, but the deployed root (`/home/kris/garden2`, ~56 commits behind) still reads the old `repos/` path, so `garden-triager@*` units keep FATAL-looping. A drained `deploy-garden.sh` is the clean resolution and only the leader/liaison can run it. Relatedly, the `kriscendobot-finbot` triage circuit-breaker tripped open, and multiple messages flag that finbot may not belong in the watch set under the § Monitoring safety constraint — worth confirming.
 
-The foreman filed four separate notes that **Milestone M3 is now merge-bottlenecked, not work-bottlenecked**: a fleet of green, mergeable endo-but-for-bots PRs — [#608](https://github.com/endojs/endo-but-for-bots/pull/608) (Docker self-host), [#661](https://github.com/endojs/endo-but-for-bots/pull/661) (agent HTTP tools), the mount stack, and the endopi stack — sit ready, while [#594](https://github.com/endojs/endo-but-for-bots/pull/594) (per-package lint) remains unmerged and keeps poisoning gauntlets against the typescript-eslint project-service ceiling; merging it auto-promotes the parked shepherd cohort. The endoclaw-timer chain ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)→[#617](https://github.com/endojs/endo-but-for-bots/pull/617)→[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) needs a supersede-or-keep call, since kriskowal's review asks to redraft #609's scheduler as a standalone `@endo/reminder` plugin.
+The foreman is raising M3 (Remote Access) as merge-bottlenecked, not work-bottlenecked: a fleet of green, mergeable endo-but-for-bots PRs is ready but unmerged, and the lint projectService ceiling — whose fix is [#594](https://github.com/endojs/endo-but-for-bots/pull/594) — poisons every gauntlet until merged. Merging #594 trip-wires the parked `resume-lint-ceiling-shepherds` job. Also awaiting a merge/order decision: the Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608), outbound-HTTP agent tools #661, the endoclaw-timer chain [#609](https://github.com/endojs/endo-but-for-bots/pull/609)→[#617](https://github.com/endojs/endo-but-for-bots/pull/617)→[#619](https://github.com/endojs/endo-but-for-bots/pull/619) (kriskowal requested #609 be redrafted as a standalone `@endo/reminder` plugin — designer work), and the endopi/mount stack. A build job for the MVS resolver was closed as already subsumed by [#671](https://github.com/endojs/endo-but-for-bots/pull/671).
 
-Finally, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (promote ymax vat → critical) is now green on every PR-attributable check after the shepherd's dprint fix and is **blocked solely on a rebase-vs-freeze decision** (`rebase #9` or `freeze #9`); the OCapN-Noise-WS transport demo is live and reproducible on minion.town.
+[kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (promote ymax vat → critical) is now blocked solely on your call: the shepherd's dprint fix turned fork CI from 4 reds to 1 (the lone remaining red is known stale-base codegen noise), all reviewer feedback is addressed, so say `rebase #9` or `freeze #9` to unblock un-drafting. On the project side, finbot landed a steady run of direct-push increments (SES compartments, multi-instrument portfolios, cyclical/GARCH/GJR-GARCH forecasters, and an inference-driven DECIDE stage — now 451 tests green with the wallet safety gate holding); its branch backlog is empty, and the deepest remaining axis (cap-attenuation Phase 2, live paper-wallet run) stays gated on your `live_authorized`. The OCapN-Noise-WS demo is live and reproducible on minion.town. Two jobs (`pr688-shepherd`, `ocapn-pet-daemon-dockerfile-minion`) deterministically overran the 2400s handler budget and need splitting into claim-sized stages.
 
 ## Parked for maintainer feedback
 
@@ -452,8 +452,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
 - [`build-endo-but-for-bots-endopi-jsonl-transcript-format`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-endopi-jsonl-transcript-format.md) — ---
+- [`deadmail-20260711T164315Z-c55ba6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260711T164315Z-c55ba6.md) — Dead-lettered message — pick up its intent
+- [`deadmail-20260711T164330Z-49ffdc`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260711T164330Z-49ffdc.md) — Dead-lettered message — pick up its intent
 - [`report-pr-review-sequence-unblock`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/report-pr-review-sequence-unblock.md) — Report: a sequenced PR-review plan that unblocks progress (journal root)
 
 ### tada (1919)
