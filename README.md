@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-10T23:40:27Z_
+_As of 2026-07-11T00:22:12Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ On the fork side, the XS-validation effort (garden#33) is engineering-complete a
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 6h)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 7h)
 - [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 1d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 8d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 10d)
@@ -689,6 +689,26 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260710T232229Z-6ab1ec` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T232229Z-6ab1ec.md)
 
 > self-heal: garden-triager@kriscendobot-ocapn exited rc=1 with no scoped fix. Capture: b1b74a55328df794e77aba81bb9722a4cf047fd9 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p b1b74a55328df794e77aba81bb9722a4cf047fd9). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
+
+- `20260711T002142Z-ea2a76` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T002142Z-ea2a76.md)
+
+> self-heal: garden-triager@kriscendobot-cosgov exited rc=1 with no scoped fix. Capture: 306e082af9c0535203893b4537f73612cf616dac (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 306e082af9c0535203893b4537f73612cf616dac). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
+
+- `20260711T002148Z-4b4278` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T002148Z-4b4278.md)
+
+> self-heal: garden-triager@kriscendobot-agoric-sdk exited rc=1 with no scoped fix. Capture: f0f3dbc26265e46eed5d6913dcde451fd68a6c9f (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p f0f3dbc26265e46eed5d6913dcde451fd68a6c9f). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
+
+- `20260711T002148Z-5dc824` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T002148Z-5dc824.md)
+
+> self-heal: garden-triager@kriscendobot-endo exited rc=1 with no scoped fix. Capture: 7ef6157d0f19577352bc9dc1d090bf1ece050232 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 7ef6157d0f19577352bc9dc1d090bf1ece050232). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
+
+- `20260711T002148Z-81a085` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T002148Z-81a085.md)
+
+> self-heal: garden-triager@kriscendobot-finbot exited rc=1 with no scoped fix. Capture: 093ea9f1fca5e4c0ff887c8b7fe6f53ffbdb368c (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 093ea9f1fca5e4c0ff887c8b7fe6f53ffbdb368c). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
+
+- `20260711T002204Z-53b84c` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T002204Z-53b84c.md)
+
+> self-heal: garden-triager@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: 6afbd6b796722014c2fc6ca9878b6475309595fe (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 6afbd6b796722014c2fc6ca9878b6475309595fe). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
 
 - `poison-endojs-endo-but-for-bots-pr592-cancel-in-options-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-endojs-endo-but-for-bots-pr592-cancel-in-options-requeue-exhausted.md)
 
