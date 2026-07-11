@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T09:36:27Z_
+_As of 2026-07-11T09:38:08Z_
 
 ## Latest
 
-The dominant signal is a **deploy gap**: the triager crash-loop fix (GARDEN_REPOS defaulting to `worktrees/`, plus a shared `bare_clone_dir` resolver and opt-in self-provisioning) is landed and green on `main2`, but five self-heal gardeners independently confirm the deployed root `/home/kris/garden2` is ~56 commits behind and still reads the stale `repos/` default — so every `garden-triager@*` unit keeps FATAL-looping until a deliberate drained `deploy-garden.sh` advances the root. All eight own-fork bare clones now exist under `worktrees/`, so the deploy alone should clear the storm. A second, separate breakage: the `endolin-garden2` host has an unrecorded `GARDEN=driftname` identity drift that is disabling its leader gate and mislabeling its whole gardener pool — the drift guard recommends removing the pinned env override.
+Two operational items need a maintainer's hand. The deployed garden root (`/home/kris/garden2`) is running ~56 commits behind `main2`, so although the triager fix has landed — `GARDEN_REPOS` now defaults to `worktrees/` and a missing bare clone is a clean skip rather than a FATAL — every `garden-triager@*` unit is still crash-looping on the stale `/repos` default; a drained `deploy-garden.sh` is the clean resolution, and a cluster of self-heal gardeners all converged on exactly that diagnosis. Separately, an identity-drift guard on `endolin-garden2-5bcdff64` reports a pinned `GARDEN=driftname` overriding the derived hostname, which flips the host to FOLLOWER and silently skips every leader-only singleton (foreman, scheduler, watchers) — unsetting the pinned env restores the leader gate.
 
-On the fork side, the [OCapN-Noise-WS demo is live on minion.town](https://github.com/endojs/endo-but-for-bots) (Caddy TLS → loopback WS → Noise IK → capability round-trip), with the gardener asking whether to promote it to the full Pet Daemon bootstrap and land the Caddy route durably. finbot advanced steadily under its no-PR/direct-push convention — the last stranded feature branches (multi-instrument portfolios, cyclical forecaster) landed and cleared, then GARCH(1,1) and GJR-GARCH volatility surfaces added, all green with the wallet-safety gate holding; the maintainer's open question remains whether to keep paying per-cycle rebase cost or stand up a fast-forward sweep. On [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) a shepherd fixed the one PR-attributable red (a `dprint fmt` miss), but the remaining stale-base test-boot noise is spreading from one shard to nine — sharpening the still-pending call to rebase onto master (~503 commits behind) and request review, or keep it a frozen-base prototype.
+finbot advanced steadily, landing a run of green increments direct on `kriscendobot/finbot@main`: SES-compartments capability attenuation, multi-instrument yield-bearing portfolios, a seasonal/cyclical forecaster, and GARCH(1,1) plus GJR-GARCH volatility surfaces (445 tests green, wallet-touched gate holding across all cycles). The standing decision there — let builders land on main directly, or run a weaver/conductor sweep so branches stop stranding — remains open; note too that the triage circuit-breaker OPENED for `kriscendobot-finbot`, so confirming whether it belongs in the watch set is worth a look.
 
-Two build-heavy jobs deterministically overran the 2400s handler budget — the [endo-but-for-bots#688 shepherd](https://github.com/endojs/endo-but-for-bots/pull/688) and the OCapN Pet-Daemon Dockerfile — and need splitting into claim-sized stages or detached execution. Only one board completion this interval (`build-endo-daemon-aws-storage-wiring`), with the board otherwise quiet: zero in todo, three in flight.
+Elsewhere, the OCapN-Noise-WS demo is live and reproducible on minion.town (Caddy TLS → Noise IK → capability round-trip), and the XS→Rust port landed its `endor-xst` runner core (still draft, with a flagged `c/moddable` gitlink still pinned to 8.0.1). On [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) a shepherd fixed the one PR-attributable red (a `dprint` miss) while stale-base boot-snapshot noise keeps growing — the rebase-or-freeze call is still pending. Finally, two jobs — the [endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/pull/688) shepherd and the OCapN Pet Daemon Dockerfile build — deterministically overran the 2400s handler budget and need splitting into claim-sized stages.
 
 ## Parked for maintainer feedback
 
@@ -449,8 +449,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`build-heavy-handler-budget-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-heavy-handler-budget-fix.md) — Enable build-heavy jobs to succeed; poison deterministic overruns faster
+- [`guard-tests-from-production-journal-push`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/guard-tests-from-production-journal-push.md) — Guard: a test must never push to the production journal2
 - [`ocapn-pet-daemon-dockerfile-minion`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-pet-daemon-dockerfile-minion.md) — Reproducible Dockerfile for the full Endo Pet Daemon on minion.town (WS+Noise)
 - [`styled-privilege-surfaces-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/styled-privilege-surfaces-minion-town.md) — Build: styled privilege surfaces for minion.town (Phase C — role-aware landin...
 
