@@ -91,3 +91,9 @@ identity. If a peer is actively pushing to this branch (check `jobs/doin/` and
 Notify the standing `endo-sturdyref-press` driver's current instance via
 `scripts/jobs/inbox-send.sh` when done (dead-letter promotion preserves intent
 if it has cycled).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 15
+  claimed_at: 2026-07-11T19:09:52Z
