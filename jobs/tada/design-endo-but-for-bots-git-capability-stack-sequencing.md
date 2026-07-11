@@ -1,0 +1,15 @@
+## Completion report
+
+**Job:** `design-endo-but-for-bots-git-capability-stack-sequencing` (designer role)
+**Deliverable:** draft design PR **endojs/endo-but-for-bots#691** — https://github.com/endojs/endo-but-for-bots/pull/691 — branch `design/git-capability-stack-sequencing` against `llm`. Design slug: the plan lands in the existing coordinator doc `designs/daemon-git-next-steps.md` (§ Phased Build Plan), following the module-loading precedent (#659) rather than minting a new file.
+
+**What I did:**
+
+- Reconciled the three Proposed git designs (`daemon-git-capability`, `daemon-git-remotes`, `daemon-git-next-steps`) into one accepted, dependency-ordered phased build plan for the version-controlled-filesystem loop, verified against landed code at `llm` HEAD `f7932ed5a`. Statuses flipped **Proposed → In Progress together** (plus `agentry-git-verb-gaps`, whose amend/reword verbs landed via #644) — In Progress rather than the precedent's Not Started because most of this stack is already shipped.
+- **The plan** (6 phases, each a dispatchable builder job): (1) `makeGitRemoteTool` push tier → (2) commit-identity boundary (formula-owned `{ authorName, authorEmail }` on `provideGit`/`provideGitClone`, pinned minimal shape) → (3) provisioning + the worked end-to-end loop (the milestone's exit criterion), as the serial critical path; (4) replay/conflict verbs → (5) eval activation as a parallel-eligible lane; (6) structured result shapes as a gating-nothing lane. No phase waits on unlanded substrate.
+- **Reconciliation deltas closed:** `filesystemAt(ref)`/`tree(ref)` vocabulary merged into `daemon-git-capability` § Historical Read (the roadmap's own overdue item); the #538-landed `provideGitClone` bootstrap recorded, dissolving the planned `daemon-git-clone.md` into the Phase-2 identity residue; the #644 gated `allowHistoryRewrite` axis recorded as Design Decision 11; the #616 "Phase 3" vs canonical "Phase 3.5" numbering drift flagged; the stale README M3 `daemon-mount-capabilities` row synced to Complete.
+- **README sync:** header, summary rows, blurbs, M3 rows, dependency-graph markers, and a totals recount — prose totals had drifted two low (145 → 147), the same drift #659 found independently.
+
+**Verification:** design-only diff (6 markdown files, nothing executable). All landed/absent code claims grep-verified (`makeGitRemoteTool`/`cherryPick`/`checkoutConflict` absent; `provideGitClone`/`allowHistoryRewrite`/`filesystemAt`/`makeGitHistoryTool`/`withGitEnvOverrides` present). All 6 mermaid fences parse OK via `mermaid.parse()` (parse-only jsdom procedure). Summary-table totals recounted by script (147 rows).
+
+**Follow-ups:** (1) PR left draft — un-drafting/acceptance disposition is the maintainer's; (2) #659 edits the same README header/totals lines — whichever PR lands second needs a trivial two-line re-weave (noted in the PR body); (3) a per-persona commit-identity tracking issue is "to be filed" when Phase 2 dispatches. Project worktree torn down; branch pushed.
