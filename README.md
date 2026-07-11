@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T06:49:28Z_
+_As of 2026-07-11T06:50:50Z_
 
 ## Latest
 
-The OCapN Noise peer-to-peer milestone chain closed out: the `ocapn-noise-p2p-milestones` orchestration reached complete, its M5 two-daemon invite/accept builder landed, and a shared-suite follow-up is already in flight. Relatedly, an OCapN-Noise-WS demo now runs live on minion.town — a garden peer dials `wss://minion.town/ocapn`, completes a Noise IK handshake, and round-trips a capability against a systemd-run service; the gardener is asking whether to promote it to the full Pet Daemon bootstrap and land the Caddy route durably.
+The garden-triager fleet's crash-loop fix has fully landed on `main2` (through `4c0e275b0b`), but five self-heal gardeners independently converged on the same conclusion: the **deployed root (`/home/kris/garden2`) is stale** — up to ~56 commits behind — so every `garden-triager@*` unit keeps FATAL-looping on the old `repos/` default until a deliberate drained `deploy-garden.sh` advances the root. That deploy is the single outstanding operational action; all eight own-fork bare clones now exist under `worktrees/`, so triage ticks cleanly once the root lands.
 
-The item most worth a maintainer decision is the **deploy gap**: several self-heal gardeners converged on the same finding — the triager `GARDEN_REPOS` `/repos`→`/worktrees` crash-loop fix is fully landed and green on `main2` (through `4c0e275b0b`/`83e0eb0f41`), but the deployed root is ~56 commits behind, so `garden-triager@*` keeps FATAL-flapping every tick until a drained `deploy-garden.sh` runs. That's a leader/liaison operation no gardener can perform. Separately, a triage circuit-breaker opened on `kriscendobot-finbot`, and three enabled instances (ocapn, cosgov, agoric-3-proposals) will still need clones or the opt-in self-provision flag after deploy — which intersects the watch-set authorization bar.
+On the OCapN track, the Noise-transport milestones closed out: the [ocapn-noise-p2p-milestones](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-p2p-milestones.md) orchestration is complete, the two-daemon invite/accept M5 builder finished, and a live OCapN-Noise-WS demo is now running and reproducible on minion.town (Caddy TLS → loopback WS → Noise IK → capability invoke). The gardener is holding for your call on promoting it to the full Pet Daemon bootstrap and landing the Caddy route durably. The endor-xst runner core also landed (convergence child 1/5) with a flagged submodule-pin mismatch — the branch's `c/moddable` gitlink points at moddable 8.0.1 while HEAD's tests require 8.3.1, so a separate gitlink bump is needed.
 
-Elsewhere: finbot advanced four direct-push increments across its cycles (SES-compartments capability attenuation, multi-instrument/yield portfolios, a cyclical seasonal forecaster, and GARCH(1,1) conditional volatility — now 435 tests green with the wallet safety gate holding), while the gardener re-flags an open question on whether builders should keep paying per-cycle rebase cost or stand up a fast-forward sweep. On [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/issues/9), a shepherd fixed the one PR-attributable lint red, but the stale-base boot-snapshot noise is spreading (1→9 red shards), sharpening the still-pending rebase-vs-frozen-prototype call. The endor-xst runner core also landed as convergence child 1/5, with a flagged `c/moddable` gitlink still pinned to 8.0.1 where the branch expects 8.3.1.
+finbot advanced four cycles directly on its fork's `main` (multi-instrument portfolios, cyclical forecaster, and GARCH(1,1) — 435 tests green, wallet-safety gate holding), clearing its stranded-branch backlog; the gardener re-flags a standing decision on whether builders should keep landing directly on main or a weaver/conductor sweep should fast-forward branches promptly. Separately, shepherd [#9](https://github.com/kriscendobot/agoric-sdk/pull/9) on the agoric-sdk fork fixed the one PR-attributable red (a `dprint` miss), leaving only growing stale-base boot-snapshot noise that strengthens the pending rebase-vs-frozen-base decision.
 
 ## Parked for maintainer feedback
 
@@ -308,7 +308,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`finbot-progress-20260711-065005`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260711-065005.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fu-ocapn-two-daemon-invite-accept-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-ocapn-two-daemon-invite-accept-1.md) — In the bot's own ocapn repo (endojs/endo-but-for-bots), the two shared-suite ...
 - [`xs2rust-endor-262-corpus-case-conversion`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-262-corpus-case-conversion.md) — Builder: corpus → test262 cases conversion (PR #600, test262-convergence chil...
 
