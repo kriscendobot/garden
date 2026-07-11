@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T06:06:15Z_
+_As of 2026-07-11T06:07:15Z_
 
 ## Latest
 
-The garden's triager fleet crash-loop is fully diagnosed but not yet cleared: the `GARDEN_REPOS` default was fixed at the source (`repos/` → `worktrees/`, sharing one `bare_clone_dir` resolver, with opt-in self-provisioning) and is green on `main2`, but the deployed root `/home/kris/garden2` is still ~56 commits behind, so `garden-triager@*` units keep FATAL-looping on session limits until a drained `deploy-garden.sh` is run — a leader/liaison operation no gardener can perform. On the delivery side, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) advanced: a peer pushed head `71cb13f9`, and shepherd #9 fixed the one PR-attributable red (a `dprint fmt` miss on the critical-vat test rewrite); the remaining reds are all stale-base noise from a base trailing master ~503 commits, and a rebase/un-draft decision is still parked for the maintainer. Separately, kriscendobot/finbot landed four clean green increments (SES-compartments capability attenuation, multi-instrument yield-bearing portfolios, a cyclical/harmonic forecaster, and GARCH(1,1) conditional volatility) — clearing its entire stranded-branch backlog — but the "no self-PR, fast-forward main" convention keeps stranding builder branches and awaits a maintainer decision on whether builders may land directly. Ten PRs remain parked for review, including [endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) (lint-per-package to dodge the typescript-eslint project-service ceiling) and the [#59 ocapn-noise test stack](https://github.com/endojs/endo-but-for-bots/pull/113).
+The triager fix landed on `main2` (through commit `4c0e275b0b`) — `GARDEN_REPOS` now defaults to `worktrees/` via a shared resolver, a missing bare clone became a clean skip instead of a fatal, and self-provisioning is available opt-in; triager and comment-watcher tests are green. But five self-heal gardeners converge on one blocker only the leader can clear: the **deployed** root (`/home/kris/garden2`, ~56 commits behind) still carries the old `/repos` default, so every `garden-triager@*` keeps crash-looping until a drained `deploy-garden.sh` runs. After that, three enabled instances (`kriscendobot-{ocapn,cosgov,agoric-3-proposals}`) still need clones provisioned or disabling — a decision that intersects the § Monitoring safety watch-set rule.
+
+On [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9), a shepherd fixed the one PR-attributable red (a `dprint fmt` miss on the critical-vat test rewrite); the remaining reds are stale-base noise and growing (test-boot spread from 1 to ~9 shards), sharpening the still-pending call to rebase-and-un-draft versus keep it a frozen-base prototype.
+
+Finbot advanced four increments directly on `kriscendobot/finbot@main` this stretch — SES-compartments capability attenuation, multi-instrument yield-bearing portfolios, the cyclical harmonic forecaster, and GARCH(1,1) conditional volatility — clearing the entire stranded-branch backlog (435 tests green, wallet-untouched safety gate holding throughout). The recurring open question: whether builders may land finbot increments directly or a weaver/conductor sweep should fast-forward promptly, since the no-self-PR convention keeps stranding branches. The deepest finbot axis (CapTP transport + a first live paper-wallet run) stays gated behind explicit `live_authorized` maintainer sign-off.
 
 ## Parked for maintainer feedback
 
@@ -40,14 +44,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > - feat/cyclical-forecaster (harmonic seasonal forecaster, +778 lines, big cyclic-CRPS win) — now ~5 behind main.
 >
 > Next unblocked increment (next cycle): rebase+land feat/additional-instruments (smaller delta). Decision for you: either let builders land finbot increments directly on main (garden-style), or stand up a weaver/conductor sweep to fast-forward branches promptly — otherwise every cycle keeps paying rebase cost on stranding branches.
-
-- `20260710T080657Z-b2a12b` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T080657Z-b2a12b.md)
-
-> self-heal: garden-triager@kriscendobot-agoric-sdk exited rc=1 with no scoped fix. Capture: 2f131b35374b9b62693863cfc7998cf9bcbfdfba (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 2f131b35374b9b62693863cfc7998cf9bcbfdfba). Diagnosis: You've hit your session limit · resets 9:10am (UTC)
-
-- `20260710T083558Z-403210` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T083558Z-403210.md)
-
-> self-heal: garden-triager@kriscendobot-endo exited rc=1 with no scoped fix. Capture: 0c1602929aab473ba431caa511022045f934b02b (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 0c1602929aab473ba431caa511022045f934b02b). Diagnosis: You've hit your session limit · resets 9:10am (UTC)
 
 - `20260710T123828Z-7aca43` — from gardener:finbot-progress-20260710-123501, reply_to `finbot-progress-20260710-123501` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T123828Z-7aca43.md)
 
@@ -89,10 +85,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Needs a maintainer decision: the cap-attenuation next step — choosing the CapTP transport to replace the `spawnSigningWorker` gated stub and doing a first live paper-wallet/test-net run — is security-weighted and gated behind `live_authorized`. That is the deepest remaining axis but I will NOT advance it without explicit maintainer authorization.
 
-- `20260710T184026Z-a5d76c` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T184026Z-a5d76c.md)
-
-> self-heal: garden-triager@kriscendobot-finbot exited rc=1 with no scoped fix. Capture: 9866e3fecbdeea6afd69aecb76069d7aa26acadc (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 9866e3fecbdeea6afd69aecb76069d7aa26acadc). Diagnosis: You've hit your session limit · resets 7:10pm (UTC)
-
 - `20260710T184827Z-0e34e9` — from triager:kriscendobot-finbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T184827Z-0e34e9.md)
 
 > kind: error
@@ -115,74 +107,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > at all, remove it from the watch set. Note: under CLAUDE.md § Monitoring safety
 > constraint only `endojs/endo-but-for-bots` is currently authorized for watching —
 > worth confirming `kriscendobot-finbot` belongs in the set.
-
-- `20260710T203829Z-915af0` — from watchdog:gardener/16, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T203829Z-915af0.md)
-
-> gardener job 'build-endo-glob-grep-pushdown' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
-- `20260710T232127Z-0bf7e8` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T232127Z-0bf7e8.md)
-
-> self-heal: garden-triager@kriscendobot-agoric-sdk exited rc=1 with no scoped fix. Capture: 0f5f7366b605f0932b0079aabb72fa1724bc7ea3 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 0f5f7366b605f0932b0079aabb72fa1724bc7ea3). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
-
-- `20260710T232133Z-a22307` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T232133Z-a22307.md)
-
-> self-heal: garden-triager@kriscendobot-cosgov exited rc=1 with no scoped fix. Capture: 014fb3bfe31c0c9d8de45fe8ac9da0113c043600 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 014fb3bfe31c0c9d8de45fe8ac9da0113c043600). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
-
-- `20260710T232133Z-edb78b` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T232133Z-edb78b.md)
-
-> self-heal: garden-triager@kriscendobot-endo exited rc=1 with no scoped fix. Capture: 00348948455e75d369c3be8e10003f6e35b20ac2 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 00348948455e75d369c3be8e10003f6e35b20ac2). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
-
-- `20260710T232133Z-f114e0` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T232133Z-f114e0.md)
-
-> self-heal: garden-triager@kriscendobot-finbot exited rc=1 with no scoped fix. Capture: 980f2d6ef4e84d709f0877f977c3411c46f36e2b (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 980f2d6ef4e84d709f0877f977c3411c46f36e2b). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
-
-- `20260710T232147Z-ba14cb` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T232147Z-ba14cb.md)
-
-> self-heal: garden-triager@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: fe43f5de97a9b9472a538aba15034db093bd5678 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p fe43f5de97a9b9472a538aba15034db093bd5678). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
-
-- `20260710T232203Z-e21cb9` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T232203Z-e21cb9.md)
-
-> self-heal: garden-triager@kriscendobot-vattr97 exited rc=1 with no scoped fix. Capture: 676eadfd0a3c48450f670461b8d7a462cd0882a6 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 676eadfd0a3c48450f670461b8d7a462cd0882a6). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
-
-- `20260710T232210Z-73cde5` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T232210Z-73cde5.md)
-
-> self-heal: garden-triager@kriscendobot-agoric-3-proposals exited rc=1 with no scoped fix. Capture: 5b3292878419027c1f87821065824206cf90b4b2 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 5b3292878419027c1f87821065824206cf90b4b2). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
-
-- `20260710T232229Z-6ab1ec` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T232229Z-6ab1ec.md)
-
-> self-heal: garden-triager@kriscendobot-ocapn exited rc=1 with no scoped fix. Capture: b1b74a55328df794e77aba81bb9722a4cf047fd9 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p b1b74a55328df794e77aba81bb9722a4cf047fd9). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
-
-- `20260711T002142Z-ea2a76` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T002142Z-ea2a76.md)
-
-> self-heal: garden-triager@kriscendobot-cosgov exited rc=1 with no scoped fix. Capture: 306e082af9c0535203893b4537f73612cf616dac (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 306e082af9c0535203893b4537f73612cf616dac). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
-
-- `20260711T002148Z-4b4278` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T002148Z-4b4278.md)
-
-> self-heal: garden-triager@kriscendobot-agoric-sdk exited rc=1 with no scoped fix. Capture: f0f3dbc26265e46eed5d6913dcde451fd68a6c9f (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p f0f3dbc26265e46eed5d6913dcde451fd68a6c9f). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
-
-- `20260711T002148Z-5dc824` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T002148Z-5dc824.md)
-
-> self-heal: garden-triager@kriscendobot-endo exited rc=1 with no scoped fix. Capture: 7ef6157d0f19577352bc9dc1d090bf1ece050232 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 7ef6157d0f19577352bc9dc1d090bf1ece050232). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
-
-- `20260711T002148Z-81a085` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T002148Z-81a085.md)
-
-> self-heal: garden-triager@kriscendobot-finbot exited rc=1 with no scoped fix. Capture: 093ea9f1fca5e4c0ff887c8b7fe6f53ffbdb368c (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 093ea9f1fca5e4c0ff887c8b7fe6f53ffbdb368c). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
-
-- `20260711T002204Z-53b84c` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T002204Z-53b84c.md)
-
-> self-heal: garden-triager@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: 6afbd6b796722014c2fc6ca9878b6475309595fe (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 6afbd6b796722014c2fc6ca9878b6475309595fe). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
-
-- `20260711T002231Z-6b48c7` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T002231Z-6b48c7.md)
-
-> self-heal: garden-triager@kriscendobot-agoric-3-proposals exited rc=1 with no scoped fix. Capture: bfdca708bc8263279fc342c9ed02450af6247ca8 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p bfdca708bc8263279fc342c9ed02450af6247ca8). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
-
-- `20260711T002236Z-47b86d` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T002236Z-47b86d.md)
-
-> self-heal: garden-triager@kriscendobot-vattr97 exited rc=1 with no scoped fix. Capture: a948e966b5599ffd07ab2db6d6d699e8aa449da4 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p a948e966b5599ffd07ab2db6d6d699e8aa449da4). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
-
-- `20260711T002301Z-75dc0f` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T002301Z-75dc0f.md)
-
-> self-heal: garden-triager@kriscendobot-ocapn exited rc=1 with no scoped fix. Capture: 9be24a3defac01ef901cdb39a0d9b2308807a869 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 9be24a3defac01ef901cdb39a0d9b2308807a869). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
 
 - `20260711T003523Z-afed25` — from gardener:self-heal-fix-garden-triager-kriscendobot-ocapn-missing-bare-clone-die, reply_to `self-heal-fix-garden-triager-kriscendobot-ocapn-missing-bare-clone-die` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T003523Z-afed25.md)
 
@@ -320,6 +244,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Did NOT rebase / regenerate chain info — that's the pending maintainer call. The
 > growing test-boot noise is the new data point for that decision.
+
+- `20260711T060629Z-97448d` — from gardener:px-live-a, reply_to `px-live-a` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T060629Z-97448d.md)
+
+> Two refactors are possible for the parser; which should I try first?
+
+- `20260711T060637Z-efb93c` — from gardener:px-live-b, reply_to `px-live-b` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T060637Z-efb93c.md)
+
+> CI is green — should I ferry this PR upstream now?
+
+- `20260711T060642Z-2cf2c7` — from gardener:px-dead, reply_to `px-dead` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T060642Z-2cf2c7.md)
+
+> Is this job considered complete?
 
 
 ## Board
