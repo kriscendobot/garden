@@ -1,16 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T02:17:03Z_
+_As of 2026-07-11T02:19:16Z_
 
 ## Latest
 
-Two things dominate since the last bulletin: a large, stalled merge backlog and a stale deployment. The foreman reports repeatedly that milestone M3 is saturated — the daemon-mount stack ([#650](https://github.com/endojs/endo-but-for-bots/pull/650)/[#653](https://github.com/endojs/endo-but-for-bots/pull/653)/[#655](https://github.com/endojs/endo-but-for-bots/pull/655)/[#657](https://github.com/endojs/endo-but-for-bots/pull/657)/[#658](https://github.com/endojs/endo-but-for-bots/pull/658)), the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)), and the new glob/grep `@endo/platform` pushdown stack (just un-drafted as [#678](https://github.com/endojs/endo-but-for-bots/pull/678)/[#679](https://github.com/endojs/endo-but-for-bots/pull/679)/[#680](https://github.com/endojs/endo-but-for-bots/pull/680)/[#681](https://github.com/endojs/endo-but-for-bots/pull/681), design [#675](https://github.com/endojs/endo-but-for-bots/pull/675)) are all green and mergeable but unmerged, so the fleet has no unblocked build work to claim. Forward motion now needs review/merge attention, not more builds.
+The board is quiet — only an agoric-sdk [PR #10](https://github.com/kriscendobot/agoric-sdk/pull/10) retrospective moved into flight — but the fleet is running into a wall worth immediate attention: the deployed garden root is ~56 commits behind `main2`, so its triagers still default to the old `repos/` clone path and every `garden-triager@*` unit is crash-looping. The fix is already landed and tested on `main2`; a deliberate drained `deploy-garden.sh` is the only thing left to clear it. Overnight session-limit outages compounded it, knocking out triage across most watched forks.
 
-Two decisions are flagged as merge-gates on that pushdown stack: normative `grep` still ships an unbounded `RegExp.test()` (ReDoS-exposed, pre-existing), pending the `@endo/regexp` conservative subset ([#676](https://github.com/endojs/endo-but-for-bots/pull/676)); and [#675](https://github.com/endojs/endo-but-for-bots/pull/675) should land first so changelog links resolve.
+On the work front, the glob/grep `@endo/platform` pushdown stack gauntleted clean and un-drafted into your queue — [#678](https://github.com/endojs/endo-but-for-bots/pull/678) (search engine), [#679](https://github.com/endojs/endo-but-for-bots/pull/679) (glob), [#680](https://github.com/endojs/endo-but-for-bots/pull/680) (grep), [#681](https://github.com/endojs/endo-but-for-bots/pull/681) (agent tools) — with two calls flagged for your review: a pre-existing grep ReDoS exposure that this refactor turns into a reusable primitive, and a merge-ordering dependency on design PR [#675](https://github.com/endojs/endo-but-for-bots/pull/675). The mount stack also went green: [#653](https://github.com/endojs/endo-but-for-bots/pull/653) was rebased onto its fixed base after a durable "wake open followNameChanges streams on revoke" fix landed on [#650](https://github.com/endojs/endo-but-for-bots/pull/650).
 
-Separately, the **triager fleet is crash-looping** because the deployed garden root is ~56 commits behind `main2` — the `GARDEN_REPOS` path fix (default now `worktrees/`, plus opt-in self-provision) is landed and tested, but a deliberate drained `deploy-garden.sh` is required to actually clear the storm of `garden-triager@*` failures; multiple self-heal reports converge on this. Several triager sessions also died on API session limits overnight.
-
-Elsewhere: mount-glob [#653](https://github.com/endojs/endo-but-for-bots/pull/653) was shepherded to green after a rebase onto its fixed base; PR [#618](https://github.com/endojs/endo-but-for-bots/pull/618) (dynamic capability tool-discovery) was **closed by kriskowal** over a shell-capability leak concern, handed to @kumavis; and several builder impasses await a steer — the mvs-resolver's home (`@endo/exo-npm` [#403](https://github.com/endojs/endo-but-for-bots/pull/403) vs `@endo/daemon` [#671](https://github.com/endojs/endo-but-for-bots/pull/671)), and the Docker-selfhost design record that keeps re-spawning declined builds. On the forks, **finbot** landed its last stranded branches (SES-compartments, multi-instrument portfolios, cyclical forecaster, GARCH(1,1) — now 435 tests green, no branches stranded), and the **agoric-sdk XS-validation** effort ([kriskowal/garden#33](https://github.com/kriskowal/garden/issues/33)) is engineering-complete and green on PRs [#13](https://github.com/kriscendobot/agoric-sdk/pull/13)/[#14](https://github.com/kriscendobot/agoric-sdk/pull/14) but blocked on two maintainer calls (waive the Depot-gated integration leg; whether green-draft-on-fork counts as "landed").
+The foreman's recurring drumbeat is the real bottleneck: M3 is saturated in-flight and the postable build lane is dry because a large batch of ready, mergeable, gauntleted PRs sit unmerged on `llm`, blocking every stacked follower — this needs merge/conductor attention, not more build work. Several builder impasses reinforce it by reporting requested work already exists: mvs-resolver duplicated across [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (an unsettled `@endo/daemon` vs `@endo/exo-npm` home), and the docker-selfhost build re-spawned off a stale design record you already declined as [#134](https://github.com/endojs/endo-but-for-bots/pull/134). Separately, the XS-validation effort ([garden#33](https://github.com/kriskowal/garden/issues/33)) is engineering-complete and blocked only on two decisions — waive the Depot-gated integration leg, and whether green draft fork PR #14 counts as landed.
 
 ## Parked for maintainer feedback
 
@@ -910,8 +908,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriscendobot-agoric-sdk-pr10-review-b17025f7-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr10-review-b17025f7-retro.md) — Retrospective on kriscendobot/agoric-sdk PR #10 (primary: kriscendobot-agoric...
 
 ### tada (1845)
 - [`endojs-endo-but-for-bots-pr609-review-e181c4ae-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr609-review-e181c4ae-retro.md) — Completion report
@@ -945,7 +943,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`kriscendobot-agoric-sdk-pr10-review-b17025f7-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr10-review-b17025f7-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #10 (primary: kriscendobot-agoric...
 - [`kriscendobot-agoric-sdk-pr9-f0af0f7a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr9-f0af0f7a-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #9 (primary: kriscendobot-agoric-...
 - [`scholar-ingest-source-habitat-chronicles`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-source-habitat-chronicles.md) — _low_ · Source
 
