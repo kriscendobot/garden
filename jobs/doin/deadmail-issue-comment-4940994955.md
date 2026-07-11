@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/29#issuecomment-4940994955
 I believe the current a3p integration CI test relies on depot to build and execute, and I don't think that the fork has access to that. Wondering if we could separately adapt the build sdk image and "docker" integration test in this fork to run again in normal github CI workers w
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 17
+  claimed_at: 2026-07-11T01:10:07Z
