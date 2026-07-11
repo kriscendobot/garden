@@ -9,3 +9,9 @@ with a log + clean `exit 0`, e.g.:
   [ -d "$BARE" ] || { log "no bare clone at $BARE on this host; skipping (another fleet host holds the clone, or clone on demand)"; exit 0; }
 
 This makes a host that hasn't cloned a shared-watch-set fork a quiet no-op — the correct behavior for the leader/follower fleet where the watch set is shared but clones are per-host — while hosts that DO hold the clone keep triaging normally. Verify the exit-0 path with a triager run against a slug whose `$GARDEN_REPOS/<slug>.git` is absent (should log-and-exit-0, not fail). Keep the fetch-failure `die` on line 34 unchanged (that is a real error when a clone exists).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 20
+  claimed_at: 2026-07-11T01:24:20Z
