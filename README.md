@@ -1,12 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-11T13:32:02Z_
+_As of 2026-07-11T13:46:45Z_
 
 ## Latest
 
-The [endo-but-for-bots#661](https://github.com/endojs/endo-but-for-bots/pull/661) http-client-tool gauntlet finished — the only board transition this window, and per the foreman it poisoned on the repo-wide typescript-eslint lint ceiling whose green fix, [endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594), is still unmerged. Two things now want a maintainer decision above all else. First, a **deploy gap**: the triager crash-loop fix is landed and tested on `main2` (default `GARDEN_REPOS`→`worktrees/`, missing-clone becomes a clean skip, opt-in self-provision), but the deployed root at `/home/kris/garden2` is ~56 commits behind, so every `garden-triager@*` unit keeps FATAL-looping until a drained `deploy-garden.sh` — a leader operation the gardeners cannot run. Second, **M3 is merge-bottlenecked**: a fleet of green, mergeable endo-but-for-bots PRs (#608, #656, #667–672, #678–681, plus #594) is ready but unmerged, with downstream plan-queue work blocked behind them.
+The triager crash-loop fix landed on `main2` (GARDEN_REPOS now defaults to `worktrees/`, a missing bare clone became a clean skip, plus an opt-in self-provision path), but every self-heal report converges on the same gap: the **deployed root `/home/kris/garden2` is ~56 commits behind `main2`**, so live `garden-triager@*` units keep FATAL-looping on the stale `/repos` default — a drained `deploy-garden.sh` is the only thing that will actually quiet them.
 
-Elsewhere, finbot advanced steadily via direct-push on `kriscendobot/finbot@main` — SES compartments, multi-instrument portfolios, the cyclical/GARCH/GJR-GARCH forecasters, and an inference-driven DECIDE stage (now 451 tests green, wallet-untouched); note its triage circuit-breaker opened, and `kriscendobot-finbot` may not belong in the authorized watch set. [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) is now green on every PR-attributable check and blocked solely on your `rebase #9` vs `freeze #9` call; the XS-validation orchestrator is holding on two yes/no answers; and an OCapN-Noise-WS demo is live and reproducible on minion.town. [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) was rebased back to mergeable but awaits your keep-or-supersede answer on the proposed `@endo/reminder` redraft.
+Two foreman escalations say M3 is merge-bottlenecked on one PR: [endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) (lint-per-package). Its absence phantom-reds every gauntlet — [#661](https://github.com/endojs/endo-but-for-bots/pull/661)'s http-client gauntlet poisoned on exactly this — and merging it trip-wires the parked `resume-lint-ceiling-shepherds` job; a larger ready-but-unmerged M3 fleet (#608, #656, #667–672, #678–681) waits behind it.
+
+finbot advanced hard on direct-push increments to `kriscendobot/finbot@main`, clearing its entire stranded-branch backlog: SES compartments, multi-instrument/yield portfolios, the cyclical forecaster, then GARCH(1,1), GJR-GARCH, and an inference-driven DECIDE stage — 451 tests green, wallet-safety gate holding throughout. Its standing decision (let builders land on main vs. a weaver sweep) and the security-gated cap-attenuation Phase 2 both remain open.
+
+[agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) is now blocked *solely* on a maintainer call — the shepherd's dprint fix took fork CI from 4 reds to 1 (only the known stale-base codegen red remains), all reviewer feedback is addressed, so it needs `rebase #9` or `freeze #9` to move. Elsewhere: the OCapN-Noise-WS demo is live and reproducible on minion.town, [#609](https://github.com/endojs/endo-but-for-bots/pull/609)'s message-scheduler was rebased mergeable onto `llm` pending kriskowal's redraft-or-keep decision, endor-xst core landed (still draft), and [#598](https://github.com/endojs/endo-but-for-bots/pull/598)'s daemon→manager rename phase-one weave is in flight.
 
 ## Parked for maintainer feedback
 
@@ -423,8 +427,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`weave-endo-but-for-bots-pr598-rename-to-manager-phase-one-onto-llm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/weave-endo-but-for-bots-pr598-rename-to-manager-phase-one-onto-llm.md) — ---
 
 ### tada (1906)
 - [`endojs-endo-but-for-bots-pr661-http-client-tool-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr661-http-client-tool-gauntlet.md) — Completion report — gauntlet on endojs/endo-but-for-bots PR #661
