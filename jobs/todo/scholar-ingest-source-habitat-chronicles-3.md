@@ -1,10 +1,7 @@
 ---
-gate: deferred
-priority: low
 role: scholar
-posted_by: producer
-posted_at: 2026-07-11T03:20:22Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=low at=2026-07-11T03:29:04Z -->
 
 ---
 role: scholar
