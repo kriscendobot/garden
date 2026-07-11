@@ -1,14 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-11T16:45:47Z_
+_As of 2026-07-11T16:48:21Z_
 
 ## Latest
 
-The garden's own triager fleet is crash-looping and the fix is landed but undeployed: five self-heal jobs converged on the same diagnosis — `GARDEN_REPOS` now defaults to `worktrees/` (and a missing bare clone is a clean skip, with opt-in self-provisioning) on `main2`, tests green, but the deployed root (`/home/kris/garden2`, ~56 commits behind) still reads the old `repos/` path, so `garden-triager@*` units keep FATAL-looping. A drained `deploy-garden.sh` is the clean resolution and only the leader/liaison can run it. Relatedly, the `kriscendobot-finbot` triage circuit-breaker tripped open, and multiple messages flag that finbot may not belong in the watch set under the § Monitoring safety constraint — worth confirming.
+The board itself only logged two dead-letter completions this window, but the maintainer inbox is stacked with items awaiting your call. The loudest is a **deploy gap**: the triager crash-loop fix (default `GARDEN_REPOS` → `worktrees/`, plus an opt-in self-provision path) is landed and green on `main2`, but the deployed root is ~56 commits behind and still runs the old `/repos` default, so every `garden-triager@*` unit keeps FATAL-looping every tick. A drained `deploy-garden.sh` from the leader is the clean resolution — all eight own-fork bare clones now exist under `worktrees/`, so post-deploy the units tick cleanly with no stopgap. A triage circuit-breaker has meanwhile OPENED for `kriscendobot-finbot`.
 
-The foreman is raising M3 (Remote Access) as merge-bottlenecked, not work-bottlenecked: a fleet of green, mergeable endo-but-for-bots PRs is ready but unmerged, and the lint projectService ceiling — whose fix is [#594](https://github.com/endojs/endo-but-for-bots/pull/594) — poisons every gauntlet until merged. Merging #594 trip-wires the parked `resume-lint-ceiling-shepherds` job. Also awaiting a merge/order decision: the Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608), outbound-HTTP agent tools #661, the endoclaw-timer chain [#609](https://github.com/endojs/endo-but-for-bots/pull/609)→[#617](https://github.com/endojs/endo-but-for-bots/pull/617)→[#619](https://github.com/endojs/endo-but-for-bots/pull/619) (kriskowal requested #609 be redrafted as a standalone `@endo/reminder` plugin — designer work), and the endopi/mount stack. A build job for the MVS resolver was closed as already subsumed by [#671](https://github.com/endojs/endo-but-for-bots/pull/671).
+**finbot** advanced hard on the forecasting axis via direct-push to `kriscendobot/finbot@main`: the last stranded branches (cyclical/harmonic forecaster) landed, then GARCH(1,1), GJR-GARCH leverage effect, and an inference-driven DECIDE stage — 451 tests green, all six auditor invariants PASS, wallet untouched. Its cap-attenuation Phase 2 (live CapTP transport + first paper-wallet run) stays gated on your `live_authorized` decision.
 
-[kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (promote ymax vat → critical) is now blocked solely on your call: the shepherd's dprint fix turned fork CI from 4 reds to 1 (the lone remaining red is known stale-base codegen noise), all reviewer feedback is addressed, so say `rebase #9` or `freeze #9` to unblock un-drafting. On the project side, finbot landed a steady run of direct-push increments (SES compartments, multi-instrument portfolios, cyclical/GARCH/GJR-GARCH forecasters, and an inference-driven DECIDE stage — now 451 tests green with the wallet safety gate holding); its branch backlog is empty, and the deepest remaining axis (cap-attenuation Phase 2, live paper-wallet run) stays gated on your `live_authorized`. The OCapN-Noise-WS demo is live and reproducible on minion.town. Two jobs (`pr688-shepherd`, `ocapn-pet-daemon-dockerfile-minion`) deterministically overran the 2400s handler budget and need splitting into claim-sized stages.
+The **foreman** is escalating repeatedly that Milestone M3 is now merge-bottlenecked, not work-bottlenecked: a fleet of green, mergeable endo-but-for-bots PRs — [#608](https://github.com/endojs/endo-but-for-bots/pull/608) (Docker self-host), [#661](https://github.com/endojs/endo-but-for-bots/pull/661) (agent HTTP tools), the [#127](https://github.com/endojs/endo-but-for-bots/pull/127) mount stack, and the endopi stack (#667–#672) — awaits your merge order, while the lint-ceiling PR [#594](https://github.com/endojs/endo-but-for-bots/pull/594) stays unmerged and poisons gauntlets (as [#661](https://github.com/endojs/endo-but-for-bots/pull/661) hit). Merging [#594](https://github.com/endojs/endo-but-for-bots/pull/594) also trip-wires the parked `resume-lint-ceiling-shepherds` job. The endoclaw-timer chain ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)→[#617](https://github.com/endojs/endo-but-for-bots/pull/617)→[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) awaits your supersede-or-keep call, since kriskowal's review asks to redraft it as a standalone `@endo/reminder` plugin.
+
+On the fork, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (promote ymax vat → critical) is now green on every PR-attributable check after the shepherd's dprint fix, blocked solely on your **`rebase #9` vs `freeze #9`** choice — the stale-base `test-boot` noise is growing while it waits. Two long-running shepherd jobs ([#688](https://github.com/endojs/endo-but-for-bots/pull/688), ocapn-pet-daemon-dockerfile) deterministically overran their handler budgets and need splitting into claim-sized stages. Elsewhere, the OCapN-Noise-WS demo is live and reproducible on minion.town, the XS-validation effort finalized green across four fork PRs, and the endor-xst core landed on the still-draft xs2rust PR (with a flagged unstaged moddable submodule pin).
 
 ## Parked for maintainer feedback
 
@@ -447,24 +449,48 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > 3. Removing journal2:schedules/xst-validation-orchestrator.md via CAS push (hourly schedule retired — no more ticks).
 > 4. [kriskowal/garden#33](https://github.com/kriskowal/garden/issues/33) left OPEN for you to close.
 
+- `20260711T164712Z-3dcbdd` — from gardener:deadmail-20260711T164315Z-c55ba6, reply_to `deadmail-20260711T164315Z-c55ba6` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T164712Z-3dcbdd.md)
+
+> Closing the loop on the two asks that xs2rust-xst-reactivate left open — your reply
+> to that (now-completed) doer dead-lettered and I picked up its intent as
+> deadmail-20260711T164315Z-c55ba6. Both decisions received and honored; nothing to
+> change, state already conforms:
+>
+> 1. FOREMAN WIP THROTTLE — KEEP. Left the Jul-7 override.conf (GARDEN_FOREMAN_ACTIVE_TARGET=1)
+>    in place on the leader (endolin-garden2-5bcdff64). Not lifted to 3.
+> 2. XS-VALIDATION — PARKED / STAYS RETIRED. xst-validation-orchestrator is already out of
+>    active schedules/ (retired in f6f64d971f). Left paused-schedules/xst-validation-orchestrator.md
+>    as a parked orphan; NOT resurrected, NOT restored. No further reactivation.
+>
+> No reply needed.
+
+- `20260711T164732Z-f9623e` — from gardener:deadmail-20260711T164330Z-49ffdc, reply_to `deadmail-20260711T164330Z-49ffdc` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T164732Z-f9623e.md)
+
+> Snapshot-mapper stand-down carried out (from dead-lettered maintainer reply to build-endo-but-for-bots-snapshot-mapper, which had already completed).
+>
+> Verified nothing was left open:
+> - Our builder opened NO PR — it blocked at the architecture impasse and surfaced the A/B to you, then completed. Nothing of ours to close.
+> - The only PR ever tied to the concept, [endojs/endo-but-for-bots#565](https://github.com/endojs/endo-but-for-bots/issues/565), is already CLOSED (superseded by [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/issues/403)) and is 0xpatrickbot's, not ours.
+> - No parked/todo board jobs for the effort remain (only the builder's tada/ record).
+>
+> Sole residue: the stale `build/snapshot-mapper` branch (head of the closed [endojs/endo-but-for-bots#565](https://github.com/endojs/endo-but-for-bots/issues/565); our builder had force-rebased it during the attempt). Harmless and unreferenced. I left it in place rather than delete another author's closed-PR branch unilaterally — say the word and I'll delete it. Effort is cancelled; no further action pending.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (2)
 - [`build-endo-but-for-bots-endopi-jsonl-transcript-format`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-endopi-jsonl-transcript-format.md) — ---
-- [`deadmail-20260711T164315Z-c55ba6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260711T164315Z-c55ba6.md) — Dead-lettered message — pick up its intent
-- [`deadmail-20260711T164330Z-49ffdc`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260711T164330Z-49ffdc.md) — Dead-lettered message — pick up its intent
 - [`report-pr-review-sequence-unblock`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/report-pr-review-sequence-unblock.md) — Report: a sequenced PR-review plan that unblocks progress (journal root)
 
-### tada (1919)
+### tada (1921)
+- [`deadmail-20260711T164330Z-49ffdc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260711T164330Z-49ffdc.md) — Completion report
+- [`deadmail-20260711T164315Z-c55ba6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260711T164315Z-c55ba6.md) — Completion report — deadmail-20260711T164315Z-c55ba6
 - [`endojs-endo-but-for-bots-pr682-review-6fca982b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr682-review-6fca982b.md) — Completion report
 - [`design-endo-but-for-bots-git-capability-stack-sequencing`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-but-for-bots-git-capability-stack-sequencing.md) — Completion report
 - [`xs2rust-xst-reactivate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-xst-reactivate.md) — Completion report — xs2rust-xst-reactivate
-- [`xs2rust-xst-cadence-restore-6h`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-xst-cadence-restore-6h.md) — Confirmed: xst-validation-orchestrator is no longer an active schedule on ori...
-- [`deadmail-20260711T155611Z-b3e598`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260711T155611Z-b3e598.md) — Completion report
-- … and 1914 more
+- … and 1916 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
