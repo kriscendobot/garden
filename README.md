@@ -1,14 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-11T21:06:27Z_
+_As of 2026-07-11T21:10:11Z_
 
 ## Latest
 
-On the board itself little moved: the [SturdyRef effort](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260711-210501.md) advanced another press tick (OCapN sturdyrefs + provide/accept) and the [#694 Docker self-host gauntlet](https://github.com/endojs/endo-but-for-bots/pull/694) is running; its design report `ebfb-design-sturdyref-agent-surface` is complete and awaits your call on accepting the design before builder cuts A–F can be posted.
+The garden's triager fleet is crash-looping and the fix is landed but undeployed: several self-heal gardeners converged on the same diagnosis — the code that defaults `GARDEN_REPOS` to `worktrees/` (and turns a missing bare clone into a clean skip) is merged on `main2`, but the deployed root `/home/kris/garden2` is ~56 commits behind, so `garden-triager@*` units keep FATAL-looping until a deliberate drained `deploy-garden.sh` advances the root. That deploy is the single highest-leverage maintainer/leader action right now; a separate triage circuit-breaker also opened on `kriscendobot-finbot`, and three watched forks (ocapn, cosgov, agoric-3-proposals) will still lack clones after deploy, intersecting the watch-set authorization rule.
 
-Two operational items dominate the inbox. **The deployed garden root is badly stale** (~56 commits behind `main2`), so `garden-triager@*` units keep FATAL-looping on the old `repos/`→`worktrees/` path bug even though the fix landed on `main2` — every self-heal gardener converges on the same remedy: run `deploy-garden.sh` (a leader/liaison op) to clear the crash-loop. Separately, **M3 is merge-bottlenecked, not work-bottlenecked**: the foreman reports every exit-criterion capability is green and mergeable and now waits on your merge/accept decisions — the [#594 per-package lint fix](https://github.com/endojs/endo-but-for-bots/pull/594) is the trip-wire (its merge auto-resumes the poisoned lint-ceiling shepherds), Docker self-host now overlaps as [#608](https://github.com/endojs/endo-but-for-bots/pull/608) vs the newer [#694](https://github.com/endojs/endo-but-for-bots/pull/694) (close/reconcile call), and the [@endo/reminder redraft #682](https://github.com/endojs/endo-but-for-bots/pull/682) supersedes the endoclaw-timer stack [#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619) — a Phase-4 build was correctly refused as throwaway pending your accept/close.
+Milestone M3 is stalled purely on merge decisions, which the foreman flagged repeatedly: the per-package lint fix [endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) is green and blocking every gauntlet (it poisoned #661's), Docker self-host now has two overlapping PRs — [#608](https://github.com/endojs/endo-but-for-bots/pull/608) (master-based) vs new draft [#694](https://github.com/endojs/endo-but-for-bots/pull/694) (llm-based, remote-auth) needing a close/reconcile call — and the endoclaw-timer chain [#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619) is superseded by the `@endo/reminder` redraft design [#682](https://github.com/endojs/endo-but-for-bots/pull/682), which needs an accept/retire decision before the Phase-4 build (correctly refused as throwaway) can proceed.
 
-On the forks: [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) had its one PR-attributable red fixed and all reviewer feedback addressed, but has sat four drive ticks on the unanswered **rebase-vs-freeze** decision — the gardener has now taken the reversible default and commissioned a rebase onto master. Meanwhile finbot landed a steady run of direct-push increments (GARCH, GJR-GARCH, and inference-driven OBSERVE→ORIENT→DECIDE→AUDIT, now 457 tests green with the wallet-safety gate holding); its deepest remaining axis — cap-attenuation Phase 2 (live CapTP transport / paper-wallet run) — stays parked behind your `live_authorized` authorization.
+Two design gates await a go/no-go: SturdyRef agent-surface [#695](https://github.com/endojs/endo-but-for-bots/pull/695) is ready to spawn builder cuts A–F once [#541](https://github.com/endojs/endo-but-for-bots/pull/541) lands (it's now green), and the `esheets` OAuth stack is fully blocked on re-reviewing green, revision-addressed [#621](https://github.com/endojs/endo-but-for-bots/pull/621). On [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax→critical vat), the rebase-vs-freeze decision has gone unanswered four ticks — CI is down to one non-attributable stale-base red — so the drive gardener commissioned the reversible default (weave onto master) rather than stall further; say `rebase #9` or `freeze #9` to steer it.
+
+Meanwhile the autonomous `finbot` fleet landed a dense run of green, wallet-safe increments direct-push on `kriscendobot/finbot@main` (GARCH(1,1), GJR-GARCH leverage, and inference-driven ORIENT→DECIDE→AUDIT OODA stages, now 457 tests), and the OCapN-Noise-WS demo went live and reproducible on minion.town behind Caddy TLS. Finbot's standing decision remains open: its "no self-PR, fast-forward main" convention keeps stranding branches, and its cap-attenuation Phase 2 (live paper-wallet/test-net run) stays gated behind explicit `live_authorized` authorization.
 
 ## Parked for maintainer feedback
 
@@ -576,6 +578,41 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260711T202820Z-0b2c3c` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T202820Z-0b2c3c.md)
 
 > Design report `ebfb-design-sturdyref-agent-surface` (SturdyRef agent surface for endojs/endo-but-for-bots) is complete and awaits your call on three fronts before any autonomous work proceeds: (1) whether to accept the design, which gates posting the cut A–F builder jobs (cuts A–B additionally depend on #541 landing); (2) the surfaced open question — should tokens optionally be formula-backed to survive daemon restart? The design recommends *no* (durable designation stays a name via `storeRef`), but it's your decision; (3) whether to file the `@endo/marshal` rank-order tracking issue that blocks `M.sturdyRef()` in `@endo/patterns`, since that's an upstream issue-open I won't originate autonomously. Nothing here is a gardener-actionable bot-repo task yet — it all hangs on design acceptance.
+
+- `20260711T211001Z-4a530e` — from gardener:endo-sturdyref-press-20260711-210501, reply_to `endo-sturdyref-press-20260711-210501` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T211001Z-4a530e.md)
+
+> # SturdyRef press: agent-surface design [endojs/endo-but-for-bots#695](https://github.com/endojs/endo-but-for-bots/issues/695) ready — go/no-go on builder cuts A–F
+>
+> Hourly press-driver status (2026-07-11 21:05 tick). The daemon substrate is done:
+> design [endojs/endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/issues/539)'s cuts 1-4 are all landed and green —
+> [endojs/endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/issues/521) (pass-style, cuts 1-2) and
+> [endojs/endo-but-for-bots#541](https://github.com/endojs/endo-but-for-bots/issues/541) (facet-boundary threading, cuts 3-4; `gh pr checks
+> 541` all pass as of this tick, the earlier macOS red self-healed). No sturdyref
+> worker is otherwise live.
+>
+> The gate to the "agents provide/accept throughout" finish-line bar is now a
+> maintainer decision, so I'm surfacing it rather than pressing past it:
+>
+> 1. **Accept design [endojs/endo-but-for-bots#695](https://github.com/endojs/endo-but-for-bots/issues/695)?** (`design(sturdy-refs): agent
+>    provide/accept surface and the guest token`, DRAFT, CI green.) It settles the
+>    guest token as a daemon-minted method-less remotable (fresh per grant,
+>    WeakMap-bound, method mask excluding `identify`/`locate`), and ends with six
+>    independently mergeable builder cuts: A daemon token core, B daemon
+>    provide+mail, C agent-tools escrow, D lal, E fae, F genie. The designer gated
+>    posting builder jobs on your acceptance; on your go I (or the next hourly
+>    tick) will post them, cuts A-B stacked after [endojs/endo-but-for-bots#541](https://github.com/endojs/endo-but-for-bots/issues/541).
+> 2. **Open question the design surfaces for you:** should tokens optionally be
+>    formula-backed to survive daemon restart? The design recommends **no**
+>    (durable designation stays a pet name via `storeRef`); confirm or override.
+> 3. FYI: filed tracking issue [endojs/endo-but-for-bots#696](https://github.com/endojs/endo-but-for-bots/issues/696) for the deferred
+>    `M.sturdyRef()` patterns matcher (blocked on the marshal rank-order entry).
+>    Remaining bar-1 debt after that: the OCapN-peer-to-daemon `internalizeLocator`
+>    bridge + wire codec for foreign SturdyRefs (three-party handoff across peers).
+>
+> Confinement statement: nothing landed this tick widens any invariant; the pending
+> cuts bind no-location, no-identification, and opaque-unforgeable per the
+> per-artifact table in [endojs/endo-but-for-bots#695](https://github.com/endojs/endo-but-for-bots/issues/695). Reply routes to my job inbox;
+> the hourly cadence will also re-check for your answer on the design PR itself.
 
 
 ## Board
