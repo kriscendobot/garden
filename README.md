@@ -1,16 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T15:18:41Z_
+_As of 2026-07-11T15:21:58Z_
 
 ## Latest
 
-The garden's live crash-loop is the headline: every `garden-triager@*` unit is still FATAL-looping because the deployed root (`/home/kris/garden2`) sits ~56 commits behind `main2`, where the fix already landed (`GARDEN_REPOS` now defaults to `worktrees/`, a missing clone is a clean skip, and triagers self-provision opt-in). Five self-heal gardeners converged on the same conclusion — the code is done and green, only a drained `deploy-garden.sh` on the leader will actually stop the flapping. That deploy is the single most consequential pending action.
+A cluster of self-heal jobs landed the triager crash-loop fix on `main2` (through `4c0e275b0b`): `GARDEN_REPOS` now defaults to `worktrees/` via a shared resolver, a missing bare clone is a clean skip rather than a FATAL, and an opt-in self-provision path can materialize a missing clone — tests green (triager 68/0, comment-watcher 213/0). The catch worth your attention: the **deployed root `/home/kris/garden2` is ~56 commits behind** and still carries the old `/repos` default, so `garden-triager@*` units keep FATAL-looping live until a drained `deploy-garden.sh` advances the root; every self-heal report converges on that one manual step.
 
-Milestone M3 is merge-bottlenecked, not work-bottlenecked: the foreman flagged (four times) that a fleet of green, mergeable endo-but-for-bots PRs — [#608](https://github.com/endojs/endo-but-for-bots/pull/608) (Docker self-host), [#661](https://github.com/endojs/endo-but-for-bots/pull/661) (agent HTTP-client tools), the #127 mount stack, and the endopi stack (#667–#672) — await your review, while the whole gauntlet path is gated on merging [#594](https://github.com/endojs/endo-but-for-bots/pull/594) (per-package lint) to clear the typescript-eslint projectService ceiling that poisoned #661's gauntlet. The endoclaw-timer chain ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)→[#617](https://github.com/endojs/endo-but-for-bots/pull/617)→[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) additionally needs a supersede-or-keep decision: kriskowal requested a re-architecture of #609 into a standalone `@endo/reminder` plugin, so its Phase 2/3 stackers are on hold pending your call.
+On the product side, finbot landed a run of green, wallet-safe increments direct-push to `main` (cyclical/harmonic forecaster, multi-instrument portfolios, GARCH → GJR-GARCH vol surfaces, and an inference-driven DECIDE stage; 451 tests, all six auditor invariants PASS), clearing its stranded-branch backlog to just main+journal — and re-flags the standing decision on whether builders may land finbot increments directly vs. standing up a weaver sweep. The OCapN-Noise-WS demo is live and round-tripping a capability on minion.town.
 
-[kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (garden#29, promote ymax vat → critical) is now blocked solely on you: the shepherd's dprint fix took fork CI from four reds to one, every PR-attributable check passes, and both reviewers' asks are addressed — the only open question is `rebase #9` (onto ~503 commits of master, clearing the last codegen red) versus `freeze #9` as a frozen-base prototype.
-
-Elsewhere, kriscendobot/finbot advanced steadily via direct-push cycles — the SES-compartments capability-attenuation cornerstone, then a run of forecasting increments (cyclical/harmonic, GARCH(1,1), GJR-GARCH leverage) and an inference-driven DECIDE stage — reaching 451 green tests with the wallet-safety gate holding throughout; its cap-attenuation Phase 2 (live paper-wallet run) stays gated on your `live_authorized` authorization. The OCapN-Noise-WS demo is live and reproducible on minion.town (Caddy TLS → Noise IK → capability invoke), the endor-xst runner core landed on [xs2rust #600](https://github.com/endojs/endo-but-for-bots/pull/600) (still draft, flags a stale c/moddable gitlink), and the XST-validation orchestrator (garden#33) awaits two yes/no answers to close out. Watch for two `pr688-shepherd`/`ocapn-pet-daemon-dockerfile-minion` jobs that deterministically overran the 2400s handler budget and need splitting.
+The foreman is now sending near-identical M3 escalations (four this window): a fleet of green, mergeable endo-but-for-bots PRs — [#594](https://github.com/endojs/endo-but-for-bots/pull/594) (lint-per-package, which trip-wires the poisoned lint-ceiling shepherds), [#608](https://github.com/endojs/endo-but-for-bots/pull/608), [#661](https://github.com/endojs/endo-but-for-bots/pull/661), and the [#609](https://github.com/endojs/endo-but-for-bots/pull/609)→[#617](https://github.com/endojs/endo-but-for-bots/pull/617)→[#619](https://github.com/endojs/endo-but-for-bots/pull/619) timer chain — is blocked solely on your merge/review, with no unblocked build work left to claim. Note [#609](https://github.com/endojs/endo-but-for-bots/pull/609) drew a CHANGES_REQUESTED re-architecture (redraft as a standalone `@endo/reminder` plugin), so it needs a supersede-or-keep call before its stack re-weaves. Two more decisions are parked: [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) is now green on every PR-attributable check and blocked only on `rebase #9` vs `freeze #9`, and the XS-validation orchestrator ([kriskowal/garden#33](https://github.com/kriskowal/garden/issues/33)) is holding on two yes/no answers. Two shepherd jobs (`pr688-shepherd`, `ocapn-pet-daemon-dockerfile-minion`) deterministically overran the 2400s handler budget and need splitting or detaching.
 
 ## Parked for maintainer feedback
 
@@ -435,8 +433,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`build-endo-but-for-bots-mvs-resolver`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-mvs-resolver.md) — ---
 
 ### tada (1911)
 - [`gauntlet-endo-but-for-bots-pr671-endo-registry-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr671-endo-registry-capability.md) — Completion report — gauntlet on endojs/endo-but-for-bots PR #671
