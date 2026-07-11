@@ -35,7 +35,6 @@ source "$HERE/common.sh"
 
 slug="${1:?usage: triager.sh <repo-slug>}"
 GARDEN_TAG="triager/$slug"
-: "${GARDEN_REPOS:=$GARDEN_ROOT/worktrees}"
 : "${GARDEN_TRIAGE_HANDLER:=$HERE/handlers/triager-claude.sh}"
 : "${GARDEN_WATCH_REF:=}"   # empty → use the bare clone's HEAD branch
 # Consecutive-failure circuit-breaker threshold: after this many failures of the
@@ -44,7 +43,7 @@ GARDEN_TAG="triager/$slug"
 
 fleet_draining && { log "fleet draining; skipping"; exit 0; }
 
-BARE="$GARDEN_REPOS/$slug.git"
+BARE="$(bare_clone_dir "$slug")"   # $GARDEN_ROOT/worktrees/<slug>.git (GARDEN_REPOS override honored)
 # The watch set is journal-shared across hosts, but bare clones are host-local, so a
 # host that arms this timer need not already hold the clone. The triager needs a local
 # clone to diff refs against its cursor (unlike comment-watcher.sh, which polls via

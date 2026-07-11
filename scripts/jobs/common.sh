@@ -467,6 +467,19 @@ backoff() {
 # from a clone's dir basename; overridable for offline tests.
 : "${GARDEN_CLONE_URL_BASE:=https://github.com}"
 
+# Resolve the standing bare-clone directory for a repo <slug> (<owner>-<name>).
+# The garden's canonical standing bare clones live under $GARDEN_ROOT/worktrees/<slug>.git
+# (maintained by clone-keeper.sh; see CLAUDE.md § Layout and WORKTREES.md) — NOT the
+# un-provisioned $GARDEN_ROOT/repos, whose stale default silently FATAL-looped every
+# armed triager tick. Both the triager and the comment-watcher resolve their local
+# clone through THIS single helper so their two defaults cannot drift apart again.
+# Honors a GARDEN_REPOS override (the test harness points it at a norepos/ dir to
+# exercise the missing-clone path); absent that override it defaults to the worktrees/
+# location clone-keeper actually maintains, the sole place the default now lives.
+bare_clone_dir() {  # bare_clone_dir <slug> — echoes the abs bare-clone path
+  printf '%s/%s.git\n' "${GARDEN_REPOS:-$GARDEN_ROOT/worktrees}" "${1:?usage: bare_clone_dir <slug>}"
+}
+
 # True when $abs is ITS OWN bare git repo, not a discovered ANCESTOR repo. The
 # standing clones live under worktrees/ inside the garden root, which is itself a
 # git repo, so a plain `rev-parse --git-dir` on a missing/corrupt dir would walk up

@@ -188,7 +188,6 @@ source "$HERE/common.sh"
 
 slug="${1:?usage: comment-watcher.sh <repo-slug>}"
 GARDEN_TAG="comment-watcher/$slug"
-: "${GARDEN_REPOS:=$GARDEN_ROOT/worktrees}"
 : "${GARDEN_BOT_LOGIN:=kriscendobot}"
 : "${GARDEN_COMMENT_SOURCE:=$HERE/handlers/comment-source-gh.sh}"
 : "${GARDEN_COMMENT_REACTJI:=$HERE/handlers/comment-reactji-gh.sh}"
@@ -324,7 +323,7 @@ is_bot_repo() {  # is_bot_repo <owner/name>
 }
 
 # Reuse the bare clone if a downstream gardener will need it; not required to poll.
-BARE="$GARDEN_REPOS/$slug.git"
+BARE="$(bare_clone_dir "$slug")"   # $GARDEN_ROOT/worktrees/<slug>.git (GARDEN_REPOS override honored)
 [ -d "$BARE" ] || log "note: no bare clone at $BARE (polling uses gh; gardeners clone on demand)"
 
 # Durable poll cursor in the journal: resumes across restarts and hosts.
