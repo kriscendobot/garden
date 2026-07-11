@@ -1,16 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-11T12:29:38Z_
+_As of 2026-07-11T13:04:02Z_
 
 ## Latest
 
-The triager fleet's `repos/`→`worktrees/` path fix has fully landed on `main2` (commits `118f7384fc`→`4c0e275b0b`, tests green), but every self-heal report converges on the same open item: the deployed root `/home/kris/garden2` is ~56 commits stale and still defaults `GARDEN_REPOS` to `/repos`, so `garden-triager@*` units keep FATAL-looping — a drained `deploy-garden.sh` is the one remaining, maintainer-only step to clear it. Meanwhile finbot advanced fast on the forecasting axis, landing four green increments direct-to-main (multi-instrument portfolios, the cyclical/harmonic forecaster, [GARCH(1,1)], and GJR-GARCH leverage — now 445 tests, wallet-gate holding); note its triage circuit-breaker opened and CLAUDE.md's watch-set rule may not cover `kriscendobot-finbot`.
+A shelf of finbot forecasting increments landed direct-push on kriscendobot/finbot@main this cycle — SES capability-attenuation compartments, multi-instrument yield-bearing portfolios, the cyclical (harmonic) forecaster, and then GARCH(1,1) and GJR-GARCH conditional-volatility surfaces — clearing the branch backlog to just main (445 tests green, wallet-touch gate holding throughout). On the endo side, [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) (endoclaw-timer scheduler) was rebased back to mergeable and shepherded, but kriskowal's review asks for a re-architecture — a standalone `@endo/reminder` plugin with platform-durable persistence — so its stacked Phase-2/3 PRs [#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619) hinge on a supersede-or-keep call. An OCapN-Noise-WS capability round-trip is now live and reproducible on minion.town.
 
-Two efforts are blocked solely on a maintainer decision. [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) went from 4 reds to 1 after the shepherd's dprint fix — every PR-attributable check now passes and all reviewer feedback is addressed, so it's waiting on `rebase #9` vs `freeze #9`. And [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) was rebased back to mergeable, but kriskowal's review asks for a re-architecture (a standalone `@endo/reminder` plugin), so a designer job is recommended before the stacked Phase 2/3 PRs move. The foreman separately flags that merging [endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) is the trip-wire to unblock the M3 gauntlet cohort stuck behind the lint ceiling. Elsewhere, the OCapN-Noise-WS demo is live and round-tripping capabilities over `wss://minion.town/ocapn`, and the XS-validation orchestrator ([kriskowal/garden#33](https://github.com/kriskowal/garden/issues/33)) is done and green pending two yes/no answers.
+Two things need maintainer attention. First, an operational blocker: the deployed garden root is dozens of commits behind `main2`, so the triager fleet keeps crash-looping on the old `repos/` path even though the fix is long since landed and green — several self-heal gardeners converge on the same remedy, a drained `deploy-garden.sh` (a leader/liaison op no gardener can run); relatedly, the triage circuit-breaker opened on `kriscendobot-finbot`, which isn't on the authorized watch set. Second, a stack of decisions is now the sole blocker on otherwise-finished work: [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) is all-green on PR-attributable checks and waits only on `rebase #9` vs `freeze #9`; the XS-validation effort ([garden#33](https://github.com/kriskowal/garden/issues/33)) needs two yes/no answers to close out; and the foreman flags that merging the green [#594](https://github.com/endojs/endo-but-for-bots/pull/594) lint-ceiling fix would unblock the whole stalled M3 gauntlet cohort.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 19h)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 20h)
 - [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 1d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 8d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 11d)
@@ -383,16 +383,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr609-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr609-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #609
+### doin (0)
+(none)
 
-### tada (1902)
+### tada (1903)
+- [`endojs-endo-but-for-bots-pr609-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr609-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #609
 - [`xst-validation-orchestrator-20260711-120506`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-120506.md) — XS-validation orchestrator — tick report (2026-07-11 ~12:05Z, resumed after r...
 - [`endojs-endo-but-for-bots-pr609-message-scheduler-rename-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr609-message-scheduler-rename-fix.md) — Completion report — endojs-endo-but-for-bots-pr609-message-scheduler-rename-fix
 - [`endojs-endo-but-for-bots-pr660-review-62ee5cda-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr660-review-62ee5cda-retro.md) — Completion report — endojs-endo-but-for-bots-pr660-review-62ee5cda-retro
 - [`endojs-endo-but-for-bots-pr660-7dd088b1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr660-7dd088b1-retro.md) — Completion report — endojs-endo-but-for-bots-pr660-7dd088b1-retro
-- [`scholar-ingest-source-habitat-chronicles-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-habitat-chronicles-5.md) — Completion report
-- … and 1897 more
+- … and 1898 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
