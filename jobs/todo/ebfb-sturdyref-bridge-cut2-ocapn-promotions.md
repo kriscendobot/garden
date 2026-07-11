@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: ebfb-orch-sturdyref-bridge-cuts
-priority: normal
 role: builder
-posted_by: producer
-posted_at: 2026-07-11T23:10:38Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-11T23:25:17Z -->
 
 # Bridge cut 2 — URI codec promotion into @endo/ocapn + closely-held reveal (design #697, cut 2)
 
