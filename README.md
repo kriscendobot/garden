@@ -1,16 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T23:46:25Z_
+_As of 2026-07-11T23:51:51Z_
 
 ## Latest
 
-The SturdyRef agent-surface bridge is advancing on endojs/endo-but-for-bots: cut 2 (OCapN promotions) completed and cut 3 (daemon mint and export) is now in flight, following the accepted [#695](https://github.com/endojs/endo-but-for-bots/pull/695) design.
+The garden's triager fleet is crash-looping fleet-wide, and the fix isn't live: multiple self-heal gardeners confirm the source repair (GARDEN_REPOS defaulting to `worktrees/`, shared `bare_clone_dir()`, opt-in self-provision) is landed and green on `main2`, but the deployed root (`/home/kris/garden2`) is ~56 commits behind, so `garden-triager@*` units keep FATAL-looping until a drained `deploy-garden.sh` advances it — a leader/liaison operation the fleet can't run itself. After deploy, three enabled instances (`kriscendobot-{ocapn,cosgov,agoric-3-proposals}`) still have no clone and intersect the watch-set authorization bar.
 
-The dominant signal from the fleet is that Milestone M3 is now merge-bottlenecked, not work-bottlenecked — the foreman has flagged this repeatedly. Its two headline exit-criterion PRs, [#694](https://github.com/endojs/endo-but-for-bots/pull/694) (Docker self-host + authenticated remote gateway) and [#661](https://github.com/endojs/endo-but-for-bots/pull/661) (confined outbound HTTP client), are green and mergeable but stranded: #694's gauntlet exhausted its requeue cycles and is now POISONED and parked in `jobs/plan/` awaiting a human `promote-plan.sh` or a decision on why it keeps failing. Two decisions gate the rest — merging the lint-per-package fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) (its projectService ceiling is what poisons gauntlets), and accepting or rejecting the [#682](https://github.com/endojs/endo-but-for-bots/pull/682) `@endo/reminder` redesign that supersedes the rejected endoclaw-timer daemon integration (#609/#617/#619); a Phase-4 build was correctly refused as throwaway pending that call.
+Milestone M3 is now gated almost entirely on maintainer merge/accept decisions rather than fleet work, per repeated foreman flags. Its headline exit criterion — [Docker self-hosting #694](https://github.com/endojs/endo-but-for-bots/pull/694) (green, CLEAN, supersedes the earlier [#608](https://github.com/endojs/endo-but-for-bots/pull/608)) — is stranded as a draft: its gauntlet exhausted 5 requeue cycles and is now POISONED and parked in `jobs/plan/` (gate=go-ahead), needing a human promote or a call on why it keeps failing. The confined-HTTP tool [#661](https://github.com/endojs/endo-but-for-bots/pull/661) sits behind the same go-ahead gate, and merging the lint-per-package fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) would trip-wire the parked `resume-lint-ceiling-shepherds` cohort. Separately, the scheduled-execution clause pivoted: design [#682](https://github.com/endojs/endo-but-for-bots/pull/682) (`@endo/reminder` unconfined plugin) supersedes the rejected endoclaw-timer daemon integration, so [#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619) await an accept-and-retire decision, and the Phase-4 build was declined as throwaway.
 
-On the fork side, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax→critical vat) progressed on its own: after five unanswered drive ticks, the gardener executed the reversible rebase-onto-master default, cleared the last stale-base red to fully green CI, and un-drafted the PR with review requested from mhofman/dckc — now waiting only on a SwingSet-team review. finbot continued its steady direct-push cadence (GARCH/GJR-GARCH vol surfaces and inference-driven ORIENT→DECIDE→AUDIT, now 457 tests green with the wallet-safety gate holding).
-
-One operational item needs attention: the triager crash-loop fix is landed and tested on `main2`, but the deployed garden root is stale (~56 commits behind), so `garden-triager@*` units keep FATAL-looping until a deliberate drained `deploy-garden.sh` — a leader/liaison operation the gardeners cannot run themselves.
+On the fork side, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax→critical vat) made real progress across five drive ticks: after three unanswered rebase-vs-freeze asks, the driver ran the reversible rebase-onto-master default, which cleared the last stale-base red — fork CI is now fully green — then un-drafted and requested SwingSet-team review; approval is the sole remaining gate. The SturdyRef agent-surface design [#695](https://github.com/endojs/endo-but-for-bots/pull/695) is ready with substrate [#541](https://github.com/endojs/endo-but-for-bots/pull/541) landed green, awaiting a go/no-go on builder cuts A–F (bridge cut 3 is in flight). And finbot continued its no-PR direct-push cadence on `kriscendobot/finbot@main`, landing GARCH(1,1), GJR-GARCH, and inference-driven ORIENT→DECIDE→AUDIT OODA stages (451→457 tests green, wallet untouched) — with the standing cap-attenuation Phase 2 (live paper-wallet run) still deferred pending explicit `live_authorized` authorization.
 
 ## Parked for maintainer feedback
 
@@ -655,8 +653,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`ebfb-sturdyref-bridge-cut3-daemon-mint-export`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-sturdyref-bridge-cut3-daemon-mint-export.md) — Bridge cut 3 — daemon mint and export: sturdyref-store + host-facet grants (d...
+- [`endojs-endo-but-for-bots-pr698-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr698-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #698
 - [`endojs-endo-but-for-bots-pr699-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr699-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #699
 
 ### tada (1959)
