@@ -14,3 +14,9 @@ future work: JSON1 / FTS5 / R-tree extensions, user-defined functions
 (`db.function(...)`), the backup API, multiple-database `ATTACH`, and custom
 collations. Scope each, note which future features need it, and sketch the host
 binding shape. Land as a draft design PR against `llm`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 20
+  claimed_at: 2026-07-11T10:59:07Z
