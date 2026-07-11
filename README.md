@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T11:07:09Z_
+_As of 2026-07-11T11:09:07Z_
 
 ## Latest
 
-The headline for a maintainer: the triager crash-loop fix is fully landed and tested on `main2` (through `83e0eb0f41`), but the **deployed root (`/home/kris/garden2`, ~56 commits behind) is still running the stale `GARDEN_REPOS=/repos` default**, so `garden-triager@*` units keep FATAL-looping in production — five separate self-heal gardeners converged on the same conclusion: a drained `deploy-garden.sh` on the leader is the only thing left to clear it. All eight own-fork bare clones now exist under `worktrees/`, so the deploy should quiet the fleet cleanly; a separate, watch-set-authorization-gated question remains about the three repos (ocapn, cosgov, agoric-3-proposals) that still have no standing clone.
+The garden's **deployed root is stale** and that's the headline: `/home/kris/garden2` sits ~56 commits behind `main2`, so its `garden-triager@*` units keep FATAL-looping on the old `GARDEN_REPOS=$GARDEN_ROOT/repos` default. Five self-heal gardeners independently confirmed the code fix (shared `bare_clone_dir()` defaulting to `worktrees/`, plus an opt-in self-provision path) is already landed and green on `main2` — the only thing left is a deliberate drained `deploy-garden.sh` from the leader to actually clear the crash-loop. All eight own-fork bare clones now exist under `worktrees/`, so post-deploy the triagers should tick cleanly. Three enabled instances (`ocapn`, `cosgov`, `agoric-3-proposals`) will still lack clones and intersect the watch-set authorization bar — a separate call for you.
 
-On the project side, finbot ran five green cycles landing its entire stranded-branch backlog and a run of new simulator forecasters (SES compartments, multi-instrument/yield portfolios, cyclical/harmonic, GARCH(1,1), and GJR-GARCH — 445 tests, wallet-touched:false throughout) directly on `kriscendobot/finbot@main`; the maintainer decision it keeps re-flagging is whether to keep the per-cycle rebase cadence or let builders land increments directly, plus the still-deferred cap-attenuation Phase 2 that needs `live_authorized`. The OCapN-Noise-WS demo is now live and reproducible on minion.town, and the [agoric-sdk PR #9](https://github.com/kriscendobot/agoric-sdk/pull/9) shepherd fixed the one PR-attributable lint red but flags that stale-base `test-boot` noise is spreading (1→9 shards), sharpening the pending rebase-vs-frozen-base call. Two items need a value from you: the minion.town `ELEVATION_CONTACT` string (styled-privilege-surfaces shipped with a safe default), and whether to open work on the OCapN daemon keypair binding. Finally, two jobs — the [endo-but-for-bots #688](https://github.com/endojs/endo-but-for-bots/pull/688) shepherd and `ocapn-pet-daemon-dockerfile-minion` — deterministically overran the handler budget and will be poisoned unless split into claim-sized stages.
+On **finbot**, four cycles landed a run of simulator increments directly on `kriscendobot/finbot@main` (multi-instrument portfolios, cyclical/harmonic forecaster, GARCH(1,1), and now GJR-GARCH leverage effect — 445 tests green, wallet-touched still false); the branch backlog is now empty. Note a triage circuit-breaker opened for `kriscendobot-finbot`, and the recurring maintainer question stands: whether finbot should keep its no-self-PR/fast-forward convention (which keeps stranding branches) and whether cap-attenuation Phase 2 (live paper-wallet run, gated behind `live_authorized`) is authorized.
+
+[kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/issues/9) is now **blocked solely on your decision**: the shepherd's dprint fix took fork CI from 4 reds to 1, every PR-attributable check passes, and both reviewers' asks are addressed — say `rebase #9` (onto ~503 commits of master, clearing the last codegen red, then un-draft + request SwingSet review) or `freeze #9` (un-draft the frozen-base prototype as-is). Separately, the [OCapN-Noise-WS demo](https://github.com/endojs/endo-but-for-bots/pull/688) is live and round-tripping a capability on minion.town, and two jobs ([endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/pull/688) shepherd and `ocapn-pet-daemon-dockerfile-minion`) deterministically overran the 2400s handler budget and need splitting or detaching before the reaper poisons them.
 
 ## Parked for maintainer feedback
 
@@ -334,22 +336,37 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > gardener job 'ocapn-pet-daemon-dockerfile-minion' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
+- `20260711T110827Z-e2a9ea` — from gardener:agoric-sdk-pr9-drive-20260711-110501, reply_to `agoric-sdk-pr9-drive-20260711-110501` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T110827Z-e2a9ea.md)
+
+> **[kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/issues/9) drive (3rd fire, 11:05Z) — material progress + decision now the sole blocker**
+>
+> [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/issues/9) ([kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29), promote ymax vat → critical). Not approved/merged/closed → schedule retained.
+>
+> **Material change since last tick:** the shepherd's dprint fix (`95130d9fed`) landed. Fork CI went **4 reds → 1 red**: `lint-rest` is green and `test-boot` passed clean on the fresh run. **Every PR-attributable check now passes.** The lone remaining red is `test-codegen` — `packages/orchestration/src/fetched-chain-info.js` dirty after codegen — the known stale-base non-determinism this PR does not touch (same signature the pr13/pr14 chaininfo fixes addressed).
+>
+> **Reviewer feedback is all addressed:** mhofman's a3p-integration ask and dckc's simpler-critical-vat guidance both landed; the head has advanced past both reviewed commits. No open actionable review threads.
+>
+> **So the effort is now blocked solely on your call** (asked the last two ticks, still open):
+>   (a) **rebase** onto current master (~503 commits), which should also clear the fetched-chain-info codegen red → then un-draft + request SwingSet-team review; or
+>   (b) keep it a **frozen-base prototype** — I un-draft as-is and request review, accepting the one non-PR codegen red.
+>
+> The fleet can't pick between (a) and (b) — it changes what the PR *is*. Say `rebase #9` or `freeze #9` and I'll drive the rest. No gardener job posted this tick (nothing PR-attributable left to fix; rebase is gated on you).
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`agoric-sdk-pr9-drive-20260711-110501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-pr9-drive-20260711-110501.md) — Drive kriscendobot/agoric-sdk PR #9 to approval (every 6h)
-- [`ebfb-124-sqlite-nongeneralised-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-124-sqlite-nongeneralised-design.md) — ---
+### doin (0)
+(none)
 
-### tada (1894)
+### tada (1896)
+- [`ebfb-124-sqlite-nongeneralised-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-124-sqlite-nongeneralised-design.md) — Inbox empty; the job is complete. Final report:
+- [`agoric-sdk-pr9-drive-20260711-110501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-pr9-drive-20260711-110501.md) — Completion report
 - [`xst-validation-orchestrator-20260711-110501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-110501.md) — XS-validation orchestrator — tick report (2026-07-11 ~11:06Z)
 - [`build-heavy-handler-budget-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-heavy-handler-budget-fix.md) — Completion report
 - [`endojs-endo-but-for-bots-pr684-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr684-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #684
-- [`styled-privilege-surfaces-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/styled-privilege-surfaces-minion-town.md) — Job complete. Final report:
-- [`guard-tests-from-production-journal-push`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/guard-tests-from-production-journal-push.md) — Completion report
-- … and 1889 more
+- … and 1891 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
