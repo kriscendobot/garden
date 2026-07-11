@@ -66,3 +66,9 @@ tentative choice + any spec/code gap you routed around. This is a demonstration,
 necessarily a PR (though daemon fixes you make should land on the WS branch).
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  claimed_at: 2026-07-11T05:03:13Z
