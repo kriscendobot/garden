@@ -6,3 +6,9 @@ Fix (deploy the provisioner so arming and materialize ship together, which is th
 3. Deploy to the root via the normal drained `deploy-garden.sh`, then confirm all 8 `repos/<slug>.git` clones exist and `garden-triager@kriscendobot-agoric-sdk` (and its 7 siblings) reach a clean tick (`no change` / `triaged …`) instead of the `no bare clone` FATAL.
 
 If deploying the full provisioner is out of scope for this fix, the minimum stopgap is to materialize the 8 missing `repos/<slug>.git` clones on the leader from the existing `worktrees/<slug>.git` shelf — but that leaves the arming/materialize split unrepaired and the next auto-armed fork will re-break, so the provisioner deploy is the durable fix.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  claimed_at: 2026-07-11T01:24:40Z
