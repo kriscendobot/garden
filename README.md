@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T10:51:28Z_
+_As of 2026-07-11T10:59:14Z_
 
 ## Latest
 
-Multiple self-heal gardeners converged on one root cause: the triager `GARDEN_REPOS` `/repos`→`worktrees/` fix is landed and green on `main2` (through commit `4c0e275b0b`), but the **deployed root `/home/kris/garden2` is ~56 commits stale**, so `garden-triager@*` units keep FATAL-looping every tick until a drained `deploy-garden.sh` runs — a leader/liaison operation no gardener can perform. All eight own-fork bare clones now exist under `worktrees/`, so the deploy alone should clear the storm. Relatedly, the triage circuit-breaker opened for `kriscendobot-finbot` after five identical failures, and it's worth confirming that repo (plus ocapn/cosgov/agoric-3-proposals) belongs in the watch set.
+The garden-triager fleet is wedged behind a **deploy gap**: the repos→worktrees path fix is landed and green on `main2`, but the deployed root (`/home/kris/garden2`, HEAD `688e6174c8`) is ~56 commits behind and still defaults `GARDEN_REPOS` to `/repos`, so every `garden-triager@*` unit keeps FATAL-looping — five self-heal gardeners converged on the same conclusion that only a drained `deploy-garden.sh` (a leader/liaison op, not a gardener job) will clear it. After deploy, three watched forks (`kriscendobot-{ocapn,cosgov,agoric-3-proposals}`) still lack a clone under `worktrees/` and will need provisioning or disabling — a decision that intersects the § Monitoring safety watch-set bar.
 
-On the project side, finbot advanced steadily via direct pushes to `kriscendobot/finbot@main` — multi-instrument yield-bearing portfolios, the cyclical/harmonic forecaster, then GARCH(1,1) and GJR-GARCH conditional-volatility surfaces (445 tests green, the wallet-safety gate holding throughout). The recurring maintainer decision there: finbot's no-self-PR fast-forward convention keeps stranding green branches behind a diverging main. The [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) drive continues fork-only, with a shepherd fixing a `dprint` lint red while stale-base boot-snapshot noise grows — still awaiting the rebase-vs-frozen-base call. An OCapN-Noise-WS demo is now live and reproducible on minion.town.
+finbot carried the bulk of the forward motion: a run of direct-push increments landed on `kriscendobot/finbot@main` — SES-compartments (the cap-attenuation safety cornerstone), multi-instrument yield-bearing portfolios, a cyclical/harmonic forecaster, GARCH(1,1), and GJR-GARCH leverage — clearing the last stranded branch (only `main` + `journal` remain) and reaching 445 green tests with the wallet-safety gate holding. Two standing decisions stay open for you: whether to keep the per-cycle rebase cadence or let builders land on main directly, and cap-attenuation Phase 2 (live CapTP transport + paper-wallet run), which is gated behind `live_authorized` and will not advance without authorization. Note the triage circuit-breaker opened on `kriscendobot-finbot`, with a flag that it may not belong in the watch set at all.
 
-Three things need a direct answer: the `ELEVATION_CONTACT` value for minion.town's styled privilege surfaces (shipping with a safe default meanwhile), and two shepherd jobs — [endojs/endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/pull/688)'s and the ocapn pet-daemon Dockerfile job — that deterministically overran the 2400s handler budget and need splitting into claim-sized stages before the reaper poisons them.
+On [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9), a shepherd fixed the one PR-attributable red (`lint-rest`, a `dprint` miss), but the rebase decision is now pressing — base trails master ~503 commits and `test-boot` noise spread from 1 to ~9 shards, drifting a green fork CI further out of reach. Elsewhere: the OCapN-Noise-WS demo is live and round-tripping on minion.town, and `endor-xst` core landed on the draft [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) (with a flagged `c/moddable` gitlink still pinned at 8.0.1 instead of the required 8.3.1). Two jobs — the [endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/pull/688) shepherd and `ocapn-pet-daemon-dockerfile-minion` — deterministically overran the 2400s handler budget and need splitting into claim-sized stages before they're poisoned.
 
 ## Parked for maintainer feedback
 
@@ -341,8 +341,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`ebfb-124-sqlite-nongeneralised-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-124-sqlite-nongeneralised-design.md) — ---
 
 ### tada (1893)
 - [`build-heavy-handler-budget-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-heavy-handler-budget-fix.md) — Completion report
@@ -371,7 +371,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`ebfb-124-sqlite-nongeneralised-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ebfb-124-sqlite-nongeneralised-design.md) — _normal_ · ---
 - [`scholar-ingest-source-habitat-chronicles-4`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-source-habitat-chronicles-4.md) — _low_ · Source
 - [`endojs-endo-but-for-bots-pr660-review-62ee5cda-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr660-review-62ee5cda-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #660 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr660-7dd088b1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr660-7dd088b1-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #660 (primary: endojs-endo-but-f...
