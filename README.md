@@ -1,18 +1,20 @@
 # Garden bulletin
 
-_As of 2026-07-11T06:50:50Z_
+_As of 2026-07-11T06:54:07Z_
 
 ## Latest
 
-The garden-triager fleet's crash-loop fix has fully landed on `main2` (through `4c0e275b0b`), but five self-heal gardeners independently converged on the same conclusion: the **deployed root (`/home/kris/garden2`) is stale** — up to ~56 commits behind — so every `garden-triager@*` unit keeps FATAL-looping on the old `repos/` default until a deliberate drained `deploy-garden.sh` advances the root. That deploy is the single outstanding operational action; all eight own-fork bare clones now exist under `worktrees/`, so triage ticks cleanly once the root lands.
+The triager fleet is crash-looping and the fix is stranded at the deploy step: five self-heal gardeners independently landed and verified the `GARDEN_REPOS` default fix on `main2` (through 4c0e275b0b — bare clones now resolve to `worktrees/`, a missing clone is a clean skip), but all converge on the same blocker — the deployed root `/home/kris/garden2` is ~56 commits behind, so every `garden-triager@*` unit still FATALs on the old `/repos` path. A drained `scripts/jobs/deploy-garden.sh` (a leader/liaison op no gardener can run) is the clean resolution; the eight armed own-fork bare clones already exist under `worktrees/`, so the provisioner is a no-op afterward.
 
-On the OCapN track, the Noise-transport milestones closed out: the [ocapn-noise-p2p-milestones](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-p2p-milestones.md) orchestration is complete, the two-daemon invite/accept M5 builder finished, and a live OCapN-Noise-WS demo is now running and reproducible on minion.town (Caddy TLS → loopback WS → Noise IK → capability invoke). The gardener is holding for your call on promoting it to the full Pet Daemon bootstrap and landing the Caddy route durably. The endor-xst runner core also landed (convergence child 1/5) with a flagged submodule-pin mismatch — the branch's `c/moddable` gitlink points at moddable 8.0.1 while HEAD's tests require 8.3.1, so a separate gitlink bump is needed.
+On the project side, finbot landed four green increments direct-to-main over the last day — SES-compartments capability attenuation, multi-instrument yield-bearing portfolios, the harmonic/cyclical forecaster, and GARCH(1,1) conditional volatility — clearing its entire stranded-branch backlog (435 tests green, the wallet-touched safety gate holding). Two things want your eyes: the finbot triage circuit-breaker OPENED, and a gardener flags that `kriscendobot-finbot` may not belong in the watch set under the monitoring-safety constraint. Finbot's "no self-PR, fast-forward main" convention keeps stranding branches behind a diverging main, so a decision is owed — let builders land increments directly, or stand up a weaver/conductor fast-forward sweep.
 
-finbot advanced four cycles directly on its fork's `main` (multi-instrument portfolios, cyclical forecaster, and GARCH(1,1) — 435 tests green, wallet-safety gate holding), clearing its stranded-branch backlog; the gardener re-flags a standing decision on whether builders should keep landing directly on main or a weaver/conductor sweep should fast-forward branches promptly. Separately, shepherd [#9](https://github.com/kriscendobot/agoric-sdk/pull/9) on the agoric-sdk fork fixed the one PR-attributable red (a `dprint` miss), leaving only growing stale-base boot-snapshot noise that strengthens the pending rebase-vs-frozen-base decision.
+The OCapN-Noise-WS demo (M3+M4) is now live and reproducible on minion.town — a garden-container peer dials `wss://minion.town/ocapn`, runs Noise IK, and round-trips a capability end-to-end through Caddy TLS; the M5 builder and the two-daemon invite/accept orchestration also completed, and a follow-up asks whether to promote to the full Pet Daemon bootstrap and land the Caddy route durably in the minion.town repo.
+
+[agoric-sdk PR #9](https://github.com/kriscendobot/agoric-sdk/pull/9)'s 6-hourly drive continues fork-only: a shepherd fixed the one PR-attributable red (a `dprint` miss on lint-rest), but stale-base `test-boot` noise is spreading (1→9 shards) and still awaits your rebase-onto-master vs keep-as-frozen-prototype call. Separately, endor-xst core landed on the still-draft xs2rust convergence PR with a flagged submodule gitlink mismatch (committed moddable 8.0.1 vs the 8.3.1 the oracle pin and byte-identity gate require) that needs a one-line bump.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 13h)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 14h)
 - [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 1d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 8d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 11d)
@@ -308,18 +310,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`finbot-progress-20260711-065005`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260711-065005.md) — Push progress on kriscendobot/finbot (every 6h)
-- [`fu-ocapn-two-daemon-invite-accept-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-ocapn-two-daemon-invite-accept-1.md) — In the bot's own ocapn repo (endojs/endo-but-for-bots), the two shared-suite ...
 - [`xs2rust-endor-262-corpus-case-conversion`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-262-corpus-case-conversion.md) — Builder: corpus → test262 cases conversion (PR #600, test262-convergence chil...
 
-### tada (1873)
+### tada (1874)
+- [`fu-ocapn-two-daemon-invite-accept-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-ocapn-two-daemon-invite-accept-1.md) — Completion report
 - [`ocapn-noise-p2p-milestones`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-p2p-milestones.md) — orchestration ocapn-noise-p2p-milestones — complete
 - [`ocapn-two-daemon-invite-accept`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-two-daemon-invite-accept.md) — Completion report — ocapn-two-daemon-invite-accept (M5 builder)
 - [`xst-validation-orchestrator-20260711-063501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-063501.md) — XS-validation orchestrator — tick report (2026-07-11 ~06:40Z)
 - [`xs2rust-endor-262-xst-runner-core`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-262-xst-runner-core.md) — Completion report
-- [`ocapn-daemon-minion-deploy-demo`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-daemon-minion-deploy-demo.md) — Completion report
-- … and 1868 more
+- … and 1869 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
