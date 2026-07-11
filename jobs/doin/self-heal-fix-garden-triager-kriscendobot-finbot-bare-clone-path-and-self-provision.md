@@ -7,3 +7,9 @@ Two changes to `scripts/jobs/triager.sh`:
 Also update `scripts/jobs/comment-watcher.sh:179` GARDEN_REPOS default to `$GARDEN_ROOT/worktrees` to match, keeping the two watchers' clone-path resolution identical.
 
 Verify with the existing `scripts/jobs/test/comment-watcher-test.sh` (which overrides GARDEN_REPOS explicitly, so the default change is safe) and add/adjust a triager test covering (a) an existing `worktrees/<slug>.git` being found, and (b) a missing-clone self-provision path. Confirm `common.sh` and `clone-keeper.sh` changes get committed together with the triager change so the deployed tree is consistent (the fix currently only lands once these uncommitted edits + the triager update ship together via the deliberate deploy).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  claimed_at: 2026-07-11T00:54:25Z
