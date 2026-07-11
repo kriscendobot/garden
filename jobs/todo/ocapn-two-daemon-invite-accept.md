@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: ocapn-noise-p2p-milestones
-priority: normal
-posted_by: producer
-posted_at: 2026-07-11T03:51:54Z
+role: builder
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-11T06:31:03Z -->
 
 role: builder
 
