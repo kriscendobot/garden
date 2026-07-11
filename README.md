@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T06:26:36Z_
+_As of 2026-07-11T06:31:31Z_
 
 ## Latest
 
-Multiple triager self-heal jobs converged on one conclusion: the `garden-triager@*` crash-loop is already fixed in `main2` (through commit 4c0e275b0b — `GARDEN_REPOS` now defaults to `worktrees/` via a shared resolver, and a missing bare clone is a clean skip rather than a FATAL), but the **deployed root `/home/kris/garden2` is ~56 commits stale and still crash-looping every tick**. A drained `deploy-garden.sh` is the single remaining action — a leader/liaison operation no gardener can run. All eight armed own-fork bare clones now exist under `worktrees/`, so post-deploy the triagers tick cleanly; three enabled instances (`kriscendobot-cosgov`/`-ocapn`/`-agoric-3-proposals`) still lack clones and intersect the § Monitoring watch-set authorization bar — flagged, not silently armed.
+The headline for a maintainer is operational: multiple self-heal gardeners converged on the same diagnosis — the triager crash-loop across `garden-triager@*` is already fixed on `main2` (the `GARDEN_REPOS` default moved from `repos/` to `worktrees/`, plus a shared `bare_clone_dir()` resolver and opt-in self-provisioning), but the **deployed root `/home/kris/garden2` is ~56 commits stale** and still runs the old `/repos` default, so the units keep FATAL-looping. A single drained `deploy-garden.sh` is the one action that clears it; all eight own-fork bare clones now exist under `worktrees/`, so nothing else is needed. Two watched repos separately need attention: `kriscendobot-finbot` tripped its triage circuit-breaker (worth confirming it belongs in the watch set at all, per the monitoring constraint), and after deploy `cosgov`/`ocapn`/`agoric-3-proposals` will still lack clones.
 
-On finbot, four cycles landed the entire stranded-branch backlog directly on `kriscendobot/finbot@main`: SES-compartments (the cap-attenuation cornerstone), multi-instrument yield-bearing portfolios, the cyclical/harmonic forecaster, and GARCH(1,1) conditional volatility — now at 435 green tests with the wallet-safety gate holding (all six auditor invariants PASS, wallet untouched). No stranded branches remain; the deepest next axis (a live CapTP transport + paper-wallet run) stays gated behind `live_authorized` pending your call. The recurring finbot decision is unchanged: let builders land directly on main, or stand up a weaver/conductor sweep so branches stop stranding behind a diverging main.
+On delivery: the **OCapN-Noise-WS demo (M3+M4) is live and reproducible on minion.town** — a peer dials `wss://minion.town/ocapn`, runs Noise IK, and round-trips a capability through a systemd service; the gardener asks whether to promote to the full Pet Daemon bootstrap and land the Caddy route durably. The next OCapN milestone (M5, two daemons via invite/accept) is now claimed. The **endor-xst runner core** landed on its draft XS→Rust PR (convergence child 1/5), with a flagged pre-existing gitlink mismatch (`c/moddable` pinned to 8.0.1 but HEAD needs 8.3.1). Separately, [endo-but-for-bots#660](https://github.com/endojs/endo-but-for-bots/pull/660) is fully green.
 
-On [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9), the 6-hourly drive commissioned a shepherd that fixed the one PR-attributable red (a `dprint fmt` miss on the critical-vat test rewrite); the remaining reds are stale-base noise that is *growing* (test-boot spread from 1 to ~9 red shards), sharpening the still-pending decision to rebase onto master (~503 commits behind) and un-draft for SwingSet review versus keep it a frozen-base prototype. Elsewhere, [endojs/endo-but-for-bots#660](https://github.com/endojs/endo-but-for-bots/pull/660) shepherded to fully-green CI, and the XS→Rust (Endor) port advanced its Stage-5 fix6 verification.
+Finbot ran four green build cycles direct-to-`main` (SES-compartments capability attenuation, multi-instrument portfolios, cyclical forecaster, GARCH(1,1) — now 435 tests), clearing its stranded-branch backlog; the gardener re-flags a standing decision on whether builders should keep landing directly or a weaver/conductor sweep should fast-forward branches, and notes the cap-attenuation live-run remains gated behind explicit authorization. On [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9), a shepherd fixed the one PR-attributable red (a `dprint` miss), but stale-base boot-snapshot noise is spreading — a decision on rebasing onto master (~503 commits behind) is pending and increasingly overdue.
 
 ## Parked for maintainer feedback
 
@@ -257,22 +257,64 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Is this job considered complete?
 
+- `20260711T062924Z-b46c96` — from gardener:ocapn-daemon-minion-deploy-demo, reply_to `ocapn-daemon-minion-deploy-demo` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T062924Z-b46c96.md)
+
+> OCapN-Noise-WS demo (M3+M4) is LIVE and reproducible on minion.town.
+>
+> A local peer in a garden container dials wss://minion.town/ocapn, runs Noise IK,
+> and round-trips a capability against a systemd-run OCapN-Noise-WS service on the
+> box (aarch64, node v22). End-to-end path: Caddy TLS 443 -> loopback WS
+> 127.0.0.1:8930 -> Noise IK -> CBOR -> OCapN sturdyref -> capability invoke.
+>
+>   RESULT {"ok":true,"swissnum":"greeter",
+>           "nodeId":"810b996c…","reply":"Hello, the local peer! …"}
+>
+> Deployed on the host (left RUNNING for you):
+>   - endo-ocapn-daemon.service (enabled+active), /opt/endo = endojs/endo-but-for-bots
+>     @ claude/endo-daemon-ocapn-ws-FkmHO, corepack yarn install (no native build;
+>     Noise WASM ships prebuilt).
+>   - Caddy: `handle /ocapn* { reverse_proxy 127.0.0.1:8930 }` folded into
+>     minion-town.caddy (NOT behind oauth2-proxy). Validated + reloaded; caddy,
+>     oauth2-proxy, minion-mcp untouched. Backup at minion-town.caddy.bak-ocapn.
+>
+> Tentative choice (per "prefer tentative progress over delay"): the systemd unit
+> runs a standalone service using the SAME @endo/ocapn-noise + @endo/ocapn WS+Noise
+> session machinery as the daemon's src/networks/ocapn.js, minus the
+> pet-store/agent lifecycle — the smallest default that proves the whole transport
+> path. README documents the exact steps to promote it to the full @nets/ocapn Pet
+> Daemon bootstrap (store ws-listen-addr, install the network module, extract the
+> live address); the Caddy route and client are unchanged.
+>
+> Demo + transcript + unit + route committed to the WS branch:
+>   packages/daemon/demo/minion-town/  (endojs/endo-but-for-bots, b08e8b696d)
+>
+> Want me to (a) promote to the full Pet Daemon bootstrap, and/or (b) land the
+> Caddy route durably in the kriscendobot/minion.town repo? Both are quick follow-ups.
+
+- `20260711T062947Z-e160e6` — from gardener:xs2rust-endor-262-xst-runner-core, reply_to `xs2rust-endor-262-xst-runner-core` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T062947Z-e160e6.md)
+
+> endor-xst core landed on PR #600 (xs2rust-endor @ f31ad65a46, still DRAFT) — convergence child 1/5.
+>
+> Built the `endor-xst` binary in endor-262: full YAML frontmatter (new `frontmatter` module via yaml-rust2, pure-Rust so forbid(unsafe_code) holds; retires test262.rs's three-field hand parser by delegation), endor feature skip list + --features-include, sloppy+strict mode selection (strict a named skip pre-stage-5), negative verdicts (constructor-name vs negative.type, stack/meter aborts → RangeError), dual-run oracle wiring (verdict+observable gating, computron advisory, --gate-meter-exact, --repeat N determinism), and the xst-shaped YAML report (mode:/skip:/fail: + advisory:/skip-detail:). Retired `test262-language` by name — endor-xst reproduces its split exactly on every subtree checked. All 61 endor-262 lib tests pass; clippy clean.
+>
+> FLAG (pre-existing, not mine): the branch's committed c/moddable gitlink is 5516726 = moddable 8.0.1, but HEAD's commit "bump oracle pin 8.2.3 → 8.3.1" plus the oracle build-script expectation and the `module_corpora_byte_identity_no_divergence` test all require 23b4d6b = 8.3.1 (that test FAILS at 8.0.1, PASSES at 8.3.1). So a fresh `git submodule update --init` on this branch checks out 8.0.1 and reds the endor-262 module-byte gate. Looks like the pin bump commit didn't stage the submodule pointer. I did NOT touch the gitlink (out of scope for the runner job) — flagging so someone can bump c/moddable → 23b4d6b in a separate commit.
+
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (2)
-- [`ocapn-daemon-minion-deploy-demo`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-daemon-minion-deploy-demo.md) — Deploy an OCapN-Noise Pet Daemon on minion.town and connect a local peer (M3+M4)
-- [`xs2rust-endor-262-xst-runner-core`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-262-xst-runner-core.md) — Builder: endor-xst core — the xst-analogue test262 runner (PR #600, test262-c...
+- [`ocapn-two-daemon-invite-accept`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-two-daemon-invite-accept.md) — Two Pet Daemons connect via invite/accept over OCapN-Noise, both transports (M5)
+- [`xs2rust-endor-262-corpus-case-conversion`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-262-corpus-case-conversion.md) — Builder: corpus → test262 cases conversion (PR #600, test262-convergence chil...
 
-### tada (1868)
+### tada (1870)
+- [`xs2rust-endor-262-xst-runner-core`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-262-xst-runner-core.md) — Completion report
+- [`ocapn-daemon-minion-deploy-demo`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-daemon-minion-deploy-demo.md) — Completion report
 - [`xst-validation-orchestrator-20260711-052002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-052002.md) — XS-validation orchestrator — tick report (2026-07-11 ~06:30Z)
 - [`endojs-endo-but-for-bots-pr660-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr660-shepherd.md) — Inbox empty. CI is fully green on PR #660 — job done.
 - [`xs2rust-endor-build-stage5-fix6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage5-fix6.md) — orchestration xs2rust-endor-build-stage5-fix6 — complete
-- [`xs2rust-endor-stage5-fix6-verify`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix6-verify.md) — Completion report — Stage-5 fix6 2/2 VERIFY (PR #600, xs2rust-endor)
-- [`proxy-pr-comment-auto-clear`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proxy-pr-comment-auto-clear.md) — Completion report
-- … and 1863 more
+- … and 1865 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
