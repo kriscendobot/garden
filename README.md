@@ -1,14 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-11T15:35:20Z_
+_As of 2026-07-11T15:36:37Z_
 
 ## Latest
 
-The garden's deployed root fell ~56 commits behind `main2`, so every `garden-triager@*` unit is still crash-looping on the old `GARDEN_REPOS=/repos` default even though the fix (shared `bare_clone_dir` resolver, missing-clone-is-a-clean-skip, opt-in self-provision) has long since landed and tests green; a chorus of self-heal gardeners agree there's no code left to write — the fleet just needs a deliberate drained `deploy-garden.sh` on the leader to clear the flapping.
+The garden is idle at the board (the only transition was an [XS-validation orchestrator](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-153502.md) tick) because M3 is now merge-bottlenecked, not work-starved: the foreman has escalated four times that a fleet of green, mergeable endo-but-for-bots PRs — Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608), outbound-HTTP agent tools [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the endoclaw-timer chain [#609](https://github.com/endojs/endo-but-for-bots/pull/609)→[#617](https://github.com/endojs/endo-but-for-bots/pull/617)→[#619](https://github.com/endojs/endo-but-for-bots/pull/619), the mount stack, and the endopi PRs — sits awaiting a maintainer merge decision, all of it gated behind the still-unmerged lint-ceiling fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594), which is poisoning gauntlets (e.g. #661) with phantom-red lint. Merging #594 auto-promotes the parked `resume-lint-ceiling-shepherds` job.
 
-The foreman is flagging Milestone M3 as merge-bottlenecked, not work-starved: a stack of green, mergeable endo-but-for-bots PRs — [#608](https://github.com/endojs/endo-but-for-bots/pull/608) (Docker self-host), [#661](https://github.com/endojs/endo-but-for-bots/pull/661) (agent HTTP tools), [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (EndoRegistry capability, which also subsumes the mvs-resolver build), and the #667–#672 / #678–#681 mount stack — sit awaiting a merge-order decision, while the whole gauntlet path stays poisoned by the typescript-eslint lint ceiling whose fix, [#594](https://github.com/endojs/endo-but-for-bots/pull/594), is still unmerged (merging it auto-promotes the parked `resume-lint-ceiling-shepherds` cohort).
+Two decisions are the sole blockers on live workstreams. **[kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/issues/9)** (ymax→critical vat) now has every PR-attributable check green after the shepherd's dprint fix; the drive tick needs `rebase #9` (onto ~503-commit-ahead master, clearing the last stale-base codegen red, then un-draft + request review) or `freeze #9` (un-draft the frozen-base prototype as-is). **XS-validation ([garden#33](https://github.com/kriskowal/garden/issues/33))** is engineering-complete and awaits two yes/no answers (waive the Depot-gated integration leg; whether draft [kriscendobot/agoric-sdk#14](https://github.com/kriscendobot/agoric-sdk/issues/14) counts as landed). The endoclaw-timer [#609](https://github.com/endojs/endo-but-for-bots/pull/609) came back with a re-architecture ask from kriskowal (redraft as a standalone `@endo/reminder` plugin), rebased mergeable again but awaiting a supersede-or-keep call.
 
-Three efforts are blocked solely on a maintainer yes/no: [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) has every PR-attributable check green after the shepherd's dprint fix and needs only `rebase #9` vs `freeze #9`; the XS-validation orchestrator ([garden#33](https://github.com/kriskowal/garden/issues/33)) is engineering-complete pending two waiver decisions; and [#609](https://github.com/endojs/endo-but-for-bots/pull/609)'s endoclaw-timer got a CHANGES_REQUESTED re-architecture ask (redraft as a standalone `@endo/reminder` plugin). Meanwhile finbot advanced on its own each cycle via direct-push — SES compartments, then GARCH, GJR-GARCH, cyclical forecaster, and an inference-driven DECIDE stage (now 451 tests green, wallet-untouched) — with cap-attenuation Phase 2 still parked behind `live_authorized`. The OCapN-Noise-WS demo is live and round-tripping capabilities on minion.town. Two jobs (`pr688-shepherd`, `ocapn-pet-daemon-dockerfile-minion`) deterministically overran the 2400s handler budget and will be poisoned unless split into claim-sized stages.
+Off-board, finbot advanced four green direct-push increments today — GARCH(1,1), GJR-GARCH leverage, and an inference-driven DECEIDE/planner stage — reaching 451 tests green with the wallet-safety gate holding; the maintainer message repeatedly re-flags the open cap-attenuation Phase 2 authorization. The EndoRegistry capability [#671](https://github.com/endojs/endo-but-for-bots/pull/671) passed its gauntlet and was found to already subsume the separate `mvs-resolver` build. An OCapN-Noise-WS demo is live and reproducible on minion.town.
+
+Finally, a deploy gap needs attention: the triager crash-loop fix is landed on main2 (defaulting `GARDEN_REPOS` to `worktrees/`), but the deployed root `/home/kris/garden2` is ~56 commits stale, so `garden-triager@*` units keep FATAL-looping until a drained `deploy-garden.sh` — a leader/liaison operation. Two gardener jobs also deterministically overran their 2400s handler budget (`pr688-shepherd`, `ocapn-pet-daemon-dockerfile-minion`) and need splitting into claim-sized stages.
 
 ## Parked for maintainer feedback
 
@@ -448,16 +450,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xst-validation-orchestrator-20260711-153502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-validation-orchestrator-20260711-153502.md) — XS-validation orchestrator (hourly) — drive the agoric-sdk XS upgrade to vali...
+### doin (0)
+(none)
 
-### tada (1912)
+### tada (1913)
+- [`xst-validation-orchestrator-20260711-153502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-153502.md) — XS-validation orchestrator — tick report (2026-07-11 ~15:35Z)
 - [`build-endo-but-for-bots-mvs-resolver`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-mvs-resolver.md) — Completion report
 - [`gauntlet-endo-but-for-bots-pr671-endo-registry-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr671-endo-registry-capability.md) — Completion report — gauntlet on endojs/endo-but-for-bots PR #671
 - [`endojs-endo-but-for-bots-pr656-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr656-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #656
 - [`xst-validation-orchestrator-20260711-143501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-143501.md) — XS-validation orchestrator — tick report (2026-07-11 ~14:35Z)
-- [`weave-endo-but-for-bots-pr656-provide-submount-onto-llm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr656-provide-submount-onto-llm.md) — Weave report — endojs/endo-but-for-bots PR #656
-- … and 1907 more
+- … and 1908 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
