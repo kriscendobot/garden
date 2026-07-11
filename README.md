@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T18:44:07Z_
+_As of 2026-07-11T18:51:39Z_
 
 ## Latest
 
-The job board is drained — no work in `todo` or `doin` — and the foreman's repeated messages make clear why: Milestone M3 is now gated on maintainer merge/review decisions, not on any remaining fleet work. A stack of green, mergeable endo-but-for-bots PRs is waiting — Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608), the confined-HTTP agent tool [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the mount-search stack (#678–#681), and the endopi stack (#667–#672) — while the repo-wide typescript-eslint lint ceiling keeps poisoning gauntlets until its fix, [#594](https://github.com/endojs/endo-but-for-bots/pull/594), merges to `llm`/master. The scheduled-execution clause is separately stalled on the endoclaw-timer → `@endo/reminder` pivot: design PR [#682](https://github.com/endojs/endo-but-for-bots/pull/682) has been reviewed and needs an accept/close call that would retire the superseded timer PRs [#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619). Meanwhile [#693](https://github.com/endojs/endo-but-for-bots/pull/693)'s shepherd closed out fully green with no code change.
+The M3 (Remote Access and Coding Capabilities) milestone has flipped from work-bottlenecked to merge-bottlenecked: the foreman reports repeatedly that its exit-criterion capabilities have all landed green and mergeable — Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608), confined-HTTP agent tool [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the mount stack [#678](https://github.com/endojs/endo-but-for-bots/pull/678)–[#681](https://github.com/endojs/endo-but-for-bots/pull/681), and the endopi stack [#667](https://github.com/endojs/endo-but-for-bots/pull/667)–[#672](https://github.com/endojs/endo-but-for-bots/pull/672) — leaving no unblocked build work; the fleet needs a merge/sequencing decision from you. Two things gate the flow specifically: the per-package lint fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) is still unmerged, so gauntlets keep hitting the typescript-eslint projectService ceiling and poisoning (merging it auto-promotes the parked shepherd cohort), and the scheduled-execution clause has pivoted — reminder design [#682](https://github.com/endojs/endo-but-for-bots/pull/682) supersedes the endoclaw-timer stack [#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619) and awaits an accept/close call.
 
-Two operational items need attention. First, a **deploy gap**: the triager crash-loop fix landed on `main2`, but the deployed root (`/home/kris/garden2`) is ~56 commits behind, so `garden-triager@*` units keep FATAL-looping on the old `repos/` path until a deliberate drained `deploy-garden.sh` — a leader/liaison operation the gardeners can't run themselves. Second, the [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) ymax→critical drive has asked four ticks running for a **rebase-vs-frozen-base** decision; with every PR-attributable check now green (only a stale-base codegen red remains), the gardener took the reversible default and commissioned a rebase onto master, but will reset to a frozen prototype on your word. Separately, the finbot cycles continued landing green, wallet-safe simulator increments (GARCH, GJR-GARCH leverage effect, cyclical forecaster, and an inference-driven DECIDE stage) directly on `main`; its deepest remaining axis, cap-attenuation Phase 2 with a live paper-wallet run, stays gated behind your explicit `live_authorized` authorization.
+Two operational items need you directly. The triager crash-loop fix is fully landed and tested on `main2`, but the deployed root (`/home/kris/garden2`) is ~56 commits behind and still runs the old `/repos` default, so `garden-triager@*` units keep FATAL-looping every tick — a drained `deploy-garden.sh` is the clean resolution. And [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax→critical vat, garden#29) has gone four drive ticks unanswered with every PR-attributable check now green; rather than wait a fifth, the gardener took the reversible default and commissioned a rebase onto master — say `freeze #9` if you'd prefer the frozen-base prototype.
+
+Meanwhile finbot cleared its entire stranded-branch backlog and landed a run of green simulator increments (SES compartments, multi-instrument portfolios, cyclical/GARCH/GJR-GARCH forecasters, and an inference-driven DECIDE stage — 451 tests green, safety gate holds); its cap-attenuation Phase 2 (live paper-wallet run) stays parked behind your `live_authorized` authorization.
 
 ## Parked for maintainer feedback
 
@@ -506,8 +508,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-daemon-docker-self-hosting-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-daemon-docker-self-hosting-build.md) — ---
 
 ### tada (1937)
 - [`endojs-endo-but-for-bots-pr693-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr693-shepherd.md) — CI is fully green. The head SHA is unchanged (f7cd399) — I made no code chang...
