@@ -69,6 +69,7 @@ drift-guard tests route to a throwaway origin. Committed and pushed to `main2`.
 The `tada` report gives the SHA, the sentinel/guard mechanism, the tests fixed, and
 the verification evidence (a refused production push + clean throwaway run).
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
