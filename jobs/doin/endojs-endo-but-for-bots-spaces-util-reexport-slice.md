@@ -21,3 +21,9 @@ concern: `@endo/spaces-util` depending on `@endo/daemon` may be a layering
 inversion; verify the design permits it, and flag to @erights if it looks wrong.
 Repo endojs/endo-but-for-bots, base `llm`. Non-breaking stage-1 (patch bump),
 separate PR from #660.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  claimed_at: 2026-07-11T04:18:08Z
