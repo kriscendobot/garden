@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T11:46:33Z_
+_As of 2026-07-11T11:49:14Z_
 
 ## Latest
 
-The only board completion this window was the [endo-but-for-bots#660](https://github.com/endojs/endo-but-for-bots/pull/660) review retrospective; the substance moved in the fleet reports. **Two decisions are now the sole blockers.** The triager crash-loop fix is fully landed and tested on `main2` (GARDEN_REPOS defaults to `worktrees/`, a missing bare clone is a clean skip, and own-fork self-provisioning is opt-in), but four self-heal reports converge on the same gap: the deployed root `/home/kris/garden2` is ~56 commits stale and still reads the old `/repos` default, so `garden-triager@*` units keep FATAL-looping — a single drained `deploy-garden.sh` clears them, and every armed own-fork clone already exists so the deploy is a no-op beyond advancing HEAD. Separately, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (garden#29, ymax→critical vat) went 4 CI reds → 1 after the shepherd's dprint fix; every PR-attributable check now passes and all reviewer feedback is addressed, leaving it blocked only on your `rebase #9` vs `freeze #9` call (the lone red is known stale-base codegen noise a rebase would also clear).
+The garden's triager fleet is crash-looping and needs a maintainer deploy to clear it: the `GARDEN_REPOS` path fix (repos→worktrees, plus opt-in self-provisioning of missing bare clones) is landed and green on `main2`, but the deployed root `/home/kris/garden2` sits ~56 commits behind, so every `garden-triager@*` unit still FATALs each tick — a drained `deploy-garden.sh` from the leader is the one remaining step (five separate self-heal gardeners converged on this same conclusion). Relatedly, a triage circuit-breaker opened for `kriscendobot-finbot`, worth confirming that repo belongs in the watch set.
 
-On finbot, five green increments landed direct-to-main this window — SES-compartments capability attenuation, multi-instrument yield-bearing portfolios, the cyclical/harmonic forecaster, and both GARCH(1,1) and GJR-GARCH vol surfaces (445 tests, all six auditor invariants pass, wallet untouched); the branch backlog is now empty. Finbot's gardener re-flags two standing decisions: whether to keep paying per-cycle rebase cost on the "no self-PR, fast-forward main" convention, and cap-attenuation Phase 2 (live CapTP transport + first paper-wallet run), which stays gated behind `live_authorized` and untouched without your word. Elsewhere, the OCapN-Noise-WS demo is live and reproducing end-to-end on minion.town, and `endor-xst` core landed on the still-draft xs2rust PR #600 (with a flagged c/moddable gitlink mispinned at 8.0.1 vs the required 8.3.1). Note two watchdog overruns to split into claim-sized stages: the [endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/pull/688) shepherd and the ocapn-pet-daemon Dockerfile job both hit the 2400s handler wall.
+On finbot itself (`kriscendobot/finbot`, direct-push per its no-PR convention), five increments landed green across the day — SES-compartments capability attenuation, multi-instrument yield-bearing portfolios, the cyclical/harmonic forecaster, and then GARCH(1,1) and GJR-GARCH conditional-volatility surfaces — moving the suite from ~388 to 445 tests, all six auditor invariants passing and the wallet gate untouched throughout. The branch backlog is now empty; the gardener repeatedly flags that finbot's "fast-forward main" convention keeps stranding branches, and that cap-attenuation Phase 2 (live paper-wallet run) stays gated behind explicit `live_authorized` authorization.
+
+[kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (garden#29, promote ymax vat to critical) improved materially: a shepherd's dprint fix took fork CI from four reds to one, every PR-attributable check now passes, and all reviewer feedback is addressed — so it is blocked solely on your call to `rebase #9` (onto master, ~503 commits behind, likely clearing the last codegen red) or `freeze #9` (un-draft the frozen-base prototype as-is). Elsewhere, the OCapN-Noise-WS demo is live and reproducible on minion.town over `wss://`, and the XS→Rust port's `endor-xst` runner core landed (still draft), with a flagged c/moddable gitlink pointing at 8.0.1 instead of the required 8.3.1. Two jobs (`pr688-shepherd` and `ocapn-pet-daemon-dockerfile-minion`) deterministically overran the 2400s handler budget and need splitting into claim-sized stages. Two builds also await a maintainer value before they can finish: the minion.town `ELEVATION_CONTACT` string and the finbot fast-forward-vs-direct-land decision.
 
 ## Parked for maintainer feedback
 
@@ -355,8 +357,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr660-review-62ee5cda-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr660-review-62ee5cda-retro.md) — Retrospective on endojs/endo-but-for-bots PR #660 (primary: endojs-endo-but-f...
 
 ### tada (1899)
 - [`endojs-endo-but-for-bots-pr660-7dd088b1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr660-7dd088b1-retro.md) — Completion report — endojs-endo-but-for-bots-pr660-7dd088b1-retro
@@ -385,7 +387,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr660-review-62ee5cda-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr660-review-62ee5cda-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #660 (primary: endojs-endo-but-f...
+(none)
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
