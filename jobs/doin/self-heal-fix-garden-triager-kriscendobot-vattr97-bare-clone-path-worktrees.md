@@ -1,3 +1,9 @@
 Fix the bare-clone path mismatch that FATALs the triager. `scripts/jobs/triager.sh:25` defaults `GARDEN_REPOS` to `$GARDEN_ROOT/repos`, but the garden's canonical standing bare clones live under `$GARDEN_ROOT/worktrees/<slug>.git` (maintained by `clone-keeper.sh`; the systemd template `garden-triager@.service` never sets `GARDEN_REPOS`, so the default always wins). Result: `garden-triager@kriscendobot-vattr97` (and every other armed triager whose clone exists — agoric-sdk, endo, finbot, minion.town) dies every tick with `FATAL: no bare clone at .../repos/<slug>.git`, even though `worktrees/<slug>.git` is present.
 
 Change the default in `scripts/jobs/triager.sh:25` from `$GARDEN_ROOT/repos` to `$GARDEN_ROOT/worktrees`, and update the header comment at line 7 accordingly. Apply the same default fix to `scripts/jobs/comment-watcher.sh:179` (line 311 `BARE=`) for parity so both watchers resolve the clone at the location clone-keeper actually maintains — comment-watcher currently only degrades to gh-polling instead of using the local clone. Prefer a single shared resolver in `scripts/jobs/common.sh` (e.g. a `bare_clone_dir <slug>` helper returning `$GARDEN_ROOT/worktrees/<slug>.git`) that both scripts call, to prevent the two defaults from drifting again. Do not touch the test harness's `GARDEN_REPOS="$TR/norepos"` overrides (they explicitly test the missing-clone path). Verify by running the triager for `kriscendobot-vattr97` (or a stub `GARDEN_TRIAGE_HANDLER`) and confirming it resolves `worktrees/kriscendobot-vattr97.git` and exits 0 instead of the FATAL. Note in the commit that repos with no clone anywhere (agoric-3-proposals, cosgov, ocapn) remain a separate arming/clone-provisioning gap not addressed here.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  claimed_at: 2026-07-11T01:26:09Z
