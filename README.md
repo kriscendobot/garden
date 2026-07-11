@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-11T11:06:04Z_
+_As of 2026-07-11T11:07:09Z_
 
 ## Latest
 
-The deployed garden root (`/home/kris/garden2`) is stranded ~56 commits behind `main2`, and that gap is the through-line of the window: the triager `GARDEN_REPOS` `/repos`→`/worktrees` fix and its self-provision follow-ons are all landed and green on `main2`, but every `garden-triager@*` unit keeps FATAL-looping against the stale root until a drained `deploy-garden.sh` runs — a leader/liaison operation no gardener can perform. Four converging self-heal reports say the same thing: the code work is done, only the deploy remains (all eight own-fork bare clones now exist under `worktrees/`, so the provisioner is a no-op afterward). Separately, triage for `kriscendobot-finbot` tripped its circuit-breaker after five identical failures on the same SHA range.
+The headline for a maintainer: the triager crash-loop fix is fully landed and tested on `main2` (through `83e0eb0f41`), but the **deployed root (`/home/kris/garden2`, ~56 commits behind) is still running the stale `GARDEN_REPOS=/repos` default**, so `garden-triager@*` units keep FATAL-looping in production — five separate self-heal gardeners converged on the same conclusion: a drained `deploy-garden.sh` on the leader is the only thing left to clear it. All eight own-fork bare clones now exist under `worktrees/`, so the deploy should quiet the fleet cleanly; a separate, watch-set-authorization-gated question remains about the three repos (ocapn, cosgov, agoric-3-proposals) that still have no standing clone.
 
-finbot itself advanced hard: five direct-push increments landed on `kriscendobot/finbot@main` — SES compartments (the capability-attenuation cornerstone), multi-instrument yield-bearing portfolios, the harmonic/cyclical forecaster, GARCH(1,1), and GJR-GARCH leverage — clearing the stranded-branch backlog (only main + journal remain) and reaching 445 green tests with the wallet-safety gate holding throughout. Its recurring maintainer decision is unchanged: cap-attenuation Phase 2 (live CapTP transport + first paper-wallet run) stays gated behind `live_authorized`.
-
-On [agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9), the 6-hourly drive commissioned a shepherd that fixed the one PR-attributable red (a `dprint` miss), but stale-base boot-snapshot noise is spreading (1→9 red shards), making the pending rebase-vs-frozen-prototype call costlier each tick. The OCapN-Noise-WS demo (M3+M4) is now live and reproducible on minion.town, and the styled-privilege-surfaces build shipped there — but it needs the `ELEVATION_CONTACT` value from you. Two jobs — the [endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/pull/688) shepherd and `ocapn-pet-daemon-dockerfile-minion` — deterministically overran the 2400s handler budget and need splitting into claim-sized stages before they're poisoned.
+On the project side, finbot ran five green cycles landing its entire stranded-branch backlog and a run of new simulator forecasters (SES compartments, multi-instrument/yield portfolios, cyclical/harmonic, GARCH(1,1), and GJR-GARCH — 445 tests, wallet-touched:false throughout) directly on `kriscendobot/finbot@main`; the maintainer decision it keeps re-flagging is whether to keep the per-cycle rebase cadence or let builders land increments directly, plus the still-deferred cap-attenuation Phase 2 that needs `live_authorized`. The OCapN-Noise-WS demo is now live and reproducible on minion.town, and the [agoric-sdk PR #9](https://github.com/kriscendobot/agoric-sdk/pull/9) shepherd fixed the one PR-attributable lint red but flags that stale-base `test-boot` noise is spreading (1→9 shards), sharpening the pending rebase-vs-frozen-base call. Two items need a value from you: the minion.town `ELEVATION_CONTACT` string (styled-privilege-surfaces shipped with a safe default), and whether to open work on the OCapN daemon keypair binding. Finally, two jobs — the [endo-but-for-bots #688](https://github.com/endojs/endo-but-for-bots/pull/688) shepherd and `ocapn-pet-daemon-dockerfile-minion` — deterministically overran the handler budget and will be poisoned unless split into claim-sized stages.
 
 ## Parked for maintainer feedback
 
@@ -341,18 +339,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`agoric-sdk-pr9-drive-20260711-110501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-pr9-drive-20260711-110501.md) — Drive kriscendobot/agoric-sdk PR #9 to approval (every 6h)
 - [`ebfb-124-sqlite-nongeneralised-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-124-sqlite-nongeneralised-design.md) — ---
-- [`xst-validation-orchestrator-20260711-110501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-validation-orchestrator-20260711-110501.md) — XS-validation orchestrator (hourly) — drive the agoric-sdk XS upgrade to vali...
 
-### tada (1893)
+### tada (1894)
+- [`xst-validation-orchestrator-20260711-110501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-110501.md) — XS-validation orchestrator — tick report (2026-07-11 ~11:06Z)
 - [`build-heavy-handler-budget-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-heavy-handler-budget-fix.md) — Completion report
 - [`endojs-endo-but-for-bots-pr684-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr684-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #684
 - [`styled-privilege-surfaces-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/styled-privilege-surfaces-minion-town.md) — Job complete. Final report:
 - [`guard-tests-from-production-journal-push`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/guard-tests-from-production-journal-push.md) — Completion report
-- [`xst-validation-orchestrator-20260711-095011`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-095011.md) — XS-validation orchestrator — tick report (2026-07-11 ~09:55Z)
-- … and 1888 more
+- … and 1889 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
