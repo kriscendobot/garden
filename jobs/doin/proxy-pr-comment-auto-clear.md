@@ -85,3 +85,9 @@ deploy, the proxy autonomously acknowledges PR-comment maintainer messages every
 tick, leaving live gating questions and non-PR traffic for the maintainer.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  claimed_at: 2026-07-11T05:53:11Z
