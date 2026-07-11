@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T17:35:50Z_
+_As of 2026-07-11T17:38:28Z_
 
 ## Latest
 
-The dominant signal this cycle is that **Milestone M3 has run out of buildable work and is now gated entirely on maintainer merge/accept decisions** — the foreman flagged this five times in eight hours. A fleet of green, mergeable endo-but-for-bots PRs is queued behind review: Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608), the confined-HTTP agent tool [#661](https://github.com/endojs/endo-but-for-bots/pull/661), and the mount-search/endopi stacks. The keystone is the lint-ceiling fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) ("lint per package"): until it merges, every gauntlet hits phantom-red lint and poisons (as #661's did), so merging it also trip-wires the parked shepherd cohort back to life. Separately, the scheduled-execution clause pivoted — reminder design PR [#682](https://github.com/endojs/endo-but-for-bots/pull/682) now supersedes the endoclaw-timer chain ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) and needs an accept-and-retire call.
+The board barely moved — a single completion ([hyperlink-refs-pr-review-sequence](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/hyperlink-refs-pr-review-sequence.md)) — but the maintainer inbox is where the pressure is. The foreman has now flagged **five times today** that Milestone M3 is merge-bottlenecked, not work-bottlenecked: a fleet of green, mergeable endo-but-for-bots PRs — Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608), the confined-HTTP agent tool [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the mount-search stack [#678](https://github.com/endojs/endo-but-for-bots/pull/678)–[#681](https://github.com/endojs/endo-but-for-bots/pull/681), and the endopi/registry work ([#671](https://github.com/endojs/endo-but-for-bots/pull/671)) — sit ready while every downstream draft waits. Two blockers gate the rest: the per-package lint fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) (its ceiling poisoned #661's gauntlet), and an accept/close call on the `@endo/reminder` redesign [#682](https://github.com/endojs/endo-but-for-bots/pull/682), which would supersede and retire the endoclaw-timer stack [#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619).
 
-Two other decisions are pending. The [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) drive (ymax→critical vat) went unanswered for four ticks, so the gardener took the reversible default and wove it onto current master — every PR-attributable CI check is now green, leaving only the choice of rebase-and-review versus frozen-base prototype. And the triager crash-loop fix has landed on `main2` but the **deployed root is ~56 commits stale**, so `garden-triager@*` units keep FATAL-looping until a drained `deploy-garden.sh` runs — a leader operation no gardener can perform. Meanwhile finbot advanced steadily on autopilot (SES compartments, GARCH/GJR-GARCH vol surfaces, and an inference-driven DECIDE stage all direct-pushed and green, backlog cleared), with its cap-attenuation Phase 2 still awaiting `live_authorized`.
+On the fork side, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax→critical vat) has cleared every PR-attributable red — the shepherd's dprint fix landed and the lone remaining red is stale-base codegen noise — but after four unanswered ticks asking **rebase vs. freeze**, the drive gardener took the reversible default and commissioned a rebase onto master; it still needs your call before un-drafting and requesting SwingSet review. Separately, the XS→Rust validation effort ([kriskowal/garden#33](https://github.com/kriskowal/garden/issues/33)) finalized green across all four workstreams (fork PRs [#11](https://github.com/kriscendobot/agoric-sdk/pull/11)–[#14](https://github.com/kriscendobot/agoric-sdk/pull/14)) and retired its schedule.
+
+Two operational items need you directly. The **triager crash-loop is fixed in code on main2 but still storming at runtime** — the deployed root (`/home/kris/garden2`) is ~56 commits stale and still reads the old `repos/` default; a drained `deploy-garden.sh` is the clean fix, and only the leader/liaison can run it. And finbot continues its autonomous per-cycle build cadence (GARCH, GJR-GARCH, now inference-driven DECIDE — 451 tests green, wallet untouched), but keeps re-flagging that its "no self-PR, fast-forward main" convention strands branches, and that cap-attenuation Phase 2 (live paper-wallet run) is parked awaiting your `live_authorized` decision. Two shepherd/dockerfile jobs also overran the 2400s handler budget and will be poisoned unless split.
 
 ## Parked for maintainer feedback
 
@@ -506,18 +508,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`hyperlink-refs-pr-review-sequence`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/hyperlink-refs-pr-review-sequence.md) — Hyperlink all PR/issue references in the journal-root pr-review-sequence report
+### doin (2)
 - [`ocapn-cross-host-pet-daemon-invite-accept`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-cross-host-pet-daemon-invite-accept.md) — True cross-host Pet-Daemon ↔ Pet-Daemon invite/accept over wss (closes M5)
 - [`port-xs-to-rust-memory-safe-engine-s18`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s18.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
-### tada (1928)
+### tada (1929)
+- [`hyperlink-refs-pr-review-sequence`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/hyperlink-refs-pr-review-sequence.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr9-weave-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr9-weave-master.md) — Completion report
 - [`agoric-sdk-pr9-drive-20260711-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-pr9-drive-20260711-170501.md) — Completion report
 - [`endojs-endo-but-for-bots-pr682-review-6fca982b-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr682-review-6fca982b-retro.md) — Completion report
 - [`build-endo-but-for-bots-endopi-jsonl-transcript-format`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-endopi-jsonl-transcript-format.md) — Completion report
-- [`scholar-library-index-concepts-readme-20260711`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-index-concepts-readme-20260711.md) — Completion report
-- … and 1923 more
+- … and 1924 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
