@@ -1,7 +1,0 @@
-`scripts/jobs/triager.sh` dies at line 32 with `FATAL: no bare clone at $GARDEN_REPOS/<slug>.git` for every watched repo, because its `GARDEN_REPOS` default (line 25, `: "${GARDEN_REPOS:=$GARDEN_ROOT/repos}"`) points at a `repos/` directory that does not exist. The garden's canonical standing bare clones live under `$GARDEN_ROOT/worktrees/<owner>-<repo>.git` — kept fresh by `clone-keeper.sh` and used by `ensure-project-worktree.sh:63` — matching each triager slug exactly (e.g. `worktrees/kriscendobot-agoric-sdk.git` exists). Fix: change the `GARDEN_REPOS` default in `triager.sh` (line 25) from `$GARDEN_ROOT/repos` to `$GARDEN_ROOT/worktrees` so triagers read the clones that actually exist. Apply the same one-line default change to `comment-watcher.sh:179` for convention consistency (it currently only avoids the crash by degrading to `gh` polling, so it silently never used a local clone either). Update the triager.sh header comment (lines 5–7) which describes the clone as living "under $GARDEN_REPOS/<slug>.git" to reflect the worktrees location. Verify `comment-watcher-test.sh` still passes (it overrides `GARDEN_REPOS` explicitly, so it is unaffected) and confirm no other consumer depends on the old `repos/` default. This unbreaks all eight armed `garden-triager@*` timers, not just agoric-sdk.
-
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 3
-  claimed_at: 2026-07-11T01:54:46Z
