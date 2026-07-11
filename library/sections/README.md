@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6365 (530 parent indexes + 5835 children).
+Total section files: 6372 (530 parent indexes + 5842 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -7544,6 +7544,16 @@ Total section files: 6365 (530 parent indexes + 5835 children).
 ### gutentag-component-demos--readmes
 
 - [gutentag-component-demos--readmes--single-tag-demo-packages](gutentag-component-demos--readmes--single-tag-demo-packages.md)
+
+### habitat-chronicles--unum-pattern
+
+- [habitat-chronicles--unum-pattern--addressing-presences-vats-and-channels](habitat-chronicles--unum-pattern--addressing-presences-vats-and-channels.md)
+- [habitat-chronicles--unum-pattern--behavioral-protocols-anti-rest](habitat-chronicles--unum-pattern--behavioral-protocols-anti-rest.md)
+- [habitat-chronicles--unum-pattern--four-messaging-patterns](habitat-chronicles--unum-pattern--four-messaging-patterns.md)
+- [habitat-chronicles--unum-pattern--other-divisions-of-labor-and-containership](habitat-chronicles--unum-pattern--other-divisions-of-labor-and-containership.md)
+- [habitat-chronicles--unum-pattern--overview](habitat-chronicles--unum-pattern--overview.md)
+- [habitat-chronicles--unum-pattern--presences-and-division-of-labor](habitat-chronicles--unum-pattern--presences-and-division-of-labor.md)
+- [habitat-chronicles--unum-pattern--unum-vs-object-two-planes](habitat-chronicles--unum-pattern--unum-vs-object-two-planes.md)
 
 ### kamera--readme
 
