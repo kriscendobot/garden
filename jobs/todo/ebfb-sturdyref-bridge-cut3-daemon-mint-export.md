@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: ebfb-orch-sturdyref-bridge-cuts
-priority: normal
 role: builder
-posted_by: producer
-posted_at: 2026-07-11T23:10:42Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-11T23:46:08Z -->
 
 # Bridge cut 3 — daemon mint and export: sturdyref-store + host-facet grants (design #697, cut 3)
 
