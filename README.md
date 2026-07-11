@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T18:21:06Z_
+_As of 2026-07-11T18:23:52Z_
 
 ## Latest
 
-The deployed garden root is stale, and it's the thing to notice: five self-heal jobs independently converged on the same diagnosis — the triager crash-loop fix (GARDEN_REPOS defaulting to `worktrees/` via a shared resolver) is landed and green on main2, but `/home/kris/garden2` sits ~56 commits behind, so every `garden-triager@*` still FATALs on the old `repos/` path until a drained `deploy-garden.sh` runs. That's a leader/liaison operation no gardener can perform; all eight own-fork bare clones now exist under `worktrees/`, so the deploy is the clean fix.
+The fleet-wide **triager crash-loop is the top operational item**: the fix (GARDEN_REPOS defaults to `worktrees/`, missing clones skip instead of dying) is landed and green on `main2`, but the deployed root `/home/kris/garden2` is ~56 commits behind, so every `garden-triager@*` unit keeps FATAL-looping until a deliberate `deploy-garden.sh` advances it — five self-heal gardeners independently converged on this same "code done, deploy pending" diagnosis. Relatedly, the triage circuit-breaker **opened for `kriscendobot-finbot`**, which also raises a monitoring-safety question: finbot isn't among the repos authorized for watching under CLAUDE.md's constraint.
 
-The foreman flagged M3 repeatedly as merge-bottlenecked rather than work-starved: green, mergeable endo-but-for-bots PRs await your merge — [#608](https://github.com/endojs/endo-but-for-bots/pull/608) (Docker self-host), [#661](https://github.com/endojs/endo-but-for-bots/pull/661) (confined HTTP tool), the mount stack ([#678](https://github.com/endojs/endo-but-for-bots/pull/678)–[#681](https://github.com/endojs/endo-but-for-bots/pull/681)) — while [#594](https://github.com/endojs/endo-but-for-bots/pull/594) (per-package lint) stays unmerged and keeps poisoning gauntlets through the projectService lint ceiling. The endoclaw-timer chain ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) is pending an accept/close decision on [#682](https://github.com/endojs/endo-but-for-bots/pull/682), the `@endo/reminder` redraft that supersedes it.
+**Milestone M3 is now merge-bottlenecked, not build-bottlenecked** — the foreman posted six messages saying every exit-criterion capability has landed as a green, mergeable PR and the fleet has no unblocked work left to claim. The lint ceiling PR [endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) is the trip-wire: until it merges, gauntlets hit phantom-red lint and poison (as #661 did). Awaiting your merge/accept decisions on the ready stack — Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608), confined-HTTP tool [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the mount stack [#671](https://github.com/endojs/endo-but-for-bots/pull/671)/#678–681, and the scheduled-execution pivot where reminder design [#682](https://github.com/endojs/endo-but-for-bots/pull/682) needs an accept/retire call against timer PRs [#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619), plus sequencing PRs [#659](https://github.com/endojs/endo-but-for-bots/pull/659) and #691 and the rename gated on [#598](https://github.com/endojs/endo-but-for-bots/pull/598).
 
-On [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/issues/9) the shepherd cleared every PR-attributable CI red (only stale-base codegen noise remains) and all reviewer feedback is addressed; after three unanswered ticks the driver took the reversible default and commissioned a rebase onto master — say `rebase #9` or `freeze #9` to settle what the PR is. Separately, finbot marched six green increments direct-to-main (SES compartments, multi-instrument portfolios, cyclical/GARCH/GJR-GARCH forecasters, inference-driven DECIDE — 451 tests, wallet untouched), but its triager tripped the 5-fail circuit breaker and `kriscendobot-finbot` isn't in the authorized watch set, worth confirming it belongs there; its cap-attenuation Phase 2 live run stays gated on your authorization. The OCapN-Noise-WS demo is now live and reproducible on minion.town. The board itself is quiet — no new posts, two jobs in flight ([PR #693 shepherd](https://github.com/endojs/endo-but-for-bots/pull/693) and a dead-letter pickup).
+On **[kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9)** (ymax→critical), the rebase-vs-frozen-base question has gone unanswered across four drive ticks (~18h); the shepherd cleared the one PR-attributable red (a dprint miss) and every PR-scope check is now green, so on tick 4 the gardener took the reversible default and commissioned a weave onto current master — say `rebase #9` or `freeze #9` to settle it. Elsewhere, **finbot** landed a run of green direct-push increments (GARCH, GJR-GARCH leverage effect, and the inference-driven DECIDE stage — now 451 tests, wallet gate still holding), an **OCapN-Noise-WS demo went live on minion.town**, and the XS-validation effort finalized across four green fork PRs. Two long jobs (`pr688-shepherd`, `ocapn-pet-daemon-dockerfile-minion`) deterministically overran the 2400s handler budget and need splitting. The board is otherwise quiet — one shepherd on [endo-but-for-bots#693](https://github.com/endojs/endo-but-for-bots/pull/693) in flight.
 
 ## Parked for maintainer feedback
 
@@ -508,17 +508,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`deadmail-20260711T181834Z-b646b4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260711T181834Z-b646b4.md) — Dead-lettered message — pick up its intent
+### doin (1)
 - [`endojs-endo-but-for-bots-pr693-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr693-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #693
 
-### tada (1935)
+### tada (1936)
+- [`deadmail-20260711T181834Z-b646b4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260711T181834Z-b646b4.md) — Report
 - [`ebfb-realign-521-passstyle-shape-only`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-realign-521-passstyle-shape-only.md) — Completion report
 - [`endo-sturdyref-press-20260711-175014`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260711-175014.md) — Completion report — endo-sturdyref-press-20260711-175014 (tick 1 of the hourl...
 - [`issue-kriskowal-garden-36`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-36.md) — Completion report
 - [`ocapn-cross-host-pet-daemon-invite-accept`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-cross-host-pet-daemon-invite-accept.md) — Completion report — ocapn-cross-host-pet-daemon-invite-accept (M5 builder)
-- [`port-xs-to-rust-memory-safe-engine-s18`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s18.md) — Completion report — s18 supervisor: stage-5 reproduction green on all compile...
-- … and 1930 more
+- … and 1931 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
