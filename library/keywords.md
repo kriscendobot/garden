@@ -14352,3 +14352,19 @@ Spark-backed worker | muse-spark-garden-worker-fit
 Muse Spark garden worker | muse-spark-garden-worker-fit
 non-Claude gardener | muse-spark-garden-worker-fit
 `verifyPaymentProof` | (see section: endo-but-for-bots--llm-designs-gateway-package--ten-feature-decomposition-of-one-package-with-one-factory-many-configurations--resource-ledger-in-gateway-not-daemon-decision-8)
+Habitat unum | habitat-unum
+unum pattern | habitat-unum
+unums | habitat-unum
+una | habitat-unum
+Morningstar unum | habitat-unum
+Chip Morningstar unum | habitat-unum
+world object | habitat-unum
+presence (unum) | habitat-unum
+unum presence | habitat-unum
+division of labor presence | habitat-unum
+containership problem | habitat-unum
+Elko server framework | habitat-unum
+Electric Communities unum | habitat-unum
+Reply Neighbor Broadcast Point | habitat-unum
+Neighbor message | habitat-unum
+distributed object that is itself distributed | habitat-unum
