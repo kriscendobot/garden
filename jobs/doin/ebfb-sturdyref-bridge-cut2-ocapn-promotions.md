@@ -38,3 +38,9 @@ closely-held surface), opaque-and-unforgeable.
 - Report with real-execution evidence and state the confinement property
   preserved. Endo gotcha: if you add a package dep, run `yarn build:types:gen`
   (composite-tsconfig lint drift).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  claimed_at: 2026-07-11T23:25:21Z
