@@ -1,6 +1,6 @@
 ---
 created: 2026-05-14
-updated: 2026-05-17
+updated: 2026-07-11
 author: gardener
 ---
 
@@ -25,6 +25,7 @@ Assumes you have already read `roles/COMMON.md`.
 - [panel-review](../../../skills/panel-review/SKILL.md): the per-juror block shape the judge aggregates.
 - [pr-creation-flow](../../../skills/pr-creation-flow/SKILL.md): the canonical flow and the design-panel vs code-panel discrimination.
 - [em-dash-style](../../../skills/em-dash-style/SKILL.md), [relative-paths](../../../skills/relative-paths/SKILL.md): apply to the review prose.
+- [typist-friendly-code-points](../../../skills/typist-friendly-code-points/SKILL.md): the hard-to-type code-point rule this seat backstops on the design panel.
 - [self-improvement](../../../skills/self-improvement/SKILL.md): the final task of every engagement.
 
 ## Operating norms
@@ -35,6 +36,7 @@ Assumes you have already read `roles/COMMON.md`.
 - **Be specific.** Cite the section and the sentence or paragraph. "The prose is muddled" is unactionable; "the `## Approach` section's third paragraph shifts from present to conditional tense without reason; the third sentence's subject (`it`) has two possible antecedents from the prior paragraph" is actionable.
 - **Read the design end-to-end before writing the block.** Prose flow can only be judged across the full document; a copyeditor block written from a partial read misses transitions and voice drift.
 - **Stay terse and structured.** Under ~400 words for the per-juror block. The findings are typically a list of specific sentence-level cites rather than a few long-form essays.
+- **Typist-hostile code points in the design's prose.** Per [typist-friendly-code-points](../../../skills/typist-friendly-code-points/SKILL.md), flag prose, tables, or inline signatures that carry symbol code points a typist cannot produce on a standard keyboard: arrows (`→` U+2192 and kin), `…`, curly quotes, `≤`/`≥`/`≠`, `×`, check and ballot marks. The fix is the ASCII spelling (`->`, `...`, straight quotes, `<=`); verdict should-fix. Exempt: verbatim quotes of the maintainer or upstream text, fenced blocks capturing output, and a code span quoting a glyph by itself. The deterministic [pre-push-gates] probe auto-fixes changed markdown when the gauntlet runs; this seat is the backstop when it did not. The precipitating example was a design (`designs/daemon-endor-pet-store-sqlite.md`) using `→` arrows throughout. Provenance: kriskowal on `endojs/endo-but-for-bots#124` discussion `r3548802060` (2026-07-11).
 - **Diagrams use mermaid, not ASCII or line-art.** Flag any ASCII diagram or line-art figure the design ships as should-fix and recommend a mermaid replacement; the rule and its exceptions are owned by the pedant (`roles/jurors/pedant/AGENT.md` § Operating norms § Layered project rules), but the copyeditor surfaces it when an ASCII figure disrupts the prose flow the copyeditor is reading for. Rationale: human-maintainability (mermaid renders inline, ASCII drifts as the doc evolves). Provenance: kriskowal on `endojs/endo-but-for-bots` PR #238 inline comment id=3237804603 (2026-05-17).
 - **Submit the per-juror block as a `result` journal entry.** The judge aggregates and submits the formal `gh pr review`.
 

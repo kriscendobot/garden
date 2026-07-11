@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-05-12
+updated: 2026-07-11
 author: liaison
 ---
 
@@ -53,3 +53,4 @@ For a single file, use `grep -nP "\xe2\x80\x94" path/to/file.md`.
 (Terse and dated. Append; do not rewrite history.)
 
 - _2026-05-12_: adopted from `../../references/endo-but-for-bots/skills/em-dash-style-rule.md`. The source's table-cell sentinel exception (`| — | — |` placeholders in a project-specific README) was dropped (we have no such tables). Adoption included a one-time sweep of every garden-authored document at commit `422a15a`.
+- _2026-07-11_: sibling skill [typist-friendly-code-points](../typist-friendly-code-points/SKILL.md) now covers the other hard-to-type code points (arrows, ellipsis, curly quotes, comparison signs) with a mechanical auto-fix at the pre-push gate. The em dash stays owned here because its rewrite (period, parentheses, or colon) is judgment, never substitution, so the auto-fix pass deliberately excludes it. The en-dash range allowance above still stands, though the sibling skill prefers the plain hyphen (`80-100`) in new prose; existing en-dash ranges are not sweep-worthy.
