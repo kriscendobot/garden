@@ -1,18 +1,18 @@
 # Garden bulletin
 
-_As of 2026-07-11T07:46:47Z_
+_As of 2026-07-11T07:57:54Z_
 
 ## Latest
 
-The headline for a maintainer is a **deploy gap**: the triager crash-loop fix is fully landed and tested on `main2` (GARDEN_REPOS now defaults to `worktrees/`, a missing bare clone is a clean skip, and triager self-provisioning is opt-in), but four gardeners independently confirm the deployed root `/home/kris/garden2` is ~56 commits behind and still runs the old `/repos` default — so `garden-triager@*` units keep FATAL-looping until a drained `deploy-garden.sh` is run. That deliberate deploy is the one remaining step, and it needs the liaison/leader — no code work is left. After it lands, three enabled instances (`kriscendobot-{ocapn,cosgov,agoric-3-proposals}`) will still be un-triaged for lack of a standing clone, a watch-set decision that intersects the § Monitoring safety authorization bar.
+The triager fleet is wedged on a deploy gap: five self-heal jobs converged on the same diagnosis — the `GARDEN_REPOS` path fix is landed and green on `main2` (shared `bare_clone_dir` resolver, `worktrees/` default, opt-in self-provision), but the deployed root `/home/kris/garden2` is ~56 commits behind and still crash-loops every `garden-triager@*` tick on the stale `/repos` default. A single drained `deploy-garden.sh` clears it; all eight own-fork bare clones now exist under `worktrees/`, so no stopgap cloning is needed first.
 
-On the project side, finbot shipped a steady run of green, wallet-safe simulator increments direct-pushed to `kriscendobot/finbot@main` — multi-instrument yield-bearing portfolios, the cyclical/harmonic forecaster, then GARCH(1,1) and GJR-GARCH conditional-volatility surfaces (435→445 tests, all six auditor invariants PASS, wallet untouched throughout). The branch backlog is now empty; the deepest remaining axis, cap-attenuation Phase 2 (CapTP transport + a first live paper-wallet run), stays gated behind `live_authorized` and awaits your explicit authorization. Finbot also re-flags a convention question: its "no self-PR, fast-forward main" rule keeps stranding builder branches, paying rebase cost each cycle.
+On finbot, five simulator increments landed direct-push on `kriscendobot/finbot@main` since yesterday — SES-compartments capability attenuation, multi-instrument yield portfolios, the cyclical/harmonic forecaster, GARCH(1,1), and now GJR-GARCH leverage — clearing the stranded-branch backlog to just main; 445 tests green with the wallet gate holding (`WALLET TOUCHED: false`). The recurring maintainer decisions are unchanged: whether to formalize direct-to-main landing vs a weaver/conductor fast-forward sweep, and the security-weighted cap-attenuation Phase 2 (a first live paper-wallet run, gated behind `live_authorized`).
 
-On [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9), a shepherd fixed the one PR-attributable red (a `dprint` miss on the critical-vat test rewrite); the remaining reds are stale-base noise that is spreading (test-boot went from 1 to ~9 red shards), sharpening the still-pending call to rebase onto master (~503 commits behind) and un-draft for SwingSet review, or keep it a frozen-base prototype. Elsewhere, an OCapN-Noise-WS demo is live and reproducible on minion.town (Caddy TLS → Noise IK → capability invoke), and the endor-xst core landed on the XS→Rust port's draft PR #600 — with a flag that the branch's committed `c/moddable` gitlink still points at moddable 8.0.1 while HEAD's oracle pin expects 8.3.1, reddening the module-byte gate until a follow-up bumps the submodule pointer.
+On [agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9), the shepherd fixed the one PR-attributable red (a `dprint` miss on the critical-vat rewrite); the remaining reds are all stale-base noise that is *growing* (test-boot spread from 1 to ~9 shards), sharpening the still-pending call to rebase onto master (~503 commits behind) vs keep it a frozen-base prototype — approval can't proceed while it's a review-less draft. Elsewhere: the [endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/pull/688) shepherd deterministically overran its 2400s handler budget and needs splitting into claim-sized stages before it poisons; the endor-xst XS→Rust runner core landed (still draft, with a flagged `c/moddable` gitlink pin left at 8.0.1 that reds the module-byte gate); and an OCapN-Noise-WS demo is live and reproducible on minion.town.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 14h)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 15h)
 - [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 1d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 8d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 11d)
@@ -329,6 +329,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > — the CapTP transport for the gated spawnSigningWorker stub and a first live
 > paper-wallet/test-net run, gated behind live_authorized: true. Not advanced without
 > explicit authorization.
+
+- `20260711T075741Z-0634c1` — from watchdog:gardener/3, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T075741Z-0634c1.md)
+
+> gardener job 'endojs-endo-but-for-bots-pr688-shepherd' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 
 ## Board
