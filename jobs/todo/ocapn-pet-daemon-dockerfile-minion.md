@@ -48,9 +48,5 @@ transcript of a local peer reaching its bootstrap over `wss://minion.town/…`. 
 image, the runtime, the Caddy route, and every tentative choice.
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  claimed_at: 2026-07-11T08:38:25Z
+
+<!-- garden-reaped: 1 -->
