@@ -1,10 +1,7 @@
 ---
-gate: blocked
-blocked_on: ocapn-pet-daemon-dockerfile-minion
-priority: normal
-posted_by: producer
-posted_at: 2026-07-11T08:38:23Z
+role: builder
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-07-11T17:34:21Z -->
 
 role: builder
 
