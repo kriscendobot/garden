@@ -1,14 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-11T01:34:28Z_
+_As of 2026-07-11T01:43:46Z_
 
 ## Latest
 
-The four-layer glob/grep `@endo/platform` pushdown stack for #127 cleared the gauntlet and un-drafted into the review queue — [endo-but-for-bots#678](https://github.com/endojs/endo-but-for-bots/pull/678) (search engine), [#679](https://github.com/endojs/endo-but-for-bots/pull/679) (`EndoMount.glob`), [#680](https://github.com/endojs/endo-but-for-bots/pull/680) (`EndoMount.grep`), and [#681](https://github.com/endojs/endo-but-for-bots/pull/681) (agent tools) — and shepherds have since driven #678, #679, and #681 to green CI. Two items want a maintainer call before merge: normative grep still ships an unbounded `RegExp` (a pre-existing ReDoS surface the pushdown now makes a reusable primitive — gate on the conservative subset per [#676](https://github.com/endojs/endo-but-for-bots/pull/676), or accept interim exposure), and design PR [#675](https://github.com/endojs/endo-but-for-bots/pull/675) should land on `llm` first so the stack's changelog links resolve.
+The four-layer glob/grep `@endo/platform` search-pushdown stack for the #127 series is built, gauntleted, and shepherded green: [#678](https://github.com/endojs/endo-but-for-bots/pull/678) (engine), [#679](https://github.com/endojs/endo-but-for-bots/pull/679) (`EndoMount.glob`), [#680](https://github.com/endojs/endo-but-for-bots/pull/680) (`EndoMount.grep` + pipeline), and [#681](https://github.com/endojs/endo-but-for-bots/pull/681) (agent tools) are all un-drafted and awaiting review. Two maintainer calls gate them: whether to land design PR [#675](https://github.com/endojs/endo-but-for-bots/pull/675) first so changelog links resolve, and whether normative `grep` should be gated on the conservative-regexp subset (the `@endo/regexp` work at [#676](https://github.com/endojs/endo-but-for-bots/pull/676)) before shipping its unbounded-`RegExp` ReDoS surface.
 
-The more urgent operational note: the triager crash-loop fix is landed and tested on `main2`, but the **deployed garden root (`/home/kris/garden2`) is ~56 commits behind** and still carries the old `GARDEN_REPOS=…/repos` default, so every `garden-triager@*` unit is still FATAL-flapping (the overnight self-heal storm, now compounded by session-limit errors that reset at 00:30 UTC). All eight own-fork bare clones now exist under `worktrees/`, so a single drained `deploy-garden.sh` will quiet the fleet cleanly — that deploy is the one action blocking recovery.
+The louder signal is fleet health: the deployed garden root (`/home/kris/garden2`, HEAD `688e6174c8`) is ~56 commits behind `main2`, so every `garden-triager@*` unit is still crash-looping on the old `GARDEN_REPOS=…/repos` default even though the fix has long since landed on `main2` — a drained `deploy-garden.sh` is the clean resolution, and it's a leader/liaison action no gardener can take. Compounding it, a wave of triagers hit session-limit resets overnight, and `kriscendobot-finbot`'s triager tripped its circuit-breaker (worth confirming finbot even belongs on the authorized watch set).
 
-Meanwhile the foreman is repeatedly flagging M3 as saturated-in-flight: the mount chain, endoclaw-timer stack (#609/#617/#619), and gateway/agent-tools work are all green and mergeable but unmerged on `llm`, leaving no unblocked build work — forward progress now depends on merge/authority decisions, not more building. Several jobs also self-reported as duplicates or impasses (the mvs-resolver home split between [#403](https://github.com/endojs/endo-but-for-bots/pull/403) and [#671](https://github.com/endojs/endo-but-for-bots/pull/671), the Docker-selfhost rebuild of already-closed [#134](https://github.com/endojs/endo-but-for-bots/pull/134)), and PR [#618](https://github.com/endojs/endo-but-for-bots/pull/618) was archived by kriskowal over a capability-leak concern, deferred to @kumavis.
+The foreman keeps reporting M3 has **no unblocked build work**: the mount chain (#650/#652/#653/#655/#657/#658), the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)), and agent-tools are green, mergeable, and gauntleted but sitting unmerged on `llm`, blocking every stacked follower — forward progress now needs merge/review attention, not more queued builds. Separately, kriskowal **closed** agent-tools Phase-4 [#618](https://github.com/endojs/endo-but-for-bots/pull/618) over a capability-leak (dangerous-shell) concern, handing the reopen decision to @kumavis.
+
+Several jobs stalled as duplicates or collisions worth your adjudication: the MVS resolver exists in both [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (daemon-side) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (`@endo/exo-npm`) — an unsettled `@endo/daemon` vs package-boundary split; the Docker-selfhost build re-spawned off a stale design record despite closed [#134](https://github.com/endojs/endo-but-for-bots/pull/134); and `daemon-locator-terminology` is already merged. On the fork side, the agoric-sdk XS-validation effort (PRs [#13](https://github.com/kriscendobot/agoric-sdk/pull/13)/[#14](https://github.com/kriscendobot/agoric-sdk/pull/14), garden#33) is fully green and blocked only on two decisions (waive the Depot-gated `force:integration` leg; does green-draft #14 count as "landed"), and finbot landed four clean increments (SES-compartments, multi-instrument portfolios, cyclical + GARCH forecasters). Two jobs poisoned out to `go-ahead` parking: the #592 cancellation-API fixer and the [#661](https://github.com/endojs/endo-but-for-bots/pull/661) http-client gauntlet.
 
 ## Parked for maintainer feedback
 
@@ -902,16 +904,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`self-heal-fix-garden-triager-kriscendobot-ocapn-missing-bare-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-ocapn-missing-bare-clone.md) — Fix scripts/jobs/triager.sh so its per-repo tick stops dying with FATAL: no b...
+### doin (0)
+(none)
 
-### tada (1832)
+### tada (1833)
+- [`self-heal-fix-garden-triager-kriscendobot-ocapn-missing-bare-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ocapn-missing-bare-clone.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-minion-town-bare-clone-path`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-bare-clone-path.md) — Completion report (resume)
 - [`endojs-endo-but-for-bots-pr681-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr681-shepherd.md) — Completion report
 - [`endojs-endo-but-for-bots-pr679-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr679-shepherd.md) — Shepherd job complete. CI is green on PR #679.
 - [`endojs-endo-but-for-bots-pr678-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr678-shepherd.md) — Completion report
-- [`self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-no-bare-clone-self-provision`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-no-bare-clone-self-provision.md) — Completion report
-- … and 1827 more
+- … and 1828 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
