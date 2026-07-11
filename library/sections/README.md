@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6391 (530 parent indexes + 5861 children).
+Total section files: 6395 (530 parent indexes + 5865 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -7544,6 +7544,13 @@ Total section files: 6391 (530 parent indexes + 5861 children).
 ### gutentag-component-demos--readmes
 
 - [gutentag-component-demos--readmes--single-tag-demo-packages](gutentag-component-demos--readmes--single-tag-demo-packages.md)
+
+### habitat-chronicles--adventures-in-llm-land
+
+- [habitat-chronicles--adventures-in-llm-land--agentic-development-and-the-agent-flock](habitat-chronicles--adventures-in-llm-land--agentic-development-and-the-agent-flock.md)
+- [habitat-chronicles--adventures-in-llm-land--delegation-wanting-and-the-ceo-analogy](habitat-chronicles--adventures-in-llm-land--delegation-wanting-and-the-ceo-analogy.md)
+- [habitat-chronicles--adventures-in-llm-land--division-of-labor-human-and-machine](habitat-chronicles--adventures-in-llm-land--division-of-labor-human-and-machine.md)
+- [habitat-chronicles--adventures-in-llm-land--overview](habitat-chronicles--adventures-in-llm-land--overview.md)
 
 ### habitat-chronicles--skeptical-perspective-on-rest
 
