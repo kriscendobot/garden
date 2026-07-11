@@ -38,6 +38,10 @@
 | [Devoker four-layer architecture and vigil/refinery](../sections/unum--devoker-four-layer-architecture.md) | unum devoker/DESIGN.md | Evoker→Invoker→Agent→Model layering, single-binary argv[0] dispatch, and the vigil health-monitor / occupancy-aware burst / refinery engine. |
 | [Host provisioning and systemd resource-slice quotas](../sections/unum--make-user-host-resource-quota.md) | unum devoker/DESIGN.md | Plan-then-apply host provisioning; per-alter CPU/memory/task slice quota profiles (light/medium/heavy) — a non-token agent budget. |
 | [notify-server — durable notification proxy](../sections/unum--notify-server-routedown.md) | unum notify_server/DESIGN.md | A standalone HTTP proxy: persist-then-dispatch with retry/backoff behind a Markdown Routedown routing config. |
+| [Adventures In LLM Land — germane thesis](../sections/habitat-chronicles--adventures-in-llm-land--overview.md) | Adventures in LLM Land (Morningstar) | Germane-only ingest of Morningstar's 2026 AI-coding essay: getting value from agents takes discipline, and the human role is *wanting*. |
+| [agentic development and the agent flock](../sections/habitat-chronicles--adventures-in-llm-land--agentic-development-and-the-agent-flock.md) | Adventures in LLM Land (Morningstar) | Agents are multiple independent entities working on your behalf, managed like brilliant-but-naive junior developers (engineering-management-as-higher-level-programming). |
+| [division of labor between human and machine](../sections/habitat-chronicles--adventures-in-llm-land--division-of-labor-human-and-machine.md) | Adventures in LLM Land (Morningstar) | The machine makes, the human wants: "the AI can make things for you, but it can't want things for you"; a vague want yields slop. |
+| [delegation, wanting, and the CEO analogy](../sections/habitat-chronicles--adventures-in-llm-land--delegation-wanting-and-the-ceo-analogy.md) | Adventures in LLM Land (Morningstar) | Why you can't swap humans for AIs in org-chart boxes: delegation passes down judgment and taste through many layers of recursively ramified desire. |
 
 ## See also
 
