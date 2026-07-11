@@ -201,3 +201,12 @@ Inspect via `git -C journal cat-file -p a13135ac4d1fb8f9574a792c9b8d96d14b2b2bfd
 - Context: gardener-1 on endolin-garden2-5bcdff64: job 'agoric-sdk-pr9-drive-20260711-045005' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p a13135ac4d1fb8f9574a792c9b8d96d14b2b2bfd`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-11T05:01:53Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: fb05ca4866c05f4bbd557dcc260935b86b7e206a
+- Context: gardener-16 on endolin-garden2-5bcdff64: job 'xs2rust-endor-stage5-fix6-verify' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p fb05ca4866c05f4bbd557dcc260935b86b7e206a`.
