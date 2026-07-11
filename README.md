@@ -1,18 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T07:12:51Z_
+_As of 2026-07-11T07:17:49Z_
 
 ## Latest
 
-The board is quiet — only the daily progress summary closed — but the maintainer inbox filled with work that needs your attention.
+The [endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/pull/688) shepherd is the only new board post — everything else moved through the message bus. finbot cleared its entire stranded-branch backlog: four green increments landed direct-to-main this cycle (SES-compartments capability attenuation, multi-instrument yield-bearing portfolios, the cyclical/harmonic forecaster, then GARCH(1,1) and GJR-GARCH conditional-vol surfaces), taking the suite from 388 to 445 tests with the wallet-safety gate holding throughout; only `main` remains, no stranded branches. Two decisions still sit open there: whether builders should keep landing finbot increments directly on `main` (the current stranding-and-rebase cadence) vs. a weaver/conductor fast-forward sweep, and the security-gated cap-attenuation Phase 2 (live CapTP transport + first paper-wallet run) that no gardener will advance without explicit `live_authorized`.
 
-**Fleet health, action needed:** the triager crash-loop is fixed in `main2` (`GARDEN_REPOS` now defaults to `worktrees/` via a shared `bare_clone_dir` resolver, missing clones skip cleanly, self-provision is opt-in), but four self-heal gardeners independently confirm the same gap: the **deployed root `/home/kris/garden2` is ~56 commits behind and still carries the stale `/repos` default**, so `garden-triager@*` keeps FATAL-looping at runtime. A drained `deploy-garden.sh` is the clean fix and only a leader/liaison can run it. Separately, a triage circuit-breaker OPENed for `kriscendobot-finbot`, and that repo plus `kriscendobot-{ocapn,cosgov,agoric-3-proposals}` intersect the § Monitoring-safety watch-set authorization question — worth confirming they belong in the set.
+The most actionable item: **a deploy gap is keeping the triager crash-loop live.** Six converging self-heal reports confirm the fix is already landed and tested on `main2` (GARDEN_REPOS now defaults to `worktrees/`, missing clones skip cleanly instead of FATAL-ing), but the deployed root `/home/kris/garden2` is ~56 commits behind, so `garden-triager@*` units keep flapping on the stale `/repos` default. A deliberate drained `deploy-garden.sh` is the clean fix — a leader/liaison operation gardeners can't run. All eight own-fork bare clones now exist under `worktrees/`, so post-deploy the provisioner is a no-op; kriscendobot-{ocapn,cosgov,agoric-3-proposals} remain a separate watch-set-authorization question.
 
-**finbot** landed five green increments on `kriscendobot/finbot@main` across the day — SES-compartments (the cap-attenuation safety cornerstone), multi-instrument yield-bearing portfolios, a cyclical/seasonal forecaster, GARCH(1,1), and GJR-GARCH leverage — draining the stranded-branch backlog to zero (now 445 tests green, wallet gate holds). Two decisions stay open for you: whether builders should land finbot increments directly on main (to stop per-cycle rebase cost), and the security-weighted cap-attenuation Phase 2 (CapTP transport + first live paper-wallet run, gated behind `live_authorized`) — not advanced without authorization.
-
-**[kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/issues/9)** (ymax→critical): a shepherd fixed the one PR-attributable red (a `dprint` miss), but the remaining reds are stale-base noise that's *growing* (test-boot spread from 1 to ~9 shards) — the pending rebase-vs-frozen-prototype call is now costing green CI.
-
-Also live: the **OCapN-Noise-WS demo** is running and reproducible on minion.town (Caddy TLS → Noise IK → capability round-trip), and **endor-xst** core landed on the XS→Rust port (still draft) with a flagged submodule-pin mismatch (committed `c/moddable` gitlink is 8.0.1 but HEAD requires 8.3.1 — needs a separate gitlink bump).
+On [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9), the shepherd fixed the one PR-attributable red (a `dprint` miss); the remaining reds are stale-base noise that is *growing* (test-boot spread from 1 to ~9 shards), sharpening the still-pending rebase-vs-frozen-prototype call. Also live: an OCapN-Noise-WS demo end-to-end reproducible on minion.town (awaiting a go/no-go on promoting it to the full Pet Daemon bootstrap and landing the Caddy route durably), and endor-xst core landed on its still-draft xs2rust-endor PR with a flagged c/moddable submodule-pin mismatch (8.0.1 vs the required 8.3.1) worth a one-line follow-up commit.
 
 ## Parked for maintainer feedback
 
@@ -339,7 +335,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr688-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr688-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #688
 - [`xs2rust-endor-262-xst-async-done`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-262-xst-async-done.md) — Builder: endor-xst async/$DONE + job-drain wiring (PR #600, test262-convergen...
 
 ### tada (1877)
