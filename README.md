@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T02:06:45Z_
+_As of 2026-07-11T02:11:45Z_
 
 ## Latest
 
-The board was nearly idle this window — the only completion was another XS-validation orchestrator tick — but the maintainer inbox is where the signal is, and the loudest item is operational: the deployed garden root (`/home/kris/garden2`) is stalled ~56 commits behind `main2`, so it still carries the old `/repos` `GARDEN_REPOS` default and every `garden-triager@*` unit is crash-looping; the fix is already landed and tested on `main2`, and all eight own-fork bare clones now exist under `worktrees/`, so a single drained `deploy-garden.sh` will clear the storm. Overlapping session-limit exhaustion (reset 12:30am UTC) added a second wave of self-heal noise on the same units. On the work front, the #127 glob/grep `@endo/platform` pushdown stack was built, gauntleted, and un-drafted into your queue as [#678](https://github.com/endojs/endo-but-for-bots/pull/678)/[#679](https://github.com/endojs/endo-but-for-bots/pull/679)/[#680](https://github.com/endojs/endo-but-for-bots/pull/680)/[#681](https://github.com/endojs/endo-but-for-bots/pull/681) (with two merge-gate judgment calls flagged: grep's unbounded-RegExp ReDoS exposure and landing design PR [#675](https://github.com/endojs/endo-but-for-bots/pull/675) first), and the mount-glob PR [#653](https://github.com/endojs/endo-but-for-bots/pull/653) was shepherded to fully green after a rebase onto its fixed base.
+The garden's triager fleet is crash-looping and the fix is already landed but undeployed: the deployed root (`/home/kris/garden2`) trails `main2` by dozens of commits, so every `garden-triager@*` unit still reads the retired `/repos` clone path and dies each tick — a chorus of self-heal reports converges on the same remedy, a deliberate drained `deploy-garden.sh` on the leader host. Session-limit exhaustion (resets tracked through the night) also knocked out triage across the watched forks. On the code side, the triager path fix itself is now merged on `main2` (shared `bare_clone_dir` resolver, self-provision made opt-in), and the avoid-name-abbreviations review-miss cluster was closed with a new spell-out-identifiers pre-push probe.
 
-The recurring theme across the foreman's four messages is that M3 is saturated but stalled on merges, not missing work: the mount chain ([#650](https://github.com/endojs/endo-but-for-bots/pull/650)/[#652](https://github.com/endojs/endo-but-for-bots/pull/652)/[#653](https://github.com/endojs/endo-but-for-bots/pull/653)/[#655](https://github.com/endojs/endo-but-for-bots/pull/655)/[#657](https://github.com/endojs/endo-but-for-bots/pull/657)), the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)), and several others are green and mergeable but unmerged, blocking every stacked follower — the fleet needs merge attention, not more build jobs. Several build jobs also came back as no-ops because the work already exists ([#609](https://github.com/endojs/endo-but-for-bots/pull/609) for the interval-scheduler, [#614](https://github.com/endojs/endo-but-for-bots/pull/614)/[#618](https://github.com/endojs/endo-but-for-bots/pull/618) for daemon fs tools, the daemon-locator terminology already merged, and the docker-selfhost design closed as declined per [#134](https://github.com/endojs/endo-but-for-bots/pull/134)); PR [#618](https://github.com/endojs/endo-but-for-bots/pull/618) was closed by kriskowal over a capability-leak concern and handed to @kumavis. Two efforts are parked purely on your decisions: the XS-validation effort ([garden#33](https://github.com/kriskowal/garden/issues/33)) is engineering-complete and green on fork PRs [kriscendobot/agoric-sdk#13](https://github.com/kriscendobot/agoric-sdk/pull/13) and [#14](https://github.com/kriscendobot/agoric-sdk/pull/14), awaiting a `force:integration` waiver and a "landed" call; and finbot has now landed its full backlog (SES-compartments, multi-instrument portfolios, cyclical forecaster, and GARCH), leaving only the security-gated live-wallet transport step pending your authorization.
+The #127 glob/grep `@endo/platform` pushdown stack was built, gauntleted, and un-drafted into the review queue as four layers — [#678](https://github.com/endojs/endo-but-for-bots/pull/678) (search engine), [#679](https://github.com/endojs/endo-but-for-bots/pull/679) (`EndoMount.glob`), [#680](https://github.com/endojs/endo-but-for-bots/pull/680) (`EndoMount.grep`), and [#681](https://github.com/endojs/endo-but-for-bots/pull/681) (agent tools) — carrying two flagged judgment calls: grep's unbounded-RegExp ReDoS exposure (gated on the `@endo/regexp` conservative subset, [#676](https://github.com/endojs/endo-but-for-bots/pull/676)) and a request to land design PR [#675](https://github.com/endojs/endo-but-for-bots/pull/675) first so changelog links resolve.
+
+The foreman is now repeatedly reporting that Milestone M3 has **no unblocked build work** — the daemon-mount, endoclaw-timer, and agent-tools stacks are all green and mergeable but sitting unmerged on `llm`, blocking every stacked follower; forward progress depends on a merge/review sweep of that ~60-PR backlog. Several efforts are parked on your decisions: the XS-validation effort ([garden#33](https://github.com/kriskowal/garden/issues/33)) is fully green and waiting only on a `force:integration` waiver and a park-on-fail "landed" call; PR [#618](https://github.com/endojs/endo-but-for-bots/pull/618) was closed by kriskowal over capability-leak concerns and handed to @kumavis; and finbot landed four clean increments (SES compartments, multi-instrument portfolios, cyclical forecaster, GARCH volatility) with its stranded-branch backlog now fully drained.
 
 ## Parked for maintainer feedback
 
@@ -26,18 +28,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `20260709T202811Z-53aebd` — from gardener:endojs-endo-but-for-bots-mount-denied-segments-cli, reply_to `endojs-endo-but-for-bots-mount-denied-segments-cli` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T202811Z-53aebd.md)
 
-> Opened draft PR endojs/endo-but-for-bots#652 — the CLI follow-up for the mount
-> `deniedSegments` option (deferred by PR A, #650). It adds a repeatable
+> Opened draft PR [endojs/endo-but-for-bots#652](https://github.com/endojs/endo-but-for-bots/issues/652) — the CLI follow-up for the mount
+> `deniedSegments` option (deferred by PR A, [#650](https://github.com/endojs/endo-but-for-bots/issues/650)). It adds a repeatable
 > `--deny <segment>` and `--no-deny` to `endo mount` and `endo mktmp`, forwarding
 > to provideMount/provideScratchMount, mirroring `--read-only`.
 >
-> Dependency note: #652 is STACKED on #650 (base = frozen snapshot
-> `feat/mount-revocation-104895e` of #650's head). I intentionally left it draft
-> and did NOT run the panel/un-draft yet: #650 is still an open draft, so
-> un-drafting #652 now would enqueue it against a base that disappears when #650
-> merges/rebases. Suggested sequencing: after #650 merges to `llm`, post a
+> Dependency note: [#652](https://github.com/endojs/endo-but-for-bots/issues/652) is STACKED on [#650](https://github.com/endojs/endo-but-for-bots/issues/650) (base = frozen snapshot
+> `feat/mount-revocation-104895e` of [#650](https://github.com/endojs/endo-but-for-bots/issues/650)'s head). I intentionally left it draft
+> and did NOT run the panel/un-draft yet: [#650](https://github.com/endojs/endo-but-for-bots/issues/650) is still an open draft, so
+> un-drafting [#652](https://github.com/endojs/endo-but-for-bots/issues/652) now would enqueue it against a base that disappears when [#650](https://github.com/endojs/endo-but-for-bots/issues/650)
+> merges/rebases. Suggested sequencing: after [#650](https://github.com/endojs/endo-but-for-bots/issues/650) merges to `llm`, post a
 > `rebase #652` (move its base to the live/merged base) then `run the gauntlet
-> #652` to panel + un-draft. Happy to do both as a follow-up when #650 lands.
+> [#652](https://github.com/endojs/endo-but-for-bots/issues/652)` to panel + un-draft. Happy to do both as a follow-up when [#650](https://github.com/endojs/endo-but-for-bots/issues/650) lands.
 >
 > Local verification done at the slice level (offline): help surface for both
 > commands advertises the flags; the option resolver's three branches
@@ -54,8 +56,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > BLOCKER (verified, not stale): the XS worker/SES-boot path is not buildable from endo-but-for-bots as it stands.
 > - rust/endo/xsnap `include_str!`s three generated bundles — ses_boot.js, worker_bootstrap.js, daemon_bootstrap.js — all gitignored and ABSENT, so the xsnap crate cannot even compile. No cargo test touching XS can build here.
-> - The worker/SES-boot generators (`bundle-bus-worker-xs.mjs` + the SES boot generator + the `bus-worker-xs.js` entry) are absent and NOT in git history (rust/endo/README §"Not yet runnable" #2).
-> - The daemon bundler (`bundle-bus-daemon-rust-xs.mjs`) currently FAILS on Node-only imports (@endo/git, a @endo/platform/fs/lite path) — pre-existing (README #1).
+> - The worker/SES-boot generators (`bundle-bus-worker-xs.mjs` + the SES boot generator + the `bus-worker-xs.js` entry) are absent and NOT in git history (rust/endo/README §"Not yet runnable" [#2](https://github.com/endojs/endo-but-for-bots/issues/2)).
+> - The daemon bundler (`bundle-bus-daemon-rust-xs.mjs`) currently FAILS on Node-only imports (@endo/git, a @endo/platform/fs/lite path) — pre-existing (README [#1](https://github.com/endojs/endo-but-for-bots/issues/1)).
 > - No prebuilt `endor` binary or bundles anywhere on the host; node_modules absent (full monorepo install needed).
 > - mount.js's glob is a pure walk over injected filePowers, but it's packaged as an exo (makeExo/E/harden) whose graph needs the same failing compartment-mapper bundle — no clean minimal XS harness without fixing the boot path.
 >
@@ -71,7 +73,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Followup to my impasse message on `endojs-endo-but-for-bots-mount-glob-rust-runner`: rather than block, I proceeded with the recommended default (Option A, the design-sanctioned Rust-side parity runner), since the XS-run path is not buildable in this tree. Draft PR is up and easy to redirect if you'd rather I pursue Option B instead.
 >
-> Draft PR #654 (base = frozen feat/mount-glob-e2abb76, stacked on PR B #653): new `rust/mount_parity` crate that materializes mount-fixture-manifest.json exactly like _mount-fixture.js and asserts a faithful Rust mirror of mount.js's glob reproduces every mount-glob-cases.json `expect` byte-for-byte (UTF-16 sort, deny filter, symlink confinement, GLOB_MAX_RESULTS). `cargo test -p mount_parity` = 5 green; regression-checked (neutering deny / reversing sort both turn it red); crate has no xsnap/endo dep so it builds without the XS bundles. tests/mount_grep_parity.rs is the reuse seam for PR C's grep table.
+> Draft PR [#654](https://github.com/endojs/endo-but-for-bots/issues/654) (base = frozen feat/mount-glob-e2abb76, stacked on PR B [#653](https://github.com/endojs/endo-but-for-bots/issues/653)): new `rust/mount_parity` crate that materializes mount-fixture-manifest.json exactly like _mount-fixture.js and asserts a faithful Rust mirror of mount.js's glob reproduces every mount-glob-cases.json `expect` byte-for-byte (UTF-16 sort, deny filter, symlink confinement, GLOB_MAX_RESULTS). `cargo test -p mount_parity` = 5 green; regression-checked (neutering deny / reversing sort both turn it red); crate has no xsnap/endo dep so it builds without the XS bundles. tests/mount_grep_parity.rs is the reuse seam for PR C's grep table.
 >
 > Still open for your steer:
 > 1. Is the Rust-side runner acceptable as the durable guard, or do you want the XS-run-mount.js variant (Option B), which first needs the XS boot path unblocked (fix daemon bundler + author the missing worker/SES-boot generators + bus-worker-xs.js)? If B, want me to take on that boot-path prerequisite as its own job?
@@ -87,13 +89,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Job 'endoclaw-timer-daemon-graduation-phase-one' is ALREADY SATISFIED by an open, green, non-draft PR — no duplicate opened.
 >
-> PR #609 "feat(daemon): interval-scheduler formula (endoclaw-timer Phase 1 remainder)" (base llm, head build/endoclaw-timer-daemon-formula-integration) implements exactly this job's named scope: the `interval-scheduler` formula type (formula-type.js + types.d.ts IntervalSchedulerFormula), the extractDeps case (daemon.js:809, strong agent edge), the maker-table entry (daemon.js:3918 + formulateIntervalScheduler), a 737-line SES-safe port of the genie prototype into packages/daemon/src/interval-scheduler.js (additive — genie prototype left in place), host.js/interfaces.js wiring, tests (interval-scheduler.test.js 571 lines + formula-type.test.js), and a changeset. State: OPEN, non-draft, MERGEABLE/CLEAN, all CI checks SUCCESS.
+> PR [#609](https://github.com/endojs/endo-but-for-bots/issues/609) "feat(daemon): interval-scheduler formula (endoclaw-timer Phase 1 remainder)" (base llm, head build/endoclaw-timer-daemon-formula-integration) implements exactly this job's named scope: the `interval-scheduler` formula type (formula-type.js + types.d.ts IntervalSchedulerFormula), the extractDeps case (daemon.js:809, strong agent edge), the maker-table entry (daemon.js:3918 + formulateIntervalScheduler), a 737-line SES-safe port of the genie prototype into packages/daemon/src/interval-scheduler.js (additive — genie prototype left in place), host.js/interfaces.js wiring, tests (interval-scheduler.test.js 571 lines + formula-type.test.js), and a changeset. State: OPEN, non-draft, MERGEABLE/CLEAN, all CI checks SUCCESS.
 >
-> Stacked follow-ons already exist for the later phases (out of this job's scope): #617 Phase 2 (tick delivery as mail + TickResponse exo), #619 Phase 3 (startup recovery). Suggest closing this job as a duplicate; #609 is ready for the conductor/merge path.
+> Stacked follow-ons already exist for the later phases (out of this job's scope): [#617](https://github.com/endojs/endo-but-for-bots/issues/617) Phase 2 (tick delivery as mail + TickResponse exo), [#619](https://github.com/endojs/endo-but-for-bots/issues/619) Phase 3 (startup recovery). Suggest closing this job as a duplicate; [#609](https://github.com/endojs/endo-but-for-bots/issues/609) is ready for the conductor/merge path.
 
 - `20260709T215830Z-61c5d2` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T215830Z-61c5d2.md)
 
-> On endojs/endo-but-for-bots PR #286 (http-client reconcile onto merged #566, https://github.com/endojs/endo-but-for-bots/pull/286): the landed `HttpClientControl` mutators (`addAllowedOrigin`, `revoke`, rate/byte/timeout) are not yet wired through the daemon controller facet — the controller is a read-only allowlist holder and the paired control facet is unused. Wiring it is described as Phase 2/3 work. Do you want to post a designer/builder job to plan and land that wiring now, or defer it?
+> On endojs/endo-but-for-bots PR #286 (http-client reconcile onto merged #566, [https://github.com/endojs/endo-but-for-bots/pull/286](https://github.com/endojs/endo-but-for-bots/pull/286)): the landed `HttpClientControl` mutators (`addAllowedOrigin`, `revoke`, rate/byte/timeout) are not yet wired through the daemon controller facet — the controller is a read-only allowlist holder and the paired control facet is unused. Wiring it is described as Phase 2/3 work. Do you want to post a designer/builder job to plan and land that wiring now, or defer it?
 
 - `20260709T220229Z-957984` — from gardener:endojs-endo-but-for-bots-daemon-agent-tools-phase-one-filesystem-tools, reply_to `endojs-endo-but-for-bots-daemon-agent-tools-phase-one-filesystem-tools` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T220229Z-957984.md)
 
@@ -101,14 +103,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The ask ("Dir-backed filesystem agent tools in Lal/Fae — file browse+edit confined to a granted Dir") is already delivered across two PRs on `llm`:
 >
-> - **#614 (LANDED)** — the file-tool *makers* in `@endo/agent-tools`: `makeMountListTool` / `makeMountEditTool` / `makeMountStatTool` + composite `makeMountFsTools` over an `@endo/platform/fs/extended` Filesystem (read-only deployments drop the edit tool at construction). Design's "Phase 1".
-> - **#618 (OPEN DRAFT, but CONFLICTING/stale since 2026-07-06)** — the Lal/Fae *wiring*: a new `discoverCapabilityTools(powers)` in `@endo/agent-tools/discover.js` that looks up a `Dir`/mount cap under pet name `fs`, projects it via `mountAsFilesystem`, and registers `makeMountFsTools`; wired into `packages/lal/agent.js` AND `packages/fae/src/capability-tools.js`, plus the provisioning flow (`provideMount` + a "Coding capabilities: fs, shell, git" form field). This is verbatim the job. It bundles shell+git+form-provisioning too (the job said Shell/Git were out of scope).
+> - **[#614](https://github.com/endojs/endo-but-for-bots/issues/614) (LANDED)** — the file-tool *makers* in `@endo/agent-tools`: `makeMountListTool` / `makeMountEditTool` / `makeMountStatTool` + composite `makeMountFsTools` over an `@endo/platform/fs/extended` Filesystem (read-only deployments drop the edit tool at construction). Design's "Phase 1".
+> - **[#618](https://github.com/endojs/endo-but-for-bots/issues/618) (OPEN DRAFT, but CONFLICTING/stale since 2026-07-06)** — the Lal/Fae *wiring*: a new `discoverCapabilityTools(powers)` in `@endo/agent-tools/discover.js` that looks up a `Dir`/mount cap under pet name `fs`, projects it via `mountAsFilesystem`, and registers `makeMountFsTools`; wired into `packages/lal/agent.js` AND `packages/fae/src/capability-tools.js`, plus the provisioning flow (`provideMount` + a "Coding capabilities: fs, shell, git" form field). This is verbatim the job. It bundles shell+git+form-provisioning too (the job said Shell/Git were out of scope).
 >
-> The job's "Phase 1" is the 2026-03 sketch's numbering (fs=first of fs/shell/git); the reconciled design (updated 2026-07-09) numbers the fs makers as Phase 1 (landed #614) and the harness wiring as Phase 4 (#618).
+> The job's "Phase 1" is the 2026-03 sketch's numbering (fs=first of fs/shell/git); the reconciled design (updated 2026-07-09) numbers the fs makers as Phase 1 (landed [#614](https://github.com/endojs/endo-but-for-bots/issues/614)) and the harness wiring as Phase 4 ([#618](https://github.com/endojs/endo-but-for-bots/issues/618)).
 >
 > I stopped rather than open a third overlapping PR. Two sensible paths — your call:
-> 1. **Redundant** → close/withdraw this job; if #618 is what you want, it needs a **weave/rebase** (it's CONFLICTING against `llm`), which is a weaver job, not a build.
-> 2. **Extract a clean fs-only slice** → you want the filesystem wiring landed independently of #618's conflicting shell/git bundle. I can build a narrow PR that adds only the `fs`-cap discovery+wiring into Lal/Fae (reusing landed #614 makers), leaving shell/git out. Say the word and I'll do that.
+> 1. **Redundant** → close/withdraw this job; if [#618](https://github.com/endojs/endo-but-for-bots/issues/618) is what you want, it needs a **weave/rebase** (it's CONFLICTING against `llm`), which is a weaver job, not a build.
+> 2. **Extract a clean fs-only slice** → you want the filesystem wiring landed independently of [#618](https://github.com/endojs/endo-but-for-bots/issues/618)'s conflicting shell/git bundle. I can build a narrow PR that adds only the `fs`-cap discovery+wiring into Lal/Fae (reusing landed [#614](https://github.com/endojs/endo-but-for-bots/issues/614) makers), leaving shell/git out. Say the word and I'll do that.
 >
 > Which do you want?
 
@@ -209,7 +211,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `20260710T061435Z-6062e0` — from gardener:kriscendobot-agoric-sdk-pr12-fixer, reply_to `kriscendobot-agoric-sdk-pr12-fixer` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T061435Z-6062e0.md)
 
-> Fixer for kriscendobot/agoric-sdk PR #12 (XS 16.7.1 / Moddable 5.5.0 mirror of Agoric#11297).
+> Fixer for kriscendobot/agoric-sdk PR [#12](https://github.com/kriscendobot/agoric-sdk/issues/12) (XS 16.7.1 / Moddable 5.5.0 mirror of Agoric[#11297](https://github.com/kriscendobot/agoric-sdk/issues/11297)).
 >
 > I built xsnap from source locally — `xsnap 0.14.2 (XS 16.7.1)` — and am regenerating the engine-behavior test values. Two of the six red items carry a **within-consensus decision** I want your call on before I touch them; the rest I'm doing deterministically.
 >
@@ -221,7 +223,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Compute/allocate meter accounting changed with the engine. The branch already updated the golden meter counts (compute 1_380_185 → 1_300_705, REDOS 140 → 127, currentHeapCount 103_930 → 104_559) but LEFT `METER_TYPE = 'xs-meter-36'` (api.js) unchanged. The test message literally asks "update METER_TYPE?". Bumping it (xs-meter-36 → -37) is consensus-affecting — it signals changed metering semantics chain-wide.
 > QUESTION: Do you want METER_TYPE bumped to xs-meter-37 to accompany the changed meter accounting, or held at -36 for this fork experiment?
 >
-> I'll proceed now on the non-consensus items (#3 boot-lockdown console detail, #4 inspect output, #5 SwingSet perf characterization, #6 codegen idempotence) and hold #1/#2 for your answer. No upstream agoric/agoric-sdk interaction — fork only.
+> I'll proceed now on the non-consensus items ([#3](https://github.com/kriscendobot/agoric-sdk/issues/3) boot-lockdown console detail, [#4](https://github.com/kriscendobot/agoric-sdk/issues/4) inspect output, [#5](https://github.com/kriscendobot/agoric-sdk/issues/5) SwingSet perf characterization, [#6](https://github.com/kriscendobot/agoric-sdk/issues/6) codegen idempotence) and hold [#1](https://github.com/kriscendobot/agoric-sdk/issues/1)/[#2](https://github.com/kriscendobot/agoric-sdk/issues/2) for your answer. No upstream agoric/agoric-sdk interaction — fork only.
 
 - `20260710T062415Z-e291a2` — from gardener:finbot-progress-20260710-062011, reply_to `finbot-progress-20260710-062011` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T062415Z-e291a2.md)
 
@@ -240,32 +242,32 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `20260710T063539Z-33f87e` — from gardener:kriscendobot-agoric-sdk-pr10-shepherd, reply_to `kriscendobot-agoric-sdk-pr10-shepherd` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T063539Z-33f87e.md)
 
-> shepherd on kriscendobot/agoric-sdk PR #10 (docs: beans-v2 design) — the only red check is `test-codegen`, and it is NOT this PR's fault. The PR changes one markdown file (designs/beans-v2-deflation.md); test-codegen fails because `yarn codegen` regenerates packages/orchestration/src/fetched-chain-info.js, a file PR #10 never touches. PR #10 is behind:0 from master, so master itself carries the stale generated file — a global codegen drift.
+> shepherd on kriscendobot/agoric-sdk PR [#10](https://github.com/kriscendobot/agoric-sdk/issues/10) (docs: beans-v2 design) — the only red check is `test-codegen`, and it is NOT this PR's fault. The PR changes one markdown file (designs/beans-v2-deflation.md); test-codegen fails because `yarn codegen` regenerates packages/orchestration/src/fetched-chain-info.js, a file PR [#10](https://github.com/kriscendobot/agoric-sdk/issues/10) never touches. PR [#10](https://github.com/kriscendobot/agoric-sdk/issues/10) is behind:0 from master, so master itself carries the stale generated file — a global codegen drift.
 >
-> This is already owned by PR #8 (regen-fetched-chain-info), which is OPEN, non-draft, MERGEABLE, and has test-codegen=SUCCESS. Fixing it inside a docs PR would duplicate PR #8 and create a conflicting generated-file diff — the wrong place.
+> This is already owned by PR [#8](https://github.com/kriscendobot/agoric-sdk/issues/8) (regen-fetched-chain-info), which is OPEN, non-draft, MERGEABLE, and has test-codegen=SUCCESS. Fixing it inside a docs PR would duplicate PR [#8](https://github.com/kriscendobot/agoric-sdk/issues/8) and create a conflicting generated-file diff — the wrong place.
 >
-> Recommended: merge PR #8 to master, then refresh (weave) PR #10 so its CI re-runs green. I did not push anything to PR #10 (correct scope). next: liaison (merge #8 is a human/conductor decision).
+> Recommended: merge PR [#8](https://github.com/kriscendobot/agoric-sdk/issues/8) to master, then refresh (weave) PR [#10](https://github.com/kriscendobot/agoric-sdk/issues/10) so its CI re-runs green. I did not push anything to PR [#10](https://github.com/kriscendobot/agoric-sdk/issues/10) (correct scope). next: liaison (merge [#8](https://github.com/kriscendobot/agoric-sdk/issues/8) is a human/conductor decision).
 
 - `20260710T065145Z-32f978` — from gardener:kriscendobot-agoric-sdk-pr9-shepherd, reply_to `kriscendobot-agoric-sdk-pr9-shepherd` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T065145Z-32f978.md)
 
-> shepherd on kriscendobot/agoric-sdk PR #9 (prototype: promote ymax vat to critical, garden#29) — diagnosis, no push made:
+> shepherd on kriscendobot/agoric-sdk PR [#9](https://github.com/kriscendobot/agoric-sdk/issues/9) (prototype: promote ymax vat to critical, garden[#29](https://github.com/kriscendobot/agoric-sdk/issues/29)) — diagnosis, no push made:
 >
 > The 3 red checks are all base-staleness / environmental, NOT caused by the PR diff:
 > - test-codegen: fails on packages/orchestration/src/fetched-chain-info.js drift. That file is unchanged by this PR and is regenerated by fetching the LIVE chain registry (non-deterministic). Upstream fixed it in master commit 88a5a67322 "chore(orchestration): refresh fetched chain info" — which is absent from this PR's base.
 > - test-quick (node-old): the failures are in packages/orchestration (3) and packages/portfolio-deploy (1, "upgrade not faked") — both byte-identical to master here; the PR doesn't touch them.
 > - test-quick (node-new): cancelled by concurrency, not a real failure.
 >
-> Root cause: PR #9's base is 503 commits behind upstream/master. The remedy is a rebase/weave onto current master (picks up the chain-info refresh + evolved orchestration/portfolio packages), which is out of shepherd scope and design-consequential on a prototype.
+> Root cause: PR [#9](https://github.com/kriscendobot/agoric-sdk/issues/9)'s base is 503 commits behind upstream/master. The remedy is a rebase/weave onto current master (picks up the chain-info refresh + evolved orchestration/portfolio packages), which is out of shepherd scope and design-consequential on a prototype.
 >
 > The checks that actually exercise this PR's SwingSet/cosmic-swingset upgrade changes (test-swingset, test-boot, test-cosmic-swingset, test-portfolio-contract) are still PENDING — their verdict isn't in yet.
 >
-> Recommendation: weave #9 (rebase onto master) if you want it green; otherwise it's a known-stale-base prototype red. I did not push anything to keep the draft clean.
+> Recommendation: weave [#9](https://github.com/kriscendobot/agoric-sdk/issues/9) (rebase onto master) if you want it green; otherwise it's a known-stale-base prototype red. I did not push anything to keep the draft clean.
 
 - `20260710T070940Z-d51352` — from gardener:minion-town-endo-root-host-bootstrap, reply_to `minion-town-endo-root-host-bootstrap` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T070940Z-d51352.md)
 
 > Builder job `minion-town-endo-root-host-bootstrap` (root-host out-of-band mechanism) — delivered a PR, but LIVE validation is blocked and needs your call.
 >
-> DONE (PR kriscendobot/minion.town#7, against main):
+> DONE (PR [kriscendobot/minion.town#7](https://github.com/kriscendobot/minion.town/issues/7), against main):
 > - The out-of-band root-host mechanism, transplant-shaped in `src/endo/`:
 >   bind/repoint an email→root facet, and promote a guest→its own host. Grounded
 >   on the real EndoHost primitives (provideHost/provideGuest/invite consume-once).
@@ -303,11 +305,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `20260710T094650Z-557e87` — from gardener:xst-validation-orchestrator-20260710-083510, reply_to `xst-validation-orchestrator-20260710-083510` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T094650Z-557e87.md)
 
-> XS-validation effort (kriskowal/garden#33) is now blocked on two decisions only you can make; everything else is green.
+> XS-validation effort ([kriskowal/garden#33](https://github.com/kriskowal/garden/issues/33)) is now blocked on two decisions only you can make; everything else is green.
 >
 > 1. **Gauntlet Leg 4 (`force:integration`) is infeasible on the fork as provisioned.** The fork's integration.yml jobs all target Depot cloud runners (upstream-Agoric-org-only; fork OIDC maps to no Depot project — verified empirically, run 29082957968, cancelled + label removed), and the gardener container has no docker for a local a3p run. Options: (a) connect kriscendobot/agoric-sdk to a Depot org, (b) provide a docker-capable host for local a3p-integration, or (c) waive Leg 4, accepting the already-green package-suite substitute. Evidence: journal2:jobs/tada/xst-force-integration.md and PR #13 comment issuecomment-4933929249.
 >
-> 2. **Park-on-fail "landed" call.** Draft fork PR kriscendobot/agoric-sdk#14 (kernel-first slice, 34/34 tests green) is up, with named remainders (panic→park detection hook, critical-vat policy). Does the current slice count as "landed" for the effort's done-check, or should the remainders (or a subset) be built first?
+> 2. **Park-on-fail "landed" call.** Draft fork PR [kriscendobot/agoric-sdk#14](https://github.com/kriscendobot/agoric-sdk/issues/14) (kernel-first slice, 34/34 tests green) is up, with named remainders (panic→park detection hook, critical-vat policy). Does the current slice count as "landed" for the effort's done-check, or should the remainders (or a subset) be built first?
 >
 > State otherwise: both engine trains (legacy XS 13.3.0 / latest XS 16.7.1) validated at the package level on xst/integrate-variant-bump (fork PR #13) — snapshot goldens byte-stable, transcript replay zero-divergence, A/B divergence harness clean, variant-gated test lane landed. Full log on issue #33 (latest: issuecomment-4934079088). Upstream Agoric/agoric-sdk untouched. Reply routes to my inbox; the hourly orchestrator will act on your answers.
 
@@ -325,7 +327,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `20260710T120818Z-defd50` — from gardener:xst-validation-orchestrator-20260710-120503, reply_to `xst-validation-orchestrator-20260710-120503` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T120818Z-defd50.md)
 
-> XS-validation effort (kriskowal/garden#33): all engineering has now converged — fork PR #14 (park-on-fail) is fully green after the snapshot regen, and PR #13 (integration) has its fix pushed with CI mid-run, zero failures so far. The effort is blocked ONLY on your two decisions, escalated ~09:45Z and re-consolidated here:
+> XS-validation effort ([kriskowal/garden#33](https://github.com/kriskowal/garden/issues/33)): all engineering has now converged — fork PR #14 (park-on-fail) is fully green after the snapshot regen, and PR #13 (integration) has its fix pushed with CI mid-run, zero failures so far. The effort is blocked ONLY on your two decisions, escalated ~09:45Z and re-consolidated here:
 >
 > 1. **Leg 4 (`force:integration`) waiver** — the full-chain leg is infeasible on the fork (Depot-gated runners, empirically verified). Accept the package-level substitute (xsnap + SwingSet suites green on BOTH variants, legacy byte-stable, A/B divergence all explained by the engine delta) as sufficient for "validated"? Or should we provision Depot/docker for a real full-chain run?
 >
@@ -414,7 +416,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `20260710T165219Z-e5b964` — from gardener:xst-validation-orchestrator-20260710-165003, reply_to `xst-validation-orchestrator-20260710-165003` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T165219Z-e5b964.md)
 
-> **XS-validation effort (kriskowal/garden#33): consolidated re-escalation — two decisions needed, everything else is done and green.**
+> **XS-validation effort ([kriskowal/garden#33](https://github.com/kriskowal/garden/issues/33)): consolidated re-escalation — two decisions needed, everything else is done and green.**
 >
 > All four workstreams are engineering-complete on the fork `kriscendobot/agoric-sdk` and have been holding green since ~13:20Z: PR #13 (`xst/integrate-variant-bump`, the variant split + Moddable 5.5.0 bump integration) and PR #14 (park-on-fail) each show 69 pass / 0 fail in CI. The gauntlet report validates the legacy (consensus) train end to end; the latest-train test lane and A/B divergence sweeps are also complete. First escalation was 09:45Z, bus re-ping 12:08Z (`20260710T120818Z-defd50`) — no reply yet, so this is the planned one consolidated follow-up.
 >
@@ -473,7 +475,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `20260710T185450Z-6a5550` — from gardener:endojs-endo-but-for-bots-pr618-6a3affe0, reply_to `endojs-endo-but-for-bots-pr618-6a3affe0` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T185450Z-6a5550.md)
 
-> Routed the `attention` directive on endojs/endo-but-for-bots PR #618.
+> Routed the `attention` directive on endojs/endo-but-for-bots PR [#618](https://github.com/endojs/endo-but-for-bots/issues/618).
 >
 > kriskowal's comment archives the PR: concerns that the Phase-4 dynamic
 > capability tool-discovery approach may leak capabilities (especially
@@ -487,7 +489,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >   maintainer (@kumavis) for a security judgment on whether to reopen.
 > - Autonomously editing/pushing/commenting to drive a security-flagged,
 >   archived PR would contradict the caution stated. So the fleet stands
->   down on #618 pending @kumavis.
+>   down on [#618](https://github.com/endojs/endo-but-for-bots/issues/618) pending @kumavis.
 >
 > Completing the job as a clean no-op. Say the word if you want a gardener
 > to instead produce a capability-leak security analysis of the closed
@@ -503,7 +505,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > MERGED: endoclaw-network-fetch floor (exo-http-client + http-confine on `llm`, #566).
 >
-> IN FLIGHT (deepest node): endoclaw-oauth design refinement — endojs/endo-but-for-bots#621, OPEN, un-drafted, all 5 CI green. You reviewed it 3× today; your 16:42 directive (compose the caretaker pattern with recursive partition/delegation = "caretaker attenuation", child caps narrowed-never-expanded) was addressed this afternoon by a peer designer job: `designs/endoclaw-oauth.md` revised (new partition()/delegation semantics, conjunction-not-snapshot monotonicity) + a named pattern doc `designs/caretaker-attenuation.md`, both pushed to the PR head (6e1de440c4). No package code exists yet for the OAuth exo, @endo/google-sheets, or @endo/exo-google-sheets — all blocked on #621 landing.
+> IN FLIGHT (deepest node): endoclaw-oauth design refinement — [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621), OPEN, un-drafted, all 5 CI green. You reviewed it 3× today; your 16:42 directive (compose the caretaker pattern with recursive partition/delegation = "caretaker attenuation", child caps narrowed-never-expanded) was addressed this afternoon by a peer designer job: `designs/endoclaw-oauth.md` revised (new partition()/delegation semantics, conjunction-not-snapshot monotonicity) + a named pattern doc `designs/caretaker-attenuation.md`, both pushed to the PR head (6e1de440c4). No package code exists yet for the OAuth exo, @endo/google-sheets, or @endo/exo-google-sheets — all blocked on #621 landing.
 >
 > ADVANCED TODAY: nothing new posted — the caretaker revision you asked for is already on #621 and you're actively iterating the PR, so a redundant build/panel job would only be noise.
 >
@@ -520,7 +522,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > pushdown / design #675).
 >
 > Intent carried forward: the conservative-regexp-subset grammar #675 depended on is
-> now designed at endojs/endo-but-for-bots#676 (draft: `@endo/regexp` — isConservativeRegex
+> now designed at [endojs/endo-but-for-bots#676](https://github.com/endojs/endo-but-for-bots/issues/676) (draft: `@endo/regexp` — isConservativeRegex
 > grammar, JS↔Rust match-semantics parity, RE2-style linear matcher, regexp-subset-cases.json
 > corpus). The named follow-up — "an @endo/regexp builder dispatch after #676 is accepted"
 > — would otherwise have been lost with the orchestrator's inbox, so I parked it durably:
@@ -548,7 +550,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `20260710T213244Z-fc93b2` — from gardener:endojs-endo-but-for-bots-pr595-review-fa80bee2, reply_to `endojs-endo-but-for-bots-pr595-review-fa80bee2` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T213244Z-fc93b2.md)
 
-> Handled kriskowal's APPROVAL review on endojs/endo-but-for-bots #595
+> Handled kriskowal's APPROVAL review on endojs/endo-but-for-bots [#595](https://github.com/endojs/endo-but-for-bots/issues/595)
 > (review 4675088277: "Let's proceed to building and gauntlet. We can refactor
 > names while in flight.").
 >
@@ -561,16 +563,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > "Proceed to building and gauntlet" — needs YOUR scope call before I post a build,
 > because the two approved docs split:
->   1. designs/captp-error-identification.md — follow-up to #58, self-contained →
+>   1. designs/captp-error-identification.md — follow-up to [#58](https://github.com/endojs/endo-but-for-bots/issues/58), self-contained →
 >      a normal `build #595` (auto-runs the gauntlet, un-drafts, merges) fits.
 >   2. designs/unredacted-stack-sanctioned-ses-api.md — its SES API shape is
->      explicitly an OPEN QUESTION deferred to upstream @erights (per prior #595
->      probe/report-back, PR #605). Building that as a mergeable feature now would
+>      explicitly an OPEN QUESTION deferred to upstream @erights (per prior [#595](https://github.com/endojs/endo-but-for-bots/issues/595)
+>      probe/report-back, PR [#605](https://github.com/endojs/endo-but-for-bots/issues/605)). Building that as a mergeable feature now would
 >      be premature; it's a `probe` (stays draft) until @erights decides upstream.
 >
 > Recommend: `build #595` scoped to the captp-error-identification design once the
 > merge lands, and hold the SES-API portion as a probe pending @erights. Say the
-> word (e.g. "build #595 captp only" / "probe the ses-api design" / "build both")
+> word (e.g. "build [#595](https://github.com/endojs/endo-but-for-bots/issues/595) captp only" / "probe the ses-api design" / "build both")
 > and I'll post it. Naming stays flexible in flight per your note.
 
 - `20260710T214427Z-d5167f` — from gardener:gauntlet-endo-glob-grep-stack, reply_to `gauntlet-endo-glob-grep-stack` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T214427Z-d5167f.md)
@@ -835,7 +837,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > # Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
 >
-> PR:     https://github.com/endojs/endo-but-for-bots/pull/592
+> PR:     [https://github.com/endojs/endo-but-for-bots/pull/592](https://github.com/endojs/endo-but-for-bots/pull/592)
 > Repo:   endojs/endo-but-for-bots
 > Branch: factor-watchdirectory-to-endo-platform  (base: llm)
 >
