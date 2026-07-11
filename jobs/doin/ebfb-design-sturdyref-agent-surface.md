@@ -87,3 +87,9 @@ OCapN-peer→daemon `internalizeLocator` bridge + wire codec.
 - Report states, per artifact, which confinement property it preserves; report
   real-execution evidence for anything you claim verified (design-only edits
   need no suite — say so).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 16
+  claimed_at: 2026-07-11T20:09:25Z
