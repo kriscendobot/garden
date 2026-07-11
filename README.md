@@ -1,22 +1,20 @@
 # Garden bulletin
 
-_As of 2026-07-11T11:51:32Z_
+_As of 2026-07-11T11:57:40Z_
 
 ## Latest
 
-The board itself was quiet — only a PR #660 review-retro completion moved — but the maintainer inbox filled with decisions and landings.
+The most maintainer-actionable item this window is a deploy gap: the triager crash-loop fix is landed and green on `main2` (shared `bare_clone_dir` resolver, `GARDEN_REPOS` defaulting to `worktrees/`, missing-clone-as-clean-skip), but four self-heal gardeners independently confirm the deployed root `/home/kris/garden2` is ~56 commits behind, so every `garden-triager@*` unit keeps FATAL-looping on the stale `/repos` default. A drained `deploy-garden.sh` — a leader/liaison operation no gardener can run — is the clean fix; all eight own-fork bare clones now exist under `worktrees/`, so the deploy makes them tick cleanly with no stopgap materialization needed.
 
-The clearest ask: [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (promote the ymax vat to critical) is now blocked *solely* on your call. The shepherd's dprint fix took fork CI from four reds to one, every PR-attributable check passes, and both reviewers' asks are addressed — so the drive is stalled waiting for **rebase #9** (onto master, ~503 commits, clearing the last stale-base codegen red, then un-draft + request SwingSet review) versus **freeze #9** (un-draft the frozen-base prototype as-is).
+[kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (garden#29, ymax vat → critical) is now blocked *solely* on a maintainer decision. The shepherd's dprint fix took fork CI from four reds to one; every PR-attributable check passes and all reviewer feedback (mhofman, dckc) is addressed. The sole remaining red is the known stale-base `fetched-chain-info.js` codegen drift the PR doesn't touch. The fleet needs `rebase #9` (rebase onto master ~503 commits, un-draft, request SwingSet review) vs `freeze #9` (un-draft as-is as a frozen-base prototype) — it changes what the PR *is*.
 
-A deploy gap needs attention: the triager crash-loop fix is landed and green on `main2` (shared `bare_clone_dir` resolver, `GARDEN_REPOS` defaulting to `worktrees/`, opt-in self-provision), but the deployed root `/home/kris/garden2` is ~56 commits behind, so `garden-triager@*` units keep FATAL-looping until a drained `deploy-garden.sh` — a leader operation no gardener can run. All eight own-fork bare clones now exist, so the deploy is the clean resolution.
+finbot advanced hard on the simulator axis via direct-push to `kriscendobot/finbot@main`: SES-compartments (the cap-attenuation safety cornerstone), multi-instrument yield-bearing portfolios, the cyclical/harmonic forecaster, then GARCH(1,1) and GJR-GARCH conditional-volatility surfaces — 445 tests green, all six auditor invariants passing, wallet untouched, and no stranded branches left. The deepest remaining axis, cap-attenuation Phase 2 (CapTP transport + first live paper-wallet run), stays gated behind explicit `live_authorized` and is untouched. Worth a decision: finbot's no-self-PR fast-forward convention keeps stranding branches, so either let builders land directly or stand up a weaver/conductor sweep.
 
-On the build side: finbot landed a run of pure-simulator forecaster increments direct to its fork main (GARCH(1,1), then GJR-GARCH with the leverage effect), clearing the stranded branch backlog to just main+journal, 445 tests green with the wallet-safety gate holding; its cap-attenuation Phase 2 (live CapTP transport + paper-wallet run) stays gated on your `live_authorized`. The OCapN-Noise-WS demo is live and reproducible on minion.town, and endor-xst core landed on the still-draft [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) (flagging a c/moddable gitlink pinned to 8.0.1 that should be bumped to 8.3.1).
-
-Two watchdog alerts: the [endojs/endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/pull/688) shepherd and `ocapn-pet-daemon-dockerfile-minion` both deterministically overran the 2400s handler budget and need splitting into claim-sized stages or a detached run.
+Also live: an OCapN-Noise-WS capability round-trip is reproducible end-to-end on minion.town (Caddy TLS → Noise IK → OCapN sturdyref), with promote-to-full-Pet-Daemon and durable-Caddy-route follow-ups offered. The endor-xst runner core landed (draft) as convergence child 1/5, flagging a stale `c/moddable` gitlink (8.0.1 vs the required 8.3.1). Two jobs deterministically overran the 2400s handler budget (`pr688-shepherd`, `ocapn-pet-daemon-dockerfile-minion`) and need splitting into claim-sized stages, and the minion.town styled-privilege-surfaces build is waiting on an `ELEVATION_CONTACT` value (shipping with a safe plain-text default meanwhile).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 18h)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 19h)
 - [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 1d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 8d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 11d)
@@ -361,8 +359,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr609-message-scheduler-rename-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr609-message-scheduler-rename-fix.md) — ---
 
 ### tada (1900)
 - [`endojs-endo-but-for-bots-pr660-review-62ee5cda-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr660-review-62ee5cda-retro.md) — Completion report — endojs-endo-but-for-bots-pr660-review-62ee5cda-retro
