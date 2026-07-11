@@ -1,19 +1,17 @@
 # Garden bulletin
 
-_As of 2026-07-11T18:23:52Z_
+_As of 2026-07-11T18:44:07Z_
 
 ## Latest
 
-The fleet-wide **triager crash-loop is the top operational item**: the fix (GARDEN_REPOS defaults to `worktrees/`, missing clones skip instead of dying) is landed and green on `main2`, but the deployed root `/home/kris/garden2` is ~56 commits behind, so every `garden-triager@*` unit keeps FATAL-looping until a deliberate `deploy-garden.sh` advances it — five self-heal gardeners independently converged on this same "code done, deploy pending" diagnosis. Relatedly, the triage circuit-breaker **opened for `kriscendobot-finbot`**, which also raises a monitoring-safety question: finbot isn't among the repos authorized for watching under CLAUDE.md's constraint.
+The job board is drained — no work in `todo` or `doin` — and the foreman's repeated messages make clear why: Milestone M3 is now gated on maintainer merge/review decisions, not on any remaining fleet work. A stack of green, mergeable endo-but-for-bots PRs is waiting — Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608), the confined-HTTP agent tool [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the mount-search stack (#678–#681), and the endopi stack (#667–#672) — while the repo-wide typescript-eslint lint ceiling keeps poisoning gauntlets until its fix, [#594](https://github.com/endojs/endo-but-for-bots/pull/594), merges to `llm`/master. The scheduled-execution clause is separately stalled on the endoclaw-timer → `@endo/reminder` pivot: design PR [#682](https://github.com/endojs/endo-but-for-bots/pull/682) has been reviewed and needs an accept/close call that would retire the superseded timer PRs [#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619). Meanwhile [#693](https://github.com/endojs/endo-but-for-bots/pull/693)'s shepherd closed out fully green with no code change.
 
-**Milestone M3 is now merge-bottlenecked, not build-bottlenecked** — the foreman posted six messages saying every exit-criterion capability has landed as a green, mergeable PR and the fleet has no unblocked work left to claim. The lint ceiling PR [endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) is the trip-wire: until it merges, gauntlets hit phantom-red lint and poison (as #661 did). Awaiting your merge/accept decisions on the ready stack — Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608), confined-HTTP tool [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the mount stack [#671](https://github.com/endojs/endo-but-for-bots/pull/671)/#678–681, and the scheduled-execution pivot where reminder design [#682](https://github.com/endojs/endo-but-for-bots/pull/682) needs an accept/retire call against timer PRs [#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619), plus sequencing PRs [#659](https://github.com/endojs/endo-but-for-bots/pull/659) and #691 and the rename gated on [#598](https://github.com/endojs/endo-but-for-bots/pull/598).
-
-On **[kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9)** (ymax→critical), the rebase-vs-frozen-base question has gone unanswered across four drive ticks (~18h); the shepherd cleared the one PR-attributable red (a dprint miss) and every PR-scope check is now green, so on tick 4 the gardener took the reversible default and commissioned a weave onto current master — say `rebase #9` or `freeze #9` to settle it. Elsewhere, **finbot** landed a run of green direct-push increments (GARCH, GJR-GARCH leverage effect, and the inference-driven DECIDE stage — now 451 tests, wallet gate still holding), an **OCapN-Noise-WS demo went live on minion.town**, and the XS-validation effort finalized across four green fork PRs. Two long jobs (`pr688-shepherd`, `ocapn-pet-daemon-dockerfile-minion`) deterministically overran the 2400s handler budget and need splitting. The board is otherwise quiet — one shepherd on [endo-but-for-bots#693](https://github.com/endojs/endo-but-for-bots/pull/693) in flight.
+Two operational items need attention. First, a **deploy gap**: the triager crash-loop fix landed on `main2`, but the deployed root (`/home/kris/garden2`) is ~56 commits behind, so `garden-triager@*` units keep FATAL-looping on the old `repos/` path until a deliberate drained `deploy-garden.sh` — a leader/liaison operation the gardeners can't run themselves. Second, the [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) ymax→critical drive has asked four ticks running for a **rebase-vs-frozen-base** decision; with every PR-attributable check now green (only a stale-base codegen red remains), the gardener took the reversible default and commissioned a rebase onto master, but will reset to a frozen prototype on your word. Separately, the finbot cycles continued landing green, wallet-safe simulator increments (GARCH, GJR-GARCH leverage effect, cyclical forecaster, and an inference-driven DECIDE stage) directly on `main`; its deepest remaining axis, cap-attenuation Phase 2 with a live paper-wallet run, stays gated behind your explicit `live_authorized` authorization.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 1d)
-- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 1d)
+- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 2d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 9d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 11d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 12d)
@@ -508,16 +506,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr693-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr693-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #693
+### doin (0)
+(none)
 
-### tada (1936)
+### tada (1937)
+- [`endojs-endo-but-for-bots-pr693-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr693-shepherd.md) — CI is fully green. The head SHA is unchanged (f7cd399) — I made no code chang...
 - [`deadmail-20260711T181834Z-b646b4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260711T181834Z-b646b4.md) — Report
 - [`ebfb-realign-521-passstyle-shape-only`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-realign-521-passstyle-shape-only.md) — Completion report
 - [`endo-sturdyref-press-20260711-175014`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260711-175014.md) — Completion report — endo-sturdyref-press-20260711-175014 (tick 1 of the hourl...
 - [`issue-kriskowal-garden-36`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-36.md) — Completion report
-- [`ocapn-cross-host-pet-daemon-invite-accept`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-cross-host-pet-daemon-invite-accept.md) — Completion report — ocapn-cross-host-pet-daemon-invite-accept (M5 builder)
-- … and 1931 more
+- … and 1932 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
