@@ -77,8 +77,4 @@ the long pole and the point of the job); if time runs short, land the README tab
 what you measured and state EXACTLY which checklist rows remain unmeasured — never claim an
 unmeasured bar.
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 16
-  claimed_at: 2026-07-11T05:01:18Z
+<!-- garden-reaped: 1 -->

@@ -23,8 +23,4 @@ determinism gate), and the xst-shaped YAML report (`mode:`/`skip:`/`fail:` plus
 `advisory:` and `skip-detail:`). Subsumes and retires `test262-language` by name once it
 reproduces its output.
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 19
-  claimed_at: 2026-07-11T05:01:44Z
+<!-- garden-reaped: 1 -->
