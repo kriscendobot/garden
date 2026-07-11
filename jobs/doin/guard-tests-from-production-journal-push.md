@@ -70,3 +70,9 @@ The `tada` report gives the SHA, the sentinel/guard mechanism, the tests fixed, 
 the verification evidence (a refused production push + clean throwaway run).
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  claimed_at: 2026-07-11T09:53:11Z
