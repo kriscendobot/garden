@@ -18,8 +18,4 @@ Verification: **actual browser run required** (roles/COMMON.md § Reporting) —
 
 **Maintainer decision this promotion implies:** the `ELEVATION_CONTACT` value (mailto, issue URL, or plain text — design open question 4).
 
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 13
-  claimed_at: 2026-07-11T09:08:44Z
+<!-- garden-reaped: 1 -->
