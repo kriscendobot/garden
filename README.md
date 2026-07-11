@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T10:59:14Z_
+_As of 2026-07-11T11:06:04Z_
 
 ## Latest
 
-The garden-triager fleet is wedged behind a **deploy gap**: the repos→worktrees path fix is landed and green on `main2`, but the deployed root (`/home/kris/garden2`, HEAD `688e6174c8`) is ~56 commits behind and still defaults `GARDEN_REPOS` to `/repos`, so every `garden-triager@*` unit keeps FATAL-looping — five self-heal gardeners converged on the same conclusion that only a drained `deploy-garden.sh` (a leader/liaison op, not a gardener job) will clear it. After deploy, three watched forks (`kriscendobot-{ocapn,cosgov,agoric-3-proposals}`) still lack a clone under `worktrees/` and will need provisioning or disabling — a decision that intersects the § Monitoring safety watch-set bar.
+The deployed garden root (`/home/kris/garden2`) is stranded ~56 commits behind `main2`, and that gap is the through-line of the window: the triager `GARDEN_REPOS` `/repos`→`/worktrees` fix and its self-provision follow-ons are all landed and green on `main2`, but every `garden-triager@*` unit keeps FATAL-looping against the stale root until a drained `deploy-garden.sh` runs — a leader/liaison operation no gardener can perform. Four converging self-heal reports say the same thing: the code work is done, only the deploy remains (all eight own-fork bare clones now exist under `worktrees/`, so the provisioner is a no-op afterward). Separately, triage for `kriscendobot-finbot` tripped its circuit-breaker after five identical failures on the same SHA range.
 
-finbot carried the bulk of the forward motion: a run of direct-push increments landed on `kriscendobot/finbot@main` — SES-compartments (the cap-attenuation safety cornerstone), multi-instrument yield-bearing portfolios, a cyclical/harmonic forecaster, GARCH(1,1), and GJR-GARCH leverage — clearing the last stranded branch (only `main` + `journal` remain) and reaching 445 green tests with the wallet-safety gate holding. Two standing decisions stay open for you: whether to keep the per-cycle rebase cadence or let builders land on main directly, and cap-attenuation Phase 2 (live CapTP transport + paper-wallet run), which is gated behind `live_authorized` and will not advance without authorization. Note the triage circuit-breaker opened on `kriscendobot-finbot`, with a flag that it may not belong in the watch set at all.
+finbot itself advanced hard: five direct-push increments landed on `kriscendobot/finbot@main` — SES compartments (the capability-attenuation cornerstone), multi-instrument yield-bearing portfolios, the harmonic/cyclical forecaster, GARCH(1,1), and GJR-GARCH leverage — clearing the stranded-branch backlog (only main + journal remain) and reaching 445 green tests with the wallet-safety gate holding throughout. Its recurring maintainer decision is unchanged: cap-attenuation Phase 2 (live CapTP transport + first paper-wallet run) stays gated behind `live_authorized`.
 
-On [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9), a shepherd fixed the one PR-attributable red (`lint-rest`, a `dprint` miss), but the rebase decision is now pressing — base trails master ~503 commits and `test-boot` noise spread from 1 to ~9 shards, drifting a green fork CI further out of reach. Elsewhere: the OCapN-Noise-WS demo is live and round-tripping on minion.town, and `endor-xst` core landed on the draft [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) (with a flagged `c/moddable` gitlink still pinned at 8.0.1 instead of the required 8.3.1). Two jobs — the [endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/pull/688) shepherd and `ocapn-pet-daemon-dockerfile-minion` — deterministically overran the 2400s handler budget and need splitting into claim-sized stages before they're poisoned.
+On [agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9), the 6-hourly drive commissioned a shepherd that fixed the one PR-attributable red (a `dprint` miss), but stale-base boot-snapshot noise is spreading (1→9 red shards), making the pending rebase-vs-frozen-prototype call costlier each tick. The OCapN-Noise-WS demo (M3+M4) is now live and reproducible on minion.town, and the styled-privilege-surfaces build shipped there — but it needs the `ELEVATION_CONTACT` value from you. Two jobs — the [endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/pull/688) shepherd and `ocapn-pet-daemon-dockerfile-minion` — deterministically overran the 2400s handler budget and need splitting into claim-sized stages before they're poisoned.
 
 ## Parked for maintainer feedback
 
@@ -341,8 +341,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`agoric-sdk-pr9-drive-20260711-110501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-pr9-drive-20260711-110501.md) — Drive kriscendobot/agoric-sdk PR #9 to approval (every 6h)
 - [`ebfb-124-sqlite-nongeneralised-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-124-sqlite-nongeneralised-design.md) — ---
+- [`xst-validation-orchestrator-20260711-110501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-validation-orchestrator-20260711-110501.md) — XS-validation orchestrator (hourly) — drive the agoric-sdk XS upgrade to vali...
 
 ### tada (1893)
 - [`build-heavy-handler-budget-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-heavy-handler-budget-fix.md) — Completion report
