@@ -34,6 +34,7 @@ loses its effect.
 | [dcp/ai-delegates-connectors-and-anti-impersonation](../sections/endo-but-for-bots--llm-designs-dcp--ai-delegates-connectors-and-anti-impersonation.md) | The identity / action facet split for connectors: delegate has the action facet (send messages), connector / daemon has the control facet (credentials, profile editing). |
 | [dp/acyclic-formula-graph-and-revocation](../sections/endo--designs-dp--acyclic-formula-graph-and-revocation.md) | Names the caretaker as one of three pre-existing revocation mechanisms (alongside revocation lists and expiry) — the comparison table that *contrasts* caretakers with revocation-by-withdrawal lives here. |
 | [dp/six-aspects-of-sharing-and-related-work](../sections/endo--designs-dp--six-aspects-of-sharing-and-related-work.md) | Same caretaker-as-existing-mechanism framing in the Karp/Stiegler/Close revocable-aspect treatment. |
+| [what-are-capabilities/capability-patterns](../sections/habitat-chronicles--what-are-capabilities--capability-patterns.md) | The **revoker** as the caretaker's upstream form — "a simple message forwarder that can be commanded to drop its forwarding pointer" — extended to auditable delegation. |
 
 ## See also
 
