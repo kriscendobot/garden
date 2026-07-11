@@ -50,6 +50,7 @@ client/server authority (Electric Communities), and the **containership problem*
 | [habitat-chronicles--unum-pattern--four-messaging-patterns](../sections/habitat-chronicles--unum-pattern--four-messaging-patterns.md) | Reply, Neighbor, Broadcast, Point; Reply+Neighbor and Broadcast idioms; the fanout primitive. |
 | [habitat-chronicles--unum-pattern--behavioral-protocols-anti-rest](../sections/habitat-chronicles--unum-pattern--behavioral-protocols-anti-rest.md) | Behavioral (not data) protocols; knowledge-based compression; about as anti-REST as you can be. |
 | [habitat-chronicles--unum-pattern--other-divisions-of-labor-and-containership](../sections/habitat-chronicles--unum-pattern--other-divisions-of-labor-and-containership.md) | Peer-to-peer, per-unum authority (Electric Communities), the containership problem. |
+| [what-are-capabilities/distributed-services-and-engineering](../sections/habitat-chronicles--what-are-capabilities--distributed-services-and-engineering-practices.md) | The **Electric Communities** decentralized-virtual-world project (dwarf-axe-in-the-stock-exchange) that produced the **E language** — the ocap lineage the unum pattern shares. |
 
 ## See also
 
