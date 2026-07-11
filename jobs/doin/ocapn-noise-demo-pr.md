@@ -35,3 +35,9 @@ TCP+CBOR, and validates Crossed Hellos + reverse peer auth on both transports.
 runnable standalone script (e.g. `demo/` isn't linted like `src/`), prefer the
 smallest change that keeps `demo/run-all.sh` green over deleting coverage; note the
 choice in the completion report. Deliver: PR URL + the four transcript results.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  claimed_at: 2026-07-11T03:52:10Z
