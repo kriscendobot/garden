@@ -1,16 +1,20 @@
 # Garden bulletin
 
-_As of 2026-07-11T14:30:30Z_
+_As of 2026-07-11T14:35:58Z_
 
 ## Latest
 
-The [endo-but-for-bots#661](https://github.com/endojs/endo-but-for-bots/pull/661) HTTP-client-tool gauntlet completed and the [#656](https://github.com/endojs/endo-but-for-bots/pull/656) mount-search stack was woven onto `llm` (its shepherd is now re-running against red CI), alongside a phase-one weave of the [#598](https://github.com/endojs/endo-but-for-bots/pull/598) daemon→manager rename; the [#671](https://github.com/endojs/endo-but-for-bots/pull/671) EndoRegistry-capability gauntlet is the only other job in flight. The loudest signal is a **merge bottleneck on Milestone M3**: the foreman reports the board has run dry with no claimable work because a fleet of green, mergeable PRs ([#608](https://github.com/endojs/endo-but-for-bots/pull/608), #656, #667–672, #678–681) sits unmerged and every gauntlet keeps poisoning on the typescript-eslint project-service lint ceiling — whose fix, [#594](https://github.com/endojs/endo-but-for-bots/pull/594), is itself parked awaiting review; merging #594 auto-promotes the poisoned lint-shepherd cohort. Meanwhile the triager fleet is still crash-looping at runtime because the deployed root is dozens of commits behind `main2` (the code fix has long since landed) — a drained `deploy-garden.sh` is the outstanding leader action. On the fork side, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) now has every PR-attributable check green and all reviewer feedback addressed, blocked solely on a `rebase #9` vs `freeze #9` call, and the finbot autonomous cycles landed a run of simulator increments direct on `main` (GARCH, GJR-GARCH leverage, inference-driven DECIDE), with cap-attenuation Phase 2 still deferred pending explicit authorization.
+The garden's M3 push is now **merge-bottlenecked on the maintainer, not the fleet**: the foreman flagged twice that a stack of green, mergeable endo-but-for-bots PRs — the lint-ceiling fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594), plus [#608](https://github.com/endojs/endo-but-for-bots/pull/608), [#656](https://github.com/endojs/endo-but-for-bots/pull/656), and the #667–672 / #678–681 mount-search cohort — sits unmerged, so no unblocked work-job remains to claim. Merging #594 to `llm`/master would trip the parked `resume-lint-ceiling-shepherds` job and revive the poisoned shepherd cohort (the ceiling is what poisoned [#661](https://github.com/endojs/endo-but-for-bots/pull/661)'s gauntlet, though that http-client-tool gauntlet has since completed). Weaves of [#656](https://github.com/endojs/endo-but-for-bots/pull/656) and [#598](https://github.com/endojs/endo-but-for-bots/pull/598) onto `llm` also landed.
+
+Two other efforts are now blocked solely on your decision. [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax→critical vat) drove from four CI reds to one after a shepherd's dprint fix; every PR-attributable check now passes and all reviewer feedback is addressed, leaving only a stale-base codegen red — say **rebase #9** or **freeze #9** to unblock un-drafting and review. And [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) drew a re-architecture request (extract as a standalone `@endo/reminder` plugin), which needs a supersede-or-keep call before stacked PRs [#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619) are re-based.
+
+Off the board, finbot landed a run of simulator increments direct on its fork main (GARCH, GJR-GARCH leverage effect, and an inference-driven DECIDE stage — now 451 tests green, wallet still untouched), and an OCapN-Noise-WS demo is live and reproducible on minion.town. Notably, the **triager crash-loop fix is fully landed and tested on main2, but the deployed root is ~56 commits stale**, so `garden-triager@*` units keep FATAL-looping until a drained `deploy-garden.sh` — a leader/liaison operation the fleet cannot self-run.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 21h)
 - [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 1d)
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 8d)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 9d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 11d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 12d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 15d)
@@ -421,9 +425,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr656-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr656-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #656
 - [`gauntlet-endo-but-for-bots-pr671-endo-registry-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr671-endo-registry-capability.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
+- [`xst-validation-orchestrator-20260711-143501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-validation-orchestrator-20260711-143501.md) — XS-validation orchestrator (hourly) — drive the agoric-sdk XS upgrade to vali...
 
 ### tada (1908)
 - [`weave-endo-but-for-bots-pr656-provide-submount-onto-llm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr656-provide-submount-onto-llm.md) — Weave report — endojs/endo-but-for-bots PR #656
