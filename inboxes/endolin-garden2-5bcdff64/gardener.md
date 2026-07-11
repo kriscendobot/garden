@@ -219,3 +219,12 @@ Inspect via `git -C journal cat-file -p fb05ca4866c05f4bbd557dcc260935b86b7e206a
 - Context: gardener-8 on endolin-garden2-5bcdff64: job 'ocapn-daemon-minion-deploy-demo' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 4c692edaac06b010b8862e895228acf8f4cc8f14`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-11T05:21:10Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: abffc20ca7aeb17743dec53a7c47368ebac21119
+- Context: gardener-2 on endolin-garden2-5bcdff64: job 'xst-validation-orchestrator-20260711-052002' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p abffc20ca7aeb17743dec53a7c47368ebac21119`.
