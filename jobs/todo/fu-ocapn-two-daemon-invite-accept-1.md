@@ -1,0 +1,1 @@
+In the bot's own ocapn repo (endojs/endo-but-for-bots), the two shared-suite ocapn test files carry identical test titles and therefore share identical `tmp/<title>#…` state dirs, so they race on `purge` when ava runs them concurrently (non-`--serial`). Key the tmp dir per file so the two files no longer collide; this is the real fix for the latent collision noted in the PR body.
