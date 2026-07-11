@@ -79,6 +79,25 @@ clause was the real gap (Part B).
    `fleet_draining` (the draining marker; was `killswitch_engaged`); quiet on success.
 3. **Registered** in `scripts/systemd/garden-deadmail.{service,timer}` and
    `install-units.sh` (`enable_services` + summary line).
+4. **Schedule carry-forward (2026-07-11).** A recurring scheduled fan-out (e.g. the
+   hourly `endo-sturdyref-press`) dispatches each tick as a fresh short-lived doer
+   with a timestamped base (`<prefix>-YYYYMMDD-HHMMSS`) whose inbox is torn down at
+   completion, so a sub-job's completion report addressed to the spawning tick
+   structurally dead-letters *every* time — and the generic-gardener promotion above
+   can only restate it unverified and *hope* the next tick discovers the standalone
+   entry. So `deadmail.sh` now routes specially: when a dead-mail `to:` strips down
+   (removing the `-YYYYMMDD-HHMMSS` suffix) to an ACTIVE recurring schedule's
+   `job_basename_prefix`, it deposits the carried report into that schedule's
+   durable, timestamp-free mailbox `carry-forward/<schedule-stem>/` (deposit +
+   dead-mail retire in one CAS commit — atomic, so no `verify_posted` step) instead
+   of promoting a gardener. `scheduler.sh` then **injects any pending carry-forward
+   report(s) into the next dispatched tick body** (a block preceding the
+   `anchored_window` context block, mirroring that context-injection) and `git rm`s
+   the drained files in the SAME CAS commit as the dispatch + stamp, so each report
+   is consumed exactly once and reaches the next tick as the addressed reader
+   deterministically. Non-schedule recipients keep the generic-gardener path. Helper
+   `schedule_carry_forward_dir` in `common.sh` fixes the path convention both sides
+   share; kept OUT of `schedules/` so the scheduler's schedule iteration ignores it.
 
 ## Tests
 
@@ -87,6 +106,12 @@ dead-lettered (not dropped, not a hard error) and that `GARDEN_NO_DEADLETTER=1`
 still hard-fails. SUBTEST 16 (new) asserts dead-letter capture, recipient
 recording, promotion to exactly one job with the right body, retirement of the
 entry, and idempotency on re-scan. A live-inbox send still delivers (SUBTEST 5/6).
+`scripts/jobs/test/deadmail-schedule-carry-forward-test.sh` (new) asserts the
+schedule carry-forward route: a dead-mail to a dispatched recurring tick lands in
+`carry-forward/<stem>/` (not a generic `deadmail-*` job) while a non-schedule
+recipient still promotes generically, deadmail is idempotent on re-scan, and the
+next `scheduler.sh` dispatch injects the report into the tick body and drains the
+mailbox exactly once.
 Full suite: 80 passed, 0 failed (run with the host's `GARDEN_GARDENER_*` env unset
 so the harness uses its throwaway journal — see note below).
 

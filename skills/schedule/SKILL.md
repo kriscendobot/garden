@@ -69,6 +69,24 @@ later cadence edits exactly like `last_dispatched`. Example:
 `scholar-preflight.sh` gates `scholar-library-cycle` on a non-empty scholar inbox,
 a claimable `scholar-*` job, or a fresh `role/scholar` broadcast.
 
+**Carry-forward from a dead-lettered tick reply.** A recurring driver dispatches
+each tick as a fresh short-lived doer with a TIMESTAMPED base
+(`<prefix>-YYYYMMDD-HHMMSS`) whose inbox is torn down at completion, so a sub-job's
+completion report addressed back to the tick that spawned it structurally
+dead-letters — the addressed reader is gone before the reply lands. `deadmail.sh`
+recognizes this: when a dead-mail entry's `to:` strips down (removing the
+`-YYYYMMDD-HHMMSS` suffix) to an ACTIVE recurring schedule's `job_basename_prefix`,
+it deposits the carried report into that schedule's durable, timestamp-free mailbox
+`carry-forward/<schedule-stem>/` (deposit + dead-mail retire in one CAS commit)
+instead of promoting a generic gardener. The scheduler then **injects any pending
+carry-forward report(s) into the next dispatched tick body** — a block that
+precedes the `anchored_window` context block, mirroring that context-injection —
+and `git rm`s the drained files in the SAME CAS commit as the dispatch + stamp, so
+each report is consumed exactly once and reaches the schedule's next tick as the
+addressed reader deterministically, not by hope. Non-schedule recipients keep the
+generic-gardener promotion path unchanged. (`scripts/jobs/deadmail.sh`,
+`scripts/jobs/scheduler.sh`; helper `schedule_carry_forward_dir` in `common.sh`.)
+
 One-time future (`once:`) — fires exactly once at a date, then the scheduler
 DELETES the schedule file (CAS commit) so it never repeats:
 ```

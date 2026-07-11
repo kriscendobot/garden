@@ -21,6 +21,18 @@
 # by basename (post-job.sh no-ops a basename already in the lifecycle) and the
 # entry is removed after promotion, so a re-scan never double-promotes.
 #
+# Schedule carry-forward routing — the structural dead-letter of a RECURRING
+# scheduled fan-out (scheduler.sh dispatches each tick as a fresh short-lived doer
+# with a timestamped base, whose inbox is torn down at completion) is not a job for
+# a generic gardener: the true reader of a sub-job's reply is the schedule's NEXT
+# tick. When a dead-mail entry's `to:` base strips down (removing the dispatched
+# -YYYYMMDD-HHMMSS suffix) to an ACTIVE recurring schedule's job_basename_prefix,
+# we deposit the carried report into that schedule's durable, timestamp-free
+# per-name mailbox (schedule_carry_forward_dir) instead of spawning a gardener;
+# scheduler.sh then injects it into the next dispatched tick body so it reaches the
+# addressed reader mechanically rather than by hope. Non-schedule recipients keep
+# the generic-gardener promotion path unchanged.
+#
 # Note — structured carry-forward survives promotion for FREE: the promoted job
 # body `cat`s the WHOLE original message (see below), so any structured block in
 # the message rides along unchanged. In particular the issue-inbox ISSUE NOTE
@@ -63,7 +75,34 @@ verify_posted() {  # verify_posted <base>
   return 1
 }
 
+# Strip a dispatched-tick timestamp suffix (-YYYYMMDD-HHMMSS) from a recipient
+# base, yielding the candidate schedule prefix. No such suffix → the base verbatim
+# (a report addressed to the bare prefix still routes). Mirrors scheduler.sh's
+# dispatched basename `${prefix}-$(date +%Y%m%d-%H%M%S)`.
+strip_tick_suffix() { printf '%s\n' "$1" | sed -E 's/-[0-9]{8}-[0-9]{6}$//'; }
+
+# Echo the schedules/<name> file whose job_basename_prefix matches the
+# timestamp-stripped recipient base AND that is an ACTIVE RECURRING schedule (has a
+# `cadence:` field — once: schedules have none and are deleted after firing, so they
+# are never a live reader). Empty output + rc 1 when no recurring schedule owns it.
+match_recurring_schedule() {  # $1=clone-dir $2=recipient-base
+  local dir="$1" base="$2" cand sname sf cad prefix
+  cand="$(strip_tick_suffix "$base")"
+  [ -n "$cand" ] || return 1
+  for sname in $(list_jobs "$dir" schedules); do
+    case "$sname" in *.md) ;; *) continue;; esac
+    sf="$dir/schedules/$sname"
+    cad="$(sed -n 's/^cadence:[[:space:]]*//p' "$sf" | head -1)"
+    [ -n "$cad" ] || continue   # not recurring (once: has no cadence)
+    prefix="$(sed -n 's/^job_basename_prefix:[[:space:]]*//p' "$sf" | head -1)"
+    [ -n "$prefix" ] || continue
+    [ "$prefix" = "$cand" ] && { printf '%s\n' "$sname"; return 0; }
+  done
+  return 1
+}
+
 promoted=0
+carried=0
 for f in $(list_jobs "$DIR" inbox/dead); do
   case "$f" in *.md) ;; *) continue;; esac
   src="$DIR/inbox/dead/$f"
@@ -73,6 +112,33 @@ for f in $(list_jobs "$DIR" inbox/dead); do
   base="deadmail-$(printf '%s' "$msgid" | tr -c 'A-Za-z0-9._-' '-')"
 
   to="$(sed -n 's/^to:[[:space:]]*//p' "$src" | head -1)"
+
+  # --- Schedule carry-forward: deposit into the schedule mailbox, not a gardener.
+  # If `to` addresses a dispatched RECURRING-schedule tick, the reader is the
+  # schedule's next tick. Deposit the WHOLE original message into the schedule's
+  # durable per-name mailbox and retire the dead-mail in the SAME CAS commit (so
+  # deposit and retire are atomic — no verify_posted step needed). scheduler.sh
+  # drains the mailbox into the next dispatch. Idempotent: a re-scan after a lost
+  # race re-syncs and finds the entry either still present (retry) or already gone.
+  if [ -n "$to" ] && sched="$(match_recurring_schedule "$DIR" "$to")"; then
+    cfdir="$(schedule_carry_forward_dir "$sched")"
+    saved="$(mktemp "${TMPDIR:-/tmp}/garden-deadmail-cf.XXXXXX")"; cp "$src" "$saved"
+    for attempt in $(seq 1 20); do
+      sync_clone "$DIR"
+      [ -e "$DIR/inbox/dead/$f" ] || break   # already handled by another host
+      mkdir -p "$DIR/$cfdir"
+      cp "$saved" "$DIR/$cfdir/$f"
+      git -C "$DIR" add "$cfdir/$f"
+      git -C "$DIR" rm -q "inbox/dead/$f"
+      if commit_and_push "$DIR" "deadmail: carried $msgid → schedule $sched mailbox ($GARDEN)"; then
+        carried=$((carried+1)); break
+      fi
+      log "carry-forward of dead-mail $msgid lost a push race (attempt $attempt); retrying"
+      backoff "$attempt"
+    done
+    rm -f "$saved"
+    continue
+  fi
 
   body="$(mktemp "${TMPDIR:-/tmp}/garden-deadmail.XXXXXX")"
   {
@@ -133,4 +199,5 @@ for f in $(list_jobs "$DIR" inbox/dead); do
 done
 
 [ "$promoted" -gt 0 ] && log "promoted $promoted dead-mail message(s) to jobs"
+[ "$carried" -gt 0 ] && log "carried $carried dead-mail message(s) forward to schedule mailbox(es)"
 exit 0

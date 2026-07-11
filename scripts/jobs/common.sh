@@ -2597,6 +2597,19 @@ list_jobs() {
   ls -1 "$dir/$sub" 2>/dev/null | grep -v -x '.gitkeep' || true
 }
 
+# Per-schedule carry-forward mailbox (relative to a journal clone root). A
+# recurring schedule dispatches each tick as a fresh short-lived doer with a
+# TIMESTAMPED base (<prefix>-YYYYMMDD-HHMMSS) whose inbox is destroyed at
+# completion, so a sub-job's completion report addressed to the tick that spawned
+# it can never reach a live inbox. But the SCHEDULE itself has a durable,
+# timestamp-free identity: its file stem. deadmail.sh deposits such a carried
+# report here keyed by that stem; scheduler.sh drains it into the schedule's NEXT
+# dispatched tick body, so the report reaches the true reader deterministically
+# instead of via a generic-gardener restate-and-hope. Kept OUT of schedules/ so
+# the scheduler's `list_jobs … schedules` iteration never mistakes it for a
+# schedule file. The argument is the schedule name (with or without .md).
+schedule_carry_forward_dir() { printf 'carry-forward/%s\n' "${1%.md}"; }
+
 # Hash a directive identity to a filesystem-safe index key. 16 sha1 hex chars —
 # wider than the 8-char comment-watcher base hash, since a collision here would
 # wrongly fold two *distinct* directives onto one job (a dropped directive), the
