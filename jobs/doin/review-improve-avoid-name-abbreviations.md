@@ -101,3 +101,9 @@ scripts/jobs/review-miss-record.sh cluster-status avoid-name-abbreviations close
 ```
 This is a GARDEN-development job (roles/skills/scripts on main2). Do the work in an
 isolated main2 worktree; commit explicit pathspecs; push with a rebase CAS loop.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 11
+  claimed_at: 2026-07-11T01:53:07Z
