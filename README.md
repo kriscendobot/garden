@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T00:33:51Z_
+_As of 2026-07-11T00:36:23Z_
 
 ## Latest
 
-The glob/grep `@endo/platform` pushdown stack for #127 was built, gauntleted, and un-drafted as four stacked PRs — [#678](https://github.com/endojs/endo-but-for-bots/pull/678) (search engine), [#679](https://github.com/endojs/endo-but-for-bots/pull/679) (`EndoMount.glob`), [#680](https://github.com/endojs/endo-but-for-bots/pull/680) (`EndoMount.grep`), and [#681](https://github.com/endojs/endo-but-for-bots/pull/681) (agent tools); [#677](https://github.com/endojs/endo-but-for-bots/pull/677) shepherded green, and CI shepherds for #678–#681 are now in flight. Two items on that stack want a maintainer call: grep still ships an unbounded `RegExp` (a guest ReDoS exposure, pre-existing but newly a reusable primitive — decide whether to gate it on the conservative subset now or accept interim exposure behind [#676](https://github.com/endojs/endo-but-for-bots/pull/676)), and design PR [#675](https://github.com/endojs/endo-but-for-bots/pull/675) should land on `llm` before/with the stack so its changelog links resolve.
+The glob/grep `@endo/platform` pushdown stack for #127 is built, gauntleted, and un-drafted into your queue as four stacked PRs — [#678](https://github.com/endojs/endo-but-for-bots/pull/678) (search engine), [#679](https://github.com/endojs/endo-but-for-bots/pull/679) (`EndoMount.glob`), [#680](https://github.com/endojs/endo-but-for-bots/pull/680) (`EndoMount.grep`), [#681](https://github.com/endojs/endo-but-for-bots/pull/681) (agent tools) — with auto-shepherds now chasing their CI green. Two merge-gate calls ride on it: the design PR [#675](https://github.com/endojs/endo-but-for-bots/pull/675) should land first so the changelog links resolve, and the panel flagged that normative grep still ships an unbounded `RegExp` (a guest-supplied catastrophic pattern can block the daemon loop) — decide whether to gate it on the conservative subset ([#676](https://github.com/endojs/endo-but-for-bots/pull/676), `@endo/regexp`) before it ships. Separately, mount-glob [#653](https://github.com/endojs/endo-but-for-bots/pull/653) is now fully green after a rebase onto its fixed base.
 
-The recurring foreman refrain is the headline for review attention: **M3 is saturated in flight with no unblocked build work left**, because a large batch of CI-green, mergeable PRs sits unmerged on the fork's `llm` — the mount chain ([#650](https://github.com/endojs/endo-but-for-bots/pull/650)/[#652](https://github.com/endojs/endo-but-for-bots/pull/652)/[#653](https://github.com/endojs/endo-but-for-bots/pull/653)/[#655](https://github.com/endojs/endo-but-for-bots/pull/655)/[#658](https://github.com/endojs/endo-but-for-bots/pull/658)), the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)), and daemon-agent-tools — every stacked follower is blocked on merge, not on missing work. Two poison jobs are parked awaiting your promotion: the #592 watchDirectory cancellation fixer and the [#661](https://github.com/endojs/endo-but-for-bots/pull/661) HTTP-client gauntlet (whose blocking lint red, tracked by [#594](https://github.com/endojs/endo-but-for-bots/pull/594), now shows green). Note also that [#618](https://github.com/endojs/endo-but-for-bots/pull/618) (Phase-4 capability tool discovery) was closed by kriskowal over a shell-capability-leak concern, handed to @kumavis.
+The loudest signal is a merge bottleneck, not missing work: the foreman reports M3 saturated with a large backlog of green, mergeable, gauntleted PRs sitting unmerged on `llm` — the mount chain ([#650](https://github.com/endojs/endo-but-for-bots/pull/650)/[#652](https://github.com/endojs/endo-but-for-bots/pull/652)/[#653](https://github.com/endojs/endo-but-for-bots/pull/653)) and the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) among them — blocking every stacked follower. Nearly every fleet impasse this cycle is a duplicate-avoidance stop: builders found the requested work already done ([#609](https://github.com/endojs/endo-but-for-bots/pull/609) timer, [#614](https://github.com/endojs/endo-but-for-bots/pull/614)/[#618](https://github.com/endojs/endo-but-for-bots/pull/618) fs-tools, the daemon-locator terminology, the mvs-resolver split between [#403](https://github.com/endojs/endo-but-for-bots/pull/403) and [#671](https://github.com/endojs/endo-but-for-bots/pull/671)) and stopped rather than open a colliding third PR — several want a "which home wins" ruling. On the fork side, the XS-validation effort (kriskowal/garden#33) has converged fully green on [kriscendobot/agoric-sdk#13](https://github.com/kriscendobot/agoric-sdk/pull/13) and [#14](https://github.com/kriscendobot/agoric-sdk/pull/14) and is now blocked solely on two of your decisions (waive the Depot-gated `force:integration` leg, and whether green-draft #14 counts as "landed").
 
-On the forks: the XS-validation effort (garden#33) is engineering-complete and green on `kriscendobot/agoric-sdk` [#13](https://github.com/kriscendobot/agoric-sdk/pull/13)/[#14](https://github.com/kriscendobot/agoric-sdk/pull/14) but blocked on two decisions — waiving the Depot-gated `force:integration` leg and whether green draft #14 counts as "landed"; PR [#9](https://github.com/kriscendobot/agoric-sdk/pull/9) is now PR-scope green and awaits a rebase-or-freeze call. finbot landed its last three stranded branches (SES compartments, multi-instrument portfolios, cyclical forecaster) onto `main` with no branches left stranded. Two operational notes worth flagging: a session-limit outage overnight (reset ~00:30Z) knocked out every triager with self-heal failures across the watch set, and many gauntlet/shepherd jobs are deterministically overrunning the 2400s handler budget and getting reaper-poisoned — they need splitting into claim-sized stages.
+Two operational notes worth a glance: a steady stream of shepherd/gauntlet jobs is deterministically overrunning the 2400s handler budget and heading for poison — they need splitting into claim-sized stages — and an overnight session-limit exhaustion crash-looped the triagers across every watched fork (self-heal escaped with no scoped fix, breakers now open until fresh changes clear them). PR [#661](https://github.com/endojs/endo-but-for-bots/pull/661)'s gauntlet and the [#592](https://github.com/endojs/endo-but-for-bots/pull/592) cancellation-API fixer are both poison-parked awaiting your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -722,6 +722,23 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > self-heal: garden-triager@kriscendobot-ocapn exited rc=1 with no scoped fix. Capture: 9be24a3defac01ef901cdb39a0d9b2308807a869 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 9be24a3defac01ef901cdb39a0d9b2308807a869). Diagnosis: You've hit your session limit · resets 12:30am (UTC)
 
+- `20260711T003523Z-afed25` — from gardener:self-heal-fix-garden-triager-kriscendobot-ocapn-missing-bare-clone-die, reply_to `self-heal-fix-garden-triager-kriscendobot-ocapn-missing-bare-clone-die` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T003523Z-afed25.md)
+
+> Triager crash-loop fix landed on main2 (4c0e275b0b). Two peers had already
+> un-wedged the every-tick crash: GARDEN_REPOS now defaults to worktrees/ and the
+> hard die became a clean skip. But that skip leaves the three watched repos with
+> NO clone on any host — kriscendobot-{ocapn,agoric-3-proposals,cosgov} — UN-TRIAGED
+> (they're no longer crashing, just silently unwatched).
+>
+> I added an OPT-IN self-provision path (GARDEN_TRIAGE_SELF_PROVISION=1): a triager
+> tick with a missing clone derives the fork URL from the slug and does a bounded
+> atomic bare clone (reusing clone-keeper's logic, now shared in common.sh), then
+> triages; unreachable/underivable sources skip+retry and escalate once. It's
+> DEFAULT-OFF so it doesn't fight the just-landed skip-model or auto-clone on every
+> host. FOLLOW-UP / your call: to actually triage those 3 repos, either create their
+> bare clones under worktrees/, or arm GARDEN_TRIAGE_SELF_PROVISION=1 on one host
+> after confirming the forks exist.
+
 - `poison-endojs-endo-but-for-bots-pr592-cancel-in-options-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-endojs-endo-but-for-bots-pr592-cancel-in-options-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -809,23 +826,21 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (8)
+### doin (6)
 - [`deadmail-issue-comment-4940396976`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4940396976.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr678-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr678-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #678
 - [`endojs-endo-but-for-bots-pr679-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr679-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #679
-- [`endojs-endo-but-for-bots-pr680-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr680-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #680
 - [`endojs-endo-but-for-bots-pr681-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr681-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #681
 - [`scholar-library-cycle-20260710-233505`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260710-233505.md) — Hourly scholar library cycle
-- [`self-heal-fix-garden-triager-kriscendobot-ocapn-missing-bare-clone-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-ocapn-missing-bare-clone-die.md) — **Repo/host:** garden meta-repo (main2), this instance (kriscendobot-ocapn sl...
 - [`xst-validation-orchestrator-20260710-233505`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-validation-orchestrator-20260710-233505.md) — XS-validation orchestrator (hourly) — drive the agoric-sdk XS upgrade to vali...
 
-### tada (1809)
+### tada (1811)
+- [`self-heal-fix-garden-triager-kriscendobot-ocapn-missing-bare-clone-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ocapn-missing-bare-clone-die.md) — Completion report
+- [`endojs-endo-but-for-bots-pr680-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr680-shepherd.md) — Completion report
 - [`endojs-endo-but-for-bots-pr677-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr677-shepherd.md) — Completion report
 - [`design-token-cost-ledger`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-token-cost-ledger.md) — Job design-token-cost-ledger complete.
 - [`self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-bare-clone-path`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-bare-clone-path.md) — Completion report
-- [`self-heal-fix-garden-triager-kriscendobot-cosgov-bare-clone-dir-repos-not-worktrees`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-cosgov-bare-clone-dir-repos-not-worktrees.md) — Completion report
-- [`endojs-endo-but-for-bots-pr671-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-weave.md) — Completion report
-- … and 1804 more
+- … and 1806 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
