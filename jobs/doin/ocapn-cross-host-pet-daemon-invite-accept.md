@@ -43,3 +43,9 @@ via invite/accept over `wss://` + Noise and round-tripping a capability, plus th
 TCP demonstration (or a reference to #688's). Land scripts + README + transcript on a
 stacked branch → draft PR. Report the exact pairing steps and any gap vs the full
 pet-name invitation workflow.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 20
+  claimed_at: 2026-07-11T17:34:26Z
