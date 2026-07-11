@@ -176,7 +176,7 @@ else
 fi
 # (f) the EARLY-POISON hint was stamped: the confirming cycle stamps the SAME
 # deadline-overrun counter the rc=124 wall-hit path uses, so the reaper poisons this
-# job after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles rather than the full poison
+# job after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle rather than the full poison
 # threshold. deadline_overrun_count reads the counter that landed on the doin body.
 if [ -f "$V2/jobs/doin/overrunjob.md" ] && [ "$(deadline_overrun_count "$V2/jobs/doin/overrunjob.md")" -ge 1 ]; then
   ok "early-poison overrun counter stamped on the doin job (deadline_overrun_count=$(deadline_overrun_count "$V2/jobs/doin/overrunjob.md")) — reaper poisons after GARDEN_REAP_OVERRUN_THRESHOLD, not the full threshold"

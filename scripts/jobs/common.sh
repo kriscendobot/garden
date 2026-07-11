@@ -1990,10 +1990,13 @@ stamp_reap_now_hint() {
 # rather than an external SIGTERM/OOM/drain that varies in elapsed. Such a handler
 # will be killed IDENTICALLY on every requeue: the job simply exceeds the handler
 # budget. Requeuing it the full GARDEN_REAP_POISON_THRESHOLD (5) cycles before the
-# reaper surfaces it burns ~5×GARDEN_HANDLER_TIMEOUT (~200 min) of gardener
-# wall-clock for a verdict that two identical deadline hits already prove. So the
-# gardener stamps a per-job COUNTER here, and the reaper escalates a job carrying it
-# to POISON after the much lower GARDEN_REAP_OVERRUN_THRESHOLD (2) instead.
+# reaper surfaces it burns ~5×the handler budget of gardener wall-clock for a verdict
+# that a single deadline hit already proves. So the gardener stamps a per-job COUNTER
+# here, and the reaper escalates a job carrying it to POISON after the much lower
+# GARDEN_REAP_OVERRUN_THRESHOLD (1) instead — after the FIRST deterministic overrun.
+# A productive wall-hit (a per-job worktree HEAD advanced — the sanctioned resume
+# treadmill that hits its wall by design) is exempt: the reaper RESETS this counter on
+# a productive cycle, so only a wall-hit that made NO progress counts toward poison.
 #
 # The marker is a COUNTER the GARDENER owns and increments (distinct from the
 # reaper-owned `<!-- garden-reaped: N -->` cycle counter): each wall-hit cycle the

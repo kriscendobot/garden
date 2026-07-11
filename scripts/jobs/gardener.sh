@@ -31,7 +31,7 @@ CLONE="$GARDEN_GARDENER_CLONE"
 : "${GARDEN_JOB_HANDLER:=$HERE/handlers/gardener-claude.sh}"
 # Upper runtime bound for ONE handler invocation (see the wrapped call below).
 # INVARIANT: GARDEN_HANDLER_TIMEOUT + GARDEN_HANDLER_KILL_AFTER < GARDEN_CLAIM_TTL
-# (reaper.sh, default 3600) so no handler — even one that ignores SIGTERM and is only
+# (reaper.sh, default 14400) so no handler — even one that ignores SIGTERM and is only
 # released by the --kill-after SIGKILL escalation — can outlive the reaper's
 # stale-claim window; otherwise the reaper would requeue the SAME base while the
 # original handler is still running and the job would execute concurrently on two
@@ -50,11 +50,22 @@ CLONE="$GARDEN_GARDENER_CLONE"
 # is_external_kill_rc already classifies transient — so, like the rc=124 wall-clock
 # kill (is_handler_timeout_rc), it needs no new classification branch.
 : "${GARDEN_HANDLER_KILL_AFTER:=60}"
-# The reaper's stale-claim window (reaper.sh, default 3600 — the authority). Mirrored
-# here ONLY so the optional per-job `handler-timeout:` header (resolved at the call
-# site below) can be clamped against the INVARIANT above; keep this default in sync
-# with reaper.sh's GARDEN_CLAIM_TTL. The reaper stays the sole owner of the requeue.
-: "${GARDEN_CLAIM_TTL:=3600}"
+# The reaper's stale-claim window (reaper.sh, default 14400 = 4h — the authority).
+# Mirrored here ONLY so the optional per-job `handler-timeout:` header (resolved at the
+# call site below) can be clamped against the INVARIANT above; keep this default in
+# sync with reaper.sh's GARDEN_CLAIM_TTL. The reaper stays the sole owner of the
+# requeue. Sized at 4h (not the old 1h) so the per-job budget cap it derives —
+# budget_max = GARDEN_CLAIM_TTL − GARDEN_HANDLER_KILL_AFTER − 1 ≈ 14339s (~3.98h) — is
+# large enough for a BUILD-HEAVY job (a cold `docker build` legitimately runs a few
+# hours) to declare a `handler-timeout:` that fits and actually COMPLETE, instead of
+# being SIGTERM-killed at the 40-min default on every requeue. The DEFAULT
+# GARDEN_HANDLER_TIMEOUT stays 2400s, so a HEADERLESS job is unchanged; only a job
+# carrying an explicit `handler-timeout:` header rides the larger budget. Tradeoff of
+# the wider window: a claim whose gardener died SILENTLY (host crash / OOM before it
+# could stamp the reap-now hint) now waits up to 4h to be reaped rather than 1h — the
+# same-host fast paths (the reap-now hint on a transient death, the live-handler guard)
+# are unaffected, so only a rare silent cross-host death pays the longer delay.
+: "${GARDEN_CLAIM_TTL:=14400}"
 
 # Elapsed-constancy early-escalation (common.sh § elapsed-constancy). When a
 # transient-CLASSIFIED handler failure (a transient-claude signature or a bare
@@ -787,10 +798,12 @@ while :; do
         # a DETERMINISTIC overrun that will be killed identically on every requeue, NOT a
         # varying external kill. Stamp the deadline-overrun COUNTER alongside the reap-now
         # hint (stamp_deadline_overrun_hint does both) so the reaper escalates it to POISON
-        # after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles instead of the full
-        # GARDEN_REAP_POISON_THRESHOLD (5) — two identical deadline hits is already
-        # conclusive, and requeuing it 5× (~5×GARDEN_HANDLER_TIMEOUT of gardener
-        # wall-clock, ~200 min) before surfacing it is pure waste.
+        # after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle instead of the full
+        # GARDEN_REAP_POISON_THRESHOLD (5) — a job that overran its budget will overrun it
+        # identically on every requeue, so ONE deadline hit is already conclusive, and
+        # requeuing it 5× (~5×the handler budget of gardener wall-clock) before surfacing
+        # it is pure waste. A productive wall-hit (HEAD advanced — the sanctioned resume
+        # treadmill) is spared: the reaper RESETS this counter on a productive cycle.
         log "handler for '$base' hit its OWN wall-clock budget (rc=124, elapsed=${elapsed}s ≈ handler-budget=${handler_budget}s): deterministic deadline overrun, stamping the overrun counter for early poison"
         printf 'gardener-%s on %s: job %s handler hit its OWN wall-clock budget (rc=124, elapsed=%ss ≈ handler-budget=%ss) — a DETERMINISTIC deadline overrun, not a varying external kill; stamping <!-- garden-deadline-overrun --> so the reaper poisons it after GARDEN_REAP_OVERRUN_THRESHOLD cycles instead of the full poison threshold; left in doin for the reaper\n' \
           "$id" "$GARDEN" "$base" "$elapsed" "$handler_budget" \
@@ -851,12 +864,12 @@ while :; do
       case "$constancy_n" in ''|*[!0-9]*) constancy_n=0 ;; esac
       # SUPPRESS during a fleet-wide outage. This path does more than advise — it stamps
       # the early-poison deadline-overrun counter (below) so a "deterministic overrun"
-      # poisons after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles. But under an ENGAGED fleet
+      # poisons after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle. But under an ENGAGED fleet
       # brake a near-constant elapsed is equally the signature of an environmental storm
       # (a session/usage cap tripping at the same point every run — the 2026-07-01
       # incident) that will self-resolve, NOT a per-job defect. Stamping the overrun
-      # counter then would poison a healthy job via the overrun path in 2 cycles, DEFEATING
-      # the outage-cycle poison-pause. So skip the whole early-escalation while the brake is
+      # counter then would poison a healthy job via the overrun path on its first stamp,
+      # DEFEATING the outage-cycle poison-pause. So skip the whole early-escalation while the brake is
       # engaged; the outage-cycle hint (above) spares the requeue counter for these cycles.
       if [ "$constancy_n" -ge 2 ] && [ "$cycle" -ge 2 ] && [ -s "$capture" ] \
          && ! is_external_kill_rc "$rc" && ! is_handler_timeout_rc "$rc" && ! fleet_brake_engaged; then
@@ -880,7 +893,7 @@ while :; do
           # (1) EARLY-POISON HINT — EVERY confirming cycle. Reuse the deadline-overrun
           # COUNTER (stamp_deadline_overrun_hint, the SAME early-poison mechanism the
           # rc=124 wall-hit path uses) so the reaper escalates this job to POISON after
-          # GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles instead of burning the full
+          # GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle instead of burning the full
           # GARDEN_REAP_POISON_THRESHOLD (5) — exactly what happened to the four 1–2s
           # jobs in the 2026-07-03 batch, each of which emitted ONE advisory and then
           # burned all ~5 cycles. The counter must INCREMENT each confirming cycle to

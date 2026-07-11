@@ -57,8 +57,10 @@ git -C "$SEED" push -q -u origin "$BRANCH"
 export JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH"
 export GARDEN=testhost GARDEN_STATE="$TR/state"
 export GARDEN_POST_ATTEMPTS=50 GARDEN_REAP_PUSH_ATTEMPTS=50
-# Poison on the FIRST reap so the test is deterministic; overrun threshold at its
-# default 2 so a deadline-overrun marker of 2 trips the distinct signature.
+# Poison on the FIRST reap so the test is deterministic; pin the overrun threshold at
+# 2 (independent of the shipped default, which is 1) so a deadline-overrun marker of 2
+# trips the distinct signature. Pinned explicitly rather than relying on the default so
+# this fixture is stable if that default changes.
 export GARDEN_REAP_POISON_THRESHOLD=1 GARDEN_REAP_OVERRUN_THRESHOLD=2
 export GARDEN_CLAIM_TTL=3600
 

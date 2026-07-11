@@ -41,6 +41,43 @@ extensionless spine**. Scripts append `.md` for board files and strip it for the
   Touches only your own basename, so **retry with backoff until it lands**.
 - **Reap** (`reaper.sh`): requeue `doin/` claims older than `GARDEN_CLAIM_TTL`.
 
+## Per-job handler budget — build-heavy jobs (`handler-timeout:`)
+
+A gardener kills its handler at the default wall-clock budget
+`GARDEN_HANDLER_TIMEOUT` (2400 s = **40 min**). A job that legitimately runs longer —
+the paradigm case is a **cold `docker build`**, which can take a few hours — must
+declare its own budget or it is SIGTERM-killed at 40 min on **every** requeue and
+never completes (the docker build burns a gardener slot per cycle, then poisons).
+
+**The producer stamps the budget.** Put a `handler-timeout: <seconds>` line in the
+**job body** at post time (`post-job.sh <base> <body-with-header>`). The gardener
+reads it and runs the handler at that budget in place of the 40-min default; the
+reaper reads the same header so it never requeues the still-live long handler. There
+is no auto-classifier — **whoever posts a build-heavy job is responsible for the
+header** (the liaison for a `build`, an orchestration for a build child, a re-post of
+a poisoned docker job). Rule of thumb: any job that runs a container/image build, a
+full-from-scratch compile, or another step known to exceed ~40 min needs it.
+
+```
+handler-timeout: 10800      # 3h — a cold docker image build
+<the rest of the job body: repo, PR/comment URL, task>
+```
+
+**Cap.** The header is honored up to `budget_max = GARDEN_CLAIM_TTL −
+GARDEN_HANDLER_KILL_AFTER − 1` (≈ **14339 s / 3.98 h** at the defaults); a larger
+request is clamped to that max and the maintainer is alerted, because a handler that
+needs longer than one claim can hold cannot be claim-scoped (it must run detached or
+be split into claim-sized stages). To raise the ceiling, raise `GARDEN_CLAIM_TTL`
+(and keep `gardener.sh` and `reaper.sh` in sync) so the single-owner invariant
+`budget + GARDEN_HANDLER_KILL_AFTER < GARDEN_CLAIM_TTL` still holds.
+
+**Deterministic overrun surfaces fast.** A job that hits its wall with **no
+progress** is a deterministic overrun (it will overrun identically on every requeue);
+the reaper poisons it after **one** such cycle (`GARDEN_REAP_OVERRUN_THRESHOLD=1`),
+parking it held with a maintainer notice rather than churning ~5× the budget. A
+long job that makes progress each cycle (a per-job worktree HEAD advances — the
+sanctioned resume treadmill) is exempt and never poisons on that basis.
+
 ## Plan category — parked work, not claimable until promoted
 
 `jobs/plan/` sits **alongside** `todo/doin/tada` but **outside** the claim

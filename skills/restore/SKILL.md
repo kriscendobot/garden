@@ -18,8 +18,11 @@ and the outage may have stalled the singletons themselves:
   erroring dies; systemd restarts a *fresh* gardener that idle-polls, but the dead
   session's claim is stranded in `jobs/doin/` with no live worker. It is recovered
   only when a reaper tick notices the claim is older than `GARDEN_CLAIM_TTL`
-  (default 3600s) — up to an hour of stall, and never if the reaper is not running
-  on this host.
+  (default 14400s = 4h, widened to fit build-heavy `handler-timeout:` budgets) —
+  and never if the reaper is not running on this host. A gardener that died a
+  *transient* signal-kill first stamps a reap-now hint so the reaper requeues it on
+  the next tick rather than idling the full TTL, so this full-TTL stall applies only
+  to a claim whose worker vanished *silently* (host crash, hard SIGKILL).
 - **Dead letters.** A reply sent to a doer whose inbox tore down as the message was
   in flight lands in `inbox/dead/`; it becomes work only on a deadmail tick.
 - **Poisoned jobs.** A job that failed every requeue cycle (often *because* every

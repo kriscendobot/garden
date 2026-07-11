@@ -63,20 +63,28 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 GARDEN_TAG="reaper"
 
-: "${GARDEN_CLAIM_TTL:=3600}"          # seconds a claim may sit in doin before reaping
+: "${GARDEN_CLAIM_TTL:=14400}"         # seconds a claim may sit in doin before reaping (4h; must match gardener.sh)
 : "${GARDEN_FETCH_REAP_AGE:=120}"      # seconds a `git fetch` may run before it is killed
 : "${GARDEN_FETCH_REAP_KILL_AFTER:=5}" # grace seconds after SIGTERM before the stuck-fetch janitor escalates to SIGKILL
 : "${GARDEN_REAP_PUSH_ATTEMPTS:=50}"   # bounded retries for the batched requeue push (CAS contention)
 : "${GARDEN_REAP_POISON_THRESHOLD:=5}" # requeue cycles after which a job is surfaced as poison, not requeued
 # A job carrying the gardener's `<!-- garden-deadline-overrun: N -->` marker hit its
-# OWN handler wall-clock budget (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT) — a
-# DETERMINISTIC overrun that will be killed identically on every requeue, so it is
-# escalated to POISON at this much LOWER threshold (default 2) rather than the full
-# GARDEN_REAP_POISON_THRESHOLD: two identical deadline hits is already conclusive, and
-# requeuing it 5× (~5×GARDEN_HANDLER_TIMEOUT of gardener wall-clock) before surfacing
-# it is pure waste. The gardener owns/increments the counter (common.sh
-# § deadline-overrun); the reaper only reads it to decide the threshold.
-: "${GARDEN_REAP_OVERRUN_THRESHOLD:=2}" # deadline-overrun cycles after which a wall-hitting job is surfaced as poison
+# OWN handler wall-clock budget (rc=124, elapsed≈handler budget) — a DETERMINISTIC
+# overrun that will be killed identically on every requeue, so it is escalated to
+# POISON at this much LOWER threshold (default 1) rather than the full
+# GARDEN_REAP_POISON_THRESHOLD: a job that overruns its budget will overrun it again on
+# every requeue, so ONE deadline hit is already conclusive — surfacing after the first
+# (not the fifth) stops it from burning ~5×the budget of gardener wall-clock before the
+# maintainer even hears about it. This case is safe to trip at 1 because a NON-defective
+# long job on the sanctioned resume treadmill (which hits its wall by design) earns the
+# PRODUCTIVE-cycle exemption below — a productive wall-hit RESETS this counter to 0 — so
+# only a job that hits its wall AND makes NO progress accumulates toward poison here. A
+# poisoned job is not dropped: it is PARKED (held, resumable) with a maintainer notice,
+# so a legitimately build-heavy job that simply needs a bigger budget is surfaced fast
+# for a human to re-post with a larger `handler-timeout:` rather than churned silently.
+# The gardener owns/increments the counter (common.sh § deadline-overrun); the reaper
+# only reads it to decide the threshold.
+: "${GARDEN_REAP_OVERRUN_THRESHOLD:=1}" # deadline-overrun cycles after which a wall-hitting job is surfaced as poison
 
 # --- two-writers-in-one-worktree guard (data-corruption class) ----------------
 #
@@ -516,17 +524,18 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
     # and reap-now markers), so the count accumulates cycle over cycle.
     overrun="$(deadline_overrun_count "$f")"
     # PRODUCTIVE cycle also spares the deadline-overrun counter, symmetric to the reap
-    # counter above. A builder on the SANCTIONED resume treadmill hits its OWN handler
-    # wall (rc=124 at 2400s) every cycle BY DESIGN and gets garden-deadline-overrun
-    # stamped each time; without this it false-poisons at GARDEN_REAP_OVERRUN_THRESHOLD
-    # after just two PRODUCTIVE wall-hits (and when it is an on-child-failure:halt
-    # orchestration child, that false poison halts the whole serial chain). So on a
-    # productive cycle zero the count for the decision AND strip the preserved marker
-    # from the requeued body: the overrun marker survives clean_body by design, so a
-    # productive cycle must re-stamp it to 0 (not merely zero the local variable) or the
-    # next cycle re-reads the stale N and re-accumulates. Only NON-productive wall-hits
-    # count toward the overrun poison — a genuinely deadlocked handler never earns the
-    # productive marker and still poisons at threshold 2.
+    # counter above — and it is what makes the threshold-1 poison safe. A builder on the
+    # SANCTIONED resume treadmill hits its OWN handler wall (rc=124 at its budget) every
+    # cycle BY DESIGN and gets garden-deadline-overrun stamped each time; at
+    # GARDEN_REAP_OVERRUN_THRESHOLD=1 it would false-poison after its FIRST productive
+    # wall-hit (and when it is an on-child-failure:halt orchestration child, that false
+    # poison halts the whole serial chain) without this reset. So on a productive cycle
+    # zero the count for the decision AND strip the preserved marker from the requeued
+    # body: the overrun marker survives clean_body by design, so a productive cycle must
+    # re-stamp it to 0 (not merely zero the local variable) or the next cycle re-reads the
+    # stale N and re-accumulates. Only NON-productive wall-hits count toward the overrun
+    # poison — a genuinely deadlocked handler never earns the productive marker and still
+    # poisons at threshold 1, after its first no-progress overrun.
     if [ "$productive" -eq 1 ] && [ "$overrun" -ne 0 ]; then
       log "productive: '$base' hit its handler wall on a productive cycle; resetting deadline-overrun counter (was $overrun) — not counted toward overrun poison"
       overrun=0
