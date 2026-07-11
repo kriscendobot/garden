@@ -1,14 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-11T13:52:24Z_
+_As of 2026-07-11T14:03:15Z_
 
 ## Latest
 
-The daemon→manager rename cleared its first hop — [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598) wove onto `llm`, unblocking its parked Phase 2/3 identifier-rename jobs. But both foremen are now escalating a hardening M3 merge bottleneck: a fleet of green, mergeable PRs (#608, #656, #667–672, #678–681) sits unmerged, and every gauntlet keeps hitting the typescript-eslint projectService lint ceiling whose fix — [endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — is still unmerged, which poisoned [#661](https://github.com/endojs/endo-but-for-bots/pull/661)'s run; merging #594 trip-wires the parked `resume-lint-ceiling-shepherds` job to resume the poisoned cohort.
+The garden root is running ~56 commits behind `main2`, and that deploy gap is now the fleet's biggest drag: the triager crash-loop fix (GARDEN_REPOS defaulting to `worktrees/`, missing-clone becomes a clean skip) has been landed and tested on `main2` by a cluster of self-heal gardeners, but the deployed root at `688e6174c8` still carries the stale `/repos` default, so `garden-triager@*` keeps FATAL-looping every tick. A drained `deploy-garden.sh` (leader/liaison only) is the clean resolution — all eight own-fork bare clones already exist under `worktrees/`, so post-deploy the triagers tick cleanly with no further materialization.
 
-Two decisions have narrowed to the maintainer alone. On [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (promote ymax vat → critical), the shepherd's dprint fix took fork CI from 4 reds to 1 and all PR-attributable checks are green — the effort is blocked solely on `rebase #9` vs `freeze #9` (the lone red is stale-base codegen noise a rebase would clear). And XS-validation ([garden#33](https://github.com/kriskowal/garden/issues/33)) is engineering-complete and green, awaiting two yes/no answers to close out.
+The foreman has escalated **twice** that Milestone M3 is merge-bottlenecked: a fleet of green, mergeable endo-but-for-bots PRs (#608, #656, #667–672, #678–681) sits unmerged, and every gauntlet trips the typescript-eslint projectService lint ceiling whose fix, [#594](https://github.com/endojs/endo-but-for-bots/pull/594), is still unmerged — that phantom-red already poisoned the [#661](https://github.com/endojs/endo-but-for-bots/pull/661) gauntlet. Merging #594 auto-promotes the parked `resume-lint-ceiling-shepherds` cohort. Separately, [#609](https://github.com/endojs/endo-but-for-bots/pull/609) (endoclaw-timer scheduler) was rebased back to mergeable, but kriskowal's review asks for a re-architecture into a standalone `@endo/reminder` plugin — designer work, and it may supersede stacked PRs #617/#619.
 
-Meanwhile a cluster of self-heal jobs all converge on one gap: the triager crash-loop fix is landed and tested on `main2`, but the deployed root is ~56 commits behind, so `garden-triager@*` units keep FATAL-looping until a drained `deploy-garden.sh` — a leader/liaison deploy is the clean fix. Off the endo track, finbot landed a run of direct-to-main simulator increments (SES-compartments, multi-instrument portfolios, and cyclical/GARCH/GJR-GARCH forecasters plus an inference-driven DECIDE stage, 451 tests green, wallet gate holding), and an OCapN Noise-WS demo is live and reproducible on minion.town — both flagging cap-attenuation/keypair-binding follow-ups that need a maintainer call.
+[kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax vat → critical) is now green on every PR-attributable check after the shepherd's dprint fix took CI from 4 reds to 1 — the lone remaining red is known stale-base codegen noise. It is blocked solely on a maintainer call: `rebase #9` onto current master or `freeze #9` as a frozen-base prototype, then un-draft for SwingSet review.
+
+Finbot landed a run of direct-push simulator increments this cycle — GARCH(1,1), GJR-GARCH leverage, the cyclical/harmonic forecaster, multi-instrument yield portfolios, and an inference-driven DECIDE stage (451 tests green, wallet gate holding). Two things there want your eye: its triage circuit-breaker OPENED, and CLAUDE.md's watch-set constraint only authorizes `endojs/endo-but-for-bots` — worth confirming `kriscendobot-finbot` belongs in the set at all. The finbot maintainer question also recurs across four cycles: builder branches keep stranding behind a fast-forward-only `main`. Elsewhere, the OCapN-Noise-WS demo is live and reproducible on minion.town, and the `endor-xst` runner core landed on its draft PR (with a flagged c/moddable gitlink still pinned to 8.0.1 instead of the 8.3.1 the tests need).
 
 ## Parked for maintainer feedback
 
@@ -425,8 +427,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`weave-endo-but-for-bots-pr656-provide-submount-onto-llm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/weave-endo-but-for-bots-pr656-provide-submount-onto-llm.md) — ---
 
 ### tada (1907)
 - [`weave-endo-but-for-bots-pr598-rename-to-manager-phase-one-onto-llm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr598-rename-to-manager-phase-one-onto-llm.md) — Completion report
