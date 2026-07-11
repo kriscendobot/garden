@@ -36,3 +36,9 @@ materialized SturdyRef's own properties and prototype chain for secret bytes
   `build/sturdyrefs-endor-syscall-retention`, or any `design/*` branch.
 - Report with real-execution evidence (commands + observed output) and state
   the confinement property preserved.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 12
+  claimed_at: 2026-07-11T23:13:15Z
