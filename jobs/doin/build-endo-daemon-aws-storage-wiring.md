@@ -16,3 +16,9 @@ Phase 2: a `makeDaemonicPowers` variant paralleling the assembly in `daemon-node
 Phase 3: run the engine test suites against dynamodb-local and MinIO through `daemon-aws-sdk.js` (emulator-fidelity), and boot a full daemon on the AWS platform.
 
 Build on a fresh branch off `llm`, rebasing onto whatever of PR #637 has landed by then.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 9
+  claimed_at: 2026-07-11T09:12:41Z
