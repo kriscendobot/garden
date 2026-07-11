@@ -14412,3 +14412,35 @@ Joe-E | (see section: habitat-chronicles--what-are-capabilities--distributed-ser
 capabilities germ theory | (see section: habitat-chronicles--what-are-capabilities--conclusion)
 computer security germ theory | (see section: habitat-chronicles--what-are-capabilities--conclusion)
 who are you access control incoherent | (see section: habitat-chronicles--what-are-capabilities--conclusion)
+representational vs behavioral | representational-vs-behavioral
+descriptive vs imperative | representational-vs-behavioral
+behavioral protocols | representational-vs-behavioral
+data protocols vs behavioral protocols | representational-vs-behavioral
+representational mode | representational-vs-behavioral
+imperative mode | representational-vs-behavioral
+anti-REST | representational-vs-behavioral
+nouns and verbs REST | representational-vs-behavioral
+resource vs object behavioral | representational-vs-behavioral
+behavior not data | representational-vs-behavioral
+knowledge-based compression protocol | representational-vs-behavioral
+Slightly Skeptical Perspective on REST | (see section: habitat-chronicles--skeptical-perspective-on-rest--overview)
+skeptical perspective on REST | (see section: habitat-chronicles--skeptical-perspective-on-rest--overview)
+Morningstar REST critique | (see section: habitat-chronicles--skeptical-perspective-on-rest--overview)
+is it really REST | (see section: habitat-chronicles--skeptical-perspective-on-rest--overview)
+REST dogma | (see section: habitat-chronicles--skeptical-perspective-on-rest--overview)
+representational state transfer critique | (see section: habitat-chronicles--skeptical-perspective-on-rest--representational-vs-imperative-descriptive-vs-behavioral)
+HATEOAS | (see section: habitat-chronicles--skeptical-perspective-on-rest--hateoas-and-the-limits-of-hypermedia)
+hypermedia as the engine of application state | (see section: habitat-chronicles--skeptical-perspective-on-rest--hateoas-and-the-limits-of-hypermedia)
+machines are blind HATEOAS | (see section: habitat-chronicles--skeptical-perspective-on-rest--hateoas-and-the-limits-of-hypermedia)
+anticipatory vs reactive client | (see section: habitat-chronicles--skeptical-perspective-on-rest--hateoas-and-the-limits-of-hypermedia)
+PUT vs POST | (see section: habitat-chronicles--skeptical-perspective-on-rest--put-post-and-http-verb-semantics)
+PATCH RFC 5789 | (see section: habitat-chronicles--skeptical-perspective-on-rest--put-post-and-http-verb-semantics)
+read-modify-write REST | (see section: habitat-chronicles--skeptical-perspective-on-rest--put-post-and-http-verb-semantics)
+409 Conflict REST | (see section: habitat-chronicles--skeptical-perspective-on-rest--put-post-and-http-verb-semantics)
+state1 vs state2 | (see section: habitat-chronicles--skeptical-perspective-on-rest--state-statelessness-and-polling)
+statelessness dogma | (see section: habitat-chronicles--skeptical-perspective-on-rest--state-statelessness-and-polling)
+polling is inefficient | (see section: habitat-chronicles--skeptical-perspective-on-rest--state-statelessness-and-polling)
+server cannot speak first | (see section: habitat-chronicles--skeptical-perspective-on-rest--state-statelessness-and-polling)
+visibility vs authoritativeness | (see section: habitat-chronicles--skeptical-perspective-on-rest--authority-boundaries-visibility-vs-authoritativeness)
+client representation vs server representation | (see section: habitat-chronicles--skeptical-perspective-on-rest--authority-boundaries-visibility-vs-authoritativeness)
+product catalog authority boundaries | (see section: habitat-chronicles--skeptical-perspective-on-rest--authority-boundaries-visibility-vs-authoritativeness)
