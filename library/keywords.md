@@ -14444,3 +14444,19 @@ server cannot speak first | (see section: habitat-chronicles--skeptical-perspect
 visibility vs authoritativeness | (see section: habitat-chronicles--skeptical-perspective-on-rest--authority-boundaries-visibility-vs-authoritativeness)
 client representation vs server representation | (see section: habitat-chronicles--skeptical-perspective-on-rest--authority-boundaries-visibility-vs-authoritativeness)
 product catalog authority boundaries | (see section: habitat-chronicles--skeptical-perspective-on-rest--authority-boundaries-visibility-vs-authoritativeness)
+tripartite identity | tripartite-identity
+tripartite identity pattern | tripartite-identity
+tripartite identity model | tripartite-identity
+three-identifier model | tripartite-identity
+identity decomposition | tripartite-identity
+account identifier | tripartite-identity
+login identifier | tripartite-identity
+public identifier | tripartite-identity
+social identity | tripartite-identity
+session authentication identifier | tripartite-identity
+DB key identity | tripartite-identity
+Randy Farmer tripartite | tripartite-identity
+capability-based login | tripartite-identity
+OpenID OAuth Facebook Connect federated login | tripartite-identity
+permission-bound session key | tripartite-identity
+no public identifier for session authentication | tripartite-identity
