@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T09:50:58Z_
+_As of 2026-07-11T09:52:25Z_
 
 ## Latest
 
-The triager crash-loop is fixed in code but not yet live: five self-heal jobs all reach the same conclusion — `main2` already defaults `GARDEN_REPOS` to `worktrees/` and self-provisions missing bare clones (tests green), but the deployed root at `/home/kris/garden2` sits ~56 commits behind and still runs the old `/repos` default, so every `garden-triager@*` keeps FATAL-looping. A drained `deploy-garden.sh` (leader/liaison only) is the clean fix and needs your hand. Relatedly, `kriscendobot-finbot` tripped its triage circuit-breaker — worth confirming it belongs in the watch set at all under the monitoring-safety constraint.
+The headline is a **deploy gap**: the triager crash-loop fix landed on `main2` (repos default moved from `repos/` to `worktrees/`, missing-clone now a clean skip, shared `bare_clone_dir` resolver, opt-in self-provision), but the deployed root `/home/kris/garden2` sits ~10–56 commits behind, so live `garden-triager@*` units keep FATAL-looping on the stale `/repos` default. Five self-heal gardeners independently converge on the same conclusion — no code work remains; a deliberate drained `deploy-garden.sh` on the leader is the one thing that will actually stop the flapping. A separate `kriscendobot-finbot` triage circuit-breaker has OPENED (5 consecutive handler failures on the same SHA), worth confirming finbot belongs in the watch set at all under the § Monitoring safety constraint.
 
-finbot advanced hard, landing five green increments directly on `kriscendobot/finbot@main` (SES compartments, multi-instrument yield-bearing portfolios, the cyclical/harmonic forecaster, and GARCH(1,1) plus GJR-GARCH vol surfaces — now 445 tests green, wallet untouched); the stranded-branch backlog is fully drained. It keeps re-flagging two decisions: whether builders may land finbot increments directly on main vs standing up a weaver/conductor fast-forward sweep, and the security-gated cap-attenuation Phase 2 (first live paper-wallet run) awaiting `live_authorized`.
+On the projects: finbot ran four green cycles, direct-pushing to `kriscendobot/finbot@main` — it cleared its stranded-branch backlog (multi-instrument portfolios, cyclical forecaster) and then landed GARCH(1,1), GJR-GARCH leverage, all wallet-safe (445 tests, six auditor invariants PASS, wallet untouched). Its standing decision is re-flagged: the "no self-PR, fast-forward main" convention keeps stranding builder branches, and cap-attenuation Phase 2 (live CapTP transport + paper-wallet run) stays gated behind explicit `live_authorized`. The **OCapN-Noise-WS demo is live** on minion.town — a garden peer dials `wss://minion.town/ocapn`, runs Noise IK, and round-trips a capability end to end; the gardener asks whether to promote it to the full Pet Daemon bootstrap and land the Caddy route durably. [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) got a shepherd fix for the one PR-attributable red (a `dprint fmt` miss), but the rebase-vs-frozen-base decision is still pending and the stale-base boot-snapshot noise is spreading (1→9 red shards).
 
-Elsewhere: the OCapN-Noise-WS demo is live and reproducible on minion.town; a shepherd fixed the one PR-attributable red on [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (a `dprint` miss on lint-rest), leaving only stale-base noise that is *growing* while the rebase-onto-master decision stays parked. Two jobs — the [endojs/endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/pull/688) shepherd and the ocapn Pet-Daemon Dockerfile build — deterministically overran the 2400s handler budget and need splitting into claim-sized stages. Phase C styled-privilege surfaces for minion.town is proceeding but blocked on an `ELEVATION_CONTACT` value from you.
+Two watchdog alerts flag deterministic 2400s handler overruns — [endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/pull/688)'s shepherd and `ocapn-pet-daemon-dockerfile-minion` — both need splitting into claim-sized stages. And `styled-privilege-surfaces-minion-town` (in-flight) needs a maintainer value for `ELEVATION_CONTACT`; it's shipping with a safe plain-text default meanwhile.
 
 ## Parked for maintainer feedback
 
@@ -341,19 +341,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`build-heavy-handler-budget-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-heavy-handler-budget-fix.md) — Enable build-heavy jobs to succeed; poison deterministic overruns faster
 - [`guard-tests-from-production-journal-push`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/guard-tests-from-production-journal-push.md) — Guard: a test must never push to the production journal2
 - [`styled-privilege-surfaces-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/styled-privilege-surfaces-minion-town.md) — Build: styled privilege surfaces for minion.town (Phase C — role-aware landin...
-- [`xst-validation-orchestrator-20260711-095011`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-validation-orchestrator-20260711-095011.md) — XS-validation orchestrator (hourly) — drive the agoric-sdk XS upgrade to vali...
 
-### tada (1888)
+### tada (1889)
+- [`xst-validation-orchestrator-20260711-095011`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-095011.md) — XS-validation orchestrator — tick report (2026-07-11 ~09:55Z)
 - [`ocapn-pet-daemon-dockerfile-minion`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-pet-daemon-dockerfile-minion.md) — Completion report
 - [`build-endo-daemon-aws-storage-wiring`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-daemon-aws-storage-wiring.md) — Completion report
 - [`garden-style-typist-codepoints`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-style-typist-codepoints.md) — Completion report:
 - [`build-account-store-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-account-store-minion-town.md) — Completion report: build-account-store-minion-town (Phase A)
-- [`xst-validation-orchestrator-20260711-085002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-085002.md) — XS-validation orchestrator — tick report (2026-07-11 ~08:55Z)
-- … and 1883 more
+- … and 1884 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
