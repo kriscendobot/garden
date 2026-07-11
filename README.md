@@ -1,16 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T15:56:32Z_
+_As of 2026-07-11T16:01:34Z_
 
 ## Latest
 
-Several self-heal jobs converged on the same finding: the triager fix (GARDEN_REPOS defaulting to `worktrees/`, missing-clone becomes a clean skip plus opt-in self-provision) is landed and green on `main2`, but the deployed root `/home/kris/garden2` is ~56 commits behind, so `garden-triager@*` units keep crash-looping on the stale `/repos` default. A deliberate drained deploy (`deploy-garden.sh`, leader-only) is the one remaining step — worth running when the fleet is quiet. Note the triage circuit-breaker has OPENED for `kriscendobot-finbot`, and CLAUDE.md's watch-set constraint means `finbot`/`ocapn`/`cosgov`/`agoric-3-proposals` may not belong in the set at all.
+Two maintainer decisions now gate nearly all forward motion. First, **M3 is merge-bottlenecked, not work-bottlenecked**: the foreman reports the entire Remote-Access stack — Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608), the outbound-HTTP agent tool [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the endoclaw-timer chain [#609](https://github.com/endojs/endo-but-for-bots/pull/609)→[#617](https://github.com/endojs/endo-but-for-bots/pull/617)→[#619](https://github.com/endojs/endo-but-for-bots/pull/619), the #127 mount stack, and the endopi PRs — is green and mergeable but awaiting your merge order, with the board now fully idle (0 todo). The keystone is the lint-ceiling fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594): until it merges, every gauntlet hits phantom-red lint and poisons (as #661's did), and merging it auto-promotes the parked `resume-lint-ceiling-shepherds` cohort.
 
-The foreman is flagging Milestone M3 as merge-bottlenecked, not work-bottlenecked: a fleet of green, mergeable endo-but-for-bots PRs is stacked awaiting a merge decision — Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608), the agent HTTP-client/tools [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the registry capability [#671](https://github.com/endojs/endo-but-for-bots/pull/671), the endopi stack (#667–#672), and the mount-search stack (#678–#681). The keystone is the lint-ceiling fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594): until it merges, every gauntlet hits phantom-red lint and poisons (as #661's did), and the parked `resume-lint-ceiling-shepherds` job stays blocked on it. The endoclaw-timer chain [#609](https://github.com/endojs/endo-but-for-bots/pull/609)→[#617](https://github.com/endojs/endo-but-for-bots/pull/617)→[#619](https://github.com/endojs/endo-but-for-bots/pull/619) awaits your supersede-or-keep call — kriskowal's CHANGES_REQUESTED asks for a redraft as a standalone `@endo/reminder` plugin, which is designer+builder work rather than a fixer rename.
+Second, and independently, the **deployed garden root (`/home/kris/garden2`) is ~56 commits behind `main2`** — the triager path fix (repos/→worktrees/ default, shared `bare_clone_dir`, opt-in self-provision) is landed and tested on `main2`, but the stale root keeps every `garden-triager@*` crash-looping on the old `/repos` FATAL. Multiple self-heal gardeners converge on the same conclusion: no code work remains; a drained `deploy-garden.sh` is the clean resolution.
 
-[kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/issues/9) is now blocked solely on your decision: every PR-attributable check is green after the shepherd's dprint fix, so it's `rebase #9` (onto ~503 commits of master, clearing the stale-base codegen red) or `freeze #9` (un-draft the frozen-base prototype as-is). The snapshot-mapper build is similarly stalled at an architecture impasse — finish the reviewed-but-stalled `@endo/exo-npm` [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (recommended) versus building on the leaner daemon resolution in #671.
-
-On the project side, finbot has landed a run of green, wallet-safe increments direct to `main`: the cyclical forecaster, GARCH(1,1), GJR-GARCH leverage effect, and an inference-driven DECIDE stage — 451 tests green, all auditor invariants passing. Its cap-attenuation Phase 2 (live paper-wallet/test-net run) remains gated behind your `live_authorized` authorization. The OCapN-Noise-WS demo is live and round-tripping a capability on minion.town, awaiting your go-ahead to promote to the full Pet Daemon bootstrap and land the Caddy route durably. Two gardener jobs (PR #688 shepherd, the OCapN Pet-Daemon Dockerfile) overran the 2400s handler budget and need splitting into claim-sized stages.
+On the forks, kriscendobot/agoric-sdk [#9](https://github.com/kriscendobot/agoric-sdk/pull/9) has gone from 4 reds to 1 after the shepherd's dprint fix, with all reviewer feedback addressed — it now blocks solely on your `rebase #9` vs `freeze #9` call. finbot landed a run of green, wallet-safe simulator increments this cycle (cyclical forecaster, GARCH, GJR-GARCH, plus multi-instrument portfolios and an inference-driven DECIDE stage), clearing its stranded-branch backlog; its deepest remaining axis (cap-attenuation Phase 2, live paper-wallet run) stays gated behind `live_authorized`. The snapshot-mapper build stalled at a genuine architecture fork ([#403](https://github.com/endojs/endo-but-for-bots/pull/403) exo-npm vs [#671](https://github.com/endojs/endo-but-for-bots/pull/671) daemon), and the OCapN-Noise-WS demo is live and reproducible on minion.town. Two jobs (`pr688-shepherd`, `ocapn-pet-daemon-dockerfile-minion`) deterministically overran the handler budget and need splitting.
 
 ## Parked for maintainer feedback
 
@@ -462,8 +460,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`deadmail-20260711T155611Z-b3e598`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260711T155611Z-b3e598.md) — Dead-lettered message — pick up its intent
 
 ### tada (1914)
 - [`build-endo-but-for-bots-snapshot-mapper`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-snapshot-mapper.md) — Completion report
