@@ -1,16 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T17:46:49Z_
+_As of 2026-07-11T17:51:14Z_
 
 ## Latest
 
-The board was quiet this interval — only [`xs2rust-endor-262-smoke-corpora-repair`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-262-smoke-corpora-repair.md) completed — but the maintainer inbox is where the pressure has built.
+The deployed garden root (`/home/kris/garden2`) is stale — roughly 56 commits behind `main2` — and that is the fleet's most urgent open item: the triager path fix (default `GARDEN_REPOS` to `worktrees/`, skip-not-die on a missing bare clone, opt-in self-provision) has landed and is green on `main2`, but every `garden-triager@*` unit keeps FATAL-looping against the old `repos/` default until a drained `deploy-garden.sh` advances the root. Multiple self-heal gardeners converged on the same diagnosis — no code work remains, only the leader-side deploy.
 
-**M3 is now fully merge-bottlenecked, not work-bottlenecked.** The foreman flagged this six times today: every remaining exit-criterion capability has landed as a green, mergeable PR or is in flight, so progress is gated on your merge/accept decisions rather than any postable build. The pileup: the lint-ceiling fix [endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) (its merge auto-promotes the parked `resume-lint-ceiling-shepherds` cohort — [#661](https://github.com/endojs/endo-but-for-bots/pull/661)'s gauntlet is poisoned until then), Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608), the mount-search stack [#678](https://github.com/endojs/endo-but-for-bots/pull/678)–[#681](https://github.com/endojs/endo-but-for-bots/pull/681), the endopi stack [#667](https://github.com/endojs/endo-but-for-bots/pull/667)–[#672](https://github.com/endojs/endo-but-for-bots/pull/672), and two design-sequencing PRs [#659](https://github.com/endojs/endo-but-for-bots/pull/659) and [#691](https://github.com/endojs/endo-but-for-bots/pull/691). The scheduled-execution clause needs a call on the pivot: reminder design [#682](https://github.com/endojs/endo-but-for-bots/pull/682) supersedes the endoclaw-timer chain [#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619) — accept #682 and retire those, or keep the daemon-integrated stack alive. Note also that [#671](https://github.com/endojs/endo-but-for-bots/pull/671) already subsumes the entire mvs-resolver design, so that build job is a no-op pending its merge.
+M3 is now merge-bottlenecked rather than build-bottlenecked: the foreman flagged repeatedly that its exit-criterion PRs are green and mergeable but awaiting a maintainer call — Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608), the confined-HTTP agent tool [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the mount/agent-tools stack ([#678](https://github.com/endojs/endo-but-for-bots/pull/678)–[#681](https://github.com/endojs/endo-but-for-bots/pull/681)) and endopi ([#667](https://github.com/endojs/endo-but-for-bots/pull/667)–[#672](https://github.com/endojs/endo-but-for-bots/pull/672)). Merging the lint-per-package fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) is the trip-wire that resumes the lint-ceiling-poisoned shepherd cohort. The endoclaw-timer chain ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) is pivoting to the `@endo/reminder` redraft [#682](https://github.com/endojs/endo-but-for-bots/pull/682) and needs an accept-or-close; two design-sequencing PRs, module-loading [#659](https://github.com/endojs/endo-but-for-bots/pull/659) and git-capability #691, also await acceptance.
 
-**Two operational items need you directly.** The triager crash-loop fix is landed and tested on `main2` (GARDEN_REPOS defaults to `worktrees/`, missing clones skip instead of dying, all own-fork bare clones now materialized), but five separate self-heal reports converge on the same gap: the *deployed* root `/home/kris/garden2` is ~56 commits behind, so `garden-triager@*` units keep FATAL-looping until a drained `deploy-garden.sh`. And [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax→critical, garden#29): after four unanswered ticks, the drive gardener commissioned the *reversible* default — a rebase onto current master (now landed) to clear the lone stale-base codegen red — but still needs your **rebase vs. freeze** decision before it can un-draft and request SwingSet review.
-
-**finbot cleared its whole stranded-branch backlog** on kriscendobot/finbot@main this window — SES-compartments, multi-instrument yield portfolios, the cyclical harmonic forecaster, GARCH(1,1), GJR-GARCH leverage, and an inference-driven DECIDE stage (451→ up to 445/451 tests green, safety gate holding wallet-untouched throughout). Only main + journal remain, no stranded branches. Its one standing decision is unchanged: cap-attenuation Phase 2 (the CapTP transport and a first live paper-wallet run) stays gated behind `live_authorized` and won't advance without your word. Elsewhere, the OCapN-Noise-WS demo is live and reproducible on minion.town, and the fork-side XS-validation effort finalized green across [kriscendobot/agoric-sdk#11](https://github.com/kriscendobot/agoric-sdk/pull/11)–[#14](https://github.com/kriscendobot/agoric-sdk/pull/14). Two jobs (`pr688-shepherd`, `ocapn-pet-daemon-dockerfile-minion`) deterministically overran their handler budget and need splitting into claim-sized stages.
+On the fork side, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (promote the ymax vat to critical) has had its shepherd clear every PR-attributable red — the lone remaining red is known stale-base codegen noise — but the rebase-vs-freeze decision has now gone unanswered four drive ticks (~18h), so the driver commissioned the reversible default and weaved it onto current master (that weave completed this interval); a `rebase #9` or `freeze #9` still settles what the PR *is*. The OCapN-Noise-WS demo is live and round-tripping a capability on minion.town, and the SturdyRef press effort was just claimed. finbot continued its steady wallet-safe forecasting cadence (GARCH, GJR-GARCH, cyclical forecaster, and an inference-driven DECIDE stage all landed green), with cap-attenuation Phase 2 still deferred behind explicit `live_authorized` authorization.
 
 ## Parked for maintainer feedback
 
@@ -510,17 +508,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`ocapn-cross-host-pet-daemon-invite-accept`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-cross-host-pet-daemon-invite-accept.md) — True cross-host Pet-Daemon ↔ Pet-Daemon invite/accept over wss (closes M5)
-- [`port-xs-to-rust-memory-safe-engine-s18`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s18.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
+### doin (1)
+- [`endo-sturdyref-press-20260711-175014`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260711-175014.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 
-### tada (1930)
+### tada (1932)
+- [`ocapn-cross-host-pet-daemon-invite-accept`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-cross-host-pet-daemon-invite-accept.md) — Completion report — ocapn-cross-host-pet-daemon-invite-accept (M5 builder)
+- [`port-xs-to-rust-memory-safe-engine-s18`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s18.md) — Completion report — s18 supervisor: stage-5 reproduction green on all compile...
 - [`xs2rust-endor-262-smoke-corpora-repair`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-262-smoke-corpora-repair.md) — Completion report
 - [`hyperlink-refs-pr-review-sequence`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/hyperlink-refs-pr-review-sequence.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr9-weave-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr9-weave-master.md) — Completion report
-- [`agoric-sdk-pr9-drive-20260711-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-pr9-drive-20260711-170501.md) — Completion report
-- [`endojs-endo-but-for-bots-pr682-review-6fca982b-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr682-review-6fca982b-retro.md) — Completion report
-- … and 1925 more
+- … and 1927 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -547,6 +544,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
 - [`build-daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase3.md) — awaiting `build-daemon-rename-to-manager-phase2` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-regexp-conservative-subset.md) — awaiting `endojs/endo-but-for-bots#676` · Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
+- [`port-xs-to-rust-memory-safe-engine-s19`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s19.md) — awaiting `xs2rust-endor-262-smoke-corpora-repair` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
 ## Watch set
