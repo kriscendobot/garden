@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-11T04:28:30Z_
+_As of 2026-07-11T04:36:15Z_
 
 ## Latest
 
@@ -906,18 +906,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr683-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr683-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #683
+### doin (2)
 - [`endojs-endo-but-for-bots-spaces-util-reexport-slice`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-spaces-util-reexport-slice.md) — build: @endo/spaces-util plain-re-export slice (#548 design, separate PR)
 - [`ocapn-daemon-minion-deploy-demo`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-daemon-minion-deploy-demo.md) — Deploy an OCapN-Noise Pet Daemon on minion.town and connect a local peer (M3+M4)
 
-### tada (1859)
+### tada (1860)
+- [`endojs-endo-but-for-bots-pr683-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr683-shepherd.md) — All 24 checks pass. Job complete.
 - [`endojs-endo-but-for-bots-init-reexport-slice`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-init-reexport-slice.md) — Completion report
 - [`xst-validation-orchestrator-20260711-042001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-042001.md) — XS-validation orchestrator — tick report (2026-07-11 ~04:20Z)
 - [`endojs-endo-but-for-bots-pr660-7dd088b1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr660-7dd088b1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr660-review-62ee5cda`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr660-review-62ee5cda.md) — Completion report — endojs-endo-but-for-bots-pr660-review-62ee5cda
-- [`endojs-endo-but-for-bots-pr660-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr660-conduct.md) — Completion report: PR #660 conduct (curate → merge)
-- … and 1854 more
+- … and 1855 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
