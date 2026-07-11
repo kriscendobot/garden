@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T16:41:12Z_
+_As of 2026-07-11T16:44:10Z_
 
 ## Latest
 
-The one board move this cycle was the completion of the [endo-but-for-bots#682](https://github.com/endojs/endo-but-for-bots/pull/682) review; the board is otherwise drained to a single in-flight job. Two operator actions dominate the maintainer inbox. First, a **deploy gap**: the triager crash-loop fix is landed and green on `main2`, but the deployed root (`/home/kris/garden2`) is ~56 commits behind, so `garden-triager@*` units keep FATAL-looping on the old `repos/` path — several converging self-heal reports agree a drained `deploy-garden.sh` is the clean fix. Second, **Milestone M3 is merge-bottlenecked, not work-bottlenecked**: the foreman flagged repeatedly that a fleet of green, mergeable endo-but-for-bots PRs — Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608), the outbound-HTTP agent tool [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the mount stack, and the endopi stack — awaits a merge decision, with the per-package lint fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) as the trip-wire that would auto-resume the lint-ceiling-poisoned shepherds.
+Multiple triager self-heal jobs confirmed the `GARDEN_REPOS` path fix (repos/ → worktrees/) is already landed and green on `main2`, but they all converge on one maintainer action: the **deployed root `/home/kris/garden2` is stale (~56 commits behind), so `garden-triager@*` units are still crash-looping at runtime** — a drained `deploy-garden.sh` is needed to actually clear the flapping. The finbot fork saw a heavy build cadence, all direct-pushed to `kriscendobot/finbot@main`: SES-compartments capability attenuation, multi-instrument yield-bearing portfolios, a cyclical/harmonic forecaster, GARCH(1,1), GJR-GARCH leverage, and an inference-driven DECIDE stage (451 tests green, wallet-gate holds) — the branch backlog is now empty, though a triage circuit-breaker opened on the fork and cap-attenuation Phase 2 (live wallet) still awaits explicit `live_authorized`.
 
-On fork work: finbot advanced through a long run of green direct-push increments on `kriscendobot/finbot@main` (SES compartments, multi-instrument yield portfolios, cyclical/GARCH/GJR-GARCH forecasters, and an inference-driven DECIDE stage — now 451 tests green, wallet gate holding), with its cap-attenuation Phase 2 still deferred pending `live_authorized`. [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) is down to a single non-PR-attributable codegen red and is now blocked solely on your `rebase #9` vs `freeze #9` call. The XS-validation effort was finalized and retired ([garden#33](https://github.com/kriskowal/garden/issues/33)), and endor-xst core landed on the still-draft [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600). Also awaiting decisions: the [#609](https://github.com/endojs/endo-but-for-bots/pull/609) message-scheduler redraft into a new `@endo/reminder` plugin, and the snapshot-mapper package-boundary question ([#403](https://github.com/endojs/endo-but-for-bots/pull/403) exo-npm vs [#671](https://github.com/endojs/endo-but-for-bots/pull/671) daemon).
+The foreman filed four separate notes that **Milestone M3 is now merge-bottlenecked, not work-bottlenecked**: a fleet of green, mergeable endo-but-for-bots PRs — [#608](https://github.com/endojs/endo-but-for-bots/pull/608) (Docker self-host), [#661](https://github.com/endojs/endo-but-for-bots/pull/661) (agent HTTP tools), the mount stack, and the endopi stack — sit ready, while [#594](https://github.com/endojs/endo-but-for-bots/pull/594) (per-package lint) remains unmerged and keeps poisoning gauntlets against the typescript-eslint project-service ceiling; merging it auto-promotes the parked shepherd cohort. The endoclaw-timer chain ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)→[#617](https://github.com/endojs/endo-but-for-bots/pull/617)→[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) needs a supersede-or-keep call, since kriskowal's review asks to redraft #609's scheduler as a standalone `@endo/reminder` plugin.
+
+Finally, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (promote ymax vat → critical) is now green on every PR-attributable check after the shepherd's dprint fix and is **blocked solely on a rebase-vs-freeze decision** (`rebase #9` or `freeze #9`); the OCapN-Noise-WS transport demo is live and reproducible on minion.town.
 
 ## Parked for maintainer feedback
 
@@ -429,30 +431,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Recommendation: close this build job as subsumed by [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/issues/671). No new PR. The real downstream unblock (snapshot-mapper, daemon-worker-import-from-mount) waits on that PR MERGING, not on a separate mvs PR. I opened no PR and made no commits.
 
-- `20260711T155204Z-924e58` — from gardener:build-endo-but-for-bots-snapshot-mapper, reply_to `build-endo-but-for-bots-snapshot-mapper` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T155204Z-924e58.md)
-
-> BLOCKED at impasse — snapshot-mapper needs an architecture decision before I open a PR. No PR opened; surfacing rather than guessing.
->
-> The job asks me to build the daemon snapshot-mapper stacked on "registry-capability + mvs-resolver just built." Investigating turned up THREE overlapping efforts and a contradiction:
->
-> 1. @endo/exo-npm — [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/issues/403) (feat/registry-capability, OPEN, kriscendobot). Consolidates registry-capability + mvs-resolver + snapshot-mapper (design layers 1-3) into a NEW package @endo/exo-npm. It ALREADY contains a complete 424-line packages/exo-npm/src/snapshot-mapper.js (mapSnapshot / makeMountReadPowers / buildCompartmentMap) implementing this exact design, including the versionless workspace-member peer dirs and a workspaceMembers map carrying member package.json bytes. kriskowal has reviewed it (multiple CHANGES_REQUESTED). BUT it stalled — last updated 2026-06-29.
->
-> 2. @endo/daemon — [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/issues/671) (endo-registry-capability, OPEN), created 2026-07-10 and gauntleted TODAY. Lands registry-capability + the JS MVS resolver in packages/daemon/src/registry.js. It has NO snapshot-mapper. Its RegistryResolution is leaner than the design assumes: packagesByKey records are {name, version, treeRef, integrity} — no packageJson, no workspace flag; workspace members are keyed name@version with treeRef undefined and empty integrity (NOT the bare name the design requires), and the member source bytes are not carried in the resolution at all. Diagnostics are flattened (top-level unmetOptionals + diagnostics), not the nested shape the design shows.
->
-> 3. Old build/* branches. The daemon snapshot-mapper here ([endojs/endo-but-for-bots#565](https://github.com/endojs/endo-but-for-bots/issues/565)) was CLOSED 2026-07-07 by 0xpatrickbot "as superseded by @endo/exo-npm in [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/issues/403) ... snapshot-mapper and registry-resolution core should live at the @endo/exo-npm package boundary, with @endo/daemon keeping only the integration surface." mvs-resolver [endojs/endo-but-for-bots#564](https://github.com/endojs/endo-but-for-bots/issues/564) also closed. I verified the old code cleanly rebases onto build/mvs-resolver and passes (2 map-snapshot tests, registry-mvs 12 tests, compartment-mapper 905 tests, tsc clean) — but re-opening it duplicates closed/superseded work.
->
-> The contradiction: the design doc (designs/snapshot-mapper.md, "Proposed") says mapSnapshot lives in packages/daemon/. The [endojs/endo-but-for-bots#565](https://github.com/endojs/endo-but-for-bots/issues/565) closure + [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/issues/403) say it belongs in @endo/exo-npm. [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/issues/671) (today) revives the @endo/daemon registry+mvs path but with a resolution shape the daemon snapshot-mapper design does not fit, and [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/issues/403) (the exo-npm home) has stalled.
->
-> I can't pick the package boundary or the resolution shape for you. Which do you want?
->
->   (A) Finish @endo/exo-npm — rebase/refresh [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/issues/403)'s already-complete snapshot-mapper.js, address kriskowal's open CHANGES_REQUESTED, land as the exo-npm layer. (snapshot-mapper already exists here.)
->
->   (B) Build @endo/daemon snapshot-mapper stacked on [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/issues/671) — port map-snapshot.js/worker-import.js + the compartment-mapper dependencyLocationHook extension onto endo-registry-capability, AND extend that registry.js resolution to carry record.packageJson, a workspace flag / bare-name workspace keys, and workspace-member source bytes (changing its gauntleted resolutionHash + workspace keying). This deviates from a PR gauntleted hours ago and needs your OK.
->
-> My recommendation: (A). The exo-npm snapshot-mapper is already written, design-complete (it solves the workspace-member-bytes problem the daemon resolution can't express), maintainer-reviewed, and matches the recorded supersession decision; it just needs un-stalling. (B) means reworking a PR gauntleted hours ago.
->
-> Tell me A or B (or another target) and I'll post the right job.
-
 - `20260711T160215Z-49ac96` — from gardener:deadmail-20260711T155611Z-b3e598, reply_to `deadmail-20260711T155611Z-b3e598` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T160215Z-49ac96.md)
 
 > XS-validation effort FINALIZED (carried forward from the completed orchestrator xst-validation-orchestrator-20260711-120506, whose finalize-clearance message was dead-lettered to me).
@@ -469,32 +447,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > 3. Removing journal2:schedules/xst-validation-orchestrator.md via CAS push (hourly schedule retired — no more ticks).
 > 4. [kriskowal/garden#33](https://github.com/kriskowal/garden/issues/33) left OPEN for you to close.
 
-- `20260711T160906Z-fc3717` — from gardener:xs2rust-xst-reactivate, reply_to `xs2rust-xst-reactivate` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T160906Z-fc3717.md)
-
-> Saturday-resume job (xs2rust-xst-reactivate) — HELD on 2 of 3 items: the world moved past this job's premise. Need your call.
->
-> xs2rust effort — DONE, no action needed:
-> - schedules/xs2rust-endor-press.md is already active (hourly, last dispatch 15:50Z today). Not paused.
-> - child xs2rust-endor-stage5-fix6-verify is COMPLETE (jobs/tada/, "STAGE-5 BAR MET"). No orchestration to re-create.
->
-> xst-validation-orchestrator — I did NOT restore it, because it was RETIRED as complete AFTER the pause:
-> - The Saturday pause is commit 96dd3e77f9 ("pause ... temporarily until Saturday").
-> - But at 2026-07-11T16:02:31Z (3 min before I claimed this job), endolinbot committed f6f64d971f: "retire xst-validation-orchestrator — XS-validation effort complete ... Hourly orchestrator schedule removed so no further ticks dispatch," citing your waiver of the Depot force:integration leg and the final summary on [kriskowal/garden#33](https://github.com/kriskowal/garden/issues/33).
-> - Restoring the paused-schedules/ orphan would UNDO that retirement and re-arm an hourly orchestrator for a finished effort. paused-schedules/xst-validation-orchestrator.md is now a stale orphan (last_dispatched frozen 2026-07-08).
-> - ASK: is the effort truly complete (I leave it retired + you may want the orphan cleaned up), or did the retirement fire in error and you still want it resumed?
->
-> Foreman target — the override is NOT the pause-0 the job describes:
-> - ~/.config/systemd/user/garden-foreman.service.d/override.conf sets GARDEN_FOREMAN_ACTIVE_TARGET=1 (not 0), dated Jul-7, rationale "keep the foreman at a WIP of 1 — single in-flight job at a time on this instance." Current live env confirms =1.
-> - This is a standing Jul-7 throttle, predating the pause, not a pause-related 0-drop. I did NOT remove it, to avoid silently lifting a throttle you set deliberately.
-> - ASK: confirm you want to lift the WIP=1 throttle to unit-default 3? I'm on the leader host and can `rm override.conf && daemon-reload` on your word.
-
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`build-endo-but-for-bots-endopi-jsonl-transcript-format`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-endopi-jsonl-transcript-format.md) — ---
+- [`report-pr-review-sequence-unblock`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/report-pr-review-sequence-unblock.md) — Report: a sequenced PR-review plan that unblocks progress (journal root)
 
 ### tada (1919)
 - [`endojs-endo-but-for-bots-pr682-review-6fca982b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr682-review-6fca982b.md) — Completion report
