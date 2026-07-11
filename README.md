@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-11T02:24:23Z_
+_As of 2026-07-11T02:29:54Z_
 
 ## Latest
 
-The glob/grep `@endo/platform` pushdown stack for [#127](https://github.com/endojs/endo-but-for-bots/pull/127) cleared its gauntlet and un-drafted into review as four layers — engine [#678](https://github.com/endojs/endo-but-for-bots/pull/678), `EndoMount.glob` [#679](https://github.com/endojs/endo-but-for-bots/pull/679), decoupled `EndoMount.grep` [#680](https://github.com/endojs/endo-but-for-bots/pull/680), and agent tools [#681](https://github.com/endojs/endo-but-for-bots/pull/681); two calls await you there: whether to gate grep on the conservative-regexp subset before it ships (the ReDoS exposure is pre-existing, matching merged [#653](https://github.com/endojs/endo-but-for-bots/pull/653)) and landing design [#675](https://github.com/endojs/endo-but-for-bots/pull/675) on `llm` first so the changelog links resolve. The recurring foreman theme is that M3 is now **saturated in flight and blocked on merges, not on missing work** — the mount stack (#650/#652/#653/#656/#658), the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/#617/#619), and daemon-agent-tools [#618](https://github.com/endojs/endo-but-for-bots/pull/618) are green and mergeable but unmerged, so every stacked follower is stalled and the fleet has no unblocked build lane to claim.
-
-Two operational items need your hand. First, the **deployed garden root is stale** (`688e6174c8`, ~56 commits behind `main2`): the triager path fix already landed on `main2`, but until a drained `deploy-garden.sh` runs, every `garden-triager@*` unit keeps crash-looping on the old `/repos` default — a gardener can't run that deploy. Second, overnight session-limit exhaustion (resets tracked to 12:30am UTC) tripped repeated self-heal failures across the triager fleet, and `kriscendobot-finbot`'s triage circuit-breaker **opened** — worth noting finbot isn't in the authorized watch set per the monitoring constraint. Several gardeners also flagged duplicate/declined work (Docker-selfhost re-spawned off a stale design record; `daemon-locator-terminology` already merged; the mvs-resolver colliding across [#403](https://github.com/endojs/endo-but-for-bots/pull/403)/#671), and the XS-validation effort ([kriskowal/garden#33](https://github.com/kriskowal/garden/issues/33)) is holding hourly on just two of your decisions — waive the Depot-gated integration leg, and whether green draft fork PR #14 counts as landed.
+The deployed garden root (`/home/kris/garden2`, HEAD `688e6174c8`) is stale by ~56 commits, so every `garden-triager@*` unit is still crash-looping on the old `/repos` bare-clone path even though the fix (shared `bare_clone_dir` defaulting to `worktrees/`) already landed on `main2`; multiple self-heal reports converge on the same remedy — run a drained `deploy-garden.sh` to actually clear the flapping. The M3 mount/glob/grep `@endo/platform` pushdown stack is now fully gauntleted and un-drafted as [endo-but-for-bots#678](https://github.com/endojs/endo-but-for-bots/pull/678), [#679](https://github.com/endojs/endo-but-for-bots/pull/679), [#680](https://github.com/endojs/endo-but-for-bots/pull/680), and [#681](https://github.com/endojs/endo-but-for-bots/pull/681), but the foreman is repeatedly signalling that the fleet's build lane is dry: the whole M3 ready stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619) timer, the mount chain, [#618](https://github.com/endojs/endo-but-for-bots/pull/618)) is green and mergeable but unmerged, blocking every stacked follower. Two flagged merge-gate judgments want your call: grep still ships an unbounded `new RegExp().test()` (ReDoS) pending the `@endo/regexp` conservative subset ([#676](https://github.com/endojs/endo-but-for-bots/pull/676)), and the mvs-resolver algorithm now exists in both [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (`@endo/exo-npm`) and [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon`) — a fleet-vs-fleet collision that needs a home decision before any further build. On the fork side, the XS-validation effort ([kriskowal/garden#33](https://github.com/kriskowal/garden/issues/33)) has converged green on [agoric-sdk#13](https://github.com/kriscendobot/agoric-sdk/pull/13)/[#14](https://github.com/kriscendobot/agoric-sdk/pull/14) and is blocked solely on two decisions (waive the Depot-gated `force:integration` leg, and whether green-draft #14 counts as "landed"), and finbot landed three clean increments (SES-compartments, GARCH, and the cyclical forecaster) direct-to-main with no stranded branches left. Note also the earlier session-limit outage (UTC resets) that produced the triager self-heal storm, and [#618](https://github.com/endojs/endo-but-for-bots/pull/618) was closed by kriskowal on capability-leak concerns and handed to @kumavis.
 
 ## Parked for maintainer feedback
 
@@ -17,8 +15,8 @@ Two operational items need your hand. First, the **deployed garden root is stale
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 11d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 14d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 25d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 49d)
-- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 49d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 50d)
+- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 50d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 51d)
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
@@ -906,8 +904,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriscendobot-agoric-sdk-pr9-f0af0f7a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr9-f0af0f7a-retro.md) — Retrospective on kriscendobot/agoric-sdk PR #9 (primary: kriscendobot-agoric-...
 
 ### tada (1846)
 - [`kriscendobot-agoric-sdk-pr10-review-b17025f7-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-b17025f7-retro.md) — Completion report
@@ -941,7 +939,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`kriscendobot-agoric-sdk-pr9-f0af0f7a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr9-f0af0f7a-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #9 (primary: kriscendobot-agoric-...
 - [`scholar-ingest-source-habitat-chronicles`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-source-habitat-chronicles.md) — _low_ · Source
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
