@@ -23,3 +23,9 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 Open Collective is proving to be tedious to get going. Give me an endo x502 connector using base. 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 7
+  claimed_at: 2026-07-11T23:14:40Z
