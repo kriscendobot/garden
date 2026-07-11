@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T08:05:14Z_
+_As of 2026-07-11T08:07:14Z_
 
 ## Latest
 
-Multiple self-heal gardeners converged on one finding: the triager crash-loop fix is landed and green on `main2` (shared `bare_clone_dir` resolver, `GARDEN_REPOS` now defaulting to `worktrees/`, opt-in self-provision), but the **deployed root is ~56 commits behind**, so live `garden-triager@*` units keep FATAL-looping on the stale `repos/` path — a drained `deploy-garden.sh` on the leader is the one remaining step to actually clear the flapping. A watchdog also flags that the [endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/pull/688) shepherd (still in `doin`) deterministically overran its 2400s handler budget and will be poisoned unless split into claim-sized stages.
+The deployed garden root (`/home/kris/garden2`) is stale — the triager crash-loop fix landed on `main2` (through `4c0e275b0b`), defaulting `GARDEN_REPOS` to `worktrees/` and turning a missing bare clone into a clean skip, but the root predates it, so every `garden-triager@*` unit keeps FATAL-looping on the old `/repos` path. Four self-heal jobs converged on the same conclusion: no code work remains, but a drained `deploy-garden.sh` from the leader is needed to actually clear the flapping. Relatedly, the triage circuit-breaker OPENED for `kriscendobot-finbot`, and three watched instances (`ocapn`, `cosgov`, `agoric-3-proposals`) have no clone under `worktrees/` at all — provisioning them intersects the § Monitoring safety watch-set authorization bar and awaits your call.
 
-On the project side, finbot landed five green increments in a day on `kriscendobot/finbot@main` — SES-compartments capability attenuation, multi-instrument yield-bearing portfolios, a cyclical forecaster, and GARCH(1,1) then GJR-GARCH volatility surfaces — clearing the stranded-branch backlog (tests 388→445, safety gate holding, wallet untouched). Two open maintainer decisions recur: whether to let builders land finbot increments directly on main vs. a weaver/conductor fast-forward sweep, and the security-gated cap-attenuation Phase 2 (live CapTP transport / paper-wallet run) which no gardener will advance without authorization. Note finbot also tripped a triage circuit-breaker and isn't in the authorized watch set — worth confirming it belongs there.
+The finbot fork advanced steadily via direct-push to `kriscendobot/finbot@main` across five cycles — SES-compartments (the cap-attenuation safety cornerstone), multi-instrument yield-bearing portfolios, a cyclical harmonic forecaster, GARCH(1,1), and GJR-GARCH leverage — clearing the stranded-branch backlog to zero; 445 tests green, the wallet-safety gate holding throughout. The open decision there: whether to let builders land finbot increments directly or stand up a weaver/conductor sweep, since the "fast-forward main" convention keeps stranding branches.
 
-Also pending your call: [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) needs a rebase-vs-frozen-prototype decision as stale-base `test-boot` noise spreads (one shard → nine), the xs2rust endor-xst runner landed on draft PR #600 but flags a submodule gitlink stuck at moddable 8.0.1 (needs bumping to 8.3.1), and an OCapN-Noise-WS demo is now live and reproducible on minion.town.
+On [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9), a shepherd fixed the one PR-attributable red (a `dprint fmt` miss); remaining reds are stale-base noise that's growing worse (test-boot spread from 1 to ~9 shards), sharpening the still-pending rebase-vs-frozen-prototype decision. The [endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/pull/688) shepherd deterministically overran its 2400s handler budget and will be poisoned unless split into claim-sized stages. The xs2rust-endor `endor-xst` core landed on its draft (test262 convergence orchestration now complete), with a flagged `c/moddable` gitlink still pinned to 8.0.1 where HEAD expects 8.3.1. Finally, an OCapN-Noise-WS demo is live and reproducible on minion.town, awaiting your go-ahead to promote to the full Pet Daemon bootstrap and land the Caddy route durably.
 
 ## Parked for maintainer feedback
 
@@ -342,13 +342,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### doin (1)
 - [`endojs-endo-but-for-bots-pr688-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr688-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #688
 
-### tada (1881)
+### tada (1882)
+- [`xs2rust-endor-test262-convergence`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-test262-convergence.md) — orchestration xs2rust-endor-test262-convergence — complete
 - [`xs2rust-endor-262-fuzz-trophies-regressions`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-262-fuzz-trophies-regressions.md) — Completion report: xs2rust-endor-262-fuzz-trophies-regressions (PR #600 conve...
 - [`xs2rust-endor-262-xst-lockdown-third-host`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-262-xst-lockdown-third-host.md) — Completion report
 - [`xst-validation-orchestrator-20260711-073502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-073502.md) — XS-validation orchestrator — tick report (2026-07-11 ~07:40Z)
 - [`xs2rust-endor-262-xst-async-done`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-262-xst-async-done.md) — Completion report: endor-xst async/$DONE + job-drain wiring (PR #600 converge...
-- [`daily-progress-summary-20260711-070503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260711-070503.md) — Completion report
-- … and 1876 more
+- … and 1877 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
