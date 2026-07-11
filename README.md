@@ -1,12 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-11T13:04:02Z_
+_As of 2026-07-11T13:05:51Z_
 
 ## Latest
 
-A shelf of finbot forecasting increments landed direct-push on kriscendobot/finbot@main this cycle — SES capability-attenuation compartments, multi-instrument yield-bearing portfolios, the cyclical (harmonic) forecaster, and then GARCH(1,1) and GJR-GARCH conditional-volatility surfaces — clearing the branch backlog to just main (445 tests green, wallet-touch gate holding throughout). On the endo side, [endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) (endoclaw-timer scheduler) was rebased back to mergeable and shepherded, but kriskowal's review asks for a re-architecture — a standalone `@endo/reminder` plugin with platform-durable persistence — so its stacked Phase-2/3 PRs [#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619) hinge on a supersede-or-keep call. An OCapN-Noise-WS capability round-trip is now live and reproducible on minion.town.
+The finbot simulator series kept landing green, direct-push increments on kriscendobot/finbot@main all cycle: the SES-compartments capability-attenuation cornerstone, multi-instrument yield-bearing portfolios, the cyclical (seasonal + residual-GBM) forecaster, then GARCH(1,1) and GJR-GARCH leverage-effect volatility surfaces — 445 tests green, all six auditor invariants passing, wallet untouched throughout. The stranded-branch backlog is now empty; the standing decision is whether builders may land finbot increments directly on main or a weaver/conductor sweep should fast-forward promptly, and cap-attenuation Phase 2 (live paper-wallet run) stays gated on explicit `live_authorized`.
 
-Two things need maintainer attention. First, an operational blocker: the deployed garden root is dozens of commits behind `main2`, so the triager fleet keeps crash-looping on the old `repos/` path even though the fix is long since landed and green — several self-heal gardeners converge on the same remedy, a drained `deploy-garden.sh` (a leader/liaison op no gardener can run); relatedly, the triage circuit-breaker opened on `kriscendobot-finbot`, which isn't on the authorized watch set. Second, a stack of decisions is now the sole blocker on otherwise-finished work: [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) is all-green on PR-attributable checks and waits only on `rebase #9` vs `freeze #9`; the XS-validation effort ([garden#33](https://github.com/kriskowal/garden/issues/33)) needs two yes/no answers to close out; and the foreman flags that merging the green [#594](https://github.com/endojs/endo-but-for-bots/pull/594) lint-ceiling fix would unblock the whole stalled M3 gauntlet cohort.
+[kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (garden#29, promote ymax vat → critical) is now down to a single non-PR-attributable `test-codegen` red — the shepherd's dprint fix cleared lint-rest and test-boot, and both reviewers' asks are addressed — so it is blocked solely on your call: **`rebase #9`** onto current master (~503 commits behind) then un-draft, or **`freeze #9`** as a frozen-base prototype.
+
+On endo-but-for-bots, the foreman flags M3 as systemically bottlenecked on the lint projectService ceiling: merging [#594](https://github.com/endojs/endo-but-for-bots/pull/594) to `llm`/master would trip the parked `resume-lint-ceiling-shepherds` job and unblock the poisoned shepherd cohort. [#609](https://github.com/endojs/endo-but-for-bots/pull/609) (endoclaw-timer scheduler) was rebased back to mergeable but awaits your supersede-or-keep decision — kriskowal's CHANGES_REQUESTED is a re-architecture into a standalone `@endo/reminder` plugin, which would moot the stacked [#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619).
+
+Two operational notes worth your attention: the triager crash-loop fix is fully landed and tested on main2, but the deployed root (`/home/kris/garden2`) is ~56 commits behind and still crash-looping — a drained `deploy-garden.sh` is the clean resolution. And the OCapN-Noise-WS demo is live and reproducible on minion.town (Caddy TLS → Noise IK → capability round-trip), with follow-ups offered to promote it to the full Pet Daemon bootstrap.
 
 ## Parked for maintainer feedback
 
@@ -383,8 +387,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`finbot-progress-20260711-130504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260711-130504.md) — Push progress on kriscendobot/finbot (every 6h)
 
 ### tada (1903)
 - [`endojs-endo-but-for-bots-pr609-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr609-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #609
