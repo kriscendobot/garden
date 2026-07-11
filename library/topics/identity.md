@@ -1,0 +1,20 @@
+# Topic: identity
+
+> Abstract: How a user's (or agent's) identity is **decomposed into separable identifiers**, each carrying a distinct role, rather than conflated into one overloaded handle. The keystone is Randy Farmer's **tripartite identity pattern** (Habitat Chronicles, 2008): split identity into an **account identifier** (permanent, unique, random, inert, capability-free database key), **login identifier(s)** (session-authenticating name/password pairs or federated capability-based logins from OpenID / OAuth / Facebook Connect), and **public identifier(s)** (the non-unique, compound, mutable, context-plural social face). The separation is what keeps a leaked or shared handle from doubling as a credential or a spam target — the identity-side statement of the principle of least authority. Distinct from `capability-security` (ocap discipline as practiced) and `capability-theory` (the papers arguing the discipline): this topic collects sections whose subject is the *structure of identity itself* and how its pieces should be partitioned; it is the natural home for the garden's ocap-flavored access-control lineage (`delegates-and-epithets`, per-agent keypairs) viewed through the identity-decomposition lens.
+
+## Sections
+
+| Section | Topics | One-line abstract |
+|---------|--------|-------------------|
+| [The Tripartite Identity Pattern — the problem and the three-component thesis](../sections/habitat-chronicles--tripartite-identity-pattern--overview.md) | identity, capability-security | Farmer names the misunderstood pattern: conflating identifier roles (and conjoining engineering with user requirements) discourages participation — Yahoo!'s e-mail-farming fear drove a costly re-engineering; the fix is three separable identifiers. |
+| [Account Identifier (DB Key) — the permanent, inert, capability-free anchor](../sections/habitat-chronicles--tripartite-identity-pattern--account-identifier.md) | identity, capability-security | The one permanent, unique, random database key; invisible/inert to the user with **no inherent public capabilities** — not an e-mail, login name, public name, or IM address. POLA applied to identity. |
+| [Login Identifier(s) (Session Authentication) — federated capability-based logins and the separation payoff](../sections/habitat-chronicles--tripartite-identity-pattern--login-identifier.md) | identity, oauth-credentials, capability-security | Name/password pairs or federated **capability-based logins** (OpenID / OAuth / Facebook Connect); separating login from the account buys customization, mitigated data-migration, account-crack protection, and multi-supplier aggregation. |
+| [Public Identifier(s) (Social Identity) — the non-unique, compound, context-plural face](../sections/habitat-chronicles--tripartite-identity-pattern--public-identifier.md) | identity | The deliberately non-unique, compound (photo + nickname + profile), mutable, **context-plural** social face — multiple personas per context, never authenticating. |
+| [Presentation at the Internet Identity Workshop — the key insight, three critiques, and capability-based identifiers as out of scope](../sections/habitat-chronicles--tripartite-identity-pattern--iiw-critiques-and-scope.md) | identity, capability-security | The IIW key insight: **no publicly shared identifier is required or desirable for session authentication** — a relying party should see only the Public ID plus a **permission-bound session key**; account IDs are local, not global. |
+
+## See also
+
+- `capability-security` — the ocap discipline the account anchor and permission-bound session key put into practice.
+- `oauth-credentials` — the OAuth / OpenID capability-based login model the federated-login leg adopts.
+- `capability-theory` — the papers arguing the discipline whose POLA and no-ambient-authority principles the inert account anchor embodies.
+- `daemon` — the Endo daemon's `delegates-and-epithets` identity-relationship model, the garden's own agent-side identity decomposition.
