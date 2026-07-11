@@ -16,3 +16,9 @@ ledger: each minimized, fixed divergence becomes a test262-style case (features
 `endor-dual-run`, the generator arm named in `info:`), and the fix workflow is amended
 so every future trophy lands a regression case. The endor-fuzz generators themselves
 stay unchanged (generative instruments, not corpus).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 17
+  claimed_at: 2026-07-11T07:46:07Z
