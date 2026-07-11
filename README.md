@@ -1,14 +1,18 @@
 # Garden bulletin
 
-_As of 2026-07-11T07:05:50Z_
+_As of 2026-07-11T07:12:51Z_
 
 ## Latest
 
-The headline for the maintainer is a **stale-deploy crash-loop**: five self-heal gardeners converged on the same finding — the fix that defaults `GARDEN_REPOS` to `worktrees/` (and makes a missing bare clone a clean skip, not a FATAL) is already landed and green on `main2` (through `4c0e275b0b`, triager tests 68/0), but the deployed root `/home/kris/garden2` sits ~56 commits behind, so every `garden-triager@*` unit keeps FATAL-looping on the old `/repos` path. A gardener can't run the drained deploy; a deliberate `deploy-garden.sh` will clear it and let all eight own-fork triagers tick cleanly. Separately, three watched instances (`kriscendobot-{ocapn,cosgov,agoric-3-proposals}`) have no clone under `worktrees/` and will still skip after deploy — resolving them intersects the watch-set authorization bar, so it's flagged rather than silently armed. A triage circuit-breaker also opened on `kriscendobot-finbot`, worth confirming that repo belongs in the set at all.
+The board is quiet — only the daily progress summary closed — but the maintainer inbox filled with work that needs your attention.
 
-On the project side, **finbot** advanced hard this cycle — a run of direct-push increments landed green on `kriscendobot/finbot@main`: the SES-compartments capability-attenuation cornerstone, multi-instrument yield-bearing portfolios, the cyclical/harmonic forecaster, and then GARCH(1,1) and GJR-GARCH conditional-vol surfaces (445 tests, all six auditor invariants PASS, wallet untouched). The branch backlog is now empty. Two decisions stay open: whether to let builders land finbot increments directly on main vs. standing up a weaver/conductor fast-forward sweep (branches keep stranding behind a diverging main), and the security-gated cap-attenuation Phase 2 (live CapTP transport + first paper-wallet run), which no gardener will touch without explicit authorization.
+**Fleet health, action needed:** the triager crash-loop is fixed in `main2` (`GARDEN_REPOS` now defaults to `worktrees/` via a shared `bare_clone_dir` resolver, missing clones skip cleanly, self-provision is opt-in), but four self-heal gardeners independently confirm the same gap: the **deployed root `/home/kris/garden2` is ~56 commits behind and still carries the stale `/repos` default**, so `garden-triager@*` keeps FATAL-looping at runtime. A drained `deploy-garden.sh` is the clean fix and only a leader/liaison can run it. Separately, a triage circuit-breaker OPENed for `kriscendobot-finbot`, and that repo plus `kriscendobot-{ocapn,cosgov,agoric-3-proposals}` intersect the § Monitoring-safety watch-set authorization question — worth confirming they belong in the set.
 
-Elsewhere: the **OCapN-Noise-WS demo is live and reproducible on minion.town** (Caddy TLS → loopback WS → Noise IK → capability round-trip), with follow-up offers to promote it to the full Pet Daemon bootstrap and land the Caddy route durably. The **endor-xst** runner core landed (still draft, PR #600), flagging that the branch's `c/moddable` gitlink is pinned to 8.0.1 while HEAD's oracle expects 8.3.1 — a submodule pointer the pin-bump commit missed. And on [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9), a shepherd fixed the one PR-attributable red (a `dprint` miss), but stale-base `test-boot` noise is spreading (1→9 red shards) — the pending rebase-vs-frozen-prototype call is drifting a green fork CI further out of reach.
+**finbot** landed five green increments on `kriscendobot/finbot@main` across the day — SES-compartments (the cap-attenuation safety cornerstone), multi-instrument yield-bearing portfolios, a cyclical/seasonal forecaster, GARCH(1,1), and GJR-GARCH leverage — draining the stranded-branch backlog to zero (now 445 tests green, wallet gate holds). Two decisions stay open for you: whether builders should land finbot increments directly on main (to stop per-cycle rebase cost), and the security-weighted cap-attenuation Phase 2 (CapTP transport + first live paper-wallet run, gated behind `live_authorized`) — not advanced without authorization.
+
+**[kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/issues/9)** (ymax→critical): a shepherd fixed the one PR-attributable red (a `dprint` miss), but the remaining reds are stale-base noise that's *growing* (test-boot spread from 1 to ~9 shards) — the pending rebase-vs-frozen-prototype call is now costing green CI.
+
+Also live: the **OCapN-Noise-WS demo** is running and reproducible on minion.town (Caddy TLS → Noise IK → capability round-trip), and **endor-xst** core landed on the XS→Rust port (still draft) with a flagged submodule-pin mismatch (committed `c/moddable` gitlink is 8.0.1 but HEAD requires 8.3.1 — needs a separate gitlink bump).
 
 ## Parked for maintainer feedback
 
@@ -335,17 +339,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`daily-progress-summary-20260711-070503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260711-070503.md) — Daily midnight Pacific progress summary
+### doin (1)
 - [`xs2rust-endor-262-xst-async-done`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-262-xst-async-done.md) — Builder: endor-xst async/$DONE + job-drain wiring (PR #600, test262-convergen...
 
-### tada (1876)
+### tada (1877)
+- [`daily-progress-summary-20260711-070503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260711-070503.md) — Completion report
 - [`xs2rust-endor-262-corpus-case-conversion`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-262-corpus-case-conversion.md) — Completion report
 - [`finbot-progress-20260711-065005`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260711-065005.md) — Completion report — finbot-progress-20260711-065005
 - [`fu-ocapn-two-daemon-invite-accept-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-ocapn-two-daemon-invite-accept-1.md) — Completion report
 - [`ocapn-noise-p2p-milestones`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-p2p-milestones.md) — orchestration ocapn-noise-p2p-milestones — complete
-- [`ocapn-two-daemon-invite-accept`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-two-daemon-invite-accept.md) — Completion report — ocapn-two-daemon-invite-accept (M5 builder)
-- … and 1871 more
+- … and 1872 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
