@@ -1,18 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T00:51:59Z_
+_As of 2026-07-11T00:58:25Z_
 
 ## Latest
 
-The mount glob/grep `@endo/platform` pushdown stack for [#127](https://github.com/endojs/endo-but-for-bots/pull/127) cleared its gauntlet and un-drafted as four layered PRs — [#678](https://github.com/endojs/endo-but-for-bots/pull/678) (search engine), [#679](https://github.com/endojs/endo-but-for-bots/pull/679) (`EndoMount.glob`), [#680](https://github.com/endojs/endo-but-for-bots/pull/680) (`EndoMount.grep`), and [#681](https://github.com/endojs/endo-but-for-bots/pull/681) (agent tools) — and shepherds are now driving #678/#679/#681 back to green. Two merge-gate judgments ride on this stack: grep still ships an unbounded `new RegExp().test()` (a ReDoS surface, pre-existing and behavior-preserving, but the natural moment to decide whether to gate it on the conservative subset of [#676](https://github.com/endojs/endo-but-for-bots/pull/676)), and the impl changesets cite design PR [#675](https://github.com/endojs/endo-but-for-bots/pull/675), which should land on `llm` alongside them.
-
-The dominant signal remains a merge bottleneck: the foreman reported four times that M3 has no unblocked build work because the daemon-mount chain ([#650](https://github.com/endojs/endo-but-for-bots/pull/650)/[#653](https://github.com/endojs/endo-but-for-bots/pull/653)/[#655](https://github.com/endojs/endo-but-for-bots/pull/655)/[#657](https://github.com/endojs/endo-but-for-bots/pull/657)), the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)), and the endoclaw-oauth design [#621](https://github.com/endojs/endo-but-for-bots/pull/621) are all CI-green and mergeable but sitting unmerged on `llm`, starving every stacked follower — the fleet needs merge attention, not more build jobs. The XS-validation effort (garden#33) is likewise engineering-complete and green on fork PRs [#13](https://github.com/kriscendobot/agoric-sdk/pull/13) and [#14](https://github.com/kriscendobot/agoric-sdk/pull/14), blocked only on two decisions: whether to waive the Depot-gated full-chain integration leg (a package-suite substitute is green), and whether green-draft #14 counts as "landed." On finbot, three stranded branches were rebased and fast-forwarded onto `main` (SES-compartments, multi-instrument portfolios, and the cyclical forecaster), leaving no stranded branches and 424 tests green with the live-wallet gate still closed.
-
-Worth noticing on the housekeeping side: several jobs surfaced duplicate/collision work rather than opening redundant PRs — the mvs-resolver lives in both [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (`@endo/exo-npm`) and [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon`) with an unresolved home decision, the daemon-agent-tools fs wiring is already delivered by landed [#614](https://github.com/endojs/endo-but-for-bots/pull/614), and the Docker-selfhost build re-hit the already-declined [#134](https://github.com/endojs/endo-but-for-bots/pull/134) (its stale design record wants tombstoning). kriskowal archived [#618](https://github.com/endojs/endo-but-for-bots/pull/618) over a capability-leak concern, handing it to @kumavis. Finally, a session-limit outage around midnight UTC crash-looped the triagers across every watched repo and tripped the `kriscendobot-finbot` triage circuit-breaker; a self-heal fix landed on `main2` adding an opt-in bare-clone self-provision path, but the three unwatched repos (`ocapn`, `agoric-3-proposals`, `cosgov`) still lack clones.
+The garden-triager fleet is crash-looping across every watched repo: the `GARDEN_REPOS` default was corrected from `/repos` to `worktrees/` (plus an opt-in self-provision path) and the fix is landed on `main2`, but the deployed root `garden2` still sits ~10 commits behind at `688e6174c8`, so a deliberate drained deploy is the thing that actually restores triage — the five self-heal jobs that closed only confirmed the source is fixed, not the runtime. Three watched repos (cosgov, ocapn, agoric-3-proposals) will still fail after deploy for lack of any clone, and arming them intersects the watch-set authorization rule. The glob/grep `@endo/platform` pushdown stack un-drafted into your queue as [#678](https://github.com/endojs/endo-but-for-bots/pull/678) (engine), [#679](https://github.com/endojs/endo-but-for-bots/pull/679) (`EndoMount.glob`), [#680](https://github.com/endojs/endo-but-for-bots/pull/680) (`grep` + pipelining), and [#681](https://github.com/endojs/endo-but-for-bots/pull/681) (agent tools), with shepherds now driving #678/#679/#681 to green; the panel flags a merge-gate decision on grep ReDoS (gate on the conservative subset per [#676](https://github.com/endojs/endo-but-for-bots/pull/676), or accept interim exposure) and asks that design [#675](https://github.com/endojs/endo-but-for-bots/pull/675) land first so changelog links resolve. finbot landed a GARCH(1,1) volatility surface (435 tests green, wallet still untouched), clearing the last stranded branch. The recurring foreman refrain stands: M3 is saturated and build-dry — the mount, endoclaw-timer, and glob/grep stacks are green and mergeable but unmerged on `llm`, so forward progress now needs merge/authority attention, not more queued work.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 7h)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 8h)
 - [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 1d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 8d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 10d)
@@ -739,6 +735,59 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > bare clones under worktrees/, or arm GARDEN_TRIAGE_SELF_PROVISION=1 on one host
 > after confirming the forks exist.
 
+- `20260711T005455Z-1261bb` — from gardener:self-heal-fix-garden-triager-kriscendobot-agoric-sdk-repos-default-path, reply_to `self-heal-fix-garden-triager-kriscendobot-agoric-sdk-repos-default-path` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T005455Z-1261bb.md)
+
+> Self-heal job (triager repos→worktrees default): the SOURCE fix is already landed in origin/main2 — triager.sh:38 and comment-watcher.sh:191 both default GARDEN_REPOS to $GARDEN_ROOT/worktrees (commit 118f7384fc, extended by 2c76c8cd92 / 4c0e275b0b), and the triager test suite passes 62/62 including case I which locks the default to worktrees/. Nothing to commit.
+>
+> But the DEPLOYED garden root (/home/kris/garden2) is still at 688e6174c8, BEHIND main2, so its triager.sh:25 / comment-watcher.sh:179 still carry the stale /repos default — that is why agoric-sdk / ocapn / vattr97 / agoric-3-proposals triagers keep failing. A deliberate deploy (deploy-garden.sh, via the deploy-on-upgrade Monitor) will clear those failing units. Redeploying the root is outside a gardener's mandate, so flagging for you.
+
+- `20260711T005732Z-31c24e` — from gardener:self-heal-fix-garden-triager-kriscendobot-cosgov-repos-clone-path, reply_to `self-heal-fix-garden-triager-kriscendobot-cosgov-repos-clone-path` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T005732Z-31c24e.md)
+
+> Job self-heal-fix-garden-triager (GARDEN_REPOS /repos→/worktrees) — the code fix is ALREADY on origin/main2 (commit 118f7384fc + follow-ons 9ad9c72931, 54156852da, 1628b0995e, self-provision 2c76c8cd92/4c0e275b0b). Both triager.sh and comment-watcher.sh already default to $GARDEN_ROOT/worktrees; the buggy /repos default is gone from the tree; the header comment is updated; comment-watcher tests pass (211/1, the 1 fail is an unrelated sandbox subprocess-spawn artifact). Nothing to commit — this job was authored against the pre-fix tree.
+>
+> TWO things need a human, though:
+>
+> 1) DEPLOY GAP (why the fleet is STILL down at runtime): the deployed root /home/kris/garden2 is at 688e6174c8, which PREDATES the fix — its triager.sh:25 still reads /repos, so every garden-triager@* is still crash-looping with the /repos FATAL (confirmed live in journalctl as of 00:55Z, even for repos that HAVE a worktrees/ clone like kriscendobot-endo). The deployed root is ~10 commits behind origin/main2. A deliberate drained deploy (deploy-garden.sh) is needed to actually restore the fleet; that's a liaison/leader operation, not a gardener code job.
+>
+> 2) OUT-OF-SCOPE per the job note: after deploy, three enabled instances — kriscendobot-cosgov, kriscendobot-ocapn, kriscendobot-agoric-3-proposals — will STILL fail: they have no standing clone under worktrees/ at all. Resolving them (provision via clone-keeper tracked set, or disable the instances) is a separate decision that intersects the CLAUDE.md § Monitoring safety watch-set authorization requirement — flagging rather than silently arming new watched repos.
+
+- `20260711T005737Z-1fa345` — from gardener:finbot-progress-20260711-005002, reply_to `finbot-progress-20260711-005002` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T005737Z-1fa345.md)
+
+> finbot progress cycle (20260711-005002) — one increment landed, green.
+>
+> **Advanced:** Closed the **GARCH conditional-volatility** open axis from
+> designs/ensemble-forecasting.md. Landed `feat(simulator): GARCH(1,1)` on
+> kriscendobot/finbot@main (a35add1..faa3ff1), direct-push per finbot's
+> no-PR convention.
+>
+> - New `packages/simulator/garch.js`: `Garch11Surface` — a *stateful* vol
+>   surface modelling volatility clustering (what the empirical iid surface
+>   structurally cannot), variance evolving off the realized price shock;
+>   stationarity (alpha+beta<1) enforced at construction. Plus
+>   `garchFromPriceHistory()` fitting by variance targeting.
+> - Wired into GBMPriceFeed behind the existing `cfg.volSurface` plug via an
+>   `isGarch` flag. Immutable params in the surface, evolving variance per
+>   feed instance — so one surface is shared safely across a forecast
+>   ensemble, each fork starting a fresh variance path. Reuses the feed's own
+>   price shocks → zero extra RNG, determinism contract holds byte-for-byte
+>   (same-seed clone carries variance forward; reseeded fork resets it).
+> - **GREEN: 435 tests pass** (+11 GARCH suite, from 424). Safety gate holds:
+>   finbot-ooda --seed=7 → all 6 auditor invariants PASS, WALLET TOUCHED: false.
+>
+> **Next unblocked increment:** simulator-side pure builds still on the
+> ensemble-forecasting axis — implied-vol surfaces (needs options data, may
+> not be feasible without a data source), asymmetric GARCH variants
+> (GJR-GARCH / EGARCH for the leverage effect), or PNG rasterization of the
+> histogram renderer. Any is a clean no-wallet next cycle.
+>
+> **Needs a maintainer decision (unchanged, still deferred):** the deepest
+> remaining axis is cap-attenuation Phase 2 — the CapTP transport for the
+> gated spawnSigningWorker stub and a first live paper-wallet/test-net run.
+> Security-weighted, gated behind live_authorized:true; not advanced without
+> explicit authorization.
+>
+> No garden main2 changes needed — project-only cycle.
+
 - `poison-endojs-endo-but-for-bots-pr592-cancel-in-options-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-endojs-endo-but-for-bots-pr592-cancel-in-options-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -826,19 +875,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr678-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr678-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #678
 - [`endojs-endo-but-for-bots-pr679-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr679-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #679
 - [`endojs-endo-but-for-bots-pr681-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr681-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #681
-- [`finbot-progress-20260711-005002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260711-005002.md) — Push progress on kriscendobot/finbot (every 6h)
 
-### tada (1815)
-- [`xst-validation-orchestrator-20260711-005002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-005002.md) — XS-validation orchestrator — tick report (2026-07-11 ~00:50Z)
-- [`deadmail-issue-comment-4940396976`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4940396976.md) — Completion report
-- [`scholar-library-cycle-20260710-233505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260710-233505.md) — Completion report
-- [`xst-validation-orchestrator-20260710-233505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260710-233505.md) — XS-validation orchestrator — tick report (2026-07-11 ~00:45Z, tick posted 23:...
-- [`self-heal-fix-garden-triager-kriscendobot-ocapn-missing-bare-clone-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ocapn-missing-bare-clone-die.md) — Completion report
-- … and 1810 more
+### tada (1821)
+- [`self-heal-fix-garden-triager-kriscendobot-cosgov-repos-clone-path`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-cosgov-repos-clone-path.md) — Completion report
+- [`finbot-progress-20260711-005002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260711-005002.md) — Completion report — finbot-progress-20260711-005002
+- [`self-heal-fix-garden-triager-kriscendobot-finbot-bare-clone-path-and-self-provision`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-finbot-bare-clone-path-and-self-provision.md) — Completion report
+- [`self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-triager-selfprovision-missing-bare-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-triager-selfprovision-missing-bare-clone.md) — Completion report
+- [`self-heal-fix-garden-triager-kriscendobot-endo-wrong-bare-clone-dir`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-endo-wrong-bare-clone-dir.md) — Completion report
+- … and 1816 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
