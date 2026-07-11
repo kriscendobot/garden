@@ -46,3 +46,9 @@ A committed Dockerfile + deploy script that reproducibly stands up the **full** 
 Daemon on minion.town serving OCapN over WS+Noise (via `@nets/ocapn`), with a captured
 transcript of a local peer reaching its bootstrap over `wss://minion.town/…`. Report the
 image, the runtime, the Caddy route, and every tentative choice.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  claimed_at: 2026-07-11T08:38:25Z
