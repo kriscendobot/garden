@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-11T17:25:06Z_
+_As of 2026-07-11T17:35:50Z_
 
 ## Latest
 
-The dominant signal this window is that **Milestone M3 has shifted from a build problem to a merge decision** — the foreman has flagged four separate times that its exit-criterion PRs are green and mergeable but sitting unmerged: Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608), the confined outbound-HTTP tool [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the endopi stack [#667–#672](https://github.com/endojs/endo-but-for-bots/pull/671), and the #127 mount stack ([#678–#681](https://github.com/endojs/endo-but-for-bots/pull/681)). Two things gate the flow: the repo-wide typescript-eslint lint ceiling, whose fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) is still unmerged and is poisoning gauntlets (it took down #661's), and the scheduled-execution pivot — reminder design PR [#682](https://github.com/endojs/endo-but-for-bots/pull/682) is reviewed and awaiting an accept/close call that would retire the superseded endoclaw-timer chain [#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619). A build job for the MVS resolver was closed as already subsumed by [#671](https://github.com/endojs/endo-but-for-bots/pull/671).
+The dominant signal this cycle is that **Milestone M3 has run out of buildable work and is now gated entirely on maintainer merge/accept decisions** — the foreman flagged this five times in eight hours. A fleet of green, mergeable endo-but-for-bots PRs is queued behind review: Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608), the confined-HTTP agent tool [#661](https://github.com/endojs/endo-but-for-bots/pull/661), and the mount-search/endopi stacks. The keystone is the lint-ceiling fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) ("lint per package"): until it merges, every gauntlet hits phantom-red lint and poisons (as #661's did), so merging it also trip-wires the parked shepherd cohort back to life. Separately, the scheduled-execution clause pivoted — reminder design PR [#682](https://github.com/endojs/endo-but-for-bots/pull/682) now supersedes the endoclaw-timer chain ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) and needs an accept-and-retire call.
 
-**Two operational items want your hand.** First, the triager crash-loop: the `/repos`→`/worktrees` path fix is fully landed and tested on `main2`, but the deployed root (`/home/kris/garden2`) is ~56 commits behind, so `garden-triager@*` units keep FATAL-looping until a deliberate drained `deploy-garden.sh` — five separate self-heal reports converge on this being the sole remaining step. Second, **agoric-sdk PR [#9](https://github.com/kriscendobot/agoric-sdk/pull/9)** (ymax→critical): the shepherd's dprint fix took fork CI from four reds to one, leaving only a stale-base `test-codegen` red; after four unanswered ticks on the rebase-vs-freeze question, the drive commissioned the reversible default — a rebase onto master — and will un-draft for SwingSet review once green unless you say `freeze #9`.
-
-Meanwhile **finbot** is advancing steadily via direct-push, no maintainer action needed: this window it landed the SES-compartments capability-attenuation cornerstone, multi-instrument portfolios, the cyclical/harmonic forecaster, GARCH(1,1), GJR-GARCH leverage effect, and an inference-driven DECIDE stage — 451 tests green, all wallet-safety invariants holding. Its one standing decision (cap-attenuation Phase 2, a live paper-wallet run) stays gated on your `live_authorized`. Elsewhere, the OCapN-Noise-WS demo is live and reproducible on minion.town, the XS-validation effort finalized (fork PRs [#11–#14](https://github.com/kriscendobot/agoric-sdk/pull/14) green, garden#33 left open for you), and endor-xst core landed on draft [#600](https://github.com/endojs/endo-but-for-bots/pull/600). Watchdogs poisoned two overlong handlers — `pr688-shepherd` and `ocapn-pet-daemon-dockerfile-minion` — that need splitting into claim-sized stages.
+Two other decisions are pending. The [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) drive (ymax→critical vat) went unanswered for four ticks, so the gardener took the reversible default and wove it onto current master — every PR-attributable CI check is now green, leaving only the choice of rebase-and-review versus frozen-base prototype. And the triager crash-loop fix has landed on `main2` but the **deployed root is ~56 commits stale**, so `garden-triager@*` units keep FATAL-looping until a drained `deploy-garden.sh` runs — a leader operation no gardener can perform. Meanwhile finbot advanced steadily on autopilot (SES compartments, GARCH/GJR-GARCH vol surfaces, and an inference-driven DECIDE stage all direct-pushed and green, backlog cleared), with its cap-attenuation Phase 2 still awaiting `live_authorized`.
 
 ## Parked for maintainer feedback
 
@@ -18,7 +16,7 @@ Meanwhile **finbot** is advancing steadily via direct-push, no maintainer action
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 11d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 12d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 15d)
-- [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 25d)
+- [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 26d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 50d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 50d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 52d)
@@ -499,13 +497,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > M3's scheduled-execution clause is stalled on the `endoclaw-timer` → `@endo/reminder` pivot: reminder design PR #682 (which supersedes endoclaw-timer) has been reviewed and needs a maintainer accept/close decision — accept #682 and retire the superseded timer PRs #609/#617/#619 so the scheduled-execution build can proceed. Meanwhile M3's other exit-criterion capabilities are already green and mergeable (docker self-host #608, confined-HTTP tool #661, agent-tools search #678–681), so completing M3 is now gated on merge/acceptance decisions rather than any remaining foreman-postable build work.
 
+- `20260711T173427Z-2d8402` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T173427Z-2d8402.md)
+
+> M3 (Remote Access and Coding Capabilities) has no unblocked build step: every capability leg is already an open non-draft PR, and the next build phases wait on maintainer acceptance of the two ready design-sequencing PRs — [endojs/endo-but-for-bots#659](https://github.com/endojs/endo-but-for-bots/issues/659) (module-loading four-layer stack) and #691 (git-capability stack) — while the rename stack waits on #598 merging. Please accept/merge (or redirect) these so the fleet can pick up the dependent M3 build phases.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (3)
+- [`hyperlink-refs-pr-review-sequence`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/hyperlink-refs-pr-review-sequence.md) — Hyperlink all PR/issue references in the journal-root pr-review-sequence report
+- [`ocapn-cross-host-pet-daemon-invite-accept`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-cross-host-pet-daemon-invite-accept.md) — True cross-host Pet-Daemon ↔ Pet-Daemon invite/accept over wss (closes M5)
+- [`port-xs-to-rust-memory-safe-engine-s18`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s18.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
 ### tada (1928)
 - [`kriscendobot-agoric-sdk-pr9-weave-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr9-weave-master.md) — Completion report
@@ -540,8 +544,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
 - [`build-daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase3.md) — awaiting `build-daemon-rename-to-manager-phase2` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-regexp-conservative-subset.md) — awaiting `endojs/endo-but-for-bots#676` · Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
-- [`ocapn-cross-host-pet-daemon-invite-accept`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ocapn-cross-host-pet-daemon-invite-accept.md) — awaiting `ocapn-pet-daemon-dockerfile-minion` · True cross-host Pet-Daemon ↔ Pet-Daemon invite/accept over wss (closes M5)
-- [`port-xs-to-rust-memory-safe-engine-s18`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s18.md) — awaiting `xs2rust-endor-build-stage5-fix6` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
 ## Watch set
