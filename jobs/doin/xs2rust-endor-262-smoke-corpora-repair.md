@@ -45,3 +45,9 @@ supervisor (a send to a parked supervisor dead-letters into a noise job).
 
 **Sizing:** fits one 2400s invocation; if the workspace test build threatens the budget, land the
 fix + the two repaired binaries' green runs and report the workspace run as far as it got.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 14
+  claimed_at: 2026-07-11T17:40:39Z
