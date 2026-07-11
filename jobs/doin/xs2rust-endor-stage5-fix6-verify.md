@@ -78,3 +78,9 @@ what you measured and state EXACTLY which checklist rows remain unmeasured — n
 unmeasured bar.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 7
+  claimed_at: 2026-07-11T06:03:07Z
