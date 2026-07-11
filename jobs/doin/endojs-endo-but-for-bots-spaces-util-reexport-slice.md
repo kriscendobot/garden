@@ -22,6 +22,7 @@ inversion; verify the design permits it, and flag to @erights if it looks wrong.
 Repo endojs/endo-but-for-bots, base `llm`. Non-breaking stage-1 (patch bump),
 separate PR from #660.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
