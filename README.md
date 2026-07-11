@@ -1,16 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-11T04:00:12Z_
+_As of 2026-07-11T04:01:24Z_
 
 ## Latest
 
-The single board completion since the last bulletin was [`ocapn-noise-demo-pr`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-demo-pr.md); the substantive movement is all in the message backlog and it points at two maintainer actions.
+The glob/grep `@endo/platform` pushdown stack for [endo-but-for-bots#127](https://github.com/endojs/endo-but-for-bots/issues/127) is built, gauntleted, and un-drafted into review as four stacked PRs — [#678](https://github.com/endojs/endo-but-for-bots/pull/678) (search engine), [#679](https://github.com/endojs/endo-but-for-bots/pull/679) (glob delegation), [#680](https://github.com/endojs/endo-but-for-bots/pull/680) (grep decoupled + pipeline), and [#681](https://github.com/endojs/endo-but-for-bots/pull/681) (agent tools); two merge-gate calls ride along — grep still ships an unbounded `RegExp` (a pre-existing ReDoS surface, to gate on the conservative subset of design PR [#676](https://github.com/endojs/endo-but-for-bots/pull/676) or accept), and design PR [#675](https://github.com/endojs/endo-but-for-bots/pull/675) should land first so the changelog links resolve. The mount stack also cleared CI: [#653](https://github.com/endojs/endo-but-for-bots/pull/653) is green after a rebase onto the fixed [#650](https://github.com/endojs/endo-but-for-bots/pull/650) base, unblocking the grep/json followers. On the Agoric fork, the XS-16.7.1 validation effort ([kriskowal/garden#33](https://github.com/kriskowal/garden/issues/33)) is engineering-complete and holding green across PRs [#13](https://github.com/kriscendobot/agoric-sdk/pull/13) and [#14](https://github.com/kriscendobot/agoric-sdk/pull/14), now blocked solely on two maintainer decisions (waive the Depot-gated `force:integration` leg; whether green draft #14 counts as "landed"); finbot landed four clean increments (SES compartments, multi-instrument portfolios, cyclical forecaster, GARCH) directly on `main`.
 
-**Deploy gap — the fleet is degraded right now.** Every `garden-triager@*` unit is crash-looping because the deployed root (`/home/kris/garden2`, HEAD `688e6174c8`) is ~56 commits behind `main2`, still carrying the old `GARDEN_REPOS=$GARDEN_ROOT/repos` default. The source fix is landed and green on `main2` (through `4c0e275b0b`), and all eight own-fork bare clones now exist under `worktrees/`, so a single drained `deploy-garden.sh` clears the storm — no stopgap needed. Until then the self-heal watchdog is filling the maintainer inbox with session-limit and triager failures.
-
-**M3 is saturated on merge, not on work.** The foreman reports (three times) it has no unblocked build lane: the mount stack, the endoclaw-timer stack (#609/#617/#619), and the newly un-drafted glob/grep `@endo/platform` pushdown layers — [#678](https://github.com/endojs/endo-but-for-bots/pull/678), [#679](https://github.com/endojs/endo-but-for-bots/pull/679), [#680](https://github.com/endojs/endo-but-for-bots/pull/680), [#681](https://github.com/endojs/endo-but-for-bots/pull/681) — are green and gauntleted but stranded on the fork's `llm` branch, blocking every stacked follower. The pushdown gauntlet flags one merge-gate judgment: normative JS `grep` still ships an unbounded `RegExp` (ReDoS-exposed, pre-existing from #655), and it recommends landing design PR [#675](https://github.com/endojs/endo-but-for-bots/pull/675) before/with the stack so changelog links resolve.
-
-**Notable single items.** [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now green after a rebase onto a durable base fix. Maintainer closed [#618](https://github.com/endojs/endo-but-for-bots/pull/618) (agent-tools Phase 4) over a capability-leak concern, deferring to @kumavis — fleet stood down. A real Node-22 bug surfaced in [#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s http-client e2e (hardened undici `Headers` fails error-decode). On the fork side, finbot landed four clean increments (SES-compartments, multi-instrument, cyclical + GARCH forecasters) and now has no stranded branches; the agoric-sdk XS-validation effort ([garden#33](https://github.com/kriskowal/garden/issues/33)) is fully green and waiting only on two decisions (waive the Depot-gated `force:integration` leg, and whether draft fork PR #14 counts as "landed"). Two jobs are poison-parked pending promotion — the #592 cancellation-API fixer and the #661 http-client gauntlet — and a recurring watchdog pattern shows many gauntlet/shepherd jobs deterministically overrunning the 2400s handler budget, worth splitting into claim-sized stages.
+Two things need attention. **The deployed garden root (`/home/kris/garden2`, ~56 commits behind `main2`) is stale**, so every `garden-triager@*` unit is FATAL-looping on the old `/repos` default — the fix is landed and tested on `main2`, but only a deliberate drained `deploy-garden.sh` will actually stop the crash-loop (which spent the overnight window compounding with session-limit self-heal storms). And the foreman has now signaled four times that **M3 has no unblocked build work**: the mount, endoclaw-timer, and platform-search stacks are all green and mergeable but unmerged, stranding every stacked follower — the fleet needs merge/ferry attention, not more queued builds. Separately, [#618](https://github.com/endojs/endo-but-for-bots/pull/618) (daemon-agent-tools Phase 4) was closed by kriskowal over capability-leak concerns and handed to @kumavis; the fleet stood down.
 
 ## Parked for maintainer feedback
 
@@ -910,8 +906,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`ocapn-daemon-minion-deploy-demo`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-daemon-minion-deploy-demo.md) — Deploy an OCapN-Noise Pet Daemon on minion.town and connect a local peer (M3+M4)
 
 ### tada (1854)
 - [`ocapn-noise-demo-pr`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-demo-pr.md) — Completion report
