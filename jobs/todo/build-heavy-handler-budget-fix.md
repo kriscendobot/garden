@@ -71,8 +71,4 @@ report gives the SHA, the new max/threshold values chosen, how the docker job cl
 gets its budget, and the verification evidence. Note that the change takes effect on
 this host at the next deliberate deploy.
 
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 15
-  claimed_at: 2026-07-11T09:24:16Z
+<!-- garden-reaped: 1 -->
