@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T01:30:21Z_
+_As of 2026-07-11T01:34:28Z_
 
 ## Latest
 
-The deployed garden root is stale and the fleet is paying for it: the triager crash-loop fix (GARDEN_REPOS defaulting to `worktrees/`) is landed on `main2`, but the deployed root sits ~10 commits behind at `688e6174c8`, so every `garden-triager@*` unit keeps flapping on the old `/repos` default and self-heal is compounding it with repeated "session limit" exhaustions — a deliberate `deploy-garden.sh` on the leader is the fix. Meanwhile the foreman is out of postable build work: the M3 mount and endoclaw-timer stacks ([#650](https://github.com/endojs/endo-but-for-bots/pull/650)/[#653](https://github.com/endojs/endo-but-for-bots/pull/653)/[#655](https://github.com/endojs/endo-but-for-bots/pull/655)/[#657](https://github.com/endojs/endo-but-for-bots/pull/657), [#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) are CI-green and mergeable but unmerged, blocking every stacked follower — the bottleneck is now merge attention, not building. The `@endo/platform` glob/grep pushdown shipped as a freshly gauntleted, un-drafted four-layer stack ([#678](https://github.com/endojs/endo-but-for-bots/pull/678), [#679](https://github.com/endojs/endo-but-for-bots/pull/679), [#680](https://github.com/endojs/endo-but-for-bots/pull/680), [#681](https://github.com/endojs/endo-but-for-bots/pull/681), currently shepherding red CI), but it wants two calls: whether to gate normative grep on the conservative-regexp subset before shipping (the ReDoS exposure carried over from [#655](https://github.com/endojs/endo-but-for-bots/pull/655)), and landing design [#675](https://github.com/endojs/endo-but-for-bots/pull/675) first so changelog links resolve. Note also that kriskowal archived [#618](https://github.com/endojs/endo-but-for-bots/pull/618) over a capability-leak concern, handing off to @kumavis; the fleet collided with itself on the MVS resolver ([#403](https://github.com/endojs/endo-but-for-bots/pull/403) vs [#671](https://github.com/endojs/endo-but-for-bots/pull/671)) and is parked pending a "which home wins" decision; and the fork XS-validation effort (kriskowal/garden#33) is fully green and blocked only on your two decisions — waive the Depot-gated integration leg, and whether green draft PR #14 counts as landed.
+The four-layer glob/grep `@endo/platform` pushdown stack for #127 cleared the gauntlet and un-drafted into the review queue — [endo-but-for-bots#678](https://github.com/endojs/endo-but-for-bots/pull/678) (search engine), [#679](https://github.com/endojs/endo-but-for-bots/pull/679) (`EndoMount.glob`), [#680](https://github.com/endojs/endo-but-for-bots/pull/680) (`EndoMount.grep`), and [#681](https://github.com/endojs/endo-but-for-bots/pull/681) (agent tools) — and shepherds have since driven #678, #679, and #681 to green CI. Two items want a maintainer call before merge: normative grep still ships an unbounded `RegExp` (a pre-existing ReDoS surface the pushdown now makes a reusable primitive — gate on the conservative subset per [#676](https://github.com/endojs/endo-but-for-bots/pull/676), or accept interim exposure), and design PR [#675](https://github.com/endojs/endo-but-for-bots/pull/675) should land on `llm` first so the stack's changelog links resolve.
+
+The more urgent operational note: the triager crash-loop fix is landed and tested on `main2`, but the **deployed garden root (`/home/kris/garden2`) is ~56 commits behind** and still carries the old `GARDEN_REPOS=…/repos` default, so every `garden-triager@*` unit is still FATAL-flapping (the overnight self-heal storm, now compounded by session-limit errors that reset at 00:30 UTC). All eight own-fork bare clones now exist under `worktrees/`, so a single drained `deploy-garden.sh` will quiet the fleet cleanly — that deploy is the one action blocking recovery.
+
+Meanwhile the foreman is repeatedly flagging M3 as saturated-in-flight: the mount chain, endoclaw-timer stack (#609/#617/#619), and gateway/agent-tools work are all green and mergeable but unmerged on `llm`, leaving no unblocked build work — forward progress now depends on merge/authority decisions, not more building. Several jobs also self-reported as duplicates or impasses (the mvs-resolver home split between [#403](https://github.com/endojs/endo-but-for-bots/pull/403) and [#671](https://github.com/endojs/endo-but-for-bots/pull/671), the Docker-selfhost rebuild of already-closed [#134](https://github.com/endojs/endo-but-for-bots/pull/134)), and PR [#618](https://github.com/endojs/endo-but-for-bots/pull/618) was archived by kriskowal over a capability-leak concern, deferred to @kumavis.
 
 ## Parked for maintainer feedback
 
@@ -794,6 +798,23 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The crash-loop is still LIVE only because the DEPLOYED root (/home/kris/garden2, HEAD 688e6174c8) predates the fix — its triager.sh line 25 / comment-watcher.sh line 179 still default to $GARDEN_ROOT/repos. FOLLOW-UP: a deliberate deploy (deploy-garden.sh, leader host) will advance the root past 4c0e275b0b and stop garden-triager@* flapping. No code work remains for this job.
 
+- `20260711T013139Z-f3a920` — from gardener:self-heal-fix-garden-triager-kriscendobot-agoric-sdk-missing-repos-clone, reply_to `self-heal-fix-garden-triager-kriscendobot-agoric-sdk-missing-repos-clone` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T013139Z-f3a920.md)
+
+> Self-heal (garden-triager own-fork "no bare clone" FATAL) — diagnosis + one remaining step.
+>
+> The durable fix is ALREADY landed and tested on main2 (peers landed it before this job ran):
+>   - scripts/jobs/fork-watch-provisioner.sh + its test are tracked on main2; test passes 16/16.
+>   - Provisioner is wired into the tick path: repo-watcher.sh:47-49 runs it at the top of every reconcile.
+>   - Root cause of the FATAL is repaired at the source: triager.sh / comment-watcher.sh / fork-watch-provisioner.sh now all default GARDEN_REPOS to worktrees/ (was repos/), and a missing clone is a clean skip, not a FATAL.
+>
+> Why the FATAL still storms on THIS host: the deployed root (/home/kris/garden2) is ~56 commits BEHIND origin/main2. It still runs the OLD triager.sh (GARDEN_REPOS=$GARDEN_ROOT/repos), so garden-triager@{agoric-sdk,cosgov,endo,finbot} FATAL every tick looking for repos/<slug>.git, which never existed. upgrade-ready is set; the deploy is simply pending.
+>
+> Good news that simplifies the fix: all 8 armed own-fork bare clones now exist under worktrees/<slug>.git (agoric-sdk, endo, finbot, minion.town, vattr97, cosgov, ocapn, agoric-3-proposals). So once main2 is deployed, every garden-triager@<slug> finds its clone under worktrees/ and ticks cleanly — the provisioner's MATERIALIZE step is a no-op (nothing left to clone). No stopgap materialization is needed.
+>
+> The ONE remaining step is the drained deploy — a leader/liaison operation I cannot run from inside a gardener job (deploy-garden.sh drains the fleet including me, and it's triggered only by your deploy-on-upgrade Monitor, not a systemd unit). Please run scripts/jobs/deploy-garden.sh when the fleet is quiet (it currently DEFERs while gardeners are mid-job > 300s). After it lands, garden-triager@kriscendobot-agoric-sdk and its 7 siblings will reach "no change"/"triaged" instead of the "no bare clone" FATAL.
+>
+> Note: I did NOT apply the repos/ stopgap. Under the old deployed code, materializing repos/<slug>.git would flip each own-fork (incl. the massive agoric-sdk) into an unbounded full-history first-observation `claude -p` triage (empty cursor → `git log` with no range) — a larger, less predictable action than the throttled/circuit-broken FATAL. The deploy is the clean resolution.
+
 - `poison-endojs-endo-but-for-bots-pr592-cancel-in-options-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-endojs-endo-but-for-bots-pr592-cancel-in-options-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -881,22 +902,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (7)
-- [`endojs-endo-but-for-bots-pr678-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr678-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #678
-- [`endojs-endo-but-for-bots-pr679-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr679-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #679
-- [`endojs-endo-but-for-bots-pr681-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr681-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #681
-- [`self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-no-bare-clone-self-provision`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-no-bare-clone-self-provision.md) — scripts/jobs/triager.sh
-- [`self-heal-fix-garden-triager-kriscendobot-agoric-sdk-missing-repos-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-agoric-sdk-missing-repos-clone.md) — The armed garden-triager@<slug> units for the garden's own forks FATAL every ...
-- [`self-heal-fix-garden-triager-kriscendobot-minion-town-bare-clone-path`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-minion-town-bare-clone-path.md) — scripts/jobs/triager.sh dies at line 32 with FATAL: no bare clone at $GARDEN_...
+### doin (1)
 - [`self-heal-fix-garden-triager-kriscendobot-ocapn-missing-bare-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-ocapn-missing-bare-clone.md) — Fix scripts/jobs/triager.sh so its per-repo tick stops dying with FATAL: no b...
 
-### tada (1826)
-- [`self-heal-fix-garden-triager-kriscendobot-vattr97-bare-clone-path-worktrees`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-vattr97-bare-clone-path-worktrees.md) — Completion report
-- [`self-heal-fix-garden-triager-kriscendobot-finbot-self-provision-bare-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-finbot-self-provision-bare-clone.md) — Completion report
-- [`self-heal-fix-garden-triager-kriscendobot-endo-missing-bare-clone-selfprovision`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-endo-missing-bare-clone-selfprovision.md) — Completion report
-- [`self-heal-fix-garden-triager-kriscendobot-cosgov-skip-missing-bare-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-cosgov-skip-missing-bare-clone.md) — Completion report
-- [`deadmail-issue-comment-4940994955`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4940994955.md) — Completion report
-- … and 1821 more
+### tada (1832)
+- [`self-heal-fix-garden-triager-kriscendobot-minion-town-bare-clone-path`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-bare-clone-path.md) — Completion report (resume)
+- [`endojs-endo-but-for-bots-pr681-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr681-shepherd.md) — Completion report
+- [`endojs-endo-but-for-bots-pr679-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr679-shepherd.md) — Shepherd job complete. CI is green on PR #679.
+- [`endojs-endo-but-for-bots-pr678-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr678-shepherd.md) — Completion report
+- [`self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-no-bare-clone-self-provision`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-no-bare-clone-self-provision.md) — Completion report
+- … and 1827 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
