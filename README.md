@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-11T16:39:54Z_
+_As of 2026-07-11T16:41:12Z_
 
 ## Latest
 
-The triager crash-loop fix is landed but not yet live: five converging self-heal reports confirm the code fix (GARDEN_REPOS now defaults to `worktrees/`, a missing bare clone skips cleanly instead of FATAL-ing) is on `origin/main2`, while the deployed root sits ~56 commits behind — so `garden-triager@*` units keep flapping until a drained `deploy-garden.sh` advances the root. That deploy is the single remaining step.
+The one board move this cycle was the completion of the [endo-but-for-bots#682](https://github.com/endojs/endo-but-for-bots/pull/682) review; the board is otherwise drained to a single in-flight job. Two operator actions dominate the maintainer inbox. First, a **deploy gap**: the triager crash-loop fix is landed and green on `main2`, but the deployed root (`/home/kris/garden2`) is ~56 commits behind, so `garden-triager@*` units keep FATAL-looping on the old `repos/` path — several converging self-heal reports agree a drained `deploy-garden.sh` is the clean fix. Second, **Milestone M3 is merge-bottlenecked, not work-bottlenecked**: the foreman flagged repeatedly that a fleet of green, mergeable endo-but-for-bots PRs — Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608), the outbound-HTTP agent tool [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the mount stack, and the endopi stack — awaits a merge decision, with the per-package lint fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) as the trip-wire that would auto-resume the lint-ceiling-poisoned shepherds.
 
-Milestone M3 is merge-bottlenecked, not work-bottlenecked: the foreman flagged four times that a fleet of green, mergeable endo-but-for-bots PRs — Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608), the outbound-HTTP agent tool [#661](https://github.com/endojs/endo-but-for-bots/pull/661), plus the endopi and mount-search stacks — is ready but unmerged, with the lint-ceiling fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) the trip-wire that also auto-resumes the poisoned shepherd cohort. [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (promote ymax vat → critical) went from four CI reds to one non-PR-attributable red after the shepherd's dprint fix landed and all reviewer feedback was addressed; it is now blocked solely on your **rebase-vs-freeze** call.
-
-finbot landed six direct-push simulator increments (SES-compartments cap-attenuation, multi-instrument portfolios, cyclical/GARCH(1,1)/GJR-GARCH forecasters, and an inference-driven DECIDE stage) — 451 tests green with the wallet gate holding; its cap-attenuation Phase 2 (first live paper-wallet run) awaits explicit `live_authorized`. Also worth a look: the snapshot-mapper build is stalled at an A/B architecture impasse (finish @endo/exo-npm [#403](https://github.com/endojs/endo-but-for-bots/pull/403) vs. build on daemon-registry [#671](https://github.com/endojs/endo-but-for-bots/pull/671)); the OCapN-Noise-WS demo is live and reproducible on minion.town; and the XS-validation effort finalized green on the agoric-sdk fork, with [garden#33](https://github.com/kriskowal/garden/issues/33) left open for you to close.
+On fork work: finbot advanced through a long run of green direct-push increments on `kriscendobot/finbot@main` (SES compartments, multi-instrument yield portfolios, cyclical/GARCH/GJR-GARCH forecasters, and an inference-driven DECIDE stage — now 451 tests green, wallet gate holding), with its cap-attenuation Phase 2 still deferred pending `live_authorized`. [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) is down to a single non-PR-attributable codegen red and is now blocked solely on your `rebase #9` vs `freeze #9` call. The XS-validation effort was finalized and retired ([garden#33](https://github.com/kriskowal/garden/issues/33)), and endor-xst core landed on the still-draft [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600). Also awaiting decisions: the [#609](https://github.com/endojs/endo-but-for-bots/pull/609) message-scheduler redraft into a new `@endo/reminder` plugin, and the snapshot-mapper package-boundary question ([#403](https://github.com/endojs/endo-but-for-bots/pull/403) exo-npm vs [#671](https://github.com/endojs/endo-but-for-bots/pull/671) daemon).
 
 ## Parked for maintainer feedback
 
@@ -495,17 +493,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`build-endo-but-for-bots-endopi-jsonl-transcript-format`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-endopi-jsonl-transcript-format.md) — ---
-- [`endojs-endo-but-for-bots-pr682-review-6fca982b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr682-review-6fca982b.md) — Review directive on endojs/endo-but-for-bots PR #682
 
-### tada (1918)
+### tada (1919)
+- [`endojs-endo-but-for-bots-pr682-review-6fca982b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr682-review-6fca982b.md) — Completion report
 - [`design-endo-but-for-bots-git-capability-stack-sequencing`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-but-for-bots-git-capability-stack-sequencing.md) — Completion report
 - [`xs2rust-xst-reactivate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-xst-reactivate.md) — Completion report — xs2rust-xst-reactivate
 - [`xs2rust-xst-cadence-restore-6h`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-xst-cadence-restore-6h.md) — Confirmed: xst-validation-orchestrator is no longer an active schedule on ori...
 - [`deadmail-20260711T155611Z-b3e598`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260711T155611Z-b3e598.md) — Completion report
-- [`build-endo-but-for-bots-snapshot-mapper`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-snapshot-mapper.md) — Completion report
-- … and 1913 more
+- … and 1914 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
