@@ -16,7 +16,17 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"
 BRANCH=journal2
-TR=/home/kris/.garden-cw-test
+# Per-run temp root (mktemp), NOT a fixed shared path: ~20 gardeners can race this
+# suite concurrently, and a fixed dir makes each run's `rm -rf; mkdir` collide with a
+# peer's live writes (ENOTEMPTY), flaking the whole suite. A unique dir + EXIT-trap
+# teardown isolates each run. Mirrors skills/mermaid-validation's per-run mktemp fix.
+# Location: NOT /tmp (mounted noexec here, and this suite runs executable stubs from
+# under $TR), and NOT inside a git repo ($HOME is /home/<bot>/garden2, the garden
+# checkout — a $TR beneath it would confuse git-tree discovery in the fixtures).
+# `dirname "$HOME"` (the bot's real home, /home/<bot>) is exec-capable and outside any
+# git tree — exactly where the old fixed path lived.
+TR="$(mktemp -d "$(dirname "$HOME")/.garden-cw-test.XXXXXX")"
+trap 'rm -rf "$TR"' EXIT
 SLUG=endojs-endo-but-for-bots
 PASS=0; FAIL=0
 ok()  { echo "  PASS: $*"; PASS=$((PASS+1)); }
@@ -46,7 +56,6 @@ reaped_within() {  # reaped_within <pid>
   proc_running "$p" && return 1 || return 0
 }
 
-rm -rf "$TR"; mkdir -p "$TR"
 git_id=(-c user.name=test -c user.email=test@localhost)
 
 seed_bare() {  # seed_bare <bare-path>

@@ -23,7 +23,19 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"
 BRANCH=journal2
-TR=/home/kris/.garden-triager-test
+# Per-run temp root (mktemp), NOT a fixed shared path: ~20 gardeners can race this
+# suite concurrently (the env-scrub below exists precisely because it runs under a
+# live fleet), and a fixed dir makes each run's `rm -rf; mkdir` collide with a peer's
+# live writes (ENOTEMPTY). A unique dir + EXIT-trap teardown isolates each run.
+# Location matters on two axes: (1) NOT /tmp — it is mounted noexec here and this
+# suite runs executable handler stubs from under $TR ("Permission denied" otherwise);
+# (2) NOT inside a git repo — case J asserts a corrupt bare dir is "not a git repo"
+# via a bare `git rev-parse`, which walks UP the tree, so a $TR under the garden
+# checkout ($HOME is /home/<bot>/garden2, a repo) would falsely resolve to the garden
+# .git. `dirname "$HOME"` (the bot's real home, /home/<bot>) is exec-capable and
+# outside any git tree — exactly where the old fixed path lived.
+TR="$(mktemp -d "$(dirname "$HOME")/.garden-triager-test.XXXXXX")"
+trap 'rm -rf "$TR"' EXIT
 SLUG=kriscendobot-minion.town
 REF=main
 PASS=0; FAIL=0
@@ -36,7 +48,6 @@ hr()  { echo "----------------------------------------------------------------";
 # rationale).
 unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|HANDLER_|CALL_)' || true) 2>/dev/null || true
 
-rm -rf "$TR"; mkdir -p "$TR"
 git_id=(-c user.name=test -c user.email=test@localhost)
 
 # --- throwaway journal (job board + cursors + standing maintainer inbox) ------
