@@ -23,3 +23,9 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 Please produce a report that describes what has been built since April and what work is in flight now. 
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  claimed_at: 2026-07-11T17:55:33Z
