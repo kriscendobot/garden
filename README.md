@@ -1,14 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-11T11:38:24Z_
+_As of 2026-07-11T11:44:48Z_
 
 ## Latest
 
-The garden's triager fleet is the headline: every `garden-triager@*` unit is crash-looping because the **deployed root (`/home/kris/garden2`, HEAD 688e6174c8) is ~56 commits behind `main2`** and still defaults `GARDEN_REPOS` to the stale `/repos` path. Five self-heal gardeners converged on the same conclusion — the source fix (shared `bare_clone_dir()` resolver defaulting to `worktrees/`, plus opt-in self-provisioning) is already landed and green on `main2`; only a deliberate drained `deploy-garden.sh` will actually stop the flapping. A related circuit-breaker opened for `kriscendobot-finbot`, re-raising the standing question of whether the five own-fork triagers (finbot, ocapn, cosgov, agoric-3-proposals) belong in the watch set at all under the § Monitoring safety constraint.
+The triager crash-loop is fixed in code but not yet live: peers landed the `GARDEN_REPOS`→`worktrees/` default and shared `bare_clone_dir()` resolver on `main2` (through `4c0e275b0b`), with tests green, but the deployed root (`/home/kris/garden2`) still predates the fix and keeps `garden-triager@*` units FATAL-looping — several gardeners converge on the same ask: a drained `deploy-garden.sh` from the leader is the one remaining step. Relatedly, a triage circuit-breaker opened on `kriscendobot-finbot`, and three watched forks (ocapn, cosgov, agoric-3-proposals) have no clone under `worktrees/` and intersect the § Monitoring safety watch-set authorization, so provisioning-vs-disabling is a maintainer call.
 
-Two PRs are blocked solely on your decision. [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (promote ymax vat → critical) is now fully green on every PR-attributable check after the shepherd's dprint fix — the lone red is known stale-base codegen noise — and reviewer feedback from mhofman and dckc is addressed; say **`rebase #9`** (onto ~503 commits of master) or **`freeze #9`** to un-draft as a frozen-base prototype. Separately, finbot landed five direct-push simulator increments this cycle (SES compartments, multi-instrument yield-bearing portfolios, cyclical forecaster, GARCH(1,1), and GJR-GARCH — now 445 tests green, wallet-untouched), and its deepest remaining axis, cap-attenuation Phase 2 with a live paper-wallet run, awaits your `live_authorized` call.
+[kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (garden#29, promote ymax vat → critical) advanced materially: the shepherd's `dprint` fix took fork CI from four reds to one, every PR-attributable check now passes, and reviewer feedback is fully addressed — so the effort is blocked *solely* on your decision, `rebase #9` (onto master, ~503 commits, likely clearing the lone `test-codegen` stale-base red) versus `freeze #9` as a frozen-base prototype.
 
-Also worth noticing: the OCapN-Noise-WS demo is live and reproducible on minion.town; endor-xst core landed (still draft) but flags a stale `c/moddable` gitlink pinned to 8.0.1 that reds the module-byte gate; two jobs (`pr688-shepherd` and `ocapn-pet-daemon-dockerfile-minion`) deterministically overran the 2400s handler budget and need splitting; and the minion.town styled-privilege build is proceeding with a safe default but wants a production `ELEVATION_CONTACT` value.
+finbot ran a string of green, direct-to-`main` cycles that emptied its stranded-branch backlog and then extended the simulator's forecasting axis — cyclical/harmonic forecaster, GARCH(1,1), and GJR-GARCH leverage effect (now 445 tests, all six auditor invariants PASS, wallet untouched). The standing decision it keeps re-flagging: adopt garden-style direct-to-main landing or stand up a weaver/conductor sweep, and separately whether to authorize cap-attenuation Phase 2's live paper-wallet run (gated behind `live_authorized`).
+
+On minion.town, the OCapN-Noise-WS demo (M3+M4) is live and reproducible end-to-end through Caddy TLS, with a follow-up offered to promote it to the full Pet-Daemon bootstrap; the xs2rust `endor-xst` runner core also landed on a still-draft PR (flagging a stale `c/moddable` gitlink that needs bumping to 8.3.1). Two jobs — `endo-but-for-bots-pr688-shepherd` and `ocapn-pet-daemon-dockerfile-minion` — deterministically overran the 2400s handler budget and need splitting or detaching before the reaper poisons them. Board activity was otherwise quiet, with only the [endo-but-for-bots#660](https://github.com/endojs/endo-but-for-bots/pull/660) retrospective in flight.
 
 ## Parked for maintainer feedback
 
@@ -357,8 +359,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr660-7dd088b1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr660-7dd088b1-retro.md) — Retrospective on endojs/endo-but-for-bots PR #660 (primary: endojs-endo-but-f...
 
 ### tada (1898)
 - [`scholar-ingest-source-habitat-chronicles-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-habitat-chronicles-5.md) — Completion report
@@ -388,7 +390,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`endojs-endo-but-for-bots-pr660-review-62ee5cda-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr660-review-62ee5cda-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #660 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr660-7dd088b1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr660-7dd088b1-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #660 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
