@@ -17,3 +17,9 @@ host-function seam with the did-not-run latch, drain the job queue per case
 (fxRunLoop-equivalent over the stage-3b promise pump), and mirror the
 unhandled-rejection latch (`the->rejection`). Async tests graduate from
 `structural:async-or-can-block` skips to real dual-run verdicts.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 14
+  claimed_at: 2026-07-11T07:01:09Z
