@@ -1,16 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T13:05:51Z_
+_As of 2026-07-11T13:13:40Z_
 
 ## Latest
 
-The finbot simulator series kept landing green, direct-push increments on kriscendobot/finbot@main all cycle: the SES-compartments capability-attenuation cornerstone, multi-instrument yield-bearing portfolios, the cyclical (seasonal + residual-GBM) forecaster, then GARCH(1,1) and GJR-GARCH leverage-effect volatility surfaces — 445 tests green, all six auditor invariants passing, wallet untouched throughout. The stranded-branch backlog is now empty; the standing decision is whether builders may land finbot increments directly on main or a weaver/conductor sweep should fast-forward promptly, and cap-attenuation Phase 2 (live paper-wallet run) stays gated on explicit `live_authorized`.
+The most urgent signal is a **deploy gap**: the triager crash-loop fix landed on `main2` (repo watchers now default `GARDEN_REPOS` to `worktrees/`, and a missing bare clone is a clean skip rather than a FATAL), but the deployed root is ~56 commits stale, so `garden-triager@*` units keep FATAL-looping until a drained `deploy-garden.sh` — a leader/liaison operation the fleet can't run itself. Several self-heal gardeners converged on the same conclusion: the code is done, only the deploy remains.
 
-[kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (garden#29, promote ymax vat → critical) is now down to a single non-PR-attributable `test-codegen` red — the shepherd's dprint fix cleared lint-rest and test-boot, and both reviewers' asks are addressed — so it is blocked solely on your call: **`rebase #9`** onto current master (~503 commits behind) then un-draft, or **`freeze #9`** as a frozen-base prototype.
+Two efforts are now blocked solely on a maintainer decision. [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (promote the ymax vat to critical) is green on every PR-attributable check after the shepherd's dprint fix landed — the lone remaining red is known stale-base codegen noise — and reviewer feedback is fully addressed, so it waits only on **rebase vs. freeze** (say `rebase #9` or `freeze #9`). The foreman flags that milestone M3 is bottlenecked on the unmerged lint-ceiling fix [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594); merging it auto-promotes the parked `resume-lint-ceiling-shepherds` cohort. Separately, [endojs/endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) (endoclaw-timer scheduler) drew a CHANGES_REQUESTED that's really a re-architecture into a standalone `@endo/reminder` plugin — the fixer rebased it mergeable but recommends a designer job and awaits a supersede-or-keep answer that also gates stacked PRs [#617](https://github.com/endojs/endo-but-for-bots/pull/617) and [#619](https://github.com/endojs/endo-but-for-bots/pull/619).
 
-On endo-but-for-bots, the foreman flags M3 as systemically bottlenecked on the lint projectService ceiling: merging [#594](https://github.com/endojs/endo-but-for-bots/pull/594) to `llm`/master would trip the parked `resume-lint-ceiling-shepherds` job and unblock the poisoned shepherd cohort. [#609](https://github.com/endojs/endo-but-for-bots/pull/609) (endoclaw-timer scheduler) was rebased back to mergeable but awaits your supersede-or-keep decision — kriskowal's CHANGES_REQUESTED is a re-architecture into a standalone `@endo/reminder` plugin, which would moot the stacked [#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619).
-
-Two operational notes worth your attention: the triager crash-loop fix is fully landed and tested on main2, but the deployed root (`/home/kris/garden2`) is ~56 commits behind and still crash-looping — a drained `deploy-garden.sh` is the clean resolution. And the OCapN-Noise-WS demo is live and reproducible on minion.town (Caddy TLS → Noise IK → capability round-trip), with follow-ups offered to promote it to the full Pet Daemon bootstrap.
+On the project side, **finbot** kept a steady per-cycle cadence, direct-pushing to `kriscendobot/finbot@main`: SES-compartments, multi-instrument portfolios, the cyclical/harmonic forecaster, GARCH(1,1), GJR-GARCH leverage, and an inference-driven DECIDE stage — 451 tests green with the wallet-safety gate holding throughout; the gardener re-flags that finbot's no-PR/fast-forward convention keeps stranding branches and asks how to land increments. An **OCapN-Noise-WS demo** is live and reproducible on minion.town. Finally, two shepherd jobs ([endojs/endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/pull/688) and `ocapn-pet-daemon-dockerfile-minion`) deterministically overran the 2400s handler budget and need splitting or detaching before the reaper poisons them.
 
 ## Parked for maintainer feedback
 
@@ -382,21 +380,57 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Milestone M3 (Remote Access and Coding Capabilities) is bottlenecked: the fleet's ability to un-draft and gauntlet its large stack of in-flight M3 PRs is systemically blocked by the typescript-eslint projectService lint ceiling, whose green, mergeable fix — endojs/endo-but-for-bots PR #594 ("chore(lint): lint per package…") — is still unmerged, so every gauntlet hits phantom-red lint and poisons (as #661 did). Please merge #594 to `llm`/master; that trip-wires the parked high-priority `resume-lint-ceiling-shepherds` job to auto-promote and resume the poisoned shepherd cohort, after which normal M3 build/shepherd work can flow again.
 
+- `20260711T131258Z-0f0a19` — from gardener:finbot-progress-20260711-130504, reply_to `finbot-progress-20260711-130504` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T131258Z-0f0a19.md)
+
+> finbot progress (cycle 20260711-130504) — DECIDE stage now inference-driven.
+>
+> Advanced this cycle (kriscendobot/finbot, direct-push e6bf861..543c763):
+> Extended the inference-driven OODA path from ORIENT (analyzer) to DECIDE
+> (planner). Prior cycles had been piling GARCH forecasting variants; the deepest
+> UNBLOCKED increment toward the core design ("inference-driven OODA with
+> capability safety") was to give the planner the same treatment the analyzer
+> already had.
+>
+> - New `propose_rebalance` harness tool wraps the ymax-shaped deterministic
+>   `plan()`; `dispatchPlanner` spawns the planner as an LLM subagent over the
+>   analyzer's target allocation — it reasons, then CALLS the tool to derive the
+>   funds-flow steps, content hash, and dry-run summary.
+> - The inference path reproduces the headless planner's `proposal_hash`
+>   byte-for-byte (asserted test), so the auditor's reproducibility invariant
+>   holds across both paths.
+> - `bin/finbot-dispatch` now chains DECIDE after ORIENT when the analyzer
+>   proposes a rebalance — one command drives observe→orient→decide by inference,
+>   still dry-run and wallet-free.
+> - +6 tests (planner-dispatch.test.js). Full suite 451 green (was 445).
+>   Safety gate `finbot-ooda --seed=7`: all 6 auditor invariants PASS,
+>   WALLET TOUCHED: false.
+>
+> Next unblocked increment (next cycle): the ACT stage is the last non-inference
+> OODA phase — but wiring the executor to inference touches the wallet boundary,
+> so it needs the cap-attenuation Phase 2 authorization (below), not a free build.
+> The clean unblocked alternative is EGARCH on the forecasting axis, or estimating
+> GJR's gamma from realized down/up variance rather than config.
+>
+> Needs a maintainer decision (unchanged, standing): cap-attenuation Phase 2 —
+> the CapTP transport for the gated spawnSigningWorker stub and a first live
+> paper-wallet/test-net run, gated behind live_authorized: true. Not advanced
+> without explicit authorization.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`finbot-progress-20260711-130504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260711-130504.md) — Push progress on kriscendobot/finbot (every 6h)
+### doin (0)
+(none)
 
-### tada (1903)
+### tada (1904)
+- [`finbot-progress-20260711-130504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260711-130504.md) — Completion report — finbot-progress-20260711-130504
 - [`endojs-endo-but-for-bots-pr609-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr609-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #609
 - [`xst-validation-orchestrator-20260711-120506`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-120506.md) — XS-validation orchestrator — tick report (2026-07-11 ~12:05Z, resumed after r...
 - [`endojs-endo-but-for-bots-pr609-message-scheduler-rename-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr609-message-scheduler-rename-fix.md) — Completion report — endojs-endo-but-for-bots-pr609-message-scheduler-rename-fix
 - [`endojs-endo-but-for-bots-pr660-review-62ee5cda-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr660-review-62ee5cda-retro.md) — Completion report — endojs-endo-but-for-bots-pr660-review-62ee5cda-retro
-- [`endojs-endo-but-for-bots-pr660-7dd088b1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr660-7dd088b1-retro.md) — Completion report — endojs-endo-but-for-bots-pr660-7dd088b1-retro
-- … and 1898 more
+- … and 1899 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
