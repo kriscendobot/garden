@@ -72,3 +72,9 @@ Use `scripts/jobs/ensure-project-worktree.sh <your-base> endojs/endo-but-for-bot
 for an isolated checkout keyed by YOUR job base. Commit explicit pathspecs, bot
 identity. If a peer is actively pushing to this branch (check `jobs/doin/` and
 `scripts/jobs/inbox-list.sh`), record the observation and stop rather than race.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  claimed_at: 2026-07-11T18:01:50Z
