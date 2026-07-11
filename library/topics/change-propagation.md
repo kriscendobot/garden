@@ -64,6 +64,8 @@
 | [dialog-db--notes-dbsp-findings--hybrid-hypothesis-validation](../sections/dialog-db--notes-dbsp-findings--hybrid-hypothesis-validation.md) | dialog-db notes/dbsp/findings.mds | LLM evaluation validating the hybrid push-pull DBSP approach: the existing engine already solves DBSP integration's hardest problems. |
 | [dialog-db--notes-dbsp-findings--implementation-strategy-and-metrics](../sections/dialog-db--notes-dbsp-findings--implementation-strategy-and-metrics.md) | dialog-db notes/dbsp/findings.mds | The three-phase DBSP implementation plan (IVM alongside the engine, then unified evaluation) and its success metrics. |
 | [dialog-db--ts-dialog-experimental-session--subscriptions-and-reactivity](../sections/dialog-db--ts-dialog-experimental-session--subscriptions-and-reactivity.md) | dialog-db session.ts | Propagate a commit, not a snapshot: subscriptions re-poll and a per-DID BroadcastChannel fans each transaction out to every tab of the same database. |
+| [habitat-chronicles--unum-pattern--presences-and-division-of-labor](../sections/habitat-chronicles--unum-pattern--presences-and-division-of-labor.md) | unum presences | Coordinating shared vs private state across a unum's presences by division of labor rather than data replication — the anti-replication view of coherence. |
+| [habitat-chronicles--unum-pattern--four-messaging-patterns](../sections/habitat-chronicles--unum-pattern--four-messaging-patterns.md) | unum messaging | Reply/Neighbor/Broadcast/Point — how a server presence propagates one client's action to the others (Reply+Neighbor idiom) over a shared context. |
 
 ## Concepts
 
