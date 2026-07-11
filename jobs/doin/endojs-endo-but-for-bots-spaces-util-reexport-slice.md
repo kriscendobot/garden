@@ -23,3 +23,9 @@ Repo endojs/endo-but-for-bots, base `llm`. Non-breaking stage-1 (patch bump),
 separate PR from #660.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  claimed_at: 2026-07-11T04:33:09Z
