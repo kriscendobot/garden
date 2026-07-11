@@ -1,14 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-11T03:55:44Z_
+_As of 2026-07-11T04:00:12Z_
 
 ## Latest
 
-The glob/grep `@endo/platform` pushdown stack for #127 built and cleared the gauntlet, un-drafting four layers into the review queue: engine [#678](https://github.com/endojs/endo-but-for-bots/pull/678), `EndoMount.glob` [#679](https://github.com/endojs/endo-but-for-bots/pull/679), decoupled `grep` [#680](https://github.com/endojs/endo-but-for-bots/pull/680), and agent tools [#681](https://github.com/endojs/endo-but-for-bots/pull/681). Two calls are yours: normative grep still ships an unbounded `new RegExp().test()` (a pre-existing ReDoS exposure the pushdown now makes a reusable primitive — gate it on the conservative subset per [#676](https://github.com/endojs/endo-but-for-bots/pull/676), or accept the interim), and the design PR [#675](https://github.com/endojs/endo-but-for-bots/pull/675) should land on `llm` before/with the stack so its changelog links resolve.
+The single board completion since the last bulletin was [`ocapn-noise-demo-pr`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-demo-pr.md); the substantive movement is all in the message backlog and it points at two maintainer actions.
 
-The fleet is now blocked on merges, not work. The foreman reports M3 saturated: the mount chain ([#650](https://github.com/endojs/endo-but-for-bots/pull/650)/[#652](https://github.com/endojs/endo-but-for-bots/pull/652)/[#653](https://github.com/endojs/endo-but-for-bots/pull/653)), the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)), and the http-client work are all CI-green and gauntleted but sitting unmerged on the fork's `llm`, so no unblocked build step remains to post — every next phase stacks on an unmerged predecessor.
+**Deploy gap — the fleet is degraded right now.** Every `garden-triager@*` unit is crash-looping because the deployed root (`/home/kris/garden2`, HEAD `688e6174c8`) is ~56 commits behind `main2`, still carrying the old `GARDEN_REPOS=$GARDEN_ROOT/repos` default. The source fix is landed and green on `main2` (through `4c0e275b0b`), and all eight own-fork bare clones now exist under `worktrees/`, so a single drained `deploy-garden.sh` clears the storm — no stopgap needed. Until then the self-heal watchdog is filling the maintainer inbox with session-limit and triager failures.
 
-A stale deploy is the most urgent operational issue: the deployed root is ~56 commits behind `main2` and still carries the old `/repos` triager default, so every `garden-triager@*` unit is crash-looping (self-heal storms all night) even though the fix is landed and tested on `main2`. A drained `deploy-garden.sh` clears it. Two poison jobs sit parked awaiting promotion — the [#592](https://github.com/endojs/endo-but-for-bots/pull/592) watchDirectory-cancellation fixer and the [#661](https://github.com/endojs/endo-but-for-bots/pull/661) http-client gauntlet (its blocking lint red, [#594](https://github.com/endojs/endo-but-for-bots/pull/594), now shows green). XS-validation (garden#33) holds green on the agoric-sdk fork, blocked only on two decisions — waive the Depot-gated full-chain integration leg, and whether green draft PR #14 counts as landed; finbot separately landed GARCH, cyclical-forecaster, and multi-instrument increments direct to `main`, all green with the wallet-safety gate intact.
+**M3 is saturated on merge, not on work.** The foreman reports (three times) it has no unblocked build lane: the mount stack, the endoclaw-timer stack (#609/#617/#619), and the newly un-drafted glob/grep `@endo/platform` pushdown layers — [#678](https://github.com/endojs/endo-but-for-bots/pull/678), [#679](https://github.com/endojs/endo-but-for-bots/pull/679), [#680](https://github.com/endojs/endo-but-for-bots/pull/680), [#681](https://github.com/endojs/endo-but-for-bots/pull/681) — are green and gauntleted but stranded on the fork's `llm` branch, blocking every stacked follower. The pushdown gauntlet flags one merge-gate judgment: normative JS `grep` still ships an unbounded `RegExp` (ReDoS-exposed, pre-existing from #655), and it recommends landing design PR [#675](https://github.com/endojs/endo-but-for-bots/pull/675) before/with the stack so changelog links resolve.
+
+**Notable single items.** [#653](https://github.com/endojs/endo-but-for-bots/pull/653) (mount-glob) is now green after a rebase onto a durable base fix. Maintainer closed [#618](https://github.com/endojs/endo-but-for-bots/pull/618) (agent-tools Phase 4) over a capability-leak concern, deferring to @kumavis — fleet stood down. A real Node-22 bug surfaced in [#286](https://github.com/endojs/endo-but-for-bots/pull/286)'s http-client e2e (hardened undici `Headers` fails error-decode). On the fork side, finbot landed four clean increments (SES-compartments, multi-instrument, cyclical + GARCH forecasters) and now has no stranded branches; the agoric-sdk XS-validation effort ([garden#33](https://github.com/kriskowal/garden/issues/33)) is fully green and waiting only on two decisions (waive the Depot-gated `force:integration` leg, and whether draft fork PR #14 counts as "landed"). Two jobs are poison-parked pending promotion — the #592 cancellation-API fixer and the #661 http-client gauntlet — and a recurring watchdog pattern shows many gauntlet/shepherd jobs deterministically overrunning the 2400s handler budget, worth splitting into claim-sized stages.
 
 ## Parked for maintainer feedback
 
@@ -908,16 +910,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`ocapn-noise-demo-pr`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-demo-pr.md) — Open the two-peer OCapN-over-Noise demo as a draft PR (milestones 1 & 2)
+### doin (0)
+(none)
 
-### tada (1853)
+### tada (1854)
+- [`ocapn-noise-demo-pr`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-demo-pr.md) — Completion report
 - [`build-endo-daemon-ocapn-ws-transport`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-daemon-ocapn-ws-transport.md) — Completion report
 - [`scholar-ingest-source-habitat-chronicles-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-habitat-chronicles-3.md) — Completion report
 - [`scholar-ingest-source-habitat-chronicles-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-habitat-chronicles-2.md) — Completion report
 - [`xst-validation-orchestrator-20260711-030514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-030514.md) — XS-validation orchestrator — tick report (2026-07-11 ~03:05Z)
-- [`ocapn-noise-daemon-survey`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-daemon-survey.md) — Survey: Does the Pet Daemon speak OCapN-over-Noise? (endojs/endo-but-for-bots...
-- … and 1848 more
+- … and 1849 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
