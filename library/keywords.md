@@ -14368,3 +14368,47 @@ Electric Communities unum | habitat-unum
 Reply Neighbor Broadcast Point | habitat-unum
 Neighbor message | habitat-unum
 distributed object that is itself distributed | habitat-unum
+confused deputy | confused-deputy
+Confused Deputy | confused-deputy
+confused deputy problem | confused-deputy
+Confused Deputy attack | confused-deputy
+Norm Hardy confused deputy | confused-deputy
+Hardy confused deputy | confused-deputy
+FORTRAN compiler billing file | confused-deputy
+accountability laundering | confused-deputy
+deputy confusion | confused-deputy
+ambient authority confusion | confused-deputy
+don't separate designation from authority | confused-deputy
+separate designation from authority | confused-deputy
+designation from authority | object-capability
+revoker pattern | caretaker-pattern
+revoker | caretaker-pattern
+message forwarder revoker | caretaker-pattern
+What Are Capabilities | (see section: habitat-chronicles--what-are-capabilities--overview)
+What Are Capabilities essay | (see section: habitat-chronicles--what-are-capabilities--overview)
+Morningstar capabilities introduction | (see section: habitat-chronicles--what-are-capabilities--overview)
+ocap introduction | (see section: habitat-chronicles--what-are-capabilities--overview)
+ocaps explainer | (see section: habitat-chronicles--what-are-capabilities--overview)
+Word Save capability example | (see section: habitat-chronicles--what-are-capabilities--designation-and-authority-the-idea)
+creation transfer endowment | (see section: habitat-chronicles--what-are-capabilities--what-a-capability-is)
+three ways to acquire a capability | (see section: habitat-chronicles--what-are-capabilities--what-a-capability-is)
+unforgeable reference | object-capability
+capability patterns modulation attenuation abstraction combination | (see section: habitat-chronicles--what-are-capabilities--capability-patterns)
+attenuator | (see section: habitat-chronicles--what-are-capabilities--capability-patterns)
+attenuation | (see section: habitat-chronicles--what-are-capabilities--capability-patterns)
+signed geo-referenced camera capability | (see section: habitat-chronicles--what-are-capabilities--capability-patterns)
+Frozen Realms | (see section: habitat-chronicles--what-are-capabilities--embedded-and-compartmentalized-computation)
+KeyKOS | (see section: habitat-chronicles--what-are-capabilities--embedded-and-compartmentalized-computation)
+seL4 | (see section: habitat-chronicles--what-are-capabilities--embedded-and-compartmentalized-computation)
+capability operating system | (see section: habitat-chronicles--what-are-capabilities--embedded-and-compartmentalized-computation)
+orthogonal persistence KeyKOS | (see section: habitat-chronicles--what-are-capabilities--embedded-and-compartmentalized-computation)
+service chaining problem | (see section: habitat-chronicles--what-are-capabilities--distributed-services-and-engineering-practices)
+Mint credential sharing | (see section: habitat-chronicles--what-are-capabilities--distributed-services-and-engineering-practices)
+Zebra Copy federated access management | (see section: habitat-chronicles--what-are-capabilities--distributed-services-and-engineering-practices)
+Karp Zebra Copy | (see section: habitat-chronicles--what-are-capabilities--distributed-services-and-engineering-practices)
+three rules for taming Java | (see section: habitat-chronicles--what-are-capabilities--distributed-services-and-engineering-practices)
+taming Java ocap | (see section: habitat-chronicles--what-are-capabilities--distributed-services-and-engineering-practices)
+Joe-E | (see section: habitat-chronicles--what-are-capabilities--distributed-services-and-engineering-practices)
+capabilities germ theory | (see section: habitat-chronicles--what-are-capabilities--conclusion)
+computer security germ theory | (see section: habitat-chronicles--what-are-capabilities--conclusion)
+who are you access control incoherent | (see section: habitat-chronicles--what-are-capabilities--conclusion)
