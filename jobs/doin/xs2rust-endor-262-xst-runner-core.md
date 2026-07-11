@@ -24,3 +24,9 @@ determinism gate), and the xst-shaped YAML report (`mode:`/`skip:`/`fail:` plus
 reproduces its output.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  claimed_at: 2026-07-11T06:03:09Z
