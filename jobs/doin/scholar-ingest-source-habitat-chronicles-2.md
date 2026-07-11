@@ -46,3 +46,9 @@ fetch works for this host. Respect the budget (one dense essay per cycle);
 post a further `-3` follow-on for whatever remains. Skip the blog's
 virtual-world/MMO-history posts that have no bearing on agents, capabilities,
 or distributed objects (most of the 2004–2016 archive).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  claimed_at: 2026-07-11T03:04:07Z
