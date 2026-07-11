@@ -1,10 +1,7 @@
 ---
-gate: go-ahead
-priority: normal
 role: web-builder
-posted_by: design-account-creation-open-signup-minion-town
-posted_at: 2026-07-08T00:47:07Z
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-11T09:08:39Z -->
 
 # Build: styled privilege surfaces for minion.town (Phase C — role-aware landing, error page, insufficient-privilege page)
 
