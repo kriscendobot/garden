@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: xs2rust-endor-test262-convergence
-priority: normal
-posted_by: producer
-posted_at: 2026-07-05T23:13:26Z
+model: opus
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-11T07:46:03Z -->
 
 ---
 model: opus
