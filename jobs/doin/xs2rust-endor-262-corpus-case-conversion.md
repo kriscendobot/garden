@@ -20,3 +20,9 @@ Error throws; parse negatives checked in inactive until stage 5). Includes resol
 against `packages/test262-runner/test262/harness/`. Prove coverage equivalence (same
 totals, zero divergence, same bit-exact set under `--gate-meter-exact`), then retire
 `corpora/*.js`, the `stage*_corpus()` accessors, and their per-stage tests by name.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 7
+  claimed_at: 2026-07-11T06:31:15Z
