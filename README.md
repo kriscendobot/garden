@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T07:36:59Z_
+_As of 2026-07-11T07:43:13Z_
 
 ## Latest
 
-Board motion was minimal — only the [XS-validation orchestrator](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-073502.md) tick completed — so the news is in the maintainer inbox. **The most important thing to notice: a deploy gap is keeping the triager fleet down.** Five converging self-heal reports confirm the triager crash-loop fix is landed and green on `main2` (default `GARDEN_REPOS` → `worktrees/`, missing-clone-is-a-skip, shared `bare_clone_dir()` resolver, regression case I locked), but the deployed root `/home/kris/garden2` is ~56 commits behind at `688e6174c8` and still carries the stale `/repos` default — so `garden-triager@*` units keep FATAL-looping every tick. All eight own-fork bare clones now exist under `worktrees/`, so a single drained `deploy-garden.sh` (a leader/liaison operation) is the clean fix and turns the provisioner into a no-op.
+The triager fleet's crash-loop fix is fully landed on `main2` (through `4c0e275b0b`) — `GARDEN_REPOS` now defaults to `worktrees/`, a missing bare clone became a clean skip instead of a FATAL, and the shared `bare_clone_dir()` resolver keeps triager/comment-watcher from drifting; tests are green (triager 68/0, comment-watcher 213/0). But five separate self-heal gardeners independently flag the same live gap: the **deployed root `/home/kris/garden2` is ~56 commits behind `main2`**, so `garden-triager@*` units keep FATAL-looping on the stale `/repos` default. A drained `deploy-garden.sh` on the leader is the one remaining step to actually stop the flapping — a liaison/leader operation no gardener can run.
 
-On the projects, **finbot shipped four green increments direct-to-main** on `kriscendobot/finbot` — multi-instrument/yield portfolios, the cyclical (seasonal + residual-GBM) forecaster, GARCH(1,1), and GJR-GARCH leverage-effect vol surfaces — clearing the stranded-branch backlog (445 tests, all six auditor invariants PASS, wallet untouched). Two flags ride along: a triage **circuit-breaker OPENED for `kriscendobot-finbot`**, and the gardener twice asked for a maintainer decision on finbot's stranding "no self-PR, fast-forward main" convention. The deepest finbot axis (cap-attenuation Phase 2 — live CapTP transport + first paper-wallet run) stays gated behind `live_authorized` and untouched.
+finbot advanced hard and is now caught up: gardeners landed the SES-compartments capability-attenuation cornerstone, then rebased and landed every stranded branch (multi-instrument portfolios, cyclical forecaster) and built out the ensemble-forecasting axis with GARCH(1,1) and GJR-GARCH leverage — 445 tests green, all six auditor invariants passing, wallet untouched. No stranded branches remain. The still-open maintainer decision, re-flagged each cycle: finbot's "no self-PR, fast-forward main" convention keeps paying per-cycle rebase cost, and cap-attenuation Phase 2 (live CapTP transport + first paper-wallet run) stays gated behind explicit `live_authorized` authorization.
 
-Elsewhere: on [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) a shepherd fixed the one PR-attributable red (a `dprint` miss), leaving only stale-base noise that is growing — the rebase-onto-master-vs-keep-frozen decision is still pending and now blocks any path to approval. The endor-xst runner core landed on its draft (convergence 1/5), with a flagged pre-existing gitlink mismatch (`c/moddable` pinned at 8.0.1 but HEAD expects 8.3.1). An OCapN-Noise-WS demo is live and reproducible on minion.town, awaiting your go/no-go on promoting it to the full Pet Daemon bootstrap and landing the Caddy route durably.
+On [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9), a shepherd fixed the one PR-attributable red (a `dprint fmt` miss); the remaining reds are stale-base noise that's growing worse as the base trails master ~503 commits — the rebase-vs-frozen-prototype call is yours and blocks any path to review/approval. Elsewhere: the OCapN-Noise-WS demo is live and reproducible on minion.town (Caddy TLS → Noise IK → capability round-trip), and endor-xst's core runner landed on draft PR #600 with a flagged `c/moddable` gitlink pin mismatch (committed 8.0.1 vs the 8.3.1 the oracle build expects). A shepherd is currently working [endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/pull/688)'s red CI.
 
 ## Parked for maintainer feedback
 
@@ -335,17 +335,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr688-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr688-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #688
-- [`xs2rust-endor-262-xst-lockdown-third-host`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-262-xst-lockdown-third-host.md) — Builder: endor-xst lockdown/compartment modes + third-host integration (PR #6...
 
-### tada (1879)
+### tada (1880)
+- [`xs2rust-endor-262-xst-lockdown-third-host`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-262-xst-lockdown-third-host.md) — Completion report
 - [`xst-validation-orchestrator-20260711-073502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-073502.md) — XS-validation orchestrator — tick report (2026-07-11 ~07:40Z)
 - [`xs2rust-endor-262-xst-async-done`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-262-xst-async-done.md) — Completion report: endor-xst async/$DONE + job-drain wiring (PR #600 converge...
 - [`daily-progress-summary-20260711-070503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260711-070503.md) — Completion report
 - [`xs2rust-endor-262-corpus-case-conversion`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-262-corpus-case-conversion.md) — Completion report
-- [`finbot-progress-20260711-065005`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260711-065005.md) — Completion report — finbot-progress-20260711-065005
-- … and 1874 more
+- … and 1875 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
