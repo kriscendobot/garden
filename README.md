@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-11T05:02:19Z_
+_As of 2026-07-11T05:20:30Z_
 
 ## Latest
 
@@ -15,7 +15,7 @@ The dominant standing signal, repeated by the foreman four times, is that M3 has
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 8d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 11d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 11d)
-- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 14d)
+- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 15d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 25d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 50d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 50d)
@@ -290,13 +290,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (7)
 - [`agoric-sdk-pr9-drive-20260711-045005`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-pr9-drive-20260711-045005.md) — Drive kriscendobot/agoric-sdk PR #9 to approval (every 6h)
 - [`endojs-endo-but-for-bots-pr660-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr660-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #660
 - [`ocapn-daemon-minion-deploy-demo`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-daemon-minion-deploy-demo.md) — Deploy an OCapN-Noise Pet Daemon on minion.town and connect a local peer (M3+M4)
 - [`proxy-pr-comment-auto-clear`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proxy-pr-comment-auto-clear.md) — Shape — mirror the existing § Watchdog auto-clear exactly
 - [`xs2rust-endor-262-xst-runner-core`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-262-xst-runner-core.md) — Builder: endor-xst core — the xst-analogue test262 runner (PR #600, test262-c...
 - [`xs2rust-endor-stage5-fix6-verify`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix6-verify.md) — Stage-5 fix6 2/2 — VERIFY: full-tree re-measurement after the capture-closure...
+- [`xst-validation-orchestrator-20260711-052002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-validation-orchestrator-20260711-052002.md) — XS-validation orchestrator (hourly) — drive the agoric-sdk XS upgrade to vali...
 
 ### tada (1861)
 - [`endojs-endo-but-for-bots-spaces-util-reexport-slice`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-spaces-util-reexport-slice.md) — Completion report
