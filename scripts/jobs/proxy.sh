@@ -17,6 +17,14 @@
 #      the maintainer", scoped strictly to `watchdog:*` senders. Runs BEFORE the
 #      gating enumeration and the cost-gated handler. See roles/proxy/AGENT.md
 #      § Watchdog auto-clear.
+#   1c. PR-COMMENT AUTO-CLEAR pre-pass (deterministic, NO claude -p): archive every
+#      unread NON-GATING maintainer message that references one or more pull requests
+#      (PR URL / "PR #n" / "pull request" / a PR-scoped from/reply_to job base) and
+#      log one deduplicated tally line. Skips any LIVE gating question (the handler's
+#      core input) even if it names a PR, and never matches non-PR infra/progress
+#      senders. Runs AFTER 1b and the blocked-job parking, before the gating
+#      enumeration. Maintainer directive kriskowal 2026-07-11. See roles/proxy/AGENT.md
+#      § PR-comment auto-clear.
 #   2. enumerate inbox/maintainer/unread/ and keep only the ELIGIBLE questions:
 #        - GATING:   has a reply_to whose doer inbox is still live (blocked,
 #                    awaiting a reply). A completion report from a finished doer
@@ -213,10 +221,104 @@ park_blocked_jobs() {
   die "could not park blocked jobs after retries"
 }
 
+# --- PR-comment auto-clear pre-pass ------------------------------------------
+#
+# Deterministic, no-LLM drain of maintainer messages that are (or could be) a
+# comment on one or more pull requests. Maintainer directive (kriskowal 2026-07-11):
+# "clear every message in the maintainer inbox that is or could be a comment on one
+# or more pull requests and acknowledge all such messages as read." A gardener's
+# completion report or notice about a PR (from a finished/absent doer) is the
+# maintainer's to read, but the maintainer wants these acknowledged automatically;
+# this pre-pass archives them (unread→read) every tick, in plain code, AFTER the
+# watchdog auto-clear and blocked-job parking and BEFORE the gating enumeration.
+#
+# GUARDRAILS (see roles/proxy/AGENT.md § PR-comment auto-clear):
+#   - LIVE gating questions are the handler's core input — preserved even when they
+#     reference a PR (same live-doer test the enumeration uses).
+#   - blocked_on: messages are park_blocked_jobs' domain — never double-handled here.
+#   - a bare `#<n>` is deliberately NOT a signal (it also matches garden issues and
+#     README item numbers); a real PR context is required (pr_comment_ref).
+# A single deduplicated tally line is logged so the suppression stays auditable;
+# nothing is re-posted to the maintainer.
+
+# Detect whether a maintainer message references a pull request. On a match prints a
+# short dedupe LABEL and returns 0; otherwise prints nothing and returns 1.
+# Deterministic and case-insensitive. Signals: a full GitHub PR URL, the textual
+# forms "pull-request-<n>" / "PR #<n>" / "PR#<n>" / "PR <n>" / the phrase "pull
+# request", and a PR-scoped from:/reply_to: job base ("…-pr<n>-…", "…-pull-request-
+# <n>-…", covering shepherd-*-pr<n>-* and gauntlet-*-pr<n>-*). A bare "#<n>" is NOT a
+# signal — it also matches garden issues (garden#33) and README item numbers.
+pr_comment_ref() {
+  local f="$1" from reply content b rc=1 label=""
+  from="$(sed -n 's/^from:[[:space:]]*//p' "$f" | head -1)"
+  reply="$(sed -n 's/^reply_to:[[:space:]]*//p' "$f" | head -1)"
+  content="$(cat "$f")"
+  local restore; restore="$(shopt -p nocasematch)"
+  shopt -s nocasematch
+  if   [[ "$content" =~ github\.com/([A-Za-z0-9._-]+)/([A-Za-z0-9._-]+)/pull/([0-9]+) ]]; then
+    label="${BASH_REMATCH[1]}/${BASH_REMATCH[2]}#${BASH_REMATCH[3]}"; rc=0
+  elif [[ "$content" =~ pull-request-([0-9]+) ]]; then
+    label="pr${BASH_REMATCH[1]}"; rc=0
+  elif [[ "$content" =~ pr[[:space:]]*#?[[:space:]]*([0-9]+) ]]; then
+    label="pr${BASH_REMATCH[1]}"; rc=0
+  elif [[ "$content" =~ pull[[:space:]]+request ]]; then
+    label="pull-request"; rc=0
+  else
+    for b in "$from" "$reply"; do
+      [ -n "$b" ] || continue
+      if   [[ "$b" =~ -pr([0-9]+)(-|$) ]];           then label="pr${BASH_REMATCH[1]}"; rc=0; break
+      elif [[ "$b" =~ -pull-request-([0-9]+)(-|$) ]]; then label="pr${BASH_REMATCH[1]}"; rc=0; break; fi
+    done
+  fi
+  eval "$restore"
+  [ "$rc" -eq 0 ] && printf '%s\n' "$label"
+  return "$rc"
+}
+
+clear_pr_comment_messages() {
+  local dir="$1" attempt f base label reply blocked tally rc
+  for attempt in $(seq 1 50); do
+    sync_clone "$dir"
+    local moved=()
+    declare -A counts=()
+    while IFS= read -r f; do
+      # blocked_on messages belong to park_blocked_jobs — never double-handle.
+      blocked="$(sed -n 's/^blocked_on:[[:space:]]*//p' "$f" | head -1)"
+      [ -n "$blocked" ] && continue
+      # A LIVE gating question (reply_to whose doer inbox still exists) is the
+      # handler's core input — preserve it even if it references a PR.
+      reply="$(sed -n 's/^reply_to:[[:space:]]*//p' "$f" | head -1)"
+      { [ -n "$reply" ] && [ -d "$dir/inbox/$reply" ]; } && continue
+      # Criterion: archive only messages that reference a pull request.
+      label="$(pr_comment_ref "$f")" || continue
+      base="$(basename "$f")"
+      git -C "$dir" mv "inbox/maintainer/unread/$base" "inbox/maintainer/read/$base" 2>/dev/null || continue
+      moved+=("$base")
+      counts["$label"]=$(( ${counts["$label"]:-0} + 1 ))
+    done < <(find "$dir/inbox/maintainer/unread" -type f -name '*.md' 2>/dev/null | sort)
+    # Nothing PR-class: sync_clone already refreshed the tree (and holds the
+    # per-clone lock) for the rest of the tick. Quiet, no commit.
+    [ "${#moved[@]}" -eq 0 ] && return 0
+    # Capture with `|| rc=$?` (a false `if` with no `else` is exit 0). rc=2
+    # ("nothing to commit") means the archive already landed: done, not a retry.
+    rc=0; commit_and_push "$dir" "proxy: auto-clear ${#moved[@]} PR-comment message(s)" || rc=$?
+    if [ "$rc" -eq 0 ]; then
+      tally=""
+      for label in "${!counts[@]}"; do tally+="${tally:+, }${label}×${counts[$label]}"; done
+      log "cleared ${#moved[@]} PR-comment messages: $tally"
+      return 0
+    fi
+    [ "$rc" -eq 2 ] && return 0
+    backoff "$attempt"
+  done
+  die "could not auto-clear PR-comment messages after retries"
+}
+
 DIR="${GARDEN_PROXY_CLONE:-$GARDEN_STATE/proxy/journal}"
 ensure_clone "$DIR"
 clear_watchdog_messages "$DIR"
 park_blocked_jobs "$DIR"
+clear_pr_comment_messages "$DIR"
 
 SEEN="$GARDEN_STATE/proxy/seen"
 mkdir -p "$(dirname "$SEEN")"; touch "$SEEN"

@@ -78,6 +78,56 @@ root-cause fix for the comment-watcher inactivity false-positives stops that noi
 at the source; this auto-clear handles whatever watchdog noise remains, from any
 monitor.
 
+## PR-comment auto-clear
+
+A second **sanctioned exception** to "always report to the maintainer," per the
+maintainer directive (kriskowal, **2026-07-11**): *"clear every message in the
+maintainer inbox that is or could be a comment on one or more pull requests and
+acknowledge all such messages as read — make this a standing instruction for the
+proxy."* A deterministic **pre-pass** at the top of each proxy tick
+(`scripts/jobs/proxy.sh` § `clear_pr_comment_messages`, plain code — **no
+`claude -p`**, alongside the watchdog auto-clear, after it and the blocked-job
+parking, before the gating enumeration) archives every unread **non-gating**
+maintainer message that references one or more pull requests.
+
+**Criterion — a real PR reference** (deterministic, case-insensitive, via
+`pr_comment_ref`):
+
+- a GitHub PR URL, `github.com/<owner>/<repo>/pull/<n>`;
+- the textual forms `pull request`, `PR #<n>`, `PR#<n>`, `PR <n>`,
+  `pull-request-<n>`;
+- a **PR-scoped `from:` or `reply_to:` job base** — `…-pr<n>-…`,
+  `…-pull-request-<n>-…` (covering `shepherd-*-pr<n>-*`, `gauntlet-*-pr<n>-*`, a
+  `*-review-*` base on a PR).
+
+The intent is **inclusive** ("is or could be a comment on a PR"), so the pre-pass
+leans toward clearing genuine PR references — but a **bare `#<n>` alone is NOT a
+signal**: it also matches garden issues (`garden#33`) and README item numbers,
+which must never be silently swept. A real PR context is required. (The one-time
+bulk clear the liaison ran on 2026-07-11 was deliberately broader and
+human-reviewed; this standing rule is narrower because it runs unattended forever.)
+
+**Guardrails:**
+
+1. **Live gating questions are preserved.** A blocked gardener's message whose
+   `reply_to` doer inbox is **still live** is the proxy's core input; the pre-pass
+   skips it (the same live-doer test the enumeration uses) **even if it references a
+   PR**. Only non-gating PR messages — completion reports / notices from a finished
+   or absent doer, the maintainer's to read — are eligible.
+2. **Non-PR traffic is untouched.** Messages carrying no PR reference —
+   `watchdog:self-heal*`, `gardener:self-heal-fix-*`, `gardener:finbot-progress-*`,
+   `triager:*` circuit-breakers, and foreman messages naming only a job base or a
+   garden issue — have no PR signal, so a correct detector leaves them for the
+   maintainer.
+3. **`blocked_on:` messages are not double-handled** — those are
+   `park_blocked_jobs`' domain (below).
+
+The pre-pass moves each matching message `unread → read` in one atomic commit
+(`proxy: auto-clear N PR-comment message(s)`) and logs a single **deduplicated
+tally** line (`cleared N PR-comment messages: <label>×K, …`) so the suppression
+stays **auditable** from the proxy's own logs. It **never re-posts** anything to the
+maintainer.
+
 ## Blocked-job parking
 
 A **maintainer-authorized extension** of the proxy's progress/direction authority

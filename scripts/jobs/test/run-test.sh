@@ -1601,6 +1601,66 @@ PV="$TR/pxv"; rm -rf "$PV"; git clone -q --single-branch --branch "$BRANCH" "$BA
 rm -rf "$PV"; rm -f "$qa" "$qb" "$qd"
 
 # ============================================================================
+hr; echo "SUBTEST 15b — PROXY PR-COMMENT AUTO-CLEAR: acknowledge PR messages, keep live gating + non-PR"; hr
+# Standing deterministic pre-pass (maintainer directive 2026-07-11): archive every
+# unread NON-GATING maintainer message that references a pull request; preserve live
+# gating questions (even PR ones) and all non-PR infra/progress traffic.
+#
+# THREE eligible (non-gating, real PR reference): a PR URL, a "PR #n", and a
+# shepherd-*-pr<n>-* sender. ONE live gating question that names a PR (preserve). FIVE
+# non-PR senders (preserve): self-heal, finbot-progress, garden#33-only, README #2.
+pc_url="$(printf 'from_host: pxhost\nfrom: gardener:shipit\nsent_at: 2026-07-11T00:00:00Z\n---\nCompleted work on https://github.com/kriskowal/garden/pull/42 — merged.')"
+pc_prn="$(printf 'from_host: pxhost\nfrom: gardener:notice\nsent_at: 2026-07-11T00:01:00Z\n---\nHeads up: PR #5 is ready for your review.')"
+pc_shep="$(printf 'from_host: pxhost\nfrom: gardener:shepherd-foo-pr58-bar\nsent_at: 2026-07-11T00:02:00Z\n---\nShepherd run finished; all checks green.')"
+pc_sh="$(printf 'from_host: pxhost\nfrom: gardener:self-heal-fix-xyz\nsent_at: 2026-07-11T00:03:00Z\n---\nSelf-heal applied a fix for the wedged handler.')"
+pc_fin="$(printf 'from_host: pxhost\nfrom: gardener:finbot-progress-7\nsent_at: 2026-07-11T00:04:00Z\n---\nfinbot progress: 3 of 10 steps done.')"
+pc_gh="$(printf 'from_host: pxhost\nfrom: gardener:notice2\nsent_at: 2026-07-11T00:05:00Z\n---\nReminder about garden#33 — still open.')"
+pc_rm="$(printf 'from_host: pxhost\nfrom: gardener:notice3\nsent_at: 2026-07-11T00:06:00Z\n---\nSee README item #2 for the checklist.')"
+push_change "inbox/maintainer/unread/px-pc-url.md"  "$pc_url"  "seed PR-URL completion report"
+push_change "inbox/maintainer/unread/px-pc-prn.md"  "$pc_prn"  "seed 'PR #5' notice"
+push_change "inbox/maintainer/unread/px-pc-shep.md" "$pc_shep" "seed shepherd-*-pr58-* report"
+push_change "inbox/maintainer/unread/px-pc-sh.md"   "$pc_sh"   "seed self-heal (non-PR)"
+push_change "inbox/maintainer/unread/px-pc-fin.md"  "$pc_fin"  "seed finbot-progress (non-PR)"
+push_change "inbox/maintainer/unread/px-pc-gh.md"   "$pc_gh"   "seed garden#33-only (non-PR)"
+push_change "inbox/maintainer/unread/px-pc-rm.md"   "$pc_rm"   "seed README #2 (non-PR)"
+# a LIVE gating question that references a PR — must be PRESERVED for the handler
+push_change "inbox/px-live-pr/unread/.gitkeep" "" "live doer px-live-pr"
+# full PR URL (a fully-qualified ref check-issue-refs accepts, and a strong PR signal)
+qpr="$(mktemp)"; echo "Should I merge https://github.com/kriskowal/garden/pull/77 now, or wait for review?" > "$qpr"
+"$JOBS/message-user.sh" px-live-pr "$qpr" >/dev/null
+
+PCLOG="$TR/proxy-pc.log"; : > "$PXCALLS"
+env GARDEN_PROXY_GRACE=3600 GARDEN_PROXY_HANDLER="$HERE/proxy-stub.sh" \
+    GARDEN_PROXY_STUB_CALLS="$PXCALLS" "$JOBS/proxy.sh" >/dev/null 2>"$PCLOG"
+[ ! -s "$PXCALLS" ] && ok "PR-comment pre-pass: no handler / claude -p call (deterministic)" || bad "PR-comment pre-pass invoked the handler ($(grep -c . "$PXCALLS") calls)"
+PC="$TR/pxc"; rm -rf "$PC"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$PC"
+# (a) the three eligible PR messages are archived unread→read
+pc_arch=0
+for m in px-pc-url px-pc-prn px-pc-shep; do
+  { [ ! -e "$PC/inbox/maintainer/unread/$m.md" ] && [ -e "$PC/inbox/maintainer/read/$m.md" ]; } && pc_arch=$((pc_arch+1))
+done
+[ "$pc_arch" -eq 3 ] && ok "PR-URL + 'PR #n' + shepherd-*-pr<n>-* messages archived (3)" || bad "PR messages not all archived (archived=$pc_arch)"
+# (b) the live gating question that names a PR is PRESERVED (unread)
+pcl_un=$(grep -rl '^reply_to: px-live-pr$' "$PC/inbox/maintainer/unread" 2>/dev/null | grep -c . || true)
+[ "$pcl_un" -ge 1 ] && ok "live gating question referencing a PR PRESERVED (guardrail 1)" || bad "live PR gating question wrongly cleared (unread=$pcl_un)"
+# (c) non-PR infra/progress senders + garden#33 + README #2 are PRESERVED (unread)
+pc_keep=0
+for m in px-pc-sh px-pc-fin px-pc-gh px-pc-rm; do
+  [ -e "$PC/inbox/maintainer/unread/$m.md" ] && pc_keep=$((pc_keep+1))
+done
+[ "$pc_keep" -eq 4 ] && ok "self-heal + finbot-progress + garden#33 + README #2 PRESERVED (guardrail 2)" || bad "non-PR message wrongly cleared (kept=$pc_keep)"
+# (d) a deduplicated tally line is logged (auditable) and nothing re-posted
+{ grep -qE 'cleared [0-9]+ PR-comment messages' "$PCLOG" \
+  && grep -q 'kriskowal/garden#42×1' "$PCLOG" \
+  && grep -q 'pr5×1' "$PCLOG" \
+  && grep -q 'pr58×1' "$PCLOG"; } \
+  && ok "deduplicated PR-comment tally logged (auditable suppression)" || bad "tally line missing/wrong: $(grep -i 'pr-comment' "$PCLOG" | tr '\n' '|')"
+# nothing re-posted to the maintainer about these clears
+pc_repost=$(grep -rl 'from: proxy' "$PC/inbox/maintainer/unread" 2>/dev/null | xargs -r grep -l 'px-pc-' 2>/dev/null | grep -c . || true)
+[ "$pc_repost" -eq 0 ] && ok "no re-post to the maintainer about the auto-cleared PR messages" || bad "proxy re-posted about cleared PR messages ($pc_repost)"
+rm -rf "$PC"; rm -f "$qpr"
+
+# ============================================================================
 hr; echo "SUBTEST 16 — DEADMAIL: dead-letter undeliverable mail, promote to a job"; hr
 # Dedicated bare so the dead-mail count is fully controllable (other subtests
 # dead-letter into $BARE).
