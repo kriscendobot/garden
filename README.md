@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T16:09:16Z_
+_As of 2026-07-11T16:09:54Z_
 
 ## Latest
 
-The garden's own triager fleet is wedged: the `GARDEN_REPOS` path fix (repos/ → worktrees/) is landed and green on `main2`, but the **deployed root (`/home/kris/garden2`) is ~56 commits behind**, so every `garden-triager@*` unit keeps FATAL-looping on the stale `/repos` default. Four separate self-heal gardeners converge on the same one remaining step — a drained `deploy-garden.sh` (a leader/liaison op no gardener can run). A related triage circuit-breaker OPENED on `kriscendobot-finbot`, and three watched forks (`ocapn`, `cosgov`, `agoric-3-proposals`) will still lack clones after deploy, intersecting the watch-set authorization bar.
+The dominant signal is that Milestone M3 has shifted from build-limited to **merge-limited**: the foreman has flagged four times that a fleet of green, mergeable endo-but-for-bots PRs is stacked up awaiting a merge/authorization decision — the Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608), the outbound-HTTP tool [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the #127 mount stack ([#655](https://github.com/endojs/endo-but-for-bots/pull/655)/[#657](https://github.com/endojs/endo-but-for-bots/pull/657)/[#678](https://github.com/endojs/endo-but-for-bots/pull/678)–[#681](https://github.com/endojs/endo-but-for-bots/pull/681)), and the endopi stack ([#667](https://github.com/endojs/endo-but-for-bots/pull/667)–[#672](https://github.com/endojs/endo-but-for-bots/pull/672)) — with no unblocked work left for the fleet to claim. Merging the per-package lint fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) is the specific trip-wire: it auto-promotes the parked `resume-lint-ceiling-shepherds` cohort and stops gauntlets phantom-redding on the typescript-eslint projectService ceiling (which poisoned #661). The endoclaw-timer chain is separately stalled on kriskowal's redraft request for [#609](https://github.com/endojs/endo-but-for-bots/pull/609) (re-cast as a standalone `@endo/reminder` plugin), which would moot the stacked [#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619).
 
-Milestone M3 is now **merge-bottlenecked, not work-bottlenecked**: the foreman flags repeatedly that a fleet of green, mergeable endo-but-for-bots PRs sits unmerged — [#608](https://github.com/endojs/endo-but-for-bots/pull/608) (Docker self-host), [#661](https://github.com/endojs/endo-but-for-bots/pull/661) (agent HTTP-client tools), the endopi stack [#667–#672](https://github.com/endojs/endo-but-for-bots/pull/671), and the #127 mount stack — all gated behind merging [#594](https://github.com/endojs/endo-but-for-bots/pull/594) (per-package lint), whose unmerged state phantom-reds every gauntlet. Two build jobs surfaced architecture impasses rather than opening PRs: mvs-resolver is already subsumed by [#671](https://github.com/endojs/endo-but-for-bots/pull/671), and snapshot-mapper needs a package-boundary decision between finishing [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (@endo/exo-npm) or extending #671. The endoclaw-timer scheduler [#609](https://github.com/endojs/endo-but-for-bots/pull/609) drew a CHANGES_REQUESTED re-architecture (redraft as a standalone `@endo/reminder` plugin) — designer work beyond the fixer scope.
+Two decisions block active drives. [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) ([garden#29](https://github.com/kriskowal/garden/issues/29)) is now green on every PR-attributable check after the shepherd's dprint fix — its only remaining red is known stale-base codegen noise — so it waits solely on `rebase #9` (onto ~503 commits of master) vs `freeze #9` as a frozen-base prototype. The `snapshot-mapper` build hit an impasse between finishing the stalled `@endo/exo-npm` [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (recommended) or reworking the just-gauntleted daemon registry [#671](https://github.com/endojs/endo-but-for-bots/pull/671).
 
-On forks: fork [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax→critical vat) is now green on every PR-attributable check after a shepherd's dprint fix and is **blocked solely on your `rebase #9` vs `freeze #9` call**; the XS-validation effort finalized across forks [#11–#14](https://github.com/kriscendobot/agoric-sdk/pull/14) and retired its orchestrator schedule; and the xs2rust `endor-xst` core landed on draft [#600](https://github.com/endojs/endo-but-for-bots/pull/600). Off-repo, finbot ran six autonomous cycles direct-pushing to its fork main — landing the full GARCH/GJR-GARCH/cyclical-forecaster ensemble and an inference-driven DECIDE stage (451 tests green, wallet gate holding) — and re-flags one standing decision: its cap-attenuation Phase 2 (live paper-wallet run) awaits your `live_authorized`. An OCapN-Noise-WS demo is live and reproducible on minion.town. Two gardener jobs (`pr688-shepherd`, `ocapn-pet-daemon-dockerfile-minion`) deterministically overran the 2400s handler budget and need splitting into claim-sized stages.
+Off the PR track: finbot landed five direct-push increments on `kriscendobot/finbot@main` (GARCH, GJR-GARCH, cyclical forecaster, multi-instrument portfolios, and an inference-driven DECIDE stage), clearing its entire stranded-branch backlog — 451 tests green, wallet gate holding; its deepest remaining axis (cap-attenuation Phase 2, live paper-wallet run) stays gated on your `live_authorized` call. The XS-validation effort was finalized and retired ([garden#33](https://github.com/kriskowal/garden/issues/33) left open for you), and an OCapN-Noise-WS demo is live and reproducible on minion.town. Two operational items need you: the triager crash-loop fix is landed on `main2` but the deployed root is ~56 commits stale, so a drained `deploy-garden.sh` is required to actually stop the flapping units; and two jobs (`pr688-shepherd`, `ocapn-pet-daemon-dockerfile-minion`) deterministically overran the handler budget and will be poisoned unless split.
 
 ## Parked for maintainer feedback
 
@@ -495,17 +495,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`design-endo-but-for-bots-git-capability-stack-sequencing`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-but-for-bots-git-capability-stack-sequencing.md) — ---
-- [`xs2rust-xst-reactivate`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-xst-reactivate.md) — Reactivate xs2rust + xst-validation (Saturday resume of the temporary pause)
 
-### tada (1916)
+### tada (1917)
+- [`xs2rust-xst-reactivate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-xst-reactivate.md) — Completion report — xs2rust-xst-reactivate
 - [`xs2rust-xst-cadence-restore-6h`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-xst-cadence-restore-6h.md) — Confirmed: xst-validation-orchestrator is no longer an active schedule on ori...
 - [`deadmail-20260711T155611Z-b3e598`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260711T155611Z-b3e598.md) — Completion report
 - [`build-endo-but-for-bots-snapshot-mapper`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-snapshot-mapper.md) — Completion report
 - [`xst-validation-orchestrator-20260711-153502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-153502.md) — XS-validation orchestrator — tick report (2026-07-11 ~15:35Z)
-- [`build-endo-but-for-bots-mvs-resolver`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-mvs-resolver.md) — Completion report
-- … and 1911 more
+- … and 1912 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
