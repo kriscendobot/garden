@@ -68,3 +68,9 @@ refuses a production-remote push under the test sentinel, and the proxy +
 drift-guard tests route to a throwaway origin. Committed and pushed to `main2`.
 The `tada` report gives the SHA, the sentinel/guard mechanism, the tests fixed, and
 the verification evidence (a refused production push + clean throwaway run).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  claimed_at: 2026-07-11T09:38:03Z
