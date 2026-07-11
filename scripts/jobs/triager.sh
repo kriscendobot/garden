@@ -49,17 +49,24 @@ BARE="$GARDEN_REPOS/$slug.git"
 # host that arms this timer need not already hold the clone. The triager needs a local
 # clone to diff refs against its cursor (unlike comment-watcher.sh, which polls via
 # gh), so a missing clone must never be a hard die — that drove an every-tick systemd
-# failure/restart on any clone-less host. Some watched repos (ocapn, agoric-3-proposals,
-# cosgov) have no clone on ANY host, so a plain skip would leave them un-triaged
-# forever; instead SELF-PROVISION the standing bare clone, reusing the same derive-URL
-# + bounded-atomic-clone logic clone-keeper.sh uses to re-create a vanished tracked
-# clone (worktrees/<owner>-<name>.git → $GARDEN_CLONE_URL_BASE/<owner>/<name>.git),
+# failure/restart on any clone-less host.
+#
+# DEFAULT (self-provision OFF): a clone-less host is a benign no-op — the host that
+# holds the clone triages this repo. This is the just-landed skip-model (case I in the
+# test guards the default resolving under worktrees/), so a missing clone stays a clean
+# skip unless a host explicitly opts in.
+#
+# OPT-IN (GARDEN_TRIAGE_SELF_PROVISION=1): some watched repos have no clone on ANY host
+# (ocapn, agoric-3-proposals, cosgov), so a plain skip leaves them un-triaged forever.
+# When a host opts in, SELF-PROVISION the standing bare clone here, reusing the same
+# derive-URL + bounded-atomic-clone logic clone-keeper.sh uses to re-create a vanished
+# tracked clone (worktrees/<owner>-<name>.git → $GARDEN_CLONE_URL_BASE/<owner>/<name>.git),
 # then fall through to the normal fetch. If the upstream is unreachable, skip cleanly
 # (exit 0) so the next tick retries — no crash loop; a persistently unreachable or an
 # underivable source escalates to the maintainer inbox rather than dying forever.
 if [ ! -d "$BARE" ]; then
-  if [ "${GARDEN_TRIAGE_SELF_PROVISION:-1}" != 1 ]; then
-    log "no bare clone at $BARE on this host; skipping triage (self-provision disabled)"
+  if [ "${GARDEN_TRIAGE_SELF_PROVISION:-0}" != 1 ]; then
+    log "no bare clone at $BARE on this host; skipping triage (a host that holds the clone triages this repo)"
     exit 0
   fi
   if src="$(derive_clone_url "$BARE")"; then

@@ -300,16 +300,18 @@ handler_new_sha="$(cut -f3 "$CALLS" | head -1)"
 [ "$(cursor_field "activity/$SLUG" last_sha)" = "$MSHA" ] && ok "activity cursor advanced to the clean sha" || bad "cursor = $(cursor_field "activity/$SLUG" last_sha) (want $MSHA)"
 
 # ============================================================================
-hr; echo "H — missing bare clone on this host: SELF-PROVISION-or-skip, never a hard die"; hr
+hr; echo "H — missing bare clone: default clean skip; opt-in self-provision, never a hard die"; hr
 # The watch set is journal-shared across hosts, but bare clones are host-local, so a
 # host that arms this timer need not already hold the clone (the live crash-loop of
 # garden-triager@* on hosts whose worktrees/ held no clone for a watched slug). A
 # missing clone must be NON-FATAL — never the old hard die that drove an every-tick
-# systemd failure/restart. Some watched repos (ocapn, agoric-3-proposals, cosgov) have
-# no clone on ANY host, so a plain skip would leave them un-triaged forever; instead the
-# triager SELF-PROVISIONS the standing bare clone (clone-keeper's derive-URL +
-# bounded-atomic-clone logic) and then triages. An unreachable/underivable source skips
-# cleanly (exit 0, retry next tick) and escalates to the maintainer inbox — no crash loop.
+# systemd failure/restart. By DEFAULT a clone-less host cleanly SKIPS (the clone-holder
+# triages; case I guards the default resolving under worktrees/). Some watched repos
+# (ocapn, agoric-3-proposals, cosgov) have no clone on ANY host, so a plain skip leaves
+# them un-triaged forever; a host may OPT IN (GARDEN_TRIAGE_SELF_PROVISION=1) to
+# SELF-PROVISION the standing bare clone (clone-keeper's derive-URL + bounded-atomic-clone
+# logic) and then triage. An unreachable/underivable source under opt-in skips cleanly
+# (exit 0, retry next tick) and escalates to the maintainer inbox — no crash loop.
 
 # A capture stub for alert_maintainer (GARDEN_ALERT_CMD): records "<key>|<msg>" so the
 # escalation paths are asserted OFFLINE instead of routing to the real inbox (mirrors
@@ -335,7 +337,7 @@ PSHA="$(git -C "$UPSEED" rev-parse HEAD)"
 git -C "$UPSEED" remote add origin "$UPBARE"; git -C "$UPSEED" push -q -u origin master
 rm -rf "$UPSEED"
 
-# --- H1: self-provision SUCCEEDS from the derived (local) upstream, then triages ----
+# --- H1: opt-in self-provision SUCCEEDS from the derived (local) upstream, then triages
 rm -rf "$TR/state7"; STATE="$TR/state7"; rm -rf "$BARE"; seed_journal
 rm -rf "$REPOS/$NOSLUG.git"
 [ ! -d "$REPOS/$NOSLUG.git" ] && ok "fixture: no bare clone at \$GARDEN_REPOS/$NOSLUG.git (clone-less host shape)" || bad "fixture invalid: $NOSLUG.git unexpectedly present"
@@ -344,6 +346,7 @@ set +e
 env GARDEN=testhost GARDEN_STATE="$STATE" \
     JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_REPOS="$REPOS" GARDEN_WATCH_REF=master \
+    GARDEN_TRIAGE_SELF_PROVISION=1 \
     GARDEN_CLONE_URL_BASE="$UPSTREAMS" GARDEN_ALERT_CMD="$ALERT_STUB" \
     GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_RC=0 CALL_LOG="$CALLS" \
     GARDEN_TRIAGE_FAIL_THRESHOLD=5 \
@@ -358,7 +361,11 @@ grep -q "provisioned missing bare clone $NOSLUG" "$H1OUT" && ok "logs the provis
 [ "$(cut -f3 "$CALLS" | head -1)" = "$PSHA" ] && ok "new_sha is the provisioned upstream HEAD" || bad "new_sha = [$(cut -f3 "$CALLS" | head -1)] (want $PSHA)"
 [ ! -s "$ALERTS" ] && ok "no maintainer escalation on a successful provision" || bad "unexpected escalation: $(cat "$ALERTS")"
 
-# --- H2: GARDEN_TRIAGE_SELF_PROVISION=0 → clean skip (the clone-holder triages) -----
+# --- H2: DEFAULT (self-provision OFF) → clean skip, the clone-holder triages --------
+# With GARDEN_TRIAGE_SELF_PROVISION unset (the fleet default), a clone-less host is a
+# benign no-op — it must NOT auto-clone (no surprise network / disk on every host) and
+# must NOT die. This is the skip-model case I guards, asserted here with the handler +
+# clone + escalation checks case I does not make.
 rm -rf "$TR/state8"; STATE="$TR/state8"; rm -rf "$BARE"; seed_journal
 rm -rf "$REPOS/$NOSLUG.git"
 : > "$CALLS"; : > "$ALERTS"; H2OUT="$TR/triager-h2.out"; : > "$H2OUT"
@@ -366,15 +373,17 @@ set +e
 env GARDEN=testhost GARDEN_STATE="$STATE" \
     JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_REPOS="$REPOS" GARDEN_WATCH_REF=master \
-    GARDEN_TRIAGE_SELF_PROVISION=0 GARDEN_ALERT_CMD="$ALERT_STUB" \
+    GARDEN_CLONE_URL_BASE="$UPSTREAMS" GARDEN_ALERT_CMD="$ALERT_STUB" \
     GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_RC=0 CALL_LOG="$CALLS" \
     GARDEN_TRIAGE_FAIL_THRESHOLD=5 \
     "$JOBS/triager.sh" "$NOSLUG" >>"$H2OUT" 2>&1
 rc=$?; set -e
-[ "$rc" -eq 0 ] && ok "provision-disabled tick exits 0 (benign skip, not a die)" || bad "tick exit = $rc (want 0)"
-grep -q "skipping triage (self-provision disabled)" "$H2OUT" && ok "skip log names the disabled self-provision" || bad "disabled-skip log missing"
-[ ! -d "$REPOS/$NOSLUG.git" ] && ok "no clone created when provisioning is disabled" || bad "clone unexpectedly created with provisioning disabled"
+[ "$rc" -eq 0 ] && ok "default clone-less tick exits 0 (benign skip, not a die)" || bad "tick exit = $rc (want 0)"
+grep -q "no bare clone at .*$NOSLUG.git on this host; skipping triage (a host that holds the clone triages this repo)" "$H2OUT" \
+  && ok "default skip log names the missing clone and the clone-holder reason" || bad "default-skip log missing"
+[ ! -d "$REPOS/$NOSLUG.git" ] && ok "no clone auto-created by default (self-provision is opt-in)" || bad "clone unexpectedly created without opt-in"
 [ ! -s "$CALLS" ] && ok "handler never invoked (nothing to diff without a clone)" || bad "handler ran ($(grep -c . "$CALLS") calls; want 0)"
+[ ! -s "$ALERTS" ] && ok "no maintainer escalation on the default clean skip" || bad "unexpected escalation: $(cat "$ALERTS")"
 
 # --- H3: source UNREACHABLE → skip + retry, escalate (no crash loop) ----------------
 rm -rf "$TR/state9"; STATE="$TR/state9"; rm -rf "$BARE"; seed_journal
@@ -384,6 +393,7 @@ set +e
 env GARDEN=testhost GARDEN_STATE="$STATE" \
     JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_REPOS="$REPOS" GARDEN_WATCH_REF=master \
+    GARDEN_TRIAGE_SELF_PROVISION=1 \
     GARDEN_CLONE_URL_BASE="$TR/no-such-upstreams" GARDEN_ALERT_CMD="$ALERT_STUB" \
     GARDEN_FETCH_RETRIES=1 GARDEN_FETCH_TIMEOUT=5 \
     GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_RC=0 CALL_LOG="$CALLS" \
@@ -405,6 +415,7 @@ set +e
 env GARDEN=testhost GARDEN_STATE="$STATE" \
     JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_REPOS="$REPOS" GARDEN_WATCH_REF=master \
+    GARDEN_TRIAGE_SELF_PROVISION=1 \
     GARDEN_CLONE_URL_BASE="$UPSTREAMS" GARDEN_ALERT_CMD="$ALERT_STUB" \
     GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_RC=0 CALL_LOG="$CALLS" \
     GARDEN_TRIAGE_FAIL_THRESHOLD=5 \
