@@ -47,6 +47,8 @@ Daemon on minion.town serving OCapN over WS+Noise (via `@nets/ocapn`), with a ca
 transcript of a local peer reaching its bootstrap over `wss://minion.town/…`. Report the
 image, the runtime, the Caddy route, and every tentative choice.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
