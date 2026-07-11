@@ -7,3 +7,9 @@ Fix `scripts/jobs/triager.sh` so its per-repo tick stops dying with `FATAL: no b
 3. **Reconcile the instance set.** `kriscendobot-ocapn`, `-cosgov`, and `-agoric-3-proposals` have triager instances enabled but are in neither `clone-keeper.sh`'s tracked-clone set nor (as far as this diagnosis can tell) the authorized watch set. Confirm whether each is meant to be watched; if not, disable those `garden-triager@<slug>.{service,timer}` instances rather than provisioning clones for them.
 
 Verify by running the triager for a tracked repo (e.g. `worktrees/kriscendobot-vattr97.git` exists) end-to-end and confirming it resolves the bare clone, and by running the triager/comment-watcher test suites. Also note the deployed root is carrying uncommitted changes to `common.sh`/`clone-keeper.sh`; ensure the completed refactor is committed together so the deployed tree is clean.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 10
+  claimed_at: 2026-07-11T01:28:00Z
