@@ -43,3 +43,9 @@ and two Pet Daemons to connect via the **invite/accept** workflow over Noise (WS
 
 Keep it concrete and grounded in the actual source. The consumer of this report is a builder driving
 those two milestones.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 19
+  claimed_at: 2026-07-11T02:52:02Z
