@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6386 (530 parent indexes + 5856 children).
+Total section files: 6391 (530 parent indexes + 5861 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -7554,6 +7554,14 @@ Total section files: 6386 (530 parent indexes + 5856 children).
 - [habitat-chronicles--skeptical-perspective-on-rest--put-post-and-http-verb-semantics](habitat-chronicles--skeptical-perspective-on-rest--put-post-and-http-verb-semantics.md)
 - [habitat-chronicles--skeptical-perspective-on-rest--representational-vs-imperative-descriptive-vs-behavioral](habitat-chronicles--skeptical-perspective-on-rest--representational-vs-imperative-descriptive-vs-behavioral.md)
 - [habitat-chronicles--skeptical-perspective-on-rest--state-statelessness-and-polling](habitat-chronicles--skeptical-perspective-on-rest--state-statelessness-and-polling.md)
+
+### habitat-chronicles--tripartite-identity-pattern
+
+- [habitat-chronicles--tripartite-identity-pattern--account-identifier](habitat-chronicles--tripartite-identity-pattern--account-identifier.md)
+- [habitat-chronicles--tripartite-identity-pattern--iiw-critiques-and-scope](habitat-chronicles--tripartite-identity-pattern--iiw-critiques-and-scope.md)
+- [habitat-chronicles--tripartite-identity-pattern--login-identifier](habitat-chronicles--tripartite-identity-pattern--login-identifier.md)
+- [habitat-chronicles--tripartite-identity-pattern--overview](habitat-chronicles--tripartite-identity-pattern--overview.md)
+- [habitat-chronicles--tripartite-identity-pattern--public-identifier](habitat-chronicles--tripartite-identity-pattern--public-identifier.md)
 
 ### habitat-chronicles--unum-pattern
 
