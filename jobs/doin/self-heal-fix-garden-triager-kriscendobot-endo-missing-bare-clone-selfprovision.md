@@ -1,9 +1,0 @@
-In `scripts/jobs/triager.sh`, replace the fatal missing-clone check at line 32 (`[ -d "$BARE" ] || die "no bare clone at $BARE (clone the repo first)"`) with the self-provisioning the shared-helper header already promises (`scripts/jobs/common.sh:445`: "triager.sh self-provisions a watched repo whose clone this host has never held").
-
-When `$BARE` is absent: derive the upstream URL with `derive_clone_url "$BARE"` (common.sh:484 — `repos/kriscendobot-endo.git` → `https://github.com/kriscendobot/endo.git`), `bounded_clone "$url" "$BARE"` (common.sh:506), then set the fetch refspec exactly as clone-keeper.sh:217-220 does — `git -C "$BARE" config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'` — so the existing `git fetch --all` at triager.sh:34 populates `refs/remotes/origin/*` that line 41 reads. Only `die` if the URL is underivable or the clone is unreachable, so a transient network blip retries next tick instead of wedging (mirroring clone-keeper's guard). This fixes the failure signature `FATAL: no bare clone at .../repos/kriscendobot-endo.git` shared by every triager instance on a host whose `repos/` store was never populated. Add a triager-test case covering the missing-clone → provision → fetch path with `GARDEN_CLONE_URL_BASE` pointed at a local fixture, matching the existing test style.
-
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  claimed_at: 2026-07-11T01:24:16Z
