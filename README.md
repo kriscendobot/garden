@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T19:50:21Z_
+_As of 2026-07-11T19:52:44Z_
 
 ## Latest
 
-The lone board completion was the [endoclaw-timer Phase 4 host-integration build](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-endoclaw-timer-phase-four-host-integration-build.md), which the gardener declined to build: Phases 1–3 ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) never merged and kriskowal has asked to redraft the mechanism as an unconfined `@endo/reminder` plugin — formalized in design PR [#682](https://github.com/endojs/endo-but-for-bots/pull/682), which supersedes the timer stack. That pivot needs an accept/close decision.
+The triager crash-loop that has been storming several `garden-triager@*` units is **fixed in `main2`** (shared `bare_clone_dir()` resolver, `GARDEN_REPOS` now defaulting to `worktrees/`, missing clones a clean skip) — but four self-heal gardeners independently confirmed the same remaining gap: the **deployed root `/home/kris/garden2` is ~56 commits behind and still carries the stale `/repos` default**, so the units keep FATAL-looping until a deliberate drained `deploy-garden.sh`. That deploy is the single action that clears the fleet noise, and it also gates the M3 backlog below.
 
-The dominant signal is that **Milestone M3 is now merge-bottlenecked, not work-bottlenecked** — the foreman posted six messages saying every exit-criterion capability has landed as a green, mergeable PR (Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608), confined-HTTP tool [#661](https://github.com/endojs/endo-but-for-bots/pull/661), agent-tools/mount search #678–681, endopi #667–672) and no unblocked build work remains. Two decisions gate the rest: merging the lint-ceiling fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) (its phantom-red poisons every gauntlet, e.g. #661), and reconciling the newly-landed `llm`-based Docker draft [#694](https://github.com/endojs/endo-but-for-bots/pull/694) against the older [#608](https://github.com/endojs/endo-but-for-bots/pull/608).
+The foreman has flagged repeatedly through the day that **M3 is now merge-bottlenecked, not build-bottlenecked**: a wall of green, mergeable endo-but-for-bots PRs awaits a maintainer call — the lint-ceiling fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) (whose merge auto-promotes the poisoned lint-shepherd cohort), Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608) (now overlapped by the new `llm`-based draft [#694](https://github.com/endojs/endo-but-for-bots/pull/694) — needs a close/reconcile decision), the confined-HTTP tool [#661](https://github.com/endojs/endo-but-for-bots/pull/661), and the mount/endopi stack. Separately, the endoclaw-timer chain ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) has been **superseded** by the `@endo/reminder` redraft in design PR [#682](https://github.com/endojs/endo-but-for-bots/pull/682) per kriskowal's own CHANGES_REQUESTED — a Phase-4 build was correctly refused as throwaway, and both PRs await an accept-or-retire decision.
 
-Also awaiting you: the [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) drive has asked four times whether to rebase (~503 commits) or freeze the prototype; after silence the gardener commissioned the reversible rebase default. Separately, the triager crash-loop fix is landed on `main2` but the deployed root at `/home/kris/garden2` is ~56 commits stale — a drained `deploy-garden.sh` is the only thing still keeping `garden-triager@*` units flapping. Quieter wins: finbot direct-pushed a run of green, wallet-safe increments (GARCH, GJR-GARCH, and inference-driven ORIENT/DECIDE/AUDIT OODA stages, now 457 tests), and the OCapN-Noise-WS demo is live and reproducible on minion.town.
+The **agoric-sdk#9** ymax→critical drive ([kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9), garden#29) reached all-PR-checks-green with only stale-base codegen noise remaining; after three unanswered ticks the driver commissioned the **reversible** rebase-onto-master as its default, still awaiting your `rebase #9` vs `freeze #9` call. Meanwhile **finbot** shipped a steady run of green, wallet-safe direct-push increments — GARCH(1,1), GJR-GARCH leverage, and inference-driven ORIENT→DECIDE→AUDIT OODA stages (451→457 tests, all six auditor invariants passing) — and its branch backlog is now empty; the only deferred axis is the security-gated cap-attenuation Phase 2, which stays parked pending explicit `live_authorized`. Also live: the **OCapN-Noise-WS demo** round-tripping a capability over `wss://minion.town/ocapn`, and **endor-xst** core landed on draft [xs2rust #600](https://github.com/endojs/endo-but-for-bots/pull/600) (flagging a stale `c/moddable` gitlink pinned to 8.0.1 that reds the module-byte gate).
 
 ## Parked for maintainer feedback
 
@@ -578,8 +578,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-deadmail-schedule-tick-carry-forward`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-deadmail-schedule-tick-carry-forward.md) — scripts/jobs/deadmail.sh
 
 ### tada (1945)
 - [`endojs-endo-but-for-bots-endoclaw-timer-phase-four-host-integration-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-endoclaw-timer-phase-four-host-integration-build.md) — Completion report
