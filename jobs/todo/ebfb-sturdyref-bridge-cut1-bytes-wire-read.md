@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: ebfb-orch-sturdyref-bridge-cuts
-priority: normal
 role: builder
-posted_by: producer
-posted_at: 2026-07-11T23:10:33Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-11T23:13:12Z -->
 
 # Bridge cut 1 — bytes-preserving SturdyRef wire read (design #697, cut 1)
 
