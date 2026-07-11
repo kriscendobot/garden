@@ -45,6 +45,13 @@ hr()   { echo "----------------------------------------------------------------"
 # invisible. Each subtest re-exports exactly what it needs against $TR below.
 unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_)' || true) 2>/dev/null || true
 
+# Test-context sentinel, exported from THIS one place AFTER the scrub (the scrub
+# strips GARDEN_*). Every subtest's `env …`/`export` inherits it, so common.sh's
+# guard_no_production_push_in_test refuses any push whose remote resolves to the
+# real kriskowal/garden journal even if a future subtest forgets to override the
+# remote — the durable backstop for the 2026-07-11 production-journal leak.
+export GARDEN_TEST=1
+
 rm -rf "$TR"; mkdir -p "$TR/logs"
 BARE="$TR/journal.git"
 
@@ -1501,7 +1508,12 @@ run_dffm 5600
 { [ ! -s "$DFCALLS" ] && [ "$(dfcount jobs/todo)" -eq 2 ] && [ "$(dfcount jobs/doin)" -eq 1 ]; } \
   && ok "fill-to-target: at the target the foreman promotes 0 and runs no handler (no over-subscription)" \
   || bad "fill over-promoted past target (calls=$(wc -l <"$DFCALLS") todo=$(dfcount jobs/todo))"
-unset JOURNAL_REMOTE
+# RESTORE the throwaway remote (not `unset`): the PROXY subtests below call
+# message-user.sh / proxy.sh directly with no per-invocation JOURNAL_REMOTE, so an
+# unset here made them derive the REAL kriskowal/garden journal from $GARDEN_ROOT
+# and push synthetic pxhost/ferry traffic onto production journal2 (incident
+# 2026-07-11). Re-export the shared throwaway $BARE so every path routes to it.
+export JOURNAL_REMOTE="$BARE"
 
 # ============================================================================
 hr; echo "SUBTEST 15 — PROXY: stand in for the absent maintainer on gating questions"; hr

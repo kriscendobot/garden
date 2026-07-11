@@ -26,6 +26,29 @@
 # The message-bus / job-board branch. Directory is `journal`; branch is `journal2`.
 : "${JOURNAL_BRANCH:=journal2}"
 
+# --- test-context guard against a production-journal push (incident 2026-07-11) -
+# A test that isolates GARDEN_STATE but leaves the journal REMOTE pointing at the
+# real garden repo pushed synthetic fleet traffic (a fake pxhost gardener asking to
+# ferry upstream; driftname identity-drift alarms) straight onto production
+# `journal2`, where it masqueraded as live work and cost real triage. State was
+# sandboxed; the remote was not. The durable fix is a structural refusal in the
+# push path: if a test context is in effect AND the push target resolves to the
+# real production journal remote, commit_and_push/anchor_blob die loudly instead of
+# pushing (see guard_no_production_push_in_test below). This closes the whole class,
+# not just the two tests that leaked.
+#
+# GARDEN_TEST is the positive sentinel every test entrypoint exports from one place
+# so a subtest that forgets to override the remote is still caught. A throwaway
+# GARDEN_STATE under `.garden-test` is a secondary heuristic (kept tight so it can
+# never match a real deployment's `.garden-state`).
+: "${GARDEN_TEST:=0}"
+# The signature of the canonical production journal remote (github.com/kriskowal/garden
+# in https, scp-ssh, or ssh:// form, with or without a .git suffix / trailing slash).
+# Overridable so this repo's own name is not hard-wired forever. Anchored to the repo
+# path so a fork remote (kriscendobot/…) — the product-repo pushes never route through
+# commit_and_push anyway — can never match.
+: "${GARDEN_PRODUCTION_JOURNAL_REMOTE_RE:=github\.com[:/]kriskowal/garden(\.git)?/?\$}"
+
 # Per-instance state (gardener/producer journal clones, triager seen-markers).
 # Kept OUTSIDE any reset-prone worktree on purpose.
 : "${GARDEN_STATE:=$GARDEN_ROOT/.garden-state}"
@@ -2317,6 +2340,53 @@ _verify_pushed() {
   git -C "$dir" merge-base --is-ancestor "$head" "$remote" 2>/dev/null
 }
 
+# --- test-context production-push guard (incident 2026-07-11) -----------------
+#
+# _in_test_context — 0 (in a test) when the positive sentinel GARDEN_TEST=1 is set,
+# or (secondary heuristic) GARDEN_STATE lives under a `.garden-test` throwaway root.
+# The heuristic is deliberately tight: it matches ONLY the `.garden-test` path the
+# harness uses, never a real deployment's `.garden-state`, so it can never mistake a
+# production run for a test.
+_in_test_context() {
+  [ "${GARDEN_TEST:-0}" = 1 ] && return 0
+  case "${GARDEN_STATE:-}" in
+    */.garden-test|*/.garden-test/*) return 0 ;;
+  esac
+  return 1
+}
+
+# is_production_journal_remote <url> — 0 when <url> is the canonical production
+# journal remote (github.com/kriskowal/garden, any transport form). Empty → 1.
+is_production_journal_remote() {
+  local url="$1"
+  [ -n "$url" ] || return 1
+  printf '%s' "$url" | grep -qiE "$GARDEN_PRODUCTION_JOURNAL_REMOTE_RE"
+}
+
+# _journal_push_target <dir> — the remote URL a `git push origin` in <dir> will
+# actually contact: the clone's own origin.url, falling back to the resolved
+# journal_remote when the clone has no origin yet.
+_journal_push_target() {
+  local dir="$1" url
+  url="$(git -C "$dir" config --get remote.origin.url 2>/dev/null || true)"
+  [ -n "$url" ] || url="$(journal_remote 2>/dev/null || true)"
+  printf '%s' "$url"
+}
+
+# guard_no_production_push_in_test <dir> — the structural refusal. In a test context,
+# die loudly if the push target for <dir> resolves to the production journal remote,
+# so a test can NEVER push to production `journal2`. A no-op outside a test context
+# and for any throwaway origin, so production runs are unaffected.
+guard_no_production_push_in_test() {
+  local dir="$1" url
+  _in_test_context || return 0
+  url="$(_journal_push_target "$dir")"
+  if is_production_journal_remote "$url"; then
+    die "REFUSING production-journal push from a TEST context (GARDEN_TEST=${GARDEN_TEST:-0} GARDEN_STATE=${GARDEN_STATE:-}): target '$url' is the real kriskowal/garden journal — point JOURNAL_REMOTE / GARDEN_PRODUCER_CLONE at a throwaway bare repo (guard: harden-test-journal-push, incident 2026-07-11)"
+  fi
+  return 0
+}
+
 # Commit staged changes, attempt the CAS push, and CONFIRM it landed before
 # reporting success. Returns 0 only if the commit is verified reachable from
 # origin/$JOURNAL_BRANCH; 1 if the push was rejected (CAS lost — normal, quiet)
@@ -2328,6 +2398,8 @@ _verify_pushed() {
 # inherit it.
 commit_and_push() {
   local dir="$1" msg="$2" rc=1
+  # Structural refusal: a test context must never push to production journal2.
+  guard_no_production_push_in_test "$dir"
   if ! git -C "$dir" commit -q -m "$msg"; then clone_unlock "$dir"; return 2; fi
   if _push_journal "$dir"; then
     if _verify_pushed "$dir"; then
@@ -2402,6 +2474,8 @@ inspect_note() {
 anchor_blob() {
   local sha="$1" suffix="$2" dir="${3:-${DIR:?anchor_blob: no clone-dir given and \$DIR unset}}"
   local ref="refs/captures/$suffix"
+  # Same structural refusal as commit_and_push: never push a capture ref to production.
+  guard_no_production_push_in_test "$dir"
   git -C "$dir" update-ref "$ref" "$sha" || { log "anchor_blob: update-ref $ref failed"; return 1; }
   git -C "$dir" push -q origin "$ref:$ref" 2>/dev/null \
     || { log "anchor_blob: push of $ref rejected (blob still local in $dir)"; return 1; }

@@ -32,6 +32,11 @@ hr()  { echo "----------------------------------------------------------------";
 # Scrub ambient fleet env so a live gardener running this as a board job cannot
 # splice its own GARDEN_*/JOURNAL_* state underneath the fixture.
 unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_)' || true) 2>/dev/null || true
+# Test-context sentinel (set AFTER the scrub, which strips GARDEN_*): common.sh's
+# guard_no_production_push_in_test then refuses any push that resolves to the real
+# kriskowal/garden journal. This guard's EMIT overrides already capture the sinks
+# hermetically, but the sentinel is the backstop for the 2026-07-11 leak class.
+export GARDEN_TEST=1
 
 TR="$(mktemp -d "${TMPDIR:-/tmp}/garden-drift-guard.XXXXXX")"; trap 'rm -rf "$TR"' EXIT
 HOST_SHORT="$(hostname -s 2>/dev/null || echo host)"
