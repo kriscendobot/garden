@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T03:29:52Z_
+_As of 2026-07-11T03:46:07Z_
 
 ## Latest
 
-The garden fleet is effectively down at runtime: every `garden-triager@*` unit is crash-looping because the deployed root (`688e6174c8`) trails `main2` by ~56 commits and still carries the old `GARDEN_REPOS=…/repos` default, while the actual fix (shared `bare_clone_dir` resolver, missing-clone skip, opt-in self-provision) has been landed and tested on `main2` — a drained `deploy-garden.sh` is the one remaining step and only the leader/liaison can run it. Session-limit exhaustion (resets tracked through the night) compounded the triager failures. The dominant theme otherwise is a merge logjam: the foreman reports M3 has no unblocked build work left because the mount stack, the endoclaw-timer stack (#609/#617/#619), and daemon-agent-tools are all green, mergeable, and gauntleted but sitting unmerged on the fork's `llm`, starving every stacked follower. Newly un-drafted into the review queue is the four-layer glob/grep `@endo/platform` pushdown stack — [#678](https://github.com/endojs/endo-but-for-bots/pull/678), [#679](https://github.com/endojs/endo-but-for-bots/pull/679), [#680](https://github.com/endojs/endo-but-for-bots/pull/680), [#681](https://github.com/endojs/endo-but-for-bots/pull/681) — carrying two merge-gate calls: a pre-existing grep ReDoS exposure (whether to gate on the #676 conservative-regexp subset before shipping it normatively) and a request to land design PR [#675](https://github.com/endojs/endo-but-for-bots/pull/675) first so changelog links resolve. Two gauntlets are parked poison awaiting your go-ahead — the [#661](https://github.com/endojs/endo-but-for-bots/pull/661) HTTP-client tools (its blocking lint red has since cleared) and the [#592](https://github.com/endojs/endo-but-for-bots/pull/592) cancellation-API fixer. The XS-validation effort (kriscendobot/agoric-sdk [#13](https://github.com/kriscendobot/agoric-sdk/pull/13)/[#14](https://github.com/kriscendobot/agoric-sdk/pull/14)) is green and idling on two decisions only you can make (waive the Depot-gated `force:integration` leg, and whether draft #14 counts as landed), and finbot quietly landed three simulator increments direct-to-main (multi-instrument portfolios, cyclical forecaster, GARCH(1,1)), clearing its stranded-branch backlog with all safety invariants holding.
+The glob/grep `@endo/platform` pushdown stack for #127 is built, gauntleted, and un-drafted into your queue as four layers — [#678](https://github.com/endojs/endo-but-for-bots/pull/678) (search engine), [#679](https://github.com/endojs/endo-but-for-bots/pull/679) (`EndoMount.glob`), [#680](https://github.com/endojs/endo-but-for-bots/pull/680) (`EndoMount.grep` + pipeline), and [#681](https://github.com/endojs/endo-but-for-bots/pull/681) (agent tools) — with two merge-gate calls flagged: grep still ships an unbounded `RegExp` (a pre-existing ReDoS surface now becoming a reusable primitive, decision tied to your `@endo/regexp` [#676](https://github.com/endojs/endo-but-for-bots/pull/676) recommendation), and design [#675](https://github.com/endojs/endo-but-for-bots/pull/675) should land alongside so changelog links resolve. Separately, the mount-glob shepherd got [#653](https://github.com/endojs/endo-but-for-bots/pull/653) fully green by rebasing onto the fixed #650 base.
+
+**The one thing that most needs your hand: a deliberate deploy.** The deployed root (`/home/kris/garden2`) is ~56 commits behind `main2`, so every `garden-triager@*` unit is still crash-looping on the old `repos/` default even though the fix landed on `main2` hours ago; the storm of self-heal messages across agoric-sdk, endo, finbot, ocapn, cosgov and others is a single cause with a single cure — run `deploy-garden.sh` when the fleet is quiet. (Three instances — cosgov, ocapn, agoric-3-proposals — will still need clones provisioned or disabling afterward, which touches the watch-set authorization bar.)
+
+The foreman has now said four times that **M3 is saturated and the fleet has no unblocked build work**: the mount, endoclaw-timer, and gateway stacks are all CI-green and mergeable but unmerged on `llm`, blocking every stacked follower, and roughly 60 ready PRs await a merge/authority decision. The gauntlet on HTTP-client [#661](https://github.com/endojs/endo-but-for-bots/pull/661) is poisoned and parked awaiting your `go-ahead`, and the XS-validation effort ([kriskowal/garden#33](https://github.com/kriskowal/garden/issues/33)) has held green for hours blocked solely on two decisions (waive the Depot-gated integration leg; call fork PR #14 "landed"). Meanwhile finbot advanced on its own steam, landing GARCH volatility, the cyclical forecaster, and multi-instrument portfolios direct to `main` (435 tests green, wallet untouched) — its only ask is whether to keep paying per-cycle rebase cost or let a weaver sweep fast-forward its stranded branches. Several build jobs also came back as no-ops against already-existing PRs (daemon-locator terminology, mvs-resolver colliding across #403/#671, Docker-selfhost re-attempting the closed #134), pointing at stale design records that keep re-spawning work.
 
 ## Parked for maintainer feedback
 
@@ -905,15 +909,15 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (1)
-- [`scholar-ingest-source-habitat-chronicles-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-habitat-chronicles-3.md) — Source
+- [`build-endo-daemon-ocapn-ws-transport`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-daemon-ocapn-ws-transport.md) — Build: wire the WebSocket transport into the daemon's OCapN-Noise netlayer (P...
 
-### tada (1851)
+### tada (1852)
+- [`scholar-ingest-source-habitat-chronicles-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-habitat-chronicles-3.md) — Completion report
 - [`scholar-ingest-source-habitat-chronicles-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-habitat-chronicles-2.md) — Completion report
 - [`xst-validation-orchestrator-20260711-030514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-030514.md) — XS-validation orchestrator — tick report (2026-07-11 ~03:05Z)
 - [`ocapn-noise-daemon-survey`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-daemon-survey.md) — Survey: Does the Pet Daemon speak OCapN-over-Noise? (endojs/endo-but-for-bots...
 - [`scholar-ingest-source-habitat-chronicles`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-habitat-chronicles.md) — Completion report
-- [`kriscendobot-agoric-sdk-pr9-f0af0f7a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr9-f0af0f7a-retro.md) — Completion report
-- … and 1846 more
+- … and 1847 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -939,7 +943,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-(none)
+- [`scholar-ingest-source-habitat-chronicles-4`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-source-habitat-chronicles-4.md) — _low_ · Source
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
