@@ -64,7 +64,23 @@ BARE="$GARDEN_REPOS/$slug.git"
 # then fall through to the normal fetch. If the upstream is unreachable, skip cleanly
 # (exit 0) so the next tick retries — no crash loop; a persistently unreachable or an
 # underivable source escalates to the maintainer inbox rather than dying forever.
-if [ ! -d "$BARE" ]; then
+#
+# The guard is `! is_own_git_repo "$BARE"` (not `[ ! -d "$BARE" ]`), mirroring
+# keep_clone: it also catches a present-but-CORRUPT dir (a path that exists but is not
+# its OWN bare git repo — a half-populated clone, a leftover dir, a plain file). Such a
+# dir may hold un-pushed local state, so we SURFACE it and NEVER clobber it with a
+# re-clone (exactly as keep_clone does) and skip cleanly rather than falling through to
+# a `git fetch` that would hard-die every tick and crash-loop the unit.
+if ! is_own_git_repo "$BARE"; then
+  if [ -e "$BARE" ]; then
+    # Present-but-corrupt: surface for manual reconciliation, do NOT re-clone (it may
+    # hold un-pushed local state), do NOT die (a fetch on a non-repo dir crash-loops
+    # the unit). Skip this tick; a human restores or removes it. Matches keep_clone.
+    cmsg="triager: bare clone path $BARE for $slug exists but is not a git repo; needs manual reconciliation (not clobbering). $slug is not being triaged until it is restored."
+    log "STALE: $cmsg"
+    alert_maintainer "triager-clone-corrupt-${slug//[^A-Za-z0-9._-]/_}" "$cmsg"
+    exit 0
+  fi
   if [ "${GARDEN_TRIAGE_SELF_PROVISION:-0}" != 1 ]; then
     log "no bare clone at $BARE on this host; skipping triage (a host that holds the clone triages this repo)"
     exit 0

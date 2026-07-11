@@ -456,6 +456,38 @@ grep -q "no bare clone at $GROOT/worktrees/$SLUG.git" "$DEFOUT" \
   || bad "default still resolves under repos/ — the wrong-default regression is back"
 
 # ============================================================================
+hr; echo "J — present-but-corrupt bare dir: surface (STALE + escalate), never clobber, never die"; hr
+# The guard is `! is_own_git_repo "$BARE"`, not `[ ! -d "$BARE" ]`, so a path that
+# EXISTS but is not its own bare git repo (a half-populated clone, a leftover dir, a
+# plain file) is caught too. Such a dir may hold un-pushed local state, so the triager
+# must SURFACE it and NEVER clobber it with a re-clone (exactly as clone-keeper's
+# keep_clone does) and skip cleanly rather than fall through to a `git fetch` that
+# would hard-die every tick and crash-loop the unit. Run with self-provision ON to
+# prove even an opted-in host does NOT clobber a corrupt dir.
+rm -rf "$TR/state11"; STATE="$TR/state11"; rm -rf "$BARE"; seed_journal
+rm -rf "$REPOS/$NOSLUG.git"; mkdir -p "$REPOS/$NOSLUG.git"
+echo garbage > "$REPOS/$NOSLUG.git/not-a-git-object"   # exists, but not its own git repo
+: > "$CALLS"; : > "$ALERTS"; H5OUT="$TR/triager-corrupt.out"; : > "$H5OUT"
+set +e
+env GARDEN=testhost GARDEN_STATE="$STATE" \
+    JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_REPOS="$REPOS" GARDEN_WATCH_REF=master \
+    GARDEN_TRIAGE_SELF_PROVISION=1 \
+    GARDEN_CLONE_URL_BASE="$UPSTREAMS" GARDEN_ALERT_CMD="$ALERT_STUB" \
+    GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_RC=0 CALL_LOG="$CALLS" \
+    GARDEN_TRIAGE_FAIL_THRESHOLD=5 \
+    "$JOBS/triager.sh" "$NOSLUG" >>"$H5OUT" 2>&1
+rc=$?; set -e
+[ "$rc" -eq 0 ] && ok "corrupt-dir tick exits 0 (clean skip, not a crash-looping die)" || bad "tick exit = $rc (want 0)"
+grep -qi "exists but is not a git repo" "$H5OUT" && ok "logs STALE: dir exists but is not a git repo" || bad "STALE corrupt-dir log missing"
+[ -f "$REPOS/$NOSLUG.git/not-a-git-object" ] && ok "the corrupt dir is NOT clobbered (its contents survive)" || bad "corrupt dir was clobbered/re-cloned"
+git -C "$REPOS/$NOSLUG.git" rev-parse --absolute-git-dir >/dev/null 2>&1 \
+  && bad "corrupt dir was replaced by a fresh clone (clobbered)" \
+  || ok "no re-clone attempted over the corrupt dir (still not a git repo)"
+[ ! -s "$CALLS" ] && ok "handler never invoked on a corrupt clone (nothing to diff)" || bad "handler ran ($(grep -c . "$CALLS") calls; want 0)"
+grep -q "^triager-clone-corrupt-" "$ALERTS" && ok "escalates the corrupt clone to the maintainer inbox" || bad "no maintainer escalation recorded ($(cat "$ALERTS"))"
+
+# ============================================================================
 hr
 echo "TOTAL: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
