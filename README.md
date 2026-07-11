@@ -1,16 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T08:30:10Z_
+_As of 2026-07-11T08:39:14Z_
 
 ## Latest
 
-The one board transition was the [endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/pull/688) shepherd completing — though a watchdog flags it deterministically overran the 2400s handler budget and should be split into claim-sized stages before it's re-run. The board is otherwise idle (todo/doin empty).
+The loudest item this cycle: the fleet-wide **garden-triager crash-loop is fixed in `main2` but not yet live**. Multiple self-heal jobs converged on the same diagnosis — `triager.sh`/`comment-watcher.sh` now resolve their bare clone via a shared `bare_clone_dir()` defaulting to `worktrees/` (a missing clone is a clean skip, not a FATAL), with tests green — but the deployed root `/home/kris/garden2` sits ~56 commits behind, so every `garden-triager@*` unit keeps FATAL-looping on the stale `/repos` default until a drained `deploy-garden.sh` advances it. All eight own-fork bare clones now exist under `worktrees/`, so the deploy alone clears the storm; three enabled instances (cosgov, ocapn, agoric-3-proposals) will still need clones or disabling afterward, which intersects the watch-set authorization bar.
 
-**Deploy gap is the headline.** Five converging self-heal reports confirm the triager crash-loop fix is landed and green on `main2` (through `4c0e275b0b`), but the deployed root `/home/kris/garden2` is ~56 commits behind and still carries the stale `GARDEN_REPOS=$GARDEN_ROOT/repos` default — so `garden-triager@*` units keep FATAL-looping every tick. A deliberate drained `deploy-garden.sh` is the clean fix; all eight own-fork bare clones now exist under `worktrees/`, so the deploy should settle the fleet without stopgap materialization.
+On the project side, **finbot** landed a rapid string of direct-push increments on `kriscendobot/finbot@main` — SES compartments (the capability-attenuation cornerstone), multi-instrument yield-bearing portfolios, the cyclical/harmonic forecaster, and both GARCH(1,1) and asymmetric GJR-GARCH vol surfaces — clearing the stranded-branch backlog entirely (445 tests green, wallet gate holding). Two decisions await you: whether to let builders land finbot increments directly on main vs. standing up a fast-forward sweep, and the security-weighted cap-attenuation Phase 2 (live paper-wallet run, gated behind `live_authorized`).
 
-**finbot** landed five green increments direct-to-main on `kriscendobot/finbot` across the day — SES-compartments (the capability-attenuation cornerstone), multi-instrument portfolios, the cyclical/harmonic forecaster, GARCH(1,1), and GJR-GARCH — clearing the stranded-branch backlog to just main+journal; 445 tests pass, wallet-safety gate holds throughout. Two things want your call: finbot is in the watch set and tripped a triage circuit-breaker, yet `kriscendobot-finbot` isn't among the repos authorized under the § Monitoring safety constraint; and the deepest remaining axis (cap-attenuation Phase 2 — live CapTP transport + first paper-wallet run) stays deferred behind `live_authorized`.
-
-**agoric-sdk [#9](https://github.com/kriscendobot/agoric-sdk/pull/9)** (fork-only): a peer's new head brought two fresh reds; the shepherd fixed the one PR-attributable failure (a `dprint` miss), but boot-snapshot stale-base noise is spreading (1→9 shards), sharpening the still-pending decision to rebase onto master (~503 commits behind) and un-draft for review versus keeping it a frozen-base prototype. Separately, the OCapN-Noise-WS demo is live and reproducible on minion.town, with the gardener offering to promote it to the full Pet Daemon bootstrap and land the Caddy route durably.
+Elsewhere: the shepherd for [agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) fixed the one PR-attributable red (a `dprint` miss) but stale-base boot-snapshot noise is spreading from 1 to ~9 shards — the pending rebase-vs-frozen-prototype call is getting more expensive to defer. An OCapN-Noise-WS demo is live and reproducible on minion.town over `wss://minion.town/ocapn`, with follow-ups offered to promote it to the full Pet Daemon and land the Caddy route durably. The endor-xst runner core landed on the still-draft xs2rust PR #600 (flagging a `c/moddable` gitlink stuck at 8.0.1 that reds the module-byte gate). Finally, the [endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/pull/688) shepherd deterministically overran its 2400s handler budget — it needs splitting into claim-sized stages or a detached run before the reaper poisons it.
 
 ## Parked for maintainer feedback
 
@@ -341,8 +339,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`ocapn-pet-daemon-dockerfile-minion`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-pet-daemon-dockerfile-minion.md) — Reproducible Dockerfile for the full Endo Pet Daemon on minion.town (WS+Noise)
 
 ### tada (1883)
 - [`endojs-endo-but-for-bots-pr688-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr688-shepherd.md) — Completion report
@@ -384,6 +382,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
 - [`build-daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase3.md) — awaiting `build-daemon-rename-to-manager-phase2` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-regexp-conservative-subset.md) — awaiting `endojs/endo-but-for-bots#676` · Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
+- [`ocapn-cross-host-pet-daemon-invite-accept`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ocapn-cross-host-pet-daemon-invite-accept.md) — awaiting `ocapn-pet-daemon-dockerfile-minion` · True cross-host Pet-Daemon ↔ Pet-Daemon invite/accept over wss (closes M5)
 - [`port-xs-to-rust-memory-safe-engine-s18`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s18.md) — awaiting `xs2rust-endor-build-stage5-fix6` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
