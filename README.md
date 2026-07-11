@@ -1,16 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T21:10:11Z_
+_As of 2026-07-11T21:11:28Z_
 
 ## Latest
 
-The garden's triager fleet is crash-looping and the fix is landed but undeployed: several self-heal gardeners converged on the same diagnosis — the code that defaults `GARDEN_REPOS` to `worktrees/` (and turns a missing bare clone into a clean skip) is merged on `main2`, but the deployed root `/home/kris/garden2` is ~56 commits behind, so `garden-triager@*` units keep FATAL-looping until a deliberate drained `deploy-garden.sh` advances the root. That deploy is the single highest-leverage maintainer/leader action right now; a separate triage circuit-breaker also opened on `kriscendobot-finbot`, and three watched forks (ocapn, cosgov, agoric-3-proposals) will still lack clones after deploy, intersecting the watch-set authorization rule.
+The board has gone quiet — the only transition since the last bulletin was one SturdyRef press-driver tick completing, and that quiet is itself the signal: the foreman filed five messages today reporting that Milestone M3 has **no unblocked build work left** and is now gated entirely on maintainer merge/accept decisions. A fleet of green, mergeable endo-but-for-bots PRs is stacked and waiting — Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608) (now overlapped by the newer `llm`-based draft [#694](https://github.com/endojs/endo-but-for-bots/pull/694), a close/reconcile call), the confined-HTTP tool [#661](https://github.com/endojs/endo-but-for-bots/pull/661), and the mount/endopi stacks — while the lint-ceiling fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) stays unmerged and keeps poisoning gauntlets. The endoclaw-timer chain ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) has been explicitly superseded by the `@endo/reminder` redraft design [#682](https://github.com/endojs/endo-but-for-bots/pull/682), which needs an accept/close verdict before scheduled-execution work resumes.
 
-Milestone M3 is stalled purely on merge decisions, which the foreman flagged repeatedly: the per-package lint fix [endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) is green and blocking every gauntlet (it poisoned #661's), Docker self-host now has two overlapping PRs — [#608](https://github.com/endojs/endo-but-for-bots/pull/608) (master-based) vs new draft [#694](https://github.com/endojs/endo-but-for-bots/pull/694) (llm-based, remote-auth) needing a close/reconcile call — and the endoclaw-timer chain [#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619) is superseded by the `@endo/reminder` redraft design [#682](https://github.com/endojs/endo-but-for-bots/pull/682), which needs an accept/retire decision before the Phase-4 build (correctly refused as throwaway) can proceed.
+Two decisions have now waited long enough that gardeners took reversible defaults rather than stall: on [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax→critical vat), after four unanswered ticks a gardener commissioned the rebase-onto-master itself — every PR-attributable check is green and the lone red is stale-base codegen noise, so it needs only a `rebase #9` or `freeze #9` from you. The SturdyRef agent-surface design [#695](https://github.com/endojs/endo-but-for-bots/pull/695) is complete with substrate PR [#541](https://github.com/endojs/endo-but-for-bots/pull/541) landed green, and awaits a go/no-go on posting builder cuts A–F.
 
-Two design gates await a go/no-go: SturdyRef agent-surface [#695](https://github.com/endojs/endo-but-for-bots/pull/695) is ready to spawn builder cuts A–F once [#541](https://github.com/endojs/endo-but-for-bots/pull/541) lands (it's now green), and the `esheets` OAuth stack is fully blocked on re-reviewing green, revision-addressed [#621](https://github.com/endojs/endo-but-for-bots/pull/621). On [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax→critical vat), the rebase-vs-freeze decision has gone unanswered four ticks — CI is down to one non-attributable stale-base red — so the drive gardener commissioned the reversible default (weave onto master) rather than stall further; say `rebase #9` or `freeze #9` to steer it.
-
-Meanwhile the autonomous `finbot` fleet landed a dense run of green, wallet-safe increments direct-push on `kriscendobot/finbot@main` (GARCH(1,1), GJR-GARCH leverage, and inference-driven ORIENT→DECIDE→AUDIT OODA stages, now 457 tests), and the OCapN-Noise-WS demo went live and reproducible on minion.town behind Caddy TLS. Finbot's standing decision remains open: its "no self-PR, fast-forward main" convention keeps stranding branches, and its cap-attenuation Phase 2 (live paper-wallet/test-net run) stays gated behind explicit `live_authorized` authorization.
+Off-board, finbot advanced under its direct-push convention: GARCH(1,1), GJR-GARCH leverage, and the full inference-driven OODA path (ORIENT→DECIDE→AUDIT) all landed green (457 tests, wallet-safe), with its cap-attenuation Phase 2 still deferred behind explicit `live_authorized`. Finally, a cluster of self-heal messages converge on one operational gap worth acting on: the deployed root is dozens of commits behind `main2`, so the triager crash-loop fix is committed but not live — a drained `deploy-garden.sh` is the clean fix.
 
 ## Parked for maintainer feedback
 
@@ -619,17 +617,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endo-sturdyref-press-20260711-210501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260711-210501.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+### doin (1)
 - [`gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting.md) — ---
 
-### tada (1949)
+### tada (1950)
+- [`endo-sturdyref-press-20260711-210501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260711-210501.md) — Completion report — endo-sturdyref-press tick (2026-07-11T21:05 dispatch)
 - [`endojs-endo-but-for-bots-pr541-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr541-shepherd.md) — Completion report
 - [`ebfb-design-sturdyref-agent-surface`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-design-sturdyref-agent-surface.md) — Completion report: ebfb-design-sturdyref-agent-surface
 - [`improve-deadmail-schedule-tick-carry-forward`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-deadmail-schedule-tick-carry-forward.md) — Completion report
 - [`endo-sturdyref-press-20260711-200501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260711-200501.md) — Completion report — endo-sturdyref-press tick (2026-07-11T20:05 dispatch)
-- [`endojs-endo-but-for-bots-endoclaw-timer-phase-four-host-integration-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-endoclaw-timer-phase-four-host-integration-build.md) — Completion report
-- … and 1944 more
+- … and 1945 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
