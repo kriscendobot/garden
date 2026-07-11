@@ -47,3 +47,9 @@ Use `scripts/jobs/fetch-source.sh` for acquisition; the direct fetch works for
 this host. Respect the budget (one dense essay per cycle); post a further `-4`
 follow-on for whatever remains. Skip the blog's virtual-world/MMO-history posts
 with no bearing on agents, capabilities, or distributed objects.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  claimed_at: 2026-07-11T03:29:08Z
