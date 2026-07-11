@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T07:00:09Z_
+_As of 2026-07-11T07:02:00Z_
 
 ## Latest
 
-The headline for the maintainer is a **deploy gap**: the triager crash-loop fix is fully landed and green on `main2` (through `4c0e275b0b`), but the deployed root `/home/kris/garden2` is ~56 commits behind and still ships the old `GARDEN_REPOS=…/repos` default, so `garden-triager@*` units keep FATAL-looping every tick. Four separate self-heal gardeners converged on the same conclusion — no code work remains; a drained `deploy-garden.sh` on the leader is the clean fix. Two side questions ride along: a triage circuit-breaker has OPENED for `kriscendobot-finbot`, and three watched forks (`ocapn`, `agoric-3-proposals`, `cosgov`) have no clone under `worktrees/` and will stay untriaged even after deploy — resolving them intersects the watch-set authorization bar.
+A triager crash-loop fix landed on `main2` (through 4c0e275b0b): `triager.sh` and `comment-watcher.sh` now resolve their bare clone through a shared resolver defaulting to `worktrees/` rather than the nonexistent `repos/`, with tests green (triager 68/0, comment-watcher 213/0). But five self-heal gardeners all converge on the same live blocker — the deployed root `/home/kris/garden2` is ~56 commits behind `origin/main2`, so every `garden-triager@*` unit still FATAL-loops on the stale `repos/` default. A drained `deploy-garden.sh` is the one remaining step, and only the leader can run it; after deploy, three watched own-forks (cosgov, ocapn, agoric-3-proposals) still lack a clone under `worktrees/`, and provisioning them intersects the watch-set authorization bar. Separately, `kriscendobot-finbot`'s triage breaker OPENED and that repo is outside the currently-authorized watch set — worth confirming it belongs.
 
-Finbot advanced hard this cycle: five increments landed direct-to-`main` on `kriscendobot/finbot` — SES compartments (the cap-attenuation safety cornerstone), multi-instrument yield-bearing portfolios, a cyclical/harmonic forecaster, GARCH(1,1), and GJR-GARCH leverage — clearing the entire stranded-branch backlog (now 445 tests green, all auditor invariants pass, wallet untouched). The recurring maintainer decision: finbot's "no self-PR, fast-forward main" convention strands builder branches, and the security-gated cap-attenuation Phase 2 (live paper-wallet run) waits on explicit `live_authorized`.
+Finbot landed five green increments by direct-push to `kriscendobot/finbot@main`: SES-compartments capability attenuation, multi-instrument yield-bearing portfolios, a cyclical (seasonal + residual-GBM) forecaster, and GARCH(1,1) plus GJR-GARCH volatility surfaces — 445 tests pass, all six auditor invariants hold, wallet untouched throughout. The feature-branch backlog is now empty; the recurring decision is whether builders may land finbot increments directly on main or a weaver/conductor sweep should fast-forward branches promptly, and Phase-2 cap-attenuation (CapTP transport + first live paper-wallet run) stays gated behind explicit `live_authorized`.
 
-On [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9), a shepherd fixed the one PR-attributable red (a `dprint` miss), but the stale-base `test-boot` snapshot noise spread from 1 shard to ~9 — a growing data point for the still-pending rebase-vs-frozen-prototype call. Elsewhere, the OCapN-Noise-WS demo is live and reproducible on minion.town, and `endor-xst` core landed on the DRAFT xs2rust runner (with a flagged `c/moddable` gitlink pin still at 8.0.1 instead of the required 8.3.1).
+On [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/issues/9), a shepherd fixed the one PR-attributable red (a `dprint` miss); the remaining reds are stale-base noise that is spreading (test-boot drift now ~9 shards), sharpening the still-pending call to rebase onto master and un-draft vs. keep it a frozen-base prototype. The OCapN-Noise-WS demo is live and reproducible on minion.town (end-to-end TLS→Noise IK→OCapN capability invoke), and the endor-xst test262 runner core landed as a draft — awaiting a follow-up to bump the `c/moddable` submodule pin to 8.3.1.
 
 ## Parked for maintainer feedback
 
@@ -335,8 +335,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-262-xst-async-done`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-262-xst-async-done.md) — Builder: endor-xst async/$DONE + job-drain wiring (PR #600, test262-convergen...
 
 ### tada (1876)
 - [`xs2rust-endor-262-corpus-case-conversion`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-262-corpus-case-conversion.md) — Completion report
