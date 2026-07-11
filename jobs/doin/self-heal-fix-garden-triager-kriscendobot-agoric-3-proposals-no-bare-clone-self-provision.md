@@ -10,3 +10,9 @@ Two problems to fix together:
 2. Self-provision instead of die. When the bare clone at the resolved canonical path is still missing (genuinely never cloned, e.g. agoric-3-proposals/cosgov/ocapn), replace the `die` with the clone-keeper self-provision path: `src="$(derive_clone_url "$BARE")"` then `bounded_clone "$src" "$BARE"`, logging a `provisioned missing clone` line, and `die` only if provisioning itself fails (mirror clone-keeper.sh:180-222). Verified: `derive_clone_url` on basename `kriscendobot-agoric-3-proposals.git` yields `https://github.com/kriscendobot/agoric-3-proposals.git` (first-`-` split → owner=kriscendobot, name=agoric-3-proposals), which is the real fork.
 
 Guardrails: keep the change scoped to triager.sh (plus the shared GARDEN_REPOS default consistency for comment-watcher). Do NOT alter the monitoring safety posture — repos are added to the watch set (`repos/`) only under the existing maintainer-authorization rule; this fix only provisions clones for repos already in the set. Add/extend the triager test to cover (a) an existing clone under worktrees/ being found, and (b) a missing clone being self-provisioned via a stubbed `GARDEN_CLONE_URL_BASE`/bounded_clone (same override pattern clone-keeper's tests use) rather than dying.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 11
+  claimed_at: 2026-07-11T01:26:50Z
