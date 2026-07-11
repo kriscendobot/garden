@@ -48,3 +48,9 @@ scope: FORK ONLY — never comment on, link to, or push to upstream agoric/agori
 ----- END PR NOTE -----
 
 **Fork only** — never comment on, link to, or push to upstream agoric/agoric-sdk.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 17
+  claimed_at: 2026-07-11T05:57:38Z
