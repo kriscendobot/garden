@@ -110,6 +110,23 @@ cannot advance until it is rebased.
 **Action:** review `#609` now; post a `rebase #617` (weave) so the middle
 un-conflicts, then `#617`→`#619` become a normal bottom-up merge.
 
+## Blockers of parked garden work — review to resume fleet chains
+
+Each PR below gates a **parked garden job** (`jobs/plan/`, `gate: blocked`): the
+fleet job auto-promotes to `todo/` the moment its blocker merges (for a draft:
+un-draft → merge). They were not in the M3 curation above but are on the critical
+path for stalled downstream fleet work, so they belong on the review worklist.
+
+| PR | Title | State | Base | Unblocks (garden job) |
+| --- | --- | --- | --- | --- |
+| `endojs/endo-but-for-bots#594` | chore(lint): lint per package to avoid the typescript-eslint project-service ceiling | green, mergeable, non-draft | `master` | `resume-lint-ceiling-shepherds` |
+| `endojs/endo-but-for-bots#598` | refactor(daemon): rename daemon.js → manager.js (phase 1: file renames) | mergeable, **DRAFT** | `llm` | `build-daemon-rename-to-manager-phase2` → `-phase3` (2-step chain) |
+| `endojs/endo-but-for-bots#676` | design: @endo/regexp — conservative regexp subset for JS↔Rust search parity | mergeable, **DRAFT** | `llm` | `build-endo-regexp-conservative-subset` |
+
+`#594` is on the **`master`/upstream-mirror lane** (like `#608`), not `llm`. `#598`
+and `#676` are **DRAFT** — each needs an un-draft before it can merge; `#598`'s
+phase-1 rename then unblocks a two-step build chain (phase2 → phase3).
+
 ## Context — not for review this pass
 
 - **Conflicting (need a rebase/weave before review):** e.g.
