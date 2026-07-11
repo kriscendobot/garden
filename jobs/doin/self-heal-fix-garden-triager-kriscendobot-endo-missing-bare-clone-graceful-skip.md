@@ -4,3 +4,9 @@ Change the guard to a graceful skip that mirrors the sibling `comment-watcher.sh
 `[ -d "$BARE" ] || { log "no bare clone at $BARE on this host; nothing to triage here (skipping)"; exit 0; }`
 
 Rationale: the triager cannot diff without the local clone, but that is a no-op, not an error — the same tradeoff `comment-watcher.sh` already accepts. This stops the every-tick FATAL / self-heal spam while leaving the triager to resume automatically if/when the bare clone is provisioned on this host. Keep the existing `fleet_draining` early-exit above it unchanged, and verify against `scripts/jobs/test/` (add/adjust a triager test asserting exit 0 + a logged skip when `$BARE` is absent).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  claimed_at: 2026-07-11T01:54:14Z
