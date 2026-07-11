@@ -1,16 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-11T11:44:48Z_
+_As of 2026-07-11T11:46:33Z_
 
 ## Latest
 
-The triager crash-loop is fixed in code but not yet live: peers landed the `GARDEN_REPOS`→`worktrees/` default and shared `bare_clone_dir()` resolver on `main2` (through `4c0e275b0b`), with tests green, but the deployed root (`/home/kris/garden2`) still predates the fix and keeps `garden-triager@*` units FATAL-looping — several gardeners converge on the same ask: a drained `deploy-garden.sh` from the leader is the one remaining step. Relatedly, a triage circuit-breaker opened on `kriscendobot-finbot`, and three watched forks (ocapn, cosgov, agoric-3-proposals) have no clone under `worktrees/` and intersect the § Monitoring safety watch-set authorization, so provisioning-vs-disabling is a maintainer call.
+The only board completion this window was the [endo-but-for-bots#660](https://github.com/endojs/endo-but-for-bots/pull/660) review retrospective; the substance moved in the fleet reports. **Two decisions are now the sole blockers.** The triager crash-loop fix is fully landed and tested on `main2` (GARDEN_REPOS defaults to `worktrees/`, a missing bare clone is a clean skip, and own-fork self-provisioning is opt-in), but four self-heal reports converge on the same gap: the deployed root `/home/kris/garden2` is ~56 commits stale and still reads the old `/repos` default, so `garden-triager@*` units keep FATAL-looping — a single drained `deploy-garden.sh` clears them, and every armed own-fork clone already exists so the deploy is a no-op beyond advancing HEAD. Separately, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (garden#29, ymax→critical vat) went 4 CI reds → 1 after the shepherd's dprint fix; every PR-attributable check now passes and all reviewer feedback is addressed, leaving it blocked only on your `rebase #9` vs `freeze #9` call (the lone red is known stale-base codegen noise a rebase would also clear).
 
-[kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (garden#29, promote ymax vat → critical) advanced materially: the shepherd's `dprint` fix took fork CI from four reds to one, every PR-attributable check now passes, and reviewer feedback is fully addressed — so the effort is blocked *solely* on your decision, `rebase #9` (onto master, ~503 commits, likely clearing the lone `test-codegen` stale-base red) versus `freeze #9` as a frozen-base prototype.
-
-finbot ran a string of green, direct-to-`main` cycles that emptied its stranded-branch backlog and then extended the simulator's forecasting axis — cyclical/harmonic forecaster, GARCH(1,1), and GJR-GARCH leverage effect (now 445 tests, all six auditor invariants PASS, wallet untouched). The standing decision it keeps re-flagging: adopt garden-style direct-to-main landing or stand up a weaver/conductor sweep, and separately whether to authorize cap-attenuation Phase 2's live paper-wallet run (gated behind `live_authorized`).
-
-On minion.town, the OCapN-Noise-WS demo (M3+M4) is live and reproducible end-to-end through Caddy TLS, with a follow-up offered to promote it to the full Pet-Daemon bootstrap; the xs2rust `endor-xst` runner core also landed on a still-draft PR (flagging a stale `c/moddable` gitlink that needs bumping to 8.3.1). Two jobs — `endo-but-for-bots-pr688-shepherd` and `ocapn-pet-daemon-dockerfile-minion` — deterministically overran the 2400s handler budget and need splitting or detaching before the reaper poisons them. Board activity was otherwise quiet, with only the [endo-but-for-bots#660](https://github.com/endojs/endo-but-for-bots/pull/660) retrospective in flight.
+On finbot, five green increments landed direct-to-main this window — SES-compartments capability attenuation, multi-instrument yield-bearing portfolios, the cyclical/harmonic forecaster, and both GARCH(1,1) and GJR-GARCH vol surfaces (445 tests, all six auditor invariants pass, wallet untouched); the branch backlog is now empty. Finbot's gardener re-flags two standing decisions: whether to keep paying per-cycle rebase cost on the "no self-PR, fast-forward main" convention, and cap-attenuation Phase 2 (live CapTP transport + first paper-wallet run), which stays gated behind `live_authorized` and untouched without your word. Elsewhere, the OCapN-Noise-WS demo is live and reproducing end-to-end on minion.town, and `endor-xst` core landed on the still-draft xs2rust PR #600 (with a flagged c/moddable gitlink mispinned at 8.0.1 vs the required 8.3.1). Note two watchdog overruns to split into claim-sized stages: the [endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/pull/688) shepherd and the ocapn-pet-daemon Dockerfile job both hit the 2400s handler wall.
 
 ## Parked for maintainer feedback
 
@@ -359,16 +355,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr660-7dd088b1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr660-7dd088b1-retro.md) — Retrospective on endojs/endo-but-for-bots PR #660 (primary: endojs-endo-but-f...
+### doin (0)
+(none)
 
-### tada (1898)
+### tada (1899)
+- [`endojs-endo-but-for-bots-pr660-7dd088b1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr660-7dd088b1-retro.md) — Completion report — endojs-endo-but-for-bots-pr660-7dd088b1-retro
 - [`scholar-ingest-source-habitat-chronicles-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-habitat-chronicles-5.md) — Completion report
 - [`scholar-ingest-source-habitat-chronicles-4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-habitat-chronicles-4.md) — Completion report — scholar-ingest-source-habitat-chronicles-4
 - [`ebfb-124-sqlite-nongeneralised-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-124-sqlite-nongeneralised-design.md) — Inbox empty; the job is complete. Final report:
 - [`agoric-sdk-pr9-drive-20260711-110501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-pr9-drive-20260711-110501.md) — Completion report
-- [`xst-validation-orchestrator-20260711-110501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-110501.md) — XS-validation orchestrator — tick report (2026-07-11 ~11:06Z)
-- … and 1893 more
+- … and 1894 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
