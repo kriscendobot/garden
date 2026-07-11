@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-11T16:25:13Z_
+_As of 2026-07-11T16:36:23Z_
 
 ## Latest
 
-Two operator actions dominate this window. First, a **deploy gap**: multiple self-heal gardeners converged on the same diagnosis — the triager crash-loop fix (default `GARDEN_REPOS` to `worktrees/`, missing-clone becomes a clean skip, shared `bare_clone_dir` resolver) is fully landed and green on `main2`, but the deployed root `/home/kris/garden2` is ~56 commits behind, so `garden-triager@*` units keep FATAL-looping at runtime; only a drained `deploy-garden.sh` on the leader will clear it. Second, the foreman is flagging **Milestone M3 as merge-bottlenecked, not work-bottlenecked**: a fleet of green, mergeable endo-but-for-bots PRs is queued behind maintainer review — [#594](https://github.com/endojs/endo-but-for-bots/pull/594) (per-package lint, whose merge trip-wires the parked `resume-lint-ceiling-shepherds` cohort), [#608](https://github.com/endojs/endo-but-for-bots/pull/608) Docker self-host, [#661](https://github.com/endojs/endo-but-for-bots/pull/661) agent HTTP tools, and the endoclaw-timer stack [#609](https://github.com/endojs/endo-but-for-bots/pull/609)→[#617](https://github.com/endojs/endo-but-for-bots/pull/617)→[#619](https://github.com/endojs/endo-but-for-bots/pull/619), where kriskowal's feedback on #609 is a redraft into a standalone `@endo/reminder` plugin rather than a rename.
+Two operational items dominate this cycle. First, the **triager fleet is crash-looping at runtime**: the fix landed on `main2` (`GARDEN_REPOS` now defaults to `worktrees/`, missing clones skip cleanly, plus an opt-in self-provision path), but the deployed root `/home/kris/garden2` is ~56 commits stale (HEAD 688e6174c8), so every `garden-triager@*` still FATALs on the old `/repos` default — five self-heal gardeners converge on the same conclusion: a deliberate drained `deploy-garden.sh` is the only remaining step, and it's a leader/liaison operation. Second, the foreman is flagging **Milestone M3 as merge-bottlenecked, not work-bottlenecked**: a stack of green, mergeable endo-but-for-bots PRs — [#594](https://github.com/endojs/endo-but-for-bots/pull/594) (per-package lint, the trip-wire that unblocks the poisoned lint-ceiling shepherds), [#608](https://github.com/endojs/endo-but-for-bots/pull/608), [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the endoclaw-timer chain [#609](https://github.com/endojs/endo-but-for-bots/pull/609)→[#617](https://github.com/endojs/endo-but-for-bots/pull/617)→[#619](https://github.com/endojs/endo-but-for-bots/pull/619), and the #127 mount stack — awaits a maintainer merge decision before downstream drafts can cascade.
 
-Two efforts are blocked squarely on a maintainer decision: the [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) drive (garden#29) has fixed every PR-attributable red — the lone remaining `test-codegen` failure is stale-base noise — and now needs a `rebase #9` vs `freeze #9` call to reach review; and a snapshot-mapper build hit an architecture impasse between finishing the stalled `@endo/exo-npm` [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (option A, recommended) or extending the freshly-gauntleted daemon registry [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (option B). Meanwhile finbot advanced steadily on its own fork — SES compartments plus a run of forecasting increments (multi-instrument portfolios, cyclical/harmonic, GARCH, GJR-GARCH, inference-driven DECIDE), all direct-pushed green with the wallet-safety gate holding — but repeatedly re-flags that its no-self-PR/fast-forward convention keeps stranding branches, and its cap-attenuation Phase 2 (live wallet) stays gated behind explicit `live_authorized`. On the infra side, the OCapN-Noise-WS demo is live and reproducible on minion.town, and the XS-validation effort was finalized (fork PRs #11–#14 green, garden#33 left open for you to close). Note two watchdog reports: gardener jobs `endojs-endo-but-for-bots-pr688-shepherd` and `ocapn-pet-daemon-dockerfile-minion` both deterministically overran the 2400s handler budget and need splitting into claim-sized stages.
+Several efforts are parked on a specific yes/no from you: **[kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9)** has had every PR-attributable CI red fixed (a shepherd's dprint fix took it 4 reds → 1) and all reviewer feedback addressed, so it's blocked solely on `rebase #9` vs `freeze #9`; the **snapshot-mapper build** hit an architecture impasse between finishing `@endo/exo-npm` [#403](https://github.com/endojs/endo-but-for-bots/pull/403) or stacking on the daemon-registry [#671](https://github.com/endojs/endo-but-for-bots/pull/671); and [#609](https://github.com/endojs/endo-but-for-bots/pull/609) needs a supersede-or-keep call now that kriskowal wants it redrafted as a standalone `@endo/reminder` plugin. Meanwhile the finbot cycles kept landing simulator forecasting increments (GARCH(1,1), GJR-GARCH leverage, an inference-driven DECIDE stage; 451 tests green, wallet gate holding), with its cap-attenuation Phase 2 live-run still deferred pending `live_authorized`. The XS-validation effort finalized and retired its schedule (fork PRs kriscendobot/agoric-sdk #11–#14), OCapN-Noise-WS is live on minion.town, and the only board motion was the [#682](https://github.com/endojs/endo-but-for-bots/pull/682) review job being claimed.
 
 ## Parked for maintainer feedback
 
@@ -493,8 +493,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr682-review-6fca982b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr682-review-6fca982b.md) — Review directive on endojs/endo-but-for-bots PR #682
 
 ### tada (1918)
 - [`design-endo-but-for-bots-git-capability-stack-sequencing`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-but-for-bots-git-capability-stack-sequencing.md) — Completion report
@@ -523,7 +523,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-(none)
+- [`endojs-endo-but-for-bots-pr682-review-6fca982b-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr682-review-6fca982b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #682 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
