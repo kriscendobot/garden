@@ -1,18 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T09:52:25Z_
+_As of 2026-07-11T10:11:17Z_
 
 ## Latest
 
-The headline is a **deploy gap**: the triager crash-loop fix landed on `main2` (repos default moved from `repos/` to `worktrees/`, missing-clone now a clean skip, shared `bare_clone_dir` resolver, opt-in self-provision), but the deployed root `/home/kris/garden2` sits ~10–56 commits behind, so live `garden-triager@*` units keep FATAL-looping on the stale `/repos` default. Five self-heal gardeners independently converge on the same conclusion — no code work remains; a deliberate drained `deploy-garden.sh` on the leader is the one thing that will actually stop the flapping. A separate `kriscendobot-finbot` triage circuit-breaker has OPENED (5 consecutive handler failures on the same SHA), worth confirming finbot belongs in the watch set at all under the § Monitoring safety constraint.
-
-On the projects: finbot ran four green cycles, direct-pushing to `kriscendobot/finbot@main` — it cleared its stranded-branch backlog (multi-instrument portfolios, cyclical forecaster) and then landed GARCH(1,1), GJR-GARCH leverage, all wallet-safe (445 tests, six auditor invariants PASS, wallet untouched). Its standing decision is re-flagged: the "no self-PR, fast-forward main" convention keeps stranding builder branches, and cap-attenuation Phase 2 (live CapTP transport + paper-wallet run) stays gated behind explicit `live_authorized`. The **OCapN-Noise-WS demo is live** on minion.town — a garden peer dials `wss://minion.town/ocapn`, runs Noise IK, and round-trips a capability end to end; the gardener asks whether to promote it to the full Pet Daemon bootstrap and land the Caddy route durably. [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) got a shepherd fix for the one PR-attributable red (a `dprint fmt` miss), but the rebase-vs-frozen-base decision is still pending and the stale-base boot-snapshot noise is spreading (1→9 red shards).
-
-Two watchdog alerts flag deterministic 2400s handler overruns — [endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/pull/688)'s shepherd and `ocapn-pet-daemon-dockerfile-minion` — both need splitting into claim-sized stages. And `styled-privilege-surfaces-minion-town` (in-flight) needs a maintainer value for `ELEVATION_CONTACT`; it's shipping with a safe plain-text default meanwhile.
+The triager crash-loop fix is landed on `main2` (shared `bare_clone_dir` resolver, `GARDEN_REPOS` now defaulting to `worktrees/`, opt-in self-provisioning), but the deployed root at `/home/kris/garden2` is ~56 commits behind and still carries the old `/repos` default — so `garden-triager@*` units keep FATAL-looping every tick. A drained `scripts/jobs/deploy-garden.sh` is the single remaining step and it's a leader/liaison op no gardener can run; multiple self-heal reports converge on this. finbot cleared its entire stranded-branch backlog and pushed five green increments direct to `kriscendobot/finbot@main` — the SES-compartments capability-attenuation cornerstone, multi-instrument/yield portfolios, the cyclical forecaster, then GARCH(1,1) and GJR-GARCH conditional-vol surfaces (445 tests green, `walletTouched:false` throughout); its cap-attenuation Phase 2 (live paper-wallet run, gated on `live_authorized`) and the recurring "nobody fast-forwards main" question stay open for you. The OCapN-Noise-WS demo is live and reproducible on minion.town (Caddy TLS → Noise IK → capability round-trip). On [endo-but-for-bots#684](https://github.com/endojs/endo-but-for-bots/pull/684) an auto-shepherd is now working red CI, while the [#688](https://github.com/endojs/endo-but-for-bots/pull/688) shepherd and the ocapn Pet-Daemon Dockerfile job both deterministically overran the 2400s handler budget and will be poisoned unless split into claim-sized stages. Shepherd on [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) fixed the lone PR-attributable lint red, but stale-base test-boot noise is spreading (1→9 shards) — the rebase-onto-master-vs-frozen-prototype call still awaits you, as does an `ELEVATION_CONTACT` value for the minion.town Phase C privilege surfaces.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 16h)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 17h)
 - [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 1d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 8d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 11d)
@@ -341,8 +337,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`build-heavy-handler-budget-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-heavy-handler-budget-fix.md) — Enable build-heavy jobs to succeed; poison deterministic overruns faster
+- [`endojs-endo-but-for-bots-pr684-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr684-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #684
 - [`guard-tests-from-production-journal-push`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/guard-tests-from-production-journal-push.md) — Guard: a test must never push to the production journal2
 - [`styled-privilege-surfaces-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/styled-privilege-surfaces-minion-town.md) — Build: styled privilege surfaces for minion.town (Phase C — role-aware landin...
 
