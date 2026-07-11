@@ -1,16 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T16:06:21Z_
+_As of 2026-07-11T16:09:16Z_
 
 ## Latest
 
-The garden's triager fleet crash-loop is now code-fixed on `main2` but still live in production: multiple self-heal gardeners confirm `triager.sh`/`comment-watcher.sh` now default `GARDEN_REPOS` to `worktrees/` (and self-provision missing bare clones), yet the deployed root `/home/kris/garden2` sits ~56 commits behind, so `garden-triager@*` units keep FATAL-looping until a deliberate `deploy-garden.sh` drains the fleet and advances the root — the single highest-value maintainer action right now. Relatedly, the triage circuit-breaker opened for `kriscendobot-finbot`, which also raises whether that fork belongs in the watch set at all.
+The garden's own triager fleet is wedged: the `GARDEN_REPOS` path fix (repos/ → worktrees/) is landed and green on `main2`, but the **deployed root (`/home/kris/garden2`) is ~56 commits behind**, so every `garden-triager@*` unit keeps FATAL-looping on the stale `/repos` default. Four separate self-heal gardeners converge on the same one remaining step — a drained `deploy-garden.sh` (a leader/liaison op no gardener can run). A related triage circuit-breaker OPENED on `kriscendobot-finbot`, and three watched forks (`ocapn`, `cosgov`, `agoric-3-proposals`) will still lack clones after deploy, intersecting the watch-set authorization bar.
 
-The foreman is repeatedly flagging Milestone M3 as merge-bottlenecked, not work-bottlenecked: a stack of green, mergeable endo-but-for-bots PRs awaits a merge decision — Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608), outbound-HTTP agent tools [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the endopi/mount stack ([#667](https://github.com/endojs/endo-but-for-bots/pull/667)–[#672](https://github.com/endojs/endo-but-for-bots/pull/672), [#678](https://github.com/endojs/endo-but-for-bots/pull/678)–[#681](https://github.com/endojs/endo-but-for-bots/pull/681)) — while everything downstream is gated on merging the lint-ceiling fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594), whose absence poisons gauntlets (as [#661](https://github.com/endojs/endo-but-for-bots/pull/661)'s did). The endoclaw-timer chain [#609](https://github.com/endojs/endo-but-for-bots/pull/609)→[#617](https://github.com/endojs/endo-but-for-bots/pull/617)→[#619](https://github.com/endojs/endo-but-for-bots/pull/619) additionally awaits a decision on whether kriskowal's requested `@endo/reminder` redraft supersedes the daemon-integrated stack.
+Milestone M3 is now **merge-bottlenecked, not work-bottlenecked**: the foreman flags repeatedly that a fleet of green, mergeable endo-but-for-bots PRs sits unmerged — [#608](https://github.com/endojs/endo-but-for-bots/pull/608) (Docker self-host), [#661](https://github.com/endojs/endo-but-for-bots/pull/661) (agent HTTP-client tools), the endopi stack [#667–#672](https://github.com/endojs/endo-but-for-bots/pull/671), and the #127 mount stack — all gated behind merging [#594](https://github.com/endojs/endo-but-for-bots/pull/594) (per-package lint), whose unmerged state phantom-reds every gauntlet. Two build jobs surfaced architecture impasses rather than opening PRs: mvs-resolver is already subsumed by [#671](https://github.com/endojs/endo-but-for-bots/pull/671), and snapshot-mapper needs a package-boundary decision between finishing [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (@endo/exo-npm) or extending #671. The endoclaw-timer scheduler [#609](https://github.com/endojs/endo-but-for-bots/pull/609) drew a CHANGES_REQUESTED re-architecture (redraft as a standalone `@endo/reminder` plugin) — designer work beyond the fixer scope.
 
-The `kriscendobot/agoric-sdk` [#9](https://github.com/kriscendobot/agoric-sdk/pull/9) drive (garden#29) is now blocked *solely* on a maintainer call — every PR-attributable CI check is green after the shepherd's dprint fix, leaving only known stale-base codegen noise; say `rebase #9` (onto ~503-commit-newer master) or `freeze #9` to un-draft as a frozen-base prototype. The `snapshot-mapper` build hit an architecture impasse (finish `@endo/exo-npm` [#403](https://github.com/endojs/endo-but-for-bots/pull/403) vs. stack on daemon-registry [#671](https://github.com/endojs/endo-but-for-bots/pull/671)) and needs an A/B decision.
-
-On the build side: finbot landed a rapid string of green, wallet-safe forecasting increments (multi-instrument portfolios, cyclical/harmonic forecaster, GARCH, GJR-GARCH leverage, and an inference-driven DECIDE stage) direct-to-main, with its cap-attenuation Phase 2 (live paper-wallet run) still deferred pending explicit `live_authorized`. The OCapN-Noise-WS demo is live and reproducible on minion.town, `endor-xst` core landed on draft [#600](https://github.com/endojs/endo-but-for-bots/pull/600) (flagging a stale moddable gitlink pin), and the XS-validation effort finalized across four green fork PRs (garden#33, left open for you). Two long-running shepherd jobs (`pr688-shepherd`, `ocapn-pet-daemon-dockerfile-minion`) deterministically overran the 2400s handler budget and need splitting into claim-sized stages.
+On forks: fork [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax→critical vat) is now green on every PR-attributable check after a shepherd's dprint fix and is **blocked solely on your `rebase #9` vs `freeze #9` call**; the XS-validation effort finalized across forks [#11–#14](https://github.com/kriscendobot/agoric-sdk/pull/14) and retired its orchestrator schedule; and the xs2rust `endor-xst` core landed on draft [#600](https://github.com/endojs/endo-but-for-bots/pull/600). Off-repo, finbot ran six autonomous cycles direct-pushing to its fork main — landing the full GARCH/GJR-GARCH/cyclical-forecaster ensemble and an inference-driven DECIDE stage (451 tests green, wallet gate holding) — and re-flags one standing decision: its cap-attenuation Phase 2 (live paper-wallet run) awaits your `live_authorized`. An OCapN-Noise-WS demo is live and reproducible on minion.town. Two gardener jobs (`pr688-shepherd`, `ocapn-pet-daemon-dockerfile-minion`) deterministically overran the 2400s handler budget and need splitting into claim-sized stages.
 
 ## Parked for maintainer feedback
 
@@ -472,6 +470,25 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > 2. This message to you.
 > 3. Removing journal2:schedules/xst-validation-orchestrator.md via CAS push (hourly schedule retired — no more ticks).
 > 4. [kriskowal/garden#33](https://github.com/kriskowal/garden/issues/33) left OPEN for you to close.
+
+- `20260711T160906Z-fc3717` — from gardener:xs2rust-xst-reactivate, reply_to `xs2rust-xst-reactivate` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T160906Z-fc3717.md)
+
+> Saturday-resume job (xs2rust-xst-reactivate) — HELD on 2 of 3 items: the world moved past this job's premise. Need your call.
+>
+> xs2rust effort — DONE, no action needed:
+> - schedules/xs2rust-endor-press.md is already active (hourly, last dispatch 15:50Z today). Not paused.
+> - child xs2rust-endor-stage5-fix6-verify is COMPLETE (jobs/tada/, "STAGE-5 BAR MET"). No orchestration to re-create.
+>
+> xst-validation-orchestrator — I did NOT restore it, because it was RETIRED as complete AFTER the pause:
+> - The Saturday pause is commit 96dd3e77f9 ("pause ... temporarily until Saturday").
+> - But at 2026-07-11T16:02:31Z (3 min before I claimed this job), endolinbot committed f6f64d971f: "retire xst-validation-orchestrator — XS-validation effort complete ... Hourly orchestrator schedule removed so no further ticks dispatch," citing your waiver of the Depot force:integration leg and the final summary on [kriskowal/garden#33](https://github.com/kriskowal/garden/issues/33).
+> - Restoring the paused-schedules/ orphan would UNDO that retirement and re-arm an hourly orchestrator for a finished effort. paused-schedules/xst-validation-orchestrator.md is now a stale orphan (last_dispatched frozen 2026-07-08).
+> - ASK: is the effort truly complete (I leave it retired + you may want the orphan cleaned up), or did the retirement fire in error and you still want it resumed?
+>
+> Foreman target — the override is NOT the pause-0 the job describes:
+> - ~/.config/systemd/user/garden-foreman.service.d/override.conf sets GARDEN_FOREMAN_ACTIVE_TARGET=1 (not 0), dated Jul-7, rationale "keep the foreman at a WIP of 1 — single in-flight job at a time on this instance." Current live env confirms =1.
+> - This is a standing Jul-7 throttle, predating the pause, not a pause-related 0-drop. I did NOT remove it, to avoid silently lifting a throttle you set deliberately.
+> - ASK: confirm you want to lift the WIP=1 throttle to unit-default 3? I'm on the leader host and can `rm override.conf && daemon-reload` on your word.
 
 
 ## Board
