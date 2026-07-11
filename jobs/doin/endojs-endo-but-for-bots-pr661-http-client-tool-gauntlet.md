@@ -1,1 +1,7 @@
 Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-but-for-bots PR #661 (`daemon-agent-tools-http-client-tool-wiring`), a green (23/23 checks) and MERGEABLE-CLEAN draft that wires the confined outbound-HTTP agent tool (`provideHttpClient` + `makeHttpTool`, Phase 3.6) — the M3 "confined outbound HTTP" exit-criterion pillar — from draft toward mergeable.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 10
+  claimed_at: 2026-07-11T13:28:36Z
