@@ -19,3 +19,9 @@ code points as to-avoid; (2) wire it into the jury selection process (copyeditor
 and/or typist juror seats) so a panel flags such code points; and (3) make it an
 auto-fixable pass. Precipitating example: designs/daemon-endor-pet-store-sqlite.md
 uses `→` arrows throughout.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  claimed_at: 2026-07-11T09:12:49Z
