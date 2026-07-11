@@ -6,3 +6,9 @@ Fix:
 3. Recommended (matches the intent documented at `common.sh:444-446`): replace the bare `die "no bare clone at $BARE ..."` at `triager.sh:32` with self-provisioning — when `$BARE` is missing, derive the upstream URL via `derive_clone_url "$BARE"` and clone it with `bounded_clone "$url" "$BARE"` (both already sourced from `common.sh`), logging a `provisioned missing clone` line, and only `die` if provisioning fails. This makes a triager on a host that has never held the clone self-heal instead of failing forever.
 
 Verify by running `GARDEN_ROOT=/home/kris/garden2 scripts/jobs/triager.sh kriscendobot-endo` and confirming it resolves the ref and reports no-change/triages, rather than the `no bare clone` FATAL.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 12
+  claimed_at: 2026-07-11T00:53:59Z
