@@ -1,16 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T12:09:42Z_
+_As of 2026-07-11T12:10:48Z_
 
 ## Latest
 
-The deployed garden root at `/home/kris/garden2` has drifted ~56 commits behind `origin/main2`, and that's the day's through-line: five self-heal gardeners independently confirmed the triager crash-loop fix (`GARDEN_REPOS` defaulting to `worktrees/`, a shared `bare_clone_dir` resolver) is landed and green on main2, but the stale deployed root still reads the old `/repos` default, so `garden-triager@*` units keep FATAL-looping every tick. A drained `deploy-garden.sh` is the clean fix — no code work remains.
+The only board completion this window was [endojs/endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) (endoclaw-timer interval scheduler): a fixer rebased it back to mergeable on the renamed `llm` head, but kriskowal's CHANGES_REQUESTED turns out to be a re-architecture, not a rename — he wants the mechanism redrafted as a standalone `@endo/reminder` plugin with platform-durable persistence, which would supersede the stacked [#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619). That supersede-or-keep call is open, and a designer job for `@endo/reminder` is the recommended next step.
 
-[kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (garden#29, promote ymax vat → critical) is now blocked solely on your call: a shepherd's dprint fix took fork CI from 4 reds to 1, every PR-attributable check now passes, and all reviewer feedback is addressed — the lone remaining red is known stale-base codegen noise. Say `rebase #9` (onto ~503-commit-ahead master, which should also clear that red) or `freeze #9` to un-draft as a frozen-base prototype.
+Two decisions are now the sole blockers on active efforts. On [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (promote ymax vat → critical), a shepherd's dprint fix drove fork CI from four reds to one — every PR-attributable check now passes, all reviewer feedback is addressed, and the lone remaining red is known stale-base codegen noise; the drive is stalled purely on **rebase #9** (onto ~503 commits of master) vs **freeze #9** as a frozen-base prototype. The hourly XS-validation orchestrator ([kriskowal/garden#33](https://github.com/kriskowal/garden/issues/33)) is likewise done and green, waiting on two yes/no answers: waive the Depot-gated integration leg, and whether draft [kriscendobot/agoric-sdk#14](https://github.com/kriscendobot/agoric-sdk/pull/14) counts as landed.
 
-finbot ran a tight sequence of green, direct-to-main increments — SES-compartments capability attenuation, multi-instrument yield-bearing portfolios, the cyclical/harmonic forecaster, then GARCH(1,1) and GJR-GARCH leverage-effect surfaces — clearing the entire stranded-branch backlog (445 tests green, wallet gate holds). Two decisions stay open: finbot's "no self-PR, fast-forward main" convention keeps stranding branches, and cap-attenuation Phase 2 (a first live paper-wallet run) remains gated behind `live_authorized`.
-
-[endojs/endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609) drew a re-architecture request from kriskowal — redraft the interval scheduler as a standalone `@endo/reminder` plugin — so the fixer rebased it mergeable again and recommends a designer job; stacked [#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619) are moot if the redraft supersedes them. The XS-validation orchestrator (garden#33) is holding on two yes/no answers (waive the Depot-gated integration leg; does draft [kriscendobot/agoric-sdk#14](https://github.com/kriscendobot/agoric-sdk/pull/14) count as landed). An OCapN-Noise-WS demo is live and reproducible on minion.town, and the styled-privilege-surfaces build needs an `ELEVATION_CONTACT` value. Two gardener jobs — the [#688](https://github.com/endojs/endo-but-for-bots/pull/688) shepherd and the ocapn Pet-Daemon Dockerfile build — deterministically overran the 2400s handler budget and need splitting into claim-sized stages.
+Two infrastructure items warrant attention. The triager crash-loop fix (GARDEN_REPOS defaulting to `worktrees/`, shared `bare_clone_dir()`) is fully landed and tested on main2, but the **deployed root is ~56 commits behind**, so `garden-triager@*` units keep FATAL-looping until a drained `deploy-garden.sh` — a leader/liaison operation no gardener can run. Separately, finbot has been landing a rapid series of simulator increments directly on `kriscendobot/finbot@main` (cyclical forecaster, GARCH(1,1), GJR-GARCH leverage, now 445 tests green, wallet-touched false throughout), but its triager circuit-breaker has **opened** — worth confirming `kriscendobot-finbot` belongs in the watch set at all under the monitoring-safety constraint, and deciding finbot's recurring stranded-branch decision (let builders land on main vs a weaver/conductor fast-forward sweep). Finally, two jobs deterministically overran the 2400s handler budget (`endojs-endo-but-for-bots-pr688-shepherd` and `ocapn-pet-daemon-dockerfile-minion`) and need splitting into claim-sized stages.
 
 ## Parked for maintainer feedback
 
@@ -383,17 +381,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr609-message-scheduler-rename-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr609-message-scheduler-rename-fix.md) — ---
+### doin (1)
 - [`xst-validation-orchestrator-20260711-120506`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-validation-orchestrator-20260711-120506.md) — XS-validation orchestrator (hourly) — drive the agoric-sdk XS upgrade to vali...
 
-### tada (1900)
+### tada (1901)
+- [`endojs-endo-but-for-bots-pr609-message-scheduler-rename-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr609-message-scheduler-rename-fix.md) — Completion report — endojs-endo-but-for-bots-pr609-message-scheduler-rename-fix
 - [`endojs-endo-but-for-bots-pr660-review-62ee5cda-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr660-review-62ee5cda-retro.md) — Completion report — endojs-endo-but-for-bots-pr660-review-62ee5cda-retro
 - [`endojs-endo-but-for-bots-pr660-7dd088b1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr660-7dd088b1-retro.md) — Completion report — endojs-endo-but-for-bots-pr660-7dd088b1-retro
 - [`scholar-ingest-source-habitat-chronicles-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-habitat-chronicles-5.md) — Completion report
 - [`scholar-ingest-source-habitat-chronicles-4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-habitat-chronicles-4.md) — Completion report — scholar-ingest-source-habitat-chronicles-4
-- [`ebfb-124-sqlite-nongeneralised-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-124-sqlite-nongeneralised-design.md) — Inbox empty; the job is complete. Final report:
-- … and 1895 more
+- … and 1896 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
