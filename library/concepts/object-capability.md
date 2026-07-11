@@ -27,6 +27,8 @@ The Endo daemon is a Model 4 system. The library's `capability-security` topic c
 | [endo--readme--core-concepts](../sections/endo--readme--core-concepts.md) | Endo-side definition of capability + object + reference (the practitioner's vocabulary). |
 | [endo--docs-security--overview](../sections/endo--docs-security--overview.md) | Endo's framing of capability discipline at the security-doc level. |
 | [endo--packages-eventual-send-src-handled-promise-js--safe-vs-passable-promise](../sections/endo--packages-eventual-send-src-handled-promise-js--safe-vs-passable-promise.md) | Boundary enforcement at the eventual-send shim: an untrusted promise `p` could attack the shim via `p.then`; the `isSafePromise` predicate guards. The residual reentrancy gap (the predicate itself reads `p`'s properties) is a JS-standard limitation Endo cannot close locally — a worked example of where the object-capability model meets the limits of the host language. |
+| [what-are-capabilities/what-a-capability-is](../sections/habitat-chronicles--what-are-capabilities--what-a-capability-is.md) | Plain-language ocap-model definition: a reference to an object is a capability; ocap = OOP + unforgeable references + strong encapsulation; creation/transfer/endowment. |
+| [what-are-capabilities/the-idea](../sections/habitat-chronicles--what-are-capabilities--designation-and-authority-the-idea.md) | The ACL-vs-ocap contrast at the intuitive level: don't separate designation from authority; a capability (file handle) fixes the confused-deputy flaw of ambient authority. |
 
 ## See also
 
@@ -37,6 +39,7 @@ The Endo daemon is a Model 4 system. The library's `capability-security` topic c
 - [[distributed-confinement]] — confinement is achievable *only* in the Model-4 object-capability model; the *Confinement Myth* is the canonical proof that Models 2 and 3 cannot confine while Model 4 can.
 - [[eventual-send]] — the capability-safe operation over a Model-4 reference: the only thing you can do with a reference is send it messages, and the only way it reaches a new holder is as a message argument.
 - [[capability-chain]] — dialog-db's typed-Rust realization of attenuated object-capability delegation (`Subject → Attenuation → Policy → Effect` ability paths), serializable to offline UCAN tokens.
+- [[confused-deputy]] — the failure mode the object-capability model eliminates: separating designation from authority leaves a deputy holding ambient authority it cannot wield selectively. Properties A (No Designation Without Authority) and D (No Ambient Authority) are precisely its cure.
 
 ## Common confusions
 
