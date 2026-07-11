@@ -1,20 +1,18 @@
 # Garden bulletin
 
-_As of 2026-07-11T13:46:45Z_
+_As of 2026-07-11T13:52:24Z_
 
 ## Latest
 
-The triager crash-loop fix landed on `main2` (GARDEN_REPOS now defaults to `worktrees/`, a missing bare clone became a clean skip, plus an opt-in self-provision path), but every self-heal report converges on the same gap: the **deployed root `/home/kris/garden2` is ~56 commits behind `main2`**, so live `garden-triager@*` units keep FATAL-looping on the stale `/repos` default — a drained `deploy-garden.sh` is the only thing that will actually quiet them.
+The daemon→manager rename cleared its first hop — [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598) wove onto `llm`, unblocking its parked Phase 2/3 identifier-rename jobs. But both foremen are now escalating a hardening M3 merge bottleneck: a fleet of green, mergeable PRs (#608, #656, #667–672, #678–681) sits unmerged, and every gauntlet keeps hitting the typescript-eslint projectService lint ceiling whose fix — [endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — is still unmerged, which poisoned [#661](https://github.com/endojs/endo-but-for-bots/pull/661)'s run; merging #594 trip-wires the parked `resume-lint-ceiling-shepherds` job to resume the poisoned cohort.
 
-Two foreman escalations say M3 is merge-bottlenecked on one PR: [endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) (lint-per-package). Its absence phantom-reds every gauntlet — [#661](https://github.com/endojs/endo-but-for-bots/pull/661)'s http-client gauntlet poisoned on exactly this — and merging it trip-wires the parked `resume-lint-ceiling-shepherds` job; a larger ready-but-unmerged M3 fleet (#608, #656, #667–672, #678–681) waits behind it.
+Two decisions have narrowed to the maintainer alone. On [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (promote ymax vat → critical), the shepherd's dprint fix took fork CI from 4 reds to 1 and all PR-attributable checks are green — the effort is blocked solely on `rebase #9` vs `freeze #9` (the lone red is stale-base codegen noise a rebase would clear). And XS-validation ([garden#33](https://github.com/kriskowal/garden/issues/33)) is engineering-complete and green, awaiting two yes/no answers to close out.
 
-finbot advanced hard on direct-push increments to `kriscendobot/finbot@main`, clearing its entire stranded-branch backlog: SES compartments, multi-instrument/yield portfolios, the cyclical forecaster, then GARCH(1,1), GJR-GARCH, and an inference-driven DECIDE stage — 451 tests green, wallet-safety gate holding throughout. Its standing decision (let builders land on main vs. a weaver sweep) and the security-gated cap-attenuation Phase 2 both remain open.
-
-[agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) is now blocked *solely* on a maintainer call — the shepherd's dprint fix took fork CI from 4 reds to 1 (only the known stale-base codegen red remains), all reviewer feedback is addressed, so it needs `rebase #9` or `freeze #9` to move. Elsewhere: the OCapN-Noise-WS demo is live and reproducible on minion.town, [#609](https://github.com/endojs/endo-but-for-bots/pull/609)'s message-scheduler was rebased mergeable onto `llm` pending kriskowal's redraft-or-keep decision, endor-xst core landed (still draft), and [#598](https://github.com/endojs/endo-but-for-bots/pull/598)'s daemon→manager rename phase-one weave is in flight.
+Meanwhile a cluster of self-heal jobs all converge on one gap: the triager crash-loop fix is landed and tested on `main2`, but the deployed root is ~56 commits behind, so `garden-triager@*` units keep FATAL-looping until a drained `deploy-garden.sh` — a leader/liaison deploy is the clean fix. Off the endo track, finbot landed a run of direct-to-main simulator increments (SES-compartments, multi-instrument portfolios, and cyclical/GARCH/GJR-GARCH forecasters plus an inference-driven DECIDE stage, 451 tests green, wallet gate holding), and an OCapN Noise-WS demo is live and reproducible on minion.town — both flagging cap-attenuation/keypair-binding follow-ups that need a maintainer call.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 20h)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 21h)
 - [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 1d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 8d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 11d)
@@ -427,16 +425,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`weave-endo-but-for-bots-pr598-rename-to-manager-phase-one-onto-llm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/weave-endo-but-for-bots-pr598-rename-to-manager-phase-one-onto-llm.md) — ---
+### doin (0)
+(none)
 
-### tada (1906)
+### tada (1907)
+- [`weave-endo-but-for-bots-pr598-rename-to-manager-phase-one-onto-llm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr598-rename-to-manager-phase-one-onto-llm.md) — Completion report
 - [`endojs-endo-but-for-bots-pr661-http-client-tool-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr661-http-client-tool-gauntlet.md) — Completion report — gauntlet on endojs/endo-but-for-bots PR #661
 - [`xst-validation-orchestrator-20260711-132003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-132003.md) — XS-validation orchestrator — tick report (2026-07-11 ~13:20Z)
 - [`finbot-progress-20260711-130504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260711-130504.md) — Completion report — finbot-progress-20260711-130504
 - [`endojs-endo-but-for-bots-pr609-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr609-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #609
-- [`xst-validation-orchestrator-20260711-120506`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-120506.md) — XS-validation orchestrator — tick report (2026-07-11 ~12:05Z, resumed after r...
-- … and 1901 more
+- … and 1902 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
