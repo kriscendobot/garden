@@ -17,3 +17,9 @@ endor-xst, and wire endor as the third `packages/test262-runner` host alongside 
 and `node` on the `ses-xs-parity` feature axis (the integration the engine design's
 § test262 conformance promises), so one maintained test262 subset serves both parity
 axes.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 7
+  claimed_at: 2026-07-11T07:28:07Z
