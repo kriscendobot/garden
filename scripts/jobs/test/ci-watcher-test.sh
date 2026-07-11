@@ -31,6 +31,18 @@
 #      of the retry (endojs-endo-but-for-bots#377's one-off TLS timeout must not drop
 #      a red PR for the tick)
 #
+# Stale-shepherd re-validation sweep (the pr693 exit-0-unsatisfying loop):
+#   M. a shepherd minted from a point-in-time RED whose CI self-heals to GREEN before
+#      the job is claimed → the UNCLAIMED shepherd is retired todo/→tada/, with a
+#      completion-marker-bearing report (records as genuinely done, not requeued)
+#   N. a shepherd whose CI is STILL red on re-read → left in todo/ (no premature retire)
+#   O. a shepherd already CLAIMED (in doin/) whose CI recovered → NEVER touched
+#      (unclaimed-todo/-only; never race an in-flight gardener)
+#   P. retirement fires on PENDING (rc=12, settling) and NONE (rc=11, no checks), not
+#      just green — the red that minted it is simply no longer red
+#   Q. an UNREADABLE re-read (rc not 0/10/11/12) leaves the shepherd in todo/ (never
+#      guess a state — same discipline as the post pass)
+#
 # Usage: ci-watcher-test.sh
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -96,6 +108,30 @@ todo_count() {  # todo_count <bare>  -> non-gitkeep entries in jobs/todo
   local v n; v="$(mktemp -d "$TR/tc.XXXXXX")"
   git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
   n=$(ls -1 "$v/jobs/todo" | grep -vxc '.gitkeep' || true); rm -rf "$v"; printf '%s' "$n"
+}
+in_lane() {  # in_lane <bare> <lane> <base>  -> 0 if jobs/<lane>/<base>.md present
+  local v rc=1; v="$(mktemp -d "$TR/il.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
+  [ -e "$v/jobs/$2/$3.md" ] && rc=0; rm -rf "$v"; return $rc
+}
+# The deterministic completion marker the retirement report must carry so the board
+# records the stale shepherd as GENUINELY done (mirrors common.sh GARDEN_COMPLETION_MARKER).
+CMARK='<<<GARDEN-JOB-COMPLETE>>>'
+tada_has_marker() {  # tada_has_marker <bare> <base>  -> 0 if tada report's last non-blank line is the marker
+  local v rc=1 last; v="$(mktemp -d "$TR/tm.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
+  if [ -e "$v/jobs/tada/$2.md" ]; then
+    last="$(awk 'NF{l=$0} END{print l}' "$v/jobs/tada/$2.md")"
+    [ "$last" = "$CMARK" ] && rc=0
+  fi
+  rm -rf "$v"; return $rc
+}
+claim_in_bare() {  # claim_in_bare <bare> <base>  -> simulate a gardener claim: todo/ -> doin/
+  local v; v="$(mktemp -d "$TR/cl.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
+  git -C "$v" mv "jobs/todo/$2.md" "jobs/doin/$2.md"
+  git -C "$v" "${git_id[@]}" commit -q -m "claim $2"
+  git -C "$v" push -q origin "$BRANCH"; rm -rf "$v"
 }
 
 # Timestamps computed against the real clock so the activity-window assertions hold
@@ -321,6 +357,60 @@ env GARDEN_GH="$RECOVER" GH_STUB_COUNT="$CNT" GH_STUB_FAIL_TIMES=1 \
     "$ROLLUP" "$REPO" 999 >/dev/null 2>&1 || rc=$?
 [ "$(cat "$CNT")" -eq 2 ] && ok "green recovery also retries exactly once (2 attempts)" || bad "expected 2 attempts, got $(cat "$CNT")"
 [ "$rc" -eq 10 ] && ok "recovered read yields the REAL green verdict (exit 10), not a skip" || bad "expected exit 10 (GREEN) after recovery, got $rc"
+
+# ============================================================================
+hr; echo "M — stale-shepherd sweep: red self-heals to GREEN before claim → retired"; hr
+# Tick 1 mints the shepherd from a point-in-time RED; tick 2's rollup is GREEN, so the
+# UNCLAIMED shepherd is stale and the sweep retires it todo/→tada/ (the pr693 loop).
+BARE_M="$TR/m.git"; seed_bare "$BARE_M"
+FIX_M="$TR/fix-m.tsv"; prline 100 kriscendobot "$REPO" > "$FIX_M"
+run_ci "$TR/state-m" "$BARE_M" "$FIX_M" "100=0"     # red → shepherd posted to todo
+in_lane "$BARE_M" todo "$SLUG-pr100-shepherd" && ok "tick1: shepherd minted into todo/" || bad "tick1: shepherd not in todo"
+run_ci "$TR/state-m" "$BARE_M" "$FIX_M" "100=10"    # now green → stale, retire
+in_lane "$BARE_M" todo "$SLUG-pr100-shepherd" && bad "stale shepherd still in todo (not retired)" || ok "stale shepherd removed from todo (retired)"
+in_lane "$BARE_M" tada "$SLUG-pr100-shepherd" && ok "stale shepherd landed in tada (recorded done)" || bad "stale shepherd not in tada"
+[ "$(todo_count "$BARE_M")" -eq 0 ] && ok "todo drained to zero after retirement" || bad "todo not drained ($(todo_count "$BARE_M"))"
+tada_has_marker "$BARE_M" "$SLUG-pr100-shepherd" && ok "retirement report carries the completion marker (records as genuinely done)" || bad "retirement report missing completion marker"
+
+# ============================================================================
+hr; echo "N — sweep leaves a shepherd whose CI is STILL red (no premature retirement)"; hr
+BARE_N="$TR/n.git"; seed_bare "$BARE_N"
+FIX_N="$TR/fix-n.tsv"; prline 101 kriscendobot "$REPO" > "$FIX_N"
+run_ci "$TR/state-n" "$BARE_N" "$FIX_N" "101=0"     # red → shepherd posted
+run_ci "$TR/state-n" "$BARE_N" "$FIX_N" "101=0"     # still red → must NOT retire
+in_lane "$BARE_N" todo "$SLUG-pr101-shepherd" && ok "still-red shepherd stays in todo (not retired)" || bad "still-red shepherd wrongly retired"
+in_lane "$BARE_N" tada "$SLUG-pr101-shepherd" && bad "still-red shepherd wrongly moved to tada" || ok "still-red shepherd not in tada"
+
+# ============================================================================
+hr; echo "O — sweep NEVER touches a CLAIMED (doin/) shepherd, even if CI recovered"; hr
+BARE_O="$TR/o.git"; seed_bare "$BARE_O"
+FIX_O="$TR/fix-o.tsv"; prline 102 kriscendobot "$REPO" > "$FIX_O"
+run_ci "$TR/state-o" "$BARE_O" "$FIX_O" "102=0"     # red → shepherd posted to todo
+claim_in_bare "$BARE_O" "$SLUG-pr102-shepherd"      # a gardener claims it: todo → doin
+run_ci "$TR/state-o" "$BARE_O" "$FIX_O" "102=10"    # now green, but it is CLAIMED
+in_lane "$BARE_O" doin "$SLUG-pr102-shepherd" && ok "claimed shepherd untouched in doin (never race an in-flight gardener)" || bad "claimed shepherd disappeared from doin"
+in_lane "$BARE_O" tada "$SLUG-pr102-shepherd" && bad "claimed shepherd wrongly retired to tada" || ok "claimed shepherd not retired"
+
+# ============================================================================
+hr; echo "P — sweep retires on PENDING (settling) and NONE (no checks), not just green"; hr
+BARE_P="$TR/p.git"; seed_bare "$BARE_P"
+FIX_P="$TR/fix-p.tsv"
+{ prline 103 kriscendobot "$REPO"     # will settle to PENDING (in-progress → later green)
+  prline 104 kriscendobot "$REPO"; } > "$FIX_P"   # will settle to NONE (checks vanished)
+run_ci "$TR/state-p" "$BARE_P" "$FIX_P" "103=0 104=0"     # both red → both posted
+run_ci "$TR/state-p" "$BARE_P" "$FIX_P" "103=12 104=11"   # pending + none → both stale
+in_lane "$BARE_P" tada "$SLUG-pr103-shepherd" && ok "pending (rc=12) shepherd retired" || bad "pending shepherd not retired"
+in_lane "$BARE_P" tada "$SLUG-pr104-shepherd" && ok "no-checks (rc=11) shepherd retired" || bad "no-checks shepherd not retired"
+[ "$(todo_count "$BARE_P")" -eq 0 ] && ok "todo drained to zero (both retired)" || bad "todo not drained ($(todo_count "$BARE_P"))"
+
+# ============================================================================
+hr; echo "Q — sweep leaves a shepherd on an UNREADABLE re-read (never guess a state)"; hr
+BARE_Q="$TR/q.git"; seed_bare "$BARE_Q"
+FIX_Q="$TR/fix-q.tsv"; prline 105 kriscendobot "$REPO" > "$FIX_Q"
+run_ci "$TR/state-q" "$BARE_Q" "$FIX_Q" "105=0"     # red → shepherd posted
+run_ci "$TR/state-q" "$BARE_Q" "$FIX_Q" "105=1"     # rc=1 unreadable → must NOT retire
+in_lane "$BARE_Q" todo "$SLUG-pr105-shepherd" && ok "unreadable re-read leaves shepherd in todo (never guess)" || bad "unreadable re-read wrongly retired shepherd"
+in_lane "$BARE_Q" tada "$SLUG-pr105-shepherd" && bad "unreadable re-read wrongly moved shepherd to tada" || ok "unreadable re-read did not retire"
 
 # ============================================================================
 hr

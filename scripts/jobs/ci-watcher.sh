@@ -25,6 +25,17 @@
 #         shepherd already live for that PR, post <slug>-pr<N>-shepherd
 #       → back off on a rollup still QUEUED/IN_PROGRESS; do nothing on green.
 #
+# A second per-tick pass — the STALE-SHEPHERD RE-VALIDATION SWEEP — closes the
+# false-positive-wedge loop: a shepherd minted from a point-in-time red whose CI
+# self-heals BEFORE the job is claimed (a flake that later passes, or an in-progress
+# check that later goes green) would be claimed, re-fetch a no-longer-red CI, exit 0
+# without the completion marker, and get requeued+escalated as a phantom "WEDGED
+# child" (endojs-endo-but-for-bots-pr693, journal 2026-07-11T18:34Z). So each tick,
+# every auto-shepherd base still UNCLAIMED in todo/ has its rollup re-read; a verdict
+# no longer RED (green/none/pending) retires the shepherd deterministically
+# (todo→tada, completion marker carried) so it is never claimed to begin with.
+# doin/ claims are never touched — retirement is unclaimed-todo/-only.
+#
 # ── Idempotency / anti-thrash ────────────────────────────────────────────────
 # The basename is the SAME one the manual-shepherd path mints (comment-watcher.sh:
 # `<slug>-pr<N>-shepherd`), so the two producers can never double-post: post-job.sh
@@ -70,6 +81,11 @@ GARDEN_TAG="ci-watcher/$slug"
 : "${GARDEN_CI_POST:=$HERE/post-job.sh}"
 : "${GARDEN_CI_VERIFY_CLONE:=$GARDEN_STATE/ci-watcher/verify}"
 VERIFY="$GARDEN_CI_VERIFY_CLONE"
+# A write clone for the stale-shepherd re-validation sweep (below): it moves a stale
+# auto-shepherd todo/→tada/ with a CAS push, so it needs a working tree of its own,
+# distinct from the read-only VERIFY clone and from post-job.sh's producer clone.
+: "${GARDEN_CI_RETIRE_CLONE:=$GARDEN_STATE/ci-watcher/retire}"
+RETIRE="$GARDEN_CI_RETIRE_CLONE"
 # Bound the PR-source enumeration so a hung gh/git can never outlive the tick.
 : "${GARDEN_CI_SOURCE_TIMEOUT_SECS:=180}"
 : "${GARDEN_CI_KILL_AFTER:=10s}"
@@ -152,6 +168,52 @@ posted_anywhere() {  # posted_anywhere <base> [fresh]
   for sub in "$JOBS_TODO" "$JOBS_DOIN" "$JOBS_TADA"; do
     git -C "$VERIFY" cat-file -e "origin/$JOURNAL_BRANCH:$sub/$base.md" 2>/dev/null && return 0
   done
+  return 1
+}
+
+# --- retire a stale auto-shepherd (todo/ → tada/, CAS) -----------------------
+# Deterministically retire an UNCLAIMED auto-shepherd whose red self-healed before
+# the job was claimed: move jobs/todo/<base>.md → jobs/tada/<base>.md with an auto
+# completion report carrying the completion marker, so the board records it as
+# genuinely done rather than leaving it to be claimed, re-fetch a no-longer-red CI,
+# and exit-0-unsatisfying (the endojs-endo-but-for-bots-pr693 phantom-wedge loop,
+# journal 2026-07-11T18:34Z). CAS-pushed on a dedicated write clone exactly like a
+# post; the doin/-only guard (never touch a claim) is re-checked inside the retry
+# loop so a gardener that claims between our rollup read and our push is never raced.
+# rc 0 retired (or already gone), 2 no-longer-unclaimed (left in place), 1 gave up.
+retire_stale_shepherd() {  # retire_stale_shepherd <base> <verdict-phrase>
+  local base="$1" phrase="$2" attempt rc
+  ensure_clone "$RETIRE"
+  for attempt in $(seq 1 "${GARDEN_CI_RETIRE_ATTEMPTS:-50}"); do
+    sync_clone "$RETIRE"
+    # UNCLAIMED-only: if the job is no longer in todo/ (a gardener claimed it into
+    # doin/, or it already drained to tada/), never touch it — we must not race an
+    # in-flight gardener's claim (the "todo/ only" restriction the job specifies).
+    if [ ! -e "$RETIRE/$JOBS_TODO/$base.md" ]; then
+      log "stale-shepherd $base no longer unclaimed in todo/ (claimed or completed) — leaving it"
+      return 2
+    fi
+    mkdir -p "$RETIRE/$JOBS_TADA"
+    {
+      printf '# shepherd (auto) retired: CI recovered/settled before claim\n\n'
+      printf 'CI recovered/settled before claim — nothing to shepherd; ci-watcher retired\n'
+      printf 'this stale auto-shepherd. The CI-status watcher minted `%s`\n' "$base"
+      printf 'from a point-in-time RED rollup read; on a later tick the live rollup was\n'
+      printf '%s (no longer red), so this stale auto-shepherd was retired\n' "$phrase"
+      printf 'deterministically (todo -> tada) rather than left to be claimed, re-fetch a\n'
+      printf 'no-longer-red CI, and exit-0-unsatisfying.\n\n'
+      printf 'Retired by: ci-watcher stale-shepherd re-validation sweep on %s.\n\n' "$GARDEN"
+      printf '%s\n' "$GARDEN_COMPLETION_MARKER"
+    } > "$RETIRE/$JOBS_TADA/$base.md"
+    git -C "$RETIRE" add "$JOBS_TADA/$base.md"
+    git -C "$RETIRE" rm -q "$JOBS_TODO/$base.md"
+    rc=0; commit_and_push "$RETIRE" "tada($base) retired stale auto-shepherd by $GARDEN (CI $phrase)" || rc=$?
+    [ "$rc" -eq 0 ] && return 0
+    [ "$rc" -eq 2 ] && return 0   # nothing to commit — already retired/settled
+    log "retire of '$base' lost a push race (attempt $attempt); re-syncing"
+    backoff "$attempt"
+  done
+  log "WARN: could not retire stale shepherd '$base' after retries"
   return 1
 }
 
@@ -312,4 +374,57 @@ fi
 # across the tick rather than clustered at the front, e.g. an activity-bounded handful.)
 if [ "$unreadable" -gt 0 ] && [ "$unreadable" -eq "$((ours - stale))" ]; then
   log "WARN: $unreadable/$((ours - stale)) read bot PR rollups unreadable this tick — likely a systemic gh outage (auth/rate-limit/network), not per-PR"
+fi
+
+# ── Stale-shepherd re-validation sweep ───────────────────────────────────────
+# Close the false-positive-wedge loop (the endojs-endo-but-for-bots-pr693
+# exit-0-unsatisfying escalation, journal 2026-07-11T18:34Z). An auto-shepherd is
+# minted from a POINT-IN-TIME red rollup; if that red self-heals before the job is
+# claimed — a flake that later passes, or a check still IN_PROGRESS that later goes
+# green — the shepherd agent re-fetches, finds CI no-longer-red, has nothing to do,
+# and exits 0 WITHOUT the completion marker. gardener.sh classifies that
+# exit-0-unsatisfying, requeues doin→todo, and the elapsed-constancy detector
+# escalates a phantom `kind:error` "WEDGED child". So each tick, for every
+# auto-shepherd base this watcher owns that is still UNCLAIMED in todo/, re-read the
+# rollup: if it is no longer RED (green/none/pending), the shepherd is stale — retire
+# it deterministically (todo → tada) so it is never claimed to begin with, breaking
+# the requeue/escalation cycle. Board-driven (enumerate todo/, not the PR source), so
+# a stale shepherd for a PR now beyond the activity window is still caught. Skipped
+# when the cascade breaker tripped above (that `exit 0`s before here), so the sweep
+# never fires more rollup reads at an already-throttled API. Leader-only comes free:
+# this runs inside the same is-main-host.sh-gated unit as the post path (header
+# § Leader-only singleton), so a follower never double-retires.
+retired=0; revalidated=0
+if verify_fetch fresh; then
+  # Enumerate THIS watcher's shepherd jobs currently in todo/ on the live board.
+  todo_shepherds="$(git -C "$VERIFY" ls-tree --name-only "origin/$JOURNAL_BRANCH:$JOBS_TODO" 2>/dev/null \
+                      | sed -n 's/\.md$//p' | grep -E "^${slug}-pr[0-9]+-shepherd$" || true)"
+  for base in $todo_shepherds; do
+    pr="${base#"$slug"-pr}"; pr="${pr%-shepherd}"
+    case "$pr" in ''|*[!0-9]*) continue ;; esac   # defensive: numeric PR ids only
+    revalidated=$((revalidated+1))
+    # Re-read the rollup DETERMINISTICALLY — same handler, same verdict codes as the
+    # post pass. Only a definitive no-longer-red verdict retires; an unreadable state
+    # leaves the shepherd untouched (never guess a state).
+    rerr="$(mktemp)"
+    set +e; "$GARDEN_CI_ROLLUP" "$repo" "$pr" >/dev/null 2>"$rerr"; srrc=$?; set -e
+    case "$srrc" in
+      0)  rm -f "$rerr"; log "stale-check #$pr still RED — auto-shepherd $base stands"; continue ;;
+      10) rm -f "$rerr"; phrase="green" ;;
+      11) rm -f "$rerr"; phrase="reporting no checks" ;;
+      12) rm -f "$rerr"; phrase="in progress/queued (settling)" ;;
+      *)  smsg="$(head -n1 "$rerr" 2>/dev/null)"; rm -f "$rerr"
+          log "WARN: stale-check #$pr rollup unreadable (rc=$srrc): ${smsg:-<no stderr>} — leaving $base (never guess a state)"
+          continue ;;
+    esac
+    if retire_stale_shepherd "$base" "$phrase"; then
+      log "retired stale auto-shepherd $base (#$pr CI $phrase, no longer red — nothing to shepherd)"
+      retired=$((retired+1))
+    fi
+  done
+else
+  log "WARN: stale-shepherd sweep skipped this tick — journal fetch failed (never guess board state)"
+fi
+if [ "$revalidated" -gt 0 ]; then
+  log "stale-shepherd sweep on $repo: re-validated $revalidated unclaimed auto-shepherd(s), retired $retired"
 fi
