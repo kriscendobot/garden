@@ -8,3 +8,9 @@ What to change: for every shepherd base this watcher owns (`$slug-pr<N>-shepherd
 Restrict retirement to **`todo/` (unclaimed) only** — never touch a `doin/` claim, to avoid racing an in-flight gardener. This is sufficient to break the observed loop: exit-0-unsatisfying requeues the wedging job doin→todo, so on the next ci-watcher tick the now-in-`todo/` stale shepherd is retired instead of re-claimed, ending the requeue/escalation cycle rather than burning toward the poison threshold.
 
 Residual (prose, not this job's single script): the durable complement is for the shepherd itself to emit a clean completion marker when it re-fetches and finds CI green/settled, so an in-flight (`doin/`) no-op records as done rather than exit-0-unsatisfying — that lives in `roles/shepherd/AGENT.md` and is an agent-instruction change, out of scope for this script-level hardening.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 14
+  claimed_at: 2026-07-11T18:54:45Z
