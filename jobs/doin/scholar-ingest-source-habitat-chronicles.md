@@ -41,3 +41,9 @@ Standard scholar bounds (roles/scholar/AGENT.md): write only under
 bulletin edits; no sub-agent dispatch. If the source fans out beyond this job's
 budget, write what's supported and post a follow-on `scholar-ingest-source-habitat-chronicles`
 job for the remainder, then complete.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  claimed_at: 2026-07-11T02:34:10Z
