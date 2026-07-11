@@ -84,8 +84,4 @@ the `roles/proxy/AGENT.md` § PR-comment auto-clear section, and green tests. Af
 deploy, the proxy autonomously acknowledges PR-comment maintainer messages every
 tick, leaving live gating questions and non-PR traffic for the maintainer.
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  claimed_at: 2026-07-11T04:50:42Z
+<!-- garden-reaped: 1 -->
