@@ -67,6 +67,8 @@
 | [Symphony spec-as-product and dogfooding](../sections/web--openai-symphony-codex-orchestration--spec-driven-dogfooding.md) | Symphony (OpenAI) | Symphony ships as a single SPEC.md with an Elixir reference impl and uses Codex App Server; the reference-implementation-as-product posture. |
 | [overview (Muse Spark via llm-meta-ai)](../sections/web--willison-muse-spark-1-1--overview.md) | frontier-model-apis, llm-agent-frameworks | Simon Willison's LLM CLI + `llm-meta-ai` plugin as the harness for Meta's Muse Spark 1.1; the entry point connecting a hosted frontier model to a scriptable tool-calling loop. |
 | [llm-meta-ai invocation and features](../sections/web--simonw-llm-meta-ai--invocation-and-features.md) | llm-agent-frameworks | The full harness path (install/auth/model/attachments/tools/schemas) and the tool-execution-loop mechanism that makes an agentic loop reachable for Muse Spark through `llm`. |
+| [Adventures In LLM Land — germane thesis](../sections/habitat-chronicles--adventures-in-llm-land--overview.md) | Adventures in LLM Land (Morningstar) | Getting the maximum benefit from AI coding tools takes a surprising amount of discipline — a different discipline than traditional programming. |
+| [agentic development and the agent flock](../sections/habitat-chronicles--adventures-in-llm-land--agentic-development-and-the-agent-flock.md) | Adventures in LLM Land (Morningstar) | Each AI coding tool behaves like a super-smart but tasteless junior hire; the productive posture is engineering management of the flock. |
 
 ## See also
 
