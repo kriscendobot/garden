@@ -2,7 +2,7 @@
 order: serial
 children: ocapn-noise-demo-pr ocapn-daemon-minion-deploy-demo ocapn-two-daemon-invite-accept
 on-child-failure: continue
-state: pending
+state: running
 created_by: orchestrator
 created_at: 2026-07-11T03:51:59Z
 ---
