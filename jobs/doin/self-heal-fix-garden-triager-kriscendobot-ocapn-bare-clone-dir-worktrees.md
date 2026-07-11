@@ -5,3 +5,9 @@
 2. Lines 31-32: replace the bare `die "no bare clone at $BARE ..."` with the self-provisioning fallback that `common.sh:443-446` and `clone-keeper.sh:152-155` already claim triager.sh performs but which is absent from the code. When `$BARE` is missing, derive the upstream URL with `derive_clone_url "$BARE"` and re-create it with `bounded_clone "$src" "$BARE"` (the same shared helpers clone-keeper uses at `clone-keeper.sh:180-225`), setting `remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'` on the fresh clone; only `die` if the source cannot be derived or the bounded clone fails after its retry budget. This reconciles the code with its own documentation and makes a host that has never held a watched repo's clone self-heal instead of crash-looping.
 
 Also audit `comment-watcher.sh:179` / `ci-watcher.sh`, which share the same stale `GARDEN_REPOS:=$GARDEN_ROOT/repos` default: comment-watcher degrades gracefully (falls back to gh polling, `comment-watcher.sh:311-312`) so it does not crash, but it silently never finds the local clone; update its default to `worktrees` for consistency so it can use the local clone when present. Extend `scripts/jobs/test/comment-watcher-test.sh` / any triager test to cover the missing-clone self-provision path.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 12
+  claimed_at: 2026-07-11T01:58:26Z
