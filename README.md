@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T10:11:17Z_
+_As of 2026-07-11T10:16:06Z_
 
 ## Latest
 
-The triager crash-loop fix is landed on `main2` (shared `bare_clone_dir` resolver, `GARDEN_REPOS` now defaulting to `worktrees/`, opt-in self-provisioning), but the deployed root at `/home/kris/garden2` is ~56 commits behind and still carries the old `/repos` default — so `garden-triager@*` units keep FATAL-looping every tick. A drained `scripts/jobs/deploy-garden.sh` is the single remaining step and it's a leader/liaison op no gardener can run; multiple self-heal reports converge on this. finbot cleared its entire stranded-branch backlog and pushed five green increments direct to `kriscendobot/finbot@main` — the SES-compartments capability-attenuation cornerstone, multi-instrument/yield portfolios, the cyclical forecaster, then GARCH(1,1) and GJR-GARCH conditional-vol surfaces (445 tests green, `walletTouched:false` throughout); its cap-attenuation Phase 2 (live paper-wallet run, gated on `live_authorized`) and the recurring "nobody fast-forwards main" question stay open for you. The OCapN-Noise-WS demo is live and reproducible on minion.town (Caddy TLS → Noise IK → capability round-trip). On [endo-but-for-bots#684](https://github.com/endojs/endo-but-for-bots/pull/684) an auto-shepherd is now working red CI, while the [#688](https://github.com/endojs/endo-but-for-bots/pull/688) shepherd and the ocapn Pet-Daemon Dockerfile job both deterministically overran the 2400s handler budget and will be poisoned unless split into claim-sized stages. Shepherd on [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) fixed the lone PR-attributable lint red, but stale-base test-boot noise is spreading (1→9 shards) — the rebase-onto-master-vs-frozen-prototype call still awaits you, as does an `ELEVATION_CONTACT` value for the minion.town Phase C privilege surfaces.
+The headline for a maintainer is a **deploy gap**: five independent self-heal gardeners converged on the same diagnosis — the fleet-wide `garden-triager@*` crash-loop is already fixed in `main2` (GARDEN_REPOS now defaults to `worktrees/` via a shared `bare_clone_dir()`, missing clones skip instead of dying), but the deployed root `/home/kris/garden2` is ~56 commits behind and still runs the old `/repos` default, so triagers keep FATAL-looping at runtime. A drained `deploy-garden.sh` (a leader/liaison operation) is the clean fix; all eight own-fork bare clones now exist under `worktrees/`, so post-deploy the provisioner is a no-op. Relatedly, a triage circuit-breaker opened on `kriscendobot-finbot`, and gardeners flagged that finbot/ocapn/cosgov/agoric-3-proposals may not belong in the watch set under the § Monitoring safety constraint — worth a decision.
+
+On projects: finbot landed a rapid run of direct-push simulator increments (SES compartments, multi-instrument yield portfolios, cyclical forecaster, then GARCH(1,1), and GJR-GARCH), all green (445 tests) with the wallet-safety gate holding; the recurring open question is whether builders should keep fast-forwarding `main` directly or a weaver/conductor sweep should land branches promptly to stop the per-cycle rebase cost. The OCapN-Noise-WS demo is live and round-tripping a capability on minion.town, endor-xst core landed on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) (still draft, with a flagged submodule-pin mismatch), and a shepherd cleared the one PR-attributable lint red on [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) — though its stale-base test-boot noise is spreading, sharpening the pending rebase-vs-frozen-prototype call.
+
+Two decisions are blocking builds: the minion.town styled-privilege work needs an `ELEVATION_CONTACT` value, and two jobs ([endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/pull/688) shepherd and the ocapn pet-daemon Dockerfile) deterministically overran the 2400s handler budget and need splitting into claim-sized stages.
 
 ## Parked for maintainer feedback
 
@@ -337,19 +341,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`build-heavy-handler-budget-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-heavy-handler-budget-fix.md) — Enable build-heavy jobs to succeed; poison deterministic overruns faster
 - [`endojs-endo-but-for-bots-pr684-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr684-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #684
-- [`guard-tests-from-production-journal-push`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/guard-tests-from-production-journal-push.md) — Guard: a test must never push to the production journal2
 - [`styled-privilege-surfaces-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/styled-privilege-surfaces-minion-town.md) — Build: styled privilege surfaces for minion.town (Phase C — role-aware landin...
 
-### tada (1889)
+### tada (1890)
+- [`guard-tests-from-production-journal-push`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/guard-tests-from-production-journal-push.md) — Completion report
 - [`xst-validation-orchestrator-20260711-095011`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-095011.md) — XS-validation orchestrator — tick report (2026-07-11 ~09:55Z)
 - [`ocapn-pet-daemon-dockerfile-minion`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-pet-daemon-dockerfile-minion.md) — Completion report
 - [`build-endo-daemon-aws-storage-wiring`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-daemon-aws-storage-wiring.md) — Completion report
 - [`garden-style-typist-codepoints`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-style-typist-codepoints.md) — Completion report:
-- [`build-account-store-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-account-store-minion-town.md) — Completion report: build-account-store-minion-town (Phase A)
-- … and 1884 more
+- … and 1885 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
