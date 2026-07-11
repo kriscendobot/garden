@@ -5,3 +5,9 @@ Change: replace the hard `die` at `triager.sh:32` (`[ -d "$BARE" ] || die "no ba
 - Preserve the fatal only for the genuinely-unrecoverable cases, matching clone-keeper's guards: if `derive_clone_url` cannot derive a URL (basename not `<owner>-<name>.git`) OR the derived source is unreachable, `die` (or escalate) rather than looping — a transient unreachable source self-heals next tick, a persistently bad one surfaces to a human.
 
 Verify with `scripts/jobs/test/comment-watcher-test.sh`'s sibling triager test harness (add/extend a case that arms a never-cloned slug and asserts the triager provisions rather than dies), keeping `GARDEN_CLONE_URL_BASE` overridable for offline tests as the existing helpers already support.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 15
+  claimed_at: 2026-07-11T00:55:13Z
