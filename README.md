@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T09:08:50Z_
+_As of 2026-07-11T09:12:59Z_
 
 ## Latest
 
-The most maintainer-actionable thread is a **deploy gap**: the triager crash-loop fix is fully landed and tested on `main2` (GARDEN_REPOS now defaults to `worktrees/` via a shared `bare_clone_dir()` resolver, missing clones skip instead of dying), but the deployed root at `/home/kris/garden2` is ~56 commits behind and still carries the stale `/repos` default — so `garden-triager@*` units keep FATAL-looping every tick. Five converging self-heal reports agree there's no code work left; only a drained `deploy-garden.sh` (a leader/liaison operation) will actually clear the storm. All eight own-fork bare clones now exist under `worktrees/`, so post-deploy the triagers should tick cleanly.
+The deployed garden root has drifted ~56 commits behind `main2`, and five self-heal gardeners independently reach the same verdict: the triager `GARDEN_REPOS` fix (repos/→worktrees/, plus opt-in self-provisioning of missing bare clones) is already landed and green (triager 68/0, comment-watcher 213/0), but every `garden-triager@*` unit keeps FATAL-looping until a drained `deploy-garden.sh` advances the root — a leader/liaison operation no gardener can run. A triage circuit-breaker has already opened for `kriscendobot-finbot`. **The pending deploy is the single blocker to fleet recovery** and should be run when the fleet is quiet.
 
-On the project side, **finbot** cleared its entire stranded-branch backlog and then kept advancing on the ensemble-forecasting axis — landing multi-instrument yield-bearing portfolios, a cyclical (seasonal + residual-GBM) forecaster, GARCH(1,1), and GJR-GARCH leverage-effect vol surfaces directly on `kriscendobot/finbot@main` (up to 445 green tests, safety gate holding: all six auditor invariants pass, wallet untouched). Two decisions recur unanswered: finbot's "no self-PR, fast-forward main" convention keeps stranding builder branches behind a diverging main, and cap-attenuation Phase 2 (live CapTP transport + first paper-wallet run) stays gated behind `live_authorized` pending your authorization.
+On kriscendobot/finbot, gardeners landed five green increments direct-to-main over the last day — SES compartments (the cap-attenuation safety cornerstone), multi-instrument yield-bearing portfolios, a harmonic/cyclical forecaster, and GARCH(1,1) then GJR-GARCH volatility surfaces — clearing the entire stranded-branch backlog (445 tests green, all six auditor invariants pass, wallet untouched throughout). Two decisions stand open: whether to let builders land finbot increments directly (vs. standing up a weaver/conductor sweep to stop branches stranding behind a diverging main), and cap-attenuation Phase 2's first live paper-wallet/test-net run, which stays gated behind explicit `live_authorized`.
 
-Elsewhere: the **xs2rust-endor** `endor-xst` runner core landed on draft PR #600 (convergence child 1/5), with a flagged submodule pin mismatch — the committed `c/moddable` gitlink is 8.0.1 but the branch's oracle pin and byte-identity test require 8.3.1, so a fresh checkout reds the gate until someone bumps the gitlink. The **OCapN-Noise-WS demo** is live and reproducible on minion.town (Caddy TLS → Noise IK → capability invoke). A shepherd fixed the one PR-attributable lint red on [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9), but its remaining reds are growing stale-base noise (base trails ~503 commits) — the rebase-vs-frozen-prototype call is still yours. Finally, a watchdog flagged that [endojs/endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/pull/688)'s shepherd job deterministically overran its 2400s handler budget and needs splitting into claim-sized stages before the reaper poisons it.
+Elsewhere: a shepherd fixed the one PR-attributable lint red on [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9), but the remaining reds are growing stale-base boot-snapshot noise (spread from 1 shard to ~9), sharpening the pending rebase-vs-frozen-base-prototype call. The OCapN-Noise-WS demo is now live and reproducible on minion.town (Caddy TLS → loopback WS → Noise IK → capability invoke). [endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/pull/688)'s shepherd completed but deterministically overran its 2400s handler budget — flagged for splitting into claim-sized stages. Three minion.town builds are in flight (Phase A account store, the Pet Daemon Dockerfile, and Phase C styled privilege surfaces); the last needs an `ELEVATION_CONTACT` value from you and is shipping with a plain-text default in the meantime.
 
 ## Parked for maintainer feedback
 
@@ -334,12 +334,25 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > gardener job 'endojs-endo-but-for-bots-pr688-shepherd' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
+- `20260711T091158Z-fa9a03` — from gardener:styled-privilege-surfaces-minion-town, reply_to `styled-privilege-surfaces-minion-town` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T091158Z-fa9a03.md)
+
+> Phase C (styled privilege surfaces, minion.town) — need the ELEVATION_CONTACT value.
+>
+> This is the maintainer decision the promotion implies (design open question 4). It is rendered into the landing role panel and the insufficient-privilege 403 page as the elevation line, e.g. "Access is granted by the town's keeper — <contact>."
+>
+> Options: a mailto: (e.g. mailto:keeper@minion.town), a GitHub issue URL, or plain text ("ask the keeper"). What should it be?
+>
+> I'm implementing it as a config value (ELEVATION_CONTACT env var) with a safe default of the plain text "the town's keeper" so the code ships complete; just tell me the production value to set in the AWS systemd EnvironmentFile (and I'll note it in DEPLOYMENT.md). Proceeding with the build in the meantime.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (5)
+- [`build-account-store-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-account-store-minion-town.md) — Build: account store + auto-provisioning for minion.town (Phase A — ships dar...
+- [`build-endo-daemon-aws-storage-wiring`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-daemon-aws-storage-wiring.md) — Build: wire the AWS storage platform into a daemon flavour (phases 2-3 of des...
+- [`garden-style-typist-codepoints`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-style-typist-codepoints.md) — ---
 - [`ocapn-pet-daemon-dockerfile-minion`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-pet-daemon-dockerfile-minion.md) — Reproducible Dockerfile for the full Endo Pet Daemon on minion.town (WS+Noise)
 - [`styled-privilege-surfaces-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/styled-privilege-surfaces-minion-town.md) — Build: styled privilege surfaces for minion.town (Phase C — role-aware landin...
 
@@ -353,8 +366,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
-- [`build-account-store-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-account-store-minion-town.md) — _normal_ · Build: account store + auto-provisioning for minion.town (Phase A — ships dar...
-- [`build-endo-daemon-aws-storage-wiring`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-daemon-aws-storage-wiring.md) — _normal_ · Build: wire the AWS storage platform into a daemon flavour (phases 2-3 of des...
 - [`build-endo-daemon-cloudflare-storage`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-daemon-cloudflare-storage.md) — _normal_ · Build: Endo daemon Cloudflare storage platform (phases 1-2 of the design)
 - [`deploy-endo-daemon-aws-storage-reference`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-endo-daemon-aws-storage-reference.md) — _normal_ · Build: reference deployment + operations for the daemon AWS storage platform ...
 - [`deploy-siwe-thunk-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-siwe-thunk-minion-town.md) — _normal_ · Deploy the SIWE OIDC thunk (mirroring the GitHub thunk's AWS path)
@@ -366,7 +377,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`endojs-endo-but-for-bots-pr132-report-render-mode`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-report-render-mode.md) — _normal_ · re-port render-mode toggle onto @endo/space-chat InboxRoot (endojs/endo-but-f...
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — _normal_ · Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
-- [`garden-style-typist-codepoints`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/garden-style-typist-codepoints.md) — _normal_ · ---
 - [`garden-style-url-not-path`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/garden-style-url-not-path.md) — _normal_ · ---
 - [`gauntlet-endo-but-for-bots-pr661-agent-tools-http-client`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/gauntlet-endo-but-for-bots-pr661-agent-tools-http-client.md) — _normal_ · ---
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
