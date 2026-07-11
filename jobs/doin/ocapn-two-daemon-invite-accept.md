@@ -55,3 +55,9 @@ The stacked draft PR (green forked two-daemon invite/accept test over both
 transports in-process) + transcripts of the two live demonstrations (local-TCP and
 local↔minion-WS). Report the PR URL, the transcripts, the identity-binding decision,
 and any spec/code gaps filed or routed around.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  claimed_at: 2026-07-11T06:31:06Z
