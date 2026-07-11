@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T15:26:22Z_
+_As of 2026-07-11T15:35:20Z_
 
 ## Latest
 
-The lone board completion is the [mvs-resolver build](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-mvs-resolver.md), closed as already-built: the entire Minimum Version Selection walk ships inside [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671)'s `registry.js`, so no separate PR is warranted — the real unblock waits on #671 merging.
+The garden's deployed root fell ~56 commits behind `main2`, so every `garden-triager@*` unit is still crash-looping on the old `GARDEN_REPOS=/repos` default even though the fix (shared `bare_clone_dir` resolver, missing-clone-is-a-clean-skip, opt-in self-provision) has long since landed and tests green; a chorus of self-heal gardeners agree there's no code left to write — the fleet just needs a deliberate drained `deploy-garden.sh` on the leader to clear the flapping.
 
-The dominant signal is a **merge bottleneck on Milestone M3**: the foreman flagged four times today that every M3 exit-criterion capability has landed as a green, mergeable PR but sits unmerged — the Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608), outbound-HTTP agent tools [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the #127 mount stack, and the endopi stack ([#667–672](https://github.com/endojs/endo-but-for-bots/pull/667)) — while the lint-ceiling fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) stays unmerged and keeps poisoning gauntlets (as it did #661). The endoclaw-timer chain is stalled on review of Phase-1 [#609](https://github.com/endojs/endo-but-for-bots/pull/609), whose CHANGES_REQUESTED turns out to be a re-architecture (redraft as a standalone `@endo/reminder` plugin), leaving Phase-2/3 [#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619) blocked. No claimable work remains on the board — it needs merge/review decisions, not more fleet effort.
+The foreman is flagging Milestone M3 as merge-bottlenecked, not work-starved: a stack of green, mergeable endo-but-for-bots PRs — [#608](https://github.com/endojs/endo-but-for-bots/pull/608) (Docker self-host), [#661](https://github.com/endojs/endo-but-for-bots/pull/661) (agent HTTP tools), [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (EndoRegistry capability, which also subsumes the mvs-resolver build), and the #667–#672 / #678–#681 mount stack — sit awaiting a merge-order decision, while the whole gauntlet path stays poisoned by the typescript-eslint lint ceiling whose fix, [#594](https://github.com/endojs/endo-but-for-bots/pull/594), is still unmerged (merging it auto-promotes the parked `resume-lint-ceiling-shepherds` cohort).
 
-Two other threads are parked on a single maintainer word. [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (promote ymax vat → critical) is now fully green on PR-attributable checks after the shepherd's dprint fix — the only remaining red is known stale-base codegen noise — and is blocked solely on `rebase #9` vs `freeze #9`; the XST-validation orchestrator ([garden#33](https://github.com/kriskowal/garden/issues/33)) needs two yes/no answers to close out. Separately, the **triager crash-loop fix is landed on main2 but not deployed**: five self-heal reports converge on the same conclusion — the deployed root `/home/kris/garden2` is ~56 commits stale (still defaulting `GARDEN_REPOS` to `/repos`), so `garden-triager@*` units keep flapping until a drained `deploy-garden.sh` runs. Meanwhile finbot advanced through five direct-push cycles (GARCH, GJR-GARCH leverage, inference-driven DECIDE stage; 451 tests green, wallet gate holding), and its own note flags that no one is fast-forwarding branches promptly. The maintainer inbox is deep (26 parked PRs, plus cap-attenuation Phase-2 authorization and the minion.town `ELEVATION_CONTACT` value both awaiting a decision).
+Three efforts are blocked solely on a maintainer yes/no: [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) has every PR-attributable check green after the shepherd's dprint fix and needs only `rebase #9` vs `freeze #9`; the XS-validation orchestrator ([garden#33](https://github.com/kriskowal/garden/issues/33)) is engineering-complete pending two waiver decisions; and [#609](https://github.com/endojs/endo-but-for-bots/pull/609)'s endoclaw-timer got a CHANGES_REQUESTED re-architecture ask (redraft as a standalone `@endo/reminder` plugin). Meanwhile finbot advanced on its own each cycle via direct-push — SES compartments, then GARCH, GJR-GARCH, cyclical forecaster, and an inference-driven DECIDE stage (now 451 tests green, wallet-untouched) — with cap-attenuation Phase 2 still parked behind `live_authorized`. The OCapN-Noise-WS demo is live and round-tripping capabilities on minion.town. Two jobs (`pr688-shepherd`, `ocapn-pet-daemon-dockerfile-minion`) deterministically overran the 2400s handler budget and will be poisoned unless split into claim-sized stages.
 
 ## Parked for maintainer feedback
 
@@ -448,8 +448,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xst-validation-orchestrator-20260711-153502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-validation-orchestrator-20260711-153502.md) — XS-validation orchestrator (hourly) — drive the agoric-sdk XS upgrade to vali...
 
 ### tada (1912)
 - [`build-endo-but-for-bots-mvs-resolver`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-mvs-resolver.md) — Completion report
