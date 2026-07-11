@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6379 (530 parent indexes + 5849 children).
+Total section files: 6386 (530 parent indexes + 5856 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -7544,6 +7544,16 @@ Total section files: 6379 (530 parent indexes + 5849 children).
 ### gutentag-component-demos--readmes
 
 - [gutentag-component-demos--readmes--single-tag-demo-packages](gutentag-component-demos--readmes--single-tag-demo-packages.md)
+
+### habitat-chronicles--skeptical-perspective-on-rest
+
+- [habitat-chronicles--skeptical-perspective-on-rest--authority-boundaries-visibility-vs-authoritativeness](habitat-chronicles--skeptical-perspective-on-rest--authority-boundaries-visibility-vs-authoritativeness.md)
+- [habitat-chronicles--skeptical-perspective-on-rest--hateoas-and-the-limits-of-hypermedia](habitat-chronicles--skeptical-perspective-on-rest--hateoas-and-the-limits-of-hypermedia.md)
+- [habitat-chronicles--skeptical-perspective-on-rest--helpful-and-unhelpful-rest-ideas](habitat-chronicles--skeptical-perspective-on-rest--helpful-and-unhelpful-rest-ideas.md)
+- [habitat-chronicles--skeptical-perspective-on-rest--overview](habitat-chronicles--skeptical-perspective-on-rest--overview.md)
+- [habitat-chronicles--skeptical-perspective-on-rest--put-post-and-http-verb-semantics](habitat-chronicles--skeptical-perspective-on-rest--put-post-and-http-verb-semantics.md)
+- [habitat-chronicles--skeptical-perspective-on-rest--representational-vs-imperative-descriptive-vs-behavioral](habitat-chronicles--skeptical-perspective-on-rest--representational-vs-imperative-descriptive-vs-behavioral.md)
+- [habitat-chronicles--skeptical-perspective-on-rest--state-statelessness-and-polling](habitat-chronicles--skeptical-perspective-on-rest--state-statelessness-and-polling.md)
 
 ### habitat-chronicles--unum-pattern
 
