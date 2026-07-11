@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T06:19:13Z_
+_As of 2026-07-11T06:21:25Z_
 
 ## Latest
 
-The deployed garden root is stale and needs a deliberate deploy: five self-heal gardeners independently converged on the same diagnosis — the triager crash-loop (`GARDEN_REPOS` defaulting to `repos/` instead of `worktrees/`) is already fixed in `main2` (through `4c0e275b0b`/`83e0eb0f41`, with a shared `bare_clone_dir()` resolver and an opt-in self-provision path), but `/home/kris/garden2` sits ~56 commits behind, so every `garden-triager@*` unit keeps FATAL-looping until `deploy-garden.sh` is run on the leader. That's the highest-priority maintainer action. Two follow-ups ride on it: after deploy, `kriscendobot-{ocapn,cosgov,agoric-3-proposals}` still lack clones (arm self-provision or provision them, intersecting the watch-set authorization rule), and a triage circuit-breaker has OPENED for `kriscendobot-finbot` — worth confirming that fork belongs in the watch set at all.
+[endojs/endo-but-for-bots#660](https://github.com/endojs/endo-but-for-bots/pull/660)'s shepherd finished with CI fully green — the only board completion this cycle.
 
-On finbot, four progress cycles landed increments directly on `main` and cleared the branch backlog entirely: SES-compartments (the capability-attenuation cornerstone), multi-instrument yield-bearing portfolios, the cyclical harmonic forecaster, and GARCH(1,1) conditional volatility — 435 tests green, all six auditor invariants passing, wallet untouched. The recurring open question: finbot's "no self-PR, fast-forward main" convention keeps stranding builder branches, and the deepest remaining axis (CapTP transport + a live paper-wallet run) stays gated behind explicit `live_authorized` authorization.
+The pressing item is a **deploy gap**: the triager crash-loop fix is landed and tested on `main2` (commits `118f7384fc`→`4c0e275b0b`; triager/comment-watcher now resolve their bare clone via a shared `bare_clone_dir()` defaulting to `worktrees/`, missing clones skip instead of FATAL-ing), but the deployed root `/home/kris/garden2` is ~56 commits behind and still reads the stale `repos/` default — so `garden-triager@*` keeps flapping live. Five self-heal gardeners converged on the same conclusion: no code work remains, only a drained `deploy-garden.sh` from the leader will clear it. All eight own-fork bare clones now exist under `worktrees/`, so post-deploy the provisioner is a no-op. Separately, a triage circuit-breaker OPENED on `kriscendobot-finbot`, and three watched instances (`ocapn`, `cosgov`, `agoric-3-proposals`) will still lack clones after deploy — resolving them intersects the watch-set authorization bar and awaits your call.
 
-The [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) drive continues fork-only: a shepherd fixed the one PR-attributable red (a `dprint` miss on the critical-vat test rewrite), but the base now trails master ~503 commits and stale-base `test-boot` noise is spreading (1 → ~9 shards), pushing a fully-green fork CI further out of reach — the rebase-and-un-draft-vs-frozen-prototype decision is still pending and blocks any path to review. The [xs2rust-endor#600](https://github.com/endojs/endo-but-for-bots/pull/600) stage-5 fix6 orchestration completed, and a shepherd is currently on red CI for [endo-but-for-bots#660](https://github.com/endojs/endo-but-for-bots/pull/660).
+On the fork side, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (garden#29) got its one PR-attributable red fixed (a `dprint fmt` miss on the critical-vat rewrite); remaining reds are stale-base noise that's growing noisier (test-boot spread from 1 to ~9 shards), sharpening the still-pending decision to rebase onto master + un-draft or keep it a frozen-base prototype. Meanwhile finbot cleared its entire stranded-branch backlog across four cycles — SES-compartments, multi-instrument portfolios, the cyclical forecaster, and GARCH(1,1) all landed green on `kriscendobot/finbot@main` (435 tests, wallet-safety gate holding) — and now re-flags two decisions: whether builders may land finbot increments directly on main to stop paying per-cycle rebase cost, and the security-gated cap-attenuation Phase 2 (live CapTP transport + first paper-wallet run) that stays parked behind `live_authorized`.
 
 ## Parked for maintainer feedback
 
@@ -262,19 +262,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
-- [`endojs-endo-but-for-bots-pr660-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr660-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #660
+### doin (3)
 - [`ocapn-daemon-minion-deploy-demo`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-daemon-minion-deploy-demo.md) — Deploy an OCapN-Noise Pet Daemon on minion.town and connect a local peer (M3+M4)
 - [`xs2rust-endor-262-xst-runner-core`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-262-xst-runner-core.md) — Builder: endor-xst core — the xst-analogue test262 runner (PR #600, test262-c...
 - [`xst-validation-orchestrator-20260711-052002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-validation-orchestrator-20260711-052002.md) — XS-validation orchestrator (hourly) — drive the agoric-sdk XS upgrade to vali...
 
-### tada (1866)
+### tada (1867)
+- [`endojs-endo-but-for-bots-pr660-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr660-shepherd.md) — Inbox empty. CI is fully green on PR #660 — job done.
 - [`xs2rust-endor-build-stage5-fix6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage5-fix6.md) — orchestration xs2rust-endor-build-stage5-fix6 — complete
 - [`xs2rust-endor-stage5-fix6-verify`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage5-fix6-verify.md) — Completion report — Stage-5 fix6 2/2 VERIFY (PR #600, xs2rust-endor)
 - [`proxy-pr-comment-auto-clear`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proxy-pr-comment-auto-clear.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr9-shepherd-71cb13f9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr9-shepherd-71cb13f9.md) — All work is done. Here is my completion report.
-- [`agoric-sdk-pr9-drive-20260711-045005`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-pr9-drive-20260711-045005.md) — Completion report
-- … and 1861 more
+- … and 1862 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
