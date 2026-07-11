@@ -1,14 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-11T16:03:41Z_
+_As of 2026-07-11T16:06:21Z_
 
 ## Latest
 
-The deployed garden root is stale and it's biting: a wave of self-heal jobs confirms the triager crash-loop fix (the `GARDEN_REPOS`→`worktrees/` default) is already landed on `main2`, but the deployed root (`/home/kris/garden2`, ~56 commits behind) still runs the old `/repos` default, so every `garden-triager@*` keeps FATAL-looping until a drained `deploy-garden.sh` is run — that deploy is the one action that clears the flapping.
+The garden's triager fleet crash-loop is now code-fixed on `main2` but still live in production: multiple self-heal gardeners confirm `triager.sh`/`comment-watcher.sh` now default `GARDEN_REPOS` to `worktrees/` (and self-provision missing bare clones), yet the deployed root `/home/kris/garden2` sits ~56 commits behind, so `garden-triager@*` units keep FATAL-looping until a deliberate `deploy-garden.sh` drains the fleet and advances the root — the single highest-value maintainer action right now. Relatedly, the triage circuit-breaker opened for `kriscendobot-finbot`, which also raises whether that fork belongs in the watch set at all.
 
-The bigger theme is that the fleet is now **decision-blocked, not work-blocked**. The foreman posted four M3 messages: a large stack of green, mergeable endo-but-for-bots PRs — the lint-per-package fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594), Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608), outbound-HTTP tools [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the registry capability [#671](https://github.com/endojs/endo-but-for-bots/pull/671), the timer-scheduler chain [#609](https://github.com/endojs/endo-but-for-bots/pull/609)→[#617](https://github.com/endojs/endo-but-for-bots/pull/617)→[#619](https://github.com/endojs/endo-but-for-bots/pull/619), and the #127 mount + endopi stacks — is ready and awaiting merge, with #594's unmerged lint ceiling actively poisoning gauntlets. Merging #594 auto-promotes the parked `resume-lint-ceiling-shepherds` cohort. Two related asks need your architecture call: [#609](https://github.com/endojs/endo-but-for-bots/pull/609) reviewer feedback is a redraft into a standalone `@endo/reminder` plugin (not a rename), and the snapshot-mapper build hit an impasse between finishing `@endo/exo-npm` [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (gardener's recommendation) or restacking on [#671](https://github.com/endojs/endo-but-for-bots/pull/671).
+The foreman is repeatedly flagging Milestone M3 as merge-bottlenecked, not work-bottlenecked: a stack of green, mergeable endo-but-for-bots PRs awaits a merge decision — Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608), outbound-HTTP agent tools [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the endopi/mount stack ([#667](https://github.com/endojs/endo-but-for-bots/pull/667)–[#672](https://github.com/endojs/endo-but-for-bots/pull/672), [#678](https://github.com/endojs/endo-but-for-bots/pull/678)–[#681](https://github.com/endojs/endo-but-for-bots/pull/681)) — while everything downstream is gated on merging the lint-ceiling fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594), whose absence poisons gauntlets (as [#661](https://github.com/endojs/endo-but-for-bots/pull/661)'s did). The endoclaw-timer chain [#609](https://github.com/endojs/endo-but-for-bots/pull/609)→[#617](https://github.com/endojs/endo-but-for-bots/pull/617)→[#619](https://github.com/endojs/endo-but-for-bots/pull/619) additionally awaits a decision on whether kriskowal's requested `@endo/reminder` redraft supersedes the daemon-integrated stack.
 
-On forks: [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) is green on every PR-attributable check after the shepherd's dprint fix and is now blocked solely on your `rebase #9` vs `freeze #9` call (base trails master ~503 commits; the lone red is stale-base codegen noise). The XS-validation effort finalized across forks [#11–#14](https://github.com/kriscendobot/agoric-sdk/pull/13), and `endor-xst` core landed on the still-draft xs2rust [#600](https://github.com/endojs/endo-but-for-bots/pull/600) (flagging a c/moddable gitlink pin left at 8.0.1). The OCapN-Noise-WS demo is live and reproducible on minion.town. Separately, finbot landed six direct-push increments to `main` (SES compartments, multi-instrument portfolios, cyclical/GARCH/GJR-GARCH forecasters, and an inference-driven DECIDE stage, 451 tests green) — its author re-flags a standing decision about whether builders should land on main directly or a weaver sweep should fast-forward stranding branches, plus the security-gated cap-attenuation Phase 2 that stays parked pending your `live_authorized` authorization.
+The `kriscendobot/agoric-sdk` [#9](https://github.com/kriscendobot/agoric-sdk/pull/9) drive (garden#29) is now blocked *solely* on a maintainer call — every PR-attributable CI check is green after the shepherd's dprint fix, leaving only known stale-base codegen noise; say `rebase #9` (onto ~503-commit-newer master) or `freeze #9` to un-draft as a frozen-base prototype. The `snapshot-mapper` build hit an architecture impasse (finish `@endo/exo-npm` [#403](https://github.com/endojs/endo-but-for-bots/pull/403) vs. stack on daemon-registry [#671](https://github.com/endojs/endo-but-for-bots/pull/671)) and needs an A/B decision.
+
+On the build side: finbot landed a rapid string of green, wallet-safe forecasting increments (multi-instrument portfolios, cyclical/harmonic forecaster, GARCH, GJR-GARCH leverage, and an inference-driven DECIDE stage) direct-to-main, with its cap-attenuation Phase 2 (live paper-wallet run) still deferred pending explicit `live_authorized`. The OCapN-Noise-WS demo is live and reproducible on minion.town, `endor-xst` core landed on draft [#600](https://github.com/endojs/endo-but-for-bots/pull/600) (flagging a stale moddable gitlink pin), and the XS-validation effort finalized across four green fork PRs (garden#33, left open for you). Two long-running shepherd jobs (`pr688-shepherd`, `ocapn-pet-daemon-dockerfile-minion`) deterministically overran the 2400s handler budget and need splitting into claim-sized stages.
 
 ## Parked for maintainer feedback
 
@@ -476,16 +478,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`design-endo-but-for-bots-git-capability-stack-sequencing`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-but-for-bots-git-capability-stack-sequencing.md) — ---
+- [`xs2rust-xst-reactivate`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-xst-reactivate.md) — Reactivate xs2rust + xst-validation (Saturday resume of the temporary pause)
 
-### tada (1915)
+### tada (1916)
+- [`xs2rust-xst-cadence-restore-6h`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-xst-cadence-restore-6h.md) — Confirmed: xst-validation-orchestrator is no longer an active schedule on ori...
 - [`deadmail-20260711T155611Z-b3e598`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260711T155611Z-b3e598.md) — Completion report
 - [`build-endo-but-for-bots-snapshot-mapper`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-snapshot-mapper.md) — Completion report
 - [`xst-validation-orchestrator-20260711-153502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-153502.md) — XS-validation orchestrator — tick report (2026-07-11 ~15:35Z)
 - [`build-endo-but-for-bots-mvs-resolver`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-mvs-resolver.md) — Completion report
-- [`gauntlet-endo-but-for-bots-pr671-endo-registry-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr671-endo-registry-capability.md) — Completion report — gauntlet on endojs/endo-but-for-bots PR #671
-- … and 1910 more
+- … and 1911 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
