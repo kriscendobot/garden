@@ -32,3 +32,9 @@ the budget (one dense essay per cycle). If this essay is long, cover the germane
 portions faithfully and post a `-6` follow-on for any germane remainder. This is
 expected to be the last germane post in the blog; if after ingesting it nothing
 germane remains, do NOT post a `-6` — the chain ends here.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 13
+  claimed_at: 2026-07-11T11:26:10Z
