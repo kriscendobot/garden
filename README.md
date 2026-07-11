@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-11T14:20:07Z_
+_As of 2026-07-11T14:30:30Z_
 
 ## Latest
 
-The endo-registry-capability gauntlet ([endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671)) is the sole job now in flight, claimed just after the HTTP-client-tool gauntlet ([endojs/endo-but-for-bots#661](https://github.com/endojs/endo-but-for-bots/pull/661)) completed and two weaves landed onto `llm` — the provide-submount rebase ([endojs/endo-but-for-bots#656](https://github.com/endojs/endo-but-for-bots/pull/656)) and daemon→manager rename phase one ([endojs/endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598)). The headline for the maintainer is a **merge bottleneck**: the foreman has escalated twice that milestone M3 is systemically stalled behind the unmerged lint-ceiling fix ([endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594)) — which poisons every gauntlet with phantom-red lint (as it did #661) — plus a fleet of green, mergeable PRs (#608, #656, #667–672, #678–681) awaiting a merge/authorize decision; with the board otherwise empty, no unblocked work remains to claim. Merging #594 would auto-promote the parked `resume-lint-ceiling-shepherds` cohort.
-
-Two decisions are now the only blockers on their tracks: agoric-sdk fork [#9](https://github.com/kriscendobot/agoric-sdk/issues/9) has every PR-attributable check green and all reviewer feedback addressed, waiting on your `rebase #9`-vs-`freeze #9` call; and the XS-validation effort ([kriskowal/garden#33](https://github.com/kriskowal/garden/issues/33)) is engineering-complete pending two yes/no answers on waiving the Depot leg and counting draft [#14](https://github.com/kriscendobot/agoric-sdk/issues/14) as landed. Separately, the #609 interval-scheduler fixer reports kriskowal wants a full redraft as a standalone `@endo/reminder` plugin ([endojs/endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609), rebased mergeable), which would supersede stacked PRs [#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619).
-
-On the autonomous side, finbot has been landing a steady stream of green simulator increments directly on its fork's main (GARCH, GJR-GARCH leverage, cyclical forecaster, inference-driven DECIDE stage; now 451 tests green, wallet gate holding), but keeps re-flagging that its no-self-PR/fast-forward convention strands branches — and that cap-attenuation Phase 2 (live paper-wallet run) awaits explicit authorization. Also worth noting: a wave of triager crash-loop self-heals confirm the fix is already on `main2`, but the **deployed root is ~56 commits stale**, so `garden-triager@*` units keep FATAL-looping until a drained `deploy-garden.sh` is run — a leader operation the fleet can't self-serve.
+The [endo-but-for-bots#661](https://github.com/endojs/endo-but-for-bots/pull/661) HTTP-client-tool gauntlet completed and the [#656](https://github.com/endojs/endo-but-for-bots/pull/656) mount-search stack was woven onto `llm` (its shepherd is now re-running against red CI), alongside a phase-one weave of the [#598](https://github.com/endojs/endo-but-for-bots/pull/598) daemon→manager rename; the [#671](https://github.com/endojs/endo-but-for-bots/pull/671) EndoRegistry-capability gauntlet is the only other job in flight. The loudest signal is a **merge bottleneck on Milestone M3**: the foreman reports the board has run dry with no claimable work because a fleet of green, mergeable PRs ([#608](https://github.com/endojs/endo-but-for-bots/pull/608), #656, #667–672, #678–681) sits unmerged and every gauntlet keeps poisoning on the typescript-eslint project-service lint ceiling — whose fix, [#594](https://github.com/endojs/endo-but-for-bots/pull/594), is itself parked awaiting review; merging #594 auto-promotes the poisoned lint-shepherd cohort. Meanwhile the triager fleet is still crash-looping at runtime because the deployed root is dozens of commits behind `main2` (the code fix has long since landed) — a drained `deploy-garden.sh` is the outstanding leader action. On the fork side, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) now has every PR-attributable check green and all reviewer feedback addressed, blocked solely on a `rebase #9` vs `freeze #9` call, and the finbot autonomous cycles landed a run of simulator increments direct on `main` (GARCH, GJR-GARCH leverage, inference-driven DECIDE), with cap-attenuation Phase 2 still deferred pending explicit authorization.
 
 ## Parked for maintainer feedback
 
@@ -425,7 +421,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr656-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr656-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #656
 - [`gauntlet-endo-but-for-bots-pr671-endo-registry-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr671-endo-registry-capability.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
 
 ### tada (1908)
