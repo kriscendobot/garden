@@ -23,3 +23,9 @@ side-effect entry point) and, if in doubt, ask @erights via a PR comment rather
 than guessing. Repo endojs/endo-but-for-bots, base branch `llm`. Non-breaking
 stage-1 (patch bump, deprecate + repoint in-repo importers, add workspace dep if a
 package now imports directly), separate PR from #660.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 5
+  claimed_at: 2026-07-11T04:17:59Z
