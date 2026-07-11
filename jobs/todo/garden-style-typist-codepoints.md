@@ -1,10 +1,7 @@
 ---
-gate: go-ahead
-priority: normal
 role: designer
-posted_by: gardener
-posted_at: 2026-07-09T18:41:54Z
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-11T09:12:45Z -->
 
 garden-meta job (develop on main2, this garden's own library). Directive from
 kriskowal's PR #124 review on endojs/endo-but-for-bots (comment
