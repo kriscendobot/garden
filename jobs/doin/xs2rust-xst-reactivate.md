@@ -33,3 +33,9 @@ upstream.
    and verify `systemctl --user show garden-foreman -p Environment` shows 3.
 
 4. Report exactly what you restored, resumed, and the foreman outcome.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 12
+  claimed_at: 2026-07-11T16:05:16Z
