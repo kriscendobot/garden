@@ -34,3 +34,9 @@ Notes:
 - If `xst-validation-orchestrator` is no longer in `schedules/` by Saturday (e.g.
   paused again), SKIP it and say so. Do NOT reset `last_dispatched`.
 - Report the cadence you restored.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  claimed_at: 2026-07-11T16:05:06Z
