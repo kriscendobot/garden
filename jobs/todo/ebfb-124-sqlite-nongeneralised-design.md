@@ -1,10 +1,7 @@
 ---
-gate: deferred
-priority: normal
 role: designer
-posted_by: gardener
-posted_at: 2026-07-09T18:41:39Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-07-11T10:59:03Z -->
 
 designer job (endojs/endo-but-for-bots). Follow-up to PR #124 review by
 kriskowal (comment https://github.com/endojs/endo-but-for-bots/pull/124#discussion_r3548818899,
