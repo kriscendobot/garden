@@ -9,3 +9,9 @@
 **Done when:** a triager tick for a slug with no local clone provisions it (or skips cleanly) instead of exiting 1, `garden-triager@*` units leave the `activating` crash-loop, and existing `triager.sh` / `comment-watcher.sh` tests still pass (extend the test harness's `GARDEN_REPOS`/no-repo cases to cover the new non-fatal path).
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 14
+  claimed_at: 2026-07-11T00:33:08Z
