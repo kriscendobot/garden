@@ -102,3 +102,9 @@ completion report states the confinement property preserved per artifact and
 cites real verification evidence (mermaid check, style sweeps) per the
 reporting norm. Do not post the builder cuts — the effort's hourly
 press-driver sequences those.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 13
+  claimed_at: 2026-07-11T22:09:56Z
