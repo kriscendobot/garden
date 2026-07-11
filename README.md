@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T20:11:10Z_
+_As of 2026-07-11T20:12:19Z_
 
 ## Latest
 
-The triager crash-loop across the watched forks is now a **deploy gap, not a code gap**: multiple self-heal jobs confirm the `GARDEN_REPOS`→`worktrees/` fix is landed and green on `main2`, but the deployed root (`/home/kris/garden2`) is ~56 commits stale, so `garden-triager@*` units keep FATAL-looping until a drained `deploy-garden.sh` advances the root — a leader/liaison operation the fleet can't run itself. Milestone M3 is otherwise blocked purely on merge/accept decisions: the foreman flags a ready, mergeable stack (Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608) — now duplicated by the `llm`-based [#694](https://github.com/endojs/endo-but-for-bots/pull/694), a close/reconcile call — confined-HTTP tool [#661](https://github.com/endojs/endo-but-for-bots/pull/661), and the mount/module stacks), while the lint-ceiling fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) stays unmerged and keeps poisoning gauntlets. The endoclaw-timer chain ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)) has been superseded by the `@endo/reminder` design [#682](https://github.com/endojs/endo-but-for-bots/pull/682), and its Phase-4 build was correctly declined as throwaway pending that decision. On the fork side, finbot advanced every cycle — GARCH, GJR-GARCH, and inference-driven ORIENT/DECIDE/AUDIT stages, all green and wallet-untouched — but its cap-attenuation Phase 2 (live signing) still awaits explicit authorization, as does the rebase-vs-freeze call on [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9), where a gardener commissioned the reversible rebase default after four unanswered ticks. The OCapN-Noise-WS demo is live on minion.town, and the esheets OAuth design [#621](https://github.com/endojs/endo-but-for-bots/pull/621) is green and waiting only on re-review.
+The triager fleet's crash-loop fix is fully landed on `main2` but not yet live: five converging self-heal gardeners confirm the deployed root (`/home/kris/garden2`) is dozens of commits stale, so `garden-triager@*` units keep FATAL-looping on the old `repos/` path — a drained `deploy-garden.sh` is the sole remaining step to clear it.
+
+Milestone M3 is repeatedly flagged by the foreman as merge-bottlenecked rather than short of build work: the per-package lint fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) gates a poisoned shepherd cohort, and a queue of green, mergeable PRs — Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608) (now overlapped by draft [#694](https://github.com/endojs/endo-but-for-bots/pull/694)), confined-HTTP tool [#661](https://github.com/endojs/endo-but-for-bots/pull/661), and the mount-search stack — awaits a merge-order decision. The endoclaw-timer chain ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) needs an accept-or-retire call now that design PR [#682](https://github.com/endojs/endo-but-for-bots/pull/682) (`@endo/reminder`) supersedes it; a Phase-4 build correctly refused to proceed against the rejected daemon-coupling approach.
+
+On the forks, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax→critical) has all PR-scoped CI green with only stale-base codegen noise left; after four unanswered ticks the drive gardener commissioned the reversible default — a rebase onto master — pending your `rebase #9` / `freeze #9` call. The XS-validation effort finalized green across [kriscendobot/agoric-sdk#11–#14](https://github.com/kriscendobot/agoric-sdk/pull/13), and an OCapN-Noise-WS demo is now live and reproducible on minion.town. finbot advanced through many wallet-safe cycles (GARCH/GJR-GARCH surfaces, inference-driven OBSERVE→ORIENT→DECIDE→AUDIT, 457 tests green), with its cap-attenuation Phase 2 live-run still deferred behind explicit authorization.
 
 ## Parked for maintainer feedback
 
@@ -574,18 +578,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`ebfb-design-sturdyref-agent-surface`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-design-sturdyref-agent-surface.md) — Design the agent provide/accept SturdyRef surface (Lal / Fae / Genie / @endo/...
 - [`endojs-endo-but-for-bots-pr541-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr541-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #541
-- [`improve-deadmail-schedule-tick-carry-forward`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-deadmail-schedule-tick-carry-forward.md) — scripts/jobs/deadmail.sh
 
-### tada (1946)
+### tada (1947)
+- [`improve-deadmail-schedule-tick-carry-forward`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-deadmail-schedule-tick-carry-forward.md) — Completion report
 - [`endo-sturdyref-press-20260711-200501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260711-200501.md) — Completion report — endo-sturdyref-press tick (2026-07-11T20:05 dispatch)
 - [`endojs-endo-but-for-bots-endoclaw-timer-phase-four-host-integration-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-endoclaw-timer-phase-four-host-integration-build.md) — Completion report
 - [`deadmail-20260711T193017Z-9b910c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260711T193017Z-9b910c.md) — Completion report
 - [`ebfb-rescope-541-daemon-cuts-3-4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-rescope-541-daemon-cuts-3-4.md) — Completion report
-- [`finbot-progress-20260711-192001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260711-192001.md) — Completion report — finbot-progress-20260711-192001
-- … and 1941 more
+- … and 1942 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
