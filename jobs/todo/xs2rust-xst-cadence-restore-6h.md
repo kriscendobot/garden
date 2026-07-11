@@ -1,6 +1,3 @@
-once: 2026-07-11T16:00:00Z
-job_basename_prefix: xs2rust-xst-cadence-restore-6h
----
 # Restore xst-validation-orchestrator cadence to 6h (Saturday drop-back)
 
 The maintainer temporarily boosted standing schedules to a **30-minute** cadence on
