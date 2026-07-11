@@ -30,7 +30,7 @@ Press the implementation forward until ALL of the following hold, then stop:
    (bit-exact result + computron agreement with the C-XS oracle across the
    staged corpus, extended per the roadmap stage you are on).
 
-## What to do on each dispatch (you are woken every six hours; be idempotent)
+## What to do on each dispatch (you are woken every hour; be idempotent)
 
 1. **Assess, don't assume.** Read `designs/xs2rust-endor-engine.md` (§ Resolved
    Questions is BINDING; § Staged Roadmap + any "Stage-N amendment" is the
@@ -52,7 +52,7 @@ Press the implementation forward until ALL of the following hold, then stop:
    `xs2rust-endor` while another job is actively implementing on it** — if the
    chain is advancing under another agent, record a short progress observation
    (did HEAD move since the last check? are the stage children progressing?) and
-   complete; the 6-hour cadence will check again. Only take the wheel and press
+   complete; the hourly cadence will check again. Only take the wheel and press
    directly when the chain is **idle or stalled** (no live builder/child job and
    the finish line not yet met).
 4. **When you do press:** advance the next unblocked step of the staged roadmap
@@ -66,7 +66,7 @@ Press the implementation forward until ALL of the following hold, then stop:
 5. **Record progress for the next check-in.** Before completing, write a
    `progress` journal entry (`/home/kris/garden/scripts/jobs/journal-entry.sh`, or narrate
    per your gardener loop) capturing the branch HEAD sha and the latest
-   `test:rust` / test262 status, so the next six-hourly driver can tell whether real
+   `test:rust` / test262 status, so the next hourly driver can tell whether real
    progress was made. If you find the effort **stalled** (no HEAD movement across
    checks and no live worker) or **blocked on a decision**, surface it to the
    maintainer via `/home/kris/garden/scripts/jobs/message-user.sh <your-base>` rather
