@@ -7,3 +7,9 @@ Two coordinated changes to `scripts/jobs/triager.sh`:
 2. Replace the hard `die` at `triager.sh:31-32` with the self-provisioning the design already documents. Instead of dying when `$BARE` is absent, use the shared `common.sh` helpers to self-heal: if `is_own_git_repo "$BARE"` is false and the dir is genuinely missing, `derive_clone_url "$BARE"` → `bounded_clone <src> "$BARE"`, set `remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'`, and proceed; only `die`/escalate if the source is unreachable or underivable (mirror clone-keeper.sh's `keep_clone` missing-clone branch, including its transient-vs-persistent handling). This is exactly what `common.sh:444-446` and `clone-keeper.sh` already claim triager does.
 
 Validate: after the change, `triager.sh kriscendobot-minion.town` must resolve the existing `worktrees/kriscendobot-minion.town.git` clone (HEAD `main`) and reach the fetch/cursor path instead of dying, and a slug whose worktrees clone is absent must self-provision from the derived `https://github.com/<owner>/<name>.git` rather than FATAL-storming every tick. Add/extend a triager test covering both the found-clone and self-provision paths. Do not create a `repos/` directory as a workaround — the fix is to use the canonical `worktrees/` location.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 15
+  claimed_at: 2026-07-11T01:57:22Z
