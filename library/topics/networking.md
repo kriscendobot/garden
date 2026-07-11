@@ -84,6 +84,7 @@
 | [monetization-gateway-x402/overview](../sections/web--cloudflare-monetization-gateway-x402--overview.md) | Cloudflare blog: Monetization Gateway | Payment verification and enforcement at the edge (proxy layer between buyer and seller); the payment-validation path and the request path merge into one HTTP round-trip. |
 | [monetization-gateway-x402/x402-protocol-and-flow](../sections/web--cloudflare-monetization-gateway-x402--x402-protocol-and-flow.md) | Cloudflare blog: Monetization Gateway | x402: paying over HTTP via the 402 status code; the exchange lives entirely inside ordinary HTTP requests/responses with no checkout redirect; peer-to-peer settlement; rail-agnostic. |
 | [monetization-gateway-x402/gateway-rules-and-capabilities](../sections/web--cloudflare-monetization-gateway-x402--gateway-rules-and-capabilities.md) | Cloudflare blog: Monetization Gateway | Expression-based payment rules enforced across 330+ edge cities so the x402 handshake occurs close to the buyer; per-verb/route pricing, variable pricing, 401->402 interception. |
+| [habitat-chronicles--unum-pattern--behavioral-protocols-anti-rest](../sections/habitat-chronicles--unum-pattern--behavioral-protocols-anti-rest.md) | unum, anti-REST | Behavioral protocols as knowledge-based compression economizing bandwidth (300/1200 baud) — why unum message interfaces beat data-transfer/REST. |
 
 ## See also
 
