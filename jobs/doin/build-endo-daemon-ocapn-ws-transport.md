@@ -64,3 +64,9 @@ Hellos + reverse peer auth hold on both. So this is daemon-side wiring, not new 
   and a completion report summarizing the diff, the exact new address/hint format, the
   powers you threaded in, and anything you had to route around. Do not open/comment on any
   PR/issue.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 18
+  claimed_at: 2026-07-11T03:44:35Z
