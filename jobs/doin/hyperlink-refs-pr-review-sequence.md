@@ -54,3 +54,9 @@ Every PR/issue reference in `journal2:pr-review-sequence.md` is a working hyperl
 (code fences/spans untouched, no double-links), landed via the producer clone and
 reachable on `origin/journal2`. The `tada` report gives the commit SHA and the count
 of references linked.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  claimed_at: 2026-07-11T17:35:23Z
