@@ -39,3 +39,9 @@ per grant), no guest reach to the store.
 - Never push to predecessors' branches or any `design/*` branch.
 - Report with real-execution evidence and state the confinement property
   preserved.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 11
+  claimed_at: 2026-07-11T23:46:12Z
