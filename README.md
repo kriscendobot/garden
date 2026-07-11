@@ -1,14 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-11T21:44:56Z_
+_As of 2026-07-11T22:03:22Z_
 
 ## Latest
 
-A shepherd claimed the lone new job — [endo-but-for-bots#694](https://github.com/endojs/endo-but-for-bots/pull/694), the `llm`-based Docker self-host gateway that now **supersedes** the still-open [#608](https://github.com/endojs/endo-but-for-bots/pull/608) (foreman flagged the overlap: close/reconcile is a maintainer call). The most urgent item is operational: the triager crash-loop is fully fixed on `main2` (GARDEN_REPOS now defaults to `worktrees/`, missing clones skip cleanly, shared `bare_clone_dir()` resolver), but five converging self-heal reports agree the **deployed root `/home/kris/garden2` is ~56 commits stale** and still crash-looping every `garden-triager@*` — a drained `deploy-garden.sh` is the clean resolution and only a leader/liaison can run it.
+The `garden-triager` crash-loop is fixed at the source — `triager.sh` and `comment-watcher.sh` now share one `bare_clone_dir()` resolver defaulting to `worktrees/` (commits `118f7384fc`→`83e0eb0f41`, tests green), plus an opt-in self-provision path for missing clones — but the fix is not yet live: the **deployed root `/home/kris/garden2` is ~56 commits behind `main2`**, so every `garden-triager@*` unit keeps FATAL-looping on the old `/repos` default. Five separate self-heal gardeners independently converged on the same conclusion — a single drained `deploy-garden.sh` on the leader is the only remaining step to quiet the fleet.
 
-Milestone M3 is now entirely **merge-bottlenecked, not work-bottlenecked**: the foreman posted six notices that every exit-criterion capability is green and mergeable and the fleet has no unblocked build left. Pending your decisions: merge [#594](https://github.com/endojs/endo-but-for-bots/pull/594) to clear the lint-projectService ceiling (it trip-wires the poisoned shepherd cohort), accept design [#682](https://github.com/endojs/endo-but-for-bots/pull/682) (`@endo/reminder`, which supersedes the endoclaw-timer stack [#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619) — a Phase-4 builder correctly refused to build the rejected daemon coupling), and sequence the ready mount/HTTP/endopi fleet ([#661](https://github.com/endojs/endo-but-for-bots/pull/661), [#671](https://github.com/endojs/endo-but-for-bots/pull/671), [#678](https://github.com/endojs/endo-but-for-bots/pull/678)–[#681](https://github.com/endojs/endo-but-for-bots/pull/681)).
+M3 (Remote Access and Coding Capabilities) has run out of postable build work and is now **gated entirely on maintainer merge/accept decisions**, which the foreman flagged repeatedly through the day: the lint-ceiling fix [endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) is still unmerged and is poisoning gauntlets (it already poisoned the [#694](https://github.com/endojs/endo-but-for-bots/pull/694) Docker-self-host gauntlet, now parked HELD after 5 requeues); the green M3 fleet (#608, #661, #667–672, #678–681) awaits a merge-order call; and the scheduled-execution chain pivoted — design PR [#682](https://github.com/endojs/endo-but-for-bots/pull/682) (`@endo/reminder`) supersedes the daemon-integrated endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)), so a Phase-4 build was correctly refused as throwaway pending your accept/close. Note also that new draft [#694](https://github.com/endojs/endo-but-for-bots/pull/694) (`llm`-based remote gateway) now overlaps the older [#608](https://github.com/endojs/endo-but-for-bots/pull/608) — a close/reconcile call is yours.
 
-Two design gates await go/no-go: the SturdyRef agent-surface design [#695](https://github.com/endojs/endo-but-for-bots/pull/695) (six builder cuts A–F queued behind your acceptance and [#541](https://github.com/endojs/endo-but-for-bots/pull/541)), and the endoclaw-OAuth foundation [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, un-drafted, your revision directive addressed — a re-review unblocks the OAuth exo build). On the fork side, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9)'s drive fixed the one PR-attributable red (dprint) and is down to a single stale-base codegen failure; after four unanswered ticks the driver commissioned the **reversible** rebase-onto-master as the default and now needs only your `rebase #9` / `freeze #9`. Meanwhile finbot advanced steadily via direct-push — the SES-compartments cornerstone plus a forecasting run (GARCH, GJR-GARCH leverage, cyclical/harmonic) and inference-driven OODA now through OBSERVE→ORIENT→DECIDE→AUDIT (457 tests green, wallet gate holds) — though its triager circuit-breaker has **opened**, and cap-attenuation Phase 2 (a live paper-wallet run) stays gated on your `live_authorized`.
+Off the M3 critical path, finbot advanced every cycle on `kriscendobot/finbot@main` (direct-push, no PR): it drained its entire stranded-branch backlog, then landed GARCH(1,1), GJR-GARCH leverage, and pushed the inference-driven OODA path through ORIENT→DECIDE→AUDIT (457 tests green, wallet-untouched safety gate holding). Its cap-attenuation Phase 2 — a live paper-wallet run — stays gated on your `live_authorized`. The SturdyRef agent-surface design [#695](https://github.com/endojs/endo-but-for-bots/pull/695) is complete and awaits a go/no-go to post its six builder cuts, and the XS→Rust `endor-xst` runner core landed on draft [xs2rust #600](https://github.com/endojs/endo-but-for-bots/pull/600) (flagging a stale `c/moddable` gitlink pinned at 8.0.1 that reds the module-byte gate).
+
+Finally, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax→critical vat) is green on every PR-attributable check after four unanswered drive ticks; the driver commissioned the reversible default — a rebase onto master — rather than stall a fifth cycle, but your `rebase #9` vs `freeze #9` call is still what gates un-drafting and requesting SwingSet review.
 
 ## Parked for maintainer feedback
 
@@ -612,14 +614,28 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > per-artifact table in [endojs/endo-but-for-bots#695](https://github.com/endojs/endo-but-for-bots/issues/695). Reply routes to my job inbox;
 > the hourly cadence will also re-check for your answer on the design PR itself.
 
+- `poison-gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting-requeue-exhausted.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting; it stays HELD until a human promotes it
+> (promote-plan.sh gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting) or removes it, so nothing is lost.
+> Original job base: gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting
+>
+> --- original job body ---
+> ---
+> role: shepherd
+> ---
+>
+> Run the gauntlet (clean → panel review → fix-loop → un-draft) on `endojs/endo-but-for-bots` DRAFT PR #694 `feat: Docker self-hosting image with authenticated remote gateway` (base `llm`, head `build/daemon-docker-selfhost-remote-gateway`), driving this freshly-built, mergeable-but-stranded PR toward mergeable to advance M3's headline exit criterion (self-host the daemon via Docker with a remote bearer-token gateway). Treat the known repo-wide lint projectService ceiling (tracked by #594) as pre-existing and out of scope; do not merge or touch superseded PR #608 (its disposition is a maintainer decision).
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr694-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr694-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #694
-- [`gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting.md) — ---
 
 ### tada (1950)
 - [`endo-sturdyref-press-20260711-210501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260711-210501.md) — Completion report — endo-sturdyref-press tick (2026-07-11T21:05 dispatch)
@@ -643,6 +659,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
 - [`garden-style-url-not-path`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/garden-style-url-not-path.md) — _normal_ · ---
 - [`gauntlet-endo-but-for-bots-pr661-agent-tools-http-client`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/gauntlet-endo-but-for-bots-pr661-agent-tools-http-client.md) — _normal_ · ---
+- [`gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting.md) — _normal_ · ---
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
