@@ -2,7 +2,7 @@
 order: serial
 children: ebfb-sturdyref-bridge-cut1-bytes-wire-read ebfb-sturdyref-bridge-cut2-ocapn-promotions ebfb-sturdyref-bridge-cut3-daemon-mint-export ebfb-sturdyref-bridge-cut4-ocapn-singleton ebfb-sturdyref-bridge-cut5-foreign-internalization ebfb-sturdyref-bridge-cut6-three-party-roundtrip
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-07-11T23:11:39Z
 ---
