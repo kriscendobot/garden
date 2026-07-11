@@ -6,9 +6,4 @@ Fix in `scripts/jobs/triager.sh`:
 
 Also fix the same wrong default in `scripts/jobs/comment-watcher.sh` (line 179, `GARDEN_REPOS:=$GARDEN_ROOT/repos` → `$GARDEN_ROOT/worktrees`) so its opportunistic bare-clone reuse (line 311) actually finds the clone; it degrades gracefully today but logs a spurious "no bare clone" note on every tick. Update the test harness references (`comment-watcher-test.sh`, which passes `GARDEN_REPOS="$TR/norepos"`) as needed. Verify against the existing standing clones under `worktrees/` for all slugs in `journal/repos/`.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 20
-  claimed_at: 2026-07-11T01:25:50Z
+<!-- garden-reaped: 1 -->
