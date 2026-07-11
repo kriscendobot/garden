@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-11T05:58:57Z_
+_As of 2026-07-11T06:06:15Z_
 
 ## Latest
 
-The headline for kriscendobot is a fleet-wide triager crash-loop: every `garden-triager@*` unit is still FATAL-looping because the deployed root (`/home/kris/garden2`, ~56 commits behind `origin/main2`) predates the `GARDEN_REPOS` `/repos`→`/worktrees` fix. The code fix and its regression tests are already landed and green on `main2` (through `4c0e275b0b`), and all eight own-fork bare clones now exist under `worktrees/`, so a single drained `deploy-garden.sh` should clear the storm — that deploy is the one remaining human/leader step, and several self-heal reports and one circuit-breaker (`kriscendobot-finbot`, now OPEN) trace back to it.
-
-On the project side, finbot advanced four green increments direct-to-`main` over the last day — SES-compartments (the capability-attenuation cornerstone), multi-instrument/yield portfolios, a cyclical (seasonal + residual-GBM) forecaster, and GARCH(1,1) conditional volatility — clearing its stranded-branch backlog to zero (435 tests, safety gate holding, no live wallet). The gardener re-flags an open decision: finbot's no-self-PR/fast-forward convention keeps stranding branches, so either let builders land on `main` directly or stand up a weaver/conductor sweep.
-
-The [kriscendobot/agoric-sdk PR #9](https://github.com/kriscendobot/agoric-sdk/pull/9) 6-hourly drive completed: a peer's new head `71cb13f9` introduced two fresh reds (lint-rest, test-boot), so a shepherd was commissioned to fix the PR-attributable failures. It still needs your call on rebase-onto-master + un-draft + SwingSet review vs. keeping it a frozen-base prototype — approval can't proceed while it's a draft with no review. Elsewhere on endo-but-for-bots, PR #683's shepherd landed all 24 checks green while [#660](https://github.com/endojs/endo-but-for-bots/pull/660)'s red-CI shepherd is still in flight.
+The garden's triager fleet crash-loop is fully diagnosed but not yet cleared: the `GARDEN_REPOS` default was fixed at the source (`repos/` → `worktrees/`, sharing one `bare_clone_dir` resolver, with opt-in self-provisioning) and is green on `main2`, but the deployed root `/home/kris/garden2` is still ~56 commits behind, so `garden-triager@*` units keep FATAL-looping on session limits until a drained `deploy-garden.sh` is run — a leader/liaison operation no gardener can perform. On the delivery side, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) advanced: a peer pushed head `71cb13f9`, and shepherd #9 fixed the one PR-attributable red (a `dprint fmt` miss on the critical-vat test rewrite); the remaining reds are all stale-base noise from a base trailing master ~503 commits, and a rebase/un-draft decision is still parked for the maintainer. Separately, kriscendobot/finbot landed four clean green increments (SES-compartments capability attenuation, multi-instrument yield-bearing portfolios, a cyclical/harmonic forecaster, and GARCH(1,1) conditional volatility) — clearing its entire stranded-branch backlog — but the "no self-PR, fast-forward main" convention keeps stranding builder branches and awaits a maintainer decision on whether builders may land directly. Ten PRs remain parked for review, including [endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) (lint-per-package to dodge the typescript-eslint project-service ceiling) and the [#59 ocapn-noise test stack](https://github.com/endojs/endo-but-for-bots/pull/113).
 
 ## Parked for maintainer feedback
 
@@ -305,27 +301,46 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Fork-only throughout; no upstream agoric/agoric-sdk touch.
 
+- `20260711T060534Z-235a04` — from gardener:kriscendobot-agoric-sdk-pr9-shepherd-71cb13f9, reply_to `kriscendobot-agoric-sdk-pr9-shepherd-71cb13f9` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T060534Z-235a04.md)
+
+> shepherd [#9](https://github.com/kriscendobot/agoric-sdk/issues/9) (kriscendobot/agoric-sdk PR[#9](https://github.com/kriscendobot/agoric-sdk/issues/9), head 71cb13f9→95130d9): fixed the one
+> PR-attributable red — lint-rest was a `dprint fmt` miss on the 00:48 critical-vat
+> test rewrite (multi-line template literal). Pushed 95130d9fed; verified locally
+> with the exact pinned dprint@0.53.0.
+>
+> Remaining reds are all NON-PR-attributable stale-base noise (PR base trails master
+> ~503 commits; PR touches no orchestration/portfolio/ymax-planner files):
+> - test-boot (9 shards): orchestration.test.ts:576 `numWantsSatisfied undefined vs 1`
+>   snapshot drift. NOTE: this spread from 1 red shard last tick to ~9 this tick —
+>   the stale-base boot snapshots are getting noisier, so a fully-green fork CI is
+>   drifting further out of reach without the rebase.
+> - test-codegen: orchestration fetched-chain-info.js codegen drift (unchanged).
+> - test-quick (node-old): services/ymax-planner + portfolio unit failures, exit 129
+>   (unchanged).
+>
+> Did NOT rebase / regenerate chain info — that's the pending maintainer call. The
+> growing test-boot noise is the new data point for that decision.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (6)
 - [`endojs-endo-but-for-bots-pr660-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr660-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #660
-- [`kriscendobot-agoric-sdk-pr9-shepherd-71cb13f9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr9-shepherd-71cb13f9.md) — shepherd #9 — drive kriscendobot/agoric-sdk PR #9 CI green (head 71cb13f9)
 - [`ocapn-daemon-minion-deploy-demo`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-daemon-minion-deploy-demo.md) — Deploy an OCapN-Noise Pet Daemon on minion.town and connect a local peer (M3+M4)
 - [`proxy-pr-comment-auto-clear`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proxy-pr-comment-auto-clear.md) — Shape — mirror the existing § Watchdog auto-clear exactly
 - [`xs2rust-endor-262-xst-runner-core`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-262-xst-runner-core.md) — Builder: endor-xst core — the xst-analogue test262 runner (PR #600, test262-c...
 - [`xs2rust-endor-stage5-fix6-verify`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage5-fix6-verify.md) — Stage-5 fix6 2/2 — VERIFY: full-tree re-measurement after the capture-closure...
 - [`xst-validation-orchestrator-20260711-052002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xst-validation-orchestrator-20260711-052002.md) — XS-validation orchestrator (hourly) — drive the agoric-sdk XS upgrade to vali...
 
-### tada (1862)
+### tada (1863)
+- [`kriscendobot-agoric-sdk-pr9-shepherd-71cb13f9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr9-shepherd-71cb13f9.md) — All work is done. Here is my completion report.
 - [`agoric-sdk-pr9-drive-20260711-045005`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-pr9-drive-20260711-045005.md) — Completion report
 - [`endojs-endo-but-for-bots-spaces-util-reexport-slice`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-spaces-util-reexport-slice.md) — Completion report
 - [`endojs-endo-but-for-bots-pr683-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr683-shepherd.md) — All 24 checks pass. Job complete.
 - [`endojs-endo-but-for-bots-init-reexport-slice`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-init-reexport-slice.md) — Completion report
-- [`xst-validation-orchestrator-20260711-042001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-042001.md) — XS-validation orchestrator — tick report (2026-07-11 ~04:20Z)
-- … and 1857 more
+- … and 1858 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
