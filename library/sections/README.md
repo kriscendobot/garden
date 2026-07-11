@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6372 (530 parent indexes + 5842 children).
+Total section files: 6379 (530 parent indexes + 5849 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -7554,6 +7554,16 @@ Total section files: 6372 (530 parent indexes + 5842 children).
 - [habitat-chronicles--unum-pattern--overview](habitat-chronicles--unum-pattern--overview.md)
 - [habitat-chronicles--unum-pattern--presences-and-division-of-labor](habitat-chronicles--unum-pattern--presences-and-division-of-labor.md)
 - [habitat-chronicles--unum-pattern--unum-vs-object-two-planes](habitat-chronicles--unum-pattern--unum-vs-object-two-planes.md)
+
+### habitat-chronicles--what-are-capabilities
+
+- [habitat-chronicles--what-are-capabilities--capability-patterns](habitat-chronicles--what-are-capabilities--capability-patterns.md)
+- [habitat-chronicles--what-are-capabilities--conclusion](habitat-chronicles--what-are-capabilities--conclusion.md)
+- [habitat-chronicles--what-are-capabilities--designation-and-authority-the-idea](habitat-chronicles--what-are-capabilities--designation-and-authority-the-idea.md)
+- [habitat-chronicles--what-are-capabilities--distributed-services-and-engineering-practices](habitat-chronicles--what-are-capabilities--distributed-services-and-engineering-practices.md)
+- [habitat-chronicles--what-are-capabilities--embedded-and-compartmentalized-computation](habitat-chronicles--what-are-capabilities--embedded-and-compartmentalized-computation.md)
+- [habitat-chronicles--what-are-capabilities--overview](habitat-chronicles--what-are-capabilities--overview.md)
+- [habitat-chronicles--what-are-capabilities--what-a-capability-is](habitat-chronicles--what-are-capabilities--what-a-capability-is.md)
 
 ### kamera--readme
 
