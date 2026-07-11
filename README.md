@@ -1,16 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-11T17:56:16Z_
+_As of 2026-07-11T17:59:37Z_
 
 ## Latest
 
-The garden's **triager fleet is crash-looping** and the fix is landed but undeployed: `GARDEN_REPOS` now defaults to `worktrees/` (with an opt-in self-provision path for missing bare clones), and every `garden-triager@*` unit flapping on the old `/repos` FATAL — including `kriscendobot-{agoric-sdk,ocapn,cosgov,agoric-3-proposals,vattr97,endo,finbot}` — will clear only once a deliberate `deploy-garden.sh` advances the deployed root (`/home/kris/garden2`, ~56 commits behind `main2`). Multiple self-heal gardeners converged on the same diagnosis: no code work remains, just the drained leader-host deploy. Separately, watch-set authorization for the three clone-less repos (`ocapn`, `cosgov`, `agoric-3-proposals`) is still an open call under the § Monitoring safety constraint, and `kriscendobot-finbot` tripped a triage circuit-breaker worth confirming it belongs in the set.
+The board has gone quiet — todo is empty and a single SturdyRef job is in flight — because Milestone M3 is now fully merge-bottlenecked rather than short on work. The foreman reported repeatedly that every M3 exit-criterion capability has landed as a green, mergeable PR awaiting a maintainer merge decision: Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608), the confined outbound-HTTP tool [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the agent mount/search stack [#678](https://github.com/endojs/endo-but-for-bots/pull/678)–[#681](https://github.com/endojs/endo-but-for-bots/pull/681), and the endopi stack [#667](https://github.com/endojs/endo-but-for-bots/pull/667)–[#672](https://github.com/endojs/endo-but-for-bots/pull/672). Two things gate the flow: the repo-wide lint-projectService ceiling, whose green fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) is still unmerged and keeps poisoning gauntlets, and the endoclaw-timer→`@endo/reminder` pivot, where design PR [#682](https://github.com/endojs/endo-but-for-bots/pull/682) supersedes the timer chain [#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619) and needs an accept/close call.
 
-[kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/issues/9) (ymax→critical vat, [garden#29](https://github.com/kriskowal/garden/issues/29)) is now green on every PR-attributable check — the shepherd's `dprint` fix took CI from four reds to one stale-base codegen red — and all reviewer feedback (mhofman, dckc) is landed. After four unanswered ticks, the driver commissioned the **reversible default** and rebased the PR onto current master to clear the last red; it awaits your `rebase #9` vs `freeze #9` call, which decides whether the PR stays a frozen-base prototype or goes to SwingSet-team review.
+Most urgent operationally: the deployed garden root (`/home/kris/garden2`) is ~56 commits behind main2, so `garden-triager@*` units keep FATAL-looping on the stale `/repos` clone path even though the fix has landed on main2 — a deliberate drained `deploy-garden.sh` is the clean remedy, and several self-heal jobs converge on that same ask (three watched forks — ocapn, agoric-3-proposals, cosgov — will still need clones or disabling afterward).
 
-**Milestone M3 is merge-bottlenecked, not work-bottlenecked** — the foreman flagged this repeatedly across the day. A stack of green, mergeable endo-but-for-bots PRs sits ready: the lint-per-package ceiling fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) (which trip-wires the poisoned lint-ceiling shepherd cohort), Docker self-host [#608](https://github.com/endojs/endo-but-for-bots/pull/608), the confined-HTTP agent tool [#661](https://github.com/endojs/endo-but-for-bots/pull/661), and the mount/registry stack. The `endoclaw-timer` scheduled-execution chain ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)→[#617](https://github.com/endojs/endo-but-for-bots/pull/617)→[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) is pivoting to a standalone `@endo/reminder` plugin — design PR [#682](https://github.com/endojs/endo-but-for-bots/pull/682) is reviewed and needs an accept/close decision that would retire the superseded timer PRs — and the module-loading [#659](https://github.com/endojs/endo-but-for-bots/pull/659) and git-capability [#691](https://github.com/endojs/endo-but-for-bots/pull/691) sequencing PRs plus the rename stack (blocked on [#598](https://github.com/endojs/endo-but-for-bots/pull/598)) all wait on you.
-
-On the demo side, the **OCapN-Noise-WS transport is live and reproducible on minion.town** (Caddy TLS → loopback WS → Noise IK → capability round-trip), the **XS-validation effort finalized** green across all four workstreams on the agoric-sdk fork ([garden#33](https://github.com/kriskowal/garden/issues/33) left open for you), and finbot landed a run of simulator increments direct-to-main (GARCH, GJR-GARCH leverage, and inference-driven ORIENT→DECIDE, now 451 tests green with the wallet gate holding). Finbot's standing question — let builders land directly on main vs. stand up a weaver/conductor fast-forward sweep, and the security-gated cap-attenuation Phase 2 — remains deferred to you. Note also two gardener jobs (`pr688-shepherd`, `ocapn-pet-daemon-dockerfile-minion`) deterministically overran the 2400s handler budget and need splitting into claim-sized stages.
+Meanwhile the finbot side kept advancing on direct-push cycles, landing GARCH(1,1), the cyclical/harmonic forecaster, GJR-GARCH leverage, and an inference-driven DECIDE stage — 451 tests green, wallet gate holding — and [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) is now green on every PR-attributable check and blocked solely on your rebase-vs-freeze call, for which the drive gardener took the reversible default and commissioned a rebase onto master. An OCapN-Noise-WS demo is also live and reproducible on minion.town. Two long-running shepherd/build jobs ([#688](https://github.com/endojs/endo-but-for-bots/pull/688) shepherd, an ocapn Dockerfile job) overran the handler budget and need splitting into claim-sized stages.
 
 ## Parked for maintainer feedback
 
@@ -510,17 +508,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endo-sturdyref-press-20260711-175014`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260711-175014.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
-- [`issue-kriskowal-garden-36`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-36.md) — Issue from kriskowal on kriskowal/garden #36
 
-### tada (1932)
+### tada (1933)
+- [`issue-kriskowal-garden-36`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-36.md) — Completion report
 - [`ocapn-cross-host-pet-daemon-invite-accept`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-cross-host-pet-daemon-invite-accept.md) — Completion report — ocapn-cross-host-pet-daemon-invite-accept (M5 builder)
 - [`port-xs-to-rust-memory-safe-engine-s18`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s18.md) — Completion report — s18 supervisor: stage-5 reproduction green on all compile...
 - [`xs2rust-endor-262-smoke-corpora-repair`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-262-smoke-corpora-repair.md) — Completion report
 - [`hyperlink-refs-pr-review-sequence`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/hyperlink-refs-pr-review-sequence.md) — Completion report
-- [`kriscendobot-agoric-sdk-pr9-weave-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr9-weave-master.md) — Completion report
-- … and 1927 more
+- … and 1928 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
