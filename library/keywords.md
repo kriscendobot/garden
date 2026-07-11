@@ -14460,3 +14460,18 @@ capability-based login | tripartite-identity
 OpenID OAuth Facebook Connect federated login | tripartite-identity
 permission-bound session key | tripartite-identity
 no public identifier for session authentication | tripartite-identity
+wanting as the human role | wanting-as-the-human-role
+learn to be a good wanter | wanting-as-the-human-role
+be a good wanter | wanting-as-the-human-role
+the AI can make things but can't want things | wanting-as-the-human-role
+the AI can't want things for you | wanting-as-the-human-role
+division of labor between human and machine | wanting-as-the-human-role
+human-machine division of labor | wanting-as-the-human-role
+delegate judgment not just tasks | wanting-as-the-human-role
+recursively ramified desire | wanting-as-the-human-role
+swap humans for AIs in org-chart boxes | wanting-as-the-human-role
+Adventures In LLM Land | wanting-as-the-human-role
+agentic development | wanting-as-the-human-role
+agent flock | wanting-as-the-human-role
+managing AI agents like junior developers | wanting-as-the-human-role
+Chip Morningstar AI revolution | wanting-as-the-human-role
