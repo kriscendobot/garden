@@ -1,10 +1,7 @@
 ---
-gate: deferred
-priority: low
 role: scholar
-posted_by: producer
-posted_at: 2026-07-10T22:42:30Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=low at=2026-07-11T02:34:06Z -->
 
 Low-priority background library ingest for the scholar. No rush — this is
 fill-the-idle-fleet work, not milestone work.
