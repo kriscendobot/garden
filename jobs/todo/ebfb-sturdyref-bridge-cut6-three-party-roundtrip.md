@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: ebfb-orch-sturdyref-bridge-cuts
-priority: normal
 role: builder
-posted_by: producer
-posted_at: 2026-07-11T23:11:04Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-12T03:07:11Z -->
 
 # Bridge cut 6 — three-party round-trip integration (A, B, C) (design #697, cut 6)
 
