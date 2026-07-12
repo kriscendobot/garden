@@ -35,6 +35,12 @@ Whenever a sandbox or container driver derives an environment variable (`$PATH`,
 
 6. **Caller-PATH precedence.** Whether the derived value lands before or after caller-supplied entries determines whether a hostile mount can shadow `/usr/bin`. The defensible choice is "rootfs-defaults first, caller-mounts last". Flag if undocumented or inverted.
 
+### Catch-all error swallow (fail-open)
+
+A `catch` clause that absorbs EVERY error class — `catch {}`, `catch { return undefined }`, `catch (e) { return false }` — with no `instanceof`/`.code`/`.name` narrowing and no rethrow or log. The regular reviewer sees a try/catch and moves on; the type-checker sees a total function. The saboteur asks: *which* errors is this catch entitled to eat, and what does the caller do with the swallowed-to-falsy result? The hazard is a **fail-open**: a swallowed exception in a confinement/permission/validation path silently becomes "allow" or "not found" instead of surfacing the failure. Narrow to the expected class and rethrow the rest, or at minimum log before continuing.
+
+This attack class now has a deterministic backstop that runs BEFORE the panel: `scripts/jobs/gardening/detect-catch-all-swallow.sh` flags any *added* catch block whose body neither narrows nor rethrows/logs, and `scripts/jobs/handlers/catch-all-swallow-claude.sh` narrows it. The gate checks error-class *breadth* (which the saboteur historically missed because it checked only the try-body's *width*); the saboteur seat remains the semantic backstop for the callback form (`.catch(cb)`), for catches whose body is pre-existing/unchanged code, and for cases where a "log" is present but the fail-open persists.
+
 ### Application
 
 Run these six checks on any PR that touches a `drivers/path.js`-shaped file, or that adds any `process.env`-mining, image-inspection, or mount-probing code path that ends up in a `spawn` argv. The unit-test surface for these helpers will not exercise symlink resolution, control-character injection, or cwd-relative probing because all three require an `existsSync` probe with realistic side effects. They need adversarial test cases, not just shape tests.

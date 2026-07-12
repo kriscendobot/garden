@@ -81,6 +81,18 @@ DETECT_BANNERS="$HERE/detect-banners.sh"
 : "${GARDEN_BANNER_FIXER:=$HERE/../handlers/banner-sweep-claude.sh}"
 run_if "$DETECT_BANNERS" check "$wt" "$base" -- "$GARDEN_BANNER_FIXER" "$wt" "$base"
 
+# catch-all error-swallow narrowing: ONLY when the deterministic detector finds a
+# try/catch `catch` block added in a code file whose body neither narrows on an
+# error class/code nor rethrows/logs (cheap when clean; an LLM narrowing when it
+# fires). The panel's saboteur juror checks the try-body's width but not the
+# catch-clause's error-class breadth, so a fail-open swallow slips past review;
+# this gate encodes that breadth check. The saboteur seat
+# (skills/saboteur-adversarial-review, skills/adversarial-tests) is the semantic
+# backstop for what the grep misses.
+DETECT_CATCH_ALL_SWALLOW="$HERE/detect-catch-all-swallow.sh"
+: "${GARDEN_CATCH_ALL_SWALLOW_FIXER:=$HERE/../handlers/catch-all-swallow-claude.sh}"
+run_if "$DETECT_CATCH_ALL_SWALLOW" check "$wt" "$base" -- "$GARDEN_CATCH_ALL_SWALLOW_FIXER" "$wt" "$base"
+
 # --- evaluation/test gate BEFORE CI: err toward running everything -----------
 # False positives are fine here; false negatives are not. We do NOT sense-gate
 # the eval suite: we run it. The default eval runner is the deterministic local
