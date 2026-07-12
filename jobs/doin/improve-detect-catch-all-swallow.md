@@ -8,3 +8,9 @@ New script mirrors detect-banners.sh's contract:
 - Add a matching test under `scripts/jobs/test/detect-catch-all-swallow-test.sh` (mirror `detect-banners-test.sh`).
 
 Wire it into `scripts/jobs/gardening/garden-pr.sh` next to the existing detectors (lines 70–82 pattern): declare `DETECT_CATCH_ALL_SWALLOW="$HERE/detect-catch-all-swallow.sh"`, a `GARDEN_CATCH_ALL_SWALLOW_FIXER` env-defaulted to a new `scripts/jobs/handlers/catch-all-swallow-claude.sh` conditional fixer (modeled on `banner-sweep-claude.sh`), and `run_if "$DETECT_CATCH_ALL_SWALLOW" check "$wt" "$base" -- "$GARDEN_CATCH_ALL_SWALLOW_FIXER" "$wt" "$base"`. Cross-reference `skills/saboteur-adversarial-review` / `skills/adversarial-tests` so the juror discipline and the deterministic gate stay consistent. This makes error-class breadth an encoded, reliably-run check rather than an agent judgment the panel keeps missing.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 18
+  claimed_at: 2026-07-12T14:51:48Z
