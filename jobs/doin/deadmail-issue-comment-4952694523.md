@@ -41,6 +41,7 @@ make it into a PR and do a panel review
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
