@@ -6,6 +6,7 @@ Fix PR #609 in endojs/endo-but-for-bots (endoclaw-timer Phase 1 interval-schedul
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
