@@ -41,6 +41,8 @@ location-free formula ids; guest grants ride fresh unlinkable tokens).
 - Report with real-execution evidence and state the confinement property
   preserved.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
