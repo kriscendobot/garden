@@ -27,3 +27,9 @@ from the SturdyRef gate (subscriber-capability delivery as the ungated Phase 2,
 `send`+`storeValue` demoted to a gated Phase 4). Drive the panel from this
 head; run the design panel, address any must-fix items with follow-up commits,
 and un-draft when the panel-fixer loop terminates clean.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 5
+  claimed_at: 2026-07-12T16:54:11Z
