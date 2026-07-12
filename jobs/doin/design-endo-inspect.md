@@ -66,3 +66,9 @@ browser/node(tty vs bare)/xs behavior matrix, the non-triggering-inspection appr
 and its honest limits under SES's missing Proxy brand check, and the Proxy-stamping
 issues surfaced as fully-qualified dependencies. `@erights` and `@mhofman` are tagged.
 The `tada` report gives the design PR number and the key open questions for the build.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 9
+  claimed_at: 2026-07-12T16:49:10Z
