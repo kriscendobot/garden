@@ -70,3 +70,9 @@ A draft `feat` PR on `endojs/endo-but-for-bots`, stacked on the correct `#127`-d
 base, implements `glorp` as the Array-case grep-over-glob combinator (glob/grep kept
 decoupled), with load-bearing tests, and does not touch the closed `#127`. The `tada`
 report gives the PR number, the base chosen and why, and the test evidence.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  claimed_at: 2026-07-12T15:19:14Z
