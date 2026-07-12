@@ -44,3 +44,9 @@ location-free formula ids; guest grants ride fresh unlinkable tokens).
 <!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 18
+  claimed_at: 2026-07-12T02:43:07Z
