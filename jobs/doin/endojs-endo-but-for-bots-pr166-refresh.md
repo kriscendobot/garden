@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Please refresh. This should be invoked by `endor -i` or `endor --interactive`. This has implications for integration with Slot Machine. That is, ordinarily the slot machine would yield when all vats have drained and exited, when there are no further I/O handles open. Quitting sho
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  claimed_at: 2026-07-12T16:26:01Z
