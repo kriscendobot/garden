@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-12T16:01:49Z_
+_As of 2026-07-12T16:02:52Z_
 
 ## Latest
 
@@ -827,19 +827,18 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr124-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #124
 - [`endojs-endo-but-for-bots-pr712-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr712-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #712
 - [`endojs-endo-but-for-bots-pr713-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr713-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #713
-- [`improve-common-md-journal-sync-pointer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-common-md-journal-sync-pointer.md) — roles/COMMON.md
 
-### tada (2031)
+### tada (2032)
+- [`improve-common-md-journal-sync-pointer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-common-md-journal-sync-pointer.md) — Completion report
 - [`endojs-endo-but-for-bots-pr132-reconstruct-preact`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr132-reconstruct-preact.md) — Completion report — reconstruct PR #132 (per-message Md/Raw/Pre toggle) on cu...
 - [`endojs-endo-but-for-bots-pr133-redraw-preact`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr133-redraw-preact.md) — Completion report — endojs-endo-but-for-bots-pr133-redraw-preact
 - [`endojs-endo-but-for-bots-pr135-1318f531`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr135-1318f531.md) — Completion report
 - [`endo-sturdyref-press-20260712-155002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260712-155002.md) — SturdyRef press tick — completion report (job endo-sturdyref-press-20260712-1...
-- [`endojs-endo-but-for-bots-pr127-2d156fdf`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr127-2d156fdf.md) — Completion report
-- … and 2026 more
+- … and 2027 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
