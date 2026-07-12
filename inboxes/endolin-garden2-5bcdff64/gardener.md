@@ -255,3 +255,12 @@ Inspect via `git -C journal cat-file -p 2424a7bd0c846c08bc8621acd761338440817997
 - Context: gardener-6 on endolin-garden2-5bcdff64: job 'gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting' exit-0-unsatisfying but elapsed near-constant (186,186s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p ecbc9c9ec182799472dcd2e4e4f55576f4556295`.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-07-12T03:05:07Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: 09853562bd00e5a58248136e3748c7cf7053ea2f
+- Context: gardener-7 on endolin-garden2-5bcdff64: job 'endojs-endo-but-for-bots-pr702-shepherd' exit-0-unsatisfying but elapsed near-constant (102,102s) over 2 cycles — likely a wedged child, not a working one
+
+Inspect via `git -C journal cat-file -p 09853562bd00e5a58248136e3748c7cf7053ea2f`.
