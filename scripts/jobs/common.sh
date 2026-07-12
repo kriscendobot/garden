@@ -1571,7 +1571,17 @@ GARDEN_GH_API_ATTEMPTS="${GARDEN_GH_API_ATTEMPTS:-4}"
 # endojs/endo#3137 at 2026-06-29 21:14:03). These are added to the gh-api set ONLY,
 # never to GARDEN_OFFLINE_SIGNATURES, which classifies git's transport for
 # clone/fetch and must not absorb a Go-only string (e.g. a bare `EOF`) spuriously.
-: "${GARDEN_TRANSIENT_GH_API_SIGNATURES:=HTTP 5[0-9][0-9]|HTTP 429|rate limit|secondary rate|abuse detection|i/o timeout|dial tcp|context deadline exceeded|net/http: TLS handshake timeout|no such host|server misbehaving|\bEOF\b|${GARDEN_OFFLINE_SIGNATURES}}"
+#
+# When GitHub is overloaded it serves an HTML error page (a 5xx gateway / overload
+# / maintenance / rate-limit page) instead of JSON; `gh`'s JSON decoder then emits
+# `invalid character '<' looking for beginning of value` with NO HTTP-status word,
+# so without the signature below it is misclassified DEFINITIVE and crashes the
+# caller (observed: garden-mirror-closer exit 1 on Agoric/agoric-sdk#11031 at
+# 2026-07-12 06:28:21). An HTML body is a server-side transient page, so absorbing
+# it under the bounded retry preserves "never guess a state": if GitHub keeps
+# returning HTML past GARDEN_GH_API_ATTEMPTS the call still fails loud (nonzero,
+# empty) rather than guessing. gh-api set ONLY (a Go-decoder string, never git's).
+: "${GARDEN_TRANSIENT_GH_API_SIGNATURES:=HTTP 5[0-9][0-9]|HTTP 429|rate limit|secondary rate|abuse detection|i/o timeout|dial tcp|context deadline exceeded|net/http: TLS handshake timeout|no such host|server misbehaving|\bEOF\b|invalid character .<. looking for beginning of value|${GARDEN_OFFLINE_SIGNATURES}}"
 
 # Classify captured gh stderr ($1) as a transient (self-resolving) gh-api failure:
 # returns 0 on a transient signature, 1 on a definitive one. Case-insensitive.
@@ -1593,7 +1603,10 @@ gh_api_retry() {
   # A human-readable label for the logs: the first arg that looks like an API
   # path/query (has a `/` or `?`), so `--paginate` / `-X GET` / `--jq` flags do
   # not become the label. The API path always precedes any `--jq` in our callers.
-  label="gh api"
+  # Default to the first positional (e.g. `graphql`), never the literal "gh api":
+  # every log line already prefixes "gh api $label", so "gh api" here doubled it
+  # into "gh api gh api failed".
+  label="${1:-gh api}"
   for a in "$@"; do case "$a" in */*|*\?*) label="$a"; break;; esac; done
   errf="$(mktemp 2>/dev/null || printf '%s' "${TMPDIR:-/tmp}/gh_api_retry.$$")"
   while :; do

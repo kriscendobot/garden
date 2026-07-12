@@ -293,6 +293,67 @@ out_j="$(run_state BOGUS false 2>/dev/null)"; rc_j=$?
   && ok "unrecognized GraphQL state → loud die (nonzero, empty), never a guessed state" \
   || bad "an unrecognized state was not caught (rc=$rc_j, out=$(printf %q "$out_j"))"
 
+hr; echo "K — HTML-instead-of-JSON gh response is transient: retried then absorbed, not fatal on the first attempt (agoric-sdk#11031)"; hr
+# When GitHub is overloaded it serves an HTML error page instead of JSON; `gh`'s
+# JSON decoder then emits `invalid character '<' looking for beginning of value`
+# with NO HTTP-status word. Before the fix that stderr was classified DEFINITIVE,
+# so gh_api_retry did not retry, this handler died ("no usable PR state for the
+# closer"), and mirror-closer.sh exited 1 every tick (observed on
+# Agoric/agoric-sdk#11031 at 2026-07-12 06:28:21). A fake fleet `gh` here emits
+# that exact stderr for the first two `graphql` attempts, then a valid JSON body —
+# proving the retry absorbs the transient HTML page instead of dying on attempt 1.
+HTMLSTUB="$TR/mirror-state-html.sh"
+HTMLCOUNT="$TR/mirror-state-html.count"
+cat > "$HTMLSTUB" <<'EOF'
+#!/bin/bash
+# Fake fleet gh: fails the first ${MC_HTML_FAILS} graphql calls with the exact
+# HTML-instead-of-JSON decode error, then serves a valid JSON body.
+[ "$1" = api ] || { echo "stub gh: only 'api' supported (got: $*)" >&2; exit 2; }
+shift
+[ "$1" = graphql ] || { echo "stub gh: only 'graphql' supported (got: $*)" >&2; exit 2; }
+n=$(( $(cat "${MC_HTML_COUNT:?set MC_HTML_COUNT}" 2>/dev/null || echo 0) + 1 ))
+printf '%s' "$n" > "${MC_HTML_COUNT}"
+if [ "$n" -le "${MC_HTML_FAILS:?set MC_HTML_FAILS}" ]; then
+  echo "gh: invalid character '<' looking for beginning of value" >&2
+  exit 1
+fi
+filter='.'; prev=
+for a in "$@"; do [ "$prev" = --jq ] && filter="$a"; prev="$a"; done
+printf '{"data":{"repository":{"pullRequest":{"state":"%s","merged":%s}}}}' \
+  "${MC_GQL_STATE:?set MC_GQL_STATE}" "${MC_GQL_MERGED:?set MC_GQL_MERGED}" | jq -r "$filter"
+exit 0
+EOF
+chmod +x "$HTMLSTUB"
+
+# Two transient HTML pages then success: the handler must ride it out and read the
+# real state (rc=0, correct TSV), and the stub must have been called 3 times (2
+# failed attempts + 1 success) — i.e. the retry actually fired.
+: > "$HTMLCOUNT"
+out_k="$(env GARDEN_GH="$HTMLSTUB" MC_HTML_COUNT="$HTMLCOUNT" MC_HTML_FAILS=2 \
+    MC_GQL_STATE=MERGED MC_GQL_MERGED=true \
+    GARDEN_GH_API_ATTEMPTS=4 GARDEN_BACKOFF_BASE_MS=1 GARDEN_BACKOFF_CAP_MS=2 \
+    "$STATE_HANDLER" endojs/endo 3137 2>/dev/null)"; rc_k=$?
+[ "$rc_k" -eq 0 ] && [ "$out_k" = "$(printf 'closed\ttrue')" ] \
+  && ok "HTML-instead-of-JSON is absorbed by retry → real state read (rc=0, 'closed<TAB>true')" \
+  || bad "HTML page was fatal instead of retried (rc=$rc_k, out=$(printf %q "$out_k"))"
+[ "$(cat "$HTMLCOUNT")" -eq 3 ] \
+  && ok "gh was retried after the HTML page (called 3×: 2 transient fails + 1 success)" \
+  || bad "no retry on the HTML page (gh called $(cat "$HTMLCOUNT")× — expected 3)"
+
+# HTML on EVERY attempt: past GARDEN_GH_API_ATTEMPTS the call still fails LOUD
+# (nonzero, empty) rather than guessing a state — "never guess a state" preserved.
+: > "$HTMLCOUNT"
+out_k="$(env GARDEN_GH="$HTMLSTUB" MC_HTML_COUNT="$HTMLCOUNT" MC_HTML_FAILS=99 \
+    MC_GQL_STATE=OPEN MC_GQL_MERGED=false \
+    GARDEN_GH_API_ATTEMPTS=3 GARDEN_BACKOFF_BASE_MS=1 GARDEN_BACKOFF_CAP_MS=2 \
+    "$STATE_HANDLER" endojs/endo 3137 2>/dev/null)"; rc_k=$?
+[ "$rc_k" -ne 0 ] && [ -z "$out_k" ] \
+  && ok "persistent HTML past the attempt budget → loud die (nonzero, empty), never a guessed state" \
+  || bad "persistent HTML did not fail loud (rc=$rc_k, out=$(printf %q "$out_k"))"
+[ "$(cat "$HTMLCOUNT")" -eq 3 ] \
+  && ok "the failing call was attempted the full budget (3×) before giving up" \
+  || bad "attempt budget not honored (gh called $(cat "$HTMLCOUNT")× — expected 3)"
+
 # ============================================================================
 # PART 2 — synthetic real-repo end-to-end (REQUIRED)
 # ============================================================================
