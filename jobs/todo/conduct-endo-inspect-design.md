@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: orch-endo-inspect
-priority: normal
-posted_by: producer
-posted_at: 2026-07-12T16:46:24Z
+role: conductor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-12T17:07:05Z -->
 
 ---
 role: conductor
