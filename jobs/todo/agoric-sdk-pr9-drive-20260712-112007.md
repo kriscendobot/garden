@@ -1,7 +1,3 @@
-cadence: 6h
-last_dispatched: 2026-07-12T11:20:07Z
-job_basename_prefix: agoric-sdk-pr9-drive
----
 role: orchestrator
 
 # Drive kriscendobot/agoric-sdk PR #9 to approval (every 6h)
