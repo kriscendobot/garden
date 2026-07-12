@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-12T22:31:04Z_
+_As of 2026-07-12T22:33:43Z_
 
 ## Latest
 
-The job board has drained to empty — zero queued, a single [kriscendobot/agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/issues/15) shepherd in flight (and already overrunning its handler budget) — because M3 is now merge-bottlenecked rather than build-starved: the foreman has flagged repeatedly that the milestone's headline exit-criterion PRs, Docker self-host [endojs/endo-but-for-bots#694](https://github.com/endojs/endo-but-for-bots/pull/694) and confined-HTTP [endojs/endo-but-for-bots#661](https://github.com/endojs/endo-but-for-bots/pull/661), are built, green, and stranded — their gauntlets exhausted five requeues and now sit poisoned in `plan/` behind a `go-ahead` gate, blocked in part by the unmerged repo-wide lint-ceiling fix [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594). Roughly 30 green mergeable PRs (the mount/agent-tools stack, OAuth #667–672, registry #671) are queued awaiting a conductor/merge pass and acceptance of sequencing designs #659/#691. Meanwhile [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/issues/9) (ymax→critical) was rebased onto master, is fully green and un-drafted with mhofman's review threads resolved, and now waits solely on a SwingSet-team decision. The endoclaw-timer chain ([endojs/endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/pull/609)) needs a maintainer accept/close call on its `@endo/reminder` redraft [endojs/endo-but-for-bots#682](https://github.com/endojs/endo-but-for-bots/pull/682), and the SturdyRef agent-surface design [endojs/endo-but-for-bots#695](https://github.com/endojs/endo-but-for-bots/pull/695) still awaits go/no-go to post its six builder cuts. Autonomous finbot cycles completed the inference-driven OODA loop end to end and are now fitting adaptive GARCH vol surfaces (497 tests green, wallet untouched), still deferring live execution pending cap-attenuation authorization. Watch two operational snags: dckc's "make it into a PR and do a panel review" comment on [kriskowal/garden#31](https://github.com/kriskowal/garden/issues/31) was dead-lettered and poisoned for overrunning its budget, and a rash of bridge-cut and shepherd jobs are deterministically blowing the 2400s handler wall and need splitting.
+Milestone M3 on `endojs/endo-but-for-bots` is now merge-bottlenecked rather than build-bottlenecked: the foreman reports ~30 green, mergeable PRs stacked on frozen bases awaiting sequential landing — the mount/agent-tools stack ([#678](https://github.com/endojs/endo-but-for-bots/pull/678)–[#681](https://github.com/endojs/endo-but-for-bots/pull/681), [#655](https://github.com/endojs/endo-but-for-bots/pull/655)–[#658](https://github.com/endojs/endo-but-for-bots/pull/658)), the confined HTTP client [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the registry [#671](https://github.com/endojs/endo-but-for-bots/pull/671), the OAuth stack [#667](https://github.com/endojs/endo-but-for-bots/pull/667)–[#672](https://github.com/endojs/endo-but-for-bots/pull/672), and the Docker self-host [#694](https://github.com/endojs/endo-but-for-bots/pull/694) — plus two sequencing-acceptance designs, module-loading [#659](https://github.com/endojs/endo-but-for-bots/pull/659) and git-capability [#691](https://github.com/endojs/endo-but-for-bots/pull/691), that gate their stacks' order. **The two headline exit PRs [#694](https://github.com/endojs/endo-but-for-bots/pull/694) and [#661](https://github.com/endojs/endo-but-for-bots/pull/661) are now poisoned** — their gauntlet/shepherd jobs exhausted requeues (the repo-wide lint projectService ceiling [#594](https://github.com/endojs/endo-but-for-bots/pull/594) reds every run) and sit HELD in `jobs/plan/` awaiting a `go-ahead` promotion; merging [#594](https://github.com/endojs/endo-but-for-bots/pull/594) auto-resumes the poisoned shepherd cohort. The scheduled-execution clause pivoted: kriskowal's CHANGES_REQUESTED redirected the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) into a standalone `@endo/reminder` unconfined plugin — design [#682](https://github.com/endojs/endo-but-for-bots/pull/682) supersedes it and needs an accept/close call before Phase-4 work resumes.
+
+On the fork side, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax→critical, [garden#29](https://github.com/kriskowal/garden/issues/29)) has cleared every blocker across eight drive ticks: the reversible rebase onto master turned fork CI fully green, mhofman's two stale review threads were resolved, and the PR is un-drafted with review requested — it now waits solely on a SwingSet-team decision. The SturdyRef effort landed its daemon substrate ([#521](https://github.com/endojs/endo-but-for-bots/pull/521)/[#541](https://github.com/endojs/endo-but-for-bots/pull/541) green) and its bridge stack through cut 4 [#697](https://github.com/endojs/endo-but-for-bots/pull/697) (conservative provisional defaults recorded: distinct OCapN key, no production netlayer), but the agent-surface design [#695](https://github.com/endojs/endo-but-for-bots/pull/695) has sat unread for a day gating the six builder cuts A–F. Separately, the mount-extensions PR [#127](https://github.com/endojs/endo-but-for-bots/pull/127) was closed with `glorp` re-extracted onto the delegated stack as [#713](https://github.com/endojs/endo-but-for-bots/pull/713).
+
+Finbot completed its inference-driven OODA axis — the full OBSERVE→ORIENT→DECIDE→AUDIT→ACT loop now runs by inference in dry-run (wallet untouched, 497+ tests green), and subsequent cycles wired adaptive GARCH/GJR-GARCH vol surfaces with per-instrument MLE fitting; every finbot cycle re-flags the same standing gate — cap-attenuation Phase 2 (live paper-wallet/test-net run) needs explicit `live_authorized`. Two operational patterns warrant attention: a rash of handler-budget overruns is poisoning long jobs (shepherds on [#124](https://github.com/endojs/endo-but-for-bots/pull/124)/[#704](https://github.com/endojs/endo-but-for-bots/pull/704)/agoric-sdk#15, several sturdyref bridge cuts, and a deadmail job), and dckc's comment on [garden#31](https://github.com/kriskowal/garden/issues/31) asking to "make it into a PR and do a panel review" was dead-lettered and then poisoned by that same budget wall, so it needs manual pickup.
 
 ## Parked for maintainer feedback
 
@@ -1059,13 +1063,41 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Run the gauntlet (clean → panel review → fix-loop → un-draft) on `endojs/endo-but-for-bots` DRAFT PR #694 `feat: Docker self-hosting image with authenticated remote gateway` (base `llm`, head `build/daemon-docker-selfhost-remote-gateway`), driving this freshly-built, mergeable-but-stranded PR toward mergeable to advance M3's headline exit criterion (self-host the daemon via Docker with a remote bearer-token gateway). Treat the known repo-wide lint projectService ceiling (tracked by #594) as pre-existing and out of scope; do not merge or touch superseded PR #608 (its disposition is a maintainer decision).
 
+- `poison-kriscendobot-agoric-sdk-pr15-shepherd-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-kriscendobot-agoric-sdk-pr15-shepherd-deadline-overrun.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
+> Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=2400s):
+> this job EXCEEDS THE HANDLER BUDGET and would be killed identically on every requeue,
+> so the reaper surfaced it after 1 overrun cycles (not the full 5-cycle poison threshold).
+> The work is preserved at jobs/plan/kriscendobot-agoric-sdk-pr15-shepherd; it stays HELD until a human promotes it
+> (promote-plan.sh kriscendobot-agoric-sdk-pr15-shepherd) or removes it. Triage: split the job, raise GARDEN_HANDLER_TIMEOUT
+> for this work, or fix what makes it run long.
+> Original job base: kriscendobot-agoric-sdk-pr15-shepherd
+>
+> --- original job body ---
+> # shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #15
+>
+> CI is RED on this OPEN bot-authored PR (completed failure, not in-progress).
+> Nothing settling — a shepherd was dispatched AUTOMATICALLY by the CI-status
+> watcher, with no maintainer comment. Map: **shepherd** → drive CI to green.
+>
+> PR: [https://github.com/kriscendobot/agoric-sdk/pull/15](https://github.com/kriscendobot/agoric-sdk/pull/15)
+> Head: kriscendobot/agoric-sdk (bot-pushable)
+>
+> Read the failing checks and drive them green (see roles/shepherd/AGENT.md).
+> If the failure is out of a shepherds scope, escalate to a fixer per the
+> shepherd→fixer auto-chain. Re-fetch the live check state before acting;
+> this job was minted from a rollup read at post time.
+>
+> <!-- garden-deadline-overrun: 1 -->
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`kriscendobot-agoric-sdk-pr15-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr15-shepherd.md) — shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #15
+### doin (0)
+(none)
 
 ### tada (2081)
 - [`plan-recalibrate-20260712-212011`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/plan-recalibrate-20260712-212011.md) — Weekly plan recalibration + grooming — Sunday 2026-07-12
@@ -1094,6 +1126,7 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - [`garden-style-url-not-path`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/garden-style-url-not-path.md) — _normal_ · ---
 - [`gauntlet-endo-but-for-bots-pr661-agent-tools-http-client`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/gauntlet-endo-but-for-bots-pr661-agent-tools-http-client.md) — _normal_ · ---
 - [`gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting.md) — _normal_ · ---
+- [`kriscendobot-agoric-sdk-pr15-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-shepherd.md) — _normal_ · shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #15
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
