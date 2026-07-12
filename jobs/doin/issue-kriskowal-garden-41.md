@@ -23,3 +23,9 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 Regarding https://codeberg.org/PatrickM123/darkwow/ currently 0ac13a390d - Concisely enumerate the economic claims. Are they plausible? Likely? Are they proved beyond a shadow of a doubt? If I were to start using it with real assets and real people, how much insurance should the 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 20
+  claimed_at: 2026-07-12T06:04:26Z
