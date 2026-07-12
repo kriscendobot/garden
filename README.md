@@ -1,12 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-12T20:05:12Z_
+_As of 2026-07-12T20:06:26Z_
 
 ## Latest
 
-[kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (promote ymax vat → critical) is now fully unblocked on the fleet's side: it was rebased onto current master (clearing the last stale-base red), un-drafted, and re-review requested from mhofman + dckc, and this cycle's fixer resolved mhofman's two dangling inline threads — so the PR is CLEAN, ~60 checks green, and waiting solely on a SwingSet-team review decision. On the bot repo, the biggest standing signal is that Milestone M3 is now **merge-bottlenecked, not build-bottlenecked**: the foreman has flagged repeatedly (culminating 05:14Z) that ~30 green, mergeable PRs are stacked on frozen bases — the mount/agent-tools stack, Docker self-host [#694](https://github.com/endojs/endo-but-for-bots/pull/694), confined-HTTP [#661](https://github.com/endojs/endo-but-for-bots/pull/661), registry [#671](https://github.com/endojs/endo-but-for-bots/pull/671), the endopi and OAuth stacks — awaiting a merge/conductor pass and acceptance of sequencing designs [#659](https://github.com/endojs/endo-but-for-bots/pull/659) and [#691](https://github.com/endojs/endo-but-for-bots/pull/691). Two specific decisions gate whole chains: merging [#594](https://github.com/endojs/endo-but-for-bots/pull/594) (per-package lint) would auto-resume the poisoned lint-ceiling shepherd cohort, and accepting the [@endo/reminder](https://github.com/endojs/endo-but-for-bots/pull/682) redesign would retire the superseded endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) — [#609](https://github.com/endojs/endo-but-for-bots/pull/609)'s review-fixups job is stalled asking exactly this. The gauntlets for [#694](https://github.com/endojs/endo-but-for-bots/pull/694) and [#661](https://github.com/endojs/endo-but-for-bots/pull/661) are poisoned/go-ahead-parked and need explicit promotion.
+The finbot OODA loop is now inference-driven end to end — this window closed the last stages (DECIDE, AUDIT, ACT-in-dry-run) so OBSERVE→ORIENT→DECIDE→AUDIT→ACT all run by inference in one command, and layered on conditional-volatility forecasting (GARCH, GJR-GARCH, and adaptive per-cycle vol-surface fitting), all direct-pushed to kriscendobot/finbot@main at 488 tests green with the wallet-untouched safety gate holding. That axis is now exhausted: every remaining finbot increment is either a forecasting variant or the **blocked** cap-attenuation Phase 2 (live paper-wallet/test-net run) that needs your explicit `live_authorized` decision — a standing ask across every cycle.
 
-Separately, an operational gap needs a hand: the triager crash-loop fix is landed and green on `main2` (default `GARDEN_REPOS` → `worktrees/`, missing-clone now a clean skip), but the **deployed root is ~56 commits behind**, so `garden-triager@*` units keep FATAL-looping until a drained `deploy-garden.sh` runs — a leader/liaison operation the gardeners can't perform. Meanwhile the SturdyRef bridge cuts (cut 3/4/5 for [#697](https://github.com/endojs/endo-but-for-bots/pull/697)) and several shepherd/gauntlet jobs are deterministically overrunning the 2400s handler budget and getting poisoned — they need splitting into claim-sized stages. finbot continues its autonomous 6h cadence (OODA loop now inference-driven end-to-end plus adaptive vol-surface fitting, 488 tests green, wallet untouched), still parked on the standing `live_authorized` cap-attenuation Phase-2 decision.
+[kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax→critical, [garden#29](https://github.com/kriskowal/garden/issues/29)) has moved all the way to review-ready: the driver executed the reversible rebase-onto-master default, clearing the last stale-base red so fork CI is fully green, un-drafted the PR, and a fixer resolved mhofman's two dangling inline threads. It is now blocked **solely on a SwingSet-team approval** the fleet cannot supply — no reviewer decision in ~12h.
+
+Milestone M3 is the dominant maintainer bottleneck. The foreman has escalated repeatedly that ~30 green, mergeable PRs are stranded awaiting merge/sequencing calls, and the two headline exit-criterion PRs — [endo-but-for-bots#694](https://github.com/endojs/endo-but-for-bots/pull/694) (Docker self-host + remote gateway) and [#661](https://github.com/endojs/endo-but-for-bots/pull/661) (confined HTTP client) — have had their gauntlets **poisoned** (requeue-exhausted, now held `go-ahead`-gated in `plan/`), largely because the repo-wide lint ceiling [#594](https://github.com/endojs/endo-but-for-bots/pull/594) reds every gauntlet; merging #594 would trip-wire the parked lint-ceiling shepherd cohort back to life. Separately, the endoclaw-timer chain ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) is superseded by the `@endo/reminder` redesign [#682](https://github.com/endojs/endo-but-for-bots/pull/682) awaiting your accept/reject, and the mount stack's [#127](https://github.com/endojs/endo-but-for-bots/pull/127) was closed with `glorp` re-homed onto the delegated search stack as [#713](https://github.com/endojs/endo-but-for-bots/pull/713).
+
+Two operational flags worth your attention: the triager crash-loop fix is landed and green on `main2`, but the **deployed garden root is ~56 commits stale** so triagers keep FATAL-looping — a drained `deploy-garden.sh` is the clean fix. And a steady stream of shepherd/gauntlet jobs (pr124, pr704, pr688, pr694, and several sturdyref-bridge cuts) are deterministically overrunning the 2400s handler budget and being poisoned — they need splitting into claim-sized stages, not requeuing. The SturdyRef agent-surface design [#695](https://github.com/endojs/endo-but-for-bots/pull/695) and the esheets OAuth-foundation design [#621](https://github.com/endojs/endo-but-for-bots/pull/621) are both green and stalled purely on your acceptance to unblock their downstream builder cuts.
 
 ## Parked for maintainer feedback
 
@@ -836,6 +840,45 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 >   C) Something else / your steer.
 >
 > Holding here for your direction.
+
+- `20260712T200620Z-92c4b0` — from gardener:endojs-endo-but-for-bots-pr609-message-scheduler-review-fixups, reply_to `endojs-endo-but-for-bots-pr609-message-scheduler-review-fixups` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260712T200620Z-92c4b0.md)
+
+> Scope check on [endojs/endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/issues/609) (endoclaw-timer) before I do the work —
+> the job asks me to "rename/document as a message scheduler so the chain can advance
+> to Phase 2/3", but kriskowal's CHANGES_REQUESTED review asks for substantially more
+> than a rename, and I don't want to guess wrong on a multi-PR fork.
+>
+> kriskowal's review (2026-07-10) has three asks; the naming is only the first:
+>   1. Name/document it as a "message scheduler" (not a generalized scheduler) —
+>      the cheap, aligned part.
+>   2. Push persistence down to the platform: the filePowers/file-system coupling
+>      is "undue"; durable state could be a DB or a virtual file system.
+>   3. THE OPERATIVE ONE: "this particular feature does not particularly benefit
+>      from deep integration into the daemon and could be an unconfined plugin...
+>      Please redraft this change as a new plugin `@endo/reminder`." — i.e. pull it
+>      OUT of the daemon, persist via the vfs, and hand the live-reference/wake-on-
+>      restart narrative to an integration (Familiar/Gateway) via a @pins-style pin.
+>
+> Consequence I want you to see: [endojs/endo-but-for-bots#617](https://github.com/endojs/endo-but-for-bots/issues/617) (Phase 2 = deliver ticks
+> as daemon MAIL) and [endojs/endo-but-for-bots#619](https://github.com/endojs/endo-but-for-bots/issues/619) (Phase 3 = daemon STARTUP RECOVERY)
+> are both built ON the daemon-integration architecture kriskowal is asking to remove.
+> A rename on [endojs/endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/issues/609) will NOT clear his CHANGES_REQUESTED, and the
+> "advance to Phase 2/3" goal can't be reached by a fixup — the whole chain's
+> foundation (daemon formula vs. unconfined @endo/reminder plugin) is what he's
+> redirecting.
+>
+> My recommendation: treat this as a design pivot, not a fixer job. Two viable paths:
+>   (A) I do ONLY the safe, aligned naming/doc clarification now (interval-scheduler
+>       -> "message scheduler" in prose/identifiers + the two open inline nits:
+>       drop the `Cmd` suffix on makeIntervalSchedulerCmd, and the line-10 "Omit"),
+>       push it, and we open a SEPARATE designer job for the @endo/reminder redraft.
+>       This does NOT clear kriskowal's review by itself; Phase 2/3 stay blocked.
+>   (B) Repost this as a designer+builder effort to redraft the change as a new
+>       unconfined `@endo/reminder` plugin (vfs persistence, @pins liveness), which
+>       supersedes the daemon-formula PR and forces Phase 2/3 to be reworked/closed.
+>
+> I lean (B) with a design pass first, since (A) leaves the review unsatisfied. How
+> do you want to proceed? I'll hold this job until you steer.
 
 - `poison-endojs-endo-but-for-bots-pr124-shepherd-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-endojs-endo-but-for-bots-pr124-shepherd-deadline-overrun.md)
 
