@@ -7,6 +7,7 @@ Run the gauntlet (clean → panel review → fix-loop → un-draft) on `endojs/e
 <!-- garden-reaped: 0 -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
