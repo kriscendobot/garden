@@ -52,3 +52,9 @@ closely held, never crosses the worker boundary).
 <!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 18
+  claimed_at: 2026-07-12T01:33:11Z
