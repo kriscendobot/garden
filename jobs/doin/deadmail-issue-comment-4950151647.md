@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/38#issuecomment-4950151647
 The author says > currently constructing defined type systems for every genesis contract starting with box and purse, the fundamental types review those materials from an engineering and formal verification perspective 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 18
+  claimed_at: 2026-07-12T06:00:07Z
