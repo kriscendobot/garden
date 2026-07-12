@@ -75,3 +75,9 @@ discipline, roles/COMMON.md).
 - Idempotence: rely on deterministic basenames so a re-post never duplicates work.
 - If nothing is unblocked (everything waits on human review/merge), say so in the
   report rather than manufacturing busywork.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  claimed_at: 2026-07-12T11:20:16Z
