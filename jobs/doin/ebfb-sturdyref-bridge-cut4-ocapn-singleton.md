@@ -49,6 +49,8 @@ closely held, never crosses the worker boundary).
 - Report with real-execution evidence and state the confinement property
   preserved.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
