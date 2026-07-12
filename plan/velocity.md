@@ -41,6 +41,24 @@ from the week's merged-PR cadence.
 
 ## Recalibration log
 
+- **2026-07-12** (`endo-but-for-bots`): the trailing 7-day window (2026-07-05 →
+  2026-07-12) merged **26 PRs**, spread far more evenly than last week — 1, 4, 11,
+  2, 5, 0, 3 by day (no fleet-down availability gap this week; last week's
+  2026-07-03 → 2026-07-05 dead stretch did not recur). Open→merge latency is
+  unimodal-with-a-short-tail this week, not the sharp bimodal split of the two
+  prior passes: a review-queue cohort of **20 PRs at 0.03–~5 days (median 0.76
+  days)** and a modest tail of **6 PRs at 8.3–25.9 days** (no 40–70-day stragglers
+  left — last week's long-lived cohort had already drained). Raw all-in median 1.22
+  d, mean 3.65 d (the mean only lightly skewed now that the multi-week tail is
+  gone). The robust review-queue figure remains the fast cohort's median, **0.76
+  days**, which again rounds to the standing **`review-queue-latency-days: 1`**
+  (left unchanged — three consecutive passes now agree: 1.15 → 0.90 → 0.76). The
+  S/M/L/XL → day mapping is again left unchanged: it is a per-design *effort* model,
+  and ~3.7 merges/day is a parallel-fleet throughput signal, not evidence the
+  effort estimates are wrong. The parallelism factor (effort-days → wall-clock-days)
+  remains uncalibrated — see the projection note; per-milestone calendar `target:`
+  dates stay unstamped this week for the same reason.
+
 - **2026-07-05** (`endo-but-for-bots`): the trailing 7-day window (2026-06-28 →
   2026-07-05) merged **14 PRs**, all clustered on 2026-06-29 → 2026-07-02 (5, 5, 3
   by day) with **nothing merged 2026-07-03 → 2026-07-05** — an availability gap (the

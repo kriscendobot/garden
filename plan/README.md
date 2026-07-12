@@ -20,16 +20,16 @@ of records, so a milestone spanning repositories rolls up as one.
 | Milestone | Designs | Complete | % | Est. days (remaining) |
 |---|---|---|---|---|
 | M1 | 7 | 7 | 100% | 0 |
-| M2 | 6 | 6 | 100% | 0 |
+| M2 | 8 | 6 | 75% | 0 |
 | M3 | 28 | 6 | 21% | 59 |
 | M4 | 9 | 1 | 11% | 21 |
 | M6 | 1 | 0 | 0% | 3 |
 | M7 | 11 | 1 | 9% | 22 |
 | M8 | 4 | 0 | 0% | 9 |
-| M9 | 19 | 3 | 15% | 47 |
+| M9 | 20 | 3 | 15% | 47 |
 | M10 | 9 | 0 | 0% | 53 |
 | M11 | 7 | 3 | 42% | 30 |
-| (unfiled) | 40 | 26 | 65% | 0 |
+| (unfiled) | 37 | 26 | 70% | 0 |
 
 ## Designs
 
@@ -56,7 +56,6 @@ of records, so a milestone spanning repositories rolls up as one.
 | daemon-cross-peer-gc | endo-but-for-bots | — | Complete | — | — |
 | daemon-debug-worker-restart | endo-but-for-bots | — | Not Started | — | — |
 | daemon-make-archive | endo-but-for-bots | — | In Progress | — | — |
-| daemon-message-streaming | endo-but-for-bots | — | In Progress | — | endo-but-for-bots#287 |
 | daemon-mount-capabilities | endo-but-for-bots | — | Complete | — | — |
 | daemon-web-gateway | endo-but-for-bots | — | Complete | — | — |
 | daemon-xs-worker-debugger | endo-but-for-bots | — | In Progress | — | — |
@@ -69,8 +68,6 @@ of records, so a milestone spanning repositories rolls up as one.
 | familiar-gateway-migration | endo-but-for-bots | — | Complete | — | — |
 | familiar-localhttp-protocol | endo-but-for-bots | — | In Progress | — | — |
 | forge-gap-analysis | endo-but-for-bots | — | Reference | — | — |
-| hardened-text-codecs-shim | endo-but-for-bots | — | Not Started | — | — |
-| hardened-url-shim | endo-but-for-bots | — | Not Started | — | — |
 | outliner-design-doc | endo-but-for-bots | — | In Progress | — | — |
 | trust-on-first-bind | endo-but-for-bots | — | Reference | — | — |
 | unhandled-rejection-display | endo-but-for-bots | — | Complete | S | — |
@@ -103,6 +100,8 @@ of records, so a milestone spanning repositories rolls up as one.
 | chat-playwright-smoke | endo-but-for-bots | M2 | Complete | S | — |
 | ci-no-npm-lifecycle | endo-but-for-bots | M2 | Complete | S | — |
 | endo-bytes | endo-but-for-bots | M2 | Complete | S | — |
+| hardened-text-codecs-shim | endo-but-for-bots | M2 | Not Started | — | — |
+| hardened-url-shim | endo-but-for-bots | M2 | Not Started | — | — |
 | hex-package | endo-but-for-bots | M2 | Complete | M | — |
 | daemon-agent-tools | endo-but-for-bots | M3 | Not Started | L | — |
 | daemon-capability-filesystem | endo-but-for-bots | M3 | Reference | L | — |
@@ -164,6 +163,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | chat-slot-slash-commands | endo-but-for-bots | M9 | Proposed | M | — |
 | chat-view-edit-commands | endo-but-for-bots | M9 | Complete | M | — |
 | daemon-commands-as-messages | endo-but-for-bots | M9 | Not Started | L | — |
+| daemon-message-streaming | endo-but-for-bots | M9 | In Progress | — | endo-but-for-bots#287 |
 | daemon-retention-paths | endo-but-for-bots | M9 | Complete | L | endo-but-for-bots#284 |
 | endopi-iterative-compaction | endo-but-for-bots | M9 | Proposed | M | — |
 | endopi-prompt-templates | endo-but-for-bots | M9 | Proposed | S | — |

@@ -2,9 +2,10 @@
 slug: hardened-text-codecs-shim
 repository: endo-but-for-bots
 status: Not Started
+milestone: M2
 depends_on: []
 created: 2026-05-04
-updated: 2026-05-04
+updated: 2026-07-12
 source: imported from origin/llm designs/README.md
 ---
 
@@ -202,3 +203,6 @@ designs/hardened-url-shim.md:420 ("Separating the designs would be
 good.").  The TextEncoder/TextDecoder taming has no implementation
 overlap with the URL/SharedURL split, so it stands alone.
 ```
+
+---
+_Groomed 2026-07-12: filed under **M2** (Project Hygiene) — a hardened SES intrinsic shim (`packages/ses/` only), the same package-hardening lane as endo-bytes, hex-package, and base64-native-fallthrough._
