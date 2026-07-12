@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-12T16:29:29Z_
+_As of 2026-07-12T16:32:43Z_
 
 ## Latest
 
@@ -831,16 +831,16 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 ### doin (3)
 - [`endojs-endo-but-for-bots-pr124-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #124
-- [`endojs-endo-but-for-bots-pr133-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr133-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #133
+- [`endojs-endo-but-for-bots-pr169-review-ce5f9073`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr169-review-ce5f9073.md) — Review directive on endojs/endo-but-for-bots PR #169
 - [`endojs-endo-but-for-bots-pr712-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr712-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #712
 
-### tada (2040)
+### tada (2041)
+- [`endojs-endo-but-for-bots-pr133-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr133-shepherd.md) — Completion report
 - [`endojs-endo-but-for-bots-pr166-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr166-refresh.md) — Completion report: refresh endojs/endo-but-for-bots PR #166
 - [`improve-pages-watcher-absorb-gh-api-transient`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-pages-watcher-absorb-gh-api-transient.md) — Completion report
 - [`endojs-endo-but-for-bots-pr165-d00cbc0d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr165-d00cbc0d.md) — Completion report
 - [`endojs-endo-but-for-bots-pr152-review-5f514f6a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr152-review-5f514f6a.md) — Completion report — endojs/endo-but-for-bots PR #152 (refresh)
-- [`endojs-endo-but-for-bots-pr151-review-ddbb3acc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr151-review-ddbb3acc.md) — Completion report
-- … and 2035 more
+- … and 2036 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -871,6 +871,7 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - [`endojs-endo-but-for-bots-pr151-review-ddbb3acc-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr151-review-ddbb3acc-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #151 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr152-review-5f514f6a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr152-review-5f514f6a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #152 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr165-d00cbc0d-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr165-d00cbc0d-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #165 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr169-review-ce5f9073-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr169-review-ce5f9073-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #169 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
