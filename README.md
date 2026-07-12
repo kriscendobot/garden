@@ -1,16 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-12T15:04:53Z_
+_As of 2026-07-12T15:07:43Z_
 
 ## Latest
 
-The board barely moved this window — one retrospective claimed, nothing new posted — but the substance is in the messages, and the most urgent item is operational: the deployed garden root (`/home/kris/garden2`) is ~56 commits behind `main2`, so the already-landed triager crash-loop fix (default `GARDEN_REPOS` → `worktrees/`) hasn't taken effect and `garden-triager@*` units keep FATAL-looping; a drained `deploy-garden.sh` is the clean fix. Relatedly, the triage circuit-breaker opened for `kriscendobot-finbot` — worth confirming that fork belongs in the watch set.
+The garden's job board is effectively idle — the only transition was a review-retrospective closing out — and nearly everything of substance now sits waiting on **you**. The recurring signal from the foreman is that Milestone M3 (Remote Access and Coding Capabilities) is merge-bottlenecked, not work-bottlenecked: a large stack of green, mergeable PRs — Docker self-host [#694](https://github.com/endojs/endo-but-for-bots/pull/694) (which supersedes the older [#608](https://github.com/endojs/endo-but-for-bots/pull/608)), confined outbound-HTTP [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the mount/agent-tools stack ([#678](https://github.com/endojs/endo-but-for-bots/pull/678)–[#681](https://github.com/endojs/endo-but-for-bots/pull/681)), the endopi/OAuth and registry PRs — is stranded behind merge, sequencing-design acceptance ([#659](https://github.com/endojs/endo-but-for-bots/pull/659), [#691](https://github.com/endojs/endo-but-for-bots/pull/691)), and the repo-wide lint-ceiling fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) that keeps poisoning gauntlets. The [#694](https://github.com/endojs/endo-but-for-bots/pull/694) and [#661](https://github.com/endojs/endo-but-for-bots/pull/661) gauntlets have exhausted their requeues and are parked in `plan/` awaiting a `promote-plan.sh` go-ahead. The endoclaw-timer scheduled-execution chain ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) is blocked on your accept/reject of the [#682](https://github.com/endojs/endo-but-for-bots/pull/682) `@endo/reminder` redesign that supersedes it, and the SturdyRef agent-surface design [#695](https://github.com/endojs/endo-but-for-bots/pull/695) awaits acceptance before its A–F builder cuts can post.
 
-**M3 is merge-bottlenecked, not work-bottlenecked** — the foreman flagged this repeatedly. A large stack of green, mergeable endo-but-for-bots PRs is stranded awaiting sequential landing: Docker self-host [#694](https://github.com/endojs/endo-but-for-bots/pull/694), confined outbound HTTP [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the mount/agent-tools stack [#678](https://github.com/endojs/endo-but-for-bots/pull/678)–[#681](https://github.com/endojs/endo-but-for-bots/pull/681), OAuth [#667](https://github.com/endojs/endo-but-for-bots/pull/667)–[#672](https://github.com/endojs/endo-but-for-bots/pull/672), and registry [#671](https://github.com/endojs/endo-but-for-bots/pull/671). Both [#694](https://github.com/endojs/endo-but-for-bots/pull/694) and [#661](https://github.com/endojs/endo-but-for-bots/pull/661) gauntlets are poisoned (requeue-exhausted) and parked go-ahead in `jobs/plan/`, largely because the lint-per-package fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) stays unmerged and keeps tripping phantom-red lint. Two design decisions gate the rest: the [#682](https://github.com/endojs/endo-but-for-bots/pull/682) `@endo/reminder` redesign supersedes the endoclaw-timer chain ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) and needs an accept/reject, and SturdyRef design [#695](https://github.com/endojs/endo-but-for-bots/pull/695) awaits go/no-go on builder cuts A–F.
+Two things did advance under their own steam. The finbot autonomous cycles completed the inference-driven OODA loop end to end — OBSERVE→ORIENT→DECIDE→AUDIT→ACT all now run by inference in dry-run, wallet untouched, 488 tests green — and are out of unblocked depth; the deepest remaining axis (cap-attenuation Phase 2 + a first live paper-wallet run) needs your explicit `live_authorized` decision. And fork PR [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax vat → critical) was rebased onto master, is fully green, and has been un-drafted with review requested from mhofman/dckc; its drive also surfaced two unanswered mhofman review threads now being addressed by a fixer.
 
-On the fork side, **agoric-sdk [#9](https://github.com/kriscendobot/agoric-sdk/pull/9)** (ymax→critical) was rebased onto master, is now fully green and un-drafted with review requested from mhofman/dckc; a fixer is addressing two of mhofman's unanswered inline threads that were quietly blocking approval. **finbot** completed its inference-driven OODA loop end to end (OBSERVE→ORIENT→DECIDE→AUDIT→ACT all run by inference in dry-run, plus GARCH/adaptive vol fitting) — 488 tests green, wallet untouched throughout; every unblocked axis is now exhausted, and the deepest remaining step is a first live paper-wallet run gated behind explicit `live_authorized`.
-
-Finally, several jobs deterministically overran the 2400s handler budget and were poisoned — the SturdyRef bridge cuts 3–5, shepherds for [#688](https://github.com/endojs/endo-but-for-bots/pull/688)/[#702](https://github.com/endojs/endo-but-for-bots/pull/702)/[#704](https://github.com/endojs/endo-but-for-bots/pull/704), and the [#706](https://github.com/endojs/endo-but-for-bots/pull/706) gauntlet — signalling those tasks need splitting into claim-sized stages.
+Also worth your notice: a cluster of triager crash-loop self-heal fixes has landed on `main2` (the `GARDEN_REPOS` default moved from `repos/` to `worktrees/`), but the deployed root is ~10–56 commits stale, so `garden-triager@*` units keep FATAL-looping until a deliberate drained `deploy-garden.sh` — a leader/liaison operation no gardener can run. Several long-running jobs (sturdyref bridge cuts, PR #688/#702/#704/#706 shepherds and gauntlets) are also overrunning the 2400s handler budget and being flagged for splitting.
 
 ## Parked for maintainer feedback
 
@@ -817,16 +815,16 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr678-review-d461c045-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr678-review-d461c045-retro.md) — Retrospective on endojs/endo-but-for-bots PR #678 (primary: endojs-endo-but-f...
+### doin (0)
+(none)
 
-### tada (2019)
+### tada (2020)
+- [`endojs-endo-but-for-bots-pr678-review-d461c045-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr678-review-d461c045-retro.md) — Inbox empty. Job complete.
 - [`endojs-endo-but-for-bots-pr678-review-d461c045`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr678-review-d461c045.md) — Confirmed. The work is already done:
 - [`improve-detect-catch-all-swallow`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-detect-catch-all-swallow.md) — Completion report
 - [`endojs-endo-but-for-bots-pr681-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr681-conduct.md) — Completion report
 - [`endojs-endo-but-for-bots-pr680-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr680-conduct.md) — Completion report
-- [`endojs-endo-but-for-bots-pr678-review-4d666bb1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr678-review-4d666bb1-retro.md) — Completion report — endojs-endo-but-for-bots-pr678-review-4d666bb1-retro (pro...
-- … and 2014 more
+- … and 2015 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
