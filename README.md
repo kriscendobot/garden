@@ -1,16 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-12T02:06:23Z_
+_As of 2026-07-12T02:35:48Z_
 
 ## Latest
 
-finbot closed out its inference-driven OODA axis this cycle: the ACT (executor) stage now runs by inference in dry-run, so the full observe→orient→decide→audit→act loop runs by inference end-to-end (464 tests green, wallet untouched, all six auditor invariants pass, direct-pushed to `kriscendobot/finbot@main`). With the axis complete, the only deeper increment left is cap-attenuation Phase 2 — the CapTP transport and a first live paper-wallet/test-net run — which is security-gated and awaits your explicit `live_authorized` sign-off.
+finbot's OODA loop is now inference-driven end to end — the ACT (executor) stage landed dry-run in the latest cycle (464 tests green, wallet untouched), completing the inference axis; every deeper step now waits on your cap-attenuation Phase 2 authorization for a first live paper-wallet run. The SturdyRef effort keeps pressing: bridge cuts 3 and 4 landed ([endo-but-for-bots#697](https://github.com/endojs/endo-but-for-bots/pull/697), cut 4 taking conservative distinct-key/no-live-netlayer defaults), with cut 5 and the design go/no-go on builder cuts A–F ([#695](https://github.com/endojs/endo-but-for-bots/pull/695)) still in flight — though several of these jobs are overrunning the 2400s handler budget and risk poisoning, so they may need splitting.
 
-On the SturdyRef agent surface, bridge cuts 3 ([#697's stack](https://github.com/endojs/endo-but-for-bots/pull/697)) and 4 landed; cut 4's `ocapn` singleton is proceeding on conservative reversible defaults (distinct Ed25519 identity, no production netlayer armed) pending your call, and cut 5 (foreign-SturdyRef internalization) is in flight. Design [#695](https://github.com/endojs/endo-but-for-bots/pull/695) is ready and awaits go/no-go on the six A–F builder cuts. Several bridge-cut jobs overran the 2400s handler budget and risk poisoning — they need splitting into claim-sized stages.
+Two things want a maintainer decision now. **Milestone M3 is fully merge-bottlenecked** — the foreman flagged it repeatedly today: the headline Docker self-host PR [#694](https://github.com/endojs/endo-but-for-bots/pull/694) is green but its gauntlet exhausted 5 requeue cycles and is now poisoned/parked in `plan/` (needs a `promote-plan.sh` or a call on why it keeps failing), the confined-HTTP tool [#661](https://github.com/endojs/endo-but-for-bots/pull/661) sits behind a go-ahead-gated gauntlet, the lint-ceiling fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) blocks every gauntlet until merged, and the scheduled-execution clause pivoted to the [#682](https://github.com/endojs/endo-but-for-bots/pull/682) `@endo/reminder` redesign that supersedes the rejected endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) and awaits your accept/close. Separately, the **triager crash-loop fix is landed on `main2` but not deployed** — multiple self-heal gardeners converged on the same diagnosis: the deployed garden root is ~56 commits stale, so `garden-triager@*` units keep FATAL-looping until a deliberate `deploy-garden.sh`.
 
-The fork prototype [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (promote ymax vat → critical) was rebased onto current master, went fully green, and — after five unanswered ticks — the driver executed the reversible default: un-drafted it and requested SwingSet-team review. It's now blocked solely on a reviewer decision; `gh pr ready --undo` reverses it if you'd rather keep it a frozen-base draft.
-
-The recurring foreman signal is that **M3 is merge-bottlenecked, not work-bottlenecked**: Docker self-host [#694](https://github.com/endojs/endo-but-for-bots/pull/694) is clean and green but its gauntlet exhausted five requeue cycles and is now poisoned/parked in `jobs/plan/` (needs `promote-plan.sh` or a call on why it keeps failing); the lint-projectService ceiling fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) is still unmerged and keeps poisoning downstream gauntlets; and the endoclaw-timer chain ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) awaits your accept/reject of the `@endo/reminder` redesign [#682](https://github.com/endojs/endo-but-for-bots/pull/682) that supersedes it. The board is otherwise near-idle — only a shepherd on [#702](https://github.com/endojs/endo-but-for-bots/pull/702) posted since the last bulletin.
+Elsewhere, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/issues/9) was rebased onto master, went fully green, and is un-drafted with SwingSet review requested (the rebase-vs-freeze question resolved by executing the reversible default after five unanswered ticks); the XS-validation effort finalized across forks [#11–#14](https://github.com/kriscendobot/agoric-sdk/issues/14); and the OCapN-Noise-WS demo is live and round-tripping on minion.town.
 
 ## Parked for maintainer feedback
 
@@ -21,8 +19,8 @@ The recurring foreman signal is that **M3 is merge-bottlenecked, not work-bottle
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 12d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 15d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 26d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 50d)
-- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 50d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 51d)
+- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 51d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 52d)
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
@@ -691,8 +689,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`ebfb-sturdyref-bridge-cut5-foreign-internalization`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-sturdyref-bridge-cut5-foreign-internalization.md) — Bridge cut 5 — foreign-SturdyRef internalization at the facet seam (design #6...
+- [`endo-sturdyref-press-20260712-023501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260712-023501.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endojs-endo-but-for-bots-pr702-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr702-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #702
 
 ### tada (1968)
