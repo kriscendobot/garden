@@ -1,0 +1,15 @@
+All work is complete: design record authored, cross-links repointed, README synced, mermaid validated, draft PR #709 opened, and the journal result entry pushed.
+
+Completion report:
+
+**Job:** `design-endo-but-for-bots-daemon-git-clone-provide-git-clone-bootstrap-and-commit-identity-boundary` (designer)
+
+**What I did.** Authored `designs/daemon-git-clone.md` in endojs/endo-but-for-bots and opened draft PR **#709** (`design/daemon-git-clone` → `llm`, commit `5724cc6e2`). During research I found the landscape had moved since the job was drafted: the `provideGitClone` bootstrap already **shipped** via PR #538 (merged 2026-07-08: `gitClone` in `@endo/git`, `makeGitRemoteEndpoint` + `makeGitCloner` in `@endo/exo-git`, `provideGitClone` in the daemon host), and the commit-identity boundary is **in flight** as PR #706. So the document is written as a design **record**, not a proposal: it specifies the shipped composition (writable, empty daemon-minted destination mount x sealed `GitRemoteEndpoint` → native clone under the askpass/sanitized-env envelope → formula-backed `Git` + `origin`-pre-bound `GitRemote`), records the two deviations from the roadmap sketch with rationale (the mount is an input rather than a product; the return is `{ git, remote }` rather than `EndoMount` + `Git`), the clone-time restrictions, the credential rotation-abort contract, and the formula-owned `identity: { authorName, authorEmail }` boundary (guest-immutable, default `Endo <endo@invalid.local>`, `reword` author-preservation, rejected guest-visible `setIdentity()`). Open questions surfaced for the maintainer: pet-name binding for the cloned pair, clone-time narrowing of the fixed `origin` policy toward the Agent MVP Profile, a separate committer knob, and bank-backed credential durability.
+
+**What changed.** 4 files: the new record; `daemon-git-next-steps.md` § Open Work repointed from "a future daemon-git-clone.md" to the real file (item stays open until #706 lands) plus a dependencies row; `daemon-git-remotes.md` § Repository Bootstrap and its spike bullet now link the record; `designs/README.md` fully synced per conventions (summary row In Progress, M3 table row, dependency-graph node + 3 edges, per-design estimate, M3 count 18 → 19, totals 145 → 146 designs / In Progress 24 → 25, header + inventory blurb).
+
+**Verification.** All 4 mermaid fences in touched docs parse OK via `mermaid.parse()` under jsdom (flowchart-v2 ×3, gantt ×1 — real execution, output cited in the PR body). Shipped/absent claims grep-checked against `llm` HEAD `f7932ed5a`; the `identity` option is verified against the #706 diff only, and labeled as in-flight. Nothing else here is executable.
+
+**Follow-ups.** (1) Open PR #691 declares "no separate daemon-git-clone.md is needed" and edits the same README totals/header and next-steps Open Work lines — whichever of #691/#709 lands second needs a small re-weave (flagged in the PR body). (2) If #706 merges before #709, the record's Status section needs a one-line flip. (3) The open questions in the record await maintainer disposition. Journal `result` entry pushed (`f928266f10`).
+
+Self-improvement: nothing this time.
