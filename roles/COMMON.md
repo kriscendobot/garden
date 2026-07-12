@@ -23,7 +23,7 @@ Every subagent runs from a per-dispatch worktree triple created by the orchestra
 
 The dispatch prompt names `<dispatch-root>` explicitly. Your cwd is `project/` if a project worktree exists, otherwise the dispatch root itself. Use `garden/` for read-only role and skill consultation. Use `journal/` for journal commits. Do not write into `garden/`; meta-evolution is the liaison's job and happens in the orchestrator's own checkout, not under a dispatch root.
 
-All three sub-worktrees are detached HEAD. Commits go to `HEAD`; pushes use `git push origin HEAD:<branch>`. See `garden/skills/journal-sync/SKILL.md` for the journal-side details and `garden/WORKTREES.md` § Per-dispatch worktree triple for the full lifecycle.
+All three sub-worktrees are detached HEAD. Commits go to `HEAD`; pushes use `git push origin HEAD:<branch>`. For journal appends, do not hand-roll the CAS loop: post via `scripts/jobs/journal-entry.sh` (§ Writing an entry), which implements the add-only fetch/rebase/push-retry against `journal2`. See `garden/WORKTREES.md` § Per-dispatch worktree triple for the full lifecycle.
 
 Each sub-worktree's git identity is pinned to the bot at prepare time, so any commit you make (in `garden/`, `journal/`, or `project/`) carries the bot identity by default. Do not edit the worktree's `user.name` / `user.email`. Only the boatman is authorized to override the pin, and does so per-commit via `git -c user.name=... -c user.email=...` when its dispatch carries `identity_switch_authorized: true`. Every other role's commits are bot-identity commits. See `garden/skills/dispatch-worktree/SKILL.md` § Identity pinning for the mechanism.
 
@@ -189,7 +189,7 @@ The `worktree:` field, when present, names the project worktree the entry is abo
 
 ### Writing an entry
 
-Follow `garden/skills/journal-sync/SKILL.md`. It handles the detached-HEAD fetch/rebase/push retry loop. Do not roll your own; concurrent appends across orchestrator turns and parallel dispatches are subtle and the skill is the single source of truth.
+Post the entry with `scripts/jobs/journal-entry.sh <kind> [body-file]` (kind is `progress`, `result`, `message`, …; body from the file, else stdin). It handles the add-only compare-and-swap — fetch/rebase/push with resync-and-retry on a rejected push — so you never hand-roll the detached-HEAD loop. Do not roll your own; concurrent appends across parallel gardeners are subtle and this script is the single source of truth. Use `skills/journalism/SKILL.md` only for *reading* the journal, and `skills/message-bus/SKILL.md` for directed messages.
 
 ### Reading recent entries
 
@@ -234,7 +234,7 @@ If you are dispatched into a long-lived project worktree (a standing monitor, an
 journal/worktrees/$(hostname -s)/<worktree-basename>.md
 ```
 
-Read it on start to learn your purpose, role, repo, branch, and any PRs you are bound to. Update `last_heartbeat` and `status` there per the lifecycle in `journal/worktrees/README.md`; the journal-sync skill handles the commit and push.
+Read it on start to learn your purpose, role, repo, branch, and any PRs you are bound to. Update `last_heartbeat` and `status` there per the lifecycle in `journal/worktrees/README.md`; `scripts/jobs/journal-worktree-keeper.sh` owns the worktree-status commit and push.
 
 ## Reporting
 
