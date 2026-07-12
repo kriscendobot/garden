@@ -48,3 +48,9 @@ closely held, never crosses the worker boundary).
 - Never push to predecessors' branches or any `design/*` branch.
 - Report with real-execution evidence and state the confinement property
   preserved.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 18
+  claimed_at: 2026-07-12T00:49:08Z
