@@ -259,6 +259,15 @@ if [ "$src_rc" -ne 0 ]; then
     log "WARN: ci PR source unreachable (transient network) — skipping tick (never guess)"
     exit 0
   fi
+  # GitHub overloaded → an HTML gateway/5xx/rate-limit page instead of JSON, so
+  # `gh pr list … | jq` fails rc=1 with a Go-decoder/HTTP-5NN/rate-limit signature
+  # that is_transient_net_error doesn't catch. Absorb it the same way (WARN + skip)
+  # via the shared GARDEN_TRANSIENT_GH_API_SIGNATURES gate, so an overload page
+  # doesn't detonate the restart storm. A structural failure still dies loud below.
+  if is_transient_gh_source_error "$ERRF"; then
+    log "WARN: ci PR source hit a transient gh-api blip (5xx/HTML/rate-limit) — skipping tick (never guess)"
+    exit 0
+  fi
   die "ci PR source failed for $repo (rc=$src_rc; see source stderr above)"
 fi
 

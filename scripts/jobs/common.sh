@@ -304,6 +304,31 @@ is_transient_auth_error() {
   printf '%s' "$blob" | grep -qiE 'HTTP 401|Bad credentials'
 }
 
+# is_transient_gh_source_error <stderr-file-or-string> — true (0) when the given
+# text bears the fingerprint of a TRANSIENT gh-api failure that is NEITHER a plain
+# connectivity blip (is_transient_net_error) NOR a 401 rotation (is_transient_auth_error):
+# GitHub serving an HTML gateway/5xx/rate-limit page instead of JSON, so `gh … | jq`
+# fails rc=1 with a Go-decoder / HTTP-5NN / HTTP-429 / rate-limit / EOF / server-
+# misbehaving signature. This is the gh-api sibling of the two functions above: a
+# watcher whose `gh run list`/`gh pr list` source dies with one of these skips the
+# tick instead of `die`ing and detonating a systemd restart storm. It defers to the
+# SAME curated GARDEN_TRANSIENT_GH_API_SIGNATURES set that gh_api_retry/mirror-closer
+# honor (via _gh_api_stderr_is_transient), so the HTML-instead-of-JSON class the
+# watchers see is classified in one place. Same argument contract as its siblings (a
+# file is slurped; a non-file string is matched directly). A genuinely structural
+# failure (a real 404, a malformed slug) matches NONE of these and still dies loud,
+# preserving "never guess a state". _gh_api_stderr_is_transient and its signature set
+# are defined later in this file but resolved at call time, so the ordering is fine.
+is_transient_gh_source_error() {
+  local blob
+  if [ -f "$1" ]; then
+    blob="$(cat "$1" 2>/dev/null || true)"
+  else
+    blob="$1"
+  fi
+  _gh_api_stderr_is_transient "$blob"
+}
+
 # True when this host's fleet is draining: the new draining marker OR the
 # deprecated legacy killswitch marker exists. Keys on EXISTENCE only — an empty
 # marker drains just as a prose-filled one does.

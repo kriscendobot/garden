@@ -143,6 +143,25 @@ trap 'cleanup; exit 130' INT
 # Bounded backoff before a 401-retry; tests set it to 0 to keep the run fast.
 : "${GARDEN_PAGES_AUTH_RETRY_SLEEP:=5}"
 
+# classify_source_failure <errf> [context] — the shared transient gate BOTH the
+# first-pass and post-401-retry die sites consult before dying, so the two stay in
+# sync. When GitHub is overloaded it serves an HTML gateway/5xx/rate-limit page
+# instead of JSON; the default `gh run list … | jq` source then fails rc=1 with a
+# Go-decoder / HTTP-5NN / rate-limit signature that matches NEITHER
+# is_transient_net_error NOR is_transient_auth_error. That is the exact transient
+# class commit 9cf685607d added to GARDEN_TRANSIENT_GH_API_SIGNATURES; consult it
+# via is_transient_gh_source_error and, on a match, WARN + exit 0 (skip the tick)
+# rather than `die` and detonate the self-heal restart. Ordered AFTER the net/auth
+# checks and BEFORE the final die, so a genuinely structural failure (a real 404, a
+# malformed slug) still dies loud and preserves "never guess a state".
+classify_source_failure() {
+  local errf="$1" ctx="${2:-}"
+  if is_transient_gh_source_error "$errf"; then
+    log "WARN: pages run source hit a transient gh-api blip (5xx/HTML/rate-limit)${ctx:+ $ctx} — skipping tick"
+    exit 0
+  fi
+}
+
 # run_source — invoke the Pages-run source ONCE into $SRC/$ERRF, setting src_rc.
 # Wrapped in `timeout` and reaped through SOURCE_TIMEOUT_PID/cleanup so a hung or
 # signalled `gh`/git child cannot outlive the tick or orphan into the unit cgroup.
@@ -192,10 +211,12 @@ if [ "$src_rc" -ne 0 ]; then
         log "WARN: pages run source auth failed twice (persistent 401) — skipping tick"
         exit 0
       fi
+      classify_source_failure "$ERRF" "on retry"
       die "pages run source failed for $REPO (rc=$src_rc; see source stderr above)"
     fi
     # Retry succeeded — the 401 was transient; fall through and process the runs.
   else
+    classify_source_failure "$ERRF"
     die "pages run source failed for $REPO (rc=$src_rc; see source stderr above)"
   fi
 fi

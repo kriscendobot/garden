@@ -14,6 +14,10 @@
 #   G. a red tip on a DIFFERENT SHA → a distinct job (basename keys on the head SHA)
 #   H. source emits a transient HTTP 401 once then a valid TSV → the tick RETRIES and
 #      recovers (posts the job, exits 0) instead of dying on the first 401
+#   I. source serves an HTML/decoder page (GitHub overloaded, 5xx) → clean exit-0 skip,
+#      no die, no job (the gh-api transient bucket, matched via common.sh's shared set)
+#   J. source fails structurally (a real 404) → still dies loud (nonzero), no job —
+#      the transient buckets narrow the die, they never swallow a real bug
 #
 # Usage: pages-watcher-test.sh
 set -euo pipefail
@@ -167,6 +171,52 @@ if env GARDEN_STATE="$TR/state-h" JOURNAL_REMOTE="$BARE_H" JOURNAL_BRANCH="$BRAN
 [ "$rc_h" -eq 0 ] && ok "tick exited 0 (recovered; did not die on the transient 401)" || bad "tick failed (rc=$rc_h) instead of recovering"
 board_has "$BARE_H" "garden-pages-fee1deadbeef-shepherd" && ok "posted shepherd after the 401 retry recovered" || bad "shepherd job missing after retry"
 [ "$(cat "$CTR_H")" -eq 2 ] && ok "source invoked exactly twice (one 401 + one success)" || bad "expected 2 source calls, got $(cat "$CTR_H")"
+
+# ============================================================================
+hr; echo "I — source serves an HTML/decoder page (GitHub overloaded) → clean skip, no die"; hr
+# When GitHub is overloaded it serves an HTML error page instead of JSON; `gh run
+# list … | jq` then fails rc=1 with the Go-decoder signature `invalid character '<'
+# looking for beginning of value` — matching NEITHER is_transient_net_error NOR
+# is_transient_auth_error. The watcher must ABSORB it (WARN + exit 0), never `die`
+# into a systemd restart storm (mirrors mirror-closer-test.sh section K).
+HTMLSTUB="$TR/pages-html-stub.sh"
+cat > "$HTMLSTUB" <<'EOF'
+#!/bin/bash
+echo "gh: invalid character '<' looking for beginning of value" >&2
+exit 1
+EOF
+chmod +x "$HTMLSTUB"
+BARE_I="$TR/i.git"; seed_bare "$BARE_I"
+if env GARDEN_STATE="$TR/state-i" JOURNAL_REMOTE="$BARE_I" JOURNAL_BRANCH="$BRANCH" \
+       GARDEN_GARDEN_REPO="$REPO" \
+       GARDEN_PAGES_SOURCE="$HTMLSTUB" \
+       GARDEN_PAGES_AUTH_RETRY_SLEEP=0 \
+       GARDEN_PAGES_POST="$JOBS/post-job.sh" \
+       "$JOBS/pages-watcher.sh" >/dev/null 2>&1; then rc_i=0; else rc_i=$?; fi
+[ "$rc_i" -eq 0 ] && ok "tick exited 0 (absorbed the HTML/decoder blip; did not die)" || bad "tick died (rc=$rc_i) on a transient HTML page instead of skipping"
+[ "$(todo_count "$BARE_I")" -eq 0 ] && ok "no job posted on a skipped tick" || bad "unexpected job posted ($(todo_count "$BARE_I")) on the HTML skip"
+
+# ============================================================================
+hr; echo "J — source fails structurally (real 404) → loud die, unit failure preserved"; hr
+# A genuinely structural failure (a real 404 on a malformed slug) matches none of the
+# transient signatures and MUST still die loud (nonzero exit), so a real bug surfaces
+# and "never guess a state" holds — the transient buckets narrow the die, not remove it.
+S404="$TR/pages-404-stub.sh"
+cat > "$S404" <<'EOF'
+#!/bin/bash
+echo "gh: HTTP 404: Not Found (https://api.github.com/repos/x/y/actions/workflows/nope/runs)" >&2
+exit 1
+EOF
+chmod +x "$S404"
+BARE_J="$TR/j.git"; seed_bare "$BARE_J"
+if env GARDEN_STATE="$TR/state-j" JOURNAL_REMOTE="$BARE_J" JOURNAL_BRANCH="$BRANCH" \
+       GARDEN_GARDEN_REPO="$REPO" \
+       GARDEN_PAGES_SOURCE="$S404" \
+       GARDEN_PAGES_AUTH_RETRY_SLEEP=0 \
+       GARDEN_PAGES_POST="$JOBS/post-job.sh" \
+       "$JOBS/pages-watcher.sh" >/dev/null 2>&1; then rc_j=0; else rc_j=$?; fi
+[ "$rc_j" -ne 0 ] && ok "tick died loud (rc=$rc_j) on a structural 404 — never guessed a state" || bad "structural 404 was swallowed (rc=0) instead of dying loud"
+[ "$(todo_count "$BARE_J")" -eq 0 ] && ok "no job posted on a structural failure" || bad "unexpected job posted ($(todo_count "$BARE_J")) on the structural die"
 
 # ============================================================================
 hr
