@@ -71,3 +71,9 @@ in the shepherd role; verified honored-not-clamped. Committed and pushed to `mai
 The `tada` report gives the SHA, the value chosen and its justification, and the
 sibling gaps (gauntlet/docker) noted for a possible follow-on. Takes effect on this
 host at the next deliberate deploy.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  claimed_at: 2026-07-12T16:42:22Z
