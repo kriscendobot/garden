@@ -40,3 +40,9 @@ location-free formula ids; guest grants ride fresh unlinkable tokens).
 - Never push to predecessors' branches or any `design/*` branch.
 - Report with real-execution evidence and state the confinement property
   preserved.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 12
+  claimed_at: 2026-07-12T02:01:11Z
