@@ -25,3 +25,9 @@ Provenance: requested by kriskowal in the PR #169 review
 designs/pass-style-promise.md line 380: "And we should post a plan to
 create that design." Posted as a parked plan by gardener job
 endojs-endo-but-for-bots-pr169-review-ce5f9073.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  claimed_at: 2026-07-12T17:19:08Z
