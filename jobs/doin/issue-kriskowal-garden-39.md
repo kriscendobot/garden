@@ -23,3 +23,9 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 Review this work: The Zero-Knowledge Authorization Equivalence Theorem https://technologytruth.substack.com/p/the-zero-knowledge-authorization > Theorem Statement Let A(p, r, s) be an ACL-based authorization function. For any verification event where A(p, r, s) = 1, an observer w
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  claimed_at: 2026-07-12T05:50:28Z
