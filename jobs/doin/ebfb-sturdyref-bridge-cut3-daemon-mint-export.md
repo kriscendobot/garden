@@ -43,3 +43,9 @@ per grant), no guest reach to the store.
 <!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 13
+  claimed_at: 2026-07-12T00:33:16Z
