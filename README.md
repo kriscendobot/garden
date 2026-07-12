@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-12T16:18:38Z_
+_As of 2026-07-12T16:22:29Z_
 
 ## Latest
 
@@ -829,19 +829,20 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr124-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #124
 - [`endojs-endo-but-for-bots-pr133-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr133-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #133
-- [`endojs-endo-but-for-bots-pr152-review-5f514f6a`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr152-review-5f514f6a.md) — Review directive on endojs/endo-but-for-bots PR #152
+- [`endojs-endo-but-for-bots-pr165-d00cbc0d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr165-d00cbc0d.md) — attention directive on endojs/endo-but-for-bots PR #165
 - [`endojs-endo-but-for-bots-pr712-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr712-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #712
+- [`improve-pages-watcher-absorb-gh-api-transient`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-pages-watcher-absorb-gh-api-transient.md) — scripts/jobs/pages-watcher.sh
 
-### tada (2036)
+### tada (2037)
+- [`endojs-endo-but-for-bots-pr152-review-5f514f6a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr152-review-5f514f6a.md) — Completion report — endojs/endo-but-for-bots PR #152 (refresh)
 - [`endojs-endo-but-for-bots-pr151-review-ddbb3acc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr151-review-ddbb3acc.md) — Completion report
 - [`endojs-endo-but-for-bots-pr138-review-86c2eb0e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr138-review-86c2eb0e.md) — Completion report
 - [`endojs-endo-but-for-bots-pr713-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr713-shepherd.md) — No FAILURE checks remain. The situation is definitive:
 - [`self-heal-fix-garden-pages-watcher-dial-tcp-io-timeout`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-pages-watcher-dial-tcp-io-timeout.md) — Completion report
-- [`improve-common-md-journal-sync-pointer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-common-md-journal-sync-pointer.md) — Completion report
-- … and 2031 more
+- … and 2032 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -871,6 +872,7 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - [`endojs-endo-but-for-bots-pr138-review-86c2eb0e-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr138-review-86c2eb0e-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #138 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr151-review-ddbb3acc-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr151-review-ddbb3acc-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #151 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr152-review-5f514f6a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr152-review-5f514f6a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #152 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr165-d00cbc0d-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr165-d00cbc0d-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #165 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
