@@ -1,16 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-12T07:44:22Z_
+_As of 2026-07-12T07:51:22Z_
 
 ## Latest
 
-The finbot OODA loop now runs by inference end to end — the final ACT (executor) stage joined ORIENT/DECIDE/AUDIT this cycle, all in wallet-free dry-run, and conditional-volatility (GARCH/GJR-GARCH) surfaces were wired through to the forecaster; the suite is green at 478 tests with all six auditor invariants passing and the wallet untouched. That axis is now complete, so finbot's remaining depth (a first live paper-wallet run) is blocked behind an explicit cap-attenuation Phase 2 authorization the maintainer has been asked for across several cycles.
+finbot's OODA loop is now inference-driven end to end: successive 6-hour cycles landed GARCH, GJR-GARCH, and the OBSERVE→ORIENT→DECIDE→AUDIT→ACT stages by inference (all dry-run, wallet untouched, 478 tests green on kriscendobot/finbot@main), and this cycle wired conditional-vol surfaces into the forecaster — so the forecasting/inference axis is essentially exhausted and finbot's deepest remaining step, live paper-wallet execution (cap-attenuation Phase 2), is blocked pending your `live_authorized` decision. On the fork side, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) took the reversible default after five unanswered drive ticks: it was rebased onto master (fork CI now fully green), un-drafted, and re-review requested from mhofman/dckc — the only remaining gate is a SwingSet-team review the fleet can't supply.
 
-The triager crash-loop fix has landed on `main2` (shared `bare_clone_dir` resolver, `GARDEN_REPOS` defaulting to `worktrees/`, opt-in self-provision), but multiple gardeners converge on the same conclusion: the **deployed root `/home/kris/garden2` is ~56 commits stale**, so `garden-triager@*` units keep FATAL-looping at runtime until a drained `deploy-garden.sh` — a leader/liaison operation — advances it.
-
-Milestone M3 is now **merge-bottlenecked, not build-bottlenecked**: the foreman reports ~30 green, mergeable PRs stacked on frozen bases awaiting sequential landing, with no unblocked build work left. Two exit-criterion PRs — [Docker self-host #694](https://github.com/endojs/endo-but-for-bots/pull/694) and [confined HTTP client #661](https://github.com/endojs/endo-but-for-bots/pull/661) — sit as drafts behind go-ahead-gated gauntlet jobs parked in `plan/`; #694's gauntlet exhausted 5 requeue cycles and is now **poisoned/held**, partly because the repo-wide lint ceiling ([#594](https://github.com/endojs/endo-but-for-bots/pull/594)) phantom-reds every gauntlet. Also awaiting decisions: the `@endo/reminder` redesign [#682](https://github.com/endojs/endo-but-for-bots/pull/682) (supersedes the rejected endoclaw-timer stack #609/#617/#619), sequencing designs [#659](https://github.com/endojs/endo-but-for-bots/pull/659) and [#691](https://github.com/endojs/endo-but-for-bots/pull/691), and the SturdyRef agent-surface design [#695](https://github.com/endojs/endo-but-for-bots/pull/695) whose builder cuts A–F are gated on acceptance.
-
-On the fork side, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (promote ymax vat → critical) was driven to fully-green CI via a reversible rebase onto master, un-drafted, and sent for SwingSet-team review after five unanswered ticks asking rebase-vs-freeze — the only remaining gate is a reviewer. Note the fleet is straining on large jobs: watchdog flagged several SturdyRef bridge cuts (cut3/cut4/cut5), the #694 gauntlet, and shepherds for [#688](https://github.com/endojs/endo-but-for-bots/pull/688), [#702](https://github.com/endojs/endo-but-for-bots/pull/702) and poisoned [#704](https://github.com/endojs/endo-but-for-bots/pull/704) as deterministically overrunning the 2400s handler budget.
+The board is otherwise idle (one job in flight — daemon git-capability phase 1), because M3 is merge-bottlenecked rather than short of work. The foreman flagged this repeatedly: ~30 green, mergeable endo-but-for-bots PRs are stacked awaiting sequential landing (mount/agent-tools stack #678–681, HttpClient [#661](https://github.com/endojs/endo-but-for-bots/pull/661), registry [#671](https://github.com/endojs/endo-but-for-bots/pull/671), Docker self-host [#694](https://github.com/endojs/endo-but-for-bots/pull/694)), gated on your merge-order and sequencing-design ([#659](https://github.com/endojs/endo-but-for-bots/pull/659), [#691](https://github.com/endojs/endo-but-for-bots/pull/691)) calls. Two jobs have poisoned into `jobs/plan/` awaiting a human `promote-plan.sh`: the [#694](https://github.com/endojs/endo-but-for-bots/pull/694) Docker gauntlet and the [#704](https://github.com/endojs/endo-but-for-bots/pull/704) shepherd — both stalled by the still-unmerged lint-ceiling fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594), whose merge would auto-resume the poisoned shepherd cohort. Separately, endoclaw-timer's daemon-integrated timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) awaits an accept/retire decision on the [#682](https://github.com/endojs/endo-but-for-bots/pull/682) `@endo/reminder` redesign that supersedes it, and the SturdyRef agent-surface design [#695](https://github.com/endojs/endo-but-for-bots/pull/695) is holding its builder cuts A–F on your acceptance (several bridge cuts overran the handler budget and are at poison risk).
 
 ## Parked for maintainer feedback
 
@@ -760,8 +756,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`build-endo-but-for-bots-daemon-git-capability-phase-one-git-remote-push-tool`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-daemon-git-capability-phase-one-git-remote-push-tool.md) — ---
 
 ### tada (1989)
 - [`finbot-progress-20260712-073509`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260712-073509.md) — Completion report — finbot-progress-20260712-073509
