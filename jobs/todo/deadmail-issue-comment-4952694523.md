@@ -39,11 +39,4 @@ make it into a PR and do a panel review
 
 ----- END ORIGINAL MESSAGE -----
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 18
-  claimed_at: 2026-07-12T20:53:12Z
+<!-- garden-reaped: 2 -->
