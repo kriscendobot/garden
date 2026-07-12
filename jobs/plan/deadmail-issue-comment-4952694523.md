@@ -1,3 +1,17 @@
+---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 4
+deadline_overruns: 1
+poisoned_at: 2026-07-12T22:23:03Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-12T22:23:03Z
+---
+
 # Dead-lettered message — pick up its intent
 
 A message could not be delivered: its addressee `issue-kriskowal-garden-31` had already
@@ -39,12 +53,5 @@ make it into a PR and do a panel review
 
 ----- END ORIGINAL MESSAGE -----
 
-<!-- garden-reaped: 3 -->
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 3
-  claimed_at: 2026-07-12T21:33:08Z
