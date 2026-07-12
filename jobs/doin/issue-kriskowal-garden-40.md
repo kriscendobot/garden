@@ -23,3 +23,9 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 clone https://codeberg.org/PatrickM123/darkwow and get a node running. currently: https://codeberg.org/PatrickM123/darkwow/commit/0ac13a390d678aeb841263a8e9bc230ee7bda19b Preferably using a nix flake, but if that's not straightforward and there are docker instructions, follow tho
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 17
+  claimed_at: 2026-07-12T05:52:31Z
