@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-12T21:20:58Z_
+_As of 2026-07-12T21:22:49Z_
 
 ## Latest
 
@@ -1008,18 +1008,17 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`deadmail-issue-comment-4952694523`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4952694523.md) — Dead-lettered message — pick up its intent
-- [`endo-sturdyref-press-20260712-212011`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260712-212011.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`plan-recalibrate-20260712-212011`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/plan-recalibrate-20260712-212011.md) — Weekly plan recalibration and grooming (Sunday evening)
 
-### tada (2079)
+### tada (2080)
+- [`endo-sturdyref-press-20260712-212011`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260712-212011.md) — SturdyRef press tick — completion report (job endo-sturdyref-press-20260712-2...
 - [`endo-sturdyref-press-20260712-202002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260712-202002.md) — SturdyRef press tick — completion report (job endo-sturdyref-press-20260712-2...
 - [`endojs-endo-but-for-bots-pr609-message-scheduler-review-fixups`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr609-message-scheduler-review-fixups.md) — The job is correctly dispositioned. Here is my completion report.
 - [`finbot-progress-20260712-200501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260712-200501.md) — Completion report — finbot-progress-20260712-200501
 - [`endojs-endo-but-for-bots-pr694-docker-selfhost-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr694-docker-selfhost-gauntlet.md) — Completion report
-- [`esheets-supervisor-20260712-190502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260712-190502.md) — Completion report
-- … and 2074 more
+- … and 2075 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
