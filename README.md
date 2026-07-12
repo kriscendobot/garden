@@ -1,16 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-12T06:10:59Z_
+_As of 2026-07-12T06:30:14Z_
 
 ## Latest
 
-The board itself barely moved this cycle — only the maintainer-review job [kriskowal/garden#40](https://github.com/kriskowal/garden/issues/40) completed — because M3 (Remote Access and Coding Capabilities) is now merge-bottlenecked rather than work-bottlenecked. The foreman has flagged repeatedly that ~30 green, mergeable endo-but-for-bots PRs are stacked on frozen bases awaiting sequential landing (the mount/agent-tools stack, HttpClient [#661](https://github.com/endojs/endo-but-for-bots/pull/661), registry, OAuth, and the Docker self-host pillar), and two of M3's headline exit PRs are stranded in `jobs/plan/` as poisoned gauntlets: [#694](https://github.com/endojs/endo-but-for-bots/pull/694) (Docker self-host + authenticated remote gateway) and [#661](https://github.com/endojs/endo-but-for-bots/pull/661) both exhausted 5 requeue cycles, held on go-ahead. The root cause of the gauntlet poisonings is the typescript-eslint projectService lint ceiling, whose green fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) is still unmerged — merging it auto-resumes the poisoned shepherd cohort.
+The most maintainer-actionable item is a **deploy gap**: the triager crash-loop is fixed and green on `main2`, but the deployed root (`/home/kris/garden2`) sits ~56 commits behind, so every `garden-triager@*` unit keeps FATAL-looping on the old `/repos` default. Four self-heal gardeners converged on the same conclusion — nothing left to code, a drained `deploy-garden.sh` is the clean resolution and all eight own-fork bare clones now exist under `worktrees/`, so the deploy will settle them without arming any new watched repo.
 
-Two pivots need an accept/reject call: endoclaw-timer's daemon-integrated scheduler ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) has been superseded by the `@endo/reminder` unconfined-plugin redesign [#682](https://github.com/endojs/endo-but-for-bots/pull/682), and the SturdyRef agent-surface design [#695](https://github.com/endojs/endo-but-for-bots/pull/695) awaits a go/no-go to unblock its six builder cuts (whose bridge cuts 3–5 have meanwhile been overrunning the 2400s handler budget and getting poisoned).
+Milestone **M3 is merge-bottlenecked, not work-bottlenecked**: the foreman flagged repeatedly that ~30 green, mergeable endo-but-for-bots PRs are stacked awaiting sequential landing — the Docker self-host [#694](https://github.com/endojs/endo-but-for-bots/pull/694) (which supersedes [#608](https://github.com/endojs/endo-but-for-bots/pull/608)), the confined HTTP client [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the mount/agent-tools stack ([#678](https://github.com/endojs/endo-but-for-bots/pull/678)–[#681](https://github.com/endojs/endo-but-for-bots/pull/681)), and the registry/OAuth/endopi clusters. Two gauntlets have poisoned — [#694](https://github.com/endojs/endo-but-for-bots/pull/694) and shepherd [#704](https://github.com/endojs/endo-but-for-bots/pull/704) both parked in `jobs/plan/` (go-ahead gated) after five requeue cycles — largely because the lint-ceiling fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) is still unmerged and reds every gauntlet. Merging [#594](https://github.com/endojs/endo-but-for-bots/pull/594) trip-wires the parked `resume-lint-ceiling-shepherds` job. Scheduled-execution pivoted: the endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) is superseded by the `@endo/reminder` design [#682](https://github.com/endojs/endo-but-for-bots/pull/682), awaiting an accept/retire call.
 
-On the fork side, the ymax→critical drive [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) made real progress: after five unanswered ticks, the driver executed the reversible rebase-onto-master default, which cleared the last stale-base red — fork CI is now fully green — then un-drafted the PR and requested SwingSet-team review; it now waits only on a reviewer. Separately, finbot completed its inference-driven OODA axis end-to-end (OBSERVE→ORIENT→DECIDE→AUDIT→ACT all now run by inference in dry-run, 464 tests green, wallet untouched), landed direct-push per its no-PR convention; the only deeper increment left is cap-attenuation Phase 2, which stays gated behind explicit `live_authorized` authorization.
-
-Finally, an operational note worth acting on: the triager crash-loop fix (GARDEN_REPOS defaulting to `worktrees/`) is landed and tested on `main2`, but the deployed root `/home/kris/garden2` is ~56 commits behind, so `garden-triager@*` units keep FATAL-looping at runtime — a deliberate drained deploy is the clean resolution.
+On the fork side, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax→critical vat) was rebased onto master, is now **fully green and un-drafted with SwingSet review requested** — the drive resolved the long-pending rebase-vs-freeze question by executing the reversible rebase after five unanswered ticks; only a reviewer decision remains. finbot completed its **inference-driven OODA loop end-to-end** (OBSERVE→ORIENT→DECIDE→AUDIT→ACT, all dry-run with wallet untouched across 464 green tests), landing GARCH and GJR-GARCH forecasting variants along the way; the axis is now exhausted and the next deeper step — a live paper-wallet run — is gated behind explicit `live_authorized` cap-attenuation Phase 2 authorization. The SturdyRef agent-surface design [#695](https://github.com/endojs/endo-but-for-bots/pull/695) awaits a go/no-go on its six builder cuts, though several bridge-cut jobs and other handlers are deterministically overrunning the 2400s budget and need splitting.
 
 ## Parked for maintainer feedback
 
@@ -23,7 +21,7 @@ Finally, an operational note worth acting on: the triager crash-loop fix (GARDEN
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 26d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 51d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 51d)
-- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 52d)
+- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 53d)
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
@@ -726,8 +724,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`gauntlet-endo-but-for-bots-pull-request-643-exo-git-platform-filesystem-path-types`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-643-exo-git-platform-filesystem-path-types.md) — ---
+- [`self-heal-fix-garden-mirror-closer-gh-api-html-response-transient`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-mirror-closer-gh-api-html-response-transient.md) — In scripts/jobs/common.sh, the GARDEN_TRANSIENT_GH_API_SIGNATURES set does no...
 
 ### tada (1983)
 - [`issue-kriskowal-garden-40`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-40.md) — Completion report
