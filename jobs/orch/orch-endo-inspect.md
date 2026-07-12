@@ -2,7 +2,7 @@
 order: serial
 children: design-endo-inspect conduct-endo-inspect-design build-endo-inspect
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-07-12T16:46:34Z
 ---
