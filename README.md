@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-12T15:16:40Z_
+_As of 2026-07-12T15:19:57Z_
 
 ## Latest
 
-Two maintainer decisions now gate most forward motion, and both are surfaced repeatedly by the foreman. First, milestone M3 is **merge-bottlenecked**: a large stack of green, mergeable endo-but-for-bots PRs is stranded awaiting a landing/sequencing call, with the two headline exit-criterion drafts — [#694](https://github.com/endojs/endo-but-for-bots/pull/694) (Docker self-host + authenticated remote gateway) and [#661](https://github.com/endojs/endo-but-for-bots/pull/661) (confined outbound HTTP client) — now **poisoned and parked in `jobs/plan/` (gate=go-ahead)** after their gauntlets exhausted five requeue cycles; their only remaining red is the repo-wide lint projectService ceiling, whose fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) is itself unmerged. Promoting those gauntlets (or merging #594) is the unblock. Separately, the endoclaw-timer scheduled-execution chain has pivoted to the `@endo/reminder` redesign [#682](https://github.com/endojs/endo-but-for-bots/pull/682), which needs an accept/close decision to retire the superseded timer PRs, and the SturdyRef agent-surface design [#695](https://github.com/endojs/endo-but-for-bots/pull/695) awaits a go/no-go on its six builder cuts.
+The finbot OODA loop is now inference-driven end to end — over the last day gardeners wired ORIENT, DECIDE, AUDIT, and finally ACT (all dry-run, wallet-untouched) onto `kriscendobot/finbot@main`, alongside GARCH, GJR-GARCH, and adaptive conditional-vol surfaces (suite up to 488 green). That axis is now exhausted; the only deeper step is live execution, which sits behind an unanswered cap-attenuation Phase-2 / `live_authorized` decision. On [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax→critical) the driver executed the reversible rebase-onto-master default after three unanswered ticks: CI is now fully green, the PR is un-drafted, and review was requested from mhofman/dckc — approval is the sole remaining gate, and a fixer was posted to clear two stale open review threads.
 
-On the fork side, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (promote ymax vat → critical) advanced materially: it was rebased cleanly onto current master, is now **fully green and un-drafted**, and re-review was requested from mhofman/dckc — the drive tick also spotted two of mhofman's inline threads left unanswered and posted a fixer for them, so it is blocked only on a SwingSet-team review. finbot continued its steady autonomous cadence, landing GARCH/GJR-GARCH conditional-vol surfaces and completing an **inference-driven OODA loop end-to-end** (OBSERVE→ACT, all dry-run, wallet untouched), still holding at the cap-attenuation Phase 2 / live-execution authorization gate.
-
-Two operational items deserve attention: the triager crash-loop fix is landed on `main2`, but the **deployed garden root is ~56 commits stale**, so `garden-triager@*` units keep FATAL-looping — a deliberate drained deploy is the clean resolution. And a cluster of jobs (the sturdyref bridge cuts 3–5, several shepherds, the pr706 git-capability gauntlet) are **deterministically overrunning the 2400s handler budget** and will be poisoned unless split into claim-sized stages.
+The recurring foreman theme is that M3 is merge-bottlenecked, not work-bottlenecked: ~30 green, mergeable PRs are stranded, with the headline exit criteria — [#694](https://github.com/endojs/endo-but-for-bots/pull/694) (Docker self-host + remote gateway) and [#661](https://github.com/endojs/endo-but-for-bots/pull/661) (confined HTTP client) — parked as poisoned, go-ahead-gated gauntlets whose only red is the repo-wide lint ceiling [#594](https://github.com/endojs/endo-but-for-bots/pull/594); merging #594 would trip-wire the parked shepherd cohort back to life. Two design decisions block downstream builds: accept/reject [#682](https://github.com/endojs/endo-but-for-bots/pull/682) (`@endo/reminder`, which supersedes the rejected endoclaw-timer daemon integration and moots Phase-4), and go/no-go on the SturdyRef agent-surface design [#695](https://github.com/endojs/endo-but-for-bots/pull/695) to unlock builder cuts A–F. Finally, an operational flag: the triager crash-loop fix is landed and green on `main2`, but the deployed root is ~56 commits stale, so `garden-triager@*` units keep FATAL-looping until a drained `deploy-garden.sh` — several self-heal reports converge on that one deploy as the fix.
 
 ## Parked for maintainer feedback
 
@@ -772,30 +770,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > Milestone M3's two headline exit-criterion PRs are built but stranded: `endojs/endo-but-for-bots` DRAFT #694 (Docker self-hosting image + authenticated remote gateway) and DRAFT #661 (provideHttpClient/makeHttpTool — confined outbound HTTP). Their gauntlet/shepherd jobs are poisoned (requeue-exhausted) and `gate: go-ahead` in `jobs/plan/`, so they cannot advance without your decision. Please authorize (re-queue) the gauntlet runs to drive #694 and #661 toward mergeable — the remaining red on both is the known repo-wide lint projectService ceiling (#594), treated as pre-existing — or tell me to pick lower-priority substrate work instead.
 
-- `20260712T151257Z-55066f` — from gardener:endojs-endo-but-for-bots-pr127-2d156fdf, reply_to `endojs-endo-but-for-bots-pr127-2d156fdf` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260712T151257Z-55066f.md)
-
-> Re: attention directive on [endojs/endo-but-for-bots#127](https://github.com/endojs/endo-but-for-bots/issues/127) ("create a PR for glorp and close this").
->
-> I need a clarification before acting, because two things don't line up:
->
-> 1. The decomposition already exists and is complete. [endojs/endo-but-for-bots#127](https://github.com/endojs/endo-but-for-bots/issues/127) was already split per the reconstruction plan ([endojs/endo-but-for-bots#648](https://github.com/endojs/endo-but-for-bots/issues/648)) into the four replacement PRs plus support:
->    - A revocation + deny patterns — [endojs/endo-but-for-bots#650](https://github.com/endojs/endo-but-for-bots/issues/650) (MERGED)
->    - B glob — [endojs/endo-but-for-bots#653](https://github.com/endojs/endo-but-for-bots/issues/653) (CLOSED, superseded by B-prime [endojs/endo-but-for-bots#679](https://github.com/endojs/endo-but-for-bots/issues/679) open)
->    - C grep — [endojs/endo-but-for-bots#655](https://github.com/endojs/endo-but-for-bots/issues/655) (OPEN) + C-prime [endojs/endo-but-for-bots#680](https://github.com/endojs/endo-but-for-bots/issues/680) (MERGED)
->    - D json read/write — [endojs/endo-but-for-bots#657](https://github.com/endojs/endo-but-for-bots/issues/657) (OPEN)
->    - P platform fs/search engine — [endojs/endo-but-for-bots#678](https://github.com/endojs/endo-but-for-bots/issues/678) (OPEN)
->    - T agent-tools mount search — [endojs/endo-but-for-bots#681](https://github.com/endojs/endo-but-for-bots/issues/681) (MERGED)
->    - plus CLI verbs ([endojs/endo-but-for-bots#652](https://github.com/endojs/endo-but-for-bots/issues/652) / [endojs/endo-but-for-bots#658](https://github.com/endojs/endo-but-for-bots/issues/658)) and Rust-parity test runner ([endojs/endo-but-for-bots#654](https://github.com/endojs/endo-but-for-bots/issues/654))
->    The plan ([endojs/endo-but-for-bots#648](https://github.com/endojs/endo-but-for-bots/issues/648)) explicitly says to close [endojs/endo-but-for-bots#127](https://github.com/endojs/endo-but-for-bots/issues/127) once these are open — and they are.
->
-> 2. "glorp" maps to nothing. No branch named glorp, 0 code-search hits in the repo, and it is absent from the reconstruction plan [endojs/endo-but-for-bots#648](https://github.com/endojs/endo-but-for-bots/issues/648). I cannot identify a real cut/package/feature it refers to, and I will not fabricate a PR from an unresolvable token.
->
-> Questions:
-> - What should "glorp" be? (a real cut I am missing — e.g. the deliberately-separate streamGlob/streamGrep design [endojs/endo-but-for-bots#647](https://github.com/endojs/endo-but-for-bots/issues/647)? — or a slip?)
-> - Do you want me to go ahead and close [endojs/endo-but-for-bots#127](https://github.com/endojs/endo-but-for-bots/issues/127) now given the replacement stack is already open, independent of the glorp question?
->
-> Holding off on any edit/close until you confirm.
-
 - `poison-endojs-endo-but-for-bots-pr704-shepherd-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-endojs-endo-but-for-bots-pr704-shepherd-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -839,7 +813,8 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
+- [`build-endo-glorp-combinator`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-glorp-combinator.md) — Build: glorp combinator (grep over glob results) — fresh stacked PR
 - [`ebfb-124-cbor-share-utils`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-124-cbor-share-utils.md) — Design: share a common CBOR utility subset between slot-machine and ocapn
 - [`ebfb-124-daemon-cbor-frame`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-124-daemon-cbor-frame.md) — Design: migrate daemon from netstring framing to cbor-frame
 - [`endojs-endo-but-for-bots-pr127-2d156fdf`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr127-2d156fdf.md) — attention directive on endojs/endo-but-for-bots PR #127
