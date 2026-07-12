@@ -246,3 +246,12 @@ Inspect via `git -C journal cat-file -p 0d69735cdbc01f7d5725188ed55c4bdc0d791032
 - Context: gardener-7 on endolin-garden-ece02cb4: job 'endo-sturdyref-press-20260712-065004' exit-0-unsatisfying but elapsed near-constant (101,101s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p 37013ad6ce367ddd04b0d4f7b86b15fd8c2e9f8c`.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-07-12T10:04:10Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: b23d2d6b365b6fed96a5386cd237f3f607476ef8
+- Context: gardener-15 on endolin-garden-ece02cb4: job 'endojs-endo-but-for-bots-pr707-shepherd' exit-0-unsatisfying but elapsed near-constant (31,31s) over 2 cycles — likely a wedged child, not a working one
+
+Inspect via `git -C journal cat-file -p b23d2d6b365b6fed96a5386cd237f3f607476ef8`.
