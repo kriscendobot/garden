@@ -21,7 +21,7 @@ The three v1 judge specializations and the appellate are retained as role files 
 The script senses the panel kind from the diff, not an agent:
 
 1. **Design-only PR** (every changed path under a design directory, `designs/*.md`, `*/designs/*.md`, or matching `DESIGN*.md`) → the **design panel** (7 seats; the solicitor's surface).
-2. **Source-touching PR, first round** → the **code panel** (26 seats; the barrister's surface).
+2. **Source-touching PR, first round** → the **code panel** (28 seats; the barrister's surface).
 3. **Source-touching PR, re-run after a fixer push** → the same code panel, briefed with the prior verdict and the fixer's delta (the justice's surface).
 
 On *any* ambiguity (missing base ref, git error, empty diff) the script falls to the code panel, the broader and safer panel, mirroring `sense.sh`'s bias toward over-reviewing.

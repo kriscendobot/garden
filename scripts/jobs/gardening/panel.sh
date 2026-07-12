@@ -66,16 +66,20 @@ fail() { echo "panel #$pr: FAILED at $*" >&2; exit 1; }   # failures are loud
 
 # --- juror seat list: code panel vs design panel ----------------------------
 # The two panel kinds and their seats are the v1 jury composition (see
-# skills/panel-review). The code panel is the 27-seat source-touching panel; the
+# skills/panel-review). The code panel is the 28-seat source-touching panel; the
 # design panel is the 7-seat design-only panel. The script senses which to run
 # from the diff (design-only when every changed path is under designs/), then
 # iterates the matching seat list. A project can override either list via env.
 
-# Code panel (27 seats) — source-touching PRs.
+# Code panel (28 seats) — source-touching PRs. The coverage-auditor is a MANDATORY
+# seat (every builder/fixer gauntlet runs the code panel), but it is COST-GATED at
+# dispatch: its co-located seat-gate runs a deterministic c8 coverage pre-pass and
+# only spends a `claude -p` when the change has uncovered new lines (see
+# seat-gate-coverage-auditor.sh and the seat_review gate below).
 : "${GARDEN_CODE_SEATS:=assessor typist stylist packager archivist prover curator \
 migrator locksmith warden saboteur breaker purist spec-keeper wire-watcher \
 engine-realist integrator benchmarker changeset-auditor surfacer scribe pruner \
-gateway corner-prober fast-checker releaser transplanter}"
+gateway corner-prober fast-checker releaser transplanter coverage-auditor}"
 
 # Design panel (7 seats) — design-only PRs (paths under designs/).
 : "${GARDEN_DESIGN_SEATS:=critic skeptic decomplector ergonomist copyeditor pedant novice}"
@@ -120,6 +124,15 @@ seat_review() {  # seat_review <seat> -> prints that seat's per-juror block
   local seat="$1"
   if [ -n "${GARDEN_PANEL_SEAT:-}" ]; then
     "$GARDEN_PANEL_SEAT" "$seat" "$pr" "$wt" "$base"; return
+  fi
+  # Cost-gated seats: a seat may ship a deterministic PRE-PASS gate co-located here
+  # as seat-gate-<seat>.sh. It runs plain code first and only spends a `claude -p`
+  # when it has something to judge (the proxy's deterministic-pre-pass-then-cost-
+  # gated-handler pattern), OWNING the seat's block on stdout in every branch. The
+  # coverage-auditor is the first such seat (c8 coverage-of-new-lines).
+  local gate="$HERE/seat-gate-$seat.sh"
+  if [ -x "$gate" ]; then
+    "$gate" "$seat" "$pr" "$wt" "$base"; return
   fi
   local brief="$JURORS_DIR/$seat/AGENT.md"
   [ -r "$brief" ] || fail "seat brief $brief"

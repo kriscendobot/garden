@@ -179,7 +179,7 @@ for a weave/rebase first (a `rebase`/`weave` job, per [conflict-resolution]).
 
 ## Panel composition
 
-There are **two panels**: the code panel (~26 seats, for source-touching PRs) and
+There are **two panels**: the code panel (~28 seats, for source-touching PRs) and
 the design panel (7 seats, for design-only PRs). `panel.sh` senses which one
 applies from the PR's file list (every changed path under a design directory →
 design panel; otherwise code panel; ambiguity falls to the broader code panel).

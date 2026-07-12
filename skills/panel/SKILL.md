@@ -49,7 +49,7 @@ runnable non-interactively):
 | Variable | Purpose |
 |---|---|
 | `GARDEN_ROOT` / `JURORS_DIR` | where the seat briefs live (`roles/jurors/<seat>/AGENT.md`). |
-| `GARDEN_CODE_SEATS` | the 26-seat code-panel list (override for a reduced panel). |
+| `GARDEN_CODE_SEATS` | the 28-seat code-panel list (override for a reduced panel); includes the cost-gated `coverage-auditor`. |
 | `GARDEN_DESIGN_SEATS` | the 7-seat design-panel list. |
 | `GARDEN_PANEL_SEAT` | hook: run one seat's review (default shells `claude -p` with the seat brief). |
 | `GARDEN_PANEL_DECIDE` | hook: aggregate verdicts → `must-fix` \| `pass` (default `claude -p`). |
@@ -73,7 +73,7 @@ case never flows into the supervisor's window.
 1. **Sense the panel kind.** The script diffs `<base>...HEAD`. If every changed
    path is under a design directory (`designs/*.md`, `*/designs/*.md`) or matches
    `DESIGN*.md`, the panel is the **design panel** (7 seats); otherwise the
-   **code panel** (26 seats). Any ambiguity (no base, git error, no changed
+   **code panel** (28 seats). Any ambiguity (no base, git error, no changed
    files) falls to the code panel — the broader, safer panel, consistent with
    `sense.sh`'s bias toward over-reviewing.
 2. **Fan the seats.** For each seat in the matching list, the script shells one

@@ -71,7 +71,7 @@ Every `fire` line collects into the recommended set.
 
 **Always-on core (9 seats).** Lenses apply to almost every code PR; fire unconditionally on code-panel PRs: `assessor`, `typist`, `stylist`, `packager`, `archivist`, `prover`, `saboteur`, `integrator`, `corner-prober`. (`corner-prober` joined the always-on core 2026-05-22 per the err-on-too-many guidance; its boundary-set enumeration applies broadly enough that signal-triggering it would risk missing edge cases.)
 
-**Always-fire (2 seats).** Their signal lives outside the diff (in PR-comment history or in judgment-based reading): `scribe` (knowledge-capture closure; needs PR-comment history) and `releaser` (reads the diff for user-facing-ness; needs judgment, not regex).
+**Always-fire (3 seats).** Their signal lives outside the diff (in PR-comment history, in judgment-based reading, or in a coverage report): `scribe` (knowledge-capture closure; needs PR-comment history), `releaser` (reads the diff for user-facing-ness; needs judgment, not regex), and `coverage-auditor` (test coverage of new lines; its signal is the c8 report, not the diff shape). The `coverage-auditor` is *always-fire* yet **cost-gated at dispatch**: `scripts/jobs/gardening/seat-gate-coverage-auditor.sh` runs a deterministic c8 coverage pre-pass first and spends its `claude -p` only when the change has uncovered new lines, so recommending it every code round costs nothing on a well-covered change.
 
 ### 4. Path-triggered seats (9)
 
@@ -132,7 +132,7 @@ The panel run greps `^fire ` against the per-probe output to assemble the seat l
 
 When the gardener adds a seat, the corresponding probe is added in the same commit:
 
-1. Name by category prefix + seat slug: `probes/B-<seat>.sh` (path-triggered), `probes/C-<seat>.sh` (content-triggered), `probes/X-<seat>.sh` (cross-panel).
+1. Name by category prefix + seat slug: `probes/B-<seat>.sh` (path-triggered), `probes/C-<seat>.sh` (content-triggered), `probes/X-<seat>.sh` (cross-panel). **Exception — always-fire seats** whose signal is not a diff path/content shape (e.g. `scribe`, `releaser`, `coverage-auditor`) have no probe; they are listed in the `ALWAYS_FIRE` string instead. `coverage-auditor` in particular is gated downstream at *dispatch* by its deterministic c8 pre-pass (`seat-gate-coverage-auditor.sh`), not by a diff probe.
 2. The probe reads the diff via `git diff "$BASE...HEAD" --name-only` (path patterns) or `git diff "$BASE...HEAD" -U0 | grep -E '^\+'` (content regexes) and emits one of `fire <seat>  <reason>` or `skip <seat>`.
 3. Add a row to *Path-triggered seats* or *Content-regex-triggered seats* with the trigger and empirical source.
 

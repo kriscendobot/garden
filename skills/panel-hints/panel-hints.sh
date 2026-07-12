@@ -81,9 +81,14 @@ echo "Panel-kind: code-panel"
 echo ""
 
 ALWAYS_ON="assessor, typist, stylist, packager, archivist, prover, saboteur, integrator, corner-prober"
-ALWAYS_FIRE="scribe, releaser"
+# coverage-auditor is always-fire on the code panel (a mandatory seat), but it is
+# COST-GATED at dispatch by a deterministic c8 coverage pre-pass — its `claude -p`
+# runs only when the change has uncovered new lines (seat-gate-coverage-auditor.sh).
+# Its signal lives outside the diff's path/content shape (in the coverage report),
+# so it has no probes/ file; it is listed here unconditionally.
+ALWAYS_FIRE="scribe, releaser, coverage-auditor"
 echo "Always-on core (9): $ALWAYS_ON"
-echo "Always-fire (2): $ALWAYS_FIRE"
+echo "Always-fire (3): $ALWAYS_FIRE"
 echo ""
 
 # Run each probe; collect fire and skip lists.
@@ -187,7 +192,7 @@ if [ "${#skip_list[@]}" -gt 0 ]; then
   echo "Suppressed (${#skip_list[@]}): $(IFS=,; echo "${skip_list[*]}" | sed 's/,/, /g')"
 fi
 
-# Compute the recommended total: always-on (9) + always-fire (2) + path + content + cross.
-total=$((9 + 2 + ${#path_seats[@]} + ${#content_seats[@]} + ${#cross_seats[@]}))
+# Compute the recommended total: always-on (9) + always-fire (3) + path + content + cross.
+total=$((9 + 3 + ${#path_seats[@]} + ${#content_seats[@]} + ${#cross_seats[@]}))
 echo ""
-echo "Recommended total: $total of 26 code-panel seats (+ ${#cross_seats[@]} cross-panel)."
+echo "Recommended total: $total of 28 code-panel seats (+ ${#cross_seats[@]} cross-panel)."
