@@ -37,3 +37,9 @@ no-location, no-identification, opaque-and-unforgeable — end to end.
 - Never push to predecessors' branches or any `design/*` branch.
 - Report with real-execution evidence (the round-trip test's observed output is
   the headline) and state the confinement property preserved.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  claimed_at: 2026-07-12T03:07:16Z
