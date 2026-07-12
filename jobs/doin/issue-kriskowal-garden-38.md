@@ -23,3 +23,9 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 A colleague is working on a seemingly remarkable project - ZK ocaps. His latest result is: https://codeberg.org/PatrickM123/darkwow/commit/5696cf397226bc6b21dd7ac30130bd6dc2e01f22 Explain the claims here. Then validate them. Much of the work is formally verified using lean4. Is t
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 11
+  claimed_at: 2026-07-12T05:46:23Z
