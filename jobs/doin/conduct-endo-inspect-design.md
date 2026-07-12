@@ -38,3 +38,9 @@ The `@endo/inspect` design PR is merged (conducted) to `llm` — or, if not merg
 (unresolved review / awaiting `@erights`/`@mhofman`), **held with a clear report** of
 what blocks it. The `tada` report states the merge SHA (or the hold reason) and the
 design's location on `llm` so the build step can read it.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 12
+  claimed_at: 2026-07-12T17:07:09Z
