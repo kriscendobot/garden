@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-12T11:25:36Z_
+_As of 2026-07-12T11:55:48Z_
 
 ## Latest
 
-On [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (promote the ymax vat to critical, garden#29), the fixer for mhofman's two stranded 07-09 review threads just completed — the last board move this cycle. The PR is now fully green, un-drafted, and re-review-requested from mhofman/dckc after the reversible rebase-onto-master cleared the last stale-base red; it sits waiting only on a SwingSet-team review decision after ~18h of unanswered drive ticks.
+The board has fully drained — the only transition since the last bulletin was shepherd [endojs/endo-but-for-bots#708](https://github.com/endojs/endo-but-for-bots/pull/708) driving CI green — and the fleet is now idling against a wall of maintainer decisions. The foreman has repeatedly flagged that Milestone M3 is merge-bottlenecked, not work-bottlenecked: ~30 green, mergeable PRs are stacked on frozen bases (the mount/agent-tools stack, HttpClient [#661](https://github.com/endojs/endo-but-for-bots/pull/661), OAuth, registry, and Docker self-host [#694](https://github.com/endojs/endo-but-for-bots/pull/694)) awaiting a merge/conductor pass, and two gauntlets have poisoned out after 5 requeue cycles — the [#694](https://github.com/endojs/endo-but-for-bots/pull/694) Docker self-host gauntlet and the [#704](https://github.com/endojs/endo-but-for-bots/pull/704) shepherd — both parked in `jobs/plan/` awaiting a human `promote-plan.sh`. The scheduled-execution clause hinges on accepting design [#682](https://github.com/endojs/endo-but-for-bots/pull/682) (`@endo/reminder`), which supersedes the rejected endoclaw-timer daemon-integration stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)); merging the lint-ceiling fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) would auto-resume the poisoned shepherd cohort.
 
-Two things want a maintainer call. **M3 is merge-bottlenecked, not work-bottlenecked:** the foreman has flagged repeatedly that ~30 green, mergeable endo-but-for-bots PRs are stacked awaiting sequential landing, and two gauntlet/shepherd jobs have exhausted their requeue cycles and are now poison-parked in `jobs/plan/` (held, gate=go-ahead) — [#694](https://github.com/endojs/endo-but-for-bots/pull/694) (Docker self-host) and [#704](https://github.com/endojs/endo-but-for-bots/pull/704) — needing an explicit `promote-plan.sh`. The scheduled-execution leg is separately blocked on your accept/reject of [#682](https://github.com/endojs/endo-but-for-bots/pull/682) (@endo/reminder), which supersedes the rejected endoclaw-timer daemon integration.
-
-Also worth noticing: finbot completed its inference-driven OODA loop end-to-end (all five stages now run by inference, dry-run and wallet-safe, 464→478 tests green) and is out of unblocked axes short of the standing cap-attenuation Phase 2 / live-executor authorization. And the triager crash-loop fix is landed on `main2` but the deployed root (`/home/kris/garden2`) is ~56 commits behind, so a drained `deploy-garden.sh` is still required to actually clear the flapping `garden-triager@*` units.
+On the fork side, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax→critical) is now fully green, rebased onto master, un-drafted, and review-requested from mhofman/dckc ~12h ago with no response; this tick's drive found two unanswered inline review threads and posted a fixer to reply on them — approval is the last gate. finbot advanced autonomously all cycle, landing the last OODA stage (ACT) so the loop now runs end-to-end by inference in dry-run, plus wiring GARCH/GJR-GARCH conditional-vol surfaces into the forecaster (478 tests green, wallet untouched); its deepest remaining axis — cap-attenuation Phase 2 and a first live paper-wallet run — stays gated on your `live_authorized` call. The SturdyRef builder cuts and design [#695](https://github.com/endojs/endo-but-for-bots/pull/695) await a go/no-go, and several bridge-cut jobs overran the handler budget and need splitting.
 
 ## Parked for maintainer feedback
 
@@ -775,16 +773,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr708-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr708-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #708
+### doin (0)
+(none)
 
-### tada (2004)
+### tada (2005)
+- [`endojs-endo-but-for-bots-pr708-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr708-shepherd.md) — All checks green — no failing/pending entries remain on head 864f9ad. The job...
 - [`agoric-sdk-pr9-fix-mhofman-review`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-pr9-fix-mhofman-review.md) — Completion report
 - [`agoric-sdk-pr9-drive-20260712-112007`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-pr9-drive-20260712-112007.md) — Completion report
 - [`endo-sturdyref-press-20260712-112007`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260712-112007.md) — SturdyRef press tick — completion report (job endo-sturdyref-press-20260712-1...
 - [`design-endo-but-for-bots-daemon-git-clone-provide-git-clone-bootstrap-and-commit-identity-boundary`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-but-for-bots-daemon-git-clone-provide-git-clone-bootstrap-and-commit-identity-boundary.md) — All work is complete: design record authored, cross-links repointed, README s...
-- [`build-endo-but-for-bots-endo-fs-from-git-wrap-backend-oid-qid-and-git-hash-hook`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-endo-fs-from-git-wrap-backend-oid-qid-and-git-hash-hook.md) — Completion report
-- … and 1999 more
+- … and 2000 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
