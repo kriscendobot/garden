@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-12T11:23:55Z_
+_As of 2026-07-12T11:25:36Z_
 
 ## Latest
 
-On [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (promote the ymax vat to critical), the 7th drive tick found the real approval blocker: two of mhofman's inline review comments from 07-09 were never answered. CI is fully green and the PR is un-drafted with review requested, so a fixer job (`agoric-sdk-pr9-fix-mhofman-review`) is now in flight to verify each comment against the current head and reply on-thread. A shepherd was also auto-posted for red CI on [endo-but-for-bots#708](https://github.com/endojs/endo-but-for-bots/pull/708).
+On [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (promote the ymax vat to critical, garden#29), the fixer for mhofman's two stranded 07-09 review threads just completed — the last board move this cycle. The PR is now fully green, un-drafted, and re-review-requested from mhofman/dckc after the reversible rebase-onto-master cleared the last stale-base red; it sits waiting only on a SwingSet-team review decision after ~18h of unanswered drive ticks.
 
-The dominant signal, repeated across a half-dozen foreman messages, is that **Milestone M3 is merge-bottlenecked, not work-bottlenecked**: ~30 green, mergeable endo-but-for-bots PRs are stacked on frozen bases awaiting sequential landing — the mount/agent-tools stack (#678–681, #655–658), HttpClient [#661](https://github.com/endojs/endo-but-for-bots/pull/661), OAuth #667–672, registry #671, and Docker self-host [#694](https://github.com/endojs/endo-but-for-bots/pull/694) — with sequencing designs #659 and #691 gating their order. Nothing more is postable until a maintainer runs a merge pass. Two concrete gates: the lint-ceiling fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) is still unmerged and is poisoning gauntlets (the [#694](https://github.com/endojs/endo-but-for-bots/pull/694) gauntlet and the [#704](https://github.com/endojs/endo-but-for-bots/pull/704) shepherd both exhausted requeues and are parked as poison awaiting `promote-plan.sh`), and the endoclaw-timer chain (#609/#617/#619) needs an accept/reject on the [@endo/reminder](https://github.com/endojs/endo-but-for-bots/pull/682) redesign that supersedes it.
+Two things want a maintainer call. **M3 is merge-bottlenecked, not work-bottlenecked:** the foreman has flagged repeatedly that ~30 green, mergeable endo-but-for-bots PRs are stacked awaiting sequential landing, and two gauntlet/shepherd jobs have exhausted their requeue cycles and are now poison-parked in `jobs/plan/` (held, gate=go-ahead) — [#694](https://github.com/endojs/endo-but-for-bots/pull/694) (Docker self-host) and [#704](https://github.com/endojs/endo-but-for-bots/pull/704) — needing an explicit `promote-plan.sh`. The scheduled-execution leg is separately blocked on your accept/reject of [#682](https://github.com/endojs/endo-but-for-bots/pull/682) (@endo/reminder), which supersedes the rejected endoclaw-timer daemon integration.
 
-Elsewhere, the SturdyRef agent-surface effort advanced its bridge cuts on endo-but-for-bots (design [#695](https://github.com/endojs/endo-but-for-bots/pull/695), cut 4's `ocapn` singleton [#697](https://github.com/endojs/endo-but-for-bots/pull/697) proceeding on conservative distinct-identity/no-netlayer defaults), though cuts 3–5 each overran the handler budget and need splitting. finbot (a fork project, direct-push, no PRs) completed its inference-driven OODA axis — all five stages now run by inference in dry-run, 478 tests green with the wallet-untouched safety gate holding — and keeps flagging the standing cap-attenuation Phase 2 / live-execution decision that only you can authorize.
+Also worth noticing: finbot completed its inference-driven OODA loop end-to-end (all five stages now run by inference, dry-run and wallet-safe, 464→478 tests green) and is out of unblocked axes short of the standing cap-attenuation Phase 2 / live-executor authorization. And the triager crash-loop fix is landed on `main2` but the deployed root (`/home/kris/garden2`) is ~56 commits behind, so a drained `deploy-garden.sh` is still required to actually clear the flapping `garden-triager@*` units.
 
 ## Parked for maintainer feedback
 
@@ -775,17 +775,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`agoric-sdk-pr9-fix-mhofman-review`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-pr9-fix-mhofman-review.md) — Address mhofman's two unresolved inline review comments on PR #9
+### doin (1)
 - [`endojs-endo-but-for-bots-pr708-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr708-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #708
 
-### tada (2003)
+### tada (2004)
+- [`agoric-sdk-pr9-fix-mhofman-review`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-pr9-fix-mhofman-review.md) — Completion report
 - [`agoric-sdk-pr9-drive-20260712-112007`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-pr9-drive-20260712-112007.md) — Completion report
 - [`endo-sturdyref-press-20260712-112007`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260712-112007.md) — SturdyRef press tick — completion report (job endo-sturdyref-press-20260712-1...
 - [`design-endo-but-for-bots-daemon-git-clone-provide-git-clone-bootstrap-and-commit-identity-boundary`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-but-for-bots-daemon-git-clone-provide-git-clone-bootstrap-and-commit-identity-boundary.md) — All work is complete: design record authored, cross-links repointed, README s...
 - [`build-endo-but-for-bots-endo-fs-from-git-wrap-backend-oid-qid-and-git-hash-hook`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-endo-fs-from-git-wrap-backend-oid-qid-and-git-hash-hook.md) — Completion report
-- [`endo-sturdyref-press-20260712-102002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260712-102002.md) — SturdyRef press tick (job endo-sturdyref-press-20260712-102002, dispatch 2026...
-- … and 1998 more
+- … and 1999 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
