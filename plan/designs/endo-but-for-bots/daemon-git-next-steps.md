@@ -5,7 +5,7 @@ status: Proposed
 milestone: M3
 depends_on: []
 created: 2026-05-27
-updated: 2026-06-29
+updated: 2026-07-12
 source: imported from origin/llm designs/README.md
 ---
 
@@ -14,7 +14,7 @@ source: imported from origin/llm designs/README.md
 | | |
 |---|---|
 | **Created** | 2026-05-27 |
-| **Updated** | 2026-06-03 |
+| **Updated** | 2026-07-12 |
 | **Author** | 0xPatrick (prompted) |
 | **Status** | Proposed |
 
@@ -102,7 +102,8 @@ Each is a dispatchable work item or a pointer to the design that owns it.
   Together these close the "you give me a URL, the agent runs, and its commits are attributed correctly" gap.
   The bootstrap design (and the identity boundary as a section or sibling) lives in its own `daemon-git-clone.md`; depends on the `GitRemote` composition being stable.
 
-- [ ] **Reconcile `tree(ref)` and `filesystemAt(ref)` into one canonical vocabulary — a focused edit to [daemon-git-capability](daemon-git-capability.md).**
+- [x] **Reconcile `tree(ref)` and `filesystemAt(ref)` into one canonical vocabulary — a focused edit to [daemon-git-capability](daemon-git-capability.md).**
+  Done 2026-07-12: [daemon-git-capability](daemon-git-capability.md) now names `filesystemAt(ref)` as the historical-read method and `tree(ref)` as its `ReadableTree` projection (§ Read Surface, Design Decision 3), cross-links [endo-fs-from-git](endo-fs-from-git.md), and carries the two `Filesystem`-view trade-offs (path-based QID; `BlobRef.algorithm` `'sha256'`) under § Trade-offs the `Filesystem` view carries.
   `tree(ref)` (returning `ReadableTree`) is specified in [daemon-git-capability](daemon-git-capability.md) § Git-Tree Backend and Design Decision 3; `filesystemAt(ref)` (returning an `@endo/endo-fs` `Filesystem`) is specified in [endo-fs-from-git](endo-fs-from-git.md).
   They are not two competing names for one thing — they are two methods in a projection relationship: `tree(ref)` projects the narrower `ReadableTree`, `filesystemAt(ref)` lifts the same git tree into the richer `Filesystem` (the same shape the content layer exposes for the live worktree).
   The edit names `filesystemAt(ref)` as the historical-read method and `tree(ref)` as its `ReadableTree` projection, cross-linking [endo-fs-from-git](endo-fs-from-git.md), so the canonical doc carries one historical-read API, not two.
