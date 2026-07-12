@@ -50,3 +50,9 @@ issue_spine: kriskowal/garden#29
 directive_url: https://github.com/kriscendobot/agoric-sdk/pull/9#issuecomment-4939975266
 scope: FORK ONLY — never comment on, link to, or push to upstream agoric/agoric-sdk
 ----- END PR NOTE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 20
+  claimed_at: 2026-07-12T11:22:43Z
