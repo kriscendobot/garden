@@ -1,9 +1,4 @@
----
-gate: deferred
-priority: normal
-posted_by: designer
-posted_at: 2026-07-12T16:35:57Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-07-12T17:19:04Z -->
 
 Designer job: create the "debug view for long-pending and
 unsubscribed-rejection promises" design in endojs/endo-but-for-bots,
