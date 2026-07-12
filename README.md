@@ -1,19 +1,20 @@
 # Garden bulletin
 
-_As of 2026-07-12T14:59:33Z_
+_As of 2026-07-12T15:04:53Z_
 
 ## Latest
 
-The board has gone quiet — zero jobs in todo/doin, with only [endo-but-for-bots#678](https://github.com/endojs/endo-but-for-bots/pull/678)'s review completing this window — because Milestone M3 is now merge-bottlenecked rather than build-bottlenecked: the foreman has flagged repeatedly that ~30 green, mergeable PRs are stacked awaiting your merge/sequencing decisions, and its two headline exit-criterion PRs, [endo-but-for-bots#694](https://github.com/endojs/endo-but-for-bots/pull/694) (Docker self-host + remote gateway) and [endo-but-for-bots#661](https://github.com/endojs/endo-but-for-bots/pull/661) (confined outbound HTTP), have poisoned gauntlets now parked go-ahead-gated in `jobs/plan/` — they need a `promote-plan.sh` (or a call on why the gauntlets keep failing) to advance. Two decisions gate the rest: accept the [endo-but-for-bots#682](https://github.com/endojs/endo-but-for-bots/pull/682) `@endo/reminder` redesign (which supersedes the rejected endoclaw-timer stack [#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)), and accept sturdyref agent-surface design [endo-but-for-bots#695](https://github.com/endojs/endo-but-for-bots/pull/695) to unblock its builder cuts.
+The board barely moved this window — one retrospective claimed, nothing new posted — but the substance is in the messages, and the most urgent item is operational: the deployed garden root (`/home/kris/garden2`) is ~56 commits behind `main2`, so the already-landed triager crash-loop fix (default `GARDEN_REPOS` → `worktrees/`) hasn't taken effect and `garden-triager@*` units keep FATAL-looping; a drained `deploy-garden.sh` is the clean fix. Relatedly, the triage circuit-breaker opened for `kriscendobot-finbot` — worth confirming that fork belongs in the watch set.
 
-Most urgent operationally: the triager crash-loop fix is landed on `main2` but the **deployed root is ~56 commits stale**, so `garden-triager@*` units keep FATAL-looping every tick — a drained `deploy-garden.sh` is the clean resolution and only a leader/liaison can run it. Watch also for a rash of deterministic handler-budget overruns (the sturdyref bridge cuts 3–5, the [#694](https://github.com/endojs/endo-but-for-bots/pull/694) and [#706](https://github.com/endojs/endo-but-for-bots/pull/706) gauntlets, [#702](https://github.com/endojs/endo-but-for-bots/pull/702)/[#704](https://github.com/endojs/endo-but-for-bots/pull/704) shepherds) that will poison unless split into claim-sized stages.
+**M3 is merge-bottlenecked, not work-bottlenecked** — the foreman flagged this repeatedly. A large stack of green, mergeable endo-but-for-bots PRs is stranded awaiting sequential landing: Docker self-host [#694](https://github.com/endojs/endo-but-for-bots/pull/694), confined outbound HTTP [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the mount/agent-tools stack [#678](https://github.com/endojs/endo-but-for-bots/pull/678)–[#681](https://github.com/endojs/endo-but-for-bots/pull/681), OAuth [#667](https://github.com/endojs/endo-but-for-bots/pull/667)–[#672](https://github.com/endojs/endo-but-for-bots/pull/672), and registry [#671](https://github.com/endojs/endo-but-for-bots/pull/671). Both [#694](https://github.com/endojs/endo-but-for-bots/pull/694) and [#661](https://github.com/endojs/endo-but-for-bots/pull/661) gauntlets are poisoned (requeue-exhausted) and parked go-ahead in `jobs/plan/`, largely because the lint-per-package fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) stays unmerged and keeps tripping phantom-red lint. Two design decisions gate the rest: the [#682](https://github.com/endojs/endo-but-for-bots/pull/682) `@endo/reminder` redesign supersedes the endoclaw-timer chain ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) and needs an accept/reject, and SturdyRef design [#695](https://github.com/endojs/endo-but-for-bots/pull/695) awaits go/no-go on builder cuts A–F.
 
-On the autonomous fronts: [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax→critical) was rebased onto master, is fully green and un-drafted, and now waits only on a SwingSet-team review — a fixer went out to clear two unanswered mhofman threads. finbot's 6-hourly cycles completed the entire inference-driven OODA loop (observe→orient→decide→audit→act) plus GARCH/GJR-GARCH/adaptive volatility surfaces, all green (488 tests) with the wallet-untouched safety gate holding every cycle; its one standing ask is your authorization for cap-attenuation Phase 2 (a first live paper-wallet/test-net run behind `live_authorized`), the only remaining blocked axis.
+On the fork side, **agoric-sdk [#9](https://github.com/kriscendobot/agoric-sdk/pull/9)** (ymax→critical) was rebased onto master, is now fully green and un-drafted with review requested from mhofman/dckc; a fixer is addressing two of mhofman's unanswered inline threads that were quietly blocking approval. **finbot** completed its inference-driven OODA loop end to end (OBSERVE→ORIENT→DECIDE→AUDIT→ACT all run by inference in dry-run, plus GARCH/adaptive vol fitting) — 488 tests green, wallet untouched throughout; every unblocked axis is now exhausted, and the deepest remaining step is a first live paper-wallet run gated behind explicit `live_authorized`.
+
+Finally, several jobs deterministically overran the 2400s handler budget and were poisoned — the SturdyRef bridge cuts 3–5, shepherds for [#688](https://github.com/endojs/endo-but-for-bots/pull/688)/[#702](https://github.com/endojs/endo-but-for-bots/pull/702)/[#704](https://github.com/endojs/endo-but-for-bots/pull/704), and the [#706](https://github.com/endojs/endo-but-for-bots/pull/706) gauntlet — signalling those tasks need splitting into claim-sized stages.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 1d)
-- [endojs/endo-but-for-bots#113](https://github.com/endojs/endo-but-for-bots/pull/113) — test(ocapn-noise): integration + transport tests (#59 stack 3/3) (waiting 2d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 10d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 12d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 13d)
@@ -22,8 +23,9 @@ On the autonomous fronts: [kriscendobot/agoric-sdk#9](https://github.com/kriscen
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 51d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 51d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 53d)
+- [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 52d)
 
-_Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `20260709T212252Z-402b49` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T212252Z-402b49.md)
@@ -815,8 +817,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr678-review-d461c045-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr678-review-d461c045-retro.md) — Retrospective on endojs/endo-but-for-bots PR #678 (primary: endojs-endo-but-f...
 
 ### tada (2019)
 - [`endojs-endo-but-for-bots-pr678-review-d461c045`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr678-review-d461c045.md) — Confirmed. The work is already done:
@@ -847,7 +849,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr678-review-d461c045-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr678-review-d461c045-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #678 (primary: endojs-endo-but-f...
+(none)
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
