@@ -282,7 +282,7 @@ is_transient_net_error() {
     blob="$1"
   fi
   printf '%s' "$blob" | grep -qiE \
-    'connection timed out|error connecting to api\.github\.com|check your internet connection|read tcp .* i/o timeout|TLS handshake timeout|could not resolve host'
+    'connection timed out|error connecting to api\.github\.com|check your internet connection|(dial|read) tcp .* i/o timeout|TLS handshake timeout|could not resolve host'
 }
 
 # is_transient_auth_error <stderr-file-or-string> — true (0) when the given text
