@@ -1,16 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-12T18:10:00Z_
+_As of 2026-07-12T18:12:24Z_
 
 ## Latest
 
-The garden's biggest single push is [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax vat → critical): a scheduled drive rebased it onto current master, cleared the last stale-base red, un-drafted it, resolved mhofman's two lingering inline threads, and requested SwingSet-team review — fork CI is now fully green and the PR is blocked solely on reviewer approval, so it wants your eyes only if you want to nudge mhofman/dckc.
+Board movement was near-nil this window — a single completion, the prosecutor retro on [endo-but-for-bots#152](https://github.com/endojs/endo-but-for-bots/pull/152); the todo/doin queues are empty. The real news is in the maintainer inbox, where Milestone M3 is now merge-bottlenecked rather than short of work: the foreman reports ~30 green, mergeable PRs stacked on frozen bases awaiting a sequencing/merge pass — the mount/agent-tools stack ([#678](https://github.com/endojs/endo-but-for-bots/pull/678)–[#681](https://github.com/endojs/endo-but-for-bots/pull/681), [#655](https://github.com/endojs/endo-but-for-bots/pull/655)–[#658](https://github.com/endojs/endo-but-for-bots/pull/658)), confined HTTP [#661](https://github.com/endojs/endo-but-for-bots/pull/661), registry [#671](https://github.com/endojs/endo-but-for-bots/pull/671), OAuth [#667](https://github.com/endojs/endo-but-for-bots/pull/667)–[#672](https://github.com/endojs/endo-but-for-bots/pull/672), and Docker self-host [#694](https://github.com/endojs/endo-but-for-bots/pull/694) (which now supersedes the older [#608](https://github.com/endojs/endo-but-for-bots/pull/608)). Two of those gauntlets ([#694](https://github.com/endojs/endo-but-for-bots/pull/694), [#661](https://github.com/endojs/endo-but-for-bots/pull/661)) exhausted their requeue cycles and are poisoned into `jobs/plan/` under go-ahead, and the shared root cause is the still-unmerged lint-projectService fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) — merging it trips the parked `resume-lint-ceiling-shepherds` job. The scheduled-execution clause separately awaits an accept/reject on the [#682](https://github.com/endojs/endo-but-for-bots/pull/682) `@endo/reminder` redesign, which supersedes the rejected endoclaw-timer stack ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)).
 
-The dominant standing signal is the **foreman's repeated M3 merge-bottleneck alarms**: roughly 30 green, mergeable endo-but-for-bots PRs are stranded on frozen bases awaiting merge/sequencing decisions — the mount/agent-tools stack ([#678](https://github.com/endojs/endo-but-for-bots/pull/678)–[#681](https://github.com/endojs/endo-but-for-bots/pull/681)), Docker self-host [#694](https://github.com/endojs/endo-but-for-bots/pull/694), confined HTTP client [#661](https://github.com/endojs/endo-but-for-bots/pull/661), registry [#671](https://github.com/endojs/endo-but-for-bots/pull/671), the endopi/OAuth stacks, and sequencing designs [#659](https://github.com/endojs/endo-but-for-bots/pull/659)/[#691](https://github.com/endojs/endo-but-for-bots/pull/691). The gauntlets for [#694](https://github.com/endojs/endo-but-for-bots/pull/694) and [#661](https://github.com/endojs/endo-but-for-bots/pull/661) are now **poisoned and parked go-ahead** because every run trips the repo-wide lint projectService ceiling — whose green fix, [#594](https://github.com/endojs/endo-but-for-bots/pull/594), remains unmerged; merging it auto-resumes the poisoned shepherd cohort. Separately, the endoclaw-timer chain was superseded by the [@endo/reminder](https://github.com/endojs/endo-but-for-bots/pull/682) redesign and needs an accept/retire call, and a gardener extracted `glorp` into new PR [#713](https://github.com/endojs/endo-but-for-bots/pull/713) and closed the mount-extensions umbrella [#127](https://github.com/endojs/endo-but-for-bots/pull/127).
-
-finbot advanced steadily on direct-push cycles (no PRs): the OODA loop now runs by inference end to end (OBSERVE→ORIENT→DECIDE→AUDIT→ACT, dry-run and wallet-untouched), plus GARCH/GJR-GARCH/adaptive conditional-vol surfaces — 488 tests green with the safety gate holding — but it has hit the ceiling of unblocked work and is repeatedly asking for the cap-attenuation Phase 2 / live paper-wallet authorization.
-
-Two operational items warrant attention: the SturdyRef bridge cuts and several shepherd/gauntlet jobs are **deterministically overrunning the 2400s handler budget and being poisoned** (pr124, pr704, pr694, bridge cuts 3–5) — they need splitting into claim-sized stages — and multiple self-heal reports confirm the triager crash-loop fix is landed on `main2` but the **deployed root is ~56 commits stale**, so a drained `deploy-garden.sh` is the remaining step to stop `garden-triager@*` from flapping.
+Elsewhere, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax→critical) is fully green, rebased, un-drafted, and every reviewer thread is answered — it now needs only a SwingSet-team review decision from mhofman/dckc, unblocked after eight drive ticks. The glorp directive on [#127](https://github.com/endojs/endo-but-for-bots/pull/127) was resolved, extracting the fused search primitive into new PR [#713](https://github.com/endojs/endo-but-for-bots/pull/713) and closing #127. Finbot's OODA loop (direct-pushed to its fork, no PR) reached a milestone — every read-only stage now runs by inference end-to-end — but it remains parked on the standing cap-attenuation Phase 2 authorization for any live wallet run. Watch out for a run of deterministic handler-budget overruns (shepherds on [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#702](https://github.com/endojs/endo-but-for-bots/pull/702), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), the [#706](https://github.com/endojs/endo-but-for-bots/pull/706) gauntlet, and three sturdyref-bridge cuts) that the reaper is poisoning — several need splitting into claim-sized stages before they can land.
 
 ## Parked for maintainer feedback
 
@@ -873,16 +869,16 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr152-review-5f514f6a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr152-review-5f514f6a-retro.md) — Retrospective on endojs/endo-but-for-bots PR #152 (primary: endojs-endo-but-f...
+### doin (0)
+(none)
 
-### tada (2066)
+### tada (2067)
+- [`endojs-endo-but-for-bots-pr152-review-5f514f6a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr152-review-5f514f6a-retro.md) — Completion report — prosecutor retro on endo-but-for-bots #152 (review 468035...
 - [`endojs-endo-but-for-bots-pr151-review-ddbb3acc-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr151-review-ddbb3acc-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr138-review-86c2eb0e-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr138-review-86c2eb0e-retro.md) — Completion report
 - [`endo-sturdyref-press-20260712-175009`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260712-175009.md) — **SturdyRef press tick (job endo-sturdyref-press-20260712-175009) — REST TICK...
 - [`endojs-endo-but-for-bots-pr135-1318f531-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr135-1318f531-retro.md) — Completion report
-- [`endojs-endo-but-for-bots-pr135-review-63a86be1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr135-review-63a86be1-retro.md) — Completion report — review-retrospective (prosecutor), endo-but-for-bots #135...
-- … and 2061 more
+- … and 2062 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
