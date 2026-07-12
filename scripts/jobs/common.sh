@@ -26,6 +26,25 @@
 # The message-bus / job-board branch. Directory is `journal`; branch is `journal2`.
 : "${JOURNAL_BRANCH:=journal2}"
 
+# Shepherd handler budget (seconds). A shepherd DRIVES CI to green, so it BLOCKS on
+# CI runs that routinely exceed the default GARDEN_HANDLER_TIMEOUT (2400s / 40min):
+# a shepherd job stamped only with the default deterministically overruns (rc=124)
+# and never COMPLETES. The shepherd producers — comment-watcher.sh's `shepherd #N`
+# path and ci-watcher.sh's auto-shepherd-on-red path, which both mint the SAME
+# `<slug>-pr<N>-shepherd` basename — stamp THIS value as a `handler-timeout:` header
+# so the gardener honors it in place of the default (gardener.sh per-job budget).
+# Both read it from here so the two producers never drift and an idempotent re-post
+# does not flap the header. Sized for a full CI wait plus headroom for a couple of
+# fix→CI cycles: endojs/endo-but-for-bots CI runs land on the order of 20–40min, so
+# 2h covers ~2–3 cycles. It MUST stay ≤ the claim budget max (GARDEN_CLAIM_TTL −
+# GARDEN_HANDLER_KILL_AFTER − 1 ≈ 14339s / 3.98h at the shipped defaults); 7200 is
+# comfortably under, so the gardener honors it verbatim rather than clamping and
+# escalating (gardener.sh). A shepherd genuinely needing longer than ONE claim
+# (>~3.98h of CI-driving) cannot be helped by a larger header — it would clamp+
+# escalate; that pathological case is out of scope for the common minutes-to-a-
+# couple-hours shepherd this targets.
+: "${GARDEN_SHEPHERD_HANDLER_TIMEOUT:=7200}"
+
 # --- test-context guard against a production-journal push (incident 2026-07-11) -
 # A test that isolates GARDEN_STATE but leaves the journal REMOTE pointing at the
 # real garden repo pushed synthetic fleet traffic (a fake pxhost gardener asking to

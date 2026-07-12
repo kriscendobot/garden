@@ -344,6 +344,7 @@ while IFS=$'\t' read -r pr author head updated; do
   jb="$(mktemp)"
   {
     printf '# shepherd (auto: red CI) on %s PR #%s\n\n' "$repo" "$pr"
+    printf 'handler-timeout: %s\n\n' "$GARDEN_SHEPHERD_HANDLER_TIMEOUT"
     printf 'CI is RED on this OPEN bot-authored PR (completed failure, not in-progress).\n'
     printf 'Nothing settling — a shepherd was dispatched AUTOMATICALLY by the CI-status\n'
     printf 'watcher, with no maintainer comment. Map: **shepherd** → drive CI to green.\n\n'
