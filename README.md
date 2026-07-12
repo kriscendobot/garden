@@ -1,14 +1,18 @@
 # Garden bulletin
 
-_As of 2026-07-12T14:05:15Z_
+_As of 2026-07-12T14:10:45Z_
 
 ## Latest
 
-The board has gone quiet — todo and doin are both empty and the only transition since the last bulletin was [endo-but-for-bots#127](https://github.com/endojs/endo-but-for-bots/pull/127) landing its completion report — because M3 (Remote Access and Coding Capabilities) is now bottlenecked on maintainer decisions rather than fleet work. The foreman has flagged repeatedly that ~30 green, mergeable PRs are stacked on frozen bases awaiting a merge/conductor pass: the mount/agent-tools stack (#678–681, #655–658), HttpClient [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the OAuth/endopi stack (#667–672), registry [#671](https://github.com/endojs/endo-but-for-bots/pull/671), and the Docker self-host pillar [#694](https://github.com/endojs/endo-but-for-bots/pull/694) (which supersedes the older [#608](https://github.com/endojs/endo-but-for-bots/pull/608) and needs a close/reconcile call). Two gauntlets have exhausted their requeue budget and are poisoned/parked in `jobs/plan/` awaiting a human `promote-plan.sh`: [#694](https://github.com/endojs/endo-but-for-bots/pull/694)'s gauntlet and the [#704](https://github.com/endojs/endo-but-for-bots/pull/704) shepherd — both stalled behind the repo-wide typescript-eslint projectService lint ceiling whose fix, [#594](https://github.com/endojs/endo-but-for-bots/pull/594), is still unmerged and trip-wires the parked `resume-lint-ceiling-shepherds` cohort.
+The board itself was quiet — the only transition was a [Review directive on endo-but-for-bots #678](https://github.com/endojs/endo-but-for-bots/pull/678) getting claimed — but the message queue is thick with work that has run ahead of your decisions.
 
-Two chains need a redirect decision. The endoclaw-timer scheduler was **rejected** by kriskowal in favor of an unconfined `@endo/reminder` plugin ([#682](https://github.com/endojs/endo-but-for-bots/pull/682), supersedes #609/#617/#619); a Phase-4 build was correctly refused as throwaway. And the SturdyRef agent-surface design [#695](https://github.com/endojs/endo-but-for-bots/pull/695) is complete and gates six builder cuts on your acceptance — though the bridge cuts already in flight (cut 3, 4, 5) are each **deterministically overrunning** the 2400s handler budget and heading for poison, so they need splitting into claim-sized stages.
+**Milestone M3 is now merge-bottlenecked, not work-bottlenecked.** The foreman flagged this repeatedly: roughly thirty green, mergeable endo-but-for-bots PRs are stacked on frozen bases awaiting sequential landing, and no unblocked build work remains. The two headline exit-criterion PRs are stranded in `jobs/plan/` behind go-ahead gates — [#694 (Docker self-host + authenticated remote gateway)](https://github.com/endojs/endo-but-for-bots/pull/694), whose gauntlet exhausted five requeue cycles and is now poisoned, and [#661 (confined outbound HTTP client)](https://github.com/endojs/endo-but-for-bots/pull/661). [#694 supersedes the older master-based #608](https://github.com/endojs/endo-but-for-bots/pull/608) (a close/reconcile call for you). A recurring root cause: the repo-wide typescript-eslint lint ceiling, whose fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594) is green and mergeable but unmerged — merging it auto-resumes the poisoned shepherd cohort. Separately, the endoclaw-timer chain ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) awaits your accept/reject of the [@endo/reminder redesign #682](https://github.com/endojs/endo-but-for-bots/pull/682) that supersedes it.
 
-On the fork side, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (promote ymax vat → critical) drove itself to a good state after five unanswered ticks: the reversible rebase-onto-master landed cleanly, fork CI is **fully green**, and it's un-drafted with review requested from mhofman + dckc — but approval now hangs on two of mhofman's inline threads from 07-09 that were never answered (a fixer job is out to close them). Separately, finbot completed its headline axis: the OODA loop (OBSERVE→ORIENT→DECIDE→AUDIT→ACT) now runs entirely by inference, and this cycle added adaptive per-instrument volatility-surface fitting — 488 tests green, all six auditor invariants pass, wallet untouched. Its deepest remaining axis (live paper-wallet execution / cap-attenuation Phase 2) stays gated behind an explicit `live_authorized` decision that only you can give. Finally, note the `kriscendobot-finbot` triage circuit-breaker opened after five identical failures, and several self-heal jobs confirm the triager `/repos`→`/worktrees` path fix is landed on main2 but **not yet deployed** to the root — a drained `deploy-garden.sh` is what actually stops the `garden-triager@*` crash-looping.
+**finbot completed its inference-driven OODA loop end to end** — OBSERVE→ORIENT→DECIDE→AUDIT→ACT all now run by inference in dry-run, plus GARCH/GJR-GARCH and adaptive per-cycle volatility-surface fitting landed direct-push over the day (488 tests green, all six auditor invariants pass, wallet untouched every cycle). The inference axis is now exhausted; the only deeper work is the standing, security-gated cap-attenuation Phase 2 (live paper-wallet run behind `live_authorized`), which needs your explicit authorization.
+
+**[kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9)** (promote ymax vat → critical) was rebased onto master, is now fully green and un-drafted with review requested from mhofman+dckc; the driver just posted a fixer to answer two of mhofman's stale-but-unresolved inline threads, which appear to be the real approval blocker.
+
+Two operational items worth your eye: the **triager crash-loop fix is landed on `main2` but the deployed root is ~56 commits stale**, so several `garden-triager@*` units keep FATAL-looping until a drained `deploy-garden.sh` runs (a leader operation the fleet can't self-trigger); and the **SturdyRef bridge cuts keep overrunning the 2400s handler budget** (cuts 3/4/5 poisoned), while design [#695](https://github.com/endojs/endo-but-for-bots/pull/695) awaits your go/no-go on the A–F builder cuts and cut 4 ([#697](https://github.com/endojs/endo-but-for-bots/pull/697)) is proceeding on conservative distinct-key/no-netlayer defaults, reversible while draft.
 
 ## Parked for maintainer feedback
 
@@ -811,8 +815,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr678-review-4d666bb1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr678-review-4d666bb1.md) — Review directive on endojs/endo-but-for-bots PR #678
 
 ### tada (2011)
 - [`endojs-endo-but-for-bots-pr127-f4a847c2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr127-f4a847c2.md) — Completion report
@@ -844,6 +848,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`endojs-endo-but-for-bots-pr127-f4a847c2-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr127-f4a847c2-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #127 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr678-review-4d666bb1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr678-review-4d666bb1-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #678 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
