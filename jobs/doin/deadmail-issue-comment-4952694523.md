@@ -40,3 +40,9 @@ make it into a PR and do a panel review
 ----- END ORIGINAL MESSAGE -----
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  claimed_at: 2026-07-12T21:33:08Z
