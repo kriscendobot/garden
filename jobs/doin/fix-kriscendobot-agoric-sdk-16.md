@@ -64,3 +64,9 @@ kriskowal/garden#42 (comment on the issue URL; never close it — the submitter
 does that) summarizing the applied fixes and the new PR head.
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  claimed_at: 2026-07-13T15:53:08Z
