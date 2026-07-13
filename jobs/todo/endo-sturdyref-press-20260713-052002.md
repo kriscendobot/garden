@@ -98,9 +98,4 @@ No bar is "verified"/"green" without real-execution evidence — cite the comman
 its observed output. When you could not run a bar, report it "not verified" and why.
 State the confinement property preserved in every report.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 8
-  claimed_at: 2026-07-13T05:20:07Z
+<!-- garden-reaped: 1 -->
