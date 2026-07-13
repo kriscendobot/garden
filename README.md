@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T01:51:45Z_
+_As of 2026-07-13T01:52:37Z_
 
 ## Latest
 
@@ -1160,16 +1160,16 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endo-sturdyref-press-20260713-015003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260713-015003.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+### doin (0)
+(none)
 
-### tada (2093)
+### tada (2094)
+- [`endo-sturdyref-press-20260713-015003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-015003.md) — SturdyRef press tick — completion report (job endo-sturdyref-press-20260713-0...
 - [`endojs-endo-but-for-bots-pr710-review-6c80c2b9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr710-review-6c80c2b9-retro.md) — Completion report
 - [`build-endo-but-for-bots-hardened-url-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-hardened-url-shim.md) — Completion report
 - [`endojs-endo-but-for-bots-frame-naming-proposals`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-frame-naming-proposals.md) — Completion report
 - [`endojs-endo-but-for-bots-pr710-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr710-conduct.md) — Completion report
-- [`endojs-endo-but-for-bots-pr710-review-6c80c2b9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr710-review-6c80c2b9.md) — Completion report
-- … and 2088 more
+- … and 2089 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
