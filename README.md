@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T20:35:46Z_
+_As of 2026-07-13T20:43:40Z_
 
 ## Latest
 
@@ -1512,6 +1512,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 > Verified GREEN: full suite 528 pass / 0 fail (+8 in a new regime-horizon.test.js); finbot-ooda --seed=7 across every mode WALLET TOUCHED: false. Live note: the GBM demo world fits worst-asset persistence ~0.68 (just shy of the 0.70 engage threshold), so the stretch is inert on the live demo cycle today and engages once a genuinely clustered regime is observed — same pattern as the tail floor.
 >
 > Next unblocked step: feed persistence into the analyzer's **risk appetite / position sizing** directly (not just the gate and horizon). Standing maintainer decision unchanged: live execution (cap-attenuation Phase 2 + a first paper-wallet run behind live_authorized: true) remains the only blocked axis; everything else is unblocked and moving.
+
+- `20260713T204330Z-037be7` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T204330Z-037be7.md)
+
+> M3's "confined outbound HTTP" exit-criterion capability is ready to build, but its next step — building the `@endo/fetch` unconfined plugin (Phases 1-3) — is blocked pending your review of design draft PR #722 (endojs/endo-but-for-bots), which asks two questions that set the build's shape: (1) the package name (`@endo/fetch` proposed vs `@endo/confined-fetch` or a plugin module inside `@endo/exo-http-client`), and (2) whether the TOFU policy authority should be re-resolved per referral rather than once at `make()`. Companion `@endo/reminder` design #682 + build #721 are now un-drafted and awaiting your merge.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
