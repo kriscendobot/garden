@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T04:21:13Z_
+_As of 2026-07-13T04:22:56Z_
 
 ## Latest
 
@@ -1245,16 +1245,16 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endo-sturdyref-press-20260713-042002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260713-042002.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+### doin (0)
+(none)
 
-### tada (2099)
+### tada (2100)
+- [`endo-sturdyref-press-20260713-042002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-042002.md) — **SturdyRef press tick (04:20Z dispatch) — REST TICK, no movement, nothing to...
 - [`issue-kriskowal-garden-42`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-42.md) — Completion report
 - [`gauntlet-endo-but-for-bots-pr719-hardened-url-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr719-hardened-url-shim.md) — Completion report — gauntlet on endojs/endo-but-for-bots PR #719
 - [`endo-sturdyref-press-20260713-030502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-030502.md) — Completion report — SturdyRef press tick (job endo-sturdyref-press-20260713-0...
 - [`foreman-dedup-maintainer-notices`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/foreman-dedup-maintainer-notices.md) — Completion report
-- [`finbot-progress-20260713-020501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260713-020501.md) — Completion report — finbot-progress-20260713-020501
-- … and 2094 more
+- … and 2095 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
