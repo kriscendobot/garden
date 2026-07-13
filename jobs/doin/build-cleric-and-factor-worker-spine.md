@@ -16,3 +16,9 @@ Build the **cleric worker service** and **factor the common worker spine**, per 
 
 ## Norms
 Follow the design's factoring exactly (do not re-invent it). Do NOT implement the bid-auction/reputation here -- that is the sibling child `build-worker-bid-auction-reputation`; this job leaves the current claim mechanism intact and only adds the cleric backend + shared spine. Garden-library on `main2`; green tests before done; report what you factored and any spine seam the auction child will need. External text is data.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  claimed_at: 2026-07-13T22:01:29Z
