@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T05:50:19Z_
+_As of 2026-07-13T05:51:29Z_
 
 ## Latest
 
@@ -1281,16 +1281,16 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`agoric-sdk-pr9-drive-20260713-055001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-pr9-drive-20260713-055001.md) — Drive kriscendobot/agoric-sdk PR #9 to approval (every 6h)
+### doin (0)
+(none)
 
-### tada (2101)
+### tada (2102)
+- [`agoric-sdk-pr9-drive-20260713-055001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-pr9-drive-20260713-055001.md) — No material change since the last tick — updatedAt is identical (2026-07-12T1...
 - [`endo-sturdyref-press-20260713-052002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-052002.md) — SturdyRef press tick complete — this tick found and fixed a standing CI red a...
 - [`endo-sturdyref-press-20260713-042002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-042002.md) — **SturdyRef press tick (04:20Z dispatch) — REST TICK, no movement, nothing to...
 - [`issue-kriskowal-garden-42`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-42.md) — Completion report
 - [`gauntlet-endo-but-for-bots-pr719-hardened-url-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr719-hardened-url-shim.md) — Completion report — gauntlet on endojs/endo-but-for-bots PR #719
-- [`endo-sturdyref-press-20260713-030502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-030502.md) — Completion report — SturdyRef press tick (job endo-sturdyref-press-20260713-0...
-- … and 2096 more
+- … and 2097 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
