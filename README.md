@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T16:13:08Z_
+_As of 2026-07-13T16:16:51Z_
 
 ## Latest
 
@@ -1583,18 +1583,17 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
 - [`gauntlet-endo-but-for-bots-pull-request-721-endo-reminder-message-scheduler-plugin`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-721-endo-reminder-message-scheduler-plugin.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
-- [`kriscendobot-agoric-sdk-pr16-112498c0`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr16-112498c0.md) — attention directive on kriscendobot/agoric-sdk PR #16
 
-### tada (2142)
+### tada (2143)
+- [`kriscendobot-agoric-sdk-pr16-112498c0`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-112498c0.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr16-a45a180a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-a45a180a.md) — Completion report
 - [`gauntlet-endo-but-for-bots-pull-request-598-daemon-rename-to-manager-phase-one`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pull-request-598-daemon-rename-to-manager-phase-one.md) — Completion report — gauntlet on endojs/endo-but-for-bots PR #598
 - [`fix-kriscendobot-agoric-sdk-16`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-kriscendobot-agoric-sdk-16.md) — Completion report — fix-kriscendobot-agoric-sdk-16
 - [`build-endo-but-for-bots-endo-reminder-plugin-from-design-682`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-endo-reminder-plugin-from-design-682.md) — Completion report: build-endo-but-for-bots-endo-reminder-plugin-from-design-682
-- [`gauntlet-endo-but-for-bots-pull-request-708-git-filesystemat-content-address`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pull-request-708-git-filesystemat-content-address.md) — Completion report: gauntlet on endojs/endo-but-for-bots #708
-- … and 2137 more
+- … and 2138 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
