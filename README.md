@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T08:05:35Z_
+_As of 2026-07-13T08:12:57Z_
 
 ## Latest
 
@@ -1145,6 +1145,33 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T073849Z-5de4cc` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T073849Z-5de4cc.md)
 
 > The design report `ebfb-design-sturdyref-agent-surface` (SturdyRef agent surface, endojs/endo-but-for-bots) needs your decision before any effort is spent: (1) do you accept the design so builder jobs for cuts A–F can be posted? — cuts A–B depend on #541 landing first; and (2) the deliberately-surfaced open question — should tokens optionally be formula-backed to survive daemon restart? The design recommends **no** (durable designation stays a name via `storeRef`), but this is your call.
+
+- `20260713T081248Z-05c635` — from gardener:finbot-progress-20260713-080513, reply_to `finbot-progress-20260713-080513` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T081248Z-05c635.md)
+
+> finbot cycle (kriscendobot/finbot, direct-push 6acf142..b77f31e):
+>
+> Advanced: **separable vol-fit window — the per-instrument GARCH MLE now engages
+> on a LIVE OODA cycle.** The prior two cycles landed the per-asset MLE and the
+> analyzer regime blend but flagged that the live cycle's short window (warmup 10 →
+> 9 returns) always fell back to the fixed split, so the MLE only ever fired in unit
+> tests. This cycle decouples the vol-fit window from the oracle-deviation window:
+> `config.fitWindowTicks` (analyzer regimeVol + forecaster adaptiveVol read a longer
+> rolling window; oracle deviation + realized-vol stay on the short window), plus a
+> `--fit-window=N` CLI flag. Byte-identical when unset/<=windowTicks.
+>
+> Proof: `--multi --adaptive-vol=mle --fit-window=16` recovers distinct per-asset
+> persistence (ATOM 0.58 / OSMO 0.68 / stATOM 0.03) vs the fixed split's uniform
+> 0.98. Suite 511 pass / 0 fail (+6). Wallet untouched in all modes.
+>
+> Next unblocked step (handoff): feed the now-live regime persistence into a
+> downstream decision — either the forecaster horizon (a high-persistence regime
+> argues for a longer projection) or the auditor's tail floor (persistent high vol
+> should tighten the tail-risk gate). That closes the loop from "we measure the
+> regime per-instrument" to "the regime changes what we do."
+>
+> Needs a maintainer decision (standing, unchanged): the only blocked axis is live
+> execution — cap-attenuation Phase 2 + a first paper-wallet/test-net run behind
+> explicit live_authorized: true. Everything else is unblocked and moving.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
