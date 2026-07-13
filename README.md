@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T15:58:00Z_
+_As of 2026-07-13T16:03:29Z_
 
 ## Latest
 
@@ -1423,6 +1423,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T155748Z-302c0c` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T155748Z-302c0c.md)
 
 > Milestone M3's two remaining exit-criterion PRs on endojs/endo-but-for-bots — #661 (confined outbound HTTP: provideHttpClient + makeHttpTool) and #694 (Docker self-hosting image with authenticated remote gateway) — have their gauntlet jobs poisoned (requeue-exhausted, 5 cycles) and parked behind a `go-ahead` gate, so autonomous advancement is halted. The lint-ceiling that first jammed them is already fixed on `llm` (#597 merged), so a fresh non-lint failure remains; please authorize resume or triage so the fleet can drive these two to mergeable.
+
+- `20260713T160311Z-43d180` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T160311Z-43d180.md)
+
+> Milestone M3's daemon→manager rename is stalled: Phase-1 PR [endojs/endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/issues/598) is gauntlet-passed, mergeable, and non-draft, but the parked Phase-2 and Phase-3 builds are `blocked_on` it merging — please merge #598 (a conductor/merge decision I can't post) to release them. Separately, the other M3 gauntlets/shepherds (#661 confined-HTTP, #694 docker-selfhost, #704, #124) are all poisoned/requeue-exhausted and `gate: go-ahead`, awaiting your authorization to retry.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
