@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T16:11:49Z_
+_As of 2026-07-13T16:13:08Z_
 
 ## Latest
 
@@ -1583,8 +1583,9 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
+- [`gauntlet-endo-but-for-bots-pull-request-721-endo-reminder-message-scheduler-plugin`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-721-endo-reminder-message-scheduler-plugin.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
 - [`kriscendobot-agoric-sdk-pr16-112498c0`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr16-112498c0.md) — attention directive on kriscendobot/agoric-sdk PR #16
 
 ### tada (2142)
