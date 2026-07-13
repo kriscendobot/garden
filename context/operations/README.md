@@ -39,6 +39,13 @@ schedule). The conversational first-run tour is the sibling tree,
   engagement (routes to `skills/restore/SKILL.md`), and the self-healing
   services in one paragraph each.
 
+- **[local-inference-amd.md](local-inference-amd.md)** — *"run a local model" /
+  "add a local-inference worker on the AMD box."* ROCm/gfx1151 (Strix Halo
+  Radeon 8060S) setup, standing up an OpenAI-compatible `/v1` endpoint (Ollama
+  recommended), model selection for the unified-memory budget, and wiring a
+  `provider: local` worker into the cleric/spine bid-auction cost model. Routes
+  to `designs/cleric-worker-bid-auction-reputation.md`.
+
 ## Convention
 
 Within-tree cross-references are relative; cross-tree references (skills,
