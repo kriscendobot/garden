@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T22:40:26Z_
+_As of 2026-07-13T22:46:57Z_
 
 ## Latest
 
@@ -1590,28 +1590,6 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 
 > Milestone M2 (Project Hygiene) is code-complete: its last two open designs, `hardened-url-shim` and `hardened-text-codecs-shim`, are both fully built as green, mergeable PRs on endojs/endo-but-for-bots — #719 (URL vetted-shim, the design-faithful `%URL%`/`%SharedURL%` split, recommended) and #259 (TextEncoder/TextDecoder). Closing M2 needs a maintainer to (a) choose #719 over the superseded universal alternative #263 and close #263, then (b) ferry/merge #719 and #259 upstream — merge authority the fleet does not hold.
 
-- `20260713T220034Z-90cf30` — from gardener:design-cleric-worker-bid-auction-reputation, reply_to `design-cleric-worker-bid-auction-reputation` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T220034Z-90cf30.md)
-
-> Design landed on main2: designs/cleric-worker-bid-auction-reputation.md (commit e5ddf9fba0). It gates the two build children of orch-cleric-worker-system. Eight open decisions, each with a recommended default the builds will follow unless you override — a one-line "proceed with defaults" (or "D2: instant award", etc.) is enough.
->
-> D1 — Auction replaces or augments the race? RECOMMEND: augment. `market: bid` is per-job opt-in (design/doc/triage classes first); the race stays the default and is permanent for urgent/watcher-posted work, and every auction structurally degrades to the race (staged eligibility). Replacing outright would add bid-window latency to every job and remove the degradation floor.
->
-> D2 — Bid window and award mode. RECOMMEND: 120s window + 30s grace stages, award by deterministic job-seeded Thompson draw over each bid's committed reputation posterior — computed identically by every worker from journal data alone, so there is NO central auctioneer; the existing claim push stays the only serialization point and double-award is structurally impossible. Alternatives: instant first-bid award (no selection), pure argmin (no exploration → rich-get-richer).
->
-> D3 — Reputation acceptance signal. RECOMMEND precedence: maintainer override > merge/un-draft at the target branch > gauntlet/panel verdict > poisoned/abandoned = rejected (sunk cost still booked). Alternative gauntlet-only is cleaner but blind to post-gauntlet review cost — exactly the human-dollar signal you asked to capture.
->
-> D4 — Human-review inference constants (interim, until the review-metering tool measures). RECOMMEND: active minutes = 5 min per review round + reviewer-comment words / 20 wpm, priced at $125/hr; all three constants live in reputation/rate-card.md (config, not code). Events store the raw observables + source: inferred, so the measured signal swaps in per-change without schema churn.
->
-> D5 — Codex dollar basis. Codex under ChatGPT-plan auth exposes no per-token price (models reference §2). RECOMMEND: notional OpenAI API list prices in the rate card (dated; price_basis: provisional where no published price exists), same stance as the notional-dollar treatment of the flat Claude Max plan — keeps arms comparable. Alternative: amortize the plan fee over measured usage (truer bill, unstable and incomparable).
->
-> D6 — Starvation/exploration policy. RECOMMEND: Thompson's natural exploration (cold arms get wide priors, win their share of measurements), throttled toward pure exploit as usage-meter nears the quota cap. No guaranteed per-arm quota floor.
->
-> D7 — Initial cleric count. RECOMMEND: clerics: 4 on the leader host (enough to accrue reputation data without crowding the board).
->
-> D8 — Work-class granularity. RECOMMEND: deterministic role/verb class × s/m/l size bucket now (no LLM on the claim path); LLM-assisted risk/novelty classing later, at post time only.
->
-> Also note: the auction supersedes the central *broker* from the earlier gardener-bid-accept-market design (your no-central-auctioneer requirement); everything else from that design and gardener-reputation-bootstrapping carries forward, and the cost plumbing rides the already-accepted tada-token-accounting + token-cost-ledger designs plus the new normalized-usage handler contract for codex.
-
 - `20260713T223603Z-ce05e9` — from identity-drift-guard:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T223603Z-ce05e9.md)
 
 > kind: error
@@ -1877,18 +1855,17 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`build-worker-bid-auction-reputation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-worker-bid-auction-reputation.md) — Deliverables
-- [`endojs-endo-but-for-bots-pr662-review-25ab500f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr662-review-25ab500f.md) — Review directive on endojs/endo-but-for-bots PR #662
 - [`research-local-inference-amd-ryzen-setup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/research-local-inference-amd-ryzen-setup.md) — The actual host (probed 2026-07-13)
 
-### tada (2174)
+### tada (2175)
+- [`endojs-endo-but-for-bots-pr662-review-25ab500f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr662-review-25ab500f.md) — Completion report
 - [`build-cleric-and-factor-worker-spine`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-cleric-and-factor-worker-spine.md) — Completion report
 - [`endojs-endo-but-for-bots-pr671-review-e38cd6f4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-review-e38cd6f4.md) — All done. Writing completion report.
 - [`endojs-endo-but-for-bots-pr678-8a856783`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr678-8a856783.md) — Completion report
 - [`endojs-endo-but-for-bots-pr659-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr659-conduct.md) — PR #659 is MERGED onto the live trunk llm with merge commit 05ed3ac. Base was...
-- [`design-cleric-worker-bid-auction-reputation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-cleric-worker-bid-auction-reputation.md) — Design complete, landed, and the maintainer briefed. Final report:
-- … and 2169 more
+- … and 2170 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
