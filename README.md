@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T19:04:43Z_
+_As of 2026-07-13T19:05:22Z_
 
 ## Latest
 
@@ -1603,7 +1603,8 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`esheets-supervisor-20260713-190505`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260713-190505.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
 - [`gauntlet-endo-but-for-bots-pull-request-721-endo-reminder-message-scheduler-plugin`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-721-endo-reminder-message-scheduler-plugin.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
 
 ### tada (2154)
