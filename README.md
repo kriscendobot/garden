@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T19:16:43Z_
+_As of 2026-07-13T19:17:05Z_
 
 ## Latest
 
@@ -1615,17 +1615,16 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`kriscendobot-agoric-sdk-pr16-review-77ecb195-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr16-review-77ecb195-retro.md) — Retrospective on kriscendobot/agoric-sdk PR #16 (primary: kriscendobot-agoric...
+### doin (1)
 - [`weave-endo-but-for-bots-pr621-endoclaw-oauth`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/weave-endo-but-for-bots-pr621-endoclaw-oauth.md) — Weave endojs/endo-but-for-bots #621 — refine endoclaw-oauth design — back ont...
 
-### tada (2157)
+### tada (2158)
+- [`kriscendobot-agoric-sdk-pr16-review-77ecb195-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-review-77ecb195-retro.md) — Completion report
 - [`gauntlet-endo-but-for-bots-pull-request-721-endo-reminder-message-scheduler-plugin`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pull-request-721-endo-reminder-message-scheduler-plugin.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr16-review-65885306-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-review-65885306-retro.md) — Completion report
 - [`esheets-supervisor-20260713-190505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260713-190505.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr16-review-77ecb195`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-review-77ecb195.md) — Completion report
-- [`deadmail-issue-comment-4960246553`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4960246553.md) — The intent has already been fully carried out. A peer's comment (kriscendobot...
-- … and 2152 more
+- … and 2153 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
