@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T20:29:06Z_
+_As of 2026-07-13T20:32:59Z_
 
 ## Latest
 
@@ -1682,18 +1682,17 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`build-endo-but-for-bots-pull-request-707-git-stack-phase-three-worked-version-controlled-filesystem-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-pull-request-707-git-stack-phase-three-worked-version-controlled-filesystem-loop.md) — ---
-- [`design-endoclaw-network-fetch-endo-plugin-redraft`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endoclaw-network-fetch-endo-plugin-redraft.md) — ---
 - [`kriscendobot-agoric-sdk-pr17-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr17-shepherd.md) — shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #17
 
-### tada (2163)
+### tada (2164)
+- [`design-endoclaw-network-fetch-endo-plugin-redraft`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endoclaw-network-fetch-endo-plugin-redraft.md) — Inbox empty. The job is complete.
 - [`finbot-progress-20260713-202002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260713-202002.md) — Completion report — finbot-progress-20260713-202002
 - [`weave-endo-but-for-bots-pull-request-679-mount-glob-delegated-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pull-request-679-mount-glob-delegated-rebase.md) — Completion report
 - [`build-daemon-locator-terminology`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-daemon-locator-terminology.md) — Completion report — build-daemon-locator-terminology
 - [`endo-sturdyref-press-20260713-193502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-193502.md) — SturdyRef press tick complete (2026-07-13T19:35Z dispatch) — **verification t...
-- [`weave-endo-but-for-bots-pr621-endoclaw-oauth`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr621-endoclaw-oauth.md) — Completion report
-- … and 2158 more
+- … and 2159 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
