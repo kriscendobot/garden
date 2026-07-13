@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T15:54:26Z_
+_As of 2026-07-13T15:56:42Z_
 
 ## Latest
 
@@ -1575,16 +1575,16 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`gauntlet-endo-but-for-bots-pull-request-598-daemon-rename-to-manager-phase-one`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-598-daemon-rename-to-manager-phase-one.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
+### doin (0)
+(none)
 
-### tada (2140)
+### tada (2141)
+- [`gauntlet-endo-but-for-bots-pull-request-598-daemon-rename-to-manager-phase-one`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pull-request-598-daemon-rename-to-manager-phase-one.md) — Completion report — gauntlet on endojs/endo-but-for-bots PR #598
 - [`fix-kriscendobot-agoric-sdk-16`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-kriscendobot-agoric-sdk-16.md) — Completion report — fix-kriscendobot-agoric-sdk-16
 - [`build-endo-but-for-bots-endo-reminder-plugin-from-design-682`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-endo-reminder-plugin-from-design-682.md) — Completion report: build-endo-but-for-bots-endo-reminder-plugin-from-design-682
 - [`gauntlet-endo-but-for-bots-pull-request-708-git-filesystemat-content-address`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pull-request-708-git-filesystemat-content-address.md) — Completion report: gauntlet on endojs/endo-but-for-bots #708
 - [`kriscendobot-agoric-sdk-pr16-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-shepherd.md) — The shepherd job is complete. Summary:
-- [`endo-sturdyref-press-20260713-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-152002.md) — **SturdyRef press tick 15:20Z — verification tick, everything at rest, no act...
-- … and 2135 more
+- … and 2136 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
