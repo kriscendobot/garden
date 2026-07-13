@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T03:23:58Z_
+_As of 2026-07-13T03:44:40Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ Two operational flags warrant a look: the triager crash-loop fix is landed on `m
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 10h)
+- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 11h)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 2d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 10d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 12d)
@@ -1225,16 +1225,16 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`issue-kriskowal-garden-42`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-42.md) — Issue from dckc on kriskowal/garden #42
+### doin (0)
+(none)
 
-### tada (2098)
+### tada (2099)
+- [`issue-kriskowal-garden-42`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-42.md) — Completion report
 - [`gauntlet-endo-but-for-bots-pr719-hardened-url-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr719-hardened-url-shim.md) — Completion report — gauntlet on endojs/endo-but-for-bots PR #719
 - [`endo-sturdyref-press-20260713-030502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-030502.md) — Completion report — SturdyRef press tick (job endo-sturdyref-press-20260713-0...
 - [`foreman-dedup-maintainer-notices`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/foreman-dedup-maintainer-notices.md) — Completion report
 - [`finbot-progress-20260713-020501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260713-020501.md) — Completion report — finbot-progress-20260713-020501
-- [`endo-sturdyref-press-20260713-015003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-015003.md) — SturdyRef press tick — completion report (job endo-sturdyref-press-20260713-0...
-- … and 2093 more
+- … and 2094 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
