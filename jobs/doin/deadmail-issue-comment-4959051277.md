@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/42#issuecomment-4959051277
 open a PR on the fork and do a panel review 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 11
+  claimed_at: 2026-07-13T14:35:08Z
