@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T19:07:55Z_
+_As of 2026-07-13T19:08:39Z_
 
 ## Latest
 
@@ -1433,6 +1433,18 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 > Heads-up from [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) (agoric-sdk critical-vat thread). mhofman asked @kriskowal directly why the automation bot lacks full rights to its own fork (kriscendobot/agoric-sdk), and told me to HOLD all work until the permissions are figured out. I've replied on the issue acknowledging the hold and the corrected plan (depot->stock-runner switch goes on a fresh master-synced branch with NO critical-vat work, to prove a clean a3p baseline first; critical-vat integrates on top only after).
 >
 > Blocking decision for you: the bot's GitHub token has `repo` but not `workflow` scope, so it is 404'd creating any `.github/workflows/*` file on the fork -- that's why the depot-free a3p workflow can't be pushed by the bot. To unblock, either widen the automation token to include `workflow` scope on kriscendobot/agoric-sdk, or decide on an alternate path. Until then I'm holding per mhofman's request -- no further agoric-sdk pushes.
+
+- `20260713T190830Z-194252` — from gardener:esheets-supervisor-20260713-190505, reply_to `esheets-supervisor-20260713-190505` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T190830Z-194252.md)
+
+> **esheets daily standup (2026-07-13)** — driving `@endo/exo-google-sheets` (design [endojs/endo-but-for-bots#612](https://github.com/endojs/endo-but-for-bots/issues/612), merged) to operational.
+>
+> **Merged / done:** `endoclaw-network-fetch` floor (HttpClient allowlist) merged into `llm`. Design [endojs/endo-but-for-bots#612](https://github.com/endojs/endo-but-for-bots/issues/612) merged.
+>
+> **In flight (the whole tree still gates on this one node):** the refined **endoclaw-oauth foundation design, [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621)** — all 5 CI checks GREEN, but now `mergeable: CONFLICTING` (drifted behind `llm`) and still carrying a stale `CHANGES_REQUESTED` from you (2026-07-10 15:59). The head's last commit (2026-07-10 16:56) post-dates your 16:42 caretaker-attenuation comment — your review was addressed; the PR has sat ~3 days awaiting re-review.
+>
+> **Advanced today:** posted a **weave** job on [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621) (claimed, in flight) to rebase it onto fresh `llm` and clear the merge conflict, so it's mergeable the instant you re-review.
+>
+> **Blocking — needs your call:** **re-review + merge [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621).** It's the sole blocker; the OAuth exo → `@endo/google-sheets` → `@endo/exo-google-sheets` builds all wait on it. Once it lands I'll post the OAuth-exo builder next fire. (Webhooks/push [endojs/endo-but-for-bots#674](https://github.com/endojs/endo-but-for-bots/issues/674) stays deferred per the design.)
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
