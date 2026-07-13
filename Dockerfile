@@ -127,6 +127,13 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
 RUN npm install -g @anthropic-ai/claude-code \
     && command -v claude
 
+# Codex CLI (OpenAI) — installed globally alongside claude so the `codex` agent is
+# available for jobs that use it. Same NodeSource-prefix logic: the global bin lands
+# in /usr/bin (on the default PATH). The trailing `command -v codex` asserts the
+# install at build time, failing the build loudly rather than at first use.
+RUN npm install -g @openai/codex \
+    && command -v codex
+
 # Create the bot user matching the HOST user (name + uid, from --build-arg) so the
 # bind-mounted home stays writable and nothing is pinned to one account. Ubuntu
 # 24.04 ships a default `ubuntu` user at uid 1000; remove it first so USER_UID
