@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-13T00:50:56Z_
+_As of 2026-07-13T00:53:07Z_
 
 ## Latest
 
-The board has gone nearly idle — the only movement since the last bulletin is two claims: a `hardened-url-shim` build and the hourly SturdyRef press driver. What actually needs a maintainer's eyes is a growing merge backlog: the foreman has flagged repeatedly (its latest, [20260712T225056Z]) that Milestone M3 is built, green, and stalled on merge review, not on fleet work — roughly twenty mergeable endo-but-for-bots PRs are stacked on frozen bases, headlined by the Docker self-host [#694](https://github.com/endojs/endo-but-for-bots/pull/694) and confined-HTTP [#661](https://github.com/endojs/endo-but-for-bots/pull/661), whose gauntlet/shepherd jobs have poisoned (requeue-exhausted, now held in `plan/` behind go-ahead). The mount/agent-tools cluster also converged: [#127](https://github.com/endojs/endo-but-for-bots/pull/127) was closed in favor of its reconstruction stack, with `glorp` re-extracted as [#713](https://github.com/endojs/endo-but-for-bots/pull/713).
+Little moved on the board this window: the hourly [SturdyRef press](https://github.com/endojs/endo-but-for-bots/pull/695) logged a rest tick (bridge stack #521→#541→#698→#704 still green, awaiting your go/no-go on design [#695](https://github.com/endojs/endo-but-for-bots/pull/695)), and a fresh review job opened on [endo-but-for-bots#710](https://github.com/endojs/endo-but-for-bots/pull/710). Just prior, [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (hardened TextEncoder/TextDecoder shim) was rebased clean off master, and [kriscendobot/agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/pull/15) cleared its gauntlet. On the fork side, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax→critical) is now fully green, un-drafted, and mergeable with mhofman's two open threads answered — it is blocked solely on a SwingSet-team review.
 
-Two "build" jobs came back as no-ops — the work already exists as open PRs: the hardened-text-codecs shim is [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (a weaver has now rebased it past its master conflict), and the mvs-resolver is subsumed by [#671](https://github.com/endojs/endo-but-for-bots/pull/671).
-
-Three decisions are explicitly waiting on you: [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax→critical) is now fully green, un-drafted, reviewer feedback resolved, and blocked solely on SwingSet-team approval; the endoclaw-timer chain ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)) is superseded by the `@endo/reminder` redraft [#682](https://github.com/endojs/endo-but-for-bots/pull/682) and needs an accept/close call; and the SturdyRef agent-surface design [#695](https://github.com/endojs/endo-but-for-bots/pull/695) go/no-go is still unread after its one scheduled nudge. Also note a wave of deterministic handler-budget overruns poisoned several jobs — the SturdyRef bridge cuts, shepherds for [#124](https://github.com/endojs/endo-but-for-bots/pull/124)/[#704](https://github.com/endojs/endo-but-for-bots/pull/704), and agoric-sdk PR #15 — and the dckc request on [garden#31](https://github.com/kriskowal/garden/issues/31) ("make it into a PR and do a panel review") is parked as a poisoned deadmail job awaiting a promote.
+The dominant signal remains the M3 merge bottleneck, which the foreman has re-flagged repeatedly: a large stack of green, mergeable endo-but-for-bots PRs is stranded awaiting your merge/sequencing calls — Docker self-host [#694](https://github.com/endojs/endo-but-for-bots/pull/694) (which supersedes [#608](https://github.com/endojs/endo-but-for-bots/pull/608)), confined HTTP [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the mount/agent-tools cluster ([#678](https://github.com/endojs/endo-but-for-bots/pull/678)–[#681](https://github.com/endojs/endo-but-for-bots/pull/681), [#713](https://github.com/endojs/endo-but-for-bots/pull/713) glorp), registry [#671](https://github.com/endojs/endo-but-for-bots/pull/671), and the OAuth-foundation design [#621](https://github.com/endojs/endo-but-for-bots/pull/621) that blocks the entire esheets tree. The endoclaw-timer chain ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) needs an accept/close ruling on the `@endo/reminder` redraft [#682](https://github.com/endojs/endo-but-for-bots/pull/682) before it can move. Three of these gauntlets/shepherds ([#694](https://github.com/endojs/endo-but-for-bots/pull/694), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), and the [#661](https://github.com/endojs/endo-but-for-bots/pull/661) gauntlet) are now poisoned and parked in the plan queue awaiting your promotion, mostly tripping over the still-unmerged lint-ceiling fix [#594](https://github.com/endojs/endo-but-for-bots/pull/594). Separately, dckc's request on [garden#31](https://github.com/kriskowal/garden/issues/31) to "make it into a PR and do a panel review" was dead-lettered and its pickup job overran the handler budget — it sits poisoned in the plan queue. finbot continued its autonomous cadence, completing the inference-driven OODA loop and adaptive GARCH vol-fitting (497 tests green, wallet untouched), and still awaits your call on cap-attenuation Phase 2 before any live run.
 
 ## Parked for maintainer feedback
 
@@ -1121,15 +1119,15 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 
 ### doin (2)
 - [`build-endo-but-for-bots-hardened-url-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-hardened-url-shim.md) — ---
-- [`endo-sturdyref-press-20260713-005001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260713-005001.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+- [`endojs-endo-but-for-bots-pr710-review-6c80c2b9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr710-review-6c80c2b9.md) — Review directive on endojs/endo-but-for-bots PR #710
 
-### tada (2087)
+### tada (2088)
+- [`endo-sturdyref-press-20260713-005001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-005001.md) — **SturdyRef press tick 2026-07-13T00:50 — REST TICK, no movement; progress re...
 - [`weave-endo-but-for-bots-pr259-text-codecs-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr259-text-codecs-rebase.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr15-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-gauntlet.md) — Gauntlet complete — kriscendobot/agoric-sdk PR #15
 - [`endo-sturdyref-press-20260712-233503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260712-233503.md) — Completion report
 - [`agoric-sdk-pr9-drive-20260712-233503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-pr9-drive-20260712-233503.md) — Stop condition not met, no material change since last tick, all fleet work do...
-- [`build-endo-but-for-bots-hardened-text-codecs-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-hardened-text-codecs-shim.md) — Completion report
-- … and 2082 more
+- … and 2083 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1156,7 +1154,7 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-(none)
+- [`endojs-endo-but-for-bots-pr710-review-6c80c2b9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr710-review-6c80c2b9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #710 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
