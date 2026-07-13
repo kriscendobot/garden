@@ -66,7 +66,7 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   # Preserve the EXECUTION keys across promotion. strip_frontmatter drops the
   # whole plan block (gate/priority are provenance, correctly consumed here),
   # but role:/model:/handler-timeout: bind how the gardener RUNS the job — the
-  # per-role model pin (designer→Fable, builder→Opus) and the per-job handler
+  # per-role model pin (designer→Opus, builder→Opus) and the per-job handler
   # budget are resolved from the CLAIMED todo file, so dropping them silently
   # demoted every planned designer/builder job to the fleet default model.
   role="$(plan_field "$src" role)"

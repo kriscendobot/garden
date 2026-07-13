@@ -283,7 +283,7 @@ Concretely:
   Spark handler a private map binds the harness to its concrete model id
   (today `meta-ai/muse-spark-1.1`), the single edit point for a Spark version
   bump, mirroring what `resolve_model_tier` does for Claude ids.
-- **No role defaults to Spark.** The standing role policy (designer on Fable,
+- **No role defaults to Spark.** The standing role policy (designer on Opus,
   builder on Opus, all else fleet default) is untouched. Spark is reached only
   by explicit per-job routing (§ Routing control). If the maintainer ever pins
   a role to Spark, that is one new row in the policy table and one case in a

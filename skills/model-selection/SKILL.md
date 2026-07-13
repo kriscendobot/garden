@@ -1,6 +1,6 @@
 ---
 created: 2026-06-10
-updated: 2026-07-02
+updated: 2026-07-13
 author: gardener
 ---
 
@@ -24,7 +24,7 @@ The **executable source of truth** for the fleet path is two functions in
 - `resolve_model_tier <tier-or-id>` — binds the short tier names to concrete
   `claude-*` ids (a concrete id passes through). One edit here retargets a
   Claude-version bump for the whole fleet.
-- `role_default_model <role>` — the role→default-model map (designer→Fable,
+- `role_default_model <role>` — the role→default-model map (designer→Opus,
   builder→Opus; every other role empty, so it rides the fleet default).
 
 This document and those two functions are kept in agreement deliberately: prose is
@@ -33,15 +33,17 @@ other so the policy never drifts.
 
 ## Standing role policy
 
-The maintainer's directive (2026-07-02, via the liaison): **the design-only
-`designer` role runs on Fable; the mergeable-feature `builder` role runs on the
-latest Opus.** These are the only two roles pinned by default today. Web variants
+The maintainer's directive (2026-07-13, via the liaison): **the design-only
+`designer` role and the mergeable-feature `builder` role both run on the latest
+Opus.** (This supersedes the 2026-07-02 policy that ran `designer` on Fable; every
+role formerly assigned to Fable is now on Opus, so no role defaults to Fable
+today.) These are the only two roles pinned by default today. Web variants
 (`web-designer` / `web-builder`) and every other role are unpinned — they ride the
 fleet default unless a dispatch or job names a model explicitly.
 
 | Role | Tier | Concrete id | Why |
 | --- | --- | --- | --- |
-| `designer` | Fable | `claude-fable-5` | Design-only authoring. Fable is the maintainer's chosen fit for drafting design documents and surfacing open questions. |
+| `designer` | Opus | `claude-opus-4-8` | Design-only authoring — drafting design documents and surfacing open questions. Moved to the latest Opus (2026-07-13), the same tier `builder` uses. |
 | `builder` | Opus | `claude-opus-4-8` | Substantive, mergeable implementation within a single well-scoped dispatch, where correctness compounds. The latest Opus. |
 
 Any other role: no default pin — omit the `model` parameter on an `Agent`
@@ -70,7 +72,7 @@ default (no `--model`) — a typo must never crash a tick.
 ### Agent-dispatch path (orchestrator / judge)
 
 1. Read the role's row in the standing-policy table. For `designer` pass
-   `model: fable`; for `builder` pass `model: opus`; for any other role omit the
+   `model: opus`; for `builder` pass `model: opus`; for any other role omit the
    `model` parameter (fleet default).
 2. Pass the tier to the `Agent` tool's `model` parameter at dispatch time.
 3. Record the choice in the `dispatch` journal entry's `model:` frontmatter.
@@ -91,8 +93,8 @@ default (no `--model`) — a typo must never crash a tick.
 
 An **explicit per-job `model:` always overrides the role default.** The handler
 applies the role default only when no `model:` field is present, so a maintainer
-who wants a designer job on Opus for one structurally subtle design writes
-`model: opus` and it wins over the Fable default. On the Agent path the maintainer
+who wants a designer job on Fable for one particular design writes `model: fable`
+and it wins over the Opus default. On the Agent path the maintainer
 names the override tier directly at dispatch; the table's assignment stays
 canonical for subsequent dispatches.
 
@@ -116,3 +118,10 @@ canonical for subsequent dispatches.
   the fleet default rather than an inherited large table, and reconciled against
   the executable `role_default_model` / `resolve_model_tier` source of truth in
   `common.sh`.
+- _2026-07-13_: **designer moved from Fable to Opus** (job
+  `downgrade-fable-roles-to-opus`, maintainer-directed). Every role formerly
+  defaulting to Fable is now on the latest Opus — `designer` and `builder` share
+  the `opus` tier, and no role defaults to Fable anymore. The `fable` tier id
+  remains valid in `resolve_model_tier` (still selectable via an explicit per-job
+  `model: fable` pin), it is simply no longer a role DEFAULT. Per-job/per-schedule
+  `model: fable` pins are unaffected (two standing schedules still carry one).

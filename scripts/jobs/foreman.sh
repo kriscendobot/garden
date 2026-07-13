@@ -282,7 +282,7 @@ rm -f "$digest" "$herrf"
 # Parse at most one block from the handler output. An optional `ROLE <role>` line
 # immediately inside a JOB block names the role the gardener wears (designer,
 # builder, …); it is threaded to post-job.sh as --role so the job carries a
-# `role:` field and inherits that role's default model (Fable for designer, Opus
+# `role:` field and inherits that role's default model (Opus for designer, Opus
 # for builder). It is consumed here, not folded into the body.
 btype=""; base=""; body=""; role=""
 while IFS= read -r line; do

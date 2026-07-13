@@ -2771,7 +2771,7 @@ plan_blocked_on() { plan_field "$1" blocked_on; }
 # role a gardener WEARS to do the work (designer, builder, fixer, …), distinct
 # from `posted_by:` (the producer that minted the job). It is the key the model
 # policy below (role_default_model) resolves a per-role default model from, so a
-# designer job runs on Fable and a builder on Opus without the poster having to
+# designer job and a builder job both run on Opus without the poster having to
 # name a model explicitly. Empty if absent.
 plan_role() { plan_field "$1" role; }
 
@@ -2803,14 +2803,16 @@ resolve_model_tier() {
 # role_default_model <role> -> the concrete `claude-*` model id that role runs on
 # BY DEFAULT (empty for a role with no policy, so the caller falls back to the
 # fleet default). This is the canonical role->model map. The maintainer's standing
-# policy (2026-07-02, via the liaison): the design-only `designer` role runs on
-# Fable; the mergeable-feature `builder` role runs on the latest Opus. Every other
-# role is unpinned here (empty) and rides the fleet default unless a job names an
-# explicit `model:`. An explicit per-job `model:` ALWAYS overrides this default —
-# the caller applies this only when no `model:` field is present.
+# policy (2026-07-13, via the liaison): the design-only `designer` role and the
+# mergeable-feature `builder` role both run on the latest Opus. (Superseding the
+# 2026-07-02 policy that ran `designer` on Fable — every role formerly assigned to
+# Fable is now on Opus.) Every other role is unpinned here (empty) and rides the
+# fleet default unless a job names an explicit `model:`. An explicit per-job
+# `model:` ALWAYS overrides this default — the caller applies this only when no
+# `model:` field is present.
 role_default_model() {
   case "${1:-}" in
-    designer) printf '%s\n' "$(resolve_model_tier fable)" ;;
+    designer) printf '%s\n' "$(resolve_model_tier opus)" ;;
     builder)  printf '%s\n' "$(resolve_model_tier opus)" ;;
     *)        printf '%s\n' "" ;;
   esac

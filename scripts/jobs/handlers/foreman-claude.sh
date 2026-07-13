@@ -76,7 +76,7 @@ repo (owner/name), the PR/design/branch, and the task>
 ENDJOB
 
 The ROLE line names the role a gardener wears to do the work; it selects the
-work's default model (a designer runs on Fable, a builder on Opus). Use \`designer\`
+work's default model (both a designer and a builder run on Opus). Use \`designer\`
 for a design-only step and \`builder\` for a mergeable-feature step. Omit the line
 only if no single role fits.
 
