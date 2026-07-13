@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T09:36:27Z_
+_As of 2026-07-13T09:46:35Z_
 
 ## Latest
 
@@ -1216,6 +1216,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T093616Z-568fd9` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T093616Z-568fd9.md)
 
 > Milestone M2 (Project Hygiene) is built out: every row is Complete except the two vetted-shim rows, both of which are now merge-ready PRs on endojs/endo-but-for-bots — #259 (TextEncoder/TextDecoder, rebased, CI green) and #719 (URL/URLSearchParams, gauntlet-passed, CI green). Both are authored by sibling instance kriscendobot, so the fleet cannot merge them (no merge authority + no-inter-instance-loops); M2 cannot close and unblock M3 without a maintainer/conductor merge of #259 and #719.
+
+- `20260713T094626Z-98a15a` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T094626Z-98a15a.md)
+
+> Milestone M2 (Project Hygiene) is one decision from complete: its last two designs, the hardened `TextEncoder`/`TextDecoder` shim (PR [endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/issues/259)) and the hardened `URL`/`URLSearchParams` shim (PR #719), are both open, non-draft, CLEAN, and MERGEABLE with gauntlets already run — the only remaining step is merging them, which is conductor/ferry authority the foreman cannot post. Please authorize a `merge #259` and `merge #719` (and note their design records still read `status: Not Started` and should flip to Complete on merge).
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
