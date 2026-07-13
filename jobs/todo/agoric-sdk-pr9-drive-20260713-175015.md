@@ -76,8 +76,4 @@ discipline, roles/COMMON.md).
 - If nothing is unblocked (everything waits on human review/merge), say so in the
   report rather than manufacturing busywork.
 
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 17
-  claimed_at: 2026-07-13T17:50:21Z
+<!-- garden-reaped: 1 -->
