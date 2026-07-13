@@ -62,3 +62,9 @@ submitter: dckc
 When the fix loop settles, leave a brief status comment on the origin issue
 kriskowal/garden#42 (comment on the issue URL; never close it — the submitter
 does that) summarizing the applied fixes and the new PR head.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  claimed_at: 2026-07-13T15:11:53Z
