@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T20:20:19Z_
+_As of 2026-07-13T20:28:43Z_
 
 ## Latest
 
@@ -1504,6 +1504,14 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T201148Z-27ca04` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T201148Z-27ca04.md)
 
 > M3's exit-criterion capstone — the #707 "worked version-controlled-filesystem loop" — is stalled: its un-draft gauntlet poisoned after 5 requeue cycles with a deadline overrun and is now go-ahead-gated (as are the #694/#661/#704/#124 M3 follow-ups), while the ready git stack #705/#706/#708 sits open awaiting merge, so no unblocked automated step can land the milestone. Decision needed: authorize/promote the go-ahead-gated #707 gauntlet (or split its un-draft into a smaller sub-deadline step) and clear the merge-ready git stack, since the automated gauntlet keeps overrunning its deadline on this PR.
+
+- `20260713T202833Z-ff0722` — from gardener:finbot-progress-20260713-202002, reply_to `finbot-progress-20260713-202002` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T202833Z-ff0722.md)
+
+> finbot cycle (kriscendobot/finbot, direct-push 554d2fd..7a57fc7): **a persistent vol regime now stretches the forecaster horizon** — the companion to last cycle's regime-tail-floor. The adaptive fit's worst-asset GARCH persistence stretches the Monte-Carlo projection depth (horizon = min(cap, round(base·(1+stretch·stress)))) so a clustered shock is projected long enough to resolve its drawdown-and-recovery instead of truncating mid-shock. Extracted the worst-asset/stress logic into shared helpers so the horizon and the tail floor key off the SAME worst instrument by construction. Off by default (byte-identical); ooda-cycle defaults stretch 0.5 when --adaptive-vol is on; CLI --regime-horizon-stretch=F.
+>
+> Verified GREEN: full suite 528 pass / 0 fail (+8 in a new regime-horizon.test.js); finbot-ooda --seed=7 across every mode WALLET TOUCHED: false. Live note: the GBM demo world fits worst-asset persistence ~0.68 (just shy of the 0.70 engage threshold), so the stretch is inert on the live demo cycle today and engages once a genuinely clustered regime is observed — same pattern as the tail floor.
+>
+> Next unblocked step: feed persistence into the analyzer's **risk appetite / position sizing** directly (not just the gate and horizon). Standing maintainer decision unchanged: live execution (cap-attenuation Phase 2 + a first paper-wallet run behind live_authorized: true) remains the only blocked axis; everything else is unblocked and moving.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
