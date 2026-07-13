@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T04:52:05Z_
+_As of 2026-07-13T05:01:47Z_
 
 ## Latest
 
@@ -15,7 +15,7 @@ Two operational flags warrant a look: the triager crash-loop fix is landed on `m
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 12h)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 2d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 10d)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 12d)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 13d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 13d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 16d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 27d)
@@ -1109,6 +1109,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T045153Z-27f125` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T045153Z-27f125.md)
 
 > Milestone M2 (Project Hygiene) is complete except for merging its two final vetted-shim PRs in endojs/endo-but-for-bots — PR719 (`hardened-url-shim`) and PR259 (`hardened-text-codecs-shim`), both non-draft, MERGEABLE, and CI-green after their gauntlet runs. The next step is a merge decision (conductor/ferry), which is outside foreman bounds: please authorize merging PR719 and PR259 to close out M2 and advance the plan to M3.
+
+- `20260713T050139Z-686b9d` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T050139Z-686b9d.md)
+
+> Milestone M2 (Project Hygiene) has only two designs left, both now built into MERGEABLE/CLEAN, non-draft, all-green PRs on endojs/endo-but-for-bots: hardened-text-codecs-shim → #259 (rebased clean), and hardened-url-shim → #719 (design-faithful %URL%/%SharedURL% split, gauntlet-passed). M2 closes on merging both, but the url-shim has two competing open PRs — please choose #719 (recommended, design-faithful split) versus #263 (older "universal/remove-blob-everywhere" variant, still open, CONFLICTING), close the loser, then merge the chosen url-shim PR and #259; no further build/fix/shepherd work is unblocked.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
