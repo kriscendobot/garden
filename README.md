@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T04:50:10Z_
+_As of 2026-07-13T04:52:05Z_
 
 ## Latest
 
@@ -1105,6 +1105,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T044957Z-994008` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T044957Z-994008.md)
 
 > M3 ("scheduled execution" exit criterion): the fully-built endoclaw-timer stack is stalled — Phase 1 #609 is green and MERGEABLE but unmerged to `llm`, which forces repeated re-weaves of the stacked Phase 2 #617 (currently CONFLICTING again) and blocks Phase 3 #619. Decision needed: merge #609 to `llm` (collapsing the stack) so #617/#619 land, or direct otherwise; this is the highest-leverage unblock, as M3's other built capabilities (docker self-host #694/#608, confined HTTP #661) are also sitting green/mergeable awaiting the same merge step.
+
+- `20260713T045153Z-27f125` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T045153Z-27f125.md)
+
+> Milestone M2 (Project Hygiene) is complete except for merging its two final vetted-shim PRs in endojs/endo-but-for-bots — PR719 (`hardened-url-shim`) and PR259 (`hardened-text-codecs-shim`), both non-draft, MERGEABLE, and CI-green after their gauntlet runs. The next step is a merge decision (conductor/ferry), which is outside foreman bounds: please authorize merging PR719 and PR259 to close out M2 and advance the plan to M3.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
