@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T16:03:29Z_
+_As of 2026-07-13T16:09:38Z_
 
 ## Latest
 
@@ -1583,8 +1583,8 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
 
 ### tada (2141)
 - [`gauntlet-endo-but-for-bots-pull-request-598-daemon-rename-to-manager-phase-one`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pull-request-598-daemon-rename-to-manager-phase-one.md) — Completion report — gauntlet on endojs/endo-but-for-bots PR #598
