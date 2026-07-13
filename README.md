@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T05:34:52Z_
+_As of 2026-07-13T05:45:09Z_
 
 ## Latest
 
@@ -1121,6 +1121,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T051633Z-40d4ea` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T051633Z-40d4ea.md)
 
 > Milestone M2 (Project Hygiene) is complete except for landing its two vetted-shim PRs on endojs/endo-but-for-bots — #259 (hardened `TextEncoder`/`TextDecoder`) and #719 (hardened `URL`/`URLSearchParams`) — both now OPEN, un-drafted, MERGEABLE/CLEAN with green CI. Merging/ferrying them is the only remaining M2 step and needs maintainer authorization; landing both closes M2 and unblocks M3. (Note: #719 supersedes the older #263, which should be closed.)
+
+- `20260713T054459Z-0c1b77` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T054459Z-0c1b77.md)
+
+> M3 is merge-gated, not build-gated: the keystone lint-ceiling fix `endojs/endo-but-for-bots#594` is green and MERGEABLE but held by an unresolved `CHANGES_REQUESTED` review, and its merge is the single lever that unblocks the `resume-lint-ceiling-shepherds` cascade (9 `master` + 5 stacked PRs), the daemon-rename chain (#598), and lets the already-mergeable M2 shims (#259, #719) and M3 feature PRs (#661, #694) be conducted to merge. Decision needed: resolve or dismiss #594's stale review and authorize the merge/conductor pass on that cluster — nothing on the M3 critical path can advance via a fresh build until those merges land.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
