@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T15:16:37Z_
+_As of 2026-07-13T15:20:33Z_
 
 ## Latest
 
@@ -1575,8 +1575,9 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`build-endo-but-for-bots-endo-reminder-plugin-from-design-682`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-endo-reminder-plugin-from-design-682.md) — ---
+- [`endo-sturdyref-press-20260713-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260713-152002.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`fix-kriscendobot-agoric-sdk-16`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-kriscendobot-agoric-sdk-16.md) — fix — apply the panel must-fix items on kriscendobot/agoric-sdk#16
 - [`gauntlet-endo-but-for-bots-pull-request-708-git-filesystemat-content-address`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-708-git-filesystemat-content-address.md) — ---
 - [`kriscendobot-agoric-sdk-pr16-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr16-shepherd.md) — shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #16
