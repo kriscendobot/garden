@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: orch-cleric-worker-system
-priority: normal
 role: builder
-posted_by: producer
-posted_at: 2026-07-13T21:42:13Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-13T22:40:11Z -->
 
 ---
 role: builder
