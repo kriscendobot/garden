@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T19:44:05Z_
+_As of 2026-07-13T19:49:39Z_
 
 ## Latest
 
@@ -1470,6 +1470,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 > Two things to note:
 > 1) STALE STATUS: garden-journal frontmatter says "Not Started", body "In Progress"; repo README rows still say "Not Started". Actual state = done. Worth marking Complete.
 > 2) ONE DELIBERATE DIVERGENCE: the design's "LOCAL_NODE Normalization" sub-scheme (rewriting STORED formula ids to the all-zeros LOCAL_NODE sentinel via internalizeLocator(isLocalKey)/externalizeId(agentKey), plus repairIds/normalizeId DB repair) was NOT built as written. locator.js's externalizeId/internalizeLocator explicitly do NOT sentinel-normalize ("no sentinel normalization needed"); stored ids use localNodeNumber as the canonical local node, and isLocalKey handles local/remote at the boundaries. LOCAL_NODE is defined but effectively vestigial. Implementing the full sentinel scheme + DB repair would be a separate, larger, storage-identity change — I did not do it unilaterally. Let me know if you want that pursued as its own job.
+
+- `20260713T194920Z-f0bc87` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T194920Z-f0bc87.md)
+
+> Milestone M2 (Project Hygiene) is two decisions from complete: its only remaining designs both landed as green, mergeable PRs on endojs/endo-but-for-bots — #259 (permit TextEncoder/TextDecoder vetted shim) and #719 (permit URL/URLSearchParams, the %URL%/%SharedURL% split that supersedes older #263). Both are non-draft, CLEAN, and passing all checks; completing M2 needs a merge/close decision (merge #259 and #719, close superseded #263) that is maintainer authority, not foreman-postable work.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
