@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T07:35:23Z_
+_As of 2026-07-13T07:38:59Z_
 
 ## Latest
 
@@ -1141,6 +1141,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T065008Z-38c4e5` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T065008Z-38c4e5.md)
 
 > self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 64e8303e523645703ff052a9728e1925578b2cac (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 64e8303e523645703ff052a9728e1925578b2cac). Diagnosis: You've hit your weekly limit · resets Jul 18, 3am (UTC)
+
+- `20260713T073849Z-5de4cc` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T073849Z-5de4cc.md)
+
+> The design report `ebfb-design-sturdyref-agent-surface` (SturdyRef agent surface, endojs/endo-but-for-bots) needs your decision before any effort is spent: (1) do you accept the design so builder jobs for cuts A–F can be posted? — cuts A–B depend on #541 landing first; and (2) the deliberately-surfaced open question — should tokens optionally be formula-backed to survive daemon restart? The design recommends **no** (durable designation stays a name via `storeRef`), but this is your call.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
