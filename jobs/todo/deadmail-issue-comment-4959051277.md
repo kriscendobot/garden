@@ -39,9 +39,4 @@ open a PR on the fork and do a panel review
 
 ----- END ORIGINAL MESSAGE -----
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 11
-  claimed_at: 2026-07-13T14:35:08Z
+<!-- garden-reaped: 1 -->
