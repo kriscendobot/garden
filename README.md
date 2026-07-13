@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T20:34:35Z_
+_As of 2026-07-13T20:35:46Z_
 
 ## Latest
 
@@ -1682,7 +1682,8 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endo-sturdyref-press-20260713-203512`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260713-203512.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`kriscendobot-agoric-sdk-pr17-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr17-shepherd.md) — shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #17
 
 ### tada (2165)
