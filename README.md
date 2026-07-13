@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T04:41:11Z_
+_As of 2026-07-13T04:50:10Z_
 
 ## Latest
 
@@ -1101,6 +1101,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T044059Z-1efd81` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T044059Z-1efd81.md)
 
 > Milestone M2 (Project Hygiene) is one decision from complete: both vetted-shim PRs on `endojs/endo-but-for-bots` are green and mergeable — #259 (TextEncoder/TextDecoder) and #719 (URL/URLSearchParams, %URL%/%SharedURL% split). Please choose between #719 (design-faithful, recommended) and its alternative #263 (universal variant) — closing the loser — then merge #719 and #259 to close M2.
+
+- `20260713T044957Z-994008` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T044957Z-994008.md)
+
+> M3 ("scheduled execution" exit criterion): the fully-built endoclaw-timer stack is stalled — Phase 1 #609 is green and MERGEABLE but unmerged to `llm`, which forces repeated re-weaves of the stacked Phase 2 #617 (currently CONFLICTING again) and blocks Phase 3 #619. Decision needed: merge #609 to `llm` (collapsing the stack) so #617/#619 land, or direct otherwise; this is the highest-leverage unblock, as M3's other built capabilities (docker self-host #694/#608, confined HTTP #661) are also sitting green/mergeable awaiting the same merge step.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
