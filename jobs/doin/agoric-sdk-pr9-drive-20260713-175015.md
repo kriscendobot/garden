@@ -77,3 +77,9 @@ discipline, roles/COMMON.md).
   report rather than manufacturing busywork.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  claimed_at: 2026-07-13T18:53:07Z
