@@ -36,8 +36,17 @@ extensionless spine**. Scripts append `.md` for board files and strip it for the
   (`<base>.md`), stamp claim metadata, create `work/<base>` + `inbox/<base>/`,
   commit, **push — the accepted push is the claim**. On rejection, re-sync; if the
   job already moved, **back off to another candidate (never blind-retry a claim)**.
+- **Bid auction (opt-in)**: a job carrying `market: bid` frontmatter is claimed
+  through the decentralized bid auction ([`bid-auction`](../bid-auction/SKILL.md))
+  instead of the race — a bounded bid window, then a deterministic Thompson-draw
+  award every worker computes identically from the committed journal, resolved by
+  the SAME todo→doin push CAS. Everything else (including every `priority: urgent`
+  job) stays on the untouched race. The auction adds `bid_window` latency and one
+  push per bidder; it degrades to the race for 0/1 bidders and after its staged
+  liveness window. See `scripts/jobs/auction.sh` + `reputation.sh`.
 - **Complete** (`complete-job.sh <id> <base> <report>`): remove
-  `doin/<base>.md`/`work/<base>`/`inbox/<base>`, write `tada/<base>.md`, push.
+  `doin/<base>.md`/`work/<base>`/`inbox/<base>`, write `tada/<base>.md`, sweep
+  `jobs/bids/<base>/`, record the `reputation/` event, push.
   Touches only your own basename, so **retry with backoff until it lands**.
 - **Reap** (`reaper.sh`): requeue `doin/` claims older than `GARDEN_CLAIM_TTL`.
 

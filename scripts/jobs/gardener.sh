@@ -443,7 +443,8 @@ while :; do
     # doin and the reaper requeues it after GARDEN_CLAIM_TTL; the handler's work
     # is idempotent on re-claim. Any other non-zero is still a real failure.
     set +e
-    "$HERE/complete-job.sh" "$id" "$base" "$report"; crc=$?
+    GARDEN_JOB_DURATION_SECS=$((SECONDS - handler_start)) \
+      "$HERE/complete-job.sh" "$id" "$base" "$report"; crc=$?
     set -e
     if [ "$crc" -eq "${GARDEN_OFFLINE_RC:-75}" ]; then
       log "offline during completion of '$base' (rc=$crc); left in doin for TTL requeue"

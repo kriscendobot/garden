@@ -23,12 +23,17 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
+# shellcheck source=auction.sh
+source "$HERE/auction.sh"     # the bid auction (sources reputation.sh); source-once guarded
 
 id="${1:?usage: claim-job.sh <gardener-id>}"
 # The claiming worker's kind (gardener | cleric), inherited from the spine
 # (gardener.sh exports GARDEN_WORKER_KIND); default gardener for a standalone call.
 KIND="${GARDEN_WORKER_KIND:-gardener}"
 KIND_PROVIDER="$(worker_kind_field "$KIND" provider 2>/dev/null || echo anthropic)"
+# auction_write_bid reads THIS worker's kind + id from the env (so its signature
+# stays a plain <dir> <base>); export them alongside the claim.
+export AUCTION_KIND="$KIND" AUCTION_ID="$id"
 GARDEN_TAG="claim/$id"
 
 fleet_draining && { log "fleet draining; refusing to claim"; exit 3; }
@@ -80,6 +85,40 @@ for ((k=0; k<n; k++)); do
     continue
   fi
 
+  # --- bid auction (design §3) -------------------------------------------------
+  # A `market: bid` job runs through the auction; everything else is the untouched
+  # race below. The auction NEVER bypasses the push CAS: it only decides WHETHER
+  # this worker should attempt the todo→doin push right now. While the bid window
+  # is open the worker writes its own bid (a separate per-bidder push) and moves on
+  # WITHOUT claiming; after the window closes it claims only if the deterministic
+  # award rule + staged eligibility (auction_eligible_now) says it may. Whoever's
+  # claim push is accepted still owns the job exactly once — a mis-timed push is at
+  # worst a mis-award, never a double-award or a lost job.
+  awarded_bidder=""; awarded_provider=""; awarded_model=""; awarded_tht=""
+  jf="$DIR/$JOBS_TODO/$base.md"
+  if [ "$(auction_market_mode "$jf")" = bid ]; then
+    bidder="$(auction_bidder_id "$KIND" "$id")"
+    if auction_window_open "$DIR" "$base" "$jf"; then
+      # Bidding phase: ensure our bid is committed (idempotent), then move on — the
+      # claim happens on a later tick once the window closes. auction_write_bid does
+      # its own commit_and_push (releasing the clone lock); the next candidate's
+      # sync_clone re-takes it.
+      if auction_write_bid "$DIR" "$base"; then
+        log "bid on '$base' as $bidder (window open); not claiming yet"
+      else
+        log "bid push on '$base' lost a race; will retry next tick"
+      fi
+      continue
+    fi
+    if ! auction_eligible_now "$DIR" "$base" "$jf" "$bidder"; then
+      log "'$base' auction closed but $bidder not yet eligible to claim (staged widening); skipping"
+      continue
+    fi
+    awarded_bidder="$bidder"
+    { read -r awarded_provider; read -r awarded_model; read -r awarded_tht; } < <(rep_resolve_arm "$KIND" "$jf")
+    log "'$base' auction: $bidder is eligible; claiming (committed arm $awarded_provider/$awarded_model/$awarded_tht)"
+  fi
+
   mkdir -p "$DIR/$JOBS_DOIN" "$DIR/work"
   git -C "$DIR" mv "$JOBS_TODO/$base.md" "$JOBS_DOIN/$base.md"
   claimed_at="$(date -u +%FT%TZ)"
@@ -92,6 +131,15 @@ for ((k=0; k<n; k++)); do
     printf '  gardener: %s\n'  "$id"
     printf '  worker_kind: %s\n' "$KIND"
     printf '  claimed_at: %s\n' "$claimed_at"
+    # Auction provenance (empty for a race claim). awarded_bid is the winning
+    # bidder; the committed arm is stamped so the reputation event (§4.5) keys the
+    # outcome to exactly the (kind, provider, model, thoughtfulness) that ran.
+    if [ -n "$awarded_bidder" ]; then
+      printf '  awarded_bid: %s\n'      "$awarded_bidder"
+      printf '  awarded_provider: %s\n' "$awarded_provider"
+      printf '  awarded_model: %s\n'    "$awarded_model"
+      printf '  awarded_thoughtfulness: %s\n' "$awarded_tht"
+    fi
   } >> "$DIR/$JOBS_DOIN/$base.md"
   # worktree-state record under work/ (the spine: same basename). worktree_dir
   # names the REAL per-job garden worktree (handlers/gardener-claude.sh's

@@ -1,0 +1,18 @@
+[Unit]
+Description=Garden reputation reducer (finalize events -> recompute arm projections)
+
+[Service]
+Type=oneshot
+# A systemd stop mid-tick SIGTERMs the run; a signalled shutdown is a CLEAN exit,
+# not a failure (mirrors the foreman unit).
+SuccessExitStatus=143 130 SIGTERM SIGINT
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+# Leader-only singleton: it is the SOLE writer of reputation/arms/, so it must run
+# on exactly one host — two reducers would double-write the projection tree. On a
+# follower this ExecCondition fails and the tick is SKIPPED CLEANLY (condition-
+# failed, never Failed) — that IS follower mode. Each firing re-evaluates, so a
+# leader change is picked up next tick with no restart. See
+# designs/multibot-leader-follower.md and cleric-worker-bid-auction-reputation.md §4.5.
+ExecCondition=/bin/bash @GARDEN_ROOT@/scripts/jobs/is-main-host.sh
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-reputation-reducer -- @GARDEN_ROOT@/scripts/jobs/reputation-reduce.sh
+TimeoutStartSec=900
