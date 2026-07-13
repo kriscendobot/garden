@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T22:00:47Z_
+_As of 2026-07-13T22:01:37Z_
 
 ## Latest
 
@@ -1781,16 +1781,17 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`design-cleric-worker-bid-auction-reputation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-cleric-worker-bid-auction-reputation.md) — What the maintainer asked for (the requirements)
+### doin (2)
+- [`build-cleric-and-factor-worker-spine`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-cleric-and-factor-worker-spine.md) — Deliverables
+- [`research-local-inference-amd-ryzen-setup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/research-local-inference-amd-ryzen-setup.md) — The actual host (probed 2026-07-13)
 
-### tada (2169)
+### tada (2170)
+- [`design-cleric-worker-bid-auction-reputation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-cleric-worker-bid-auction-reputation.md) — Design complete, landed, and the maintainer briefed. Final report:
 - [`doc-claude-codex-models-reference`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/doc-claude-codex-models-reference.md) — Completion report
 - [`build-endo-but-for-bots-endo-fetch-plugin`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-endo-fetch-plugin.md) — Completion report
 - [`endo-sturdyref-press-20260713-203512`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-203512.md) — SturdyRef press tick (job endo-sturdyref-press-20260713-203512, dispatched 20...
 - [`kriscendobot-agoric-sdk-pr17-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr17-shepherd.md) — All fixes are on the PR head (5e2538462c); only the 2 multichain-e2e legs rem...
-- [`build-endo-but-for-bots-pull-request-707-git-stack-phase-three-worked-version-controlled-filesystem-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-pull-request-707-git-stack-phase-three-worked-version-controlled-filesystem-loop.md) — Completion report
-- … and 2164 more
+- … and 2165 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
