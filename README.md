@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T08:12:57Z_
+_As of 2026-07-13T08:13:29Z_
 
 ## Latest
 
@@ -1328,20 +1328,19 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`daily-progress-summary-20260713-070501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260713-070501.md) — Daily midnight Pacific progress summary
 - [`endojs-endo-but-for-bots-pr169-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr169-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #169
 - [`endojs-endo-but-for-bots-pr169-review-1aae27be`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr169-review-1aae27be.md) — Review directive on endojs/endo-but-for-bots PR #169
-- [`finbot-progress-20260713-080513`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260713-080513.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`kriscendobot-minion.town-pr4-review-49e01038`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr4-review-49e01038.md) — Review directive on kriscendobot/minion.town PR #4
 
-### tada (2109)
+### tada (2110)
+- [`finbot-progress-20260713-080513`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260713-080513.md) — Completion report — finbot-progress-20260713-080513
 - [`endojs-endo-but-for-bots-pr133-review-d1b65e59`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr133-review-d1b65e59.md) — Completion report — review directive on endojs/endo-but-for-bots PR #133
 - [`harden-comment-watcher-review-comment-drops`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/harden-comment-watcher-review-comment-drops.md) — Completion report — harden-comment-watcher-review-comment-drops
 - [`endojs-endo-but-for-bots-pr678-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr678-conduct.md) — Completion report
 - [`endo-sturdyref-press-20260713-073509`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-073509.md) — Completion report
-- [`endojs-endo-but-for-bots-pr133-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr133-conduct.md) — Completion report — Finalize (curate → merge) endojs/endo-but-for-bots PR #133
-- … and 2104 more
+- … and 2105 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
