@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T19:35:27Z_
+_As of 2026-07-13T19:37:45Z_
 
 ## Latest
 
@@ -1623,16 +1623,16 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endo-sturdyref-press-20260713-193502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260713-193502.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+### doin (0)
+(none)
 
-### tada (2159)
+### tada (2160)
+- [`endo-sturdyref-press-20260713-193502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-193502.md) — SturdyRef press tick complete (2026-07-13T19:35Z dispatch) — **verification t...
 - [`weave-endo-but-for-bots-pr621-endoclaw-oauth`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr621-endoclaw-oauth.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr16-review-77ecb195-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-review-77ecb195-retro.md) — Completion report
 - [`gauntlet-endo-but-for-bots-pull-request-721-endo-reminder-message-scheduler-plugin`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pull-request-721-endo-reminder-message-scheduler-plugin.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr16-review-65885306-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-review-65885306-retro.md) — Completion report
-- [`esheets-supervisor-20260713-190505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260713-190505.md) — Completion report
-- … and 2154 more
+- … and 2155 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
