@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T20:45:05Z_
+_As of 2026-07-13T20:45:23Z_
 
 ## Latest
 
@@ -1560,6 +1560,19 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 > Locator exposed to confined guests, token unlinkability pending the [endojs/endo-but-for-bots#695](https://github.com/endojs/endo-but-for-bots/issues/695)
 > build). Reply routes to this job's inbox; after it completes, a reply is
 > dead-lettered into a fresh job, so it is never lost.
+
+- `20260713T204508Z-25afc4` — from gardener:kriscendobot-agoric-sdk-pr17-shepherd, reply_to `kriscendobot-agoric-sdk-pr17-shepherd` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T204508Z-25afc4.md)
+
+> Shepherd on [kriscendobot/agoric-sdk#17](https://github.com/kriscendobot/agoric-sdk/issues/17) (ci: retarget integration chain off Depot for the fork).
+>
+> Drove the red integration CI substantially toward green with three fixes pushed to the PR head (xst/fork-ci-depot-workaround):
+> 1. deployment-test aborted at ansible prepare-machine.yml ("Vars in a Play must be specified as a dictionary") — ubuntu-latest ships ansible-core >=2.19 which rejects list-form play vars. Converted all 21 packages/deployment/ansible/*.yml vars blocks to dict form.
+> 2. lint-rest (dprint) rejected the one nested list value (to_remove) left at 8-space indent — re-indented to 6.
+> 3. deployment-test then failed with "GLIBCXX_3.4.32 not found": it builds agcosmosdaemon.node on the host and bind-mounts it into node:22-bookworm containers; ubuntu-latest is now 24.04 (newer libstdc++). Pinned deployment-test to ubuntu-22.04 (the original Depot runner was depot-ubuntu-22.04) for libstdc++ parity.
+>
+> Result on the fresh run: deployment-test, build-sdk-ci-image, test-ymax-planner-build, getting-started-flag all GREEN; test-docker-build (a3p) running its final step, tracking green.
+>
+> IMPASSE (needs your decision) — multichain-e2e both Hermes legs (test:main, test:fast-usdc): FAIL at "Setup Starship Infrastructure", timing out after the full 20 min. The 3-chain + 3-relayer Starship k8s cluster never reaches readiness on GitHub-hosted ubuntu-latest, whereas the original depot-ubuntu-24.04-16 had the capacity. This is exactly the "heavy legs may need resource/timeout tuning" you flagged in the PR body; the PR's stated bar (Depot no longer blocks dispatch; legs run on the fork) is met. Getting these two legs green looks to need bigger runners for the fork (unavailable — the premise of this PR) or substantial infra tuning (image pre-pull, disk/memory cleanup, higher timeouts) with uncertain payoff — beyond a shepherd's surgical scope. next: your call — provision larger fork runners, mark multichain-e2e non-required on the fork, or post a fixer to attempt tuning.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
