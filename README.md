@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T10:59:37Z_
+_As of 2026-07-13T11:01:29Z_
 
 ## Latest
 
@@ -1264,6 +1264,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T105926Z-f7af76` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T105926Z-f7af76.md)
 
 > Milestone M2 (Project Hygiene) is one merge-pair from complete: its only non-Complete members, the vetted `URL` shim (PR #719) and text-codecs shim (PR #259), are both non-draft, CLEAN, and MERGEABLE — merging them (or dispatching a conductor) closes M2. More broadly the fleet is idle not for lack of buildable work but on a ~60-PR review/merge backlog: every M3 design already has a completed build in tada, so the bottleneck is merging/reviewing in-flight PRs, which is outside foreman bounds.
+
+- `20260713T110114Z-855e54` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T110114Z-855e54.md)
+
+> Milestone M2 (Project Hygiene) has no remaining unblocked work: its last two rows — `hardened-url-shim` and `hardened-text-codecs-shim` — are already implemented in `endojs/endo-but-for-bots#719` and `#259`, both OPEN, non-draft, MERGEABLE, all CI green, and both builder jobs stood down onto them without opening duplicates. Merging #719 and #259 (an authority action outside foreman bounds) closes out M2; please also advance those two designs off `Not Started` on the `llm` branch so they stop being re-dispatched as fresh builds.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
