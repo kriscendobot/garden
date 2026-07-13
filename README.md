@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T15:02:04Z_
+_As of 2026-07-13T15:08:02Z_
 
 ## Latest
 
@@ -1575,7 +1575,8 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`fix-endo-but-for-bots-pull-request-682-reminder-design-review-changes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-endo-but-for-bots-pull-request-682-reminder-design-review-changes.md) — ---
 - [`gauntlet-endo-but-for-bots-pull-request-708-git-filesystemat-content-address`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-708-git-filesystemat-content-address.md) — ---
 
 ### tada (2133)
