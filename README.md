@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T19:05:22Z_
+_As of 2026-07-13T19:07:55Z_
 
 ## Latest
 
@@ -1603,9 +1603,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`esheets-supervisor-20260713-190505`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260713-190505.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
 - [`gauntlet-endo-but-for-bots-pull-request-721-endo-reminder-message-scheduler-plugin`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-721-endo-reminder-message-scheduler-plugin.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
+- [`weave-endo-but-for-bots-pr621-endoclaw-oauth`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/weave-endo-but-for-bots-pr621-endoclaw-oauth.md) — Weave endojs/endo-but-for-bots #621 — refine endoclaw-oauth design — back ont...
 
 ### tada (2154)
 - [`kriscendobot-agoric-sdk-pr16-review-77ecb195`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-review-77ecb195.md) — Completion report
