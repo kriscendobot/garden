@@ -273,3 +273,12 @@ Inspect via `git -C journal cat-file -p 42579683b681950c64d6ddc9fe5b9b99659ae7c2
 - Context: gardener-18 on endolin-garden-ece02cb4: job 'fix-kriscendobot-agoric-sdk-16' exit-0-unsatisfying but elapsed near-constant (41,41s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p 0630c8598de25f566d3acd33facbcfe8e9cb884a`.
+
+## lane 0 -- elapsed-constancy-overrun-suspect failure at 2026-07-13T16:38:08Z
+
+- PR: (none)
+- State: elapsed-constancy-overrun-suspect
+- Transcript SHA: 516b04864a9096c6949aaaa8fc09ec7c03262611
+- Context: gardener-13 on endolin-garden-ece02cb4: job 'gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop' transient-classified (rc=1) but elapsed near-constant (278,278s) over 2 cycles — likely deterministic overrun, not a blip
+
+Inspect via `git -C journal cat-file -p 516b04864a9096c6949aaaa8fc09ec7c03262611`.
