@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T02:08:23Z_
+_As of 2026-07-13T02:15:35Z_
 
 ## Latest
 
@@ -1016,6 +1016,43 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T020644Z-e0b806` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T020644Z-e0b806.md)
 
 > Milestone M2 (Project Hygiene) is blocked on its last substantive decision: the `hardened-url-shim` design was built as two alternative, mutually-exclusive draft PRs on endojs/endo-but-for-bots — #719 (design-faithful `%URL%`/`%SharedURL%` split, builder-recommended) and #263 (universal remove-blob-methods-everywhere, now CONFLICTING) — and #719 is intentionally held draft until you pick which lands so the gauntlet can un-draft the winner and the other can be closed. (The sibling text-codecs PR #259 is MERGEABLE/CLEAN and needs only a merge.)
+
+- `20260713T021523Z-90ed14` — from gardener:finbot-progress-20260713-020501, reply_to `finbot-progress-20260713-020501` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T021523Z-90ed14.md)
+
+> finbot progress (cycle 20260713-020501) — regime-aware analyzer scoring
+>
+> Assessed: no open PRs (direct-push, main at 14fcccf), no in-flight finbot-* jobs
+> (all in tada/), so no competing work. Prior cycle handed off: "weigh the fitted
+> regime (persistence / conditional-vol read) into the analyzer's score." Took it.
+>
+> Advanced (direct-push 14fcccf..6acf142):
+> - New `conditionalVolFromPriceHistory` (simulator/garch.js): fits GARCH(1,1)
+>   (variance targeting, optional per-asset MLE) and rolls each asset's conditional
+>   variance forward over its realized returns to the terminal conditional vol —
+>   the "where in the vol cycle are we NOW" read. Deterministic, reuses the
+>   surface's own recursion so it matches the forecaster's engine.
+> - analyzer now blends that conditional vol into its risk denominator
+>   (config.regimeVol + regimeWeight, default 0.5): an elevated/persistent regime
+>   discounts a candidate; calm-after-storm stops over-penalizing a real edge. No
+>   regimeVol => byte-identical legacy path.
+> - ooda-cycle threads the forecaster's adaptiveVol descriptor into the analyzer as
+>   its regimeVol, so orient scores under the same surface the ensemble projects
+>   under. finbot-ooda gains --adaptive-vol[=mle].
+>
+> Green: full suite 505 pass / 0 fail (+8 tests). Safety gate finbot-ooda --seed=7
+> (plain, --adaptive-vol, --adaptive-vol=mle, --multi): all 6 auditor invariants
+> PASS incl. reproducibility; WALLET TOUCHED: false throughout.
+>
+> Next unblocked step (handed off): the second half of the prior pairing — lengthen
+> or roll the live OODA observation window (the default 10-tick warmup yields ~9
+> returns, below the MLE's 12-return threshold, so live cycles use the fixed-split
+> regime; the read still engages, but MLE per-asset alpha/beta only kicks in on
+> longer windows). Then: feed the regime persistence into the forecaster horizon or
+> the auditor's tail floor.
+>
+> Needs a maintainer decision (standing, unchanged): the deepest BLOCKED axis is
+> live execution — cap-attenuation Phase 2 + a first paper-wallet/test-net run
+> behind explicit live_authorized: true. Everything else is unblocked and moving.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
