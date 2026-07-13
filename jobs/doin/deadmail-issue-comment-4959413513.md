@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/42#issuecomment-4959413513
 > Panel review — disposition: changes requested I gather the next step is to dispatch a fixer. Please do. If I had not made this request, would it have happened automatically? 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  claimed_at: 2026-07-13T15:10:08Z
