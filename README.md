@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T18:25:57Z_
+_As of 2026-07-13T18:35:55Z_
 
 ## Latest
 
@@ -1589,10 +1589,12 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (9)
 - [`agoric-sdk-pr9-drive-20260713-175015`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-pr9-drive-20260713-175015.md) — Drive kriscendobot/agoric-sdk PR #9 to approval (every 6h)
 - [`deadmail-issue-comment-4960246553`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4960246553.md) — Dead-lettered message — pick up its intent
+- [`deadmail-issue-comment-4961279677`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4961279677.md) — Dead-lettered message — pick up its intent
 - [`endo-sturdyref-press-20260713-173502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260713-173502.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+- [`endo-sturdyref-press-20260713-183502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260713-183502.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
 - [`gauntlet-endo-but-for-bots-pull-request-721-endo-reminder-message-scheduler-plugin`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-721-endo-reminder-message-scheduler-plugin.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
 - [`kriscendobot-agoric-sdk-depot-ci-workaround`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-depot-ci-workaround.md) — The blocker (verified earlier)
