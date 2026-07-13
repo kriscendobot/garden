@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T06:34:41Z_
+_As of 2026-07-13T06:35:15Z_
 
 ## Latest
 
@@ -1293,7 +1293,8 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`endo-sturdyref-press-20260713-063501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260713-063501.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endojs-endo-but-for-bots-pr133-review-d1b65e59`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr133-review-d1b65e59.md) — Review directive on endojs/endo-but-for-bots PR #133
 - [`harden-comment-watcher-review-comment-drops`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/harden-comment-watcher-review-comment-drops.md) — Not a missing feature — a drop bug (evidence)
 
