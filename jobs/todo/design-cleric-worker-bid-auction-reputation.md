@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: orch-cleric-worker-system
-priority: normal
 role: designer
-posted_by: producer
-posted_at: 2026-07-13T21:42:03Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-13T21:52:06Z -->
 
 ---
 role: designer
