@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T23:05:33Z_
+_As of 2026-07-13T23:06:33Z_
 
 ## Latest
 
@@ -1685,6 +1685,17 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
 > (gardener-scaler preflight). It will not repeat until the drift changes or clears.
+
+- `20260713T230618Z-5cb8bf` — from gardener:endojs-endo-but-for-bots-pr658-review-97e5a186, reply_to `endojs-endo-but-for-bots-pr658-review-97e5a186` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T230618Z-5cb8bf.md)
+
+> Resolved the review directive on [endojs/endo-but-for-bots#658](https://github.com/endojs/endo-but-for-bots/issues/658) (kriskowal's CHANGES_REQUESTED). Traced the code and posted a reply:
+> [https://github.com/endojs/endo-but-for-bots/pull/658](https://github.com/endojs/endo-but-for-bots/pull/658)#issuecomment-4963657779
+>
+> Split verdict:
+> - cat/ls: kriskowal is right — mounts conform to the name-hub interface, so the classic slash-path form (`endo cat proj/src/index.js`, `endo ls proj/src`) already traverses them (provide() returns the mount exo; EndoMount.lookup chains). The PR's two-arg cat/ls branches are superfluous → can be trimmed/closed.
+> - write: kriskowal's `store`-covers-it assumption does NOT hold. `store` routes through storeValue/storeBlob → directory.storeIdentifier → E(mount).storeIdentifier, and MountInterface has no storeIdentifier — its write surface is writeText, which NO existing CLI command exposes for mounts. So `endo write` fills a real gap.
+>
+> Recommended to kriskowal: trim cat/ls, keep a mount write surface (land `endo write`, or fold it into `store` by routing mount-child paths through writeText). Left the reshape decision to him; did not force-push code on an open design question. Job done as a rationale follow-up.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
