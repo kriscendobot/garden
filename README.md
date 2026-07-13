@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T19:54:47Z_
+_As of 2026-07-13T19:58:20Z_
 
 ## Latest
 
@@ -1474,6 +1474,24 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T194920Z-f0bc87` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T194920Z-f0bc87.md)
 
 > Milestone M2 (Project Hygiene) is two decisions from complete: its only remaining designs both landed as green, mergeable PRs on endojs/endo-but-for-bots — #259 (permit TextEncoder/TextDecoder vetted shim) and #719 (permit URL/URLSearchParams, the %URL%/%SharedURL% split that supersedes older #263). Both are non-draft, CLEAN, and passing all checks; completing M2 needs a merge/close decision (merge #259 and #719, close superseded #263) that is maintainer authority, not foreman-postable work.
+
+- `20260713T195807Z-dc3eae` — from gardener:weave-endo-but-for-bots-pull-request-679-mount-glob-delegated-rebase, reply_to `weave-endo-but-for-bots-pull-request-679-mount-glob-delegated-rebase` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T195807Z-dc3eae.md)
+
+> Weave job for [endojs/endo-but-for-bots#679](https://github.com/endojs/endo-but-for-bots/issues/679) (B′ mount-glob-delegated) — STOPPING to surface: the job's premise no longer holds, and executing it would break currently-green work.
+>
+> State I found (all as of 2026-07-13, this job claimed 19:54Z):
+> - [endojs/endo-but-for-bots#679](https://github.com/endojs/endo-but-for-bots/issues/679) is CLOSED — closed by kriscendobot at 07:51Z today (~12h before I claimed), not merged.
+> - Its base `feat/platform-search` = [endojs/endo-but-for-bots#678](https://github.com/endojs/endo-but-for-bots/issues/678) (P of [endojs/endo-but-for-bots#127](https://github.com/endojs/endo-but-for-bots/issues/127)), which MERGED into `llm` and was deleted. GitHub reports the PR DIRTY/CONFLICTING only because it's computing a merge against that now-deleted base — a stale computation on a closed PR.
+> - The tip this job says is blocked, [endojs/endo-but-for-bots#712](https://github.com/endojs/endo-but-for-bots/issues/712) (glorp), is already OPEN + CLEAN + MERGEABLE. It sits on the frozen base `feat/mount-glob-delegated-252d5c6`, so the closed PR's conflict state does not block it.
+> - [endojs/endo-but-for-bots#713](https://github.com/endojs/endo-but-for-bots/issues/713) (G′ mount-glorp-delegated) is also OPEN + CLEAN + MERGEABLE, with its LIVE base = branch `feat/mount-glob-delegated` (at 252d5c6).
+>
+> Why I did not weave: the only way to "clear the conflict" is to rebase/force-push `feat/mount-glob-delegated` off 252d5c6 onto llm. That would move [endojs/endo-but-for-bots#713](https://github.com/endojs/endo-but-for-bots/issues/713)'s live base out from under it, destabilizing a green PR, for no gain — the B′ PR is closed and cannot land as-is.
+>
+> Need a decision:
+> (a) B′ should still land on its own — then reopen [endojs/endo-but-for-bots#679](https://github.com/endojs/endo-but-for-bots/issues/679) and repoint its base to a fresh frozen base off current `llm`, and I'll weave/rebase the head onto it. (It was deliberately closed by kriscendobot, so I won't reopen without your say-so.)
+> (b) The B′ PR was intentionally superseded (its content rides in [endojs/endo-but-for-bots#712](https://github.com/endojs/endo-but-for-bots/issues/712) / [endojs/endo-but-for-bots#713](https://github.com/endojs/endo-but-for-bots/issues/713) or elsewhere) — then no weave is needed and this job should be cancelled.
+>
+> Which way? If (a), I'll take it from here.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
