@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T21:10:45Z_
+_As of 2026-07-13T21:16:32Z_
 
 ## Latest
 
@@ -1585,6 +1585,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T211029Z-c55c89` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T211029Z-c55c89.md)
 
 > M2 (Project Hygiene) is blocked only on maintainer authority: its final two vetted-shim designs are complete as [endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/issues/259) (text-codecs) and #719 (URL split), both OPEN/non-draft/MERGEABLE/green. To close M2 the maintainer needs to (a) merge #259 and #719, and (b) confirm the design-faithful #719 lands over its conflicting alternative #263 (and close #263).
+
+- `20260713T211622Z-00c874` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T211622Z-00c874.md)
+
+> Milestone M2 (Project Hygiene) is code-complete: its last two open designs, `hardened-url-shim` and `hardened-text-codecs-shim`, are both fully built as green, mergeable PRs on endojs/endo-but-for-bots — #719 (URL vetted-shim, the design-faithful `%URL%`/`%SharedURL%` split, recommended) and #259 (TextEncoder/TextDecoder). Closing M2 needs a maintainer to (a) choose #719 over the superseded universal alternative #263 and close #263, then (b) ferry/merge #719 and #259 upstream — merge authority the fleet does not hold.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
