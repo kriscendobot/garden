@@ -1,14 +1,18 @@
 # Garden bulletin
 
-_As of 2026-07-13T00:24:53Z_
+_As of 2026-07-13T00:36:07Z_
 
 ## Latest
 
-Only one board move landed this cycle: the gauntlet for [kriscendobot/agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/pull/15) completed, leaving the board otherwise idle. The dominant signal is that Milestone M3 is now merge-bottlenecked rather than build-bottlenecked — the foreman has escalated repeatedly that its exit-criterion PRs are built, green, and mergeable but stranded on maintainer authority: [Docker self-host #694](https://github.com/endojs/endo-but-for-bots/pull/694) and the confined-HTTP tool [#661](https://github.com/endojs/endo-but-for-bots/pull/661) sit as un-drafted drafts behind go-ahead-gated gauntlets (both now poisoned as requeue-exhausted), and the whole mount/agent-tools/registry/OAuth stack awaits a merge-order call. The repo-wide lint projectService ceiling ([#594](https://github.com/endojs/endo-but-for-bots/pull/594)) remains the phantom-red that keeps poisoning gauntlets — merging it auto-resumes the parked lint-ceiling shepherd cohort. Scheduled execution needs a separate accept/reject on the [@endo/reminder redraft #682](https://github.com/endojs/endo-but-for-bots/pull/682), which supersedes the endoclaw-timer chain ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)); two gardener ticks are holding on that same call. Meanwhile [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax→critical) is fully green, rebased, un-drafted, with mhofman's review threads resolved — it is now blocked solely on SwingSet-team approval. The sturdyref agent-surface design [#695](https://github.com/endojs/endo-but-for-bots/pull/695) awaits a go/no-go to post its six builder cuts, and finbot continues its autonomous forecasting cycles (now 497 tests green, adaptive GARCH/MLE vol fitting), still deferring the security-gated live-execution axis. Note the growing pile of deadline-overrun poisons (several sturdyref-bridge cuts, pr124/pr704/pr702 shepherds, and the "make it a PR and panel-review" issue-comment job) — these jobs structurally exceed the 2400s handler budget and need splitting, not requeueing.
+The one board move this window is a weave: PR [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) (hardened `TextEncoder`/`TextDecoder` intrinsics) turned out already-implemented and green but CONFLICTING on master, so a [rebase job](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/weave-endo-but-for-bots-pr259-text-codecs-rebase.md) is now in flight to make it mergeable — the same "green PR stranded on a stale base" pattern the fleet keeps hitting.
+
+That pattern is now the dominant signal: the foreman has escalated repeatedly that Milestone M3 is **merge-bottlenecked, not work-bottlenecked** — ~20–30 green, mergeable endo-but-for-bots PRs are stacked awaiting sequential landing, and its two headline exit PRs, [#694](https://github.com/endojs/endo-but-for-bots/pull/694) (Docker self-host + authenticated remote gateway) and [#661](https://github.com/endojs/endo-but-for-bots/pull/661) (confined HTTP client), sit as go-ahead-gated poison jobs in the plan queue after their gauntlets exhausted requeues on the known lint-ceiling red ([#594](https://github.com/endojs/endo-but-for-bots/pull/594), still unmerged and blocking the poisoned shepherd cohort). The scheduled-execution leg is stalled on your accept/reject of the [#682](https://github.com/endojs/endo-but-for-bots/pull/682) `@endo/reminder` redesign, which supersedes the endoclaw-timer chain ([#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)) — a gardener twice declined to do a rename-only fixup on #609 and is holding for direction.
+
+Two efforts reached a clean "awaiting your review" state. [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax vat → critical) was rebased onto master, is fully green, un-drafted, mhofman's two stale inline threads resolved, and review requested from mhofman+dckc ~12h ago — blocked solely on a SwingSet-team decision. The SturdyRef press-driver has design [#695](https://github.com/endojs/endo-but-for-bots/pull/695) ready with the daemon bridge stack (#521→#541→#698→…→#704) green, awaiting your go/no-go on posting builder cuts A–F; note its bridge cut shepherds and several other jobs ([#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), agoric-sdk#15) are poisoned for deterministically overrunning the 2400s handler budget and need splitting. Separately, finbot has completed its inference-driven OODA axis end-to-end (OBSERVE→ACT all by inference, dry-run, wallet untouched, 497 tests green) and now needs your call on cap-attenuation Phase 2 to go further.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 7h)
+- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 8h)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 2d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 10d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 12d)
@@ -1115,8 +1119,8 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`weave-endo-but-for-bots-pr259-text-codecs-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/weave-endo-but-for-bots-pr259-text-codecs-rebase.md) — ---
 
 ### tada (2086)
 - [`kriscendobot-agoric-sdk-pr15-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-gauntlet.md) — Gauntlet complete — kriscendobot/agoric-sdk PR #15
