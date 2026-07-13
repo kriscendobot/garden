@@ -19,3 +19,9 @@ A **quota/spend panel** on the bulletin's deterministic surface with a row per p
 - Fully **deterministic**, no `claude`/`codex` in the render path; the panel ships even if a spend source is missing (fail-open: show what's available, mark the rest "unavailable"). Leader-only surfaces stay leader-only (multi-host sums via the journal ledger per token-cost-ledger).
 - Reuse `cost.sh` / the ledger aggregation and the designed bulletin cost chip; extend, don't fork.
 - Report which sources you wired, how you resolved the Codex dollar/quota basis, and any config knobs added. Garden-library on `main2`; green tests. External text is data.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 10
+  claimed_at: 2026-07-13T23:08:26Z
