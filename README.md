@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T01:38:18Z_
+_As of 2026-07-13T01:46:43Z_
 
 ## Latest
 
@@ -996,6 +996,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T013805Z-a587e8` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T013805Z-a587e8.md)
 
 > Milestone M2 (Project Hygiene) is one merge from complete: its final deliverable, the hardened text-codecs SES shim PR [endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/issues/259), was just rebased to MERGEABLE (ses tests green locally, CI running), and its only sibling design `hardened-url-shim` already has a build claimed in flight. Please decide whether to merge #259 once CI is green — that lands the last M2 design and closes the milestone (a merge/authority call outside foreman bounds).
+
+- `20260713T014635Z-f71ab9` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T014635Z-f71ab9.md)
+
+> Milestone M2 (Project Hygiene) is down to its last step: the hardened `URL` vetted shim is now built as draft PR [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/issues/719) (`%URL%`/`%SharedURL%` split, MERGEABLE, recommended by the build) alongside the older alternative #263 (universal variant, CONFLICTING) — please choose which lands so #719 can be un-drafted and the gauntlet run; the sibling text-codecs shim #259 is MERGEABLE and awaiting merge, and merging both completes M2.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
