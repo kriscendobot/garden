@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T14:13:24Z_
+_As of 2026-07-13T14:19:12Z_
 
 ## Latest
 
@@ -1552,8 +1552,9 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endo-but-for-bots-pr713-mount-glorp-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-but-for-bots-pr713-mount-glorp-shepherd.md) — ---
+- [`endo-but-for-bots-pull-request-691-git-capability-stack-sequencing-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-but-for-bots-pull-request-691-git-capability-stack-sequencing-weave.md) — ---
 
 ### tada (2126)
 - [`downgrade-fable-roles-to-opus`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/downgrade-fable-roles-to-opus.md) — What I did
