@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T07:38:59Z_
+_As of 2026-07-13T07:39:14Z_
 
 ## Latest
 
@@ -1301,9 +1301,8 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (8)
+### doin (7)
 - [`daily-progress-summary-20260713-070501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260713-070501.md) — Daily midnight Pacific progress summary
-- [`endo-sturdyref-press-20260713-073509`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260713-073509.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endojs-endo-but-for-bots-pr133-review-d1b65e59`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr133-review-d1b65e59.md) — Review directive on endojs/endo-but-for-bots PR #133
 - [`endojs-endo-but-for-bots-pr169-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr169-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #169
 - [`endojs-endo-but-for-bots-pr169-review-1aae27be`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr169-review-1aae27be.md) — Review directive on endojs/endo-but-for-bots PR #169
@@ -1311,13 +1310,13 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - [`harden-comment-watcher-review-comment-drops`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/harden-comment-watcher-review-comment-drops.md) — Not a missing feature — a drop bug (evidence)
 - [`kriscendobot-minion.town-pr4-review-49e01038`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr4-review-49e01038.md) — Review directive on kriscendobot/minion.town PR #4
 
-### tada (2105)
+### tada (2106)
+- [`endo-sturdyref-press-20260713-073509`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-073509.md) — Completion report
 - [`endojs-endo-but-for-bots-pr133-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr133-conduct.md) — Completion report — Finalize (curate → merge) endojs/endo-but-for-bots PR #133
 - [`xst-validation-orchestrator-20260711-153502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-153502.md) — XS-validation orchestrator — tick report (2026-07-11 ~15:35Z)
 - [`xst-validation-orchestrator-20260711-143501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-143501.md) — XS-validation orchestrator — tick report (2026-07-11 ~14:35Z)
 - [`xst-validation-orchestrator-20260711-132003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-132003.md) — XS-validation orchestrator — tick report (2026-07-11 ~13:20Z)
-- [`xst-validation-orchestrator-20260711-120506`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-120506.md) — XS-validation orchestrator — tick report (2026-07-11 ~12:05Z, resumed after r...
-- … and 2100 more
+- … and 2101 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
