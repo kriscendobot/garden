@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T21:50:01Z_
+_As of 2026-07-13T21:52:22Z_
 
 ## Latest
 
@@ -1759,8 +1759,8 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`design-cleric-worker-bid-auction-reputation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-cleric-worker-bid-auction-reputation.md) — What the maintainer asked for (the requirements)
 
 ### tada (2169)
 - [`doc-claude-codex-models-reference`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/doc-claude-codex-models-reference.md) — Completion report
