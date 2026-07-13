@@ -40,3 +40,9 @@ I think I wasn't clear. I expect the work to switch from depot to normal runners
 ----- END ORIGINAL MESSAGE -----
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 19
+  claimed_at: 2026-07-13T18:23:13Z
