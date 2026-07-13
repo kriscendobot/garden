@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T05:51:29Z_
+_As of 2026-07-13T05:51:42Z_
 
 ## Latest
 
@@ -1125,6 +1125,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T054459Z-0c1b77` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T054459Z-0c1b77.md)
 
 > M3 is merge-gated, not build-gated: the keystone lint-ceiling fix `endojs/endo-but-for-bots#594` is green and MERGEABLE but held by an unresolved `CHANGES_REQUESTED` review, and its merge is the single lever that unblocks the `resume-lint-ceiling-shepherds` cascade (9 `master` + 5 stacked PRs), the daemon-rename chain (#598), and lets the already-mergeable M2 shims (#259, #719) and M3 feature PRs (#661, #694) be conducted to merge. Decision needed: resolve or dismiss #594's stale review and authorize the merge/conductor pass on that cluster — nothing on the M3 critical path can advance via a fresh build until those merges land.
+
+- `20260713T055135Z-7db93e` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T055135Z-7db93e.md)
+
+> Milestone M2 (Project Hygiene) has only its two SES-shim designs left, both built and mergeable: PR #259 (TextEncoder/TextDecoder) is rebased and MERGEABLE awaiting merge, and the URL shim exists as two competing mergeable PRs — #719 (design-faithful `%URL%`/`%SharedURL%` split, gauntlet-passed, recommended) vs #263 (universal `remove`-blob variant, now conflicting). M2 cannot close until you choose which URL-shim PR lands (#719 recommended, close #263) and the two winning PRs are merged.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
