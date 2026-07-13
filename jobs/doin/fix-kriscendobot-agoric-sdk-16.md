@@ -65,6 +65,7 @@ does that) summarizing the applied fixes and the new PR head.
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
