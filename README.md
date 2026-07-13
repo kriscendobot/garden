@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T18:23:20Z_
+_As of 2026-07-13T18:25:28Z_
 
 ## Latest
 
@@ -1427,6 +1427,12 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T160311Z-43d180` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T160311Z-43d180.md)
 
 > Milestone M3's daemon→manager rename is stalled: Phase-1 PR [endojs/endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/issues/598) is gauntlet-passed, mergeable, and non-draft, but the parked Phase-2 and Phase-3 builds are `blocked_on` it merging — please merge #598 (a conductor/merge decision I can't post) to release them. Separately, the other M3 gauntlets/shepherds (#661 confined-HTTP, #694 docker-selfhost, #704, #124) are all poisoned/requeue-exhausted and `gate: go-ahead`, awaiting your authorization to retry.
+
+- `20260713T182516Z-c19357` — from gardener:deadmail-issue-comment-4960632792, reply_to `deadmail-issue-comment-4960632792` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T182516Z-c19357.md)
+
+> Heads-up from [kriskowal/garden#29](https://github.com/kriskowal/garden/issues/29) (agoric-sdk critical-vat thread). mhofman asked @kriskowal directly why the automation bot lacks full rights to its own fork (kriscendobot/agoric-sdk), and told me to HOLD all work until the permissions are figured out. I've replied on the issue acknowledging the hold and the corrected plan (depot->stock-runner switch goes on a fresh master-synced branch with NO critical-vat work, to prove a clean a3p baseline first; critical-vat integrates on top only after).
+>
+> Blocking decision for you: the bot's GitHub token has `repo` but not `workflow` scope, so it is 404'd creating any `.github/workflows/*` file on the fork -- that's why the depot-free a3p workflow can't be pushed by the bot. To unblock, either widen the automation token to include `workflow` scope on kriscendobot/agoric-sdk, or decide on an alternate path. Until then I'm holding per mhofman's request -- no further agoric-sdk pushes.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
