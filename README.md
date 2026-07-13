@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T09:30:50Z_
+_As of 2026-07-13T09:36:27Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ Two operational flags warrant a look: the triager crash-loop fix is landed on `m
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 16h)
+- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 17h)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 2d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 10d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 13d)
@@ -1212,6 +1212,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T093037Z-d47dab` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T093037Z-d47dab.md)
 
 > Milestone M2 (Project Hygiene) has only two designs left — `hardened-text-codecs-shim` and `hardened-url-shim` — and both are already implemented as CI-green, un-drafted, mergeable PRs in `endojs/endo-but-for-bots` (#259 and #719, gauntlet complete); their plan records still read "Not Started," which is what keeps re-dispatching redundant builds (the last two builder jobs both stood down on discovering these PRs). The remaining step to close M2 is to merge/ferry #259 and #719 and advance their design-record status — a merge/authority decision only the maintainer (or a conductor job you authorize) can make, so there is no unblocked build/design work left in M2 for the fleet.
+
+- `20260713T093616Z-568fd9` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T093616Z-568fd9.md)
+
+> Milestone M2 (Project Hygiene) is built out: every row is Complete except the two vetted-shim rows, both of which are now merge-ready PRs on endojs/endo-but-for-bots — #259 (TextEncoder/TextDecoder, rebased, CI green) and #719 (URL/URLSearchParams, gauntlet-passed, CI green). Both are authored by sibling instance kriscendobot, so the fleet cannot merge them (no merge authority + no-inter-instance-loops); M2 cannot close and unblock M3 without a maintainer/conductor merge of #259 and #719.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
