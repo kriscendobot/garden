@@ -21,3 +21,9 @@ the head (last commit 2026-07-10 16:56) post-dates his final comment — that is
 re-review gap for the maintainer, NOT something to address by changing the design.
 External-repo etiquette: this is the endojs/endo-but-for-bots fork the garden already
 works; standard fork push, no upstream-branch pushes.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 13
+  claimed_at: 2026-07-13T19:07:44Z
