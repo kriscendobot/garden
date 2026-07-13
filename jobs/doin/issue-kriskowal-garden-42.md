@@ -23,3 +23,9 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 The ymax user flow to open a portfolio and delegate some control to an agent is two steps where it could be one. Currently, step 1. create portfolio - the agent proposes allocations in the form of a `...?instrumentA=60&instrumentB=40` URL to a pre-populated create screen. The use
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 12
+  claimed_at: 2026-07-13T03:23:49Z
