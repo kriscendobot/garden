@@ -1,7 +1,0 @@
-Run the gauntlet (clean → panel review → fix-loop → un-draft) on `endojs/endo-but-for-bots` DRAFT PR #598 `refactor(daemon): rename daemon.js → manager.js (phase 1: file renames)` on base `llm` — all 22 checks are already green, so drive it to mergeable and un-drafted to unblock the parked daemon→manager Phase 2 (identifier renames) and Phase 3 (consumer sweep) builds, advancing M3's daemon-rename-to-manager substrate leg.
-
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 10
-  claimed_at: 2026-07-13T15:48:17Z
