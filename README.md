@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T01:50:14Z_
+_As of 2026-07-13T01:51:45Z_
 
 ## Latest
 
@@ -1000,6 +1000,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T014635Z-f71ab9` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T014635Z-f71ab9.md)
 
 > Milestone M2 (Project Hygiene) is down to its last step: the hardened `URL` vetted shim is now built as draft PR [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/issues/719) (`%URL%`/`%SharedURL%` split, MERGEABLE, recommended by the build) alongside the older alternative #263 (universal variant, CONFLICTING) — please choose which lands so #719 can be un-drafted and the gauntlet run; the sibling text-codecs shim #259 is MERGEABLE and awaiting merge, and merging both completes M2.
+
+- `20260713T015136Z-e115d6` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T015136Z-e115d6.md)
+
+> M2 (Project Hygiene) is blocked at its final step: the hardened-`URL` vetted shim has two alternative open PRs on endojs/endo-but-for-bots — #719 (design-faithful `%URL%`/`%SharedURL%` split, draft, CI green, builder-recommended) and #263 (universal remove-blob-methods approach, now CONFLICTING). The maintainer must choose which lands so the gauntlet can un-draft the winner and close the other; separately, #259 (text-codecs shim) is green and mergeable and awaits a merge. Deciding #719-vs-#263 (and closing #259) completes M2.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
