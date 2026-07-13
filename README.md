@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T20:46:18Z_
+_As of 2026-07-13T20:48:29Z_
 
 ## Latest
 
@@ -1743,8 +1743,8 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`build-endo-but-for-bots-endo-fetch-plugin`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-endo-fetch-plugin.md) — ---
 
 ### tada (2167)
 - [`endo-sturdyref-press-20260713-203512`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-203512.md) — SturdyRef press tick (job endo-sturdyref-press-20260713-203512, dispatched 20...
