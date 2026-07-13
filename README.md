@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T22:59:36Z_
+_As of 2026-07-13T23:00:54Z_
 
 ## Latest
 
@@ -1855,8 +1855,9 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (7)
 - [`build-worker-bid-auction-reputation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-worker-bid-auction-reputation.md) — Deliverables
+- [`endojs-endo-but-for-bots-pr649-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr649-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #649
 - [`endojs-endo-but-for-bots-pr658-review-97e5a186`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr658-review-97e5a186.md) — Review directive on endojs/endo-but-for-bots PR #658
 - [`endojs-endo-but-for-bots-pr661-review-e6e9d5e5`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr661-review-e6e9d5e5.md) — Review directive on endojs/endo-but-for-bots PR #661
 - [`endojs-endo-but-for-bots-pr667-review-20347bb0`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr667-review-20347bb0.md) — Review directive on endojs/endo-but-for-bots PR #667
