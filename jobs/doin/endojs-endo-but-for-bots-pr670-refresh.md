@@ -120,3 +120,9 @@ the agentry/agent-tools consolidation the maintainer cites.
   @kriskowal's review thread citing the addressing SHA
   (`skills/pr-review-thread-replies`).
 - Keep the PR non-draft (it already is). Do not merge.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  claimed_at: 2026-07-13T22:56:31Z
