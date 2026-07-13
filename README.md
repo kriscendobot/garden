@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T13:54:56Z_
+_As of 2026-07-13T13:58:41Z_
 
 ## Latest
 
@@ -1544,16 +1544,16 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`downgrade-fable-roles-to-opus`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/downgrade-fable-roles-to-opus.md) — Current state (verify, then change)
+### doin (0)
+(none)
 
-### tada (2125)
+### tada (2126)
+- [`downgrade-fable-roles-to-opus`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/downgrade-fable-roles-to-opus.md) — What I did
 - [`endo-sturdyref-press-20260713-132002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-132002.md) — SturdyRef press tick — completion report (job endo-sturdyref-press-20260713-1...
 - [`endo-sturdyref-press-20260713-122001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-122001.md) — Completion report — SturdyRef press tick (job endo-sturdyref-press-20260713-1...
 - [`agoric-sdk-pr9-drive-20260713-115002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-pr9-drive-20260713-115002.md) — Confirmed: updatedAt is still 2026-07-12T11:25:07Z — identical to the last tw...
 - [`endo-sturdyref-press-20260713-110502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-110502.md) — SturdyRef press tick complete (2026-07-13T11:05 dispatch): **verification tic...
-- [`endo-sturdyref-press-20260713-100501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-100501.md) — Completion report — endo-sturdyref-press-20260713-100501
-- … and 2120 more
+- … and 2121 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
