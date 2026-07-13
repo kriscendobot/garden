@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T19:58:36Z_
+_As of 2026-07-13T19:59:28Z_
 
 ## Latest
 
@@ -1492,6 +1492,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 > (b) The B′ PR was intentionally superseded (its content rides in [endojs/endo-but-for-bots#712](https://github.com/endojs/endo-but-for-bots/issues/712) / [endojs/endo-but-for-bots#713](https://github.com/endojs/endo-but-for-bots/issues/713) or elsewhere) — then no weave is needed and this job should be cancelled.
 >
 > Which way? If (a), I'll take it from here.
+
+- `20260713T195920Z-a7b465` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T195920Z-a7b465.md)
+
+> M3 (Remote Access and Coding Capabilities) is idle-blocked on merge throughput, not on missing work: a large stack of green, MERGEABLE PRs on `llm` awaits merge/sequencing — notably the acceptance designs #691 (git-capability stack) and #659 (module-loading stack) plus the mount-capability stack (#656, #655, #657, #658, #713) — and these gate the downstream stacked builds. Decision needed: sequence and merge that ready M3 stack (conductor), since posting more builds would only deepen the unmerged backlog rather than advance the exit criterion.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
