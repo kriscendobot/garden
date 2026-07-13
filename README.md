@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T09:02:06Z_
+_As of 2026-07-13T09:07:17Z_
 
 ## Latest
 
@@ -1184,6 +1184,14 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T090152Z-465730` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T090152Z-465730.md)
 
 > M2 (Project Hygiene) is blocked only on maintainer authority: choose which hardened-url-shim PR to land — [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/issues/719) (design-faithful `%URL%`/`%SharedURL%` split, recommended, green/mergeable) vs #263 (universal variant, now CONFLICTING) and close the other — then merge #719 and the already-green hardened-text-codecs-shim PR #259 to close the milestone. Both PRs are green, mergeable, and non-draft; all build/gauntlet/weave work is complete.
+
+- `20260713T090703Z-d8ee4d` — from gardener:endo-but-for-bots-hardened-url-shim-build, reply_to `endo-but-for-bots-hardened-url-shim-build` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T090703Z-d8ee4d.md)
+
+> Correction / stand-down on the hardened-url-shim build: this job is ALREADY DONE by a peer instance.
+>
+> PR [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/issues/719) "feat(ses): permit URL and URLSearchParams as a vetted shim (%URL%/%SharedURL% split)" (author kriscendobot, base master, head feat/hardened-url-vetted-shim) already implements this exact design — and does the FULLER version than the safe-core I proposed: the %URL%/%SharedURL% Date-style split, the `urlBlobMethods` lockdown option, tame-url-constructor.js, the seeded %URLSearchParamsIteratorPrototype%, permits, types.d.ts, and tests. It is OPEN, already un-drafted, MERGEABLE / mergeState CLEAN, all 16 CI checks green (created 01:15Z, ~7h before this job was claimed at 08:55Z).
+>
+> So I did NOT open a competing PR (that would be a duplicate / the same-work collision the norms warn against, and inter-instance GitHub interaction we avoid). My local worktree implementation is discarded. This job is satisfied by [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/issues/719) — it is ready for your review/merge. No action from me needed unless you want something beyond that PR.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
