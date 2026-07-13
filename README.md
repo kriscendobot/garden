@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T15:26:18Z_
+_As of 2026-07-13T15:39:38Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ Two operational flags warrant a look: the triager crash-loop fix is landed on `m
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 22h)
+- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 23h)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 2d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 11d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 13d)
@@ -1575,18 +1575,17 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`build-endo-but-for-bots-endo-reminder-plugin-from-design-682`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-endo-reminder-plugin-from-design-682.md) — ---
 - [`fix-kriscendobot-agoric-sdk-16`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-kriscendobot-agoric-sdk-16.md) — fix — apply the panel must-fix items on kriscendobot/agoric-sdk#16
-- [`gauntlet-endo-but-for-bots-pull-request-708-git-filesystemat-content-address`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-708-git-filesystemat-content-address.md) — ---
 
-### tada (2137)
+### tada (2138)
+- [`gauntlet-endo-but-for-bots-pull-request-708-git-filesystemat-content-address`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pull-request-708-git-filesystemat-content-address.md) — Completion report: gauntlet on endojs/endo-but-for-bots #708
 - [`kriscendobot-agoric-sdk-pr16-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-shepherd.md) — The shepherd job is complete. Summary:
 - [`endo-sturdyref-press-20260713-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-152002.md) — **SturdyRef press tick 15:20Z — verification tick, everything at rest, no act...
 - [`fix-endo-but-for-bots-pull-request-682-reminder-design-review-changes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-endo-but-for-bots-pull-request-682-reminder-design-review-changes.md) — All three review items are resolved. Writing my completion report.
 - [`deadmail-issue-comment-4959413513`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4959413513.md) — Completion report
-- [`weave-endo-but-for-bots-pull-request-682-endo-reminder-message-scheduler-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pull-request-682-endo-reminder-message-scheduler-design.md) — Completion report
-- … and 2132 more
+- … and 2133 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
