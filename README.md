@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T09:07:39Z_
+_As of 2026-07-13T09:11:03Z_
 
 ## Latest
 
@@ -1192,6 +1192,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 > PR [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/issues/719) "feat(ses): permit URL and URLSearchParams as a vetted shim (%URL%/%SharedURL% split)" (author kriscendobot, base master, head feat/hardened-url-vetted-shim) already implements this exact design — and does the FULLER version than the safe-core I proposed: the %URL%/%SharedURL% Date-style split, the `urlBlobMethods` lockdown option, tame-url-constructor.js, the seeded %URLSearchParamsIteratorPrototype%, permits, types.d.ts, and tests. It is OPEN, already un-drafted, MERGEABLE / mergeState CLEAN, all 16 CI checks green (created 01:15Z, ~7h before this job was claimed at 08:55Z).
 >
 > So I did NOT open a competing PR (that would be a duplicate / the same-work collision the norms warn against, and inter-instance GitHub interaction we avoid). My local worktree implementation is discarded. This job is satisfied by [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/issues/719) — it is ready for your review/merge. No action from me needed unless you want something beyond that PR.
+
+- `20260713T091056Z-6ee4f8` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T091056Z-6ee4f8.md)
+
+> Milestone M2 (Project Hygiene) is one decision from complete: both vetted-shim PRs on endojs/endo-but-for-bots are OPEN, non-draft, MERGEABLE/CLEAN, and fully CI-green — #259 (TextEncoder/TextDecoder, rebased onto master) and #719 (hardened URL, gauntlet-passed) — but landing them is merge/ferry authority the fleet cannot exercise. Please decide #719 vs. its conflicting alternative #263 (recommendation on record: land #719, close #263), then merge/ferry #259 and #719 upstream to close M2.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
