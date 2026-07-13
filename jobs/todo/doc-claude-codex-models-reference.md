@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: orch-cleric-worker-system
-priority: normal
 role: scholar
-posted_by: producer
-posted_at: 2026-07-13T21:41:58Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-13T21:43:16Z -->
 
 ---
 role: scholar
