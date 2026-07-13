@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T02:06:52Z_
+_As of 2026-07-13T02:08:23Z_
 
 ## Latest
 
@@ -1172,8 +1172,9 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`finbot-progress-20260713-020501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260713-020501.md) — Push progress on kriscendobot/finbot (every 6h)
+- [`foreman-dedup-maintainer-notices`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/foreman-dedup-maintainer-notices.md) — Foreman: post a maintainer-inbox notice once per distinct state, not every tick
 
 ### tada (2094)
 - [`endo-sturdyref-press-20260713-015003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-015003.md) — SturdyRef press tick — completion report (job endo-sturdyref-press-20260713-0...
