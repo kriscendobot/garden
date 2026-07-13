@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T22:40:01Z_
+_As of 2026-07-13T22:40:26Z_
 
 ## Latest
 
@@ -1877,7 +1877,8 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`build-worker-bid-auction-reputation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-worker-bid-auction-reputation.md) — Deliverables
 - [`endojs-endo-but-for-bots-pr662-review-25ab500f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr662-review-25ab500f.md) — Review directive on endojs/endo-but-for-bots PR #662
 - [`research-local-inference-amd-ryzen-setup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/research-local-inference-amd-ryzen-setup.md) — The actual host (probed 2026-07-13)
 
