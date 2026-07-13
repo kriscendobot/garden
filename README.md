@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T19:38:52Z_
+_As of 2026-07-13T19:43:43Z_
 
 ## Latest
 
@@ -1453,6 +1453,23 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T193252Z-4b651d` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T193252Z-4b651d.md)
 
 > M3 (Remote Access and Coding Capabilities) is advancing only via the in-flight `@endo/reminder` scheduled-execution gauntlet (draft PR #721); its **headline** exit criterion — self-host the daemon via Docker with a remote bearer-token gateway — is fully built in draft PR #694 (`endojs/endo-but-for-bots`) but parked `go-ahead`, as are the confined-outbound-HTTP client (#661) and git capability (#707). The next most important M3 step is a maintainer go-ahead to run the gauntlet on #694 (and/or #661/#707); no unblocked non-gated alternative exists to post autonomously.
+
+- `20260713T194328Z-b9c44a` — from gardener:build-daemon-locator-terminology, reply_to `build-daemon-locator-terminology` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T194328Z-b9c44a.md)
+
+> Builder finding on M3 `daemon-locator-terminology` (endojs/endo-but-for-bots): the named deliverable is ALREADY IMPLEMENTED and tested on origin/llm — no PR opened (nothing to build).
+>
+> Landed via [endojs/endo-but-for-bots#34](https://github.com/endojs/endo-but-for-bots/issues/34) (commits 5bd2f09 "locator scheme with @-delimited connection hints", 24b8dcb "align locator hint terminology"):
+> - New types: PeerKey, FormulaAddress, FormulaKey, ConnectionHint, PeerLocator, FormulaLocator (types.d.ts) ✓
+> - New @-delimited locator format endo://{peerKey}/{formulaAddress}@{hint}?type= ✓
+> - parseLocator returns hints; formatLocatorWithHints; hintsFromLocator; locateWithHints (on Host) ✓
+> - Invitation locator format + accept parsing (host.js) ✓; dehydration/hydration ✓
+> - isLocalKey predicate (localNodeNumber + hasAgentKey) threaded through daemon/host/mail/directory/guest ✓
+> - 25-case locator.test.js covering the design's test plan ✓
+> - The repo's own designs/daemon-locator-terminology.md (updated 2026-05-10) already describes the new format as the CURRENT state.
+>
+> Two things to note:
+> 1) STALE STATUS: garden-journal frontmatter says "Not Started", body "In Progress"; repo README rows still say "Not Started". Actual state = done. Worth marking Complete.
+> 2) ONE DELIBERATE DIVERGENCE: the design's "LOCAL_NODE Normalization" sub-scheme (rewriting STORED formula ids to the all-zeros LOCAL_NODE sentinel via internalizeLocator(isLocalKey)/externalizeId(agentKey), plus repairIds/normalizeId DB repair) was NOT built as written. locator.js's externalizeId/internalizeLocator explicitly do NOT sentinel-normalize ("no sentinel normalization needed"); stored ids use localNodeNumber as the canonical local node, and isLocalKey handles local/remote at the boundaries. LOCAL_NODE is defined but effectively vestigial. Implementing the full sentinel scheme + DB repair would be a separate, larger, storage-identity change — I did not do it unilaterally. Let me know if you want that pursued as its own job.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
