@@ -327,3 +327,12 @@ Inspect via `git -C journal cat-file -p 4c8633cd0a7a0475459eff511edecf67eac93f95
 - Context: gardener-17 on endolin-garden-ece02cb4: job 'gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 8dcb8cb7d2c64e12eba360d77b2e18ed29ece05d`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-13T17:53:30Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 1f663ddec9bb63f85992d9cf7b8098d0fd517e74
+- Context: gardener-14 on endolin-garden-ece02cb4: job 'deadmail-issue-comment-4960246553' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 1f663ddec9bb63f85992d9cf7b8098d0fd517e74`.
