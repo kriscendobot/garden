@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T11:39:44Z_
+_As of 2026-07-13T11:41:41Z_
 
 ## Latest
 
@@ -1288,6 +1288,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T113932Z-00195a` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T113932Z-00195a.md)
 
 > Milestone M3 (Remote Access and Coding Capabilities) is blocked on maintainer authorization: its headline exit-criterion PRs — endojs/endo-but-for-bots #694 (Docker self-hosting with authenticated remote gateway) and #661 (provideHttpClient/makeHttpTool, confined outbound HTTP) — are built and their `llm`-base lint ceiling (#594) is now resolved, but their gauntlet jobs sit parked `gate: go-ahead` and poisoned, so the fleet has no unblocked step to pull. Decision needed: lift the `go-ahead` gate on the #694 and #661 gauntlets (promote them to run clean→panel→fix-loop→un-draft) so the M3 self-host+HTTP capabilities can be driven mergeable.
+
+- `20260713T114128Z-6ae152` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T114128Z-6ae152.md)
+
+> Milestone M2 (Project Hygiene) is complete except for its two vetted-shim rows, `hardened-text-codecs-shim` (PR #259) and `hardened-url-shim` (PR #719), both of which are already OPEN, non-draft, all-CI-green, and MERGEABLE/CLEAN on endojs/endo-but-for-bots; the milestone is blocked on your merge decision (a merge/ferry authority action the fleet cannot self-authorize), after which both design records should be advanced from "Not Started" so M2 isn't re-dispatched.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
