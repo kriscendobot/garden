@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T20:45:23Z_
+_As of 2026-07-13T20:46:18Z_
 
 ## Latest
 
@@ -1743,17 +1743,16 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endo-sturdyref-press-20260713-203512`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260713-203512.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
-- [`kriscendobot-agoric-sdk-pr17-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr17-shepherd.md) — shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #17
+### doin (0)
+(none)
 
-### tada (2165)
+### tada (2167)
+- [`endo-sturdyref-press-20260713-203512`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-203512.md) — SturdyRef press tick (job endo-sturdyref-press-20260713-203512, dispatched 20...
+- [`kriscendobot-agoric-sdk-pr17-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr17-shepherd.md) — All fixes are on the PR head (5e2538462c); only the 2 multichain-e2e legs rem...
 - [`build-endo-but-for-bots-pull-request-707-git-stack-phase-three-worked-version-controlled-filesystem-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-pull-request-707-git-stack-phase-three-worked-version-controlled-filesystem-loop.md) — Completion report
 - [`design-endoclaw-network-fetch-endo-plugin-redraft`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endoclaw-network-fetch-endo-plugin-redraft.md) — Inbox empty. The job is complete.
 - [`finbot-progress-20260713-202002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260713-202002.md) — Completion report — finbot-progress-20260713-202002
-- [`weave-endo-but-for-bots-pull-request-679-mount-glob-delegated-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pull-request-679-mount-glob-delegated-rebase.md) — Completion report
-- [`build-daemon-locator-terminology`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-daemon-locator-terminology.md) — Completion report — build-daemon-locator-terminology
-- … and 2160 more
+- … and 2162 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
