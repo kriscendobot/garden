@@ -1,6 +1,6 @@
 ---
 created: 2026-05-22
-updated: 2026-06-24
+updated: 2026-07-13
 author: gardener
 ---
 
@@ -115,14 +115,17 @@ if [ "$NEW_SHA7" = "$CURRENT_SHA7" ]; then
   exit 0
 fi
 
-# 4. Push the new frozen-base branch.
+# 4. Push the new frozen-base branch. This creates a branch on the remote but
+#    NOT a local ref named `$NEW_FROZEN_BASE`, so step 5 rebases onto
+#    `origin/<base>` (the same commit the snapshot was cut from), not onto the
+#    bare `$NEW_FROZEN_BASE` name, which would fail with "invalid upstream".
 git push origin "refs/remotes/origin/<base>:refs/heads/$NEW_FROZEN_BASE"
 
 # 5. Fetch the head, rebase onto the new frozen base, push with --force-with-lease.
 HEAD_BRANCH=$(gh pr view <N> --json headRefName --jq .headRefName)
 git fetch origin "$HEAD_BRANCH"
 git checkout -B "$HEAD_BRANCH" "origin/$HEAD_BRANCH"
-git rebase "$NEW_FROZEN_BASE"
+git rebase origin/<base>   # equals $NEW_FROZEN_BASE's commit; the local ref does not exist yet
 git push --force-with-lease origin "$HEAD_BRANCH"
 
 # 6. Update the PR's base.
@@ -294,3 +297,7 @@ SHA) is invisible because the bot's fork only sees its own.
 - _2026-06-24_: migrated into v2. Rewired the per-role section ownership
   (builder/weaver/conductor) into gardening-state-machine stages and triager-
   posted rebase jobs; the git mechanics are unchanged.
+- _2026-07-13_: clarified *Rebase* step 5 (endo-but-for-bots #670 refresh). The
+  step 4 push creates a remote branch only, so `git rebase "$NEW_FROZEN_BASE"`
+  fails with "invalid upstream"; rebase onto `origin/<base>` (the identical
+  commit) instead.
