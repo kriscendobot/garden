@@ -63,6 +63,7 @@ When the fix loop settles, leave a brief status comment on the origin issue
 kriskowal/garden#42 (comment on the issue URL; never close it — the submitter
 does that) summarizing the applied fixes and the new PR head.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
