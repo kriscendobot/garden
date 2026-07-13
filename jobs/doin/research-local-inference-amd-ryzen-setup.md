@@ -25,6 +25,7 @@ Research-grounded: cite the AMD playbook / ROCm doc for each version and command
 <!-- garden-reaped: 3 -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
