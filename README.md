@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T19:58:20Z_
+_As of 2026-07-13T19:58:36Z_
 
 ## Latest
 
@@ -1662,17 +1662,16 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`kriscendobot-agoric-sdk-pr17-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr17-shepherd.md) — shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #17
-- [`weave-endo-but-for-bots-pull-request-679-mount-glob-delegated-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/weave-endo-but-for-bots-pull-request-679-mount-glob-delegated-rebase.md) — ---
 
-### tada (2161)
+### tada (2162)
+- [`weave-endo-but-for-bots-pull-request-679-mount-glob-delegated-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pull-request-679-mount-glob-delegated-rebase.md) — Completion report
 - [`build-daemon-locator-terminology`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-daemon-locator-terminology.md) — Completion report — build-daemon-locator-terminology
 - [`endo-sturdyref-press-20260713-193502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-193502.md) — SturdyRef press tick complete (2026-07-13T19:35Z dispatch) — **verification t...
 - [`weave-endo-but-for-bots-pr621-endoclaw-oauth`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr621-endoclaw-oauth.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr16-review-77ecb195-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-review-77ecb195-retro.md) — Completion report
-- [`gauntlet-endo-but-for-bots-pull-request-721-endo-reminder-message-scheduler-plugin`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pull-request-721-endo-reminder-message-scheduler-plugin.md) — Completion report
-- … and 2156 more
+- … and 2157 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
