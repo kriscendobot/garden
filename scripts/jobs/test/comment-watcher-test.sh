@@ -1248,6 +1248,107 @@ EOF
 fi
 
 # ============================================================================
+# RCF — SOURCE-level LOST-FETCH invariant: if ANY comment surface fails to enumerate,
+# the source must FAIL the tick (exit nonzero), NOT emit a partial subset with rc 0.
+# This is the ROOT cause of the r3566529028 inline-review-comment drop: a transient
+# blip on `pulls/comments` (the inline review-comment surface) used to be swallowed by
+# `| jq … || true`, so the source returned only the surfaces that SUCCEEDED (e.g. the
+# issue-comment) with rc 0, the watcher advanced its cursor over them, and the inline
+# review comment below the new cursor was never re-polled. Post-fix the source detects
+# the failed surface and exits nonzero so the watcher freezes the cursor.
+hr; echo "RCF — a FAILED inline-comment surface fails the WHOLE source tick (no silent partial subset)"; hr
+command -v jq >/dev/null 2>&1 && have_jq_rcf=1 || have_jq_rcf=0
+if [ "$have_jq_rcf" -eq 0 ]; then
+  echo "  SKIP: no jq on host"
+else
+  GHRCF="$TR/gh-rcf"; mkdir -p "$GHRCF"
+  cat > "$GHRCF/gh" <<'EOF'
+#!/bin/bash
+# The issue-comment surface SUCCEEDS (returns one comment); the inline review-comment
+# surface (repo-wide /pulls/comments) FAILS with a transient signature. Everything
+# else is empty-but-successful. The multi-surface "one fails, others succeed" case.
+args="$*"; ts="${TS:?TS must be set}"
+case "$args" in
+  *"/issues/comments"*)
+    printf '[{"id":100,"created_at":"%s","issue_url":"https://api.github.com/repos/x/y/issues/678","user":{"login":"kriskowal"},"html_url":"https://github.com/x/y/pull/678#issuecomment-100","body":"unrelated chatter"}]\n' "$ts"; exit 0;;
+  *"/pulls?state=open"*)     printf '[{"number":678,"updated_at":"%s"}]\n' "$ts"; exit 0;;
+  *"/pulls/678/comments"*)   printf '[]\n'; exit 0;;
+  *"/pulls/678/reviews"*)    printf '[]\n'; exit 0;;
+  *"/pulls/comments"*)       echo "HTTP 503: Service Unavailable (pulls/comments)" >&2; exit 1;;   # the inline surface FAILS
+esac
+printf '[]\n'; exit 0
+EOF
+  chmod +x "$GHRCF/gh"
+  RCF_OUT="$TR/rcf.out"; RCF_ERR="$TR/rcf.err"
+  set +e
+  env PATH="$GHRCF:$PATH" TS="$REV_TS" GARDEN_GH_API_ATTEMPTS=1 GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$TR/state-rcf" \
+    "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots "$SINCE_TS" kriscendobot \
+    > "$RCF_OUT" 2> "$RCF_ERR"
+  rcf_rc=$?
+  set -e
+  [ "$rcf_rc" -ne 0 ] && ok "the source exits NONZERO when one surface fails (rc=$rcf_rc) — the tick fails, cursor cannot advance" || bad "source returned 0 despite a failed surface (silent-partial regression!)"
+  grep -qi 'FETCH INCOMPLETE\|FETCH-FAIL' "$RCF_ERR" && ok "the incomplete enumeration is LOGGED (diagnosable, not silent)" || bad "no FETCH-INCOMPLETE log ($(cat "$RCF_ERR"))"
+  grep -qiE 'HTTP 50[0-9]|503' "$RCF_ERR" && ok "the underlying transient gh signature reaches stderr (so the watcher classifies it transient → skip, not die)" || bad "transient signature not surfaced ($(cat "$RCF_ERR"))"
+fi
+
+# ----------------------------------------------------------------------------
+# RCF2 — WATCHER-level freeze-then-recover: a tick whose source fails (a surface
+# blip) must NOT advance the cursor; a subsequent HEALTHY tick then observes the
+# previously-un-enumerated inline review comment and posts its job. This closes the
+# full loop the r3566529028 drop exposed: a lost FETCH re-polls, never drops. A
+# toggle stub stands in for comment-source-gh.sh: tick 1 exits nonzero with a
+# transient signature (having emitted only a partial subset); tick 2 succeeds and
+# emits the inline review comment that tick 1 could not enumerate.
+hr; echo "RCF2 — source-fetch failure freezes the cursor; the next healthy tick recovers the review comment"; hr
+BARE_RCF="$TR/rcf2.git"; seed_bare "$BARE_RCF"
+RCF_MARKER="$TR/rcf2.marker"; rm -f "$RCF_MARKER"
+RLOG_RCF="$TR/react-rcf2.log"; : > "$RLOG_RCF"
+RCF_LOG1="$TR/rcf2-1.stderr"; : > "$RCF_LOG1"; RCF_LOG2="$TR/rcf2-2.stderr"; : > "$RCF_LOG2"
+RCF_SRC="$TR/rcf2-source.sh"
+cat > "$RCF_SRC" <<EOF
+#!/bin/bash
+# Tick 1 (no marker): the inline review-comment surface failed — exit nonzero with a
+# transient signature, having emitted only the SUBSET that succeeded. The watcher must
+# DISCARD this and NOT advance the cursor. Tick 2 (marker present): healthy — emit the
+# inline review comment tick 1 could not enumerate (folds to one 'review' job).
+if [ ! -f "$RCF_MARKER" ]; then
+  : > "$RCF_MARKER"
+  printf '%s\n' 'HTTP 503: Service Unavailable (pulls/comments)' >&2
+  printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \\
+    2026-07-12T13:00:00Z issue-comment 100 678 kriskowal \\
+    https://github.com/endojs/endo-but-for-bots/pull/678#issuecomment-100 'unrelated chatter'
+  exit 1
+fi
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \\
+  2026-07-12T14:56:18Z pr-review-comment 3566529028 678 kriskowal \\
+  https://github.com/endojs/endo-but-for-bots/pull/678#discussion_r3566529028 \\
+  'Rename search-powers.js.' 4600000000
+EOF
+chmod +x "$RCF_SRC"
+run_rcf() {  # run_rcf <logfile>
+  env GARDEN_STATE="$TR/state-rcf2" JOURNAL_REMOTE="$BARE_RCF" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_REPOS="$TR/norepos" \
+      CW_FIXTURE=/dev/null CW_REACTJI_LOG="$RLOG_RCF" \
+      GARDEN_COMMENT_SOURCE="$RCF_SRC" \
+      GARDEN_COMMENT_REACTJI="$REACTSTUB" \
+      GARDEN_COMMENT_REPLY="$REPLYSTUB" CW_REPLY_LOG=/dev/null \
+      GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
+      GARDEN_COMMENT_TRUST=/bin/false \
+      GARDEN_TRUSTED_ALLOWLIST="$ALLOW" \
+      GARDEN_PR_MERGEABLE="$MERGEABLE_OPEN" \
+      "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>"$1"
+}
+# Tick 1: the source fails (transient) → the watcher skips the tick, cursor frozen.
+run_rcf "$RCF_LOG1"
+grep -qi 'transient\|skipping tick' "$RCF_LOG1" && ok "tick 1: the failed source is absorbed as transient (tick skipped)" || bad "tick 1 did not skip on a failed source ($(cat "$RCF_LOG1"))"
+[ "$(todo_glob "$BARE_RCF" "^$SLUG-pr678-review-")" -eq 0 ] && ok "tick 1: no review job posted (the surface never enumerated it)" || bad "tick 1 posted a job despite the failed fetch"
+[ -z "$(cursor_seen "$TR/state-rcf2" "$BARE_RCF")" ] && ok "tick 1: cursor did NOT advance past the un-enumerated review comment (frozen)" || bad "tick 1 advanced the cursor despite the failed fetch ($(cursor_seen "$TR/state-rcf2" "$BARE_RCF"))"
+# Tick 2: healthy source now surfaces the inline review comment → it becomes a job.
+run_rcf "$RCF_LOG2"
+[ "$(todo_glob "$BARE_RCF" "^$SLUG-pr678-review-")" -eq 1 ] && ok "tick 2: the recovered inline review comment posted exactly one 'review' job" || bad "tick 2 did not recover the dropped review comment (todo=$(todo_count "$BARE_RCF"))"
+[ "$(cursor_seen "$TR/state-rcf2" "$BARE_RCF")" = 2026-07-12T14:56:18Z ] && ok "tick 2: cursor advanced past the now-enumerated review comment" || bad "tick 2 cursor wrong ($(cursor_seen "$TR/state-rcf2" "$BARE_RCF"))"
+
+# ============================================================================
 # DEDUP1 (watcher) — an inline-bearing review and its SUBSUMED inline comment in the
 # SAME poll must yield EXACTLY ONE job (the per-review `review` job), not two. The
 # source marks the standalone comment surface=pr-review-comment-subsumed; the watcher

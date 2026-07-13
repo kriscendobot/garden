@@ -110,21 +110,52 @@ oneline='(.body // "") | gsub("[\t\r\n]+"; " ")'
 # failure is then degraded with `|| true` / `|| rids=""` so it can't kill the source —
 # matching the graceful-degrade intent of sections 1–2.
 
+# --- the LOST-FETCH invariant: a partial enumeration must FAIL the tick ---------
+# The watcher advances its durable cursor over the comments THIS source emits, so a
+# surface that silently returns a SUBSET (a transient/rate-limit blip degraded with
+# `|| true`) let the cursor slide PAST comments it never enumerated — they then sit
+# below the new cursor and are never re-polled. Concrete drop: maintainer inline
+# review comment r3566529028 on #678 vanished when the `pulls/comments` surface
+# blipped while the issue-comment surface succeeded and drove the cursor forward.
+# The fix extends the watcher's "a lost PUSH must re-poll, never drop" invariant to a
+# lost FETCH: if ANY surface fails to enumerate for the window, we set fetch_failed
+# and EXIT NONZERO at the tail. The watcher discards a nonzero-rc source's output and
+# either skips the tick (transient signature → cursor frozen) or dies loud
+# (structural) — either way the cursor never advances past the un-enumerated comments,
+# so the next healthy tick re-polls them. gh_api_retry already rides out a genuine
+# blip under full-jitter backoff, so this fires only on a PERSISTENT failure.
+fetch_failed=""
+note_fetch_failure() {  # note_fetch_failure <label> <errfile>
+  fetch_failed=1
+  # Echo the captured gh stderr (carrying gh_api_retry's WARN with the underlying
+  # 5xx/rate-limit/network signature) to fd 2 so the watcher can classify the tick
+  # failure as transient (skip) vs structural (die). The FETCH-FAIL prefix keeps the
+  # incomplete-enumeration reason diagnosable in the journal.
+  { printf 'FETCH-FAIL: surface %s failed to enumerate — freezing cursor\n' "$1"
+    cat "$2" 2>/dev/null || true; } >&2
+}
+
 # 1) issue/PR conversation comments. Classify by html_url: a PR's conversation
 #    comment's html_url is .../pull/<n>#issuecomment-…, a true issue's is
 #    .../issues/<n>#issuecomment-… — so `test("/pull/")` separates a PR-conversation
 #    comment (surface pr-comment) from a true-issue comment (surface issue-comment)
 #    with no extra API call. The watcher skips issue-comment in PR-only mode but
-#    always keeps pr-comment.
-gh_api_retry --paginate "repos/$repo/issues/comments?since=$since&per_page=100" 2>/dev/null \
-  | jq -r --arg s "$since" --arg bot "$bot" "
+#    always keeps pr-comment. Guarded: a fetch failure is DETECTED (fetch_failed),
+#    not swallowed by `|| true` into a silent partial subset.
+s1_err="$(mktemp)"
+if _raw="$(gh_api_retry --paginate "repos/$repo/issues/comments?since=$since&per_page=100" 2>"$s1_err")"; then
+  printf '%s' "$_raw" | jq -r --arg s "$since" --arg bot "$bot" "
       .[] | select(.created_at >= \$s)
       | select((.user.login // \"\") != \$bot)
       | [ .created_at,
           (if ((.html_url // \"\") | test(\"/pull/\")) then \"pr-comment\" else \"issue-comment\" end),
           (.id|tostring),
           ((.issue_url // \"\") | capture(\"/(?<n>[0-9]+)\$\").n // \"\"),
-          .user.login, .html_url, ($oneline) ] | @tsv" || true
+          .user.login, .html_url, ($oneline) ] | @tsv"
+else
+  note_fetch_failure "issues/comments" "$s1_err"
+fi
+rm -f "$s1_err"
 
 # 2) inline PR review-comments — emitted LAST, AFTER the review walk in section 3,
 #    so the set of review ids this poll surfaces as inline-bearing pr-review-body
@@ -172,12 +203,15 @@ gh_api_retry --paginate "repos/$repo/issues/comments?since=$since&per_page=100" 
 # Capture buffers for the structural gh calls' stderr (see Stderr policy EXCEPTION
 # above): echoed to fd 2 only when the call fails, so a real fault reaches ERRF
 # while a clean run stays quiet.
-prlist_err="$(mktemp)"; rids_err="$(mktemp)"; s3out="$(mktemp)"
+prlist_err="$(mktemp)"; rids_err="$(mktemp)"; rev_err="$(mktemp)"; s3out="$(mktemp)"
+# A FAILED open-PR list is NOT an empty list: degrading it to open_prs="" (the prior
+# behavior) silently dropped EVERY review surface while the cursor still advanced off
+# the successful issue-comment surface. Mark it a fetch failure so the tick is frozen.
 open_prs="$(gh_api_retry --paginate \
     "repos/$repo/pulls?state=open&sort=updated&direction=desc&per_page=100" \
     2>"$prlist_err" \
     | jq -r '.[] | [(.number|tostring), (.updated_at // "")] | @tsv')" \
-  || { cat "$prlist_err" >&2; open_prs=""; }
+  || { note_fetch_failure "pulls?state=open (open-PR list)" "$prlist_err"; open_prs=""; }
 
 scanned=0; total=0
 while IFS=$'\t' read -r n updated; do
@@ -190,12 +224,19 @@ while IFS=$'\t' read -r n updated; do
   scanned=$((scanned+1))
   # Review ids that carry at least one inline comment on this PR. A
   # space-delimited string so the reviews jq below can membership-test it.
+  # rids feeds the inline-bearing membership test. A FAILED fetch is NOT "this PR has
+  # no inline comments": rids="" would silently demote an inline-only review out of
+  # the review-body surface (the r3566529028 drop class). Mark it a fetch failure.
   : >"$rids_err"
   rids="$(gh_api_retry --paginate "repos/$repo/pulls/$n/comments?per_page=100" 2>"$rids_err" \
           | jq -r '.[] | (.pull_request_review_id // empty) | tostring' \
-          | sort -u | tr '\n' ' ')" || { rids=""; cat "$rids_err" >&2; }
-  gh_api_retry --paginate "repos/$repo/pulls/$n/reviews?per_page=100" 2>/dev/null \
-    | jq -r --arg s "$since" --arg n "$n" --arg rids " $rids " --arg bot "$bot" '
+          | sort -u | tr '\n' ' ')" || { rids=""; note_fetch_failure "pulls/$n/comments (review-id map)" "$rids_err"; }
+  # Guard the reviews fetch too: a swallowed failure here dropped that PR's entire
+  # review-body surface while the cursor advanced. Capture-then-emit so a gh failure
+  # is DETECTED (fetch_failed), not lost to `| jq … || true`.
+  : >"$rev_err"
+  if _revs="$(gh_api_retry --paginate "repos/$repo/pulls/$n/reviews?per_page=100" 2>"$rev_err")"; then
+    printf '%s' "$_revs" | jq -r --arg s "$since" --arg n "$n" --arg rids " $rids " --arg bot "$bot" '
         .[] | select((.submitted_at // "") >= $s)
         | select((.user.login // "") != $bot)
         | (.id|tostring) as $rid
@@ -205,7 +246,10 @@ while IFS=$'\t' read -r n updated; do
             ( (if $inline then "[INLINE-REVIEW] " else "" end)
             + (if .state=="CHANGES_REQUESTED" then "[CHANGES_REQUESTED] " else "" end)
             + (if .state=="APPROVED" then "[APPROVED] " else "" end)
-            + ((.body // "") | gsub("[\t\r\n]+"; " ")) ) ] | @tsv' >> "$s3out" || true
+            + ((.body // "") | gsub("[\t\r\n]+"; " ")) ) ] | @tsv' >> "$s3out"
+  else
+    note_fetch_failure "pulls/$n/reviews" "$rev_err"
+  fi
 done <<< "$open_prs"
 # No silent caps: record how many open PRs were polled vs how many the activity
 # bound skipped (info-level stderr; the watcher ignores a 0-exit source's stderr).
@@ -231,8 +275,12 @@ cat "$s3out"
 #    comment whose review was NOT inline-surfaced (parent review untrusted/dropped, on a
 #    closed or out-of-activity-bound PR, or a standalone PR-line comment with no formal
 #    review) keeps the actionable pr-review-comment surface so it is never lost.
-gh_api_retry --paginate "repos/$repo/pulls/comments?since=$since&per_page=100" 2>/dev/null \
-  | jq -r --arg s "$since" --arg rids " $surfaced_inline_rids " --arg bot "$bot" "
+# Guarded like the others: this is the surface that carries the r3566529028-class
+# inline review comment, so a swallowed blip here was the exact silent drop. Capture
+# the fetch and mark a failure rather than emitting a partial subset.
+s2_err="$(mktemp)"
+if _inline="$(gh_api_retry --paginate "repos/$repo/pulls/comments?since=$since&per_page=100" 2>"$s2_err")"; then
+  printf '%s' "$_inline" | jq -r --arg s "$since" --arg rids " $surfaced_inline_rids " --arg bot "$bot" "
       .[] | select(.created_at >= \$s)
       | select((.user.login // \"\") != \$bot)
       | ((.pull_request_review_id // \"\") | tostring) as \$rid
@@ -240,6 +288,19 @@ gh_api_retry --paginate "repos/$repo/pulls/comments?since=$since&per_page=100" 2
          then \"pr-review-comment-subsumed\" else \"pr-review-comment\" end) as \$surface
       | [ .created_at, \$surface, (.id|tostring),
           ((.pull_request_url // \"\") | capture(\"/(?<n>[0-9]+)\$\").n // \"\"),
-          .user.login, .html_url, ($oneline), \$rid ] | @tsv" || true
+          .user.login, .html_url, ($oneline), \$rid ] | @tsv"
+else
+  note_fetch_failure "pulls/comments (inline review comments)" "$s2_err"
+fi
+rm -f "$s2_err"
 
-rm -f "$prlist_err" "$rids_err" "$s3out"
+rm -f "$prlist_err" "$rids_err" "$rev_err" "$s3out"
+
+# The LOST-FETCH invariant (see fetch_failed above): if ANY surface failed to
+# enumerate this window, FAIL the tick so the watcher does NOT advance its cursor
+# past comments we never saw. The next healthy tick re-polls them; re-posting an
+# already-handled directive is an idempotent no-op (verify_posted + identity dedup).
+if [ -n "$fetch_failed" ]; then
+  log "FETCH INCOMPLETE for $repo: one or more comment surfaces failed to enumerate — exiting nonzero so the watcher freezes the cursor and re-polls (never advance past un-enumerated comments)"
+  exit 1
+fi
