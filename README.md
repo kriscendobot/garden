@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T15:10:21Z_
+_As of 2026-07-13T15:12:02Z_
 
 ## Latest
 
@@ -1575,9 +1575,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`deadmail-issue-comment-4959413513`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4959413513.md) — Dead-lettered message — pick up its intent
 - [`fix-endo-but-for-bots-pull-request-682-reminder-design-review-changes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-endo-but-for-bots-pull-request-682-reminder-design-review-changes.md) — ---
+- [`fix-kriscendobot-agoric-sdk-16`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-kriscendobot-agoric-sdk-16.md) — fix — apply the panel must-fix items on kriscendobot/agoric-sdk#16
 - [`gauntlet-endo-but-for-bots-pull-request-708-git-filesystemat-content-address`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-708-git-filesystemat-content-address.md) — ---
 
 ### tada (2133)
