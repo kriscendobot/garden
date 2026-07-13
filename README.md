@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T02:30:43Z_
+_As of 2026-07-13T02:41:50Z_
 
 ## Latest
 
@@ -1057,6 +1057,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T023030Z-0cd021` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T023030Z-0cd021.md)
 
 > Milestone M2 (Project Hygiene) is down to its last two designs, both implemented as in-flight PRs on endojs/endo-but-for-bots and both blocked on you: merge #259 (hardened-text-codecs-shim — MERGEABLE, green) to close that item, and decide the hardened-URL-shim direction between #719 (design-faithful split, recommended, currently draft) and #263 (universal variant) so the winner can un-draft/land. M2 closes once both are merged; no further foreman work job is unblocked until you make these calls.
+
+- `20260713T024135Z-fe1408` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T024135Z-fe1408.md)
+
+> Milestone M2 (Project Hygiene) is down to its last two rows, both blocked on you: (1) hardened-text-codecs-shim PR [endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/issues/259) is non-draft, MERGEABLE, and fully green (18/18 checks) — ready to merge; and (2) hardened-url-shim needs your pick between #719 (design-faithful split, draft, green, recommended) and #263 (universal variant, now CONFLICTING) before it can be un-drafted — landing #719 and closing #263 clears M2.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
