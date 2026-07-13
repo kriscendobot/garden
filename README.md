@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T08:55:23Z_
+_As of 2026-07-13T08:57:55Z_
 
 ## Latest
 
@@ -1328,17 +1328,16 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endo-but-for-bots-hardened-text-codecs-shim-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-but-for-bots-hardened-text-codecs-shim-build.md) — ---
+### doin (1)
 - [`endo-but-for-bots-hardened-url-shim-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-but-for-bots-hardened-url-shim-build.md) — ---
 
-### tada (2118)
+### tada (2119)
+- [`endo-but-for-bots-hardened-text-codecs-shim-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-but-for-bots-hardened-text-codecs-shim-build.md) — Completion report
 - [`endo-sturdyref-press-20260713-085004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-085004.md) — SturdyRef press tick — completion report (job endo-sturdyref-press-20260713-0...
 - [`kriscendobot-minion.town-pr4-review-49e01038-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr4-review-49e01038-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr169-review-1aae27be-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr169-review-1aae27be-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr133-review-d1b65e59-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr133-review-d1b65e59-retro.md) — Completion report — review-retrospective on endojs/endo-but-for-bots PR #133
-- [`endojs-endo-but-for-bots-pr169-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr169-rebase.md) — Rebased **endojs/endo-but-for-bots PR #169** (design/pass-style-promise) onto...
-- … and 2113 more
+- … and 2114 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
