@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T22:20:55Z_
+_As of 2026-07-13T22:23:21Z_
 
 ## Latest
 
@@ -1781,8 +1781,9 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`build-cleric-and-factor-worker-spine`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-cleric-and-factor-worker-spine.md) — Deliverables
+- [`endojs-endo-but-for-bots-pr671-review-e38cd6f4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr671-review-e38cd6f4.md) — Review directive on endojs/endo-but-for-bots PR #671
 - [`research-local-inference-amd-ryzen-setup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/research-local-inference-amd-ryzen-setup.md) — The actual host (probed 2026-07-13)
 
 ### tada (2172)
@@ -1821,6 +1822,7 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`design-change-review-tool-with-review-metering`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/design-change-review-tool-with-review-metering.md) — _normal_ · The idea, restated
 - [`endojs-endo-but-for-bots-pr678-8a856783-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr678-8a856783-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #678 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr671-review-e38cd6f4-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr671-review-e38cd6f4-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #671 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
