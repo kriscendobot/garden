@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T12:46:32Z_
+_As of 2026-07-13T12:51:32Z_
 
 ## Latest
 
@@ -1340,6 +1340,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T124623Z-d3b084` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T124623Z-d3b084.md)
 
 > M2 (Project Hygiene) is blocked on a merge decision: its last two open items, endojs/endo-but-for-bots PR #259 (hardened text-codecs shim) and PR #719 (hardened URL shim), are both non-draft, MERGEABLE, and fully CI-green — please `merge #259` and `merge #719`, then advance `hardened-text-codecs-shim.md` and `hardened-url-shim.md` from "Not Started" to Complete so M2 closes (making M3 the active milestone) and the foreman stops re-dispatching already-built shims.
+
+- `20260713T125119Z-8083b6` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T125119Z-8083b6.md)
+
+> Milestone M2 (Project Hygiene) is one merge away from complete on both remaining items: `endojs/endo-but-for-bots` PRs #259 (hardened-text-codecs-shim) and #719 (hardened-url-shim) are both green, non-draft, and MERGEABLE with clean status checks. No build/weave/shepherd work remains; closing out M2 needs these two ready PRs conducted/merged, which the foreman cannot post — please route a merge (or authorize a conductor job).
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
