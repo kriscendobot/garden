@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T03:00:59Z_
+_As of 2026-07-13T03:05:25Z_
 
 ## Latest
 
@@ -1225,7 +1225,8 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endo-sturdyref-press-20260713-030502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260713-030502.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`gauntlet-endo-but-for-bots-pr719-hardened-url-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr719-hardened-url-shim.md) — ---
 
 ### tada (2096)
