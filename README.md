@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T10:21:02Z_
+_As of 2026-07-13T10:26:21Z_
 
 ## Latest
 
@@ -1244,6 +1244,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T102048Z-fbd3e7` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T102048Z-fbd3e7.md)
 
 > Milestone M2 (Project Hygiene) is complete-pending-merge: its last two open rows, the hardened `TextEncoder`/`TextDecoder` shim (design `hardened-text-codecs-shim`) and the hardened `URL` shim (`hardened-url-shim`), are both fully implemented in green, mergeable, non-draft PRs `endojs/endo-but-for-bots#259` and `#719` — authored by the sibling `kriscendobot` instance, so merging them is a maintainer decision, not a foreman work job. Please decide whether to merge `#259` and `#719` to close out M2, and advance both design records' `status:` off `Not Started` so the idle-pump stops re-dispatching them as fresh builds.
+
+- `20260713T102612Z-adb985` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T102612Z-adb985.md)
+
+> M2 (Project Hygiene) is one action from complete: its final two designs are built as green, merge-ready PRs on `endojs/endo-but-for-bots` — #259 (hardened-text-codecs-shim) and #719 (hardened-url-shim) — but merging/ferrying them upstream and clearing the resulting `Not Started`→Complete status drift needs maintainer authority; until then the idle-pump keeps re-dispatching the same already-built shim builds.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
