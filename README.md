@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T16:36:04Z_
+_As of 2026-07-13T16:38:23Z_
 
 ## Latest
 
@@ -1583,20 +1583,19 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`deadmail-issue-comment-4960246553`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4960246553.md) — Dead-lettered message — pick up its intent
 - [`gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
 - [`gauntlet-endo-but-for-bots-pull-request-721-endo-reminder-message-scheduler-plugin`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-721-endo-reminder-message-scheduler-plugin.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
-- [`kriscendobot-agoric-sdk-pr16-review-65885306`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr16-review-65885306.md) — Review directive on kriscendobot/agoric-sdk PR #16
 - [`kriscendobot-agoric-sdk-pr16-review-77ecb195`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr16-review-77ecb195.md) — Review directive on kriscendobot/agoric-sdk PR #16
 
-### tada (2145)
+### tada (2146)
+- [`kriscendobot-agoric-sdk-pr16-review-65885306`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-review-65885306.md) — Completion report — review directive on kriscendobot/agoric-sdk PR #16 (@mhof...
 - [`kriscendobot-agoric-sdk-pr16-a45a180a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-a45a180a-retro.md) — Completion report — kriscendobot-agoric-sdk-pr16-a45a180a-retro (prosecutor)
 - [`endo-sturdyref-press-20260713-162018`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-162018.md) — **SturdyRef press tick — verification-only, everything at rest; no code pushe...
 - [`kriscendobot-agoric-sdk-pr16-112498c0`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-112498c0.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr16-a45a180a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-a45a180a.md) — Completion report
-- [`gauntlet-endo-but-for-bots-pull-request-598-daemon-rename-to-manager-phase-one`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pull-request-598-daemon-rename-to-manager-phase-one.md) — Completion report — gauntlet on endojs/endo-but-for-bots PR #598
-- … and 2140 more
+- … and 2141 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
