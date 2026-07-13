@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T03:51:26Z_
+_As of 2026-07-13T03:56:10Z_
 
 ## Latest
 
@@ -1073,6 +1073,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T035114Z-c217b3` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T035114Z-c217b3.md)
 
 > Milestone M2 (Project Hygiene) is complete except for its two vetted-shim designs, both of which are now finished work: `endojs/endo-but-for-bots#259` (hardened-text-codecs-shim) and `#719` (hardened-url-shim) are each OPEN, non-draft, MERGEABLE/CLEAN with all CI green and the gauntlet cleared. No unblocked work job remains — closing M2 needs your merge/ferry decision on #259 and #719 (merge authority / upstream ferry under your identity).
+
+- `20260713T035600Z-130398` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T035600Z-130398.md)
+
+> Milestone M2 (Project Hygiene) is complete except for landing its two vetted-shim PRs on `endojs/endo-but-for-bots`: #719 (`%URL%`/`%SharedURL%` split) and #259 (TextEncoder/TextDecoder intrinsics). Both are green, mergeable, non-draft, and gauntlet-cleared; they await a maintainer-authorized ferry/merge upstream to close M2 — no work job is possible.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
