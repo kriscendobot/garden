@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T23:20:26Z_
+_As of 2026-07-13T23:24:13Z_
 
 ## Latest
 
@@ -1866,7 +1866,8 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`durable-bot-git-identity-on-reset`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/durable-bot-git-identity-on-reset.md) — Current mechanism (assess before changing)
 - [`endojs-endo-but-for-bots-pr670-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr670-refresh.md) — Refresh endojs/endo-but-for-bots PR #670 (subscription OAuth flow, M3)
 
 ### tada (2186)
