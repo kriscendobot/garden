@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T09:07:17Z_
+_As of 2026-07-13T09:07:39Z_
 
 ## Latest
 
@@ -1348,16 +1348,16 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endo-but-for-bots-hardened-url-shim-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-but-for-bots-hardened-url-shim-build.md) — ---
+### doin (0)
+(none)
 
-### tada (2119)
+### tada (2120)
+- [`endo-but-for-bots-hardened-url-shim-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-but-for-bots-hardened-url-shim-build.md) — Completion report: endo-but-for-bots-hardened-url-shim-build
 - [`endo-but-for-bots-hardened-text-codecs-shim-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-but-for-bots-hardened-text-codecs-shim-build.md) — Completion report
 - [`endo-sturdyref-press-20260713-085004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-085004.md) — SturdyRef press tick — completion report (job endo-sturdyref-press-20260713-0...
 - [`kriscendobot-minion.town-pr4-review-49e01038-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr4-review-49e01038-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr169-review-1aae27be-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr169-review-1aae27be-retro.md) — Completion report
-- [`endojs-endo-but-for-bots-pr133-review-d1b65e59-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr133-review-d1b65e59-retro.md) — Completion report — review-retrospective on endojs/endo-but-for-bots PR #133
-- … and 2114 more
+- … and 2115 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
