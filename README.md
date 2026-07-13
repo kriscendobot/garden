@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T15:39:38Z_
+_As of 2026-07-13T15:46:11Z_
 
 ## Latest
 
@@ -1575,17 +1575,16 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`build-endo-but-for-bots-endo-reminder-plugin-from-design-682`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-endo-reminder-plugin-from-design-682.md) — ---
+### doin (1)
 - [`fix-kriscendobot-agoric-sdk-16`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-kriscendobot-agoric-sdk-16.md) — fix — apply the panel must-fix items on kriscendobot/agoric-sdk#16
 
-### tada (2138)
+### tada (2139)
+- [`build-endo-but-for-bots-endo-reminder-plugin-from-design-682`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-endo-reminder-plugin-from-design-682.md) — Completion report: build-endo-but-for-bots-endo-reminder-plugin-from-design-682
 - [`gauntlet-endo-but-for-bots-pull-request-708-git-filesystemat-content-address`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pull-request-708-git-filesystemat-content-address.md) — Completion report: gauntlet on endojs/endo-but-for-bots #708
 - [`kriscendobot-agoric-sdk-pr16-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-shepherd.md) — The shepherd job is complete. Summary:
 - [`endo-sturdyref-press-20260713-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-152002.md) — **SturdyRef press tick 15:20Z — verification tick, everything at rest, no act...
 - [`fix-endo-but-for-bots-pull-request-682-reminder-design-review-changes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-endo-but-for-bots-pull-request-682-reminder-design-review-changes.md) — All three review items are resolved. Writing my completion report.
-- [`deadmail-issue-comment-4959413513`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4959413513.md) — Completion report
-- … and 2133 more
+- … and 2134 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
