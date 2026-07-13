@@ -39,9 +39,4 @@ Comment: https://github.com/kriskowal/garden/issues/42#issuecomment-4960246553
 
 ----- END ORIGINAL MESSAGE -----
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 15
-  claimed_at: 2026-07-13T16:35:33Z
+<!-- garden-reaped: 1 -->
