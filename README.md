@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T15:12:28Z_
+_As of 2026-07-13T15:13:27Z_
 
 ## Latest
 
@@ -1575,20 +1575,19 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`build-endo-but-for-bots-endo-reminder-plugin-from-design-682`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-endo-reminder-plugin-from-design-682.md) — ---
-- [`deadmail-issue-comment-4959413513`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4959413513.md) — Dead-lettered message — pick up its intent
 - [`fix-endo-but-for-bots-pull-request-682-reminder-design-review-changes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-endo-but-for-bots-pull-request-682-reminder-design-review-changes.md) — ---
 - [`fix-kriscendobot-agoric-sdk-16`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-kriscendobot-agoric-sdk-16.md) — fix — apply the panel must-fix items on kriscendobot/agoric-sdk#16
 - [`gauntlet-endo-but-for-bots-pull-request-708-git-filesystemat-content-address`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-708-git-filesystemat-content-address.md) — ---
 
-### tada (2133)
+### tada (2134)
+- [`deadmail-issue-comment-4959413513`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4959413513.md) — Completion report
 - [`weave-endo-but-for-bots-pull-request-682-endo-reminder-message-scheduler-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pull-request-682-endo-reminder-message-scheduler-design.md) — Completion report
 - [`deadmail-issue-comment-4959051277`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4959051277.md) — Completion report
 - [`endo-but-for-bots-pr713-mount-glorp-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-but-for-bots-pr713-mount-glorp-shepherd.md) — The job is complete. The green run is https://github.com/endojs/endo-but-for-...
 - [`finbot-progress-20260713-142002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260713-142002.md) — Completion report — finbot-progress-20260713-142002
-- [`endo-but-for-bots-pull-request-659-module-loading-four-layer-stack-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-but-for-bots-pull-request-659-module-loading-four-layer-stack-weave.md) — Completion report
-- … and 2128 more
+- … and 2129 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
