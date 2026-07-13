@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T22:14:14Z_
+_As of 2026-07-13T22:18:34Z_
 
 ## Latest
 
@@ -1781,8 +1781,9 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`build-cleric-and-factor-worker-spine`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-cleric-and-factor-worker-spine.md) — Deliverables
+- [`endojs-endo-but-for-bots-pr659-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr659-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #659
 - [`endojs-endo-but-for-bots-pr678-8a856783`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr678-8a856783.md) — attention directive on endojs/endo-but-for-bots PR #678
 - [`research-local-inference-amd-ryzen-setup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/research-local-inference-amd-ryzen-setup.md) — The actual host (probed 2026-07-13)
 
