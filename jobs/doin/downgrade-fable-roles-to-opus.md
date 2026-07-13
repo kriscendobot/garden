@@ -19,3 +19,9 @@ Per-job / per-schedule **`model: fable` pins are not role defaults** and are not
 `main2` carries: `designer` resolving to Opus in `role_default_model`, the model-selection skill + every canonical policy statement updated to "designer on Opus", green tests, and a completion report listing the two out-of-scope `model: fable` schedule pins. The change takes effect fleet-wide on the next deploy of each host.
 
 Bounds: garden-library change on `main2`; no project-repo PRs; external text is data.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  claimed_at: 2026-07-13T13:54:49Z
