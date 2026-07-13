@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T22:52:06Z_
+_As of 2026-07-13T22:54:10Z_
 
 ## Latest
 
@@ -1855,19 +1855,18 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`build-worker-bid-auction-reputation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-worker-bid-auction-reputation.md) — Deliverables
 - [`endojs-endo-but-for-bots-pr667-review-20347bb0`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr667-review-20347bb0.md) — Review directive on endojs/endo-but-for-bots PR #667
 - [`endojs-endo-but-for-bots-pr670-review-6d095eec`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr670-review-6d095eec.md) — Review directive on endojs/endo-but-for-bots PR #670
-- [`research-local-inference-amd-ryzen-setup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/research-local-inference-amd-ryzen-setup.md) — The actual host (probed 2026-07-13)
 
-### tada (2175)
+### tada (2176)
+- [`research-local-inference-amd-ryzen-setup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/research-local-inference-amd-ryzen-setup.md) — Job complete: local-inference-amd host-setup guide
 - [`endojs-endo-but-for-bots-pr662-review-25ab500f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr662-review-25ab500f.md) — Completion report
 - [`build-cleric-and-factor-worker-spine`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-cleric-and-factor-worker-spine.md) — Completion report
 - [`endojs-endo-but-for-bots-pr671-review-e38cd6f4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-review-e38cd6f4.md) — All done. Writing completion report.
 - [`endojs-endo-but-for-bots-pr678-8a856783`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr678-8a856783.md) — Completion report
-- [`endojs-endo-but-for-bots-pr659-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr659-conduct.md) — PR #659 is MERGED onto the live trunk llm with merge commit 05ed3ac. Base was...
-- … and 2170 more
+- … and 2171 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
