@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/29#issuecomment-4960632792
 I think I wasn't clear. I expect the work to switch from depot to normal runners to be on a branch synced up from master, clear of any critical vat work, to establish that you can run a clean integration test establishing a baseline. Regarding the `workflow` permissions, @kriskow
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 7
+  claimed_at: 2026-07-13T17:20:10Z
