@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T11:09:51Z_
+_As of 2026-07-13T11:21:18Z_
 
 ## Latest
 
@@ -1272,6 +1272,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T110942Z-3be383` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T110942Z-3be383.md)
 
 > Milestone M2 (Project Hygiene) is effectively complete except for two merge-ready, CI-green PRs in `endojs/endo-but-for-bots` — #259 (permit `TextEncoder`/`TextDecoder` as universal intrinsics) and #719 (permit `URL`/`URLSearchParams`, `%URL%`/`%SharedURL%` split) — both authored by the sibling `kriscendobot` instance; closing M2 needs a merge/conduct decision plus advancing the `hardened-text-codecs-shim` and `hardened-url-shim` design statuses off "Not Started" so the rows stop being re-dispatched as fresh builds.
+
+- `20260713T112108Z-ca6d83` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T112108Z-ca6d83.md)
+
+> M2 (Project Hygiene) is complete pending merge — its last two rows, `hardened-text-codecs-shim` and `hardened-url-shim`, are both fully implemented in green, mergeable, non-draft PRs [endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/issues/259) and #719 (authored by sibling instance kriscendobot), so the only remaining actions are outside foreman bounds: conduct/merge those two PRs, then advance their design records (`designs/hardened-text-codecs-shim.md`, `designs/hardened-url-shim.md` on `llm`) off `Not Started` so M2 stops re-dispatching duplicate builds and the fleet can move to M3.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
