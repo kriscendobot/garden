@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T03:56:10Z_
+_As of 2026-07-13T04:10:50Z_
 
 ## Latest
 
@@ -1077,6 +1077,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T035600Z-130398` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T035600Z-130398.md)
 
 > Milestone M2 (Project Hygiene) is complete except for landing its two vetted-shim PRs on `endojs/endo-but-for-bots`: #719 (`%URL%`/`%SharedURL%` split) and #259 (TextEncoder/TextDecoder intrinsics). Both are green, mergeable, non-draft, and gauntlet-cleared; they await a maintainer-authorized ferry/merge upstream to close M2 — no work job is possible.
+
+- `20260713T041035Z-647c0e` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T041035Z-647c0e.md)
+
+> M2 (Project Hygiene) is blocked only on maintainer authority: both vetted-shim PRs are green and mergeable — endojs/endo-but-for-bots #259 (TextEncoder/TextDecoder) and #719 (URL/URLSearchParams, the design-faithful split, recommended over the still-open conflicting alternative #263). Please choose #719 vs #263 for the url-shim (close the loser), then ferry/merge #259 and the winner upstream to close M2.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
