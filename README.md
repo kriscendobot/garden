@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T19:37:45Z_
+_As of 2026-07-13T19:38:52Z_
 
 ## Latest
 
@@ -1623,8 +1623,9 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`build-daemon-locator-terminology`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-daemon-locator-terminology.md) — ---
+- [`kriscendobot-agoric-sdk-pr17-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr17-shepherd.md) — shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #17
 
 ### tada (2160)
 - [`endo-sturdyref-press-20260713-193502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-193502.md) — SturdyRef press tick complete (2026-07-13T19:35Z dispatch) — **verification t...
