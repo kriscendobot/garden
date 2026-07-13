@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T11:51:34Z_
+_As of 2026-07-13T11:55:56Z_
 
 ## Latest
 
@@ -1296,6 +1296,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T114556Z-d77fe3` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T114556Z-d77fe3.md)
 
 > Milestone M2 (Project Hygiene) has both of its last two design rows — `hardened-text-codecs-shim` and `hardened-url-shim` — finished as CI-green, non-draft, mergeable PRs on `endojs/endo-but-for-bots` (#259 and #719); the only remaining M2 action is a merge/ferry authority decision on those two PRs, which is out of foreman bounds. Note the `journal/plan/designs/endo-but-for-bots/hardened-*.md` records still read `status: Not Started`, so their status should be advanced to prevent the foreman re-dispatching already-built work on the next idle tick.
+
+- `20260713T115546Z-9e3023` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T115546Z-9e3023.md)
+
+> Milestone M2 (Project Hygiene) is complete except for its last two rows: the hardened `TextEncoder`/`TextDecoder` shim (endojs/endo-but-for-bots PR #259) and the hardened `URL`/`URLSearchParams` shim (PR #719) — both OPEN, non-draft, MERGEABLE, mergeStateStatus CLEAN, all CI green, authored by sibling instance kriscendobot. No further build/fix/weave/shepherd work remains; closing out M2 needs a merge decision (`merge #259`, `merge #719`) plus advancing the two `Not Started` design statuses so they stop re-dispatching.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
