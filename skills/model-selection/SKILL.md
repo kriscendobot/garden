@@ -105,6 +105,14 @@ canonical for subsequent dispatches.
 - The fleet path's two functions live in `scripts/jobs/common.sh`; the handler
   `scripts/jobs/handlers/gardener-claude.sh` § *model selection* is the caller. The
   `gardener-worktree-test.sh` covers the `model:`/`role:` resolution.
+- The **cross-provider model catalog**
+  ([`designs/provider-model-catalog.md`](../../designs/provider-model-catalog.md))
+  is the reference behind this policy: it lists every Claude id (with context window,
+  effort levels, and rate-card pricing) and every selectable Codex model, and defines
+  the unified `(provider, model, thoughtfulness)` axis the bid/accept market
+  ([`designs/gardener-bid-accept-market.md`](../../designs/gardener-bid-accept-market.md))
+  keys reputation on. It also flags that the `sonnet` tier here still binds the
+  previous-generation `claude-sonnet-4-6`, not Sonnet 5.
 
 ## Notes from the field
 

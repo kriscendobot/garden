@@ -233,6 +233,16 @@ Opus/Sonnet/Haiku-backed gardeners across a mix of role repertoires, and the
 market routes each job to the cheapest adequate (role, model) pairing that has a
 good reputation for that kind of work.
 
+The concrete model set this axis ranges over — every Claude id and every selectable
+Codex model, with a **unified `(provider, model, thoughtfulness)` axis** mapping
+Claude's `low`/`medium`/`high`/`xhigh`/`max` effort levels onto Codex's
+reasoning-effort ladder — is cataloged in
+[`designs/provider-model-catalog.md`](provider-model-catalog.md). That axis is the
+key the per-arm `(p, c)` estimates (§3.3) are stored against, so a downstream
+selection can compare arms uniformly across backends. (The catalog also flags that
+Codex's ChatGPT-plan CLI exposes no per-token dollar cost — a prerequisite for the
+dollar dimension of §3.4 before Codex arms can be cost-compared against Claude arms.)
+
 ### 2.3 How differentiation reaches the broker
 
 Differentiation is **advertised in the bid** (§1.2: `role`, `model`, `skills`)
