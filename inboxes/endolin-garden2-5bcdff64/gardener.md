@@ -282,3 +282,12 @@ Inspect via `git -C journal cat-file -p 1a217fcfdba865bf680bc9f94a298a4fdba3c1eb
 - Context: gardener-12 on endolin-garden2-5bcdff64: job 'endojs-endo-but-for-bots-pr694-docker-selfhost-gauntlet' exit-0-unsatisfying but elapsed near-constant (35,35s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p 72611a6dc9f7f13224d5156f415542f59ae51845`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-13T06:34:46Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: b8b8e9b737c7cb87c14e5bad99ece430ba4c1fea
+- Context: gardener-20 on endolin-garden2-5bcdff64: job 'harden-comment-watcher-review-comment-drops' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p b8b8e9b737c7cb87c14e5bad99ece430ba4c1fea`.
