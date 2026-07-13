@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T14:20:45Z_
+_As of 2026-07-13T14:22:27Z_
 
 ## Latest
 
@@ -1552,8 +1552,9 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`endo-but-for-bots-pr713-mount-glorp-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-but-for-bots-pr713-mount-glorp-shepherd.md) — ---
+- [`endo-but-for-bots-pull-request-659-module-loading-four-layer-stack-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-but-for-bots-pull-request-659-module-loading-four-layer-stack-weave.md) — ---
 - [`endo-but-for-bots-pull-request-691-git-capability-stack-sequencing-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-but-for-bots-pull-request-691-git-capability-stack-sequencing-weave.md) — ---
 - [`endo-sturdyref-press-20260713-142002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260713-142002.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`finbot-progress-20260713-142002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260713-142002.md) — Push progress on kriscendobot/finbot (every 6h)
