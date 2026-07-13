@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T09:16:32Z_
+_As of 2026-07-13T09:20:37Z_
 
 ## Latest
 
@@ -1200,6 +1200,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T091622Z-5b5bf7` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T091622Z-5b5bf7.md)
 
 > Milestone M2 (Project Hygiene) has only two rows left — the hardened `TextEncoder`/`TextDecoder` shim and the hardened `URL` shim — and both are already fully implemented by open, non-draft, MERGEABLE, all-green PRs in `endojs/endo-but-for-bots` (#259 and #719, authored by sibling instance kriscendobot); the only remaining action to complete M2 is merging them, which is out of the foreman's work-job bounds (conductor/authority). Please decide on `merge #259` and `merge #719`, and advance the `hardened-text-codecs-shim`/`hardened-url-shim` design records off `Not Started` so the foreman stops re-dispatching redundant builds for already-open PRs.
+
+- `20260713T092024Z-53551a` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T092024Z-53551a.md)
+
+> Milestone M2 (Project Hygiene) is complete except for its final two hygiene rows — `hardened-text-codecs-shim` and `hardened-url-shim` — whose only remaining step is merging the already-open, un-drafted, MERGEABLE/CLEAN, fully CI-green PRs `endojs/endo-but-for-bots#259` and `#719`; that merge is a conductor action outside foreman authority, so it needs a `merge #259` / `merge #719` decision from you. (Also: both designs still read `Status: Not Started` on the `llm` branch, causing redundant re-dispatch — advancing their status to reflect the merge-ready PRs would stop the flap.)
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
