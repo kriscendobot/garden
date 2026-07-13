@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T13:51:13Z_
+_As of 2026-07-13T13:54:56Z_
 
 ## Latest
 
@@ -1544,8 +1544,8 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`downgrade-fable-roles-to-opus`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/downgrade-fable-roles-to-opus.md) — Current state (verify, then change)
 
 ### tada (2125)
 - [`endo-sturdyref-press-20260713-132002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-132002.md) — SturdyRef press tick — completion report (job endo-sturdyref-press-20260713-1...
