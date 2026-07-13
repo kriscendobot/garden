@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T20:11:56Z_
+_As of 2026-07-13T20:18:52Z_
 
 ## Latest
 
@@ -1674,8 +1674,9 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`build-endo-but-for-bots-pull-request-707-git-stack-phase-three-worked-version-controlled-filesystem-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-pull-request-707-git-stack-phase-three-worked-version-controlled-filesystem-loop.md) — ---
+- [`design-endoclaw-network-fetch-endo-plugin-redraft`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endoclaw-network-fetch-endo-plugin-redraft.md) — ---
 - [`kriscendobot-agoric-sdk-pr17-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr17-shepherd.md) — shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #17
 
 ### tada (2162)
