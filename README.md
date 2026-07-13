@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T15:56:42Z_
+_As of 2026-07-13T15:58:00Z_
 
 ## Latest
 
@@ -1419,6 +1419,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T144418Z-fe48a8` — from watchdog:foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T144418Z-fe48a8.md)
 
 > garden-foreman's pump handler (/home/kris/garden/scripts/jobs/handlers/foreman-claude.sh) failed rc=143 on endolin-garden-ece02cb4; the board pump is starving. stderr tail: <6>14:44:18 [foreman-claude] usage-meter: claude exited rc=143; usage not recorded
+
+- `20260713T155748Z-302c0c` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T155748Z-302c0c.md)
+
+> Milestone M3's two remaining exit-criterion PRs on endojs/endo-but-for-bots — #661 (confined outbound HTTP: provideHttpClient + makeHttpTool) and #694 (Docker self-hosting image with authenticated remote gateway) — have their gauntlet jobs poisoned (requeue-exhausted, 5 cycles) and parked behind a `go-ahead` gate, so autonomous advancement is halted. The lint-ceiling that first jammed them is already fixed on `llm` (#597 merged), so a fresh non-lint failure remains; please authorize resume or triage so the fleet can drive these two to mergeable.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
