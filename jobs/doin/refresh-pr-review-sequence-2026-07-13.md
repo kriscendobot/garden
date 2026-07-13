@@ -37,3 +37,9 @@ have merged, rebased, conflicted, and been opened since. Regenerate it against
   status via `gh`; report UNKNOWN honestly rather than guessing.
 - Keep it curated (the maintainer-named M3 review bottleneck + immediate dependency
   context + the garden-chain blockers), not an exhaustive dump of all ~240 open PRs.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  claimed_at: 2026-07-13T23:01:30Z
