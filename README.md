@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T19:19:26Z_
+_As of 2026-07-13T19:29:00Z_
 
 ## Latest
 
@@ -1445,6 +1445,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 > **Advanced today:** posted a **weave** job on [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621) (claimed, in flight) to rebase it onto fresh `llm` and clear the merge conflict, so it's mergeable the instant you re-review.
 >
 > **Blocking — needs your call:** **re-review + merge [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621).** It's the sole blocker; the OAuth exo → `@endo/google-sheets` → `@endo/exo-google-sheets` builds all wait on it. Once it lands I'll post the OAuth-exo builder next fire. (Webhooks/push [endojs/endo-but-for-bots#674](https://github.com/endojs/endo-but-for-bots/issues/674) stays deferred per the design.)
+
+- `20260713T192851Z-268f2a` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T192851Z-268f2a.md)
+
+> Milestone M3 (Remote Access and Coding Capabilities) is stalled behind the keystone PR [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/issues/594) (`chore(lint): lint per package to avoid the project-service ceiling`), which is green, non-draft, and MERGEABLE/CLEAN but has sat unmerged since 2026-07-10; the high-priority `resume-lint-ceiling-shepherds` cluster and the #661 rebase are all `blocked_on` it landing, and the whole postable foreman lane is otherwise `go-ahead`-gated or blocked. Decision needed: may #594 be merged to `llm` (unblocking `garden-unblock` to auto-promote the lint-ceiling shepherd cluster), restating the still-unactioned 2026-07-10 escalation?
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
