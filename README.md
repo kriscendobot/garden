@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T15:20:33Z_
+_As of 2026-07-13T15:23:20Z_
 
 ## Latest
 
@@ -1575,20 +1575,19 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`build-endo-but-for-bots-endo-reminder-plugin-from-design-682`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-endo-reminder-plugin-from-design-682.md) — ---
-- [`endo-sturdyref-press-20260713-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260713-152002.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`fix-kriscendobot-agoric-sdk-16`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-kriscendobot-agoric-sdk-16.md) — fix — apply the panel must-fix items on kriscendobot/agoric-sdk#16
 - [`gauntlet-endo-but-for-bots-pull-request-708-git-filesystemat-content-address`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-708-git-filesystemat-content-address.md) — ---
 - [`kriscendobot-agoric-sdk-pr16-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr16-shepherd.md) — shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #16
 
-### tada (2135)
+### tada (2136)
+- [`endo-sturdyref-press-20260713-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-152002.md) — **SturdyRef press tick 15:20Z — verification tick, everything at rest, no act...
 - [`fix-endo-but-for-bots-pull-request-682-reminder-design-review-changes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-endo-but-for-bots-pull-request-682-reminder-design-review-changes.md) — All three review items are resolved. Writing my completion report.
 - [`deadmail-issue-comment-4959413513`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4959413513.md) — Completion report
 - [`weave-endo-but-for-bots-pull-request-682-endo-reminder-message-scheduler-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pull-request-682-endo-reminder-message-scheduler-design.md) — Completion report
 - [`deadmail-issue-comment-4959051277`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4959051277.md) — Completion report
-- [`endo-but-for-bots-pr713-mount-glorp-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-but-for-bots-pr713-mount-glorp-shepherd.md) — The job is complete. The green run is https://github.com/endojs/endo-but-for-...
-- … and 2130 more
+- … and 2131 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
