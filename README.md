@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T06:35:15Z_
+_As of 2026-07-13T06:38:45Z_
 
 ## Latest
 
@@ -1293,18 +1293,17 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endo-sturdyref-press-20260713-063501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260713-063501.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+### doin (2)
 - [`endojs-endo-but-for-bots-pr133-review-d1b65e59`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr133-review-d1b65e59.md) — Review directive on endojs/endo-but-for-bots PR #133
 - [`harden-comment-watcher-review-comment-drops`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/harden-comment-watcher-review-comment-drops.md) — Not a missing feature — a drop bug (evidence)
 
-### tada (2103)
+### tada (2104)
+- [`endo-sturdyref-press-20260713-063501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-063501.md) — Completion report
 - [`endojs-endo-but-for-bots-pr678-rename-search-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr678-rename-search-powers.md) — Completion report
 - [`agoric-sdk-pr9-drive-20260713-055001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-pr9-drive-20260713-055001.md) — No material change since the last tick — updatedAt is identical (2026-07-12T1...
 - [`endo-sturdyref-press-20260713-052002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-052002.md) — SturdyRef press tick complete — this tick found and fixed a standing CI red a...
 - [`endo-sturdyref-press-20260713-042002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-042002.md) — **SturdyRef press tick (04:20Z dispatch) — REST TICK, no movement, nothing to...
-- [`issue-kriskowal-garden-42`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-42.md) — Completion report
-- … and 2098 more
+- … and 2099 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
