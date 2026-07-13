@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T15:08:02Z_
+_As of 2026-07-13T15:10:21Z_
 
 ## Latest
 
@@ -1575,7 +1575,8 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`deadmail-issue-comment-4959413513`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4959413513.md) — Dead-lettered message — pick up its intent
 - [`fix-endo-but-for-bots-pull-request-682-reminder-design-review-changes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-endo-but-for-bots-pull-request-682-reminder-design-review-changes.md) — ---
 - [`gauntlet-endo-but-for-bots-pull-request-708-git-filesystemat-content-address`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-708-git-filesystemat-content-address.md) — ---
 
