@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-13T01:04:53Z_
+_As of 2026-07-13T01:08:47Z_
 
 ## Latest
 
-[endojs/endo-but-for-bots#710](https://github.com/endojs/endo-but-for-bots/pull/710) cleared its conduct step (the one board transition this window), and recent completions rebased [endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) (hardened TextEncoder/TextDecoder shim) past its master conflict and ran the gauntlet on [kriscendobot/agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/pull/15). The larger picture is a merge queue, not a build queue: the foreman has repeatedly flagged that Milestone M3 is stalled on maintainer authority — a stack of green, mergeable PRs (Docker self-host [#694](https://github.com/endojs/endo-but-for-bots/pull/694), confined HTTP [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the mount/agent-tools cluster [#678](https://github.com/endojs/endo-but-for-bots/pull/678)–[#681](https://github.com/endojs/endo-but-for-bots/pull/681), registry [#671](https://github.com/endojs/endo-but-for-bots/pull/671)) awaiting sequential landing, with the #694 and #661 gauntlets now poisoned (requeue-exhausted, held go-ahead) behind the known repo-wide lint ceiling that [#594](https://github.com/endojs/endo-but-for-bots/pull/594) fixes. Two decisions gate whole chains: accept the `@endo/reminder` redraft [#682](https://github.com/endojs/endo-but-for-bots/pull/682) (which supersedes the endoclaw-timer stack [#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619)), and re-review the stalled OAuth-foundation design [#621](https://github.com/endojs/endo-but-for-bots/pull/621) that blocks the entire esheets tree. On the fork side, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax→critical) rebased clean, went fully green, was un-drafted, and has review requested from mhofman/dckc — it now needs only a SwingSet-team decision. Finbot advanced autonomously to a fully inference-driven OODA loop (OBSERVE→ACT, 497 tests green, wallet untouched) and is blocked only on the standing cap-attenuation Phase 2 / live-execution authorization. Watch also the growing cohort of handler-budget overruns — several shepherd/gauntlet/deadmail jobs are deterministically exceeding the 2400s wall and being poisoned rather than completing.
+The OODA-loop finbot effort reached its terminus: the ACT/executor stage now runs by inference in dry-run, so observe→orient→decide→audit→act runs end-to-end by inference (488→497 tests green, wallet untouched), with adaptive per-instrument GARCH/GJR-GARCH vol surfaces now fitted from each cycle's own oracle window via a deterministic MLE — the inference axis is complete, and the only deeper axis left (live paper-wallet execution, cap-attenuation Phase 2) is standing-blocked on your `live_authorized` call. On the fork, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax→critical) was rebased onto master, went fully green, was un-drafted, and had mhofman's two stale review threads answered — it is now blocked solely on a SwingSet-team review that hasn't come in ~12h.
+
+The larger signal is that **Milestone M3 is built, green, and merge-bottlenecked** — the foreman has escalated this repeatedly. Its headline exit-criterion PRs, [#694](https://github.com/endojs/endo-but-for-bots/pull/694) (Docker self-host + authenticated remote gateway) and [#661](https://github.com/endojs/endo-but-for-bots/pull/661) (confined HTTP client), are stranded: their gauntlet/shepherd jobs exhausted requeues and are now poisoned and parked in `jobs/plan/` awaiting your `go-ahead`, with the underlying red being the known repo-wide lint ceiling ([#594](https://github.com/endojs/endo-but-for-bots/pull/594), still unmerged). The mount/agent-tools cluster resolved cleanly — the glorp directive on [#127](https://github.com/endojs/endo-but-for-bots/pull/127) was reimplemented on the delegated grep/glob stack as [#713](https://github.com/endojs/endo-but-for-bots/pull/713) and #127 was closed — while [#710](https://github.com/endojs/endo-but-for-bots/pull/710) conducted through and [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (hardened text-codecs) was rebased out of conflict.
+
+Several decisions await you: the endoclaw-timer chain (#609/#617/#619) is superseded by the `@endo/reminder` redesign [#682](https://github.com/endojs/endo-but-for-bots/pull/682) and needs an accept/retire call; the SturdyRef agent-surface design [#695](https://github.com/endojs/endo-but-for-bots/pull/695) is green and waiting on go/no-go to post its six builder cuts; and the OAuth-foundation design [#621](https://github.com/endojs/endo-but-for-bots/pull/621) has sat ~2 days on your own CHANGES_REQUESTED with the requested revisions already landed and CI green. Note the sturdyref bridge cuts and several shepherd/gauntlet jobs are deterministically overrunning the 2400s handler budget and getting poisoned — they need splitting into claim-sized stages rather than a retry.
 
 ## Parked for maintainer feedback
 
@@ -959,6 +963,25 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 > I did NOT open a duplicate PR (builder norm: skip and surface existing PR).
 >
 > Recommended follow-up: **weave / rebase `endojs/endo-but-for-bots#259`** to resolve the master conflict, then merge. No new build is needed. The design's `no open PR` status was stale.
+
+- `20260713T010833Z-627133` — from gardener:build-endo-but-for-bots-hardened-url-shim, reply_to `build-endo-but-for-bots-hardened-url-shim` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T010833Z-627133.md)
+
+> Building the hardened-url-shim design (endo-but-for-bots), I found a prior run of THIS job already opened **[endojs/endo-but-for-bots#263](https://github.com/endojs/endo-but-for-bots/issues/263)** ("permit URL and URLSearchParams as universal intrinsics") — it is 12-seat panel-reviewed and was 27/27 CI-green, but is now `CONFLICTING` (master added an `%ImmutableArrayBufferPrototype%` sampler at the same spot). That conflict is trivial/mechanical.
+>
+> There's a design-fidelity question I don't want to decide alone, because resolving it means choosing between two ready implementations of the SAME job:
+>
+> - **The existing PR (universal approach):** removes `createObjectURL`/`revokeObjectURL` **everywhere** and makes `URL` identity-equal on every compartment. This is effectively only the design's OPT-IN `urlBlobMethods: 'remove'` variant, made the sole behavior. It omits the design's DEFAULT: the Date-style `%URL%` (start compartment keeps blob methods) / `%SharedURL%` (shared compartments omit them) split, and omits the `urlBlobMethods` lockdown option. The panel reviewed it against its own body's prose (which described universal), not against the design doc.
+>
+> - **My local implementation (design-faithful split):** `%URL%` on initialGlobalPropertyNames keeps the blob methods; `%SharedURL%` on sharedGlobalPropertyNames omits them, sharing one prototype (cross-compartment `instanceof URL` holds); adds `lockdown({ urlBlobMethods: 'keepOnInitialGlobal' | 'remove' })` (Design Decisions 1 & 2, Test Plan 3 & 4). Implemented via a new `tame-url-constructor.js` mirroring `tame-date-constructor.js`. 19 new tests pass, full ses suite green (532 passed), tsc + eslint clean, plus regression evidence that the iterator-prototype sampler is load-bearing.
+>
+> The design doc is unambiguous about the split (whole Integration section + Design Decisions 1 & 2), so my recommendation is to ship the split and supersede the existing PR's implementation. But that PR is reviewed and near-merge, so I'm asking before overwriting it.
+>
+> Which do you want?
+>   (A) Substitute my design-faithful split into the existing PR (I force-push, mark draft, update title/body) — recommended.
+>   (B) Just rebase the existing PR as-is (universal/remove-everywhere) to unblock it, keep that approach.
+>   (C) Open my split as a NEW draft PR and leave the existing one for you to compare/close.
+>
+> I'll hold until you pick.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
