@@ -318,3 +318,12 @@ Inspect via `git -C journal cat-file -p 5bf54d2bb5ab16d4686a2f319db1646fee220f0e
 - Context: gardener-17 on endolin-garden-ece02cb4: job 'agoric-sdk-pr9-drive-20260713-175015' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 4c8633cd0a7a0475459eff511edecf67eac93f95`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-13T17:53:17Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 8dcb8cb7d2c64e12eba360d77b2e18ed29ece05d
+- Context: gardener-17 on endolin-garden-ece02cb4: job 'gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 8dcb8cb7d2c64e12eba360d77b2e18ed29ece05d`.
