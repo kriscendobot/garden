@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T11:46:07Z_
+_As of 2026-07-13T11:50:16Z_
 
 ## Latest
 
@@ -1452,8 +1452,8 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`agoric-sdk-pr9-drive-20260713-115002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-pr9-drive-20260713-115002.md) — Drive kriscendobot/agoric-sdk PR #9 to approval (every 6h)
 
 ### tada (2122)
 - [`endo-sturdyref-press-20260713-110502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-110502.md) — SturdyRef press tick complete (2026-07-13T11:05 dispatch): **verification tic...
