@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T05:51:42Z_
+_As of 2026-07-13T06:01:32Z_
 
 ## Latest
 
@@ -1129,6 +1129,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T055135Z-7db93e` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T055135Z-7db93e.md)
 
 > Milestone M2 (Project Hygiene) has only its two SES-shim designs left, both built and mergeable: PR #259 (TextEncoder/TextDecoder) is rebased and MERGEABLE awaiting merge, and the URL shim exists as two competing mergeable PRs — #719 (design-faithful `%URL%`/`%SharedURL%` split, gauntlet-passed, recommended) vs #263 (universal `remove`-blob variant, now conflicting). M2 cannot close until you choose which URL-shim PR lands (#719 recommended, close #263) and the two winning PRs are merged.
+
+- `20260713T060122Z-43d44b` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T060122Z-43d44b.md)
+
+> Milestone M2 (Project Hygiene) is complete except for its last two steps, the hardened `URL` shim (endojs/endo-but-for-bots PR #719) and the hardened `TextEncoder`/`TextDecoder` shim (PR #259) — both are OPEN, non-draft, mergeable, and fully green with the gauntlet passed. The blocked step is merging these two PRs to close out M2, which is an authority decision outside the foreman's work-only bounds.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
