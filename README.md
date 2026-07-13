@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T02:15:35Z_
+_As of 2026-07-13T02:16:06Z_
 
 ## Latest
 
@@ -1209,17 +1209,16 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`finbot-progress-20260713-020501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260713-020501.md) — Push progress on kriscendobot/finbot (every 6h)
-- [`foreman-dedup-maintainer-notices`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/foreman-dedup-maintainer-notices.md) — Foreman: post a maintainer-inbox notice once per distinct state, not every tick
+### doin (0)
+(none)
 
-### tada (2094)
+### tada (2096)
+- [`foreman-dedup-maintainer-notices`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/foreman-dedup-maintainer-notices.md) — Completion report
+- [`finbot-progress-20260713-020501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260713-020501.md) — Completion report — finbot-progress-20260713-020501
 - [`endo-sturdyref-press-20260713-015003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-015003.md) — SturdyRef press tick — completion report (job endo-sturdyref-press-20260713-0...
 - [`endojs-endo-but-for-bots-pr710-review-6c80c2b9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr710-review-6c80c2b9-retro.md) — Completion report
 - [`build-endo-but-for-bots-hardened-url-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-hardened-url-shim.md) — Completion report
-- [`endojs-endo-but-for-bots-frame-naming-proposals`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-frame-naming-proposals.md) — Completion report
-- [`endojs-endo-but-for-bots-pr710-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr710-conduct.md) — Completion report
-- … and 2089 more
+- … and 2091 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
