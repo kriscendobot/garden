@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T23:00:54Z_
+_As of 2026-07-13T23:01:39Z_
 
 ## Latest
 
@@ -1855,7 +1855,7 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (8)
 - [`build-worker-bid-auction-reputation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-worker-bid-auction-reputation.md) — Deliverables
 - [`endojs-endo-but-for-bots-pr649-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr649-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #649
 - [`endojs-endo-but-for-bots-pr658-review-97e5a186`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr658-review-97e5a186.md) — Review directive on endojs/endo-but-for-bots PR #658
@@ -1863,6 +1863,7 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - [`endojs-endo-but-for-bots-pr667-review-20347bb0`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr667-review-20347bb0.md) — Review directive on endojs/endo-but-for-bots PR #667
 - [`endojs-endo-but-for-bots-pr668-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr668-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #668
 - [`endojs-endo-but-for-bots-pr670-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr670-refresh.md) — Refresh endojs/endo-but-for-bots PR #670 (subscription OAuth flow, M3)
+- [`refresh-pr-review-sequence-2026-07-13`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/refresh-pr-review-sequence-2026-07-13.md) — What to do
 
 ### tada (2177)
 - [`endojs-endo-but-for-bots-pr670-review-6d095eec`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr670-review-6d095eec.md) — Completion report
