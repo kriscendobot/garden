@@ -4,3 +4,9 @@ Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/en
 <!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 4 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 17
+  claimed_at: 2026-07-13T17:53:10Z
