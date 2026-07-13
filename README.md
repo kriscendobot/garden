@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T07:59:11Z_
+_As of 2026-07-13T08:05:35Z_
 
 ## Latest
 
@@ -1301,10 +1301,11 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`daily-progress-summary-20260713-070501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260713-070501.md) — Daily midnight Pacific progress summary
 - [`endojs-endo-but-for-bots-pr169-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr169-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #169
 - [`endojs-endo-but-for-bots-pr169-review-1aae27be`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr169-review-1aae27be.md) — Review directive on endojs/endo-but-for-bots PR #169
+- [`finbot-progress-20260713-080513`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260713-080513.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`kriscendobot-minion.town-pr4-review-49e01038`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr4-review-49e01038.md) — Review directive on kriscendobot/minion.town PR #4
 
 ### tada (2109)
