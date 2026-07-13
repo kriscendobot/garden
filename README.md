@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T21:43:33Z_
+_As of 2026-07-13T21:50:01Z_
 
 ## Latest
 
@@ -1759,16 +1759,16 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`doc-claude-codex-models-reference`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/doc-claude-codex-models-reference.md) — What to capture (a table per provider)
+### doin (0)
+(none)
 
-### tada (2168)
+### tada (2169)
+- [`doc-claude-codex-models-reference`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/doc-claude-codex-models-reference.md) — Completion report
 - [`build-endo-but-for-bots-endo-fetch-plugin`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-endo-fetch-plugin.md) — Completion report
 - [`endo-sturdyref-press-20260713-203512`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-203512.md) — SturdyRef press tick (job endo-sturdyref-press-20260713-203512, dispatched 20...
 - [`kriscendobot-agoric-sdk-pr17-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr17-shepherd.md) — All fixes are on the PR head (5e2538462c); only the 2 multichain-e2e legs rem...
 - [`build-endo-but-for-bots-pull-request-707-git-stack-phase-three-worked-version-controlled-filesystem-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-pull-request-707-git-stack-phase-three-worked-version-controlled-filesystem-loop.md) — Completion report
-- [`design-endoclaw-network-fetch-endo-plugin-redraft`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endoclaw-network-fetch-endo-plugin-redraft.md) — Inbox empty. The job is complete.
-- … and 2163 more
+- … and 2164 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
