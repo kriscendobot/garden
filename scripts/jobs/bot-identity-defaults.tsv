@@ -1,0 +1,7 @@
+# bot-identity-defaults.tsv — canonical per-login default git identity for the
+# fleet, keyed on GARDEN_BOT_LOGIN. TAB-separated: login<TAB>name<TAB>email.
+# Comments (#) and blank lines are ignored. This is the TRACKED fallback restored
+# on a garden reset; a PER-HOST override lives on journal2 as identity/<host>
+# (scripts/jobs/set-bot-identity.sh) and takes precedence. See CLAUDE.md
+# § Host environment and scripts/jobs/bootstrap-bot-identity.sh.
+kriscendobot	Kriscendo Bot	279080640+kriscendobot@users.noreply.github.com

@@ -73,4 +73,19 @@ fi
 mkdir -p "$SYSTEMD_USER_DIR"
 chown -R "$GARDEN_USER:$GARDEN_USER" "$HOME_DIR/.config/systemd" 2>/dev/null || true
 
+# Restore the fleet's durable BOT git identity on the garden repo's local config
+# (user.name/user.email), so a reset / fresh checkout / container recreation
+# re-applies it with no manual `git config` step. Run as the bot user (the config
+# is bot-owned) and best-effort — a failure must never block PID-1 boot. The
+# journal per-host override is SKIPPED here (root must not write bot-owned journal
+# state, and the producer clone may be absent this early): the tracked canonical
+# default keyed on the bot login is applied now, and the starting procedure re-runs
+# the full journal-aware bootstrap once the journal is reachable. See
+# scripts/jobs/bootstrap-bot-identity.sh and CLAUDE.md § Host environment.
+BOOTSTRAP="$HOME_DIR/scripts/jobs/bootstrap-bot-identity.sh"
+if [ -x "$BOOTSTRAP" ] && getent passwd "$GARDEN_USER" >/dev/null; then
+    runuser -u "$GARDEN_USER" -- \
+        env GARDEN_BOOTSTRAP_SKIP_JOURNAL=1 "$BOOTSTRAP" >/dev/null 2>&1 || true
+fi
+
 exec "$@"

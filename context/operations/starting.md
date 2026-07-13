@@ -30,14 +30,29 @@ proceed on a cross-host hostname collision.
    loginctl enable-linger "$USER"
    ```
 
-2. **Install and enable the units:**
+2. **Restore the bot git identity** (idempotent; auto-applied at container start,
+   re-run here so a per-host override lands now that the journal is reachable):
+
+   ```sh
+   scripts/jobs/bootstrap-bot-identity.sh
+   ```
+
+   This rebuilds the garden repo's local `user.name`/`user.email` from a durable
+   record a reset cannot lose — a per-host journal override (`identity/<host>`) if
+   set, else the tracked canonical default (`kriscendobot` → `Kriscendo Bot`). It
+   is a no-op when the config is already correct. It replaces the old manual
+   `git config` step. To give this host a **non-canonical** identity first:
+   `scripts/jobs/set-bot-identity.sh "<name>" "<email>"` (CLAUDE.md § Host
+   environment).
+
+3. **Install and enable the units:**
 
    ```sh
    scripts/jobs/install-units.sh install
    scripts/jobs/install-units.sh enable-services
    ```
 
-3. **Size this host's worker pool** (journal state the gardener-scaler
+4. **Size this host's worker pool** (journal state the gardener-scaler
    reconciles):
 
    ```sh
@@ -48,7 +63,7 @@ proceed on a cross-host hostname collision.
    moment — sleeping is the cheapest thing an agent can do — so the count is
    sized for concurrency, not CPU. Sizing detail: [scaling.md](scaling.md).
 
-4. **Designate the leader** on a first/only host (single host: itself):
+5. **Designate the leader** on a first/only host (single host: itself):
 
    ```sh
    scripts/jobs/set-main-host.sh "$(hostname -s)"
@@ -59,7 +74,7 @@ proceed on a cross-host hostname collision.
    the leader/follower gate only bites when a second host joins
    ([leader-follower.md](leader-follower.md)).
 
-5. **Check for a stale drain and uncork it.** A re-start is very likely the
+6. **Check for a stale drain and uncork it.** A re-start is very likely the
    aftermath of a deploy/upgrade: `deploy-garden.sh` ([deploy.md](deploy.md))
    drains the fleet, and although a *successful* deploy lifts its own drain, an
    **operator-engaged** drain (a prior `stand down` / `drain`) — or a deploy
@@ -98,9 +113,9 @@ systemctl --user list-units 'garden-gardener@*' --state=active --no-legend | wc 
 ```
 
 Reconcile that active count against this host's declared target — the `gardeners:`
-value in the journal `hosts/$GARDEN` file (set in step 3). **Signature to catch:
+value in the journal `hosts/$GARDEN` file (set in step 4). **Signature to catch:
 the scaler logged `scaled gardener pool to N` yet the active count is 0 ⇒ suspect
-a stale drain marker** (step 5) — the units were created but each gardener
+a stale drain marker** (step 6) — the units were created but each gardener
 exited on the drain. Show the one-line counts.
 
 ## The liaison's three Monitors
@@ -152,7 +167,7 @@ per-host local infra. The full inventory and rationale are
   scripts/jobs/add-maintainer.sh  <login>        # one per trusted maintainer
   ```
 
-  The `garden-issue-inbox.timer` is auto-enabled by step 2 and is **inert** until
+  The `garden-issue-inbox.timer` is auto-enabled by step 3 and is **inert** until
   both exist — writing them is the deliberate arming act. Gate is
   allowlist-only, no org fallback (`designs/issue-inbox.md`).
 

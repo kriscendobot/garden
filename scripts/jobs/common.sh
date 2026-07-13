@@ -1033,8 +1033,52 @@ transcript_spool() {
   return 0
 }
 
-bot_name()  { git -C "$GARDEN_ROOT" config --get user.name  2>/dev/null || echo garden-bot; }
-bot_email() { git -C "$GARDEN_ROOT" config --get user.email 2>/dev/null || echo garden-bot@localhost; }
+# --- bot git identity (durable across a garden reset) ------------------------
+# The fleet's commits and gh calls ride a BOT identity (user.name/user.email), NOT
+# the parent shell's global git identity (the maintainer's, on a maintainer host —
+# reserved for the ferry). The source of truth is the garden repo's LOCAL
+# .git/config, pinned into every per-job worktree by bot_name/bot_email below.
+#
+# That local config is NOT tracked and NOT baked into the image (the bind mount
+# masks it), so a fresh checkout / container recreation would lose it. To make the
+# identity DURABLE across a reset we keep two records a reset cannot lose:
+#   1. a TRACKED canonical default (bot-identity-defaults.tsv, keyed on the bot
+#      login) — always present in a fresh checkout: the fallback; and
+#   2. an optional PER-HOST journal override (identity/<host> on journal2, written
+#      by set-bot-identity.sh) — the durable per-host store that survives a
+#      re-clone from origin/journal2.
+# bootstrap-bot-identity.sh applies the resolved identity to the local config on
+# bring-up (idempotent, wired into the container entrypoint + the starting
+# procedure), and bot_name/bot_email SELF-HEAL to the tracked default so a
+# stray-unset config still resolves to the right identity — never garden-bot.
+: "${GARDEN_BOT_LOGIN:=kriscendobot}"
+
+# The tracked canonical-defaults table (`login<TAB>name<TAB>email`); comments (#)
+# and blank lines are ignored. Field 2 = name, 3 = email; keyed on GARDEN_BOT_LOGIN.
+_bot_identity_defaults_file() { printf '%s\n' "$GARDEN_ROOT/scripts/jobs/bot-identity-defaults.tsv"; }
+_bot_identity_default_field() {  # <field-index: 2=name 3=email> — prints value, rc 1 if unresolved
+  local idx="$1" f val; f="$(_bot_identity_defaults_file)"
+  [ -f "$f" ] || return 1
+  val="$(awk -F'\t' -v l="$GARDEN_BOT_LOGIN" -v i="$idx" \
+    '/^[[:space:]]*#/ {next} NF<3 {next} $1==l {print $i; exit}' "$f" 2>/dev/null)"
+  [ -n "$val" ] && { printf '%s\n' "$val"; return 0; }
+  return 1
+}
+# Last-ditch fallbacks (login unknown to the table) still yield a plausible bot
+# identity rather than garden-bot: the login as the name, its GitHub noreply email.
+bot_default_name()  { _bot_identity_default_field 2 || printf '%s\n' "$GARDEN_BOT_LOGIN"; }
+bot_default_email() { _bot_identity_default_field 3 || printf '%s\n' "${GARDEN_BOT_LOGIN}@users.noreply.github.com"; }
+
+# Read a per-host bot-identity override field (bot_name|bot_email) from a SYNCED
+# journal clone <dir>. Best-effort: prints nothing when the file/field is absent.
+# Consumed by bootstrap-bot-identity.sh (which syncs <dir> first); NOT the hot path.
+journal_bot_identity_field() {  # <dir> <field>
+  local dir="$1" field="$2"
+  sed -n "s/^${field}:[[:space:]]*//p" "$dir/identity/$GARDEN" 2>/dev/null | head -1
+}
+
+bot_name()  { git -C "$GARDEN_ROOT" config --get user.name  2>/dev/null || bot_default_name; }
+bot_email() { git -C "$GARDEN_ROOT" config --get user.email 2>/dev/null || bot_default_email; }
 
 # prune_worktrees_preserving_live [<root>] — run `git worktree prune` in <root>
 # (default $GARDEN_ROOT) WITHOUT deleting the admin entry of a LIVE per-job
