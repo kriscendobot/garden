@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T14:20:17Z_
+_As of 2026-07-13T14:20:45Z_
 
 ## Latest
 
@@ -1549,13 +1549,14 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 
 
 ## Board
-### todo (1)
-- [`finbot-progress-20260713-142002`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/finbot-progress-20260713-142002.md) — Push progress on kriscendobot/finbot (every 6h)
+### todo (0)
+(none)
 
-### doin (3)
+### doin (4)
 - [`endo-but-for-bots-pr713-mount-glorp-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-but-for-bots-pr713-mount-glorp-shepherd.md) — ---
 - [`endo-but-for-bots-pull-request-691-git-capability-stack-sequencing-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-but-for-bots-pull-request-691-git-capability-stack-sequencing-weave.md) — ---
 - [`endo-sturdyref-press-20260713-142002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260713-142002.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+- [`finbot-progress-20260713-142002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260713-142002.md) — Push progress on kriscendobot/finbot (every 6h)
 
 ### tada (2126)
 - [`downgrade-fable-roles-to-opus`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/downgrade-fable-roles-to-opus.md) — What I did
