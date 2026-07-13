@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T14:31:08Z_
+_As of 2026-07-13T14:35:26Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ Two operational flags warrant a look: the triager crash-loop fix is landed on `m
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 21h)
+- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 22h)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 2d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 10d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 13d)
@@ -1567,7 +1567,8 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`deadmail-issue-comment-4959051277`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4959051277.md) — Dead-lettered message — pick up its intent
 - [`endo-but-for-bots-pr713-mount-glorp-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-but-for-bots-pr713-mount-glorp-shepherd.md) — ---
 
 ### tada (2130)
