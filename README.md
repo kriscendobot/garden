@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T06:38:45Z_
+_As of 2026-07-13T06:50:18Z_
 
 ## Latest
 
@@ -1137,6 +1137,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T061046Z-f9be33` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T061046Z-f9be33.md)
 
 > Milestone M2 (Project Hygiene) has only two remaining designs — `hardened-text-codecs-shim` and `hardened-url-shim` — and both are done: `endojs/endo-but-for-bots#259` (text codecs) and `#719` (URL shim) are OPEN, non-draft, CLEAN/MERGEABLE with all CI green. M2 closes the moment they land, but merging/ferrying is maintainer authority — please ferry #259 and #719 upstream, and choose between the design-faithful #719 and the superseded alternative #263 (the gauntlet recommended landing #719 and closing #263).
+
+- `20260713T065008Z-38c4e5` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T065008Z-38c4e5.md)
+
+> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 64e8303e523645703ff052a9728e1925578b2cac (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 64e8303e523645703ff052a9728e1925578b2cac). Diagnosis: You've hit your weekly limit · resets Jul 18, 3am (UTC)
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
