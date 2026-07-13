@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T06:50:18Z_
+_As of 2026-07-13T07:05:14Z_
 
 ## Latest
 
@@ -1297,7 +1297,8 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`daily-progress-summary-20260713-070501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260713-070501.md) — Daily midnight Pacific progress summary
 - [`endojs-endo-but-for-bots-pr133-review-d1b65e59`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr133-review-d1b65e59.md) — Review directive on endojs/endo-but-for-bots PR #133
 - [`harden-comment-watcher-review-comment-drops`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/harden-comment-watcher-review-comment-drops.md) — Not a missing feature — a drop bug (evidence)
 
