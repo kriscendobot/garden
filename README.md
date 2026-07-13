@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T07:32:01Z_
+_As of 2026-07-13T07:35:23Z_
 
 ## Latest
 
@@ -1297,8 +1297,9 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (8)
 - [`daily-progress-summary-20260713-070501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260713-070501.md) — Daily midnight Pacific progress summary
+- [`endo-sturdyref-press-20260713-073509`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260713-073509.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endojs-endo-but-for-bots-pr133-review-d1b65e59`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr133-review-d1b65e59.md) — Review directive on endojs/endo-but-for-bots PR #133
 - [`endojs-endo-but-for-bots-pr169-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr169-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #169
 - [`endojs-endo-but-for-bots-pr169-review-1aae27be`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr169-review-1aae27be.md) — Review directive on endojs/endo-but-for-bots PR #169
