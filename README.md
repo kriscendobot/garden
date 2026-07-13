@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T22:36:24Z_
+_As of 2026-07-13T22:40:01Z_
 
 ## Latest
 
@@ -1878,16 +1878,16 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (2)
-- [`build-cleric-and-factor-worker-spine`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-cleric-and-factor-worker-spine.md) — Deliverables
+- [`endojs-endo-but-for-bots-pr662-review-25ab500f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr662-review-25ab500f.md) — Review directive on endojs/endo-but-for-bots PR #662
 - [`research-local-inference-amd-ryzen-setup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/research-local-inference-amd-ryzen-setup.md) — The actual host (probed 2026-07-13)
 
-### tada (2173)
+### tada (2174)
+- [`build-cleric-and-factor-worker-spine`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-cleric-and-factor-worker-spine.md) — Completion report
 - [`endojs-endo-but-for-bots-pr671-review-e38cd6f4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-review-e38cd6f4.md) — All done. Writing completion report.
 - [`endojs-endo-but-for-bots-pr678-8a856783`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr678-8a856783.md) — Completion report
 - [`endojs-endo-but-for-bots-pr659-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr659-conduct.md) — PR #659 is MERGED onto the live trunk llm with merge commit 05ed3ac. Base was...
 - [`design-cleric-worker-bid-auction-reputation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-cleric-worker-bid-auction-reputation.md) — Design complete, landed, and the maintainer briefed. Final report:
-- [`doc-claude-codex-models-reference`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/doc-claude-codex-models-reference.md) — Completion report
-- … and 2168 more
+- … and 2169 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1918,6 +1918,7 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - [`design-change-review-tool-with-review-metering`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/design-change-review-tool-with-review-metering.md) — _normal_ · The idea, restated
 - [`endojs-endo-but-for-bots-pr678-8a856783-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr678-8a856783-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #678 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr671-review-e38cd6f4-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr671-review-e38cd6f4-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #671 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr662-review-25ab500f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr662-review-25ab500f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #662 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
