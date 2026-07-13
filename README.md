@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T13:46:41Z_
+_As of 2026-07-13T13:51:13Z_
 
 ## Latest
 
@@ -1384,6 +1384,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T134631Z-03679f` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T134631Z-03679f.md)
 
 > Milestone M2 (Project Hygiene) is one authorization from done: its two remaining designs are both realized as non-draft, MERGEABLE/CLEAN PRs in endojs/endo-but-for-bots — #259 (permit TextEncoder/TextDecoder) and #719 (URL/SharedURL vetted shim), both authored by sibling instance kriscendobot. No gardener work step remains; M2 closes only on your merge (or maintainer-authorized ferry) of these two green PRs.
+
+- `20260713T135102Z-d71cf5` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T135102Z-d71cf5.md)
+
+> Milestone M2 (Project Hygiene) is one step from complete: its last two designs, `hardened-url-shim` and `hardened-text-codecs-shim`, are both fully built and green — `endojs/endo-but-for-bots#719` (URL shim, un-drafted, MERGEABLE/CLEAN, 16 checks green after its gauntlet) and `#259` (text codecs, rebased onto master, MERGEABLE, CI green). Both need a maintainer merge (and upstream ferry), after which their design records should advance from "Not Started"; no buildable/weaveable/shepherdable work remains in M2 for the fleet.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
