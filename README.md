@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T03:19:00Z_
+_As of 2026-07-13T03:23:58Z_
 
 ## Latest
 
@@ -1225,8 +1225,8 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`issue-kriskowal-garden-42`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-42.md) — Issue from dckc on kriskowal/garden #42
 
 ### tada (2098)
 - [`gauntlet-endo-but-for-bots-pr719-hardened-url-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr719-hardened-url-shim.md) — Completion report — gauntlet on endojs/endo-but-for-bots PR #719
