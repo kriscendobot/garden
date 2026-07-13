@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T19:49:39Z_
+_As of 2026-07-13T19:54:47Z_
 
 ## Latest
 
@@ -1644,8 +1644,9 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`kriscendobot-agoric-sdk-pr17-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr17-shepherd.md) — shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #17
+- [`weave-endo-but-for-bots-pull-request-679-mount-glob-delegated-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/weave-endo-but-for-bots-pull-request-679-mount-glob-delegated-rebase.md) — ---
 
 ### tada (2161)
 - [`build-daemon-locator-terminology`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-daemon-locator-terminology.md) — Completion report — build-daemon-locator-terminology
