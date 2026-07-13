@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T12:56:23Z_
+_As of 2026-07-13T13:01:41Z_
 
 ## Latest
 
@@ -1348,6 +1348,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T125611Z-91e0bb` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T125611Z-91e0bb.md)
 
 > M2 (Project Hygiene) is at its exit criterion pending merges: PR #259 (hardened text-codecs shim) and PR #719 (hardened URL shim) are both OPEN, non-draft, and MERGEABLE/CLEAN with green CI. Merging both closes M2. One decision is needed first: #719 (design-faithful `%URL%`/`%SharedURL%` split, recommended) and #263 (universal variant, now CONFLICTING) are alternatives — land #719 and close #263. This requires merge/ferry authority the fleet lacks, so M2 cannot advance without you.
+
+- `20260713T130127Z-fbb745` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T130127Z-fbb745.md)
+
+> Milestone M2 (Project Hygiene) has only two remaining rows — `hardened-text-codecs-shim` and `hardened-url-shim` — and both are already fully built as merge-ready peer PRs (`endojs/endo-but-for-bots#259` and `#719`: OPEN, non-draft, MERGEABLE, CLEAN, all CI green), so no builder/designer/weaver/fixer job is left to post and the only remaining step is a merge/conduct action outside foreman bounds. Decision needed: merge #259 and #719 (they were authored by sibling instance kriscendobot, so the no-inter-instance-GitHub-loops rule applies), and correct the M2 design-status drift (both records still read `status: Not Started`, which is what keeps re-dispatching these builds).
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
