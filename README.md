@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T20:43:40Z_
+_As of 2026-07-13T20:45:05Z_
 
 ## Latest
 
@@ -1516,6 +1516,50 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T204330Z-037be7` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T204330Z-037be7.md)
 
 > M3's "confined outbound HTTP" exit-criterion capability is ready to build, but its next step — building the `@endo/fetch` unconfined plugin (Phases 1-3) — is blocked pending your review of design draft PR #722 (endojs/endo-but-for-bots), which asks two questions that set the build's shape: (1) the package name (`@endo/fetch` proposed vs `@endo/confined-fetch` or a plugin module inside `@endo/exo-http-client`), and (2) whether the TOFU policy authority should be re-resolved per referral rather than once at `make()`. Companion `@endo/reminder` design #682 + build #721 are now un-drafted and awaiting your merge.
+
+- `20260713T204450Z-12dc80` — from gardener:endo-sturdyref-press-20260713-203512, reply_to `endo-sturdyref-press-20260713-203512` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T204450Z-12dc80.md)
+
+> # SturdyRef press: STALLED 48h on [endojs/endo-but-for-bots#695](https://github.com/endojs/endo-but-for-bots/issues/695) go/no-go — and the message bus may not be reaching you
+>
+> This is the scheduled stall escalation (threshold 2026-07-13T21:00Z, set by the
+> press-driver line after the one-nudge budget was spent 2026-07-12T21:02Z; sent
+> minutes ahead of it rather than burn another requeue cycle idling). It is
+> not another reminder of the ask; it reports two facts you may not have:
+>
+> 1. **The effort is fully stalled.** Every finish-line artifact that can move
+>    without you is at rest and green: the bridge stack
+>    `#521 → #541 → #698 → #700 → #701 → #702 → #703 → #704` (all on
+>    endojs/endo-but-for-bots) is all OPEN + DRAFT,
+>    heads unmoved since 2026-07-12 (verified this tick 2026-07-13T20:37Z:
+>    [endojs/endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/issues/521) `be1970da` 24/24 checks pass, [endojs/endo-but-for-bots#541](https://github.com/endojs/endo-but-for-bots/issues/541) `fab626e8` 22/22 pass, bridge tip
+>    [endojs/endo-but-for-bots#704](https://github.com/endojs/endo-but-for-bots/issues/704) `36949cad`). The only unblocked work — the agent provide/accept surface,
+>    builder cuts A–F of design [endojs/endo-but-for-bots#695](https://github.com/endojs/endo-but-for-bots/issues/695) — has been gated on
+>    your go/no-go for 48 hours (raised 2026-07-11T21:10Z; [endojs/endo-but-for-bots#695](https://github.com/endojs/endo-but-for-bots/issues/695) still has 0
+>    comments and 0 reviews).
+>
+> 2. **The channel itself looks stalled.** The original go/no-go message
+>    (2026-07-11T21:10Z) and the single nudge (2026-07-12T21:02Z) both still sit
+>    unread in the maintainer inbox, which now holds **179 unread messages**.
+>    Liaison: please consider relaying this decision in-session rather than
+>    letting it queue — the inbox backlog, not the design, may be the real
+>    bottleneck.
+>
+> The decision, restated in two lines: (a) accept design
+> [endojs/endo-but-for-bots#695](https://github.com/endojs/endo-but-for-bots/issues/695) ("agent provide/accept surface and the guest
+> token", DRAFT, CI green) so the next hourly tick posts builder cuts A–F
+> (A daemon token core and B daemon provide+mail stacked after [endojs/endo-but-for-bots#541](https://github.com/endojs/endo-but-for-bots/issues/541), then
+> C agent-tools escrow, D lal, E fae, F genie); (b) should guest tokens be
+> formula-backed to survive daemon restart? — the design recommends **no**
+> (durable designation stays a pet name via `storeRef`); confirm or override.
+> A "go" either as a reply here or as a comment/review on [endojs/endo-but-for-bots#695](https://github.com/endojs/endo-but-for-bots/issues/695) unblocks it —
+> the hourly tick watches both.
+>
+> Confinement statement: observe-only escalation — nothing landed, no location
+> or correlation surface changed. The verified heads preserve the standing
+> invariants (enliven mint-guard green at every checked stack level, no raw Peer
+> Locator exposed to confined guests, token unlinkability pending the [endojs/endo-but-for-bots#695](https://github.com/endojs/endo-but-for-bots/issues/695)
+> build). Reply routes to this job's inbox; after it completes, a reply is
+> dead-lettered into a fresh job, so it is never lost.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
