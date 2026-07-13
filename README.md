@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T08:19:27Z_
+_As of 2026-07-13T08:36:14Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ Two operational flags warrant a look: the triager crash-loop fix is landed on `m
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 15h)
+- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 16h)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 2d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 10d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 13d)
@@ -1328,18 +1328,17 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr169-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr169-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #169
-- [`endojs-endo-but-for-bots-pr169-review-1aae27be`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr169-review-1aae27be.md) — Review directive on endojs/endo-but-for-bots PR #169
 - [`kriscendobot-minion.town-pr4-review-49e01038`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr4-review-49e01038.md) — Review directive on kriscendobot/minion.town PR #4
 
-### tada (2111)
+### tada (2112)
+- [`endojs-endo-but-for-bots-pr169-review-1aae27be`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr169-review-1aae27be.md) — All work is complete: the design doc is integrated and drained, pushed to the...
 - [`daily-progress-summary-20260713-070501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260713-070501.md) — The periodical is committed and pushed to journal2. Inbox is empty. Job done.
 - [`finbot-progress-20260713-080513`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260713-080513.md) — Completion report — finbot-progress-20260713-080513
 - [`endojs-endo-but-for-bots-pr133-review-d1b65e59`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr133-review-d1b65e59.md) — Completion report — review directive on endojs/endo-but-for-bots PR #133
 - [`harden-comment-watcher-review-comment-drops`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/harden-comment-watcher-review-comment-drops.md) — Completion report — harden-comment-watcher-review-comment-drops
-- [`endojs-endo-but-for-bots-pr678-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr678-conduct.md) — Completion report
-- … and 2106 more
+- … and 2107 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
