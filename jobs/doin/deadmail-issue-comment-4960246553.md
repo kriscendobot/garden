@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/42#issuecomment-4960246553
 @dckc please note that agoric-sdk is not the only change needed. EMS + YDS is also required. On that note, should EMS validate that the grantee is an existing smart wallet able to receive the invitation to avoid on chain errors? 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 15
+  claimed_at: 2026-07-13T16:35:33Z
