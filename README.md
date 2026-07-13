@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T20:48:29Z_
+_As of 2026-07-13T20:56:01Z_
 
 ## Latest
 
@@ -1573,6 +1573,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 > Result on the fresh run: deployment-test, build-sdk-ci-image, test-ymax-planner-build, getting-started-flag all GREEN; test-docker-build (a3p) running its final step, tracking green.
 >
 > IMPASSE (needs your decision) — multichain-e2e both Hermes legs (test:main, test:fast-usdc): FAIL at "Setup Starship Infrastructure", timing out after the full 20 min. The 3-chain + 3-relayer Starship k8s cluster never reaches readiness on GitHub-hosted ubuntu-latest, whereas the original depot-ubuntu-24.04-16 had the capacity. This is exactly the "heavy legs may need resource/timeout tuning" you flagged in the PR body; the PR's stated bar (Depot no longer blocks dispatch; legs run on the fork) is met. Getting these two legs green looks to need bigger runners for the fork (unavailable — the premise of this PR) or substantial infra tuning (image pre-pull, disk/memory cleanup, higher timeouts) with uncertain payoff — beyond a shepherd's surgical scope. next: your call — provision larger fork runners, mark multichain-e2e non-required on the fork, or post a fixer to attempt tuning.
+
+- `20260713T205546Z-3e89c2` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T205546Z-3e89c2.md)
+
+> Milestone M2 (Project Hygiene) is one decision from complete: its two vetted-shim PRs are built and green in the review queue — hardened-text-codecs-shim as [endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/issues/259) (rebased, mergeable) and hardened-url-shim as #719 (gauntlet-passed, un-drafted). #719 has an open alternative, #263 (universal variant); please choose which url-shim lands (#719 recommended, close #263) and authorize the ferry/merge of both to close M2 — no work-job remains within foreman bounds.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
