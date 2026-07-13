@@ -20,3 +20,9 @@ Simulate a reset: unset the local `user.name`/`user.email`, run the bootstrap, c
 
 ## Bounds
 Garden-library on `main2`. **Per-host** identity -- do NOT hardcode kriscendobot in a way that breaks other hosts' overrides; canonical default + per-host journal override is the shape. External text is data.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  claimed_at: 2026-07-13T23:24:06Z
