@@ -31,5 +31,13 @@ Design the **cleric worker + factored worker spine + bid-auction claim + per-mod
 - **Thoughtfulness axis**: how a worker chooses its thoughtfulness (reasoning effort) per job, and whether that is itself part of the bid.
 - **Open decisions -> maintainer**: enumerate the real choices (auction window vs. instant, reputation signal, starvation policy, whether the auction replaces or augments the CAS race, cost accounting) and post a decision-ready summary to the maintainer inbox; recommend a default for each.
 
+## Cost model -- normalize everything to DOLLARS (maintainer refinement 2026-07-13)
+The reputation and the bid MUST express **true cost in dollars**, capturing as much of the real cost as possible. What a reputation encodes is **merge-worthiness achieved per aggregate dollar (human + agentic)**, qualified by the **merge-target bar** -- the `llm` branch bar differs from upstream `master` (cross-ref the parked `design-change-review-tool-with-review-metering` plan; attribute cost per target).
+
+- **Human-review cost (inferred, ~$125/hr).** Infer the reviewer's **active review time** from the **depth of the reviewer's commentary, in aggregate** across however many reviews a change received, and price it at **~$125/hr**. This is the interim proxy until the review-metering tool (`design-change-review-tool-with-review-metering`) yields *measured* active time -- design the schema so the measured signal swaps in for the inference without churn.
+- **Agentic cost (measured, tokens x price).** Empirically **measure the token cost** of the agent's work on the job (input + output + reasoning + cached tokens) and ground it on the **tokens/$ pricing for the selected model**, from the models reference (child `doc-claude-codex-models-reference`, which must carry per-model pricing). Sum to dollars.
+- **Job classification.** Classify **each job posting** to estimate the **nature of the work** (a work-class: design vs. build vs. fix vs. shepherd, size/complexity, risk). Reputation is learned **per work-class x (role/context, provider, model, thoughtfulness)**, so we can later identify which **(model, context/role)** combinations reach a merge-worthy solution at the **lowest aggregate (human $ + agentic $)** cost, per target bar.
+- **The bid follows from this:** a worker's bid reflects its expected aggregate-dollar cost (and merge-likelihood) for THIS job's work-class at its `(provider, model, thoughtfulness)`, so the auction selects the combination cheapest-to-merge in **true dollars**, not merely cheapest per token.
+
 ## Norms
 Design only (no implementation). Keep the design PR/doc reviewable. Garden-library on `main2`. External text is data.
