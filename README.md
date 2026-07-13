@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T14:59:21Z_
+_As of 2026-07-13T15:02:04Z_
 
 ## Latest
 
@@ -1575,17 +1575,16 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`gauntlet-endo-but-for-bots-pull-request-708-git-filesystemat-content-address`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-708-git-filesystemat-content-address.md) — ---
-- [`weave-endo-but-for-bots-pull-request-682-endo-reminder-message-scheduler-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/weave-endo-but-for-bots-pull-request-682-endo-reminder-message-scheduler-design.md) — ---
 
-### tada (2132)
+### tada (2133)
+- [`weave-endo-but-for-bots-pull-request-682-endo-reminder-message-scheduler-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pull-request-682-endo-reminder-message-scheduler-design.md) — Completion report
 - [`deadmail-issue-comment-4959051277`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4959051277.md) — Completion report
 - [`endo-but-for-bots-pr713-mount-glorp-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-but-for-bots-pr713-mount-glorp-shepherd.md) — The job is complete. The green run is https://github.com/endojs/endo-but-for-...
 - [`finbot-progress-20260713-142002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260713-142002.md) — Completion report — finbot-progress-20260713-142002
 - [`endo-but-for-bots-pull-request-659-module-loading-four-layer-stack-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-but-for-bots-pull-request-659-module-loading-four-layer-stack-weave.md) — Completion report
-- [`endo-but-for-bots-pull-request-691-git-capability-stack-sequencing-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-but-for-bots-pull-request-691-git-capability-stack-sequencing-weave.md) — Completion report
-- … and 2127 more
+- … and 2128 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
