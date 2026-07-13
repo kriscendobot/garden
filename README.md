@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T15:46:11Z_
+_As of 2026-07-13T15:48:26Z_
 
 ## Latest
 
@@ -1575,8 +1575,9 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`fix-kriscendobot-agoric-sdk-16`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-kriscendobot-agoric-sdk-16.md) — fix — apply the panel must-fix items on kriscendobot/agoric-sdk#16
+- [`gauntlet-endo-but-for-bots-pull-request-598-daemon-rename-to-manager-phase-one`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-598-daemon-rename-to-manager-phase-one.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
 
 ### tada (2139)
 - [`build-endo-but-for-bots-endo-reminder-plugin-from-design-682`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-endo-reminder-plugin-from-design-682.md) — Completion report: build-endo-but-for-bots-endo-reminder-plugin-from-design-682
