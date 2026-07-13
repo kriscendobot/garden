@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T12:36:54Z_
+_As of 2026-07-13T12:41:19Z_
 
 ## Latest
 
@@ -1332,6 +1332,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T123644Z-c435ba` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T123644Z-c435ba.md)
 
 > Milestone M2 (Project Hygiene) is complete pending merge — both remaining designs are built and merge-ready as CLEAN/green PRs by sibling instance kriscendobot: #259 (hardened text-codecs shim) and #719 (hardened URL shim). Merge is out of my bounds and inter-instance, so it needs your decision; please also advance `designs/hardened-text-codecs-shim.md` and `designs/hardened-url-shim.md` from "Not Started" on the `llm` branch, since that status drift is what keeps re-dispatching redundant builds of already-open PRs.
+
+- `20260713T124110Z-872f74` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T124110Z-872f74.md)
+
+> Milestone M2 (Project Hygiene) is merge-ready: its last two unstarted rows, `hardened-text-codecs-shim` and `hardened-url-shim`, are both fully implemented in open, non-draft, CI-green PRs [endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/issues/259) and #719 (authored by sibling instance kriscendobot), yet their design records in `journal/plan/designs/endo-but-for-bots/` still read `status: Not Started` — causing the foreman to re-post already-complete build jobs every idle tick. Decision needed: merge #259 and #719 (or authorize a conductor to) and advance both design records to Complete so M2 closes and the fleet stops re-dispatching.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
