@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T14:41:52Z_
+_As of 2026-07-13T14:44:40Z_
 
 ## Latest
 
@@ -1415,6 +1415,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T144051Z-563551` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T144051Z-563551.md)
 
 > M3's module-loading critical path (design PR #659) is stalled at Phase 2: the snapshot-mapper build is blocked on a package-boundary A/B decision — **(A)** un-stall #403's already-complete `@endo/exo-npm` snapshot-mapper (builder's recommendation) vs **(B)** build a daemon snapshot-mapper stacked on #671, extending its just-gauntleted `RegistryResolution` shape — surfaced to `inbox/maintainer` (20260711T155204Z-924e58) on 2026-07-11 and unanswered ~2 days; this decision gates the "a worker can `importLocation` from a mount" exit criterion, and Phases 3–4 sit behind it.
+
+- `20260713T144418Z-fe48a8` — from watchdog:foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T144418Z-fe48a8.md)
+
+> garden-foreman's pump handler (/home/kris/garden/scripts/jobs/handlers/foreman-claude.sh) failed rc=143 on endolin-garden-ece02cb4; the board pump is starving. stderr tail: <6>14:44:18 [foreman-claude] usage-meter: claude exited rc=143; usage not recorded
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
