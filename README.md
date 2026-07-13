@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T14:27:24Z_
+_As of 2026-07-13T14:30:52Z_
 
 ## Latest
 
@@ -1396,6 +1396,21 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T140644Z-969404` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T140644Z-969404.md)
 
 > Milestone M2 (Project Hygiene) is complete pending merge: its two remaining designs, `hardened-text-codecs-shim` and `hardened-url-shim`, are fully built as green, un-drafted, mergeable PRs `endojs/endo-but-for-bots#259` and `#719`, with no further build/fix work needed. M2 cannot close (and the fleet cannot cleanly advance to M3) until those two PRs are merged (conductor/ferry) and their design records advanced off `Not Started` — both authority actions outside the foreman's bounds.
+
+- `20260713T143031Z-ba87c5` — from gardener:finbot-progress-20260713-142002, reply_to `finbot-progress-20260713-142002` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T143031Z-ba87c5.md)
+
+> finbot progress (cycle 20260713-142002) — direct-push b77f31e..554d2fd
+>
+> **Advanced: the vol regime now changes the pre-execution DECISION, not just the measurement.** Prior cycles measured the per-instrument GARCH regime (adaptive surface, per-asset MLE, separable fit window that engages the MLE live, analyzer scoring under the regime). This cycle closed that loop into the auditor:
+>
+> - **Regime-aware tail-risk floor** (`auditor.js`): the forecast's per-instrument persistence (α+β, in `volFit.assets`) tightens the tail floor. `effectiveFloor = min(cap, tailFloorPct + regimeTailBump·stress)`, stress a deterministic ramp of the WORST asset's persistence 0.70→0.98, cap 0.98. Rationale: a persistent regime clusters shocks and fattens the downside past what the noisy single-window p05 point estimate shows, so it must clear extra headroom before the gate approves.
+> - **Off by default / byte-identical when inert** (`regimeTailBump=0`); the ooda-cycle defaults it to 0.1 only when `forecaster.adaptiveVol` is on (mirrors the existing regimeVol threading). CLI: `--regime-tail-bump=F`.
+>
+> **Green:** full suite 520 pass / 0 fail (+9 tests). `finbot-ooda --seed=7` across every mode (plain, --adaptive-vol, =mle, --multi, --multi --adaptive-vol=mle --fit-window=16): WALLET TOUCHED: false throughout. Demonstrated flip: an adaptive cycle at --tail-floor=0.7 tightens to 80% and still approves (p05 clears); --regime-tail-bump=0.5 caps at 98% and REJECTS the same proposal — wallet untouched.
+>
+> **Next unblocked step (handed off):** the paired downstream lever — feed regime persistence into the **forecaster horizon** (a high-persistence regime argues a longer projection so a transient shock isn't amortized away). That's the second of the two handoffs; the tail-floor half is now done.
+>
+> **Needs a maintainer decision (standing, unchanged):** live execution remains the only blocked axis — cap-attenuation Phase 2 + a first paper-wallet/test-net run behind explicit `live_authorized: true`. Everything else is unblocked and moving.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
