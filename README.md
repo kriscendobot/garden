@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T09:25:52Z_
+_As of 2026-07-13T09:30:50Z_
 
 ## Latest
 
@@ -1208,6 +1208,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T092537Z-09b74a` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T092537Z-09b74a.md)
 
 > M2 (Project Hygiene) is one action from complete: its last two rows — the hardened text-codecs shim and hardened URL shim — are already implemented and CI-green as endojs/endo-but-for-bots PR #259 and PR #719 (both authored by sibling instance kriscendobot, both OPEN, non-draft, MERGEABLE, CLEAN). No gardener build/fix/shepherd work remains; closing M2 needs a merge decision on those two PRs (conductor dispatch), plus advancing the `hardened-text-codecs-shim` / `hardened-url-shim` design records off `Not Started` so they stop being re-dispatched as fresh builds.
+
+- `20260713T093037Z-d47dab` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T093037Z-d47dab.md)
+
+> Milestone M2 (Project Hygiene) has only two designs left — `hardened-text-codecs-shim` and `hardened-url-shim` — and both are already implemented as CI-green, un-drafted, mergeable PRs in `endojs/endo-but-for-bots` (#259 and #719, gauntlet complete); their plan records still read "Not Started," which is what keeps re-dispatching redundant builds (the last two builder jobs both stood down on discovering these PRs). The remaining step to close M2 is to merge/ferry #259 and #719 and advance their design-record status — a merge/authority decision only the maintainer (or a conductor job you authorize) can make, so there is no unblocked build/design work left in M2 for the fleet.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
