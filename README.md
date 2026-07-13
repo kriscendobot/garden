@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T22:18:34Z_
+_As of 2026-07-13T22:19:39Z_
 
 ## Latest
 
@@ -1781,19 +1781,18 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`build-cleric-and-factor-worker-spine`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-cleric-and-factor-worker-spine.md) — Deliverables
-- [`endojs-endo-but-for-bots-pr659-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr659-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #659
 - [`endojs-endo-but-for-bots-pr678-8a856783`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr678-8a856783.md) — attention directive on endojs/endo-but-for-bots PR #678
 - [`research-local-inference-amd-ryzen-setup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/research-local-inference-amd-ryzen-setup.md) — The actual host (probed 2026-07-13)
 
-### tada (2170)
+### tada (2171)
+- [`endojs-endo-but-for-bots-pr659-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr659-conduct.md) — PR #659 is MERGED onto the live trunk llm with merge commit 05ed3ac. Base was...
 - [`design-cleric-worker-bid-auction-reputation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-cleric-worker-bid-auction-reputation.md) — Design complete, landed, and the maintainer briefed. Final report:
 - [`doc-claude-codex-models-reference`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/doc-claude-codex-models-reference.md) — Completion report
 - [`build-endo-but-for-bots-endo-fetch-plugin`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-endo-fetch-plugin.md) — Completion report
 - [`endo-sturdyref-press-20260713-203512`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-203512.md) — SturdyRef press tick (job endo-sturdyref-press-20260713-203512, dispatched 20...
-- [`kriscendobot-agoric-sdk-pr17-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr17-shepherd.md) — All fixes are on the PR head (5e2538462c); only the 2 multichain-e2e legs rem...
-- … and 2165 more
+- … and 2166 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
