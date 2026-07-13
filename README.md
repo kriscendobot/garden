@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T16:16:51Z_
+_As of 2026-07-13T16:20:48Z_
 
 ## Latest
 
@@ -1583,7 +1583,8 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`endo-sturdyref-press-20260713-162018`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260713-162018.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
 - [`gauntlet-endo-but-for-bots-pull-request-721-endo-reminder-message-scheduler-plugin`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-721-endo-reminder-message-scheduler-plugin.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
 
