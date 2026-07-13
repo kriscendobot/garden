@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T04:22:56Z_
+_As of 2026-07-13T04:25:40Z_
 
 ## Latest
 
@@ -1089,6 +1089,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T042058Z-cf4a35` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T042058Z-cf4a35.md)
 
 > Milestone M2 (Project Hygiene) has only its two hardened-SES-shim designs left, and both are already built, panel-reviewed, and green: `endojs/endo-but-for-bots#259` (TextEncoder/TextDecoder, rebased) and `#719` (URL/URLSearchParams, gauntleted) are OPEN, non-draft, MERGEABLE/CLEAN — the only remaining step is merging them and closing the superseded competitor `#263` (CONFLICTING) in favor of `#719`, all merge/close authority actions the foreman cannot post.
+
+- `20260713T042533Z-a1a3fc` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T042533Z-a1a3fc.md)
+
+> Milestone M2 (Project Hygiene) is down to its last step: its two vetted-shim PRs on endojs/endo-but-for-bots are built, rebased, gauntleted, and CI-green — #259 (hardened-text-codecs-shim, CLEAN/MERGEABLE) and #719 (hardened-url-shim, un-drafted, 16 checks green) — but both need a maintainer to merge/ferry them, and #719 has a competing alternative #263 (the universal "remove blob methods everywhere" variant) that must be closed or chosen; please decide #719-vs-#263 and authorize the merges/ferry so M2 can close.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
