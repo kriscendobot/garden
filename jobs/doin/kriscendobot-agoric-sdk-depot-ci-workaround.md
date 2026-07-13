@@ -19,3 +19,9 @@ The fork's integration CI targets **Depot cloud runners**, gated to the upstream
 
 ## Report
 State which workflows/jobs you re-targeted, the run URL proving the integration leg now dispatches on the fork, and any remaining gap (a Depot-specific step with no fork equivalent, or the leg red for a real test reason vs infra). Note whether this clears the garden#33 Leg-4 decision so the xst-validation orchestrator can proceed.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  claimed_at: 2026-07-13T18:23:02Z
