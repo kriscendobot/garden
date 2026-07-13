@@ -336,3 +336,12 @@ Inspect via `git -C journal cat-file -p 8dcb8cb7d2c64e12eba360d77b2e18ed29ece05d
 - Context: gardener-14 on endolin-garden-ece02cb4: job 'deadmail-issue-comment-4960246553' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 1f663ddec9bb63f85992d9cf7b8098d0fd517e74`.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-07-13T19:06:35Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: 37aa653271a813a9a24d46b8e988670785b91af3
+- Context: gardener-13 on endolin-garden-ece02cb4: job 'gauntlet-endo-but-for-bots-pull-request-721-endo-reminder-message-scheduler-plugin' exit-0-unsatisfying but elapsed near-constant (171,171s) over 2 cycles — likely a wedged child, not a working one
+
+Inspect via `git -C journal cat-file -p 37aa653271a813a9a24d46b8e988670785b91af3`.
