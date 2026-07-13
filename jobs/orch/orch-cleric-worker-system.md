@@ -2,7 +2,7 @@
 order: serial
 children: doc-claude-codex-models-reference design-cleric-worker-bid-auction-reputation build-cleric-and-factor-worker-spine build-worker-bid-auction-reputation
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-07-13T21:42:17Z
 ---
