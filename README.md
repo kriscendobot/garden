@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T21:43:08Z_
+_As of 2026-07-13T21:43:33Z_
 
 ## Latest
 
@@ -1759,8 +1759,8 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`doc-claude-codex-models-reference`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/doc-claude-codex-models-reference.md) — What to capture (a table per provider)
 
 ### tada (2168)
 - [`build-endo-but-for-bots-endo-fetch-plugin`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-endo-fetch-plugin.md) — Completion report
