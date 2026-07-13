@@ -581,10 +581,13 @@ parked_section() {
 # Compute the deterministic dashboard for the current synced state of $DIR and
 # print it to stdout. This is the always-works base; it reuses the v1 board logic.
 compute_dashboard() {
-  local watch hosts_block h g maint m mf rt frm repo link now board parked plan
+  local watch hosts_block h g maint m mf rt frm repo link now board parked plan spend
   board=$(render_board)
   plan=$(render_plan_queue)
   parked=$(parked_section)
+  # Per-provider spend & quota (deterministic; NO claude/codex in the render path;
+  # each cell degrades to "unavailable"/"no quota set"/"n/a" — never a fake number).
+  spend=$(render_quota_panel 2>/dev/null || printf '(spend panel unavailable)\n')
   watch=$(list_jobs "$DIR" repos | paste -sd' ' - 2>/dev/null); [ -n "$watch" ] || watch="(none)"
 
   hosts_block=""
@@ -644,6 +647,9 @@ ${parked}
 ## Messages to the maintainer
 
 ${maint}
+## Spend & quota
+${spend}
+
 ## Board
 ${board}
 
@@ -679,11 +685,18 @@ latest_part() {
     f                               { print }
   ' <<<"$1"
 }
-# Strip the volatile lines so the compare is stable: the `_As of` freshness line and
+# Strip the volatile lines so the compare is stable: the `_As of` freshness line,
 # the ticking "(waiting <age>)" suffix on parked-PR rows (the PR set still differs
-# when a PR enters/leaves the queue, so real motion is not masked).
+# when a PR enters/leaves the queue, so real motion is not masked), and the
+# constantly-ticking Spend & quota panel rows + its window note. The spend numbers
+# accrue on every local `claude`/`codex` turn, not on a journal2 push, so leaving
+# them in the compare would post (and re-run the journalist) on every tick; instead
+# the panel is always RENDERED fresh into a post that some real board change
+# triggers, but its numbers never force a commit on their own (matching the
+# token-cost-ledger cost-chip's "rides journal2 pushes" intent).
 stable() {
-  grep -vE '^_As of ' <<<"$1" | sed -E 's/ \(waiting [^)]*\)$//' || true
+  grep -vE '^_As of |^_Trailing [0-9]+d window|^\| (Claude|Codex) \|' <<<"$1" \
+    | sed -E 's/ \(waiting [^)]*\)$//' || true
 }
 
 # Build the journalist's digest (dashboard + since-cursor transitions) into a temp

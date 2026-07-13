@@ -502,6 +502,13 @@ record_deployed_sha() {
 # shellcheck source=usage-meter.sh
 source "$(dirname "${BASH_SOURCE[0]}")/usage-meter.sh"
 
+# --- per-provider spend & quota panel (the bulletin's maintainer view) --------
+# Sourced AFTER usage-meter so render_quota_panel can reuse meter_window_total /
+# meter_quota_status. Adds Claude dollar pricing (rate card over the session logs)
+# and Codex token/dollar/quota from ~/.codex rollout logs. See quota-panel.sh.
+# shellcheck source=quota-panel.sh
+source "$(dirname "${BASH_SOURCE[0]}")/quota-panel.sh"
+
 # --- hard-dependency guard (the silent-jq-outage fix) ------------------------
 #
 # A missing external binary must NEVER hide as silent empty output. On
