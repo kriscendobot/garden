@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T19:08:39Z_
+_As of 2026-07-13T19:09:10Z_
 
 ## Latest
 
@@ -1616,17 +1616,17 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (3)
-- [`esheets-supervisor-20260713-190505`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260713-190505.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
 - [`gauntlet-endo-but-for-bots-pull-request-721-endo-reminder-message-scheduler-plugin`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-721-endo-reminder-message-scheduler-plugin.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
+- [`kriscendobot-agoric-sdk-pr16-review-65885306-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr16-review-65885306-retro.md) — Retrospective on kriscendobot/agoric-sdk PR #16 (primary: kriscendobot-agoric...
 - [`weave-endo-but-for-bots-pr621-endoclaw-oauth`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/weave-endo-but-for-bots-pr621-endoclaw-oauth.md) — Weave endojs/endo-but-for-bots #621 — refine endoclaw-oauth design — back ont...
 
-### tada (2154)
+### tada (2155)
+- [`esheets-supervisor-20260713-190505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260713-190505.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr16-review-77ecb195`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-review-77ecb195.md) — Completion report
 - [`deadmail-issue-comment-4960246553`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4960246553.md) — The intent has already been fully carried out. A peer's comment (kriscendobot...
 - [`agoric-sdk-pr9-drive-20260713-175015`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-pr9-drive-20260713-175015.md) — Nothing material changed. updatedAt is still 2026-07-12T11:25:07Z — identical...
 - [`endo-sturdyref-press-20260713-173502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-173502.md) — SturdyRef press tick — requeued 17:35 dispatch, resolved as a verified no-op.
-- [`endo-sturdyref-press-20260713-183502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-183502.md) — SturdyRef press tick — 2026-07-13T18:35 dispatch (verification tick, no push)
-- … and 2149 more
+- … and 2150 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1654,7 +1654,6 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`kriscendobot-agoric-sdk-pr16-review-65885306-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr16-review-65885306-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #16 (primary: kriscendobot-agoric...
 - [`kriscendobot-agoric-sdk-pr16-review-77ecb195-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr16-review-77ecb195-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #16 (primary: kriscendobot-agoric...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
