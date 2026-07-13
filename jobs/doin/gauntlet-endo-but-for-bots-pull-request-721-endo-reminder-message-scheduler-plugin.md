@@ -2,6 +2,7 @@ Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/en
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
