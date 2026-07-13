@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T13:01:41Z_
+_As of 2026-07-13T13:06:28Z_
 
 ## Latest
 
@@ -1352,6 +1352,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T130127Z-fbb745` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T130127Z-fbb745.md)
 
 > Milestone M2 (Project Hygiene) has only two remaining rows — `hardened-text-codecs-shim` and `hardened-url-shim` — and both are already fully built as merge-ready peer PRs (`endojs/endo-but-for-bots#259` and `#719`: OPEN, non-draft, MERGEABLE, CLEAN, all CI green), so no builder/designer/weaver/fixer job is left to post and the only remaining step is a merge/conduct action outside foreman bounds. Decision needed: merge #259 and #719 (they were authored by sibling instance kriscendobot, so the no-inter-instance-GitHub-loops rule applies), and correct the M2 design-status drift (both records still read `status: Not Started`, which is what keeps re-dispatching these builds).
+
+- `20260713T130618Z-e0ba07` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T130618Z-e0ba07.md)
+
+> Milestone M2 (Project Hygiene) is complete pending merge: its last two designs are both live as OPEN/non-draft/mergeable/CI-green PRs on endojs/endo-but-for-bots — #259 (TextEncoder/TextDecoder shim) and #719 (URL/URLSearchParams shim). The only remaining step is a merge (conductor job, outside foreman bounds), and the `hardened-text-codecs-shim`/`hardened-url-shim` design records still read "Not Started" — that status drift keeps triggering redundant build dispatches. Decision needed: post `merge #259` and `merge #719`, then advance both design statuses so M2 closes and the fleet moves to M3.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
