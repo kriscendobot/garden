@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T23:24:13Z_
+_As of 2026-07-13T23:28:52Z_
 
 ## Latest
 
@@ -12,6 +12,7 @@ Two operational flags warrant a look: the triager crash-loop fix is landed on `m
 
 ## Parked for maintainer feedback
 
+- [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 1m)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 1d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 3d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 11d)
@@ -21,9 +22,8 @@ Two operational flags warrant a look: the triager crash-loop fix is landed on `m
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 28d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 52d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 52d)
-- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 54d)
 
-_Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `20260709T212252Z-402b49` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260709T212252Z-402b49.md)
@@ -1866,17 +1866,16 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`durable-bot-git-identity-on-reset`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/durable-bot-git-identity-on-reset.md) — Current mechanism (assess before changing)
-- [`endojs-endo-but-for-bots-pr670-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr670-refresh.md) — Refresh endojs/endo-but-for-bots PR #670 (subscription OAuth flow, M3)
 
-### tada (2186)
+### tada (2187)
+- [`endojs-endo-but-for-bots-pr670-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr670-refresh.md) — Completion report: refresh endojs/endo-but-for-bots PR #670
 - [`bulletin-claude-codex-quota-spend-visibility`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/bulletin-claude-codex-quota-spend-visibility.md) — Completion report
 - [`endojs-endo-but-for-bots-pr667-review-20347bb0`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr667-review-20347bb0.md) — Completion report — endojs/endo-but-for-bots PR #667 review directive
 - [`endojs-endo-but-for-bots-pr661-review-e6e9d5e5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr661-review-e6e9d5e5.md) — Completion report
 - [`refresh-pr-review-sequence-2026-07-13`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/refresh-pr-review-sequence-2026-07-13.md) — Completion report
-- [`orch-cleric-worker-system`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/orch-cleric-worker-system.md) — orchestration orch-cleric-worker-system — complete
-- … and 2181 more
+- … and 2182 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
