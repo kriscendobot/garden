@@ -58,3 +58,9 @@ state** (signature-marked under `$GARDEN_STATE`), re-posting only on a real chan
 so an unchanged bottleneck no longer floods the inbox, while a genuinely new decision
 still surfaces once. Committed and pushed to `main2`. The `tada` report gives the SHA,
 the signature definition, and the dedup verification. Takes effect at the next deploy.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 9
+  claimed_at: 2026-07-13T02:08:16Z
