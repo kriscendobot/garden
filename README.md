@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T19:04:27Z_
+_As of 2026-07-13T19:04:43Z_
 
 ## Latest
 
@@ -1603,17 +1603,16 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`gauntlet-endo-but-for-bots-pull-request-721-endo-reminder-message-scheduler-plugin`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-721-endo-reminder-message-scheduler-plugin.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
-- [`kriscendobot-agoric-sdk-pr16-review-77ecb195`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr16-review-77ecb195.md) — Review directive on kriscendobot/agoric-sdk PR #16
 
-### tada (2153)
+### tada (2154)
+- [`kriscendobot-agoric-sdk-pr16-review-77ecb195`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-review-77ecb195.md) — Completion report
 - [`deadmail-issue-comment-4960246553`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4960246553.md) — The intent has already been fully carried out. A peer's comment (kriscendobot...
 - [`agoric-sdk-pr9-drive-20260713-175015`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-pr9-drive-20260713-175015.md) — Nothing material changed. updatedAt is still 2026-07-12T11:25:07Z — identical...
 - [`endo-sturdyref-press-20260713-173502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-173502.md) — SturdyRef press tick — requeued 17:35 dispatch, resolved as a verified no-op.
 - [`endo-sturdyref-press-20260713-183502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-183502.md) — SturdyRef press tick — 2026-07-13T18:35 dispatch (verification tick, no push)
-- [`kriscendobot-agoric-sdk-depot-ci-workaround`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-depot-ci-workaround.md) — Completion report
-- … and 2148 more
+- … and 2149 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
