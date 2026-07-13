@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/42#issuecomment-4961279677
 > [@dckc](https://github.com/dckc) please note that agoric-sdk is not the only change needed.  yes, I did, in the issue description: > Related changes are needed in EMS, the UI, etc.; those are out of scope.   
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 20
+  claimed_at: 2026-07-13T18:35:07Z
