@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T17:35:23Z_
+_As of 2026-07-13T17:50:39Z_
 
 ## Latest
 
@@ -1583,7 +1583,8 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (7)
+- [`agoric-sdk-pr9-drive-20260713-175015`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-pr9-drive-20260713-175015.md) — Drive kriscendobot/agoric-sdk PR #9 to approval (every 6h)
 - [`deadmail-issue-comment-4960246553`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4960246553.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-4960632792`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4960632792.md) — Dead-lettered message — pick up its intent
 - [`endo-sturdyref-press-20260713-173502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260713-173502.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
