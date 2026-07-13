@@ -2,6 +2,7 @@ Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/en
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-deadline-overrun: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
