@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T20:02:18Z_
+_As of 2026-07-13T20:07:54Z_
 
 ## Latest
 
@@ -1496,6 +1496,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T195920Z-a7b465` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T195920Z-a7b465.md)
 
 > M3 (Remote Access and Coding Capabilities) is idle-blocked on merge throughput, not on missing work: a large stack of green, MERGEABLE PRs on `llm` awaits merge/sequencing — notably the acceptance designs #691 (git-capability stack) and #659 (module-loading stack) plus the mount-capability stack (#656, #655, #657, #658, #713) — and these gate the downstream stacked builds. Decision needed: sequence and merge that ready M3 stack (conductor), since posting more builds would only deepen the unmerged backlog rather than advance the exit criterion.
+
+- `20260713T200743Z-f70e9c` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T200743Z-f70e9c.md)
+
+> M3's exit-criterion capstone [endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/issues/707) (the worked version-controlled-filesystem loop, git stack Phase 3) is green on CI but stuck DRAFT: its un-draft gauntlet is poisoned (requeue-exhausted after 5 cycles + a deadline overrun) and parked behind a `go-ahead` gate the fleet cannot self-promote, so the loop that closes M3 can't join the already-ready #705/#706/#708 stack. Decision needed: authorize a longer-deadline or split gauntlet re-run, or un-draft #707 manually.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
