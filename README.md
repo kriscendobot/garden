@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T20:07:54Z_
+_As of 2026-07-13T20:11:56Z_
 
 ## Latest
 
@@ -1500,6 +1500,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T200743Z-f70e9c` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T200743Z-f70e9c.md)
 
 > M3's exit-criterion capstone [endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/issues/707) (the worked version-controlled-filesystem loop, git stack Phase 3) is green on CI but stuck DRAFT: its un-draft gauntlet is poisoned (requeue-exhausted after 5 cycles + a deadline overrun) and parked behind a `go-ahead` gate the fleet cannot self-promote, so the loop that closes M3 can't join the already-ready #705/#706/#708 stack. Decision needed: authorize a longer-deadline or split gauntlet re-run, or un-draft #707 manually.
+
+- `20260713T201148Z-27ca04` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T201148Z-27ca04.md)
+
+> M3's exit-criterion capstone — the #707 "worked version-controlled-filesystem loop" — is stalled: its un-draft gauntlet poisoned after 5 requeue cycles with a deadline overrun and is now go-ahead-gated (as are the #694/#661/#704/#124 M3 follow-ups), while the ready git stack #705/#706/#708 sits open awaiting merge, so no unblocked automated step can land the milestone. Decision needed: authorize/promote the go-ahead-gated #707 gauntlet (or split its un-draft into a smaller sub-deadline step) and clear the merge-ready git stack, since the automated gauntlet keeps overrunning its deadline on this PR.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
