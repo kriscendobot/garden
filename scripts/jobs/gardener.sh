@@ -1,7 +1,15 @@
 #!/bin/bash
-# gardener.sh — a consumer worker. Claims jobs off the board and works them.
+# gardener.sh — a consumer worker (the SHARED worker spine). Claims jobs off the
+# board and works them. "gardener" is the spine's historical name; the SAME file
+# runs every worker KIND (gardener | cleric | …), selected by GARDEN_WORKER_KIND
+# (default gardener). The loop, the board protocol, the timeout/classification
+# machinery, and the drain/deploy semantics are identical across kinds — only the
+# job HANDLER, the systemd labels, the per-kind count, and the journal-clone /
+# marker namespaces differ, all derived from the worker-kind registry
+# (common.sh worker_kind_field). A new backend drops in as a handler + a registry
+# row, never a copy of this loop (design §2, cleric-worker-bid-auction-reputation.md).
 #
-# Usage: gardener.sh <id>
+# Usage: gardener.sh <id>            (GARDEN_WORKER_KIND=gardener|cleric)
 #
 # Loop: claim one job (todo→doin, CAS) → run the job handler in a per-basename
 # context → complete (doin→tada report). On an empty board it sleeps and
@@ -10,10 +18,10 @@
 #
 # The actual work is delegated to GARDEN_JOB_HANDLER, invoked as:
 #     $GARDEN_JOB_HANDLER <basename> <job-file> <report-out>
-# where <job-file> is the claimed job in this gardener's journal clone and
+# where <job-file> is the claimed job in this worker's journal clone and
 # <report-out> is a path the handler must fill with the completion report.
-# The default handler dispatches `claude -p` wearing the gardener role; the
-# test harness overrides it with a fast stub.
+# The default handler is the kind's registry handler (gardener → `claude -p`,
+# cleric → `codex exec`); the test harness overrides it with a fast stub.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -21,14 +29,26 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 
 id="${1:?usage: gardener.sh <id>}"
-GARDEN_TAG="gardener/$id"
 
-export GARDEN_GARDENER_CLONE="${GARDEN_GARDENER_CLONE:-$GARDEN_STATE/gardeners/$id/journal}"
+# The worker kind selects the handler, the marker/clone namespaces, and the bus
+# labels from the registry. Default gardener so a bare `gardener.sh <id>` (and
+# every existing test that invokes it) is unchanged.
+: "${GARDEN_WORKER_KIND:=gardener}"
+KIND="$GARDEN_WORKER_KIND"
+export GARDEN_WORKER_KIND
+STATE_NS="$(worker_kind_field "$KIND" state_ns)" || die "unknown worker kind '$KIND'"
+GARDEN_TAG="$KIND/$id"
+
+# Per-instance journal clone lives under the KIND's state namespace, so a cleric-1
+# and a gardener-1 never share a working tree. Exported as GARDEN_GARDENER_CLONE —
+# the name claim-job.sh / complete-job.sh inherit — so those primitives operate on
+# THIS worker's clone without a signature change (the env is the seam).
+export GARDEN_GARDENER_CLONE="${GARDEN_GARDENER_CLONE:-$GARDEN_STATE/$STATE_NS/$id/journal}"
 CLONE="$GARDEN_GARDENER_CLONE"
 
 : "${GARDEN_IDLE_SLEEP:=5}"
 : "${GARDEN_ONESHOT:=0}"
-: "${GARDEN_JOB_HANDLER:=$HERE/handlers/gardener-claude.sh}"
+: "${GARDEN_JOB_HANDLER:=$HERE/$(worker_kind_field "$KIND" handler)}"
 # Upper runtime bound for ONE handler invocation (see the wrapped call below).
 # INVARIANT: GARDEN_HANDLER_TIMEOUT + GARDEN_HANDLER_KILL_AFTER < GARDEN_CLAIM_TTL
 # (reaper.sh, default 14400) so no handler — even one that ignores SIGTERM and is only
@@ -121,7 +141,7 @@ CLONE="$GARDEN_GARDENER_CLONE"
 # fresh process is, by definition, not yet mid-job.
 # Path comes from the shared helper (common.sh) so the writer here and the readers
 # in deploy-sync.sh / install-units.sh scale agree on one definition of "mid-job".
-BUSY_MARKER="$(gardener_busy_marker "$id")"
+BUSY_MARKER="$(worker_busy_marker "$KIND" "$id")"
 mkdir -p "$(dirname "$BUSY_MARKER")" 2>/dev/null || true
 rm -f "$BUSY_MARKER" 2>/dev/null || true
 
@@ -162,11 +182,11 @@ fi
 # Per-instance identity marker — a cheap, machine-checkable record of THIS gardener's
 # resolved GARDEN that the scaler's drift check (sibling job) reads without walking
 # /proc. One file per gardener id, rewritten at every spawn.
-IDENTITY_MARKER="$GARDEN_STATE/gardeners/$id.garden"
+IDENTITY_MARKER="$GARDEN_STATE/$STATE_NS/$id.garden"
 mkdir -p "$(dirname "$IDENTITY_MARKER")" 2>/dev/null || true
 printf '%s\n' "$GARDEN" > "$IDENTITY_MARKER" 2>/dev/null || true
 
-log "starting (clone=$CLONE handler=$GARDEN_JOB_HANDLER oneshot=$GARDEN_ONESHOT)"
+log "starting (kind=$KIND clone=$CLONE handler=$GARDEN_JOB_HANDLER oneshot=$GARDEN_ONESHOT)"
 
 idle_rounds=0
 # Consecutive non-productive ticks, driving idle_backoff()'s exponential growth.
@@ -218,8 +238,10 @@ while :; do
   # fixes). The marker is re-set just before the handler runs, below.
   rm -f "$BUSY_MARKER" 2>/dev/null || true
 
-  # monitor the bus for anything addressed to this role or broadcast, every loop
-  "$HERE/read-msgs.sh" "gardener-$id" "role/gardener" "broadcast" || true
+  # monitor the bus for anything addressed to this worker, its role, or broadcast,
+  # every loop. The inbox key and role channel are kind-scoped so a cleric reads
+  # role/cleric and a gardener reads role/gardener.
+  "$HERE/read-msgs.sh" "$KIND-$id" "role/$KIND" "broadcast" || true
 
   # --- shared fleet brake -----------------------------------------------------
   # A correlated outage (a Claude quota/usage cut) makes many handlers fail at

@@ -1,14 +1,17 @@
 #!/bin/bash
-# gardener-scaler.sh — reconcile this host's gardener pool to journal state.
+# gardener-scaler.sh — reconcile this host's worker pools to journal state.
 #
 # Usage: gardener-scaler.sh
 #
-# The journal's hosts/<host> file declares how many concurrent gardeners this
-# host should run (its local concurrency limit). This timer-driven service —
-# the sibling of repo-watcher, but for worker count rather than the watch set —
-# syncs the journal and scales the local garden-gardener@N pool to match,
-# starting missing instances and stopping extras. Absent or unparsable → leave
-# the pool unchanged (a no-op WARN); only an explicit `gardeners: 0` scales to zero.
+# The journal's hosts/<host> file declares how many concurrent workers of each KIND
+# this host should run (its local concurrency limits): a `gardeners: N` line and a
+# `clerics: N` line. This ONE timer-driven service — the sibling of repo-watcher, but
+# for worker count rather than the watch set — syncs the journal and scales EVERY
+# worker pool to match by iterating the worker-kind registry (common.sh
+# worker_kinds), starting missing instances and stopping extras. Per kind: absent or
+# unparsable → leave that pool unchanged (a no-op WARN); only an explicit
+# `<count_key>: 0` scales that kind to zero. There is NO second scaler service — the
+# spine is one loop, one scaler.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -44,26 +47,24 @@ host="$GARDEN"
 "$HERE/install-units.sh" reconcile-identity
 
 f="$DIR/hosts/$host"
-want=""
-if [ -f "$f" ]; then
-  v="$(sed -n 's/^gardeners:[[:space:]]*//p' "$f" | head -1)"
-  [[ "$v" =~ ^[0-9]+$ ]] && want="$v"
-fi
 
-# "Cannot determine desired count" (absent hosts/<host>, or a malformed/missing
-# gardeners: line) is a NO-OP, not a scale-to-0: tearing the whole local fleet
-# down is exactly wrong when the desired-count signal is structurally missing.
-# Leave the pool unchanged and warn; only an explicitly-read `gardeners: 0` is
-# allowed to scale to zero. (Even an explicit scale-down no longer SIGTERMs an
-# in-flight handler: install-units.sh scale gates `disable --now` on the busy
-# marker, deferring a mid-job gardener to a later tick — but a structurally-absent
-# signal must still not trigger that path at all.)
-if [ -z "$want" ]; then
-  log "WARN host '$host' desired gardeners undeterminable (missing/unparsable hosts/$host); leaving pool unchanged"
-  exit 0
-fi
-log "host '$host' desired gardeners: $want"
-
-# delegate the actual enable/disable to the installer's scale path (which uses
-# the same mockable unit_ctl), keeping one place that knows how to scale.
-"$HERE/install-units.sh" scale "$want"
+# Reconcile EACH worker kind independently from its own count line. A kind whose
+# desired count is structurally missing/unparsable is a NO-OP for THAT kind (leave
+# it unchanged and warn), not a scale-to-0 — tearing a pool down is exactly wrong
+# when the signal is absent; only an explicitly-read `<count_key>: 0` scales a kind
+# to zero. Each kind delegates to the installer's scale path (the same mockable
+# unit_ctl), keeping one place that knows how to enable/disable instances.
+for kind in $(worker_kinds); do
+  count_key="$(worker_kind_field "$kind" count_key)"
+  want=""
+  if [ -f "$f" ]; then
+    v="$(sed -n "s/^$count_key:[[:space:]]*//p" "$f" | head -1)"
+    [[ "$v" =~ ^[0-9]+$ ]] && want="$v"
+  fi
+  if [ -z "$want" ]; then
+    log "WARN host '$host' desired $count_key undeterminable (missing/unparsable hosts/$host); leaving $kind pool unchanged"
+    continue
+  fi
+  log "host '$host' desired $count_key: $want"
+  "$HERE/install-units.sh" scale "$kind" "$want"
+done

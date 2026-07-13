@@ -3,8 +3,8 @@
 #
 # Usage:
 #   install-units.sh install                  render+install all unit files, daemon-reload
-#   install-units.sh scale <N>                run N gardeners (enable @1..@N, disable the rest)
-#   install-units.sh reconcile-identity       restart any running gardener whose GARDEN identity drifted
+#   install-units.sh scale [<kind>] <N>       run N workers of <kind> (default gardener; enable @1..@N, disable the rest)
+#   install-units.sh reconcile-identity       restart any running worker (any kind) whose GARDEN identity drifted
 #   install-units.sh enable-services          enable+start every intended garden timer/service
 #   install-units.sh enable-services --verify report any intended unit not currently enabled (drift check)
 #   install-units.sh status                   show the garden units and timers
@@ -147,16 +147,37 @@ prune_retired() {
   fi
 }
 
+# render_worker_units — render the ONE worker template (garden-worker@.service.in)
+# into a per-kind instance unit (garden-gardener@.service, garden-cleric@.service),
+# substituting @GARDEN_ROOT@ and @WORKER_KIND@. This is the factored spine's systemd
+# half: the two pools share one source, differing only by the substituted kind, so
+# they cannot drift on KillMode/TimeoutStopSec/memory confinement. The `.in` suffix
+# keeps the template OUT of the plain garden-*.service glob (so it is never rendered
+# verbatim), and the rendered names carry an '@' so prune_retired / intended_units
+# skip them (template instances are armed per-kind by `scale`, not globally).
+render_worker_units() {
+  local tmpl="$SRC/garden-worker@.service.in" kind unit_base
+  [ -e "$tmpl" ] || { log "WARN: worker template $tmpl missing; no worker units rendered"; return 0; }
+  for kind in $(worker_kinds); do
+    unit_base="$(worker_kind_field "$kind" unit)"   # garden-gardener@ / garden-cleric@
+    sed -e "s#@GARDEN_ROOT@#$GARDEN_ROOT#g" -e "s#@WORKER_KIND@#$kind#g" \
+      "$tmpl" > "$DEST/${unit_base}.service"
+  done
+}
+
 render() {
   mkdir -p "$DEST"
   # Globs every garden-*.{service,timer}, including the instance templates
-  # (garden-gardener@, garden-triager@, garden-comment-watcher@,
-  # garden-watcher@), which are instance-armed elsewhere (see the enable-set
-  # policy above) and so are excluded from enable_services.
+  # (garden-triager@, garden-comment-watcher@, garden-watcher@), which are
+  # instance-armed elsewhere (see the enable-set policy above) and so are excluded
+  # from enable_services. The worker template garden-worker@.service.in is NOT in
+  # this glob (its `.in` suffix); it is rendered per-kind by render_worker_units.
   for f in "$SRC"/garden-*.service "$SRC"/garden-*.timer; do
     [ -e "$f" ] || continue
     sed "s#@GARDEN_ROOT@#$GARDEN_ROOT#g" "$f" > "$DEST/$(basename "$f")"
   done
+  # Render the per-kind worker instance units from the single worker template.
+  render_worker_units
   # Retire any installed unit whose source we just stopped shipping, then reload
   # (prune_retired does its own daemon-reload, so the rendered files and the
   # removals both take effect in one reload).
@@ -179,8 +200,18 @@ scale_skip_note() {
 }
 
 scale() {
-  local n="${1:?usage: install-units.sh scale <N>}"
-  # Enable + start each intended gardener, split into the cheap synchronous file op
+  # scale [<kind>] <N> — reconcile the <kind> worker pool to N instances. The kind
+  # is OPTIONAL and defaults to gardener, so the historical `scale <N>` (and every
+  # caller and test that predates the cleric) is unchanged. The unit-instance prefix
+  # and the busy-marker namespace are derived from the worker-kind registry, so this
+  # ONE function scales every kind with no duplicated enable/disable logic.
+  local kind n
+  case "${1:-}" in
+    gardener|cleric) kind="$1"; n="${2:?usage: install-units.sh scale [<kind>] <N>}" ;;
+    *)               kind="gardener"; n="${1:?usage: install-units.sh scale [<kind>] <N>}" ;;
+  esac
+  local unit_base; unit_base="$(worker_kind_field "$kind" unit)"   # garden-gardener@ / garden-cleric@
+  # Enable + start each intended worker, split into the cheap synchronous file op
   # and the slow start job so neither blocks the reconcile loop. `enable` just
   # writes the persistent symlink — it does NOT wait on the unit's start job — so it
   # is unbounded. `start --no-block` enqueues the start job and returns as soon as
@@ -192,7 +223,7 @@ scale() {
   # skipped and a later tick retries it (the scaler already tolerates a start whose
   # convergence is only observed on a later tick).
   for i in $(seq 1 "$n"); do
-    local u="garden-gardener@$i.service" erc=0 rc=0
+    local u="${unit_base}$i.service" erc=0 rc=0
     unit_ctl enable "$u" || erc=$?
     [ "$erc" -eq 0 ] || scale_skip_note "enable" "$u" "$erc"
     unit_ctl_bounded start --no-block "$u" || rc=$?
@@ -211,12 +242,12 @@ scale() {
   local deferred=0
   while read -r unit _; do
     case "$unit" in
-      garden-gardener@*.service)
-        idx="${unit#garden-gardener@}"; idx="${idx%.service}"
+      "$unit_base"*.service)
+        idx="${unit#"$unit_base"}"; idx="${idx%.service}"
         [[ "$idx" =~ ^[0-9]+$ ]] || continue
         [ "$idx" -gt "$n" ] || continue
-        if gardener_busy "$idx"; then
-          log "gardener $idx is mid-job; deferring its stop to a later scaler tick (stops between claims, not mid-job)"
+        if worker_busy "$kind" "$idx"; then
+          log "$kind $idx is mid-job; deferring its stop to a later scaler tick (stops between claims, not mid-job)"
           deferred=$((deferred+1))
         else
           # Cheap disable, then a non-blocking stop bounded only as a wedged-manager
@@ -230,8 +261,8 @@ scale() {
         fi
         ;;
     esac
-  done < <(unit_ctl_bounded list-units --all 'garden-gardener@*.service' --no-legend 2>/dev/null || true)
-  log "scaled gardener pool to $n (deferred $deferred mid-job extra(s) for a later tick)"
+  done < <(unit_ctl_bounded list-units --all "${unit_base}*.service" --no-legend 2>/dev/null || true)
+  log "scaled $kind pool to $n (deferred $deferred mid-job extra(s) for a later tick)"
 }
 
 # reconcile_identity — restart any RUNNING gardener whose in-process GARDEN host
@@ -258,19 +289,30 @@ scale() {
 # identity cannot be read (not running, or no GARDEN in its environ — i.e. it
 # resolved the kernel-fixed hostname default, which cannot drift) is left alone.
 reconcile_identity() {
+  local kind
+  for kind in $(worker_kinds); do reconcile_identity_kind "$kind"; done
+}
+
+# reconcile_identity_kind <kind> — the per-kind body of the identity reconcile,
+# iterating one kind's instance units (garden-<kind>@*). Kept a single function so
+# every kind reconciles by the same rule (busy-marker-gated restart, non-blocking,
+# wedged-manager backstop) with no duplicated logic.
+reconcile_identity_kind() {
+  local kind="${1:?reconcile_identity_kind: kind required}"
+  local unit_base; unit_base="$(worker_kind_field "$kind" unit)"
   local want="$GARDEN" idx actual restarted=0 deferred=0
   while read -r unit _; do
     case "$unit" in
-      garden-gardener@*.service)
-        idx="${unit#garden-gardener@}"; idx="${idx%.service}"
+      "$unit_base"*.service)
+        idx="${unit#"$unit_base"}"; idx="${idx%.service}"
         [[ "$idx" =~ ^[0-9]+$ ]] || continue
         actual="$(gardener_instance_garden "$unit")" || continue  # unreadable/unset → not drifted
         [ "$actual" != "$want" ] || continue                       # identity matches → nothing to do
-        if gardener_busy "$idx"; then
-          log "gardener $idx identity '$actual' != host '$want' but mid-job; deferring its restart to a later tick (restarts between claims, not mid-job)"
+        if worker_busy "$kind" "$idx"; then
+          log "$kind $idx identity '$actual' != host '$want' but mid-job; deferring its restart to a later tick (restarts between claims, not mid-job)"
           deferred=$((deferred+1))
         else
-          log "gardener $idx identity '$actual' != host '$want'; restarting to adopt the corrected host identity"
+          log "$kind $idx identity '$actual' != host '$want'; restarting to adopt the corrected host identity"
           # Non-blocking: `restart --no-block` enqueues the restart job and returns
           # at once rather than blocking until it drains, so it finishes well under
           # the bound. Still wrapped in unit_ctl_bounded as a wedged-manager backstop
@@ -285,8 +327,8 @@ reconcile_identity() {
         fi
         ;;
     esac
-  done < <(unit_ctl_bounded list-units --all 'garden-gardener@*.service' --no-legend 2>/dev/null || true)
-  log "identity reconcile: restarted $restarted drifted gardener(s), deferred $deferred mid-job for a later tick"
+  done < <(unit_ctl_bounded list-units --all "${unit_base}*.service" --no-legend 2>/dev/null || true)
+  log "identity reconcile ($kind): restarted $restarted drifted, deferred $deferred mid-job for a later tick"
 }
 
 enable_services() {
@@ -367,5 +409,5 @@ case "${1:-install}" in
       *) die "usage: install-units.sh enable-services [--verify]";;
     esac;;
   status)          status;;
-  *) die "usage: install-units.sh {install|scale <N>|reconcile-identity|enable-services [--verify]|status}";;
+  *) die "usage: install-units.sh {install|scale [<kind>] <N>|reconcile-identity|enable-services [--verify]|status}";;
 esac

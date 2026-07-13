@@ -42,9 +42,18 @@ DEST="$XDG_CONFIG_HOME/systemd/user"
 # the retired-unit case prune_retired must clean up).
 populate_dest() {
   rm -rf "$DEST"; mkdir -p "$DEST"
-  local f extra
+  local f extra kind
   for f in "$SRC"/garden-*.service "$SRC"/garden-*.timer; do
     [ -e "$f" ] && cp "$f" "$DEST/$(basename "$f")"
+  done
+  # The worker instance units are RENDERED per-kind from the single template
+  # garden-worker@.service.in (its `.in` suffix keeps it out of the glob above), so
+  # reproduce that here: install produces garden-gardener@.service and
+  # garden-cleric@.service, both of which prune_retired must keep (they carry '@').
+  for kind in gardener cleric; do
+    [ -e "$SRC/garden-worker@.service.in" ] \
+      && sed -e "s#@GARDEN_ROOT@#$ROOT#g" -e "s#@WORKER_KIND@#$kind#g" \
+             "$SRC/garden-worker@.service.in" > "$DEST/garden-$kind@.service"
   done
   for extra in "$@"; do : > "$DEST/$extra"; done
 }
@@ -127,9 +136,12 @@ done
 # A unit that STILL has a source must survive the prune (no false-positive).
 [ -e "$DEST/garden-foreman.timer" ] \
   && ok "garden-foreman.timer kept (source still ships)" || bad "garden-foreman.timer wrongly pruned"
-# A template file must NEVER be pruned (its source IS the @.service/@.timer).
+# A template instance file must NEVER be pruned (it carries '@'; its source is the
+# shared garden-worker@.service.in, rendered per-kind). Both kinds must survive.
 [ -e "$DEST/garden-gardener@.service" ] \
-  && ok "garden-gardener@.service kept (template, never pruned)" || bad "template garden-gardener@.service wrongly pruned"
+  && ok "garden-gardener@.service kept (rendered worker template, never pruned)" || bad "garden-gardener@.service wrongly pruned"
+[ -e "$DEST/garden-cleric@.service" ] \
+  && ok "garden-cleric@.service kept (rendered worker template, never pruned)" || bad "garden-cleric@.service wrongly pruned"
 # The monitoring-gated, excluded unit must survive even though it ships a source.
 [ -e "$DEST/garden-mention-watcher.service" ] \
   && ok "garden-mention-watcher.service kept (excluded + sourced)" || bad "garden-mention-watcher.service wrongly pruned"

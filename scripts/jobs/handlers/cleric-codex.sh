@@ -1,0 +1,242 @@
+#!/bin/bash
+# cleric-codex.sh — the cleric job handler: do the work via `codex` (OpenAI).
+#
+# Invoked by the shared worker spine (gardener.sh) EXACTLY as the claude handler is:
+#     cleric-codex.sh <base> <job-file> <report-out>
+# It wears the gardener role brief (a cleric is a codex-backed gardener), performs
+# the job described in <job-file>, and writes a completion report to <report-out>.
+# It obeys the SAME completion contract the spine gates on: write the sentinel at
+# GARDEN_COMPLETION_SENTINEL iff codex exited 0 AND the report's final line is
+# GARDEN_COMPLETION_MARKER. It shares the per-job worktree lifecycle and the prompt
+# text with the claude handler via handlers/worker-common.sh, so the two backends
+# cannot drift on injection hygiene or the completion contract (design §1.1/§2.2,
+# cleric-worker-bid-auction-reputation.md).
+#
+# This is a PRODUCTION path, not exercised by the automated gardener tests (those
+# stub GARDEN_JOB_HANDLER). Its own behavior needs a live codex CLI to exercise.
+#
+# LIVE-CLI PROVENANCE / TODO: the flag surface below (codex exec, -m,
+# -c model_reasoning_effort=, --output-last-message, --json, --skip-git-repo-check,
+# --dangerously-bypass-approvals-and-sandbox, codex login status, codex exec resume)
+# is transcribed from designs/provider-model-catalog.md (verified live on
+# codex-cli 0.144.3) and designs/cleric-worker-bid-auction-reputation.md §1.1. codex
+# was NOT installed in the build worktree that authored this file, so the session-id
+# parse (§ resume) and the usage-event field names (§2.3, deferred) MUST be
+# re-verified on a host where `codex` is on PATH before the first real cleric job —
+# the catalog warns the CLI surface is server-resolved and living.
+
+set -euo pipefail
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=../common.sh
+source "$HERE/../common.sh"
+# shellcheck source=worker-common.sh
+source "$HERE/worker-common.sh"     # shared worktree lifecycle + prompt (anti-drift)
+
+base="${1:?base}"; jobfile="${2:?jobfile}"; report="${3:?report-out}"
+main_branch="${GARDEN_MAIN_BRANCH:-main2}"
+worktree="$(worker_worktree_path "$base")"
+
+# --- codex reachability + auth preflight -------------------------------------
+#
+# codex authenticates via ~/.codex/auth.json (the host's ChatGPT-plan login). An
+# auth gap must read as a HOST defect, not a job defect: die with a clear diagnostic
+# rather than letting codex fail deep in the run and look like the job's fault. The
+# `codex login status` check is gated behind a per-boot marker so it runs once per
+# host boot, not once per job (the design's "first run per boot"): the boot id keys
+# the marker so a reboot re-checks.
+command -v codex >/dev/null 2>&1 \
+  || die "codex not on PATH; cannot run cleric handler for '$base' (install @openai/codex CLI on this host)"
+auth_boot="$(cat /proc/sys/kernel/random/boot_id 2>/dev/null | tr -dc 'a-f0-9' || true)"
+auth_marker="$GARDEN_STATE/clerics/auth-ok-${auth_boot:-noboot}"
+if [ ! -e "$auth_marker" ]; then
+  if codex login status >/dev/null 2>&1; then
+    mkdir -p "$(dirname "$auth_marker")" 2>/dev/null || true
+    : > "$auth_marker" 2>/dev/null || true
+  else
+    die "codex is not authenticated on this host (codex login status failed); a cleric cannot run job '$base'. This is a host defect: run 'codex login' as the bot user (~/.codex/auth.json)."
+  fi
+fi
+
+# --- session resume across a reaper requeue ----------------------------------
+#
+# codex assigns its OWN session UUID (no deterministic-session-id analogue of the
+# claude handler's uuid5(base)). We parse the session id from codex's --json stream
+# (below) and persist it in a per-base sidecar under $GARDEN_STATE — which survives
+# the worktree-teardown races and is removed on completion — so a requeue with a
+# live sidecar can resume via `codex exec resume <sid>`. Resume is best-effort and
+# same-host; if the sidecar is absent (fresh claim, or requeue on another host) we
+# start a fresh session over whatever the worktree holds. The spine's requeue
+# semantics do not depend on backend resume: the uncommitted work carries the state.
+session_sidecar="$GARDEN_STATE/clerics/sessions/$base"
+resuming=false
+resume_sid=""
+if [ -s "$session_sidecar" ] && [ -d "$worktree" ]; then
+  resume_sid="$(tr -dc 'A-Za-z0-9-' < "$session_sidecar" 2>/dev/null | head -c 200 || true)"
+  [ -n "$resume_sid" ] && resuming=true
+fi
+
+# --- close the two-writer window BEFORE we touch the worktree -----------------
+#
+# A reaper requeue re-runs the SAME base into the SAME deterministic worktree path;
+# reap any live predecessor codex process rooted there first, so a fresh claim does
+# not rm the tree out from under a live writer and a resume does not launch a second
+# codex interleaving edits (the endo-but-for-bots #58 corruption class).
+# kill_stale_worktree_handlers keys on the worktree path, not the binary name, so it
+# covers the codex process tree exactly as it covers claude's.
+kill_stale_worktree_handlers "$worktree"
+worker_ensure_worktree "$worktree" "$main_branch" "$resuming"
+
+# The prompt is built by the shared spine helper (fresh vs resume framing), so the
+# claude and codex handlers stay byte-identical on the completion contract, the
+# worktree note, and injection hygiene. External text (the job body) is data.
+if $resuming; then
+  log "resuming codex session $resume_sid for requeued job '$base' in worktree $worktree"
+  prompt="$(worker_job_prompt "$base" "$jobfile" "$worktree" "$main_branch" resume)"
+else
+  prompt="$(worker_job_prompt "$base" "$jobfile" "$worktree" "$main_branch" fresh)"
+fi
+
+# --- model + thoughtfulness selection ----------------------------------------
+#
+# Mirrors the claude handler's two-step resolution, but on the OpenAI/codex tier map
+# (common.sh resolve_model_tier openai / role_default_model cleric):
+#   1. An explicit `model:` header requests a specific codex model (short tier —
+#      terra/luna/frontier/mini — or a concrete gpt-* id, passed through).
+#   2. Absent that, the job's `role:` selects a per-role default (designer/builder →
+#      gpt-5.6-terra), else the cleric fleet default gpt-5.6-terra.
+# Thoughtfulness resolves from an optional `effort:` header, else the role default
+# (high for designer/builder, medium otherwise), then is normalized DOWN to the
+# model's nearest supported level and passed as -c model_reasoning_effort=.
+fleet_default_model="gpt-5.6-terra"
+requested_model="$(plan_field "$jobfile" model)"
+requested_role="$(plan_role "$jobfile")"
+requested_effort="$(plan_field "$jobfile" effort)"
+
+model=""
+if [ -n "$requested_model" ]; then
+  model="$(resolve_model_tier openai "$requested_model")"
+  if [ -n "$model" ]; then
+    log "job '$base' requested model '$requested_model' -> codex -m $model"
+  else
+    log "job '$base' requested unknown codex model '$requested_model'; falling back to the cleric default $fleet_default_model"
+  fi
+fi
+if [ -z "$model" ] && [ -n "$requested_role" ]; then
+  model="$(role_default_model cleric "$requested_role")"
+  [ -n "$model" ] && log "job '$base' role '$requested_role' -> default codex model $model"
+fi
+[ -n "$model" ] || model="$fleet_default_model"
+
+# codex_effort_for_model <model> <level> — normalize a unified-axis thoughtfulness
+# level DOWN to the model's nearest supported codex reasoning-effort (catalog §2):
+# terra supports low·medium·high·xhigh·max·ultra; luna low·…·max; gpt-5.5 and
+# gpt-5.4-mini low·…·xhigh. An unknown/blank level resolves to medium (codex's own
+# per-model default). The normalized level is what actually runs, and is what a
+# future reputation event (§2.3/§4.2) keys the arm on — apples-to-apples.
+codex_effort_for_model() {
+  local m="${1:?}" level="${2:-medium}" ladder
+  case "$m" in
+    gpt-5.6-terra) ladder="low medium high xhigh max ultra" ;;
+    gpt-5.6-luna)  ladder="low medium high xhigh max" ;;
+    gpt-5.5|gpt-5.4-mini) ladder="low medium high xhigh" ;;
+    *)             ladder="low medium high xhigh" ;;   # conservative default ladder
+  esac
+  case "$level" in minimal) level="low" ;; esac        # no selectable model offers minimal
+  # If the requested level is supported, use it; else step DOWN to the highest
+  # supported level at or below it on the unified axis.
+  local axis="low medium high xhigh max ultra" want_rank=0 r=0 tok best=""
+  for tok in $axis; do r=$((r+1)); [ "$tok" = "$level" ] && want_rank=$r; done
+  [ "$want_rank" -eq 0 ] && want_rank=2                 # unknown level -> medium rank
+  r=0
+  for tok in $ladder; do
+    r=0
+    # rank of this ladder token on the axis
+    local ar=0 a
+    for a in $axis; do ar=$((ar+1)); [ "$a" = "$tok" ] && break; done
+    [ "$ar" -le "$want_rank" ] && best="$tok"
+  done
+  printf '%s\n' "${best:-medium}"
+}
+effort_level="${requested_effort:-$(role_default_effort cleric "$requested_role")}"
+effort="$(codex_effort_for_model "$model" "$effort_level")"
+[ "$effort" != "$effort_level" ] \
+  && log "job '$base' effort '$effort_level' normalized to '$effort' for $model (model's nearest supported level)"
+
+# --- run codex ----------------------------------------------------------------
+#
+# `codex exec` is the headless mode (no approval prompts by construction).
+# --dangerously-bypass-approvals-and-sandbox is the posture parity of the claude
+# handler's --dangerously-skip-permissions: the fleet's container IS the sandbox, and
+# codex's own sandbox would otherwise deny the git push / gh / network a job needs.
+# --skip-git-repo-check lets codex run with cwd inside the per-job worktree without
+# re-asserting repo shape. --output-last-message captures the final agent message as
+# the report (the analogue of `claude -p`'s stdout). The --json event stream goes to
+# a capture temp for the session-id parse below (and, once §2.3 lands, the usage
+# adapter). The job runs with cwd = $worktree so relative paths land in its worktree;
+# $report is absolute so --output-last-message is unaffected by the cd.
+json_capture="$(mktemp "${TMPDIR:-/tmp}/garden-codex-json-$base.XXXXXX")"
+: > "$report"
+codex_args=(
+  --dangerously-bypass-approvals-and-sandbox
+  --skip-git-repo-check
+  -m "$model"
+  -c "model_reasoning_effort=$effort"
+  --output-last-message "$report"
+  --json
+)
+
+set +e
+if $resuming && [ -n "$resume_sid" ]; then
+  ( cd "$worktree" && codex exec resume "$resume_sid" "${codex_args[@]}" "$prompt" ) > "$json_capture" 2>&1
+  rc=$?
+  # A resume that fails on an unusable session (pruned/expired) falls back to a fresh
+  # session over the preserved worktree — the uncommitted work carries the state.
+  if [ "$rc" -ne 0 ]; then
+    log "codex resume of session $resume_sid failed (rc=$rc) for '$base'; retrying as a FRESH session over the preserved worktree"
+    ( cd "$worktree" && codex exec "${codex_args[@]}" "$prompt" ) > "$json_capture" 2>&1
+    rc=$?
+  fi
+else
+  ( cd "$worktree" && codex exec "${codex_args[@]}" "$prompt" ) > "$json_capture" 2>&1
+  rc=$?
+fi
+set -e
+
+# Persist codex's session id (parsed from the --json stream's initial events) to the
+# per-base sidecar so a requeue can resume. Tolerant parse: match the first session/
+# thread id field the event stream carries. Best-effort — an unparsable id just means
+# the next attempt starts fresh (safe). VERIFY the exact field name on the live CLI.
+sid="$(grep -oE '"(session_id|thread_id|conversation_id|id)"[[:space:]]*:[[:space:]]*"[A-Za-z0-9-]+"' "$json_capture" 2>/dev/null \
+        | head -1 | grep -oE '"[A-Za-z0-9-]+"$' | tr -d '"' || true)"
+if [ -n "$sid" ]; then
+  mkdir -p "$(dirname "$session_sidecar")" 2>/dev/null || true
+  printf '%s\n' "$sid" > "$session_sidecar" 2>/dev/null || true
+fi
+# The --json capture also carries any codex diagnostics; fold its tail onto the
+# report's stderr channel (the spine captures the handler's stdout+stderr for
+# failure hashing) so a codex failure is not silent. Keep it off the report body,
+# which must stay the clean agent message for tada.
+[ "$rc" -ne 0 ] && tail -n 40 "$json_capture" >&2 2>/dev/null || true
+
+# --- deterministic completion signal -----------------------------------------
+#
+# Same contract as the claude handler (common.sh § job completion signal): write the
+# sentinel ONLY when codex exited 0 AND the report's final line is
+# GARDEN_COMPLETION_MARKER. A codex that exited 0 without finishing leaves the marker
+# absent, so no sentinel is written and the spine requeues the job. Strip the marker
+# before it lands in the human-facing tada report.
+if [ "$rc" -eq 0 ] && [ -n "${GARDEN_COMPLETION_SENTINEL:-}" ] && report_has_completion_marker "$report"; then
+  strip_completion_marker "$report"
+  : > "$GARDEN_COMPLETION_SENTINEL"
+fi
+
+# Teardown on genuine COMPLETION only — keyed on the same signal the spine gates on.
+# A clean-but-unfinished exit-0 (no marker) will be REQUEUED, so its worktree and
+# session sidecar must survive for the resumed run. A truly dead job's worktree is
+# reclaimed by the reaper's scratch janitor after GARDEN_SCRATCH_GC_AGE hours.
+if [ -n "${GARDEN_COMPLETION_SENTINEL:-}" ] && [ -e "$GARDEN_COMPLETION_SENTINEL" ]; then
+  scratch_cleanup "$worktree"
+  rm -f "$session_sidecar" 2>/dev/null || true   # a re-posted base must start fresh
+fi
+rm -f "$json_capture" 2>/dev/null || true
+exit "$rc"

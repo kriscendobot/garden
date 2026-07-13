@@ -125,63 +125,75 @@ trap 'exit 130' INT
 # inactive after the pool was sized to 20, blocked two deploys until an operator
 # removed it by hand). Routed through unit_ctl so GARDEN_UNIT_CTL stubs it in the
 # tests exactly like the rest of the deploy's unit control.
-gardener_unit_active() {  # <id> -> exit 0 if the unit is active, non-zero otherwise
-  unit_ctl is-active "garden-gardener@$1.service" >/dev/null 2>&1
+worker_unit_active() {  # <kind> <id> -> exit 0 if the unit is active, non-zero otherwise
+  local unit_base; unit_base="$(worker_kind_field "$1" unit)"
+  unit_ctl is-active "${unit_base}$2.service" >/dev/null 2>&1
 }
 
-# Sweep a stale busy marker (its gardener unit is inactive) and LOG what was
-# removed (id + marker age) so it stays diagnosable — never a silent skip.
-sweep_stale_busy() {  # <id> <age-seconds>
-  rm -f "$GARDEN_STATE/gardeners/$1/busy" 2>/dev/null || true
-  log "swept STALE busy marker: gardener $1 (unit inactive, marker age ${2}s) — not counted as busy/long-job"
+# Sweep a stale busy marker (its worker unit is inactive) and LOG what was removed
+# (kind + id + marker age) so it stays diagnosable — never a silent skip. The marker
+# path is derived from the kind's own namespace via the shared helper.
+sweep_stale_busy() {  # <kind> <id> <age-seconds>
+  rm -f "$(worker_busy_marker "$1" "$2")" 2>/dev/null || true
+  log "swept STALE busy marker: $1 $2 (unit inactive, marker age ${3}s) — not counted as busy/long-job"
 }
 
-# Count this host's mid-job gardeners by their busy markers. Zero = quiesced. A
-# marker whose gardener unit is inactive is STALE: it is swept (and logged), not
-# counted — otherwise a leftover marker would block quiesce forever.
+# Count this host's mid-job workers ACROSS EVERY KIND by their busy markers. Zero =
+# quiesced. A marker whose worker unit is inactive is STALE: it is swept (and
+# logged), not counted — otherwise a leftover marker would block quiesce forever.
+# The deploy must wait for a mid-job cleric exactly as for a mid-job gardener, so
+# this enumerates both kinds' marker namespaces via the registry (design §1.2).
 busy_count() {
-  local n=0 m idx now mtime age
+  local n=0 m idx now mtime age kind ns
   now="$(date +%s)"
-  for m in "$GARDEN_STATE"/gardeners/*/busy; do
-    [ -e "$m" ] || continue
-    idx="${m%/busy}"; idx="${idx##*/}"
-    if ! gardener_unit_active "$idx"; then
-      mtime="$(stat -c %Y "$m" 2>/dev/null || echo "$now")"
-      age=$(( now - mtime ))
-      sweep_stale_busy "$idx" "$age"
-      continue
-    fi
-    n=$((n+1))
+  for kind in $(worker_kinds); do
+    ns="$(worker_kind_field "$kind" state_ns)"
+    for m in "$GARDEN_STATE/$ns"/*/busy; do
+      [ -e "$m" ] || continue
+      idx="${m%/busy}"; idx="${idx##*/}"
+      if ! worker_unit_active "$kind" "$idx"; then
+        mtime="$(stat -c %Y "$m" 2>/dev/null || echo "$now")"
+        age=$(( now - mtime ))
+        sweep_stale_busy "$kind" "$idx" "$age"
+        continue
+      fi
+      n=$((n+1))
+    done
   done
   printf '%s\n' "$n"
 }
 
-# Echo "<age-seconds> <gardener-idx>" for the gardener that has been mid-job the
-# LONGEST, or "0 -" when the fleet is idle. A busy marker's mtime is set when the
-# gardener starts its current job (gardener.sh re-creates it just before invoking
-# the handler and clears it at the next between-claims point), so the marker's age
-# is exactly how long that gardener has been on its current job — the signal that
-# distinguishes a long job from a short one without any LLM or job introspection.
+# Echo "<age-seconds> <kind> <idx>" for the worker (any kind) that has been mid-job
+# the LONGEST, or "0 - -" when the fleet is idle. A busy marker's mtime is set when
+# the worker starts its current job (gardener.sh re-creates it just before invoking
+# the handler and clears it at the next between-claims point), so the marker's age is
+# exactly how long that worker has been on its current job — the signal that
+# distinguishes a long job from a short one without any LLM or job introspection. The
+# kind is a separate field so a caller logs "gardener 1" / "cleric 3" naturally.
 oldest_busy() {
-  local now m mtime age idx oldest=0 oldest_idx="-"
+  local now m mtime age idx oldest=0 oldest_kind="-" oldest_idx="-" kind ns
   now="$(date +%s)"
-  for m in "$GARDEN_STATE"/gardeners/*/busy; do
-    [ -e "$m" ] || continue
-    idx="${m%/busy}"; idx="${idx##*/}"
-    mtime="$(stat -c %Y "$m" 2>/dev/null || echo "$now")"
-    age=$(( now - mtime ))
-    # A STALE marker (inactive unit) never counts toward the long-job age; sweep
-    # it and move on so a leftover marker can never defer the deploy forever.
-    if ! gardener_unit_active "$idx"; then
-      sweep_stale_busy "$idx" "$age"
-      continue
-    fi
-    if [ "$age" -ge "$oldest" ]; then
-      oldest="$age"
-      oldest_idx="$idx"
-    fi
+  for kind in $(worker_kinds); do
+    ns="$(worker_kind_field "$kind" state_ns)"
+    for m in "$GARDEN_STATE/$ns"/*/busy; do
+      [ -e "$m" ] || continue
+      idx="${m%/busy}"; idx="${idx##*/}"
+      mtime="$(stat -c %Y "$m" 2>/dev/null || echo "$now")"
+      age=$(( now - mtime ))
+      # A STALE marker (inactive unit) never counts toward the long-job age; sweep
+      # it and move on so a leftover marker can never defer the deploy forever.
+      if ! worker_unit_active "$kind" "$idx"; then
+        sweep_stale_busy "$kind" "$idx" "$age"
+        continue
+      fi
+      if [ "$age" -ge "$oldest" ]; then
+        oldest="$age"
+        oldest_kind="$kind"
+        oldest_idx="$idx"
+      fi
+    done
   done
-  printf '%s %s\n' "$oldest" "$oldest_idx"
+  printf '%s %s %s\n' "$oldest" "$oldest_kind" "$oldest_idx"
 }
 
 # --- 0. DEFER CHECK ----------------------------------------------------------
@@ -194,9 +206,9 @@ oldest_busy() {
 # paused by their explicit choice; deferring here would not un-pause it, and they
 # asked to deploy — let the original timeout/abort semantics stand).
 if ! fleet_draining; then
-  read -r busy_age busy_idx < <(oldest_busy)
+  read -r busy_age busy_kind busy_idx < <(oldest_busy)
   if [ "$busy_age" -ge "$GARDEN_DEPLOY_LONG_JOB_THRESHOLD" ]; then
-    log "DEFERRED: gardener $busy_idx has been mid-job ${busy_age}s (>= ${GARDEN_DEPLOY_LONG_JOB_THRESHOLD}s long-job threshold)."
+    log "DEFERRED: $busy_kind $busy_idx has been mid-job ${busy_age}s (>= ${GARDEN_DEPLOY_LONG_JOB_THRESHOLD}s long-job threshold)."
     log "  Not engaging the drain — the fleet keeps claiming, never paused on this doomed attempt. The Upgrade-ready"
     log "  signal persists; a later trigger retries once the long job finishes. Nothing was advanced."
     exit "$GARDEN_DEPLOY_DEFER_RC"
@@ -227,9 +239,9 @@ while :; do
   # moment it crosses. Only when WE engaged the drain — if an operator pre-drained,
   # honor their explicit drain to the full timeout (we don't second-guess it).
   if [ "$we_drained" = "1" ]; then
-    read -r busy_age busy_idx < <(oldest_busy)
+    read -r busy_age busy_kind busy_idx < <(oldest_busy)
     if [ "$busy_age" -ge "$GARDEN_DEPLOY_LONG_JOB_THRESHOLD" ]; then
-      log "DEFERRED: gardener $busy_idx crossed the ${GARDEN_DEPLOY_LONG_JOB_THRESHOLD}s long-job threshold mid-drain (busy ${busy_age}s)."
+      log "DEFERRED: $busy_kind $busy_idx crossed the ${GARDEN_DEPLOY_LONG_JOB_THRESHOLD}s long-job threshold mid-drain (busy ${busy_age}s)."
       log "  Lifting the drain so the fleet resumes; the Upgrade-ready signal persists and a later trigger retries."
       lift_drain_if_we_engaged
       exit "$GARDEN_DEPLOY_DEFER_RC"

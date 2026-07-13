@@ -77,23 +77,29 @@ restart_long_running_fleet() {
   local restarted=0 deferred=0 failed=0 unit idx
   local -a to_restart=()
 
-  # Gather the gardener units to re-exec. With the busy-gate on, defer a mid-job
-  # gardener; with it off (the deliberate deploy, post-quiesce) take every active
-  # gardener. We only COLLECT here; the actual restarts are issued concurrently
-  # below so the per-unit stop windows overlap instead of summing.
-  while read -r unit; do
-    [ -n "$unit" ] || continue
-    case "$unit" in garden-gardener@*.service) ;; *) continue ;; esac
-    if [ "$busy_gate" = "1" ]; then
-      idx="${unit#garden-gardener@}"; idx="${idx%.service}"
-      if gardener_busy "$idx"; then
-        log "restart: gardener $idx is mid-job; deferring its restart"
-        deferred=$((deferred+1))
-        continue
+  # Gather the worker units to re-exec, across EVERY worker kind (gardener, cleric,
+  # …) via the registry. With the busy-gate on, defer a mid-job worker; with it off
+  # (the deliberate deploy, post-quiesce) take every active worker. We only COLLECT
+  # here; the actual restarts are issued concurrently below so the per-unit stop
+  # windows overlap instead of summing. The busy check keys on the kind's own marker
+  # namespace (worker_busy), so a mid-job cleric is deferred exactly like a gardener.
+  local wkind wunit_base
+  for wkind in $(worker_kinds); do
+    wunit_base="$(worker_kind_field "$wkind" unit)"      # garden-gardener@ / garden-cleric@
+    while read -r unit; do
+      [ -n "$unit" ] || continue
+      case "$unit" in "$wunit_base"*.service) ;; *) continue ;; esac
+      if [ "$busy_gate" = "1" ]; then
+        idx="${unit#"$wunit_base"}"; idx="${idx%.service}"
+        if worker_busy "$wkind" "$idx"; then
+          log "restart: $wkind $idx is mid-job; deferring its restart"
+          deferred=$((deferred+1))
+          continue
+        fi
       fi
-    fi
-    to_restart+=("$unit")
-  done < <(_restart_active_units 'garden-gardener@*.service')
+      to_restart+=("$unit")
+    done < <(_restart_active_units "${wunit_base}*.service")
+  done
 
   # Other long-running services: the bulletin singleton and the watcher instance
   # pool. Absent units yield an empty list and are a no-op. They restart in the

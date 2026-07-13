@@ -67,6 +67,36 @@ A value that is already a concrete `claude-*` id passes through verbatim. An
 unknown or blank value resolves to empty, and the caller falls back to the fleet
 default (no `--model`) — a typo must never crash a tick.
 
+### Provider-scoped tiers (the codex/cleric backend)
+
+`resolve_model_tier` is **provider-scoped**: `resolve_model_tier <provider> <tier>`,
+with the provider defaulting to `anthropic` when omitted (so every bare
+`resolve_model_tier opus` is unchanged). The second provider is `openai`, the
+backend the **cleric** worker kind drives via `codex` (worker-kind registry in
+`common.sh`; design [`cleric-worker-bid-auction-reputation.md`](../../designs/cleric-worker-bid-auction-reputation.md)).
+The codex ids and effort ladders come from the catalog §2 (re-verify live before a
+version bump):
+
+| Tier | Concrete id | Supported effort (unified axis) |
+| --- | --- | --- |
+| `terra` | `gpt-5.6-terra` | low·medium·high·xhigh·max·**ultra** (effective codex default) |
+| `luna` | `gpt-5.6-luna` | low·medium·high·xhigh·max |
+| `frontier` | `gpt-5.5` | low·medium·high·xhigh |
+| `mini` | `gpt-5.4-mini` | low·medium·high·xhigh |
+
+A concrete `gpt-*` / `o<n>` / `codex-*` id passes through verbatim; a claude tier
+passed to the `openai` provider (and vice versa) resolves to empty, so a job can
+never cross-pin a backend it cannot run. The cleric handler
+(`handlers/cleric-codex.sh`) maps the job's optional `effort:` header (else the
+role default — `high` for designer/builder, `medium` otherwise) onto the unified
+thoughtfulness axis and **normalizes it down** to the model's nearest supported
+level via `-c model_reasoning_effort=<level>`, recording the honored level.
+
+Per-kind role defaults live in `role_default_model <kind> <role>` and
+`role_default_effort <kind> <role>` (kind defaulting to `gardener`): the cleric
+side pins `designer`/`builder` to `gpt-5.6-terra` (at `high`), every other role
+unpinned (fleet default `gpt-5.6-terra` at `medium`).
+
 ## Procedure
 
 ### Agent-dispatch path (orchestrator / judge)
@@ -102,9 +132,13 @@ canonical for subsequent dispatches.
 
 - The dispatch contract in `CLAUDE.md` § Dispatch contract names this skill as the
   lookup the orchestrator performs when invoking `Agent` (step 3).
-- The fleet path's two functions live in `scripts/jobs/common.sh`; the handler
-  `scripts/jobs/handlers/gardener-claude.sh` § *model selection* is the caller. The
-  `gardener-worktree-test.sh` covers the `model:`/`role:` resolution.
+- The fleet path's functions live in `scripts/jobs/common.sh`
+  (`resolve_model_tier`, `role_default_model`, `role_default_effort`); the callers
+  are `scripts/jobs/handlers/gardener-claude.sh` (anthropic/claude) and
+  `scripts/jobs/handlers/cleric-codex.sh` (openai/codex), each in its § *model
+  selection*. The `gardener-worktree-test.sh` covers the claude `model:`/`role:`
+  resolution; `worker-spine-kinds-test.sh` covers the provider-scoped tiers and the
+  per-kind role defaults for both backends.
 - The **cross-provider model catalog**
   ([`designs/provider-model-catalog.md`](../../designs/provider-model-catalog.md))
   is the reference behind this policy: it lists every Claude id (with context window,

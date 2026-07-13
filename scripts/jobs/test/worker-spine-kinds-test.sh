@@ -1,0 +1,190 @@
+#!/bin/bash
+# worker-spine-kinds-test.sh — the factored worker spine, exercised for BOTH kinds.
+#
+# The gardener loop, the scaler, the set-count, and the systemd template are ONE
+# spine parameterized by worker kind (gardener | cleric); a handler + a registry row
+# is all a new backend adds (design §2, cleric-worker-bid-auction-reputation.md).
+# This test asserts that factoring holds:
+#
+#   REGISTRY   — worker_kind_field returns the right handler/unit/provider/namespace
+#                per kind; worker_kinds enumerates them; unknown kind fails.
+#   MODEL SEL  — resolve_model_tier is provider-scoped (anthropic unchanged, openai
+#                added); role_default_model / role_default_effort are per-kind.
+#   ONE SPINE  — gardener.sh (the SAME file) claims + completes a job as a GARDENER
+#                and as a CLERIC via a stub handler, differing only by the state
+#                namespace and the bus/marker labels — never a forked loop. The
+#                cleric's markers/clone live under the clerics/ namespace.
+#   ELIGIBILITY— a job pinned to a Claude model is gardener-only; one pinned to a
+#                codex model is cleric-only; an unpinned job is claimable by either.
+#   ONE TEMPLATE — the single garden-worker@.service.in renders to BOTH
+#                garden-gardener@.service and garden-cleric@.service (no per-kind
+#                source), and the scaler/scale path arms EACH kind's pool.
+#
+# Usage: worker-spine-kinds-test.sh
+set -euo pipefail
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+JOBS="$(cd "$HERE/.." && pwd)"
+ROOT="$(cd "$JOBS/../.." && pwd)"
+SRC="$ROOT/scripts/systemd"
+PASS=0; FAIL=0
+ok()  { echo "  PASS: $*"; PASS=$((PASS+1)); }
+bad() { echo "  FAIL: $*"; FAIL=$((FAIL+1)); }
+hr()  { echo "----------------------------------------------------------------"; }
+
+# Scrub ambient fleet env so a live gardener running this as a board job cannot
+# splice its own GARDEN_*/JOURNAL_* under the fixture.
+unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_)' || true) 2>/dev/null || true
+export GARDEN_TEST=1
+# shellcheck source=../common.sh
+source "$JOBS/common.sh"
+
+STUB="$HERE/stub-handler.sh"
+
+# seed_board <dir> <base> [frontmatter] — throwaway origin + board with one todo job.
+seed_board() {
+  local tr="$1" base="$2" front="${3:-}" bare="$1/journal.git" seed="$1/seed" branch=journal2
+  local -a git_id=(-c user.name=test -c user.email=test@localhost)
+  git init -q --bare "$bare"
+  git init -q "$seed"; git -C "$seed" checkout -q -b "$branch"
+  ( cd "$seed"
+    mkdir -p jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors
+    for d in jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors; do touch "$d/.gitkeep"; done
+    { [ -n "$front" ] && printf -- '---\n%s\n---\n' "$front"; printf '# %s\n\ndo the work for %s\n' "$base" "$base"; } > "jobs/todo/$base.md" )
+  git -C "$seed" add -A
+  git -C "$seed" "${git_id[@]}" commit -q -m "seed"
+  git -C "$seed" remote add origin "$bare"
+  git -C "$seed" push -q -u origin "$branch"
+  printf '%s\n' "$bare"
+}
+
+# ============================================================================
+hr; echo "REGISTRY — worker_kind_field / worker_kinds / worker_busy_marker"; hr
+[ "$(worker_kind_field gardener handler)" = "handlers/gardener-claude.sh" ] && ok "gardener handler" || bad "gardener handler ($(worker_kind_field gardener handler))"
+[ "$(worker_kind_field cleric   handler)" = "handlers/cleric-codex.sh" ]   && ok "cleric handler"   || bad "cleric handler ($(worker_kind_field cleric handler))"
+[ "$(worker_kind_field gardener provider)" = "anthropic" ] && ok "gardener provider anthropic" || bad "gardener provider"
+[ "$(worker_kind_field cleric   provider)" = "openai" ]    && ok "cleric provider openai"    || bad "cleric provider"
+[ "$(worker_kind_field gardener unit)" = "garden-gardener@" ] && ok "gardener unit prefix" || bad "gardener unit"
+[ "$(worker_kind_field cleric   unit)" = "garden-cleric@" ]   && ok "cleric unit prefix"   || bad "cleric unit"
+[ "$(worker_kind_field cleric   count_key)" = "clerics" ] && ok "cleric count_key" || bad "cleric count_key"
+[ "$(worker_kind_field cleric   state_ns)"  = "clerics" ] && ok "cleric state_ns"  || bad "cleric state_ns"
+[ "$(worker_kinds | paste -sd, -)" = "gardener,cleric" ] && ok "worker_kinds enumerates both" || bad "worker_kinds ($(worker_kinds | paste -sd, -))"
+( GARDEN_STATE=/tmp/x; [ "$(worker_busy_marker cleric 3)" = "/tmp/x/clerics/3/busy" ] ) && ok "cleric busy marker under clerics/ ns" || bad "cleric busy marker path"
+( GARDEN_STATE=/tmp/x; [ "$(gardener_busy_marker 3)" = "/tmp/x/gardeners/3/busy" ] ) && ok "gardener busy marker back-compat wrapper" || bad "gardener busy marker wrapper"
+worker_kind_field friar handler 2>/dev/null && bad "unknown kind must fail" || ok "unknown kind 'friar' → non-zero (registry rejects)"
+
+# ============================================================================
+hr; echo "MODEL SELECTION — provider-scoped tiers + per-kind role defaults"; hr
+[ "$(resolve_model_tier opus)" = "claude-opus-4-8" ] && ok "anthropic default (bare tier) unchanged" || bad "anthropic bare tier"
+[ "$(resolve_model_tier anthropic sonnet)" = "claude-sonnet-4-6" ] && ok "resolve_model_tier anthropic sonnet" || bad "anthropic sonnet"
+[ "$(resolve_model_tier openai terra)" = "gpt-5.6-terra" ] && ok "resolve_model_tier openai terra" || bad "openai terra"
+[ "$(resolve_model_tier openai frontier)" = "gpt-5.5" ] && ok "resolve_model_tier openai frontier" || bad "openai frontier"
+[ "$(resolve_model_tier openai gpt-5.4-mini)" = "gpt-5.4-mini" ] && ok "openai concrete id passthrough" || bad "openai passthrough"
+[ -z "$(resolve_model_tier openai opus)" ] && ok "openai map rejects a claude tier (no cross-provider leak)" || bad "openai leaked a claude tier"
+[ "$(role_default_model builder)" = "claude-opus-4-8" ] && ok "gardener builder → opus (back-compat 1-arg)" || bad "gardener builder default"
+[ "$(role_default_model cleric builder)" = "gpt-5.6-terra" ] && ok "cleric builder → gpt-5.6-terra" || bad "cleric builder default"
+[ -z "$(role_default_model cleric fixer)" ] && ok "cleric fixer unpinned (rides fleet default)" || bad "cleric fixer default"
+[ "$(role_default_effort cleric builder)" = "high" ] && ok "cleric builder effort high" || bad "cleric builder effort"
+[ "$(role_default_effort cleric fixer)" = "medium" ] && ok "cleric fixer effort medium" || bad "cleric fixer effort"
+
+# ============================================================================
+hr; echo "ONE SPINE — the SAME gardener.sh completes a job as gardener AND as cleric"; hr
+run_kind() {  # run_kind <kind> <base> <host>
+  local kind="$1" base="$2" host="$3" tr bare
+  tr="$(mktemp -d "${TMPDIR:-/tmp}/garden-spine-$kind.XXXXXX")"
+  bare="$(seed_board "$tr" "$base")"
+  env GARDEN="$host" GARDEN_STATE="$tr/state" JOURNAL_REMOTE="$bare" JOURNAL_BRANCH=journal2 \
+      GARDEN_WORKER_KIND="$kind" GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 \
+      GARDEN_JOB_HANDLER="$STUB" \
+      "$JOBS/gardener.sh" 1 > "$tr/worker.log" 2>&1 || true
+  local v="$tr/verify"; git clone -q --single-branch --branch journal2 "$bare" "$v" 2>/dev/null
+  # completed doin→tada
+  if [ -f "$v/jobs/tada/$base.md" ] && [ ! -e "$v/jobs/doin/$base.md" ]; then
+    ok "$kind: claimed + completed '$base' doin→tada (shared spine)"
+  else
+    bad "$kind: '$base' not completed (tada=$([ -f "$v/jobs/tada/$base.md" ] && echo y || echo n) doin=$([ -e "$v/jobs/doin/$base.md" ] && echo y || echo n))"
+  fi
+  # the claim stamped worker_kind into the journal history (the doin claim carries
+  # it; complete-job git-rm's the doin file, so read it from the claim commit).
+  if git -C "$v" log -p --all -- "jobs/doin/$base.md" 2>/dev/null | grep -q "worker_kind: $kind"; then
+    ok "$kind: claim metadata stamped worker_kind: $kind (journal history)"
+  else
+    bad "$kind: worker_kind not stamped in the claim history"
+  fi
+  # the spine logged its kind
+  grep -q "kind=$kind" "$tr/worker.log" && ok "$kind: spine started with kind=$kind" || bad "$kind: spine kind not logged"
+  # per-kind state namespace: the identity marker lives under the kind's ns
+  local ns; ns="$(worker_kind_field "$kind" state_ns)"
+  [ -f "$tr/state/$ns/1.garden" ] && ok "$kind: identity marker under $ns/ namespace" || bad "$kind: identity marker not under $ns/ (found: $(find "$tr/state" -name '*.garden' 2>/dev/null | tr '\n' ' '))"
+  rm -rf "$tr"
+}
+run_kind gardener gspine ghost
+run_kind cleric   cspine chost
+
+# ============================================================================
+hr; echo "ELIGIBILITY — §1.3 backend-fit filter keeps a kind off a foreign-pinned job"; hr
+# A cleric must NOT claim a job pinned to a Claude model; it stays in todo for a
+# gardener. An unpinned job a cleric CAN claim.
+elig_case() {  # elig_case <kind> <base> <front> <expect: claimed|left>
+  local kind="$1" base="$2" front="$3" expect="$4" tr bare
+  tr="$(mktemp -d "${TMPDIR:-/tmp}/garden-elig.XXXXXX")"
+  bare="$(seed_board "$tr" "$base" "$front")"
+  env GARDEN="ehost" GARDEN_STATE="$tr/state" JOURNAL_REMOTE="$bare" JOURNAL_BRANCH=journal2 \
+      GARDEN_WORKER_KIND="$kind" GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 \
+      GARDEN_JOB_HANDLER="$STUB" \
+      "$JOBS/gardener.sh" 1 > "$tr/worker.log" 2>&1 || true
+  local v="$tr/verify"; git clone -q --single-branch --branch journal2 "$bare" "$v" 2>/dev/null
+  local claimed=no; { [ -f "$v/jobs/tada/$base.md" ] || [ -e "$v/jobs/doin/$base.md" ]; } && claimed=yes
+  if [ "$expect" = claimed ] && [ "$claimed" = yes ]; then
+    ok "$kind claimed '$base' ($front) as expected"
+  elif [ "$expect" = left ] && [ "$claimed" = no ] && [ -f "$v/jobs/todo/$base.md" ]; then
+    ok "$kind left '$base' ($front) in todo (backend-fit filter)"
+  else
+    bad "$kind eligibility wrong for '$base' ($front): expect=$expect claimed=$claimed"
+  fi
+  rm -rf "$tr"
+}
+elig_case cleric   pinnedclaude "model: opus"  left
+elig_case cleric   pinnedcodex  "model: terra" claimed
+elig_case cleric   unpinnedjob  ""             claimed
+elig_case gardener pinnedcodex2 "model: terra" left
+elig_case gardener pinnedclaude2 "model: opus" claimed
+
+# ============================================================================
+hr; echo "ONE TEMPLATE — garden-worker@.service.in renders BOTH kinds; scale arms each"; hr
+[ -e "$SRC/garden-worker@.service.in" ] && ok "single worker template garden-worker@.service.in exists" || bad "worker template missing"
+[ ! -e "$SRC/garden-gardener@.service" ] && ok "no per-kind garden-gardener@.service source (factored away)" || bad "stale garden-gardener@.service source present"
+[ ! -e "$SRC/garden-cleric@.service" ] && ok "no per-kind garden-cleric@.service source (rendered only)" || bad "stray garden-cleric@.service source present"
+
+# Render the template for both kinds the way install-units does and check the
+# @WORKER_KIND@ substitution landed distinctly.
+RT="$(mktemp -d "${TMPDIR:-/tmp}/garden-render.XXXXXX")"
+for kind in gardener cleric; do
+  sed -e "s#@GARDEN_ROOT@#/opt/garden#g" -e "s#@WORKER_KIND@#$kind#g" "$SRC/garden-worker@.service.in" > "$RT/garden-$kind@.service"
+done
+grep -q 'GARDEN_WORKER_KIND=gardener' "$RT/garden-gardener@.service" && ok "gardener unit sets GARDEN_WORKER_KIND=gardener" || bad "gardener kind env"
+grep -q 'GARDEN_WORKER_KIND=cleric'   "$RT/garden-cleric@.service"   && ok "cleric unit sets GARDEN_WORKER_KIND=cleric"     || bad "cleric kind env"
+grep -q 'self-heal-run.sh garden-cleric ' "$RT/garden-cleric@.service" && ok "cleric ExecStart labels self-heal garden-cleric" || bad "cleric self-heal label"
+rm -rf "$RT"
+
+# The scaler scale path arms EACH kind's pool via mock-systemctl (no real systemd).
+ST="$(mktemp -d "${TMPDIR:-/tmp}/garden-scale.XXXXXX")"
+export GARDEN_ROOT="$ROOT" GARDEN_UNIT_CTL="$HERE/mock-systemctl.sh"
+export GARDEN_MOCK_STATE="$ST/armed" GARDEN_MOCK_LOG="$ST/log"; : > "$GARDEN_MOCK_STATE"; : > "$GARDEN_MOCK_LOG"
+export XDG_CONFIG_HOME="$ST/config"
+"$JOBS/install-units.sh" scale cleric 2 >/dev/null 2>&1
+"$JOBS/install-units.sh" scale gardener 3 >/dev/null 2>&1
+gc=$(grep -c '^garden-cleric@[12]\.service$' "$GARDEN_MOCK_STATE" || true)
+gg=$(grep -c '^garden-gardener@[123]\.service$' "$GARDEN_MOCK_STATE" || true)
+[ "$gc" -eq 2 ] && ok "scale cleric 2 → garden-cleric@{1,2} armed" || bad "cleric scale (@1-2=$gc)"
+[ "$gg" -eq 3 ] && ok "scale gardener 3 → garden-gardener@{1,2,3} armed (independent pool)" || bad "gardener scale (@1-3=$gg)"
+# back-compat: bare `scale <N>` still means gardener
+: > "$GARDEN_MOCK_STATE"
+"$JOBS/install-units.sh" scale 1 >/dev/null 2>&1
+{ [ "$(grep -c '^garden-gardener@1\.service$' "$GARDEN_MOCK_STATE")" -eq 1 ] && [ "$(grep -c '^garden-cleric@' "$GARDEN_MOCK_STATE")" -eq 0 ]; } \
+  && ok "bare 'scale 1' back-compat → gardener pool only" || bad "bare scale back-compat"
+rm -rf "$ST"
+unset GARDEN_UNIT_CTL GARDEN_MOCK_STATE GARDEN_MOCK_LOG XDG_CONFIG_HOME
+
+hr
+echo "RESULTS: $PASS passed, $FAIL failed"
+[ "$FAIL" -eq 0 ]

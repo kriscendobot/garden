@@ -15,9 +15,10 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../common.sh
 source "$HERE/../common.sh"
+# shellcheck source=worker-common.sh
+source "$HERE/worker-common.sh"     # shared worktree lifecycle + prompt (anti-drift)
 
 base="${1:?base}"; jobfile="${2:?jobfile}"; report="${3:?report-out}"
-role_brief="$GARDEN_ROOT/roles/gardener/AGENT.md"
 
 # --- per-job worktree (the HARD RULE: no development in the root tree) --------
 #
@@ -46,7 +47,7 @@ role_brief="$GARDEN_ROOT/roles/gardener/AGENT.md"
 # it as one unit. The base is a job basename (no '/', '#', ':'), safe as a single
 # path component.
 main_branch="${GARDEN_MAIN_BRANCH:-main2}"
-worktree="$GARDEN_SCRATCH/gardener-wt-$base"
+worktree="$(worker_worktree_path "$base")"
 
 # Resume detection keys on the session transcript, which Claude Code writes under
 # ~/.claude/projects/<encoded-cwd>/<sid>.jsonl with every '/' in the launch cwd
@@ -68,31 +69,9 @@ if [ -n "$session_id" ] && { [ -f "$proj_dir/$session_id.jsonl" ] || [ -f "$proj
   resuming=true
 fi
 
-# ensure_worktree — make $worktree a detached checkout of origin/$main_branch.
-# On a resume we keep whatever is there (the interrupted attempt's uncommitted
-# work); otherwise we (re)create it fresh at the current dev-branch tip. We base
-# off the LOCAL tracking ref origin/$main_branch — kept fresh by the watchman's
-# fetch — rather than fetching here, so the launch path adds no per-job network
-# cost; the CAS push loop the job itself runs reconciles any staleness. Falls
-# back to the bare branch then HEAD if the tracking ref is absent (a freshly
-# cloned root that has never fetched).
-ensure_worktree() {
-  if $resuming && [ -d "$worktree" ]; then
-    return 0                          # resume: reuse the in-flight worktree as-is
-  fi
-  # Fresh claim. A leftover dir (stale completion that never cleaned up, or a
-  # requeue whose transcript was pruned) is removed and recreated so the job
-  # starts from a clean current-tip checkout, never a stale base.
-  [ -e "$worktree" ] && scratch_cleanup "$worktree"
-  local ref
-  for ref in "origin/$main_branch" "$main_branch" HEAD; do
-    if git -C "$GARDEN_ROOT" rev-parse --verify --quiet "$ref" >/dev/null 2>&1; then
-      mkdir -p "$GARDEN_SCRATCH"
-      git -C "$GARDEN_ROOT" worktree add --detach "$worktree" "$ref" >/dev/null 2>&1 && return 0
-    fi
-  done
-  die "could not create per-job worktree $worktree off any of origin/$main_branch, $main_branch, HEAD"
-}
+# The per-job worktree lifecycle (ensure/reuse/reset) is the shared spine helper
+# worker_ensure_worktree (handlers/worker-common.sh), called below after the
+# stale-handler reap — so the claude and codex handlers cannot drift on it.
 
 # --- close the two-writer window BEFORE we touch the worktree -----------------
 #
@@ -108,64 +87,12 @@ ensure_worktree() {
 # only case a worktree is shared); a cross-host re-claim got a fresh worktree above
 # and cannot collide. See common.sh § kill_stale_worktree_handlers.
 kill_stale_worktree_handlers "$worktree"
-ensure_worktree
+worker_ensure_worktree "$worktree" "$main_branch" "$resuming"
 
-jobs_dir="$GARDEN_ROOT/scripts/jobs"
-worktree_note="$(cat <<EOF
-Your working directory is a dedicated git worktree for THIS job, checked out off
-origin/$main_branch at $worktree. Do ALL development for this job here, in your
-cwd: never edit the deployed garden root checkout. Commit explicit pathspecs and
-push with a rebase CAS loop to $main_branch (git push origin HEAD:$main_branch).
-The worktree is torn down when you finish and is garbage-collected if your run
-dies, so nothing you need to keep should live outside a commit.
-
-That cwd worktree is for GARDEN development (roles, skills, scripts on $main_branch).
-If this job instead mutates a PROJECT repo (a fork like endojs/endo-but-for-bots
-— editing its source, pushing to a PR head branch), do NOT hand-name a project
-checkout keyed by the repo or PR number: a peer gardener working the SAME PR would
-collide into your working tree and your concurrent edits would corrupt each other
-(the endo-but-for-bots #58 corruption). Get an ISOLATED project checkout, keyed by
-THIS job's unique base, with:
-    $jobs_dir/ensure-project-worktree.sh $base <owner/repo> <branch>
-It prints the absolute path (a detached checkout under $GARDEN_SCRATCH, stable
-across a requeue so you resume in-flight work); cd there and do the project work.
-Concurrent same-branch pushes still race at the git-push CAS — that is fine; the
-working trees must never be shared.
-EOF
-)"
-
-prompt="$(cat <<EOF
-You are a garden gardener (role brief: $role_brief). You have claimed job
-'$base'. Its specification follows between the markers. Do the work it asks for,
-then write a concise completion report (what you did, what changed, any
-follow-ups) to stdout. Output ONLY the report.
-
-COMPLETION SIGNAL (required): ONLY when you have GENUINELY finished the job, emit
-the exact line
-    $GARDEN_COMPLETION_MARKER
-as the very LAST line of your report, on its own line, as your final act. This is
-the deterministic signal that the job completed. If you did NOT finish — you ran
-out of turns, hit a wall, or are unsure the work is done — do NOT emit that line;
-the job will be requeued and resumed rather than falsely recorded as done.
-
-$worktree_note
-
-Messaging discipline (you are a living agent on the message bus):
-- Your inbox key is your job base, '$base'. A maintainer reply or a peer message
-  can arrive while you work — drain it at natural checkpoints with
-  '$jobs_dir/inbox-read.sh $base'.
-- Reach the maintainer (via the liaison) with '$jobs_dir/message-user.sh $base';
-  the reply routes back into your own inbox.
-- Reach a peer living agent with '$jobs_dir/inbox-send.sh <their-base>'. Discover
-  who is alive right now with '$jobs_dir/inbox-list.sh'. A message to a peer that
-  has already completed is dead-lettered and promoted to a fresh job, so its
-  intent is never lost.
-
------ JOB $base -----
-$(cat "$jobfile")
------ END JOB -----
-EOF
-)"
+# The prompt (fresh framing) is built by the shared spine helper so the claude and
+# codex handlers stay byte-identical on the completion contract, the worktree note,
+# and injection hygiene (design §2.2). A resume overrides it below.
+prompt="$(worker_job_prompt "$base" "$jobfile" "$worktree" "$main_branch" fresh)"
 
 # --- session continuity across a reaper requeue ------------------------------
 #
@@ -197,29 +124,7 @@ if [ -n "$session_id" ]; then
   if $resuming; then
     session_args=(--resume "$session_id")
     log "resuming session $session_id for requeued job '$base' in worktree $worktree"
-    prompt="$(cat <<EOF
-You are RESUMING garden job '$base' after a reaper requeue: your earlier session
-was interrupted before it finished and has been carried forward to you intact.
-Your cwd is the same dedicated worktree you were working in. Review what you had
-already done — including any uncommitted work still in this worktree — and
-CONTINUE from where you left off, driving the job to completion. Re-read the job
-spec below in case anything changed, then finish and write ONLY the concise
-completion report (what you did, what changed, any follow-ups) to stdout.
-
-COMPLETION SIGNAL (required): ONLY when you have GENUINELY finished the job, emit
-the exact line
-    $GARDEN_COMPLETION_MARKER
-as the very LAST line of your report, on its own line, as your final act. If you
-still did NOT finish, do NOT emit that line — the job will be requeued and
-resumed again rather than falsely recorded as done.
-
-$worktree_note
-
------ JOB $base -----
-$(cat "$jobfile")
------ END JOB -----
-EOF
-)"
+    prompt="$(worker_job_prompt "$base" "$jobfile" "$worktree" "$main_branch" resume)"
   else
     session_args=(--session-id "$session_id")
   fi

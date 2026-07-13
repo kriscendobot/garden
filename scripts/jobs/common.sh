@@ -357,23 +357,83 @@ killswitch_engaged() { fleet_draining; }
 
 # --- gardener mid-job (busy) marker — the single definition of "do not disturb" -
 #
+# --- worker-kind registry (the single point a new backend touches) -----------
+#
+# A "worker kind" is one flavor of the shared worker spine (gardener.sh): the loop,
+# the board protocol, the scaler, the systemd template, and the per-job worktree
+# lifecycle are ONE copy parameterized by kind, and everything that differs between
+# kinds is a field in this table. Adding a third backend (say a `friar` on a future
+# CLI) is then: one handler script implementing the handler contract, one row here,
+# one rate-card/tier block — no spine file is copied or forked.
+#   handler   default job handler path, relative to scripts/jobs/
+#   provider  the model provider (rate-card / model-selection scope)
+#   unit      the systemd instance template prefix (rendered from garden-worker@.in)
+#   count_key the hosts/<host> count line this kind reads/writes
+#   state_ns  the $GARDEN_STATE namespace for this kind's per-instance clone/markers
+#   label     the self-heal-run.sh service label (the unit prefix minus the '@')
+worker_kind_field() {
+  local kind="${1:?worker_kind_field: kind required}" field="${2:?worker_kind_field: field required}"
+  case "$kind" in
+    gardener)
+      case "$field" in
+        handler)   printf '%s\n' "handlers/gardener-claude.sh" ;;
+        provider)  printf '%s\n' "anthropic" ;;
+        unit)      printf '%s\n' "garden-gardener@" ;;
+        count_key) printf '%s\n' "gardeners" ;;
+        state_ns)  printf '%s\n' "gardeners" ;;
+        label)     printf '%s\n' "garden-gardener" ;;
+        *) return 1 ;;
+      esac ;;
+    cleric)
+      case "$field" in
+        handler)   printf '%s\n' "handlers/cleric-codex.sh" ;;
+        provider)  printf '%s\n' "openai" ;;
+        unit)      printf '%s\n' "garden-cleric@" ;;
+        count_key) printf '%s\n' "clerics" ;;
+        state_ns)  printf '%s\n' "clerics" ;;
+        label)     printf '%s\n' "garden-cleric" ;;
+        *) return 1 ;;
+      esac ;;
+    *) return 1 ;;
+  esac
+}
+
+# The set of worker kinds a host reconciles, one per line, in a fixed order. The
+# scaler iterates this to reconcile every pool; set-workers.sh iterates it to
+# preserve a sibling kind's count when it rewrites hosts/<host>. A new kind is added
+# in exactly one place besides worker_kind_field: here.
+worker_kinds() { printf '%s\n' gardener cleric; }
+
 # gardener.sh drops a local, lock-free marker file while a job handler runs and
-# clears it the moment the job ends (and at the top of each loop), so a gardener
+# clears it the moment the job ends (and at the top of each loop), so a worker
 # instance is "busy" (mid-job) exactly while that marker exists. Both the
 # deliberate deploy (deploy-garden.sh, which waits for the fleet to quiesce and
 # then re-execs workers onto landed code via deploy-restart.sh) and the pool
 # scaler (install-units.sh scale, which disables extras on a scale-down) gate on
 # it so a worker is restarted/disabled BETWEEN claims, never mid-`claude -p`:
-# a `disable --now`/`restart` of a mid-job gardener SIGTERMs the in-flight handler,
+# a `disable --now`/`restart` of a mid-job worker SIGTERMs the in-flight handler,
 # which then requeues and burns a full TTL cycle — the rc=143 transient-handler
 # outage this marker exists to prevent. Keeping the path and the predicate here,
 # in one place both callers source, means the deploy and scale paths can never
 # drift on what "mid-job" means or where the marker lives.
+#
+# The marker lives under the KIND's state namespace ($GARDEN_STATE/<state_ns>/<idx>),
+# so a cleric-1 and a gardener-1 (distinct kinds, same index) never collide. The
+# gardener_* wrappers below preserve the historical single-kind signature for the
+# many callers that predate the cleric.
+worker_busy_marker() {
+  local kind="${1:?worker_busy_marker: kind required}" idx="${2:?worker_busy_marker: idx required}" ns
+  ns="$(worker_kind_field "$kind" state_ns)" || ns="gardeners"
+  printf '%s\n' "$GARDEN_STATE/$ns/$idx/busy"
+}
+worker_busy() {
+  [ -e "$(worker_busy_marker "${1:?worker_busy: kind required}" "${2:?worker_busy: idx required}")" ]
+}
 gardener_busy_marker() {
-  printf '%s\n' "$GARDEN_STATE/gardeners/${1:?gardener_busy_marker: idx required}/busy"
+  worker_busy_marker gardener "${1:?gardener_busy_marker: idx required}"
 }
 gardener_busy() {
-  [ -e "$(gardener_busy_marker "${1:?gardener_busy: idx required}")" ]
+  worker_busy gardener "${1:?gardener_busy: idx required}"
 }
 
 # --- gardener in-process host identity (for the scaler's identity reconcile) ---
@@ -2784,37 +2844,103 @@ plan_role() { plan_field "$1" role; }
 # SKILL.md is the human-readable canonical statement the Agent path follows, and
 # it points back here so the two never drift.
 
-# resolve_model_tier <tier-or-id> -> concrete `claude-*` model id (empty if the
+# resolve_model_tier [provider] <tier-or-id> -> concrete model id (empty if the
 # value is unknown/blank). Accepts the short tier names the maintainer uses in a
-# job's `model:` field and on an Agent dispatch, and passes a concrete `claude-*`
-# id through verbatim. The single place the short names bind to concrete ids, so
-# a Claude-version bump is one edit here.
+# job's `model:` field and on an Agent dispatch, and passes a concrete provider id
+# through verbatim. The single place the short names bind to concrete ids, so a
+# model-version bump is one edit here.
+#
+# Provider-scoped for the two backends the fleet drives (§ worker-kind registry):
+# `resolve_model_tier anthropic <tier>` (the claude line) and
+# `resolve_model_tier openai <tier>` (the codex line). The leading provider is
+# OPTIONAL and defaults to `anthropic`, so every historical single-arg caller
+# (`resolve_model_tier opus`) is unchanged. The codex ids and effort ladders come
+# from designs/provider-model-catalog.md (re-verify live before a version bump).
 resolve_model_tier() {
+  local provider tier
   case "${1:-}" in
-    fable)    printf '%s\n' "claude-fable-5" ;;
-    opus)     printf '%s\n' "claude-opus-4-8" ;;
-    sonnet)   printf '%s\n' "claude-sonnet-4-6" ;;
-    haiku)    printf '%s\n' "claude-haiku-4-5-20251001" ;;
-    claude-*) printf '%s\n' "$1" ;;            # already a concrete model id
-    *)        printf '%s\n' "" ;;              # unknown/blank -> caller decides fallback
+    anthropic|openai) provider="$1"; tier="${2:-}" ;;
+    *)                provider="anthropic"; tier="${1:-}" ;;
+  esac
+  case "$provider" in
+    anthropic)
+      case "$tier" in
+        fable)    printf '%s\n' "claude-fable-5" ;;
+        opus)     printf '%s\n' "claude-opus-4-8" ;;
+        sonnet)   printf '%s\n' "claude-sonnet-4-6" ;;
+        haiku)    printf '%s\n' "claude-haiku-4-5-20251001" ;;
+        claude-*) printf '%s\n' "$tier" ;;       # already a concrete model id
+        *)        printf '%s\n' "" ;;             # unknown/blank -> caller decides fallback
+      esac ;;
+    openai)
+      case "$tier" in
+        terra)    printf '%s\n' "gpt-5.6-terra" ;;   # effective codex default
+        luna)     printf '%s\n' "gpt-5.6-luna" ;;
+        frontier) printf '%s\n' "gpt-5.5" ;;
+        mini)     printf '%s\n' "gpt-5.4-mini" ;;
+        gpt-*|o[0-9]*|codex-*) printf '%s\n' "$tier" ;;  # already a concrete model id
+        *)        printf '%s\n' "" ;;
+      esac ;;
+    *) printf '%s\n' "" ;;
   esac
 }
 
-# role_default_model <role> -> the concrete `claude-*` model id that role runs on
-# BY DEFAULT (empty for a role with no policy, so the caller falls back to the
-# fleet default). This is the canonical role->model map. The maintainer's standing
-# policy (2026-07-13, via the liaison): the design-only `designer` role and the
-# mergeable-feature `builder` role both run on the latest Opus. (Superseding the
-# 2026-07-02 policy that ran `designer` on Fable — every role formerly assigned to
-# Fable is now on Opus.) Every other role is unpinned here (empty) and rides the
-# fleet default unless a job names an explicit `model:`. An explicit per-job
-# `model:` ALWAYS overrides this default — the caller applies this only when no
-# `model:` field is present.
+# role_default_model [kind] <role> -> the concrete model id that role runs on BY
+# DEFAULT for the given worker kind (empty for a role with no policy, so the caller
+# falls back to the fleet default). This is the canonical role->model map. The
+# leading kind is OPTIONAL and defaults to `gardener`, so every historical single-arg
+# caller (`role_default_model builder`) is unchanged.
+#
+# Gardener (claude) side, the maintainer's standing policy (2026-07-13, via the
+# liaison): the design-only `designer` role and the mergeable-feature `builder` role
+# both run on the latest Opus. (Superseding the 2026-07-02 policy that ran `designer`
+# on Fable — every role formerly assigned to Fable is now on Opus.) Every other role
+# is unpinned here (empty) and rides the fleet default.
+#
+# Cleric (codex) side: designer/builder pin the balanced `gpt-5.6-terra` (the effort
+# distinction is carried by role_default_effort, not the model); every other role is
+# unpinned and rides the cleric fleet default, which is also gpt-5.6-terra. An
+# explicit per-job `model:` ALWAYS overrides this default — the caller applies this
+# only when no `model:` field is present.
 role_default_model() {
+  local kind role
   case "${1:-}" in
-    designer) printf '%s\n' "$(resolve_model_tier opus)" ;;
-    builder)  printf '%s\n' "$(resolve_model_tier opus)" ;;
-    *)        printf '%s\n' "" ;;
+    gardener|cleric) kind="$1"; role="${2:-}" ;;
+    *)               kind="gardener"; role="${1:-}" ;;
+  esac
+  case "$kind" in
+    gardener)
+      case "$role" in
+        designer) printf '%s\n' "$(resolve_model_tier anthropic opus)" ;;
+        builder)  printf '%s\n' "$(resolve_model_tier anthropic opus)" ;;
+        *)        printf '%s\n' "" ;;
+      esac ;;
+    cleric)
+      case "$role" in
+        designer) printf '%s\n' "$(resolve_model_tier openai terra)" ;;
+        builder)  printf '%s\n' "$(resolve_model_tier openai terra)" ;;
+        *)        printf '%s\n' "" ;;
+      esac ;;
+    *) printf '%s\n' "" ;;
+  esac
+}
+
+# role_default_effort [kind] <role> -> the default thoughtfulness (reasoning-effort)
+# level a role runs at for a race/pre-auction job that names no explicit `effort:`
+# header (design §5): `high` for the design-heavy designer/builder roles, `medium`
+# for everything else. Kind is accepted for symmetry with role_default_model and a
+# future kind that wants a different ladder; both current kinds share this map. The
+# level is on the unified thoughtfulness axis (catalog §3); each handler normalizes
+# it down to its model's nearest supported level.
+role_default_effort() {
+  local role
+  case "${1:-}" in
+    gardener|cleric) role="${2:-}" ;;
+    *)               role="${1:-}" ;;
+  esac
+  case "$role" in
+    designer|builder) printf '%s\n' "high" ;;
+    *)                printf '%s\n' "medium" ;;
   esac
 }
 
