@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T14:44:40Z_
+_As of 2026-07-13T14:55:37Z_
 
 ## Latest
 
@@ -1575,8 +1575,9 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`deadmail-issue-comment-4959051277`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4959051277.md) — Dead-lettered message — pick up its intent
+- [`gauntlet-endo-but-for-bots-pull-request-708-git-filesystemat-content-address`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-708-git-filesystemat-content-address.md) — ---
 
 ### tada (2131)
 - [`endo-but-for-bots-pr713-mount-glorp-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-but-for-bots-pr713-mount-glorp-shepherd.md) — The job is complete. The green run is https://github.com/endojs/endo-but-for-...
