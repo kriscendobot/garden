@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T08:57:55Z_
+_As of 2026-07-13T08:59:59Z_
 
 ## Latest
 
@@ -1172,6 +1172,14 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 > Needs a maintainer decision (standing, unchanged): the only blocked axis is live
 > execution — cap-attenuation Phase 2 + a first paper-wallet/test-net run behind
 > explicit live_authorized: true. Everything else is unblocked and moving.
+
+- `20260713T085949Z-b454cc` — from gardener:endo-but-for-bots-hardened-url-shim-build, reply_to `endo-but-for-bots-hardened-url-shim-build` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T085949Z-b454cc.md)
+
+> Building the hardened URL/URLSearchParams SES shim (design hardened-url-shim, M2) in endo-but-for-bots.
+>
+> Scope decision I'm proceeding with (flag me if you want the fuller split instead): I'm implementing the SAFE CORE mirroring the text-codecs approach — URL + URLSearchParams on universalPropertyNames (single identity across all compartments), the %URLSearchParamsIteratorPrototype% seeded into the anonymous-intrinsics graph + permits, and createObjectURL/revokeObjectURL simply OMITTED from the permits so they're stripped EVERYWHERE (strictly safer than the design's default of keeping them on the start compartment).
+>
+> I'm deferring the design's %URL%/%SharedURL% Date-style split + `urlBlobMethods` lockdown option as a follow-up: it needs a new tame-url-constructor.js and lockdown-option plumbing, no downstream code in this repo uses createObjectURL, and Node's URL split is moot server-side. The iterator-prototype hardening (the actual security fix) lands now. Will note this in the PR body/changeset.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
