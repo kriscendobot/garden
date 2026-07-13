@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T12:06:16Z_
+_As of 2026-07-13T12:11:07Z_
 
 ## Latest
 
@@ -1308,6 +1308,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T120602Z-3670aa` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T120602Z-3670aa.md)
 
 > Milestone M2 (Project Hygiene) is complete pending merge: its last two rows — `hardened-text-codecs-shim` and `hardened-url-shim` — are fully implemented in CI-green, merge-ready PRs [endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/issues/259) and #719 (both authored by sibling instance kriscendobot). The foreman keeps re-dispatching builds for them only because their plan design records still read `status: Not Started`; please decide the merges (out of foreman bounds) and advance both records' status so M2 closes and the fleet advances to M3 instead of flapping on already-built work.
+
+- `20260713T121052Z-919ff9` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T121052Z-919ff9.md)
+
+> Milestone M2 (Project Hygiene) is fully built: its last two "Not Started" rows are both already implemented in open, non-draft, MERGEABLE, all-green PRs — hardened text codecs in `endojs/endo-but-for-bots#259` and the hardened URL vetted shim in `endojs/endo-but-for-bots#719` — so both `-build` jobs stood down without new PRs (posting either again would flap). M2 completion is blocked on a maintainer/conductor decision to `merge #259` and `merge #719` (outside the foreman's work-job bounds), and the two design records (`hardened-text-codecs-shim`, `hardened-url-shim`) still read `status: Not Started`, which is what keeps re-dispatching these builds and should be advanced to reflect the merge-ready PRs.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
