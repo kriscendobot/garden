@@ -291,3 +291,12 @@ Inspect via `git -C journal cat-file -p 72611a6dc9f7f13224d5156f415542f59ae51845
 - Context: gardener-20 on endolin-garden2-5bcdff64: job 'harden-comment-watcher-review-comment-drops' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p b8b8e9b737c7cb87c14e5bad99ece430ba4c1fea`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-13T06:43:14Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 2ee828f782a18503246bf19d9752c95fecf6f24c
+- Context: gardener-10 on endolin-garden2-5bcdff64: job 'endojs-endo-but-for-bots-pr133-review-d1b65e59' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 2ee828f782a18503246bf19d9752c95fecf6f24c`.
