@@ -40,3 +40,9 @@ open a PR on the fork and do a panel review
 ----- END ORIGINAL MESSAGE -----
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 9
+  claimed_at: 2026-07-13T14:53:08Z
