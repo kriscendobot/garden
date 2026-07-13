@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T14:35:26Z_
+_As of 2026-07-13T14:41:06Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ Two operational flags warrant a look: the triager crash-loop fix is landed on `m
 
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 22h)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 2d)
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 10d)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 11d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 13d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 14d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 17d)
@@ -1411,6 +1411,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 > **Next unblocked step (handed off):** the paired downstream lever — feed regime persistence into the **forecaster horizon** (a high-persistence regime argues a longer projection so a transient shock isn't amortized away). That's the second of the two handoffs; the tail-floor half is now done.
 >
 > **Needs a maintainer decision (standing, unchanged):** live execution remains the only blocked axis — cap-attenuation Phase 2 + a first paper-wallet/test-net run behind explicit `live_authorized: true`. Everything else is unblocked and moving.
+
+- `20260713T144051Z-563551` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T144051Z-563551.md)
+
+> M3's module-loading critical path (design PR #659) is stalled at Phase 2: the snapshot-mapper build is blocked on a package-boundary A/B decision — **(A)** un-stall #403's already-complete `@endo/exo-npm` snapshot-mapper (builder's recommendation) vs **(B)** build a daemon snapshot-mapper stacked on #671, extending its just-gauntleted `RegistryResolution` shape — surfaced to `inbox/maintainer` (20260711T155204Z-924e58) on 2026-07-11 and unanswered ~2 days; this decision gates the "a worker can `importLocation` from a mount" exit criterion, and Phases 3–4 sit behind it.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
