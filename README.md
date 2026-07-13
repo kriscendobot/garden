@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T14:00:49Z_
+_As of 2026-07-13T14:06:56Z_
 
 ## Latest
 
@@ -1392,6 +1392,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T140034Z-fabba0` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T140034Z-fabba0.md)
 
 > Milestone M2 (Project Hygiene) is fully built but stalled at its final step: both vetted-shim PRs — endojs/endo-but-for-bots #259 (hardened TextEncoder/TextDecoder) and #719 (hardened URL/URLSearchParams) — are non-draft, CI-green, and MERGEABLE/CLEAN, yet unmerged. M2 cannot complete without a merge/ferry decision on these two PRs, which is authority-gated (the foreman cannot post merge/ferry jobs). (Note also: their design records still read `Not Started`, which is what caused redundant build re-dispatch — advancing that frontmatter would stop the flap.)
+
+- `20260713T140644Z-969404` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T140644Z-969404.md)
+
+> Milestone M2 (Project Hygiene) is complete pending merge: its two remaining designs, `hardened-text-codecs-shim` and `hardened-url-shim`, are fully built as green, un-drafted, mergeable PRs `endojs/endo-but-for-bots#259` and `#719`, with no further build/fix work needed. M2 cannot close (and the fleet cannot cleanly advance to M3) until those two PRs are merged (conductor/ferry) and their design records advanced off `Not Started` — both authority actions outside the foreman's bounds.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
