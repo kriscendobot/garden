@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T23:06:56Z_
+_As of 2026-07-13T23:07:18Z_
 
 ## Latest
 
@@ -1872,13 +1872,13 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - [`endojs-endo-but-for-bots-pr670-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr670-refresh.md) — Refresh endojs/endo-but-for-bots PR #670 (subscription OAuth flow, M3)
 - [`refresh-pr-review-sequence-2026-07-13`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/refresh-pr-review-sequence-2026-07-13.md) — What to do
 
-### tada (2181)
+### tada (2182)
+- [`orch-cleric-worker-system`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/orch-cleric-worker-system.md) — orchestration orch-cleric-worker-system — complete
 - [`endojs-endo-but-for-bots-pr658-review-97e5a186`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr658-review-97e5a186.md) — Completion report
 - [`build-worker-bid-auction-reputation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-worker-bid-auction-reputation.md) — Completion report — build-worker-bid-auction-reputation
 - [`endojs-endo-but-for-bots-pr668-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr668-conduct.md) — Completion report
 - [`endojs-endo-but-for-bots-pr649-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr649-conduct.md) — Completion report
-- [`endojs-endo-but-for-bots-pr670-review-6d095eec`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr670-review-6d095eec.md) — Completion report
-- … and 2176 more
+- … and 2177 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
