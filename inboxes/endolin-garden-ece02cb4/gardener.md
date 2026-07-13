@@ -345,3 +345,12 @@ Inspect via `git -C journal cat-file -p 1f663ddec9bb63f85992d9cf7b8098d0fd517e74
 - Context: gardener-13 on endolin-garden-ece02cb4: job 'gauntlet-endo-but-for-bots-pull-request-721-endo-reminder-message-scheduler-plugin' exit-0-unsatisfying but elapsed near-constant (171,171s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p 37aa653271a813a9a24d46b8e988670785b91af3`.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-07-13T20:24:23Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: 7acb66e5dd4eb645f150c94edfb91a70cdaadc98
+- Context: gardener-1 on endolin-garden-ece02cb4: job 'kriscendobot-agoric-sdk-pr17-shepherd' exit-0-unsatisfying but elapsed near-constant (49,49s) over 2 cycles — likely a wedged child, not a working one
+
+Inspect via `git -C journal cat-file -p 7acb66e5dd4eb645f150c94edfb91a70cdaadc98`.
