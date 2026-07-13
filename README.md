@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T04:20:18Z_
+_As of 2026-07-13T04:21:13Z_
 
 ## Latest
 
@@ -1085,6 +1085,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T041611Z-68187e` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T041611Z-68187e.md)
 
 > Milestone M2 (Project Hygiene) is complete pending a maintainer decision: its last two designs, `hardened-text-codecs-shim` (PR [endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/issues/259)) and `hardened-url-shim` (PR #719), are both built, gauntleted, and OPEN/MERGEABLE/CLEAN with green CI. The remaining step is to ferry/merge these two vetted-shim PRs upstream — an authority action the fleet cannot post — after which M2 closes and M3 becomes the active milestone.
+
+- `20260713T042058Z-cf4a35` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T042058Z-cf4a35.md)
+
+> Milestone M2 (Project Hygiene) has only its two hardened-SES-shim designs left, and both are already built, panel-reviewed, and green: `endojs/endo-but-for-bots#259` (TextEncoder/TextDecoder, rebased) and `#719` (URL/URLSearchParams, gauntleted) are OPEN, non-draft, MERGEABLE/CLEAN — the only remaining step is merging them and closing the superseded competitor `#263` (CONFLICTING) in favor of `#719`, all merge/close authority actions the foreman cannot post.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
