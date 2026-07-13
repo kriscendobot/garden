@@ -7,3 +7,9 @@ Context: kriskowal APPROVED this design PR with one nit ("Approved with nits. Pl
 Task (conductor): the PR is currently DRAFT and mergeable=clean. Un-draft it, wait for required checks to go green (a fresh CI run started from the absorb commit; build/zizmor already pass, lint/test/browser-tests were pending), then merge to llm. You own the merge method — pick per repo convention. Bot repo, merge is authorized. Do NOT ferry upstream. If CI goes red on the design-doc change unexpectedly, shepherd or report rather than force-merge.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  claimed_at: 2026-07-13T01:03:07Z
