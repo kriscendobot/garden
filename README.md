@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T10:09:52Z_
+_As of 2026-07-13T10:16:01Z_
 
 ## Latest
 
@@ -1236,6 +1236,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T100940Z-98d035` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T100940Z-98d035.md)
 
 > Milestone M2 (Project Hygiene) has only two rows left — the hardened `TextEncoder`/`TextDecoder` shim and the hardened `URL` shim — and both are already built and merge-ready as `endojs/endo-but-for-bots#259` and `#719` (both OPEN, non-draft, MERGEABLE, mergeStateStatus CLEAN, all CI green); M2 is blocked only on the decision to merge these two PRs (a conductor/merge action outside the foreman's work-job bounds), after which the two design records should be advanced from "Not Started" to close out the milestone.
+
+- `20260713T101550Z-a4eb2f` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T101550Z-a4eb2f.md)
+
+> Milestone M2 (Project Hygiene) is complete pending merge: its last two designs are both merge-ready green PRs, `endojs/endo-but-for-bots#259` (hardened TextEncoder/TextDecoder shim) and `#719` (hardened URL/URLSearchParams shim) — both OPEN, non-draft, MERGEABLE, CI-green. Decision needed: merge #259 and #719 (conductor), and advance the `hardened-text-codecs-shim`/`hardened-url-shim` design records off "Not Started" so the foreman stops re-dispatching builds for already-landed work.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
