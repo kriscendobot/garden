@@ -6,6 +6,7 @@ Run the gauntlet on endojs/endo-but-for-bots pull request #708 ("feat(exo-git): 
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
