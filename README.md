@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T19:17:05Z_
+_As of 2026-07-13T19:19:26Z_
 
 ## Latest
 
@@ -1615,16 +1615,16 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`weave-endo-but-for-bots-pr621-endoclaw-oauth`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/weave-endo-but-for-bots-pr621-endoclaw-oauth.md) — Weave endojs/endo-but-for-bots #621 — refine endoclaw-oauth design — back ont...
+### doin (0)
+(none)
 
-### tada (2158)
+### tada (2159)
+- [`weave-endo-but-for-bots-pr621-endoclaw-oauth`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr621-endoclaw-oauth.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr16-review-77ecb195-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-review-77ecb195-retro.md) — Completion report
 - [`gauntlet-endo-but-for-bots-pull-request-721-endo-reminder-message-scheduler-plugin`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pull-request-721-endo-reminder-message-scheduler-plugin.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr16-review-65885306-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-review-65885306-retro.md) — Completion report
 - [`esheets-supervisor-20260713-190505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260713-190505.md) — Completion report
-- [`kriscendobot-agoric-sdk-pr16-review-77ecb195`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-review-77ecb195.md) — Completion report
-- … and 2153 more
+- … and 2154 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
