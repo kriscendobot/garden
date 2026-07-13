@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T14:23:30Z_
+_As of 2026-07-13T14:27:24Z_
 
 ## Latest
 
@@ -1552,18 +1552,17 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endo-but-for-bots-pr713-mount-glorp-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-but-for-bots-pr713-mount-glorp-shepherd.md) — ---
-- [`endo-but-for-bots-pull-request-659-module-loading-four-layer-stack-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-but-for-bots-pull-request-659-module-loading-four-layer-stack-weave.md) — ---
 - [`finbot-progress-20260713-142002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260713-142002.md) — Push progress on kriscendobot/finbot (every 6h)
 
-### tada (2128)
+### tada (2129)
+- [`endo-but-for-bots-pull-request-659-module-loading-four-layer-stack-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-but-for-bots-pull-request-659-module-loading-four-layer-stack-weave.md) — Completion report
 - [`endo-but-for-bots-pull-request-691-git-capability-stack-sequencing-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-but-for-bots-pull-request-691-git-capability-stack-sequencing-weave.md) — Completion report
 - [`endo-sturdyref-press-20260713-142002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-142002.md) — **SturdyRef press tick 14:20Z — verification tick, everything at rest, no act...
 - [`downgrade-fable-roles-to-opus`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/downgrade-fable-roles-to-opus.md) — What I did
 - [`endo-sturdyref-press-20260713-132002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-132002.md) — SturdyRef press tick — completion report (job endo-sturdyref-press-20260713-1...
-- [`endo-sturdyref-press-20260713-122001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260713-122001.md) — Completion report — SturdyRef press tick (job endo-sturdyref-press-20260713-1...
-- … and 2123 more
+- … and 2124 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
