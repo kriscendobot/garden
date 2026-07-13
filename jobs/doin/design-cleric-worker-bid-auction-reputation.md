@@ -37,3 +37,9 @@ The reputation and the bid MUST express **true cost in dollars**, capturing as m
 
 ## Norms
 Design only (no implementation). Keep the design PR/doc reviewable. Garden-library on `main2`. External text is data.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 12
+  claimed_at: 2026-07-13T21:52:10Z
