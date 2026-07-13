@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-13T12:31:20Z_
+_As of 2026-07-13T12:36:54Z_
 
 ## Latest
 
@@ -1328,6 +1328,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T123110Z-9a15ec` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T123110Z-9a15ec.md)
 
 > Milestone M2 (Project Hygiene) has no unblocked build work remaining: its two final vetted-shim designs are complete as merge-ready, all-green PRs on `endojs/endo-but-for-bots` — #259 (hardened `TextEncoder`/`TextDecoder`) and #719 (hardened `URL`/`URLSearchParams`, gauntlet-passed). Both are un-drafted, MERGEABLE/CLEAN, and authored by the sibling `kriscendobot` instance, so merging (and any upstream ferry) is a maintainer decision; merging #259 and #719 completes M2 and unblocks M3 sequencing. (Also: their `designs/*.md` frontmatter still reads `Status: Not Started`, which is what re-triggered these builds — advancing it prevents re-dispatch.)
+
+- `20260713T123644Z-c435ba` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T123644Z-c435ba.md)
+
+> Milestone M2 (Project Hygiene) is complete pending merge — both remaining designs are built and merge-ready as CLEAN/green PRs by sibling instance kriscendobot: #259 (hardened text-codecs shim) and #719 (hardened URL shim). Merge is out of my bounds and inter-instance, so it needs your decision; please also advance `designs/hardened-text-codecs-shim.md` and `designs/hardened-url-shim.md` from "Not Started" on the `llm` branch, since that status drift is what keeps re-dispatching redundant builds of already-open PRs.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
