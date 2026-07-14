@@ -12,12 +12,12 @@ Environment=GARDEN_ROOT=@GARDEN_ROOT@
 # --- active-job target --------------------------------------------------------
 # The foreman keeps this many concurrent jobs (jobs/todo/ + jobs/doin/) actively
 # progressing, filling the open slots while the board is under-subscribed. The
-# script default is now 3 (kriskowal, 2026-07-03: keep ~3 jobs actively
-# progressing, not just refill when the board is fully idle), so this line is
-# redundant with the default but pins the intended value explicitly. Tune here or
-# via a drop-in. (GARDEN_FOREMAN_WIP is the deprecated former name, still honored
-# as an alias.)
-Environment=GARDEN_FOREMAN_ACTIVE_TARGET=3
+# script default is 3 (kriskowal, 2026-07-03: keep ~3 jobs actively progressing),
+# but the fleet foreman is intentionally QUIESCED: set to 0 (kriskowal, 2026-07-14)
+# so the board is never "under target" and the foreman NEVER pumps -- fleet-wide, on
+# every host that becomes leader. Raise here (or via a per-host drop-in) to re-enable.
+# (GARDEN_FOREMAN_WIP is the deprecated former name, still honored as an alias.)
+Environment=GARDEN_FOREMAN_ACTIVE_TARGET=0
 # --- weekly token meter / back-off gate (Claude Max x20 subscription) ---------
 # The foreman is the garden's autonomous token pump, so it gates on a deterministic
 # weekly token meter sourced from Claude Code's OWN session logs
