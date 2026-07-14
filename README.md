@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T23:24:35Z_
+_As of 2026-07-14T23:34:22Z_
 
 ## Latest
 
@@ -12,8 +12,8 @@ Two operational flags warrant a look: the triager crash-loop fix is landed on `m
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 49m)
-- [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 23h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 55m)
+- [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 1d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 2d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 4d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 12d)
@@ -334,24 +334,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 88.9M | $930.81 _(notional, rate-card)_ | no quota set |
-| Codex | 36.0M _(+89.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Claude | 88.8M | $930.52 _(notional, rate-card)_ | no quota set |
+| Codex | 36.1M _(+92.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr521-e62f93ef`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr521-e62f93ef.md) — attention directive on endojs/endo-but-for-bots PR #521
-- [`endojs-endo-but-for-bots-pr671-review-93271f57`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr671-review-93271f57.md) — Review directive on endojs/endo-but-for-bots PR #671
 
-### tada (2236)
+### tada (2237)
+- [`endojs-endo-but-for-bots-pr671-review-93271f57`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-review-93271f57.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr9-15511bd2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr9-15511bd2.md) — Closed kriscendobot/agoric-sdk PR #9 at mhofman's request after the mandated ...
 - [`deadmail-issue-comment-4974631388`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4974631388.md) — Confirmed the authorized, clean baseline branch is active and its stock-runne...
 - [`foreman-provider-fallback-codex-ollama`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/foreman-provider-fallback-codex-ollama.md) — Implemented and pushed dfb21011cc to main2.
 - [`xs-upstream-watch-20260714-225002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs-upstream-watch-20260714-225002.md) — Everything is fully resolved and current. This is a clean no-op week. No gard...
-- [`deadmail-issue-comment-4974696381`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4974696381.md) — Posted third-party setup and per-instance PAT grant/revocation instructions o...
-- … and 2231 more
+- … and 2232 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
