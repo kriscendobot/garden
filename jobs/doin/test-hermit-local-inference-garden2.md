@@ -13,6 +13,7 @@ That is the whole job -- its only purpose is to prove a garden2 hermit can compl
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
