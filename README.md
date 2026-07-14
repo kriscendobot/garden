@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T21:30:36Z_
+_As of 2026-07-14T21:32:20Z_
 
 ## Latest
 
@@ -113,6 +113,29 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260714T212404Z-eef1a3` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260714T212404Z-eef1a3.md)
 
 > self-heal: garden-triager@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: 68d8c6045fcd005541a33f50644640e07c21644b (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 68d8c6045fcd005541a33f50644640e07c21644b). Diagnosis: You've hit your weekly limit · resets Jul 18, 3am (UTC)
+
+- `20260714T213148Z-41f129` — from triager:kriscendobot-minion.town, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260714T213148Z-41f129.md)
+
+> kind: error
+>
+> # triage circuit-breaker OPENED for `kriscendobot-minion.town`
+>
+> The triage handler (`/home/kris/garden2/scripts/jobs/handlers/triager-claude.sh`) FAILED 5 consecutive times on the SAME change
+> and hit the threshold (`GARDEN_TRIAGE_FAIL_THRESHOLD=5`).
+>
+> - Repo slug: `kriscendobot-minion.town`  (watched ref `main`)
+> - Failing range: `0ff042bc0b595ce801c803abb90c138860f66db9` → `7cf4a624eddf1a5690853eeeb4a54dcffa47d1e2`
+>
+> Because the transition is deterministic (same old→new SHAs, same diff), retrying
+> cannot help — it only crash-loops the `garden-triager@kriscendobot-minion.town` unit and fills the
+> journal. The breaker is now OPEN: this sha will NOT be re-triaged until a NEW
+> change appears on `kriscendobot-minion.town:main`, which clears the breaker automatically.
+>
+> Investigate the handler failure (reproduce by hand:
+> `/home/kris/garden2/scripts/jobs/handlers/triager-claude.sh kriscendobot-minion.town 0ff042bc0b595ce801c803abb90c138860f66db9 7cf4a624eddf1a5690853eeeb4a54dcffa47d1e2 <bare>`), or, if this repo should not be watched
+> at all, remove it from the watch set. Note: under CLAUDE.md § Monitoring safety
+> constraint only `endojs/endo-but-for-bots` is currently authorized for watching —
+> worth confirming `kriscendobot-minion.town` belongs in the set.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
@@ -285,7 +308,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 90.9M | $948.75 _(notional, rate-card)_ | no quota set |
-| Codex | 35.3M _(+78.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Codex | 35.3M _(+78.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
