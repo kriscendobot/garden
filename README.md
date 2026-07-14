@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T02:44:56Z_
+_As of 2026-07-14T02:45:47Z_
 
 ## Latest
 
@@ -1962,16 +1962,16 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`codex-dispatch-test-20260714T024433Z`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/codex-dispatch-test-20260714T024433Z.md) — Codex dispatch verification
+### doin (0)
+(none)
 
-### tada (2188)
+### tada (2189)
+- [`codex-dispatch-test-20260714T024433Z`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/codex-dispatch-test-20260714T024433Z.md) — I did not modify any files, create commits, open PRs, or send messages, per t...
 - [`durable-bot-git-identity-on-reset`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/durable-bot-git-identity-on-reset.md) — Completion report
 - [`endojs-endo-but-for-bots-pr670-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr670-refresh.md) — Completion report: refresh endojs/endo-but-for-bots PR #670
 - [`bulletin-claude-codex-quota-spend-visibility`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/bulletin-claude-codex-quota-spend-visibility.md) — Completion report
 - [`endojs-endo-but-for-bots-pr667-review-20347bb0`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr667-review-20347bb0.md) — Completion report — endojs/endo-but-for-bots PR #667 review directive
-- [`endojs-endo-but-for-bots-pr661-review-e6e9d5e5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr661-review-e6e9d5e5.md) — Completion report
-- … and 2183 more
+- … and 2184 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
