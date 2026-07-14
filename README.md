@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T21:32:20Z_
+_As of 2026-07-14T21:45:02Z_
 
 ## Latest
 
@@ -308,22 +308,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 90.9M | $948.75 _(notional, rate-card)_ | no quota set |
-| Codex | 35.3M _(+78.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Codex | 35.4M _(+78.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`deadmail-issue-comment-4974142339`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4974142339.md) — Dead-lettered message — pick up its intent
+### doin (2)
+- [`design-change-review-tool-with-review-metering`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-change-review-tool-with-review-metering.md) — The idea, restated
+- [`endojs-endo-but-for-bots-pr521-review-27079b07`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr521-review-27079b07.md) — Review directive on endojs/endo-but-for-bots PR #521
 
-### tada (2225)
+### tada (2226)
+- [`deadmail-issue-comment-4974142339`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4974142339.md) — Completion report
 - [`test-hermit-local-inference-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/test-hermit-local-inference-garden2.md) — Superseded liveness probe — no inference run
 - [`deadmail-issue-comment-4974080660`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4974080660.md) — Documented the instance-administrator contact procedure in kriscendobot/minio...
 - [`endojs-endo-but-for-bots-pr730-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr730-shepherd.md) — What I did
 - [`endojs-endo-but-for-bots-pr731-e27fc13c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr731-e27fc13c.md) — Routed the directive and acknowledged it on #731. Confirmed all six named PR ...
-- [`deadmail-issue-comment-4973924757`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4973924757.md) — Replied on garden issue #45 with the rollout context, motivation, current saf...
-- … and 2220 more
+- … and 2221 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -351,7 +352,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`design-change-review-tool-with-review-metering`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/design-change-review-tool-with-review-metering.md) — _normal_ · The idea, restated
 - [`endojs-endo-but-for-bots-pr658-review-97e5a186-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr658-review-97e5a186-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #658 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr661-review-e6e9d5e5-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr661-review-e6e9d5e5-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #661 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr662-review-25ab500f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr662-review-25ab500f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #662 (primary: endojs-endo-but-f...
@@ -368,6 +368,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kriscendobot-agoric-sdk-pr16-review-416988d1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr16-review-416988d1-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #16 (primary: kriscendobot-agoric...
 - [`kriscendobot-agoric-sdk-pr16-review-9b74ccd4-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr16-review-9b74ccd4-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #16 (primary: kriscendobot-agoric...
 - [`kriscendobot-agoric-sdk-pr16-review-d584f885-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr16-review-d584f885-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #16 (primary: kriscendobot-agoric...
+- [`endojs-endo-but-for-bots-pr521-review-27079b07-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr521-review-27079b07-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #521 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
