@@ -381,3 +381,12 @@ Inspect via `git -C journal cat-file -p ea5b6cd20432557738fed642e10f113df8444a8e
 - Context: gardener-5 on endolin-garden-ece02cb4: job 'test-hermit-local-inference-garden2' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p a034d6e891148248b8b212070a2d3bc60238cacd`.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-07-14T16:34:34Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: 9a8f11741819799a054b9dc49e0f2387ba861827
+- Context: gardener-9 on endolin-garden-ece02cb4: job 'endojs-endo-but-for-bots-pr723-shepherd' exit-0-unsatisfying but elapsed near-constant (779,779s) over 2 cycles — likely a wedged child, not a working one
+
+Inspect via `git -C journal cat-file -p 9a8f11741819799a054b9dc49e0f2387ba861827`.
