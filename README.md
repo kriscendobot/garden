@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T06:34:34Z_
+_As of 2026-07-14T06:49:05Z_
 
 ## Latest
 
@@ -1963,28 +1963,27 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.0M | $1130.85 _(notional, rate-card)_ | no quota set |
+| Claude | 95.1M | $1135.53 _(notional, rate-card)_ | no quota set |
 | Codex | 47.2k _(+407.3k cached)_ | n/a _(ChatGPT free plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`test-hermit-local-inference-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/test-hermit-local-inference-garden2.md) — ---
 
-### doin (6)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr671-review-3fa7398f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr671-review-3fa7398f.md) — Review directive on endojs/endo-but-for-bots PR #671
 - [`endojs-endo-but-for-bots-pr706-review-7a1d9ca9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr706-review-7a1d9ca9.md) — Review directive on endojs/endo-but-for-bots PR #706
 - [`endojs-endo-but-for-bots-pr721-review-56349e18`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr721-review-56349e18.md) — Review directive on endojs/endo-but-for-bots PR #721
 - [`kriscendobot-agoric-sdk-pr16-dec1f704`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr16-dec1f704.md) — attention directive on kriscendobot/agoric-sdk PR #16
 - [`kriscendobot-agoric-sdk-pr16-review-d584f885`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr16-review-d584f885.md) — Review directive on kriscendobot/agoric-sdk PR #16
-- [`scholar-ai-sdk-research`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ai-sdk-research.md) — <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-...
 
-### tada (2198)
+### tada (2199)
+- [`scholar-ai-sdk-research`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ai-sdk-research.md) — Job complete. Report follows.
 - [`kriscendobot-agoric-sdk-pr16-aae348bc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-aae348bc.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr16-review-416988d1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-review-416988d1.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr16-review-12e4a9aa`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-review-12e4a9aa.md) — Review 4690987586 has an empty body and one inline reply at packages/portfoli...
 - [`kriscendobot-agoric-sdk-pr16-review-9b74ccd4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-review-9b74ccd4.md) — Completion report
-- [`endojs-endo-but-for-bots-pr682-review-4631723f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr682-review-4631723f.md) — Completion report
-- … and 2193 more
+- … and 2194 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
