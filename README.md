@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T19:20:48Z_
+_As of 2026-07-14T19:21:35Z_
 
 ## Latest
 
@@ -49,48 +49,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > constraint only `endojs/endo-but-for-bots` is currently authorized for watching —
 > worth confirming `kriscendobot-finbot` belongs in the set.
 
-- `20260711T062924Z-b46c96` — from gardener:ocapn-daemon-minion-deploy-demo, reply_to `ocapn-daemon-minion-deploy-demo` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T062924Z-b46c96.md)
-
-> OCapN-Noise-WS demo (M3+M4) is LIVE and reproducible on minion.town.
->
-> A local peer in a garden container dials wss://minion.town/ocapn, runs Noise IK,
-> and round-trips a capability against a systemd-run OCapN-Noise-WS service on the
-> box (aarch64, node v22). End-to-end path: Caddy TLS 443 -> loopback WS
-> 127.0.0.1:8930 -> Noise IK -> CBOR -> OCapN sturdyref -> capability invoke.
->
->   RESULT {"ok":true,"swissnum":"greeter",
->           "nodeId":"810b996c…","reply":"Hello, the local peer! …"}
->
-> Deployed on the host (left RUNNING for you):
->   - endo-ocapn-daemon.service (enabled+active), /opt/endo = endojs/endo-but-for-bots
->     @ claude/endo-daemon-ocapn-ws-FkmHO, corepack yarn install (no native build;
->     Noise WASM ships prebuilt).
->   - Caddy: `handle /ocapn* { reverse_proxy 127.0.0.1:8930 }` folded into
->     minion-town.caddy (NOT behind oauth2-proxy). Validated + reloaded; caddy,
->     oauth2-proxy, minion-mcp untouched. Backup at minion-town.caddy.bak-ocapn.
->
-> Tentative choice (per "prefer tentative progress over delay"): the systemd unit
-> runs a standalone service using the SAME @endo/ocapn-noise + @endo/ocapn WS+Noise
-> session machinery as the daemon's src/networks/ocapn.js, minus the
-> pet-store/agent lifecycle — the smallest default that proves the whole transport
-> path. README documents the exact steps to promote it to the full @nets/ocapn Pet
-> Daemon bootstrap (store ws-listen-addr, install the network module, extract the
-> live address); the Caddy route and client are unchanged.
->
-> Demo + transcript + unit + route committed to the WS branch:
->   packages/daemon/demo/minion-town/  (endojs/endo-but-for-bots, b08e8b696d)
->
-> Want me to (a) promote to the full Pet Daemon bootstrap, and/or (b) land the
-> Caddy route durably in the kriscendobot/minion.town repo? Both are quick follow-ups.
-
-- `20260711T062947Z-e160e6` — from gardener:xs2rust-endor-262-xst-runner-core, reply_to `xs2rust-endor-262-xst-runner-core` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T062947Z-e160e6.md)
-
-> endor-xst core landed on PR #600 (xs2rust-endor @ f31ad65a46, still DRAFT) — convergence child 1/5.
->
-> Built the `endor-xst` binary in endor-262: full YAML frontmatter (new `frontmatter` module via yaml-rust2, pure-Rust so forbid(unsafe_code) holds; retires test262.rs's three-field hand parser by delegation), endor feature skip list + --features-include, sloppy+strict mode selection (strict a named skip pre-stage-5), negative verdicts (constructor-name vs negative.type, stack/meter aborts → RangeError), dual-run oracle wiring (verdict+observable gating, computron advisory, --gate-meter-exact, --repeat N determinism), and the xst-shaped YAML report (mode:/skip:/fail: + advisory:/skip-detail:). Retired `test262-language` by name — endor-xst reproduces its split exactly on every subtree checked. All 61 endor-262 lib tests pass; clippy clean.
->
-> FLAG (pre-existing, not mine): the branch's committed c/moddable gitlink is 5516726 = moddable 8.0.1, but HEAD's commit "bump oracle pin 8.2.3 → 8.3.1" plus the oracle build-script expectation and the `module_corpora_byte_identity_no_divergence` test all require 23b4d6b = 8.3.1 (that test FAILS at 8.0.1, PASSES at 8.3.1). So a fresh `git submodule update --init` on this branch checks out 8.0.1 and reds the endor-262 module-byte gate. Looks like the pin bump commit didn't stage the submodule pointer. I did NOT touch the gitlink (out of scope for the runner job) — flagging so someone can bump c/moddable → 23b4d6b in a separate commit.
-
 - `20260711T075741Z-0634c1` — from watchdog:gardener/3, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T075741Z-0634c1.md)
 
 > gardener job 'endojs-endo-but-for-bots-pr688-shepherd' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
@@ -98,48 +56,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260711T091845Z-3e2d4d` — from watchdog:gardener/3, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T091845Z-3e2d4d.md)
 
 > gardener job 'ocapn-pet-daemon-dockerfile-minion' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
-- `20260711T160215Z-49ac96` — from gardener:deadmail-20260711T155611Z-b3e598, reply_to `deadmail-20260711T155611Z-b3e598` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T160215Z-49ac96.md)
-
-> XS-validation effort FINALIZED (carried forward from the completed orchestrator xst-validation-orchestrator-20260711-120506, whose finalize-clearance message was dead-lettered to me).
->
-> Both maintainer decisions applied: Depot force:integration leg WAIVED (fork-infeasible), green draft [kriscendobot/agoric-sdk#14](https://github.com/kriscendobot/agoric-sdk/issues/14) COUNTS AS LANDED. All four workstreams engineering-complete and green on kriscendobot/agoric-sdk:
-> - Variants (mirror of [Agoric/agoric-sdk#11031](https://github.com/Agoric/agoric-sdk/issues/11031)) -> fork [kriscendobot/agoric-sdk#11](https://github.com/kriscendobot/agoric-sdk/issues/11)
-> - Moddable 5.5.0 bump (mirror of [Agoric/agoric-sdk#11297](https://github.com/Agoric/agoric-sdk/issues/11297)) -> fork [kriscendobot/agoric-sdk#12](https://github.com/kriscendobot/agoric-sdk/issues/12)
-> - Park-on-failed-upgrade -> fork [kriscendobot/agoric-sdk#14](https://github.com/kriscendobot/agoric-sdk/issues/14) (landed)
-> - Integration + gauntlet -> fork [kriscendobot/agoric-sdk#13](https://github.com/kriscendobot/agoric-sdk/issues/13) (69 pass / 0 fail; Leg 4 waived)
->
-> Done:
-> 1. Final summary comment posted on [kriskowal/garden#33](https://github.com/kriskowal/garden/issues/33).
-> 2. This message to you.
-> 3. Removing journal2:schedules/xst-validation-orchestrator.md via CAS push (hourly schedule retired — no more ticks).
-> 4. [kriskowal/garden#33](https://github.com/kriskowal/garden/issues/33) left OPEN for you to close.
-
-- `20260711T164712Z-3dcbdd` — from gardener:deadmail-20260711T164315Z-c55ba6, reply_to `deadmail-20260711T164315Z-c55ba6` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T164712Z-3dcbdd.md)
-
-> Closing the loop on the two asks that xs2rust-xst-reactivate left open — your reply
-> to that (now-completed) doer dead-lettered and I picked up its intent as
-> deadmail-20260711T164315Z-c55ba6. Both decisions received and honored; nothing to
-> change, state already conforms:
->
-> 1. FOREMAN WIP THROTTLE — KEEP. Left the Jul-7 override.conf (GARDEN_FOREMAN_ACTIVE_TARGET=1)
->    in place on the leader (endolin-garden2-5bcdff64). Not lifted to 3.
-> 2. XS-VALIDATION — PARKED / STAYS RETIRED. xst-validation-orchestrator is already out of
->    active schedules/ (retired in f6f64d971f). Left paused-schedules/xst-validation-orchestrator.md
->    as a parked orphan; NOT resurrected, NOT restored. No further reactivation.
->
-> No reply needed.
-
-- `20260711T164732Z-f9623e` — from gardener:deadmail-20260711T164330Z-49ffdc, reply_to `deadmail-20260711T164330Z-49ffdc` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T164732Z-f9623e.md)
-
-> Snapshot-mapper stand-down carried out (from dead-lettered maintainer reply to build-endo-but-for-bots-snapshot-mapper, which had already completed).
->
-> Verified nothing was left open:
-> - Our builder opened NO PR — it blocked at the architecture impasse and surfaced the A/B to you, then completed. Nothing of ours to close.
-> - The only PR ever tied to the concept, [endojs/endo-but-for-bots#565](https://github.com/endojs/endo-but-for-bots/issues/565), is already CLOSED (superseded by [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/issues/403)) and is 0xpatrickbot's, not ours.
-> - No parked/todo board jobs for the effort remain (only the builder's tada/ record).
->
-> Sole residue: the stale `build/snapshot-mapper` branch (head of the closed [endojs/endo-but-for-bots#565](https://github.com/endojs/endo-but-for-bots/issues/565); our builder had force-rebased it during the attempt). Harmless and unreferenced. I left it in place rather than delete another author's closed-PR branch unilaterally — say the word and I'll delete it. Effort is cancelled; no further action pending.
 
 - `20260712T002630Z-463ac5` — from watchdog:gardener/11, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260712T002630Z-463ac5.md)
 
@@ -180,23 +96,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T144418Z-fe48a8` — from watchdog:foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T144418Z-fe48a8.md)
 
 > garden-foreman's pump handler (/home/kris/garden/scripts/jobs/handlers/foreman-claude.sh) failed rc=143 on endolin-garden-ece02cb4; the board pump is starving. stderr tail: <6>14:44:18 [foreman-claude] usage-meter: claude exited rc=143; usage not recorded
-
-- `20260713T194328Z-b9c44a` — from gardener:build-daemon-locator-terminology, reply_to `build-daemon-locator-terminology` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T194328Z-b9c44a.md)
-
-> Builder finding on M3 `daemon-locator-terminology` (endojs/endo-but-for-bots): the named deliverable is ALREADY IMPLEMENTED and tested on origin/llm — no PR opened (nothing to build).
->
-> Landed via [endojs/endo-but-for-bots#34](https://github.com/endojs/endo-but-for-bots/issues/34) (commits 5bd2f09 "locator scheme with @-delimited connection hints", 24b8dcb "align locator hint terminology"):
-> - New types: PeerKey, FormulaAddress, FormulaKey, ConnectionHint, PeerLocator, FormulaLocator (types.d.ts) ✓
-> - New @-delimited locator format endo://{peerKey}/{formulaAddress}@{hint}?type= ✓
-> - parseLocator returns hints; formatLocatorWithHints; hintsFromLocator; locateWithHints (on Host) ✓
-> - Invitation locator format + accept parsing (host.js) ✓; dehydration/hydration ✓
-> - isLocalKey predicate (localNodeNumber + hasAgentKey) threaded through daemon/host/mail/directory/guest ✓
-> - 25-case locator.test.js covering the design's test plan ✓
-> - The repo's own designs/daemon-locator-terminology.md (updated 2026-05-10) already describes the new format as the CURRENT state.
->
-> Two things to note:
-> 1) STALE STATUS: garden-journal frontmatter says "Not Started", body "In Progress"; repo README rows still say "Not Started". Actual state = done. Worth marking Complete.
-> 2) ONE DELIBERATE DIVERGENCE: the design's "LOCAL_NODE Normalization" sub-scheme (rewriting STORED formula ids to the all-zeros LOCAL_NODE sentinel via internalizeLocator(isLocalKey)/externalizeId(agentKey), plus repairIds/normalizeId DB repair) was NOT built as written. locator.js's externalizeId/internalizeLocator explicitly do NOT sentinel-normalize ("no sentinel normalization needed"); stored ids use localNodeNumber as the canonical local node, and isLocalKey handles local/remote at the boundaries. LOCAL_NODE is defined but effectively vestigial. Implementing the full sentinel scheme + DB repair would be a separate, larger, storage-identity change — I did not do it unilaterally. Let me know if you want that pursued as its own job.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
@@ -368,8 +267,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.0M | $956.74 _(notional, rate-card)_ | no quota set |
-| Codex | 27.9M _(+75.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 92.0M | $956.54 _(notional, rate-card)_ | no quota set |
+| Codex | 27.9M _(+75.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
