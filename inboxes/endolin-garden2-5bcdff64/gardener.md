@@ -354,3 +354,12 @@ Inspect via `git -C journal cat-file -p 89b0cd8c50f73436609a16e8dd0d481fbb0cdb20
 - Context: gardener-4 on endolin-garden2-5bcdff64: job 'kriscendobot-agoric-sdk-pr16-dec1f704' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 89b0cd8c50f73436609a16e8dd0d481fbb0cdb20`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-14T06:50:01Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 89b0cd8c50f73436609a16e8dd0d481fbb0cdb20
+- Context: gardener-14 on endolin-garden2-5bcdff64: job 'design-ai-sdk-garden-integration' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 89b0cd8c50f73436609a16e8dd0d481fbb0cdb20`.
