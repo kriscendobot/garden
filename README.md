@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T21:20:25Z_
+_As of 2026-07-14T21:22:16Z_
 
 ## Latest
 
@@ -281,23 +281,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 91.0M | $949.56 _(notional, rate-card)_ | no quota set |
-| Codex | 35.2M _(+76.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 35.2M _(+77.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`deadmail-issue-comment-4974080660`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4974080660.md) — Dead-lettered message — pick up its intent
+### doin (1)
 - [`test-hermit-local-inference-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/test-hermit-local-inference-garden2.md) — ---
 
-### tada (2223)
+### tada (2224)
+- [`deadmail-issue-comment-4974080660`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4974080660.md) — Documented the instance-administrator contact procedure in kriscendobot/minio...
 - [`endojs-endo-but-for-bots-pr730-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr730-shepherd.md) — What I did
 - [`endojs-endo-but-for-bots-pr731-e27fc13c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr731-e27fc13c.md) — Routed the directive and acknowledged it on #731. Confirmed all six named PR ...
 - [`deadmail-issue-comment-4973924757`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4973924757.md) — Replied on garden issue #45 with the rollout context, motivation, current saf...
 - [`deadmail-issue-comment-4973811108`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4973811108.md) — Completion report
-- [`deadmail-issue-comment-4973677780`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4973677780.md) — Posted the requested work summary on garden issue #44; issue remains open. No...
-- … and 2218 more
+- … and 2219 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
