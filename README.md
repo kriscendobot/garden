@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T16:07:49Z_
+_As of 2026-07-14T16:11:20Z_
 
 ## Latest
 
@@ -2001,18 +2001,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 93.4M | $967.21 _(notional, rate-card)_ | no quota set |
-| Codex | 1.5M _(+31.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
+| Codex | 1.5M _(+33.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`test-hermit-local-inference-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/test-hermit-local-inference-garden2.md) — ---
+### todo (0)
+(none)
 
-### doin (5)
+### doin (6)
 - [`design-ai-sdk-garden-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-ai-sdk-garden-integration.md) — <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-...
 - [`design-endor-registry-transport`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endor-registry-transport.md) — Design an Endor/XS registry transport power for endojs/endo-but-for-bots PR #...
 - [`endojs-endo-but-for-bots-pr723-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr723-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #723
 - [`issue-kriskowal-garden-43`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-43.md) — Issue from kriskowal on kriskowal/garden #43
 - [`model-routing-journal-state-hermit-qwen`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/model-routing-journal-state-hermit-qwen.md) — Why
+- [`test-hermit-local-inference-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/test-hermit-local-inference-garden2.md) — ---
 
 ### tada (2209)
 - [`issue-kriskowal-garden-44`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-44.md) — Implemented and pushed 59c3ac0651 to main2: proposed a credential-safe turnke...
