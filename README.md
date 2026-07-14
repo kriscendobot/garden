@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T07:05:28Z_
+_As of 2026-07-14T07:12:30Z_
 
 ## Latest
 
@@ -1970,8 +1970,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (8)
-- [`daily-progress-summary-20260714-070504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260714-070504.md) — Daily midnight Pacific progress summary
+### doin (7)
 - [`design-ai-sdk-garden-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-ai-sdk-garden-integration.md) — <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-...
 - [`endojs-endo-but-for-bots-pr671-review-3fa7398f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr671-review-3fa7398f.md) — Review directive on endojs/endo-but-for-bots PR #671
 - [`endojs-endo-but-for-bots-pr706-review-7a1d9ca9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr706-review-7a1d9ca9.md) — Review directive on endojs/endo-but-for-bots PR #706
@@ -1980,13 +1979,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kriscendobot-agoric-sdk-pr16-review-d584f885`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr16-review-d584f885.md) — Review directive on kriscendobot/agoric-sdk PR #16
 - [`test-hermit-local-inference-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/test-hermit-local-inference-garden2.md) — ---
 
-### tada (2199)
+### tada (2200)
+- [`daily-progress-summary-20260714-070504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260714-070504.md) — The periodical is committed and reachable on origin/journal2, and my inbox is...
 - [`scholar-ai-sdk-research`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ai-sdk-research.md) — Job complete. Report follows.
 - [`kriscendobot-agoric-sdk-pr16-aae348bc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-aae348bc.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr16-review-416988d1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-review-416988d1.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr16-review-12e4a9aa`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-review-12e4a9aa.md) — Review 4690987586 has an empty body and one inline reply at packages/portfoli...
-- [`kriscendobot-agoric-sdk-pr16-review-9b74ccd4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-review-9b74ccd4.md) — Completion report
-- … and 2194 more
+- … and 2195 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
