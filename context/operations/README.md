@@ -39,6 +39,12 @@ schedule). The conversational first-run tour is the sibling tree,
   engagement (routes to `skills/restore/SKILL.md`), and the self-healing
   services in one paragraph each.
 
+- **[turnkey-host.md](turnkey-host.md)** — *"bake / launch the one-click Amazon
+  garden host."* The private ARM64 AMI + launch template: bake pipeline, credential
+  scrub, credential-free smoke test, launching a host, first entry and device-auth
+  over the SSM-tunnelled ssh CLI, cost/retention/teardown. Routes to
+  `designs/turnkey-garden-host.md`.
+
 - **[local-inference-amd.md](local-inference-amd.md)** — *"run a local model" /
   "add a local-inference worker on the AMD box."* ROCm/gfx1151 (Strix Halo
   Radeon 8060S) setup, standing up an OpenAI-compatible `/v1` endpoint (Ollama
