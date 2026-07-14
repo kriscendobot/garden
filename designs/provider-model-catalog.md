@@ -124,6 +124,36 @@ whose models are outside this catalog.
 > hard-coded). Re-run `codex debug models` on the target host to confirm the live set
 > before pinning; do not treat this table as frozen.
 
+### 2.5 Local (Ollama), the `provider: local` codex-cleric (`hermit`)
+
+The **local** provider is the paid-OpenAI codex driven against an **on-box Ollama
+`/v1` endpoint** (`http://127.0.0.1:11434/v1`) instead of ChatGPT — the `hermit`
+worker kind (registry provider `local`, `resolve_model_tier local`). Model ids are the
+**served Ollama tags**, not paid slugs; the tier map's short names track the guide's
+two picks. Grounded in `context/operations/local-inference-amd.md` (host: AMD Ryzen AI
+Max+ 395 / Radeon 8060S, gfx1151, 125 GiB unified memory).
+
+| Tier | Served tag | Type | ~size | tg128 t/s (measured) | Intended use |
+| --- | --- | --- | --- | --- | --- |
+| `20b` | `gpt-oss:20b` | MoE (MXFP4) | ~12 GB | ~72 | Interactive everyday hermit default. |
+| `120b` | `gpt-oss:120b` | MoE (MXFP4) | ~63 GB | ~51 | Flagship this box runs; heavier roles (needs GPU budget ≥ ~96 GB). |
+
+**Cost — very cheap, NOT free (guide §5).** Local inference has no per-token invoice,
+only electricity + amortized hardware. Pricing it at literally $0 would make one lucky
+local success look infinitely efficient and starve exploration of the paid arms it
+should be measured against, so the reputation/bid cost model prices a local arm on an
+**amortized** basis:
+
+| Provider | $ per MTok (in/out, flat) | `price_basis` | Derivation |
+| --- | --- | --- | --- |
+| `local` | **1.50 / 1.50** | `amortized` | ~$2,000 box / 3-yr life @ ~30% duty ≈ $0.25/hr; at ~50 tok/s ≈ $1.40/MTok; power (~120 W @ 50 tok/s, $0.30/kWh) ≈ $0.20/MTok. Combined ≈ **$1–2/MTok**, vs paid $5–50/MTok. |
+
+Local has no input/output asymmetry (one flat rate). Replace the box price and kWh
+rate with the measured values (and `amd-smi` power draw) when known; the figure is
+seeded illustratively (guide §5). This row is the canonical rate for the `local`
+provider that the token-cost ledger (§3, not yet wired) will apply, and that a journal
+`reputation/rate-card.md` row mirrors per-instance.
+
 ---
 
 ## 3. Cross-provider thoughtfulness axis (the load-bearing mapping)

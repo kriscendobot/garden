@@ -173,6 +173,7 @@ rep_resolve_arm() {
   if [ -z "$model" ]; then
     case "$provider" in
       openai) model="gpt-5.6-terra" ;;
+      local)  model="gpt-oss:20b" ;;     # hermit fleet default (guide §3, interactive pick)
       *)      model="claude-default" ;;
     esac
   fi

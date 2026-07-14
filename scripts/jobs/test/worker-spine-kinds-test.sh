@@ -67,7 +67,13 @@ hr; echo "REGISTRY — worker_kind_field / worker_kinds / worker_busy_marker"; h
 [ "$(worker_kind_field cleric   unit)" = "garden-cleric@" ]   && ok "cleric unit prefix"   || bad "cleric unit"
 [ "$(worker_kind_field cleric   count_key)" = "clerics" ] && ok "cleric count_key" || bad "cleric count_key"
 [ "$(worker_kind_field cleric   state_ns)"  = "clerics" ] && ok "cleric state_ns"  || bad "cleric state_ns"
-[ "$(worker_kinds | paste -sd, -)" = "gardener,cleric" ] && ok "worker_kinds enumerates both" || bad "worker_kinds ($(worker_kinds | paste -sd, -))"
+# hermit = the provider: local codex-cleric — reuses the codex handler, distinct ns.
+[ "$(worker_kind_field hermit   handler)" = "handlers/cleric-codex.sh" ] && ok "hermit reuses codex handler" || bad "hermit handler ($(worker_kind_field hermit handler))"
+[ "$(worker_kind_field hermit   provider)" = "local" ]    && ok "hermit provider local"    || bad "hermit provider"
+[ "$(worker_kind_field hermit   unit)" = "garden-hermit@" ] && ok "hermit unit prefix" || bad "hermit unit"
+[ "$(worker_kind_field hermit   count_key)" = "hermits" ] && ok "hermit count_key" || bad "hermit count_key"
+[ "$(worker_kind_field hermit   state_ns)"  = "hermits" ] && ok "hermit state_ns"  || bad "hermit state_ns"
+[ "$(worker_kinds | paste -sd, -)" = "gardener,cleric,hermit" ] && ok "worker_kinds enumerates all three" || bad "worker_kinds ($(worker_kinds | paste -sd, -))"
 ( GARDEN_STATE=/tmp/x; [ "$(worker_busy_marker cleric 3)" = "/tmp/x/clerics/3/busy" ] ) && ok "cleric busy marker under clerics/ ns" || bad "cleric busy marker path"
 ( GARDEN_STATE=/tmp/x; [ "$(gardener_busy_marker 3)" = "/tmp/x/gardeners/3/busy" ] ) && ok "gardener busy marker back-compat wrapper" || bad "gardener busy marker wrapper"
 worker_kind_field friar handler 2>/dev/null && bad "unknown kind must fail" || ok "unknown kind 'friar' → non-zero (registry rejects)"
@@ -80,11 +86,21 @@ hr; echo "MODEL SELECTION — provider-scoped tiers + per-kind role defaults"; h
 [ "$(resolve_model_tier openai frontier)" = "gpt-5.5" ] && ok "resolve_model_tier openai frontier" || bad "openai frontier"
 [ "$(resolve_model_tier openai gpt-5.4-mini)" = "gpt-5.4-mini" ] && ok "openai concrete id passthrough" || bad "openai passthrough"
 [ -z "$(resolve_model_tier openai opus)" ] && ok "openai map rejects a claude tier (no cross-provider leak)" || bad "openai leaked a claude tier"
+# local provider tier map — served Ollama tags, disjoint from the openai id space.
+[ "$(resolve_model_tier local 20b)" = "gpt-oss:20b" ] && ok "resolve_model_tier local 20b" || bad "local 20b"
+[ "$(resolve_model_tier local 120b)" = "gpt-oss:120b" ] && ok "resolve_model_tier local 120b" || bad "local 120b"
+[ "$(resolve_model_tier local gpt-oss:20b)" = "gpt-oss:20b" ] && ok "local served-tag passthrough" || bad "local passthrough"
+[ "$(resolve_model_tier local llama3.2:3b)" = "llama3.2:3b" ] && ok "local arbitrary served tag (colon) passthrough" || bad "local colon-tag passthrough"
+[ -z "$(resolve_model_tier openai gpt-oss:20b)" ] && ok "openai map rejects a local gpt-oss tag (no gpt-* mis-capture)" || bad "openai captured a local tag"
+[ -z "$(resolve_model_tier local terra)" ] && ok "local map rejects a codex tier (no cross-provider leak)" || bad "local leaked a codex tier"
 [ "$(role_default_model builder)" = "claude-opus-4-8" ] && ok "gardener builder → opus (back-compat 1-arg)" || bad "gardener builder default"
 [ "$(role_default_model cleric builder)" = "gpt-5.6-terra" ] && ok "cleric builder → gpt-5.6-terra" || bad "cleric builder default"
 [ -z "$(role_default_model cleric fixer)" ] && ok "cleric fixer unpinned (rides fleet default)" || bad "cleric fixer default"
+[ "$(role_default_model hermit builder)" = "gpt-oss:120b" ] && ok "hermit builder → gpt-oss:120b" || bad "hermit builder default"
+[ -z "$(role_default_model hermit fixer)" ] && ok "hermit fixer unpinned (rides hermit fleet default)" || bad "hermit fixer default"
 [ "$(role_default_effort cleric builder)" = "high" ] && ok "cleric builder effort high" || bad "cleric builder effort"
 [ "$(role_default_effort cleric fixer)" = "medium" ] && ok "cleric fixer effort medium" || bad "cleric fixer effort"
+[ "$(role_default_effort hermit builder)" = "high" ] && ok "hermit builder effort high" || bad "hermit builder effort"
 
 # ============================================================================
 hr; echo "ONE SPINE — the SAME gardener.sh completes a job as gardener AND as cleric"; hr
@@ -119,6 +135,7 @@ run_kind() {  # run_kind <kind> <base> <host>
 }
 run_kind gardener gspine ghost
 run_kind cleric   cspine chost
+run_kind hermit   hspine hhost
 
 # ============================================================================
 hr; echo "ELIGIBILITY — §1.3 backend-fit filter keeps a kind off a foreign-pinned job"; hr
@@ -148,6 +165,16 @@ elig_case cleric   pinnedcodex  "model: terra" claimed
 elig_case cleric   unpinnedjob  ""             claimed
 elig_case gardener pinnedcodex2 "model: terra" left
 elig_case gardener pinnedclaude2 "model: opus" claimed
+# hermit (provider: local) claims ONLY local-pinned or unpinned jobs; a local-pinned
+# job is off-limits to the paid cleric and the gardener. gpt-oss tags AND the short
+# local tiers both route to the local map.
+elig_case hermit   pinnedlocal  "model: gpt-oss:20b" claimed
+elig_case hermit   pinnedlocal2 "model: 120b"        claimed
+elig_case hermit   pinnedcodex3 "model: terra"       left
+elig_case hermit   pinnedclaude3 "model: opus"       left
+elig_case hermit   unpinnedjob2 ""                   claimed
+elig_case cleric   pinnedlocal3 "model: gpt-oss:20b" left
+elig_case gardener pinnedlocal4 "model: gpt-oss:120b" left
 
 # ============================================================================
 hr; echo "ONE TEMPLATE — garden-worker@.service.in renders BOTH kinds; scale arms each"; hr
@@ -158,12 +185,14 @@ hr; echo "ONE TEMPLATE — garden-worker@.service.in renders BOTH kinds; scale a
 # Render the template for both kinds the way install-units does and check the
 # @WORKER_KIND@ substitution landed distinctly.
 RT="$(mktemp -d "${TMPDIR:-/tmp}/garden-render.XXXXXX")"
-for kind in gardener cleric; do
+for kind in gardener cleric hermit; do
   sed -e "s#@GARDEN_ROOT@#/opt/garden#g" -e "s#@WORKER_KIND@#$kind#g" "$SRC/garden-worker@.service.in" > "$RT/garden-$kind@.service"
 done
 grep -q 'GARDEN_WORKER_KIND=gardener' "$RT/garden-gardener@.service" && ok "gardener unit sets GARDEN_WORKER_KIND=gardener" || bad "gardener kind env"
 grep -q 'GARDEN_WORKER_KIND=cleric'   "$RT/garden-cleric@.service"   && ok "cleric unit sets GARDEN_WORKER_KIND=cleric"     || bad "cleric kind env"
+grep -q 'GARDEN_WORKER_KIND=hermit'   "$RT/garden-hermit@.service"   && ok "hermit unit sets GARDEN_WORKER_KIND=hermit"     || bad "hermit kind env"
 grep -q 'self-heal-run.sh garden-cleric ' "$RT/garden-cleric@.service" && ok "cleric ExecStart labels self-heal garden-cleric" || bad "cleric self-heal label"
+grep -q 'self-heal-run.sh garden-hermit ' "$RT/garden-hermit@.service" && ok "hermit ExecStart labels self-heal garden-hermit" || bad "hermit self-heal label"
 rm -rf "$RT"
 
 # The scaler scale path arms EACH kind's pool via mock-systemctl (no real systemd).
@@ -173,10 +202,13 @@ export GARDEN_MOCK_STATE="$ST/armed" GARDEN_MOCK_LOG="$ST/log"; : > "$GARDEN_MOC
 export XDG_CONFIG_HOME="$ST/config"
 "$JOBS/install-units.sh" scale cleric 2 >/dev/null 2>&1
 "$JOBS/install-units.sh" scale gardener 3 >/dev/null 2>&1
+"$JOBS/install-units.sh" scale hermit 2 >/dev/null 2>&1
 gc=$(grep -c '^garden-cleric@[12]\.service$' "$GARDEN_MOCK_STATE" || true)
 gg=$(grep -c '^garden-gardener@[123]\.service$' "$GARDEN_MOCK_STATE" || true)
+gh=$(grep -c '^garden-hermit@[12]\.service$' "$GARDEN_MOCK_STATE" || true)
 [ "$gc" -eq 2 ] && ok "scale cleric 2 → garden-cleric@{1,2} armed" || bad "cleric scale (@1-2=$gc)"
 [ "$gg" -eq 3 ] && ok "scale gardener 3 → garden-gardener@{1,2,3} armed (independent pool)" || bad "gardener scale (@1-3=$gg)"
+[ "$gh" -eq 2 ] && ok "scale hermit 2 → garden-hermit@{1,2} armed (new kind scalable, no arg-parse edit)" || bad "hermit scale (@1-2=$gh)"
 # back-compat: bare `scale <N>` still means gardener
 : > "$GARDEN_MOCK_STATE"
 "$JOBS/install-units.sh" scale 1 >/dev/null 2>&1

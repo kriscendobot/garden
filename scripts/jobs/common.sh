@@ -394,6 +394,24 @@ worker_kind_field() {
         label)     printf '%s\n' "garden-cleric" ;;
         *) return 1 ;;
       esac ;;
+    hermit)
+      # The provider: local codex-cleric (guide §4, cleric-worker-bid-auction-
+      # reputation.md §2.2 "Adding a third backend"). It REUSES the codex handler
+      # verbatim — the handler is provider-parameterized and, seeing provider=local,
+      # points codex at the local Ollama /v1 endpoint instead of paid OpenAI (zero
+      # new handler file). Its provider is `local`, so its reputation and rate-card
+      # rows stay DISTINCT from the paid-OpenAI cleric: the design keeps worker_kind
+      # and provider separate for exactly this — a codex-harness kind driving a
+      # *local* provider (§4.2).
+      case "$field" in
+        handler)   printf '%s\n' "handlers/cleric-codex.sh" ;;
+        provider)  printf '%s\n' "local" ;;
+        unit)      printf '%s\n' "garden-hermit@" ;;
+        count_key) printf '%s\n' "hermits" ;;
+        state_ns)  printf '%s\n' "hermits" ;;
+        label)     printf '%s\n' "garden-hermit" ;;
+        *) return 1 ;;
+      esac ;;
     *) return 1 ;;
   esac
 }
@@ -402,7 +420,7 @@ worker_kind_field() {
 # scaler iterates this to reconcile every pool; set-workers.sh iterates it to
 # preserve a sibling kind's count when it rewrites hosts/<host>. A new kind is added
 # in exactly one place besides worker_kind_field: here.
-worker_kinds() { printf '%s\n' gardener cleric; }
+worker_kinds() { printf '%s\n' gardener cleric hermit; }
 
 # read_desired_count <hosts-file> <count_key> — read one worker kind's declared
 # concurrency from a hosts/<host> file, distinguishing the THREE outcomes the pool
@@ -2937,8 +2955,8 @@ plan_role() { plan_field "$1" role; }
 resolve_model_tier() {
   local provider tier
   case "${1:-}" in
-    anthropic|openai) provider="$1"; tier="${2:-}" ;;
-    *)                provider="anthropic"; tier="${1:-}" ;;
+    anthropic|openai|local) provider="$1"; tier="${2:-}" ;;
+    *)                      provider="anthropic"; tier="${1:-}" ;;
   esac
   case "$provider" in
     anthropic)
@@ -2956,7 +2974,20 @@ resolve_model_tier() {
         luna)     printf '%s\n' "gpt-5.6-luna" ;;
         frontier) printf '%s\n' "gpt-5.5" ;;
         mini)     printf '%s\n' "gpt-5.4-mini" ;;
+        gpt-oss*) printf '%s\n' "" ;;              # a LOCAL served tag, not a paid OpenAI id
         gpt-*|o[0-9]*|codex-*) printf '%s\n' "$tier" ;;  # already a concrete model id
+        *)        printf '%s\n' "" ;;
+      esac ;;
+    local)
+      # The LOCAL provider's tier map: the served Ollama model TAGS (not paid slugs).
+      # Short tiers name the guide's two picks (§3): 20b = the interactive everyday
+      # default gpt-oss:20b (~72 tok/s), 120b = the flagship gpt-oss:120b (~51 tok/s)
+      # this unified-memory box can run. A concrete served tag (an Ollama name, which
+      # carries a ':' — gpt-oss:20b, llama3.2:3b, qwen…:… ) passes through verbatim.
+      case "$tier" in
+        20b)      printf '%s\n' "gpt-oss:20b" ;;
+        120b)     printf '%s\n' "gpt-oss:120b" ;;
+        gpt-oss*|*:*) printf '%s\n' "$tier" ;;    # already a concrete served tag
         *)        printf '%s\n' "" ;;
       esac ;;
     *) printf '%s\n' "" ;;
@@ -2983,8 +3014,8 @@ resolve_model_tier() {
 role_default_model() {
   local kind role
   case "${1:-}" in
-    gardener|cleric) kind="$1"; role="${2:-}" ;;
-    *)               kind="gardener"; role="${1:-}" ;;
+    gardener|cleric|hermit) kind="$1"; role="${2:-}" ;;
+    *)                      kind="gardener"; role="${1:-}" ;;
   esac
   case "$kind" in
     gardener)
@@ -2997,6 +3028,19 @@ role_default_model() {
       case "$role" in
         designer) printf '%s\n' "$(resolve_model_tier openai terra)" ;;
         builder)  printf '%s\n' "$(resolve_model_tier openai terra)" ;;
+        *)        printf '%s\n' "" ;;
+      esac ;;
+    hermit)
+      # The local codex-cleric. Its heavier roles pin the flagship local MoE model
+      # gpt-oss:120b (the largest this box runs well, guide §3); every other role is
+      # unpinned and rides the hermit fleet default gpt-oss:20b (the interactive
+      # everyday pick). An explicit per-job `model:` always overrides. The bid auction
+      # (guide §5) — not this default — is what keeps a local arm OFF high-stakes
+      # build/design on main, via the human-review-$ term; this default only sets the
+      # model a hermit uses IF it wins such a job.
+      case "$role" in
+        designer) printf '%s\n' "$(resolve_model_tier local 120b)" ;;
+        builder)  printf '%s\n' "$(resolve_model_tier local 120b)" ;;
         *)        printf '%s\n' "" ;;
       esac ;;
     *) printf '%s\n' "" ;;
@@ -3013,8 +3057,8 @@ role_default_model() {
 role_default_effort() {
   local role
   case "${1:-}" in
-    gardener|cleric) role="${2:-}" ;;
-    *)               role="${1:-}" ;;
+    gardener|cleric|hermit) role="${2:-}" ;;
+    *)                      role="${1:-}" ;;
   esac
   case "$role" in
     designer|builder) printf '%s\n' "high" ;;

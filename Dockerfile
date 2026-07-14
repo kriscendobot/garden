@@ -142,6 +142,45 @@ RUN for attempt in 1 2 3; do \
         sleep "$attempt"; \
     done
 
+# Ollama + its bundled ROCm 7.2 runtime — the image-side half of durable LOCAL
+# inference on the AMD Ryzen (Strix Halo / gfx1151) host, so a rebuilt image ships a
+# GPU-capable OpenAI-compatible /v1 endpoint with no manual install (the codex-CLI
+# capture pattern above, applied to Ollama). Grounded in
+# context/operations/local-inference-amd.md §§1,2,6. Two gotchas that bit the live
+# verify-by-doing run are captured here so a rebuild never reintroduces them:
+#   1. The one-line installer needs host packages absent from the base image — zstd
+#      (the release tarballs are .tar.zst) and pciutils/lshw (the installer's GPU
+#      auto-detect greps `lspci -d 1002:`; without it, it silently goes CPU-only and
+#      never fetches the ROCm bundle).
+#   2. On first run only the CUDA runtime extracts; the ROCm bundle (which carries
+#      the gfx1151 rocBLAS kernels — no source build needed) must be fetched
+#      explicitly. That bundle ships ROCm 7.2, which is ≥ the 7.0.2 gfx1151 floor, so
+#      NO HSA_OVERRIDE_GFX_VERSION is needed (guide §1).
+# Ollama bundles its own ROCm, so NO system /opt/rocm install is required for this
+# path — only the host's amdgpu KERNEL driver (already loaded; the GPU nodes exist in
+# the container). The GPU device-node GROUP access the bot user needs is granted
+# host-adaptively by entrypoint.sh at container start (guide § Container GPU access),
+# not here — the render gid is host-specific and must not be hardcoded.
+# The version is pinned (ARG OLLAMA_VERSION) for reproducible rebuilds; the retry
+# loop mirrors the claude/codex installs (network resilience). `command -v ollama`
+# asserts the install at build time, failing the build loudly rather than at first
+# serve. FOLLOW-UP: pre-`ollama pull` of a model (e.g. gpt-oss:20b) is intentionally
+# left to first serve (into the bind-mounted home) rather than baked into an image
+# layer; and a full GPU token-gen smoke test is the one check the guide flags as
+# confirmable only on a real rebuild.
+ARG OLLAMA_VERSION=0.31.2
+RUN apt-get update && apt-get install -y zstd pciutils lshw \
+    && rm -rf /var/lib/apt/lists/*
+RUN for attempt in 1 2 3; do \
+        curl -fsSL https://ollama.com/install.sh | OLLAMA_VERSION="${OLLAMA_VERSION}" sh \
+        && curl -fSL https://ollama.com/download/ollama-linux-amd64-rocm.tar.zst \
+             | zstd -d | tar -xf - -C /usr/local \
+        && command -v ollama && exit 0; \
+        if [ "$attempt" -eq 3 ]; then exit 1; fi; \
+        echo "ollama install failed (attempt $attempt); retrying..." >&2; \
+        sleep "$attempt"; \
+    done
+
 # Create the bot user matching the HOST user (name + uid, from --build-arg) so the
 # bind-mounted home stays writable and nothing is pinned to one account. Ubuntu
 # 24.04 ships a default `ubuntu` user at uid 1000; remove it first so USER_UID

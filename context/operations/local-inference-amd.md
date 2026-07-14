@@ -235,8 +235,25 @@ so **ROCm inference runs in-container with no passthrough work** — confirmed.
 /dev/dri/renderD128 root <gid 992>   # the "render" group
 ```
 
-The garden bot user is in `kris`, `sudo` — **not** `video` or `render` — so its
-first `ollama serve` discovered **0 B VRAM and fell back to CPU**. Fix, one of:
+The garden bot user starts in `kris`, `sudo` — **not** `video` or `render` — so its
+first `ollama serve` discovered **0 B VRAM and fell back to CPU**.
+
+**LANDED (2026-07-14): the entrypoint now grants this automatically, host-adaptively,
+on every container start.** `entrypoint.sh` (running as root before systemd — PID 1 —
+starts) reads the *live* owning gid off `/dev/kfd` and `/dev/dri/renderD128`, ensures a
+**named** group exists at each gid (creating one when the render gid is unnamed, as it
+is on a fresh rebuild — e.g. `992`), and adds the bot user to both. It is done there,
+before the `user@<uid>` manager and the worker pool spawn, precisely because a process
+started *before* the `usermod` does **not** inherit the new groups in its live
+credentials (you can see this: right after a manual `usermod`, `id -nG <user>` lists
+the groups from `/etc/group` while a pre-existing shell's plain `id` still does not).
+So the grant must precede the workers, and it must be **runtime** (not a hardcoded
+`groupadd -g 992` in the Dockerfile) because the render gid is host-specific. This
+survives a garden reset / image rebuild / container recreation with **no manual step**.
+Verify after a rebuild: `id <botuser>` shows `video` and `render`, and the render node
+is R/W to the bot.
+
+Manual fallbacks, if ever needed (e.g. a host predating the entrypoint change):
 
 - **Add the bot user to the GPU groups** (durable; needs a re-login or fresh
   process to take effect):
@@ -245,10 +262,6 @@ first `ollama serve` discovered **0 B VRAM and fell back to CPU**. Fix, one of:
   ```
 - Or run the inference server as **root** (`sudo … ollama serve`) — simplest for
   a dedicated box, but the whole daemon then runs privileged.
-
-This is the single most important in-container step, and it is easy to miss
-because the nodes *look* available. Bake the group membership into the image
-(§ 6) so a rebuilt container's bot user can open the GPU without `sudo`.
 
 ---
 
@@ -365,6 +378,32 @@ local worker and the right first move.
   could drive either provider" — a codex-harness kind driving a *local* provider
   is that case.
 
+**LANDED (2026-07-14): the `hermit` kind is wired.** Concretely:
+- `common.sh` worker-kind registry gains a `hermit` row: handler
+  `handlers/cleric-codex.sh` (reused verbatim), `provider: local`, unit
+  `garden-hermit@`, count_key/state_ns `hermits`. `worker_kinds` enumerates it, so
+  the scaler, `install-units.sh scale hermit N`, and the systemd template render it
+  with **no per-kind source** (the same factoring the cleric proved).
+- `resolve_model_tier local <tier>` maps the served Ollama tags (`20b →
+  gpt-oss:20b`, `120b → gpt-oss:120b`, colon-tags pass through); the `openai` map
+  now explicitly rejects `gpt-oss*` so a local tag can't be mis-claimed as a paid
+  model. `claim-job.sh`'s backend-fit filter routes a `gpt-oss:*`-pinned job to a
+  hermit only, and keeps a hermit off claude-/codex-pinned jobs.
+- `cleric-codex.sh` is now provider-parameterized: for `provider=local` it skips the
+  ChatGPT `codex login` check (does a `/v1/models` reachability probe instead),
+  defaults to `gpt-oss:20b`, and adds `-c model_provider=local` plus an **inline**
+  `-c model_providers.local.{name,base_url,env_key}` block (endpoint from
+  `GARDEN_LOCAL_OLLAMA_URL`, default `http://127.0.0.1:11434/v1`) — so no
+  `~/.codex/config.toml` is required and the wiring is reset-proof. **Zero new
+  handler file.**
+- Declare a host's count with `scripts/jobs/set-hermits.sh <N> [host]` (the
+  `set-clerics.sh` analogue). Recommended initial sizing on a host that serves local
+  inference: a small pool (e.g. 2) to accrue reputation data.
+- **UNVERIFIED against a live codex on a GPU host:** the exact `-c model_provider`
+  key names / string-quoting were transcribed from this guide, not re-run (codex was
+  not on PATH in the build worktree). Re-verify on the live CLI before the first real
+  hermit job. `codex --oss` is a native alternative shortcut for a localhost Ollama.
+
 ### Option 2 — a dedicated local handler
 
 Write `handlers/hermit-local.sh` that calls the local `/v1` directly (via a
@@ -444,9 +483,16 @@ rate is comparable**. Concretely, for the rate card:
 
 Following the codex-CLI capture pattern in the Dockerfile (`RUN npm install -g
 @openai/codex && command -v codex`), make a rebuilt image ship the endpoint so
-no host hand-steps are needed. **Note:** as of this writing the image's codex
-line is a *future-builds* addition — `codex` is not yet on PATH in the running
-container; the same is true for everything below until an image rebuild.
+no host hand-steps are needed.
+
+**LANDED (2026-07-14): the Dockerfile now installs Ollama + its ROCm 7.2 bundle, and
+the entrypoint grants GPU-group access host-adaptively (§ Container GPU access), so a
+rebuilt image brings up local inference end to end with no manual steps.** What each
+part does is below; the one check that could NOT be run here (it needs a real rebuild
+on the GPU) is the end-to-end token-generation smoke test — see follow-ups. **Note:**
+as with the codex line, these are *rebuild-time* additions — `ollama` is present on
+this host only because of the earlier manual verify-by-doing install, and `codex` is
+not yet on PATH in the running container until the next image rebuild.
 
 **Host prerequisites (maintainer, once per host — cannot be done in-image):**
 
@@ -458,44 +504,51 @@ container; the same is true for everything below until an image rebuild.
 - Confirm the host kernel is ≥ the HWE `6.17.0-19.19~24.04.2` point release
   (§ 1 caveat).
 
-**Dockerfile additions (proposed, for future builds):**
+**Dockerfile additions (LANDED — `Dockerfile`, 2026-07-14):** the deps + Ollama/ROCm
+install ship in the image (retry-looped like the claude/codex installs, version pinned
+via `ARG OLLAMA_VERSION`, `command -v ollama` asserted at build):
 
 ```dockerfile
 # GPU userspace deps the Ollama installer needs (else it silently goes CPU-only)
 RUN apt-get update && apt-get install -y zstd pciutils lshw \
     && rm -rf /var/lib/apt/lists/*
 
-# Ollama + its bundled ROCm 7.2 runtime (includes gfx1151 kernels). Pin a version.
-RUN curl -fsSL https://ollama.com/install.sh | sh \
-    && curl -fSL https://ollama.com/download/ollama-linux-amd64-rocm.tar.zst \
-       | zstd -d | tar -xf - -C /usr/local \
-    && command -v ollama
-
-# The bot user must be able to open the GPU device nodes without sudo.
-# (video=kfd, render=renderD128). Match the host gids if they differ from these.
-RUN usermod -aG video,render "${USERNAME}"
+# Ollama + its bundled ROCm 7.2 runtime (includes gfx1151 kernels). Version pinned.
+ARG OLLAMA_VERSION=0.31.2
+RUN for attempt in 1 2 3; do \
+        curl -fsSL https://ollama.com/install.sh | OLLAMA_VERSION="${OLLAMA_VERSION}" sh \
+        && curl -fSL https://ollama.com/download/ollama-linux-amd64-rocm.tar.zst \
+             | zstd -d | tar -xf - -C /usr/local \
+        && command -v ollama && exit 0; \
+        [ "$attempt" -eq 3 ] && exit 1; sleep "$attempt"; done
 ```
 
-Then a small unit/wrapper runs `OLLAMA_IGPU_ENABLE=1 ollama serve` as the bot
-user (leader-host-only if the endpoint is shared; or per-host if each host runs
-its own local worker). Pre-`ollama pull` the chosen model(s) at build time only
-if you want them in the image layer — otherwise the first serve pulls on demand
-into the bind-mounted home.
+The GPU-group grant is **NOT** a Dockerfile `usermod -aG video,render` (that hardcodes
+gids that vary per host) — it is the host-adaptive entrypoint block described in
+§ Container GPU access. Then a small unit/wrapper runs `OLLAMA_IGPU_ENABLE=1 ollama
+serve` as the bot user (leader-host-only if the endpoint is shared; or per-host if each
+host runs its own local worker). Pre-`ollama pull` the chosen model(s) at build time
+only if you want them in the image layer — otherwise the first serve pulls on demand
+into the bind-mounted home (intentionally left to first serve here).
 
 **Not yet captured / follow-ups:**
 
-- **Live token-generation smoke test on the GPU was not completed here** — the
-  install and ROCm-7.2/gfx1151 runtime were verified present, and the
-  device-access group gotcha was found and documented, but the fleet reaper
-  interrupted the model-pull/serve cycles before a clean end-to-end
-  `/v1/chat/completions` GPU generation was captured. A maintainer (or a
-  non-reaped run) should: add the bot user to `video,render`, `ollama pull
-  gpt-oss:20b`, and confirm `ollama ps` shows `100% GPU` plus a `/v1` curl. This
-  is the one claim in this guide marked **not-yet-verified-by-doing on this
-  host**; everything about the *install* is verified.
+- **Live token-generation smoke test on the GPU is still the one un-run check.** The
+  install path, the ROCm-7.2/gfx1151 runtime, the entrypoint group-grant logic (dry-run
+  verified against the live device gids), and the hermit wiring (73/73 unit tests) are
+  all confirmed — but a clean end-to-end `/v1/chat/completions` **GPU** generation must
+  be confirmed **on a real rebuild**: rebuild the image, start a fresh container, then
+  as the bot user `ollama pull gpt-oss:20b`, confirm `ollama ps` shows `100% GPU`, and
+  curl `/v1/chat/completions`. This remains the single claim **not-yet-verified-by-doing
+  on this host**.
+- **First real `hermit` job** likewise needs a live codex on a GPU host to confirm the
+  `-c model_provider=local` flag surface (§ 4, marked UNVERIFIED).
 - Host kernel memory tuning (`ttm.pages_limit`) is untested on this host.
-- The `provider: local` rate-card numbers in § 5 are illustrative — replace with
-  the measured box price and `amd-smi` power draw.
+- The `provider: local` rate-card numbers in § 5 (seeded ~$1.50/MTok amortized; the row
+  now also lives in `designs/provider-model-catalog.md` § 2.5) are illustrative —
+  replace with the measured box price and `amd-smi` power draw. The token-cost ledger
+  that would *apply* this rate is not yet wired (a sibling design), so the row is
+  seed-config until then.
 - vLLM on this iGPU is officially supported but community-flaky; not exercised
   here.
 

@@ -41,18 +41,23 @@ fleet_draining && { log "fleet draining; refusing to claim"; exit 3; }
 # --- §1.3 pre-auction claim eligibility (the interim backend-fit filter) ------
 #
 # Now that more than one backend claims from the same board, a worker must never
-# claim a job it cannot honor: a job pinned to a Claude model is gardener-only, one
-# pinned to a codex model is cleric-only, an UNPINNED job (no `model:`, or an
-# unknown/typo value) is claimable by either kind. This is a small deterministic
-# predicate — no LLM, no auction — and it is the seam the bid auction (build child 2)
-# later replaces: under the auction, backend fit is PRICED into the bid instead of
-# hard-filtered. A concrete claude-* id resolves only in the anthropic map and a
-# gpt-*/codex id only in the openai map, so a job pins at most one provider.
+# claim a job it cannot honor: a job pinned to a Claude model is gardener-only (
+# provider anthropic), one pinned to a paid codex model is cleric-only (openai), one
+# pinned to a local served tag (gpt-oss:*, an Ollama name) is hermit-only (local), and
+# an UNPINNED job (no `model:`, or an unknown/typo value) is claimable by any kind.
+# This is a small deterministic predicate — no LLM, no auction — and it is the seam
+# the bid auction (build child 2) later replaces: under the auction, backend fit is
+# PRICED into the bid instead of hard-filtered. Each map resolves a disjoint id
+# space: claude-* only in anthropic, gpt-oss:* only in local, gpt-*/o*/codex-* only in
+# openai — so a job pins at most one provider. Local is checked BEFORE openai because
+# a gpt-oss tag would otherwise be caught by openai's gpt-* passthrough (the openai
+# map now explicitly rejects gpt-oss*, so order is belt-and-suspenders).
 job_eligible_for_kind() {
   local jf="$1" pinned=""
   local m; m="$(plan_field "$jf" model)"
   [ -n "$m" ] || return 0                        # no model: unpinned -> eligible
   if [ -n "$(resolve_model_tier anthropic "$m")" ]; then pinned=anthropic
+  elif [ -n "$(resolve_model_tier local "$m")" ]; then pinned=local
   elif [ -n "$(resolve_model_tier openai "$m")" ]; then pinned=openai
   else return 0; fi                              # unknown value -> treat as unpinned
   [ "$pinned" = "$KIND_PROVIDER" ]

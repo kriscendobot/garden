@@ -88,4 +88,46 @@ if [ -x "$BOOTSTRAP" ] && getent passwd "$GARDEN_USER" >/dev/null; then
         env GARDEN_BOOTSTRAP_SKIP_JOURNAL=1 "$BOOTSTRAP" >/dev/null 2>&1 || true
 fi
 
+# Give the bot user access to the GPU device nodes so local inference (Ollama/ROCm)
+# reaches the iGPU instead of silently falling back to CPU. The nodes are owned
+# root:<gpu-group>, and merely being PRESENT in the container is NOT access — the bot
+# user must be a MEMBER of the owning group to open them (the gotcha documented in
+# context/operations/local-inference-amd.md § Container GPU access). This is done
+# HOST-ADAPTIVELY at every container start, as root before systemd (PID 1) starts —
+# so the group membership is in place before the user@<uid> manager and its worker
+# pool spawn, and it survives a garden reset / image rebuild / container recreation
+# with NO manual step. It also ADAPTS to each host: /dev/kfd is conventionally
+# video(gid 44, stable) but /dev/dri/renderD128's gid is HOST-SPECIFIC and often
+# UNNAMED (e.g. 992), so we read the live gid off the node rather than hardcoding a
+# `groupadd -g 992` in the Dockerfile (which would be wrong on any host whose render
+# gid differs). Idempotent and best-effort: a GPU-less host simply has no nodes (a
+# no-op), and any failure here must never block PID-1 boot.
+#
+# ensure_gpu_group <device-node> <fallback-group-name>: resolve the node's owning
+# gid, ensure a NAMED group exists at that gid (creating <fallback> — or, if that
+# name is already taken at a different gid, a gid-suffixed variant — when the gid is
+# unnamed), then add the bot user to it if not already a member.
+ensure_gpu_group() {
+    local node="$1" fallback="$2" gid grp
+    [ -e "$node" ] || return 0
+    gid="$(stat -c %g "$node" 2>/dev/null)" || return 0
+    [ -n "$gid" ] || return 0
+    grp="$(getent group "$gid" 2>/dev/null | cut -d: -f1)"
+    if [ -z "$grp" ]; then
+        grp="$fallback"
+        # Fallback name already used at a DIFFERENT gid → synthesize a unique name.
+        getent group "$grp" >/dev/null 2>&1 && grp="${fallback}${gid}"
+        groupadd -g "$gid" "$grp" 2>/dev/null \
+            || grp="$(getent group "$gid" 2>/dev/null | cut -d: -f1)"
+    fi
+    [ -n "$grp" ] || return 0
+    if ! id -nG "$GARDEN_USER" 2>/dev/null | tr ' ' '\n' | grep -qx "$grp"; then
+        usermod -aG "$grp" "$GARDEN_USER" 2>/dev/null || true
+    fi
+}
+if getent passwd "$GARDEN_USER" >/dev/null 2>&1; then
+    ensure_gpu_group /dev/kfd video || true
+    ensure_gpu_group /dev/dri/renderD128 render || true
+fi
+
 exec "$@"

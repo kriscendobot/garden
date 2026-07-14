@@ -36,24 +36,51 @@ base="${1:?base}"; jobfile="${2:?jobfile}"; report="${3:?report-out}"
 main_branch="${GARDEN_MAIN_BRANCH:-main2}"
 worktree="$(worker_worktree_path "$base")"
 
-# --- codex reachability + auth preflight -------------------------------------
+# --- worker kind + provider (this handler serves BOTH codex-backed kinds) ------
 #
-# codex authenticates via ~/.codex/auth.json (the host's ChatGPT-plan login). An
-# auth gap must read as a HOST defect, not a job defect: die with a clear diagnostic
-# rather than letting codex fail deep in the run and look like the job's fault. The
-# `codex login status` check is gated behind a per-boot marker so it runs once per
-# host boot, not once per job (the design's "first run per boot"): the boot id keys
-# the marker so a reboot re-checks.
+# The SAME codex handler drives two worker kinds, distinguished by their registry
+# `provider` field (common.sh worker-kind registry): the paid-OpenAI `cleric`
+# (provider=openai) and the LOCAL `hermit` (provider=local), a codex pointed at the
+# on-box Ollama /v1 endpoint. Everything below that differs between them — the tier
+# map, the fleet-default model, the auth/reachability preflight, and whether codex
+# gets a `-c model_provider=local` block — keys off $provider, so the local backend
+# is ZERO new handler code (design §4, guide §4 Option 1). The spine exports
+# GARDEN_WORKER_KIND; default to cleric for a standalone invocation.
+KIND="${GARDEN_WORKER_KIND:-cleric}"
+provider="$(worker_kind_field "$KIND" provider 2>/dev/null || echo openai)"
+state_ns="$(worker_kind_field "$KIND" state_ns 2>/dev/null || echo clerics)"
+# The local Ollama OpenAI-compatible endpoint (guide §2 Path A / §4). Overridable so
+# a host serving on a different port/box can point the hermit elsewhere.
+: "${GARDEN_LOCAL_OLLAMA_URL:=http://127.0.0.1:11434/v1}"
+
+# --- reachability + auth preflight -------------------------------------------
+#
+# A backend outage must read as a HOST defect, not a job defect: die with a clear
+# diagnostic rather than letting codex fail deep in the run and look like the job's
+# fault. The check is gated behind a per-boot marker (keyed on the boot id + the
+# kind's state namespace) so it runs once per host boot, not once per job.
 command -v codex >/dev/null 2>&1 \
-  || die "codex not on PATH; cannot run cleric handler for '$base' (install @openai/codex CLI on this host)"
+  || die "codex not on PATH; cannot run $KIND handler for '$base' (install @openai/codex CLI on this host)"
 auth_boot="$(cat /proc/sys/kernel/random/boot_id 2>/dev/null | tr -dc 'a-f0-9' || true)"
-auth_marker="$GARDEN_STATE/clerics/auth-ok-${auth_boot:-noboot}"
+auth_marker="$GARDEN_STATE/$state_ns/auth-ok-${auth_boot:-noboot}"
 if [ ! -e "$auth_marker" ]; then
-  if codex login status >/dev/null 2>&1; then
-    mkdir -p "$(dirname "$auth_marker")" 2>/dev/null || true
-    : > "$auth_marker" 2>/dev/null || true
+  if [ "$provider" = local ]; then
+    # LOCAL: no OpenAI login — the endpoint just has to answer. `ollama serve` (with
+    # OLLAMA_IGPU_ENABLE=1, as a video+render-group user) exposes /v1 (guide §2).
+    if curl -fsS --max-time 5 "$GARDEN_LOCAL_OLLAMA_URL/models" >/dev/null 2>&1; then
+      mkdir -p "$(dirname "$auth_marker")" 2>/dev/null || true
+      : > "$auth_marker" 2>/dev/null || true
+    else
+      die "local inference endpoint $GARDEN_LOCAL_OLLAMA_URL not reachable; a hermit cannot run job '$base'. This is a host defect: ensure 'OLLAMA_IGPU_ENABLE=1 ollama serve' is running as a GPU-group (video,render) user. See context/operations/local-inference-amd.md."
+    fi
   else
-    die "codex is not authenticated on this host (codex login status failed); a cleric cannot run job '$base'. This is a host defect: run 'codex login' as the bot user (~/.codex/auth.json)."
+    # codex authenticates via ~/.codex/auth.json (the host's ChatGPT-plan login).
+    if codex login status >/dev/null 2>&1; then
+      mkdir -p "$(dirname "$auth_marker")" 2>/dev/null || true
+      : > "$auth_marker" 2>/dev/null || true
+    else
+      die "codex is not authenticated on this host (codex login status failed); a cleric cannot run job '$base'. This is a host defect: run 'codex login' as the bot user (~/.codex/auth.json)."
+    fi
   fi
 fi
 
@@ -67,7 +94,7 @@ fi
 # same-host; if the sidecar is absent (fresh claim, or requeue on another host) we
 # start a fresh session over whatever the worktree holds. The spine's requeue
 # semantics do not depend on backend resume: the uncommitted work carries the state.
-session_sidecar="$GARDEN_STATE/clerics/sessions/$base"
+session_sidecar="$GARDEN_STATE/$state_ns/sessions/$base"
 resuming=false
 resume_sid=""
 if [ -s "$session_sidecar" ] && [ -d "$worktree" ]; then
@@ -98,31 +125,38 @@ fi
 
 # --- model + thoughtfulness selection ----------------------------------------
 #
-# Mirrors the claude handler's two-step resolution, but on the OpenAI/codex tier map
-# (common.sh resolve_model_tier openai / role_default_model cleric):
-#   1. An explicit `model:` header requests a specific codex model (short tier —
-#      terra/luna/frontier/mini — or a concrete gpt-* id, passed through).
-#   2. Absent that, the job's `role:` selects a per-role default (designer/builder →
-#      gpt-5.6-terra), else the cleric fleet default gpt-5.6-terra.
+# Mirrors the claude handler's two-step resolution, but on THIS kind's provider tier
+# map (common.sh resolve_model_tier "$provider" / role_default_model "$KIND"):
+#   1. An explicit `model:` header requests a specific model (a short tier — openai:
+#      terra/luna/frontier/mini; local: 20b/120b — or a concrete id passed through).
+#   2. Absent that, the job's `role:` selects a per-role default (designer/builder), else
+#      this kind's fleet default (openai → gpt-5.6-terra; local → gpt-oss:20b).
 # Thoughtfulness resolves from an optional `effort:` header, else the role default
 # (high for designer/builder, medium otherwise), then is normalized DOWN to the
 # model's nearest supported level and passed as -c model_reasoning_effort=.
-fleet_default_model="gpt-5.6-terra"
+#
+# The tier map, the role defaults, and the fleet default are all provider/kind
+# scoped: an openai cleric resolves gpt-* ids and defaults to gpt-5.6-terra; a local
+# hermit resolves served Ollama tags and defaults to gpt-oss:20b (guide §3).
+case "$provider" in
+  local) fleet_default_model="gpt-oss:20b" ;;
+  *)     fleet_default_model="gpt-5.6-terra" ;;
+esac
 requested_model="$(plan_field "$jobfile" model)"
 requested_role="$(plan_role "$jobfile")"
 requested_effort="$(plan_field "$jobfile" effort)"
 
 model=""
 if [ -n "$requested_model" ]; then
-  model="$(resolve_model_tier openai "$requested_model")"
+  model="$(resolve_model_tier "$provider" "$requested_model")"
   if [ -n "$model" ]; then
     log "job '$base' requested model '$requested_model' -> codex -m $model"
   else
-    log "job '$base' requested unknown codex model '$requested_model'; falling back to the cleric default $fleet_default_model"
+    log "job '$base' requested unknown $provider model '$requested_model'; falling back to the $KIND default $fleet_default_model"
   fi
 fi
 if [ -z "$model" ] && [ -n "$requested_role" ]; then
-  model="$(role_default_model cleric "$requested_role")"
+  model="$(role_default_model "$KIND" "$requested_role")"
   [ -n "$model" ] && log "job '$base' role '$requested_role' -> default codex model $model"
 fi
 [ -n "$model" ] || model="$fleet_default_model"
@@ -157,7 +191,7 @@ codex_effort_for_model() {
   done
   printf '%s\n' "${best:-medium}"
 }
-effort_level="${requested_effort:-$(role_default_effort cleric "$requested_role")}"
+effort_level="${requested_effort:-$(role_default_effort "$KIND" "$requested_role")}"
 effort="$(codex_effort_for_model "$model" "$effort_level")"
 [ "$effort" != "$effort_level" ] \
   && log "job '$base' effort '$effort_level' normalized to '$effort' for $model (model's nearest supported level)"
@@ -184,6 +218,33 @@ codex_args=(
   --output-last-message "$report"
   --json
 )
+
+# LOCAL provider (hermit): point codex at the on-box Ollama /v1 endpoint instead of
+# paid OpenAI. The provider block is supplied INLINE via `-c` dotted overrides rather
+# than depending on a ~/.codex/config.toml file, so it is durable across a garden
+# reset / fresh checkout with NO seeded config (the bind-mounted home carries no
+# config, and a reset would lose one). env_key names a var codex reads for the (
+# ignored-by-Ollama) API key; export a non-empty placeholder so codex does not refuse
+# for a missing key. codex additionally offers a native `--oss` shortcut for a local
+# Ollama at :11434; the explicit provider block is used here so a non-default
+# GARDEN_LOCAL_OLLAMA_URL (another port/box) is honored.
+# LIVE-CLI PROVENANCE / TODO (extends the file-header caveat to the local path): the
+# `-c model_provider=…` inline-provider surface and the /v1 endpoint contract are
+# transcribed from context/operations/local-inference-amd.md §4 and are UNVERIFIED
+# against an installed codex on a GPU host — codex was not on PATH in the build
+# worktree. Re-verify the exact `-c` key names and string-quoting on the live CLI
+# before the first real hermit job (guide §6 flags the end-to-end GPU run as the one
+# check confirmable only on a real rebuild).
+if [ "$provider" = local ]; then
+  export OLLAMA_API_KEY="${OLLAMA_API_KEY:-ollama}"
+  codex_args+=(
+    -c "model_provider=local"
+    -c "model_providers.local.name=\"local-ollama\""
+    -c "model_providers.local.base_url=\"$GARDEN_LOCAL_OLLAMA_URL\""
+    -c "model_providers.local.env_key=\"OLLAMA_API_KEY\""
+  )
+  log "job '$base' running on LOCAL provider ($model via $GARDEN_LOCAL_OLLAMA_URL)"
+fi
 
 set +e
 if $resuming && [ -n "$resume_sid" ]; then

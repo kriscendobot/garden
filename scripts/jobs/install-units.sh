@@ -205,12 +205,17 @@ scale() {
   # caller and test that predates the cleric) is unchanged. The unit-instance prefix
   # and the busy-marker namespace are derived from the worker-kind registry, so this
   # ONE function scales every kind with no duplicated enable/disable logic.
-  local kind n
-  case "${1:-}" in
-    gardener|cleric) kind="$1"; n="${2:?usage: install-units.sh scale [<kind>] <N>}" ;;
-    *)               kind="gardener"; n="${1:?usage: install-units.sh scale [<kind>] <N>}" ;;
-  esac
-  local unit_base; unit_base="$(worker_kind_field "$kind" unit)"   # garden-gardener@ / garden-cleric@
+  # A leading arg that names a KNOWN worker kind (worker_kinds registry) is the kind;
+  # otherwise it is N and the kind defaults to gardener (the historical `scale <N>`,
+  # unchanged). Testing membership rather than hardcoding gardener|cleric means a new
+  # kind (hermit, …) is scalable the moment it is registered — no edit needed here.
+  local kind n first="${1:-}"
+  if [ -n "$first" ] && worker_kinds | grep -qx "$first"; then
+    kind="$first"; n="${2:?usage: install-units.sh scale [<kind>] <N>}"
+  else
+    kind="gardener"; n="${1:?usage: install-units.sh scale [<kind>] <N>}"
+  fi
+  local unit_base; unit_base="$(worker_kind_field "$kind" unit)"   # garden-gardener@ / garden-cleric@ / garden-hermit@
   # Enable + start each intended worker, split into the cheap synchronous file op
   # and the slow start job so neither blocks the reconcile loop. `enable` just
   # writes the persistent symlink — it does NOT wait on the unit's start job — so it
