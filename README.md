@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T12:36:44Z_
+_As of 2026-07-14T12:50:39Z_
 
 ## Latest
 
@@ -1818,6 +1818,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 139064a935d5cd422b10462ab02550f3de01a188 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 139064a935d5cd422b10462ab02550f3de01a188). Diagnosis: You've hit your weekly limit · resets Jul 18, 3am (UTC)
 
+- `20260714T125022Z-3cac97` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260714T125022Z-3cac97.md)
+
+> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 06f1ecbf41c789aae97d8175588292c0b82f973f (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 06f1ecbf41c789aae97d8175588292c0b82f973f). Diagnosis: You've hit your weekly limit · resets Jul 18, 3am (UTC)
+
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -1988,29 +1992,28 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 94.5M | $993.98 _(notional, rate-card)_ | no quota set |
-| Codex | 1.3M _(+25.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 94.4M | $992.92 _(notional, rate-card)_ | no quota set |
+| Codex | 1.3M _(+30.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (1)
 - [`test-hermit-local-inference-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/test-hermit-local-inference-garden2.md) — ---
 
-### doin (7)
+### doin (6)
 - [`design-ai-sdk-garden-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-ai-sdk-garden-integration.md) — <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-...
 - [`design-endor-registry-transport`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endor-registry-transport.md) — Design an Endor/XS registry transport power for endojs/endo-but-for-bots PR #...
-- [`endojs-endo-but-for-bots-pr682-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr682-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #682
 - [`endojs-endo-but-for-bots-pr721-review-56349e18`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr721-review-56349e18.md) — Review directive on endojs/endo-but-for-bots PR #721
 - [`endojs-endo-but-for-bots-pr723-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr723-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #723
 - [`issue-kriskowal-garden-43`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-43.md) — Issue from kriskowal on kriskowal/garden #43
 - [`model-routing-journal-state-hermit-qwen`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/model-routing-journal-state-hermit-qwen.md) — Why
 
-### tada (2206)
+### tada (2207)
+- [`endojs-endo-but-for-bots-pr682-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr682-shepherd.md) — Fixed PR #682’s zizmor failure by updating actions/setup-node pins to v6.5.0 ...
 - [`endojs-endo-but-for-bots-pr671-fix-registry-power-injection`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-fix-registry-power-injection.md) — Implemented and pushed e66d640c0 to endo-registry-capability.
 - [`kriscendobot-agoric-sdk-pr16-review-d584f885`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-review-d584f885.md) — Review #4691288801 had no body and one inline request at eip712-messages.ts:1...
 - [`kriscendobot-agoric-sdk-pr16-dec1f704`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-dec1f704.md) — Closed kriscendobot/agoric-sdk#16 per dckc’s directive. Preflight found no pr...
 - [`endojs-endo-but-for-bots-pr667-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr667-shepherd.md) — Fixed PR #667 CI and pushed:
-- [`weave-endo-but-for-bots-pull-request-682-endo-reminder-message-scheduler-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pull-request-682-endo-reminder-message-scheduler-design.md) — Completion report
-- … and 2201 more
+- … and 2202 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
