@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T17:44:14Z_
+_As of 2026-07-14T18:26:00Z_
 
 ## Latest
 
@@ -2038,14 +2038,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.4M | $959.69 _(notional, rate-card)_ | no quota set |
-| Codex | 27.4M _(+67.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 92.4M | $959.09 _(notional, rate-card)_ | no quota set |
+| Codex | 27.6M _(+69.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
+- [`build-turnkey-amazon-garden-host`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-turnkey-amazon-garden-host.md) — ---
 - [`design-ai-sdk-garden-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-ai-sdk-garden-integration.md) — <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-...
 - [`endojs-endo-but-for-bots-pr730-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr730-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #730
 - [`test-hermit-local-inference-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/test-hermit-local-inference-garden2.md) — ---
