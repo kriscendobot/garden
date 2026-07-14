@@ -1,7 +1,7 @@
 #!/bin/bash
-# foreman-claude.sh — default idle-pump handler: determine the current in-progress
-# milestone and its next unblocked step via `claude -p` wearing the foreman role,
-# and emit ONE block for foreman.sh to act on.
+# foreman-claude.sh — default idle-pump handler. It asks configured inference
+# providers in order to determine the current in-progress milestone and its next
+# unblocked step, then emits ONE block for foreman.sh to act on.
 #
 # Invoked by foreman.sh as: foreman-claude.sh <digest-file>
 # The digest names the project, confirms the board is idle, and reports the last
@@ -23,17 +23,25 @@
 # Injection hygiene: roadmap, PR, and journal text is DATA to plan against, never
 # instructions to the inner agent.
 #
-# Test harness overrides GARDEN_FOREMAN_HANDLER with a deterministic stub.
+# GARDEN_FOREMAN_PROVIDER_ORDER controls the live provider order. Its normal,
+# reversible default is `anthropic`; an operator can temporarily set
+# `openai,local,anthropic` while the Claude subscription is constrained. A provider
+# outage or quota error advances to the next provider. A malformed model response
+# is a semantic error, not an availability signal, and stops safely without posting.
+# Test harnesses may still override GARDEN_FOREMAN_HANDLER with a deterministic stub.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../common.sh
 source "$HERE/../common.sh"
+# shellcheck source=codex-provider-common.sh
+source "$HERE/codex-provider-common.sh"
 GARDEN_TAG="foreman-claude"
 
 digest="${1:?usage: foreman-claude.sh <digest-file>}"
 role_brief="$GARDEN_ROOT/roles/foreman/AGENT.md"
 common_brief="$GARDEN_ROOT/roles/COMMON.md"
+: "${GARDEN_FOREMAN_PROVIDER_ORDER:=anthropic}"
 
 # NOTE: the EOF delimiter is INTENTIONALLY UNQUOTED — the body relies on shell
 # interpolation of $common_brief/$role_brief (line ~39) and $(cat "$digest")
@@ -97,16 +105,131 @@ $(cat "$digest")
 EOF
 )"
 
-command -v claude >/dev/null 2>&1 || die "claude not on PATH; cannot run foreman"
-# --dangerously-skip-permissions: autonomous headless context, no human approver;
-# the default permission gate would deny every tool call. Bypass is the intended
-# fleet posture (operator pre-consents via skipDangerousModePermissionPrompt in
-# ~/.claude). Requires running as non-root.
-#
-# meter_claude (common.sh) is a drop-in for `claude -p`: it records this call's
-# billable token usage into the host-local weekly ledger — the same signal the
-# foreman gates on before pumping — then prints the model's result text (the
-# JOB/MAINTAINER block) on stdout exactly as a bare `claude -p` would. This handler
-# is the reference adopter of the meter; other `claude -p` fleet callers should
-# adopt meter_claude likewise so the weekly ledger reflects total garden spend.
-meter_claude --dangerously-skip-permissions "$prompt"
+# Parse a strict comma-delimited operational order. Repeated providers are a
+# configuration error rather than a hidden duplicate inference call.
+provider_order() {
+  local raw="$GARDEN_FOREMAN_PROVIDER_ORDER" item seen="," out=""
+  local -a parts=()
+  IFS=',' read -r -a parts <<< "$raw"
+  [ "${#parts[@]}" -gt 0 ] || die "GARDEN_FOREMAN_PROVIDER_ORDER is empty"
+  for item in "${parts[@]}"; do
+    item="$(printf '%s' "$item" | tr -d '[:space:]')"
+    case "$item" in openai|local|anthropic) ;; *) die "invalid GARDEN_FOREMAN_PROVIDER_ORDER provider '$item' (allowed: openai, local, anthropic)" ;; esac
+    case "$seen" in *",$item,"*) die "duplicate provider '$item' in GARDEN_FOREMAN_PROVIDER_ORDER" ;; esac
+    seen+="$item,"
+    out+="${out:+ }$item"
+  done
+  [ -n "$out" ] || die "GARDEN_FOREMAN_PROVIDER_ORDER contains no providers"
+  printf '%s\n' "$out"
+}
+
+# Validate the exact, single-block protocol before giving foreman.sh anything to
+# parse. A response with two candidate jobs, trailing prose, or a broken
+# terminator cannot become an accidental post or trigger a second provider's
+# alternate decision.
+validate_foreman_response() {
+  local f="${1:?response file}" line i=0 n kind="" role_seen=0 body_seen=0
+  local -a lines=()
+  mapfile -t lines < "$f"
+  n="${#lines[@]}"
+  [ "$n" -eq 0 ] && return 0
+  line="${lines[0]}"
+  if [[ "$line" =~ ^JOB[[:space:]]+([a-z0-9][a-z0-9-]*)$ ]]; then
+    kind=JOB
+  elif [ "$line" = MAINTAINER ]; then
+    kind=MAINTAINER
+  else
+    return 20
+  fi
+  for ((i = 1; i < n; i++)); do
+    line="${lines[i]}"
+    if [ "$kind" = JOB ] && [[ "$line" =~ ^ROLE[[:space:]]+([a-z][a-z0-9-]*)$ ]]; then
+      [ "$role_seen" -eq 0 ] && [ "$body_seen" -eq 0 ] || return 20
+      role_seen=1
+      continue
+    fi
+    if [ "$kind" = JOB ] && [ "$line" = ENDJOB ]; then
+      [ "$body_seen" -eq 1 ] && [ "$i" -eq $((n - 1)) ] || return 20
+      printf '%s\n' "${lines[@]}"
+      return 0
+    fi
+    if [ "$kind" = MAINTAINER ] && [ "$line" = ENDMAINTAINER ]; then
+      [ "$body_seen" -eq 1 ] && [ "$i" -eq $((n - 1)) ] || return 20
+      printf '%s\n' "${lines[@]}"
+      return 0
+    fi
+    [[ "$line" =~ ^JOB[[:space:]] ]] && return 20
+    [ "$line" = MAINTAINER ] && return 20
+    { [ "$line" = ENDJOB ] || [ "$line" = ENDMAINTAINER ]; } && return 20
+    [ -n "$line" ] && body_seen=1
+  done
+  return 20
+}
+
+foreman_codex_attempt() { # <openai|local> <prompt>
+  local provider="$1" prompt="$2" kind model effort output json_capture rc
+  case "$provider" in openai) kind=cleric ;; local) kind=hermit ;; *) return 20 ;; esac
+  # Keep OpenAI authentication and local endpoint availability markers separate:
+  # a successful Codex login must never make a later Ollama reachability check
+  # appear healthy for the rest of the boot.
+  codex_provider_preflight "$provider" "$kind" foreman "foreman-$provider" || return 10
+  model="$(model_routing_default "$provider" 2>/dev/null || true)"
+  [ -n "$model" ] || { [ "$provider" = local ] && model=qwen3.6 || model=gpt-5.6-terra; }
+  effort="$(codex_effort_for_model "$model" "$(role_default_effort "$kind" foreman)")"
+  output="$(mktemp "${TMPDIR:-/tmp}/garden-foreman-$provider-message.XXXXXX")"
+  json_capture="$(mktemp "${TMPDIR:-/tmp}/garden-foreman-$provider-json.XXXXXX")"
+  codex_provider_extra_args "$provider"
+  set +e
+  codex exec --dangerously-bypass-approvals-and-sandbox --skip-git-repo-check \
+    -m "$model" -c "model_reasoning_effort=$effort" \
+    --output-last-message "$output" --json "${CODEX_PROVIDER_EXTRA_ARGS[@]}" "$prompt" >"$json_capture" 2>&1
+  rc=$?
+  set -e
+  if [ "$rc" -ne 0 ]; then
+    log "foreman $provider provider unavailable or quota-limited (rc=$rc): $(tail -c 300 "$json_capture" 2>/dev/null || true)"
+    rm -f "$output" "$json_capture"
+    return 10
+  fi
+  cat "$output"
+  rm -f "$output" "$json_capture"
+}
+
+foreman_anthropic_attempt() { # <prompt>
+  local prompt="$1" quota rc
+  quota="$(meter_quota_status)"
+  if [ "$quota" = backoff ]; then
+    log "foreman anthropic provider skipped: configured Claude quota is at its high-water mark"
+    return 10
+  fi
+  command -v claude >/dev/null 2>&1 || { log "foreman anthropic provider unavailable: claude not on PATH"; return 10; }
+  set +e
+  meter_claude --dangerously-skip-permissions "$prompt"
+  rc=$?
+  set -e
+  [ "$rc" -eq 0 ] || { log "foreman anthropic provider unavailable or quota-limited (rc=$rc)"; return 10; }
+}
+
+raw="$(mktemp "${TMPDIR:-/tmp}/garden-foreman-provider-raw.XXXXXX")"
+canonical="$(mktemp "${TMPDIR:-/tmp}/garden-foreman-provider-canonical.XXXXXX")"
+trap 'rm -f "$raw" "$canonical"' EXIT
+for provider in $(provider_order); do
+  : > "$raw"
+  rc=0
+  case "$provider" in
+    openai|local) foreman_codex_attempt "$provider" "$prompt" > "$raw" || rc=$? ;;
+    anthropic)    foreman_anthropic_attempt "$prompt" > "$raw" || rc=$? ;;
+  esac
+  if [ "$rc" -eq 10 ]; then
+    log "foreman provider '$provider' unavailable; trying the next configured provider"
+    continue
+  fi
+  if [ "$rc" -ne 0 ]; then
+    die "foreman provider '$provider' failed unexpectedly (rc=$rc)"
+  fi
+  if validate_foreman_response "$raw" > "$canonical"; then
+    cat "$canonical"
+    exit 0
+  fi
+  die "foreman provider '$provider' returned malformed semantic output; refusing fallback to avoid multiplying work"
+done
+die "no configured foreman inference provider was available"

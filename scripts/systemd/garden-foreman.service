@@ -18,6 +18,13 @@ Environment=GARDEN_ROOT=@GARDEN_ROOT@
 # every host that becomes leader. Raise here (or via a per-host drop-in) to re-enable.
 # (GARDEN_FOREMAN_WIP is the deprecated former name, still honored as an alias.)
 Environment=GARDEN_FOREMAN_ACTIVE_TARGET=0
+# --- temporary provider preference during the Claude quota constraint --------
+# Leave this unset for the ordinary Claude-only posture (the handler default is
+# `anthropic`). While the quota is constrained, set a systemd drop-in or this
+# environment line to `openai,local,anthropic`: Codex first, then the local Qwen
+# Ollama endpoint, then Claude as the last fallback. Remove it next week to restore
+# the normal `anthropic` order. See context/operations/foreman-providers.md.
+# Environment=GARDEN_FOREMAN_PROVIDER_ORDER=openai,local,anthropic
 # --- weekly token meter / back-off gate (Claude Max x20 subscription) ---------
 # The foreman is the garden's autonomous token pump, so it gates on a deterministic
 # weekly token meter sourced from Claude Code's OWN session logs

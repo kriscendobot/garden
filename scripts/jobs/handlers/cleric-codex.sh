@@ -31,6 +31,8 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/../common.sh"
 # shellcheck source=worker-common.sh
 source "$HERE/worker-common.sh"     # shared worktree lifecycle + prompt (anti-drift)
+# shellcheck source=codex-provider-common.sh
+source "$HERE/codex-provider-common.sh" # shared Codex/OpenAI/Ollama conventions
 
 base="${1:?base}"; jobfile="${2:?jobfile}"; report="${3:?report-out}"
 main_branch="${GARDEN_MAIN_BRANCH:-main2}"
@@ -49,40 +51,13 @@ worktree="$(worker_worktree_path "$base")"
 KIND="${GARDEN_WORKER_KIND:-cleric}"
 provider="$(worker_kind_field "$KIND" provider 2>/dev/null || echo openai)"
 state_ns="$(worker_kind_field "$KIND" state_ns 2>/dev/null || echo clerics)"
-# The local Ollama OpenAI-compatible endpoint (guide §2 Path A / §4). Overridable so
-# a host serving on a different port/box can point the hermit elsewhere.
-: "${GARDEN_LOCAL_OLLAMA_URL:=http://127.0.0.1:11434/v1}"
-
 # --- reachability + auth preflight -------------------------------------------
 #
 # A backend outage must read as a HOST defect, not a job defect: die with a clear
 # diagnostic rather than letting codex fail deep in the run and look like the job's
 # fault. The check is gated behind a per-boot marker (keyed on the boot id + the
 # kind's state namespace) so it runs once per host boot, not once per job.
-command -v codex >/dev/null 2>&1 \
-  || die "codex not on PATH; cannot run $KIND handler for '$base' (install @openai/codex CLI on this host)"
-auth_boot="$(cat /proc/sys/kernel/random/boot_id 2>/dev/null | tr -dc 'a-f0-9' || true)"
-auth_marker="$GARDEN_STATE/$state_ns/auth-ok-${auth_boot:-noboot}"
-if [ ! -e "$auth_marker" ]; then
-  if [ "$provider" = local ]; then
-    # LOCAL: no OpenAI login — the endpoint just has to answer. `ollama serve` (with
-    # OLLAMA_IGPU_ENABLE=1, as a video+render-group user) exposes /v1 (guide §2).
-    if curl -fsS --max-time 5 "$GARDEN_LOCAL_OLLAMA_URL/models" >/dev/null 2>&1; then
-      mkdir -p "$(dirname "$auth_marker")" 2>/dev/null || true
-      : > "$auth_marker" 2>/dev/null || true
-    else
-      die "local inference endpoint $GARDEN_LOCAL_OLLAMA_URL not reachable; a hermit cannot run job '$base'. This is a host defect: ensure 'OLLAMA_IGPU_ENABLE=1 ollama serve' is running as a GPU-group (video,render) user. See context/operations/local-inference-amd.md."
-    fi
-  else
-    # codex authenticates via ~/.codex/auth.json (the host's ChatGPT-plan login).
-    if codex login status >/dev/null 2>&1; then
-      mkdir -p "$(dirname "$auth_marker")" 2>/dev/null || true
-      : > "$auth_marker" 2>/dev/null || true
-    else
-      die "codex is not authenticated on this host (codex login status failed); a cleric cannot run job '$base'. This is a host defect: run 'codex login' as the bot user (~/.codex/auth.json)."
-    fi
-  fi
-fi
+codex_provider_preflight "$provider" "$KIND" "$base" "$state_ns" || exit 1
 
 # --- session resume across a reaper requeue ----------------------------------
 #
@@ -173,30 +148,6 @@ fi
 # gpt-5.4-mini low·…·xhigh. An unknown/blank level resolves to medium (codex's own
 # per-model default). The normalized level is what actually runs, and is what a
 # future reputation event (§2.3/§4.2) keys the arm on — apples-to-apples.
-codex_effort_for_model() {
-  local m="${1:?}" level="${2:-medium}" ladder
-  case "$m" in
-    gpt-5.6-terra) ladder="low medium high xhigh max ultra" ;;
-    gpt-5.6-luna)  ladder="low medium high xhigh max" ;;
-    gpt-5.5|gpt-5.4-mini) ladder="low medium high xhigh" ;;
-    *)             ladder="low medium high xhigh" ;;   # conservative default ladder
-  esac
-  case "$level" in minimal) level="low" ;; esac        # no selectable model offers minimal
-  # If the requested level is supported, use it; else step DOWN to the highest
-  # supported level at or below it on the unified axis.
-  local axis="low medium high xhigh max ultra" want_rank=0 r=0 tok best=""
-  for tok in $axis; do r=$((r+1)); [ "$tok" = "$level" ] && want_rank=$r; done
-  [ "$want_rank" -eq 0 ] && want_rank=2                 # unknown level -> medium rank
-  r=0
-  for tok in $ladder; do
-    r=0
-    # rank of this ladder token on the axis
-    local ar=0 a
-    for a in $axis; do ar=$((ar+1)); [ "$a" = "$tok" ] && break; done
-    [ "$ar" -le "$want_rank" ] && best="$tok"
-  done
-  printf '%s\n' "${best:-medium}"
-}
 effort_level="${requested_effort:-$(role_default_effort "$KIND" "$requested_role")}"
 effort="$(codex_effort_for_model "$model" "$effort_level")"
 [ "$effort" != "$effort_level" ] \
@@ -242,13 +193,8 @@ codex_args=(
 # before the first real hermit job (guide §6 flags the end-to-end GPU run as the one
 # check confirmable only on a real rebuild).
 if [ "$provider" = local ]; then
-  export OLLAMA_API_KEY="${OLLAMA_API_KEY:-ollama}"
-  codex_args+=(
-    -c "model_provider=local"
-    -c "model_providers.local.name=\"local-ollama\""
-    -c "model_providers.local.base_url=\"$GARDEN_LOCAL_OLLAMA_URL\""
-    -c "model_providers.local.env_key=\"OLLAMA_API_KEY\""
-  )
+  codex_provider_extra_args "$provider"
+  codex_args+=("${CODEX_PROVIDER_EXTRA_ARGS[@]}")
   log "job '$base' running on LOCAL provider ($model via $GARDEN_LOCAL_OLLAMA_URL)"
 fi
 

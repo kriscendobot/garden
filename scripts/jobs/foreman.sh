@@ -189,13 +189,20 @@ if [ "$elapsed" -lt "$GARDEN_FOREMAN_IDLE_SETTLE" ]; then
   exit 0   # below target but within the settle window; do nothing
 fi
 
-# --- token-quota back-off (deterministic; gates BOTH pump paths) --------------
+# --- token-quota back-off (deterministic; gates a Claude-only pump) -----------
 # The board is below the active-job target and past the settle window, so this tick WOULD pump — either
 # by promoting a deferred plan job or by generating a new step via `claude -p`.
-# Both ignite spend, so check the weekly token meter (plain code, no LLM) FIRST.
-# At/over the high-water mark, pump nothing this tick; surface a single throttled
-# note so the pause is visible but not spammy. A broken/unset meter fails open.
-case "$(meter_quota_status)" in
+# Both can eventually ignite spend. The historical meter measures the Claude Max
+# subscription only, so when the operational foreman order includes OpenAI or the
+# local Ollama route it must not suppress those fallbacks before the handler gets a
+# chance to try them. The handler applies the same Claude quota verdict only when
+# it reaches anthropic, then advances to the next provider. A custom test handler
+# retains the historical global gate because its provider semantics are unknown.
+provider_fallback_enabled=false
+if [ "$GARDEN_FOREMAN_HANDLER" = "$HERE/handlers/foreman-claude.sh" ]; then
+  case ",${GARDEN_FOREMAN_PROVIDER_ORDER:-anthropic}," in *,openai,*|*,local,*) provider_fallback_enabled=true ;; esac
+fi
+if [ "$provider_fallback_enabled" = false ]; then case "$(meter_quota_status)" in
   backoff)
     note_once "token-backoff" "foreman: garden weekly token usage is at/over the ${GARDEN_TOKEN_BACKOFF_FRACTION} high-water mark of the ${GARDEN_TOKEN_WEEKLY_QUOTA}-token quota (rolling ${GARDEN_TOKEN_WINDOW_SECS}s window). Pausing the autonomous pump until usage falls back under the mark."
     log "token quota high-water reached; backing off (no pump this tick)"
@@ -207,7 +214,7 @@ case "$(meter_quota_status)" in
     log "WARN: token-quota meter unreadable though a quota is set; pumping unmetered (fail-open)"
     ;;
   off|ok) : ;;   # no quota configured, or under the mark — pump as normal
-esac
+esac; fi
 
 # --- sustained below-target: fill the open slots from deferred plan jobs ------
 # Before generating a NEW step (a `claude -p` call), fill the open slots with
