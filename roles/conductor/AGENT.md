@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-26
+updated: 2026-07-14
 author: liaison, gardener
 ---
 
@@ -41,7 +41,8 @@ For each PR in the job:
 
    If the PR's base is already a live trunk (`llm`, `main`, `master` without a `-<sha>` suffix), skip the unfreeze step and rebase directly per the same conflict discipline.
 3. **Tidy the commit history.** Absorb fixer follow-up commits into the originals they amend so the merge cluster reads as a coherent change set:
-   - **Interactive rebase with `fixup`** (`git rebase -i <base>`): change `pick` to `fixup` for each follow-up addressing review on an earlier commit, reorder under the target.
+   - **Noninteractive rebase with `--autosquash`** (`GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash <base>`): `fixup!`-prefixed commits (produced by `git commit --fixup=<sha>` in the fixer or shepherd stage, and left visible at the tip through review) are positioned after their targets and marked `fixup` automatically, so the absorb is deterministic and needs no editor session.
+     When no `fixup!` commits are present, fall back to a plain `git rebase -i <base>` and change `pick` to `fixup` by hand for any follow-ups that need absorbing.
    - **Branch reset and re-stage** (`git reset <base>`) when fixups are tangled enough that starting over is cleaner.
 
    **Tree must be byte-identical** to the pre-tidy branch: verify `git diff <pre-tidy-sha> HEAD` returns nothing.
@@ -93,5 +94,9 @@ Pushing a tidied force-with-lease and issuing `gh pr merge` are upstream mutatio
 
 ## Notes from the field
 
+- _2026-07-14_: step 3 adopted `git commit --fixup` plus noninteractive autosquash for post-retcon corrections.
+  A minor lint, format, test, docs, or bug correction to code a PR introduced is authored by the fixer or shepherd as `git commit --fixup=<introducing-sha>`, left visible at the tip through panel and maintainer review, and absorbed here by `GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash <base>` so the merge cluster reads clean while the pre-tidy tree stays byte-identical.
+  Independently reviewable behavior still ships as a normal `feat:` or `fix:` commit.
+  Proposed by 0xpatrick (gist 4100622d); adapted to current v2 vocabulary (panel, gardener) on adoption.
 - _2026-06-26_: hardened step 4 against the "waiting for CI" premature-completion bug. endo-but-for-bots #178 (→ llm) was bit **twice**: two separate conduct jobs each found the PR approved + mergeable with CI pending, reported "waiting for CI completion", and ended (moved to `tada`) without ever merging — so #178 sat green-but-unmerged with nothing to finish it. The fix makes "waiting for CI" non-terminal: a merge job blocks until CI settles (deterministic spine `scripts/jobs/gardening/ci-wait-merge.sh`, a real timeout/backoff rollup watch that merges on green / reports on red / re-enqueues on timeout, exit codes 0/2/3/4/1) and merges in the same job, or re-enqueues itself rather than completing unmerged. Robust to the harness "background watch then re-invoke" pattern: an ended job never resumes if the re-invoke does not fire, so the merge is carried in-job.
 - _2026-06-06_: step 2 grew the *unfreeze the base if it is a frozen-base snapshot* clause per a maintainer directive: a PR base is not the true base; changes need to be merged into the live trunk (`llm` or `master`), so a PR base should be rebased to the true base before merging. The precipitating merge landed on a frozen snapshot of `llm` rather than `llm` itself; the snapshot branch absorbed the merge while the live trunk did not. The frozen-base-branch convention correctly isolates concurrent PRs during review; the conductor's job at merge time is to complete the lifecycle by unfreezing back to the live trunk before merging.

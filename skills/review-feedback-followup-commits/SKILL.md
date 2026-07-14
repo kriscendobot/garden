@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-24
+updated: 2026-07-14
 author: gardener
 ---
 
@@ -30,6 +30,9 @@ Each line below is a trigger. If the pattern matches, the cited reference (or a 
 - **A review item demands a major rewrite.** Land the rewrite as commit A; treat any subsequent follow-ups as additive sharpenings that a reviewer could request be dropped without unwinding A. Don't split the rewrite into theatrical phases.
 - **The job summarizes review threads with line numbers and suggested actions.** Treat the line number as authoritative and the action summary as a hint. Read the file at the line yourself before applying; the producer that posted the job can mismatch a line to the wrong file or identifier.
 - **A package rename.** Sweep the cascade across package directory, `package.json`, AVA test files, `.changeset/*.md`, error-message strings, design docs, and `yarn.lock`. After the sweep, `grep -rn '<old-name>'` should return only intentional historical references. See [`../rename-discipline/SKILL.md`](../rename-discipline/SKILL.md).
+- **A post-retcon style, lint, or format correction.**
+  On a PR that has already been retconned, a commit whose only change is clearing a CI-flagged style, lint, or format failure ships as `git commit --fixup=<introducing-sha>` rather than a standalone conventional commit, so the conductor can autosquash it into its target at merge time.
+  See [`../retcon/SKILL.md`](../retcon/SKILL.md) and [`../../roles/conductor/AGENT.md`](../../roles/conductor/AGENT.md).
 
 ## Output
 

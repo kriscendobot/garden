@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-07-03
+updated: 2026-07-14
 author: gardener, liaison
 ---
 
@@ -38,6 +38,11 @@ A gardener claims a `fix` job (or runs the fixer stage of the gauntlet) and wear
 ## Operating norms
 
 - **The panel→fixer loop is multi-round on draft PRs.** The gardener invokes the fixer stage after every panel round that surfaces `must-fix` items; each fixer invocation addresses the current must-fix list; the gardener then re-runs the panel against the new head; the loop continues until the panel surfaces no further must-fix dispositions. The fixer's job per round is bounded by the current must-fix list; it does not pre-empt items the panel has not raised and does not skip items it did raise.
+- **Post-retcon style, lint, and format corrections use `--fixup`.**
+  When a follow-up commit exists solely to clear a CI-flagged style, lint, or format failure (no semantic change) on a PR that has already been retconned, author it with `git commit --fixup=<sha>` targeting the commit in the PR's history that introduced the violation.
+  Do not use a conventional `fix:`, `style:`, or `chore: prettier` commit for these; the `fixup!` prefix is what lets the conductor autosquash it cleanly into its target at merge time ([conductor](../conductor/AGENT.md) step 3).
+  A change that is distinct, independently reviewable behavior still ships as a normal `feat:` or `fix:` commit.
+  This convention binds shepherd-authored style, lint, and format commits on the same PR too ([shepherd](../shepherd/AGENT.md)); the discipline originates in the [retcon](../../skills/retcon/SKILL.md) skill.
 - **Summary-fix jobs are one-shot.** A fixer claiming a `summary-fix` job addresses the bundled list in one go and does **not** re-run the panel; the un-draft has already happened and the maintainer's review is the next venue.
 - **Action-followups jobs read the ledger.** A fixer claiming an `action-followups` job reads `journal/projects/<slug>/followups/<repo-with-dash>--<N>.md` for the item list and recommended actions. Items whose action is "open follow-up PR with <scope>" become the fixer's work; items whose action is "file as issue" or "amend design doc" are routed back to the right role via the message bus.
 - **Read all comments before touching code**, including any panel report. Group them by area before fixing them.

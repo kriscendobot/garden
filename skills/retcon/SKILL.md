@@ -1,6 +1,6 @@
 ---
 created: 2026-05-14
-updated: 2026-06-24
+updated: 2026-07-14
 author: gardener
 ---
 
@@ -26,6 +26,13 @@ A linear history on the PR branch with commits grouped as:
 - **One `chore: Update yarn.lock` commit** for the lockfile, separate from any `package.json` commit that caused it. The [yarn-lock-separate-commit](../yarn-lock-separate-commit/SKILL.md) discipline is *applied retroactively* here across the whole branch, not commit-by-commit at write time.
 - **Implementation and tests in the same commit.** A package's behavior change and the tests covering that change ship together. This is a deliberate departure from the "test, then implement" or "implement, then test" patterns that produce two commits per feature; the retcon wants one.
 - **Conventional-commit messages** on every commit. The first line is `<type>(<scope>): <imperative summary>`; the body (when present) names *why*, not the diff.
+- **Post-retcon corrections use `git commit --fixup=<introducing-sha>`.**
+  A later minor correction to code this PR introduced (a small bug fix, an added test, a docs touch, a lint or formatting repair) is a follow-up to an existing commit, not new behavior.
+  Author it with `git commit --fixup=<introducing-sha>` targeting the per-package commit that introduced the code, rather than a standalone `fix:`, `style:`, or `chore: prettier` commit.
+  If no panel or maintainer review has examined the branch yet, autosquash the fixups before pushing (or stage the final form directly) so the pushed history is already tidy.
+  Once a panel or review has run, leave the `fixup!` commits visible at the tip so the reviewer's delta stays legible; the final [conductor](../../roles/conductor/AGENT.md) stage absorbs them with a noninteractive `git rebase -i --autosquash`.
+  Keep a normal `feat:` or `fix:` commit only when the change is distinct, independently reviewable behavior.
+  The post-tidy tree is byte-identical either way (see § Net diff is invariant).
 
 The PR's net diff (the merge result) is byte-identical before and after the retcon. The panel re-runs against the new commit shape: each per-package commit gets its own scope of attention rather than the panel having to mentally re-group sprawling history.
 
@@ -47,6 +54,11 @@ BASE=$(gh pr view <N> -R <owner>/<repo> --json baseRefName --jq '.baseRefName')
 #    --mixed (the default) unstages everything; --soft keeps the index. Use
 #    --mixed so the next step's `git add` is deliberate.
 git -C project reset --mixed origin/$BASE
+
+# If a panel or review has already examined this branch, keep the changes made
+# *since* that review as `git commit --fixup=<introducing-sha>` commits at the
+# tip below rather than folding them into the per-package commits, so the
+# reviewer's delta stays visible for the conductor to autosquash at merge time.
 
 # 3. Restage by package. For each affected package, add the package's files
 #    and commit with a conventional-commit message.
@@ -99,6 +111,10 @@ A force-pushed, regrouped PR branch with an invariant net diff, plus a completio
 
 ## Notes from the field
 
+- _2026-07-14_: the fixup follow-up discipline landed.
+  Post-retcon minor corrections (lint, formatting, tests, docs, small bug fixes) to code a PR introduced are authored as `git commit --fixup=<introducing-sha>` rather than standalone `fix:`/`style:`/`chore: prettier` commits.
+  Before any panel or review they are autosquashed before the push; after review they stay visible at the tip for the conductor's noninteractive `git rebase -i --autosquash` at merge time, keeping the reviewer's delta legible while the net diff stays invariant.
+  Proposed by 0xpatrick (gist 4100622d); adopted across the fixer, shepherd, and conductor briefs and adapted to current vocabulary.
 - _2026-05-14_: the verb landed when kriskowal said *"A new verb I would like to use is 'retcon' meaning 'Please reset this branch and restage the changes in sensibly grouped commits. This should generally have a single commit for each affected package, a separate commit for chore: Update yarn.lock, conventional-commit messages, and a single implementation and test commit.'"* The directive bundles three disciplines (per-package grouping, lockfile separation, implementation+tests together) that the garden had as separate skills or norms; the retcon names the procedure that applies all three at once to a branch's full history.
 
 ## Pitfalls
