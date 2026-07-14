@@ -6,3 +6,10 @@ Distinguish the three cases when reading the count for a kind:
 - **File present but the `<count_key>:` line is simply absent**: this host has not declared this kind — a normal condition, not an error. Emit at a quiet level (debug, or a one-shot/rate-limited note) and leave the pool unchanged, rather than WARN every tick.
 
 Concretely: inside the `if [ -f "$f" ]` block, detect whether the `count_key:` key exists at all (`grep -q "^$count_key:" "$f"`) separately from whether its value parses as `^[0-9]+$`. Key-absent → quiet no-op; key-present-but-unparsable, or file-absent → WARN no-op. Preserve the existing invariant that only an explicit `<count_key>: 0` scales a kind to zero (never treat missing as scale-to-0). This removes the recurring per-tick WARN while keeping the real corruption/misconfig signal intact.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-14T03:22:06Z
