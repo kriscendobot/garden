@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/45#issuecomment-4973924757
 Tell me more about this line of work and what’s driving it. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  worker_kind: cleric
+  claimed_at: 2026-07-14T21:00:20Z
