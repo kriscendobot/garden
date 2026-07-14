@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/43#issuecomment-4974142339
 Are we able to rewind context if an execute fails due to a mismatched pattern shape and retry? 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  claimed_at: 2026-07-14T21:30:19Z
