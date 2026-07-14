@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T22:42:11Z_
+_As of 2026-07-14T22:42:46Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ Two operational flags warrant a look: the triager crash-loop fix is landed on `m
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 2m)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 7m)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 23h)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 2d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 4d)
@@ -136,6 +136,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > at all, remove it from the watch set. Note: under CLAUDE.md § Monitoring safety
 > constraint only `endojs/endo-but-for-bots` is currently authorized for watching —
 > worth confirming `kriscendobot-minion.town` belongs in the set.
+
+- `20260714T224228Z-866b52` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260714T224228Z-866b52.md)
+
+> self-heal: garden-triager@kriscendobot-agoric-sdk exited rc=1 with no scoped fix. Capture: 34a4c24dca86ee4954a56309657c0fca5fa2a919 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 34a4c24dca86ee4954a56309657c0fca5fa2a919). Diagnosis: You've hit your weekly limit · resets Jul 18, 3am (UTC)
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
@@ -308,24 +312,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 90.1M | $942.90 _(notional, rate-card)_ | no quota set |
-| Codex | 35.7M _(+81.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Codex | 35.7M _(+81.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`deadmail-issue-comment-4974631388`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4974631388.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr521-e62f93ef`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr521-e62f93ef.md) — attention directive on endojs/endo-but-for-bots PR #521
-- [`endojs-endo-but-for-bots-pr722-review-01c311bd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr722-review-01c311bd.md) — Review directive on endojs/endo-but-for-bots PR #722
 
-### tada (2230)
+### tada (2231)
+- [`endojs-endo-but-for-bots-pr722-review-01c311bd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr722-review-01c311bd.md) — The preflight check returned EXIT=2 — a peer has already resolved this review...
 - [`deadmail-issue-comment-4974604771`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4974604771.md) — Replied on garden issue #43 with a detailed transformContext/prepareNextTurn ...
 - [`endojs-endo-but-for-bots-pr662-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr662-shepherd.md) — CI is blocked by a merge conflict: PR #662 head b5744ab has mergeable_state: ...
 - [`endojs-endo-but-for-bots-pr521-review-27079b07`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr521-review-27079b07.md) — Completion report
 - [`design-change-review-tool-with-review-metering`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-change-review-tool-with-review-metering.md) — Added and pushed designs/change-review-tool-with-review-metering.md (78107859...
-- [`deadmail-issue-comment-4974142339`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4974142339.md) — Completion report
-- … and 2225 more
+- … and 2226 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
