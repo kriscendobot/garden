@@ -47,7 +47,7 @@ export GARDEN_TURNKEY_BUILDER_TYPE="${GARDEN_TURNKEY_BUILDER_TYPE:-m7g.xlarge}"
 export GARDEN_TURNKEY_TEST_TYPE="${GARDEN_TURNKEY_TEST_TYPE:-t4g.medium}"
 # Root volume: encrypted gp3, sized for the base OS + Docker + the built container
 # image (Go tools + Ollama runtime push the image toward ~15 GiB).
-export GARDEN_TURNKEY_VOLUME_GB="${GARDEN_TURNKEY_VOLUME_GB:-40}"
+export GARDEN_TURNKEY_VOLUME_GB="${GARDEN_TURNKEY_VOLUME_GB:-50}"
 
 # ---- Resource names ------------------------------------------------------------
 export GARDEN_TURNKEY_PREFIX="garden-turnkey"

@@ -44,7 +44,7 @@ if [[ "$sg_id" == "None" || -z "$sg_id" ]]; then
   log "creating security group $NAME in $vpc"
   sg_id="$(aws ec2 create-security-group \
     --group-name "$NAME" --vpc-id "$vpc" \
-    --description "Turnkey garden host — SSM-only, no inbound by default" \
+    --description "Turnkey garden host - SSM-only, no inbound by default" \
     --tag-specifications "$(turnkey_tag_json security-group)" \
     --query GroupId --output text)"
   # A fresh SG has all-egress already; no inbound rules — exactly the default we want.

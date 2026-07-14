@@ -150,7 +150,7 @@ log "creating image $AMI_NAME"
 AMI_ID="$(aws ec2 create-image \
   --instance-id "$INSTANCE_ID" \
   --name "$AMI_NAME" \
-  --description "Turnkey garden host — garden@${COMMIT:0:12}, base $GARDEN_TURNKEY_BASE_AMI, $GARDEN_TURNKEY_ARCH" \
+  --description "Turnkey garden host - garden@${COMMIT:0:12}, base $GARDEN_TURNKEY_BASE_AMI, $GARDEN_TURNKEY_ARCH" \
   --no-reboot \
   --tag-specifications \
     "ResourceType=image,Tags=[{Key=project,Value=$GARDEN_TURNKEY_PROJECT_TAG},{Key=Name,Value=$AMI_NAME},{Key=garden:source-commit,Value=$COMMIT},{Key=garden:base-ami,Value=$GARDEN_TURNKEY_BASE_AMI},{Key=garden:architecture,Value=$GARDEN_TURNKEY_ARCH},{Key=garden:build-timestamp,Value=$BUILD_TS}]" \
