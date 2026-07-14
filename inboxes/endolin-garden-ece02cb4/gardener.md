@@ -372,3 +372,12 @@ Inspect via `git -C journal cat-file -p 48b72015cb81891130a6611f645d8b5c05c01795
 - Context: gardener-10 on endolin-garden-ece02cb4: job 'kriscendobot-agoric-sdk-pr16-review-d584f885' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p ea5b6cd20432557738fed642e10f113df8444a8e`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-14T06:50:04Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: a034d6e891148248b8b212070a2d3bc60238cacd
+- Context: gardener-5 on endolin-garden-ece02cb4: job 'test-hermit-local-inference-garden2' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p a034d6e891148248b8b212070a2d3bc60238cacd`.
