@@ -9,3 +9,10 @@ This is a harmless execution test. Do not change files, create commits, open pul
 requests, or send messages. Run `pwd`; return its exact output and state the model
 or runtime you used if available. End the final response with the exact completion
 marker required by the worker instructions.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-14T03:03:53Z
