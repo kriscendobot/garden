@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T16:23:50Z_
+_As of 2026-07-14T16:25:28Z_
 
 ## Latest
 
@@ -2001,27 +2001,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 93.3M | $966.42 _(notional, rate-card)_ | no quota set |
-| Codex | 1.6M _(+38.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Codex | 1.6M _(+39.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
-- [`adopt-gist-fixup-autosquash-plan`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/adopt-gist-fixup-autosquash-plan.md) — Adopt the plan at https://gist.github.com/0xpatrickdev/4100622d8a8b3eec1757fa...
+### doin (5)
 - [`design-ai-sdk-garden-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-ai-sdk-garden-integration.md) — <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-...
 - [`design-endor-registry-transport`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endor-registry-transport.md) — Design an Endor/XS registry transport power for endojs/endo-but-for-bots PR #...
 - [`endojs-endo-but-for-bots-pr723-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr723-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #723
 - [`model-routing-journal-state-hermit-qwen`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/model-routing-journal-state-hermit-qwen.md) — Why
 - [`test-hermit-local-inference-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/test-hermit-local-inference-garden2.md) — ---
 
-### tada (2210)
+### tada (2211)
+- [`adopt-gist-fixup-autosquash-plan`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/adopt-gist-fixup-autosquash-plan.md) — Completion report
 - [`issue-kriskowal-garden-43`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-43.md) — Researched code mode and posted findings plus a recommended Endo Agentry matu...
 - [`issue-kriskowal-garden-44`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-44.md) — Implemented and pushed 59c3ac0651 to main2: proposed a credential-safe turnke...
 - [`endojs-endo-but-for-bots-pr721-review-56349e18`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr721-review-56349e18.md) — No-op: preflight exited 2, finding a peer resolution for review 4690781908. N...
 - [`endojs-endo-but-for-bots-pr682-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr682-shepherd.md) — Fixed PR #682’s zizmor failure by updating actions/setup-node pins to v6.5.0 ...
-- [`endojs-endo-but-for-bots-pr671-fix-registry-power-injection`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-fix-registry-power-injection.md) — Implemented and pushed e66d640c0 to endo-registry-capability.
-- … and 2205 more
+- … and 2206 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
