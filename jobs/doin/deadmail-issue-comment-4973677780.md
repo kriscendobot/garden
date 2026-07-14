@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/44#issuecomment-4973677780
 Some work has occurred on this in the last couple hours that I would like summarized here and to receive reports going forward. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 9
+  worker_kind: cleric
+  claimed_at: 2026-07-14T20:30:07Z
