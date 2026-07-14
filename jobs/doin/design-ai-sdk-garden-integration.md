@@ -3,3 +3,10 @@
 Wear the designer role. Using the completed scholar-ai-sdk-research findings, design a solution explaining how AI SDK could be useful alongside pi, in lieu of pi, or integrated into the garden. Compare the options, recommend a path, identify affected garden components and migration boundaries, and write the design under this garden repository's designs/ directory.
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  claimed_at: 2026-07-14T19:03:37Z
