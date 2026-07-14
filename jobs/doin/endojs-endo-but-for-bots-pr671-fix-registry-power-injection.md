@@ -102,3 +102,10 @@ Concretely:
 - Report what changed, test evidence (command + observed result), and any follow-ups.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: cleric
+  claimed_at: 2026-07-14T12:23:12Z
