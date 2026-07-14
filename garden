@@ -59,6 +59,9 @@ Commands:
   (no args)   Enter the container (building the image and creating or starting
               the container as needed) and exec Claude Code — the liaison — in
               auto mode as the foreground process.
+  codex       Enter the container and exec Codex CLI in yolo mode
+              (--dangerously-bypass-approvals-and-sandbox) instead of Claude
+              Code — the OpenAI-agent entry point.
   sh          Enter the container and open an interactive login shell instead
               of Claude Code — the debugging escape hatch.
   create      Create/start the container (bringing systemd and the garden
@@ -243,6 +246,18 @@ cmd_enter() {
         /bin/bash -lc 'exec claude --dangerously-skip-permissions'
 }
 
+# Same entry as cmd_enter, but exec Codex CLI in yolo mode instead of Claude.
+# --dangerously-bypass-approvals-and-sandbox is Codex's auto/yolo posture (skip
+# every confirmation, no internal sandbox); it is documented as intended solely
+# for an externally sandboxed environment, which the container is — the exact
+# analog of the `claude --dangerously-skip-permissions` posture above, and it
+# applies ONLY to this in-container session.
+cmd_codex() {
+    ensure_container
+    exec docker exec -it -u "$HOST_USER" -w "$INSTANCE_PATH" "$CONTAINER_NAME" \
+        /bin/bash -lc 'exec codex --dangerously-bypass-approvals-and-sandbox'
+}
+
 # The debugging escape hatch: a login shell instead of claude — yesterday's
 # enter behavior verbatim.
 cmd_sh() {
@@ -256,6 +271,7 @@ if [[ $# -eq 0 ]]; then
 fi
 
 case "$1" in
+    codex) shift; cmd_codex "$@" ;;
     sh) shift; cmd_sh "$@" ;;
     create) shift; cmd_create "$@" ;;
     build) shift; cmd_build "$@" ;;
