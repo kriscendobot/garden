@@ -139,3 +139,46 @@ credit** (config `CREDIT_UNIT_CENTS`); credits accrue to the `credits` field on 
 binding: billing routes, the events table, attribute-scoped IAM, Caddy `/billing/*`,
 the "Buy credits" control), which verifies the live test-mode loop end-to-end
 (test card `4242…`).
+
+## Turnkey garden host — private AMI + launch template
+
+A one-click EC2 garden host with Docker, a reviewed garden checkout, and the
+container image already built — with **no** Claude/GitHub/user secret in the AMI,
+launch template, repository, or user-data. Design:
+[`designs/turnkey-garden-host.md`](../../designs/turnkey-garden-host.md); operator
+runbook: [turnkey-host.md](turnkey-host.md); pipeline: `scripts/aws/turnkey/`.
+First release baked + smoke-tested end-to-end 2026-07-14.
+
+Resource inventory (us-west-1, tag `project=garden-turnkey`):
+
+| Resource | ID / value |
+| --- | --- |
+| AMI (private, ARM64) | `ami-0fbfe0b799310072d` (`garden-turnkey-edcab025d554-20260714T184036Z`) |
+| Backing snapshot | `snap-0285a9fd494ba6e6c` (50 GiB, encrypted) |
+| Launch template | `lt-0640cc0640c5e2244` (`garden-turnkey`, v1 default) |
+| IAM role + instance profile | `garden-turnkey-ssm` (`AmazonSSMManagedInstanceCore` only) |
+| Security group (launch) | `sg-0779a404a970ce42b` (`garden-turnkey`; **no inbound**, egress default) |
+| Security group (smoke test) | `sg-01a9c9fa35a51fc64` (`garden-turnkey-test`) |
+| Base AMI (pinned) | `ami-0b9023009667261d9` (Canonical `ubuntu-noble-24.04-arm64-server-20260626`) |
+| Source commit baked | `edcab025d554…` on `main2` |
+
+- **Immutable AMI tags:** `garden:source-commit`, `garden:base-ami`,
+  `garden:architecture=arm64`, `garden:build-timestamp`. A rebuild is a new AMI +
+  new launch-template version, never an in-place patch.
+- **Hardening (verified):** launch template requires IMDSv2 (`HttpTokens=required`),
+  encrypted gp3 root, no user-data, no key pair; SG has zero inbound rules; role
+  carries only the SSM managed policy (no inline secret grant).
+- **Access:** SSM only — `aws ssm start-session --target <id>`, or `ssh` over
+  `AWS-StartSSHSession`. Port 22 is closed to the internet; the device-auth login
+  runs interactively over that SSM-tunnelled CLI (no secret handoff).
+- **Smoke result (2026-07-14, on a throwaway `t4g.medium` in the test SG, then
+  terminated):** SSM reachable; `./garden create` starts the container from the
+  **prebuilt** `garden-ubuntu` image; **no** pre-existing Claude/GitHub auth. PASS.
+- **Cost:** the bake ran a `m7g.xlarge` builder (~25 min, cents) + a brief
+  `t4g.medium` smoke instance; both terminated. Ongoing: only the AMI's snapshot,
+  billed on actual used blocks (~10–15 GiB, not the 50 GiB volume) ≈ $0.50–0.75/mo
+  while the AMI is retained. No instance runs unless launched. Teardown:
+  `scripts/aws/turnkey/teardown.sh [--ami <id>|--all]`.
+- **Known follow-up:** the shared `Dockerfile` fetches an amd64 Ollama ROCm bundle
+  unconditionally; on Graviton it is inert dead weight (no AMD GPU). Arch-guard it
+  to shrink the turnkey bake (tracked in the design's § Implementation).
