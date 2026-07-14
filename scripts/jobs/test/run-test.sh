@@ -176,6 +176,23 @@ noop_disables=$(grep -c '^systemctl --user disable' "$GARDEN_MOCK_LOG" || true)
   && ok "absent hosts/<host> → no-op (pool unchanged, no disable)" \
   || bad "no-op-on-undeterminable-count (@1=$noop_armed, disables=$noop_disables)"
 
+# --- ABSENT KIND LINE is a QUIET no-op, NOT a per-tick WARN ------------------
+# testhost declares `gardeners: 1` (set-gardeners above) but no `clerics:` line — a
+# legitimate steady state for a host that runs one kind and not the other. The
+# undeclared kind must log at a QUIET level (DEBUG), not spam WARN every ~60s tick
+# and bury real scaler signal. Distinct from a wholly-absent hosts/<host> file,
+# which stays a WARN (genuine can't-determine). Capture the scaler's own stderr.
+sclog="$TR/scaler-absentkind.err"
+GARDEN=testhost "$JOBS/gardener-scaler.sh" >/dev/null 2>"$sclog"
+{ grep -q "declares no clerics line" "$sclog" && ! grep -q "WARN host 'testhost' desired clerics" "$sclog"; } \
+  && ok "declared-gardeners/absent-clerics host → clerics DEBUG, no WARN (spam removed)" \
+  || bad "absent clerics line did not go quiet: $(grep -E 'clerics' "$sclog" | tr '\n' '|')"
+sclog2="$TR/scaler-nofile.err"
+GARDEN=undeclaredhost "$JOBS/gardener-scaler.sh" >/dev/null 2>"$sclog2"
+grep -q "WARN host 'undeclaredhost' desired gardeners undeterminable" "$sclog2" \
+  && ok "wholly-absent hosts/<host> file → gardeners WARN preserved (real signal intact)" \
+  || bad "missing hosts file did not WARN: $(grep -E 'gardeners' "$sclog2" | tr '\n' '|')"
+
 # --- IDENTITY RECONCILE: a worker whose in-process GARDEN drifted is restarted ---
 # A long-lived garden-gardener@N inherits GARDEN once, at spawn; if the host
 # identity is later corrected (e.g. a stale GARDEN=endolinbot2 override removed),

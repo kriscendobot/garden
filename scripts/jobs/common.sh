@@ -404,6 +404,33 @@ worker_kind_field() {
 # in exactly one place besides worker_kind_field: here.
 worker_kinds() { printf '%s\n' gardener cleric; }
 
+# read_desired_count <hosts-file> <count_key> — read one worker kind's declared
+# concurrency from a hosts/<host> file, distinguishing the THREE outcomes the pool
+# scaler must treat differently. On a clean read it prints the parsed non-negative
+# integer to stdout and returns 0; otherwise stdout is empty and the EXIT STATUS
+# encodes WHY, so the caller can pick WARN vs a quiet no-op without re-parsing:
+#   0 → the `<count_key>:` line is present and its value parses as ^[0-9]+$
+#       (stdout carries it; an explicit `0` is a legitimate scale-to-zero).
+#   2 → the file exists but has NO `<count_key>:` line — this host simply has not
+#       declared this kind. A NORMAL steady state (or a transient partial write
+#       while another host updates the file), NOT a misconfiguration → caller stays
+#       quiet and leaves the pool unchanged.
+#   1 → the file is missing entirely, OR the line is present but its value does not
+#       parse (non-integer) — a genuine misconfiguration/corruption → caller WARNs
+#       and leaves the pool unchanged.
+# Missing is never scale-to-0: only a parsed explicit `0` (outcome 0) tears a pool
+# down. Kept here, in the file both the scaler and its test source, so the count
+# semantics live in one place.
+read_desired_count() {
+  local f="${1:?read_desired_count: hosts file required}" count_key="${2:?read_desired_count: count_key required}"
+  [ -f "$f" ] || return 1
+  grep -q "^$count_key:" "$f" || return 2
+  local v
+  v="$(sed -n "s/^$count_key:[[:space:]]*//p" "$f" | head -1)"
+  [[ "$v" =~ ^[0-9]+$ ]] || return 1
+  printf '%s\n' "$v"
+}
+
 # gardener.sh drops a local, lock-free marker file while a job handler runs and
 # clears it the moment the job ends (and at the top of each loop), so a worker
 # instance is "busy" (mid-job) exactly while that marker exists. Both the

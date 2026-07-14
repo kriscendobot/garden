@@ -8,10 +8,12 @@
 # `clerics: N` line. This ONE timer-driven service — the sibling of repo-watcher, but
 # for worker count rather than the watch set — syncs the journal and scales EVERY
 # worker pool to match by iterating the worker-kind registry (common.sh
-# worker_kinds), starting missing instances and stopping extras. Per kind: absent or
-# unparsable → leave that pool unchanged (a no-op WARN); only an explicit
-# `<count_key>: 0` scales that kind to zero. There is NO second scaler service — the
-# spine is one loop, one scaler.
+# worker_kinds), starting missing instances and stopping extras. Per kind the count
+# read has three outcomes, all leaving the pool unchanged except a clean parse:
+# file-missing OR value-present-but-unparsable → misconfig, WARN; key-line simply
+# absent from an existing file → normal (this host does not declare the kind), quiet
+# DEBUG; only an explicit `<count_key>: 0` scales that kind to zero. There is NO
+# second scaler service — the spine is one loop, one scaler.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -56,15 +58,17 @@ f="$DIR/hosts/$host"
 # unit_ctl), keeping one place that knows how to enable/disable instances.
 for kind in $(worker_kinds); do
   count_key="$(worker_kind_field "$kind" count_key)"
-  want=""
-  if [ -f "$f" ]; then
-    v="$(sed -n "s/^$count_key:[[:space:]]*//p" "$f" | head -1)"
-    [[ "$v" =~ ^[0-9]+$ ]] && want="$v"
+  # read_desired_count (common.sh) distinguishes the three outcomes: a clean parse
+  # (status 0) scales; a key-line simply absent from an existing file (status 2) is
+  # a normal condition — this host does not declare this kind — so stay quiet; file
+  # missing or value unparsable (status 1) is a real misconfig → WARN. All three
+  # leave the pool unchanged except the clean parse; missing is never scale-to-0.
+  if want="$(read_desired_count "$f" "$count_key")"; then
+    log "host '$host' desired $count_key: $want"
+    "$HERE/install-units.sh" scale "$kind" "$want"
+  elif [ "$?" -eq 2 ]; then
+    log "DEBUG host '$host' declares no $count_key line in hosts/$host; leaving $kind pool unchanged"
+  else
+    log "WARN host '$host' desired $count_key undeterminable (missing hosts/$host or unparsable value); leaving $kind pool unchanged"
   fi
-  if [ -z "$want" ]; then
-    log "WARN host '$host' desired $count_key undeterminable (missing/unparsable hosts/$host); leaving $kind pool unchanged"
-    continue
-  fi
-  log "host '$host' desired $count_key: $want"
-  "$HERE/install-units.sh" scale "$kind" "$want"
 done
