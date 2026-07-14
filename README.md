@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T08:26:13Z_
+_As of 2026-07-14T08:28:19Z_
 
 ## Latest
 
@@ -1793,6 +1793,19 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
 > (gardener-scaler preflight). It will not repeat until the drift changes or clears.
 
+- `20260714T082805Z-9d43c1` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260714T082805Z-9d43c1.md)
+
+> A garden-follow-up action block was REJECTED and dropped (not retried):
+>   inner claude -p failure (rc=1)
+>
+> Producer output:
+> rc=1
+> stderr:
+> <empty>
+>
+> stdout:
+> You've hit your weekly limit · resets Jul 18, 3am (UTC)
+
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -1963,8 +1976,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.4M | $1037.91 _(notional, rate-card)_ | no quota set |
-| Codex | 490.1k _(+8.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 96.4M | $1036.46 _(notional, rate-card)_ | no quota set |
+| Codex | 604.3k _(+9.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
