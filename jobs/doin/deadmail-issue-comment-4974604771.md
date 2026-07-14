@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/43#issuecomment-4974604771
 Tell me more about the transformContext compaction hook and how that might be employed to evolve the transcript to omit failed attempts? 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: cleric
+  claimed_at: 2026-07-14T22:35:26Z
