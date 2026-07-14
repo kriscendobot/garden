@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T04:11:17Z_
+_As of 2026-07-14T04:17:20Z_
 
 ## Latest
 
@@ -1963,25 +1963,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.1M | $1133.29 _(notional, rate-card)_ | no quota set |
+| Claude | 95.1M | $1132.92 _(notional, rate-card)_ | no quota set |
 | Codex | 47.2k _(+407.3k cached)_ | n/a _(ChatGPT free plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr671-review-3fa7398f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr671-review-3fa7398f.md) — Review directive on endojs/endo-but-for-bots PR #671
-- [`endojs-endo-but-for-bots-pr682-review-4631723f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr682-review-4631723f.md) — Review directive on endojs/endo-but-for-bots PR #682
 - [`endojs-endo-but-for-bots-pr706-review-7a1d9ca9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr706-review-7a1d9ca9.md) — Review directive on endojs/endo-but-for-bots PR #706
 
-### tada (2193)
+### tada (2194)
+- [`endojs-endo-but-for-bots-pr682-review-4631723f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr682-review-4631723f.md) — Completion report
 - [`durable-local-inference-dockerfile-and-local-cleric`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/durable-local-inference-dockerfile-and-local-cleric.md) — Completion report
 - [`improve-gardener-scaler-absent-kind-warn-spam`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-scaler-absent-kind-warn-spam.md) — Completion report
 - [`cleric-live-test-20260714T030323Z`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/cleric-live-test-20260714T030323Z.md) — /home/kris/garden2/scratch/gardener-wt-cleric-live-test-20260714T030323Z
 - [`codex-dispatch-retest-20260714T024648Z`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/codex-dispatch-retest-20260714T024648Z.md) — Codex dispatch retest — completed. Harmless verification only; no files modif...
-- [`codex-dispatch-test-20260714T024433Z`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/codex-dispatch-test-20260714T024433Z.md) — I did not modify any files, create commits, open PRs, or send messages, per t...
-- … and 2188 more
+- … and 2189 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
