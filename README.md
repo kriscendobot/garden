@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T19:20:10Z_
+_As of 2026-07-14T19:20:48Z_
 
 ## Latest
 
@@ -368,25 +368,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.1M | $956.94 _(notional, rate-card)_ | no quota set |
-| Codex | 27.9M _(+74.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 92.0M | $956.74 _(notional, rate-card)_ | no quota set |
+| Codex | 27.9M _(+75.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`build-turnkey-amazon-garden-host`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-turnkey-amazon-garden-host.md) — ---
+### doin (2)
 - [`endojs-endo-but-for-bots-pr730-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr730-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #730
 - [`test-hermit-local-inference-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/test-hermit-local-inference-garden2.md) — ---
 
-### tada (2217)
+### tada (2218)
+- [`build-turnkey-amazon-garden-host`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-turnkey-amazon-garden-host.md) — Completion report
 - [`ai-sdk-garden-evaluation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ai-sdk-garden-evaluation.md) — orchestration ai-sdk-garden-evaluation — complete
 - [`design-ai-sdk-garden-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-ai-sdk-garden-integration.md) — Added and pushed designs/ai-sdk-garden-integration.md (a521665dad).
 - [`endojs-endo-but-for-bots-pr723-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr723-shepherd.md) — Shepherd Report: PR #723 — endojs/endo-but-for-bots → llm
 - [`test-hermit-local-inference-qwen-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/test-hermit-local-inference-qwen-garden2.md) — **LIVENESS TEST REPORT — test-hermit-local-inference-qwen-garden2**
-- [`model-routing-journal-state-hermit-qwen`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/model-routing-journal-state-hermit-qwen.md) — Completion report
-- … and 2212 more
+- … and 2213 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
