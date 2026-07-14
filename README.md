@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T16:49:52Z_
+_As of 2026-07-14T16:51:58Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ Two operational flags warrant a look: the triager crash-loop fix is landed on `m
 
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 17h)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 2d)
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 3d)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 4d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 12d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 14d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 15d)
@@ -2038,19 +2038,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.7M | $962.30 _(notional, rate-card)_ | no quota set |
-| Codex | 3.6M _(+54.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
+| Claude | 92.7M | $962.08 _(notional, rate-card)_ | no quota set |
+| Codex | 4.3M _(+55.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`test-hermit-local-inference-qwen-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/test-hermit-local-inference-qwen-garden2.md) — ---
 
-### doin (5)
+### doin (4)
 - [`design-ai-sdk-garden-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-ai-sdk-garden-integration.md) — <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-...
 - [`endojs-endo-but-for-bots-pr723-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr723-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #723
 - [`endojs-endo-but-for-bots-pr730-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr730-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #730
 - [`test-hermit-local-inference-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/test-hermit-local-inference-garden2.md) — ---
-- [`test-hermit-local-inference-qwen-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/test-hermit-local-inference-qwen-garden2.md) — ---
 
 ### tada (2213)
 - [`model-routing-journal-state-hermit-qwen`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/model-routing-journal-state-hermit-qwen.md) — Completion report
