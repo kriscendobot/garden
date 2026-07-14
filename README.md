@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T11:50:28Z_
+_As of 2026-07-14T12:34:54Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ Two operational flags warrant a look: the triager crash-loop fix is landed on `m
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 12h)
+- [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 13h)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 1d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 3d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 11d)
@@ -1988,15 +1988,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 94.9M | $997.07 _(notional, rate-card)_ | no quota set |
-| Codex | 837.1k _(+15.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Claude | 94.6M | $994.20 _(notional, rate-card)_ | no quota set |
+| Codex | 1.2M _(+23.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (1)
 - [`test-hermit-local-inference-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/test-hermit-local-inference-garden2.md) — ---
 
-### doin (7)
+### doin (8)
 - [`design-ai-sdk-garden-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-ai-sdk-garden-integration.md) — <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-...
+- [`design-endor-registry-transport`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endor-registry-transport.md) — Design an Endor/XS registry transport power for endojs/endo-but-for-bots PR #...
 - [`endojs-endo-but-for-bots-pr671-fix-registry-power-injection`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr671-fix-registry-power-injection.md) — Fix directive: address kriskowal's review 4690597350 on endojs/endo-but-for-b...
 - [`endojs-endo-but-for-bots-pr682-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr682-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #682
 - [`endojs-endo-but-for-bots-pr721-review-56349e18`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr721-review-56349e18.md) — Review directive on endojs/endo-but-for-bots PR #721
