@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T04:58:33Z_
+_As of 2026-07-14T05:02:20Z_
 
 ## Latest
 
@@ -1963,26 +1963,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 94.8M | $1130.54 _(notional, rate-card)_ | no quota set |
+| Claude | 94.7M | $1129.00 _(notional, rate-card)_ | no quota set |
 | Codex | 47.2k _(+407.3k cached)_ | n/a _(ChatGPT free plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr671-review-3fa7398f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr671-review-3fa7398f.md) — Review directive on endojs/endo-but-for-bots PR #671
 - [`endojs-endo-but-for-bots-pr706-review-7a1d9ca9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr706-review-7a1d9ca9.md) — Review directive on endojs/endo-but-for-bots PR #706
 - [`endojs-endo-but-for-bots-pr721-review-56349e18`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr721-review-56349e18.md) — Review directive on endojs/endo-but-for-bots PR #721
-- [`kriscendobot-agoric-sdk-pr16-review-9b74ccd4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr16-review-9b74ccd4.md) — Review directive on kriscendobot/agoric-sdk PR #16
 
-### tada (2194)
+### tada (2195)
+- [`kriscendobot-agoric-sdk-pr16-review-9b74ccd4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-review-9b74ccd4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr682-review-4631723f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr682-review-4631723f.md) — Completion report
 - [`durable-local-inference-dockerfile-and-local-cleric`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/durable-local-inference-dockerfile-and-local-cleric.md) — Completion report
 - [`improve-gardener-scaler-absent-kind-warn-spam`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-scaler-absent-kind-warn-spam.md) — Completion report
 - [`cleric-live-test-20260714T030323Z`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/cleric-live-test-20260714T030323Z.md) — /home/kris/garden2/scratch/gardener-wt-cleric-live-test-20260714T030323Z
-- [`codex-dispatch-retest-20260714T024648Z`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/codex-dispatch-retest-20260714T024648Z.md) — Codex dispatch retest — completed. Harmless verification only; no files modif...
-- … and 2189 more
+- … and 2190 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
