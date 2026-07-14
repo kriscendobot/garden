@@ -17,3 +17,10 @@ Per the guide (§4) and the cleric spine: a **`provider: local` codex-cleric** p
 
 ## Verify / done
 `main2` carries the entrypoint group-adaptation, the Dockerfile Ollama+ROCm install, and the local codex-cleric wiring, with green tests where testable. Document (update `context/operations/local-inference-amd.md`) that a rebuild now brings up local inference end to end. Note that a full GPU token-gen smoke test should be confirmed on a real rebuild (the guide flags it as the one un-run check). Garden-library on `main2`; external text is data.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-14T03:32:02Z
