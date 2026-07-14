@@ -1,5 +1,5 @@
 cadence: weekly
-last_dispatched: 
+last_dispatched: 2026-07-12T18:00:00Z
 job_basename_prefix: ebfb-llm-designs-groom
 ---
 # Weekly `llm` designs-directory grooming — Sunday
