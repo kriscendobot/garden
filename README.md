@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T19:08:59Z_
+_As of 2026-07-14T19:09:18Z_
 
 ## Latest
 
@@ -293,38 +293,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260712T132326Z-2b59d3` — from watchdog:gardener/10, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260712T132326Z-2b59d3.md)
 
 > gardener job 'gauntlet-endojs-endo-but-for-bots-pr706-git-capability-phase-two-commit-identity-boundary' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2405s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
-- `20260712T135859Z-eabc0c` — from gardener:finbot-progress-20260712-135008, reply_to `finbot-progress-20260712-135008` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260712T135859Z-eabc0c.md)
-
-> finbot progress (cycle 20260712-135008) — adaptive vol surface fitting
->
-> Advanced this cycle (direct-push kriscendobot/finbot ab3e568..d41acc1): the
-> forecaster now FITS a conditional-vol surface from the cycle's own observed
-> oracle window instead of relying on a statically-named driver config, so the
-> Monte Carlo ensemble tracks the volatility regime each cycle actually saw, per
-> instrument. New GBMPriceFeed.withVolSurface() (non-mutating swap, fresh GARCH
-> state); project() takes config.adaptiveVol + the readings window and forks the
-> ensemble under the fit; ooda-cycle threads the readings in; driver-compute
-> forwards opts.adaptiveVol. projection.volFit carries the fitted per-asset regime
-> (unconditionalVol/sigma0/persistence) and is folded into the canonical artifact
-> ONLY when a fit ran, so a non-adaptive projection's hash and the auditor's
-> recompute stay byte-identical. Degenerate/short windows fall back; the fit is
-> variance-targeting (no RNG) so forecasts stay reproducible.
->
-> Verification GREEN: full suite 488 pass (+10), 0 fail. Safety gate
-> finbot-ooda --seed=7: all 6 auditor invariants PASS, WALLET TOUCHED: false.
-> Drove the driver end-to-end: adaptive fit on a calm window (realized vol ~1.03%)
-> tightened the p05/p95 band vs the static 2% config, plain path unchanged.
->
-> Next unblocked step (handed off): let the fit adapt per-instrument PARAMETERS
-> (alpha/beta via a light MLE or rolling estimator) rather than variance-targeting
-> fixed defaults, and let the analyzer weigh the fitted regime into its score.
->
-> Needs a maintainer decision (standing, unchanged): the deepest BLOCKED axis is
-> still live execution — cap-attenuation Phase 2 (CapTP transport, replace the
-> spawnSigningWorker stub) + a first paper-wallet/test-net run behind explicit
-> live_authorized: true. Without that, cycles keep advancing the forecasting/
-> instrument axes.
 
 - `20260712T145203Z-5a1301` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260712T145203Z-5a1301.md)
 
@@ -1597,7 +1565,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 92.2M | $957.72 _(notional, rate-card)_ | no quota set |
-| Codex | 27.9M _(+71.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Codex | 27.9M _(+71.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
