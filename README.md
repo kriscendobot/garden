@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T08:31:31Z_
+_As of 2026-07-14T08:43:38Z_
 
 ## Latest
 
@@ -17,7 +17,7 @@ Two operational flags warrant a look: the triager crash-loop fix is landed on `m
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 3d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 11d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 14d)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 14d)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 15d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 18d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 28d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 53d)
@@ -1976,16 +1976,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.4M | $1036.46 _(notional, rate-card)_ | no quota set |
-| Codex | 654.8k _(+10.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 96.3M | $1035.57 _(notional, rate-card)_ | no quota set |
+| Codex | 712.7k _(+14.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (11)
+### doin (10)
 - [`design-ai-sdk-garden-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-ai-sdk-garden-integration.md) — <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-...
-- [`endojs-endo-but-for-bots-pr667-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr667-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #667
 - [`endojs-endo-but-for-bots-pr671-fix-registry-power-injection`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr671-fix-registry-power-injection.md) — Fix directive: address kriskowal's review 4690597350 on endojs/endo-but-for-b...
 - [`endojs-endo-but-for-bots-pr682-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr682-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #682
 - [`endojs-endo-but-for-bots-pr721-review-56349e18`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr721-review-56349e18.md) — Review directive on endojs/endo-but-for-bots PR #721
@@ -1996,13 +1995,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`model-routing-journal-state-hermit-qwen`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/model-routing-journal-state-hermit-qwen.md) — Why
 - [`test-hermit-local-inference-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/test-hermit-local-inference-garden2.md) — ---
 
-### tada (2202)
+### tada (2203)
+- [`endojs-endo-but-for-bots-pr667-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr667-shepherd.md) — Fixed PR #667 CI and pushed:
 - [`weave-endo-but-for-bots-pull-request-682-endo-reminder-message-scheduler-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pull-request-682-endo-reminder-message-scheduler-design.md) — Completion report
 - [`weave-endo-but-for-bots-pull-request-679-mount-glob-delegated-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pull-request-679-mount-glob-delegated-rebase.md) — Completion report
 - [`weave-endo-but-for-bots-pr621-endoclaw-oauth`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr621-endoclaw-oauth.md) — Completion report
 - [`scholar-ai-sdk-research`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ai-sdk-research.md) — Job complete. Report follows.
-- [`research-local-inference-amd-ryzen-setup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/research-local-inference-amd-ryzen-setup.md) — Job complete: local-inference-amd host-setup guide
-- … and 2197 more
+- … and 2198 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
