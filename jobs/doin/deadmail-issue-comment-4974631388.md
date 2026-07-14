@@ -39,6 +39,7 @@ I’ve widened the authorization. Please continue.
 
 ----- END ORIGINAL MESSAGE -----
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
