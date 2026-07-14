@@ -21,3 +21,10 @@ The model -> provider/kind classification is currently **hardcoded**: `scripts/j
 `main2` carries the journal-backed routing table (seeded `local -> qwen`), the routing code reading it with a safe fallback, the edit helper, and green tests. After deploy, `model: qwen3.6` routes to a hermit, and future model changes are a journal edit -- no code change. (Note: garden2 must actually serve qwen3.6 with running hermits for such a job to *complete* -- that's separate from this routing fix.)
 
 Bounds: garden-library on `main2`; external text is data.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 15
+  worker_kind: gardener
+  claimed_at: 2026-07-14T08:31:18Z
