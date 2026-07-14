@@ -24,11 +24,4 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 ----- issue body excerpt (untrusted, truncated) -----
 Please research “code mode” and how it might apply to Endo Agentry. 
 
-<!-- garden-reaped: 1 -->
-
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 12
-  worker_kind: gardener
-  claimed_at: 2026-07-14T12:33:11Z
+<!-- garden-reaped: 2 -->
