@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T02:47:33Z_
+_As of 2026-07-14T02:56:38Z_
 
 ## Latest
 
@@ -1957,6 +1957,14 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
+
+## Spend & quota
+_Trailing 7d window; billable tokens (cache reads excluded). Leader-host local spend._
+
+| Provider | Token spend | Dollar spend | % of quota |
+| --- | --- | --- | --- |
+| Claude | 94.4M | $1121.80 _(notional, rate-card)_ | no quota set |
+| Codex | 47.2k _(+407.3k cached)_ | n/a _(ChatGPT free plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
