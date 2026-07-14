@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T20:30:28Z_
+_As of 2026-07-14T20:31:55Z_
 
 ## Latest
 
@@ -274,18 +274,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (3)
-- [`deadmail-issue-comment-4973677780`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4973677780.md) — Dead-lettered message — pick up its intent
+### doin (2)
 - [`endojs-endo-but-for-bots-pr730-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr730-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #730
 - [`test-hermit-local-inference-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/test-hermit-local-inference-garden2.md) — ---
 
-### tada (2218)
+### tada (2219)
+- [`deadmail-issue-comment-4973677780`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4973677780.md) — Posted the requested work summary on garden issue #44; issue remains open. No...
 - [`build-turnkey-amazon-garden-host`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-turnkey-amazon-garden-host.md) — Completion report
 - [`ai-sdk-garden-evaluation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ai-sdk-garden-evaluation.md) — orchestration ai-sdk-garden-evaluation — complete
 - [`design-ai-sdk-garden-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-ai-sdk-garden-integration.md) — Added and pushed designs/ai-sdk-garden-integration.md (a521665dad).
 - [`endojs-endo-but-for-bots-pr723-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr723-shepherd.md) — Shepherd Report: PR #723 — endojs/endo-but-for-bots → llm
-- [`test-hermit-local-inference-qwen-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/test-hermit-local-inference-qwen-garden2.md) — **LIVENESS TEST REPORT — test-hermit-local-inference-qwen-garden2**
-- … and 2213 more
+- … and 2214 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
