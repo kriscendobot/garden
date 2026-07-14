@@ -40,3 +40,10 @@ I’ve widened the authorization. Please continue.
 ----- END ORIGINAL MESSAGE -----
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  claimed_at: 2026-07-14T22:53:19Z
