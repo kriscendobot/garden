@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T16:52:35Z_
+_As of 2026-07-14T17:02:57Z_
 
 ## Latest
 
@@ -2038,27 +2038,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.7M | $962.08 _(notional, rate-card)_ | no quota set |
-| Codex | 4.5M _(+56.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
+| Claude | 92.6M | $961.88 _(notional, rate-card)_ | no quota set |
+| Codex | 5.0M _(+63.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`design-ai-sdk-garden-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-ai-sdk-garden-integration.md) — <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-...
 - [`endojs-endo-but-for-bots-pr723-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr723-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #723
 - [`endojs-endo-but-for-bots-pr730-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr730-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #730
 - [`test-hermit-local-inference-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/test-hermit-local-inference-garden2.md) — ---
-- [`test-hermit-local-inference-qwen-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/test-hermit-local-inference-qwen-garden2.md) — ---
 
-### tada (2213)
+### tada (2214)
+- [`test-hermit-local-inference-qwen-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/test-hermit-local-inference-qwen-garden2.md) — **LIVENESS TEST REPORT — test-hermit-local-inference-qwen-garden2**
 - [`model-routing-journal-state-hermit-qwen`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/model-routing-journal-state-hermit-qwen.md) — Completion report
 - [`design-endor-registry-transport`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endor-registry-transport.md) — Completion report
 - [`adopt-gist-fixup-autosquash-plan`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/adopt-gist-fixup-autosquash-plan.md) — Completion report
 - [`issue-kriskowal-garden-43`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-43.md) — Researched code mode and posted findings plus a recommended Endo Agentry matu...
-- [`issue-kriskowal-garden-44`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-44.md) — Implemented and pushed 59c3ac0651 to main2: proposed a credential-safe turnke...
-- … and 2208 more
+- … and 2209 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
