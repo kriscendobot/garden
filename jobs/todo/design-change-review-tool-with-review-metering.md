@@ -1,10 +1,7 @@
 ---
-gate: deferred
-priority: normal
 role: designer
-posted_by: producer
-posted_at: 2026-07-13T21:43:01Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-07-14T21:44:03Z -->
 
 ---
 role: designer
