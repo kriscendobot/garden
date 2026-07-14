@@ -1,0 +1,2 @@
+base: improve-gardener-scaler-absent-kind-warn-spam
+identity: mentor:scripts/jobs/gardener-scaler.sh

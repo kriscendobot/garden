@@ -1,0 +1,8 @@
+scripts/jobs/gardener-scaler.sh
+The reconcile loop (lines ~57–70) treats a **structurally-absent count line** for a worker kind identically to a **present-but-unparsable value**: both land in the `[ -z "$want" ]` branch and emit `log "WARN … desired $count_key undeterminable …"` on every timer tick. When a host runs one kind but not another (e.g. `hosts/<host>` has `gardeners: N` but no `clerics:` line — a legitimate steady state, or a transient partial write while another host is updating the file), the scaler spams this WARN once every ~60s indefinitely (observed 02:56–03:05 on `endolin-garden-ece02cb4` until `clerics: 10` was written at 03:05:37). This buries genuine signal in journalctl and trains operators to ignore scaler WARNs.
+
+Distinguish the three cases when reading the count for a kind:
+- **File missing entirely** OR **line present but value unparsable** (non-integer): this is a genuine misconfiguration → keep `WARN` (leave the pool unchanged, as today).
+- **File present but the `<count_key>:` line is simply absent**: this host has not declared this kind — a normal condition, not an error. Emit at a quiet level (debug, or a one-shot/rate-limited note) and leave the pool unchanged, rather than WARN every tick.
+
+Concretely: inside the `if [ -f "$f" ]` block, detect whether the `count_key:` key exists at all (`grep -q "^$count_key:" "$f"`) separately from whether its value parses as `^[0-9]+$`. Key-absent → quiet no-op; key-present-but-unparsable, or file-absent → WARN no-op. Preserve the existing invariant that only an explicit `<count_key>: 0` scales a kind to zero (never treat missing as scale-to-0). This removes the recurring per-tick WARN while keeping the real corruption/misconfig signal intact.
