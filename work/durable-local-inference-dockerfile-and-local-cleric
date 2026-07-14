@@ -1,5 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 8
-worker_kind: gardener
-claimed_at: 2026-07-14T03:32:02Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-durable-local-inference-dockerfile-and-local-cleric
