@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T22:52:09Z_
+_As of 2026-07-14T22:52:50Z_
 
 ## Latest
 
@@ -335,25 +335,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 89.4M | $937.65 _(notional, rate-card)_ | no quota set |
-| Codex | 35.9M _(+85.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Codex | 35.9M _(+86.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`deadmail-issue-comment-4974631388`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4974631388.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr521-e62f93ef`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr521-e62f93ef.md) — attention directive on endojs/endo-but-for-bots PR #521
 - [`foreman-provider-fallback-codex-ollama`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/foreman-provider-fallback-codex-ollama.md) — ---
-- [`xs-upstream-watch-20260714-225002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs-upstream-watch-20260714-225002.md) — WEEKLY XS-upstream watch → project engine-relevant changes to our Rust port (...
 
-### tada (2232)
+### tada (2233)
+- [`xs-upstream-watch-20260714-225002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs-upstream-watch-20260714-225002.md) — Everything is fully resolved and current. This is a clean no-op week. No gard...
 - [`deadmail-issue-comment-4974696381`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4974696381.md) — Posted third-party setup and per-instance PAT grant/revocation instructions o...
 - [`endojs-endo-but-for-bots-pr722-review-01c311bd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr722-review-01c311bd.md) — The preflight check returned EXIT=2 — a peer has already resolved this review...
 - [`deadmail-issue-comment-4974604771`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4974604771.md) — Replied on garden issue #43 with a detailed transformContext/prepareNextTurn ...
 - [`endojs-endo-but-for-bots-pr662-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr662-shepherd.md) — CI is blocked by a merge conflict: PR #662 head b5744ab has mergeable_state: ...
-- [`endojs-endo-but-for-bots-pr521-review-27079b07`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr521-review-27079b07.md) — Completion report
-- … and 2227 more
+- … and 2228 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
