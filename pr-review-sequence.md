@@ -1,8 +1,31 @@
 # PR-review sequence — `endojs/endo-but-for-bots` (unblock worklist)
 
-_Snapshot: 2026-07-13. Read-only planning report (no PR comments were posted). All
+_Snapshot: 2026-07-14. Maintainer-inbox consolidation. All
 refs are fully-qualified `owner/repo#N`. Target branch is `llm` (the roadmap
 branch) unless noted; a few land on `master` (the upstream-mirror lane)._
+
+## Maintainer-inbox decisions
+
+These are the live PR-backed decisions distilled from the maintainer inbox on
+2026-07-14. They take precedence over the older sequencing snapshot below.
+
+| Priority | PR | Maintainer action |
+| --- | --- | --- |
+| 1 | [`endojs/endo-but-for-bots#695`](https://github.com/endojs/endo-but-for-bots/pull/695) | Accept or redirect the SturdyRef agent provide/accept design so builder cuts A–F can proceed. Confirm whether guest tokens remain non-formula-backed, as recommended. Open, draft, mergeable/clean. The related `M.sturdyRef()` rank-order work is already tracked by [`endojs/endo-but-for-bots#696`](https://github.com/endojs/endo-but-for-bots/issues/696). |
+| 2 | [`endojs/endo-but-for-bots#722`](https://github.com/endojs/endo-but-for-bots/pull/722) | Review the confined outbound-HTTP plugin design: choose the package surface (`@endo/fetch` is proposed) and whether the TOFU policy authority is re-resolved per referral. Open draft; GitHub had not yet computed mergeability at this snapshot. |
+| 3 | [`endojs/endo-but-for-bots#671`](https://github.com/endojs/endo-but-for-bots/pull/671) | Resolve the outstanding requested changes on the Phase-1 `EndoRegistry` implementation. It is otherwise mergeable and gates the snapshot-mapper/import-from-mount chain. Choose it over the older [`endojs/endo-but-for-bots#403`](https://github.com/endojs/endo-but-for-bots/pull/403), or explicitly redirect the chain. |
+| 4 | [`endojs/endo-but-for-bots#661`](https://github.com/endojs/endo-but-for-bots/pull/661) | Resolve the current requested changes on confined outbound HTTP. It is otherwise mergeable/clean. |
+| 5 | [`endojs/endo-but-for-bots#658`](https://github.com/endojs/endo-but-for-bots/pull/658) | Revisit the current requested-changes review. The gardener reports that it traced the directive and posted a response; the PR remains mergeable/clean. |
+| 6 | [`endojs/endo-but-for-bots#259`](https://github.com/endojs/endo-but-for-bots/pull/259) and [`endojs/endo-but-for-bots#719`](https://github.com/endojs/endo-but-for-bots/pull/719) | Review/merge the two clean, mergeable M2 vetted-shim PRs. For the URL shim, choose `#719` over the older alternative [`endojs/endo-but-for-bots#263`](https://github.com/endojs/endo-but-for-bots/pull/263), or redirect explicitly. |
+| 7 | [`endojs/endo-but-for-bots#697`](https://github.com/endojs/endo-but-for-bots/pull/697) | Confirm or override the provisional OCapN defaults: a distinct persisted Ed25519 identity and no production netlayer armed by default. The broader daemon-agent identity binding is represented by [`endojs/endo-but-for-bots#340`](https://github.com/endojs/endo-but-for-bots/pull/340), so no duplicate issue was opened. |
+| 8 | [`kriscendobot/agoric-sdk#17`](https://github.com/kriscendobot/agoric-sdk/pull/17) | Choose how the fork handles the two resource-heavy multichain legs: provide larger runners, make them non-required on the fork, or commission infrastructure tuning. The remaining PR checks are otherwise substantially green; current merge state is unstable. |
+
+The poisoned gauntlets for [`endojs/endo-but-for-bots#124`](https://github.com/endojs/endo-but-for-bots/pull/124),
+[`endojs/endo-but-for-bots#704`](https://github.com/endojs/endo-but-for-bots/pull/704),
+and [`endojs/endo-but-for-bots#707`](https://github.com/endojs/endo-but-for-bots/pull/707)
+are engineering/retry decisions, not ordinary review acknowledgments. Keep their
+held jobs parked until their current branch and CI state is triaged; in particular,
+`#707` is currently conflicting.
 
 ## The bottleneck, in one paragraph
 
