@@ -159,7 +159,17 @@ AMI_ID="$(aws ec2 create-image \
 log "AMI: $AMI_ID — waiting until available"
 manifest ami_id "$AMI_ID"
 manifest ami_name "$AMI_NAME"
-aws ec2 wait image-available --image-ids "$AMI_ID"
+# A large image's backing snapshot can take well over the CLI waiter's 10-minute
+# cap (40×15s), so poll manually with a generous ceiling (~40 min) instead.
+img_state="pending"
+for _ in $(seq 1 160); do
+  img_state="$(aws ec2 describe-images --image-ids "$AMI_ID" \
+    --query 'Images[0].State' --output text 2>/dev/null || echo pending)"
+  [[ "$img_state" == "available" ]] && break
+  [[ "$img_state" == "failed" || "$img_state" == "error" ]] && die "AMI $AMI_ID entered state $img_state"
+  sleep 15
+done
+[[ "$img_state" == "available" ]] || die "AMI $AMI_ID not available after ~40m (state=$img_state)"
 log "AMI available: $AMI_ID"
 
 # Keep the AMI PRIVATE — never modify launch permissions here (no public share).
