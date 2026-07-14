@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T22:34:26Z_
+_As of 2026-07-14T22:35:47Z_
 
 ## Latest
 
@@ -307,14 +307,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 90.3M | $944.30 _(notional, rate-card)_ | no quota set |
+| Claude | 90.3M | $944.12 _(notional, rate-card)_ | no quota set |
 | Codex | 35.4M _(+79.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`deadmail-issue-comment-4974604771`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4974604771.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr521-e62f93ef`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr521-e62f93ef.md) — attention directive on endojs/endo-but-for-bots PR #521
 - [`endojs-endo-but-for-bots-pr662-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr662-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #662
 
