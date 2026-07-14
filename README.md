@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T22:35:47Z_
+_As of 2026-07-14T22:36:35Z_
 
 ## Latest
 
@@ -307,25 +307,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 90.3M | $944.12 _(notional, rate-card)_ | no quota set |
-| Codex | 35.4M _(+79.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 90.3M | $943.94 _(notional, rate-card)_ | no quota set |
+| Codex | 35.5M _(+79.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`deadmail-issue-comment-4974604771`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4974604771.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr521-e62f93ef`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr521-e62f93ef.md) — attention directive on endojs/endo-but-for-bots PR #521
-- [`endojs-endo-but-for-bots-pr662-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr662-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #662
 
-### tada (2228)
+### tada (2229)
+- [`endojs-endo-but-for-bots-pr662-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr662-shepherd.md) — CI is blocked by a merge conflict: PR #662 head b5744ab has mergeable_state: ...
 - [`endojs-endo-but-for-bots-pr521-review-27079b07`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr521-review-27079b07.md) — Completion report
 - [`design-change-review-tool-with-review-metering`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-change-review-tool-with-review-metering.md) — Added and pushed designs/change-review-tool-with-review-metering.md (78107859...
 - [`deadmail-issue-comment-4974142339`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4974142339.md) — Completion report
 - [`test-hermit-local-inference-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/test-hermit-local-inference-garden2.md) — Superseded liveness probe — no inference run
-- [`deadmail-issue-comment-4974080660`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4974080660.md) — Documented the instance-administrator contact procedure in kriscendobot/minio...
-- … and 2223 more
+- … and 2224 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
