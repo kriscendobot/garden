@@ -25,3 +25,10 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 Please research “code mode” and how it might apply to Endo Agentry. 
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-14T16:21:03Z
