@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T06:49:47Z_
+_As of 2026-07-14T07:05:28Z_
 
 ## Latest
 
@@ -1963,14 +1963,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.1M | $1135.53 _(notional, rate-card)_ | no quota set |
+| Claude | 95.1M | $1137.53 _(notional, rate-card)_ | no quota set |
 | Codex | 47.2k _(+407.3k cached)_ | n/a _(ChatGPT free plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (8)
+- [`daily-progress-summary-20260714-070504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260714-070504.md) — Daily midnight Pacific progress summary
 - [`design-ai-sdk-garden-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-ai-sdk-garden-integration.md) — <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-...
 - [`endojs-endo-but-for-bots-pr671-review-3fa7398f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr671-review-3fa7398f.md) — Review directive on endojs/endo-but-for-bots PR #671
 - [`endojs-endo-but-for-bots-pr706-review-7a1d9ca9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr706-review-7a1d9ca9.md) — Review directive on endojs/endo-but-for-bots PR #706
