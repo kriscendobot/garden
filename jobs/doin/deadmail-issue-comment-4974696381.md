@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/44#issuecomment-4974696381
 When ready, please post instructions here for third-parties to stand up a turn-key garden instance and begin contributing to the garden’s resource pool with their own inference, and instructions for the operator of the garden to grant these new instances a PAT so they can revoc
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  claimed_at: 2026-07-14T22:50:06Z
