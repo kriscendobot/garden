@@ -40,10 +40,17 @@ systemctl enable --now docker
 usermod -aG docker "$OWNER"
 
 echo "== provision: clone reviewed garden revision =="
+# A full clone of the branch already carries all of its history, so the pinned
+# commit is normally present locally (checkout accepts an abbreviated sha). Only if
+# it is somehow absent do we fetch it — and a remote fetch by sha needs the FULL
+# 40-char id (GitHub rejects an abbreviated ref), so build-ami resolves the full sha.
 if [[ ! -d "$CHECKOUT/.git" ]]; then
   sudo -u "$OWNER" git clone --branch "$BRANCH" "$REPO" "$CHECKOUT"
 fi
-sudo -u "$OWNER" git -C "$CHECKOUT" fetch --depth 1 origin "$COMMIT"
+sudo -u "$OWNER" git -C "$CHECKOUT" fetch origin "$BRANCH"
+if ! sudo -u "$OWNER" git -C "$CHECKOUT" cat-file -e "${COMMIT}^{commit}" 2>/dev/null; then
+  sudo -u "$OWNER" git -C "$CHECKOUT" fetch --depth 1 origin "$COMMIT"
+fi
 sudo -u "$OWNER" git -C "$CHECKOUT" checkout --detach "$COMMIT"
 echo "== provision: garden source pinned at =="
 sudo -u "$OWNER" git -C "$CHECKOUT" --no-pager log -1 --oneline
