@@ -12,3 +12,10 @@ In your completion report state exactly:
 That is the whole job -- its only purpose is to prove a garden2 hermit can complete a job end-to-end on local GPU inference. If the model is not pulled / the endpoint is unreachable, report the exact error so the operator can pull `gpt-oss:20b`.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  claimed_at: 2026-07-14T16:11:10Z
