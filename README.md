@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T02:56:38Z_
+_As of 2026-07-14T03:04:09Z_
 
 ## Latest
 
@@ -1963,15 +1963,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 94.4M | $1121.80 _(notional, rate-card)_ | no quota set |
+| Claude | 95.2M | $1128.32 _(notional, rate-card)_ | no quota set |
 | Codex | 47.2k _(+407.3k cached)_ | n/a _(ChatGPT free plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`cleric-live-test-20260714T030323Z`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/cleric-live-test-20260714T030323Z.md) — Cleric live dispatch test
 
 ### tada (2190)
 - [`codex-dispatch-retest-20260714T024648Z`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/codex-dispatch-retest-20260714T024648Z.md) — Codex dispatch retest — completed. Harmless verification only; no files modif...
