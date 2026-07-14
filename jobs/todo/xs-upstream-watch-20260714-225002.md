@@ -1,7 +1,3 @@
-cadence: weekly
-last_dispatched: 2026-07-14T22:50:02Z
-job_basename_prefix: xs-upstream-watch
----
 WEEKLY XS-upstream watch → project engine-relevant changes to our Rust port (project
 xs2rust-endor). Each dispatch is one engagement:
 
