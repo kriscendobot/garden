@@ -435,3 +435,12 @@ Inspect via `git -C journal cat-file -p b13a12733921c9c380456e6f7db6b30852409df9
 - Context: gardener-18 on endolin-garden2-5bcdff64: job 'model-routing-journal-state-hermit-qwen' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 59960935acc6199001bf515944a2e3b958da4fef`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-14T12:35:02Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 89b0cd8c50f73436609a16e8dd0d481fbb0cdb20
+- Context: gardener-10 on endolin-garden2-5bcdff64: job 'design-endor-registry-transport' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 89b0cd8c50f73436609a16e8dd0d481fbb0cdb20`.
