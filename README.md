@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T08:25:03Z_
+_As of 2026-07-14T08:26:13Z_
 
 ## Latest
 
@@ -1963,18 +1963,21 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.4M | $1040.32 _(notional, rate-card)_ | no quota set |
-| Codex | 474.2k _(+7.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 96.4M | $1037.91 _(notional, rate-card)_ | no quota set |
+| Codex | 490.1k _(+8.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (10)
 - [`design-ai-sdk-garden-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-ai-sdk-garden-integration.md) — <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-...
+- [`endojs-endo-but-for-bots-pr667-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr667-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #667
 - [`endojs-endo-but-for-bots-pr671-fix-registry-power-injection`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr671-fix-registry-power-injection.md) — Fix directive: address kriskowal's review 4690597350 on endojs/endo-but-for-b...
+- [`endojs-endo-but-for-bots-pr682-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr682-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #682
 - [`endojs-endo-but-for-bots-pr721-review-56349e18`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr721-review-56349e18.md) — Review directive on endojs/endo-but-for-bots PR #721
 - [`endojs-endo-but-for-bots-pr723-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr723-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #723
+- [`issue-kriskowal-garden-43`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-43.md) — Issue from kriskowal on kriskowal/garden #43
 - [`kriscendobot-agoric-sdk-pr16-dec1f704`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr16-dec1f704.md) — attention directive on kriscendobot/agoric-sdk PR #16
 - [`kriscendobot-agoric-sdk-pr16-review-d584f885`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr16-review-d584f885.md) — Review directive on kriscendobot/agoric-sdk PR #16
 - [`test-hermit-local-inference-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/test-hermit-local-inference-garden2.md) — ---
