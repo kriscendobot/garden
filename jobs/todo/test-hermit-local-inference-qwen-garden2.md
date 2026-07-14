@@ -14,10 +14,4 @@ The completion report must state:
 
 Complete the board job only after a real model response. If the endpoint or model fails, report the exact error and leave the job for recovery; do not claim success from routing alone.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: gardener
-  claimed_at: 2026-07-14T16:43:50Z
+<!-- garden-reaped: 1 -->
