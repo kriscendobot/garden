@@ -23,3 +23,10 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 Amazon has a marketplace of images where you can push a button and get, for example, turnkey linux. I want to push a button and get a garden host. I would supply a claude subscription sparsecap, and perhaps a kriscendobot PAT? 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  claimed_at: 2026-07-14T15:55:54Z
