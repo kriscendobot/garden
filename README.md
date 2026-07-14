@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T21:10:13Z_
+_As of 2026-07-14T21:18:48Z_
 
 ## Latest
 
@@ -96,6 +96,19 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260713T144418Z-fe48a8` — from watchdog:foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T144418Z-fe48a8.md)
 
 > garden-foreman's pump handler (/home/kris/garden/scripts/jobs/handlers/foreman-claude.sh) failed rc=143 on endolin-garden-ece02cb4; the board pump is starving. stderr tail: <6>14:44:18 [foreman-claude] usage-meter: claude exited rc=143; usage not recorded
+
+- `20260714T211818Z-a9c76a` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260714T211818Z-a9c76a.md)
+
+> A garden-follow-up action block was REJECTED and dropped (not retried):
+>   inner claude -p failure (rc=1)
+>
+> Producer output:
+> rc=1
+> stderr:
+> <empty>
+>
+> stdout:
+> You've hit your weekly limit · resets Jul 18, 3am (UTC)
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
