@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T21:48:33Z_
+_As of 2026-07-14T21:49:01Z_
 
 ## Latest
 
@@ -314,17 +314,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr521-e62f93ef`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr521-e62f93ef.md) — attention directive on endojs/endo-but-for-bots PR #521
-- [`endojs-endo-but-for-bots-pr521-review-27079b07`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr521-review-27079b07.md) — Review directive on endojs/endo-but-for-bots PR #521
 
-### tada (2227)
+### tada (2228)
+- [`endojs-endo-but-for-bots-pr521-review-27079b07`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr521-review-27079b07.md) — Completion report
 - [`design-change-review-tool-with-review-metering`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-change-review-tool-with-review-metering.md) — Added and pushed designs/change-review-tool-with-review-metering.md (78107859...
 - [`deadmail-issue-comment-4974142339`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4974142339.md) — Completion report
 - [`test-hermit-local-inference-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/test-hermit-local-inference-garden2.md) — Superseded liveness probe — no inference run
 - [`deadmail-issue-comment-4974080660`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4974080660.md) — Documented the instance-administrator contact procedure in kriscendobot/minio...
-- [`endojs-endo-but-for-bots-pr730-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr730-shepherd.md) — What I did
-- … and 2222 more
+- … and 2223 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
