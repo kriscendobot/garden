@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T23:18:24Z_
+_As of 2026-07-14T23:19:32Z_
 
 ## Latest
 
@@ -335,23 +335,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 89.0M | $931.33 _(notional, rate-card)_ | no quota set |
-| Codex | 36.0M _(+89.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Codex | 36.0M _(+89.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr521-e62f93ef`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr521-e62f93ef.md) — attention directive on endojs/endo-but-for-bots PR #521
-- [`kriscendobot-agoric-sdk-pr9-15511bd2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr9-15511bd2.md) — attention directive on kriscendobot/agoric-sdk PR #9
 
-### tada (2235)
+### tada (2236)
+- [`kriscendobot-agoric-sdk-pr9-15511bd2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr9-15511bd2.md) — Closed kriscendobot/agoric-sdk PR #9 at mhofman's request after the mandated ...
 - [`deadmail-issue-comment-4974631388`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4974631388.md) — Confirmed the authorized, clean baseline branch is active and its stock-runne...
 - [`foreman-provider-fallback-codex-ollama`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/foreman-provider-fallback-codex-ollama.md) — Implemented and pushed dfb21011cc to main2.
 - [`xs-upstream-watch-20260714-225002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs-upstream-watch-20260714-225002.md) — Everything is fully resolved and current. This is a clean no-op week. No gard...
 - [`deadmail-issue-comment-4974696381`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4974696381.md) — Posted third-party setup and per-instance PAT grant/revocation instructions o...
-- [`endojs-endo-but-for-bots-pr722-review-01c311bd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr722-review-01c311bd.md) — The preflight check returned EXIT=2 — a peer has already resolved this review...
-- … and 2230 more
+- … and 2231 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
