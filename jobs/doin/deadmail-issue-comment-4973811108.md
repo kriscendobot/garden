@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/43#issuecomment-4973811108
 Is it possible to peel away the JSON schema tool call surface and just provide execute? Can we retry on Endo patterns and interface guards to use context more efficiently instead of JSON schema, or is that baked in? What would it take to peel away the abstraction? Would we have t
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 5
+  worker_kind: gardener
+  claimed_at: 2026-07-14T20:45:07Z
