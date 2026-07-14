@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T03:21:30Z_
+_As of 2026-07-14T03:22:21Z_
 
 ## Latest
 
@@ -1963,15 +1963,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.2M | $1130.28 _(notional, rate-card)_ | no quota set |
+| Claude | 95.3M | $1130.39 _(notional, rate-card)_ | no quota set |
 | Codex | 47.2k _(+407.3k cached)_ | n/a _(ChatGPT free plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr706-review-7a1d9ca9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr706-review-7a1d9ca9.md) — Review directive on endojs/endo-but-for-bots PR #706
+- [`improve-gardener-scaler-absent-kind-warn-spam`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-scaler-absent-kind-warn-spam.md) — scripts/jobs/gardener-scaler.sh
 
 ### tada (2191)
 - [`cleric-live-test-20260714T030323Z`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/cleric-live-test-20260714T030323Z.md) — /home/kris/garden2/scratch/gardener-wt-cleric-live-test-20260714T030323Z
