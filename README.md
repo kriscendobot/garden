@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T16:34:02Z_
+_As of 2026-07-14T16:40:58Z_
 
 ## Latest
 
@@ -1830,6 +1830,44 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 930214daf07c2097e4a47f347f892cf7de4a5c91 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 930214daf07c2097e4a47f347f892cf7de4a5c91). Diagnosis: You've hit your weekly limit · resets Jul 18, 3am (UTC)
 
+- `20260714T164031Z-7959e0` — from gardener:model-routing-journal-state-hermit-qwen, reply_to `model-routing-journal-state-hermit-qwen` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260714T164031Z-7959e0.md)
+
+> Model-routing is now data-driven from journal state; landed on main2 at commit 374deede654d033a528b5e5460f40a0a49a3cb5b. Proof + exact acceptance steps below.
+>
+> WHAT LANDED (main2, code + tracked seed):
+> - Routing table = source of truth. Tracked seed/fail-safe: scripts/jobs/model-routing-defaults.tsv. Per-instance override: config/model-routing on journal2 via new scripts/jobs/set-model-routing.sh (CAS, no deploy for DATA). Seeded reality: local→qwen* default qwen3.6; openai→gpt-*/o[0-9]*/codex-* minus gpt-oss* default gpt-5.6-terra; anthropic→claude-*.
+> - gpt-oss:* is RETIRED from local: it now matches NO provider → UNPINNED (any kind), no longer auto-local. qwen3.6/qwen* → hermit(local)-only.
+> - Reading code: common.sh _model_classify / model_routing_default (fail-safe built-in on unreadable table + warn); resolve_model_tier, role_default_model hermit, reputation rep_resolve_arm fleet default, and handlers/cleric-codex.sh all read the table.
+>
+> TESTS RUN (green):
+> - scripts/jobs/test/model-routing-test.sh — 24/24 (classify qwen→local-only, claude→anthropic, gpt-*→openai, gpt-oss unpinned; defaults; journal-override precedence; built-in fail-safe; set-model-routing upsert/remove/validate CAS).
+> - scripts/jobs/test/worker-spine-kinds-test.sh — routing/eligibility sections green (qwen3.6/qwen3:0.6b→hermit-only; cleric+gardener rejected qwen; gpt-oss now claimable by any). (2 pre-existing FAILs in that file — "worker_kind not stamped in claim history" for cleric/hermit — reproduce on origin/main2 WITHOUT my change; NOT mine.)
+> - auction-reputation-test.sh 33/33.
+>
+> JOURNAL ROUTING STATE WRITTEN: none written to the live journal, deliberately. The tracked main2 seed already encodes local→qwen3.6, so after deploy `model: qwen3.6` routes hermit-only with NO journal write. Writing config/model-routing PRE-deploy is (a) inert — the currently-deployed code has the old hardcoded routing and does not read it — and (b) risky: set-model-routing.sh seeds a fresh journal file from the tracked defaults tsv, which is not on the deployed garden root until you deploy, so a pre-deploy write would produce a PARTIAL table (missing anthropic/openai rows). The override mechanism is tested and ready for future changes.
+>
+> ACCEPTANCE STEPS (run in order):
+> 1. DEPLOY main2 to the garden root (deliberate drained deploy) so the new reading code + tracked seed are live. Do NOT accept the old gpt-oss:20b 404 as success.
+> 2. (optional, makes state explicit) scripts/jobs/set-model-routing.sh --show   → confirm the effective table shows `local  qwen*  qwen3.6`.
+> 3. Supersede the obsolete liveness job jobs/doin/test-hermit-local-inference-garden2.md (model: gpt-oss:20b — it will now be UNPINNED and would 404 on gpt-oss). Complete/remove it, then post the qwen replacement named below.
+> 4. EXACT QWEN REPLACEMENT — post this (body pins model: qwen3.6):
+>    cat > /tmp/hermit-qwen.md <<'BODY'
+>    ---
+>    model: qwen3.6
+>    ---
+>    LIVENESS TEST for a garden2 local-inference hermit (provider:local, on-box Ollama /v1, qwen3.6). Self-contained -- do NO repo work, NO commits, touch NO PR.
+>    In your completion report state exactly:
+>    1. the model id and provider you ran on (expect provider=local, model=qwen3.6 via the local Ollama endpoint),
+>    2. the host you ran on,
+>    3. the answer to: what is 7 x 6?
+>    4. the literal line: HERMIT LOCAL INFERENCE OK
+>    If the model is not pulled / the endpoint is unreachable, report the exact error so the operator can `ollama pull qwen3.6` (confirm the served tag).
+>    BODY
+>    scripts/jobs/post-job.sh test-hermit-local-inference-qwen-garden2 /tmp/hermit-qwen.md
+> 5. REQUIRE a completed hermit tada report showing provider=local, model=qwen3.6, the host, and 7 x 6 = 42, plus HERMIT LOCAL INFERENCE OK. That is the acceptance proof (routing this fix delivers; the hermit actually SERVING qwen3.6 is the separate garden2 op).
+>
+> NOTE on the served tag: I seeded qwen3.6 per the directive. Confirm the exact Ollama tag garden2 serves (`ollama list`) — if it is e.g. qwen3:0.6b, the pattern qwen* already routes it hermit-only; set the default with `scripts/jobs/set-model-routing.sh local 'qwen*' <exact-tag>` (journal edit, no deploy).
+
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -2000,16 +2038,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 93.1M | $965.44 _(notional, rate-card)_ | no quota set |
-| Codex | 1.6M _(+44.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Claude | 93.1M | $965.05 _(notional, rate-card)_ | no quota set |
+| Codex | 1.6M _(+48.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`design-ai-sdk-garden-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-ai-sdk-garden-integration.md) — <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-...
 - [`endojs-endo-but-for-bots-pr723-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr723-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #723
+- [`endojs-endo-but-for-bots-pr730-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr730-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #730
 - [`model-routing-journal-state-hermit-qwen`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/model-routing-journal-state-hermit-qwen.md) — Why
 - [`test-hermit-local-inference-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/test-hermit-local-inference-garden2.md) — ---
 
