@@ -100,3 +100,10 @@ Concretely:
   review-feedback-followup-commits. Reply on the review body / a PR comment for the
   power-weaving directive outcome.
 - Report what changed, test evidence (command + observed result), and any follow-ups.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-14T08:19:49Z
