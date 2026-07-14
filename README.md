@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T21:02:17Z_
+_As of 2026-07-14T21:06:54Z_
 
 ## Latest
 
@@ -267,15 +267,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 91.1M | $950.34 _(notional, rate-card)_ | no quota set |
-| Codex | 32.8M _(+75.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 91.1M | $949.96 _(notional, rate-card)_ | no quota set |
+| Codex | 34.0M _(+75.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr730-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr730-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #730
+- [`endojs-endo-but-for-bots-pr731-e27fc13c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr731-e27fc13c.md) — attention directive on endojs/endo-but-for-bots PR #731
 - [`test-hermit-local-inference-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/test-hermit-local-inference-garden2.md) — ---
 
 ### tada (2221)
