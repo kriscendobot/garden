@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/29#issuecomment-4974631388
 I’ve widened the authorization. Please continue. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 10
+  worker_kind: cleric
+  claimed_at: 2026-07-14T22:40:08Z
