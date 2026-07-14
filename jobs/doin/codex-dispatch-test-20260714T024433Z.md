@@ -10,3 +10,9 @@ open a pull request, or send messages. Inspect the current working directory and
 return a concise completion report stating that the request was executed by the
 Codex worker and naming the working directory. End the final response with the
 exact completion marker required by the worker instructions.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 11
+  claimed_at: 2026-07-14T02:44:41Z
