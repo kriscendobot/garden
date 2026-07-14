@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T02:45:47Z_
+_As of 2026-07-14T02:47:08Z_
 
 ## Latest
 
@@ -1962,8 +1962,8 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`codex-dispatch-retest-20260714T024648Z`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/codex-dispatch-retest-20260714T024648Z.md) — Codex dispatch retest
 
 ### tada (2189)
 - [`codex-dispatch-test-20260714T024433Z`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/codex-dispatch-test-20260714T024433Z.md) — I did not modify any files, create commits, open PRs, or send messages, per t...
