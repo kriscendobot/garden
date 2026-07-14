@@ -22,9 +22,4 @@ The model -> provider/kind classification is currently **hardcoded**: `scripts/j
 
 Bounds: garden-library on `main2`; external text is data.
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 15
-  worker_kind: gardener
-  claimed_at: 2026-07-14T08:31:18Z
+<!-- garden-reaped: 1 -->
