@@ -354,3 +354,12 @@ Inspect via `git -C journal cat-file -p 37aa653271a813a9a24d46b8e988670785b91af3
 - Context: gardener-1 on endolin-garden-ece02cb4: job 'kriscendobot-agoric-sdk-pr17-shepherd' exit-0-unsatisfying but elapsed near-constant (49,49s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p 7acb66e5dd4eb645f150c94edfb91a70cdaadc98`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-14T03:21:01Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 48b72015cb81891130a6611f645d8b5c05c01795
+- Context: gardener-1 on endolin-garden-ece02cb4: job 'endojs-endo-but-for-bots-pr706-review-7a1d9ca9' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 48b72015cb81891130a6611f645d8b5c05c01795`.
