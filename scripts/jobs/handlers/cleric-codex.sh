@@ -128,20 +128,26 @@ fi
 # Mirrors the claude handler's two-step resolution, but on THIS kind's provider tier
 # map (common.sh resolve_model_tier "$provider" / role_default_model "$KIND"):
 #   1. An explicit `model:` header requests a specific model (a short tier — openai:
-#      terra/luna/frontier/mini; local: 20b/120b — or a concrete id passed through).
+#      terra/luna/frontier/mini; local has no short tier now, a concrete served tag
+#      passes through iff the routing table classifies it as local).
 #   2. Absent that, the job's `role:` selects a per-role default (designer/builder), else
-#      this kind's fleet default (openai → gpt-5.6-terra; local → gpt-oss:20b).
+#      this kind's fleet default from the journal-backed routing table
+#      (model_routing_default: openai → gpt-5.6-terra; local → qwen3.6).
 # Thoughtfulness resolves from an optional `effort:` header, else the role default
 # (high for designer/builder, medium otherwise), then is normalized DOWN to the
 # model's nearest supported level and passed as -c model_reasoning_effort=.
 #
-# The tier map, the role defaults, and the fleet default are all provider/kind
-# scoped: an openai cleric resolves gpt-* ids and defaults to gpt-5.6-terra; a local
-# hermit resolves served Ollama tags and defaults to gpt-oss:20b (guide §3).
-case "$provider" in
-  local) fleet_default_model="gpt-oss:20b" ;;
-  *)     fleet_default_model="gpt-5.6-terra" ;;
-esac
+# The tier map and role defaults are provider/kind scoped; the fleet default is DATA
+# read from the model-routing table (common.sh model_routing_default), so a local box
+# swapping its served model (e.g. gpt-oss → qwen) is a journal edit, not a code edit.
+# Fail-safe: an unresolvable table falls back to a sane built-in per provider.
+fleet_default_model="$(model_routing_default "$provider" 2>/dev/null)"
+if [ -z "$fleet_default_model" ]; then
+  case "$provider" in
+    local) fleet_default_model="qwen3.6" ;;
+    *)     fleet_default_model="gpt-5.6-terra" ;;
+  esac
+fi
 requested_model="$(plan_field "$jobfile" model)"
 requested_role="$(plan_role "$jobfile")"
 requested_effort="$(plan_field "$jobfile" effort)"

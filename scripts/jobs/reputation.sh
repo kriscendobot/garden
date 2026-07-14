@@ -168,12 +168,14 @@ rep_resolve_arm() {
     model="$(resolve_model_tier "$provider" "$req_model")"
   fi
   [ -n "$model" ] || model="$(role_default_model "$kind" "$role")"
-  # Fleet default when still unresolved: codex has a concrete default; the claude
+  # Fleet default when still unresolved: openai and local read their concrete
+  # default from the journal-backed routing table (model_routing_default), so a
+  # fleet-default change is a journal data edit, not a code edit. The claude
   # headerless default is not a knowable id here, so key it by a stable sentinel.
   if [ -z "$model" ]; then
     case "$provider" in
-      openai) model="gpt-5.6-terra" ;;
-      local)  model="gpt-oss:20b" ;;     # hermit fleet default (guide §3, interactive pick)
+      openai) model="$(model_routing_default openai 2>/dev/null)"; [ -n "$model" ] || model="gpt-5.6-terra" ;;
+      local)  model="$(model_routing_default local  2>/dev/null)"; [ -n "$model" ] || model="qwen3.6" ;;
       *)      model="claude-default" ;;
     esac
   fi

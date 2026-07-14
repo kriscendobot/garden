@@ -43,15 +43,21 @@ fleet_draining && { log "fleet draining; refusing to claim"; exit 3; }
 # Now that more than one backend claims from the same board, a worker must never
 # claim a job it cannot honor: a job pinned to a Claude model is gardener-only (
 # provider anthropic), one pinned to a paid codex model is cleric-only (openai), one
-# pinned to a local served tag (gpt-oss:*, an Ollama name) is hermit-only (local), and
-# an UNPINNED job (no `model:`, or an unknown/typo value) is claimable by any kind.
-# This is a small deterministic predicate — no LLM, no auction — and it is the seam
-# the bid auction (build child 2) later replaces: under the auction, backend fit is
-# PRICED into the bid instead of hard-filtered. Each map resolves a disjoint id
-# space: claude-* only in anthropic, gpt-oss:* only in local, gpt-*/o*/codex-* only in
-# openai — so a job pins at most one provider. Local is checked BEFORE openai because
-# a gpt-oss tag would otherwise be caught by openai's gpt-* passthrough (the openai
-# map now explicitly rejects gpt-oss*, so order is belt-and-suspenders).
+# pinned to a served LOCAL tag (the qwen family) is hermit-only (local), and an
+# UNPINNED job (no `model:`, or a value no provider's patterns match) is claimable by
+# any kind. This is a small deterministic predicate — no LLM, no auction — and it is
+# the seam the bid auction (build child 2) later replaces: under the auction, backend
+# fit is PRICED into the bid instead of hard-filtered.
+#
+# The provider classification is DATA-DRIVEN: resolve_model_tier reads the
+# journal-backed model-routing table (common.sh _model_classify, seeded by
+# scripts/jobs/model-routing-defaults.tsv, doc skills/model-selection/SKILL.md), so the
+# recognized-model set changes as a journal edit, not a code edit. Each provider
+# owns a disjoint id space (claude-* → anthropic, qwen* → local, gpt-*/o[0-9]*/codex-*
+# minus gpt-oss* → openai), so a job pins at most one provider. Local is checked
+# BEFORE openai for belt-and-suspenders ordering. NOTE: a gpt-oss:* tag now matches
+# NO provider → it is UNPINNED (claimable by any kind), no longer auto-local — the
+# box serves qwen, not gpt-oss.
 job_eligible_for_kind() {
   local jf="$1" pinned=""
   local m; m="$(plan_field "$jf" model)"

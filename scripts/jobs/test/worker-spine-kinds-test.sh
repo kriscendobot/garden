@@ -86,17 +86,18 @@ hr; echo "MODEL SELECTION — provider-scoped tiers + per-kind role defaults"; h
 [ "$(resolve_model_tier openai frontier)" = "gpt-5.5" ] && ok "resolve_model_tier openai frontier" || bad "openai frontier"
 [ "$(resolve_model_tier openai gpt-5.4-mini)" = "gpt-5.4-mini" ] && ok "openai concrete id passthrough" || bad "openai passthrough"
 [ -z "$(resolve_model_tier openai opus)" ] && ok "openai map rejects a claude tier (no cross-provider leak)" || bad "openai leaked a claude tier"
-# local provider tier map — served Ollama tags, disjoint from the openai id space.
-[ "$(resolve_model_tier local 20b)" = "gpt-oss:20b" ] && ok "resolve_model_tier local 20b" || bad "local 20b"
-[ "$(resolve_model_tier local 120b)" = "gpt-oss:120b" ] && ok "resolve_model_tier local 120b" || bad "local 120b"
-[ "$(resolve_model_tier local gpt-oss:20b)" = "gpt-oss:20b" ] && ok "local served-tag passthrough" || bad "local passthrough"
-[ "$(resolve_model_tier local llama3.2:3b)" = "llama3.2:3b" ] && ok "local arbitrary served tag (colon) passthrough" || bad "local colon-tag passthrough"
-[ -z "$(resolve_model_tier openai gpt-oss:20b)" ] && ok "openai map rejects a local gpt-oss tag (no gpt-* mis-capture)" || bad "openai captured a local tag"
+# local provider — data-driven classification from the model-routing table (the
+# tracked default: qwen family). A gpt-oss tag is NO LONGER local (box serves qwen).
+[ "$(resolve_model_tier local qwen3.6)" = "qwen3.6" ] && ok "resolve_model_tier local qwen3.6 (table-classified)" || bad "local qwen3.6"
+[ "$(resolve_model_tier local qwen3:0.6b)" = "qwen3:0.6b" ] && ok "local served qwen tag passthrough" || bad "local qwen tag passthrough"
+[ -z "$(resolve_model_tier local gpt-oss:20b)" ] && ok "local map rejects gpt-oss (retired: box serves qwen only)" || bad "local still captured gpt-oss"
+[ -z "$(resolve_model_tier local llama3.2:3b)" ] && ok "local map rejects a non-qwen served tag" || bad "local captured a non-qwen tag"
+[ -z "$(resolve_model_tier openai gpt-oss:20b)" ] && ok "openai map rejects a gpt-oss tag (!gpt-oss* exclude)" || bad "openai captured a gpt-oss tag"
 [ -z "$(resolve_model_tier local terra)" ] && ok "local map rejects a codex tier (no cross-provider leak)" || bad "local leaked a codex tier"
 [ "$(role_default_model builder)" = "claude-opus-4-8" ] && ok "gardener builder → opus (back-compat 1-arg)" || bad "gardener builder default"
 [ "$(role_default_model cleric builder)" = "gpt-5.6-terra" ] && ok "cleric builder → gpt-5.6-terra" || bad "cleric builder default"
 [ -z "$(role_default_model cleric fixer)" ] && ok "cleric fixer unpinned (rides fleet default)" || bad "cleric fixer default"
-[ "$(role_default_model hermit builder)" = "gpt-oss:120b" ] && ok "hermit builder → gpt-oss:120b" || bad "hermit builder default"
+[ "$(role_default_model hermit builder)" = "qwen3.6" ] && ok "hermit builder → qwen3.6 (local fleet default from table)" || bad "hermit builder default ($(role_default_model hermit builder))"
 [ -z "$(role_default_model hermit fixer)" ] && ok "hermit fixer unpinned (rides hermit fleet default)" || bad "hermit fixer default"
 [ "$(role_default_effort cleric builder)" = "high" ] && ok "cleric builder effort high" || bad "cleric builder effort"
 [ "$(role_default_effort cleric fixer)" = "medium" ] && ok "cleric fixer effort medium" || bad "cleric fixer effort"
@@ -165,16 +166,21 @@ elig_case cleric   pinnedcodex  "model: terra" claimed
 elig_case cleric   unpinnedjob  ""             claimed
 elig_case gardener pinnedcodex2 "model: terra" left
 elig_case gardener pinnedclaude2 "model: opus" claimed
-# hermit (provider: local) claims ONLY local-pinned or unpinned jobs; a local-pinned
-# job is off-limits to the paid cleric and the gardener. gpt-oss tags AND the short
-# local tiers both route to the local map.
-elig_case hermit   pinnedlocal  "model: gpt-oss:20b" claimed
-elig_case hermit   pinnedlocal2 "model: 120b"        claimed
-elig_case hermit   pinnedcodex3 "model: terra"       left
-elig_case hermit   pinnedclaude3 "model: opus"       left
-elig_case hermit   unpinnedjob2 ""                   claimed
-elig_case cleric   pinnedlocal3 "model: gpt-oss:20b" left
-elig_case gardener pinnedlocal4 "model: gpt-oss:120b" left
+# hermit (provider: local) claims ONLY local-pinned (qwen family, per the routing
+# table) or unpinned jobs; a qwen-pinned job is off-limits to the paid cleric and the
+# gardener. A gpt-oss:* tag is NO LONGER local — it matches no provider, so it is
+# UNPINNED and claimable by ANY kind (regression guard for "hermits only serve qwen").
+elig_case hermit   pinnedqwen   "model: qwen3.6"      claimed
+elig_case hermit   pinnedqwen2  "model: qwen3:0.6b"   claimed
+elig_case hermit   pinnedcodex3 "model: terra"        left
+elig_case hermit   pinnedclaude3 "model: opus"        left
+elig_case hermit   unpinnedjob2 ""                    claimed
+elig_case cleric   pinnedqwen3  "model: qwen3.6"      left
+elig_case gardener pinnedqwen4  "model: qwen3.6"      left
+# gpt-oss is retired from local: now unpinned, so EVERY kind may claim it.
+elig_case gardener gptoss_gard  "model: gpt-oss:120b" claimed
+elig_case cleric   gptoss_cler  "model: gpt-oss:20b"  claimed
+elig_case hermit   gptoss_herm  "model: gpt-oss:20b"  claimed
 
 # ============================================================================
 hr; echo "ONE TEMPLATE — garden-worker@.service.in renders BOTH kinds; scale arms each"; hr

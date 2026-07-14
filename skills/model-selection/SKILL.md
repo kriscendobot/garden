@@ -97,6 +97,50 @@ Per-kind role defaults live in `role_default_model <kind> <role>` and
 side pins `designer`/`builder` to `gpt-5.6-terra` (at `high`), every other role
 unpinned (fleet default `gpt-5.6-terra` at `medium`).
 
+### The `local` provider (the hermit backend) + the journal-backed routing table
+
+The third provider is `local` — the **hermit** worker kind, a codex-cleric pointed
+at the box's own Ollama endpoint (worker-kind registry in `common.sh`). Unlike the
+two paid providers, the local box's served-model set is **operational reality that
+changes as models come and go** (a box pulls a new tag; an old one is dropped), so
+the garden does **not** hardcode it. Instead, **which provider owns a `model:` id,
+and each provider's fleet-default model, are DATA** read from a journal-backed
+**model-routing table**:
+
+- **Seed + fail-safe fallback** — `scripts/jobs/model-routing-defaults.tsv` (tracked
+  on `main2`, always present in a fresh checkout). One TSV row per provider:
+  `<provider>\t<patterns>\t<fleet-default>`. `patterns` are space-separated shell
+  globs matched against a job's resolved `model:` value; a leading `!` marks an
+  EXCLUDE glob. A model matching no provider's patterns is **unpinned** (any kind may
+  claim it). This is the durable seed and the safe fallback if the journal file is
+  unreadable — a missing file never opens the claim path to mis-routing.
+- **Per-instance override** — `config/model-routing` on `journal2`, written by
+  `scripts/jobs/set-model-routing.sh` (CAS-pushed, **no deploy needed** — a gardener
+  re-syncs its clone on its next claim and picks it up). Takes precedence over the
+  tracked seed and is read as a **complete table** (the helper seeds a fresh journal
+  file from the tracked default, then applies the edit, so it is never partial).
+
+The reading is in `common.sh`: `_model_classify <provider> <id>` (the deterministic
+backend-fit predicate the claim path and `resolve_model_tier`'s concrete-id
+classification use) and `model_routing_default <provider>` (the fleet-default a
+worker rides when a job names no `model:`). `resolve_model_tier` still **binds**
+short tier aliases to concrete ids in code (a version bump stays one edit); only the
+concrete-id **classification** and the **defaults** are data.
+
+**Current reality (2026-07-14):** garden2's box serves **only qwen** (qwen3.6), so
+the seeded table routes `qwen*` → `local` and defaults `local` → `qwen3.6`. The
+former `gpt-oss:*` → local mapping is **retired**: a `gpt-oss:*` job now matches no
+provider (it is unpinned), *not* auto-local — "hermits only respond to qwen at this
+time." To change this (a new served tag, a renamed tier), edit the **journal table**
+via `set-model-routing.sh`, not the code:
+
+```sh
+scripts/jobs/set-model-routing.sh local 'qwen* mistral*' qwen3.6   # add mistral to the hermit set
+scripts/jobs/set-model-routing.sh --remove <provider>              # drop a provider row
+scripts/jobs/set-model-routing.sh --show                           # print the effective table
+scripts/jobs/set-model-routing.sh --validate [file]                # validate before/without committing
+```
+
 ## Procedure
 
 ### Agent-dispatch path (orchestrator / judge)
@@ -167,3 +211,14 @@ canonical for subsequent dispatches.
   remains valid in `resolve_model_tier` (still selectable via an explicit per-job
   `model: fable` pin), it is simply no longer a role DEFAULT. Per-job/per-schedule
   `model: fable` pins are unaffected (two standing schedules still carry one).
+- _2026-07-14_: **model routing made data-driven from journal state** (job
+  `model-routing-journal-state-hermit-qwen`, maintainer-directed). The
+  provider-classification (which backend may claim a `model:` id) and the per-provider
+  fleet defaults moved out of hardcoded `case` arms into a journal-backed
+  model-routing table (tracked seed `scripts/jobs/model-routing-defaults.tsv` +
+  per-instance `config/model-routing` override, edited via `set-model-routing.sh`).
+  Seeded to the current reality: the `local`/hermit provider recognizes the **qwen**
+  family and defaults to **qwen3.6**, retiring the stale `gpt-oss:*` → local mapping
+  (a gpt-oss job is now unpinned, not auto-local). Tests: `model-routing-test.sh`
+  (classification, defaults, override, fail-safe, the edit helper) and the updated
+  `worker-spine-kinds-test.sh` eligibility cases.

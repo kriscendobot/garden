@@ -2931,6 +2931,91 @@ plan_blocked_on() { plan_field "$1" blocked_on; }
 # name a model explicitly. Empty if absent.
 plan_role() { plan_field "$1" role; }
 
+# --- model routing table (data-driven, journal-backed) -----------------------
+# WHICH backend/provider may claim a `model:`-pinned job, and each provider's
+# fleet-default model, are DATA — not hardcoded case arms — so the set can change
+# as models come and go WITHOUT a code edit or deploy. The table is a TSV with one
+# row per provider: `<provider>\t<patterns>\t<default>` (see the header of
+# model-routing-defaults.tsv for the column contract). Two records, precedence
+# high→low, exactly mirroring the bot-identity pattern (§ bot identity):
+#   1. a PER-INSTANCE journal override — `config/model-routing` on journal2, written
+#      by set-model-routing.sh — read from whatever synced journal clone the caller
+#      already has (a gardener's freshly-synced claim clone, the producer clone, or
+#      the deployed journal worktree). A maintainer edit here needs NO deploy: the
+#      next claim re-syncs the clone and picks it up.
+#   2. the TRACKED canonical default — scripts/jobs/model-routing-defaults.tsv —
+#      always present in a fresh checkout; the fail-safe when the journal file is
+#      absent/unreadable, so a missing file NEVER opens the claim path to
+#      mis-routing (it resolves to the sane seeded reality instead).
+# A last-ditch inline built-in covers a checkout somehow missing even the tracked
+# file. NO clone or network fetch happens here: the journal read is a plain
+# working-tree file read of a clone some other part of the spine already synced.
+: "${GARDEN_MODEL_ROUTING_PATH:=config/model-routing}"
+
+_model_routing_defaults_file() { printf '%s\n' "$GARDEN_ROOT/scripts/jobs/model-routing-defaults.tsv"; }
+
+# Echo the effective routing table (TSV text). Resolution order above; warns once
+# per throttle window when it must drop to the inline built-in fallback.
+_model_routing_table() {
+  # 1. explicit override file (tests, and set-model-routing.sh's validator).
+  if [ -n "${GARDEN_MODEL_ROUTING_FILE:-}" ] && [ -s "${GARDEN_MODEL_ROUTING_FILE}" ]; then
+    cat "$GARDEN_MODEL_ROUTING_FILE" 2>/dev/null && return 0
+  fi
+  # 2. a per-instance journal override, read from any already-synced clone's working
+  #    tree (no new clone/fetch — whichever the current caller kept fresh).
+  local d f
+  for d in "${GARDEN_GARDENER_CLONE:-}" "${GARDEN_PRODUCER_CLONE:-}" \
+           "${GARDEN_LEADER_CLONE:-}" "$GARDEN_ROOT/journal"; do
+    [ -n "$d" ] || continue
+    f="$d/$GARDEN_MODEL_ROUTING_PATH"
+    [ -s "$f" ] && { cat "$f" 2>/dev/null && return 0; }
+  done
+  # 3. the tracked canonical default (the durable seed + fail-safe fallback).
+  f="$(_model_routing_defaults_file)"
+  [ -s "$f" ] && { cat "$f" 2>/dev/null && return 0; }
+  # 4. last-ditch inline built-in — the checkout is missing even the tracked file.
+  alert_maintainer "model-routing-fallback" \
+    "model-routing table unresolved (no journal override, no $f); using inline built-in — routing may be stale" 2>/dev/null || true
+  printf '%s\n' \
+    'anthropic	claude-*	' \
+    'openai	gpt-* o[0-9]* codex-* !gpt-oss*	gpt-5.6-terra' \
+    'local	qwen*	qwen3.6'
+}
+
+# _model_classify <provider> <model-id> -> rc 0 iff the id BELONGS to <provider>
+# per the routing table (matches an include glob AND no exclude `!` glob). The
+# deterministic backend-fit predicate: a claim-eligible check, no LLM.
+_model_classify() {
+  local provider="$1" id="$2" p pats def tok included=0 excluded=0
+  [ -n "$id" ] || return 1
+  while IFS=$'\t' read -r p pats def; do
+    case "$p" in ''|\#*) continue;; esac
+    [ "$p" = "$provider" ] || continue
+    for tok in $pats; do
+      if [ "${tok#\!}" != "$tok" ]; then
+        # shellcheck disable=SC2254  # $tok is an intentional glob pattern
+        case "$id" in ${tok#\!}) excluded=1;; esac
+      else
+        # shellcheck disable=SC2254
+        case "$id" in $tok) included=1;; esac
+      fi
+    done
+  done < <(_model_routing_table)
+  [ "$included" -eq 1 ] && [ "$excluded" -eq 0 ]
+}
+
+# model_routing_default <provider> -> the fleet-default model id for <provider>
+# from the routing table (empty when the row has no default, e.g. anthropic).
+model_routing_default() {
+  local provider="$1" p pats def
+  while IFS=$'\t' read -r p pats def; do
+    case "$p" in ''|\#*) continue;; esac
+    [ "$p" = "$provider" ] || continue
+    printf '%s\n' "$def"; return 0
+  done < <(_model_routing_table)
+  return 1
+}
+
 # --- model selection (the canonical role->model policy) ----------------------
 # The garden resolves the Claude model for a unit of work in two places that MUST
 # agree: the scripted-fleet path (gardener-claude.sh, keyed on a job's `model:` /
@@ -2939,6 +3024,12 @@ plan_role() { plan_field "$1" role; }
 # EXECUTABLE single source of truth for the fleet path; skills/model-selection/
 # SKILL.md is the human-readable canonical statement the Agent path follows, and
 # it points back here so the two never drift.
+#
+# CLASSIFICATION vs BINDING. resolve_model_tier does two jobs: (a) BIND a short
+# tier alias (opus, terra) to a concrete versioned id — that stays in code here, so
+# a version bump is one edit; and (b) CLASSIFY a concrete id to its provider (is
+# `qwen3.6` a local id?) — that is DATA, read from the journal-backed routing table
+# via _model_classify, so the recognized-model set changes without a code edit.
 
 # resolve_model_tier [provider] <tier-or-id> -> concrete model id (empty if the
 # value is unknown/blank). Accepts the short tier names the maintainer uses in a
@@ -2961,12 +3052,12 @@ resolve_model_tier() {
   case "$provider" in
     anthropic)
       case "$tier" in
-        fable)    printf '%s\n' "claude-fable-5" ;;
+        fable)    printf '%s\n' "claude-fable-5" ;;      # short tier -> concrete id (BINDING, in code)
         opus)     printf '%s\n' "claude-opus-4-8" ;;
         sonnet)   printf '%s\n' "claude-sonnet-4-6" ;;
         haiku)    printf '%s\n' "claude-haiku-4-5-20251001" ;;
-        claude-*) printf '%s\n' "$tier" ;;       # already a concrete model id
-        *)        printf '%s\n' "" ;;             # unknown/blank -> caller decides fallback
+        # a concrete id passes through iff the table CLASSIFIES it as anthropic.
+        *)        if _model_classify anthropic "$tier"; then printf '%s\n' "$tier"; else printf '%s\n' ""; fi ;;
       esac ;;
     openai)
       case "$tier" in
@@ -2974,22 +3065,18 @@ resolve_model_tier() {
         luna)     printf '%s\n' "gpt-5.6-luna" ;;
         frontier) printf '%s\n' "gpt-5.5" ;;
         mini)     printf '%s\n' "gpt-5.4-mini" ;;
-        gpt-oss*) printf '%s\n' "" ;;              # a LOCAL served tag, not a paid OpenAI id
-        gpt-*|o[0-9]*|codex-*) printf '%s\n' "$tier" ;;  # already a concrete model id
-        *)        printf '%s\n' "" ;;
+        # a concrete id passes through iff the table CLASSIFIES it as openai (the
+        # table's `!gpt-oss*` exclude keeps a LOCAL served tag out of the openai id
+        # space even though it matches gpt-*).
+        *)        if _model_classify openai "$tier"; then printf '%s\n' "$tier"; else printf '%s\n' ""; fi ;;
       esac ;;
     local)
-      # The LOCAL provider's tier map: the served Ollama model TAGS (not paid slugs).
-      # Short tiers name the guide's two picks (§3): 20b = the interactive everyday
-      # default gpt-oss:20b (~72 tok/s), 120b = the flagship gpt-oss:120b (~51 tok/s)
-      # this unified-memory box can run. A concrete served tag (an Ollama name, which
-      # carries a ':' — gpt-oss:20b, llama3.2:3b, qwen…:… ) passes through verbatim.
-      case "$tier" in
-        20b)      printf '%s\n' "gpt-oss:20b" ;;
-        120b)     printf '%s\n' "gpt-oss:120b" ;;
-        gpt-oss*|*:*) printf '%s\n' "$tier" ;;    # already a concrete served tag
-        *)        printf '%s\n' "" ;;
-      esac ;;
+      # The LOCAL provider serves Ollama model TAGS. There are no short tier aliases
+      # here now (the box serves a single family, currently qwen — see the routing
+      # table); a concrete served tag passes through iff the table CLASSIFIES it as
+      # local, so a gpt-oss:* tag is NO LONGER local (it matches no provider ->
+      # unpinned) per "hermits only respond to qwen at this time."
+      if _model_classify local "$tier"; then printf '%s\n' "$tier"; else printf '%s\n' ""; fi ;;
     *) printf '%s\n' "" ;;
   esac
 }
@@ -3031,16 +3118,18 @@ role_default_model() {
         *)        printf '%s\n' "" ;;
       esac ;;
     hermit)
-      # The local codex-cleric. Its heavier roles pin the flagship local MoE model
-      # gpt-oss:120b (the largest this box runs well, guide §3); every other role is
-      # unpinned and rides the hermit fleet default gpt-oss:20b (the interactive
-      # everyday pick). An explicit per-job `model:` always overrides. The bid auction
-      # (guide §5) — not this default — is what keeps a local arm OFF high-stakes
-      # build/design on main, via the human-review-$ term; this default only sets the
-      # model a hermit uses IF it wins such a job.
+      # The local codex-cleric. The box currently serves a single local family (qwen),
+      # so every hermit role — including the heavier designer/builder — rides the
+      # local fleet default from the routing table (model_routing_default local, e.g.
+      # qwen3.6) rather than pinning a separate flagship tag that is not served. An
+      # explicit per-job `model:` always overrides. The bid auction (guide §5) — not
+      # this default — is what keeps a local arm OFF high-stakes build/design on main,
+      # via the human-review-$ term; this default only sets the model a hermit uses IF
+      # it wins such a job. When a box grows a distinct heavier local model, add it to
+      # the routing table and pin the role here — a data edit plus (for the pin) one code line.
       case "$role" in
-        designer) printf '%s\n' "$(resolve_model_tier local 120b)" ;;
-        builder)  printf '%s\n' "$(resolve_model_tier local 120b)" ;;
+        designer) model_routing_default local ;;
+        builder)  model_routing_default local ;;
         *)        printf '%s\n' "" ;;
       esac ;;
     *) printf '%s\n' "" ;;
