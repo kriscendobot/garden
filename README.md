@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T03:04:09Z_
+_As of 2026-07-14T03:04:31Z_
 
 ## Latest
 
@@ -1970,16 +1970,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`cleric-live-test-20260714T030323Z`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/cleric-live-test-20260714T030323Z.md) — Cleric live dispatch test
+### doin (0)
+(none)
 
-### tada (2190)
+### tada (2191)
+- [`cleric-live-test-20260714T030323Z`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/cleric-live-test-20260714T030323Z.md) — /home/kris/garden2/scratch/gardener-wt-cleric-live-test-20260714T030323Z
 - [`codex-dispatch-retest-20260714T024648Z`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/codex-dispatch-retest-20260714T024648Z.md) — Codex dispatch retest — completed. Harmless verification only; no files modif...
 - [`codex-dispatch-test-20260714T024433Z`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/codex-dispatch-test-20260714T024433Z.md) — I did not modify any files, create commits, open PRs, or send messages, per t...
 - [`durable-bot-git-identity-on-reset`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/durable-bot-git-identity-on-reset.md) — Completion report
 - [`endojs-endo-but-for-bots-pr670-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr670-refresh.md) — Completion report: refresh endojs/endo-but-for-bots PR #670
-- [`bulletin-claude-codex-quota-spend-visibility`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/bulletin-claude-codex-quota-spend-visibility.md) — Completion report
-- … and 2185 more
+- … and 2186 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
