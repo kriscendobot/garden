@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T21:46:30Z_
+_As of 2026-07-14T21:48:33Z_
 
 ## Latest
 
@@ -308,24 +308,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 90.9M | $948.75 _(notional, rate-card)_ | no quota set |
-| Codex | 35.4M _(+78.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Codex | 35.4M _(+79.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`design-change-review-tool-with-review-metering`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-change-review-tool-with-review-metering.md) — The idea, restated
+### doin (2)
 - [`endojs-endo-but-for-bots-pr521-e62f93ef`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr521-e62f93ef.md) — attention directive on endojs/endo-but-for-bots PR #521
 - [`endojs-endo-but-for-bots-pr521-review-27079b07`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr521-review-27079b07.md) — Review directive on endojs/endo-but-for-bots PR #521
 
-### tada (2226)
+### tada (2227)
+- [`design-change-review-tool-with-review-metering`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-change-review-tool-with-review-metering.md) — Added and pushed designs/change-review-tool-with-review-metering.md (78107859...
 - [`deadmail-issue-comment-4974142339`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4974142339.md) — Completion report
 - [`test-hermit-local-inference-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/test-hermit-local-inference-garden2.md) — Superseded liveness probe — no inference run
 - [`deadmail-issue-comment-4974080660`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4974080660.md) — Documented the instance-administrator contact procedure in kriscendobot/minio...
 - [`endojs-endo-but-for-bots-pr730-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr730-shepherd.md) — What I did
-- [`endojs-endo-but-for-bots-pr731-e27fc13c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr731-e27fc13c.md) — Routed the directive and acknowledged it on #731. Confirmed all six named PR ...
-- … and 2221 more
+- … and 2222 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
