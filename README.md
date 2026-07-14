@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T22:49:09Z_
+_As of 2026-07-14T22:50:41Z_
 
 ## Latest
 
@@ -140,6 +140,29 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260714T224228Z-866b52` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260714T224228Z-866b52.md)
 
 > self-heal: garden-triager@kriscendobot-agoric-sdk exited rc=1 with no scoped fix. Capture: 34a4c24dca86ee4954a56309657c0fca5fa2a919 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 34a4c24dca86ee4954a56309657c0fca5fa2a919). Diagnosis: You've hit your weekly limit · resets Jul 18, 3am (UTC)
+
+- `20260714T225019Z-8a3c3c` — from triager:kriscendobot-agoric-sdk, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260714T225019Z-8a3c3c.md)
+
+> kind: error
+>
+> # triage circuit-breaker OPENED for `kriscendobot-agoric-sdk`
+>
+> The triage handler (`/home/kris/garden2/scripts/jobs/handlers/triager-claude.sh`) FAILED 5 consecutive times on the SAME change
+> and hit the threshold (`GARDEN_TRIAGE_FAIL_THRESHOLD=5`).
+>
+> - Repo slug: `kriscendobot-agoric-sdk`  (watched ref `master`)
+> - Failing range: `ef8eb1c17454c5d3166f72e16f57fdb2b7614637` → `57db88d91b0e5c85c85f58ce77cd471131b44c48`
+>
+> Because the transition is deterministic (same old→new SHAs, same diff), retrying
+> cannot help — it only crash-loops the `garden-triager@kriscendobot-agoric-sdk` unit and fills the
+> journal. The breaker is now OPEN: this sha will NOT be re-triaged until a NEW
+> change appears on `kriscendobot-agoric-sdk:master`, which clears the breaker automatically.
+>
+> Investigate the handler failure (reproduce by hand:
+> `/home/kris/garden2/scripts/jobs/handlers/triager-claude.sh kriscendobot-agoric-sdk ef8eb1c17454c5d3166f72e16f57fdb2b7614637 57db88d91b0e5c85c85f58ce77cd471131b44c48 <bare>`), or, if this repo should not be watched
+> at all, remove it from the watch set. Note: under CLAUDE.md § Monitoring safety
+> constraint only `endojs/endo-but-for-bots` is currently authorized for watching —
+> worth confirming `kriscendobot-agoric-sdk` belongs in the set.
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
@@ -311,17 +334,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.5M | $938.39 _(notional, rate-card)_ | no quota set |
-| Codex | 35.8M _(+83.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 89.5M | $938.01 _(notional, rate-card)_ | no quota set |
+| Codex | 35.8M _(+84.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (5)
 - [`deadmail-issue-comment-4974631388`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4974631388.md) — Dead-lettered message — pick up its intent
+- [`deadmail-issue-comment-4974696381`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4974696381.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr521-e62f93ef`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr521-e62f93ef.md) — attention directive on endojs/endo-but-for-bots PR #521
 - [`foreman-provider-fallback-codex-ollama`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/foreman-provider-fallback-codex-ollama.md) — ---
+- [`xs-upstream-watch-20260714-225002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs-upstream-watch-20260714-225002.md) — WEEKLY XS-upstream watch → project engine-relevant changes to our Rust port (...
 
 ### tada (2231)
 - [`endojs-endo-but-for-bots-pr722-review-01c311bd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr722-review-01c311bd.md) — The preflight check returned EXIT=2 — a peer has already resolved this review...
