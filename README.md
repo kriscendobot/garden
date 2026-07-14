@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T12:50:39Z_
+_As of 2026-07-14T13:14:14Z_
 
 ## Latest
 
@@ -1992,28 +1992,27 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 94.4M | $992.92 _(notional, rate-card)_ | no quota set |
-| Codex | 1.3M _(+30.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
+| Claude | 94.0M | $984.04 _(notional, rate-card)_ | no quota set |
+| Codex | 1.4M _(+31.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (1)
 - [`test-hermit-local-inference-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/test-hermit-local-inference-garden2.md) — ---
 
-### doin (6)
+### doin (5)
 - [`design-ai-sdk-garden-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-ai-sdk-garden-integration.md) — <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-...
 - [`design-endor-registry-transport`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endor-registry-transport.md) — Design an Endor/XS registry transport power for endojs/endo-but-for-bots PR #...
-- [`endojs-endo-but-for-bots-pr721-review-56349e18`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr721-review-56349e18.md) — Review directive on endojs/endo-but-for-bots PR #721
 - [`endojs-endo-but-for-bots-pr723-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr723-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #723
 - [`issue-kriskowal-garden-43`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-43.md) — Issue from kriskowal on kriskowal/garden #43
 - [`model-routing-journal-state-hermit-qwen`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/model-routing-journal-state-hermit-qwen.md) — Why
 
-### tada (2207)
+### tada (2208)
+- [`endojs-endo-but-for-bots-pr721-review-56349e18`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr721-review-56349e18.md) — No-op: preflight exited 2, finding a peer resolution for review 4690781908. N...
 - [`endojs-endo-but-for-bots-pr682-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr682-shepherd.md) — Fixed PR #682’s zizmor failure by updating actions/setup-node pins to v6.5.0 ...
 - [`endojs-endo-but-for-bots-pr671-fix-registry-power-injection`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-fix-registry-power-injection.md) — Implemented and pushed e66d640c0 to endo-registry-capability.
 - [`kriscendobot-agoric-sdk-pr16-review-d584f885`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-review-d584f885.md) — Review #4691288801 had no body and one inline request at eip712-messages.ts:1...
 - [`kriscendobot-agoric-sdk-pr16-dec1f704`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-dec1f704.md) — Closed kriscendobot/agoric-sdk#16 per dckc’s directive. Preflight found no pr...
-- [`endojs-endo-but-for-bots-pr667-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr667-shepherd.md) — Fixed PR #667 CI and pushed:
-- … and 2202 more
+- … and 2203 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
