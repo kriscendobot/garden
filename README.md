@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T20:45:29Z_
+_As of 2026-07-14T20:48:44Z_
 
 ## Latest
 
@@ -268,24 +268,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 91.2M | $951.12 _(notional, rate-card)_ | no quota set |
-| Codex | 28.1M _(+75.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 29.1M _(+75.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`deadmail-issue-comment-4973811108`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4973811108.md) — Dead-lettered message — pick up its intent
+### doin (2)
 - [`endojs-endo-but-for-bots-pr730-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr730-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #730
 - [`test-hermit-local-inference-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/test-hermit-local-inference-garden2.md) — ---
 
-### tada (2219)
+### tada (2220)
+- [`deadmail-issue-comment-4973811108`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4973811108.md) — Completion report
 - [`deadmail-issue-comment-4973677780`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4973677780.md) — Posted the requested work summary on garden issue #44; issue remains open. No...
 - [`build-turnkey-amazon-garden-host`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-turnkey-amazon-garden-host.md) — Completion report
 - [`ai-sdk-garden-evaluation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ai-sdk-garden-evaluation.md) — orchestration ai-sdk-garden-evaluation — complete
 - [`design-ai-sdk-garden-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-ai-sdk-garden-integration.md) — Added and pushed designs/ai-sdk-garden-integration.md (a521665dad).
-- [`endojs-endo-but-for-bots-pr723-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr723-shepherd.md) — Shepherd Report: PR #723 — endojs/endo-but-for-bots → llm
-- … and 2214 more
+- … and 2215 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
