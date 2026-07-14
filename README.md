@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T21:18:48Z_
+_As of 2026-07-14T21:20:25Z_
 
 ## Latest
 
@@ -287,7 +287,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`deadmail-issue-comment-4974080660`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4974080660.md) — Dead-lettered message — pick up its intent
 - [`test-hermit-local-inference-garden2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/test-hermit-local-inference-garden2.md) — ---
 
 ### tada (2223)
