@@ -399,3 +399,12 @@ Inspect via `git -C journal cat-file -p 89b0cd8c50f73436609a16e8dd0d481fbb0cdb20
 - Context: gardener-3 on endolin-garden2-5bcdff64: job 'issue-kriskowal-garden-43' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 89b0cd8c50f73436609a16e8dd0d481fbb0cdb20`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-14T08:31:42Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: c20e2295749088ad2605c509fff578b5c6e9957c
+- Context: gardener-15 on endolin-garden2-5bcdff64: job 'model-routing-journal-state-hermit-qwen' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p c20e2295749088ad2605c509fff578b5c6e9957c`.
