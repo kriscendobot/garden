@@ -104,6 +104,8 @@ EOF
 
 cmd_build() {
     docker build \
+        --allow network.host \
+        --network host \
         --build-arg "USERNAME=${HOST_USER}" \
         --build-arg "USER_UID=${HOST_UID}" \
         -t "$IMAGE_NAME" "$SCRIPT_DIR"

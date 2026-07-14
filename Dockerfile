@@ -124,15 +124,23 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
 # PATH and thus reachable from /etc/profile.d/garden.sh below). The trailing
 # `command -v claude` asserts the exec contract at build time: a broken install
 # fails the build loudly rather than at first `./garden`.
-RUN npm install -g @anthropic-ai/claude-code \
-    && command -v claude
+RUN for attempt in 1 2 3; do \
+        npm install -g @anthropic-ai/claude-code && command -v claude && exit 0; \
+        if [ "$attempt" -eq 3 ]; then exit 1; fi; \
+        echo "npm install failed (attempt $attempt); retrying..." >&2; \
+        sleep "$attempt"; \
+    done
 
 # Codex CLI (OpenAI) — installed globally alongside claude so the `codex` agent is
 # available for jobs that use it. Same NodeSource-prefix logic: the global bin lands
 # in /usr/bin (on the default PATH). The trailing `command -v codex` asserts the
 # install at build time, failing the build loudly rather than at first use.
-RUN npm install -g @openai/codex \
-    && command -v codex
+RUN for attempt in 1 2 3; do \
+        npm install -g @openai/codex && command -v codex && exit 0; \
+        if [ "$attempt" -eq 3 ]; then exit 1; fi; \
+        echo "npm install failed (attempt $attempt); retrying..." >&2; \
+        sleep "$attempt"; \
+    done
 
 # Create the bot user matching the HOST user (name + uid, from --build-arg) so the
 # bind-mounted home stays writable and nothing is pinned to one account. Ubuntu
