@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/45#issuecomment-4974080660
 Please document the procedure for setting the contact for the instance administrator in the source for minion.town and link back here. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: cleric
+  claimed_at: 2026-07-14T21:20:07Z
