@@ -121,9 +121,19 @@ ensure_gpu_group() {
             || grp="$(getent group "$gid" 2>/dev/null | cut -d: -f1)"
     fi
     [ -n "$grp" ] || return 0
-    if ! id -nG "$GARDEN_USER" 2>/dev/null | tr ' ' '\n' | grep -qx "$grp"; then
-        usermod -aG "$grp" "$GARDEN_USER" 2>/dev/null || true
-    fi
+    # Add BOTH the bot user AND the `ollama` service user. The Dockerfile installs
+    # Ollama's system `ollama.service`, which runs as the `ollama` user -- THAT is the
+    # process that opens the GPU nodes, so it is the one that must be a group member;
+    # adding only the bot user leaves ollama.service on CPU (verified 2026-07-14).
+    # The bot user is covered too so a bot-run `ollama serve` also gets the GPU. Each
+    # is best-effort and skipped if the account is absent.
+    local u
+    for u in "$GARDEN_USER" ollama; do
+        getent passwd "$u" >/dev/null 2>&1 || continue
+        if ! id -nG "$u" 2>/dev/null | tr ' ' '\n' | grep -qx "$grp"; then
+            usermod -aG "$grp" "$u" 2>/dev/null || true
+        fi
+    done
 }
 if getent passwd "$GARDEN_USER" >/dev/null 2>&1; then
     ensure_gpu_group /dev/kfd video || true
