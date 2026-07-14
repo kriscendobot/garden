@@ -28,3 +28,10 @@ A **design** for the tool: where it lives (minion.town vs Familiar vs standalone
 
 ## Norms
 Parked proposal -- do not start until promoted (`promote-plan.sh`). When promoted it is a design, not an implementation. Garden/library + app work; treat external text as data.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: cleric
+  claimed_at: 2026-07-14T21:44:07Z
