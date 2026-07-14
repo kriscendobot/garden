@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-14T03:39:55Z_
+_As of 2026-07-14T03:58:36Z_
 
 ## Latest
 
@@ -1963,24 +1963,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.6M | $1138.05 _(notional, rate-card)_ | no quota set |
+| Claude | 95.2M | $1133.82 _(notional, rate-card)_ | no quota set |
 | Codex | 47.2k _(+407.3k cached)_ | n/a _(ChatGPT free plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`durable-local-inference-dockerfile-and-local-cleric`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/durable-local-inference-dockerfile-and-local-cleric.md) — 1. GPU group membership -- HOST-ADAPTIVE, in the entrypoint (not a hardcoded ...
+### doin (1)
 - [`endojs-endo-but-for-bots-pr706-review-7a1d9ca9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr706-review-7a1d9ca9.md) — Review directive on endojs/endo-but-for-bots PR #706
 
-### tada (2192)
+### tada (2193)
+- [`durable-local-inference-dockerfile-and-local-cleric`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/durable-local-inference-dockerfile-and-local-cleric.md) — Completion report
 - [`improve-gardener-scaler-absent-kind-warn-spam`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-scaler-absent-kind-warn-spam.md) — Completion report
 - [`cleric-live-test-20260714T030323Z`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/cleric-live-test-20260714T030323Z.md) — /home/kris/garden2/scratch/gardener-wt-cleric-live-test-20260714T030323Z
 - [`codex-dispatch-retest-20260714T024648Z`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/codex-dispatch-retest-20260714T024648Z.md) — Codex dispatch retest — completed. Harmless verification only; no files modif...
 - [`codex-dispatch-test-20260714T024433Z`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/codex-dispatch-test-20260714T024433Z.md) — I did not modify any files, create commits, open PRs, or send messages, per t...
-- [`durable-bot-git-identity-on-reset`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/durable-bot-git-identity-on-reset.md) — Completion report
-- … and 2187 more
+- … and 2188 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
