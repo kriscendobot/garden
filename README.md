@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T09:41:05Z_
+_As of 2026-07-15T09:42:19Z_
 
 ## Latest
 
@@ -384,26 +384,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 83.7M | $888.79 _(notional, rate-card)_ | no quota set |
-| Codex | 37.6M _(+107.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Codex | 37.7M _(+107.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-design-endo-store-write-file-pr658-c4977137707`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-design-endo-store-write-file-pr658-c4977137707.md) — Design: make endo store drive writeFile
 - [`endojs-endo-but-for-bots-pr259-b517a6e0`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr259-b517a6e0.md) — attention directive on endojs/endo-but-for-bots PR #259
 - [`endojs-endo-but-for-bots-pr714-review-b80b82c7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr714-review-b80b82c7.md) — Review directive on endojs/endo-but-for-bots PR #714
-- [`endojs-endo-but-for-bots-pr719-review-69684243`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-review-69684243.md) — Review directive on endojs/endo-but-for-bots PR #719
 - [`endojs-endo-but-for-bots-pr719-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #719
 
-### tada (2268)
+### tada (2269)
+- [`endojs-endo-but-for-bots-pr719-review-69684243`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr719-review-69684243.md) — Addressed PR #719 review in 66204ddbbc: documented URL taming and urlBlobMeth...
 - [`kriskowal-garden-pr19-review-af733b76`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr19-review-af733b76.md) — Refreshed PR #19 to current main2; the duplicate commit was skipped because i...
 - [`daily-progress-summary-20260715-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260715-070502.md) — Completion report
 - [`endojs-endo-but-for-bots-pr737-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr737-shepherd.md) — Fixed PR #737’s stale actions/setup-node v6 pins in commit 37119afdde.
 - [`endojs-endo-but-for-bots-pr710-review-b6a9374c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr710-review-b6a9374c.md) — Completion report — review directive on endojs/endo-but-for-bots PR #710
-- [`endojs-endo-but-for-bots-pr521-e62f93ef`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr521-e62f93ef.md) — Completion report
-- … and 2263 more
+- … and 2264 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
