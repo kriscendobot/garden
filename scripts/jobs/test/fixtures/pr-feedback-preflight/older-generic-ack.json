@@ -1,0 +1,6 @@
+{
+  "target": {"id": "4699091386", "created_at": "2026-07-14T22:40:24Z", "reviewed_head_sha": "abc123reviewedhead"},
+  "head": {"sha": "def456currenthead"},
+  "commits": [{"sha": "def456currenthead", "timestamp": "2026-07-14T20:00:00Z", "message": "fix: Addressed @kriskowal's review"}],
+  "comments": []
+}

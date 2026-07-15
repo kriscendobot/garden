@@ -1,0 +1,6 @@
+{
+  "target": {"id": "4699091386", "created_at": "2026-07-14T22:40:24Z", "reviewed_head_sha": "7fe035b52869c9b29bf298574924cdb2bc74301d"},
+  "head": {"sha": "7fe035b52869c9b29bf298574924cdb2bc74301d"},
+  "commits": [],
+  "comments": [{"id": "991", "in_reply_to_id": "", "created_at": "2026-07-14T22:42:00Z", "body": "Resolved review 4699091386 in the latest design."}]
+}
