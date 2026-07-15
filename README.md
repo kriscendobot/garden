@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T05:24:07Z_
+_As of 2026-07-15T05:24:39Z_
 
 ## Latest
 
@@ -355,26 +355,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 84.3M | $895.21 _(notional, rate-card)_ | no quota set |
-| Codex | 36.9M _(+98.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Codex | 36.9M _(+98.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr521-e62f93ef`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr521-e62f93ef.md) — attention directive on endojs/endo-but-for-bots PR #521
-- [`endojs-endo-but-for-bots-pr658-8df22a40`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr658-8df22a40.md) — attention directive on endojs/endo-but-for-bots PR #658
 - [`endojs-endo-but-for-bots-pr661-chat-http-controller-ui-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr661-chat-http-controller-ui-design.md) — Role: designer
 - [`endojs-endo-but-for-bots-pr661-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr661-conduct.md) — Role: conductor
 - [`kriskowal-garden-pr19-review-af733b76`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr19-review-af733b76.md) — Review directive on kriskowal/garden PR #19
 
-### tada (2251)
+### tada (2252)
+- [`endojs-endo-but-for-bots-pr658-8df22a40`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr658-8df22a40.md) — Completed:
 - [`endojs-endo-but-for-bots-pr661-review-2e61b71b-security-review-fable`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr661-review-2e61b71b-security-review-fable.md) — Completion report
 - [`endojs-endo-but-for-bots-pr661-review-52ccb148`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr661-review-52ccb148.md) — Review #4701071242 re-fetched; it has no inline comments. Preflight proceeded.
 - [`endojs-endo-but-for-bots-pr671-review-944a6716`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-review-944a6716.md) — Addressed and pushed all review items to PR #671 (head 1eabe975cb), including...
 - [`endojs-endo-but-for-bots-pr695-review-e6f842ee`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr695-review-e6f842ee.md) — Addressed PR #695 review and pushed f5df0a4c83.
-- [`endojs-endo-but-for-bots-pr661-review-2e61b71b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr661-review-2e61b71b.md) — Completed: preflight proceeded; fetched the review and found zero inline comm...
-- … and 2246 more
+- … and 2247 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
