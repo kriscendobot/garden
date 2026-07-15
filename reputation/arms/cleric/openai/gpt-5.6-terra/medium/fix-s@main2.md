@@ -2,11 +2,11 @@ kind: cleric
 provider: openai
 model: gpt-5.6-terra
 thoughtfulness: medium
-work_class: other:s
+work_class: fix:s
 target: main2
 attempts: 0
 accepts: 0
-censored: 4
+censored: 1
 mean_dollars: 0.000000
 m2: 0.000000
 acceptance_rate: 0.0000
