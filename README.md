@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T05:41:16Z_
+_As of 2026-07-15T05:44:02Z_
 
 ## Latest
 
@@ -355,7 +355,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 84.1M | $893.06 _(notional, rate-card)_ | no quota set |
-| Codex | 37.0M _(+101.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
+| Codex | 37.2M _(+102.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -381,6 +381,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
+- [`build-endo-cbor-package`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-cbor-package.md) — _normal_ · Build: create @endo/cbor (phase 1) per the landed design in PR #710
 - [`build-endo-daemon-cloudflare-storage`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-daemon-cloudflare-storage.md) — _normal_ · Build: Endo daemon Cloudflare storage platform (phases 1-2 of the design)
 - [`deadmail-issue-comment-4952694523`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deadmail-issue-comment-4952694523.md) — _normal_ · Dead-lettered message — pick up its intent
 - [`deploy-endo-daemon-aws-storage-reference`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-endo-daemon-aws-storage-reference.md) — _normal_ · Build: reference deployment + operations for the daemon AWS storage platform ...
