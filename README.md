@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T04:35:45Z_
+_As of 2026-07-15T04:36:43Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ Two operational flags warrant a look: the triager crash-loop fix is landed on `m
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 5h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 6h)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 1d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 2d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 4d)
@@ -350,7 +350,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 85.3M | $903.19 _(notional, rate-card)_ | no quota set |
+| Claude | 85.3M | $903.06 _(notional, rate-card)_ | no quota set |
 | Codex | 36.6M _(+95.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
@@ -359,17 +359,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (4)
 - [`endojs-endo-but-for-bots-pr169-retcon`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr169-retcon.md) — retcon directive on endojs/endo-but-for-bots PR #169
-- [`endojs-endo-but-for-bots-pr169-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr169-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #169
+- [`endojs-endo-but-for-bots-pr169-reweave-0715`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr169-reweave-0715.md) — weave (rebase) directive on endojs/endo-but-for-bots PR #169
 - [`endojs-endo-but-for-bots-pr521-e62f93ef`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr521-e62f93ef.md) — attention directive on endojs/endo-but-for-bots PR #521
 - [`kriskowal-garden-pr19-review-af733b76`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr19-review-af733b76.md) — Review directive on kriskowal/garden PR #19
 
-### tada (2240)
+### tada (2241)
+- [`endojs-endo-but-for-bots-pr169-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr169-shepherd.md) — Completion report
 - [`corrective-endojs-endo-but-for-bots-pr722-review-4699091386`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/corrective-endojs-endo-but-for-bots-pr722-review-4699091386.md) — Updated PR #722 at a4859f575c with the requested base/unconfined @endo/fetch ...
 - [`design-anthropic-worker-kind-monk`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-anthropic-worker-kind-monk.md) — Landed and pushed accepted migration design: bc7f7796c2 on main2.
 - [`fix-pr-feedback-preflight-review-correlation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-pr-feedback-preflight-review-correlation.md) — Implemented and pushed a2ae7cebd8 to main2.
 - [`endojs-endo-but-for-bots-pr671-review-93271f57`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-review-93271f57.md) — Completion report
-- [`kriscendobot-agoric-sdk-pr9-15511bd2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr9-15511bd2.md) — Closed kriscendobot/agoric-sdk PR #9 at mhofman's request after the mandated ...
-- … and 2235 more
+- … and 2236 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
