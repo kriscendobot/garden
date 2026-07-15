@@ -26,3 +26,10 @@ package name and exports on the relevant branch before editing (do not invent
 identifiers). PR against `llm`; design-docs only.
 
 **Base:** `llm`. **Norms:** ASCII prose; fully-qualify issue/PR references.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 7
+  worker_kind: gardener
+  claimed_at: 2026-07-15T19:24:09Z
