@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T18:45:27Z_
+_As of 2026-07-15T18:56:58Z_
 
 ## Latest
 
@@ -384,23 +384,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 83.7M | $888.79 _(notional, rate-card)_ | no quota set |
-| Codex | 49.0M _(+117.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
+| Codex | 49.2M _(+123.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`deadmail-issue-comment-4981804044`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4981804044.md) — Dead-lettered message — pick up its intent
-- [`endor-git-bindings-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endor-git-bindings-design.md) — Design: Endor in-process Git bindings
 
-### tada (2279)
+### tada (2280)
+- [`endor-git-bindings-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endor-git-bindings-design.md) — Created endor-git-bindings design and updated roadmap metadata.
 - [`endojs-endo-but-for-bots-pr598-review-ac90d9cd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr598-review-ac90d9cd.md) — Resolved PR #598’s sole review request: rebased onto llm and force-with-lease...
 - [`endojs-endo-but-for-bots-pr714-shepherd-4981830543`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr714-shepherd-4981830543.md) — Shepherded PR #714 to green.
 - [`endojs-endo-but-for-bots-pr676-design-rfc9485`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr676-design-rfc9485.md) — Updated PR #676 at 155cfb7a71 and posted its completion summary.
 - [`endojs-endo-but-for-bots-pr676-b3edafc8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr676-b3edafc8.md) — Routed the maintainer directive to design work: posted endojs-endo-but-for-bo...
-- [`issue-kriskowal-garden-46`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-46.md) — Commented on issue #46 with in-process Rust Git options and a recommended eva...
-- … and 2274 more
+- … and 2275 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
