@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T04:44:52Z_
+_As of 2026-07-15T04:50:34Z_
 
 ## Latest
 
@@ -180,6 +180,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 9d2bd08a52b79f8300ba8689d5ac774ccd9e32ca (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 9d2bd08a52b79f8300ba8689d5ac774ccd9e32ca). Diagnosis: You've hit your weekly limit · resets Jul 18, 3am (UTC)
 
+- `20260715T045022Z-4e28e6` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260715T045022Z-4e28e6.md)
+
+> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 8207cff0393579baf29aa3f52e34cdd2f60c060a (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 8207cff0393579baf29aa3f52e34cdd2f60c060a). Diagnosis: You've hit your weekly limit · resets Jul 18, 3am (UTC)
+
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -350,7 +354,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 85.2M | $901.87 _(notional, rate-card)_ | no quota set |
+| Claude | 85.0M | $900.84 _(notional, rate-card)_ | no quota set |
 | Codex | 36.7M _(+96.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
