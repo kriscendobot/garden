@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T15:06:22Z_
+_As of 2026-07-15T15:14:17Z_
 
 ## Latest
 
@@ -390,19 +390,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`deadmail-issue-comment-4981804044`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4981804044.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr598-review-ac90d9cd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr598-review-ac90d9cd.md) — Review directive on endojs/endo-but-for-bots PR #598
-- [`endojs-endo-but-for-bots-pr676-design-rfc9485`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr676-design-rfc9485.md) — Design revision for PR #676
 - [`endojs-endo-but-for-bots-pr714-shepherd-4981830543`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr714-shepherd-4981830543.md) — ---
 
-### tada (2276)
+### tada (2277)
+- [`endojs-endo-but-for-bots-pr676-design-rfc9485`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr676-design-rfc9485.md) — Updated PR #676 at 155cfb7a71 and posted its completion summary.
 - [`endojs-endo-but-for-bots-pr676-b3edafc8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr676-b3edafc8.md) — Routed the maintainer directive to design work: posted endojs-endo-but-for-bo...
 - [`issue-kriskowal-garden-46`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-46.md) — Commented on issue #46 with in-process Rust Git options and a recommended eva...
 - [`endojs-endo-but-for-bots-pr658-c4977137707-design-followups`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr658-c4977137707-design-followups.md) — orchestration endojs-endo-but-for-bots-pr658-c4977137707-design-followups — c...
 - [`endojs-endo-but-for-bots-design-endo-store-write-file-pr658-c4977137707`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-design-endo-store-write-file-pr658-c4977137707.md) — Done. PR verified as draft against llm; inbox empty. Here is my completion re...
-- [`endojs-endo-but-for-bots-pr714-review-b80b82c7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr714-review-b80b82c7.md) — Resolved PR #714 review feedback and pushed 57464012f.
-- … and 2271 more
+- … and 2272 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
