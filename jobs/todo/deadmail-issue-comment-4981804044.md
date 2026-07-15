@@ -39,9 +39,4 @@ Please dispatch a designer and reply here with the resulting pull request.
 
 ----- END ORIGINAL MESSAGE -----
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 5
-  worker_kind: gardener
-  claimed_at: 2026-07-15T14:40:07Z
+<!-- garden-reaped: 1 -->
