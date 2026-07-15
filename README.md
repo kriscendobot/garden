@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T05:24:39Z_
+_As of 2026-07-15T05:26:06Z_
 
 ## Latest
 
@@ -354,17 +354,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 84.3M | $895.21 _(notional, rate-card)_ | no quota set |
-| Codex | 36.9M _(+98.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Claude | 84.3M | $895.07 _(notional, rate-card)_ | no quota set |
+| Codex | 36.9M _(+98.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (7)
+- [`endojs-endo-but-for-bots-design-endo-ls-json-pr658-c4977137707`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-design-endo-ls-json-pr658-c4977137707.md) — Design: improve endo ls --json
+- [`endojs-endo-but-for-bots-design-endo-store-write-file-pr658-c4977137707`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-design-endo-store-write-file-pr658-c4977137707.md) — Design: make endo store drive writeFile
 - [`endojs-endo-but-for-bots-pr521-e62f93ef`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr521-e62f93ef.md) — attention directive on endojs/endo-but-for-bots PR #521
 - [`endojs-endo-but-for-bots-pr661-chat-http-controller-ui-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr661-chat-http-controller-ui-design.md) — Role: designer
 - [`endojs-endo-but-for-bots-pr661-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr661-conduct.md) — Role: conductor
+- [`endojs-endo-but-for-bots-pr661-review-2e61b71b-run-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr661-review-2e61b71b-run-gauntlet.md) — ---
 - [`kriskowal-garden-pr19-review-af733b76`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr19-review-af733b76.md) — Review directive on kriskowal/garden PR #19
 
 ### tada (2252)
