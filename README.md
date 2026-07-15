@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T06:15:38Z_
+_As of 2026-07-15T06:35:05Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ Two operational flags warrant a look: the triager crash-loop fix is landed on `m
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 32m)
+- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 53m)
 - [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 7h)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 1d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 2d)
@@ -379,18 +379,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 83.9M | $890.43 _(notional, rate-card)_ | no quota set |
+| Claude | 83.8M | $889.35 _(notional, rate-card)_ | no quota set |
 | Codex | 37.5M _(+105.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (6)
 - [`endojs-endo-but-for-bots-design-endo-store-write-file-pr658-c4977137707`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-design-endo-store-write-file-pr658-c4977137707.md) — Design: make endo store drive writeFile
 - [`endojs-endo-but-for-bots-pr259-b517a6e0`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr259-b517a6e0.md) — attention directive on endojs/endo-but-for-bots PR #259
 - [`endojs-endo-but-for-bots-pr714-review-b80b82c7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr714-review-b80b82c7.md) — Review directive on endojs/endo-but-for-bots PR #714
 - [`endojs-endo-but-for-bots-pr719-review-69684243`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-review-69684243.md) — Review directive on endojs/endo-but-for-bots PR #719
+- [`endojs-endo-but-for-bots-pr737-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr737-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #737
 - [`kriskowal-garden-pr19-review-af733b76`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr19-review-af733b76.md) — Review directive on kriskowal/garden PR #19
 
 ### tada (2265)
