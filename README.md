@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T13:33:47Z_
+_As of 2026-07-15T13:45:05Z_
 
 ## Latest
 
@@ -12,8 +12,8 @@ Two operational flags warrant a look: the triager crash-loop fix is landed on `m
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 14h)
-- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 7h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 15h)
+- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 8h)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 1d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 2d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 4d)
@@ -390,16 +390,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-design-endo-store-write-file-pr658-c4977137707`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-design-endo-store-write-file-pr658-c4977137707.md) — Design: make endo store drive writeFile
+### doin (0)
+(none)
 
-### tada (2272)
+### tada (2273)
+- [`endojs-endo-but-for-bots-design-endo-store-write-file-pr658-c4977137707`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-design-endo-store-write-file-pr658-c4977137707.md) — Done. PR verified as draft against llm; inbox empty. Here is my completion re...
 - [`endojs-endo-but-for-bots-pr714-review-b80b82c7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr714-review-b80b82c7.md) — Resolved PR #714 review feedback and pushed 57464012f.
 - [`endojs-endo-but-for-bots-pr719-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr719-shepherd.md) — Shepherd completed for PR #719.
 - [`endojs-endo-but-for-bots-pr259-b517a6e0`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr259-b517a6e0.md) — Confirmed PR #259 mirrors upstream #3322 at 2587b0f8c; all five changed file ...
 - [`endojs-endo-but-for-bots-pr719-review-69684243`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr719-review-69684243.md) — Addressed PR #719 review in 66204ddbbc: documented URL taming and urlBlobMeth...
-- [`kriskowal-garden-pr19-review-af733b76`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr19-review-af733b76.md) — Refreshed PR #19 to current main2; the duplicate commit was skipped because i...
-- … and 2267 more
+- … and 2268 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
