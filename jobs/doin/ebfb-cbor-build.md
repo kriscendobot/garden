@@ -51,3 +51,10 @@ on a master-line base.
   maintainer calls at later phases — do not block phase 1 on them.
 - Standard gauntlet applies (draft PR -> clean -> panel -> fix-loop ->
   un-draft) under the supervising gardener.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-15T04:39:40Z
