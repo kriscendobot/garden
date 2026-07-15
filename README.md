@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T19:16:59Z_
+_As of 2026-07-15T19:24:28Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ Two operational flags warrant a look: the triager crash-loop fix is landed on `m
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#714](https://github.com/endojs/endo-but-for-bots/pull/714) — feat(platform): add listTree, rangeRead, rangeReadText (consolidate genie/lal/fae fs reads) (waiting 3h)
+- [endojs/endo-but-for-bots#714](https://github.com/endojs/endo-but-for-bots/pull/714) — feat(platform): add listTree, rangeRead, rangeReadText (consolidate genie/lal/fae fs reads) (waiting 4h)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 13h)
 - [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 20h)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 1d)
@@ -390,8 +390,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-syrups-naming-reconcile`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-syrups-naming-reconcile.md) — Reconcile the syrups framing design to the landed @endo/syrup-frame name
 
 ### tada (2282)
 - [`deadmail-20260715T191242Z-cec88f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260715T191242Z-cec88f.md) — Recovered the requested draft PR URL: https://github.com/endojs/endo-but-for-...
@@ -428,7 +428,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-syrups-naming-reconcile`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-syrups-naming-reconcile.md) — _normal_ · Reconcile the syrups framing design to the landed @endo/syrup-frame name
 - [`endojs-endo-but-for-bots-pr658-review-97e5a186-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr658-review-97e5a186-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #658 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr661-review-e6e9d5e5-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr661-review-e6e9d5e5-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #661 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr662-review-25ab500f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr662-review-25ab500f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #662 (primary: endojs-endo-but-f...
