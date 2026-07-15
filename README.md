@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T03:50:36Z_
+_As of 2026-07-15T04:31:28Z_
 
 ## Latest
 
@@ -350,15 +350,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 85.9M | $908.07 _(notional, rate-card)_ | no quota set |
+| Claude | 85.4M | $903.74 _(notional, rate-card)_ | no quota set |
 | Codex | 36.6M _(+95.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr521-e62f93ef`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr521-e62f93ef.md) — attention directive on endojs/endo-but-for-bots PR #521
+- [`kriskowal-garden-pr19-review-af733b76`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr19-review-af733b76.md) — Review directive on kriskowal/garden PR #19
 
 ### tada (2240)
 - [`corrective-endojs-endo-but-for-bots-pr722-review-4699091386`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/corrective-endojs-endo-but-for-bots-pr722-review-4699091386.md) — Updated PR #722 at a4859f575c with the requested base/unconfined @endo/fetch ...
@@ -414,6 +415,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr521-e62f93ef-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr521-e62f93ef-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #521 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr722-review-01c311bd-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr722-review-01c311bd-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #722 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr671-review-93271f57-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr671-review-93271f57-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #671 (primary: endojs-endo-but-f...
+- [`kriskowal-garden-pr19-review-af733b76-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriskowal-garden-pr19-review-af733b76-retro.md) — _low_ · Retrospective on kriskowal/garden PR #19 (primary: kriskowal-garden-pr19-revi...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
