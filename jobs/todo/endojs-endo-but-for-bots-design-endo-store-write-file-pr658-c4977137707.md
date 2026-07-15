@@ -10,9 +10,4 @@ Originating directive: https://github.com/endojs/endo-but-for-bots/pull/658#issu
 
 Draft a self-contained design for `endo store` to drive `writeFile`. Ordinary `EndoDirectory` instances, not only mounts or name hubs, should support `writeFile`. Define the capability and API model, behavior and error cases, compatibility and migration considerations, implementation boundaries, and verification plan. Surface unresolved choices as explicit open questions.
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 9
-  worker_kind: gardener
-  claimed_at: 2026-07-15T05:25:20Z
+<!-- garden-reaped: 1 -->
