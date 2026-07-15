@@ -19,3 +19,10 @@ Task: conduct the merge. Un-draft is already done (not a draft). Choose the
 merge method per conductor discipline and merge. Bot repo — merging is
 authorized (NOT agoric-sdk, NOT endojs/endo upstream). Re-verify mergeable +
 green at claim time (a peer may have pushed) before merging.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  worker_kind: cleric
+  claimed_at: 2026-07-15T05:58:54Z
