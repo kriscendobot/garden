@@ -21,3 +21,10 @@ only README bookkeeping should change. The PR was [APPROVED] by kriskowal
 the PR should return to mergeable.
 
 Source: shepherd escalation from job endojs-endo-but-for-bots-pr169-shepherd (next: weaver).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: gardener
+  claimed_at: 2026-07-15T04:36:17Z
