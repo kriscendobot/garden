@@ -7,3 +7,10 @@ A maintainer-directed pivot requires the design to use the RFC 9485 safe-subset 
 Read `designs/CLAUDE.md`, preserve project conventions, cite the relevant RFC sections, and record unresolved design choices as questions. Commit and push the amended existing branch. Post the authorized top-level completion summary to PR #676 with the addressing SHA and real verification evidence.
 
 This is plain design work, not web-frontend work.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-15T15:06:03Z
