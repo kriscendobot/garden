@@ -1,11 +1,7 @@
 ---
-gate: deferred
-priority: normal
-roadmap: M4 Networking / framing naming
 role: designer
-posted_by: producer
-posted_at: 2026-07-15T06:13:16Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-07-15T19:24:04Z -->
 
 # Reconcile the syrups framing design to the landed `@endo/syrup-frame` name
 
