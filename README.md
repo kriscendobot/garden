@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T19:24:28Z_
+_As of 2026-07-15T19:36:03Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ Two operational flags warrant a look: the triager crash-loop fix is landed on `m
 
 - [endojs/endo-but-for-bots#714](https://github.com/endojs/endo-but-for-bots/pull/714) — feat(platform): add listTree, rangeRead, rangeReadText (consolidate genie/lal/fae fs reads) (waiting 4h)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 13h)
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 20h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 21h)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 1d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 3d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 5d)
@@ -390,16 +390,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-syrups-naming-reconcile`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-syrups-naming-reconcile.md) — Reconcile the syrups framing design to the landed @endo/syrup-frame name
+### doin (0)
+(none)
 
-### tada (2282)
+### tada (2283)
+- [`endojs-endo-but-for-bots-syrups-naming-reconcile`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-syrups-naming-reconcile.md) — Completion report
 - [`deadmail-20260715T191242Z-cec88f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260715T191242Z-cec88f.md) — Recovered the requested draft PR URL: https://github.com/endojs/endo-but-for-...
 - [`deadmail-issue-comment-4981804044`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4981804044.md) — Dispatched designer; resulting draft PR: https://github.com/endojs/endo-but-f...
 - [`endor-git-bindings-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endor-git-bindings-design.md) — Created endor-git-bindings design and updated roadmap metadata.
 - [`endojs-endo-but-for-bots-pr598-review-ac90d9cd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr598-review-ac90d9cd.md) — Resolved PR #598’s sole review request: rebased onto llm and force-with-lease...
-- [`endojs-endo-but-for-bots-pr714-shepherd-4981830543`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr714-shepherd-4981830543.md) — Shepherded PR #714 to green.
-- … and 2277 more
+- … and 2278 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
