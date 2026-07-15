@@ -23,3 +23,10 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 I would like Endor to be a stand-alone binary. Where it is sufficient for the reference implementation in Node.js to shell out to git for daemon content-address-storage, Endor should have Git bindings that run in the same process. What are our options for binding Git to Rust? 
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  claimed_at: 2026-07-15T14:24:20Z
