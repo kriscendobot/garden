@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T14:24:42Z_
+_As of 2026-07-15T14:26:20Z_
 
 ## Latest
 
@@ -384,23 +384,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 83.7M | $888.79 _(notional, rate-card)_ | no quota set |
-| Codex | 48.8M _(+116.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
+| Codex | 48.8M _(+117.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr598-review-ac90d9cd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr598-review-ac90d9cd.md) — Review directive on endojs/endo-but-for-bots PR #598
-- [`issue-kriskowal-garden-46`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-46.md) — Issue from kriskowal on kriskowal/garden #46
 
-### tada (2274)
+### tada (2275)
+- [`issue-kriskowal-garden-46`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-46.md) — Commented on issue #46 with in-process Rust Git options and a recommended eva...
 - [`endojs-endo-but-for-bots-pr658-c4977137707-design-followups`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr658-c4977137707-design-followups.md) — orchestration endojs-endo-but-for-bots-pr658-c4977137707-design-followups — c...
 - [`endojs-endo-but-for-bots-design-endo-store-write-file-pr658-c4977137707`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-design-endo-store-write-file-pr658-c4977137707.md) — Done. PR verified as draft against llm; inbox empty. Here is my completion re...
 - [`endojs-endo-but-for-bots-pr714-review-b80b82c7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr714-review-b80b82c7.md) — Resolved PR #714 review feedback and pushed 57464012f.
 - [`endojs-endo-but-for-bots-pr719-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr719-shepherd.md) — Shepherd completed for PR #719.
-- [`endojs-endo-but-for-bots-pr259-b517a6e0`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr259-b517a6e0.md) — Confirmed PR #259 mirrors upstream #3322 at 2587b0f8c; all five changed file ...
-- … and 2269 more
+- … and 2270 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
