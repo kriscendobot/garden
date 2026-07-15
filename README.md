@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T03:50:23Z_
+_As of 2026-07-15T03:50:36Z_
 
 ## Latest
 
@@ -357,17 +357,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
-- [`corrective-endojs-endo-but-for-bots-pr722-review-4699091386`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/corrective-endojs-endo-but-for-bots-pr722-review-4699091386.md) — ---
+### doin (1)
 - [`endojs-endo-but-for-bots-pr521-e62f93ef`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr521-e62f93ef.md) — attention directive on endojs/endo-but-for-bots PR #521
 
-### tada (2239)
+### tada (2240)
+- [`corrective-endojs-endo-but-for-bots-pr722-review-4699091386`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/corrective-endojs-endo-but-for-bots-pr722-review-4699091386.md) — Updated PR #722 at a4859f575c with the requested base/unconfined @endo/fetch ...
 - [`design-anthropic-worker-kind-monk`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-anthropic-worker-kind-monk.md) — Landed and pushed accepted migration design: bc7f7796c2 on main2.
 - [`fix-pr-feedback-preflight-review-correlation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-pr-feedback-preflight-review-correlation.md) — Implemented and pushed a2ae7cebd8 to main2.
 - [`endojs-endo-but-for-bots-pr671-review-93271f57`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-review-93271f57.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr9-15511bd2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr9-15511bd2.md) — Closed kriscendobot/agoric-sdk PR #9 at mhofman's request after the mandated ...
-- [`deadmail-issue-comment-4974631388`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4974631388.md) — Confirmed the authorized, clean baseline branch is active and its stock-runne...
-- … and 2234 more
+- … and 2235 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
