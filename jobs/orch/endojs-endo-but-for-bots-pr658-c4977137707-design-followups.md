@@ -2,7 +2,7 @@
 order: parallel
 children: endojs-endo-but-for-bots-design-endo-ls-json-pr658-c4977137707 endojs-endo-but-for-bots-design-endo-store-write-file-pr658-c4977137707
 on-child-failure: continue
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-07-15T05:23:52Z
 ---
