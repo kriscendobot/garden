@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T19:14:57Z_
+_As of 2026-07-15T19:15:30Z_
 
 ## Latest
 
@@ -390,8 +390,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`deadmail-20260715T191242Z-cec88f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260715T191242Z-cec88f.md) — Dead-lettered message — pick up its intent
 
 ### tada (2281)
 - [`deadmail-issue-comment-4981804044`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4981804044.md) — Dispatched designer; resulting draft PR: https://github.com/endojs/endo-but-f...
