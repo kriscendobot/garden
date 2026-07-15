@@ -1,5 +1,5 @@
 cadence: hourly
-last_dispatched: 2026-07-15T09:20:01Z
+last_dispatched: 2026-07-15T10:20:02Z
 job_basename_prefix: scholar-library-cycle
 preflight: scholar-preflight.sh
 ---
