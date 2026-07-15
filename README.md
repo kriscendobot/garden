@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T13:46:12Z_
+_As of 2026-07-15T13:54:03Z_
 
 ## Latest
 
@@ -390,8 +390,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr598-review-ac90d9cd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr598-review-ac90d9cd.md) — Review directive on endojs/endo-but-for-bots PR #598
 
 ### tada (2274)
 - [`endojs-endo-but-for-bots-pr658-c4977137707-design-followups`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr658-c4977137707-design-followups.md) — orchestration endojs-endo-but-for-bots-pr658-c4977137707-design-followups — c...
@@ -464,6 +464,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr721-review-67dcebef-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr721-review-67dcebef-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #721 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr710-review-b6a9374c-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr710-review-b6a9374c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #710 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr714-review-b80b82c7-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr714-review-b80b82c7-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #714 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr598-review-ac90d9cd-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr598-review-ac90d9cd-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #598 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
