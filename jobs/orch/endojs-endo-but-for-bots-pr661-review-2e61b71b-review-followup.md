@@ -2,7 +2,7 @@
 order: serial
 children: endojs-endo-but-for-bots-pr661-review-2e61b71b-security-review-fable endojs-endo-but-for-bots-pr661-review-2e61b71b-run-gauntlet
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-07-15T05:10:24Z
 ---
