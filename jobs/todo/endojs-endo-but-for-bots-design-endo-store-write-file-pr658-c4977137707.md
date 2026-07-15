@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr658-c4977137707-design-followups
-priority: normal
 role: designer
-posted_by: gardener
-posted_at: 2026-07-15T05:23:47Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-15T05:25:17Z -->
 
 # Design: make `endo store` drive `writeFile`
 
