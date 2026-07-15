@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T03:37:34Z_
+_As of 2026-07-15T03:40:53Z_
 
 ## Latest
 
@@ -347,14 +347,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 86.0M | $908.81 _(notional, rate-card)_ | no quota set |
-| Codex | 36.3M _(+93.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Codex | 36.3M _(+94.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`corrective-endojs-endo-but-for-bots-pr722-review-4699091386`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/corrective-endojs-endo-but-for-bots-pr722-review-4699091386.md) — ---
+- [`design-anthropic-worker-kind-monk`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-anthropic-worker-kind-monk.md) — ---
 - [`endojs-endo-but-for-bots-pr521-e62f93ef`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr521-e62f93ef.md) — attention directive on endojs/endo-but-for-bots PR #521
 - [`fix-pr-feedback-preflight-review-correlation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-pr-feedback-preflight-review-correlation.md) — ---
 
