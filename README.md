@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T08:39:53Z_
+_As of 2026-07-15T08:40:15Z_
 
 ## Latest
 
@@ -384,7 +384,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 83.7M | $888.79 _(notional, rate-card)_ | no quota set |
-| Codex | 37.6M _(+107.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Codex | 37.6M _(+107.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -397,7 +397,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr719-review-69684243`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-review-69684243.md) — Review directive on endojs/endo-but-for-bots PR #719
 
 ### tada (2268)
-- [`kriskowal-garden-pr19-review-af733b76`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr19-review-af733b76.md) — Refreshed kriskowal/garden PR #19 from e090a48d8 to bc7f7796c (current main2)...
+- [`kriskowal-garden-pr19-review-af733b76`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr19-review-af733b76.md) — Refreshed PR #19 to current main2; the duplicate commit was skipped because i...
 - [`daily-progress-summary-20260715-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260715-070502.md) — Completion report
 - [`endojs-endo-but-for-bots-pr737-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr737-shepherd.md) — Fixed PR #737’s stale actions/setup-node v6 pins in commit 37119afdde.
 - [`endojs-endo-but-for-bots-pr710-review-b6a9374c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr710-review-b6a9374c.md) — Completion report — review directive on endojs/endo-but-for-bots PR #710
