@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T19:44:28Z_
+_As of 2026-07-15T19:46:46Z_
 
 ## Latest
 
@@ -390,16 +390,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr658-review-97e5a186-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr658-review-97e5a186-retro.md) — Retrospective on endojs/endo-but-for-bots PR #658 (primary: endojs-endo-but-f...
+### doin (0)
+(none)
 
-### tada (2283)
+### tada (2284)
+- [`endojs-endo-but-for-bots-pr658-review-97e5a186-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr658-review-97e5a186-retro.md) — Recorded a review-process miss: the approved panel missed that mount-specific...
 - [`endojs-endo-but-for-bots-syrups-naming-reconcile`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-syrups-naming-reconcile.md) — Completion report
 - [`deadmail-20260715T191242Z-cec88f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260715T191242Z-cec88f.md) — Recovered the requested draft PR URL: https://github.com/endojs/endo-but-for-...
 - [`deadmail-issue-comment-4981804044`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4981804044.md) — Dispatched designer; resulting draft PR: https://github.com/endojs/endo-but-f...
 - [`endor-git-bindings-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endor-git-bindings-design.md) — Created endor-git-bindings design and updated roadmap metadata.
-- [`endojs-endo-but-for-bots-pr598-review-ac90d9cd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr598-review-ac90d9cd.md) — Resolved PR #598’s sole review request: rebased onto llm and force-with-lease...
-- … and 2278 more
+- … and 2279 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
