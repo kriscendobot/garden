@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T05:01:38Z_
+_As of 2026-07-15T05:03:02Z_
 
 ## Latest
 
@@ -361,9 +361,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr521-e62f93ef`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr521-e62f93ef.md) — attention directive on endojs/endo-but-for-bots PR #521
 - [`endojs-endo-but-for-bots-pr695-review-e6f842ee`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr695-review-e6f842ee.md) — Review directive on endojs/endo-but-for-bots PR #695
+- [`endojs-endo-but-for-bots-pr722-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr722-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #722
 - [`kriskowal-garden-pr19-review-af733b76`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr19-review-af733b76.md) — Review directive on kriskowal/garden PR #19
 
 ### tada (2245)
