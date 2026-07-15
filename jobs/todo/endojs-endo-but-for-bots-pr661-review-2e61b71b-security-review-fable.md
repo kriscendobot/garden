@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr661-review-2e61b71b-review-followup
-priority: normal
 role: fixer
-posted_by: gardener
-posted_at: 2026-07-15T05:10:14Z
+model: fable
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-15T05:13:05Z -->
 
 ---
 model: fable
