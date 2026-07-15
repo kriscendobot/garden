@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T05:47:54Z_
+_As of 2026-07-15T05:48:21Z_
 
 ## Latest
 
@@ -195,6 +195,19 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > Scope is PHASE 1 ONLY per the design's phased migration: create packages/cbor/ (the hardened functional primitive codec + shared golden-vector fixture prepared for Rust mirroring). It deliberately does NOT migrate the ocapn/slots/daemon consumers — phase 3 (slots) is gated on [endojs/endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/issues/124) landing, so those stay separate later steps.
 >
 > It's parked (go-ahead) rather than live so promotion is your/the foreman's call. Say "promote build-endo-cbor-package" (or "build @endo/cbor") to send it to the builder now; correct me if you meant something narrower by "note the PR."
+
+- `20260715T054804Z-93f534` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260715T054804Z-93f534.md)
+
+> A garden-follow-up action block was REJECTED and dropped (not retried):
+>   inner claude -p failure (rc=1)
+>
+> Producer output:
+> rc=1
+> stderr:
+> <empty>
+>
+> stdout:
+> You've hit your weekly limit · resets Jul 18, 3am (UTC)
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
