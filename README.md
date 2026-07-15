@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T04:41:00Z_
+_As of 2026-07-15T04:44:52Z_
 
 ## Latest
 
@@ -350,25 +350,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 85.2M | $902.34 _(notional, rate-card)_ | no quota set |
-| Codex | 36.6M _(+95.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
+| Claude | 85.2M | $901.87 _(notional, rate-card)_ | no quota set |
+| Codex | 36.7M _(+96.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`ebfb-cbor-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-cbor-build.md) — build: create @endo/cbor (shared canonical CBOR primitives), phase 1
+### doin (2)
 - [`endojs-endo-but-for-bots-pr521-e62f93ef`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr521-e62f93ef.md) — attention directive on endojs/endo-but-for-bots PR #521
 - [`kriskowal-garden-pr19-review-af733b76`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr19-review-af733b76.md) — Review directive on kriskowal/garden PR #19
 
-### tada (2244)
+### tada (2245)
+- [`ebfb-cbor-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-cbor-build.md) — Implemented and pushed @endo/cbor phase 1 to master (fcbb540ed).
 - [`endojs-endo-but-for-bots-pr169-retcon`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr169-retcon.md) — Retconned PR #169 and force-pushed f371b4dfc9.
 - [`endojs-endo-but-for-bots-pr710-07daed17`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr710-07daed17.md) — Completion report
 - [`endojs-endo-but-for-bots-pr169-reweave-0715`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr169-reweave-0715.md) — Completion report
 - [`endojs-endo-but-for-bots-pr169-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr169-shepherd.md) — Completion report
-- [`corrective-endojs-endo-but-for-bots-pr722-review-4699091386`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/corrective-endojs-endo-but-for-bots-pr722-review-4699091386.md) — Updated PR #722 at a4859f575c with the requested base/unconfined @endo/fetch ...
-- … and 2239 more
+- … and 2240 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
