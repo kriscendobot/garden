@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T06:35:05Z_
+_As of 2026-07-15T06:50:25Z_
 
 ## Latest
 
@@ -12,8 +12,8 @@ Two operational flags warrant a look: the triager crash-loop fix is landed on `m
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 53m)
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 7h)
+- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 1h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 8h)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 1d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 2d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 4d)
@@ -209,6 +209,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > stdout:
 > You've hit your weekly limit · resets Jul 18, 3am (UTC)
 
+- `20260715T065009Z-948cd7` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260715T065009Z-948cd7.md)
+
+> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: e1e7e43a412be8e6e9fb93f829952698f895adae (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p e1e7e43a412be8e6e9fb93f829952698f895adae). Diagnosis: You've hit your weekly limit · resets Jul 18, 3am (UTC)
+
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -379,7 +383,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 83.8M | $889.35 _(notional, rate-card)_ | no quota set |
+| Claude | 83.7M | $888.79 _(notional, rate-card)_ | no quota set |
 | Codex | 37.5M _(+105.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
