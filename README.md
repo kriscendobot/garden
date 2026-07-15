@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T04:34:30Z_
+_As of 2026-07-15T04:35:45Z_
 
 ## Latest
 
@@ -350,14 +350,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 85.3M | $903.21 _(notional, rate-card)_ | no quota set |
+| Claude | 85.3M | $903.19 _(notional, rate-card)_ | no quota set |
 | Codex | 36.6M _(+95.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
+- [`endojs-endo-but-for-bots-pr169-retcon`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr169-retcon.md) — retcon directive on endojs/endo-but-for-bots PR #169
 - [`endojs-endo-but-for-bots-pr169-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr169-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #169
 - [`endojs-endo-but-for-bots-pr521-e62f93ef`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr521-e62f93ef.md) — attention directive on endojs/endo-but-for-bots PR #521
 - [`kriskowal-garden-pr19-review-af733b76`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr19-review-af733b76.md) — Review directive on kriskowal/garden PR #19
