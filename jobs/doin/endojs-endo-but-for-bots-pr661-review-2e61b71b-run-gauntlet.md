@@ -7,6 +7,7 @@ Run the full gauntlet for endojs/endo-but-for-bots PR #661 (https://github.com/e
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
