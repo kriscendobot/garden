@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T17:50:29Z_
+_As of 2026-07-15T18:06:41Z_
 
 ## Latest
 
@@ -390,17 +390,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`deadmail-issue-comment-4981804044`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4981804044.md) — Dead-lettered message — pick up its intent
-- [`endojs-endo-but-for-bots-pr598-review-ac90d9cd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr598-review-ac90d9cd.md) — Review directive on endojs/endo-but-for-bots PR #598
 
-### tada (2278)
+### tada (2279)
+- [`endojs-endo-but-for-bots-pr598-review-ac90d9cd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr598-review-ac90d9cd.md) — Resolved PR #598’s sole review request: rebased onto llm and force-with-lease...
 - [`endojs-endo-but-for-bots-pr714-shepherd-4981830543`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr714-shepherd-4981830543.md) — Shepherded PR #714 to green.
 - [`endojs-endo-but-for-bots-pr676-design-rfc9485`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr676-design-rfc9485.md) — Updated PR #676 at 155cfb7a71 and posted its completion summary.
 - [`endojs-endo-but-for-bots-pr676-b3edafc8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr676-b3edafc8.md) — Routed the maintainer directive to design work: posted endojs-endo-but-for-bo...
 - [`issue-kriskowal-garden-46`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-46.md) — Commented on issue #46 with in-process Rust Git options and a recommended eva...
-- [`endojs-endo-but-for-bots-pr658-c4977137707-design-followups`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr658-c4977137707-design-followups.md) — orchestration endojs-endo-but-for-bots-pr658-c4977137707-design-followups — c...
-- … and 2273 more
+- … and 2274 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
