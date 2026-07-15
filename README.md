@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T05:52:56Z_
+_As of 2026-07-15T05:54:55Z_
 
 ## Latest
 
@@ -379,30 +379,29 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 84.0M | $891.02 _(notional, rate-card)_ | no quota set |
+| Claude | 84.0M | $890.87 _(notional, rate-card)_ | no quota set |
 | Codex | 37.2M _(+103.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (8)
+### doin (7)
 - [`endojs-endo-but-for-bots-design-endo-store-write-file-pr658-c4977137707`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-design-endo-store-write-file-pr658-c4977137707.md) — Design: make endo store drive writeFile
 - [`endojs-endo-but-for-bots-pr521-e62f93ef`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr521-e62f93ef.md) — attention directive on endojs/endo-but-for-bots PR #521
 - [`endojs-endo-but-for-bots-pr661-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr661-conduct.md) — Role: conductor
-- [`endojs-endo-but-for-bots-pr661-review-2e61b71b-run-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr661-review-2e61b71b-run-gauntlet.md) — ---
 - [`endojs-endo-but-for-bots-pr682-review-556953b2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr682-review-556953b2.md) — Review directive on endojs/endo-but-for-bots PR #682
 - [`endojs-endo-but-for-bots-pr710-review-b6a9374c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr710-review-b6a9374c.md) — Review directive on endojs/endo-but-for-bots PR #710
 - [`endojs-endo-but-for-bots-pr719-review-69684243`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-review-69684243.md) — Review directive on endojs/endo-but-for-bots PR #719
 - [`kriskowal-garden-pr19-review-af733b76`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr19-review-af733b76.md) — Review directive on kriskowal/garden PR #19
 
-### tada (2258)
+### tada (2259)
+- [`endojs-endo-but-for-bots-pr661-review-2e61b71b-run-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr661-review-2e61b71b-run-gauntlet.md) — PR #661 is already ready for review, CLEAN, and at head 4d5d6d0. The precedin...
 - [`endojs-endo-but-for-bots-pr721-review-67dcebef`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr721-review-67dcebef.md) — Completion report
 - [`endojs-endo-but-for-bots-pr697-review-41328be4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr697-review-41328be4.md) — Updated PR #697 in commit e4a0a614b816, pushed to its branch.
 - [`endojs-endo-but-for-bots-pr710-ce2a6fe9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr710-ce2a6fe9.md) — What the directive asked
 - [`endojs-endo-but-for-bots-pr719-d8b31703`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr719-d8b31703.md) — Completion report — attention directive on endojs/endo-but-for-bots PR #719
-- [`endojs-endo-but-for-bots-design-endo-ls-json-pr658-c4977137707`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-design-endo-ls-json-pr658-c4977137707.md) — Draft design PR #736: endo ls --json snapshot array contract, JSON Lines foll...
-- … and 2253 more
+- … and 2254 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
