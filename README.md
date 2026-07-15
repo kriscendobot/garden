@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T18:56:58Z_
+_As of 2026-07-15T19:14:57Z_
 
 ## Latest
 
@@ -390,16 +390,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`deadmail-issue-comment-4981804044`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4981804044.md) — Dead-lettered message — pick up its intent
+### doin (0)
+(none)
 
-### tada (2280)
+### tada (2281)
+- [`deadmail-issue-comment-4981804044`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4981804044.md) — Dispatched designer; resulting draft PR: https://github.com/endojs/endo-but-f...
 - [`endor-git-bindings-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endor-git-bindings-design.md) — Created endor-git-bindings design and updated roadmap metadata.
 - [`endojs-endo-but-for-bots-pr598-review-ac90d9cd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr598-review-ac90d9cd.md) — Resolved PR #598’s sole review request: rebased onto llm and force-with-lease...
 - [`endojs-endo-but-for-bots-pr714-shepherd-4981830543`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr714-shepherd-4981830543.md) — Shepherded PR #714 to green.
 - [`endojs-endo-but-for-bots-pr676-design-rfc9485`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr676-design-rfc9485.md) — Updated PR #676 at 155cfb7a71 and posted its completion summary.
-- [`endojs-endo-but-for-bots-pr676-b3edafc8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr676-b3edafc8.md) — Routed the maintainer directive to design work: posted endojs-endo-but-for-bo...
-- … and 2275 more
+- … and 2276 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
