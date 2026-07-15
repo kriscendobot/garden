@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T05:54:55Z_
+_As of 2026-07-15T05:55:16Z_
 
 ## Latest
 
@@ -395,13 +395,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr719-review-69684243`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-review-69684243.md) — Review directive on endojs/endo-but-for-bots PR #719
 - [`kriskowal-garden-pr19-review-af733b76`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr19-review-af733b76.md) — Review directive on kriskowal/garden PR #19
 
-### tada (2259)
+### tada (2260)
+- [`endojs-endo-but-for-bots-pr661-review-2e61b71b-review-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr661-review-2e61b71b-review-followup.md) — orchestration endojs-endo-but-for-bots-pr661-review-2e61b71b-review-followup ...
 - [`endojs-endo-but-for-bots-pr661-review-2e61b71b-run-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr661-review-2e61b71b-run-gauntlet.md) — PR #661 is already ready for review, CLEAN, and at head 4d5d6d0. The precedin...
 - [`endojs-endo-but-for-bots-pr721-review-67dcebef`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr721-review-67dcebef.md) — Completion report
 - [`endojs-endo-but-for-bots-pr697-review-41328be4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr697-review-41328be4.md) — Updated PR #697 in commit e4a0a614b816, pushed to its branch.
 - [`endojs-endo-but-for-bots-pr710-ce2a6fe9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr710-ce2a6fe9.md) — What the directive asked
-- [`endojs-endo-but-for-bots-pr719-d8b31703`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr719-d8b31703.md) — Completion report — attention directive on endojs/endo-but-for-bots PR #719
-- … and 2254 more
+- … and 2255 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
