@@ -11,3 +11,10 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Please weave, retcon, conduct, and dispatch a builder. 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  worker_kind: cleric
+  claimed_at: 2026-07-15T04:35:37Z
