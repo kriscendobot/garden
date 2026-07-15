@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T03:44:24Z_
+_As of 2026-07-15T03:46:52Z_
 
 ## Latest
 
@@ -347,24 +347,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 86.0M | $908.37 _(notional, rate-card)_ | no quota set |
-| Codex | 36.5M _(+94.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
+| Codex | 36.6M _(+95.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`corrective-endojs-endo-but-for-bots-pr722-review-4699091386`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/corrective-endojs-endo-but-for-bots-pr722-review-4699091386.md) — ---
-- [`design-anthropic-worker-kind-monk`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-anthropic-worker-kind-monk.md) — ---
 - [`endojs-endo-but-for-bots-pr521-e62f93ef`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr521-e62f93ef.md) — attention directive on endojs/endo-but-for-bots PR #521
 
-### tada (2238)
+### tada (2239)
+- [`design-anthropic-worker-kind-monk`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-anthropic-worker-kind-monk.md) — Landed and pushed accepted migration design: bc7f7796c2 on main2.
 - [`fix-pr-feedback-preflight-review-correlation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-pr-feedback-preflight-review-correlation.md) — Implemented and pushed a2ae7cebd8 to main2.
 - [`endojs-endo-but-for-bots-pr671-review-93271f57`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-review-93271f57.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr9-15511bd2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr9-15511bd2.md) — Closed kriscendobot/agoric-sdk PR #9 at mhofman's request after the mandated ...
 - [`deadmail-issue-comment-4974631388`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4974631388.md) — Confirmed the authorized, clean baseline branch is active and its stock-runne...
-- [`foreman-provider-fallback-codex-ollama`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/foreman-provider-fallback-codex-ollama.md) — Implemented and pushed dfb21011cc to main2.
-- … and 2233 more
+- … and 2234 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
