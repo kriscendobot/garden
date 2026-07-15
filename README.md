@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T00:20:29Z_
+_As of 2026-07-15T01:20:29Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ Two operational flags warrant a look: the triager crash-loop fix is landed on `m
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 1h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 2h)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 1d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 2d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 4d)
@@ -167,6 +167,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260715T002008Z-5fc86f` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260715T002008Z-5fc86f.md)
 
 > self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: c08278b5f5b6c0eaf954dd946c45b5d062078fa9 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p c08278b5f5b6c0eaf954dd946c45b5d062078fa9). Diagnosis: You've hit your weekly limit · resets Jul 18, 3am (UTC)
+
+- `20260715T012018Z-a71fc8` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260715T012018Z-a71fc8.md)
+
+> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 7f66a900eecfd345bc105de5a262d81d4f242942 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 7f66a900eecfd345bc105de5a262d81d4f242942). Diagnosis: You've hit your weekly limit · resets Jul 18, 3am (UTC)
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
@@ -338,7 +342,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 88.4M | $926.54 _(notional, rate-card)_ | no quota set |
+| Claude | 87.7M | $921.50 _(notional, rate-card)_ | no quota set |
 | Codex | 36.1M _(+92.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
