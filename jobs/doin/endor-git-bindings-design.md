@@ -29,3 +29,10 @@ submitter: kriskowal
 ----- END ISSUE NOTE -----
 
 Originating maintainer directive: https://github.com/kriskowal/garden/issues/46#issuecomment-4981804044
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: cleric
+  claimed_at: 2026-07-15T18:45:03Z
