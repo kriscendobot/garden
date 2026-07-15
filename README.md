@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-15T19:46:46Z_
+_As of 2026-07-15T19:49:49Z_
 
 ## Latest
 
@@ -390,8 +390,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr661-review-e6e9d5e5-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr661-review-e6e9d5e5-retro.md) — Retrospective on endojs/endo-but-for-bots PR #661 (primary: endojs-endo-but-f...
 
 ### tada (2284)
 - [`endojs-endo-but-for-bots-pr658-review-97e5a186-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr658-review-97e5a186-retro.md) — Recorded a review-process miss: the approved panel missed that mount-specific...
@@ -428,7 +428,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr661-review-e6e9d5e5-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr661-review-e6e9d5e5-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #661 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr662-review-25ab500f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr662-review-25ab500f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #662 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr667-review-20347bb0-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr667-review-20347bb0-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #667 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr670-review-6d095eec-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr670-review-6d095eec-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #670 (primary: endojs-endo-but-f...
