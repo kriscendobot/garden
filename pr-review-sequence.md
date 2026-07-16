@@ -1,125 +1,96 @@
 # PR-review sequence — `endojs/endo-but-for-bots`
 
-_Live snapshot: 2026-07-16 16:47 UTC. Links and GitHub state were refreshed from
-the API. The sequence distinguishes review-ready work from changes-requested,
-conflicting, draft, or actively serviced work. Mergeability is now reported
-concretely for every PR — the `UNKNOWN` placeholders from the prior snapshot have
-all recomputed._
+_Live snapshot: 2026-07-16 (evening). Refreshed from the API and reorganized around
+the **major review arcs now in progress** (each has a standing press-driver +
+kriskowal/garden tracker). Read "Review now" for the cross-arc priority queue, then
+the per-arc sections for each effort's state and its next reviewable/blocking edge.
+`UNKNOWN` mergeability means GitHub had not recomputed the merge graph at snapshot._
 
-## Review now
+## Review now (cross-arc priority queue)
 
-Review these from top to bottom. They are non-draft, `MERGEABLE/CLEAN` with all
-checks green, and carry no outstanding `CHANGES_REQUESTED` review.
+Non-draft, `MERGEABLE/CLEAN`, no `CHANGES_REQUESTED`, all checks green — review top to
+bottom; arc tagged.
 
-1. [`endojs/endo-but-for-bots#259`](https://github.com/endojs/endo-but-for-bots/pull/259)
-   — hardened `TextEncoder`/`TextDecoder` shim. `master`, non-draft,
-   `MERGEABLE/CLEAN`, 18/18 checks. This is the remaining straightforward M2 shim
-   review.
+1. [`#708`](https://github.com/endojs/endo-but-for-bots/pull/708) — restore content-address QID/hash in `@endo/exo-git`. 23/23. _(git-integration)_
+2. [`#707`](https://github.com/endojs/endo-but-for-bots/pull/707) — capability-based workspace provisioning + the worked VCS loop (git stack Phase 3). 23/23. **Recovered to CLEAN** (was UNSTABLE); its predecessor `#706` just merged. _(git-integration)_
+3. [`#713`](https://github.com/endojs/endo-but-for-bots/pull/713) — `EndoMount.glorp` fused glob+grep. 23/23. _(vfs-parity)_
+4. [`#655`](https://github.com/endojs/endo-but-for-bots/pull/655) — mount grep (PR C of #127). 23/23. _(vfs-parity)_
+5. [`#657`](https://github.com/endojs/endo-but-for-bots/pull/657) — mount JSON read/write (PR D of #127). 23/23. _(vfs-parity)_
+6. [`#669`](https://github.com/endojs/endo-but-for-bots/pull/669) — Pi-compatible JSONL transcript projection. 23/23.
+7. [`#694`](https://github.com/endojs/endo-but-for-bots/pull/694) — Docker self-hosting with authenticated remote gateway (M3). 23/23.
+8. [`#259`](https://github.com/endojs/endo-but-for-bots/pull/259) — `TextEncoder`/`TextDecoder` as universal intrinsics. 18/18.
 
-2. [`endojs/endo-but-for-bots#694`](https://github.com/endojs/endo-but-for-bots/pull/694)
-   — Docker self-hosting with authenticated remote gateway. Non-draft,
-   `MERGEABLE/CLEAN`, 23/23 checks. This is the M3 remote self-hosting line.
-
-3. [`endojs/endo-but-for-bots#669`](https://github.com/endojs/endo-but-for-bots/pull/669)
-   — Pi-compatible JSONL transcript projection. Non-draft, `MERGEABLE/CLEAN`,
-   23/23 checks.
-
-4. [`endojs/endo-but-for-bots#708`](https://github.com/endojs/endo-but-for-bots/pull/708)
-   — restore content-address QID/hash in `@endo/exo-git`. Non-draft,
-   `MERGEABLE/CLEAN`, 23/23 checks. (Related plumbing landed meanwhile in `#734`,
-   exo-git credential/ref-update typing — re-confirm no overlap before merge.)
-
-5. [`endojs/endo-but-for-bots#656`](https://github.com/endojs/endo-but-for-bots/pull/656)
-   — `provideSubMount` primitive. Non-draft, `MERGEABLE/CLEAN`, 24/24 checks.
-   (Mergeability recomputed to `CLEAN` since the prior snapshot.)
-
-6. [`endojs/endo-but-for-bots#705`](https://github.com/endojs/endo-but-for-bots/pull/705)
-   — git remote fetch/pull/push tool. Non-draft, `MERGEABLE/CLEAN`, 22/22 checks.
-   (Recomputed to `CLEAN`.)
-
-7. [`endojs/endo-but-for-bots#706`](https://github.com/endojs/endo-but-for-bots/pull/706)
-   — formula-owned git commit-identity boundary. Non-draft, `MERGEABLE/CLEAN`,
-   25/25 checks. (Recomputed to `CLEAN`.) Review before its stacked phase-3 PR
-   [`endojs/endo-but-for-bots#707`](https://github.com/endojs/endo-but-for-bots/pull/707).
-
-> Moved out since the prior snapshot: `#598` (daemon→manager rename phase 1) has
-> gone `CONFLICTING/DIRTY` and now carries `CHANGES_REQUESTED` — see _Needs
-> engineering_.
+**Ready pending a mergeability recompute** (non-draft, green, no changes-requested, but
+`UNKNOWN` at snapshot — re-check then review): [`#705`](https://github.com/endojs/endo-but-for-bots/pull/705) git remote push tier _(git)_, [`#656`](https://github.com/endojs/endo-but-for-bots/pull/656) `provideSubMount` _(vfs)_, [`#585`](https://github.com/endojs/endo-but-for-bots/pull/585) content-store powers for node fs _(data-plane)_, [`#276`](https://github.com/endojs/endo-but-for-bots/pull/276) npm-registry HTTP fetch _(npm-CAS)_, [`#282`](https://github.com/endojs/endo-but-for-bots/pull/282) endor-run dependency walk _(npm-CAS)_.
 
 ### Separate `master` Docker lane
+[`#608`](https://github.com/endojs/endo-but-for-bots/pull/608) — earlier local/headless Docker image, `MERGEABLE/CLEAN` 15/15 but based on frozen `master`. Decide whether it still lands on the `master` lane or is superseded by the remote-gateway line in `#694`.
 
-[`endojs/endo-but-for-bots#608`](https://github.com/endojs/endo-but-for-bots/pull/608)
-is the earlier local/headless Docker image: non-draft, `MERGEABLE/CLEAN`, 15/15
-checks, but based on frozen `master-eecc683`. Decide whether it still lands on the
-`master` lane or is superseded by the remote-gateway line in
-[`endojs/endo-but-for-bots#694`](https://github.com/endojs/endo-but-for-bots/pull/694).
+## Arcs in progress
 
-## Let active work finish before reviewing
+Each arc has a standing press-driver and a kriskowal/garden tracker issue (in parens).
 
-No PRs are currently held by an in-flight job — the job board (`jobs/todo`,
-`jobs/doin`) is idle at this snapshot. The three PRs parked here last time have
-moved on: `#682` **merged**, and `#714` / `#719` now need engineering (their
-review-feedback jobs completed without clearing `CHANGES_REQUESTED`) — see below.
+### SturdyRef system (#47)
+Design `#510` **merged**; the effort is implementation-in-flight through numbered cuts.
+- **Bridge cuts, clean drafts (next edge):** [`#698`](https://github.com/endojs/endo-but-for-bots/pull/698) bytes-preserving wire read (cut 1), 24/24; [`#700`](https://github.com/endojs/endo-but-for-bots/pull/700) URI codec + closely-held reveal (cut 2), 24/24. [`#541`](https://github.com/endojs/endo-but-for-bots/pull/541) read-side facet threading (cuts 3–4), 22/22. All draft/clean — the press should drive these toward un-draft.
+- **Designs needing revision:** [`#539`](https://github.com/endojs/endo-but-for-bots/pull/539) on-demand enlivenment (`CHANGES_REQUESTED`); [`#511`](https://github.com/endojs/endo-but-for-bots/pull/511) pass-style + FinalizationRegistry retention (clean draft).
+- **Agent provide/accept surface (design, changes-requested):** [`#695`](https://github.com/endojs/endo-but-for-bots/pull/695), [`#697`](https://github.com/endojs/endo-but-for-bots/pull/697) — revise, don't treat as first-review.
 
-## Needs engineering before another review
+### Passable byte arrays (#48)
+- **Front (changes-requested):** [`#503`](https://github.com/endojs/endo-but-for-bots/pull/503) passable byte arrays (freezable TypedArray + brand check), CLEAN 15/15 — address review. [`#475`](https://github.com/endojs/endo-but-for-bots/pull/475) narrow byteArray to plain frozen `Uint8Array`, **UNSTABLE 11/17 (6 failing)** — fix CI + review.
+- **Design (needs rebase):** [`#572`](https://github.com/endojs/endo-but-for-bots/pull/572) frozen-Uint8Array-view byteArray, `DIRTY` — rebase.
+- **Spike:** [`#602`](https://github.com/endojs/endo-but-for-bots/pull/602) Proxy-based emulation w/ Node·XS parity (draft, for comparison).
+- Registry dependency [`#671`](https://github.com/endojs/endo-but-for-bots/pull/671) is shared with the npm-CAS arc (see below).
 
-| PR | Current state | Next move |
-| --- | --- | --- |
-| [`endojs/endo-but-for-bots#598`](https://github.com/endojs/endo-but-for-bots/pull/598) | `CHANGES_REQUESTED`; `CONFLICTING/DIRTY`; 23/23 checks | Rebase onto live `llm` and address review. Landing releases the parked phase-2 and phase-3 rename build chain (`build-daemon-rename-to-manager-phase2`/`-phase3`). |
-| [`endojs/endo-but-for-bots#594`](https://github.com/endojs/endo-but-for-bots/pull/594) | `CHANGES_REQUESTED`; otherwise `MERGEABLE/CLEAN`, 16/16 | Address review; merge releases `resume-lint-ceiling-shepherds`. |
-| [`endojs/endo-but-for-bots#667`](https://github.com/endojs/endo-but-for-bots/pull/667) | `CHANGES_REQUESTED`; `MERGEABLE/BLOCKED`, 27/27 | Address review on the stdio JSONL RPC bridge (blocked only on an approving review). |
-| [`endojs/endo-but-for-bots#670`](https://github.com/endojs/endo-but-for-bots/pull/670) | `CHANGES_REQUESTED`; `MERGEABLE/CLEAN`, 23/23 | Address review on subscription OAuth. |
-| [`endojs/endo-but-for-bots#671`](https://github.com/endojs/endo-but-for-bots/pull/671) | `CHANGES_REQUESTED`; `CONFLICTING/DIRTY`; 3 failing of 24 | Rebase, fix CI, and address review. It still gates registry follow-up work (`registry-immutable-byte-array-followup`). |
-| [`endojs/endo-but-for-bots#707`](https://github.com/endojs/endo-but-for-bots/pull/707) | Non-draft, `MERGEABLE/UNSTABLE`, 3 failing of 24 | No longer conflicting. Land `#706`, then rebase the stacked worked-loop PR onto `llm` and fix the failing checks. |
-| [`endojs/endo-but-for-bots#713`](https://github.com/endojs/endo-but-for-bots/pull/713) | `MERGEABLE/CLEAN`, 23/23, but based on feature branch `feat/mount-glob-delegated` | Rebase onto live `llm` before review/merge. |
-| [`endojs/endo-but-for-bots#714`](https://github.com/endojs/endo-but-for-bots/pull/714) | `CHANGES_REQUESTED`; `CONFLICTING/DIRTY`; 24/24 checks | Rebase onto `llm` and address review on the platform range/tree reads. |
-| [`endojs/endo-but-for-bots#719`](https://github.com/endojs/endo-but-for-bots/pull/719) | `CHANGES_REQUESTED`; otherwise `MERGEABLE/CLEAN`, 18/18 | Address review on the hardened URL vetted shim. Prefer this design-faithful `%URL%`/`%SharedURL%` split over the older `#263`. |
-| [`endojs/endo-but-for-bots#721`](https://github.com/endojs/endo-but-for-bots/pull/721) | `CHANGES_REQUESTED`; `MERGEABLE/CLEAN`, 23/23 | Its `@endo/reminder` design `#682` has now **merged**, so the "after design settles" hold is lifted — address the implementation review. |
-| [`endojs/endo-but-for-bots#263`](https://github.com/endojs/endo-but-for-bots/pull/263) | `MERGEABLE/UNSTABLE`, 1 failing of 16; no review | Older hardened-URL shim, superseded by `#719`. Close in favor of `#719`, or fix the failing check only if `#719` is abandoned. |
-| [`endojs/endo-but-for-bots#695`](https://github.com/endojs/endo-but-for-bots/pull/695) | Draft, `CHANGES_REQUESTED`, `MERGEABLE/BLOCKED`, 6/6 | Revise the SturdyRef agent-surface design; do not treat it as awaiting first review. |
-| [`endojs/endo-but-for-bots#697`](https://github.com/endojs/endo-but-for-bots/pull/697) | Draft, `CHANGES_REQUESTED`, `MERGEABLE/BLOCKED`, 5/5 | Revise the cross-peer SturdyRef bridge design. |
-| [`endojs/endo-but-for-bots#723`](https://github.com/endojs/endo-but-for-bots/pull/723) | Draft, `CONFLICTING/DIRTY`, no reported checks | Align with the merged split-plugin design `#722`, then rebase before review. |
+### OCapN-over-Noise (#49)
+All milestones M1–M5 demonstrated (cross-host invite/accept), stack rebased onto `llm`. All PRs draft; the remaining work is driving CI green on the M5 demos.
+- [`#340`](https://github.com/endojs/endo-but-for-bots/pull/340) transport 25/25; [`#683`](https://github.com/endojs/endo-but-for-bots/pull/683) two-peer demo + crossed-hellos fix 24/24. Both green drafts.
+- **CI to fix (next edge):** [`#684`](https://github.com/endojs/endo-but-for-bots/pull/684) WS+Noise, [`#688`](https://github.com/endojs/endo-but-for-bots/pull/688) forked two-daemon M5, [`#693`](https://github.com/endojs/endo-but-for-bots/pull/693) cross-host Pet-Daemon M5 — each `UNSTABLE` 21/23 (2 failing). Drive green, then surface the stack for review.
 
-## Draft designs awaiting an explicit go/no-go
+### Daemon data plane (#50)
+**Design `#662` (magnet-URN content locators) merged** — the arc moves from design-first toward implementation.
+- **Implementation edge:** [`#585`](https://github.com/endojs/endo-but-for-bots/pull/585) content-store powers for node fs, non-draft 25/25 (see Review-now pending list).
+- **Designs (draft):** [`#739`](https://github.com/endojs/endo-but-for-bots/pull/739) store drives `writeFile` on `EndoDirectory`; [`#647`](https://github.com/endojs/endo-but-for-bots/pull/647) streaming mount search.
 
-- [`endojs/endo-but-for-bots#676`](https://github.com/endojs/endo-but-for-bots/pull/676)
-  — conservative `@endo/regexp` subset. Draft, now `CONFLICTING/DIRTY` (rebase
-  needed), no reported checks. Acceptance releases the parked
-  `build-endo-regexp-conservative-subset` job.
+### Endor xs2rust (#51)
+[`#600`](https://github.com/endojs/endo-but-for-bots/pull/600) — draft, `DIRTY` (needs rebase on `llm`). The hourly press-driver now rebases-on-dirty and presses by default; no review action until it surfaces a bar.
 
-- [`endojs/endo-but-for-bots#715`](https://github.com/endojs/endo-but-for-bots/pull/715)
-  — portable `@endo/inspect` package and shim. Draft, `CONFLICTING/DIRTY` (rebase
-  needed), 5/5 checks. Acceptance releases the parked `build-endo-inspect` job.
+### Git integration + endor bindings (#52)
+**Strong progress: `#706` (commit-identity boundary, M3 Phase 2) merged**, and `#643` (mount+Git contract consolidation) merged.
+- **Review-now:** `#708`, `#707` (both clean, above). `#705` remote push tier ready pending recompute.
+- **Designs (draft):** [`#740`](https://github.com/endojs/endo-but-for-bots/pull/740) in-process Git CAS bindings (endor); [`#691`](https://github.com/endojs/endo-but-for-bots/pull/691) accept/sequence the git-capability stack (M3).
 
-- [`endojs/endo-but-for-bots#662`](https://github.com/endojs/endo-but-for-bots/pull/662)
-  — content-locator magnet URNs. Draft, `CONFLICTING/DIRTY`, no reported checks;
-  review the design before implementation work.
+### VFS tool-call parity (#53)
+**`#714` (listTree/rangeRead/rangeReadText consolidation) merged.**
+- **Review-now:** `#713`, `#655`, `#657` (all clean, above); `#656` provideSubMount ready pending recompute. The mount extension split (#127) is landing steadily.
 
-## Newly landed or retired since the prior snapshot (2026-07-15 06:00)
+### Finbot (#54)
+Driven off `kriscendobot/finbot`, not tracked here. Note: a scholar literature-review job (`scholar-financial-forecasting-literature`) is in flight to feed the finbot effort a backtesting/anti-overfitting synthesis.
 
-- [`endojs/endo-but-for-bots#682`](https://github.com/endojs/endo-but-for-bots/pull/682)
-  **merged** (`@endo/reminder` message-scheduler design, supersedes the
-  endoclaw-timer line). This unblocks implementation PR `#721` for review.
+### npm-via-CAS registry proxy (#56)
+Design `endor-npm-registry-proxy.md`, phases 1+3 done.
+- **Implementation edge:** [`#276`](https://github.com/endojs/endo-but-for-bots/pull/276) Phase-2 HTTP fetch (24/24, ready pending recompute); [`#282`](https://github.com/endojs/endo-but-for-bots/pull/282) endor-run dependency walk (25/25).
+- **Design:** [`#241`](https://github.com/endojs/endo-but-for-bots/pull/241) familiar/host run over VFS (npm-to-sqlite); [`#331`](https://github.com/endojs/endo-but-for-bots/pull/331) npm registry capability (`BLOCKED`, changes-requested); [`#730`](https://github.com/endojs/endo-but-for-bots/pull/730) Endor/XS registry transport power (draft).
+- **Shared registry-capability plumbing (changes-requested):** [`#403`](https://github.com/endojs/endo-but-for-bots/pull/403) EndoRegistry + `@registry` (CLEAN 25/25, changes-requested); [`#671`](https://github.com/endojs/endo-but-for-bots/pull/671) daemon `@registry` host name (21/24, 3 failing); [`#563`](https://github.com/endojs/endo-but-for-bots/pull/563) registry host slot (`DIRTY`, draft). Landing `#671`/`#403` unblocks the parked `registry-immutable-byte-array-followup`.
 
-- Broader landings in the same window touch the mount/git surface the _Review
-  now_ line depends on: `#643` (consolidate mount + Git capability contracts),
-  `#734` (`@endo/exo-git` credential/ref-update typing), plus agentry/exo-stream
-  containment fixes `#687`, `#728`, `#744`, `#745`. Re-confirm none has
-  invalidated `#705`/`#706`/`#708`/`#713` before merging those.
+## Other tracked PRs (not in an arc)
 
-- Already merged/closed in the prior window and now fully retired from the
-  sequence: `#722`, `#661`, `#710` (merged) and `#658` (closed).
+- **Needs review addressed (changes-requested, otherwise mergeable):** [`#598`](https://github.com/endojs/endo-but-for-bots/pull/598) daemon→manager rename phase 1 (23/23; releases the parked phase-2/3 chain); [`#594`](https://github.com/endojs/endo-but-for-bots/pull/594) per-package lint (16/16; releases `resume-lint-ceiling-shepherds`); [`#667`](https://github.com/endojs/endo-but-for-bots/pull/667) stdio JSONL RPC bridge (25/25); [`#670`](https://github.com/endojs/endo-but-for-bots/pull/670) subscription OAuth (23/23); [`#721`](https://github.com/endojs/endo-but-for-bots/pull/721) `@endo/reminder` impl (23/23 — its design `#682` merged, so the hold is lifted); [`#719`](https://github.com/endojs/endo-but-for-bots/pull/719) hardened URL `%URL%`/`%SharedURL%` split (18/18) — prefer over the older universal-intrinsic [`#263`](https://github.com/endojs/endo-but-for-bots/pull/263) (clean 18/18, no review); close #263 in favor of #719 or vice-versa.
+- **Draft designs awaiting go/no-go:** [`#676`](https://github.com/endojs/endo-but-for-bots/pull/676) `@endo/regexp` subset (releases `build-endo-regexp-conservative-subset`); [`#715`](https://github.com/endojs/endo-but-for-bots/pull/715) `@endo/inspect` (releases `build-endo-inspect`).
+- **Needs engineering:** [`#723`](https://github.com/endojs/endo-but-for-bots/pull/723) `@endo/fetch` confined outbound HTTP (draft, 22/25, 3 failing) — align with merged split-plugin design `#722`, fix CI.
+
+## Newly landed or retired since the prior snapshot
+
+- Merged (tracked): **`#662`** (data-plane magnet-URN design), **`#706`** (git commit-identity M3 Phase 2), **`#714`** (VFS listTree/rangeRead), **`#643`** (mount+Git contract consolidation).
+- Merged (adjacent): `#745`, `#744`, `#728`, `#687`, `#526` (agentry/exo-stream containment + git eval scenario).
+- Earlier window: `#682`/`#722`/`#661` merged, `#658` closed, `#710` merged (the `@endo/cbor` design now being ported to `llm` under the `build-endo-cbor-package` job).
 
 ## External fork decision
 
-[`kriscendobot/agoric-sdk#17`](https://github.com/kriscendobot/agoric-sdk/pull/17)
-remains open, non-draft, and mergeable but `UNSTABLE`: 73 of 87 checks succeeded
-and two failed. The maintainer decision remains whether the resource-heavy
-multichain legs receive larger runners, become non-required on the fork, or get a
-dedicated infrastructure-tuning pass.
+[`kriscendobot/agoric-sdk#17`](https://github.com/kriscendobot/agoric-sdk/pull/17) remains open, non-draft, `MERGEABLE/UNSTABLE`: 73 of 87 checks pass, 2 failing. Maintainer decision unchanged — larger runners for the resource-heavy multichain legs, make them non-required on the fork, or a dedicated infra-tuning pass.
 
 ## Scope
 
-There are 253 open pull requests in `endojs/endo-but-for-bots`. This document is
-the curated maintainer sequence for current milestone work and garden-unblocking
-edges, not an assertion that the remaining long tail is review-ready.
+**256 open pull requests** in `endojs/endo-but-for-bots`. This is the curated maintainer
+sequence for current milestone/arc work and garden-unblocking edges, not an assertion
+that the remaining long tail is review-ready.
