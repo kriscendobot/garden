@@ -1,5 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 6
-worker_kind: gardener
-claimed_at: 2026-07-16T22:04:09Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-xs2rust-endor-stage6-machine-surface
