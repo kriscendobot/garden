@@ -1,18 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-16T23:30:34Z_
+_As of 2026-07-16T23:33:54Z_
 
 ## Latest
 
-Two small completions landed on `main2`: a self-heal fix so the issue-inbox watcher no longer swallows `gh` stderr on failure, and a scholar follow-up ingesting the financial-forecasting corpus. The board is otherwise idle (empty todo, five jobs in flight).
+Board movement itself was thin — the [endo-but-for-bots#589](https://github.com/endojs/endo-but-for-bots/pull/589) mirror-refresh completed and a kebab-case lint reconstruction was claimed — but two operational facts should command attention. First, **the Claude weekly limit is exhausted** (resets Jul 18, 3am UTC), and the fallout dominates the inbox: `garden-mentor` self-heal, the follow-up producer, and the triagers for `kriscendobot-minion.town` and `kriscendobot-agoric-sdk` are all failing rc=1 on quota, tripping triage circuit breakers on both repos. Second, **`endo-but-for-bots` master is itself red** from an incomplete `packages/cbor` landing (missing LICENSE/SECURITY.md, a `@endo/eventual-send` resolution failure, and a zizmor pin mismatch); the [#475](https://github.com/endojs/endo-but-for-bots/pull/475) shepherd correctly diagnosed this as a master-level break, not PR-attributable — the fix belongs on master before dependent PRs can re-run CI.
 
-The signal a maintainer should notice is in the inbox, not the board. **The Claude weekly limit is exhausted (resets Jul 18, 3am UTC)** — `garden-mentor`, the liaison follow-up producer, and the `minion.town`/`agoric-sdk` triagers have all been failing rc=1 for two days straight, so autonomous LLM work is effectively stalled until the reset. Several triage circuit-breakers have opened as a result.
+Several tracks are fully dammed on maintainer decisions. The foreman reports **M2 (Project Hygiene) is one merge away**: text-codecs shim [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and URL shim [#719](https://github.com/endojs/endo-but-for-bots/pull/719) are both green and merge-ready, pending your call to merge and close the redundant [#263](https://github.com/endojs/endo-but-for-bots/pull/263). **M3** is blocked on a package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) for the MVS resolver. The SturdyRef press-driver flags three open gates — first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus re-reviews of designs [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697) — and the esheets tree has sat six days behind OAuth PR [#621](https://github.com/endojs/endo-but-for-bots/pull/621).
 
-Milestone **M2 (Project Hygiene)** is repeatedly reported by the foreman as one merge decision from complete: the two remaining vetted-shim PRs — [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL/URLSearchParams) — are built, gauntleted, green, and MERGEABLE, with the redundant CI-failing alternative [#263](https://github.com/endojs/endo-but-for-bots/pull/263) awaiting a close. M3 is blocked on a package-home ruling between the two competing MVS-resolver PRs, [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403).
-
-Two structural issues surfaced. **`master` on endo-but-for-bots is itself red** from an incomplete `packages/cbor` landing (missing LICENSE/SECURITY.md, an unresolved `@endo/eventual-send` import in `cbor.test.js`, and a zizmor pin mismatch); the shepherd on [#475](https://github.com/endojs/endo-but-for-bots/pull/475) correctly declined to push, since the fix belongs on master, not the feature branch. Separately, a gardener found the xs2rust-endor chain ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) silently stalled 5 days on a monotonic-timer starvation bug in `garden-unblock.timer`, fixed it on `main2` (`6012296908`), and flagged that four other timers still carry the same pattern and want a sweep.
-
-Also awaiting review: the sturdyref effort ([#737](https://github.com/endojs/endo-but-for-bots/pull/737)) sits behind three open maintainer gates, and the esheets tree is fully dammed on re-review+merge of [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (6 days waiting). A cluster of reconstruction jobs (#720, #545, #69) blocked harmlessly because master already contains their merge commits, and several long-running shepherd/gauntlet jobs were poisoned for overrunning the 2400s handler budget — candidates for splitting or detaching.
+Elsewhere: a batch of `reconstruct-ebfb` jobs (#720, #545, #69) blocked as no-ops because master already contains their merge commits; finbot advanced twice (regime-aware sizing, then live GJR-GARCH leverage estimation) with the wallet untouched and live execution still awaiting your paper-wallet/CapTP authorization; and a gardener found and fixed a monotonic-timer starvation bug that had silently stalled the xs2rust-endor chain for five days — worth noting the same timer pattern remains on the proxy/watchman/mention-watcher/scaler/repo-watcher units if you want a sweep.
 
 ## Parked for maintainer feedback
 
@@ -582,7 +578,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.8M | $1008.53 _(notional, rate-card)_ | no quota set |
+| Claude | 98.9M | $1009.13 _(notional, rate-card)_ | no quota set |
 | Codex | 125.7M _(+149.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
@@ -590,19 +586,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 (none)
 
 ### doin (5)
+- [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-kebab-case-lint-wildcard-test262.md) — Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
 - [`mirror-endo-3212-capn-web-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mirror-endo-3212-capn-web-gauntlet.md) — Mirror upstream endojs/endo#3212 (Cap'n Web RPC package) onto a frozen master...
 - [`reconstruct-ebfb-pr720-patterns-literal-inference`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/reconstruct-ebfb-pr720-patterns-literal-inference.md) — Reconstruct endo-but-for-bots#720 (patterns: preserve literal inference in co...
-- [`refresh-ebfb-pr589-mirror-endo-3312`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/refresh-ebfb-pr589-mirror-endo-3312.md) — Refresh fork mirror #589 against canonical upstream endojs/endo#3312 (drop th...
 - [`scholar-ingest-financial-forecasting-corpus`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-financial-forecasting-corpus.md) — Scholar: ingest the remaining financial-forecasting corpus (follow-on)
 - [`xs2rust-endor-s20-ledger-restore-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-s20-ledger-restore-fix.md) — Fixer: make the endor-snapshot side-table ledger's coverage claims truthful a...
 
-### tada (2395)
+### tada (2396)
+- [`refresh-ebfb-pr589-mirror-endo-3312`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/refresh-ebfb-pr589-mirror-endo-3312.md) — What I did
 - [`self-heal-fix-garden-issue-inbox-source-swallows-gh-stderr-on-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-issue-inbox-source-swallows-gh-stderr-on-die.md) — Implemented and pushed c63e65860b to main2.
 - [`fu-scholar-financial-forecasting-literature-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-scholar-financial-forecasting-literature-2.md) — Pushed successfully.
 - [`scholar-financial-forecasting-literature`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-financial-forecasting-literature.md) — What I did
 - [`improve-issue-inbox-transient-gh-degrade`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-issue-inbox-transient-gh-degrade.md) — Implemented and pushed 273b75f1dd to main2.
-- [`port-xs-to-rust-memory-safe-engine-s20`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s20.md) — Completion report — supervisor s20: whole-stage-6 acceptance review
-- … and 2390 more
+- … and 2391 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
