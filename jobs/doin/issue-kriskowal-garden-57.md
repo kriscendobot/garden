@@ -23,3 +23,10 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 How could we do automated testing of ymax.app , including MetaMask steps? Research the state of the art in UI testing for Web3 apps. Make recommendations. By way of example, I want to record one or more short videos showing the following user flows: 1. Create mandate through chat
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 11
+  worker_kind: gardener
+  claimed_at: 2026-07-16T21:16:36Z
