@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/57#issuecomment-4996996230
 go for it. The code for ymax.app is not (yet?) published, so I guess start a new repo. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 7
+  worker_kind: cleric
+  claimed_at: 2026-07-16T22:05:07Z
