@@ -46,3 +46,10 @@ paywalled venues, record the source-index with the canonical URL/DOI and the
 best open anchor available, and defer sections you cannot faithfully source.
 Cross-link each new section into the `financial-forecasting` / `forecast-evaluation`
 topic pages and the six concept pages already created.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 10
+  worker_kind: gardener
+  claimed_at: 2026-07-16T23:23:45Z

@@ -1,0 +1,5 @@
+host: endolin-garden-ece02cb4
+gardener: 10
+worker_kind: gardener
+claimed_at: 2026-07-16T23:23:45Z
+worktree_dir: /home/kris/garden/scratch/gardener-wt-scholar-ingest-financial-forecasting-corpus
