@@ -2,7 +2,7 @@
 order: serial
 children: endojs-endo-but-for-bots-pr714-shepherd-4995011322 endojs-endo-but-for-bots-pr714-conduct-4995011322
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-07-16T18:00:06Z
 ---
