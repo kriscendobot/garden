@@ -1,5 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 5
-worker_kind: cleric
-claimed_at: 2026-07-16T22:55:24Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-self-heal-fix-garden-issue-inbox-unswallow-gh-stderr-on-enum-die
