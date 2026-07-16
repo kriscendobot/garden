@@ -12,6 +12,12 @@ posted_by: reaper:endolin-garden2-5bcdff64
 posted_at: 2026-07-12T22:23:03Z
 ---
 
+---
+role: builder
+model: gpt-5.6-terra
+handler-timeout: 10800
+---
+
 # Dead-lettered message — pick up its intent
 
 A message could not be delivered: its addressee `issue-kriskowal-garden-31` had already
