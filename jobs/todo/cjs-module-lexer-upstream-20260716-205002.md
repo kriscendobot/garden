@@ -1,7 +1,3 @@
-cadence: weekly
-last_dispatched: 2026-07-16T20:50:02Z
-job_basename_prefix: cjs-module-lexer-upstream
----
 ----- ISSUE NOTE (copy this block VERBATIM into every follow-on job) -----
 issue_spine: issue-kriskowal-garden-55
 issue_url: https://github.com/kriskowal/garden/issues/55
