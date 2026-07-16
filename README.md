@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-16T22:56:01Z_
+_As of 2026-07-16T22:59:26Z_
 
 ## Latest
 
-A partial `packages/cbor` landing (from [endo-but-for-bots#710](https://github.com/endojs/endo-but-for-bots/pull/710)) has turned **master itself red** on endo-but-for-bots — the shepherd on [#475](https://github.com/endojs/endo-but-for-bots/pull/475) confirmed its failing lint/test/zizmor checks are an exact subset of master's, so the fix belongs on master (missing LICENSE/SECURITY.md and an unresolved `@endo/eventual-send` import in the cbor package), not on feature branches. The `build-endo-cbor-package` job (phase 1 of the @endo/cbor design) is now in flight to close that gap. Meanwhile a **weekly-limit quota exhaustion** (resets Jul 18) has been knocking out `garden-mentor`, several triagers, and the liaison follow-up producer since Jul 14, and triage circuit-breakers have opened for `kriscendobot-finbot`, `kriscendobot-minion.town`, and `kriscendobot-agoric-sdk` — worth confirming those forks belong in the watch set, since only endo-but-for-bots is authorized.
+The garden is throttled: the leader host hit its **weekly Claude limit (resets Jul 18)**, and the fallout dominates this window — `garden-mentor` self-heal has looped hourly since Jul 15, triage circuit-breakers opened on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk`, and two liaison follow-up action blocks were rejected outright. The only board completion was a self-heal fix unswallowing `gh` stderr in the issue-inbox enum path (pushed to `main2`); `build-endo-cbor-package` (phase 1) and the xs2rust-endor stage-6 verify are the only jobs in flight.
 
-Several decisions are stacked on the maintainer. The foreman reports **M2 (Project Hygiene) is one merge away from done**: [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) are both green/mergeable (with redundant, CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263) to close), and **M3 is blocked** pending a package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403). The SturdyRef press is fully gated on three fronts — a first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737), a marshal rank-prefix/stack-collapse decision, and re-reviews of [#695](https://github.com/endojs/endo-but-for-bots/pull/695) and [#697](https://github.com/endojs/endo-but-for-bots/pull/697) — and the esheets tree is dammed entirely behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621), which is green and now weaved back to mergeable after 6 days awaiting re-review.
+Two milestones are parked on maintainer decisions the fleet can't take. The foreman nudged five times that **M2 (Project Hygiene)** is one merge from done — the vetted-shim PRs [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) are built, gauntleted, and MERGEABLE, with the redundant [#263](https://github.com/endojs/endo-but-for-bots/pull/263) waiting to be closed. **M3** is blocked on a package-home ruling: the MVS resolver now exists twice, in [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon/registry.js`) vs [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (`@endo/exo-npm`) — pick one so the loser closes and the snapshot-mapper/worker-import layers can build. The SturdyRef press is fully gated on a first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus a marshal rank-prefix pick and re-reviews of designs [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697), and the esheets tree has sat 6 days behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621).
 
-On the autonomous side, finbot advanced main twice (regime-aware position sizing, then live GJR-GARCH leverage-parameter MLE, full suite green, wallet untouched), the XS→Rust (Endor) port unstalled after a monotonic-timer bug was fixed on main2 and is moving through stage-6 verification, and a batch of long-running shepherd/gauntlet jobs (endo-but-for-bots [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#694](https://github.com/endojs/endo-but-for-bots/pull/694), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), and agoric-sdk #15) were poisoned for overrunning the handler budget — they're parked in the plan queue awaiting a split or a raised timeout.
+Worth a look: a shepherd found [#475](https://github.com/endojs/endo-but-for-bots/pull/475)'s red CI is **not PR-attributable — `master` itself is red** from an incomplete `packages/cbor` landing (missing LICENSE/SECURITY.md, unresolved `@endo/eventual-send`), so the fix belongs on master before any rebase. A monotonic-timer starvation bug that had silently stalled the xs2rust-endor chain for 5 days was fixed on `main2` (`6012296908`) and the chain is moving again, though the same pattern reportedly lingers in the proxy/watchman/mention-watcher/scaler/repo-watcher timers. Finbot advanced main to `df2a164` (live GJR-GARCH leverage-parameter MLE, 538 tests green, wallet untouched). A batch of jobs were poisoned for overrunning the 2400s handler budget — shepherds for #124, #704, #694, #707, and agoric-sdk #15, plus a dead-lettered garden#31 comment — and are parked in `jobs/plan/` awaiting a split or a `promote-plan.sh`.
 
 ## Parked for maintainer feedback
 
@@ -556,25 +556,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.2M | $994.82 _(notional, rate-card)_ | no quota set |
+| Claude | 97.2M | $995.86 _(notional, rate-card)_ | no quota set |
 | Codex | 124.2M _(+145.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`build-endo-cbor-package`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-cbor-package.md) — Build: create @endo/cbor (phase 1) per the landed design in PR #710
-- [`self-heal-fix-garden-issue-inbox-unswallow-gh-stderr-on-enum-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-issue-inbox-unswallow-gh-stderr-on-enum-die.md) — In scripts/jobs/handlers/issue-source-gh.sh, the two HARD-FAIL enumeration pi...
 - [`xs2rust-endor-stage6-verify`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage6-verify.md) — Stage 6 child 6/6: whole-stage verify — snapshot bars + stage-5 bars HOLD at ...
 
-### tada (2380)
+### tada (2381)
+- [`self-heal-fix-garden-issue-inbox-unswallow-gh-stderr-on-enum-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-issue-inbox-unswallow-gh-stderr-on-enum-die.md) — Implemented and pushed 16989889a5 to main2.
 - [`xs2rust-endor-stage6-supervisor-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage6-supervisor-integration.md) — Completion report — stage-6 child 5/6: supervisor suspend/resume integration
 - [`xs2rust-endor-stage6-roundtrip-fuzz`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage6-roundtrip-fuzz.md) — Stage-6 child 4: snapshot round-trip-invariance + malformed-atom fuzz targets...
 - [`finbot-progress-20260716-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260716-223502.md) — Completion report
 - [`endo-sturdyref-press-20260716-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260716-223502.md) — What I did
-- [`xs2rust-endor-press-20260716-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260716-223502.md) — Press check-in complete — this tick was a deliberate defer, and the chain is ...
-- … and 2375 more
+- … and 2376 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
