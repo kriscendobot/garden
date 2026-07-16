@@ -1,16 +1,9 @@
 ---
-gate: go-ahead
-priority: normal
-poisoned: true
-poison_signature: deadline-overrun
-poison_count: 1
-requeue_cycles: 4
-deadline_overruns: 1
-poisoned_at: 2026-07-12T22:23:03Z
-poisoned_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-07-12T22:23:03Z
+role: builder
+model: gpt-5.6-terra
+handler-timeout: 10800
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-16T23:48:32Z -->
 
 ---
 role: builder
