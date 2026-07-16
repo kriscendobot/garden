@@ -30,8 +30,10 @@ having to NAME it in a namespace** for it to persist and travel.
 Design **#510 is MERGED** ("sturdy-refs in pass-style + endor-syscall-based
 retention") and defines the effort in numbered **cuts**. Live open drafts (re-verify
 each tick — states/bases drift):
-- **#521** feat: first-class `sturdyref` pass-style; ocapn defers to it (base frozen `llm-27f53e6`).
+- **#698** feat: bytes-preserving SturdyRef wire read (**bridge cut 1**).
+- **#700** promote sturdyref URI codec + closely-held reveal (**bridge cut 2**).
 - **#541** feat(daemon): SturdyRef read-side threading + endor-syscall retention edges (design #510, **cuts 3–5**; base `build/sturdyrefs-pass-style-ocapn`).
+- (#521 first-class pass-style is now **CLOSED** — the effort moved to the bridge cuts #698/#700 + #541.)
 - **#511** design: sturdy-refs pass-style + FinalizationRegistry-tracked worker retention.
 - **#539** design(sturdy-refs): **on-demand enlivenment via the closely-held OCapN network capability** — the confinement mechanism (see below).
 The bases are stacked/frozen — mind the rebase order; do not merge out of order.
@@ -40,7 +42,7 @@ Determine which cut is done, which is in flight, and the next unblocked artifact
 ## The finish line (press until ALL hold, then stop)
 
 1. **OCapN supports sturdyrefs** — first-class `sturdyref` pass-style landed and
-   OCapN defers to it (#521 line); Syrup + `ocapn://` serialization; mint + enliven
+   OCapN defers to it (#698/#700 bridge-cut line); Syrup + `ocapn://` serialization; mint + enliven
    (restore), including three-party handoff.
 2. **Endo agents provide and accept sturdyrefs throughout** — Lal / Fae / Genie and
    `@endo/agent-tools` can hand out a sturdyref for a value they hold and accept one
@@ -83,7 +85,7 @@ two tokens or read a locator.
    branch another job is actively implementing on; record a progress observation and
    complete — the hourly cadence checks again. Take the wheel only when idle/stalled.
 3. **When you press:** advance the next unblocked cut toward the finish line — a
-   design refinement (#511 / #539), a feature cut (#521 → #541 → later), or the
+   design refinement (#511 / #539), a feature cut (#698/#700 bridge cuts → #541 → later), or the
    agent provide/accept surface — in an ISOLATED worktree keyed by YOUR job base
    (`scripts/jobs/ensure-project-worktree.sh <your-base> endojs/endo-but-for-bots <branch>`),
    committing explicit pathspecs and pushing with a rebase CAS loop; keep PRs DRAFT.
