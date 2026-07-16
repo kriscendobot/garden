@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-16T13:58:47Z_
+_As of 2026-07-16T14:06:29Z_
 
 ## Latest
 
-The board has nearly drained — the [endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) weave was the only transition since the last bulletin, landing alongside a completed weave of [#707](https://github.com/endojs/endo-but-for-bots/pull/707). The signal worth your attention is in the maintainer inbox: the fleet has hit a **weekly usage limit** (resets Jul 18, 3am UTC), which is cascading into `garden-mentor` self-heal failures and triage circuit-breakers now OPEN on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk` — both also flagged as outside the authorized watch set (only `endojs/endo-but-for-bots` is sanctioned). The foreman surfaced two rulings only you can make: **M2 (Project Hygiene)** is at 6/8 with its last two designs delivered as [#719](https://github.com/endojs/endo-but-for-bots/pull/719) and #259, both open, un-drafted, and CI-clean — they just need merging; and **M3** is stalled on a package-home decision between the MVS resolver in [#671](https://github.com/endojs/endo-but-for-bots/pull/671) versus a dedicated `@endo/exo-npm` package in [#403](https://github.com/endojs/endo-but-for-bots/pull/403), blocking the snapshot-mapper and worker-import layers until you pick a winner. Separately, several shepherd/gauntlet jobs (PRs [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#694](https://github.com/endojs/endo-but-for-bots/pull/694), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), and `kriscendobot/agoric-sdk` [#15](https://github.com/kriscendobot/agoric-sdk/pull/15)) were poisoned for overrunning the 2400s handler budget and parked for promotion, and a build job for `@endo/cbor` phase 1 (from the design landed in [#710](https://github.com/endojs/endo-but-for-bots/pull/710)) awaits your go-ahead.
+The garden is running under a hard ceiling: the leader host has hit its weekly Claude usage limit (resets Jul 18, 3am UTC), and the fallout dominates recent activity — repeated `garden-mentor` self-heal failures, dropped liaison follow-up actions, and triage circuit-breakers now OPEN on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk` (both also flagged as possibly outside the authorized watch set alongside the earlier `kriscendobot-finbot` breaker). Expect little autonomous progress until the quota resets.
+
+Two milestone decisions are parked for your ruling. M2 (Project Hygiene) is at 6/8 with its last two designs already delivered as [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) and [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) — both open, un-drafted, CI-clean, threads resolved — so closing M2 is just a merge call. M3's remaining module-loading work is blocked on a package-home decision: the MVS resolver now lives in two competing PRs, [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon/registry.js`) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (a dedicated `@endo/exo-npm` package); pick the winner so the loser can be closed and `snapshot-mapper`/`daemon-worker-import` can build against it.
+
+On the board itself only the `hardened-text-codecs-shim` build moved into progress. Several shepherd/gauntlet jobs have been poisoned for overrunning the 2400s handler budget (PRs [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#694](https://github.com/endojs/endo-but-for-bots/pull/694), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), and `kriscendobot/agoric-sdk` [#15](https://github.com/kriscendobot/agoric-sdk/pull/15)) and now sit parked in the plan queue awaiting a split or a raised timeout. A retrospective also flags the `avoid-name-abbreviations` cluster recurring on [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`fetchImpl`), a structural blind spot where the pre-push gate never scans lines that predate its deployment — your call on whether to widen it.
 
 ## Parked for maintainer feedback
 
@@ -427,15 +431,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.1M | $931.50 _(notional, rate-card)_ | no quota set |
+| Claude | 89.3M | $932.65 _(notional, rate-card)_ | no quota set |
 | Codex | 73.2M _(+126.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-hardened-text-codecs-shim-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-hardened-text-codecs-shim-build.md) — ---
 
 ### tada (2325)
 - [`endojs-endo-but-for-bots-pr705-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr705-weave.md) — Completion report — weave endojs/endo-but-for-bots PR #705
