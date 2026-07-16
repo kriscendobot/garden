@@ -1,0 +1,2 @@
+base: improve-issue-inbox-transient-gh-degrade
+identity: mentor:scripts/jobs/issue-inbox-watcher.sh
