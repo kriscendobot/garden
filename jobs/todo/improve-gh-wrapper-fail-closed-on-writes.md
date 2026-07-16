@@ -3,9 +3,4 @@ The wrapper's token-resolution fallback is fail-OPEN: when `GH_TOKEN` is unset a
 
 Change: in the fallback branch (token could not be resolved and no caller-supplied `GH_TOKEN`), fail CLOSED for state-changing invocations rather than exec'ing as the global account. Detect write subcommands — `pr create|comment|review|merge|edit|close`, `issue create|comment|edit|close`, `api` with a mutating method (`-X/--method` other than GET, or any `-f/--field/--raw-field` implying POST), and reactji posts — and for those exit non-zero with a loud `kind:error`-style message naming the unresolved identity, so the call blocks and surfaces instead of landing under the wrong human. Read-only calls (default `api` GET, `pr/issue view|list`, `auth status`, etc.) keep the current tolerant degrade-to-bare-gh behavior so detectors and pollers don't break. Net effect: a wrong-account write becomes an immediate, actionable failure the calling role must handle, which would have prevented the #521 mis-authored PR at the source rather than after the fact. The boatman's explicit `GARDEN_GH_IDENTITY=kriskowal` / pre-set `GH_TOKEN` paths are unaffected (they never enter this fallback), so the authorized-ferry surface is preserved.
 
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 17
-  worker_kind: gardener
-  claimed_at: 2026-07-16T06:21:34Z
+<!-- garden-reaped: 1 -->
