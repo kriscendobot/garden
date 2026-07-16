@@ -11,6 +11,10 @@
 #   5. Overrides: LOCAL_VERIFY_<STEP>=- skips; =<cmd> replaces.
 #   6. A worktree with no package.json verifies nothing and exits 0.
 #   7. The run is deterministic: identical failing input hashes to the same SHA.
+#   8. Codegen-then-clean gate: a generator that staled a checked-in artifact
+#      leaves the tree dirty -> the gate fails with a `left tree dirty` message
+#      and a SHA-captured diff --stat (no raw diff on stdout); an up-to-date
+#      generator keeps the tree clean and the gate silent.
 #
 # No systemd, no network: the harness is exercised against throwaway git repos
 # with a stubbed package runner (GARDEN_YARN).
@@ -94,6 +98,48 @@ o6="$("$LV" "$R6" 2>&1)"; rc6=$?
 o7="$(GARDEN_YARN="bash $R1/yarn-stub.sh" "$LV" "$R1" 2>&1)"
 sha7="$(printf '%s' "$o7" | grep -oE '[0-9a-f]{40}' | head -1)"
 [ "$sha7" = "$sha" ] && ok "deterministic: identical failure hashes to the same SHA" || bad "non-deterministic SHA ($sha vs $sha7)"
+
+# --- 8: codegen-then-clean gate fires when a generator staled an artifact ----
+# `gen:code-mode-types` rewrites a checked-in artifact to NEW content, so the
+# worktree goes dirty after the steps run; the gate must fail loud.
+R8="$TR/codegen-dirty"; mkdir -p "$R8"; git -C "$R8" init -q
+git -C "$R8" config user.email t@localhost; git -C "$R8" config user.name test
+cat > "$R8/package.json" <<'PKG'
+{ "name": "fixture", "scripts": { "gen:code-mode-types": "gen" } }
+PKG
+echo "stale" > "$R8/generated.txt"
+printf '%s\n' '#!/bin/bash
+case "$2" in
+  gen:code-mode-types) echo "regenerated-content" > "$PWD/generated.txt"; echo "regenerated"; exit 0 ;;
+  *) exit 0 ;;
+esac' > "$R8/yarn-stub.sh"
+git -C "$R8" add -A; git -C "$R8" commit -qm init >/dev/null  # commit the stub too, so only the regen dirties the tree
+o8="$(GARDEN_YARN="bash $R8/yarn-stub.sh" "$LV" "$R8" 2>&1)"; rc8=$?
+[ "$rc8" -ne 0 ] && ok "codegen dirty gate exits non-zero ($rc8)" || bad "codegen dirty gate should fail"
+printf '%s' "$o8" | grep -q 'left tree dirty' && ok "gate emits the stale-artifact message" || bad "missing left-tree-dirty message"
+# The raw diff must NOT leak to stdout — only the SHA + inspect command.
+printf '%s' "$o8" | grep -q 'regenerated-content' && bad "raw diff leaked to stdout" || ok "raw diff NOT in stdout"
+s8="$(printf '%s' "$o8" | grep -oE '[0-9a-f]{40}' | head -1)"
+git -C "$R8" cat-file -p "$s8" 2>/dev/null | grep -q 'generated.txt' \
+  && ok "diff --stat blob names the staled artifact" || bad "blob missing staled artifact"
+
+# --- 9: an up-to-date generator keeps the gate silent ----------------------
+# The generator rewrites the SAME content, so the tree stays clean and the whole
+# run is silent, exit 0 — the gate must not false-positive on a benign codegen.
+R9="$TR/codegen-clean"; mkdir -p "$R9"; git -C "$R9" init -q
+git -C "$R9" config user.email t@localhost; git -C "$R9" config user.name test
+cat > "$R9/package.json" <<'PKG'
+{ "name": "fixture", "scripts": { "codegen": "gen" } }
+PKG
+echo "already-fresh" > "$R9/generated.txt"
+printf '%s\n' '#!/bin/bash
+case "$2" in
+  codegen) echo "already-fresh" > "$PWD/generated.txt"; exit 0 ;;
+  *) exit 0 ;;
+esac' > "$R9/yarn-stub.sh"
+git -C "$R9" add -A; git -C "$R9" commit -qm init >/dev/null  # commit the stub too, so a clean regen leaves nothing dirty
+o9="$(GARDEN_YARN="bash $R9/yarn-stub.sh" "$LV" "$R9" 2>&1)"; rc9=$?
+[ "$rc9" -eq 0 ] && [ -z "$o9" ] && ok "up-to-date codegen: silent, exit 0" || bad "clean codegen not silent/zero (rc=$rc9 out=[$o9])"
 
 echo "----------------------------------------------------------------"
 echo "local-verify: $PASS passed, $FAIL failed"

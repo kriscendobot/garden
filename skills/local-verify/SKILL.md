@@ -1,6 +1,6 @@
 ---
 created: 2026-06-25
-updated: 2026-06-25
+updated: 2026-07-16
 author: gardener
 ---
 
@@ -29,12 +29,25 @@ the shepherd's job shrinks to confirming CI, not discovering failures.
 
 ## The steps (in order)
 
-`format -> lint -> build -> test -> docgen`
+`format -> lint -> build -> codegen -> test -> docgen`, then a **codegen-then-clean gate**.
 
 Run in that order against the project worktree. The harness errs toward running
 the project's **full** suite: false positives (a wasted check) are fine, false
 negatives (a regression that slips to CI) are not. Steps are not sense-gated,
 matching the gardening state machine's "evaluation gate (always)" discipline.
+
+The `codegen` step runs the project's generators (candidates
+`gen:code-mode-types`, `codegen`, `gen`, `generate`, `build:types`) so the
+generation happens as part of the gate rather than being left to an agent's
+memory. Immediately after every step, the **codegen-then-clean gate** checks
+`git status --porcelain`: if the worktree became dirty, a checked-in generated
+artifact was **stale** (a generator just regenerated it), and the gate fails with
+`STEP codegen left tree dirty: generated artifacts are stale — commit the regen`
+plus a SHA-captured `git diff --stat`. This hardens against the recurring
+endo-but-for-bots failure where a rebase staled
+`packages/agentry/src/execute/{git,fs}-types.js` and silently red-lit all CI test
+jobs after approval (endojs/endo-but-for-bots#714). It is generic: any project
+with a mutating generator benefits.
 
 ## When to use
 
@@ -59,7 +72,7 @@ Per-step command discovery (each step, in order, first match wins):
 
 1. An explicit override env var `LOCAL_VERIFY_<STEP>` (uppercased step name:
    `LOCAL_VERIFY_FORMAT`, `LOCAL_VERIFY_LINT`, `LOCAL_VERIFY_BUILD`,
-   `LOCAL_VERIFY_TEST`, `LOCAL_VERIFY_DOCS`):
+   `LOCAL_VERIFY_CODEGEN`, `LOCAL_VERIFY_TEST`, `LOCAL_VERIFY_DOCS`):
    - set to a command string: run that command in the worktree;
    - set to `-` (or empty): skip the step.
 2. A `package.json` `scripts` entry matching the step's candidate names, run as
@@ -71,6 +84,7 @@ Per-step command discovery (each step, in order, first match wins):
    | format  | `format:check`, `check:format`, `format-check`, `format` |
    | lint    | `lint:check`, `lint`, `eslint`                  |
    | build   | `build`, `compile`, `build:js`                  |
+   | codegen | `gen:code-mode-types`, `codegen`, `gen`, `generate`, `build:types` |
    | test    | `test`, `test:unit`                            |
    | docs    | `docs`, `build:types`, `generate-docs`         |
 
@@ -118,6 +132,14 @@ For each step, in order:
    The raw output never reaches stdout. The harness runs **all** steps (it does
    not stop at the first failure) so the final report enumerates every failing
    step, then exits non-zero.
+
+After every step, the **codegen-then-clean gate** runs once: if
+`git status --porcelain` reports the worktree dirty, a generator regenerated a
+stale checked-in artifact. The gate emits `STEP codegen left tree dirty:
+generated artifacts are stale — commit the regen` with a SHA-captured
+`git diff --stat` (plus the porcelain status, so a new untracked artifact is
+visible too) via the same `capture_blob` path — the raw diff never reaches
+stdout — and counts as a failure, so the run exits non-zero.
 
 ## Output
 
@@ -192,14 +214,19 @@ git repos with a stubbed runner (`GARDEN_YARN`): a full pass is silent and exits
 0; a failing step emits only the step name + SHA + one-line tail (no raw body);
 `git cat-file -p <sha>` returns the captured output; discovery picks the
 check-variant; overrides skip and replace; a repo with no `package.json` exits 0;
-and the same failure hashes to the same SHA (determinism). `bash -n` and
-`shellcheck` clean.
+the same failure hashes to the same SHA (determinism); and the codegen-then-clean
+gate fails (with a SHA-captured diff, no raw diff on stdout) when a generator
+staled an artifact but stays silent when the generator is up to date. `bash -n`
+and `shellcheck` clean.
 
 ## Pitfalls
 
 - **A project's `format` (no check variant) mutates the tree.** When only the
   mutating `format` script exists, the harness runs it; the auto-fix lands in the
-  working tree like the style gate's. Prefer a `format:check` script where the
+  working tree like the style gate's — and the codegen-then-clean gate then fails,
+  since any dirtiness (not just a codegen regen) trips it. That is the intended
+  discipline: an unformatted or unregenerated commit is caught locally and the
+  supervising agent commits the change. Prefer a `format:check` script where the
   project offers one; the candidate order already favors it.
 - **Per-project specialization belongs in the project's scripts**, not the
   harness. The harness is the contract; the project's `package.json` scripts
@@ -219,3 +246,9 @@ and the same failure hashes to the same SHA (determinism). `bash -n` and
   primitive). Hashes only on failure (success needs no blob), a deliberate read
   of the "hash then discard on success" contract that avoids creating GC'able
   loose objects on the common path.
+- _2026-07-16_: added the `codegen` step + codegen-then-clean gate (job
+  `improve-local-verify-regen-clean-gate`). Generators now run as part of the
+  gate; a worktree left dirty by a regen fails loud with a SHA-captured
+  `git diff --stat`. Hardens against endojs/endo-but-for-bots#714, where a rebase
+  staled `packages/agentry/src/execute/{git,fs}-types.js` and silently red-lit all
+  CI test jobs after approval until the regen was committed.
