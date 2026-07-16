@@ -48,3 +48,10 @@ liaison can wire the finbot press to consume it each cycle. Record a `result` en
 Standard scholar bounds (`roles/scholar/AGENT.md`): journal-only writes (`library/`, `projects/`,
 `entries/`); no sub-agent dispatch; no external systems. If the survey fans out beyond this cycle's
 budget, write what is supported and post a follow-on `scholar-*` job for the remainder.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-16T23:05:36Z
