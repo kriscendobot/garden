@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-16T17:45:31Z_
+_As of 2026-07-16T17:51:43Z_
 
 ## Latest
 
-Bot-authored cleanup landed across `endojs/endo-but-for-bots`: the lockdown-docs fix on [#719](https://github.com/endojs/endo-but-for-bots/pull/719), the zizmor action-pin update on [#263](https://github.com/endojs/endo-but-for-bots/pull/263), and a fresh weave of the endoclaw-oauth refinement onto `llm` for [#621](https://github.com/endojs/endo-but-for-bots/pull/621). The board is otherwise quiet — the only live job is a review directive on [#714](https://github.com/endojs/endo-but-for-bots/pull/714).
+Fresh work is thin and mostly maintainer-gated. Completions since the last bulletin: a lockdown-docs fix on [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) and a zizmor action-pin bump on [endo-but-for-bots#263](https://github.com/endojs/endo-but-for-bots/pull/263), plus a re-weave of [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth) back to one-click-mergeable; the SturdyRef press ticked but reports HOLDING with all gates maintainer-side. Six new "press" jobs (byte-array, daemon data-plane, git-integration, VFS parity, OCapN-over-Noise, arc-status) and a review of [endo-but-for-bots#714](https://github.com/endojs/endo-but-for-bots/pull/714) are in flight, but the board otherwise stands empty of `todo`.
 
-The stack is now dammed almost entirely on maintainer decisions. The foreman has flagged repeatedly that **milestone M2 (Project Hygiene) is one merge away from done**: the vetted-shim PRs [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL) are both green/mergeable and gauntleted, needing only merge/ferry (and closing the redundant, CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263)/[#263 alt](https://github.com/endojs/endo-but-for-bots/pull/263) URL alternative). **M3 is blocked on a package-home ruling** between the two competing MVS resolvers — `@endo/daemon/registry.js` in [#671](https://github.com/endojs/endo-but-for-bots/pull/671) vs. a dedicated `@endo/exo-npm` in [#403](https://github.com/endojs/endo-but-for-bots/pull/403) — before the snapshot-mapper/worker-import layers can build. The esheets tree reports it can do nothing until you re-review and merge [#621](https://github.com/endojs/endo-but-for-bots/pull/621), which has now sat six days.
-
-Two operational notes worth your eye: the **weekly Claude quota is exhausted (resets Jul 18, 3am UTC)**, which is cascading into rc=1 failures across `garden-mentor`, several triagers, and the liaison follow-up producer, and has tripped triage circuit-breakers OPEN on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk` (neither of which is authorized for watching under the monitoring-safety constraint — worth confirming they belong in the set). Separately, a run of shepherd/gauntlet jobs (PRs #124, #704, #694, #707, agoric-sdk #15) were **poisoned for overrunning the 2400s handler budget** and parked in the plan queue; they need splitting into claim-sized stages or a raised timeout before they can run.
+Two things need your hand. First, the fleet has been hitting its **weekly Claude limit (resets Jul 18, 3am UTC)** since Jul 14 — that's the root cause behind the crash-looping `garden-mentor` self-heal failures, the triage circuit-breakers on `kriscendobot-minion.town`/`kriscendobot-agoric-sdk`/`kriscendobot-finbot`, and several dropped follow-up actions. Second, the foreman is repeatedly flagging that **M2 (Project Hygiene) is one merge decision from done** — the vetted-shim PRs [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) are built, gauntleted, and mergeable (with redundant alternative #263 to close), and **M3 is blocked** pending your ruling on which registry home wins between [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403). The esheets tree remains fully dammed behind re-review of [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (6 days waiting). Several shepherd/gauntlet jobs were poisoned for overrunning the 2400s handler budget and parked for promotion.
 
 ## Parked for maintainer feedback
 
@@ -465,15 +463,21 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 91.3M | $951.06 _(notional, rate-card)_ | no quota set |
+| Claude | 91.5M | $952.19 _(notional, rate-card)_ | no quota set |
 | Codex | 118.8M _(+130.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (7)
+- [`arc-status-daily-20260716-175014`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260716-175014.md) — Daily status + change summary for the standing review arcs
+- [`endo-byte-array-press-20260716-175014`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260716-175014.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+- [`endo-daemon-data-plane-press-20260716-175014`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-daemon-data-plane-press-20260716-175014.md) — Press the Endo daemon data plane forward (endojs/endo-but-for-bots, base llm)
+- [`endo-git-integration-press-20260716-175014`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260716-175014.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+- [`endo-vfs-parity-press-20260716-175014`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260716-175014.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr714-review-902775bf`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr714-review-902775bf.md) — Review directive on endojs/endo-but-for-bots PR #714
+- [`ocapn-noise-press-20260716-175014`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260716-175014.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
 ### tada (2335)
 - [`endo-sturdyref-press-20260716-173508`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260716-173508.md) — SturdyRef press tick report — HOLDING (all gates maintainer-side)
