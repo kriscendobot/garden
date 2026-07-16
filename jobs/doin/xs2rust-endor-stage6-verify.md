@@ -60,3 +60,10 @@ dispatches fixers), and `orchestration-failed: true` only if a bar is genuinely 
 - Capture test runs to files, check `$?`; `/tmp` is noexec (`bash /path/script.sh`).
 - Budget: ONE 2400s invocation (the enumeration is ~5 min once the tree is built).
 - Report via tada ONLY; never inbox-send the parked supervisor.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: gardener
+  claimed_at: 2026-07-16T22:55:08Z
