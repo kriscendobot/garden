@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-16T01:50:25Z_
+_As of 2026-07-16T02:50:33Z_
 
 ## Latest
 
@@ -12,9 +12,9 @@ Two operational flags warrant a look: the triager crash-loop fix is landed on `m
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 2h)
-- [endojs/endo-but-for-bots#714](https://github.com/endojs/endo-but-for-bots/pull/714) — feat(platform): add listTree, rangeRead, rangeReadText (consolidate genie/lal/fae fs reads) (waiting 10h)
-- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 20h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 3h)
+- [endojs/endo-but-for-bots#714](https://github.com/endojs/endo-but-for-bots/pull/714) — feat(platform): add listTree, rangeRead, rangeReadText (consolidate genie/lal/fae fs reads) (waiting 11h)
+- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 21h)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 2d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 3d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 5d)
@@ -220,6 +220,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260716T015011Z-ac58f5` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T015011Z-ac58f5.md)
 
 > self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 1c57a158d4435a63cd28f8cca7c9cb5b9ecb4628 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 1c57a158d4435a63cd28f8cca7c9cb5b9ecb4628). Diagnosis: You've hit your weekly limit · resets Jul 18, 3am (UTC)
+
+- `20260716T025012Z-8736cc` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T025012Z-8736cc.md)
+
+> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: f9a25ed5e3d66568371e5a3a0b83e9a7ccd53eea (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p f9a25ed5e3d66568371e5a3a0b83e9a7ccd53eea). Diagnosis: You've hit your weekly limit · resets Jul 18, 3am (UTC)
 
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
