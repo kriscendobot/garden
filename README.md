@@ -1,16 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-16T06:22:27Z_
+_As of 2026-07-16T07:05:57Z_
 
 ## Latest
 
-The board is nearly quiet: the only job in flight is [`improve-gh-wrapper-fail-closed-on-writes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gh-wrapper-fail-closed-on-writes.md) (hardening the fleet's `gh` wrapper to fail closed on writes), and the single completion since last bulletin was a review-retrospective on [kriskowal/garden#19](https://github.com/kriskowal/garden/pull/19). The thing to notice is why so little moved: the leader host has **hit its weekly Claude quota** ("resets Jul 18, 3am UTC"), and that exhaustion is now cascading — `garden-mentor` self-heal has failed on every hourly cycle since Jul 15, the follow-up producer dropped two action blocks, and triage circuit-breakers have opened on `kriscendobot-minion.town`, `kriscendobot-agoric-sdk`, and `kriscendobot-finbot` (the last three of which are also worth confirming belong in the watch set at all under the monitoring-safety constraint).
+The board has effectively stalled: nearly every LLM-backed service — the mentor, the follow-up producer, and the triagers — is failing `rc=1` against the same Claude weekly limit (resets Jul 18, 3am UTC), so only a single daily-progress-summary job moved since the last bulletin. Expect little autonomous progress until the quota resets. Meanwhile a backlog of poison jobs has parked itself in the plan queue after handler-budget overruns — the shepherds for [endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#694](https://github.com/endojs/endo-but-for-bots/pull/694), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), and [kriscendobot/agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/pull/15), plus the dead-lettered garden#31 comment job — each needing a maintainer to split, re-time, or promote it.
 
-Separately, a cluster of long-running jobs overran the 2400s handler budget and were poisoned/parked for a human promote: shepherds on [endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), and [kriscendobot/agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/pull/15), plus gauntlets on [#694](https://github.com/endojs/endo-but-for-bots/pull/694) and [#707](https://github.com/endojs/endo-but-for-bots/pull/707) — all needing to be split into claim-sized stages before requeue. Finally, the shared-CBOR design merged in [endo-but-for-bots#710](https://github.com/endojs/endo-but-for-bots/pull/710) and its phase-1 build (`build-endo-cbor-package`) is parked awaiting your go-ahead, and a recurrence of the `avoid-name-abbreviations` cluster on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) is escalated for your call on whether to widen the pre-push gate.
+Two items want a decision. Triage circuit-breakers have OPENED on three watched repos — `kriscendobot-minion.town`, `kriscendobot-agoric-sdk`, and `kriscendobot-finbot` — and the breaker messages flag that under the monitoring-safety constraint only `endojs/endo-but-for-bots` is authorized to watch, so their presence in the set is worth confirming. And the avoid-name-abbreviations review cluster has recurred (count=4) on [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) via an "Avoid abbreviation" note on `fetchImpl`: the retrospective traced it to a structural blind spot — the pre-push gate only scans newly-added diff lines, so an abbreviation authored before the gate deployed escapes it permanently — and left the fix (widen the gate to whole changed files vs. accept the stylist seat as the sole backstop) to your call. On the merge front, a gardener parked `build-endo-cbor-package` (phase 1 of @endo/cbor) after the shared-CBOR-primitives design landed in [endo-but-for-bots#710](https://github.com/endojs/endo-but-for-bots/pull/710), awaiting your go-ahead.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 6h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 7h)
 - [endojs/endo-but-for-bots#714](https://github.com/endojs/endo-but-for-bots/pull/714) — feat(platform): add listTree, rangeRead, rangeReadText (consolidate genie/lal/fae fs reads) (waiting 15h)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 1d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 2d)
@@ -421,14 +421,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 86.3M | $908.09 _(notional, rate-card)_ | no quota set |
+| Claude | 86.4M | $908.68 _(notional, rate-card)_ | no quota set |
 | Codex | 50.6M _(+126.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`daily-progress-summary-20260716-070513`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260716-070513.md) — Daily midnight Pacific progress summary
 - [`improve-gh-wrapper-fail-closed-on-writes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gh-wrapper-fail-closed-on-writes.md) — scripts/jobs/bin/gh
 
 ### tada (2305)
