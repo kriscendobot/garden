@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-16T22:05:36Z_
+_As of 2026-07-16T22:09:29Z_
 
 ## Latest
 
-The board has gone quiet (nothing in `todo`), and the fleet has run into its **weekly Claude quota** — a wave of `self-heal`, triager, and follow-up failures all report "hit your weekly limit · resets Jul 18, 3am UTC," so `garden-mentor` and several triagers (kriscendobot-minion.town, kriscendobot-agoric-sdk) have tripped their circuit breakers and are inert until the reset. The most actionable regression: **master is red on endojs/endo-but-for-bots** from an incomplete `@endo/cbor` landing (missing LICENSE/SECURITY.md, an unresolved `@endo/eventual-send` import, and a zizmor action-pin mismatch); this is inherited red, not PR-attributable, and is blocking shepherds like [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — the fix belongs on master, after which the affected PRs can be rebased. The only real fleet motion was the xs2rust→Rust (Endor) port advancing through Stage 6 (snapshot-atoms done, machine-surface now in flight) and [endo-but-for-bots#706](https://github.com/endojs/endo-but-for-bots/pull/706) completing its conduct.
+The board is effectively frozen — only a dead-lettered message completed this window, and the queue is nearly all parked work awaiting your call. The dominant event is quota: the leader host hit its weekly Claude limit (resets Jul 18, 3am UTC), which has been crash-looping `garden-mentor` self-heal hourly since Jul 15 and knocked out triage on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk` (both circuit-breakers now OPEN, and both plausibly shouldn't be watched under the monitoring-safety constraint anyway).
 
-Several tracks are dammed on your decisions: the foreman reports **M2 (Project Hygiene) is one merge from complete** — the vetted-shim PRs [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) are built, gauntleted, and merge-ready (with redundant CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263) to close); **M3** needs you to pick the MVS-resolver home between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403). The sturdyref effort has held three gated ticks awaiting a first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus a marshal rank-prefix decision, and the esheets tree has sat six days blocked on re-review/merge of [#621](https://github.com/endojs/endo-but-for-bots/pull/621). Also worth a look: a review-retrospective escalation flags that the abbreviation gate has a structural blind spot (it only scans newly-added lines, so `fetchImpl` on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) slipped through), and a fixed monotonic-timer starvation bug had silently stalled the xs2rust chain for five days — the same pattern may still lurk in the proxy/watchman/mention-watcher/scaler/repo-watcher timers.
+Several fronts are one maintainer decision from unblocking. The foreman has nudged repeatedly that **M2 (Project Hygiene)** is complete but for merging the two vetted-shim PRs — [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL shim), both green/CLEAN — and closing the redundant, CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263). **M3** is stalled on a package-home ruling: the MVS resolver now exists in two competing PRs, [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon/registry.js`) vs [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (`@endo/exo-npm`), and the loser must be closed before `snapshot-mapper` and worker-import can build. The SturdyRef effort reports three open gates — first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737), a marshal rank-prefix pick, and re-reviews of designs [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697) — and the esheets tree remains fully dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621), now 6 days awaiting re-review.
+
+Two things worth a direct look: a shepherd on [#475](https://github.com/endojs/endo-but-for-bots/pull/475) found that **`endo-but-for-bots` master itself is red** from an incomplete `packages/cbor` landing (missing LICENSE/SECURITY.md, unresolved `@endo/eventual-send`) — a master-side fix is needed before any dependent PR can go green, and a phase-1 `build-endo-cbor-package` job is now parked awaiting go-ahead. Separately, a press-driver found the `xs2rust-endor` chain silently stalled 5 days on the same monotonic-timer starvation bug from July; it fixed and reinstalled `garden-unblock.timer` on the leader (main2 `6012296908`) and flagged that proxy/watchman/mention-watcher/scaler/repo-watcher timers still carry the pattern. A cluster of handler-budget overruns (multiple shepherds, gauntlets, and a deadmail) have been poisoned and parked for being too large to fit a single claim.
 
 ## Parked for maintainer feedback
 
@@ -521,24 +523,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.0M | $989.81 _(notional, rate-card)_ | no quota set |
+| Claude | 96.2M | $991.22 _(notional, rate-card)_ | no quota set |
 | Codex | 124.2M _(+145.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`deadmail-issue-comment-4996996230`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4996996230.md) — Dead-lettered message — pick up its intent
+### doin (1)
 - [`xs2rust-endor-stage6-machine-surface`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage6-machine-surface.md) — Stage 6 child 3/6: Machine snapshot surface + meter state across suspend
 
-### tada (2372)
+### tada (2373)
+- [`deadmail-issue-comment-4996996230`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4996996230.md) — Created private kriscendobot/ymax-e2e with the safe Playwright recording-harn...
 - [`endojs-endo-but-for-bots-pr706-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr706-conduct.md) — Completion report
 - [`xs2rust-endor-stage6-snapshot-atoms`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage6-snapshot-atoms.md) — What I built
 - [`deadmail-issue-comment-4996838834`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4996838834.md) — Completion report
 - [`xs2rust-endor-stage6-seam-flip`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage6-seam-flip.md) — Completion report: Stage 6 child 1/6 — flip the compiler-seam default to endo...
-- [`port-xs-to-rust-memory-safe-engine-s19`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s19.md) — Completion report — supervisor port-xs-to-rust-memory-safe-engine-s19
-- … and 2367 more
+- … and 2368 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -579,7 +580,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
 ## Watch set
-kriscendobot-agoric-3-proposals kriscendobot-agoric-sdk kriscendobot-cosgov kriscendobot-endo kriscendobot-finbot kriscendobot-minion.town kriscendobot-ocapn kriscendobot-vattr97
+kriscendobot-agoric-3-proposals kriscendobot-agoric-sdk kriscendobot-cosgov kriscendobot-endo kriscendobot-finbot kriscendobot-minion.town kriscendobot-ocapn kriscendobot-vattr97 kriscendobot-ymax-e2e
 
 ## Hosts
 - [endolin-garden-ece02cb4](https://github.com/kriskowal/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 20 gardeners
