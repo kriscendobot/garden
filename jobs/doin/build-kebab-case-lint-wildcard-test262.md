@@ -58,3 +58,10 @@ exemptions**, `exemptions.txt` reduced to a small reviewable pattern set that co
 tests+fixtures by wildcard, on a frozen `master-<sha>` base, gauntleted with load-bearing tests. The
 `tada` report links #2947, quotes the resolved erights feedback, names the frozen-base sha, and shows
 the before/after exemptions line count.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: gardener
+  claimed_at: 2026-07-16T23:32:21Z
