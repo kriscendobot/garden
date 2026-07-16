@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-16T13:35:30Z_
+_As of 2026-07-16T13:58:47Z_
 
 ## Latest
 
-The fleet has hit its Claude weekly limit (resets Jul 18, 3am UTC), and it shows: `garden-mentor` has been crash-looping self-heal hourly since Jul 15, and the triage circuit-breakers for `kriscendobot-minion.town` and `kriscendobot-agoric-sdk` plus two dropped liaison follow-ups all trace to the same rc=1 quota exhaustion — expect little new work to move until the reset. Two milestone decisions from the foreman need your call: M2 (Project Hygiene) is at 6/8 with its last two designs already delivered and CI-clean as [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) and #259 (both open, un-drafted, threads resolved), so the close-out is simply merging them; and M3's module-loading tail is blocked on a package-home ruling between the two competing MVS-resolver PRs, [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon/registry.js`) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (a dedicated `@endo/exo-npm`) — pick the winner so the loser can be closed. Separately, a review-retrospective escalation on [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) reopened the avoid-abbreviations cluster (now count 4, prs 650/609/671): your "Avoid abbreviation" on `fetchImpl` slipped past the spell-out gate because the line predates the gate's deployment and the gate only scans newly-added diff lines — a structural blind spot awaiting your call on whether to widen it. On the board itself, only PR #705's weave is in flight and nothing else transitioned; the design merged in [endo-but-for-bots#710](https://github.com/endojs/endo-but-for-bots/pull/710) has a phase-1 `@endo/cbor` build parked awaiting your go-ahead.
+The board has nearly drained — the [endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) weave was the only transition since the last bulletin, landing alongside a completed weave of [#707](https://github.com/endojs/endo-but-for-bots/pull/707). The signal worth your attention is in the maintainer inbox: the fleet has hit a **weekly usage limit** (resets Jul 18, 3am UTC), which is cascading into `garden-mentor` self-heal failures and triage circuit-breakers now OPEN on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk` — both also flagged as outside the authorized watch set (only `endojs/endo-but-for-bots` is sanctioned). The foreman surfaced two rulings only you can make: **M2 (Project Hygiene)** is at 6/8 with its last two designs delivered as [#719](https://github.com/endojs/endo-but-for-bots/pull/719) and #259, both open, un-drafted, and CI-clean — they just need merging; and **M3** is stalled on a package-home decision between the MVS resolver in [#671](https://github.com/endojs/endo-but-for-bots/pull/671) versus a dedicated `@endo/exo-npm` package in [#403](https://github.com/endojs/endo-but-for-bots/pull/403), blocking the snapshot-mapper and worker-import layers until you pick a winner. Separately, several shepherd/gauntlet jobs (PRs [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#694](https://github.com/endojs/endo-but-for-bots/pull/694), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), and `kriscendobot/agoric-sdk` [#15](https://github.com/kriscendobot/agoric-sdk/pull/15)) were poisoned for overrunning the 2400s handler budget and parked for promotion, and a build job for `@endo/cbor` phase 1 (from the design landed in [#710](https://github.com/endojs/endo-but-for-bots/pull/710)) awaits your go-ahead.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 13h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 14h)
 - [endojs/endo-but-for-bots#714](https://github.com/endojs/endo-but-for-bots/pull/714) — feat(platform): add listTree, rangeRead, rangeReadText (consolidate genie/lal/fae fs reads) (waiting 22h)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 1d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 2d)
@@ -427,23 +427,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.1M | $930.93 _(notional, rate-card)_ | no quota set |
-| Codex | 72.9M _(+126.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 89.1M | $931.50 _(notional, rate-card)_ | no quota set |
+| Codex | 73.2M _(+126.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr705-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr705-weave.md) — ---
+### doin (0)
+(none)
 
-### tada (2324)
+### tada (2325)
+- [`endojs-endo-but-for-bots-pr705-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr705-weave.md) — Completion report — weave endojs/endo-but-for-bots PR #705
 - [`endojs-endo-but-for-bots-pr707-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr707-weave.md) — Weave Report — endojs/endo-but-for-bots #707
 - [`endojs-endo-but-for-bots-pr676-b3edafc8-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr676-b3edafc8-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr598-review-ac90d9cd-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr598-review-ac90d9cd-retro.md) — Recorded a not-a-miss dismissal for PR #598 review 4704744153 and posted the ...
 - [`endojs-endo-but-for-bots-pr714-review-b80b82c7-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr714-review-b80b82c7-retro.md) — Completion report
-- [`endojs-endo-but-for-bots-pr710-review-b6a9374c-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr710-review-b6a9374c-retro.md) — Completion report — retrospective on endojs/endo-but-for-bots PR #710 review ...
-- … and 2319 more
+- … and 2320 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
