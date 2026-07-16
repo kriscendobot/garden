@@ -1,12 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-16T22:48:28Z_
+_As of 2026-07-16T22:53:42Z_
 
 ## Latest
 
-A broken `master` in endo-but-for-bots is the headline: an incomplete `packages/cbor` landing left master's CI red (missing LICENSE/SECURITY.md, `test/cbor.test.js` can't resolve `@endo/eventual-send`, plus a zizmor action-pin mismatch), so the [#475](https://github.com/endojs/endo-but-for-bots/pull/475) shepherd correctly refused to push — the red isn't PR-attributable. The fix belongs on master; [`build-endo-cbor-package`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-cbor-package.md) (phase 1 per the design merged in [#710](https://github.com/endojs/endo-but-for-bots/pull/710)) is in flight. Separately, a monotonic-timer starvation bug in `garden-unblock.timer` was found to have silently stalled the xs2rust-endor chain ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) for five days; it's fixed on main2 (`6012296908`) and installed on the leader, and the s19 supervisor is claimed and moving again — but the same monotonic pattern reportedly still lurks in the proxy/watchman/mention-watcher/scaler/repo-watcher timers, worth a sweep. finbot advanced twice (regime-aware position sizing, then live GJR-GARCH leverage-gamma MLE estimation), all tests green and wallet untouched.
+The dominant signal this window is a **weekly quota exhaustion** (resets Jul 18, 3am UTC): a wall of self-heal failures, repeated `garden-mentor` crashes, and dropped liaison follow-ups all trace to "hit your weekly limit," and three triage circuit-breakers opened (`kriscendobot-minion.town`, `kriscendobot-agoric-sdk`, `kriscendobot-finbot`) — the last two are also flagged as possibly outside the authorized watch set. Expect degraded throughput until the reset.
 
-Several maintainer decisions are now the sole blockers. M2 (Project Hygiene) is one merge away from done — the foreman pinged repeatedly to land the two vetted-shim PRs, [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL), and close the superseded, CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263). M3 is blocked on a package-home ruling between the competing MVS resolvers in [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403). The SturdyRef effort has three gates open (first review of draft [#737](https://github.com/endojs/endo-but-for-bots/pull/737), a marshal rank-prefix pick, and re-reviews of #695/#697), and the esheets tree is entirely dammed behind re-reviewing/merging [#621](https://github.com/endojs/endo-but-for-bots/pull/621), now sitting six days. Also note: the weekly Claude quota was exhausted (resets Jul 18), which is behind the cluster of garden-mentor/triager self-heal failures, dropped follow-ups, and three triage circuit-breakers opening on unwatched forks (`kriscendobot-finbot`, `-minion.town`, `-agoric-sdk`) — worth confirming those repos belong in the watch set at all. A batch of long-running shepherd/gauntlet jobs (#124, #704, #707, #694, agoric-sdk #15) overran the 2400s handler budget and are parked as poison in the plan queue awaiting a split or a raised timeout.
+Meanwhile **`endojs/endo-but-for-bots` master is red** from an incomplete `packages/cbor` landing (missing LICENSE/SECURITY.md, an unresolved `@endo/eventual-send` import, and zizmor pin mismatches); the [#475](https://github.com/endojs/endo-but-for-bots/pull/475) shepherd correctly refused to patch the feature branch and escalated — the fix belongs on master. That fix is the one job now in flight: `build-endo-cbor-package` (phase 1 of the [#710](https://github.com/endojs/endo-but-for-bots/pull/710) CBOR design). Until master is green, dependent shepherds stay stuck.
+
+Several efforts are fully **gated on your review**, not on work: the foreman insists M2 (Project Hygiene) is one merge from done — land [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) and close the redundant, CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263); M3 is blocked on a package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403); the SturdyRef press wants a first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus re-reviews of [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697); and the esheets tree is dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621).
+
+On the moving side, the xs2rust-endor (Endor) chain — silently stalled 5 days on a monotonic-timer starvation bug in `garden-unblock.timer`, now fixed on main2 — is unstuck, with stage-6 supervisor integration completing this tick (the same report flags the same timer bug still latent in five other watchers). A batch of shepherd/gauntlet jobs was **poisoned for overrunning the 2400s handler budget** ([#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#694](https://github.com/endojs/endo-but-for-bots/pull/694), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), agoric-sdk #15) and parked for manual promotion — they need splitting into claim-sized stages. Finbot advanced twice (regime-aware position sizing, then live GJR leverage-gamma estimation) but stays wallet-frozen pending your paper-wallet authorization and a CapTP transport decision.
 
 ## Parked for maintainer feedback
 
@@ -554,24 +558,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.0M | $993.92 _(notional, rate-card)_ | no quota set |
+| Claude | 97.1M | $994.22 _(notional, rate-card)_ | no quota set |
 | Codex | 124.2M _(+145.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`build-endo-cbor-package`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-cbor-package.md) — Build: create @endo/cbor (phase 1) per the landed design in PR #710
-- [`xs2rust-endor-stage6-supervisor-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage6-supervisor-integration.md) — Stage 6 child 5/6: supervisor suspend/resume integration on -e endor-rs
 
-### tada (2379)
+### tada (2380)
+- [`xs2rust-endor-stage6-supervisor-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage6-supervisor-integration.md) — Completion report — stage-6 child 5/6: supervisor suspend/resume integration
 - [`xs2rust-endor-stage6-roundtrip-fuzz`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage6-roundtrip-fuzz.md) — Stage-6 child 4: snapshot round-trip-invariance + malformed-atom fuzz targets...
 - [`finbot-progress-20260716-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260716-223502.md) — Completion report
 - [`endo-sturdyref-press-20260716-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260716-223502.md) — What I did
 - [`xs2rust-endor-press-20260716-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260716-223502.md) — Press check-in complete — this tick was a deliberate defer, and the chain is ...
-- [`self-heal-fix-garden-issue-inbox-enum-fatal-swallowed-gh-stderr`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-issue-inbox-enum-fatal-swallowed-gh-stderr.md) — Completion report
-- … and 2374 more
+- … and 2375 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
