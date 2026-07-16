@@ -6,3 +6,10 @@ It is a design-only PR (two files: designs/README.md + the design); it has had
 zero review since it was opened 2026-07-15. Settling this design unblocks the
 endor CAS implementation lane — implementation must not run ahead of the spec.
 Posted by the git-integration press driver (endo-git-integration-press).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-16T18:18:51Z
