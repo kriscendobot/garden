@@ -57,12 +57,13 @@ oneline='(.body // "") | gsub("[\t\r\n]+"; " ")'
 # so a single GitHub flake no longer blanks an endpoint; a DEFINITIVE 404 is not
 # retried and falls through to the same degrade path.
 #
-# Stderr policy: the two HARD-FAIL enumerations deliberately leave gh_api_retry's
-# stderr alone. Its final WARN carries the real HTTP status (401/403/rate-limit) and
-# issue-inbox-watcher captures it as `source:` output on the tick's death path. Do NOT
-# restore `2>/dev/null`: that caused the 2026-06-24 silent-empty outage. jq carries NO
-# redirect: a jq parse error is a real fault that must surface. The tolerated
-# per-comment parent lookup still suppresses its expected failure noise.
+# Stderr policy: the two HARD-FAIL enumerations capture gh_api_retry's stderr
+# quietly. On a clean tick this keeps expected-empty API noise out of the watcher.
+# On a failure, enum_die appends the final WARN (including gh's HTTP/transport
+# diagnostic) to the fatal message so issue-inbox-watcher relays it as `source:`
+# output. Do NOT restore `2>/dev/null`: that caused the 2026-06-24 silent-empty
+# outage. jq carries NO redirect: a jq parse error is a real fault that must surface.
+# The tolerated per-comment parent lookup still suppresses its expected failure noise.
 #
 # Failure policy: an endpoint that FAILS (past gh_api_retry's transient budget)
 # fails the WHOLE tick with a nonzero exit, never degrades to empty output. The
@@ -73,15 +74,30 @@ oneline='(.body // "") | gsub("[\t\r\n]+"; " ")'
 # so correctness beats availability here). The watcher treats a nonzero source
 # as a skipped tick with the cursor held; the next tick re-polls the same window.
 
+issues_errf="$(mktemp)"
+comments_errf="$(mktemp)"
+trap 'rm -f "$issues_errf" "$comments_errf"' EXIT
+
+enum_die() { # enum_die <description> <rc> <stderr-file>
+  local description="$1" rc="$2" errf="$3" detail
+  detail="$(tail -n 5 "$errf" 2>/dev/null || true)"
+  if [ -n "$detail" ]; then
+    die "$description for $repo failed (rc=$rc); failing the tick so the cursor holds; gh stderr (last 5 lines):
+$detail"
+  fi
+  die "$description for $repo failed (rc=$rc); failing the tick so the cursor holds"
+}
+
 # 1) NEW ISSUES (exclude PRs). The issues API `since=` filters by UPDATED_AT, so we
 #    additionally select created_at >= since to keep this to genuinely-new issues.
 gh_api_retry --paginate "repos/$repo/issues?state=all&since=$since&sort=created&direction=asc&per_page=100" \
+  2>"$issues_errf" \
   | jq -r --arg s "$since" "
       .[] | select(has(\"pull_request\") | not) | select(.created_at >= \$s)
       | [ \"issue\", .created_at, (.id|tostring), (.number|tostring),
           .user.login, .user.login, .state, (.closed_by.login // \"-\"),
           (.closed_at // \"-\"), .html_url, ($oneline) ] | @tsv" \
-  || die "issues enumeration for $repo failed (rc=$?); failing the tick so the cursor holds"
+  || enum_die "issues enumeration" "$?" "$issues_errf"
 
 # 2) NEW ISSUE COMMENTS — join the parent issue for submitter/state/closed_by and
 #    to drop PR comments. The issues/comments feed is repo-wide and `since=` here
@@ -100,6 +116,7 @@ issue_meta() {  # issue_meta <number> -> echoes submitter \t state \t closed_by 
 }
 
 gh_api_retry --paginate "repos/$repo/issues/comments?since=$since&sort=created&direction=asc&per_page=100" \
+  2>"$comments_errf" \
   | jq -r --arg s "$since" "
       .[] | select(.created_at >= \$s)
       | [ .created_at, (.id|tostring),
@@ -121,4 +138,4 @@ gh_api_retry --paginate "repos/$repo/issues/comments?since=$since&sort=created&d
         "issue-comment" "$created" "$cid" "$number" "$author" "$submitter" \
         "$state" "$closed_by" "$closed_at" "$url" "$body"
     done \
-  || die "issue-comments enumeration/join for $repo failed (rc=$?); failing the tick so the cursor holds"
+  || enum_die "issue-comments enumeration/join" "$?" "$comments_errf"

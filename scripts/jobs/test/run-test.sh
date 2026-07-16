@@ -2723,18 +2723,20 @@ printf '[]\n'; exit 0
 EOF
   chmod +x "$GHII/gh"
   G_OUT="$II_TR/g.out"
+  G_ERR="$II_TR/g.err"
   env PATH="$GHII:$PATH" GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$II_TR/state-g" \
-    "$JOBS/handlers/issue-source-gh.sh" o/r 2026-06-27T00:00:00Z > "$G_OUT" 2>/dev/null || true
+    "$JOBS/handlers/issue-source-gh.sh" o/r 2026-06-27T00:00:00Z > "$G_OUT" 2> "$G_ERR" || true
   { grep -qP '^issue\t2026-06-27T10:00:00Z\t1\t42\t' "$G_OUT" && ! grep -qP '\t43\t' "$G_OUT"; } \
     && ok "source surfaces the real issue #42 and EXCLUDES the PR #43" || bad "source PR-exclusion wrong (out: $(cat "$G_OUT"))"
   grep -qP '^issue-comment\t2026-06-27T12:00:00Z\t91\t50\tkriskowal\tkriskowal\topen\t-\t' "$G_OUT" \
     && ok "source emits the issue comment joined with parent-issue meta" || bad "comment row/join wrong (out: $(cat "$G_OUT"))"
   ! grep -q '#c92' "$G_OUT" \
     && ok "source drops the comment whose parent is a PR" || bad "PR comment leaked into the source output"
+  [ ! -s "$G_ERR" ] \
+    && ok "clean source enumeration emits no stderr noise" || bad "clean source emitted stderr: $(cat "$G_ERR")"
 
-  # A definitive enumeration failure must retain gh_api_retry's WARN in the
-  # watcher's captured `source:` death output. The handler must not redirect this
-  # hard-fail path to /dev/null: its WARN is the only HTTP root-cause record.
+  # A definitive enumeration failure must append gh_api_retry's captured WARN to
+  # the handler's die output, which the watcher relays as `source:` diagnostics.
   GHII_FAIL="$GHII/gh-definitive-fail"
   cat > "$GHII_FAIL" <<'EOF'
 #!/bin/bash
@@ -2752,6 +2754,28 @@ EOF
   grep -qE 'source: .*WARN: gh api repos/kriskowal/garden/issues\?.*failed \(definitive, rc=1\).*HTTP 401: Bad credentials' <<<"$g_death" \
     && ok "definitive source enumeration failure preserves gh API stderr in the tick death output" \
     || bad "definitive source enumeration stderr was swallowed (death: $g_death)"
+
+  # Exercise the comments enumeration independently: the issue listing succeeds,
+  # while the comments listing's classified gh failure must reach the same relay.
+  GHII_COMMENTS_FAIL="$GHII/gh-comments-definitive-fail"
+  cat > "$GHII_COMMENTS_FAIL" <<'EOF'
+#!/bin/bash
+case "$*" in
+  *"/issues?state=all"*) printf '%s\n' '[]'; exit 0;;
+  *"/issues/comments?"*) printf '%s\n' 'gh api: HTTP 403: Resource not accessible by integration' >&2; exit 1;;
+esac
+printf '%s\n' '[]'
+EOF
+  chmod +x "$GHII_COMMENTS_FAIL"
+  g_comments_death="$(env PATH="$GHII:$PATH" GARDEN_STATE="$II_TR/state-g-comments-fail" \
+    JOURNAL_REMOTE="$BARE_II_G" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_GARDEN_REPO=kriskowal/garden GARDEN_MAINTAINERS_ALLOWLIST="$II_ALLOW" \
+    GARDEN_ISSUE_SOURCE="$JOBS/handlers/issue-source-gh.sh" GARDEN_GH="$GHII_COMMENTS_FAIL" \
+    GARDEN_GH_API_ATTEMPTS=1 GARDEN_NO_MAINTAINER_ALERT=1 \
+    "$JOBS/issue-inbox-watcher.sh" 2>&1 >/dev/null || true)"
+  grep -qE 'source: .*WARN: gh api repos/kriskowal/garden/issues/comments\?.*failed \(definitive, rc=1\).*HTTP 403: Resource not accessible by integration' <<<"$g_comments_death" \
+    && ok "comments enumeration failure preserves gh API stderr in the tick death output" \
+    || bad "comments enumeration stderr was swallowed (death: $g_comments_death)"
 fi
 rm -rf "$II_TR"
 
