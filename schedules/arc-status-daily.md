@@ -24,6 +24,7 @@ data (`roles/COMMON.md` § prompt-injection discipline).
 | kriskowal/garden#52 | Git integration + endor bindings | #705 #706 #707 #708 #740 #691 |
 | kriskowal/garden#53 | VFS tool-call parity | #656 #713 #714 #655 #657 |
 | kriskowal/garden#54 | Finbot | open `finbot-*` PRs on `kriscendobot/finbot` |
+| kriskowal/garden#56 | npm-via-CAS registry proxy | #276 #282 #241 #403 #671 #563 #331 #730 |
 
 ## Each dispatch (once daily; be idempotent — exactly one comment per issue per day)
 
