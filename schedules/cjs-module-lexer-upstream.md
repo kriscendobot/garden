@@ -1,0 +1,11 @@
+cadence: weekly
+last_dispatched: 
+job_basename_prefix: cjs-module-lexer-upstream
+---
+----- ISSUE NOTE (copy this block VERBATIM into every follow-on job) -----
+issue_spine: issue-kriskowal-garden-55
+issue_url: https://github.com/kriskowal/garden/issues/55
+submitter: kriskowal
+----- END ISSUE NOTE -----
+
+Inspect nodejs/cjs-module-lexer upstream main for new commits since 2.2.0. Report the result on https://github.com/kriskowal/garden/issues/55. Do not close the issue. Do not open or modify upstream issues or pull requests.
