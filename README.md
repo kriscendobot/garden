@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-16T18:05:17Z_
+_As of 2026-07-16T18:07:49Z_
 
 ## Latest
 
-Two design arcs crossed their finish lines this dispatch — the Endo daemon data-plane press and the VFS-parity press both completed — while a content-locators Phase 1 build and the OCapN-over-Noise, byte-array, and git-integration presses picked up. [endo-but-for-bots#714](https://github.com/endojs/endo-but-for-bots/pull/714) completed its review-and-shepherd cycle, and [#585](https://github.com/endojs/endo-but-for-bots/pull/585) was rebased onto `llm` and is one-click mergeable again.
+The board is nearly idle — only the `endo-byte-array-press` schedule completed a dispatch — because the fleet is quota-throttled: repeated "weekly limit resets Jul 18" failures have looped `garden-mentor`'s self-heal, rejected the liaison's follow-up producer, starved the foreman pump, and tripped triage circuit-breakers on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk` (both of which, along with the earlier `kriscendobot-finbot` breaker, are outside the one repo authorized to watch and worth pruning from the set regardless).
 
-The signal worth acting on is a pile of parked merge decisions the fleet cannot take itself. The foreman reports **M2 (Project Hygiene) is one decision from complete**: its last two shims — [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL/URLSearchParams) — are built, gauntleted, and merge-ready, pending your call to merge/ferry them and close the superseded, CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263). **M3 is blocked on a package-home ruling**: the MVS resolver now lives in two competing PRs, [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon/registry.js`) vs [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (`@endo/exo-npm`) — pick a winner so the loser closes and the snapshot-mapper/worker-import layers can build. Separately, the whole esheets tree is dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621), which is green and has sat six days awaiting re-review. A `build-endo-cbor-package` (phase 1) job is parked awaiting your go-ahead following the merged [#710](https://github.com/endojs/endo-but-for-bots/pull/710) design.
+Most substance is now parked on your decisions. The foreman reports **M2 (Project Hygiene)** one merge away from done — [endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs shim) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL shim) are both built, gauntleted, and MERGEABLE, pending your merge/ferry and the closing of the redundant CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263). **M3** is blocked on a package-home ruling between the two competing MVS resolvers, [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon/registry.js`) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (`@endo/exo-npm`), so the loser can close and `snapshot-mapper`/`daemon-worker-import` can build. The esheets tree is fully dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, re-woven, but six days awaiting your re-review despite a stale CHANGES_REQUESTED).
 
-Finally, note the fleet **hit its weekly Claude limit (resets Jul 18, 3am UTC)** — that quota exhaustion is the root cause behind the recurring `garden-mentor` self-heal failures, the follow-up rejections, and three triage circuit-breakers opening (`kriscendobot-minion.town`, `kriscendobot-agoric-sdk`, `kriscendobot-finbot`), the last two of which are also worth confirming belong in the watch set at all.
+Also notice: a wave of jobs — the [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), and [#694](https://github.com/endojs/endo-but-for-bots/pull/694) shepherds/gauntlets, the [#707](https://github.com/endojs/endo-but-for-bots/pull/707) gauntlet, the `kriscendobot/agoric-sdk` [#15](https://github.com/kriscendobot/agoric-sdk/pull/15) shepherd, and the dead-lettered garden-issue-31 pickup — were poisoned for overrunning the 2400s handler budget and now sit parked awaiting a split or a promote. A build for `@endo/cbor` phase 1 is parked on go-ahead following the merge of design [#710](https://github.com/endojs/endo-but-for-bots/pull/710), and a recurring "avoid abbreviation" review miss (`fetchImpl` on #671, cluster now count=4) is escalated for your call on whether to widen the pre-push gate.
 
 ## Parked for maintainer feedback
 
@@ -465,28 +465,27 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.0M | $955.88 _(notional, rate-card)_ | no quota set |
+| Claude | 92.1M | $956.19 _(notional, rate-card)_ | no quota set |
 | Codex | 118.9M _(+132.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - [`build-endo-content-locators-magnet-urn-phase1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-content-locators-magnet-urn-phase1.md) — Build: content-locator grammar and duality (Phase 1 of endo-content-locators-...
-- [`endo-byte-array-press-20260716-175014`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260716-175014.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260716-175014`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260716-175014.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endojs-endo-but-for-bots-pr714-review-902775bf`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr714-review-902775bf.md) — Review directive on endojs/endo-but-for-bots PR #714
 - [`endojs-endo-but-for-bots-pr714-shepherd-4995011322`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr714-shepherd-4995011322.md) — shepherd endojs/endo-but-for-bots PR #714
 - [`ocapn-noise-press-20260716-175014`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260716-175014.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### tada (2340)
+### tada (2341)
+- [`endo-byte-array-press-20260716-175014`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260716-175014.md) — **Press report — endo-byte-array-press (first dispatch of this schedule)**
 - [`endo-vfs-parity-press-20260716-175014`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260716-175014.md) — Completion report: endo-vfs-parity-press-20260716-175014 (dispatch 1)
 - [`endo-daemon-data-plane-press-20260716-175014`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260716-175014.md) — Press dispatch complete — the arc crossed its design finish line this dispatch.
 - [`endojs-endo-but-for-bots-pr714-9acfbf68`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr714-9acfbf68.md) — Completion report
 - [`endojs-endo-but-for-bots-pr585-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr585-weave.md) — Rebased PR #585 onto llm and force-with-lease pushed head 0906ddf22.
-- [`arc-status-daily-20260716-175014`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/arc-status-daily-20260716-175014.md) — Daily arc status posted — one ## Daily status — 2026-07-16 UTC comment on eac...
-- … and 2335 more
+- … and 2336 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
