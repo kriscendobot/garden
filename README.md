@@ -1,17 +1,15 @@
 # Garden bulletin
 
-_As of 2026-07-16T11:16:28Z_
+_As of 2026-07-16T11:19:40Z_
 
 ## Latest
 
-The board is effectively drained — the only transition since the last bulletin was the completion of the [endo-but-for-bots#661](https://github.com/endojs/endo-but-for-bots/pull/661) review retrospective (a durable not-a-miss dismissal for review 4701071242), and todo/doin are now empty. The reason for the stall dominates the maintainer inbox: **the Claude weekly limit is exhausted (resets Jul 18, 3am UTC)**, and it is cascading — the foreman pump, `garden-mentor` (self-heal crash-looping hourly since Jul 15), the liaison follow-up producer, and the triagers are all failing rc=1, which in turn tripped triage circuit-breakers on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk` (both outside the single authorized watch target, `endojs/endo-but-for-bots`, and worth confirming they belong in the set at all).
-
-Separately, a wave of shepherd/gauntlet jobs poisoned on the 2400s handler budget and now sit parked awaiting promotion — [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#694](https://github.com/endojs/endo-but-for-bots/pull/694), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), and `kriscendobot/agoric-sdk#15` — each needing to be split into claim-sized stages before requeueing. One item wants a judgment call: the avoid-abbreviations cluster **recurred** on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`fetchImpl`), exposing a structural blind spot — the pre-push gate only scans newly-added diff lines, so any abbreviation predating the gate escapes it permanently; the retrospective is asking whether to widen the gate to whole changed files. Finally, a Phase-1 `@endo/cbor` build is parked (go-ahead) following the merge of design [#710](https://github.com/endojs/endo-but-for-bots/pull/710).
+The board has effectively stalled: the only transition this cycle was the [#658](https://github.com/endojs/endo-but-for-bots/pull/658) review-retrospective moving into progress, with `todo` empty and nothing completing. The cause is a hard stop — Claude's **weekly usage limit is exhausted (resets Jul 18, 3am UTC)** — which is crash-looping `garden-mentor` self-heal hourly, dropping liaison follow-up producers, and tripping triage circuit-breakers OPEN on `kriscendobot-minion.town`, `kriscendobot-agoric-sdk`, and earlier `kriscendobot-finbot` (all three flagged as outside the single authorized watch target, `endojs/endo-but-for-bots`, and worth confirming). Several shepherd/gauntlet jobs were poisoned and parked for handler-budget overruns and need splitting or detaching before retry: [#124](https://github.com/endojs/endo-but-for-bots/pull/124) and [#704](https://github.com/endojs/endo-but-for-bots/pull/704) shepherds, the [#694](https://github.com/endojs/endo-but-for-bots/pull/694) and [#707](https://github.com/endojs/endo-but-for-bots/pull/707) gauntlets, and the [agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/pull/15) shepherd. Two items want a maintainer decision: the `avoid-name-abbreviations` cluster **recurred** on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`fetchImpl`, authored before the spell-out gate existed so it never got scanned — the escalation asks whether to widen the gate to whole changed files), and a freshly-parked `build-endo-cbor-package` job (phase 1 of the @endo/cbor design landed in [#710](https://github.com/endojs/endo-but-for-bots/pull/710)) awaits go-ahead. Twenty-eight PRs remain parked for review, the oldest fresh ones being ESLint-10 support in [endo#3319](https://github.com/endojs/endo/pull/3319) and the filesystem-read consolidation in [#714](https://github.com/endojs/endo-but-for-bots/pull/714).
 
 ## Parked for maintainer feedback
 
 - [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 11h)
-- [endojs/endo-but-for-bots#714](https://github.com/endojs/endo-but-for-bots/pull/714) — feat(platform): add listTree, rangeRead, rangeReadText (consolidate genie/lal/fae fs reads) (waiting 19h)
+- [endojs/endo-but-for-bots#714](https://github.com/endojs/endo-but-for-bots/pull/714) — feat(platform): add listTree, rangeRead, rangeReadText (consolidate genie/lal/fae fs reads) (waiting 20h)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 1d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 2d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 3d)
@@ -421,15 +419,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 87.1M | $913.97 _(notional, rate-card)_ | no quota set |
+| Claude | 87.2M | $914.68 _(notional, rate-card)_ | no quota set |
 | Codex | 50.6M _(+126.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr658-8df22a40-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr658-8df22a40-retro.md) — Retrospective on endojs/endo-but-for-bots PR #658 (primary: endojs-endo-but-f...
 
 ### tada (2312)
 - [`endojs-endo-but-for-bots-pr661-review-52ccb148-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr661-review-52ccb148-retro.md) — Recorded a durable not-a-miss dismissal for review 4701071242. The requested ...
@@ -466,7 +464,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr658-8df22a40-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr658-8df22a40-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #658 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr719-review-69684243-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr719-review-69684243-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #719 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr719-d8b31703-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr719-d8b31703-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #719 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr697-review-41328be4-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr697-review-41328be4-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #697 (primary: endojs-endo-but-f...
