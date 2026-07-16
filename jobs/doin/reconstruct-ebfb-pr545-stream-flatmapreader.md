@@ -37,3 +37,10 @@ DRAFT PR, **base `master`**.
 A fresh DRAFT PR carrying the reconstructed diff, base as stated, with the provenance
 body above, linked to the original PR + merge commit. The `tada` report links the new PR
 and confirms the reconstructed diff matches the original.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  worker_kind: cleric
+  claimed_at: 2026-07-16T23:01:26Z
