@@ -24,3 +24,10 @@ read the review thread), **#655** (mount grep), **#657** (mount JSON) — noting
 increment and drive #714 out of its changes-requested state before opening new
 surface. Be idempotent, defer to live workers on shared branches, and cite real
 execution evidence for any "works everywhere" claim.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 20
+  worker_kind: gardener
+  claimed_at: 2026-07-16T17:51:06Z
