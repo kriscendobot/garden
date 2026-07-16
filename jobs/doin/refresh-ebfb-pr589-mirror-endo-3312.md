@@ -32,3 +32,10 @@ not the closed #3318.
 Fork #589 is reconciled with the latest canonical upstream `endojs/endo#3312`, rebased onto a fresh
 frozen `master-<sha>` anchor (base field updated), with no lingering reference to the closed #3318.
 The `tada` report links #3312 and #589, names the new frozen-base sha, and notes any conflicts.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-16T23:22:57Z
