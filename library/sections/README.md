@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6395 (530 parent indexes + 5865 children).
+Total section files: 6399 (530 parent indexes + 5869 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8522,6 +8522,13 @@ Total section files: 6395 (530 parent indexes + 5865 children).
 - [web--goldilocks-select-height--intrinsic-min-max-with-calc-size](web--goldilocks-select-height--intrinsic-min-max-with-calc-size.md)
 - [web--goldilocks-select-height--problem-and-default-sizing](web--goldilocks-select-height--problem-and-default-sizing.md)
 - [web--goldilocks-select-height--viewport-margin-and-flip-fallbacks](web--goldilocks-select-height--viewport-margin-and-flip-fallbacks.md)
+
+### web--hyndman-fpp3-forecast-evaluation
+
+- [web--hyndman-fpp3-forecast-evaluation--forecast-errors-and-scale-dependent-measures](web--hyndman-fpp3-forecast-evaluation--forecast-errors-and-scale-dependent-measures.md)
+- [web--hyndman-fpp3-forecast-evaluation--percentage-and-scaled-errors-mase](web--hyndman-fpp3-forecast-evaluation--percentage-and-scaled-errors-mase.md)
+- [web--hyndman-fpp3-forecast-evaluation--time-series-cross-validation](web--hyndman-fpp3-forecast-evaluation--time-series-cross-validation.md)
+- [web--hyndman-fpp3-forecast-evaluation--training-and-test-sets](web--hyndman-fpp3-forecast-evaluation--training-and-test-sets.md)
 
 ### web--langchain-agents
 
