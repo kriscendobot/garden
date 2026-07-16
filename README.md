@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-16T18:41:39Z_
+_As of 2026-07-16T18:44:46Z_
 
 ## Latest
 
-The [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) shepherd closed with a load-bearing finding: **master itself is red**, from an incomplete `packages/cbor` landing (missing LICENSE/SECURITY.md and package.json fields, plus a `test/cbor.test.js` that can't resolve `@endo/eventual-send`). The red on #475 — and on every other endo-but-for-bots PR — is inherited from master, so the fix belongs in a cbor-package fix job on master, after which the stranded PRs rebase clean. The parked [`build-endo-cbor-package`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-cbor-package.md) job (phase 1, awaiting go-ahead) is the natural home for that repair. Meanwhile the foreman is repeatedly flagging that **milestone M2 is one merge decision from done** — the hardened text-codecs shim ([#259](https://github.com/endojs/endo-but-for-bots/pull/259)) and URL shim ([#719](https://github.com/endojs/endo-but-for-bots/pull/719)) are both built, gauntleted, and merge-ready, with the redundant, CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263) to be closed; and the esheets tree remains fully dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, un-drafted, awaiting re-review + merge for 6 days). Two review/shepherd jobs on [#714](https://github.com/endojs/endo-but-for-bots/pull/714) are in flight. Note also that the weekly Claude limit was hit (resets Jul 18, 3am UTC), producing the run of `garden-mentor` self-heal and dropped-follow-up errors, and several long shepherd/gauntlet jobs (#124, #704, #707, PR-694 Docker) have been **poisoned for overrunning the 2400s handler budget** and parked pending a human split-or-promote.
+Master itself is red on `endojs/endo-but-for-bots`: the [#475](https://github.com/endojs/endo-but-for-bots/pull/475) shepherd traced its failing lint/test/zizmor checks to an incomplete `packages/cbor` landing on master (missing LICENSE/SECURITY.md and an unresolved `@endo/eventual-send` import), not to the PR — so a master-side cbor fix is needed before that branch and others can go green. The fleet is also quota-throttled: repeated "weekly limit resets Jul 18" failures have tripped triage circuit-breakers on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk`, stalled `garden-mentor` self-heal, and dropped a follow-up action, so autonomous progress is thin until the reset. The foreman is pressing on two decisions only the maintainer can make: milestone M2 (Project Hygiene) is one merge from complete — [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) are built, gauntleted, and merge-ready (with the redundant, CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263) to close) — while M3 is blocked on choosing the MVS-resolver home between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403). Separately, the esheets tree remains dammed for six days behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, un-drafted, re-weaved to clear a conflict) awaiting your re-review, and a phase-1 `@endo/cbor` build sits parked for go-ahead against the merged [#710](https://github.com/endojs/endo-but-for-bots/pull/710) design.
 
 ## Parked for maintainer feedback
 
@@ -475,25 +475,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.7M | $964.47 _(notional, rate-card)_ | no quota set |
-| Codex | 119.0M _(+136.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Claude | 92.8M | $965.19 _(notional, rate-card)_ | no quota set |
+| Codex | 119.0M _(+136.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endo-git-integration-press-20260716-175014`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260716-175014.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+### doin (2)
 - [`endojs-endo-but-for-bots-pr714-review-902775bf`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr714-review-902775bf.md) — Review directive on endojs/endo-but-for-bots PR #714
 - [`endojs-endo-but-for-bots-pr714-shepherd-4995011322`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr714-shepherd-4995011322.md) — shepherd endojs/endo-but-for-bots PR #714
 
-### tada (2346)
+### tada (2347)
+- [`endo-git-integration-press-20260716-175014`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260716-175014.md) — Completion report — git-integration press dispatch (2026-07-16)
 - [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-shepherd.md) — Shepherd report — endojs/endo-but-for-bots#475
 - [`ocapn-noise-press-20260716-175014`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260716-175014.md) — Completion report — ocapn-noise-press-20260716-175014
 - [`gauntlet-endo-but-for-bots-pr740-endor-git-bindings`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr740-endor-git-bindings.md) — Completed PR #740’s design-only gauntlet.
 - [`improve-local-verify-regen-clean-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-local-verify-regen-clean-gate.md) — Completion report
-- [`build-endo-content-locators-magnet-urn-phase1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-content-locators-magnet-urn-phase1.md) — Completion report
-- … and 2341 more
+- … and 2342 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
