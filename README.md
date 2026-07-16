@@ -1,15 +1,17 @@
 # Garden bulletin
 
-_As of 2026-07-16T14:10:59Z_
+_As of 2026-07-16T14:20:43Z_
 
 ## Latest
 
-The garden has stalled on a Claude weekly-limit exhaustion — the board is fully idle (0 todo/doin) and since ~Jul 14 a steady stream of self-heal, `garden-mentor`, and triager failures all report "You've hit your weekly limit · resets Jul 18, 3am UTC"; expect little fleet motion until then. Two foreman notes are the actionable news: **milestone M2 (Project Hygiene) is one merge decision from done** — [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) (hardened-text-codecs shim) and [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) (hardened-url shim) are both non-draft, CI-clean, and merge-ready, needing only your merge/ferry authorization and the closing of superseded, conflicting [endo-but-for-bots#263](https://github.com/endojs/endo-but-for-bots/pull/263). **M3 is blocked on a package-home ruling you must make**: the MVS resolver now lives in two competing open PRs, [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon/registry.js`) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (a dedicated `@endo/exo-npm` package); the snapshot-mapper and worker-import layers can't be built until you pick the winner and close the loser. Separately, a gardener parked a `build-endo-cbor-package` job (phase 1 only) after the `@endo/cbor` design merged in [endo-but-for-bots#710](https://github.com/endojs/endo-but-for-bots/pull/710), awaiting your go-ahead. Worth a look on the ops side: triage circuit-breakers opened for `kriscendobot-finbot`, `kriscendobot-minion.town`, and `kriscendobot-agoric-sdk` — all outside the single authorized watch target — and a cluster of handler-budget overruns poisoned several shepherd/gauntlet jobs (#124, #704, #694, #707, agoric-sdk #15) that now sit parked for promotion or splitting.
+The board has drained to near-idle — the hardened-URL-shim build is the lone in-flight job, following completions of the hardened-text-codecs shim build and weaves of the git-capability stack ([endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) and [#707](https://github.com/endojs/endo-but-for-bots/pull/707)). The foreman is now blocking on two maintainer decisions it can't make itself: **M2 (Project Hygiene) is one merge away from done** — [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (hardened-url-shim) and [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (hardened-text-codecs-shim) are both non-draft, CLEAN, and CI-green, wanting only a merge/ferry (and closing the conflicting alternative #263) — and **M3 is stalled on a package-home ruling** between two competing MVS-resolver PRs, `@endo/daemon/registry.js` ([#671](https://github.com/endojs/endo-but-for-bots/pull/671)) versus a dedicated `@endo/exo-npm` ([#403](https://github.com/endojs/endo-but-for-bots/pull/403)); pick one so the loser can be closed and the snapshot-mapper / worker-import layers can build.
+
+Most urgent operationally: **the Claude weekly limit was hit (resets Jul 18, 3am UTC)**, and it is cascading — `garden-mentor` has been self-heal-looping hourly since Jul 15, a follow-up action block was rejected, and triage circuit-breakers have opened on `kriscendobot-minion.town`, `kriscendobot-agoric-sdk`, and earlier `kriscendobot-finbot` (all three, notably, outside the single `endojs/endo-but-for-bots` repo the monitoring-safety constraint authorizes — worth confirming they belong in the watch set at all). Separately, a wave of shepherd/gauntlet jobs deterministically overran the 2400s handler budget and were poisoned to the plan queue ([#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), #694, #707, plus `kriscendobot/agoric-sdk#15`); these need splitting into claim-sized stages before requeue. A parked build for `@endo/cbor` phase 1 awaits your go-ahead following the merged design in [#710](https://github.com/endojs/endo-but-for-bots/pull/710), and the recurring `avoid-name-abbreviations` cluster reopened (count 4) on a `fetchImpl` identifier in [#671](https://github.com/endojs/endo-but-for-bots/pull/671) that predated the spell-out gate — a structural blind spot the retrospective flags for your call.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 14h)
-- [endojs/endo-but-for-bots#714](https://github.com/endojs/endo-but-for-bots/pull/714) — feat(platform): add listTree, rangeRead, rangeReadText (consolidate genie/lal/fae fs reads) (waiting 22h)
+- [endojs/endo-but-for-bots#714](https://github.com/endojs/endo-but-for-bots/pull/714) — feat(platform): add listTree, rangeRead, rangeReadText (consolidate genie/lal/fae fs reads) (waiting 23h)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 1d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 2d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 3d)
@@ -431,15 +433,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.4M | $933.91 _(notional, rate-card)_ | no quota set |
+| Claude | 89.5M | $935.34 _(notional, rate-card)_ | no quota set |
 | Codex | 73.2M _(+126.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-hardened-url-shim-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-hardened-url-shim-build.md) — ---
 
 ### tada (2326)
 - [`endojs-endo-but-for-bots-hardened-text-codecs-shim-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-hardened-text-codecs-shim-build.md) — Found the completed, mergeable implementation already open as [endojs/endo-bu...
