@@ -54,3 +54,10 @@ make it into a PR and do a panel review
 
 
 <!-- garden-deadline-overrun: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 10
+  worker_kind: cleric
+  claimed_at: 2026-07-16T23:48:42Z
