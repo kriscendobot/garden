@@ -12,7 +12,12 @@ The family of models that forecast **conditional volatility** — the time-varyi
 
 | Section | One-line summary |
 |---|---|
-| _(no library section yet — the GARCH-family source papers are queued for the follow-on `scholar-ingest-financial-forecasting-corpus` job)_ | — |
+| [papers--andersen-modeling-forecasting-realized-volatility-2003--overview](../sections/papers--andersen-modeling-forecasting-realized-volatility-2003--overview.md) | ABDL 2003: the canonical realized-volatility paper; treat volatility as observed and a simple long-memory VAR beats GARCH(1,1)/EWMA out of sample. |
+| [papers--andersen-modeling-forecasting-realized-volatility-2003--quadratic-variation-and-realized-volatility](../sections/papers--andersen-modeling-forecasting-realized-volatility-2003--quadratic-variation-and-realized-volatility.md) | The quadratic-variation theory under which summed high-frequency return cross-products (realized volatility) estimate integrated volatility nearly error-free. |
+| [papers--andersen-modeling-forecasting-realized-volatility-2003--measuring-realized-volatility-from-intraday-returns](../sections/papers--andersen-modeling-forecasting-realized-volatility-2003--measuring-realized-volatility-from-intraday-returns.md) | Building realized vol from 30-minute returns and the sampling-frequency vs microstructure-noise trade-off (relevant to any HAR-RV implementation). |
+| [papers--andersen-modeling-forecasting-realized-volatility-2003--gaussian-and-long-memory-regularities](../sections/papers--andersen-modeling-forecasting-realized-volatility-2003--gaussian-and-long-memory-regularities.md) | Volatility clustering, log-normal realized vol, and long memory (d~0.4) - stylized facts a GARCH/EGARCH/HAR model must reproduce; motivates FIGARCH-style persistence. |
+| [papers--andersen-modeling-forecasting-realized-volatility-2003--long-memory-var-beats-garch-out-of-sample](../sections/papers--andersen-modeling-forecasting-realized-volatility-2003--long-memory-var-beats-garch-out-of-sample.md) | Realized-vol VAR beats GARCH(1,1) and RiskMetrics EWMA out of sample not because GARCH is bad but because daily squared returns are a noisy current-vol proxy. |
+| [papers--andersen-modeling-forecasting-realized-volatility-2003--density-forecasts-and-value-at-risk](../sections/papers--andersen-modeling-forecasting-realized-volatility-2003--density-forecasts-and-value-at-risk.md) | Turning a volatility forecast into a lognormal-normal return density and calibrated VaR - the risk-sizing payoff of vol forecasting (finbot's vol-targeting use). |
 
 ## See also
 
