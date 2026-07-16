@@ -14,6 +14,7 @@ A scale-free forecast-accuracy metric (Hyndman & Koehler 2006) that measures ski
 |---|---|
 | [percentage-and-scaled-errors-mase](../sections/web--hyndman-fpp3-forecast-evaluation--percentage-and-scaled-errors-mase.md) | Defines MAPE/sMAPE and their pitfalls, and the scaled errors MASE/RMSSE that measure skill relative to the naive baseline. |
 | [forecast-errors-and-scale-dependent-measures](../sections/web--hyndman-fpp3-forecast-evaluation--forecast-errors-and-scale-dependent-measures.md) | Defines forecast error, MAE, RMSE, and the median-vs-mean consequence of the loss you minimize. |
+| [papers--andersen-modeling-forecasting-realized-volatility-2003--long-memory-var-beats-garch-out-of-sample](../sections/papers--andersen-modeling-forecasting-realized-volatility-2003--long-memory-var-beats-garch-out-of-sample.md) | No universal volatility-loss function; ABDL evaluate forecasts with Mincer-Zarnowitz regressions against the low-noise realized measure (baseline-relative skill for vol). |
 
 ## See also
 
