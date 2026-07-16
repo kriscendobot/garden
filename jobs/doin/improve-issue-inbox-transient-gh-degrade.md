@@ -19,3 +19,10 @@ fi
 ```
 
 This keeps the loud-on-structural-failure behavior (auth/404/malformed still `die`) that the existing comment about the 2026-06-24 silent-empty outage is protecting, while stopping a plain GitHub-overload window from marking the unit `failed` and spamming FATAL every tick. Mirror the wording and structure of the `comment-watcher.sh` block (lines ~1146-1167) so the three watchers stay uniform; confirm `is_transient_net_error`/`is_transient_gh_source_error` are in scope (they are sourced from common.sh, same as the siblings).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  worker_kind: cleric
+  claimed_at: 2026-07-16T23:21:48Z
