@@ -1,6 +1,6 @@
 ---
 created: 2026-05-22
-updated: 2026-06-24
+updated: 2026-07-16
 author: gardener
 ---
 
@@ -87,9 +87,9 @@ Every `fire` line collects into the recommended set.
 | `fast-checker` | `**/test/**` or `**/*.test.{js,ts}` modified; OR `fast-check` already in any `package.json` `devDependencies` |
 | `breaker` | Touch to a file containing `M.interface(`, `makeExo`, or `^## Invariants` heading |
 
-### 5. Content-regex-triggered seats (6)
+### 5. Content-regex-triggered seats (7)
 
-For each, the probe runs `git diff "$BASE...HEAD" -U0 | grep -E '^\+'` and tests for at least one match against the regex set: `warden`, `locksmith`, `purist`, `spec-keeper`, `wire-watcher`, `engine-realist`. A single regex hit anywhere in the added lines fires the seat; false positives are accepted, false negatives minimized. The probe reports the first hit so the seat list can be verified. The full regex sets live in the per-seat `probes/C-<seat>.sh` files.
+For each, the probe runs `git diff "$BASE...HEAD" -U0 | grep -E '^\+'` and tests for at least one match against the regex set: `warden`, `locksmith`, `purist`, `spec-keeper`, `wire-watcher`, `engine-realist`, `typist`. A single regex hit anywhere in the added lines fires the seat; false positives are accepted, false negatives minimized. The probe reports the first hit so the seat list can be verified. The full regex sets live in the per-seat `probes/C-<seat>.sh` files. The typist probe fires on an inline `import()` type reference in a JSDoc tag, because the always-on seat is still the backstop when a gauntlet skips the gate.
 
 ### 6. Design-panel routing
 
