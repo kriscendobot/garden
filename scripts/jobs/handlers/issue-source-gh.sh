@@ -52,30 +52,17 @@ if [ -n "$floor" ] && [ "$since" \< "$floor" ]; then since="$floor"; fi
 
 oneline='(.body // "") | gsub("[\t\r\n]+"; " ")'
 
-# Capture gh_api_retry's stderr (its final failure WARN, common.sh:1826/1832, carries
-# the real HTTP status — 401/403/404/rate-limit) to temp files rather than /dev/null,
-# so a FATAL below can name the CAUSE instead of a bare rc. The success path stays
-# quiet (the capture is only read on the `die`/FATAL branch). One file per pipeline so
-# the issues, comments, and parent-join diagnostics never clobber each other. An EXIT
-# trap reaps them even when `die` exits.
-_errf_issues="$(mktemp 2>/dev/null   || printf '%s' "${TMPDIR:-/tmp}/issue-source.issues.$$")"
-_errf_comments="$(mktemp 2>/dev/null || printf '%s' "${TMPDIR:-/tmp}/issue-source.comments.$$")"
-_errf_meta="$(mktemp 2>/dev/null     || printf '%s' "${TMPDIR:-/tmp}/issue-source.meta.$$")"
-trap 'rm -f "$_errf_issues" "$_errf_comments" "$_errf_meta"' EXIT
-# _errtail <file> — a one-line tail of a captured stderr, safe to splice into a
-# single-line FATAL message ('<none>' when the capture is empty).
-_errtail() { local t; t="$(tail -c 600 "$1" 2>/dev/null | tr '\n\t' '  ' | sed 's/  */ /g; s/^ //; s/ $//')"; printf '%s' "${t:-<none>}"; }
-
 # Every `gh api` here is `gh_api_retry` (common.sh): a TRANSIENT blip (5xx / 429 /
 # DNS-TLS-reset) is ridden out under full-jitter backoff before the call gives up,
 # so a single GitHub flake no longer blanks an endpoint; a DEFINITIVE 404 is not
 # retried and falls through to the same degrade path.
 #
-# Stderr policy: gh's stderr is CAPTURED to a per-pipeline temp file (not /dev/null)
-# so the success path stays quiet BUT a failing tick's FATAL can splice in the tail —
-# gh_api_retry's final WARN carries the real HTTP status (401/403/404/rate-limit) that
-# a bare rc hides. jq carries NO redirect: a jq parse error is a real fault that must
-# surface. A truly missing jq can no longer reach here (require_tools).
+# Stderr policy: the two HARD-FAIL enumerations deliberately leave gh_api_retry's
+# stderr alone. Its final WARN carries the real HTTP status (401/403/rate-limit) and
+# issue-inbox-watcher captures it as `source:` output on the tick's death path. Do NOT
+# restore `2>/dev/null`: that caused the 2026-06-24 silent-empty outage. jq carries NO
+# redirect: a jq parse error is a real fault that must surface. The tolerated
+# per-comment parent lookup still suppresses its expected failure noise.
 #
 # Failure policy: an endpoint that FAILS (past gh_api_retry's transient budget)
 # fails the WHOLE tick with a nonzero exit, never degrades to empty output. The
@@ -88,13 +75,13 @@ _errtail() { local t; t="$(tail -c 600 "$1" 2>/dev/null | tr '\n\t' '  ' | sed '
 
 # 1) NEW ISSUES (exclude PRs). The issues API `since=` filters by UPDATED_AT, so we
 #    additionally select created_at >= since to keep this to genuinely-new issues.
-gh_api_retry --paginate "repos/$repo/issues?state=all&since=$since&sort=created&direction=asc&per_page=100" 2>"$_errf_issues" \
+gh_api_retry --paginate "repos/$repo/issues?state=all&since=$since&sort=created&direction=asc&per_page=100" \
   | jq -r --arg s "$since" "
       .[] | select(has(\"pull_request\") | not) | select(.created_at >= \$s)
       | [ \"issue\", .created_at, (.id|tostring), (.number|tostring),
           .user.login, .user.login, .state, (.closed_by.login // \"-\"),
           (.closed_at // \"-\"), .html_url, ($oneline) ] | @tsv" \
-  || die "issues enumeration for $repo failed (rc=$?; gh: $(_errtail "$_errf_issues")); failing the tick so the cursor holds"
+  || die "issues enumeration for $repo failed (rc=$?); failing the tick so the cursor holds"
 
 # 2) NEW ISSUE COMMENTS — join the parent issue for submitter/state/closed_by and
 #    to drop PR comments. The issues/comments feed is repo-wide and `since=` here
@@ -105,14 +92,14 @@ issue_meta() {  # issue_meta <number> -> echoes submitter \t state \t closed_by 
   if [ -n "${_ISSUE_META[$n]+x}" ]; then printf '%s' "${_ISSUE_META[$n]}"; return; fi
   # closed_by AND closed_at use a '-' sentinel when empty so the TAB-IFS `read` below
   # does not collapse an empty middle field and mis-assign is_pr (see watcher's note).
-  raw="$(gh_api_retry "repos/$repo/issues/$n" 2>"$_errf_meta" \
+  raw="$(gh_api_retry "repos/$repo/issues/$n" 2>/dev/null \
          | jq -r '[ .user.login, .state, (.closed_by.login // "-"), (.closed_at // "-"),
                     (if has("pull_request") then "pr" else "issue" end) ] | @tsv' \
          | head -1 || true)"
   _ISSUE_META[$n]="$raw"; printf '%s' "$raw"
 }
 
-gh_api_retry --paginate "repos/$repo/issues/comments?since=$since&sort=created&direction=asc&per_page=100" 2>"$_errf_comments" \
+gh_api_retry --paginate "repos/$repo/issues/comments?since=$since&sort=created&direction=asc&per_page=100" \
   | jq -r --arg s "$since" "
       .[] | select(.created_at >= \$s)
       | [ .created_at, (.id|tostring),
@@ -127,11 +114,11 @@ gh_api_retry --paginate "repos/$repo/issues/comments?since=$since&sort=created&d
         # The parent-issue join failed (gh error past the retry budget). Do NOT
         # skip just this row: the watcher's cursor would advance over it via the
         # later rows and the comment would be unrecoverable. Fail the tick.
-        log "FATAL: parent issue #$number lookup failed for comment id=$cid (gh: $(_errtail "$_errf_meta")); failing the tick so the cursor holds"
+        log "FATAL: parent issue #$number lookup failed for comment id=$cid; failing the tick so the cursor holds"
         exit 3
       fi
       printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
         "issue-comment" "$created" "$cid" "$number" "$author" "$submitter" \
         "$state" "$closed_by" "$closed_at" "$url" "$body"
     done \
-  || die "issue-comments enumeration/join for $repo failed (rc=$?; gh: $(_errtail "$_errf_comments")); failing the tick so the cursor holds"
+  || die "issue-comments enumeration/join for $repo failed (rc=$?); failing the tick so the cursor holds"

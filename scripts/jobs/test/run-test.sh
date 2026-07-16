@@ -2731,6 +2731,27 @@ EOF
     && ok "source emits the issue comment joined with parent-issue meta" || bad "comment row/join wrong (out: $(cat "$G_OUT"))"
   ! grep -q '#c92' "$G_OUT" \
     && ok "source drops the comment whose parent is a PR" || bad "PR comment leaked into the source output"
+
+  # A definitive enumeration failure must retain gh_api_retry's WARN in the
+  # watcher's captured `source:` death output. The handler must not redirect this
+  # hard-fail path to /dev/null: its WARN is the only HTTP root-cause record.
+  GHII_FAIL="$GHII/gh-definitive-fail"
+  cat > "$GHII_FAIL" <<'EOF'
+#!/bin/bash
+printf '%s\n' 'gh api: HTTP 401: Bad credentials' >&2
+exit 1
+EOF
+  chmod +x "$GHII_FAIL"
+  BARE_II_G="$II_TR/g.git"; ii_seed "$BARE_II_G"
+  g_death="$(env PATH="$GHII:$PATH" GARDEN_STATE="$II_TR/state-g-fail" \
+    JOURNAL_REMOTE="$BARE_II_G" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_GARDEN_REPO=kriskowal/garden GARDEN_MAINTAINERS_ALLOWLIST="$II_ALLOW" \
+    GARDEN_ISSUE_SOURCE="$JOBS/handlers/issue-source-gh.sh" GARDEN_GH="$GHII_FAIL" \
+    GARDEN_GH_API_ATTEMPTS=1 GARDEN_NO_MAINTAINER_ALERT=1 \
+    "$JOBS/issue-inbox-watcher.sh" 2>&1 >/dev/null || true)"
+  grep -qE 'source: .*WARN: gh api repos/kriskowal/garden/issues\?.*failed \(definitive, rc=1\).*HTTP 401: Bad credentials' <<<"$g_death" \
+    && ok "definitive source enumeration failure preserves gh API stderr in the tick death output" \
+    || bad "definitive source enumeration stderr was swallowed (death: $g_death)"
 fi
 rm -rf "$II_TR"
 
