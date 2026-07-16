@@ -1,14 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-16T16:51:21Z_
+_As of 2026-07-16T16:57:53Z_
 
 ## Latest
 
-The fleet is throttled — it has hit the weekly Claude limit (resets Jul 18, 3am UTC), and that's showing up as a wall of self-heal failures on `garden-mentor`, dropped follow-up action blocks, and triage circuit-breakers tripping on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk` (both outside the single authorized watch target — worth confirming they belong in the set at all). Recent completions: a weave re-landed [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth refinement) onto a fresh `llm` base to make it one-click mergeable, the [endo-but-for-bots#263](https://github.com/endojs/endo-but-for-bots/pull/263) shepherd finished, and finbot's `main` advanced to regime-aware position sizing (adaptive-vol OODA cycles now half-size persistent assets; wallet untouched, tests green).
+The garden is stalled against Anthropic's **weekly quota**, hit 2026-07-14 (resets Jul 18, 3am UTC): the board is fully idle (0 todo / 0 doin), and the fallout dominates the maintainer inbox — repeated `garden-mentor` self-heal failures, and triage circuit-breakers tripping open on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk` (both, notably, outside the single authorized watch target `endojs/endo-but-for-bots` — worth confirming they belong in the set).
 
-Two milestones are stalled on your decision, not on work. **M2 (Project Hygiene)** is one merge from done — [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs shim) and [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL shim) are both green/CLEAN and merge-ready, and the foreman asks you to merge/ferry them and close the redundant, CI-failing alternative [endo-but-for-bots#263](https://github.com/endojs/endo-but-for-bots/pull/263). **M3** is blocked on a package-home call: the MVS resolver now lives in two competing PRs, `@endo/daemon/registry.js` ([endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671)) versus a dedicated `@endo/exo-npm` package ([endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403)) — pick a winner so the loser can be closed and the snapshot-mapper/worker-import layers can build against it. Separately, the esheets tree remains fully dammed behind [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621), which has sat six days awaiting re-review despite a stale `CHANGES_REQUESTED` and green CI.
+Substantive work that did land before the freeze: the weave re-making [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth) one-click mergeable again, a shepherd pass on [#263](https://github.com/endojs/endo-but-for-bots/pull/263), and finbot's `main` advancing to `efa6454` (regime-aware position sizing that half-sizes persistent assets; tests green, wallet untouched).
 
-Housekeeping worth a glance: several jobs were poisoned for overrunning the 2400s handler budget and parked in the plan queue — shepherds for [endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124), [endo-but-for-bots#704](https://github.com/endojs/endo-but-for-bots/pull/704), and [kriscendobot/agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/pull/15), plus gauntlets on [endo-but-for-bots#694](https://github.com/endojs/endo-but-for-bots/pull/694) and [endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/pull/707) — each needs splitting or a raised budget before it can requeue. A build for `@endo/cbor` phase 1 is parked awaiting your go-ahead following the merge of design [endo-but-for-bots#710](https://github.com/endojs/endo-but-for-bots/pull/710), and the `avoid-name-abbreviations` cluster recurred on [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) (count=4), which needs your call on whether to widen the pre-push gate to re-scan whole changed files.
+The foreman is now signalling hard on two merge decisions only the maintainer can make. **M2 (Project Hygiene)** is one call from complete — the vetted-shim PRs [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL) are both built, gauntleted, and CLEAN, pending a decision to merge/ferry them and close the redundant, CI-failing alternative [#263](https://github.com/endojs/endo-but-for-bots/pull/263). **M3** is blocked on a package-home ruling: the MVS resolver now lives in two competing PRs — `@endo/daemon/registry.js` in [#671](https://github.com/endojs/endo-but-for-bots/pull/671) versus a dedicated `@endo/exo-npm` in [#403](https://github.com/endojs/endo-but-for-bots/pull/403) — and the snapshot-mapper/worker-import layers can't be built until one wins. The esheets tree remains dammed entirely behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621), now 6 days awaiting re-review.
+
+Also queued for your go-ahead: the `@endo/cbor` phase-1 build parked after its design merged in [#710](https://github.com/endojs/endo-but-for-bots/pull/710). Several long-running shepherd/gauntlet jobs (PRs #124, #704, #694, #707, agoric-sdk #15) were poisoned for overrunning the 2400s handler budget and parked for hand promotion or splitting.
 
 ## Parked for maintainer feedback
 
@@ -17,7 +19,7 @@ Housekeeping worth a glance: several jobs were poisoned for overrunning the 2400
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 1d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 2d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 4d)
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 5d)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 6d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 14d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 16d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 17d)
@@ -291,6 +293,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > Milestone **M2 (Project Hygiene)** is one decision away from complete: its only two remaining designs are built and review-ready — `hardened-text-codecs-shim` (PR #259, green/CLEAN) and `hardened-url-shim` (PR #719, green/CLEAN, gauntlet-passed). Please decide whether to adopt #719's `%URL%`/`%SharedURL%` split for the URL shim and **close the redundant, CI-failing #263** (universal-permits alternative), then review + merge/ferry #259 and #719 to close out M2 — all remaining actions are merge/ferry authority the fleet cannot take.
 
+- `20260716T165737Z-ed87f2` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T165737Z-ed87f2.md)
+
+> Milestone M2 (Project Hygiene) is complete except for its two vetted-shim designs, whose PRs are built, gauntleted, and `MERGEABLE`/ready-for-review: `endojs/endo-but-for-bots` **#259** (hardened text-codecs shim) and **#719** (hardened URL/URLSearchParams shim). M2 completion — and the M3 phase work stacked behind these — is blocked on your decision to merge/ferry #259 and #719.
+
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -461,7 +467,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 90.5M | $944.00 _(notional, rate-card)_ | no quota set |
+| Claude | 90.7M | $945.55 _(notional, rate-card)_ | no quota set |
 | Codex | 114.4M _(+126.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
