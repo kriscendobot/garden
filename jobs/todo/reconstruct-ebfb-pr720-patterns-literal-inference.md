@@ -1,23 +1,20 @@
 ---
 role: builder
 ---
-<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-16T23:01:03Z -->
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-16T23:01:11Z -->
 
 ---
 role: builder
 ---
-# Reconstruct endo-but-for-bots#69 (pass-style: treat document.all-like values as objects)
+# Reconstruct endo-but-for-bots#720 (patterns: preserve literal inference in compound matchers)
 
-Reconstruct the **errantly-master-merged** PR endojs/endo-but-for-bots#69
-("fix(pass-style): treat document.all-like values as objects") as a fresh DRAFT PR,
-**base `master`**.
+Reconstruct the **errantly-master-merged** PR endojs/endo-but-for-bots#720
+("fix(patterns): preserve literal inference in compound matchers", `@endo/patterns` types) as a
+fresh DRAFT PR, **base `master`**.
 
-- **Easiest case — the head branch still exists**: `design/issue-3156-pass-style-document-all`.
-  Prefer opening the fresh PR directly from that branch to `master` (rebase it onto current
-  `master` first if it has drifted). If the branch is unusable, recover the diff from the
-  merge commit `eecc68394`.
-- Upstream tracking: `endojs/endo` **issue #3156 is OPEN** and there is **no upstream endo PR**
-  yet — this change is invisible upstream, which is why it must resurface.
+- The head branch was deleted — **recover the diff from the merge commit `91c671885`**
+  (`git show 91c671885`), apply it onto a new branch off current `master`.
+- No upstream `endojs/endo` PR exists (the body's `#645` is intra-fork) — invisible upstream.
 
 ## How to reconstruct
 - Work in an ISOLATED worktree keyed by YOUR job base:
@@ -41,10 +38,4 @@ A fresh DRAFT PR carrying the reconstructed diff, base as stated, with the prove
 body above, linked to the original PR + merge commit. The `tada` report links the new PR
 and confirms the reconstructed diff matches the original.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 6
-  worker_kind: cleric
-  claimed_at: 2026-07-16T23:01:06Z
+<!-- garden-reaped: 1 -->

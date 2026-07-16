@@ -1,20 +1,20 @@
 ---
 role: builder
 ---
-<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-16T23:01:11Z -->
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-16T23:01:20Z -->
 
 ---
 role: builder
 ---
-# Reconstruct endo-but-for-bots#720 (patterns: preserve literal inference in compound matchers)
+# Reconstruct endo-but-for-bots#545 (stream: add flatMapReader)
 
-Reconstruct the **errantly-master-merged** PR endojs/endo-but-for-bots#720
-("fix(patterns): preserve literal inference in compound matchers", `@endo/patterns` types) as a
-fresh DRAFT PR, **base `master`**.
+Reconstruct the **errantly-master-merged** PR endojs/endo-but-for-bots#545
+("feat(stream): add flatMapReader for 1-to-many reader transforms", `@endo/stream`) as a fresh
+DRAFT PR, **base `master`**.
 
-- The head branch was deleted — **recover the diff from the merge commit `91c671885`**
-  (`git show 91c671885`), apply it onto a new branch off current `master`.
-- No upstream `endojs/endo` PR exists (the body's `#645` is intra-fork) — invisible upstream.
+- The head branch was deleted — **recover the diff from the merge commit `364d69ba1`**
+  (`git show 364d69ba1`), apply onto a new branch off current `master`.
+- No upstream `endojs/endo` PR exists (the body's `#486` is intra-fork) — invisible upstream.
 
 ## How to reconstruct
 - Work in an ISOLATED worktree keyed by YOUR job base:
@@ -38,10 +38,4 @@ A fresh DRAFT PR carrying the reconstructed diff, base as stated, with the prove
 body above, linked to the original PR + merge commit. The `tada` report links the new PR
 and confirms the reconstructed diff matches the original.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 10
-  worker_kind: cleric
-  claimed_at: 2026-07-16T23:01:15Z
+<!-- garden-reaped: 1 -->
