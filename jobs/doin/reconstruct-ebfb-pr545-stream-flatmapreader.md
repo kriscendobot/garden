@@ -38,6 +38,7 @@ A fresh DRAFT PR carrying the reconstructed diff, base as stated, with the prove
 body above, linked to the original PR + merge commit. The `tada` report links the new PR
 and confirms the reconstructed diff matches the original.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
