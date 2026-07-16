@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-16T19:07:59Z_
+_As of 2026-07-16T19:09:47Z_
 
 ## Latest
 
-The board has effectively stalled: only PR [endojs/endo-but-for-bots#714](https://github.com/endojs/endo-but-for-bots/pull/714) (shared CBOR primitives) finished landing this window, merged into `llm`, and both todo and doin are now empty. The proximate cause is a hard **Claude weekly-limit exhaustion** (resets Jul 18, 3am UTC) — `garden-mentor`, the follow-up producer, and the triagers for `kriscendobot-minion.town` and `kriscendobot-agoric-sdk` have all been failing rc=1 with no scoped fix, and those two triagers plus `kriscendobot-finbot` are sitting behind OPEN circuit-breakers (worth confirming none of the three even belong in the watch set under the monitoring-safety constraint).
+The fleet has hit the weekly Claude usage limit (resets Jul 18, 3am UTC), and that quota wall is now the dominant fact: it's tripped triage circuit-breakers on three watched repos ([kriscendobot-minion.town](https://github.com/kriscendobot/minion.town), [kriscendobot-agoric-sdk](https://github.com/kriscendobot/agoric-sdk), and earlier `kriscendobot-finbot`), sent `garden-mentor` into a repeating self-heal-failure loop, and caused liaison follow-up action blocks to be rejected and dropped. Note that all three broken-triage repos fall outside the single watch authorization (only `endojs/endo-but-for-bots` is sanctioned under the monitoring-safety constraint), so it's worth deciding whether they belong in the set at all.
 
-Several things need a maintainer decision rather than more fleet work. **M2 (Project Hygiene) is one merge away from done** — the foreman has now escalated five times that the hardened-shim PRs [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL) are green/CLEAN and merge-ready, pending your merge/ferry and a ruling to close the redundant CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263). **M3 is blocked on a package-home ruling**: the MVS resolver now lives in two competing PRs, [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon/registry.js`) vs [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (`@endo/exo-npm`) — pick one so the loser closes and `snapshot-mapper`/worker-import can build. The esheets tree remains dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621), open and fully green but six days awaiting your re-review despite a stale `CHANGES_REQUESTED`.
+The one live board move is a shepherd claimed on [endo-but-for-bots#749](https://github.com/endojs/endo-but-for-bots/pull/749) (auto-dispatched on red CI) — but red CI there is likely not the PR's fault: the [#475](https://github.com/endojs/endo-but-for-bots/pull/475) shepherd reports **master itself is red** from an incomplete `packages/cbor` landing (missing LICENSE/SECURITY.md, an unresolved `@endo/eventual-send` import, and a zizmor pin mismatch). Master needs a cbor fix job before dependent PRs can go green; the parked [build-endo-cbor-package](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-cbor-package.md) (phase 1 of the [#710](https://github.com/endojs/endo-but-for-bots/pull/710) design) awaits your go-ahead.
 
-Two operational hazards: **master is red on `endo-but-for-bots`** from an incomplete `packages/cbor` landing (missing LICENSE/SECURITY.md, unresolved `@endo/eventual-send`, zizmor pin drift) — the [#475](https://github.com/endojs/endo-but-for-bots/pull/475) shepherd correctly refused to push and flagged that the fix belongs on master, not the feature branch. And a wave of shepherd/gauntlet jobs (PRs [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#694](https://github.com/endojs/endo-but-for-bots/pull/694), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), plus the garden issue #31 deadmail) have been poisoned into the plan queue for overrunning the 2400s handler budget — they need splitting into claim-sized stages or a raised timeout before they can run at all.
+Several merge/authority decisions are stacked up waiting on you. The foreman reports **M2 (Project Hygiene) is one merge away** — [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs shim) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL shim) are both green/CLEAN and gauntleted; landing them (and closing the redundant, CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263)) closes M2. **M3 is blocked on a package-home ruling** between two competing MVS-resolver PRs, [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403). And the esheets tree has been dammed for 6 days behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth), which is un-drafted with all CI green and the requested design work landed — everything downstream waits on its re-review and merge.
 
 ## Parked for maintainer feedback
 
@@ -479,15 +479,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 93.3M | $969.46 _(notional, rate-card)_ | no quota set |
+| Claude | 93.4M | $970.12 _(notional, rate-card)_ | no quota set |
 | Codex | 119.2M _(+139.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr749-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr749-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #749
 
 ### tada (2355)
 - [`endojs-endo-but-for-bots-pr714-9acfbf68-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr714-9acfbf68-retro.md) — Recorded a durable not-a-miss dismissal for PR #714’s workflow directive. No ...
