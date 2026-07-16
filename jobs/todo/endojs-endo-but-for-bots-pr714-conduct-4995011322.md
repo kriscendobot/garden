@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr714-shepherd-conduct-4995011322
-priority: normal
 role: conductor
-posted_by: producer
-posted_at: 2026-07-16T17:59:53Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-16T18:55:19Z -->
 
 # conduct (merge) endojs/endo-but-for-bots PR #714
 
