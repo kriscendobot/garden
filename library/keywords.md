@@ -14531,6 +14531,11 @@ RiskMetrics | garch-volatility-models
 EWMA volatility | garch-volatility-models
 realized volatility | garch-volatility-models
 HAR-RV | garch-volatility-models
+HAR | garch-volatility-models
+Heterogeneous Autoregressive | garch-volatility-models
+Heterogeneous Market Hypothesis | garch-volatility-models
+volatility cascade | garch-volatility-models
+Corsi HAR | garch-volatility-models
 volatility targeting | garch-volatility-models
 volatility forecasting | garch-volatility-models
 efficient market hypothesis | efficient-market-hypothesis
