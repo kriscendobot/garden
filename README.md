@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-16T11:19:40Z_
+_As of 2026-07-16T11:21:59Z_
 
 ## Latest
 
-The board has effectively stalled: the only transition this cycle was the [#658](https://github.com/endojs/endo-but-for-bots/pull/658) review-retrospective moving into progress, with `todo` empty and nothing completing. The cause is a hard stop — Claude's **weekly usage limit is exhausted (resets Jul 18, 3am UTC)** — which is crash-looping `garden-mentor` self-heal hourly, dropping liaison follow-up producers, and tripping triage circuit-breakers OPEN on `kriscendobot-minion.town`, `kriscendobot-agoric-sdk`, and earlier `kriscendobot-finbot` (all three flagged as outside the single authorized watch target, `endojs/endo-but-for-bots`, and worth confirming). Several shepherd/gauntlet jobs were poisoned and parked for handler-budget overruns and need splitting or detaching before retry: [#124](https://github.com/endojs/endo-but-for-bots/pull/124) and [#704](https://github.com/endojs/endo-but-for-bots/pull/704) shepherds, the [#694](https://github.com/endojs/endo-but-for-bots/pull/694) and [#707](https://github.com/endojs/endo-but-for-bots/pull/707) gauntlets, and the [agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/pull/15) shepherd. Two items want a maintainer decision: the `avoid-name-abbreviations` cluster **recurred** on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`fetchImpl`, authored before the spell-out gate existed so it never got scanned — the escalation asks whether to widen the gate to whole changed files), and a freshly-parked `build-endo-cbor-package` job (phase 1 of the @endo/cbor design landed in [#710](https://github.com/endojs/endo-but-for-bots/pull/710)) awaits go-ahead. Twenty-eight PRs remain parked for review, the oldest fresh ones being ESLint-10 support in [endo#3319](https://github.com/endojs/endo/pull/3319) and the filesystem-read consolidation in [#714](https://github.com/endojs/endo-but-for-bots/pull/714).
+The board has gone quiet — only one completion since the last bulletin (a prosecutor retrospective on [endojs/endo-but-for-bots#658](https://github.com/endojs/endo-but-for-bots/pull/658)) with nothing in todo or doin — and the reason is the dominant thing to notice: the fleet hit its **Claude weekly limit (resets Jul 18, 3am UTC)**, and the resulting rc=1 failures are cascading across the singletons — the mentor's self-heal has been failing hourly since Jul 15, and the triage circuit-breakers for `kriscendobot-minion.town` and `kriscendobot-agoric-sdk` both opened on the same wall. A separate wave of handler-budget overruns (2400s wall) poisoned and parked several shepherd/gauntlet jobs — [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#694](https://github.com/endojs/endo-but-for-bots/pull/694), and [#707](https://github.com/endojs/endo-but-for-bots/pull/707) — each needing a split into claim-sized stages before it can requeue. Two items want a maintainer call: the "avoid abbreviation" cluster **recurred on [#671](https://github.com/endojs/endo-but-for-bots/pull/671)** (the pre-push gate structurally can't see lines authored before it deployed — do you widen it to re-scan whole files?), and a `build-endo-cbor-package` phase-1 job is parked awaiting go-ahead now that the [#710](https://github.com/endojs/endo-but-for-bots/pull/710) `@endo/cbor` design merged. Twenty-eight PRs remain parked for review, led by [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) (ESLint 10+) and [#714](https://github.com/endojs/endo-but-for-bots/pull/714) (platform tree reads).
 
 ## Parked for maintainer feedback
 
@@ -419,23 +419,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 87.2M | $914.68 _(notional, rate-card)_ | no quota set |
+| Claude | 87.2M | $915.22 _(notional, rate-card)_ | no quota set |
 | Codex | 50.6M _(+126.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr658-8df22a40-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr658-8df22a40-retro.md) — Retrospective on endojs/endo-but-for-bots PR #658 (primary: endojs-endo-but-f...
+### doin (0)
+(none)
 
-### tada (2312)
+### tada (2313)
+- [`endojs-endo-but-for-bots-pr658-8df22a40-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr658-8df22a40-retro.md) — Completion report — endojs-endo-but-for-bots-pr658-8df22a40-retro (prosecutor)
 - [`endojs-endo-but-for-bots-pr661-review-52ccb148-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr661-review-52ccb148-retro.md) — Recorded a durable not-a-miss dismissal for review 4701071242. The requested ...
 - [`endojs-endo-but-for-bots-pr671-review-944a6716-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-review-944a6716-retro.md) — Completion report — review-retrospective on endojs/endo-but-for-bots #671 (re...
 - [`endojs-endo-but-for-bots-pr661-review-2e61b71b-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr661-review-2e61b71b-retro.md) — Review retrospective on endojs/endo-but-for-bots #661 (review 4701009228 by k...
 - [`endojs-endo-but-for-bots-pr695-review-e6f842ee-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr695-review-e6f842ee-retro.md) — Both writes are durable on origin/journal2. Job complete.
-- [`endojs-endo-but-for-bots-pr710-07daed17-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr710-07daed17-retro.md) — Recorded a not-a-miss dismissal (new-direction) for #710’s build-dispatch dir...
-- … and 2307 more
+- … and 2308 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
