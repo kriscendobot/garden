@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-16T17:35:55Z_
+_As of 2026-07-16T17:39:29Z_
 
 ## Latest
 
-Recent work cleared the last mechanical blockers on Milestone M2's two vetted-shim PRs: a shepherd and zizmor action-pin fix landed on [#263](https://github.com/endojs/endo-but-for-bots/pull/263) (hardened URL/URLSearchParams shim) and a lockdown-docs fix landed on [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (hardened URL shim, CHANGES_REQUESTED now addressed). The foreman has surfaced M2 repeatedly — it is one **merge/ferry decision** from complete: land [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs shim) and the URL shim, and close whichever of the redundant [#263](https://github.com/endojs/endo-but-for-bots/pull/263)/[#719](https://github.com/endojs/endo-but-for-bots/pull/719) pair loses. M3 is separately stalled on a decision only you can make: the MVS resolver now lives in two competing PRs — `@endo/daemon/registry.js` in [#671](https://github.com/endojs/endo-but-for-bots/pull/671) vs. a dedicated `@endo/exo-npm` in [#403](https://github.com/endojs/endo-but-for-bots/pull/403) — and the snapshot-mapper/worker-import layers can't be built until you rule which home wins.
+The board went quiet — the only transition since the last bulletin was a [SturdyRef press tick](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260716-173508.md) completing in a HOLDING state, all its gates maintainer-side. The likely cause of the stall is a **weekly Claude quota exhaustion** (resets Jul 18, 3am UTC): since Jul 14 the mentor has crash-looped nightly, `garden-follow-up` action blocks have been rejected, and the triage circuit-breaker has tripped OPEN on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk` — none of which will clear until the quota resets.
 
-On the esheets side, the whole tree stays dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth), now green on all five checks with the caretaker-attenuation refinement landed; a fresh weave re-made it one-click mergeable, but it has sat six days awaiting your re-review and still shows a stale CHANGES_REQUESTED. A SturdyRef press tick is in flight; finbot advanced to regime-aware position sizing.
+Meanwhile the foreman is repeatedly signaling that **Milestone M2 (Project Hygiene) is one merge decision from done**: the two vetted-shim PRs [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) (hardened text-codecs) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (hardened URL shim) are both green/MERGEABLE and gauntlet-passed, awaiting a merge/ferry decision — plus a call on whether to close the redundant, CI-failing alternative [#263](https://github.com/endojs/endo-but-for-bots/pull/263) (whose zizmor action-pins were just fixed). **M3 needs a package-home ruling**: the MVS resolver now lives in two competing PRs, [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon/registry.js`) versus [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (a dedicated `@endo/exo-npm`), and the snapshot-mapper / worker-import layers are blocked until one wins. The esheets tree remains dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth), now green and freshly re-woven to mergeable but sitting 6 days on a stale `CHANGES_REQUESTED`.
 
-Two operational notes worth your attention: the **weekly Claude limit was hit** (resets Jul 18, 3am UTC), which is crash-looping `garden-mentor` and the `liaison:follow-up` producer and blocking triage self-heals; and triage circuit-breakers have opened for `kriscendobot-finbot`, `kriscendobot-minion.town`, and `kriscendobot-agoric-sdk` — worth confirming those forks belong in the watch set under the monitoring-safety constraint. A cluster of shepherd/gauntlet jobs (PRs #124, #704, #694, #707, agoric-sdk #15) poisoned out on the 2400s handler budget and are parked in the plan queue awaiting a split-and-promote.
+Two escalations want your judgment: the `avoid-name-abbreviations` cluster **recurred on [#671](https://github.com/endojs/endo-but-for-bots/pull/671)** (`fetchImpl` predated the pre-push gate, which only scans newly-added lines — a structural blind spot), and a build for `@endo/cbor` phase 1 is parked awaiting go-ahead after the [#710](https://github.com/endojs/endo-but-for-bots/pull/710) design merged. Several long-running shepherd/gauntlet jobs (#124, #704, #694, #707, agoric-sdk #15) were poisoned for overrunning the 2400s handler budget and are parked in the plan queue pending a split or a manual promote.
 
 ## Parked for maintainer feedback
 
@@ -465,23 +465,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 91.2M | $949.90 _(notional, rate-card)_ | no quota set |
+| Claude | 91.2M | $949.86 _(notional, rate-card)_ | no quota set |
 | Codex | 118.8M _(+130.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endo-sturdyref-press-20260716-173508`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260716-173508.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+### doin (0)
+(none)
 
-### tada (2334)
+### tada (2335)
+- [`endo-sturdyref-press-20260716-173508`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260716-173508.md) — SturdyRef press tick report — HOLDING (all gates maintainer-side)
 - [`endojs-endo-but-for-bots-pr719-lockdown-docs-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr719-lockdown-docs-fix.md) — Done. Here's what was done:
 - [`endojs-endo-but-for-bots-pr263-zizmor-action-pins-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr263-zizmor-action-pins-fix.md) — Updated 16 actions/setup-node pins/comments to v6.5.0; pushed 90545246e to fe...
 - [`weave-endo-but-for-bots-pr621-endoclaw-oauth-20260716`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr621-endoclaw-oauth-20260716.md) — Completion report — weave #621 (endoclaw-oauth refinement onto fresh llm)
 - [`endo-sturdyref-press-20260716-162017`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260716-162017.md) — SturdyRef press tick complete (job endo-sturdyref-press-20260716-162017, disp...
-- [`endojs-endo-but-for-bots-pr263-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr263-shepherd.md) — Completion Report: endojs/endo-but-for-bots PR #263 Shepherd
-- … and 2329 more
+- … and 2330 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
