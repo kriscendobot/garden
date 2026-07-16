@@ -53,3 +53,10 @@ placeholder row still present, remove it when the first source lands):**
 
 Cross-link each new section into the `financial-forecasting` / `forecast-evaluation`
 topic pages and the six concept pages already created.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 17
+  worker_kind: gardener
+  claimed_at: 2026-07-16T23:37:11Z
