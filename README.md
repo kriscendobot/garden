@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-16T23:13:56Z_
+_As of 2026-07-16T23:15:40Z_
 
 ## Latest
 
-A phase-1 [@endo/cbor](https://github.com/endojs/endo-but-for-bots/pull/710) package build landed, but its incomplete arrival left `endojs/endo-but-for-bots` **master itself red** — a shepherd on [#475](https://github.com/endojs/endo-but-for-bots/pull/475) traced that PR's failing lint/test/zizmor checks to master (missing LICENSE/SECURITY.md and an unresolved `@endo/eventual-send` import in `packages/cbor`), so the fix belongs on master, not the feature branch, before dependent PRs can go green. A doc reland opened DRAFT [#756](https://github.com/endojs/endo-but-for-bots/pull/756) (hardened URL shim). The four `reconstruct-*` provenance jobs all reported blocked — the target commits are already ancestors of master, so their diffs are empty.
+The board went quiet — the only completion was a [remirror-refresh of endo#3317 onto ebfb#594](https://github.com/endojs/endo-but-for-bots/pull/594), and four provenance-reconstruction jobs (ebfb #545, #69, #720) are stuck because the current `endo-but-for-bots` master already contains their merge commits byte-for-byte, so each rebases to an empty diff. The item most worth your attention: **`endo-but-for-bots` master itself is red** from an incomplete `packages/cbor` landing (missing LICENSE/SECURITY.md, `@endo/eventual-send` not resolving in `test/cbor.test.js`, plus a zizmor pin mismatch) — the [#475 shepherd](https://github.com/endojs/endo-but-for-bots/pull/475) confirmed the failing checks are inherited from master, not PR-attributable, so a master-side cbor fix is needed before dependent PRs can go green. Meanwhile the fleet is throttled: the weekly Claude limit was hit (resets Jul 18, 3am UTC), which is behind the repeated garden-mentor / triager self-heal failures and the dropped follow-up actions.
 
-The most urgent signal is a **weekly Claude quota exhaustion (resets Jul 18 3am UTC)**: `garden-mentor` has been crash-looping self-heal roughly hourly since Jul 15, triage circuit-breakers opened on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk`, and liaison follow-up action blocks are being rejected — the fleet is degraded until the limit clears.
-
-Several milestones are one maintainer decision from unblocking: the foreman repeatedly flags **M2** as complete pending merge of the vetted-shim PRs [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (and closing the superseded [#263](https://github.com/endojs/endo-but-for-bots/pull/263)); **M3** needs a ruling on the MVS-resolver home between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403). The SturdyRef effort is fully gated on first review of DRAFT [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus re-reviews of [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697), and the esheets tree remains dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, awaiting re-review 6 days). A fixed unblock-timer starvation bug (main2 `6012296908`) revived the xs2rust-endor chain that had silently stalled 5 days; finbot advanced its GJR-GARCH leverage MLE work, still awaiting paper-wallet authorization.
+Several efforts are fully dammed on your decisions. The foreman sent five nudges that **M2 (Project Hygiene)** is one merge away from done — [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs shim) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL shim) are green/merge-ready, pending a call on adopting #719's `%URL%`/`%SharedURL%` split and closing the redundant [#263](https://github.com/endojs/endo-but-for-bots/pull/263). **M3** is blocked on a package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) for the MVS resolver. The **SturdyRef** effort has three open gates (first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737), a marshal rank-prefix + stack-collapse pick, and re-reviews of [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697)), and the **esheets** tree cannot start until you re-review and merge [#621](https://github.com/endojs/endo-but-for-bots/pull/621). On the autonomous side, finbot advanced twice (regime-aware position sizing, then live GJR-GARCH leverage-parameter MLE), and a gardener found and fixed a monotonic-timer starvation bug that had silently stalled the xs2rust-endor chain ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) for five days — noting the same timer pattern still affects the proxy/watchman/mention-watcher/scaler/repo-watcher units if you want a sweep.
 
 ## Parked for maintainer feedback
 
@@ -404,6 +402,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > printf '%s\n' '{"required_status_checks":null,"enforce_admins":true,"required_pull_request_reviews":{"dismissal_restrictions":{},"dismiss_stale_reviews":false,"require_code_owner_reviews":false,"required_approving_review_count":1,"require_last_push_approval":false},"restrictions":null,"required_linear_history":false,"allow_force_pushes":false,"allow_deletions":false,"block_creations":false,"required_conversation_resolution":false,"lock_branch":false,"allow_fork_syncing":false}' | gh api -X PUT repos/endojs/endo-but-for-bots/branches/master/protection --input -
 
+- `20260716T231446Z-5ea245` — from gardener:reconstruct-ebfb-pr720-patterns-literal-inference, reply_to `reconstruct-ebfb-pr720-patterns-literal-inference` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T231446Z-5ea245.md)
+
+> Blocker: current endojs/endo-but-for-bots master (fcbb540ed) already contains merge commit 91c6718851e4cb40e5679678e117b6aec2884fa3 for [https://github.com/endojs/endo-but-for-bots/pull/720](https://github.com/endojs/endo-but-for-bots/pull/720). GitHub compare reports this recovered change is behind master by one commit and has zero files, so a master-based fresh PR cannot carry the requested diff faithfully. Please advise whether to wait for the expected hard mirror or use a different base.
+
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -574,28 +576,27 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.8M | $1002.80 _(notional, rate-card)_ | no quota set |
-| Codex | 124.5M _(+148.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 97.9M | $1004.47 _(notional, rate-card)_ | no quota set |
+| Codex | 124.7M _(+148.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - [`port-xs-to-rust-memory-safe-engine-s20`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s20.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`reconstruct-ebfb-pr545-stream-flatmapreader`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/reconstruct-ebfb-pr545-stream-flatmapreader.md) — Reconstruct endo-but-for-bots#545 (stream: add flatMapReader)
 - [`reconstruct-ebfb-pr69-pass-style-document-all`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/reconstruct-ebfb-pr69-pass-style-document-all.md) — Reconstruct endo-but-for-bots#69 (pass-style: treat document.all-like values ...
 - [`reconstruct-ebfb-pr720-patterns-literal-inference`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/reconstruct-ebfb-pr720-patterns-literal-inference.md) — Reconstruct endo-but-for-bots#720 (patterns: preserve literal inference in co...
-- [`remirror-refresh-endo-3317-ebfb-pr594`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/remirror-refresh-endo-3317-ebfb-pr594.md) — Remirror upstream endojs/endo#3317 into fork PR #594 and refresh onto a fresh...
 - [`scholar-financial-forecasting-literature`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-financial-forecasting-literature.md) — Scholar: survey academic literature on financial forecasting — report for the...
 
-### tada (2387)
+### tada (2388)
+- [`remirror-refresh-endo-3317-ebfb-pr594`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/remirror-refresh-endo-3317-ebfb-pr594.md) — Remirrored [upstream #3317](https://github.com/endojs/endo/pull/3317) at a0de...
 - [`reland-ebfb-pr84-hardened-url-shim-doc-llm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/reland-ebfb-pr84-hardened-url-shim-doc-llm.md) — Opened DRAFT PR [endojs/endo-but-for-bots#756](https://github.com/endojs/endo...
 - [`audit-garden-endo-master-recreation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/audit-garden-endo-master-recreation.md) — Changed and pushed main2 commit c7f303ca83.
 - [`reconstruct-ebfb-pr542-eslint-visitor-shorthand`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/reconstruct-ebfb-pr542-eslint-visitor-shorthand.md) — Completion report
 - [`xs2rust-endor-build-stage6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage6.md) — orchestration xs2rust-endor-build-stage6 — complete
-- [`build-endo-cbor-package`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-cbor-package.md) — Completion report
-- … and 2382 more
+- … and 2383 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
