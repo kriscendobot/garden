@@ -1,0 +1,1 @@
+In the garden's own repo (kriskowal/garden), edit `roles/scholar/AGENT.md` to add a one-line clarification that the scholar's "no external systems" bound means no external *writes/side-effects*, not a prohibition on read-only paper/web source retrieval needed for ingestion.
