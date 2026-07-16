@@ -1,16 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-16T21:24:52Z_
+_As of 2026-07-16T21:27:28Z_
 
 ## Latest
 
-The board is quiet because the leader host hit its **weekly Claude limit** (resets Jul 18 3am UTC): the mentor, several triagers (`kriscendobot-minion.town`, `kriscendobot-agoric-sdk`), and self-heal have been crash-looping on quota, and two liaison follow-up action blocks were dropped rather than retried. Only one job completed this window — an hourly SturdyRef press check-in.
-
-The most actionable item: **`endojs/endo-but-for-bots` master is RED**, from an incomplete `packages/cbor` landing (missing LICENSE/SECURITY.md, `@endo/eventual-send` unresolved in cbor tests, a zizmor action-pin mismatch). The failing checks on [#475](https://github.com/endojs/endo-but-for-bots/pull/475) are an exact subset of master's own — the fix belongs on master (a cbor-package job), then rebase the affected PRs. A phase-1 `@endo/cbor` build is parked awaiting go-ahead.
-
-Several merge/decision gates are stacked up. Milestone **M2 (Project Hygiene)** is one authorization from done — [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) are both green/MERGEABLE, with the redundant, CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263) to close. **M3** is blocked on a package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403). The **SturdyRef** effort is fully gated on a first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus a marshal rank-prefix pick and re-reviews of [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697), and the **esheets** tree has sat dammed 6 days behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621).
-
-Also worth noticing: a cluster of shepherd/gauntlet jobs ([#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#702](https://github.com/endojs/endo-but-for-bots/pull/702), [#694](https://github.com/endojs/endo-but-for-bots/pull/694), [#707](https://github.com/endojs/endo-but-for-bots/pull/707)) have been **poisoned for overrunning the 2400s handler budget** and parked awaiting promotion — they need splitting into claim-sized stages. Three watched forks (`finbot`, `minion.town`, `agoric-sdk`) tripped their triage circuit-breakers, and finbot advanced on its own fork to regime-aware position sizing.
+Little moved on the board this cycle — the sole completion was a dead-lettered reply carried forward onto [kriskowal/garden#57](https://github.com/kriskowal/garden/issues/57) — because the fleet is largely stalled on two fronts: the Claude weekly limit is exhausted (resets Jul 18), which is crash-looping the mentor, self-heal, and follow-up services and has tripped triage circuit-breakers on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk`; and nearly every live lane is gated on a maintainer decision. Most urgent: `endojs/endo-but-for-bots` **master is red** from an incomplete `@endo/cbor` landing (missing LICENSE/SECURITY.md, a broken `test/cbor.test.js` import, and a zizmor pin mismatch), which is bleeding into unrelated PRs like [#475](https://github.com/endojs/endo-but-for-bots/pull/475) — the fix belongs on master, not the feature branches. On decisions: M2 (Project Hygiene) is one merge from done, with [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) both green/mergeable (and the redundant [#263](https://github.com/endojs/endo-but-for-bots/pull/263) awaiting a close); M3 is blocked on picking the MVS-resolver home between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403); the SturdyRef stack is idling on a first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus re-reviews of designs [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697); and the esheets tree remains dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621), green for six days. One fix landed autonomously: the xs2rust press caught the leader's `garden-unblock` timer silently dead for days (monotonic-timer starvation) and repaired it on main2, restarting the stalled Endor port — the same timer pattern still lurks in the proxy, watchman, mention-watcher, scaler, and repo-watcher units.
 
 ## Parked for maintainer feedback
 
@@ -525,8 +519,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.4M | $986.17 _(notional, rate-card)_ | no quota set |
-| Codex | 124.2M _(+144.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
+| Claude | 95.6M | $987.44 _(notional, rate-card)_ | no quota set |
+| Codex | 124.2M _(+145.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -535,13 +529,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (1)
 - [`port-xs-to-rust-memory-safe-engine-s19`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s19.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
-### tada (2366)
+### tada (2367)
+- [`deadmail-issue-comment-4996721218`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4996721218.md) — Replied on garden issue #57, incorporating the mainnet-only, on-demand record...
 - [`endo-sturdyref-press-20260716-212015`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260716-212015.md) — What I did
 - [`endo-npm-cas-registry-press-20260716-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260716-210504.md) — Press report — npm-via-CAS registry proxy (endojs/endo-but-for-bots, base llm)
 - [`issue-kriskowal-garden-57`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-57.md) — Completion report
 - [`xs2rust-endor-press-20260716-210915`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260716-210915.md) — **Completion report — xs2rust-endor-press-20260716-210915**
-- [`issue-kriskowal-garden-55`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-55.md) — Applied and pushed c9d4428497 to kriscendobot/endo:cjs-module-analyzer-upstre...
-- … and 2361 more
+- … and 2362 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
