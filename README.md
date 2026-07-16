@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-16T00:04:25Z_
+_As of 2026-07-16T00:06:56Z_
 
 ## Latest
 
@@ -384,22 +384,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 83.7M | $888.79 _(notional, rate-card)_ | no quota set |
-| Codex | 49.2M _(+123.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
+| Codex | 49.3M _(+124.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr662-review-25ab500f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr662-review-25ab500f-retro.md) — Retrospective on endojs/endo-but-for-bots PR #662 (primary: endojs-endo-but-f...
+### doin (0)
+(none)
 
-### tada (2285)
+### tada (2286)
+- [`endojs-endo-but-for-bots-pr662-review-25ab500f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr662-review-25ab500f-retro.md) — Recorded #662 as not-a-miss/new direction in the review-miss store, with grou...
 - [`endojs-endo-but-for-bots-pr661-review-e6e9d5e5-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr661-review-e6e9d5e5-retro.md) — Recorded the review as a not-a-miss dismissal: it was new streaming API direc...
 - [`endojs-endo-but-for-bots-pr658-review-97e5a186-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr658-review-97e5a186-retro.md) — Recorded a review-process miss: the approved panel missed that mount-specific...
 - [`endojs-endo-but-for-bots-syrups-naming-reconcile`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-syrups-naming-reconcile.md) — Completion report
 - [`deadmail-20260715T191242Z-cec88f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260715T191242Z-cec88f.md) — Recovered the requested draft PR URL: https://github.com/endojs/endo-but-for-...
-- [`deadmail-issue-comment-4981804044`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4981804044.md) — Dispatched designer; resulting draft PR: https://github.com/endojs/endo-but-f...
-- … and 2280 more
+- … and 2281 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
