@@ -25,3 +25,10 @@ maintainer's pending re-review + merge.
 **Authorization:** This job authorizes push to the PR head branch
 `design/endoclaw-oauth-foundation` on the endojs/endo-but-for-bots fork only.
 Read-only otherwise on `endojs/*`; never push to `llm` or any upstream branch.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: gardener
+  claimed_at: 2026-07-16T16:23:38Z
