@@ -25,3 +25,10 @@ base `master`, head `dc-pola-io`), a new `packages/pola-io/` package — into `e
 A DRAFT fork PR on `endojs/endo-but-for-bots` mirroring upstream `endojs/endo#2865`, based on a
 frozen `master-<sha>` anchor. The `tada` report links #2865 and the new fork PR and names the
 frozen-base sha.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  worker_kind: cleric
+  claimed_at: 2026-07-16T23:44:32Z
