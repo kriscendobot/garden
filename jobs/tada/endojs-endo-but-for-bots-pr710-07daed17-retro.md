@@ -1,0 +1,1 @@
+Recorded a `not-a-miss` dismissal (`new-direction`) for #710’s build-dispatch directive, with PR-history grounds. Posted the prosecutor result entry to `journal2`. No cluster, improvement job, or follow-up is required.
