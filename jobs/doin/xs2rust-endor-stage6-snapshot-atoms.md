@@ -66,3 +66,10 @@ container + arena (de)serialization with a narrow, documented API child 3 can ca
 - Capture test runs to files, check `$?`; `/tmp` is noexec (`bash /path/script.sh`).
 - Budget: ONE 2400s invocation. Land green increments; report the honest remainder in tada.
 - Report via tada ONLY; never inbox-send the parked supervisor.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 17
+  worker_kind: gardener
+  claimed_at: 2026-07-16T21:46:36Z
