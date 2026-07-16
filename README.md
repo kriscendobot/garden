@@ -1,16 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-16T16:57:53Z_
+_As of 2026-07-16T17:02:59Z_
 
 ## Latest
 
-The garden is stalled against Anthropic's **weekly quota**, hit 2026-07-14 (resets Jul 18, 3am UTC): the board is fully idle (0 todo / 0 doin), and the fallout dominates the maintainer inbox — repeated `garden-mentor` self-heal failures, and triage circuit-breakers tripping open on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk` (both, notably, outside the single authorized watch target `endojs/endo-but-for-bots` — worth confirming they belong in the set).
+The shepherd on [endo-but-for-bots#263](https://github.com/endojs/endo-but-for-bots/pull/263) (hardened URL/URLSearchParams shim) completed, and a follow-up [`pr263-zizmor-action-pins-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr263-zizmor-action-pins-fix.md) is now in flight to clear its lone remaining red check (a repo-wide `zizmor` action-pins failure). That is the last thing standing between Milestone **M2 (Project Hygiene)** and completion: the foreman has escalated repeatedly that M2's two remaining vetted-shim PRs — [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL, gauntlet-passed) — are built, green, and merge-ready, and only a merge/ferry decision (plus closing the redundant, CI-failing #263 alternative) remains yours to make. On the esheets tree, a weave re-landed [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth refinement) to one-click-mergeable; its supervisor reports the whole OAuth→google-sheets tree has now sat six days blocked on your re-review and merge of that single PR. Finbot advanced to regime-aware position sizing (persistent-volatility assets now default to half-size targets, tests green, wallet untouched).
 
-Substantive work that did land before the freeze: the weave re-making [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth) one-click mergeable again, a shepherd pass on [#263](https://github.com/endojs/endo-but-for-bots/pull/263), and finbot's `main` advancing to `efa6454` (regime-aware position sizing that half-sizes persistent assets; tests green, wallet untouched).
-
-The foreman is now signalling hard on two merge decisions only the maintainer can make. **M2 (Project Hygiene)** is one call from complete — the vetted-shim PRs [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL) are both built, gauntleted, and CLEAN, pending a decision to merge/ferry them and close the redundant, CI-failing alternative [#263](https://github.com/endojs/endo-but-for-bots/pull/263). **M3** is blocked on a package-home ruling: the MVS resolver now lives in two competing PRs — `@endo/daemon/registry.js` in [#671](https://github.com/endojs/endo-but-for-bots/pull/671) versus a dedicated `@endo/exo-npm` in [#403](https://github.com/endojs/endo-but-for-bots/pull/403) — and the snapshot-mapper/worker-import layers can't be built until one wins. The esheets tree remains dammed entirely behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621), now 6 days awaiting re-review.
-
-Also queued for your go-ahead: the `@endo/cbor` phase-1 build parked after its design merged in [#710](https://github.com/endojs/endo-but-for-bots/pull/710). Several long-running shepherd/gauntlet jobs (PRs #124, #704, #694, #707, agoric-sdk #15) were poisoned for overrunning the 2400s handler budget and parked for hand promotion or splitting.
+Most urgent operationally: the fleet has **hit its weekly Claude limit (resets Jul 18, 3am UTC)** — `garden-mentor` self-heal, the liaison follow-up producer, and the `minion.town`/`agoric-sdk` triagers have all been failing rc=1 against that wall since Jul 14, so LLM-backed producers are effectively stalled until the reset. Separately, a wave of shepherd/gauntlet jobs (PRs #124, #704, #694, #707, plus agoric-sdk #15) were poisoned for overrunning the 2400s handler budget and parked in `plan/` awaiting a split-and-promote; several triage circuit-breakers are open on unauthorized watch-set repos (`kriscendobot-finbot`, `-minion.town`, `-agoric-sdk`) worth confirming belong in the set at all.
 
 ## Parked for maintainer feedback
 
@@ -467,15 +463,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 90.7M | $945.55 _(notional, rate-card)_ | no quota set |
-| Codex | 114.4M _(+126.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 90.8M | $946.99 _(notional, rate-card)_ | no quota set |
+| Codex | 114.4M _(+126.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr263-zizmor-action-pins-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr263-zizmor-action-pins-fix.md) — ---
 
 ### tada (2332)
 - [`weave-endo-but-for-bots-pr621-endoclaw-oauth-20260716`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr621-endoclaw-oauth-20260716.md) — Completion report — weave #621 (endoclaw-oauth refinement onto fresh llm)
