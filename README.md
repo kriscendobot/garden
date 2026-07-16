@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-16T05:26:48Z_
+_As of 2026-07-16T05:29:44Z_
 
 ## Latest
 
-The garden has effectively stalled on quota: the Claude weekly limit was hit (resets Jul 18, 3am UTC), and since ~Jul 14 nearly every automated surface has been failing rc=1 for lack of tokens — repeated `garden-mentor` self-heal misses, dropped `liaison:follow-up` action blocks, and triage circuit-breakers opening on three watched repos (`kriscendobot-minion.town`, `kriscendobot-agoric-sdk`, `kriscendobot-finbot`). The board is now idle (0 todo, 0 doin); the only completion since the last bulletin was the `kriscendobot-agoric-sdk-pr16-dec1f704-retro` retrospective (a not-a-miss dismissal recorded on journal2).
+The garden is effectively stalled on Claude's weekly quota (resets Jul 18, 3am UTC): the board sits empty (only a single agoric-sdk retro in flight), and a wave of `rc=1` "weekly limit" failures has knocked out `garden-mentor` (self-healing hourly since Jul 15 with no scoped fix), the follow-up producer (two action blocks rejected and dropped), and three triage circuit-breakers — `kriscendobot-minion.town`, `kriscendobot-agoric-sdk`, and earlier `kriscendobot-finbot` — all now OPEN. Worth confirming those three even belong in the watch set: per CLAUDE.md's monitoring-safety constraint only `endojs/endo-but-for-bots` is authorized, yet the watch set still lists eight repos.
 
-Worth a maintainer's eye beyond quota: a cluster of jobs deterministically overran the 2400s handler budget and were poisoned/parked in the plan queue — shepherds for [endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), and [kriscendobot/agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/pull/15), plus the gauntlets for [#694](https://github.com/endojs/endo-but-for-bots/pull/694) and [#707](https://github.com/endojs/endo-but-for-bots/pull/707); each needs splitting into claim-sized stages before it can succeed. The `avoid-name-abbreviations` cluster recurred (count=4) on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) — `fetchImpl` predated the spell-out gate, exposing a structural blind spot where the gate only scans newly-added lines, and awaits your call on whether to widen it. Finally, the merged @endo/cbor design ([#710](https://github.com/endojs/endo-but-for-bots/pull/710)) left a phase-1 build (`build-endo-cbor-package`) parked awaiting your go-ahead. Twenty-eight PRs remain parked for review, the oldest being [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) (ESLint 10+ support).
+Separately, a cluster of long-running jobs has been poisoned for overrunning the 2400s handler budget and parked in the plan queue for a human call — shepherds on [endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), and [kriscendobot/agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/pull/15), plus the gauntlets on draft PRs [#694](https://github.com/endojs/endo-but-for-bots/pull/694) and [#707](https://github.com/endojs/endo-but-for-bots/pull/707); each needs splitting into claim-sized stages or a raised budget before it can make progress.
+
+Two items want your judgment: the `avoid-name-abbreviations` cluster recurred on [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`fetchImpl`) — a structural blind spot, since the spell-out gate only scans newly-added diff lines and this identifier predated the gate — with the retrospective asking whether to widen the gate to whole changed files; and a `build-endo-cbor-package` job (phase 1 of the [#710](https://github.com/endojs/endo-but-for-bots/pull/710) shared-CBOR design, now merged) is parked awaiting your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -421,15 +423,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 85.1M | $899.07 _(notional, rate-card)_ | no quota set |
+| Claude | 85.1M | $899.66 _(notional, rate-card)_ | no quota set |
 | Codex | 49.4M _(+125.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriscendobot-agoric-sdk-pr16-review-12e4a9aa-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr16-review-12e4a9aa-retro.md) — Retrospective on kriscendobot/agoric-sdk PR #16 (primary: kriscendobot-agoric...
 
 ### tada (2296)
 - [`kriscendobot-agoric-sdk-pr16-dec1f704-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-dec1f704-retro.md) — Recorded a not-a-miss dismissal for the PR #16 closure directive on journal2.
@@ -466,7 +468,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`kriscendobot-agoric-sdk-pr16-review-12e4a9aa-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr16-review-12e4a9aa-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #16 (primary: kriscendobot-agoric...
 - [`kriscendobot-agoric-sdk-pr16-review-416988d1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr16-review-416988d1-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #16 (primary: kriscendobot-agoric...
 - [`kriscendobot-agoric-sdk-pr16-review-9b74ccd4-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr16-review-9b74ccd4-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #16 (primary: kriscendobot-agoric...
 - [`kriscendobot-agoric-sdk-pr16-review-d584f885-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr16-review-d584f885-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #16 (primary: kriscendobot-agoric...
