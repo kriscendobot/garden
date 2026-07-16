@@ -1,20 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-16T02:50:33Z_
+_As of 2026-07-16T04:15:59Z_
 
 ## Latest
 
-Milestone M3 is now entirely merge-bottlenecked, not work-bottlenecked: its two headline exit-criterion PRs — [endo-but-for-bots#694](https://github.com/endojs/endo-but-for-bots/pull/694) (Docker self-host + authenticated remote gateway, which supersedes the older master-based [#608](https://github.com/endojs/endo-but-for-bots/pull/608)) and [#661](https://github.com/endojs/endo-but-for-bots/pull/661) (confined outbound HTTP) — are built, un-drafted, and CI-green but stranded as poisoned, go-ahead-gated gauntlet jobs, whose only red is the repo-wide lint projectService ceiling that [#594](https://github.com/endojs/endo-but-for-bots/pull/594) would clear. Merging #594 also auto-resumes the parked lint-ceiling shepherd cohort. On the fork side, [kriscendobot/agoric-sdk#9](https://github.com/kriscendobot/agoric-sdk/pull/9) (ymax→critical) was rebased onto master, is fully green and un-drafted, and mhofman's two open review threads are now answered — so it is blocked solely on a SwingSet-team approval that the fleet cannot supply. The scheduled-execution leg pivoted: design [#682](https://github.com/endojs/endo-but-for-bots/pull/682) (`@endo/reminder` unconfined plugin) supersedes the endoclaw-timer stack [#609](https://github.com/endojs/endo-but-for-bots/pull/609)/[#617](https://github.com/endojs/endo-but-for-bots/pull/617)/[#619](https://github.com/endojs/endo-but-for-bots/pull/619) and awaits an accept/close call.
-
-Two SES-shim decisions surfaced as forks in the road: [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (hardened text codecs) was rebased mergeable and is one merge from closing M2, while the URL shim now has competing implementations — the design-faithful `%URL%`/`%SharedURL%` split in new draft [#719](https://github.com/endojs/endo-but-for-bots/pull/719) versus the earlier universal [#263](https://github.com/endojs/endo-but-for-bots/pull/263) — needing a pick before either lands. The SturdyRef agent-surface design [#695](https://github.com/endojs/endo-but-for-bots/pull/695) still awaits its go/no-go to release builder cuts A–F, though its bridge stack ([#521](https://github.com/endojs/endo-but-for-bots/pull/521)→[#541](https://github.com/endojs/endo-but-for-bots/pull/541)→…→[#704](https://github.com/endojs/endo-but-for-bots/pull/704)) sits green. Off the PR track, finbot completed its OODA loop end to end — OBSERVE→ORIENT→DECIDE→AUDIT→ACT now all run by inference in dry-run atop new GARCH/GJR-GARCH/adaptive-vol forecasting, ~500 tests green with the wallet-untouched safety gate holding — and is deferred only at cap-attenuation Phase 2, which needs explicit `live_authorized` maintainer approval.
-
-Two operational flags warrant a look: the triager crash-loop fix is landed on `main2` but the deployed root is ~56 commits behind, so a drained `deploy-garden.sh` is still needed to actually stop the flapping `garden-triager@*` units; and a run of shepherd/gauntlet/deadmail jobs are deterministically overrunning the 2400s handler budget and getting poisoned — they need splitting into claim-sized stages rather than requeueing.
+The fleet is quota-blocked: nearly every producer, self-heal, and follow-up action since Jul 14 has failed `rc=1` against Claude's weekly limit (resets Jul 18, 3am UTC), including repeated `garden-mentor` self-heal misses and two dropped liaison follow-up blocks — the board itself is now idle (0 todo/doin) with only one completion landing since the last bulletin, the [endo-but-for-bots#667](https://github.com/endojs/endo-but-for-bots/pull/667) review retrospective. Triage circuit-breakers have opened on three watched repos — `kriscendobot-finbot`, `kriscendobot-minion.town`, and `kriscendobot-agoric-sdk` — and each carries a note worth heeding: under the Monitoring safety constraint only `endojs/endo-but-for-bots` is authorized for watching, so confirm those forks belong in the set. Several shepherd and gauntlet jobs were poisoned for overrunning the 2400s handler budget and parked in the plan queue awaiting promotion, notably [endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#694](https://github.com/endojs/endo-but-for-bots/pull/694), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), and [kriscendobot/agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/pull/15) — each needs splitting into claim-sized stages or a raised budget before requeue. On the roadmap side, the shared-CBOR design merged as [endo-but-for-bots#710](https://github.com/endojs/endo-but-for-bots/pull/710) and a phase-1 `build-endo-cbor-package` job is parked awaiting your go-ahead, alongside 28 PRs still parked for review — the oldest being [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) (19d) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (16d).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 3h)
-- [endojs/endo-but-for-bots#714](https://github.com/endojs/endo-but-for-bots/pull/714) — feat(platform): add listTree, rangeRead, rangeReadText (consolidate genie/lal/fae fs reads) (waiting 11h)
-- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 21h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 4h)
+- [endojs/endo-but-for-bots#714](https://github.com/endojs/endo-but-for-bots/pull/714) — feat(platform): add listTree, rangeRead, rangeReadText (consolidate genie/lal/fae fs reads) (waiting 12h)
+- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 22h)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 2d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 3d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 5d)
@@ -402,16 +398,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr667-review-20347bb0-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr667-review-20347bb0-retro.md) — Retrospective on endojs/endo-but-for-bots PR #667 (primary: endojs-endo-but-f...
+### doin (0)
+(none)
 
-### tada (2286)
+### tada (2287)
+- [`endojs-endo-but-for-bots-pr667-review-20347bb0-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr667-review-20347bb0-retro.md) — Completion report — review-retrospective on endojs/endo-but-for-bots PR #667 ...
 - [`endojs-endo-but-for-bots-pr662-review-25ab500f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr662-review-25ab500f-retro.md) — Recorded #662 as not-a-miss/new direction in the review-miss store, with grou...
 - [`endojs-endo-but-for-bots-pr661-review-e6e9d5e5-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr661-review-e6e9d5e5-retro.md) — Recorded the review as a not-a-miss dismissal: it was new streaming API direc...
 - [`endojs-endo-but-for-bots-pr658-review-97e5a186-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr658-review-97e5a186-retro.md) — Recorded a review-process miss: the approved panel missed that mount-specific...
 - [`endojs-endo-but-for-bots-syrups-naming-reconcile`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-syrups-naming-reconcile.md) — Completion report
-- [`deadmail-20260715T191242Z-cec88f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260715T191242Z-cec88f.md) — Recovered the requested draft PR URL: https://github.com/endojs/endo-but-for-...
-- … and 2281 more
+- … and 2282 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
