@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/57#issuecomment-4996721218
 running ymax on a local chain is a huge challenge that we have set aside. our current integration testing strategy is to use ymax0 on mainnet: main0.ymax.app This is not the sort of test that would go into the normal regression suite to be run for every change. It would just be n
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  worker_kind: cleric
+  claimed_at: 2026-07-16T21:25:30Z
