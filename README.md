@@ -1,19 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-16T20:35:18Z_
+_As of 2026-07-16T20:38:04Z_
 
 ## Latest
 
-Board motion since the last bulletin was quiet — only one new claim ([`issue-kriskowal-garden-55`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-55.md), an issue from kriskowal) — but recent completions cleared several branches: weaves restored [endo-but-for-bots#723](https://github.com/endojs/endo-but-for-bots/pull/723) and [#691](https://github.com/endojs/endo-but-for-bots/pull/691) to mergeable, and [#749](https://github.com/endojs/endo-but-for-bots/pull/749) is green again.
+A shepherd on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) surfaced the most urgent item: **`master` itself is red** on `endojs/endo-but-for-bots` from an incomplete `packages/cbor` landing — missing LICENSE/SECURITY.md, a `@endo/eventual-send` resolution failure in `test/cbor.test.js`, and a zizmor action-pin mismatch. That red is inherited by every open PR (the shepherd found #475's failures are an exact subset of master's), so the fix belongs on master via a cbor-package job, then rebases downstream; the parked [`build-endo-cbor-package`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-cbor-package.md) job is the phase-1 follow-up awaiting your go-ahead. Separately, the fleet **hit its weekly Claude limit (resets Jul 18, 3am UTC)**, which is stalling `garden-mentor`, several triagers, and the follow-up producer — the recurring self-heal messages since Jul 14 are all this one root cause, not distinct failures.
 
-The signal a maintainer should notice first is a **weekly Claude quota exhaustion** ("resets Jul 18, 3am UTC"): since ~Jul 14 it has been crash-looping `garden-mentor` self-heal every hour, dropping liaison follow-up action blocks, and tripping triage circuit-breakers on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk` — the latter two also worth confirming belong in the watch set at all under the monitoring-safety constraint. Separately, a wave of shepherd/gauntlet jobs is **deterministically overrunning the 2400s handler budget** and being poisoned to the plan queue (PRs #124, #704, #702, #688, #707, #694, agoric-sdk #15); these need splitting into claim-sized stages, not requeuing.
+Recent motion was mostly weaves and CI recovery: [#723](https://github.com/endojs/endo-but-for-bots/pull/723) and [#691](https://github.com/endojs/endo-but-for-bots/pull/691) were woven back to clean/mergeable, [#749](https://github.com/endojs/endo-but-for-bots/pull/749) driven to green, with [#667](https://github.com/endojs/endo-but-for-bots/pull/667) mid-weave now.
 
-Three efforts are fully **gated on your decisions**, each nudged repeatedly by the foreman and supervisors:
-- **M2 (Project Hygiene)** is one merge from done — the vetted-shim PRs [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL) are built, green, and un-drafted; the foreman asks you to merge/ferry them and close the redundant, CI-failing alternative [#263](https://github.com/endojs/endo-but-for-bots/pull/263).
-- **M3** needs a package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon/registry.js`) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (`@endo/exo-npm`) before the snapshot-mapper/worker-import layers can be built.
-- The **SturdyRef** stack awaits first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737), a marshal rank-prefix pick, and re-reviews of designs [#695](https://github.com/endojs/endo-but-for-bots/pull/695) and [#697](https://github.com/endojs/endo-but-for-bots/pull/697); the **esheets** tree is fully dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (6 days awaiting re-review + merge).
-
-Finally, a shepherd flagged that [#475](https://github.com/endojs/endo-but-for-bots/pull/475)'s red CI is **not PR-attributable — `master` itself is red** from an incomplete `packages/cbor` landing (missing LICENSE/SECURITY.md, unresolved `@endo/eventual-send` import); the fix belongs on master before dependent PRs can go green. A build for `@endo/cbor` phase 1 sits parked in the plan queue awaiting your go-ahead.
+Several decisions are yours to make and are blocking whole lanes. The foreman reports **M2 (Project Hygiene) is one merge away from done** — the vetted-shim PRs [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) are green and merge-ready, pending your merge/ferry and a call on the redundant, CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263). **M3 is blocked on a package-home ruling**: the MVS resolver lives in two competing PRs, [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon/registry.js`) vs [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (`@endo/exo-npm`) — pick a winner so the loser closes and the snapshot-mapper/worker-import layers can build. The SturdyRef effort is on its third fully-gated tick awaiting a first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737), a marshal rank-prefix pick, and re-reviews of [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697); the esheets tree has sat dammed six days behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621). Finally, a review-retrospective escalation flags that the "avoid abbreviation" cluster recurred on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`fetchImpl`) because the pre-push gate only scans newly-added lines — a structural blind spot for identifiers predating gate deployment, and your call on whether to widen it.
 
 ## Parked for maintainer feedback
 
@@ -515,14 +510,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 94.2M | $977.13 _(notional, rate-card)_ | no quota set |
-| Codex | 123.9M _(+139.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Claude | 94.3M | $978.20 _(notional, rate-card)_ | no quota set |
+| Codex | 124.0M _(+139.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr667-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr667-weave.md) — ---
 - [`issue-kriskowal-garden-55`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-55.md) — Issue from kriskowal on kriskowal/garden #55
 
 ### tada (2359)
