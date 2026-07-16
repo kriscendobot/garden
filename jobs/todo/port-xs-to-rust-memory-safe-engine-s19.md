@@ -1,10 +1,7 @@
 ---
-gate: blocked
-blocked_on: xs2rust-endor-262-smoke-corpora-repair
-priority: normal
-posted_by: producer
-posted_at: 2026-07-11T17:48:16Z
+model: fable
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-07-16T21:13:29Z -->
 
 ---
 model: fable
