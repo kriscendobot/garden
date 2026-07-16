@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr714-shepherd-conduct-4995011322
-priority: normal
 role: shepherd
-posted_by: producer
-posted_at: 2026-07-16T17:59:49Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-16T18:01:16Z -->
 
 # shepherd endojs/endo-but-for-bots PR #714
 
