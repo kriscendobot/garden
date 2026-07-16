@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6409 (530 parent indexes + 5879 children).
+Total section files: 6414 (530 parent indexes + 5884 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8345,6 +8345,14 @@ Total section files: 6409 (530 parent indexes + 5879 children).
   - [Implications for Endo](papers--miller-vancutsem-tulloh-distributed-electronic-rights-2013--rights-as-property-and-money-as-right--implications-for-endo.md)
   - [See also](papers--miller-vancutsem-tulloh-distributed-electronic-rights-2013--rights-as-property-and-money-as-right--see-also.md)
   - [Translation block (paper idiom → contemporary Endo / Agoric surface)](papers--miller-vancutsem-tulloh-distributed-electronic-rights-2013--rights-as-property-and-money-as-right--translation-block-paper-idiom-contemporary-endo-agoric-surface.md)
+
+### papers--patton-volatility-forecast-comparison-imperfect-proxies-2011
+
+- [papers--patton-volatility-forecast-comparison-imperfect-proxies-2011--conclusion-evaluation-contract](papers--patton-volatility-forecast-comparison-imperfect-proxies-2011--conclusion-evaluation-contract.md)
+- [papers--patton-volatility-forecast-comparison-imperfect-proxies-2011--ibm-application-qlike-distinguishes-forecasts](papers--patton-volatility-forecast-comparison-imperfect-proxies-2011--ibm-application-qlike-distinguishes-forecasts.md)
+- [papers--patton-volatility-forecast-comparison-imperfect-proxies-2011--noisy-proxies-can-reverse-rankings](papers--patton-volatility-forecast-comparison-imperfect-proxies-2011--noisy-proxies-can-reverse-rankings.md)
+- [papers--patton-volatility-forecast-comparison-imperfect-proxies-2011--overview](papers--patton-volatility-forecast-comparison-imperfect-proxies-2011--overview.md)
+- [papers--patton-volatility-forecast-comparison-imperfect-proxies-2011--robust-loss-functions-and-qlike](papers--patton-volatility-forecast-comparison-imperfect-proxies-2011--robust-loss-functions-and-qlike.md)
 
 ### papers--stiegler-karp-yee-miller-polaris-2004
 
