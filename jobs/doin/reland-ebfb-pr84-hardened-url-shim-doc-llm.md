@@ -27,3 +27,10 @@ branch.
 ## Done
 A DRAFT PR on base `llm` adding the hardened-URL-shim design doc under `designs/`, body linking
 the original #84 + merge commit and upstream #2635/#3322. The `tada` report links the new PR.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: cleric
+  claimed_at: 2026-07-16T23:01:47Z
