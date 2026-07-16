@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-16T20:09:05Z_
+_As of 2026-07-16T20:17:13Z_
 
 ## Latest
 
-[endojs/endo-but-for-bots#749](https://github.com/endojs/endo-but-for-bots/pull/749) was shepherded to green CI and the hourly SturdyRef press tick reported in; otherwise the board is idle (nothing in todo or doin). The signal worth a maintainer's attention is upstream of the board: the Claude weekly token limit is exhausted (resets Jul 18, 3am UTC), which is crash-looping `garden-mentor`, the self-heal service, and the triagers — the circuit breakers on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk` opened as a direct consequence, and two `liaison:follow-up` action blocks were dropped rather than retried. Separately, `endojs/endo-but-for-bots` **master is red**: an incomplete `packages/cbor` landing (missing LICENSE/SECURITY.md, an unresolved `@endo/eventual-send` import in `test/cbor.test.js`, and a zizmor pin mismatch) is failing lint/test/zizmor repo-wide, which is what's reddening [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — the fix belongs on master (a cbor-package job), then rebase the affected PRs. On the decision front, the foreman is repeatedly nudging that **M2 (Project Hygiene)** is one merge away from done — [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) are both green and merge-ready (with redundant #263 to close) — and **M3** is blocked on a package-home ruling between [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403). The SturdyRef and esheets trees are each fully gated on your review: [endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737) awaits a first review plus a marshal rank-prefix pick, and [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) has sat 6 days green awaiting re-review. Several jobs were poisoned for overrunning the 2400s handler budget (shepherds on #124/#704/#694, the git-capability gauntlet on #707, and the agoric-sdk #15 shepherd) and are parked in the plan queue pending a split or promotion.
+The board is nearly idle — only [endo-but-for-bots#723](https://github.com/endojs/endo-but-for-bots/pull/723)'s weave is in flight — because the fleet hit its **weekly Claude limit (resets Jul 18, 3am UTC)**: `garden-mentor`, the follow-up producer, and several triagers are crash-looping with "You've hit your weekly limit," and triage circuit-breakers have opened on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk`. Two decisions now gate whole trees. **Milestone M2 (Project Hygiene) is one merge from done** — the vetted-shim PRs [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL) are green/CLEAN and gauntlet-passed, awaiting merge/ferry plus closing the redundant [#263](https://github.com/endojs/endo-but-for-bots/pull/263). **M3 is blocked on a package-home ruling** between the MVS resolver in [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon/registry.js`) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (`@endo/exo-npm`); the loser must be closed before the snapshot-mapper/worker-import layers can build.
+
+Notably, **`endo-but-for-bots` master is red** from an incomplete `packages/cbor` landing (missing LICENSE/SECURITY.md, an unresolved `@endo/eventual-send` import, and a zizmor pin mismatch); the [#475](https://github.com/endojs/endo-but-for-bots/pull/475) shepherd correctly refused to patch the feature branch and flagged this as a master-side cbor fix the liaison should schedule before rebasing dependent PRs. The whole **SturdyRef effort is fully gated** on maintainer input — first review of draft [#737](https://github.com/endojs/endo-but-for-bots/pull/737) (green 25/25), a marshal rank-prefix pick, and re-reviews of the addressed [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697) designs — and the **esheets tree is dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621)** (green, ~6 days awaiting re-review). On the plus side, [#749](https://github.com/endojs/endo-but-for-bots/pull/749)'s CI was shepherded to green. Several long-running jobs (shepherds for [#124](https://github.com/endojs/endo-but-for-bots/pull/124)/[#704](https://github.com/endojs/endo-but-for-bots/pull/704), the [#694](https://github.com/endojs/endo-but-for-bots/pull/694) and [#707](https://github.com/endojs/endo-but-for-bots/pull/707) gauntlets) have poisoned on the 2400s handler budget and are parked for split-or-detach; a new `build-endo-cbor-package` (phase 1 of the merged [#710](https://github.com/endojs/endo-but-for-bots/pull/710) design) sits in the plan queue awaiting go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -506,15 +508,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 93.9M | $973.98 _(notional, rate-card)_ | no quota set |
+| Claude | 94.0M | $974.89 _(notional, rate-card)_ | no quota set |
 | Codex | 123.9M _(+139.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr723-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr723-weave.md) — ---
 
 ### tada (2358)
 - [`endo-sturdyref-press-20260716-200513`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260716-200513.md) — SturdyRef press tick report (job endo-sturdyref-press-20260716-200513, 2026-0...
