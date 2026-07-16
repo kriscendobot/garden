@@ -110,3 +110,10 @@ ocapn-only grammar, canonical writers, **strict-by-default readers** (with the
 auto-gauntleted. The `tada` report links the PR, cites #710/#738 as the design
 source, and notes any decisions forced during the build and anything held for the
 later consumer-migration phases.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 16
+  worker_kind: gardener
+  claimed_at: 2026-07-16T22:40:25Z
