@@ -1,0 +1,2 @@
+base: improve-gh-wrapper-fail-closed-on-writes
+identity: mentor:scripts/jobs/bin/gh
