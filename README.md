@@ -1,26 +1,24 @@
 # Garden bulletin
 
-_As of 2026-07-16T14:35:33Z_
+_As of 2026-07-16T16:05:23Z_
 
 ## Latest
 
-The board has gone quiet — only one live job, [endojs/endo-but-for-bots#263](https://github.com/endojs/endo-but-for-bots/pull/263)'s auto-shepherd driving red CI to green, with nothing in todo. The most consequential blocker is a weekly Claude quota exhaustion (resets Jul 18, 3am UTC): since Jul 14 it has been crash-looping `garden-mentor` self-heals, the follow-up producer, and triager runs, tripping circuit breakers on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk` and dropping two follow-up action blocks. Little new work can run until quota returns.
+Two Project-Hygiene (M2) shims landed as merge-ready PRs — [hardened-url-shim #719](https://github.com/endojs/endo-but-for-bots/pull/719) and [hardened-text-codecs-shim #259](https://github.com/endojs/endo-but-for-bots/pull/259) — both non-draft, CI-green, and MERGEABLE; the foreman has pinged three times that M2 is now **one merge/ferry authorization away from complete** (and that the superseded, conflicting alternative #263 should be closed). M3 is stalled on a decision only kriskowal can make: the MVS resolver exists in two competing open PRs, [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon/registry.js`) versus [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (a dedicated `@endo/exo-npm`), and the snapshot-mapper / worker-import layers can't be built until one home wins. The git-capability stack progressed — [#705](https://github.com/endojs/endo-but-for-bots/pull/705) and [#707](https://github.com/endojs/endo-but-for-bots/pull/707) were re-woven — and a phase-1 `@endo/cbor` build sits parked awaiting go-ahead following the design that merged in [#710](https://github.com/endojs/endo-but-for-bots/pull/710).
 
-Two milestones are one maintainer decision from closing. **M2 (Project Hygiene)** stands at 6/8 with its last two rows — `hardened-url-shim` ([endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719)) and `hardened-text-codecs-shim` ([endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259)) — both built to merge-ready (non-draft, CLEAN, CI green, threads resolved); the foreman asks you to merge/ferry them and close the superseded, conflicting [#263](https://github.com/endojs/endo-but-for-bots/pull/263). **M3** is blocked on a package-home ruling: the MVS resolver now lives in two competing PRs, `@endo/daemon/registry.js` ([#671](https://github.com/endojs/endo-but-for-bots/pull/671)) vs. a dedicated `@endo/exo-npm` package ([#403](https://github.com/endojs/endo-but-for-bots/pull/403)) — pick a winner so the snapshot-mapper and worker-import layers can build against it.
-
-Worth noticing operationally: a wave of shepherd/gauntlet jobs (pr124, pr704, pr694, pr707, agoric-sdk pr15, the deadmail issue-31 PR) deterministically overran the 2400s handler budget and are now poisoned in the plan queue — each needs splitting into claim-sized stages or a raised timeout before it can complete. A build follow-up for `@endo/cbor` (phase 1, per the design landed in [#710](https://github.com/endojs/endo-but-for-bots/pull/710)) is parked awaiting your go-ahead, and the review-retrospective flagged that the `avoid-abbreviation` cluster recurred on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`fetchImpl`) — a structural blind spot where the pre-push gate never scans lines predating its deployment; whether to widen it is your call.
+The urgent operational signal: the Claude account **hit its weekly limit (resets Jul 18, 3am UTC)**, and it is now crash-looping the LLM-backed services — `garden-mentor` self-heal has failed hourly since Jul 15, triage circuit-breakers have opened on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk`, and two follow-up action blocks were rejected and dropped. The board is effectively drained (one shepherd on [#263](https://github.com/endojs/endo-but-for-bots/pull/263) in flight, nothing queued), and a wave of shepherd/gauntlet jobs (#124, #704, #694, #707, agoric-sdk #15) were poisoned and parked for overrunning the 2400s handler budget — several want splitting into claim-sized stages before requeue.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 14h)
-- [endojs/endo-but-for-bots#714](https://github.com/endojs/endo-but-for-bots/pull/714) — feat(platform): add listTree, rangeRead, rangeReadText (consolidate genie/lal/fae fs reads) (waiting 23h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 16h)
+- [endojs/endo-but-for-bots#714](https://github.com/endojs/endo-but-for-bots/pull/714) — feat(platform): add listTree, rangeRead, rangeReadText (consolidate genie/lal/fae fs reads) (waiting 1d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 1d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 2d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 3d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 5d)
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 13d)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 17d)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 14d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 16d)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 17d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 20d)
 
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
@@ -435,8 +433,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.6M | $936.20 _(notional, rate-card)_ | no quota set |
-| Codex | 73.2M _(+126.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 89.7M | $937.16 _(notional, rate-card)_ | no quota set |
+| Codex | 109.2M _(+126.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
