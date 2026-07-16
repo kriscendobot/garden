@@ -50,6 +50,77 @@ while IFS= read -r cand; do
 done < <(type -aP gh 2>/dev/null)
 [ -n "$real_gh" ] || { printf 'gh-wrapper: no real gh found on PATH after %s\n' "$self" >&2; exit 127; }
 
+# gh_is_write — true (rc 0) when argv is a STATE-CHANGING gh invocation. Used only
+# in the unresolved-token fallback below to decide fail-closed vs degrade. The set
+# is the mutating surface the fleet actually drives: pr/issue lifecycle verbs, the
+# reactji/comment POSTs (which go through `gh api … -X POST`), and any mutating
+# `gh api`. Read-only calls (default `api` GET, pr/issue view|list, auth status,
+# repo/run/release view|list, search, …) are NOT matched, so pollers and detectors
+# keep degrading tolerantly. The list is one-sided on purpose: a genuine write we
+# fail closed on is correct; the only harm would be misclassifying a read, so we
+# match only verbs that are unambiguously mutating.
+gh_is_write() {
+  local cmd="${1:-}" sub="${2:-}"
+  case "$cmd" in
+    pr)
+      case "$sub" in
+        create|comment|review|merge|edit|close|reopen|ready|lock|unlock) return 0;;
+      esac;;
+    issue)
+      case "$sub" in
+        create|comment|edit|close|reopen|delete|lock|unlock|pin|unpin|transfer) return 0;;
+      esac;;
+    release)
+      case "$sub" in
+        create|edit|delete|upload) return 0;;
+      esac;;
+    api)
+      _gh_api_is_write "${@:2}" && return 0;;
+  esac
+  return 1
+}
+
+# _gh_api_is_write — true when a `gh api` call mutates. gh defaults to GET, but an
+# explicit -X/--method other than GET/HEAD is a write, and any field flag
+# (-f/--raw-field, -F/--field) with no explicit read method makes gh POST — a
+# write (this is how the reactji/comment handlers post: `-X POST … -f content=…`).
+# An explicit `-X GET` that also carries -f/-F keeps the fields as query params, so
+# it stays a read. Value-bearing flags are consumed as flag+value so a header/jq
+# value like `-X` can never be misread as the method flag, and the first bare
+# positional is captured as the endpoint (used only for the graphql carve-out).
+_gh_api_is_write() {
+  local method="" has_field=0 endpoint=""
+  while [ "$#" -gt 0 ]; do
+    case "$1" in
+      -X|--method)     method="${2:-}"; shift; [ "$#" -gt 0 ] && shift; continue;;
+      -X=*|--method=*) method="${1#*=}"; shift; continue;;
+      -f|--raw-field|-F|--field)         has_field=1; shift; [ "$#" -gt 0 ] && shift; continue;;
+      -f=*|--raw-field=*|-F=*|--field=*) has_field=1; shift; continue;;
+      # other value-bearing flags: consume flag+value so the value is not mistaken
+      # for the endpoint positional below.
+      -H|--header|-q|--jq|-t|--template|--input|--hostname|--cache)
+                       shift; [ "$#" -gt 0 ] && shift; continue;;
+      -*)              shift;;  # boolean/unknown flag (--paginate, --slurp, -i, …)
+      *)               [ -z "$endpoint" ] && endpoint="$1"; shift;;
+    esac
+  done
+  # `gh api graphql` is ALWAYS a POST (the GraphQL transport), yet the fleet uses
+  # it as a READ — mirror-pr-state / mirror-closer read PR state via `api graphql
+  # -f query=…`. Classify graphql as a read so those pollers keep degrading rather
+  # than fail-closing on a token-less host. (A rare graphql *mutation* would degrade
+  # too; the field heuristic cannot tell them apart, and not breaking every graphql
+  # read is the priority the job requires.)
+  [ "$endpoint" = graphql ] && return 1
+  if [ -n "$method" ]; then
+    case "$method" in
+      [Gg][Ee][Tt]|[Hh][Ee][Aa][Dd]) return 1;;
+      *) return 0;;
+    esac
+  fi
+  [ "$has_field" -eq 1 ] && return 0
+  return 1
+}
+
 # If the caller already chose a token, honor it untouched (explicit override,
 # including the boatman pre-setting GH_TOKEN directly). Otherwise inject the
 # resolved identity's live token. `env -u GH_TOKEN` keeps the token lookup itself
@@ -57,12 +128,23 @@ done < <(type -aP gh 2>/dev/null)
 if [ -z "${GH_TOKEN:-}" ]; then
   if tok="$(env -u GH_TOKEN "$real_gh" auth token --user "$GARDEN_GH_IDENTITY" 2>/dev/null)" && [ -n "$tok" ]; then
     export GH_TOKEN="$tok"
+  elif gh_is_write "$@"; then
+    # Could not resolve the intended identity's token AND this is a mutating call.
+    # Exec'ing the bare gh here would perform the action as the GLOBAL active
+    # account — on the maintainer's host, the human (the #521 failure: a PR opened
+    # under the maintainer instead of @kriscendobot). Fail CLOSED: block the write
+    # and surface it, so the calling role handles the gap instead of landing work
+    # under the wrong identity.
+    printf 'gh-wrapper: ERROR kind:error could not resolve token for identity=%s; REFUSING a state-changing gh call (%s %s …) rather than acting as the global active account. Fix: log %s in on this host (`gh auth login`), pre-set GH_TOKEN, or set GARDEN_GH_IDENTITY to an available identity.\n' \
+      "$GARDEN_GH_IDENTITY" "${1:-}" "${2:-}" "$GARDEN_GH_IDENTITY" >&2
+    exit 1
   else
     # Could not resolve the intended identity's token (account not logged in on
-    # this host?). Degrade to the bare gh baseline rather than break every fleet
-    # gh call — but say so loudly, because the fallback is exactly the leak this
-    # wrapper exists to prevent.
-    printf 'gh-wrapper: WARNING could not resolve token for identity=%s; falling back to the global active account (POSSIBLE IDENTITY LEAK)\n' \
+    # this host?), but this is a READ. Degrade to the bare gh baseline rather than
+    # break every fleet poller/detector — but say so loudly. A read mis-attributed
+    # to the global account returns the same data; only writes leak, and those are
+    # already blocked above.
+    printf 'gh-wrapper: WARNING could not resolve token for identity=%s; falling back to the global active account for a read-only call (writes fail closed)\n' \
       "$GARDEN_GH_IDENTITY" >&2
   fi
 fi
