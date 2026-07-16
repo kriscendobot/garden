@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-16T12:34:20Z_
+_As of 2026-07-16T12:37:41Z_
 
 ## Latest
 
-The garden has been idle on the board since the last bulletin — no posts, claims, or completions — because the leader host hit its **Claude weekly quota** (resets Jul 18, 3am UTC), and the maintainer inbox now reflects the fallout: repeated `garden-mentor` self-heal failures, dropped `liaison:follow-up` action blocks, and triage circuit-breakers tripping on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk` — all with the same "weekly limit" diagnosis. Two of those breaker repos (plus `kriscendobot-finbot`) are also flagged as possibly outside the authorized watch set, worth confirming under the monitoring-safety constraint.
+The Claude weekly quota is exhausted (resets Jul 18, 3am UTC), and that ceiling is now the dominant signal on the board: it has been knocking over `garden-mentor` self-heal hourly, tripped triage circuit-breakers on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk`, and caused two liaison follow-up action blocks to be rejected and dropped. The board itself has drained to near-idle — only [endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/pull/707)'s weave is in flight — and a cluster of shepherd/gauntlet jobs ([#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), #694, #707) plus a dead-lettered issue-#31 job have been poisoned and parked for handler-budget overruns (rc=124 at the 2400s wall), awaiting a split or manual promotion.
 
-Several decisions are stacked up waiting on kriskowal. The foreman reports **M2 (Project Hygiene)** is one merge-pair away from done: [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) (hardened-url-shim) and [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (hardened-text-codecs-shim) are both open, un-drafted, CI-clean, and threads-resolved — they just need merging. **M3** is blocked on a package-home ruling: the MVS resolver now lives in two competing PRs, [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon/registry.js`) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (a dedicated `@endo/exo-npm`), and the snapshot-mapper / worker-import layers can't proceed until one wins. A build follow-up for `@endo/cbor` phase 1 is parked awaiting go-ahead, tracking the merged [#710](https://github.com/endojs/endo-but-for-bots/pull/710) design.
-
-Also needing a call: a review-retrospective escalation on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) where the "avoid abbreviation" cluster recurred (count=4, across PRs #650/#609/#671) because the pre-push gate only scans newly-added lines and missed a `fetchImpl` that predated its deployment — the maintainer's judgment is requested on whether to widen the gate. A handful of long-running shepherd and gauntlet jobs (PR #124, #704, #694, #707, agoric-sdk #15) were poisoned for overrunning the 2400s handler budget and parked in the plan queue for splitting or promotion.
+Two foreman notes want a maintainer decision. Milestone M2 (Project Hygiene) is at 6/8 with its last two designs already delivered as open, CI-clean, un-drafted PRs [#719](https://github.com/endojs/endo-but-for-bots/pull/719) and [#259](https://github.com/endojs/endo-but-for-bots/pull/259) — closing M2 is just merging both. M3's remaining module-loading layers are blocked on a package-home ruling: the MVS resolver now lives in two competing open PRs, [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon/registry.js`) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (a dedicated `@endo/exo-npm`), and one must win so the loser can be closed. Separately, a review-retrospective escalated on [#671](https://github.com/endojs/endo-but-for-bots/pull/671): the "avoid abbreviation" cluster recurred (count=4) on a `fetchImpl` line that predates the spell-out gate's deployment — a structural blind spot in the diff-only scanner that needs your call on whether to widen it. A phase-1 build for `@endo/cbor` (from the merged [#710](https://github.com/endojs/endo-but-for-bots/pull/710) design) sits parked in the plan queue awaiting go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -431,15 +429,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 88.7M | $927.03 _(notional, rate-card)_ | no quota set |
+| Claude | 88.8M | $928.32 _(notional, rate-card)_ | no quota set |
 | Codex | 52.1M _(+126.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr707-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr707-weave.md) — ---
 
 ### tada (2323)
 - [`endojs-endo-but-for-bots-pr676-b3edafc8-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr676-b3edafc8-retro.md) — Completion report
