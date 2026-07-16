@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-16T23:40:28Z_
+_As of 2026-07-16T23:41:19Z_
 
 ## Latest
 
-The big blocker: `endojs/endo-but-for-bots` **master itself is red** from an incomplete `packages/cbor` landing (missing LICENSE/SECURITY.md, uniformity fields, and a `test/cbor.test.js` `@endo/eventual-send` resolution failure), so red CI on bot PRs like [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) is inherited, not PR-attributable — the fix belongs on master (a cbor-package job), then rebase the affected PRs. Separately, the fleet is hitting the **weekly Claude limit (resets Jul 18, 3am UTC)**: the mentor, several triagers (`kriscendobot-minion.town`, `kriscendobot-agoric-sdk`), and a foreman pump are failing rc=1/self-heal loops purely on quota exhaustion, and two triage circuit-breakers are open. Completions this cycle were mostly the `reconstruct-ebfb-*` provenance sweep (the master-merged-PRs orchestration finished), though several of those jobs reported **empty diffs** — the reconstructed PRs (#69, #545, #720) are already ancestors of master, so no faithful PR can be minted until a re-mirror drops the merge. On the merge-decision front, the foreman is nudging repeatedly that **M2 is one decision from done** — build-ready shims [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) await merge/ferry (close the redundant #263) — and **M3 is stalled on a package-home ruling** between the MVS resolver in [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403). The SturdyRef ([endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737)) and esheets ([endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621)) trees are both fully gated on your review. On the autonomous side, finbot advanced main twice (regime-aware position sizing, then live GJR-GARCH leverage-γ MLE estimation, 538 tests green, wallet untouched), and a gardener found and fixed a monotonic-timer starvation bug that had silently stalled the xs2rust-endor chain ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) for 5 days — flagging that four other watcher timers still carry the same pattern.
+The fleet is largely stalled on the Claude weekly limit (resets Jul 18, 3am UTC): garden-mentor's self-heal has failed hourly since Jul 15, and triage circuit-breakers opened for `kriscendobot-minion.town`, `kriscendobot-agoric-sdk`, and `kriscendobot-finbot`. Most pressing on the code side, `endo-but-for-bots` **master itself is red** — an incomplete `packages/cbor` landing (missing LICENSE/SECURITY.md, an unresolved `@endo/eventual-send` import, and a zizmor action-pin mismatch) is failing lint/test/zizmor repo-wide; a shepherd on [#475](https://github.com/endojs/endo-but-for-bots/pull/475) traced its red CI to master, so a master-side cbor fix is needed before dependent PRs can go green.
+
+Several merge decisions are now the only thing gating milestones. The foreman reports **M2 (Project Hygiene)** is one call from done: the text-codecs shim [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and URL shim [#719](https://github.com/endojs/endo-but-for-bots/pull/719) are both green and merge-ready, pending a decision to adopt #719's `%URL%`/`%SharedURL%` split and close the redundant, CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263). **M3** is blocked on a package-home ruling between two competing MVS-resolver PRs — `@endo/daemon/registry.js` [#671](https://github.com/endojs/endo-but-for-bots/pull/671) vs the dedicated `@endo/exo-npm` [#403](https://github.com/endojs/endo-but-for-bots/pull/403). The esheets tree remains dammed behind OAuth PR [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, refinements landed, now 6 days awaiting re-review), and the SturdyRef effort needs a first review of draft [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus a marshal rank-prefix/stack-collapse decision.
+
+Two infrastructure notes worth flagging: the xs2rust-endor chain ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) had silently stalled 5 days on a starved `garden-unblock` monotonic timer, now fixed on main2 (`6012296908`) — but proxy/watchman/mention-watcher/scaler/repo-watcher timers reportedly still carry the same bug and want a sweep. Meanwhile finbot advanced on its own repo (regime-aware position sizing, then live GJR-GARCH leverage MLE at `df2a164`, 538 tests green, wallet untouched), and a batch of reconstruct-ebfb provenance jobs came back blocked because master already contains those merges byte-for-byte. Handler-budget overruns (2400s) also poisoned a cluster of shepherd/gauntlet jobs now parked for promotion.
 
 ## Parked for maintainer feedback
 
@@ -574,16 +578,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 99.5M | $1016.73 _(notional, rate-card)_ | no quota set |
+| Claude | 99.6M | $1018.43 _(notional, rate-card)_ | no quota set |
 | Codex | 125.7M _(+149.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-kebab-case-lint-wildcard-test262.md) — Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
 - [`mirror-endo-3212-capn-web-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mirror-endo-3212-capn-web-gauntlet.md) — Mirror upstream endojs/endo#3212 (Cap'n Web RPC package) onto a frozen master...
+- [`port-xs-to-rust-memory-safe-engine-s21`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s21.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`scholar-ingest-financial-forecasting-corpus-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-financial-forecasting-corpus-2.md) — Scholar: ingest the remaining financial-forecasting corpus (follow-on 2)
 - [`xs2rust-endor-press-20260716-233503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260716-233503.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
@@ -628,7 +633,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`build-daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase3.md) — awaiting `build-daemon-rename-to-manager-phase2` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-regexp-conservative-subset.md) — awaiting `endojs/endo-but-for-bots#676` · Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
-- [`port-xs-to-rust-memory-safe-engine-s21`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s21.md) — awaiting `xs2rust-endor-s20-ledger-restore-fix` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`registry-immutable-byte-array-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/registry-immutable-byte-array-followup.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/671` · Immutable byte-array RegistryInterface follow-up
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
