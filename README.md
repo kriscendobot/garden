@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-16T22:40:59Z_
+_As of 2026-07-16T22:43:27Z_
 
 ## Latest
 
-Master on `endojs/endo-but-for-bots` is red from an incomplete `packages/cbor` landing (missing LICENSE/SECURITY.md, an unresolved `@endo/eventual-send` import, and a zizmor action-pin mismatch), so PR CI failures there are inherited rather than PR-attributable — the shepherd on [#475](https://github.com/endojs/endo-but-for-bots/pull/475) flagged this and declined to push. The corrective `build-endo-cbor-package` (phase 1: create `packages/cbor/`, hardened primitive codec + golden vectors, per the merged [#710](https://github.com/endojs/endo-but-for-bots/pull/710) design) is now claimed and in flight; once master is green the affected feature branches need a rebase.
+The finbot tree advanced main to `df2a164` with live GJR-GARCH leverage-parameter (gamma) MLE estimation (538 tests green, wallet untouched), and the XS→Rust Endor port cleared Stage 6's round-trip/fuzz child and claimed its supervisor-integration child (5/6). A `build-endo-cbor-package` job (phase 1 of the @endo/cbor design landed in [endo-but-for-bots#710](https://github.com/endojs/endo-but-for-bots/pull/710)) is now in flight.
 
-The fleet is under a **Claude weekly-limit outage** (resets Jul 18, 3am UTC): `garden-mentor` self-heal has failed hourly since Jul 15, follow-up action blocks were rejected, and triage circuit-breakers opened on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk`. Expect degraded autonomous throughput until the reset.
+Most urgent: **`master` is red on endo-but-for-bots** from an incomplete `packages/cbor` landing — the shepherd on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) traced the failing lint/test/zizmor checks to master itself (missing cbor LICENSE/SECURITY.md, `@endo/eventual-send` not resolving in cbor tests), so the fix belongs on master before any feature PR can go green. Several maintainer merge/decision gates are stacked and blocking work: M2 hygiene is one merge from done ([#259](https://github.com/endojs/endo-but-for-bots/pull/259) text-codecs shim, [#719](https://github.com/endojs/endo-but-for-bots/pull/719) URL shim, with the redundant CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263) to close); M3 needs a ruling on the registry home ([#671](https://github.com/endojs/endo-but-for-bots/pull/671) vs [#403](https://github.com/endojs/endo-but-for-bots/pull/403)); the SturdyRef effort has three open gates around [#737](https://github.com/endojs/endo-but-for-bots/pull/737); and the esheets tree is fully dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621), now 6 days awaiting re-review.
 
-Several lanes are dammed on maintainer decisions worth clearing: **M2 (Project Hygiene)** is one merge away from complete — the foreman surfaced repeatedly that hardened-shim PRs [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) are green/mergeable and awaiting merge/ferry (with the redundant, CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263) to close). **M3** is blocked on a package-home ruling between the MVS resolver in [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and the dedicated `@endo/exo-npm` in [#403](https://github.com/endojs/endo-but-for-bots/pull/403). The SturdyRef stack is fully gated on a first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus a rank-prefix pick, and the esheets tree remains stalled behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, ~6 days awaiting re-review). Separately, a gardener found and fixed a monotonic-timer starvation bug in `garden-unblock.timer` that had silently stalled the xs2rust-endor chain ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) for five days — noting the same timer pattern still affects proxy/watchman/mention-watcher/scaler/repo-watcher and may want a sweep.
+Also notice: the **Claude weekly limit was hit (resets Jul 18, 3am UTC)**, crash-looping garden-mentor and several triagers and tripping triage circuit-breakers on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk` (both worth confirming they even belong in the watch set, per the monitoring-safety constraint). A batch of shepherd/gauntlet jobs (PRs #124, #704, #694, #707, agoric-sdk #15) overran the 2400s handler budget and were poisoned into the plan queue — they need splitting or a raised timeout. On the plus side, the xs2rust press-driver found and fixed a monotonic-timer starvation bug in `garden-unblock.timer` on main2 (`6012296908`) that had silently stalled the chain 5 days, and flagged that four other timers likely carry the same pattern.
 
 ## Parked for maintainer feedback
 
@@ -353,6 +353,35 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > proxy/watchman/mention-watcher/scaler/repo-watcher timers still carry the same
 > monotonic pattern — worth a sweep job if you want it.
 
+- `20260716T224153Z-8c9201` — from gardener:finbot-progress-20260716-223502, reply_to `finbot-progress-20260716-223502` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T224153Z-8c9201.md)
+
+> finbot progress (asymmetric/leverage MLE): advanced main efa6454 -> df2a164.
+>
+> This cycle lifted the longest-standing forecasting-axis deferral — live estimation
+> of the GJR-GARCH leverage parameter gamma. The GJR surface already models the
+> leverage effect but its from-history fit *supplied* gamma from config; the new
+> `gjrGarchMleFromPriceHistory` estimates (alpha, gamma, beta) per asset from the
+> realized down/up asymmetry, via the same deterministic nested-grid MLE as the
+> symmetric fitter (variance-targeting omega out of the search, no RNG, no optimizer
+> lib). Routed through makeVolSurface (kind gjr-garch + estimate mle, formerly a
+> "deferred" throw) and exported from the simulator index.
+>
+> Evidence: new gjr-garch-mle.test.js proves recovery (a leverage DGP fits gamma
+> > 0.05 with downWeight > upWeight; a symmetric DGP through the same seed fits
+> gamma < 0.05), determinism, short-window/constant-price fallback, and factory
+> routing. Full suite 538 pass / 0 fail (was 528); finbot-ooda --seed=7 green,
+> WALLET TOUCHED: false. No CI workflows on the repo, so nothing to shepherd.
+>
+> Next unblocked step: feed the fitted asymmetry into the *live regime read* the
+> pipeline cites — conditionalVolFromPriceHistory still rolls the symmetric surface
+> even when the world is GJR, so the auditor's tail floor and analyzer's sizing see
+> magnitude-conditional vol, not down-move-conditional vol. A `gjr-mle` roll-forward
+> would close that. Deferred behind that: EGARCH, implied-vol surfaces, PNG raster,
+> far-ref vending.
+>
+> Maintainer decision still pending (unchanged): live execution stays blocked on an
+> explicit paper-wallet/test-net authorization and a chosen CapTP transport.
+
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -523,25 +552,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.9M | $995.10 _(notional, rate-card)_ | no quota set |
+| Claude | 96.9M | $994.19 _(notional, rate-card)_ | no quota set |
 | Codex | 124.2M _(+145.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`build-endo-cbor-package`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-cbor-package.md) — Build: create @endo/cbor (phase 1) per the landed design in PR #710
-- [`finbot-progress-20260716-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260716-223502.md) — Push progress on kriscendobot/finbot (every 6h)
-- [`xs2rust-endor-stage6-roundtrip-fuzz`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage6-roundtrip-fuzz.md) — Stage 6 child 4/6: snapshot round-trip-invariance + malformed-atom fuzz targets
+- [`xs2rust-endor-stage6-supervisor-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage6-supervisor-integration.md) — Stage 6 child 5/6: supervisor suspend/resume integration on -e endor-rs
 
-### tada (2377)
+### tada (2379)
+- [`xs2rust-endor-stage6-roundtrip-fuzz`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage6-roundtrip-fuzz.md) — Stage-6 child 4: snapshot round-trip-invariance + malformed-atom fuzz targets...
+- [`finbot-progress-20260716-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260716-223502.md) — Completion report
 - [`endo-sturdyref-press-20260716-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260716-223502.md) — What I did
 - [`xs2rust-endor-press-20260716-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260716-223502.md) — Press check-in complete — this tick was a deliberate defer, and the chain is ...
 - [`self-heal-fix-garden-issue-inbox-enum-fatal-swallowed-gh-stderr`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-issue-inbox-enum-fatal-swallowed-gh-stderr.md) — Completion report
-- [`xs2rust-endor-stage6-machine-surface`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage6-machine-surface.md) — Completion report
-- [`deadmail-issue-comment-4996996230`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4996996230.md) — Created private kriscendobot/ymax-e2e with the safe Playwright recording-harn...
-- … and 2372 more
+- … and 2374 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
