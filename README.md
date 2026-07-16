@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-16T16:21:42Z_
+_As of 2026-07-16T16:24:56Z_
 
 ## Latest
 
-Milestone **M2 (Project Hygiene)** is one merge decision from done: both remaining rows are built to merge-ready (non-draft, CI-clean, mergeable) — the hardened-URL shim in [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) (its `CHANGES_REQUESTED` lockdown-docs note addressed at head) and the hardened-text-codecs shim in [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) — so the foreman is asking you to authorize the merge/ferry and close the superseded, conflicting [endo-but-for-bots#263](https://github.com/endojs/endo-but-for-bots/pull/263). The git-capability Phase 3 stack advanced with weave completions on [endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) and [endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/pull/707), and the merged `@endo/cbor` design in [endo-but-for-bots#710](https://github.com/endojs/endo-but-for-bots/pull/710) has left a phase-1 build (`build-endo-cbor-package`) parked awaiting your go-ahead. Two decisions are blocking further M3 work: the foreman needs you to rule which home wins for the MVS resolver — `@endo/daemon/registry.js` in [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) versus the dedicated `@endo/exo-npm` in [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — and a review-retrospective escalation flags the avoid-abbreviation cluster recurring (your "Avoid abbreviation" on `fetchImpl` in #671), a pre-existing line the deterministic gate structurally can't scan.
-
-Most importantly, the fleet has been hitting the **weekly usage limit (resets Jul 18, 3am UTC)** since Jul 14: the mentor self-heals have failed hourly, liaison follow-ups were rejected and dropped, and triage circuit-breakers opened on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk` — the latter two also worth confirming they belong in the watch set under the monitoring-safety constraint. Separately, a run of shepherd/gauntlet jobs is overrunning the 2400s handler budget and being poisoned to the plan queue (#124, #704, #694, #707, and kriscendobot/agoric-sdk#15); they need splitting into claim-sized stages or a raised timeout before they can complete.
+The esheets tree's daily standup and a weave job on [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth, re-rebased onto fresh `llm` to clear a conflict) are the only board motion — the tree remains dammed behind that single un-merged, all-green PR, now sitting six days awaiting re-review despite a stale `CHANGES_REQUESTED`. Two foreman notes want a maintainer decision: M2 (Project Hygiene) is one merge from done, with [endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) (hardened-text-codecs-shim) and [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) (hardened-url-shim) both built merge-ready (also close the superseded, conflicting #263); and M3's module-loading tail is stalled on a package-home ruling between the MVS resolver in [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), one of which must be chosen so the other can close. Note the fleet has hit its weekly Claude limit (resets Jul 18, 3am UTC): garden-mentor and several triagers are failing rc=1 with no scoped fix, triage circuit-breakers have opened on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk`, and a follow-up action block was dropped — plus several shepherd/gauntlet jobs (PRs #124, #704, #694, #707, and agoric-sdk #15) have been poisoned for overrunning the handler budget and are parked awaiting promotion.
 
 ## Parked for maintainer feedback
 
@@ -263,6 +261,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > M2 (Project Hygiene) is one merge decision from complete: its two remaining rows — `hardened-text-codecs-shim` (PR [endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/issues/259)) and `hardened-url-shim` (PR [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/issues/719)) — are both built to merge-ready state (non-draft, MERGEABLE/CLEAN, CI all-green; #719's gauntlet is complete). No unblocked work job remains; landing #259 and #719 (and closing the superseded, CONFLICTING alternative #263) is a merge/ferry authority decision. Please authorize the merge/ferry to close M2 (plan design-record statuses for both are stale at "Not Started" and want advancing).
 
+- `20260716T162359Z-d9c132` — from gardener:esheets-supervisor-20260716-162017, reply_to `esheets-supervisor-20260716-162017` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T162359Z-d9c132.md)
+
+> **esheets tree — daily standup (2026-07-16).** Still dammed behind one node.
+>
+> - **MERGED:** `endoclaw-network-fetch` (HttpClient allowlist floor); base designs `endoclaw-oauth.md` + `exo-google-sheets.md` on `llm`.
+> - **THE BLOCKER — PR [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621)** ("refine endoclaw-oauth… settle first-mint flow"): OPEN, un-drafted, **all 5 CI checks GREEN**. The design round you asked for on 2026-07-10 — recursive partition/delegation with narrowing, plus the named composite **caretaker-attenuation** pattern — **landed on the head (commits 2026-07-13)**. It has re-drifted to `CONFLICTING`; I posted a weave today to make it one-click mergeable again. It has now sat **6 days awaiting your re-review + merge**, still showing the stale `CHANGES_REQUESTED`.
+> - **NOTHING else can start** until [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621) lands: OAuth exo → `@endo/google-sheets` → `@endo/exo-google-sheets` are all downstream of it, no impl packages exist yet.
+>
+> **Decision needed:** please re-review + merge [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621) (or tell me to proceed building the OAuth exo on the merged base `endoclaw-oauth.md` and land [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621)'s refinements later). This is the sole thing gating the whole tree.
+
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -433,8 +441,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.9M | $938.71 _(notional, rate-card)_ | no quota set |
-| Codex | 113.0M _(+126.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 90.0M | $939.21 _(notional, rate-card)_ | no quota set |
+| Codex | 113.5M _(+126.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
@@ -443,16 +451,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (4)
 - [`endo-sturdyref-press-20260716-162017`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260716-162017.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endojs-endo-but-for-bots-pr263-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr263-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #263
-- [`esheets-supervisor-20260716-162017`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260716-162017.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
 - [`finbot-progress-20260716-162017`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260716-162017.md) — Push progress on kriscendobot/finbot (every 6h)
+- [`weave-endo-but-for-bots-pr621-endoclaw-oauth-20260716`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/weave-endo-but-for-bots-pr621-endoclaw-oauth-20260716.md) — weave #621 — rebase endoclaw-oauth refinement onto fresh llm
 
-### tada (2327)
+### tada (2328)
+- [`esheets-supervisor-20260716-162017`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260716-162017.md) — Completion report
 - [`endojs-endo-but-for-bots-hardened-url-shim-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-hardened-url-shim-build.md) — Everything is complete and verified. Inbox is empty. Let me write the complet...
 - [`endojs-endo-but-for-bots-hardened-text-codecs-shim-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-hardened-text-codecs-shim-build.md) — Found the completed, mergeable implementation already open as [endojs/endo-bu...
 - [`endojs-endo-but-for-bots-pr705-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr705-weave.md) — Completion report — weave endojs/endo-but-for-bots PR #705
 - [`endojs-endo-but-for-bots-pr707-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr707-weave.md) — Weave Report — endojs/endo-but-for-bots #707
-- [`endojs-endo-but-for-bots-pr676-b3edafc8-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr676-b3edafc8-retro.md) — Completion report
-- … and 2322 more
+- … and 2323 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
