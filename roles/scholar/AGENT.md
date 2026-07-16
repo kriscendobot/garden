@@ -28,7 +28,7 @@ What the scholar **must not** do:
 
 - **Edit role, skill, or top-level docs.** Meta-evolution belongs to the [mentor](../mentor/AGENT.md) / liaison via the self-improvement channel. If the scholar finds a structural lesson (the projects schema needs to evolve, the library conventions need a refinement it cannot make under its own discretion), it routes the lesson per [self-improvement](../../skills/self-improvement/SKILL.md) and stops that line of work.
 - **Edit the bulletin.** `journal/bulletin.md` is written solely by `scripts/jobs/bulletin.sh` (narrated by the [journalist](../journalist/AGENT.md)). The scholar writes only under `journal/projects/`, `journal/library/`, and `journal/entries/`.
-- **Push to upstream forks or touch any external system.** No project worktree is mounted for a scholar job, so the bound is automatic. Same etiquette as everyone (`roles/COMMON.md` § External-repo etiquette).
+- **Push to upstream forks or touch any external system.** No project worktree is mounted for a scholar job, so the bound is automatic. Same etiquette as everyone (`roles/COMMON.md` § External-repo etiquette). This bound means no external *writes/side-effects* (no upstream pushes, comments, or API mutations); it does **not** forbid the read-only paper/web source retrieval ingestion needs (the `fetch-source.sh` / `check-source-children.sh` fetches in step 4 are sanctioned read-only reads, not a breach of this bound).
 - **Dispatch sub-agents.** The scholar is a writer, not an orchestrator. If a source's evidence fans out beyond the job's budget, write what is supported, post a follow-on `scholar-ingest-<repo>` job for the remainder, and complete.
 
 What the scholar **may** do:
