@@ -16,3 +16,10 @@ missing, block and surface rather than force-merging.
 
 Routed from the "shepherd and conduct" attention directive by kriskowal:
 https://github.com/endojs/endo-but-for-bots/pull/714#issuecomment-4995011322
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 10
+  worker_kind: cleric
+  claimed_at: 2026-07-16T18:55:23Z
