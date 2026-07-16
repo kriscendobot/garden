@@ -14475,3 +14475,69 @@ agentic development | wanting-as-the-human-role
 agent flock | wanting-as-the-human-role
 managing AI agents like junior developers | wanting-as-the-human-role
 Chip Morningstar AI revolution | wanting-as-the-human-role
+managing AI agents like junior developers | wanting-as-the-human-role
+Chip Morningstar AI revolution | wanting-as-the-human-role
+walk-forward | walk-forward-validation
+walk-forward backtest | walk-forward-validation
+rolling forecasting origin | walk-forward-validation
+time series cross-validation | walk-forward-validation
+tscv | walk-forward-validation
+expanding window | walk-forward-validation
+out-of-sample backtest | walk-forward-validation
+rolling-origin evaluation | walk-forward-validation
+MASE | mean-absolute-scaled-error
+mean absolute scaled error | mean-absolute-scaled-error
+scaled error | mean-absolute-scaled-error
+RMSSE | mean-absolute-scaled-error
+MAPE | mean-absolute-scaled-error
+sMAPE | mean-absolute-scaled-error
+RMSE | mean-absolute-scaled-error
+forecast skill | mean-absolute-scaled-error
+naive baseline | mean-absolute-scaled-error
+skill score | mean-absolute-scaled-error
+QLIKE | mean-absolute-scaled-error
+data snooping | data-snooping-bias
+data-snooping bias | data-snooping-bias
+data mining bias | data-snooping-bias
+backtest overfitting | data-snooping-bias
+multiple testing | data-snooping-bias
+White's Reality Check | data-snooping-bias
+Reality Check | data-snooping-bias
+Superior Predictive Ability | data-snooping-bias
+SPA test | data-snooping-bias
+Hansen SPA | data-snooping-bias
+Model Confidence Set | data-snooping-bias
+Deflated Sharpe Ratio | data-snooping-bias
+Diebold-Mariano | data-snooping-bias
+DM test | data-snooping-bias
+p-hacking | data-snooping-bias
+look-ahead bias | look-ahead-bias
+lookahead bias | look-ahead-bias
+information leakage | look-ahead-bias
+data leakage | look-ahead-bias
+survivorship bias | look-ahead-bias
+point-in-time | look-ahead-bias
+GARCH | garch-volatility-models
+ARCH | garch-volatility-models
+GARCH(1,1) | garch-volatility-models
+GJR-GARCH | garch-volatility-models
+EGARCH | garch-volatility-models
+volatility clustering | garch-volatility-models
+volatility persistence | garch-volatility-models
+conditional heteroskedasticity | garch-volatility-models
+conditional volatility | garch-volatility-models
+leverage effect | garch-volatility-models
+RiskMetrics | garch-volatility-models
+EWMA volatility | garch-volatility-models
+realized volatility | garch-volatility-models
+HAR-RV | garch-volatility-models
+volatility targeting | garch-volatility-models
+volatility forecasting | garch-volatility-models
+efficient market hypothesis | efficient-market-hypothesis
+EMH | efficient-market-hypothesis
+market efficiency | efficient-market-hypothesis
+limits of predictability | efficient-market-hypothesis
+return predictability | efficient-market-hypothesis
+adaptive markets | efficient-market-hypothesis
+equity premium prediction | efficient-market-hypothesis
+Meese-Rogoff | efficient-market-hypothesis
