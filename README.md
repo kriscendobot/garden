@@ -1,16 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-16T18:58:14Z_
+_As of 2026-07-16T18:59:50Z_
 
 ## Latest
 
-The main board movement this cycle was the completion of [endojs/endo-but-for-bots#714](https://github.com/endojs/endo-but-for-bots/pull/714), whose shepherd→conduct orchestration finished and merged the PR into `llm`. Beyond that the board is drained (0 todo, 0 doin), and the notable signals are all in the maintainer inbox.
+PR [endojs/endo-but-for-bots#714](https://github.com/endojs/endo-but-for-bots/pull/714) shepherded green and merged into `llm` (merge commit 25978ee); its retrospective is the only job still in flight. The most urgent signal is a **broken master**: the shepherd on [#475](https://github.com/endojs/endo-but-for-bots/pull/475) reports that endo-but-for-bots `master` is itself red from an incomplete `packages/cbor` landing (missing LICENSE/SECURITY.md, an unresolved `@endo/eventual-send` import, and a zizmor pin mismatch), so several PRs' red CI is inherited, not PR-attributable — the fix belongs on master before those branches can rebase clean.
 
-Two things want attention. First, **`endo-but-for-bots` master itself is red** from an incomplete `packages/cbor` landing — the shepherd on [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) correctly diagnosed that the failing lint/test/zizmor checks are inherited from master (missing LICENSE/SECURITY.md on the cbor package, an unresolved `@endo/eventual-send` import, and a workflow pin mismatch), not PR-attributable; a master-side cbor fix is needed before dependent PRs can go green. The parked [`build-endo-cbor-package`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-cbor-package.md) job (phase 1 of the design landed in [endojs/endo-but-for-bots#710](https://github.com/endojs/endo-but-for-bots/pull/710)) is the intended follow-up but awaits your go-ahead.
+Two decisions are stacked on the maintainer. The foreman reports **M2 (Project Hygiene) is one merge from done**: the vetted-shim PRs [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL) are both green/mergeable and gauntlet-passed, awaiting merge plus closing the redundant, CI-failing alternative [#263](https://github.com/endojs/endo-but-for-bots/pull/263). **M3** is blocked on a package-home ruling between two competing MVS-resolver PRs — [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon/registry.js`) versus [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (`@endo/exo-npm`) — so the loser can be closed. Separately, the esheets tree remains dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, re-weaved to clear a conflict, sitting 6 days on a stale `CHANGES_REQUESTED`).
 
-Second, the foreman is repeatedly flagging that **milestone M2 (Project Hygiene) is one merge decision from complete**: the two remaining shim PRs — [endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs) and [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL shim) — are built, gauntleted, and merge-ready, with the redundant CI-failing [endojs/endo-but-for-bots#263](https://github.com/endojs/endo-but-for-bots/pull/263) to be closed. M3 is separately blocked on a package-home ruling between the MVS resolver in [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), and the esheets tree remains dammed behind [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) awaiting re-review. All are merge/authority calls the fleet cannot take.
-
-Finally, the Claude **weekly token limit is exhausted (resets Jul 18, 3am UTC)**, which is crash-looping `garden-mentor` self-heal and has tripped triage circuit-breakers on `kriscendobot-finbot`, `kriscendobot-minion.town`, and `kriscendobot-agoric-sdk` — worth confirming those three even belong in the watch set, since only `endojs/endo-but-for-bots` is authorized under the monitoring-safety constraint.
+Note the **Claude weekly limit was exhausted** (resets Jul 18) — that is the root cause behind the wave of self-heal failures, the garden-mentor crash loop, dropped follow-up action blocks, and the triage circuit-breakers that opened on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk`. Several long-running shepherd/gauntlet jobs also overran the 2400s handler budget and were poisoned to the plan queue (including #124, #704, and the git-capability #707 gauntlet), where they wait on promotion.
 
 ## Parked for maintainer feedback
 
@@ -481,15 +479,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 93.3M | $968.91 _(notional, rate-card)_ | no quota set |
+| Claude | 93.2M | $968.37 _(notional, rate-card)_ | no quota set |
 | Codex | 119.0M _(+137.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr714-review-902775bf-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr714-review-902775bf-retro.md) — Retrospective on endojs/endo-but-for-bots PR #714 (primary: endojs-endo-but-f...
 
 ### tada (2353)
 - [`endojs-endo-but-for-bots-pr714-shepherd-conduct-4995011322`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr714-shepherd-conduct-4995011322.md) — orchestration endojs-endo-but-for-bots-pr714-shepherd-conduct-4995011322 — co...
@@ -526,7 +524,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr714-review-902775bf-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr714-review-902775bf-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #714 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr714-9acfbf68-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr714-9acfbf68-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #714 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
