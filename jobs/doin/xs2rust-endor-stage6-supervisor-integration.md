@@ -61,3 +61,10 @@ failure.
 - Capture test runs to files, check `$?`; `/tmp` is noexec (`bash /path/script.sh`).
 - Budget: ONE 2400s invocation. Assess early, choose build-vs-probe deliberately, land green.
 - Report via tada ONLY; never inbox-send the parked supervisor.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 11
+  worker_kind: gardener
+  claimed_at: 2026-07-16T22:43:08Z
