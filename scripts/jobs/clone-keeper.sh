@@ -90,24 +90,13 @@ GARDEN_TAG="clone-keeper"
 # Blank lines and #-comment lines are ignored. Override GARDEN_TRACKED_CLONES
 # (newline-separated, same format) for tests or to track additional clones.
 #
-# The one standing clone the fleet actually cuts worktrees from is the
-# endojs/endo-but-for-bots fork (WORKTREES.md § Fork worktrees;
-# ensure-project-worktree.sh, import-endo.sh, the endo-but-for-bots watcher). Its
-# `master` branch is the PASSIVE upstream-mirror of endojs/endo that nothing
-# fetches on its own — the exact "sits weeks-stale, silently blocks upstream-drift
-# re-ingestion" hazard this keeper exists to kill (052b0487 sat six weeks; it is a
-# commit on THIS clone's master). The fork's `llm` working branch is NOT tracked:
-# the fleet pushes to it constantly, so it never goes passively stale the way the
-# master mirror does. Pure upstream `endojs/endo` is deliberately NOT tracked here
-# — it is out of autonomous scope (no PRs/comments; see ci-watcher.sh /
-# comment-watcher.sh), it has no standing bare clone on this host, and scholar
-# re-ingestion reads upstream shas via the gh API rather than a local clone. The
-# fourth field pins the AUTHORITATIVE re-clone source explicitly: the fork's
-# basename endojs-endo-but-for-bots.git is exactly the ambiguous case derive_clone_url
-# warns about (owner endojs / name endo-but-for-bots vs owner endojs-endo / name
-# but-for-bots), so the URL is given rather than derived.
+# The mutable `master` branch of endojs/endo-but-for-bots is deliberately NOT
+# tracked here. It is a fork integration branch, not an upstream mirror: advancing
+# or recreating it from endojs/endo discards merge commits made in the fork. The
+# only sanctioned upstream-base artifact on that fork is a frozen `master-<hash>`
+# branch, created by the frozen-base-branch workflow when a PR needs an anchor.
 #
-# The second tracked clone is the kriscendobot/vattr97 fork, registered on
+# The tracked clone below is the kriscendobot/vattr97 fork, registered on
 # maintainer request (kriskowal/garden#26, dckc: "register a fork of dckc/vattr97
 # and put the design there") to hold the OpenCollective⟷ERTP design of record
 # (designs/opencollective-ertp.md). Its `main` mirrors the fork's default branch;
@@ -117,9 +106,9 @@ GARDEN_TAG="clone-keeper"
 # fork is NOT on any watcher's safe-to-watch set (§ Monitoring safety constraint);
 # registration here is purely a standing bare clone the fleet can cut design
 # worktrees from. Basename kriscendobot-vattr97.git is unambiguous, but the
-# <clone-url> is pinned explicitly for parity with the endo row.
-: "${GARDEN_TRACKED_CLONES:=worktrees/endojs-endo-but-for-bots.git|origin|master|ssh://git@github.com/endojs/endo-but-for-bots.git
-worktrees/kriscendobot-vattr97.git|origin|main|ssh://git@github.com/kriscendobot/vattr97.git}"
+# <clone-url> is pinned explicitly so a missing clone can be restored without
+# ambiguous basename parsing.
+: "${GARDEN_TRACKED_CLONES:=worktrees/kriscendobot-vattr97.git|origin|main|ssh://git@github.com/kriscendobot/vattr97.git}"
 
 # The canonical-upstream-URL base (GARDEN_CLONE_URL_BASE) the keeper reconstructs
 # from a missing clone's dir basename lives in common.sh, alongside the shared

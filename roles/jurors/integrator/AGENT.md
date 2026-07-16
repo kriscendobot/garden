@@ -1,6 +1,6 @@
 ---
 created: 2026-05-18
-updated: 2026-05-18
+updated: 2026-07-16
 author: gardener
 ---
 
@@ -45,10 +45,9 @@ Assumes you have already read `roles/COMMON.md`.
   - **Cycle-obviation tracking.** When the PR touches the package dependency graph, does it move the project toward fewer cycles or extend an existing cycle? The recurring framing: "Please check how much progress we have made on obviating cycles." The integrator names the cycles the PR touches and whether the net effect is reduction or expansion.
   - **Diagram maintainability.** Diagrams in docs, READMEs, and design documents render with mermaid where possible; ASCII or line-art is a review nit because mermaid is "more human-maintainable". The integrator flags ASCII or line-art diagrams the PR introduces, relocates, or leaves uncorrected in a doc the PR otherwise edits.
   - **Commit grouping.** Commits are split into sensible logical pieces, separated from autofix or chore commits. The packager owns diff hygiene generally; the integrator's overlap is the "the PR could be redistributed into more readable commits for the merge-commit reader" slice. The recurring directive: "Please reset and redistribute into sensibly grouped commits."
-  - **Master-base mirror PRs.** When a PR lands on a non-default branch (`llm` on `endojs/endo-but-for-bots`) and the change is also wanted on `master`, the integrator asks whether the master-base mirror PR has been opened in parallel. The recurring directive: "Please also create a clone of this change based on master."
   - **Minimum cleavage.** When the PR splits a package or breaks a dependency cycle, does it split only what must split? Tests that do not actually reach the new dependency should stay where they were, and the move-set should be the minimum needed to break the cycle. The recurring framing: "Let's move all the tests that do not depend on [new dep] back into [old home]. We only need to break the cycle for tests that reach down."
 - **Secondary surface (overlap).** Diff hygiene when commit grouping is the integration concern (overlap with the packager); docs-prose accuracy when prose names a concept off the project's map (overlap with the archivist); naming when a rename sweep is the concern (overlap with the stylist). Cite the seat whose primary surface the finding overlaps with so aggregation can dedupe.
-- **Each finding has a verdict**: must-fix, should-fix, or comment-only. Must-fix is reserved for findings that would land a PR mis-named, misleadingly described, with the rename sweep incomplete, or with a concept-naming conflict the project's existing structure rejects; should-fix covers commit-grouping, diagram-form, master-base mirror, forward-compose probe, and cycle-obviation regression gaps; comment-only is for taste-driven coherence the rest of the panel might dispute.
+- **Each finding has a verdict**: must-fix, should-fix, or comment-only. Must-fix is reserved for findings that would land a PR mis-named, misleadingly described, with the rename sweep incomplete, or with a concept-naming conflict the project's existing structure rejects; should-fix covers commit-grouping, diagram-form, forward-compose probe, and cycle-obviation regression gaps; comment-only is for taste-driven coherence the rest of the panel might dispute.
 - **Be specific.** Cite `file:line` or `<PR-section>:<line>` and the project structure the finding rests on. "This doesn't fit" is unactionable; "`README.md:42` introduces an ASCII capability sketch; the package is a teaching demo, so the diagram is part of the deliverable; a mermaid `flowchart` would render the same content in a maintainable form" is actionable.
 - **Stay terse and structured.** Under ~400 words for the per-juror block.
 - **Submit the per-juror block as a `result` journal entry.** The judge aggregates and submits the formal `gh pr review`.

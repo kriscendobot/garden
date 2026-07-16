@@ -2,16 +2,13 @@
 # clone-keeper-test.sh — coverage for the standing-bare-clone freshness keeper
 # (clone-keeper.sh).
 #
-# Regression for the 2026-05-12..06-27 outage: the endo standing bare clone sat
-# pinned at master=052b0487 for SIX WEEKS because nothing fetched it, silently
-# blocking endo upstream-drift re-ingestion until a scholar cycle fast-forwarded
-# it by hand. clone-keeper.sh runs that fetch + strict fast-forward on a cadence
-# so the block can never re-form, and surfaces (does NOT clobber) a clone that has
-# diverged.
+# Regression for a stale standing bare clone: clone-keeper.sh runs its fetch +
+# strict fast-forward on a cadence and surfaces (does NOT clobber) a clone that
+# has diverged.
 #
 # Hermetic: a throwaway upstream bare repo + a bare "tracked clone" whose `origin`
-# carries NO fetch refspec (mirrors the real endo clone, where `git fetch origin
-# master` advances FETCH_HEAD only and the branch ref must be moved explicitly).
+# carries NO fetch refspec, where `git fetch origin master` advances FETCH_HEAD
+# only and the branch ref must be moved explicitly.
 # No real garden, journal, or network is touched.
 #
 # Usage: clone-keeper-test.sh
@@ -239,23 +236,20 @@ grep -qF "no upstream URL could be derived" <<<"$OUT" && ok "logged the no-url a
 grep -qF "clone-keeper-missing-nourl-" "$ALERTS" 2>/dev/null && ok "escalation carries the per-clone dedup key" || bad "escalation missing the expected dedup key"
 
 # ============================================================================
-hr; echo "DEFAULT — the shipped GARDEN_TRACKED_CLONES row names the real fork clone"; hr
-# Regression for the original defect: the tracked default named
-# worktrees/endojs-endo.git, a clone that exists on NO host (only the
-# endojs-endo-but-for-bots.git fork clone is ever present), so the keeper warned
-# `missing … skipping` every ~30m tick and freshened nothing. The shipped default
-# must name the real standing fork clone, keep the passive-mirror `master` branch
-# (the six-week-stale hazard), and pin an explicit fourth clone-url re-clone source
-# (the fork basename is exactly the ambiguous case derive_clone_url cannot split).
+hr; echo "DEFAULT — no mutable endo fork master mirror"; hr
+# The shipped default must not fetch, fast-forward, or recreate the mutable
+# endojs/endo-but-for-bots master branch. That fork may only receive frozen
+# master-<hash> anchors from the frozen-base workflow.
 # Parse the default straight out of the script rather than running it (the run
 # paths all override GARDEN_TRACKED_CLONES with hermetic fixtures). The shipped
-# default is a MULTI-LINE value (one tracked-clone row per line), so anchor on the
-# assignment line and capture the FIRST row after ':=' — the endo fork clone — which
-# is what these assertions check (a trailing '}"' lives on the LAST row's line).
+# default is one tracked-clone row. Parse it straight from the assignment rather
+# than running it because the run paths use hermetic fixtures.
 DEF="$(sed -n 's/^: "${GARDEN_TRACKED_CLONES:=\(.*\)$/\1/p' "$KEEPER" | head -1)"
 IFS='|' read -r d_dir d_remote d_branch d_url <<<"$DEF"
-[ "$d_dir" = "worktrees/endojs-endo-but-for-bots.git" ] && ok "default tracks the real fork clone (not the phantom endojs-endo.git)" || bad "default dir is '$d_dir', expected worktrees/endojs-endo-but-for-bots.git"
-[ "$d_branch" = "master" ] && ok "default tracks the passive upstream-mirror branch master" || bad "default branch is '$d_branch', expected master"
+[ "$d_dir" != "worktrees/endojs-endo-but-for-bots.git" ] && ok "default does not track the mutable endo fork master" || bad "default still tracks endo fork master"
+[ "$d_branch" != "master" ] && ok "default does not maintain a mutable master branch" || bad "default branch is mutable master"
+[ "$d_dir" = "worktrees/kriscendobot-vattr97.git" ] && ok "default tracks the vattr97 standing clone" || bad "default dir is '$d_dir', expected vattr97 clone"
+[ "$d_branch" = "main" ] && ok "default tracks vattr97 main" || bad "default branch is '$d_branch', expected main"
 case "$d_url" in *://*) URL_OK=1 ;; *) URL_OK= ;; esac
 [ -n "$d_url" ] && [ -n "$URL_OK" ] && ok "default pins an explicit clone-url re-clone source" || bad "default has no explicit clone-url fourth field ('$d_url')"
 
