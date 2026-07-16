@@ -74,3 +74,10 @@ differential harnesses ONLY.
   and report the honest remainder — never leave the branch red.
 - Report via your tada completion report ONLY. Do NOT inbox-send the parked supervisor
   (`port-xs-to-rust-memory-safe-engine-s20`) — dead-letter noise.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 18
+  worker_kind: gardener
+  claimed_at: 2026-07-16T21:31:29Z
