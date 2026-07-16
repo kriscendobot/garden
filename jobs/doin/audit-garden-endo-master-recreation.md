@@ -46,3 +46,10 @@ against ourselves). It deploys via the deliberate-deploy path.
 grep; branch protection blocks direct pushes to `endo-but-for-bots` `master` (or a precise
 maintainer-action note if the bot lacks admin). The `tada` report lists every script changed, the
 exact behavior removed, and the branch-protection state.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: cleric
+  claimed_at: 2026-07-16T23:02:17Z
