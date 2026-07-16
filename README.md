@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-16T16:31:07Z_
+_As of 2026-07-16T16:33:53Z_
 
 ## Latest
 
-The lone board move was completion of the [endo-but-for-bots#263](https://github.com/endojs/endo-but-for-bots/pull/263) shepherd — and the foreman now reports Milestone M2 (Project Hygiene) sits one decision from done: [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (hardened-text-codecs-shim) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (hardened-url-shim) are both non-draft, CI-green, and merge-ready, awaiting a merge/ferry authorization to land (and #263 closed as the superseded, conflicting alternative to #259). Two decisions block further progress: M3's module-loading tail needs a ruling on which MVS-resolver home wins — `@endo/daemon/registry.js` in [#671](https://github.com/endojs/endo-but-for-bots/pull/671) versus the dedicated `@endo/exo-npm` in [#403](https://github.com/endojs/endo-but-for-bots/pull/403) — before snapshot-mapper/worker-import can be built, and the entire esheets tree remains dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth), open and all-CI-green but six days awaiting your re-review despite the requested delegation/caretaker-attenuation design having already landed on its head. Autonomous work continued elsewhere: finbot's `main` advanced to efa6454 (regime-aware position sizing, tests green, wallet untouched), and a phase-1 `build-endo-cbor-package` job is parked awaiting go-ahead against the landed [#710](https://github.com/endojs/endo-but-for-bots/pull/710) design. Most urgent operationally: the Claude weekly limit is exhausted (resets Jul 18, 3am UTC), which is crash-looping `garden-mentor` self-heal and dropping liaison follow-ups; triage circuit-breakers are open on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk`, and several shepherd/gauntlet jobs (#124, #704, #694, #707, agoric-sdk #15) have been poisoned into the plan queue for overrunning the handler budget.
+The board itself was quiet this cycle — only a SturdyRef press tick completed — but three producer messages converge on decisions only the maintainer can make. The foreman reports **M2 (Project Hygiene) is one merge from done**: [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) (hardened-text-codecs shim) and [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) (hardened-url shim) are both non-draft, CLEAN/MERGEABLE with green CI and #719's gauntlet complete — landing them (and closing the conflicting alternative #263) closes the milestone. **M3 is stalled on a package-home ruling**: the MVS resolver now lives in two competing PRs, [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon/registry.js`) versus [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (`@endo/exo-npm`); the snapshot-mapper and worker-import layers can't be built until one wins. And the **esheets tree is fully dammed behind [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621)** (endoclaw-oauth), which is un-drafted and all-green but has re-drifted to CONFLICTING (a weave is in flight now) and has sat six days awaiting re-review despite a stale `CHANGES_REQUESTED`.
+
+Most urgently, the fleet **hit its weekly Claude limit (resets Jul 18, 3am UTC)**: `garden-mentor` has been crash-looping on the ceiling roughly hourly since Jul 15, triager circuit-breakers opened for `kriscendobot-minion.town` and `kriscendobot-agoric-sdk`, and two liaison follow-up action blocks were dropped — self-heal can't fix a quota wall, so this clears on its own Monday. Also worth a glance: several long-running shepherd/gauntlet jobs were poisoned for overrunning the 2400s handler budget (parked, recoverable via `promote-plan.sh`), and the review-retrospective flagged that the abbreviation gate has a structural blind spot for lines predating its deployment (recurred on [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671)'s `fetchImpl`), awaiting your call on whether to widen it.
 
 ## Parked for maintainer feedback
 
@@ -12,7 +14,7 @@ The lone board move was completion of the [endo-but-for-bots#263](https://github
 - [endojs/endo-but-for-bots#714](https://github.com/endojs/endo-but-for-bots/pull/714) — feat(platform): add listTree, rangeRead, rangeReadText (consolidate genie/lal/fae fs reads) (waiting 1d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 1d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 2d)
-- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 3d)
+- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 4d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 5d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 14d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 16d)
@@ -449,24 +451,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 90.2M | $940.86 _(notional, rate-card)_ | no quota set |
+| Claude | 90.3M | $941.15 _(notional, rate-card)_ | no quota set |
 | Codex | 114.4M _(+126.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endo-sturdyref-press-20260716-162017`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260716-162017.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+### doin (1)
 - [`weave-endo-but-for-bots-pr621-endoclaw-oauth-20260716`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/weave-endo-but-for-bots-pr621-endoclaw-oauth-20260716.md) — weave #621 — rebase endoclaw-oauth refinement onto fresh llm
 
-### tada (2330)
+### tada (2331)
+- [`endo-sturdyref-press-20260716-162017`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260716-162017.md) — SturdyRef press tick complete (job endo-sturdyref-press-20260716-162017, disp...
 - [`endojs-endo-but-for-bots-pr263-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr263-shepherd.md) — Completion Report: endojs/endo-but-for-bots PR #263 Shepherd
 - [`finbot-progress-20260716-162017`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260716-162017.md) — Advanced finbot main to efa6454: persistent volatility regimes now reduce ana...
 - [`esheets-supervisor-20260716-162017`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260716-162017.md) — Completion report
 - [`endojs-endo-but-for-bots-hardened-url-shim-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-hardened-url-shim-build.md) — Everything is complete and verified. Inbox is empty. Let me write the complet...
-- [`endojs-endo-but-for-bots-hardened-text-codecs-shim-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-hardened-text-codecs-shim-build.md) — Found the completed, mergeable implementation already open as [endojs/endo-bu...
-- … and 2325 more
+- … and 2326 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
