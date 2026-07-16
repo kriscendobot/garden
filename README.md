@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-16T00:06:56Z_
+_As of 2026-07-16T00:10:09Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ Two operational flags warrant a look: the triager crash-loop fix is landed on `m
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 18m)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 25m)
 - [endojs/endo-but-for-bots#714](https://github.com/endojs/endo-but-for-bots/pull/714) — feat(platform): add listTree, rangeRead, rangeReadText (consolidate genie/lal/fae fs reads) (waiting 8h)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 18h)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 2d)
@@ -390,8 +390,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr667-review-20347bb0-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr667-review-20347bb0-retro.md) — Retrospective on endojs/endo-but-for-bots PR #667 (primary: endojs-endo-but-f...
 
 ### tada (2286)
 - [`endojs-endo-but-for-bots-pr662-review-25ab500f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr662-review-25ab500f-retro.md) — Recorded #662 as not-a-miss/new direction in the review-miss store, with grou...
@@ -428,7 +428,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr667-review-20347bb0-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr667-review-20347bb0-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #667 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr670-review-6d095eec-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr670-review-6d095eec-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #670 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr671-review-3fa7398f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr671-review-3fa7398f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #671 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr671-review-e38cd6f4-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr671-review-e38cd6f4-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #671 (primary: endojs-endo-but-f...
