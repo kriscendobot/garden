@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-16T05:07:40Z_
+_As of 2026-07-16T05:15:44Z_
 
 ## Latest
 
-The board has gone nearly quiet: one retrospective completed ([endo-but-for-bots#721](https://github.com/endojs/endo-but-for-bots/pull/721)) and a lone `review-improve-inline-import-jsdoc` job is in flight to add a no-inline-import-jsdoc pre-push gate plus typist backstop. The quiet is not health — the fleet has hit its **weekly Claude limit (resets Jul 18, 3am UTC)**, and the maintainer inbox is now dominated by the fallout: `garden-mentor` self-heal failing on a loop, follow-up action blocks rejected, and triage circuit-breakers OPEN on three watched forks (`kriscendobot-minion.town`, `kriscendobot-agoric-sdk`, `kriscendobot-finbot`) — the last two of which, plus the whole `kriscendobot-*` watch set, sit outside the CLAUDE.md-authorized `endojs/endo-but-for-bots`, so their presence in the set is worth a hard look regardless of quota.
-
-Separately, a wave of long-running jobs was **poisoned for overrunning the 2400s handler budget** and parked in the plan queue awaiting your promotion — the shepherds for [endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), and [kriscendobot/agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/pull/15), plus the gauntlets for [#694](https://github.com/endojs/endo-but-for-bots/pull/694) and [#707](https://github.com/endojs/endo-but-for-bots/pull/707); each needs splitting into claim-sized stages before it can succeed. Two items want an explicit call: a parked `build-endo-cbor-package` (phase 1 of the `@endo/cbor` design landed in [#710](https://github.com/endojs/endo-but-for-bots/pull/710)) awaiting your "promote," and a recurrence of the **avoid-abbreviations** cluster (`fetchImpl` on [#671](https://github.com/endojs/endo-but-for-bots/pull/671)) that the deterministic gate structurally can't catch because the line predates the gate — your judgment on whether to widen the scan. Ten PRs remain parked for review, oldest being SES cyclic-export [#379](https://github.com/endojs/endo-but-for-bots/pull/379) at 19 days.
+The garden is effectively stalled on a hit **Claude weekly limit** (reset Jul 18, 3am UTC): the board shows a single completion since the last bulletin — [`review-improve-inline-import-jsdoc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/review-improve-inline-import-jsdoc.md), pushed to main2 — and almost every maintainer message since Jul 14 is fallout from the quota, chiefly `garden-mentor` crash-looping the self-healer hourly with "no scoped fix." Three triage circuit-breakers are now OPEN (`kriscendobot-minion.town`, `kriscendobot-agoric-sdk`, and earlier `kriscendobot-finbot`) — all three sit outside the single authorized watch target (`endojs/endo-but-for-bots`) under the § Monitoring safety constraint and are worth confirming they belong in the set at all. Several shepherd/gauntlet jobs have been poisoned into the plan queue for deadline overrun (PRs [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#694](https://github.com/endojs/endo-but-for-bots/pull/694), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), and `kriscendobot/agoric-sdk` #15), each flagged as needing to be split into claim-sized stages rather than requeued. Two items await your go-ahead: the phase-1 [`build-endo-cbor-package`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-cbor-package.md) job parked off the merged [@endo/cbor design (#710)](https://github.com/endojs/endo-but-for-bots/pull/710), and a review-retrospective escalation on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) where the avoid-abbreviation cluster recurred (`fetchImpl`) — the retrospective explains it escaped the pre-push gate as a pre-deployment line and asks whether to widen the gate to whole changed files.
 
 ## Parked for maintainer feedback
 
@@ -19,7 +17,7 @@ Separately, a wave of long-running jobs was **poisoned for overrunning the 2400s
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 13d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 16d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 16d)
-- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 19d)
+- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 20d)
 
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
@@ -421,23 +419,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 84.9M | $897.53 _(notional, rate-card)_ | no quota set |
+| Claude | 84.9M | $897.83 _(notional, rate-card)_ | no quota set |
 | Codex | 49.4M _(+125.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`review-improve-inline-import-jsdoc`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/review-improve-inline-import-jsdoc.md) — review-improve: implement the no-inline-import-jsdoc gate + typist backstop (...
+### doin (0)
+(none)
 
-### tada (2294)
+### tada (2295)
+- [`review-improve-inline-import-jsdoc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/review-improve-inline-import-jsdoc.md) — Implemented and pushed main2:
 - [`endojs-endo-but-for-bots-pr721-review-56349e18-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr721-review-56349e18-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr706-review-7a1d9ca9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr706-review-7a1d9ca9-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr682-review-4631723f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr682-review-4631723f-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr678-8a856783-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr678-8a856783-retro.md) — Completed retrospective for endojs/endo-but-for-bots #678 comment 4963267699.
-- [`endojs-endo-but-for-bots-pr671-review-e38cd6f4-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-review-e38cd6f4-retro.md) — Recorded dismissal: review feedback was new-direction/clarification, not a re...
-- … and 2289 more
+- … and 2290 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
