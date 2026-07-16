@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: reconstruct-ebfb-master-merged-prs
-priority: normal
-posted_by: producer
-posted_at: 2026-07-16T23:00:51Z
+role: builder
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-16T23:01:42Z -->
 
 ---
 role: builder
