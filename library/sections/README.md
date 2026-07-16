@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6399 (530 parent indexes + 5869 children).
+Total section files: 6405 (530 parent indexes + 5875 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8035,6 +8035,15 @@ Total section files: 6399 (530 parent indexes + 5869 children).
 - [ocapn--readme--overview-and-what-is-this](ocapn--readme--overview-and-what-is-this.md)
 - [ocapn--readme--plan](ocapn--readme--plan.md)
 - [ocapn--readme--what-do-i-get](ocapn--readme--what-do-i-get.md)
+
+### papers--andersen-modeling-forecasting-realized-volatility-2003
+
+- [papers--andersen-modeling-forecasting-realized-volatility-2003--density-forecasts-and-value-at-risk](papers--andersen-modeling-forecasting-realized-volatility-2003--density-forecasts-and-value-at-risk.md)
+- [papers--andersen-modeling-forecasting-realized-volatility-2003--gaussian-and-long-memory-regularities](papers--andersen-modeling-forecasting-realized-volatility-2003--gaussian-and-long-memory-regularities.md)
+- [papers--andersen-modeling-forecasting-realized-volatility-2003--long-memory-var-beats-garch-out-of-sample](papers--andersen-modeling-forecasting-realized-volatility-2003--long-memory-var-beats-garch-out-of-sample.md)
+- [papers--andersen-modeling-forecasting-realized-volatility-2003--measuring-realized-volatility-from-intraday-returns](papers--andersen-modeling-forecasting-realized-volatility-2003--measuring-realized-volatility-from-intraday-returns.md)
+- [papers--andersen-modeling-forecasting-realized-volatility-2003--overview](papers--andersen-modeling-forecasting-realized-volatility-2003--overview.md)
+- [papers--andersen-modeling-forecasting-realized-volatility-2003--quadratic-variation-and-realized-volatility](papers--andersen-modeling-forecasting-realized-volatility-2003--quadratic-variation-and-realized-volatility.md)
 
 ### papers--close-acls-dont-2009
 
