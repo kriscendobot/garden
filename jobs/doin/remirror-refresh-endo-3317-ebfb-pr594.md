@@ -29,3 +29,10 @@ convention prevents. Remirror it from the latest upstream and refresh it onto a 
 Fork #594's head reflects the latest upstream `endojs/endo#3317`, rebased onto a fresh frozen
 `master-<sha>` anchor, with #594's base field pointing at that anchor (not moving `master`). The
 `tada` report links #3317 and #594, names the new frozen-base sha, and notes any conflicts resolved.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  worker_kind: cleric
+  claimed_at: 2026-07-16T23:13:29Z
