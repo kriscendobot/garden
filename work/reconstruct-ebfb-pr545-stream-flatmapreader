@@ -1,5 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 4
-worker_kind: gardener
-claimed_at: 2026-07-16T23:13:13Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-reconstruct-ebfb-pr545-stream-flatmapreader
