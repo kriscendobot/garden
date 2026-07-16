@@ -62,3 +62,10 @@ guest value. After this child:
 - Budget: ONE 2400s invocation. Land green increments; report the honest remainder in tada
   (honesty valve: a precise landed slice + a precise gap map beats a pretend-green).
 - Report via tada ONLY; never inbox-send the parked supervisor.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 17
+  worker_kind: gardener
+  claimed_at: 2026-07-16T23:58:09Z
