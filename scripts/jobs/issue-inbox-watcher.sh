@@ -473,6 +473,14 @@ else
 fi
 if [ "$src_rc" -ne 0 ]; then
   sed 's/^/  source: /' "$ERRF" >&2 || true
+  if is_transient_net_error "$ERRF"; then
+    log "WARN: issue source unreachable (transient network) — skipping tick (never guess)"
+    exit 0
+  fi
+  if is_transient_gh_source_error "$ERRF"; then
+    log "WARN: issue source hit a transient gh-api blip (5xx/HTML/rate-limit) — skipping tick (never guess)"
+    exit 0
+  fi
   die "issue source failed for $REPO (rc=$src_rc; see source stderr above)"
 fi
 # Defensive ascending sort by created_at (field 2); the source should already.
