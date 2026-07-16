@@ -25,10 +25,4 @@ not yet settled, press the **design** forward (post a designer sub-job) rather t
 manufacturing implementation ahead of the spec. Be idempotent and defer to live
 workers; cite real evidence for any "landed" claim.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 4
-  worker_kind: gardener
-  claimed_at: 2026-07-16T17:50:48Z
+<!-- garden-reaped: 1 -->
