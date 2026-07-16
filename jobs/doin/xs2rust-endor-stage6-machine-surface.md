@@ -55,3 +55,10 @@ to the real remote tip and READ what it actually shipped before designing yours.
 - Capture test runs to files, check `$?`; `/tmp` is noexec (`bash /path/script.sh`).
 - Budget: ONE 2400s invocation. Land green increments; report the honest remainder in tada.
 - Report via tada ONLY; never inbox-send the parked supervisor.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-16T22:04:09Z
