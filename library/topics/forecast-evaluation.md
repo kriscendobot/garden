@@ -1,0 +1,18 @@
+# Topic: forecast-evaluation
+
+> Abstract: How to judge whether a forecast is any good — the methodology that separates a real predictive edge from an artifact of overfitting. Covers genuine out-of-sample evaluation (training/test splits, walk-forward / rolling-forecast-origin / time-series cross-validation), point-forecast error metrics and their traps (MAE, RMSE, MAPE/sMAPE, and the naive-baseline-relative MASE/RMSSE), volatility-forecast loss functions (QLIKE/MSE on a variance proxy), formal forecast-comparison tests (Diebold–Mariano, Model Confidence Set, White's Reality Check, Hansen's SPA), and the biases that make a backtest lie (look-ahead, survivorship, data-snooping, unmodeled transaction costs). This is the highest-value axis for any trading/forecasting system: a model without out-of-sample, baseline-relative, cost-aware evaluation is an untested hypothesis. Distinct from [`financial-forecasting`](financial-forecasting.md) (the *methods* being evaluated) and adjacent to [`testing`](testing.md) (software test discipline).
+
+## Sections
+
+| Section | Source | One-line abstract |
+|---------|--------|-------------------|
+| [web--hyndman-fpp3-forecast-evaluation--training-and-test-sets](../sections/web--hyndman-fpp3-forecast-evaluation--training-and-test-sets.md) | FPP3 §5.8 (Hyndman & Athanasopoulos) | Accuracy can only be judged on new data not used to fit; in-sample fit misleads, over-fitting is as bad as under-fitting, test set ~20% and ≥ max horizon. |
+| [web--hyndman-fpp3-forecast-evaluation--forecast-errors-and-scale-dependent-measures](../sections/web--hyndman-fpp3-forecast-evaluation--forecast-errors-and-scale-dependent-measures.md) | FPP3 §5.8 (Hyndman & Athanasopoulos) | Forecast error = observed − forecast on the test set; MAE and RMSE are scale-dependent, and minimizing them targets the median vs the mean respectively. |
+| [web--hyndman-fpp3-forecast-evaluation--percentage-and-scaled-errors-mase](../sections/web--hyndman-fpp3-forecast-evaluation--percentage-and-scaled-errors-mase.md) | FPP3 §5.8 (Hyndman & Athanasopoulos) | MAPE/sMAPE pitfalls (undefined at zero, asymmetric); scaled errors MASE/RMSSE divide by the naive baseline so <1 literally means "beats naive." |
+| [web--hyndman-fpp3-forecast-evaluation--time-series-cross-validation](../sections/web--hyndman-fpp3-forecast-evaluation--time-series-cross-validation.md) | FPP3 §5.10 (Hyndman & Athanasopoulos) | Walk-forward / rolling forecasting origin: a series of one-obs test sets, training only on prior data, averaged — no future observation ever enters a forecast. |
+
+## See also
+
+- [`financial-forecasting`](financial-forecasting.md) — the forecasting methods that this evaluation discipline judges.
+- [`testing`](testing.md) — software test discipline; forecast-evaluation is the statistical-validity counterpart for predictive models.
+- Concepts: [[walk-forward-validation]], [[mean-absolute-scaled-error]], [[data-snooping-bias]], [[look-ahead-bias]].
