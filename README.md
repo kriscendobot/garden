@@ -1,10 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-16T21:27:28Z_
+_As of 2026-07-16T21:32:47Z_
 
 ## Latest
 
-Little moved on the board this cycle — the sole completion was a dead-lettered reply carried forward onto [kriskowal/garden#57](https://github.com/kriskowal/garden/issues/57) — because the fleet is largely stalled on two fronts: the Claude weekly limit is exhausted (resets Jul 18), which is crash-looping the mentor, self-heal, and follow-up services and has tripped triage circuit-breakers on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk`; and nearly every live lane is gated on a maintainer decision. Most urgent: `endojs/endo-but-for-bots` **master is red** from an incomplete `@endo/cbor` landing (missing LICENSE/SECURITY.md, a broken `test/cbor.test.js` import, and a zizmor pin mismatch), which is bleeding into unrelated PRs like [#475](https://github.com/endojs/endo-but-for-bots/pull/475) — the fix belongs on master, not the feature branches. On decisions: M2 (Project Hygiene) is one merge from done, with [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) both green/mergeable (and the redundant [#263](https://github.com/endojs/endo-but-for-bots/pull/263) awaiting a close); M3 is blocked on picking the MVS-resolver home between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403); the SturdyRef stack is idling on a first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus re-reviews of designs [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697); and the esheets tree remains dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621), green for six days. One fix landed autonomously: the xs2rust press caught the leader's `garden-unblock` timer silently dead for days (monotonic-timer starvation) and repaired it on main2, restarting the stalled Endor port — the same timer pattern still lurks in the proxy, watchman, mention-watcher, scaler, and repo-watcher units.
+The XS→Rust (Endor) port is moving again: supervisor stage `port-xs-to-rust-memory-safe-engine-s19` completed, stage 6 (`xs2rust-endor-stage6-seam-flip`, flipping the compiler-seam default) is now in flight, and s20 is queued behind the stage-6 build — after a press-driver found the chain had silently stalled 5 days on a `garden-unblock.timer` monotonic-starvation bug, now fixed on main2 (the same pattern reportedly lingers on the proxy/watchman/mention-watcher/scaler/repo-watcher timers, worth a sweep).
+
+The overriding thing to notice is a **weekly Claude quota exhaustion** (resets Jul 18, 3am UTC): it has been failing `garden-mentor` self-heal hourly since Jul 15 and knocked over triage on three watched repos, opening circuit-breakers on `kriscendobot-finbot`, `kriscendobot-minion.town`, and `kriscendobot-agoric-sdk` — the latter two also flagged as possibly not belonging in the watch set under the monitoring-safety constraint.
+
+Master is red on endo-but-for-bots from an incomplete `packages/cbor` landing ([#710](https://github.com/endojs/endo-but-for-bots/pull/710)); the shepherd on [#475](https://github.com/endojs/endo-but-for-bots/pull/475) correctly refused to push a fix to the feature branch and escalated — a master-side cbor fix is needed before dependent PRs can go green.
+
+Several efforts are fully dammed on maintainer decisions: the foreman is repeatedly signalling that **M2 is one merge away** — [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) are built and merge-ready (with redundant [#263](https://github.com/endojs/endo-but-for-bots/pull/263) to close) — while **M3** waits on a package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403). The SturdyRef stack is gated on a first review of new draft [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus a marshal-encoding pick, and the esheets tree has sat 6 days behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621). Meanwhile several shepherd/gauntlet jobs (PRs [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), [#694](https://github.com/endojs/endo-but-for-bots/pull/694)) were poisoned and parked for over-running the 2400s handler budget — they need splitting or detaching before they can complete.
 
 ## Parked for maintainer feedback
 
@@ -519,7 +525,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.6M | $987.44 _(notional, rate-card)_ | no quota set |
+| Claude | 95.7M | $988.72 _(notional, rate-card)_ | no quota set |
 | Codex | 124.2M _(+145.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
@@ -527,15 +533,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 (none)
 
 ### doin (1)
-- [`port-xs-to-rust-memory-safe-engine-s19`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s19.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
+- [`xs2rust-endor-stage6-seam-flip`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage6-seam-flip.md) — Stage 6 child 1/6: flip the compiler-seam DEFAULT — endor-compile replaces or...
 
-### tada (2367)
+### tada (2368)
+- [`port-xs-to-rust-memory-safe-engine-s19`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s19.md) — Completion report — supervisor port-xs-to-rust-memory-safe-engine-s19
 - [`deadmail-issue-comment-4996721218`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4996721218.md) — Replied on garden issue #57, incorporating the mainnet-only, on-demand record...
 - [`endo-sturdyref-press-20260716-212015`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260716-212015.md) — What I did
 - [`endo-npm-cas-registry-press-20260716-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260716-210504.md) — Press report — npm-via-CAS registry proxy (endojs/endo-but-for-bots, base llm)
 - [`issue-kriskowal-garden-57`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-57.md) — Completion report
-- [`xs2rust-endor-press-20260716-210915`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260716-210915.md) — **Completion report — xs2rust-endor-press-20260716-210915**
-- … and 2362 more
+- … and 2363 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -571,6 +577,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`build-daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase3.md) — awaiting `build-daemon-rename-to-manager-phase2` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-regexp-conservative-subset.md) — awaiting `endojs/endo-but-for-bots#676` · Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
+- [`port-xs-to-rust-memory-safe-engine-s20`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s20.md) — awaiting `xs2rust-endor-build-stage6` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`registry-immutable-byte-array-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/registry-immutable-byte-array-followup.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/671` · Immutable byte-array RegistryInterface follow-up
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
