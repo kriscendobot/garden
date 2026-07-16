@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6405 (530 parent indexes + 5875 children).
+Total section files: 6409 (530 parent indexes + 5879 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8068,6 +8068,13 @@ Total section files: 6405 (530 parent indexes + 5875 children).
   - [Connection to the wider library](papers--close-acls-dont-2009--web-attacks-csrf-clickjacking-clickfraud-and-the-web-key-fix--connection-to-the-wider-library.md)
   - [See also](papers--close-acls-dont-2009--web-attacks-csrf-clickjacking-clickfraud-and-the-web-key-fix--see-also.md)
   - [Translation block (paper idiom → contemporary surface)](papers--close-acls-dont-2009--web-attacks-csrf-clickjacking-clickfraud-and-the-web-key-fix--translation-block-paper-idiom-contemporary-surface.md)
+
+### papers--corsi-simple-long-memory-model-realized-volatility-2009
+
+- [papers--corsi-simple-long-memory-model-realized-volatility-2009--har-rv-model-as-restricted-ar](papers--corsi-simple-long-memory-model-realized-volatility-2009--har-rv-model-as-restricted-ar.md)
+- [papers--corsi-simple-long-memory-model-realized-volatility-2009--heterogeneous-market-hypothesis-and-volatility-cascade](papers--corsi-simple-long-memory-model-realized-volatility-2009--heterogeneous-market-hypothesis-and-volatility-cascade.md)
+- [papers--corsi-simple-long-memory-model-realized-volatility-2009--out-of-sample-forecast-performance](papers--corsi-simple-long-memory-model-realized-volatility-2009--out-of-sample-forecast-performance.md)
+- [papers--corsi-simple-long-memory-model-realized-volatility-2009--overview](papers--corsi-simple-long-memory-model-realized-volatility-2009--overview.md)
 
 ### papers--drossopoulou-reasoning-about-risk-and-trust-2015
 
