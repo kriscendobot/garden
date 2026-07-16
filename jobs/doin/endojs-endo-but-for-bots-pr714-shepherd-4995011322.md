@@ -22,3 +22,10 @@ Routed from the "shepherd and conduct" attention directive by kriskowal:
 https://github.com/endojs/endo-but-for-bots/pull/714#issuecomment-4995011322
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-16T18:43:29Z
