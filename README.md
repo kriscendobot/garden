@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-16T18:26:24Z_
+_As of 2026-07-16T18:29:23Z_
 
 ## Latest
 
-Only [`improve-local-verify-regen-clean-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-local-verify-regen-clean-gate.md) completed this cycle and the `todo` board is empty, because the leader host **hit its weekly Claude limit** (resets Jul 18, 3am UTC): `garden-mentor`, the follow-up producer, and three watched-repo triagers (`kriscendobot-minion.town`, `kriscendobot-agoric-sdk`) have all been failing rc=1 on quota exhaustion for two days, and several triage circuit-breakers are open. The fleet is now bottlenecked on **maintainer merge decisions**, not work: the foreman reports Milestone M2 (Project Hygiene) is one call from done — [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs shim) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL shim) are both green/mergeable, pending your merge/ferry plus a decision to close the redundant, CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263). M3 is blocked on a package-home ruling between the two competing MVS resolvers [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403), and the entire esheets/OAuth tree is dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, re-woven to mergeable, awaiting re-review 6 days). A batch of long-running shepherd/gauntlet jobs (PRs #124, #704, #694, #707, agoric-sdk #15) overran the 2400s handler budget and were poisoned to the plan queue — they need splitting or a raised timeout before they can be re-promoted.
+Two jobs completed since the last bulletin: the design-only gauntlet on [endojs/endo-but-for-bots#740](https://github.com/endojs/endo-but-for-bots/pull/740) (endor git bindings) and an ocapn-noise press run; three jobs remain in flight, all on the git-integration / M3 version-controlled-filesystem loop and PR [endojs/endo-but-for-bots#714](https://github.com/endojs/endo-but-for-bots/pull/714). The louder signal is a **Claude weekly-limit outage** (resets Jul 18, 3am UTC): since Jul 14 it has knocked over `garden-mentor` self-heal cycles hourly, tripped triage circuit-breakers on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk`, and dropped two liaison follow-up blocks — expect reduced throughput until the reset. Several jobs are also **deterministically overrunning the 2400s handler budget** (shepherds on #124/#702/#704, agoric-sdk #15, the pr694/pr707 gauntlets) and have been poisoned into the plan queue awaiting a split or a raised timeout.
+
+Most actionable for you: the foreman is escalating repeatedly that **Milestone M2 is one merge decision from done** — the two vetted-shim PRs [endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs) and [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL shim) are built, gauntleted, and CLEAN/MERGEABLE, with the redundant #263 to close. M3 is blocked on a package-home ruling between [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), and the esheets tree is fully dammed behind [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, awaiting your re-review + merge for 6 days). A new `build-endo-cbor-package` job is parked awaiting your go-ahead. Separately, the `avoid-name-abbreviations` cluster recurred on #671 (`fetchImpl` predated the pre-push gate), left as a judgment call on whether to widen the gate.
 
 ## Parked for maintainer feedback
 
@@ -461,27 +463,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.5M | $963.47 _(notional, rate-card)_ | no quota set |
-| Codex | 119.0M _(+132.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Claude | 92.6M | $964.38 _(notional, rate-card)_ | no quota set |
+| Codex | 119.0M _(+133.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (3)
 - [`endo-git-integration-press-20260716-175014`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260716-175014.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endojs-endo-but-for-bots-pr714-review-902775bf`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr714-review-902775bf.md) — Review directive on endojs/endo-but-for-bots PR #714
 - [`endojs-endo-but-for-bots-pr714-shepherd-4995011322`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr714-shepherd-4995011322.md) — shepherd endojs/endo-but-for-bots PR #714
-- [`gauntlet-endo-but-for-bots-pr740-endor-git-bindings`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr740-endor-git-bindings.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on
-- [`ocapn-noise-press-20260716-175014`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260716-175014.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### tada (2343)
+### tada (2345)
+- [`ocapn-noise-press-20260716-175014`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260716-175014.md) — Completion report — ocapn-noise-press-20260716-175014
+- [`gauntlet-endo-but-for-bots-pr740-endor-git-bindings`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr740-endor-git-bindings.md) — Completed PR #740’s design-only gauntlet.
 - [`improve-local-verify-regen-clean-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-local-verify-regen-clean-gate.md) — Completion report
 - [`build-endo-content-locators-magnet-urn-phase1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-content-locators-magnet-urn-phase1.md) — Completion report
 - [`endo-byte-array-press-20260716-175014`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260716-175014.md) — **Press report — endo-byte-array-press (first dispatch of this schedule)**
-- [`endo-vfs-parity-press-20260716-175014`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260716-175014.md) — Completion report: endo-vfs-parity-press-20260716-175014 (dispatch 1)
-- [`endo-daemon-data-plane-press-20260716-175014`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260716-175014.md) — Press dispatch complete — the arc crossed its design finish line this dispatch.
-- … and 2338 more
+- … and 2340 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
