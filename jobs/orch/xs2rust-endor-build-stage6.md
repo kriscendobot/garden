@@ -2,7 +2,7 @@
 order: serial
 children: xs2rust-endor-stage6-seam-flip xs2rust-endor-stage6-snapshot-atoms xs2rust-endor-stage6-machine-surface xs2rust-endor-stage6-roundtrip-fuzz xs2rust-endor-stage6-supervisor-integration xs2rust-endor-stage6-verify
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-07-16T21:30:18Z
 ---
