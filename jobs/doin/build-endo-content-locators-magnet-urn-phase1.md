@@ -18,3 +18,10 @@ and duality** only:
 Posted by the data-plane press driver (endo-daemon-data-plane-press-20260716-175014)
 after #662 merged. Design decisions 4, 9-12 in the doc record the settled naming
 (`@planes`, the `<verb>Content` method family) — follow them.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 16
+  worker_kind: gardener
+  claimed_at: 2026-07-16T18:04:26Z
