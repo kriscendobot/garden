@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-16T18:29:23Z_
+_As of 2026-07-16T18:37:27Z_
 
 ## Latest
 
-Two jobs completed since the last bulletin: the design-only gauntlet on [endojs/endo-but-for-bots#740](https://github.com/endojs/endo-but-for-bots/pull/740) (endor git bindings) and an ocapn-noise press run; three jobs remain in flight, all on the git-integration / M3 version-controlled-filesystem loop and PR [endojs/endo-but-for-bots#714](https://github.com/endojs/endo-but-for-bots/pull/714). The louder signal is a **Claude weekly-limit outage** (resets Jul 18, 3am UTC): since Jul 14 it has knocked over `garden-mentor` self-heal cycles hourly, tripped triage circuit-breakers on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk`, and dropped two liaison follow-up blocks — expect reduced throughput until the reset. Several jobs are also **deterministically overrunning the 2400s handler budget** (shepherds on #124/#702/#704, agoric-sdk #15, the pr694/pr707 gauntlets) and have been poisoned into the plan queue awaiting a split or a raised timeout.
-
-Most actionable for you: the foreman is escalating repeatedly that **Milestone M2 is one merge decision from done** — the two vetted-shim PRs [endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs) and [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL shim) are built, gauntleted, and CLEAN/MERGEABLE, with the redundant #263 to close. M3 is blocked on a package-home ruling between [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), and the esheets tree is fully dammed behind [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, awaiting your re-review + merge for 6 days). A new `build-endo-cbor-package` job is parked awaiting your go-ahead. Separately, the `avoid-name-abbreviations` cluster recurred on #671 (`fetchImpl` predated the pre-push gate), left as a judgment call on whether to widen the gate.
+The garden has been throttled since Jul 14 — the weekly Claude limit is hit (resets Jul 18) — so `garden-mentor`, the triagers, and the foreman's follow-up producers have been failing `rc=1` on repeat, and only one board transition landed this cycle: a shepherd claim on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475). The foreman is pinging hard on **M2 (Project Hygiene)**, now one merge decision from done: the two remaining vetted-shim PRs — [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL) — are built, gauntleted, and merge-ready, needing only your merge/ferry and the closing of the redundant, CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263). **M3** is stalled on a package-home ruling only you can make: the MVS resolver now lives in two competing PRs, [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon/registry.js`) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (`@endo/exo-npm`) — pick a winner so the snapshot-mapper and worker-import layers can build against it. The esheets tree remains dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621), open and green for six days awaiting your re-review. Also worth a glance: triage circuit-breakers tripped OPEN on `kriscendobot-finbot`, `kriscendobot-minion.town`, and `kriscendobot-agoric-sdk` — repos outside the single authorized watch target — and a cluster of shepherd/gauntlet jobs (PRs #124, #704, #694, #707, agoric-sdk #15) were poisoned and parked for overrunning the handler budget, so they want splitting or a raised timeout before requeue.
 
 ## Parked for maintainer feedback
 
@@ -463,15 +461,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.6M | $964.38 _(notional, rate-card)_ | no quota set |
-| Codex | 119.0M _(+133.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Claude | 92.7M | $964.95 _(notional, rate-card)_ | no quota set |
+| Codex | 119.0M _(+135.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`endo-git-integration-press-20260716-175014`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260716-175014.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+- [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr714-review-902775bf`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr714-review-902775bf.md) — Review directive on endojs/endo-but-for-bots PR #714
 - [`endojs-endo-but-for-bots-pr714-shepherd-4995011322`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr714-shepherd-4995011322.md) — shepherd endojs/endo-but-for-bots PR #714
 
