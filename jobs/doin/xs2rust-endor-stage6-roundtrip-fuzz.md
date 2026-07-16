@@ -54,3 +54,10 @@ trophies get locked).
 - Capture test runs to files, check `$?`.
 - Budget: ONE 2400s invocation. Land green increments; report the honest remainder in tada.
 - Report via tada ONLY; never inbox-send the parked supervisor.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 17
+  worker_kind: gardener
+  claimed_at: 2026-07-16T22:22:42Z
