@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-16T22:43:27Z_
+_As of 2026-07-16T22:48:28Z_
 
 ## Latest
 
-The finbot tree advanced main to `df2a164` with live GJR-GARCH leverage-parameter (gamma) MLE estimation (538 tests green, wallet untouched), and the XS→Rust Endor port cleared Stage 6's round-trip/fuzz child and claimed its supervisor-integration child (5/6). A `build-endo-cbor-package` job (phase 1 of the @endo/cbor design landed in [endo-but-for-bots#710](https://github.com/endojs/endo-but-for-bots/pull/710)) is now in flight.
+A broken `master` in endo-but-for-bots is the headline: an incomplete `packages/cbor` landing left master's CI red (missing LICENSE/SECURITY.md, `test/cbor.test.js` can't resolve `@endo/eventual-send`, plus a zizmor action-pin mismatch), so the [#475](https://github.com/endojs/endo-but-for-bots/pull/475) shepherd correctly refused to push — the red isn't PR-attributable. The fix belongs on master; [`build-endo-cbor-package`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-cbor-package.md) (phase 1 per the design merged in [#710](https://github.com/endojs/endo-but-for-bots/pull/710)) is in flight. Separately, a monotonic-timer starvation bug in `garden-unblock.timer` was found to have silently stalled the xs2rust-endor chain ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) for five days; it's fixed on main2 (`6012296908`) and installed on the leader, and the s19 supervisor is claimed and moving again — but the same monotonic pattern reportedly still lurks in the proxy/watchman/mention-watcher/scaler/repo-watcher timers, worth a sweep. finbot advanced twice (regime-aware position sizing, then live GJR-GARCH leverage-gamma MLE estimation), all tests green and wallet untouched.
 
-Most urgent: **`master` is red on endo-but-for-bots** from an incomplete `packages/cbor` landing — the shepherd on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) traced the failing lint/test/zizmor checks to master itself (missing cbor LICENSE/SECURITY.md, `@endo/eventual-send` not resolving in cbor tests), so the fix belongs on master before any feature PR can go green. Several maintainer merge/decision gates are stacked and blocking work: M2 hygiene is one merge from done ([#259](https://github.com/endojs/endo-but-for-bots/pull/259) text-codecs shim, [#719](https://github.com/endojs/endo-but-for-bots/pull/719) URL shim, with the redundant CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263) to close); M3 needs a ruling on the registry home ([#671](https://github.com/endojs/endo-but-for-bots/pull/671) vs [#403](https://github.com/endojs/endo-but-for-bots/pull/403)); the SturdyRef effort has three open gates around [#737](https://github.com/endojs/endo-but-for-bots/pull/737); and the esheets tree is fully dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621), now 6 days awaiting re-review.
-
-Also notice: the **Claude weekly limit was hit (resets Jul 18, 3am UTC)**, crash-looping garden-mentor and several triagers and tripping triage circuit-breakers on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk` (both worth confirming they even belong in the watch set, per the monitoring-safety constraint). A batch of shepherd/gauntlet jobs (PRs #124, #704, #694, #707, agoric-sdk #15) overran the 2400s handler budget and were poisoned into the plan queue — they need splitting or a raised timeout. On the plus side, the xs2rust press-driver found and fixed a monotonic-timer starvation bug in `garden-unblock.timer` on main2 (`6012296908`) that had silently stalled the chain 5 days, and flagged that four other timers likely carry the same pattern.
+Several maintainer decisions are now the sole blockers. M2 (Project Hygiene) is one merge away from done — the foreman pinged repeatedly to land the two vetted-shim PRs, [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL), and close the superseded, CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263). M3 is blocked on a package-home ruling between the competing MVS resolvers in [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403). The SturdyRef effort has three gates open (first review of draft [#737](https://github.com/endojs/endo-but-for-bots/pull/737), a marshal rank-prefix pick, and re-reviews of #695/#697), and the esheets tree is entirely dammed behind re-reviewing/merging [#621](https://github.com/endojs/endo-but-for-bots/pull/621), now sitting six days. Also note: the weekly Claude quota was exhausted (resets Jul 18), which is behind the cluster of garden-mentor/triager self-heal failures, dropped follow-ups, and three triage circuit-breakers opening on unwatched forks (`kriscendobot-finbot`, `-minion.town`, `-agoric-sdk`) — worth confirming those repos belong in the watch set at all. A batch of long-running shepherd/gauntlet jobs (#124, #704, #707, #694, agoric-sdk #15) overran the 2400s handler budget and are parked as poison in the plan queue awaiting a split or a raised timeout.
 
 ## Parked for maintainer feedback
 
@@ -382,6 +380,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > Maintainer decision still pending (unchanged): live execution stays blocked on an
 > explicit paper-wallet/test-net authorization and a chosen CapTP transport.
 
+- `20260716T224817Z-d54ddc` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T224817Z-d54ddc.md)
+
+> The endo-sturdyref-press job (report endo-sturdyref-press-20260716-223502) is blocked on you: a message (`72c74a`) is sitting in your inbox unread, and the job's decisions cannot proceed until you drain it. Please review your maintainer inbox — the stall is in the channel, not the work.
+
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -552,7 +554,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.9M | $994.19 _(notional, rate-card)_ | no quota set |
+| Claude | 97.0M | $993.92 _(notional, rate-card)_ | no quota set |
 | Codex | 124.2M _(+145.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
