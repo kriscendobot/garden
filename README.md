@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-16T22:09:29Z_
+_As of 2026-07-16T22:21:58Z_
 
 ## Latest
 
-The board is effectively frozen — only a dead-lettered message completed this window, and the queue is nearly all parked work awaiting your call. The dominant event is quota: the leader host hit its weekly Claude limit (resets Jul 18, 3am UTC), which has been crash-looping `garden-mentor` self-heal hourly since Jul 15 and knocked out triage on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk` (both circuit-breakers now OPEN, and both plausibly shouldn't be watched under the monitoring-safety constraint anyway).
+The board is drained to zero — the only completion since the last bulletin was [xs2rust-endor stage-6 machine surface](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage6-machine-surface.md) — and the cause is a hard stop: the Claude weekly token limit was hit (resets Jul 18, 3am UTC), so `garden-mentor`, the `kriscendobot-minion.town`/`kriscendobot-agoric-sdk` triagers, and the liaison follow-up all bounce `rc=1` and several triage circuit-breakers have opened. Expect little fleet motion until the quota resets.
 
-Several fronts are one maintainer decision from unblocking. The foreman has nudged repeatedly that **M2 (Project Hygiene)** is complete but for merging the two vetted-shim PRs — [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL shim), both green/CLEAN — and closing the redundant, CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263). **M3** is stalled on a package-home ruling: the MVS resolver now exists in two competing PRs, [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon/registry.js`) vs [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (`@endo/exo-npm`), and the loser must be closed before `snapshot-mapper` and worker-import can build. The SturdyRef effort reports three open gates — first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737), a marshal rank-prefix pick, and re-reviews of designs [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697) — and the esheets tree remains fully dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621), now 6 days awaiting re-review.
+Two structural problems need a maintainer, not more compute. First, **`endojs/endo-but-for-bots` master is red** from an incomplete `packages/cbor` landing (missing LICENSE/SECURITY.md, `@endo/eventual-send` not resolving, zizmor pin mismatch); that red is inherited by open PRs like [#475](https://github.com/endojs/endo-but-for-bots/pull/475), so the fix belongs on master (a cbor-package job), after which affected PRs rebase clean. Second, a **monotonic-timer starvation bug** silently stalled the xs2rust-endor chain ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) for five days; it's fixed on `main2` and the leader's `garden-unblock` timer, but the proxy/watchman/mention-watcher/scaler/repo-watcher timers reportedly still carry the same pattern and want a sweep.
 
-Two things worth a direct look: a shepherd on [#475](https://github.com/endojs/endo-but-for-bots/pull/475) found that **`endo-but-for-bots` master itself is red** from an incomplete `packages/cbor` landing (missing LICENSE/SECURITY.md, unresolved `@endo/eventual-send`) — a master-side fix is needed before any dependent PR can go green, and a phase-1 `build-endo-cbor-package` job is now parked awaiting go-ahead. Separately, a press-driver found the `xs2rust-endor` chain silently stalled 5 days on the same monotonic-timer starvation bug from July; it fixed and reinstalled `garden-unblock.timer` on the leader (main2 `6012296908`) and flagged that proxy/watchman/mention-watcher/scaler/repo-watcher timers still carry the pattern. A cluster of handler-budget overruns (multiple shepherds, gauntlets, and a deadmail) have been poisoned and parked for being too large to fit a single claim.
+Several milestones are one decision away. The foreman is nudging repeatedly that **M2 (Project Hygiene)** needs only the two vetted-shim PRs merged — [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL), both green/mergeable — plus a disposition on the redundant, CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263). **M3** is blocked on a package-home ruling between the two MVS-resolver homes, [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon/registry.js`) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (`@endo/exo-npm`). The SturdyRef effort has three open gates (first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737), a marshal rank-prefix pick, and re-reviews of [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697)), and the esheets tree remains dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621), now six days awaiting re-review. Also worth a glance: a recurred `fetchImpl` abbreviation on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) exposed a pre-deployment blind spot in the spell-out gate (your call on whether to widen it), and a `build-endo-cbor-package` phase-1 job sits parked awaiting your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -523,23 +523,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.2M | $991.22 _(notional, rate-card)_ | no quota set |
+| Claude | 96.2M | $988.66 _(notional, rate-card)_ | no quota set |
 | Codex | 124.2M _(+145.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-stage6-machine-surface`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage6-machine-surface.md) — Stage 6 child 3/6: Machine snapshot surface + meter state across suspend
+### doin (0)
+(none)
 
-### tada (2373)
+### tada (2374)
+- [`xs2rust-endor-stage6-machine-surface`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage6-machine-surface.md) — Completion report
 - [`deadmail-issue-comment-4996996230`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4996996230.md) — Created private kriscendobot/ymax-e2e with the safe Playwright recording-harn...
 - [`endojs-endo-but-for-bots-pr706-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr706-conduct.md) — Completion report
 - [`xs2rust-endor-stage6-snapshot-atoms`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage6-snapshot-atoms.md) — What I built
 - [`deadmail-issue-comment-4996838834`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4996838834.md) — Completion report
-- [`xs2rust-endor-stage6-seam-flip`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage6-seam-flip.md) — Completion report: Stage 6 child 1/6 — flip the compiler-seam default to endo...
-- … and 2368 more
+- … and 2369 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
