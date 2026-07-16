@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-16T17:02:59Z_
+_As of 2026-07-16T17:14:03Z_
 
 ## Latest
 
-The shepherd on [endo-but-for-bots#263](https://github.com/endojs/endo-but-for-bots/pull/263) (hardened URL/URLSearchParams shim) completed, and a follow-up [`pr263-zizmor-action-pins-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr263-zizmor-action-pins-fix.md) is now in flight to clear its lone remaining red check (a repo-wide `zizmor` action-pins failure). That is the last thing standing between Milestone **M2 (Project Hygiene)** and completion: the foreman has escalated repeatedly that M2's two remaining vetted-shim PRs — [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL, gauntlet-passed) — are built, green, and merge-ready, and only a merge/ferry decision (plus closing the redundant, CI-failing #263 alternative) remains yours to make. On the esheets tree, a weave re-landed [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth refinement) to one-click-mergeable; its supervisor reports the whole OAuth→google-sheets tree has now sat six days blocked on your re-review and merge of that single PR. Finbot advanced to regime-aware position sizing (persistent-volatility assets now default to half-size targets, tests green, wallet untouched).
+The only board completion since the last bulletin was the [endo-but-for-bots#263](https://github.com/endojs/endo-but-for-bots/pull/263) zizmor fix (16 `actions/setup-node` pins bumped to v6.5.0), and with 0 jobs in todo/doin the board is now idle — everything left is parked awaiting go-ahead.
 
-Most urgent operationally: the fleet has **hit its weekly Claude limit (resets Jul 18, 3am UTC)** — `garden-mentor` self-heal, the liaison follow-up producer, and the `minion.town`/`agoric-sdk` triagers have all been failing rc=1 against that wall since Jul 14, so LLM-backed producers are effectively stalled until the reset. Separately, a wave of shepherd/gauntlet jobs (PRs #124, #704, #694, #707, plus agoric-sdk #15) were poisoned for overrunning the 2400s handler budget and parked in `plan/` awaiting a split-and-promote; several triage circuit-breakers are open on unauthorized watch-set repos (`kriscendobot-finbot`, `-minion.town`, `-agoric-sdk`) worth confirming belong in the set at all.
+What a maintainer should notice: the fleet has hit the weekly Claude usage limit (resets Jul 18, 3am UTC), and since Jul 14 that has been failing `garden-mentor` self-heals, several triagers (minion.town, agoric-sdk), and two liaison follow-up action blocks — so autonomous throughput is degraded until the reset. Meanwhile the foreman is repeatedly signalling that **M2 (Project Hygiene) is one merge decision from done**: the two remaining vetted-shim PRs, [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs) and [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL/URLSearchParams), are built green and merge-ready, pending your call to merge/ferry them and close the redundant, CI-failing alternative #263. The esheets tree remains dammed for a 6th day on [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth), now green with the requested design refinements landed but re-weaved after drifting to conflicting — nothing downstream can start until it merges. M3 also needs an arbitration: the MVS resolver home is split between [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), blocking the snapshot-mapper/worker-import layers. Finally, a cluster of shepherd/gauntlet jobs (#124, #704, PR15, pr694, pr707) have been poisoned for overrunning the 2400s handler budget and parked for promotion, and `finbot` advanced to regime-aware position sizing (all tests green, wallet untouched).
 
 ## Parked for maintainer feedback
 
@@ -463,23 +463,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 90.8M | $946.99 _(notional, rate-card)_ | no quota set |
-| Codex | 114.4M _(+126.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Claude | 90.9M | $947.29 _(notional, rate-card)_ | no quota set |
+| Codex | 114.6M _(+130.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr263-zizmor-action-pins-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr263-zizmor-action-pins-fix.md) — ---
+### doin (0)
+(none)
 
-### tada (2332)
+### tada (2333)
+- [`endojs-endo-but-for-bots-pr263-zizmor-action-pins-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr263-zizmor-action-pins-fix.md) — Updated 16 actions/setup-node pins/comments to v6.5.0; pushed 90545246e to fe...
 - [`weave-endo-but-for-bots-pr621-endoclaw-oauth-20260716`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr621-endoclaw-oauth-20260716.md) — Completion report — weave #621 (endoclaw-oauth refinement onto fresh llm)
 - [`endo-sturdyref-press-20260716-162017`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260716-162017.md) — SturdyRef press tick complete (job endo-sturdyref-press-20260716-162017, disp...
 - [`endojs-endo-but-for-bots-pr263-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr263-shepherd.md) — Completion Report: endojs/endo-but-for-bots PR #263 Shepherd
 - [`finbot-progress-20260716-162017`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260716-162017.md) — Advanced finbot main to efa6454: persistent volatility regimes now reduce ana...
-- [`esheets-supervisor-20260716-162017`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260716-162017.md) — Completion report
-- … and 2327 more
+- … and 2328 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
