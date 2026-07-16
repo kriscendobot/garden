@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-16T23:15:40Z_
+_As of 2026-07-16T23:18:30Z_
 
 ## Latest
 
-The board went quiet — the only completion was a [remirror-refresh of endo#3317 onto ebfb#594](https://github.com/endojs/endo-but-for-bots/pull/594), and four provenance-reconstruction jobs (ebfb #545, #69, #720) are stuck because the current `endo-but-for-bots` master already contains their merge commits byte-for-byte, so each rebases to an empty diff. The item most worth your attention: **`endo-but-for-bots` master itself is red** from an incomplete `packages/cbor` landing (missing LICENSE/SECURITY.md, `@endo/eventual-send` not resolving in `test/cbor.test.js`, plus a zizmor pin mismatch) — the [#475 shepherd](https://github.com/endojs/endo-but-for-bots/pull/475) confirmed the failing checks are inherited from master, not PR-attributable, so a master-side cbor fix is needed before dependent PRs can go green. Meanwhile the fleet is throttled: the weekly Claude limit was hit (resets Jul 18, 3am UTC), which is behind the repeated garden-mentor / triager self-heal failures and the dropped follow-up actions.
+The board went nearly silent this window — a single provenance reconstruction ([#545 flatMapReader](https://github.com/endojs/endo-but-for-bots/pull/545)) completed, and the sibling reconstructions of [#69](https://github.com/endojs/endo-but-for-bots/pull/69), [#720](https://github.com/endojs/endo-but-for-bots/pull/720), and #545 all reported blocked for the same reason: `endojs/endo-but-for-bots` master already contains those merges byte-for-byte, so a fresh master-based PR carries an empty diff. Two things a maintainer should act on. First, **master itself is red** from an incomplete `packages/cbor` landing (missing LICENSE/SECURITY.md, a `@endo/eventual-send` resolution failure in cbor.test.js, and a zizmor action-pin mismatch); the [#475](https://github.com/endojs/endo-but-for-bots/pull/475) shepherd confirmed the failing checks are inherited from master, not PR-attributable — the fix belongs on master before dependent PRs can go green. Second, the **weekly Claude limit was hit** (resets Jul 18, 3am UTC), so `garden-mentor`, several triagers, self-heal, and the liaison follow-up producer have been failing rc=1 repeatedly since Jul 14 — expect degraded autonomous throughput until the reset.
 
-Several efforts are fully dammed on your decisions. The foreman sent five nudges that **M2 (Project Hygiene)** is one merge away from done — [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs shim) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL shim) are green/merge-ready, pending a call on adopting #719's `%URL%`/`%SharedURL%` split and closing the redundant [#263](https://github.com/endojs/endo-but-for-bots/pull/263). **M3** is blocked on a package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) for the MVS resolver. The **SturdyRef** effort has three open gates (first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737), a marshal rank-prefix + stack-collapse pick, and re-reviews of [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697)), and the **esheets** tree cannot start until you re-review and merge [#621](https://github.com/endojs/endo-but-for-bots/pull/621). On the autonomous side, finbot advanced twice (regime-aware position sizing, then live GJR-GARCH leverage-parameter MLE), and a gardener found and fixed a monotonic-timer starvation bug that had silently stalled the xs2rust-endor chain ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) for five days — noting the same timer pattern still affects the proxy/watchman/mention-watcher/scaler/repo-watcher units if you want a sweep.
+Meanwhile a stack of decisions is dammed on maintainer input: M2 is one merge from done, blocked on landing the vetted-shim PRs [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) and closing the redundant [#263](https://github.com/endojs/endo-but-for-bots/pull/263); M3 needs a ruling on the MVS-resolver home ([#671](https://github.com/endojs/endo-but-for-bots/pull/671) vs [#403](https://github.com/endojs/endo-but-for-bots/pull/403)); the SturdyRef effort has three gates open (first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737), a marshal rank-prefix pick, and re-reviews of [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697)); and the esheets tree has sat six days behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621). On the infrastructure side, the xs2rust-endor chain ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) had silently stalled five days from a monotonic-timer starvation bug in `garden-unblock.timer` — now fixed on main2 and moving again, with a note that four other watcher timers still carry the same pattern. Finbot advanced twice (regime-aware position sizing, then live GJR-GARCH leverage-parameter MLE), still awaiting explicit paper-wallet authorization and a CapTP transport choice before any live execution.
 
 ## Parked for maintainer feedback
 
@@ -576,8 +576,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.9M | $1004.47 _(notional, rate-card)_ | no quota set |
-| Codex | 124.7M _(+148.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 98.1M | $1007.11 _(notional, rate-card)_ | no quota set |
+| Codex | 125.1M _(+148.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
@@ -585,18 +585,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (5)
 - [`port-xs-to-rust-memory-safe-engine-s20`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s20.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
-- [`reconstruct-ebfb-pr545-stream-flatmapreader`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/reconstruct-ebfb-pr545-stream-flatmapreader.md) — Reconstruct endo-but-for-bots#545 (stream: add flatMapReader)
 - [`reconstruct-ebfb-pr69-pass-style-document-all`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/reconstruct-ebfb-pr69-pass-style-document-all.md) — Reconstruct endo-but-for-bots#69 (pass-style: treat document.all-like values ...
 - [`reconstruct-ebfb-pr720-patterns-literal-inference`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/reconstruct-ebfb-pr720-patterns-literal-inference.md) — Reconstruct endo-but-for-bots#720 (patterns: preserve literal inference in co...
 - [`scholar-financial-forecasting-literature`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-financial-forecasting-literature.md) — Scholar: survey academic literature on financial forecasting — report for the...
+- [`xs2rust-endor-s20-ledger-restore-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-s20-ledger-restore-fix.md) — Fixer: make the endor-snapshot side-table ledger's coverage claims truthful a...
 
-### tada (2388)
+### tada (2389)
+- [`reconstruct-ebfb-pr545-stream-flatmapreader`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/reconstruct-ebfb-pr545-stream-flatmapreader.md) — Completion report
 - [`remirror-refresh-endo-3317-ebfb-pr594`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/remirror-refresh-endo-3317-ebfb-pr594.md) — Remirrored [upstream #3317](https://github.com/endojs/endo/pull/3317) at a0de...
 - [`reland-ebfb-pr84-hardened-url-shim-doc-llm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/reland-ebfb-pr84-hardened-url-shim-doc-llm.md) — Opened DRAFT PR [endojs/endo-but-for-bots#756](https://github.com/endojs/endo...
 - [`audit-garden-endo-master-recreation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/audit-garden-endo-master-recreation.md) — Changed and pushed main2 commit c7f303ca83.
 - [`reconstruct-ebfb-pr542-eslint-visitor-shorthand`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/reconstruct-ebfb-pr542-eslint-visitor-shorthand.md) — Completion report
-- [`xs2rust-endor-build-stage6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage6.md) — orchestration xs2rust-endor-build-stage6 — complete
-- … and 2383 more
+- … and 2384 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
