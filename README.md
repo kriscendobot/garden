@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-16T23:41:19Z_
+_As of 2026-07-16T23:43:41Z_
 
 ## Latest
 
-The fleet is largely stalled on the Claude weekly limit (resets Jul 18, 3am UTC): garden-mentor's self-heal has failed hourly since Jul 15, and triage circuit-breakers opened for `kriscendobot-minion.town`, `kriscendobot-agoric-sdk`, and `kriscendobot-finbot`. Most pressing on the code side, `endo-but-for-bots` **master itself is red** — an incomplete `packages/cbor` landing (missing LICENSE/SECURITY.md, an unresolved `@endo/eventual-send` import, and a zizmor action-pin mismatch) is failing lint/test/zizmor repo-wide; a shepherd on [#475](https://github.com/endojs/endo-but-for-bots/pull/475) traced its red CI to master, so a master-side cbor fix is needed before dependent PRs can go green.
+The garden hit its **weekly Claude usage limit** (resets Jul 18, 3am UTC), and it shows across the board: `garden-mentor` self-heal has failed roughly hourly since Jul 15, the liaison follow-up producer dropped action blocks, and triage circuit-breakers opened on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk` (a third, `kriscendobot-finbot`, opened earlier) — all worth confirming belong in the watch set, since only `endojs/endo-but-for-bots` is authorized under the monitoring constraint.
 
-Several merge decisions are now the only thing gating milestones. The foreman reports **M2 (Project Hygiene)** is one call from done: the text-codecs shim [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and URL shim [#719](https://github.com/endojs/endo-but-for-bots/pull/719) are both green and merge-ready, pending a decision to adopt #719's `%URL%`/`%SharedURL%` split and close the redundant, CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263). **M3** is blocked on a package-home ruling between two competing MVS-resolver PRs — `@endo/daemon/registry.js` [#671](https://github.com/endojs/endo-but-for-bots/pull/671) vs the dedicated `@endo/exo-npm` [#403](https://github.com/endojs/endo-but-for-bots/pull/403). The esheets tree remains dammed behind OAuth PR [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, refinements landed, now 6 days awaiting re-review), and the SturdyRef effort needs a first review of draft [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus a marshal rank-prefix/stack-collapse decision.
+Several maintainer merge/authority gates are the real bottleneck. The foreman sent five nudges that **M2 (Project Hygiene)** is one decision from done: the vetted-shim PRs [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL) are built, gauntleted, and merge-ready, pending your merge/ferry and a call to close the redundant, CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263). **M3** is blocked on a package-home ruling between the two competing MVS-resolver PRs, [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon/registry.js`) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (`@endo/exo-npm`). The **SturdyRef** effort is fully gated for a third consecutive tick — first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737), a marshal rank-prefix + stack-collapse decision, and re-reviews of [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697). The esheets tree remains dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621), now 6 days awaiting re-review.
 
-Two infrastructure notes worth flagging: the xs2rust-endor chain ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) had silently stalled 5 days on a starved `garden-unblock` monotonic timer, now fixed on main2 (`6012296908`) — but proxy/watchman/mention-watcher/scaler/repo-watcher timers reportedly still carry the same bug and want a sweep. Meanwhile finbot advanced on its own repo (regime-aware position sizing, then live GJR-GARCH leverage MLE at `df2a164`, 538 tests green, wallet untouched), and a batch of reconstruct-ebfb provenance jobs came back blocked because master already contains those merges byte-for-byte. Handler-budget overruns (2400s) also poisoned a cluster of shepherd/gauntlet jobs now parked for promotion.
+A structural issue surfaced: **`endo-but-for-bots` master itself is red** from an incomplete `packages/cbor` landing (missing LICENSE/SECURITY, unresolved `@endo/eventual-send`), so the shepherd on [#475](https://github.com/endojs/endo-but-for-bots/pull/475) correctly declined to push and flagged the fix belongs on master; a `build-endo-cbor-package` job is parked awaiting go-ahead. On the mechanical side, the **xs2rust-endor** chain ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) had silently stalled 5 days on a monotonic-timer bug in `garden-unblock`, now fixed on main2 and moving again (other timers may want the same sweep). Several `reconstruct-ebfb-*` jobs correctly blocked rather than opening empty PRs — master already contains their merged commits. Finbot advanced main twice (regime-aware position sizing, then live GJR-GARCH leverage-MLE estimation, 538 tests green), still awaiting paper-wallet authorization. Finally, comment-watcher self-tests on `kriscendobot/endo` and `kriscendobot/agoric-3-proposals` report the 2026-06-24 jq-outage signature — likely **silently blind**, worth a jq/gh check on `endolin-garden2-5bcdff64`.
 
 ## Parked for maintainer feedback
 
@@ -408,6 +408,14 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Blocker: current endojs/endo-but-for-bots master (fcbb540ed) already contains merge commit 91c6718851e4cb40e5679678e117b6aec2884fa3 for [https://github.com/endojs/endo-but-for-bots/pull/720](https://github.com/endojs/endo-but-for-bots/pull/720). GitHub compare reports this recovered change is behind master by one commit and has zero files, so a master-based fresh PR cannot carry the requested diff faithfully. Please advise whether to wait for the expected hard mirror or use a different base.
 
+- `20260716T234249Z-aef697` — from watchdog:comment-watcher/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T234249Z-aef697.md)
+
+> ANOMALY: comment-watcher/kriscendobot-endo self-test FAILED on kriscendobot/endo — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on endolin-garden2-5bcdff64 and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet.
+
+- `20260716T234254Z-b293b0` — from watchdog:comment-watcher/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T234254Z-b293b0.md)
+
+> ANOMALY: comment-watcher/kriscendobot-agoric-3-proposals self-test FAILED on kriscendobot/agoric-3-proposals — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on endolin-garden2-5bcdff64 and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet.
+
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -578,7 +586,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 99.6M | $1018.43 _(notional, rate-card)_ | no quota set |
+| Claude | 101.0M | $1034.38 _(notional, rate-card)_ | no quota set |
 | Codex | 125.7M _(+149.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
