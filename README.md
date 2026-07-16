@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-16T22:23:32Z_
+_As of 2026-07-16T22:25:30Z_
 
 ## Latest
 
-The dominant event is a **Claude weekly-quota exhaustion hit 2026-07-14** (resets Jul 18, 3am UTC): `garden-mentor`, the follow-up producers, and the triage self-heal have been failing `rc=1` on every tick since, and that quota starvation is why the triage circuit-breakers tripped OPEN for `kriscendobot-minion.town`, `kriscendobot-agoric-sdk`, and earlier `kriscendobot-finbot` — all three worth confirming against the watch-set authorization bar, since only `endojs/endo-but-for-bots` is sanctioned for watching. Separately, **`endo-but-for-bots` master is red** from an incomplete `packages/cbor` landing (missing LICENSE/SECURITY.md, `@endo/eventual-send` unresolved in `test/cbor.test.js`); the shepherd on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) traced its failures entirely to master, so the fix belongs there (the parked `build-endo-cbor-package` phase-1 job) before dependent PRs can go green.
+The dominant event is a hit **Claude weekly usage limit** (resets Jul 18, 3am UTC), which has been crash-looping the LLM-backed services since Jul 14 — `garden-mentor` self-heal has failed hourly, and triage circuit-breakers opened on `kriscendobot-minion.town`, `kriscendobot-agoric-sdk`, and `kriscendobot-finbot`. Expect the fleet's autonomous producers to stay degraded until the reset. Several long-running jobs were also poisoned for handler-budget overruns and parked for promotion (shepherds on [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), and [agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/pull/15); gauntlets on [#694](https://github.com/endojs/endo-but-for-bots/pull/694) and [#707](https://github.com/endojs/endo-but-for-bots/pull/707)).
 
-Several trees are fully dammed on your review: the **foreman is nudging repeatedly to close M2 (Project Hygiene)** — its last two rows, [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs shim) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL shim), are built, gauntleted, and merge-ready, with the redundant CI-failing alternative #263 pending closure; **M3 needs a package-home ruling** between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) for the MVS resolver; the **SturdyRef effort is on its third fully-gated tick** awaiting first review of draft [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus a marshal rank-prefix pick and re-reviews of [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697); and the **esheets tree is stuck 6 days behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621)** (green, re-woven to mergeable, stale `CHANGES_REQUESTED`).
+Multiple efforts are dammed behind maintainer decisions the fleet can't make. The foreman is repeatedly nudging that **M2 (Project Hygiene)** is one merge from done: [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs shim) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL shim) are both green and merge-ready, pending a call to close the redundant, CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263). **M3** is blocked on a package-home ruling between the MVS resolvers in [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403). The SturdyRef stack has three open gates — first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737), a marshal rank-prefix pick, and re-reviews of [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697) — and the esheets tree has now waited 6 days on a re-review + merge of [#621](https://github.com/endojs/endo-but-for-bots/pull/621), which gates the entire OAuth→google-sheets chain.
 
-On the mechanical side, a batch of long-running jobs (shepherds for [#124](https://github.com/endojs/endo-but-for-bots/pull/124)/[#704](https://github.com/endojs/endo-but-for-bots/pull/704)/pr15, several gauntlets, and dead-mail #4952694523) were **poisoned for overrunning the 2400s handler budget** and parked in `plan/` awaiting split or promotion, and a monotonic-timer starvation bug that had silently stalled the xs2rust-endor chain for 5 days was fixed on main2 (`6012296908`) — the reporter flags that proxy/watchman/mention-watcher/scaler/repo-watcher timers still carry the same pattern and may want a sweep. The board itself is idle (only the stage-6 round-trip fuzz child in flight).
+Two mechanical findings worth noting: **master is red** on endo-but-for-bots from an incomplete `packages/cbor` landing (missing LICENSE/SECURITY.md and an unresolved `@endo/eventual-send` import), surfaced by shepherd [#475](https://github.com/endojs/endo-but-for-bots/pull/475) — this needs a master fix job before dependent PRs can go green, and a phase-1 `build-endo-cbor-package` (from the merged [#710](https://github.com/endojs/endo-but-for-bots/pull/710) design) is parked awaiting go-ahead. Separately, the xs2rust-endor port was found silently stalled 5 days by a monotonic-timer bug in `garden-unblock`; it's fixed on main2 and the chain is moving again (stage-6 round-trip fuzz now in flight), with a note that four other timers still carry the same pattern.
 
 ## Parked for maintainer feedback
 
@@ -523,14 +523,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.3M | $989.58 _(notional, rate-card)_ | no quota set |
+| Claude | 96.4M | $990.43 _(notional, rate-card)_ | no quota set |
 | Codex | 124.2M _(+145.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`self-heal-fix-garden-issue-inbox-enum-fatal-swallowed-gh-stderr`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-issue-inbox-enum-fatal-swallowed-gh-stderr.md) — In scripts/jobs/handlers/issue-source-gh.sh, the two enumeration pipelines (s...
 - [`xs2rust-endor-stage6-roundtrip-fuzz`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage6-roundtrip-fuzz.md) — Stage 6 child 4/6: snapshot round-trip-invariance + malformed-atom fuzz targets
 
 ### tada (2374)
