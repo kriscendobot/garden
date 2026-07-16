@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-16T18:55:59Z_
+_As of 2026-07-16T18:57:33Z_
 
 ## Latest
 
-Master on `endojs/endo-but-for-bots` is red and it's blocking everything downstream: a shepherd on [#475](https://github.com/endojs/endo-but-for-bots/pull/475) traced the PR's failing lint/test/zizmor checks to an incomplete `packages/cbor` landing on master itself (missing LICENSE/SECURITY.md, unresolved `@endo/eventual-send` import, action-pin mismatch) — not PR-attributable, so the fix belongs on master as a cbor-package job before feature branches can rebase clean. Meanwhile [#714](https://github.com/endojs/endo-but-for-bots/pull/714) passed its shepherd and is mid-conduct (the sole in-flight job).
+[endojs/endo-but-for-bots#714](https://github.com/endojs/endo-but-for-bots/pull/714) (shared canonical CBOR primitives, `@endo/cbor`) landed — shepherded green, reviewed, and merged into `llm`. Watch for fallout: the shepherd on [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) reports that `master` itself is now red from an *incomplete* `packages/cbor` landing (missing LICENSE/SECURITY.md, an unresolved `@endo/eventual-send` import in `cbor.test.js`, and a zizmor pin mismatch) — the red is not PR-attributable and needs a master-side cbor fix before dependent PRs can rebase clean. The phase-1 `build-endo-cbor-package` follow-up is parked awaiting your go-ahead.
 
-The bigger signal is decisions piling up on you. The foreman is now sending near-hourly notes that **M2 (Project Hygiene)** is one merge from done — its two remaining vetted-shim PRs, [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL, gauntlet-passed), are both green and merge-ready, pending your call to merge/ferry and close the redundant, CI-failing alternative [#263](https://github.com/endojs/endo-but-for-bots/pull/263). **M3** is separately stalled on a package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) for the MVS resolver. The esheets tree remains dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, its requested design round landed, re-drifted to conflicting and re-woven) — 6 days awaiting your re-review.
+Several threads are stalled on merge/authority decisions only you can make. The foreman reports **M2 (Project Hygiene)** is one decision from done — its two vetted-shim PRs, [endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs) and [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL), are built, gauntleted, and merge-ready, pending a call to adopt #719's `%URL%`/`%SharedURL%` split and close the redundant, CI-failing [endojs/endo-but-for-bots#263](https://github.com/endojs/endo-but-for-bots/pull/263). **M3** is blocked on picking the MVS-resolver home between [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) so the loser can close. And the esheets tree remains dammed behind [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth), green and awaiting re-review for six days.
 
-Two things need cleanup attention: a **weekly Claude usage limit was hit** (resets Jul 18, 3am UTC), which is failing `garden-mentor` self-heals and follow-up producers repeatedly across Jul 14–16; and several triage circuit-breakers have opened on unauthorized watch-set repos (`kriscendobot-finbot`, `-minion.town`, `-agoric-sdk`), worth confirming they belong under the monitoring-safety constraint. A cluster of shepherd/gauntlet jobs (PRs #124, #704, #694, #707, agoric-sdk #15) also overran the 2400s handler budget and were poisoned to the plan queue — they need splitting or a raised timeout before requeue.
+Operationally, the fleet hit its **weekly Claude limit (resets Jul 18, 3am UTC)**: `garden-mentor`, several triagers (`kriscendobot-minion.town`, `kriscendobot-agoric-sdk`), and the follow-up producer are all failing on quota exhaustion, and a spread of shepherd/gauntlet jobs (#124, #704, #694, #707, agoric-sdk#15) have been poisoned into the plan queue after overrunning the 2400s handler budget — they need splitting or detached runs, not requeue.
 
 ## Parked for maintainer feedback
 
@@ -479,23 +479,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 93.2M | $968.62 _(notional, rate-card)_ | no quota set |
+| Claude | 93.3M | $969.23 _(notional, rate-card)_ | no quota set |
 | Codex | 119.0M _(+137.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr714-conduct-4995011322`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr714-conduct-4995011322.md) — conduct (merge) endojs/endo-but-for-bots PR #714
+### doin (0)
+(none)
 
-### tada (2351)
+### tada (2352)
+- [`endojs-endo-but-for-bots-pr714-conduct-4995011322`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr714-conduct-4995011322.md) — PR #714 is merged into llm as merge commit 25978ee4994a5d8c499ffe499e437bf3f6...
 - [`endojs-endo-but-for-bots-pr714-shepherd-4995011322`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr714-shepherd-4995011322.md) — Completion report
 - [`endo-sturdyref-press-20260716-185002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260716-185002.md) — SturdyRef press tick — HOLD (2nd consecutive gated tick), progress recorded
 - [`pi-release-watch-20260716-185002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/pi-release-watch-20260716-185002.md) — Conclusion is clear. Both @earendil-works/pi-ai and @earendil-works/pi-agent-...
 - [`endojs-endo-but-for-bots-pr714-review-902775bf`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr714-review-902775bf.md) — Conducted PR #714: review body re-fetched, with no inline comments. Preflight...
-- [`endo-git-integration-press-20260716-175014`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260716-175014.md) — Completion report — git-integration press dispatch (2026-07-16)
-- … and 2346 more
+- … and 2347 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
