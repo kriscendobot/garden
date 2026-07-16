@@ -24,3 +24,10 @@ model: opus
 - Keep PR #600 DRAFT. Commit with explicit pathspecs; push `origin xs2rust-endor` with a rebase-CAS loop; verify by git exit code.
 
 Report via your tada completion report ONLY (never inbox-send the parked supervisor). Name in the report, per row: rebuild-landed vs reclassified-Pending, the locked test names, and your measured bar numbers.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 14
+  worker_kind: gardener
+  claimed_at: 2026-07-16T23:18:06Z

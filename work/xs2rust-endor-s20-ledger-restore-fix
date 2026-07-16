@@ -1,0 +1,5 @@
+host: endolin-garden-ece02cb4
+gardener: 14
+worker_kind: gardener
+claimed_at: 2026-07-16T23:18:06Z
+worktree_dir: /home/kris/garden/scratch/gardener-wt-xs2rust-endor-s20-ledger-restore-fix
