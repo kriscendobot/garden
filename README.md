@@ -1,16 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-16T05:44:55Z_
+_As of 2026-07-16T05:51:48Z_
 
 ## Latest
 
-The board is nearly idle — the only motion is a retrospective on [kriscendobot/agoric-sdk#16](https://github.com/kriscendobot/agoric-sdk/pull/16) claimed into progress, with an empty todo queue — because the fleet is **quota-blocked**: Claude's weekly limit was hit and resets Jul 18, 3am UTC, and it's cascading into repeated self-heal failures on `garden-mentor`, a rejected liaison follow-up, and stalled triagers. Three triage circuit-breakers are now OPEN — `kriscendobot-finbot`, `kriscendobot-minion.town`, and `kriscendobot-agoric-sdk` — and each error note flags the same safety question worth your call: under the monitoring-safety constraint only `endojs/endo-but-for-bots` is authorized for watching, yet all three sit in the active watch set. Several long-running jobs were poisoned for overrunning the 2400s handler budget and parked in the plan queue for promotion or splitting, including shepherds for [endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), the [#694](https://github.com/endojs/endo-but-for-bots/pull/694) and [#707](https://github.com/endojs/endo-but-for-bots/pull/707) gauntlets, and [kriscendobot/agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/pull/15). Two items need your judgment directly: a `build-endo-cbor-package` job is parked awaiting go-ahead following the merged @endo/cbor design in [endo-but-for-bots#710](https://github.com/endojs/endo-but-for-bots/pull/710), and the avoid-abbreviations retrospective cluster recurred on [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`fetchImpl`), where a pre-existing line escaped the deterministic gate — the escalation asks whether to widen the gate to re-scan whole changed files.
+The garden is effectively stalled on a **Claude weekly-limit exhaustion** (hit Jul 14, resets Jul 18 3am UTC): `garden-mentor` self-heal has been failing on a ~10-hour loop, two liaison follow-up action blocks were dropped, and triage circuit-breakers opened on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk` — the latter two also worth a watch-set sanity check, since only `endojs/endo-but-for-bots` is authorized for surveillance. The board itself is quiet (one prosecutor retro on [kriscendobot/agoric-sdk#16](https://github.com/kriscendobot/agoric-sdk/pull/16) completed; todo and doin are empty). A backlog of poison jobs is now parked awaiting promotion after handler-budget overruns — shepherds for [endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), and [kriscendobot/agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/pull/15), plus the gauntlets for [#694](https://github.com/endojs/endo-but-for-bots/pull/694) and [#707](https://github.com/endojs/endo-but-for-bots/pull/707); these overran the 2400s claim budget and need splitting or a detached run rather than a requeue. Two items want a maintainer decision: the recurred *avoid-abbreviation* cluster on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (a pre-gate `fetchImpl` line the deterministic scanner structurally can't see), and a parked `build-endo-cbor-package` (phase 1 of the `@endo/cbor` design landed in [#710](https://github.com/endojs/endo-but-for-bots/pull/710)) awaiting go-ahead.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 5h)
+- [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) — feat(eslint-plugin)!: support ESLint 10+ (waiting 6h)
 - [endojs/endo-but-for-bots#714](https://github.com/endojs/endo-but-for-bots/pull/714) — feat(platform): add listTree, rangeRead, rangeReadText (consolidate genie/lal/fae fs reads) (waiting 14h)
-- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 23h)
+- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 1d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 2d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 3d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 5d)
@@ -419,23 +419,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 85.5M | $902.10 _(notional, rate-card)_ | no quota set |
-| Codex | 49.4M _(+125.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Claude | 85.5M | $902.64 _(notional, rate-card)_ | no quota set |
+| Codex | 50.6M _(+125.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`kriscendobot-agoric-sdk-pr16-review-d584f885-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr16-review-d584f885-retro.md) — Retrospective on kriscendobot/agoric-sdk PR #16 (primary: kriscendobot-agoric...
+### doin (0)
+(none)
 
-### tada (2299)
+### tada (2300)
+- [`kriscendobot-agoric-sdk-pr16-review-d584f885-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-review-d584f885-retro.md) — Prosecutor retro — kriscendobot-agoric-sdk-pr16-review-d584f885
 - [`kriscendobot-agoric-sdk-pr16-review-9b74ccd4-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-review-9b74ccd4-retro.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr16-review-416988d1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-review-416988d1-retro.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr16-review-12e4a9aa-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-review-12e4a9aa-retro.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr16-dec1f704-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr16-dec1f704-retro.md) — Recorded a not-a-miss dismissal for the PR #16 closure directive on journal2.
-- [`review-improve-inline-import-jsdoc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/review-improve-inline-import-jsdoc.md) — Implemented and pushed main2:
-- … and 2294 more
+- … and 2295 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
