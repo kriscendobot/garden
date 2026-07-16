@@ -33,3 +33,10 @@ A fork PR on `endojs/endo-but-for-bots` mirroring upstream `endojs/endo#3212`, b
 `master-<sha>` anchor, taken through the gauntlet (cleaned, panel-reviewed, fix-looped, un-drafted).
 The `tada` report links #3212 and the new fork PR, names the frozen-base sha, and summarizes the
 gauntlet outcome.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: gardener
+  claimed_at: 2026-07-16T23:26:00Z
