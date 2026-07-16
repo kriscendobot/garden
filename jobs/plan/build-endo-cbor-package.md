@@ -26,6 +26,19 @@ then build the design").
 "put it on `llm` and hope to port to origin/master when stable"; do not base-infer to
 `master`). Draft PR; the build **auto-runs the gauntlet**.
 
+## Prior art on `master` — PORT it, do not rebuild (verified 2026-07-16)
+
+A previous build already implemented this codec and pushed it to **`master`** as
+`packages/cbor/` (commit `fcbb540ed`: canonical writer/reader, strict mode, bignums,
+canonical NaN, golden vectors, tests) — but `master` is the WRONG base per the
+maintainer directive, and `packages/cbor/` does **not** exist on `llm`. So this is a
+**port/reconcile, not a green-field build**: bring the `master` `packages/cbor/`
+onto **`llm`** (cherry-pick/adapt), reconcile it with the design as amended by #738
+(strict-by-default readers, `@endo/cbor-frame` naming, the phase-0
+well-formed-string ponyfill dependency — not `@endo/pass-style`), and open the draft
+`feat` PR on `llm`. Diff against the `master` version and call out any deviations in
+the PR body / `tada` report. Do NOT silently produce a second, divergent `@endo/cbor`.
+
 ## Scope — PHASE 1 ONLY
 
 Implement **only phase 1** of the design's phased migration: **create the
