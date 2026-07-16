@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-16T17:22:22Z_
+_As of 2026-07-16T17:32:52Z_
 
 ## Latest
 
-The most consequential thread is **Milestone M2 (Project Hygiene), now one merge decision from done** — the foreman escalated repeatedly today that its last two vetted-shim PRs, [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) (hardened text-codecs shim) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (hardened URL shim), are both built, gauntleted, green/CLEAN, and merge-ready; closing M2 needs your merge/ferry decision plus a ruling on the redundant, CI-failing alternative [#263](https://github.com/endojs/endo-but-for-bots/pull/263) (whose zizmor action-pins and shepherd fixes just completed). M3 is stalled on a package-home call the fleet can't make: the MVS resolver now lives in two competing open PRs, [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon/registry.js`) versus [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (a dedicated `@endo/exo-npm`) — pick a home so the loser can be closed and the snapshot-mapper/worker-import layers can build. The esheets tree remains dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth), open and all-green for 6 days awaiting re-review; a gardener re-weaved it clean today to keep it one-click mergeable, and nothing downstream (the OAuth exo → Google Sheets packages) can start until it lands.
-
-Note that a wall of self-heal, mentor, liaison-follow-up, and triager failures this window are all the same root cause — **the weekly Claude limit was hit (resets Jul 18, 3am UTC)** — not distinct bugs; triage circuit-breakers opened for `kriscendobot-finbot`, `-minion.town`, and `-agoric-sdk`, the latter two worth confirming they belong in the watch set under the monitoring-safety constraint. Separately, a batch of long-running shepherd/gauntlet jobs (PRs #124, #704, #694, #707, agoric-sdk #15) were poisoned and parked for overrunning the 2400s handler budget — they need splitting into claim-sized stages or a detached run before they'll make progress. On the autonomous side, finbot advanced to regime-aware position sizing (green tests, wallet untouched), and a `@endo/cbor` phase-1 build is parked awaiting your go-ahead following the merge of design [#710](https://github.com/endojs/endo-but-for-bots/pull/710).
+The only board completion this cycle was [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719)'s lockdown-docs fix, which leaves that PR (hardened URL/URLSearchParams shim) non-draft, CI-green, and merge-ready. That closes out the last build work in **Milestone M2 (Project Hygiene)**: the foreman has now pinged five times that M2 is one authority decision from done — merge/ferry [#719](https://github.com/endojs/endo-but-for-bots/pull/719) and [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (hardened text-codecs shim, also green) and close the redundant, CI-failing alternative [#263](https://github.com/endojs/endo-but-for-bots/pull/263). Two more decisions are blocking downstream work: M3's module-loading layers are stalled pending a ruling on the MVS-resolver home ([#671](https://github.com/endojs/endo-but-for-bots/pull/671) vs [#403](https://github.com/endojs/endo-but-for-bots/pull/403), one to be closed), and the entire esheets/OAuth tree is dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621), which is green and awaiting re-review/merge six days on. Separately, the Claude weekly token limit was hit (resets Jul 18, 3am UTC), so `garden-mentor`, several triagers, and follow-up producers have been failing rc=1 — expect degraded autonomous throughput until reset.
 
 ## Parked for maintainer feedback
 
@@ -463,23 +461,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 91.0M | $948.66 _(notional, rate-card)_ | no quota set |
-| Codex | 114.6M _(+130.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 91.0M | $948.96 _(notional, rate-card)_ | no quota set |
+| Codex | 118.8M _(+130.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr719-lockdown-docs-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-lockdown-docs-fix.md) — ---
+### doin (0)
+(none)
 
-### tada (2333)
+### tada (2334)
+- [`endojs-endo-but-for-bots-pr719-lockdown-docs-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr719-lockdown-docs-fix.md) — Done. Here's what was done:
 - [`endojs-endo-but-for-bots-pr263-zizmor-action-pins-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr263-zizmor-action-pins-fix.md) — Updated 16 actions/setup-node pins/comments to v6.5.0; pushed 90545246e to fe...
 - [`weave-endo-but-for-bots-pr621-endoclaw-oauth-20260716`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr621-endoclaw-oauth-20260716.md) — Completion report — weave #621 (endoclaw-oauth refinement onto fresh llm)
 - [`endo-sturdyref-press-20260716-162017`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260716-162017.md) — SturdyRef press tick complete (job endo-sturdyref-press-20260716-162017, disp...
 - [`endojs-endo-but-for-bots-pr263-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr263-shepherd.md) — Completion Report: endojs/endo-but-for-bots PR #263 Shepherd
-- [`finbot-progress-20260716-162017`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260716-162017.md) — Advanced finbot main to efa6454: persistent volatility regimes now reduce ana...
-- … and 2328 more
+- … and 2329 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
