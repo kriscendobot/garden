@@ -25,3 +25,10 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 Endo contains a fork of cjs-module-lexer that will need to periodically merge upstream changes using `git subtree` joins. We have not done this yet but should make an attempt now. These changes should be proposed against the current upstream master so they can be ferried across. 
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 9
+  worker_kind: cleric
+  claimed_at: 2026-07-16T20:53:21Z
