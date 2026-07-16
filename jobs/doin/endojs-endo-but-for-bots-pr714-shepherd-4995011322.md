@@ -21,6 +21,7 @@ gotcha in prior memory). Do NOT merge — merge is the conduct child that runs n
 Routed from the "shepherd and conduct" attention directive by kriskowal:
 https://github.com/endojs/endo-but-for-bots/pull/714#issuecomment-4995011322
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
