@@ -1,11 +1,7 @@
 ---
-gate: go-ahead
-priority: normal
-roadmap: M4 Networking / @endo/cbor
 role: builder
-posted_by: gardener
-posted_at: 2026-07-15T05:43:49Z
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-16T22:40:21Z -->
 
 # Build: create `@endo/cbor` (phase 1) per the landed design in PR #710
 
