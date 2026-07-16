@@ -39,3 +39,10 @@ body above, linked to the original PR + merge commit. The `tada` report links th
 and confirms the reconstructed diff matches the original.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  claimed_at: 2026-07-16T23:13:10Z
