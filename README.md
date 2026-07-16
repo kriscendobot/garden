@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-16T04:29:45Z_
+_As of 2026-07-16T04:34:25Z_
 
 ## Latest
 
-Board activity has essentially stalled: the only transition was a gardener claiming the retrospective on [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671), with nothing in `todo` and nothing completed. The dominant signal is a **weekly Claude usage limit** (resets Jul 18, 3am UTC): since Jul 14 it has been rejecting the liaison's follow-up actions and crash-looping `garden-mentor` self-heal hourly, and it tripped triage circuit-breakers on three watched forks — `kriscendobot-minion.town`, `kriscendobot-agoric-sdk`, and earlier `kriscendobot-finbot` (worth confirming those forks belong in the watch set at all under the monitoring-safety constraint). A wave of long-running jobs also overran the 2400s handler budget and were poisoned into the plan queue (held, awaiting promotion): the shepherds for [endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), and [kriscendobot/agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/pull/15), plus the gauntlets on [#694](https://github.com/endojs/endo-but-for-bots/pull/694) and [#707](https://github.com/endojs/endo-but-for-bots/pull/707) — each needs splitting into claim-sized stages or a raised budget before it can make progress. Meanwhile 28 PRs sit parked for review, the freshest being [endojs/endo#3319](https://github.com/endojs/endo/pull/3319) (ESLint 10+ support) and [endo-but-for-bots#714](https://github.com/endojs/endo-but-for-bots/pull/714) (platform `listTree`/`rangeRead`), and a parked `build-endo-cbor-package` job awaits a go-ahead following the merge of the @endo/cbor design in [#710](https://github.com/endojs/endo-but-for-bots/pull/710).
+The fleet has hit its Claude weekly limit (resets Jul 18, 3am UTC), and it shows: the board is idle (nothing in `todo`, one retrospective in flight), and the maintainer inbox is filling with rc=1 quota failures across `garden-mentor` self-heals, a dropped follow-up action block, and triage circuit-breakers that opened on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk` (both also worth a watch-set sanity check — CLAUDE.md still authorizes only `endojs/endo-but-for-bots`). Separately, a batch of long-running shepherd/gauntlet jobs overran the 2400s handler budget and were poisoned into the plan queue, held for your call: shepherds for [endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), and [kriscendobot/agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/pull/15), plus the gauntlets for [#694](https://github.com/endojs/endo-but-for-bots/pull/694) and [#707](https://github.com/endojs/endo-but-for-bots/pull/707) — each needs splitting into claim-sized stages or a raised timeout before it can make progress.
+
+Two items want your judgment directly. The avoid-name-abbreviations cluster **recurred** on [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) (your "Avoid abbreviation" on `fetchImpl`): the deterministic pre-push gate never scanned the line because it predated the gate's deployment, exposing a structural blind spot — the retrospective did not auto-dispatch a fix and asks whether to widen the gate to whole changed files. And following the merge of the shared-CBOR design in [#710](https://github.com/endojs/endo-but-for-bots/pull/710), a phase-1 `build-endo-cbor-package` job is parked awaiting your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -221,6 +223,34 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: f9a25ed5e3d66568371e5a3a0b83e9a7ccd53eea (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p f9a25ed5e3d66568371e5a3a0b83e9a7ccd53eea). Diagnosis: You've hit your weekly limit · resets Jul 18, 3am (UTC)
 
+- `20260716T043343Z-508cfd` — from gardener:endojs-endo-but-for-bots-pr671-review-3fa7398f-retro, reply_to `endojs-endo-but-for-bots-pr671-review-3fa7398f-retro` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T043343Z-508cfd.md)
+
+> Review-retrospective escalation — avoid-name-abbreviations cluster RECURRED (needs your call)
+>
+> The abbreviation improvement (spell-out-identifiers pre-push gate + stylist
+> never-abbreviate brief, closed on main2 aa2da527e5) has RECURRED on
+> [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/issues/671): your "Avoid abbreviation" on `fetchImpl`
+> (registry-node-backend.js). Cluster reopened, count=4, prs={650,609,671}.
+>
+> Why it slipped despite the gate being deployed:
+>   1. The `fetchImpl` line was authored ~3h BEFORE the gate existed, and the gate
+>      scans only NEWLY-ADDED diff lines per push. On every later push the line is
+>      unchanged, so the deterministic gate never scanned it — even though `impl`
+>      IS on its blocklist (I verified it fails when scanned directly). This is a
+>      structural blind spot: any abbreviation predating the gate's deployment (or a
+>      branch's first gated push) escapes the deterministic net permanently.
+>   2. The panel's stylist seat (the only backstop for pre-existing lines) ran with
+>      the never-abbreviate brief deployed and still missed this one identifier —
+>      LLM seats are probabilistic.
+>
+> Per the skill I did NOT auto-dispatch a second improvement round — the right fix is
+> your judgment call: widen the gate to re-scan whole changed/new files (catches
+> pre-existing + pre-deployment stragglers, at the cost of more false positives),
+> accept the stylist seat as the sole net for pre-existing lines, or treat this
+> single pre-deployment straggler as expected fallout needing no change. The gate is
+> not broken for the lines it is designed to see. Miss recorded either way. Your call
+> on whether/how to widen.
+
 - `poison-deadmail-issue-comment-4952694523-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-deadmail-issue-comment-4952694523-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -391,7 +421,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 84.0M | $891.33 _(notional, rate-card)_ | no quota set |
+| Claude | 84.2M | $893.11 _(notional, rate-card)_ | no quota set |
 | Codex | 49.3M _(+124.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 ## Board
