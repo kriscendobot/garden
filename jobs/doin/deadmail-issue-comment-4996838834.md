@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/57#issuecomment-4996838834
 > and harmless test assets nope; ymax0 testing uses real money. Typically 15 to 30 USDC or so (there are some 1 USDC minimum thresholds to avoid). The USDC is not consumed; we can withdraw it after the test. But the assets are real. > dedicated test accounts We have some dedicate
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 12
+  worker_kind: gardener
+  claimed_at: 2026-07-16T21:45:14Z
