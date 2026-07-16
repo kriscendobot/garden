@@ -1,13 +1,15 @@
 ---
 slug: inline-import-jsdoc
 category: style-convention
-status: improvement-dispatched
+status: closed
 count: 1
 members:
   - endojs-endo-but-for-bots-pr721-review-56349e18
 prs: [721]
 improvement_job: review-improve-inline-import-jsdoc
+improved_by: 0c569a64e4 gate: enforce no inline import JSDoc types; d0da42892a review: backstop inline import JSDoc in typist panel; scripts/jobs/gardening/pre-push-gates/probes/no-inline-import-jsdoc.sh; roles/{builder,fixer,jurors/typist}/AGENT.md; skills/{pre-push-gates,panel-hints}/
 ---
+
 
 
 Type references written as inline import() inside a JSDoc tag (@param/@returns/@type {import('./x.js').Y}) instead of a top-of-file @import { Y } from './x.js' tag plus a bare reference — a standing Endo house rule whose no-inline-import-jsdoc pre-push gate is documented but has no implementing probe script, so it never binds, and the typist backstop did not fire.
