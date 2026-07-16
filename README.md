@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-16T07:05:57Z_
+_As of 2026-07-16T07:09:34Z_
 
 ## Latest
 
-The board has effectively stalled: nearly every LLM-backed service — the mentor, the follow-up producer, and the triagers — is failing `rc=1` against the same Claude weekly limit (resets Jul 18, 3am UTC), so only a single daily-progress-summary job moved since the last bulletin. Expect little autonomous progress until the quota resets. Meanwhile a backlog of poison jobs has parked itself in the plan queue after handler-budget overruns — the shepherds for [endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#694](https://github.com/endojs/endo-but-for-bots/pull/694), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), and [kriscendobot/agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/pull/15), plus the dead-lettered garden#31 comment job — each needing a maintainer to split, re-time, or promote it.
-
-Two items want a decision. Triage circuit-breakers have OPENED on three watched repos — `kriscendobot-minion.town`, `kriscendobot-agoric-sdk`, and `kriscendobot-finbot` — and the breaker messages flag that under the monitoring-safety constraint only `endojs/endo-but-for-bots` is authorized to watch, so their presence in the set is worth confirming. And the avoid-name-abbreviations review cluster has recurred (count=4) on [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) via an "Avoid abbreviation" note on `fetchImpl`: the retrospective traced it to a structural blind spot — the pre-push gate only scans newly-added diff lines, so an abbreviation authored before the gate deployed escapes it permanently — and left the fix (widen the gate to whole changed files vs. accept the stylist seat as the sole backstop) to your call. On the merge front, a gardener parked `build-endo-cbor-package` (phase 1 of @endo/cbor) after the shared-CBOR-primitives design landed in [endo-but-for-bots#710](https://github.com/endojs/endo-but-for-bots/pull/710), awaiting your go-ahead.
+The board has been essentially frozen since the last bulletin — the only transition was a routine daily-progress summary completing — because the **Claude weekly limit was hit (resets Jul 18, 3am UTC)**, and that outage is cascading: `garden-mentor` is stuck in an hourly self-heal loop, two `garden-follow-up` action blocks were rejected and dropped, and triage circuit-breakers opened on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk` (both also flagged as possibly outside the authorized watch set). A separate structural problem is worth a look: a run of shepherd/gauntlet jobs — [endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#694](https://github.com/endojs/endo-but-for-bots/pull/694), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), and [kriscendobot/agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/pull/15) — deterministically overran the 2400s handler budget and are now parked as poison in the plan queue, needing to be split or run detached before they can make progress. Two calls await you directly: the review-retrospective on [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) escalated because the "avoid abbreviations" cluster recurred (`fetchImpl`, a line predating the pre-push gate that the gate structurally can't see), and a gardener parked `build-endo-cbor-package` (phase 1 of the @endo/cbor design landed in [endo-but-for-bots#710](https://github.com/endojs/endo-but-for-bots/pull/710)) awaiting your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -421,24 +419,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 86.4M | $908.68 _(notional, rate-card)_ | no quota set |
+| Claude | 86.4M | $908.98 _(notional, rate-card)_ | no quota set |
 | Codex | 50.6M _(+126.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`daily-progress-summary-20260716-070513`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260716-070513.md) — Daily midnight Pacific progress summary
+### doin (1)
 - [`improve-gh-wrapper-fail-closed-on-writes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gh-wrapper-fail-closed-on-writes.md) — scripts/jobs/bin/gh
 
-### tada (2305)
+### tada (2306)
+- [`daily-progress-summary-20260716-070513`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260716-070513.md) — Inbox is empty. The job is complete.
 - [`kriskowal-garden-pr19-review-af733b76-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr19-review-af733b76-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr671-review-93271f57-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-review-93271f57-retro.md) — Completion report — review-retrospective on endojs/endo-but-for-bots #671 (re...
 - [`endojs-endo-but-for-bots-pr722-review-01c311bd-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr722-review-01c311bd-retro.md) — Recorded a not-a-miss dismissal for PR #722 review 4699091386: it resolved an...
 - [`endojs-endo-but-for-bots-pr521-review-27079b07-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr521-review-27079b07-retro.md) — Recorded a durable not-a-miss dismissal for PR #521 review 4698736135. The fe...
-- [`endojs-endo-but-for-bots-pr521-e62f93ef-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr521-e62f93ef-retro.md) — Completion report
-- … and 2300 more
+- … and 2301 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
