@@ -1,12 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-17T11:49:21Z_
+_As of 2026-07-17T11:51:17Z_
 
 ## Latest
 
-Upstream `endo` master finally landed on the `llm` roadmap branch: [#773](https://github.com/endojs/endo-but-for-bots/pull/773) was conducted in (immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, skipLibCheck), deliberately stopping short of upstream's ESLint 10 flat-config overhaul — that migration is flagged as a separate multi-cycle re-lint, not this merge. Note the merge job itself overran its handler budget and got poisoned/parked even though it completed, so the poison entry is stale.
+The headline this cycle: upstream `endojs/endo` master landed on the `llm` roadmap branch. A gardener conducted [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) — a clean merge of *real* upstream master (correctly avoiding the contaminated fork mirror), deliberately stopping just before upstream's ESLint 10 flat-config migration — advancing `llm` and pulling in the immutable-arraybuffer pseudo-prototype drop, SES console sanitization + `code` error prop, and `skipLibCheck`. Adopting the ESLint 10 trio is flagged as a separate multi-cycle re-lint job, not auto-run.
 
-Several lanes are now fully green and gated solely on a merge directive: git-integration Phase 1 [#705](https://github.com/endojs/endo-but-for-bots/pull/705) and Phase 3 [#707](https://github.com/endojs/endo-but-for-bots/pull/707) — the M3 worked-loop exit criterion — after [#706](https://github.com/endojs/endo-but-for-bots/pull/706) merged, plus content-store powers [#585](https://github.com/endojs/endo-but-for-bots/pull/585). The foreman reports M2 one decision from done ([#719](https://github.com/endojs/endo-but-for-bots/pull/719) URL shim + [#259](https://github.com/endojs/endo-but-for-bots/pull/259) text-codecs green; asks to close CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263)) and asks you to rule the MVS-resolver home between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) to unblock M3's tail. Other stalls awaiting you: sturdyref [#737](https://github.com/endojs/endo-but-for-bots/pull/737) has zero reviews, the esheets tree is dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621), and the avoid-abbreviations pre-push gate recurred on a pre-gate line in [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (a structural blind spot needing your call on whether to widen it). Meanwhile the master-retirement reconstruction jobs (PRs #545, #69, #720) all blocked as no-ops — their diffs are already ancestors of the fork's master — and a cluster of shepherd/merge jobs was poisoned for overrunning the handler wall-clock budget.
+The git-integration M3 loop is fully green and one directive from done: [#706](https://github.com/endojs/endo-but-for-bots/pull/706) merged, and [#705](https://github.com/endojs/endo-but-for-bots/pull/705) (22/22 green, CLEAN) plus the milestone-exit [#707](https://github.com/endojs/endo-but-for-bots/pull/707) await a merge call.
+
+Several lanes are dammed behind maintainer decisions worth noticing: the foreman needs a ruling on the MVS resolver's package home ([#671](https://github.com/endojs/endo-but-for-bots/pull/671) vs [#403](https://github.com/endojs/endo-but-for-bots/pull/403)) to unblock M3's module-loading tail; M2 is one decision from complete — adopt [#719](https://github.com/endojs/endo-but-for-bots/pull/719)'s URL-shim split and merge it with [#259](https://github.com/endojs/endo-but-for-bots/pull/259); the SturdyRef effort reports three open gates (first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737), a marshal rank-prefix pick, and re-reviews of [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697)); the esheets tree has sat six days waiting on re-review + merge of [#621](https://github.com/endojs/endo-but-for-bots/pull/621); and OCapN-over-Noise asks whether to open an inbound TCP port on minion.town to close its cross-host TCP demo or accept the wss transcript as sufficient.
+
+Two operational flags: a wave of shepherd and merge jobs (PRs [#763](https://github.com/endojs/endo-but-for-bots/pull/763), [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), the content-store merge [#585](https://github.com/endojs/endo-but-for-bots/pull/585), and the upstream-merge job itself) deterministically overran their handler budgets and were poisoned/parked, needing to be split or run detached. Separately, the never-abbreviate gate recurred on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) via a `fetchImpl` line authored before the gate existed — a structural blind spot the retrospective escalates for your call. Off the endo tree, finbot advanced its adaptive volatility work (auto-selecting GJR-GARCH per asset on fitted leverage), still blocked on paper-wallet/test-net authorization for live execution.
 
 ## Parked for maintainer feedback
 
@@ -683,28 +687,27 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 118.7M | $1217.84 _(notional, rate-card)_ | no quota set |
+| Claude | 118.8M | $1218.58 _(notional, rate-card)_ | no quota set |
 | Codex | 190.9M _(+383.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
-- [`ebfb-retire-master-pr-303`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-303.md) — ---
+### doin (5)
 - [`endo-byte-array-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260717-060503.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`scholar-package-json-bundlers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-bundlers.md) — Scholar: how bundlers and compilers read package.json
 - [`scholar-package-json-package-managers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-package-managers.md) — Scholar: how package managers read package.json (Yarn, pnpm, Bun)
 - [`xs2rust-endor-stage8-cxs-baseline`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage8-cxs-baseline.md) — Stage-8 child 3/6 — libxs provisioning + boot-bundle generation + C-XS test:r...
 
-### tada (2545)
+### tada (2546)
+- [`ebfb-retire-master-pr-303`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-303.md) — This PR clearly meets the directive's "do not wedge" escape conditions. I'm i...
 - [`ebfb-retire-master-pr-334`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-334.md) — Completion report — ebfb-retire-master-pr-334 (weaver)
 - [`ebfb-retire-master-pr-337`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-337.md) — PR #337 is open and now correctly targets master-46d4edf.
 - [`endo-git-integration-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260717-060503.md) — Completion report — git-integration press dispatch (2026-07-17, 06:05Z claim;...
 - [`endo-sturdyref-press-20260717-113502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260717-113502.md) — Completion report — SturdyRef press tick (2026-07-17 11:35 dispatch)
-- [`xs2rust-endor-press-20260717-113502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260717-113502.md) — Completion report
-- … and 2540 more
+- … and 2541 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
