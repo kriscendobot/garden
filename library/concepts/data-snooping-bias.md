@@ -16,6 +16,7 @@ The inflation of apparent predictive skill caused by trying many models, paramet
 | [Welch & Goyal monthly horizons and specification search](../sections/papers--welch-comprehensive-look-equity-premium-prediction-2008--monthly-horizons-and-specification-search.md) | The paper's 90 longer-memory ratio combinations show why the few attractive searched specifications need a future holdout period. |
 | [Welch & Goyal conclusion](../sections/papers--welch-comprehensive-look-equity-premium-prediction-2008--conclusion-historical-mean-is-hard-to-beat.md) | More elaborate return-prediction searches enlarge the chance of a favorable configuration, so model selection cannot certify itself on the searched history. |
 | [Hansen & Lunde SPA correction](../sections/papers--hansen-lunde-forecast-comparison-volatility-models-2005--spa-corrects-the-330-model-search.md) | SPA compares GARCH to the full 330-model candidate set, while a naive selected-best p-value ignores the search and Reality Check may lack power. |
+| [Diebold–Mariano comparison contract](../sections/papers--diebold-comparing-predictive-accuracy-1995--exchange-rate-example-and-comparison-contract.md) | The pairwise equal-accuracy test that White's Reality Check and Hansen's SPA generalize to N searched models; DM applies no search correction, so using it to pick a winner from many models is itself data snooping. |
 
 ## See also
 
