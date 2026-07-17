@@ -12,12 +12,4 @@ Acceptance is literal and exhaustive: a case-insensitive search of all tracked f
 
 Open one bot-authored PR on endojs/endo-but-for-bots against master, clearly labeled as the pnpm migration experiment and citing the exact upstream master SHA used. Run the normal build-produced gauntlet through clean panel review and un-draft only when all acceptance criteria are met. Do not merge.
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 10
-  worker_kind: cleric
-  claimed_at: 2026-07-17T06:53:11Z
+<!-- garden-reaped: 2 -->
