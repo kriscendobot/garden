@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6535 (530 parent indexes + 6005 children).
+Total section files: 6543 (530 parent indexes + 6013 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -269,6 +269,10 @@ Total section files: 6535 (530 parent indexes + 6005 children).
 
 - [bun--docs-runtime-module-resolution-mdx--package-exports-and-entrypoints](bun--docs-runtime-module-resolution-mdx--package-exports-and-entrypoints.md)
 
+### bun--isolated-installs
+
+- [bun--isolated-installs--bun-store-and-strict-layout](bun--isolated-installs--bun-store-and-strict-layout.md)
+
 ### bun--lifecycle
 
 - [bun--lifecycle--trusted-dependencies](bun--lifecycle--trusted-dependencies.md)
@@ -276,6 +280,10 @@ Total section files: 6535 (530 parent indexes + 6005 children).
 ### bun--overrides
 
 - [bun--overrides--overview](bun--overrides--overview.md)
+
+### bun--workspaces
+
+- [bun--workspaces--manifest-globs-and-workspace-publish-rewrite](bun--workspaces--manifest-globs-and-workspace-publish-rewrite.md)
 
 ### cask--allocator-design
 
@@ -8608,6 +8616,18 @@ Total section files: 6535 (530 parent indexes + 6005 children).
 - [pnpm--settings--overrides](pnpm--settings--overrides.md)
 - [pnpm--settings--package-extensions-and-peer-rules](pnpm--settings--package-extensions-and-peer-rules.md)
 
+### pnpm-io--how-peers-are-resolved
+
+- [pnpm-io--how-peers-are-resolved--peer-context-store-variants](pnpm-io--how-peers-are-resolved--peer-context-store-variants.md)
+
+### pnpm-io--pnpm-workspace-yaml
+
+- [pnpm-io--pnpm-workspace-yaml--packages-and-root-membership](pnpm-io--pnpm-workspace-yaml--packages-and-root-membership.md)
+
+### pnpm-io--symlinked-node-modules-structure
+
+- [pnpm-io--symlinked-node-modules-structure--store-and-strict-visibility](pnpm-io--symlinked-node-modules-structure--store-and-strict-visibility.md)
+
 ### rollup--node-resolve-readme
 
 - [rollup--node-resolve-readme--export-conditions-main-fields-and-browser](rollup--node-resolve-readme--export-conditions-main-fields-and-browser.md)
@@ -9036,11 +9056,23 @@ Total section files: 6535 (530 parent indexes + 6005 children).
 - [wizdom--readme--overview](wizdom--readme--overview.md)
 - [wizdom--readme--parsing-and-stringifying](wizdom--readme--parsing-and-stringifying.md)
 
+### yarn-berry--install-modes
+
+- [yarn-berry--install-modes--pnp-pnpm-and-node-modules-linkers](yarn-berry--install-modes--pnp-pnpm-and-node-modules-linkers.md)
+
 ### yarn-berry--manifest-schema
 
 - [yarn-berry--manifest-schema--dependency-metadata](yarn-berry--manifest-schema--dependency-metadata.md)
 - [yarn-berry--manifest-schema--publishing-and-install-config](yarn-berry--manifest-schema--publishing-and-install-config.md)
 - [yarn-berry--manifest-schema--resolutions](yarn-berry--manifest-schema--resolutions.md)
+
+### yarn-berry--plugnplay
+
+- [yarn-berry--plugnplay--resolver-and-strict-visibility](yarn-berry--plugnplay--resolver-and-strict-visibility.md)
+
+### yarn-berry--workspaces
+
+- [yarn-berry--workspaces--workspace-protocol-and-publish-rewrite](yarn-berry--workspaces--workspace-protocol-and-publish-rewrite.md)
 
 ## Historical ingest log (preserved for chronological context)
 
