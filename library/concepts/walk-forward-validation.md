@@ -16,6 +16,9 @@ The time-series-correct way to estimate a forecasting model's true accuracy: rep
 | [training-and-test-sets](../sections/web--hyndman-fpp3-forecast-evaluation--training-and-test-sets.md) | The simple single-split precursor and why in-sample fit is not a reliable accuracy indicator. |
 | [papers--corsi-simple-long-memory-model-realized-volatility-2009--out-of-sample-forecast-performance](../sections/papers--corsi-simple-long-memory-model-realized-volatility-2009--out-of-sample-forecast-performance.md) | Corsi's HAR-RV out-of-sample test: daily re-estimation on a rolling 1000-observation window, scored by RMSE/MAE and Mincer-Zarnowitz R2 at one-day/one-week/two-week horizons -- a worked volatility walk-forward. |
 | [Welch & Goyal rolling out-of-sample benchmark](../sections/papers--welch-comprehensive-look-equity-premium-prediction-2008--rolling-out-of-sample-historical-mean-benchmark.md) | Rolling equity-premium forecasts use only data then available and must reduce MSE relative to the prevailing historical mean. |
+| [Moreira & Muir inverse-variance rule](../sections/papers--moreira-muir-volatility-managed-portfolios-2017--inverse-variance-volatility-managed-portfolios-2017--inverse-variance-volatility-managed-rule.md) | The timing boundary is operational: compute the variance at month end, size next month's exposure, then score realized policy returns. |
+| [Moreira & Muir factor evidence](../sections/papers--moreira-muir-volatility-managed-portfolios-2017--factor-evidence-crisis-exposure-and-costs.md) | A volatility-managed claim must evaluate the complete matched-risk policy, including turnover and costs, on data unavailable at each rebalance. |
+| [Moreira & Muir variance timing](../sections/papers--moreira-muir-volatility-managed-portfolios-2017--variance-timing-beats-mean-timing-under-weak-risk-return-link.md) | Mean and variance signals need fresh, real-time-policy evaluation rather than in-sample explanatory power. |
 
 ## See also
 
