@@ -1,0 +1,26 @@
+---
+id: diebold-mariano-test
+aliases: [Diebold-Mariano test, Diebold Mariano test, DM test, DM statistic, Diebold-Mariano statistic, equal predictive accuracy, equal predictive accuracy test, equal forecast accuracy, test of equal forecast accuracy, loss differential, loss-differential test, Comparing Predictive Accuracy, forecast accuracy comparison, forecast comparison test, Harvey-Leybourne-Newbold correction, HLN correction, Morgan-Granger-Newbold test, MGN test, Meese-Rogoff test, sign test forecast comparison, Wilcoxon signed-rank forecast]
+topics: [forecast-evaluation, financial-forecasting]
+---
+
+# diebold-mariano-test
+
+The foundational statistical test of **equal predictive accuracy between two forecasts** (Diebold & Mariano 1995). It works entirely on the **loss differential** `d_t = g(e_1t) − g(e_2t)` — the difference in a chosen loss between two forecasts of the same series — and reduces "the two forecasts are equally accurate" to the null `E[d_t] = 0`. Its defining virtue is loss-agnosticism: the loss `g(·)` need not be quadratic, symmetric, or continuous, and the forecast errors may be non-Gaussian, nonzero-mean, serially correlated, and contemporaneously correlated — exactly the features that broke the earlier `F`, Morgan–Granger–Newbold, and Meese–Rogoff tests. The workhorse large-sample statistic is `S1 = d̄ / sqrt(2π f̂_d(0) / T)` (asymptotically `N(0, 1)`), whose standard error uses the **long-run** variance of the loss differential so it stays valid under the serial correlation that multi-step forecast errors carry (rule of thumb: for a `k`-step comparison use a rectangular window with truncation lag `k − 1`). Two distribution-free finite-sample companions — a **sign test** (zero-median loss differential, `Binomial(T, ½)`) and **Wilcoxon's signed-rank test** (zero-mean, symmetric) — cover short samples and heavy tails. Harvey, Leybourne & Newbold (1997) add the standard small-sample bias correction and Student-`t` reference distribution now applied in most software. **What it is not:** it tests equal *loss between two given forecasts*, not that either forecast has skill, and it applies **no correction for having searched many models** — used to pick a winner from `N` models it is itself a data-snooping error. It is the **pairwise ancestor** of the multiple-model corrections (White's Reality Check, Hansen's SPA, the Model Confidence Set — see [[data-snooping-bias]]). Because it is loss-agnostic, a DM comparison on a variance-forecast loss speaks to relative risk-forecast quality and a DM comparison on a return/direction loss speaks to relative directional quality; the two must not be conflated.
+
+## Sections that touch this concept
+
+| Section | One-line summary |
+|---|---|
+| [Diebold–Mariano overview and the equal-accuracy null](../sections/papers--diebold-comparing-predictive-accuracy-1995--overview-and-equal-accuracy-null.md) | The loss differential `d_t = g(e_1t) − g(e_2t)` and the null `E[d_t] = 0`; loss-agnostic, applies to any forecast object, tests equal loss not skill. |
+| [The asymptotic test and the serial-correlation correction](../sections/papers--diebold-comparing-predictive-accuracy-1995--asymptotic-test-and-serial-correlation.md) | The `S1` statistic; long-run-variance standard error; `(k−1)`-dependence rule and rectangular window with truncation lag `k−1`. |
+| [Exact finite-sample sign and signed-rank tests](../sections/papers--diebold-comparing-predictive-accuracy-1995--exact-finite-sample-sign-and-rank-tests.md) | Sign test `S2` (zero-median, binomial) and Wilcoxon signed-rank `S3` (symmetric); Bonferroni bound for serial correlation; robust to fat tails. |
+| [Superseding the quadratic-loss tests](../sections/papers--diebold-comparing-predictive-accuracy-1995--superseding-quadratic-loss-tests.md) | `F`/MGN/MR are wed to quadratic loss and mis-sized under correlation and fat tails; Monte Carlo shows `S1`/`S2a`/`S3a` hold size. |
+| [Exchange-rate example and the forecast-comparison contract](../sections/papers--diebold-comparing-predictive-accuracy-1995--exchange-rate-example-and-comparison-contract.md) | Dollar/guilder forward vs random walk, absolute-error loss, `S1 = −1.3`, `p = 0.19`: the "random walk wins" is not statistically significant. |
+
+## See also
+
+- [[data-snooping-bias]] — the multiple-model generalizations of DM (White's Reality Check, Hansen SPA, Model Confidence Set) that correct for searching `N` models; DM is the uncorrected pairwise case.
+- [[walk-forward-validation]] — DM operates on the out-of-sample loss-differential series a walk-forward exercise produces; it is the significance test layered on top of the backtest.
+- [[garch-volatility-models]] — comparing two conditional-variance forecasts is a canonical DM use (paired with a robust loss such as QLIKE).
+- [[efficient-market-hypothesis]] — DM supplies the missing significance test for random-walk-beats-model results like Meese–Rogoff's.
