@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 1
-worker_kind: hermit
-claimed_at: 2026-07-17T06:07:09Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-ebfb-retire-master-pr-353
