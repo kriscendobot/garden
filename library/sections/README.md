@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6439 (530 parent indexes + 5909 children).
+Total section files: 6444 (530 parent indexes + 5914 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8110,6 +8110,14 @@ Total section files: 6439 (530 parent indexes + 5909 children).
   - [Implications for Endo / Agoric](papers--drossopoulou-reasoning-about-risk-and-trust-2015--trust-as-hypothetical-and-risk-via-may-access-may-affect--implications-for-endo-agoric.md)
   - [See also](papers--drossopoulou-reasoning-about-risk-and-trust-2015--trust-as-hypothetical-and-risk-via-may-access-may-affect--see-also.md)
   - [Translation block (paper idiom → contemporary Endo / Agoric surface)](papers--drossopoulou-reasoning-about-risk-and-trust-2015--trust-as-hypothetical-and-risk-via-may-access-may-affect--translation-block-paper-idiom-contemporary-endo-agoric-surface.md)
+
+### papers--engle-autoregressive-conditional-heteroscedasticity-1982
+
+- [papers--engle-autoregressive-conditional-heteroscedasticity-1982--arch-variance-recursion](papers--engle-autoregressive-conditional-heteroscedasticity-1982--arch-variance-recursion.md)
+- [papers--engle-autoregressive-conditional-heteroscedasticity-1982--lm-test-and-maximum-likelihood](papers--engle-autoregressive-conditional-heteroscedasticity-1982--lm-test-and-maximum-likelihood.md)
+- [papers--engle-autoregressive-conditional-heteroscedasticity-1982--overview](papers--engle-autoregressive-conditional-heteroscedasticity-1982--overview.md)
+- [papers--engle-autoregressive-conditional-heteroscedasticity-1982--stationarity-and-volatility-clustering](papers--engle-autoregressive-conditional-heteroscedasticity-1982--stationarity-and-volatility-clustering.md)
+- [papers--engle-autoregressive-conditional-heteroscedasticity-1982--uk-inflation-example-and-forecasting-boundary](papers--engle-autoregressive-conditional-heteroscedasticity-1982--uk-inflation-example-and-forecasting-boundary.md)
 
 ### papers--hansen-lunde-forecast-comparison-volatility-models-2005
 
