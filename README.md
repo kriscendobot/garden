@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-17T14:56:05Z_
+_As of 2026-07-17T14:58:39Z_
 
 ## Latest
 
-Upstream `endojs/endo` master landed on the `llm` roadmap branch via [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) (immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, skipLibCheck), a conductor deliberately stopping short of upstream's ESLint 10 flat-config migration — that whole-tree re-lint is flagged as a separate multi-cycle job, not forced into this merge. The board itself was quiet (only dead-letter reshuffling), but the maintainer inbox is now stacked with lanes that are green and blocked solely on your authority: git-integration Phase 1 [#705](https://github.com/endojs/endo-but-for-bots/pull/705) awaits a merge directive to unblock the M3 exit-criterion loop [#707](https://github.com/endojs/endo-but-for-bots/pull/707); M2 closes once you rule on the URL-shim split ([#719](https://github.com/endojs/endo-but-for-bots/pull/719), close the redundant [#263](https://github.com/endojs/endo-but-for-bots/pull/263)) and review [#259](https://github.com/endojs/endo-but-for-bots/pull/259); M3's snapshot-mapper tail is dammed behind a package-home call between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403); the SturdyRef effort needs a first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus re-reviews of [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697); and the esheets tree has sat six days on [#621](https://github.com/endojs/endo-but-for-bots/pull/621). OCapN-over-Noise now has M1–M5 all demonstrated, with the only open question whether to open an inbound TCP port on minion.town to close the literal cross-host TCP+CBOR finish line.
+The big mover is the upstream integration: [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) was conducted onto `llm` (advancing it to `d39605930`), pulling in the immutable-arraybuffer pseudo-prototype drop, SES console sanitization + `code` error prop, and `skipLibCheck` — deliberately stopping just short of upstream's ESLint 10 flat-config migration, which the gardener quantified as a multi-cycle re-lint and flagged as a separate opt-in job (not auto-run). Note the merge job itself overran its handler budget twice and left poison copies parked; the work still landed.
 
-Operationally, several long-running jobs were reaper-poisoned for overrunning the handler budget — including the content-store merge [#585](https://github.com/endojs/endo-but-for-bots/pull/585) (green and CLEAN; a gardener asks you to promote the parked merge job), the upstream-merge job itself, and multiple auto-shepherds ([#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#763](https://github.com/endojs/endo-but-for-bots/pull/763)); these need splitting or a raised timeout, not a code fix. Separately, several "retire master" reconstruction jobs (#69, #545, #720, #251) stopped cleanly on finding their diffs already present in upstream master — candidates to close as superseded rather than rebase.
+Several lanes are fully green and blocked only on a maintainer decision. The git-integration M3 stack has [#706](https://github.com/endojs/endo-but-for-bots/pull/706) merged, with [#705](https://github.com/endojs/endo-but-for-bots/pull/705) (Phase 1) and [#707](https://github.com/endojs/endo-but-for-bots/pull/707) (Phase 3, the milestone exit criterion) both green and one `merge` directive from closing the loop. The content-store conductor job for [#585](https://github.com/endojs/endo-but-for-bots/pull/585) was reaper-poisoned on a transient CI stall (panel passed, `CLEAN`, CI green) and is parked awaiting promotion. VFS-parity work consolidated the delegated glob/grep/glorp surface into [#713](https://github.com/endojs/endo-but-for-bots/pull/713) (rebased onto `llm`), which supersedes [#655](https://github.com/endojs/endo-but-for-bots/pull/655). OCapN-over-Noise reports M1–M5 all demonstrated after a shellcheck lint fix propagated up the [#340](https://github.com/endojs/endo-but-for-bots/pull/340)→[#684](https://github.com/endojs/endo-but-for-bots/pull/684)→[#688](https://github.com/endojs/endo-but-for-bots/pull/688)→[#693](https://github.com/endojs/endo-but-for-bots/pull/693) stack, and asks whether to open an inbound TCP port on minion.town to close the literal cross-host finish line.
+
+Two structural asks deserve attention: the M3 package-home decision (`@endo/daemon/registry.js` in [#671](https://github.com/endojs/endo-but-for-bots/pull/671) vs a dedicated `@endo/exo-npm` in [#403](https://github.com/endojs/endo-but-for-bots/pull/403)) still gates the module-loading tail, and the `avoid-abbreviation` improvement recurred on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`fetchImpl`) because the pre-push gate only scans newly-added lines — a structural blind spot needing your call on whether to widen it. Several master-retirement reconstruction jobs ([#545](https://github.com/endojs/endo-but-for-bots/pull/545), [#69](https://github.com/endojs/endo-but-for-bots/pull/69), [#720](https://github.com/endojs/endo-but-for-bots/pull/720), [#251](https://github.com/endojs/endo-but-for-bots/pull/251)) stopped cleanly as already-upstream or superseded, and finbot advanced independently to adaptive per-asset GJR-GARCH volatility selection.
 
 ## Parked for maintainer feedback
 
@@ -797,15 +799,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 121.7M | $1224.89 _(notional, rate-card)_ | no quota set |
+| Claude | 121.7M | $1224.65 _(notional, rate-card)_ | no quota set |
 | Codex | 191.4M _(+401.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (7)
-- [`deadmail-issue-comment-5004493839`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5004493839.md) — Dead-lettered message — pick up its intent
+### doin (6)
 - [`deadmail-issue-comment-5004509028`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5004509028.md) — Dead-lettered message — pick up its intent
 - [`ebfb-retire-master-pr-182`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-182.md) — ---
 - [`endo-byte-array-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260717-060503.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -813,13 +814,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`port-xs-to-rust-memory-safe-engine-s24`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s24.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`scholar-package-json-bundlers-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-bundlers-2.md) — Scholar: remaining bundler/compiler package.json consumers
 
-### tada (2574)
+### tada (2575)
+- [`deadmail-issue-comment-5004493839`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5004493839.md) — Completion report
 - [`deadmail-issue-comment-5004449369`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5004449369.md) — Completion report
 - [`scholar-package-json-pm-layout`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-package-json-pm-layout.md) — Completed package-manager layout research and updates.
 - [`scholar-package-json-bundlers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-package-json-bundlers.md) — Completion report: scholar-package-json-bundlers
 - [`scholar-package-json-package-managers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-package-json-package-managers.md) — Completion report
-- [`minion-town-agenda-review-20260717-143501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260717-143501.md) — Completion report
-- … and 2569 more
+- … and 2570 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
