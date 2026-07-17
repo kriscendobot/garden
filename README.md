@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-17T16:08:29Z_
+_As of 2026-07-17T16:09:27Z_
 
 ## Latest
 
-A wave of self-heal fixes hardened the per-repo triager fetch path on `main2` — unbounded project fetches, transient fetch dies, timeouts, and a crashloop across the finbot, agoric-sdk, endo, minion.town, cosgov, ocapn, and vattr97 triagers all landed. The larger change this cycle: upstream `endojs/endo` master was merged into the `llm` roadmap branch via [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) (immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, skipLibCheck), advancing `llm` to `d39605930`; the ESLint 10 flat-config migration was deliberately held back as a separate multi-cycle job. Several lanes are now one maintainer decision from closing: the git-integration M3 loop needs only a `merge` on [endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) to unblock [endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/pull/707); M2 hygiene awaits review/merge of [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719); and the esheets tree is fully dammed behind a re-review of [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621). Note two structural snags: the content-store conductor job for [endo-but-for-bots#585](https://github.com/endojs/endo-but-for-bots/pull/585) was reaper-poisoned on a handler-budget overrun (parked, awaiting promotion though CI is green and CLEAN), and the M3 module-loading tail is stalled pending a package-home ruling between [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403).
+Upstream `endojs/endo` master landed on the `llm` roadmap branch: [#773](https://github.com/endojs/endo-but-for-bots/pull/773) was conducted as a true merge (advancing `llm` to d39605930), pulling in the immutable-arraybuffer pseudo-prototype drop, SES console-format sanitization + the `"code"` error prop, and skipLibCheck — deliberately stopping just short of upstream's ESLint 10 flat-config overhaul, which is flagged as a separate multi-cycle migration rather than forced into this merge. Several lanes are now fully green and parked on a single merge directive: git-integration Phase 1 [#705](https://github.com/endojs/endo-but-for-bots/pull/705) and Phase 3 [#707](https://github.com/endojs/endo-but-for-bots/pull/707) (the M3 worked-loop exit criterion), and content-store [#585](https://github.com/endojs/endo-but-for-bots/pull/585) (reaper-poisoned on a transient CI-cycle overrun, not a deterministic failure — a gardener requests its promotion back off the plan queue). OCapN-over-Noise reports M1–M5 all demonstrated with a shellcheck lint fix propagated up the [#340](https://github.com/endojs/endo-but-for-bots/pull/340)→[#684](https://github.com/endojs/endo-but-for-bots/pull/684)→[#688](https://github.com/endojs/endo-but-for-bots/pull/688)→[#693](https://github.com/endojs/endo-but-for-bots/pull/693) stack, and the daemon→manager rename split into Phase 2 [#780](https://github.com/endojs/endo-but-for-bots/pull/780) with Phase 3 correctly re-parked as blocked on it.
+
+Two human-only gates are stalling whole trees: the esheets arc has sat six days behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621) awaiting re-review/merge (stale `CHANGES_REQUESTED`), and minion.town's entire primary phase ([kriskowal/garden#58](https://github.com/kriskowal/garden/issues/58)) is pinned on a ~5-minute browser action to complete the MCP connector's Cognito login. The master-retirement reconstruction jobs (PRs #545, #69, #720, #251) are self-terminating cleanly because their diffs already exist upstream on the fork's master. Worth noticing: a wave of shepherd/merge jobs (PRs [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#763](https://github.com/endojs/endo-but-for-bots/pull/763), the upstream-merge and Yarn→npm/pnpm migrations) were reaper-poisoned for deterministically overrunning the handler budget — they need splitting, a raised timeout, or detached execution, not a plain requeue.
 
 ## Parked for maintainer feedback
 
@@ -823,26 +825,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 123.7M | $1244.15 _(notional, rate-card)_ | no quota set |
+| Claude | 123.7M | $1241.48 _(notional, rate-card)_ | no quota set |
 | Codex | 192.1M _(+402.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`ebfb-retire-master-pr-182`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-182.md) — ---
-- [`endo-npm-cas-registry-press-20260717-153501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260717-153501.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr250-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr250-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #250
 - [`port-xs-to-rust-memory-safe-engine-s24`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s24.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
-### tada (2592)
+### tada (2593)
+- [`endo-npm-cas-registry-press-20260717-153501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260717-153501.md) — Press report — npm-via-CAS registry proxy (endojs/endo-but-for-bots, base llm)
 - [`self-heal-fix-garden-triager-kriscendobot-finbot-unbounded-project-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-finbot-unbounded-project-fetch.md) — Implemented and pushed a24e3c92c6 to main2.
 - [`self-heal-fix-garden-triager-kriscendobot-agoric-sdk-fetch-timeout-soft-skip`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-sdk-fetch-timeout-soft-skip.md) — Implemented and pushed 467ca35f5c to main2.
 - [`self-heal-fix-garden-triager-kriscendobot-vattr97-fetch-die-crashloop`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-vattr97-fetch-die-crashloop.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-minion-town-fetch-die-transient-exit1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-fetch-die-transient-exit1.md) — Verification
-- [`self-heal-fix-garden-triager-kriscendobot-endo-fetch-transient-skip`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-endo-fetch-transient-skip.md) — Completion report
-- … and 2587 more
+- … and 2588 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
