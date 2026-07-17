@@ -12,7 +12,7 @@ The proposition that asset prices already reflect available information, so *pre
 
 | Section | One-line summary |
 |---|---|
-| _(Fama 1970 and Meese & Rogoff 1983 remain queued for a financial-forecasting follow-on)_ | — |
+| _(Fama 1970 remains queued: the available University of Chicago author-hosted PDF was image-only to fetch-source.sh.)_ | — |
 | [Welch & Goyal overview](../sections/papers--welch-comprehensive-look-equity-premium-prediction-2008--overview.md) | A comprehensive common-protocol re-test finds published equity-premium predictors generally fail to beat the historical mean out of sample. |
 | [annual results and Oil Shock instability](../sections/papers--welch-comprehensive-look-equity-premium-prediction-2008--annual-results-and-oil-shock-instability.md) | The apparent annual success of many predictors is episode-dependent, with no model performing well after 1975 in the authors' sample. |
 | [conclusion: historical mean is hard to beat](../sections/papers--welch-comprehensive-look-equity-premium-prediction-2008--conclusion-historical-mean-is-hard-to-beat.md) | A return signal requires stable post-selection in- and out-of-sample performance, not regression significance alone. |
