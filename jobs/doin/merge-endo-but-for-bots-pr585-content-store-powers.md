@@ -9,6 +9,8 @@ Wear the conductor role and merge PR #585 (`feat(platform): add content-store po
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
