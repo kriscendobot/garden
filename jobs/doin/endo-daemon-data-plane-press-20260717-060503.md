@@ -26,3 +26,10 @@ manufacturing implementation ahead of the spec. Be idempotent and defer to live
 workers; cite real evidence for any "landed" claim.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-17T06:13:50Z
