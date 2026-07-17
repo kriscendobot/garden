@@ -1,18 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-17T00:10:11Z_
+_As of 2026-07-17T00:11:18Z_
 
 ## Latest
 
-The shepherd for [endo-but-for-bots#589](https://github.com/endojs/endo-but-for-bots/pull/589) drove CI green (all 18 checks), and a wave of new work claimed off the board: three "press" drivers (byte-array, git-integration, VFS-parity, OCapN-over-Noise) plus gauntlets on [#585](https://github.com/endojs/endo-but-for-bots/pull/585), [#739](https://github.com/endojs/endo-but-for-bots/pull/739), and [#749](https://github.com/endojs/endo-but-for-bots/pull/749); scholar corpus ingestion advanced (Hansen–Lunde 2005 landed, follow-on 6 in flight).
+The board is nearly frozen — only one job completed this window: a self-heal fix to the garden issue-inbox source handler (main2 `4ff7ca2e66`). The reason for the stall dominates everything else a maintainer should read: the fleet is throttled against the **weekly Claude limit (resets Jul 18, 3am UTC)**, which is what every `garden-mentor` self-heal failure, the dropped follow-up action blocks, and the triage circuit-breakers opening on `kriscendobot-minion.town` and `kriscendobot-agoric-sdk` trace back to. Compounding it, a relay incident has left **55 + 83 maintainer/liaison messages undelivered since ~07-14**; draining that backlog needs a liaison session on the leader host (`endolin-garden2-5bcdff64`) — the sturdyref press and other lanes are stalled in the channel, not the work.
 
-The most urgent signal: **`endojs/endo-but-for-bots` master is itself red**. The shepherd on [#475](https://github.com/endojs/endo-but-for-bots/pull/475) traced its failing lint/test/zizmor checks to an incomplete `packages/cbor` landing on master (missing LICENSE/SECURITY.md, unresolved `@endo/eventual-send`, mispinned workflow actions) — a master-level fix job is needed before dependent PRs can go green, and several shepherds (#124, #704) have already been poisoned for overrunning their budget against this red base.
-
-Two standing blockers deserve a decision. The **Claude weekly limit was exhausted** (resets Jul 18 03:00 UTC), which is what tripped the `garden-mentor` self-heal loop, the triager circuit-breakers on `kriscendobot-minion.town`/`-agoric-sdk`, and the dropped liaison follow-ups — most of the alarming message volume is that one root cause. And the foreman is repeatedly nudging that **M2 (Project Hygiene) is one merge away from done**: [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) are both green/mergeable and only await a merge/ferry decision (with the superseded [#263](https://github.com/endojs/endo-but-for-bots/pull/263) to be closed). The SturdyRef and esheets trees are likewise fully gated on your review — [#737](https://github.com/endojs/endo-but-for-bots/pull/737) and [#621](https://github.com/endojs/endo-but-for-bots/pull/621) each report being the sole thing blocking their lane.
+Two substantive engineering blockers surfaced. First, `endojs/endo-but-for-bots` **master is red** from an incomplete `packages/cbor` landing (missing LICENSE/SECURITY.md, unresolved `@endo/eventual-send` in `cbor.test.js`, plus a zizmor pin mismatch); this is not PR-attributable, so shepherds like [#475](https://github.com/endojs/endo-but-for-bots/pull/475) inherit red until master is fixed and PRs rebased. Second, the foreman is repeatedly flagging **Milestone M2** as one merge decision from done — the two vetted-shim PRs [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) are green/mergeable and awaiting a merge/ferry call (with the redundant [#263](https://github.com/endojs/endo-but-for-bots/pull/263) to close), and **M3** needs a package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403). The SturdyRef effort is fully gated on first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus two re-reviews ([#695](https://github.com/endojs/endo-but-for-bots/pull/695), [#697](https://github.com/endojs/endo-but-for-bots/pull/697)), and the esheets tree remains dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621). Meanwhile four comment-watchers (`kriscendobot-endo`, `-agoric-3-proposals`, `-cosgov`, `-finbot`) self-tested as **silently blind** (the jq-outage signature) and want a jq/gh check on the leader host.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 50m)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 56m)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 1d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 3d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 4d)
@@ -538,14 +536,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 103.0M | $1051.14 _(notional, rate-card)_ | no quota set |
-| Codex | 132.3M _(+177.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
+| Claude | 103.1M | $1052.61 _(notional, rate-card)_ | no quota set |
+| Codex | 132.4M _(+178.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (19)
+### doin (18)
 - [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-kebab-case-lint-wildcard-test262.md) — Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
 - [`endo-byte-array-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260717-000503.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260717-000503.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
@@ -563,16 +561,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`mirror-endo-2780-cache-globals-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mirror-endo-2780-cache-globals-gauntlet.md) — Mirror upstream endojs/endo#2780 (Cache globals) onto a frozen master base, t...
 - [`ocapn-noise-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260717-000503.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`scholar-ingest-financial-forecasting-corpus-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-financial-forecasting-corpus-6.md) — Scholar: ingest remaining financial-forecasting corpus (follow-on 6)
-- [`self-heal-fix-garden-issue-inbox-issue-source-stderr`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-issue-inbox-issue-source-stderr.md) — scripts/jobs/handlers/issue-source-gh.sh
 - [`xs2rust-endor-stage7-live-globalthis`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage7-live-globalthis.md) — Stage 7 child 1/7: live globalThis binding
 
-### tada (2414)
+### tada (2415)
+- [`self-heal-fix-garden-issue-inbox-issue-source-stderr`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-issue-inbox-issue-source-stderr.md) — Implemented and pushed 4ff7ca2e66 to main2.
 - [`endo-daemon-data-plane-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260717-000503.md) — Press dispatch complete — the arc has crossed the design finish line and this...
 - [`scholar-ingest-financial-forecasting-corpus-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-financial-forecasting-corpus-5.md) — Ingested Hansen–Lunde 2005 with five linked sections, source index, topics, a...
 - [`endojs-endo-but-for-bots-pr589-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr589-shepherd.md) — CI is green for PR #589 at 4f14a7f: all 18 checks passed in run 29542374596. ...
 - [`scholar-ingest-financial-forecasting-corpus-4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-financial-forecasting-corpus-4.md) — Ingested Welch & Goyal (2008) as five corpus sections, with DOI, mirror, Wayb...
-- [`endojs-endo-but-for-bots-pr759-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr759-shepherd.md) — Completion report — shepherd, endojs/endo-but-for-bots PR #759
-- … and 2409 more
+- … and 2410 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
