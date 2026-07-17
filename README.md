@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-17T05:28:50Z_
+_As of 2026-07-17T05:39:12Z_
 
 ## Latest
 
-Upstream `endojs/endo` master landed on the `llm` roadmap branch: [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) was shepherded green (24/24) and conducted as a true merge, advancing `llm` to `d39605930` and bringing in the immutable-arraybuffer pseudo-prototype drop, SES console sanitization plus the `code` error property, and `skipLibCheck` — deliberately stopping just short of upstream's ESLint 10 flat-config overhaul, which is flagged as a separate multi-cycle re-lint rather than forced into this merge. That base advance immediately rippled: [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598) (daemon→manager rename phase 1) was rebased clean onto the new `llm` and is ready for shepherd. Several auto-dispatched shepherds are in flight on red CI ([#755](https://github.com/endojs/endo-but-for-bots/pull/755), [#760](https://github.com/endojs/endo-but-for-bots/pull/760), [#762](https://github.com/endojs/endo-but-for-bots/pull/762), [#774](https://github.com/endojs/endo-but-for-bots/pull/774)), and the xs2rust/Endor stage-7 port cleared its boot-bundle gate and moved onto the daemon-boot probe.
+The upstream integration landed: [endojs/endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) — a clean merge of the real upstream `endojs/endo` master (up to `ba88ef797`, deliberately stopping short of upstream's ESLint 10 flat-config migration) — was shepherded green and conducted onto `llm`, advancing the trunk to `d39605930` and bringing in the immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, and skipLibCheck. That ESLint 10 adoption is flagged as a separate multi-cycle job, not folded in. On the master-retirement front, [endojs/endo-but-for-bots#533](https://github.com/endojs/endo-but-for-bots/pull/533) and [endojs/endo-but-for-bots#534](https://github.com/endojs/endo-but-for-bots/pull/534) were rebased to mergeable, shepherds cleared [endojs/endo-but-for-bots#755](https://github.com/endojs/endo-but-for-bots/pull/755) and [endojs/endo-but-for-bots#760](https://github.com/endojs/endo-but-for-bots/pull/760) as already green, and the garden's own [kriskowal/garden#7](https://github.com/kriskowal/garden/pull/7) was reviewed and merged.
 
-What needs your eyes: a stack of lanes is fully green and blocked only on your merge/decision authority. The git-integration M3 loop is done bar a directive — [#705](https://github.com/endojs/endo-but-for-bots/pull/705) (22/22, CLEAN) and [#707](https://github.com/endojs/endo-but-for-bots/pull/707) (the worked version-controlled-filesystem loop, 23/23) await merge. M2 hinges on adopting [#719](https://github.com/endojs/endo-but-for-bots/pull/719)'s URL-shim split and merging it with [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (closing the CI-failing #263). M3's module-loading tail is stalled on a package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403). The esheets tree is dammed on a 6-day re-review of [#621](https://github.com/endojs/endo-but-for-bots/pull/621), and the SturdyRef effort is fully gated on a first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus two encoding decisions.
-
-Operationally, note that the upstream-merge job itself, the OCapN-over-Noise press, and several auto-shepherds ([#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#763](https://github.com/endojs/endo-but-for-bots/pull/763)) overran the handler budget and were poisoned into the plan queue — they need splitting or a raised timeout before they can retry. Three master-reconstruction jobs (#69, #545, #720) reported dead: the fork's `origin/master` already contains those merges, so each rebases to an empty diff. The abbreviation-linter cluster also recurred on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`fetchImpl`) because the pre-push gate only scans newly-added lines and that line predates the gate — a structural blind spot awaiting your call on whether to widen it.
+Two things warrant attention. First, a cluster of long-running jobs hit the handler wall-clock budget and were poisoned/parked — the upstream-merge job itself, plus shepherds for [endojs/endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124), [endojs/endo-but-for-bots#704](https://github.com/endojs/endo-but-for-bots/pull/704), [endojs/endo-but-for-bots#763](https://github.com/endojs/endo-but-for-bots/pull/763), and [kriscendobot/agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/pull/15); each needs splitting or a raised timeout before it can converge. Second, several decision gates are stacking up in your inbox: the M3 package-home ruling between [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), the M2-closing call on the URL shim ([endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) vs the CI-failing #263) plus merges of it and #259, the sturdyref review of [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737) with its marshal rank-prefix pick, the git-integration merge directive on [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705), and the six-day-stalled esheets blocker [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621). Separately, the master-mirror reconstructions for PRs #69, #545, and #720 are blocked because the fork's master already contains those merges, yielding empty diffs — they need a base decision or a re-mirror.
 
 ## Parked for maintainer feedback
 
@@ -588,33 +586,30 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 105.4M | $1065.67 _(notional, rate-card)_ | no quota set |
-| Codex | 166.1M _(+259.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
+| Claude | 106.4M | $1074.19 _(notional, rate-card)_ | no quota set |
+| Codex | 166.6M _(+268.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (11)
-- [`ebfb-retire-master-pr-534`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-534.md) — ---
+### doin (8)
+- [`ebfb-retire-master-pr-379`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-379.md) — ---
 - [`endojs-endo-but-for-bots-pr737-sturdyref-global-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr737-sturdyref-global-shim.md) — ---
-- [`endojs-endo-but-for-bots-pr755-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr755-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #755
-- [`endojs-endo-but-for-bots-pr760-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr760-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #760
 - [`endojs-endo-but-for-bots-pr762-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr762-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #762
 - [`endojs-endo-but-for-bots-pr774-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr774-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #774
-- [`kriskowal-garden-pr7-review-4798277a`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr7-review-4798277a.md) — Review directive on kriskowal/garden PR #7
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/migrate-endo-but-for-bots-master-to-pnpm.md) — ---
-- [`scholar-ingest-financial-forecasting-corpus-15`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-financial-forecasting-corpus-15.md) — role: scholar
-- [`xs2rust-endor-stage7-daemon-boot-probe`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage7-daemon-boot-probe.md) — Stage 7 child 7/7: daemon-side boot-path PROBE (gap-revealing; worker/SES boo...
+- [`scholar-ingest-financial-forecasting-corpus-16`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-financial-forecasting-corpus-16.md) — role: scholar
+- [`scholar-package-json-schema-and-tooling`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-schema-and-tooling.md) — Scholar: the package.json manifest — every property, and how each tool interp...
 
-### tada (2475)
-- [`xs2rust-endor-stage7-boot-bundle-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage7-boot-bundle-gate.md) — Completion report — stage-7 child 6/7: the boot-bundle gate
-- [`scholar-ingest-financial-forecasting-corpus-14`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-financial-forecasting-corpus-14.md) — Completed scholar-ingest-financial-forecasting-corpus-14.
-- [`ebfb-retire-master-pr-535`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-535.md) — PR #535 remains open and targets master. Upstream endojs/endo master is 46d4e...
-- [`minion-town-agenda-review-20260717-052006`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260717-052006.md) — Completion report — Minion Town hourly agenda review (2026-07-17T05:20Z)
-- [`deadmail-issue-comment-4999226486`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4999226486.md) — Updated the hourly minion.town agenda schedule and notified the active engage...
-- … and 2470 more
+### tada (2484)
+- [`xs2rust-endor-stage7-daemon-boot-probe`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage7-daemon-boot-probe.md) — Stage 7 child 7/7 — daemon-side boot-path PROBE — tada report
+- [`endojs-endo-but-for-bots-pr760-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr760-shepherd.md) — CI is fully green on the current head (913331c9a4, 15/15 checks passing). The...
+- [`scholar-ingest-financial-forecasting-corpus-15`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-financial-forecasting-corpus-15.md) — All landed on origin/journal2 and the integrity gate is green. Report follows.
+- [`endojs-endo-but-for-bots-pr755-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr755-shepherd.md) — CI is fully green — no shepherd work is needed. Every check on the PR's curre...
+- [`ebfb-retire-master-pr-533`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-533.md) — The rebase was clean and the base is retargeted. PR #533 is now MERGEABLE. No...
+- … and 2479 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -661,7 +656,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
 ## Watch set
-kriscendobot-agoric-3-proposals kriscendobot-agoric-sdk kriscendobot-cosgov kriscendobot-endo kriscendobot-finbot kriscendobot-minion.town kriscendobot-ocapn kriscendobot-vattr97 kriscendobot-ymax-e2e
+kriscendobot-agoric-3-proposals kriscendobot-agoric-sdk kriscendobot-cosgov kriscendobot-endo kriscendobot-finbot kriscendobot-garden kriscendobot-minion.town kriscendobot-ocapn kriscendobot-vattr97 kriscendobot-ymax-e2e
 
 ## Hosts
 - [endolin-garden-ece02cb4](https://github.com/kriskowal/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 20 gardeners
