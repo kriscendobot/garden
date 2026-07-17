@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-17T15:46:02Z_
+_As of 2026-07-17T15:49:11Z_
 
 ## Latest
 
-The upstream integration landed: [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) — a clean merge of real upstream `endojs/endo` master (stopping just short of the ESLint 10 flat-config overhaul) — was conducted onto `llm`, advancing the trunk to `d39605930` with the immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, and `skipLibCheck`. The follow-on ESLint 10 migration was quantified as a multi-cycle re-lint and deliberately deferred to a dedicated job. On the git-integration M3 lane, [#706](https://github.com/endojs/endo-but-for-bots/pull/706) merged and both [#705](https://github.com/endojs/endo-but-for-bots/pull/705) (Phase 1) and [#707](https://github.com/endojs/endo-but-for-bots/pull/707) (Phase 3, the milestone exit criterion) are green and one merge directive from the finish. The VFS-parity press consolidated the delegated glob/grep/glorp surface into [#713](https://github.com/endojs/endo-but-for-bots/pull/713) (now retargeted to `llm`), and finbot advanced through adaptive GJR-GARCH leverage estimation.
-
-Several lanes are fully gated on maintainer decisions the fleet cannot make: the M3 package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403); the esheets tree stalled behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621) for six days; the sturdyref stack awaiting first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus two encoding decisions; and M2 close-out needing review of [#259](https://github.com/endojs/endo-but-for-bots/pull/259)/[#719](https://github.com/endojs/endo-but-for-bots/pull/719) and closure of CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263). Separately, minion.town's entire primary phase is pinned on a ~5-minute human browser action (Gate 1 of the MCP-Endo connector), now 8 hours running.
-
-Notably, a cluster of shepherd/gauntlet/merge/migrate jobs deterministically overran the 2400s (and one 7200s) handler budget and were poison-parked — including the [#585](https://github.com/endojs/endo-but-for-bots/pull/585) content-store merge (assessed as a transient CI stall, safe to promote) and both the npm and pnpm master-migration experiments — signaling these need splitting into claim-sized stages or a raised timeout before they can complete.
+Upstream endojs/endo `master` was merged into the `llm` roadmap branch: a gardener conducted [#773](https://github.com/endojs/endo-but-for-bots/pull/773) — a clean merge deliberately stopping *before* upstream's just-landed ESLint 10 flat-config overhaul — advancing `llm` with the immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, and skipLibCheck; adopting ESLint 10 is flagged as a separate multi-cycle job, not folded in. The git-integration M3 lane is fully green and one merge directive from the finish: Phase 1 [#705](https://github.com/endojs/endo-but-for-bots/pull/705) is CLEAN and awaiting your `merge`, with Phase 3 [#707](https://github.com/endojs/endo-but-for-bots/pull/707) (the worked version-controlled-filesystem loop, M3's exit criterion) already green behind it. Otherwise the board has gone quiet (zero queued jobs) because most active efforts are dammed on maintainer decisions: OCapN-over-Noise ([#340](https://github.com/endojs/endo-but-for-bots/pull/340)→[#693](https://github.com/endojs/endo-but-for-bots/pull/693)) has M1–M5 proven and needs a yes/no on opening a TCP port on minion.town to close the literal finish line; the SturdyRef stack waits on a first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus two encoding decisions; the esheets tree is fully blocked on re-reviewing/merging [#621](https://github.com/endojs/endo-but-for-bots/pull/621); the foreman is asking you to pick the M3 registry home between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403); and minion.town's whole primary phase is pinned on a ~5-minute human browser action (Gate 1 of the MCP-endo-guest design). Watch the poison pile: a rash of shepherd/gauntlet/merge jobs — including the content-store-powers merge [#585](https://github.com/endojs/endo-but-for-bots/pull/585) (transient CI overrun; a gardener requests promotion), the two Yarn→npm/pnpm migration experiments, and several XS→Rust stage-8 children — hit the 2400s handler budget and are parked in `plan/` awaiting promotion or splitting. Separately, four master-retirement reconstruction jobs ([#545](https://github.com/endojs/endo-but-for-bots/pull/545), [#69](https://github.com/endojs/endo-but-for-bots/pull/69), [#720](https://github.com/endojs/endo-but-for-bots/pull/720), [#251](https://github.com/endojs/endo-but-for-bots/pull/251)) stopped cleanly on discovering their diffs are already ancestors of the current fork master — candidates to close as superseded.
 
 ## Parked for maintainer feedback
 
@@ -812,27 +808,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 122.6M | $1231.27 _(notional, rate-card)_ | no quota set |
+| Claude | 122.7M | $1231.67 _(notional, rate-card)_ | no quota set |
 | Codex | 192.1M _(+401.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`ebfb-retire-master-pr-182`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-182.md) — ---
 - [`endo-npm-cas-registry-press-20260717-153501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260717-153501.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr250-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr250-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #250
 - [`port-xs-to-rust-memory-safe-engine-s24`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s24.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
-- [`self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-unguarded-fetch-timeout`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-unguarded-fetch-timeout.md) — In scripts/jobs/triager.sh, the steady-state clone refresh at line 117 —
 
-### tada (2581)
+### tada (2582)
+- [`self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-unguarded-fetch-timeout`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-unguarded-fetch-timeout.md) — Completion report
 - [`minion-town-agenda-review-20260717-153501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260717-153501.md) — Hourly minion.town agenda review complete (2026-07-17 15:37 UTC).
 - [`improve-land-journal-edit-concurrent-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-land-journal-edit-concurrent-guard.md) — Implemented and pushed 75a0623361 to main2.
 - [`scholar-package-json-bundlers-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-package-json-bundlers-2.md) — Completion report — scholar-package-json-bundlers-2
 - [`deadmail-issue-comment-5004583216`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5004583216.md) — Completion Report
-- [`endo-byte-array-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260717-060503.md) — **Press report — endo-byte-array-press (dispatch 2026-07-17T06:05Z, resumed 1...
-- … and 2576 more
+- … and 2577 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
