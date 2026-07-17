@@ -9,6 +9,8 @@ Wear the weaver role. #626 (the stack-surgery eval fixture + scorer, "pending gi
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
