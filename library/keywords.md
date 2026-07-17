@@ -14612,3 +14612,46 @@ VaR quantile forecast | garch-volatility-models
 Mincer-Zarnowitz forecast regression | mean-absolute-scaled-error
 volatility forecast evaluation | mean-absolute-scaled-error
 probability integral transform | mean-absolute-scaled-error
+package.json | subpath-exports
+package manifest | subpath-exports
+exports field | subpath-exports
+"exports" | subpath-exports
+imports field | subpath-exports
+subpath exports | subpath-exports
+subpath imports | subpath-exports
+subpath patterns | subpath-exports
+exports encapsulation | subpath-exports
+ERR_PACKAGE_PATH_NOT_EXPORTED | subpath-exports
+package entry points | subpath-exports
+conditional exports | conditional-exports
+exports conditions | conditional-exports
+condition resolution order | conditional-exports
+import condition | conditional-exports
+require condition | conditional-exports
+types condition | conditional-exports
+browser condition | conditional-exports
+default condition | conditional-exports
+module-sync condition | conditional-exports
+node-addons condition | conditional-exports
+--conditions | conditional-exports
+community conditions | conditional-exports
+dual package hazard | dual-package-hazard
+dual-package hazard | dual-package-hazard
+dual CommonJS/ES module | dual-package-hazard
+ESM CJS dual publishing | dual-package-hazard
+"type" field | package-type-field
+type module | package-type-field
+type commonjs | package-type-field
+module system determination | package-type-field
+nearest parent package.json | package-type-field
+.mjs | package-type-field
+.cjs | package-type-field
+syntax detection | package-type-field
+overrides | dependency-overrides
+resolutions | dependency-overrides
+pnpm.overrides | dependency-overrides
+packageExtensions | dependency-overrides
+dependency resolution override | dependency-overrides
+optionalDependencies | dependency-overrides
+peerDependencies | dependency-overrides
+os cpu libc | dependency-overrides
