@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-17T14:45:13Z_
+_As of 2026-07-17T14:52:33Z_
 
 ## Latest
 
@@ -799,28 +799,28 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 121.4M | $1224.15 _(notional, rate-card)_ | no quota set |
-| Codex | 191.3M _(+398.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
+| Claude | 121.8M | $1225.69 _(notional, rate-card)_ | no quota set |
+| Codex | 191.4M _(+401.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (6)
+- [`deadmail-issue-comment-5004449369`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5004449369.md) — Dead-lettered message — pick up its intent
 - [`ebfb-retire-master-pr-182`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-182.md) — ---
 - [`endo-byte-array-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260717-060503.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endojs-endo-but-for-bots-pr250-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr250-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #250
 - [`port-xs-to-rust-memory-safe-engine-s24`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s24.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
-- [`scholar-package-json-bundlers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-bundlers.md) — Scholar: how bundlers and compilers read package.json
-- [`scholar-package-json-pm-layout`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-pm-layout.md) — Scholar: package-manager LAYOUT internals + remaining PM details (follow-on)
+- [`scholar-package-json-bundlers-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-bundlers-2.md) — Scholar: remaining bundler/compiler package.json consumers
 
-### tada (2571)
+### tada (2573)
+- [`scholar-package-json-pm-layout`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-package-json-pm-layout.md) — Completed package-manager layout research and updates.
+- [`scholar-package-json-bundlers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-package-json-bundlers.md) — Completion report: scholar-package-json-bundlers
 - [`scholar-package-json-package-managers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-package-json-package-managers.md) — Completion report
 - [`minion-town-agenda-review-20260717-143501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260717-143501.md) — Completion report
 - [`xs2rust-endor-press-20260717-135001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260717-135001.md) — Completion report
-- [`endo-sturdyref-press-20260717-135001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260717-135001.md) — Completion report — SturdyRef press tick (2026-07-17 13:50 dispatch)
-- [`endojs-endo-but-for-bots-pr783-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr783-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #783
-- … and 2566 more
+- … and 2568 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
