@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/58#issuecomment-4999283056
 Please revise above comments to use fully qualified links to issues. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 18
+  worker_kind: gardener
+  claimed_at: 2026-07-17T05:30:12Z
