@@ -4,6 +4,13 @@ Per-source-document inventory. Each row points to a `<source-slug>.md` file that
 
 The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The rest of the endo corpus (~70 substantive markdown files: top-level, `docs/`, per-package READMEs, per-package `docs/` and `doc/` directories) is queued for future ingestion batches; the index will grow as those are filed.
 
+## TypeScript Website
+
+| Source | Repo | Date | Authors | Sections | Status |
+|--------|------|------|---------|----------|--------|
+| [Declaration-file publishing](typescript-website--packages-documentation-copy-en-declaration-files-publishing.md) | microsoft/TypeScript-Website | 2026-07-06 (commit `c8170c35`) | typescript-automation[bot] | 3 | current (`scholar-package-json-typescript`; `types`/`typings`, declaration dependencies, and ordered `typesVersions`) |
+| [Modules reference](typescript-website--packages-documentation-copy-en-modules-reference-reference.md) | microsoft/TypeScript-Website | 2026-07-06 (commit `c8170c35`) | typescript-automation[bot] | 4 | current (`scholar-package-json-typescript`; `exports` `types` branches and `node16`/`nodenext`/`bundler` resolution) |
+
 ## External code-comment fragments
 
 Longform comments distilled from upstream source files. Each row captures the `source_kind: comment-fragment` schema introduced 2026-05-15 by `entries/2026/05/15/205458Z-message-liaison-0460cf.md`: a specific line range in a specific file, anchored to a path-specific commit sha for idempotency, with a `comment_subject` that names the cohesive argument cluster the comment makes. Sections sit under the source file the same way they do for repo and paper sources.
