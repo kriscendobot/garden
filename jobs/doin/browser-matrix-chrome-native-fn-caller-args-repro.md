@@ -46,3 +46,10 @@ results in the README.
 table (Chromium emphasized) + raw JSON artifacts, dated, with the not-run browsers and the
 chromium!=Chrome / webkit!=Safari caveats stated. The `tada` report summarizes which browsers ran and
 the headline finding.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  worker_kind: cleric
+  claimed_at: 2026-07-17T19:09:22Z
