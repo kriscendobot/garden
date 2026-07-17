@@ -13,12 +13,3 @@ Acceptance is literal and exhaustive: a case-insensitive search of all tracked f
 Open one bot-authored PR on endojs/endo-but-for-bots against master, clearly labeled as the npm migration experiment and citing the exact upstream master SHA used. Run the normal build-produced gauntlet through clean panel review and un-draft only when all acceptance criteria are met. Do not merge.
 
 <!-- garden-reaped: 0 -->
-
-<!-- garden-productive-cycle -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 9
-  worker_kind: cleric
-  claimed_at: 2026-07-17T11:23:24Z
