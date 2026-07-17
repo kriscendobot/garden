@@ -29,6 +29,7 @@ every green claim.
 <!-- garden-reaped: 2 -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
