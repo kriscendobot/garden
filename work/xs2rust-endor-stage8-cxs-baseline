@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 9
-worker_kind: gardener
-claimed_at: 2026-07-17T12:13:08Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-xs2rust-endor-stage8-cxs-baseline
