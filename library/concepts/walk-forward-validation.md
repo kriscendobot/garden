@@ -15,6 +15,7 @@ The time-series-correct way to estimate a forecasting model's true accuracy: rep
 | [time-series-cross-validation](../sections/web--hyndman-fpp3-forecast-evaluation--time-series-cross-validation.md) | The canonical definition: a series of one-observation test sets, training only on prior data, averaged over origins; the multi-step and expanding-window variants. |
 | [training-and-test-sets](../sections/web--hyndman-fpp3-forecast-evaluation--training-and-test-sets.md) | The simple single-split precursor and why in-sample fit is not a reliable accuracy indicator. |
 | [papers--corsi-simple-long-memory-model-realized-volatility-2009--out-of-sample-forecast-performance](../sections/papers--corsi-simple-long-memory-model-realized-volatility-2009--out-of-sample-forecast-performance.md) | Corsi's HAR-RV out-of-sample test: daily re-estimation on a rolling 1000-observation window, scored by RMSE/MAE and Mincer-Zarnowitz R2 at one-day/one-week/two-week horizons -- a worked volatility walk-forward. |
+| [Welch & Goyal rolling out-of-sample benchmark](../sections/papers--welch-comprehensive-look-equity-premium-prediction-2008--rolling-out-of-sample-historical-mean-benchmark.md) | Rolling equity-premium forecasts use only data then available and must reduce MSE relative to the prevailing historical mean. |
 
 ## See also
 
