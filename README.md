@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-17T10:40:23Z_
+_As of 2026-07-17T10:40:55Z_
 
 ## Latest
 
@@ -672,7 +672,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 116.4M | $1199.56 _(notional, rate-card)_ | no quota set |
-| Codex | 182.5M _(+351.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
+| Codex | 182.5M _(+351.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -693,7 +693,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260717-072004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260717-072004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (2522)
-- [`scholar-ingest-clark-west-nested-predictive-accuracy-2007`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-clark-west-nested-predictive-accuracy-2007.md) — Ingested Clark and West (2007) from the NBER Technical Working Paper 326 work...
+- [`scholar-ingest-clark-west-nested-predictive-accuracy-2007`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-clark-west-nested-predictive-accuracy-2007.md) — Ingested Clark-West (2007) from NBER Technical Working Paper 326, explicitly ...
 - [`xs2rust-endor-s22-compartment-isolation-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-s22-compartment-isolation-fix.md) — Completion report
 - [`ocapn-noise-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260717-060503.md) — Completion report — ocapn-noise-press-20260717-060503
 - [`scholar-ingest-romano-wolf-stepwise-data-snooping-2005`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-romano-wolf-stepwise-data-snooping-2005.md) — Ingested Romano & Wolf 2005 with five sections, honest working-paper/Wayback ...
