@@ -72,3 +72,10 @@ snapshot-format discipline applies (fail-closed version gate if the image layout
 Commit with explicit pathspecs (never `c/moddable`), push with a rebase-CAS loop
 (`git push origin HEAD:xs2rust-endor`), keep the PR DRAFT, and report via your tada completion report
 ONLY (your supervisor s23 is parked and reads the board — never inbox-send a parked supervisor).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  claimed_at: 2026-07-17T05:55:17Z
