@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/57#issuecomment-5005029872
 also, for browser automation, I've had good experience with [pinchtab](https://pinchtab.com/) . check it out. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  worker_kind: cleric
+  claimed_at: 2026-07-17T15:55:06Z
