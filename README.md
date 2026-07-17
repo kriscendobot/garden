@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-17T22:58:59Z_
+_As of 2026-07-17T23:02:45Z_
 
 ## Latest
 
@@ -999,31 +999,30 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 129.7M | $1252.04 _(notional, rate-card)_ | no quota set |
-| Codex | 197.8M _(+422.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
+| Claude | 129.6M | $1253.32 _(notional, rate-card)_ | no quota set |
+| Codex | 198.0M _(+426.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (9)
+### doin (8)
 - [`build-endo-content-locators-magnet-urn-phase3-planes-resolution`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-content-locators-magnet-urn-phase3-planes-resolution.md) — Build Phase 3 of the magnet-URN content-locator design: @planes and resolution
 - [`endo-vfs-parity-press-20260717-182002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260717-182002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`kriscendobot-agoric-sdk-pr15-coverage-5007919173`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr15-coverage-5007919173.md) — ---
-- [`kriscendobot-agoric-sdk-pr15-review-aad444c1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr15-review-aad444c1.md) — Review directive on kriscendobot/agoric-sdk PR #15
 - [`merge-endo-but-for-bots-pr783-content-locator-interface-methods`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/merge-endo-but-for-bots-pr783-content-locator-interface-methods.md) — Merge endojs/endo-but-for-bots PR #783 (content-locator interface methods, Ph...
 - [`ocapn-noise-press-20260717-182002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260717-182002.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`port-xs-to-rust-memory-safe-engine-s25`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s25.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`weave-endo-but-for-bots-pr626-stack-surgery-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/weave-endo-but-for-bots-pr626-stack-surgery-eval.md) — Weave endojs/endo-but-for-bots PR #626 (Phase-5 stack-surgery eval) onto llm
 - [`xs2rust-endor-stage8-class-construction`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage8-class-construction.md) — Stage-8c child 1/3 (was stage-8 child 4/6) — engine: class-instance construct...
 
-### tada (2643)
+### tada (2644)
+- [`kriscendobot-agoric-sdk-pr15-review-aad444c1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-review-aad444c1.md) — Addressed dckc’s sole inline review item on portfolio.exo.ts:258.
 - [`kriscendobot-agoric-sdk-pr15-review-d6c7561e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-review-d6c7561e.md) — Completion report — review directive on kriscendobot/agoric-sdk PR #15 (@dckc...
 - [`endojs-endo-but-for-bots-pr787-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr787-shepherd.md) — CI is green on PR #787 at add76a44087bf04b5558a4a11b7d6118aeb3dafe; all 23 co...
 - [`kriscendobot-agoric-sdk-pr15-typed-patterns`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-typed-patterns.md) — Completion report
 - [`xs2rust-endor-press-20260717-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260717-220501.md) — Press tick report — xs2rust-endor (PR #600): stall detected, root-caused, and...
-- [`kriscendobot-agoric-sdk-pr15-review-ccb767b7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-review-ccb767b7.md) — Completion report
-- … and 2638 more
+- … and 2639 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
