@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-17T00:24:02Z_
+_As of 2026-07-17T00:27:57Z_
 
 ## Latest
 
@@ -91,23 +91,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > garden-foreman's pump handler (/home/kris/garden/scripts/jobs/handlers/foreman-claude.sh) failed rc=143 on endolin-garden-ece02cb4; the board pump is starving. stderr tail: <6>14:44:18 [foreman-claude] usage-meter: claude exited rc=143; usage not recorded
 
-- `20260714T211818Z-a9c76a` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260714T211818Z-a9c76a.md)
-
-> A garden-follow-up action block was REJECTED and dropped (not retried):
->   inner claude -p failure (rc=1)
->
-> Producer output:
-> rc=1
-> stderr:
-> <empty>
->
-> stdout:
-> You've hit your weekly limit · resets Jul 18, 3am (UTC)
-
-- `20260714T212404Z-eef1a3` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260714T212404Z-eef1a3.md)
-
-> self-heal: garden-triager@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: 68d8c6045fcd005541a33f50644640e07c21644b (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 68d8c6045fcd005541a33f50644640e07c21644b). Diagnosis: You've hit your weekly limit · resets Jul 18, 3am (UTC)
-
 - `20260714T213148Z-41f129` — from triager:kriscendobot-minion.town, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260714T213148Z-41f129.md)
 
 > kind: error
@@ -130,10 +113,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > at all, remove it from the watch set. Note: under CLAUDE.md § Monitoring safety
 > constraint only `endojs/endo-but-for-bots` is currently authorized for watching —
 > worth confirming `kriscendobot-minion.town` belongs in the set.
-
-- `20260714T224228Z-866b52` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260714T224228Z-866b52.md)
-
-> self-heal: garden-triager@kriscendobot-agoric-sdk exited rc=1 with no scoped fix. Capture: 34a4c24dca86ee4954a56309657c0fca5fa2a919 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 34a4c24dca86ee4954a56309657c0fca5fa2a919). Diagnosis: You've hit your weekly limit · resets Jul 18, 3am (UTC)
 
 - `20260714T225019Z-8a3c3c` — from triager:kriscendobot-agoric-sdk, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260714T225019Z-8a3c3c.md)
 
@@ -158,26 +137,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > constraint only `endojs/endo-but-for-bots` is currently authorized for watching —
 > worth confirming `kriscendobot-agoric-sdk` belongs in the set.
 
-- `20260715T002008Z-5fc86f` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260715T002008Z-5fc86f.md)
-
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: c08278b5f5b6c0eaf954dd946c45b5d062078fa9 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p c08278b5f5b6c0eaf954dd946c45b5d062078fa9). Diagnosis: You've hit your weekly limit · resets Jul 18, 3am (UTC)
-
-- `20260715T012018Z-a71fc8` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260715T012018Z-a71fc8.md)
-
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 7f66a900eecfd345bc105de5a262d81d4f242942 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 7f66a900eecfd345bc105de5a262d81d4f242942). Diagnosis: You've hit your weekly limit · resets Jul 18, 3am (UTC)
-
-- `20260715T022037Z-9a7e18` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260715T022037Z-9a7e18.md)
-
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: e212d87af444096f8480218617027dcc0ec8bc0c (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p e212d87af444096f8480218617027dcc0ec8bc0c). Diagnosis: You've hit your weekly limit · resets Jul 18, 3am (UTC)
-
-- `20260715T035009Z-f98bc5` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260715T035009Z-f98bc5.md)
-
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 9d2bd08a52b79f8300ba8689d5ac774ccd9e32ca (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 9d2bd08a52b79f8300ba8689d5ac774ccd9e32ca). Diagnosis: You've hit your weekly limit · resets Jul 18, 3am (UTC)
-
-- `20260715T045022Z-4e28e6` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260715T045022Z-4e28e6.md)
-
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 8207cff0393579baf29aa3f52e34cdd2f60c060a (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 8207cff0393579baf29aa3f52e34cdd2f60c060a). Diagnosis: You've hit your weekly limit · resets Jul 18, 3am (UTC)
-
 - `20260715T054413Z-5a5452` — from gardener:endojs-endo-but-for-bots-pr710-ce2a6fe9, reply_to `endojs-endo-but-for-bots-pr710-ce2a6fe9` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260715T054413Z-5a5452.md)
 
 > Attention directive on [endojs/endo-but-for-bots#710](https://github.com/endojs/endo-but-for-bots/issues/710) ("Please note the PR for the build") routed:
@@ -189,35 +148,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Scope is PHASE 1 ONLY per the design's phased migration: create packages/cbor/ (the hardened functional primitive codec + shared golden-vector fixture prepared for Rust mirroring). It deliberately does NOT migrate the ocapn/slots/daemon consumers — phase 3 (slots) is gated on [endojs/endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/issues/124) landing, so those stay separate later steps.
 >
 > It's parked (go-ahead) rather than live so promotion is your/the foreman's call. Say "promote build-endo-cbor-package" (or "build @endo/cbor") to send it to the builder now; correct me if you meant something narrower by "note the PR."
-
-- `20260715T054804Z-93f534` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260715T054804Z-93f534.md)
-
-> A garden-follow-up action block was REJECTED and dropped (not retried):
->   inner claude -p failure (rc=1)
->
-> Producer output:
-> rc=1
-> stderr:
-> <empty>
->
-> stdout:
-> You've hit your weekly limit · resets Jul 18, 3am (UTC)
-
-- `20260715T065009Z-948cd7` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260715T065009Z-948cd7.md)
-
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: e1e7e43a412be8e6e9fb93f829952698f895adae (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p e1e7e43a412be8e6e9fb93f829952698f895adae). Diagnosis: You've hit your weekly limit · resets Jul 18, 3am (UTC)
-
-- `20260716T002028Z-ac956c` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T002028Z-ac956c.md)
-
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 352fc2e068007d920c2f30291468bd076fa15c69 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 352fc2e068007d920c2f30291468bd076fa15c69). Diagnosis: You've hit your weekly limit · resets Jul 18, 3am (UTC)
-
-- `20260716T015011Z-ac58f5` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T015011Z-ac58f5.md)
-
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 1c57a158d4435a63cd28f8cca7c9cb5b9ecb4628 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 1c57a158d4435a63cd28f8cca7c9cb5b9ecb4628). Diagnosis: You've hit your weekly limit · resets Jul 18, 3am (UTC)
-
-- `20260716T025012Z-8736cc` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T025012Z-8736cc.md)
-
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: f9a25ed5e3d66568371e5a3a0b83e9a7ccd53eea (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p f9a25ed5e3d66568371e5a3a0b83e9a7ccd53eea). Diagnosis: You've hit your weekly limit · resets Jul 18, 3am (UTC)
 
 - `20260716T043343Z-508cfd` — from gardener:endojs-endo-but-for-bots-pr671-review-3fa7398f-retro, reply_to `endojs-endo-but-for-bots-pr671-review-3fa7398f-retro` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T043343Z-508cfd.md)
 
@@ -440,6 +370,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Heads-up (endemic, not one PR): endo-but-for-bots CI job `zizmor` (Workflow security audit) is red repo-wide, including master since ~2026-07-15 (commit fcbb540). It's an online-audit `unpinned-uses` finding — every workflow's `@249970729cb0` action pin now has a "mismatched or missing version comment" (the upstream tag moved). Offline zizmor is clean; `.github/` is unchanged from base. Fix belongs in a separate repo-maintenance PR (refresh action-pin version comments, or run the repo's update-action-pins automation) — not inside feature/bugfix PRs. Shepherds on any PR that touches no workflows will keep leaving this one red as out-of-scope.
 
+- `20260717T002451Z-cb5a1b` — from gardener:endo-git-integration-press-20260717-000503, reply_to `endo-git-integration-press-20260717-000503` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260717T002451Z-cb5a1b.md)
+
+> git-integration press (M3 loop): the lane is fully green and the only gate is a merge directive.
+>
+> State as of 2026-07-17T00:25Z (all refs endojs/endo-but-for-bots):
+> - [endojs/endo-but-for-bots#706](https://github.com/endojs/endo-but-for-bots/issues/706) (Phase 2, commit-identity) MERGED yesterday 22:02Z via your directive (merge commit 4f09410a2e).
+> - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/issues/705) (Phase 1, remote push tier) is the next merge in the sequencing plan of [endojs/endo-but-for-bots#691](https://github.com/endojs/endo-but-for-bots/issues/691): 22/22 checks green, un-drafted, mergeStateStatus CLEAN — one directive away. Phase 1 → Phase 3 is the plan's only hard dependency edge.
+> - [endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/issues/707) (Phase 3, worked loop — the milestone exit criterion) is green (23/23 on 479f249617), zero unresolved threads. Its end-to-end test provisions a workspace, edits, commits, pushes through a push-only GitRemote, reads the pushed ref back via filesystemAt, and asserts the Phase-2 identity on the pushed commit — the loop itself.
+> - After [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/issues/705) lands, [endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/issues/707) needs a real weave onto llm (its base lineage predates [endojs/endo-but-for-bots#662](https://github.com/endojs/endo-but-for-bots/issues/662) and [endojs/endo-but-for-bots#714](https://github.com/endojs/endo-but-for-bots/issues/714), and its tree duplicates the push-tier files — identical content, reconciles cleanly). A follow-up press dispatch or weave job handles that, then its merge closes M3.
+> - [endojs/endo-but-for-bots#691](https://github.com/endojs/endo-but-for-bots/issues/691) (sequencing design), [endojs/endo-but-for-bots#708](https://github.com/endojs/endo-but-for-bots/issues/708) (QID/hash, parallel lane), and [endojs/endo-but-for-bots#740](https://github.com/endojs/endo-but-for-bots/issues/740) (endor CAS bindings design) are all green with no unresolved threads, awaiting disposition; nothing in them blocks the loop.
+>
+> Ask: comment `merge` on [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/issues/705) (or tell me to proceed) and the lane runs to the finish line. I did not merge on my own authority — the [endojs/endo-but-for-bots#706](https://github.com/endojs/endo-but-for-bots/issues/706) precedent was directive-driven, and you left [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/issues/705) unmerged in the same pass.
+
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -630,37 +573,33 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 103.4M | $1058.68 _(notional, rate-card)_ | no quota set |
-| Codex | 137.2M _(+186.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 139.9M _(+190.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (16)
+### doin (12)
 - [`ebfb-retire-master-branch-sweep`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-branch-sweep.md) — Retire the master branch on endojs/endo-but-for-bots (maintainer directive)
-- [`endo-byte-array-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260717-000503.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
-- [`endo-git-integration-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260717-000503.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-vfs-parity-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260717-000503.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`endojs-endo-but-for-bots-pr600-review-021252ca`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr600-review-021252ca.md) — Review directive on endojs/endo-but-for-bots PR #600
+- [`endojs-endo-but-for-bots-pr600-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr600-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #600
 - [`endojs-endo-but-for-bots-pr755-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr755-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #755
 - [`endojs-endo-but-for-bots-pr760-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr760-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #760
 - [`endojs-endo-but-for-bots-pr762-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr762-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #762
 - [`endojs-endo-but-for-bots-pr763-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr763-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #763
-- [`endojs-endo-but-for-bots-pr764-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr764-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #764
-- [`gauntlet-endo-but-for-bots-pr585-content-store-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr585-content-store-powers.md) — Run the gauntlet (panel review → fix-loop) on endojs/endo-but-for-bots PR #58...
 - [`gauntlet-endo-but-for-bots-pr739-store-writefile-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr739-store-writefile-design.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
 - [`mirror-endo-2780-cache-globals-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mirror-endo-2780-cache-globals-gauntlet.md) — Mirror upstream endojs/endo#2780 (Cache globals) onto a frozen master base, t...
 - [`ocapn-noise-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260717-000503.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`scholar-ingest-financial-forecasting-corpus-8`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-financial-forecasting-corpus-8.md) — ---
 - [`xs2rust-endor-stage7-intrinsics-residuals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage7-intrinsics-residuals.md) — Stage 7 child 2/7: intrinsics-ledger residuals (Reflect, typed-array-from-ite...
 
-### tada (2422)
-- [`endojs-endo-but-for-bots-pr600-4e3a4e12`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-4e3a4e12.md) — Completion report
-- [`scholar-ingest-financial-forecasting-corpus-7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-financial-forecasting-corpus-7.md) — Ingested Meese and Rogoff (1983) into five cross-linked corpus sections. Reta...
-- [`scholar-ingest-financial-forecasting-corpus-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-financial-forecasting-corpus-6.md) — Ingested Moreira and Muir 2017 with five cross-linked sections and updated in...
-- [`gauntlet-endo-but-for-bots-pr749-content-locator-grammar-duality`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr749-content-locator-grammar-duality.md) — Completed PR #749 gauntlet fix-loop and marked it ready for review.
-- [`endojs-endo-but-for-bots-pr761-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr761-shepherd.md) — Completion report — shepherd on endojs/endo-but-for-bots PR #761
-- … and 2417 more
+### tada (2427)
+- [`endo-byte-array-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260717-000503.md) — The sweep job was already claimed by a peer gardener, which has parked 31 per...
+- [`endo-git-integration-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260717-000503.md) — Completion report — git-integration press dispatch (2026-07-17, 00:05Z claim,...
+- [`gauntlet-endo-but-for-bots-pr585-content-store-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr585-content-store-powers.md) — Gauntlet complete — endojs/endo-but-for-bots PR #585 feat(platform): add cont...
+- [`endojs-endo-but-for-bots-pr600-review-021252ca`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-review-021252ca.md) — Addressed PR #600 review: renamed the Rust daemon binary from endot to endor ...
+- [`endojs-endo-but-for-bots-pr764-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr764-shepherd.md) — Completion report
+- … and 2422 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
