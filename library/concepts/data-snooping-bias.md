@@ -13,6 +13,8 @@ The inflation of apparent predictive skill caused by trying many models, paramet
 | Section | One-line summary |
 |---|---|
 | [training-and-test-sets](../sections/web--hyndman-fpp3-forecast-evaluation--training-and-test-sets.md) | Over-fitting is as bad as under-fitting and a perfect in-sample fit is always attainable — the mechanism data snooping exploits across repeated trials. |
+| [Welch & Goyal monthly horizons and specification search](../sections/papers--welch-comprehensive-look-equity-premium-prediction-2008--monthly-horizons-and-specification-search.md) | The paper's 90 longer-memory ratio combinations show why the few attractive searched specifications need a future holdout period. |
+| [Welch & Goyal conclusion](../sections/papers--welch-comprehensive-look-equity-premium-prediction-2008--conclusion-historical-mean-is-hard-to-beat.md) | More elaborate return-prediction searches enlarge the chance of a favorable configuration, so model selection cannot certify itself on the searched history. |
 
 ## See also
 
