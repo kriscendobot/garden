@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-17T19:09:34Z_
+_As of 2026-07-17T19:15:32Z_
 
 ## Latest
 
-Upstream `endojs/endo` master was merged into the `llm` roadmap branch and conducted via [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) (green, history preserved), bringing in the immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, and skipLibCheck; the just-landed upstream ESLint 10 flat-config migration was deliberately left out as a separate multi-cycle job. A decision backlog has piled up on the maintainer: the MVS resolver's package home ([endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) vs [#403](https://github.com/endojs/endo-but-for-bots/pull/403)) blocks M3's remaining module-loading work; M2 is one call from done pending review/ferry of [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) plus closing the CI-red [#263](https://github.com/endojs/endo-but-for-bots/pull/263); the esheets tree is fully dammed behind re-review of the green OAuth design [#621](https://github.com/endojs/endo-but-for-bots/pull/621); the SturdyRef effort waits on first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus a rank-prefix pick; and git-integration's M3 loop needs only a merge directive on the green [#705](https://github.com/endojs/endo-but-for-bots/pull/705). Separately, minion.town's entire primary phase has stalled for 9+ hourly cycles on a single ~5-minute human browser action (Gate 1 of the MCP-Endo-guest design, [garden#58](https://github.com/kriskowal/garden/issues/58)). On the infra side, a wave of jobs — several auto-shepherds, the upstream-merge job, the [#585](https://github.com/endojs/endo-but-for-bots/pull/585) content-store merge, and the xs2rust stage-8 C-XS baseline — were poison-parked after overrunning the handler budget and now await promotion, while finbot continued advancing its adaptive GJR-GARCH volatility work.
+Little moved on the board itself — the only completion since the last bulletin was the Chrome native-function `caller`/`arguments` browser-matrix reproduction, now [published live](https://kriscendobot.github.io/chrome-native-function-caller-arguments-repro/) and linked from [endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259). The larger story is in the maintainer inbox, where the fleet has run itself into a wall of decisions. Upstream `endojs/endo` master was merged into `llm` via [endojs/endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) and conducted (llm now carries the immutable-arraybuffer pseudo-prototype drop, SES "code" error prop, and skipLibCheck), deliberately stopping short of upstream's ESLint 10 flat-config migration — flagged as a separate multi-cycle job, not auto-run.
+
+Several lanes are green and one directive from the finish line: the git-integration M3 loop wants a `merge` on [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) (Phase 1), M2 hygiene wants review/merge of [endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) plus closing the redundant #263, and the SturdyRef effort ([endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737)) and esheets OAuth gate ([endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621)) are both parked awaiting your review. Two foreman escalations need an actual ruling: the M3 module-loading tail is blocked on choosing the MVS resolver's home ([endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) vs [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403)), and minion.town's entire primary phase has now sat ~9 hours behind one ~5-minute human browser action (Gate 1 of the MCP-Endo-guest design).
+
+Notably, the reaper poisoned a cluster of jobs on deadline overruns and external SIGKILLs — the xs2rust-endor stage-8 C-XS baseline (twice, halting the orchestration), the `merge-upstream-master-into-llm` job, the [endojs/endo-but-for-bots#585](https://github.com/endojs/endo-but-for-bots/pull/585) content-store merge, and several auto-shepherds — all now parked in `plan/` awaiting promotion; the #585 merge in particular looks like a transient CI stall (PR is CLEAN, panel passed) and the data-plane press is requesting its promotion.
 
 ## Parked for maintainer feedback
 
@@ -952,15 +956,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 128.1M | $1262.39 _(notional, rate-card)_ | no quota set |
-| Codex | 196.3M _(+409.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
+| Claude | 128.3M | $1263.47 _(notional, rate-card)_ | no quota set |
+| Codex | 196.4M _(+410.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (7)
-- [`browser-matrix-chrome-native-fn-caller-args-repro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/browser-matrix-chrome-native-fn-caller-args-repro.md) — Follow-up: collect cross-browser results via Playwright for chrome-native-fun...
+### doin (6)
 - [`endo-byte-array-press-20260717-182002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260717-182002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-daemon-data-plane-press-20260717-182002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-daemon-data-plane-press-20260717-182002.md) — Press the Endo daemon data plane forward (endojs/endo-but-for-bots, base llm)
 - [`endo-git-integration-press-20260717-182002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260717-182002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
@@ -968,13 +971,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260717-182002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260717-182002.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`port-xs-to-rust-memory-safe-engine-s25`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s25.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
-### tada (2622)
+### tada (2623)
+- [`browser-matrix-chrome-native-fn-caller-args-repro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/browser-matrix-chrome-native-fn-caller-args-repro.md) — Implemented and pushed 269bea5 to kriscendobot/chrome-native-function-caller-...
 - [`minion-town-agenda-review-20260717-183501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260717-183501.md) — Reviewed agenda, repo, journal, PRs, and live endpoints. Posted report: https...
 - [`endojs-endo-but-for-bots-pr786-77d013e5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr786-77d013e5.md) — Completion report
 - [`endojs-endo-but-for-bots-pr786-standalone-panel-5006137116`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr786-standalone-panel-5006137116.md) — Submitted a formal CHANGES_REQUESTED review on PR #786 at a6c99c6f4f0e90575c7...
 - [`endojs-endo-but-for-bots-pr786-22380928`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr786-22380928.md) — Routed the requested review to endojs-endo-but-for-bots-pr786-standalone-pane...
-- [`xs2rust-endor-build-stage8b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage8b.md) — orchestration xs2rust-endor-build-stage8b — HALTED
-- … and 2617 more
+- … and 2618 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
