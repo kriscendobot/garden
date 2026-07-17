@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 2
+deadline_overruns: 1
+poisoned_at: 2026-07-17T23:33:09Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-17T23:33:09Z
+---
+
+---
 model: fable
 ---
 # Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base `llm`)
@@ -30,13 +44,5 @@ Do not open new surface while an open PR needs a weave or a CI fix. Be
 idempotent, defer to live workers on shared branches, and cite real execution
 evidence for any "works everywhere" claim.
 
-<!-- garden-reaped: 1 -->
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 9
-  worker_kind: gardener
-  claimed_at: 2026-07-17T22:23:08Z
