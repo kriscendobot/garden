@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6508 (530 parent indexes + 5978 children).
+Total section files: 6516 (530 parent indexes + 5986 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -268,6 +268,10 @@ Total section files: 6508 (530 parent indexes + 5978 children).
 ### bun--docs-runtime-module-resolution-mdx
 
 - [bun--docs-runtime-module-resolution-mdx--package-exports-and-entrypoints](bun--docs-runtime-module-resolution-mdx--package-exports-and-entrypoints.md)
+
+### bun--overrides
+
+- [bun--overrides--overview](bun--overrides--overview.md)
 
 ### cask--allocator-design
 
@@ -8570,6 +8574,16 @@ Total section files: 6508 (530 parent indexes + 5978 children).
 - [papers--white-reality-check-data-snooping-2000--placement-and-the-correction-lineage](papers--white-reality-check-data-snooping-2000--placement-and-the-correction-lineage.md)
 - [papers--white-reality-check-data-snooping-2000--sp500-illustration-and-the-naive-p-value](papers--white-reality-check-data-snooping-2000--sp500-illustration-and-the-naive-p-value.md)
 
+### pnpm--package-json
+
+- [pnpm--package-json--dependencies-meta-and-publishconfig](pnpm--package-json--dependencies-meta-and-publishconfig.md)
+- [pnpm--package-json--pnpm-field-moved-and-engines](pnpm--package-json--pnpm-field-moved-and-engines.md)
+
+### pnpm--settings
+
+- [pnpm--settings--overrides](pnpm--settings--overrides.md)
+- [pnpm--settings--package-extensions-and-peer-rules](pnpm--settings--package-extensions-and-peer-rules.md)
+
 ### system--readme
 
 - [system--readme--extensions-translators-analyzers](system--readme--extensions-translators-analyzers.md)
@@ -8972,6 +8986,12 @@ Total section files: 6508 (530 parent indexes + 5978 children).
 
 - [wizdom--readme--overview](wizdom--readme--overview.md)
 - [wizdom--readme--parsing-and-stringifying](wizdom--readme--parsing-and-stringifying.md)
+
+### yarn-berry--manifest-schema
+
+- [yarn-berry--manifest-schema--dependency-metadata](yarn-berry--manifest-schema--dependency-metadata.md)
+- [yarn-berry--manifest-schema--publishing-and-install-config](yarn-berry--manifest-schema--publishing-and-install-config.md)
+- [yarn-berry--manifest-schema--resolutions](yarn-berry--manifest-schema--resolutions.md)
 
 ## Historical ingest log (preserved for chronological context)
 
