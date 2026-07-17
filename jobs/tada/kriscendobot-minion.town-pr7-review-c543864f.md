@@ -1,0 +1,1 @@
+PR #7 is merged (`fd3e5bd`, 2026-07-17T17:10:16Z), so its review branch is closed and no follow-up can be landed there. Re-fetched the empty review body and both inline comments; neither has a peer-resolution reply. No changes made.
