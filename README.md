@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-17T04:58:01Z_
+_As of 2026-07-17T04:59:21Z_
 
 ## Latest
 
-The biggest move: the [#773](https://github.com/endojs/endo-but-for-bots/pull/773) merge of real upstream `endojs/endo` master (stopping just short of the ESLint 10 flat-config migration) was conducted onto `llm`, advancing the trunk to `d39605930` and pulling in the immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, and `skipLibCheck`. Off the back of that, the daemon→manager Phase 1 PR [#598](https://github.com/endojs/endo-but-for-bots/pull/598) was rebased clean onto the new base and is ready for shepherd review, which unblocks its parked Phase 2/3 children.
+The endo-but-for-bots `llm` trunk absorbed upstream endo master via [#773](https://github.com/endojs/endo-but-for-bots/pull/773) — immutable-arraybuffer pseudo-prototype drop, SES "code" error prop, skipLibCheck — conducted as a merge that advanced llm to `d39605930`, deliberately stopping short of upstream's ESLint 10 flat-config migration (flagged as a separate multi-cycle re-lint, not forced into this cycle). On the fresh base, [#598](https://github.com/endojs/endo-but-for-bots/pull/598) (daemon→manager phase 1) was rebased clean and is ready for shepherd, and finbot advanced its GJR-GARCH leverage read (`df2a164`→`abf643b`, suite green).
 
-The recurring theme this cycle is **maintainer gates**: nearly every active lane has stalled on a decision only kriskowal can make. The git-integration M3 loop is fully green and one `merge` directive away on [#705](https://github.com/endojs/endo-but-for-bots/pull/705) (with [#707](https://github.com/endojs/endo-but-for-bots/pull/707) behind it); the SturdyRef stack wants a first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus a marshal rank-prefix pick; the esheets tree is dammed entirely behind re-reviewing [#621](https://github.com/endojs/endo-but-for-bots/pull/621); M2 hinges on adopting the URL-shim split in [#719](https://github.com/endojs/endo-but-for-bots/pull/719) and closing [#263](https://github.com/endojs/endo-but-for-bots/pull/263); M3's tail needs a ruling on which registry home wins between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403); and OCapN-over-Noise asks permission to open a TCP port on minion.town to close its cross-host finish line.
+Beyond that, the board is largely decision-bound: multiple lanes report all forward work gated on you. M2 sits one call from done — [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) are green/review-ready pending a decision to close the CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263); the esheets tree is dammed behind re-reviewing/merging [#621](https://github.com/endojs/endo-but-for-bots/pull/621); the SturdyRef lane awaits first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus a marshal rank-prefix pick and re-reviews of [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697); git-integration needs a merge directive on [#705](https://github.com/endojs/endo-but-for-bots/pull/705) to close M3's worked-loop [#707](https://github.com/endojs/endo-but-for-bots/pull/707); M3's remaining module-loading work is blocked on choosing the registry home between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403); and OCapN-over-Noise asks whether to open an inbound TCP port on minion.town to close its cross-host finish line.
 
-Two operational flags worth notice: a batch of shepherd jobs ([#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#763](https://github.com/endojs/endo-but-for-bots/pull/763), plus the #694/#707 gauntlets and the kebab-case linter build) were **poisoned for overrunning the handler budget** and are parked awaiting promotion — they need splitting into claim-sized stages, not a requeue. Separately, the abbreviation-lint improvement **recurred** on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (a pre-gate line the deterministic scanner structurally can't see), escalated for your call on whether to widen the gate. Finbot continued its own steady march, taking the GJR-GARCH leverage read live (`main` now `abf643b`, 541 tests green), still blocked only on paper-wallet authorization.
+Two operational notes worth your eye: a cluster of shepherd jobs ([#763](https://github.com/endojs/endo-but-for-bots/pull/763), [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), the [#694](https://github.com/endojs/endo-but-for-bots/pull/694)/[#707](https://github.com/endojs/endo-but-for-bots/pull/707) gauntlets, the kebab-case linter build, and [kriscendobot/agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/pull/15)) were poisoned for overrunning their handler budget and parked for triage; and the avoid-abbreviations retrospective flags a recurrence on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (a pre-gate `fetchImpl` line the deterministic scanner structurally can't see), awaiting your call on whether to widen the pre-push gate.
 
 ## Parked for maintainer feedback
 
@@ -490,15 +490,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 103.9M | $1047.26 _(notional, rate-card)_ | no quota set |
-| Codex | 165.9M _(+244.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
+| Claude | 103.9M | $1048.22 _(notional, rate-card)_ | no quota set |
+| Codex | 165.9M _(+245.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (12)
-- [`ebfb-retire-master-pr-719`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-719.md) — ---
+### doin (11)
 - [`endo-sturdyref-press-20260717-003509`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260717-003509.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endojs-endo-but-for-bots-pr737-sturdyref-global-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr737-sturdyref-global-shim.md) — ---
 - [`endojs-endo-but-for-bots-pr755-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr755-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #755
@@ -511,13 +510,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-ingest-financial-forecasting-corpus-12`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-financial-forecasting-corpus-12.md) — ---
 - [`xs2rust-endor-stage7-guest-compartment`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage7-guest-compartment.md) — Stage 7 child 5/7: guest Compartment
 
-### tada (2458)
+### tada (2459)
+- [`ebfb-retire-master-pr-719`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-719.md) — The PR is untouched (base still master, head still f11aacfa41, open, non-draf...
 - [`endojs-endo-but-for-bots-pr598-a5ffa84f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr598-a5ffa84f.md) — Job Completed: endojs/endo-but-for-bots PR #598
 - [`endojs-endo-but-for-bots-pr737-review-3363fee9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr737-review-3363fee9.md) — Fetched review body and all 3 inline comments. Preflight proceeded; no peer r...
 - [`endo-vfs-parity-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260717-000503.md) — Completion report
 - [`mirror-endo-2780-cache-globals-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mirror-endo-2780-cache-globals-gauntlet.md) — What was done
-- [`scholar-ingest-financial-forecasting-corpus-11`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-financial-forecasting-corpus-11.md) — Ingested GJR 1993 as five linked corpus sections. Fama 1970 remained unreadab...
-- … and 2453 more
+- … and 2454 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
