@@ -58,3 +58,10 @@ maintainer finish line.
 - Capture test runs to files, check `$?`; `/tmp` is noexec; use `$HOME/tmp` for TMPDIR.
 - Budget: ONE 2400s invocation. Land green increments; honest remainder in tada.
 - Report via tada ONLY; never inbox-send the parked supervisor.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-17T05:07:15Z
