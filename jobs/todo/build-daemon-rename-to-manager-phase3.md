@@ -1,10 +1,4 @@
----
-gate: blocked
-blocked_on: build-daemon-rename-to-manager-phase2
-priority: normal
-posted_by: gardener
-posted_at: 2026-07-02T10:16:43Z
----
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-07-17T06:11:04Z -->
 
 # Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 
