@@ -79,6 +79,8 @@
 | [Giacomini-White conditional null](../sections/papers--giacomini-white-tests-conditional-predictive-ability-2006--forecasting-methods-and-conditional-null.md) | Giacomini & White 2006 | Forecast-method conditional null: whether origin-time information predicts which pairwise method has lower future loss. |
 | [Giacomini-White application and boundary](../sections/papers--giacomini-white-tests-conditional-predictive-ability-2006--simulation-and-macroeconomic-application.md) | Giacomini & White 2006 sec 5-7 | Fixed-window macro comparisons support method selection under a stated loss, not a directional-return claim. |
 | [Giacomini-White lineage and multiple-testing boundary](../sections/papers--giacomini-white-tests-conditional-predictive-ability-2006--lineage-and-multiple-testing-boundary.md) | Giacomini & White 2006 | Conditional pairwise method selection closes the estimation axis but does not correct a searched model universe. |
+| [papers--romano-wolf-stepwise-multiple-testing-data-snooping-2005--overview-and-the-discovery-target](../sections/papers--romano-wolf-stepwise-multiple-testing-data-snooping-2005--overview-and-the-discovery-target.md) | Romano & Wolf 2005 | Strong-FWER StepM identifies which searched strategies beat a stated benchmark under the declared score. |
+| [papers--romano-wolf-stepwise-multiple-testing-data-snooping-2005--financial-examples-and-risk-direction-boundary](../sections/papers--romano-wolf-stepwise-multiple-testing-data-snooping-2005--financial-examples-and-risk-direction-boundary.md) | Romano & Wolf 2005 sec 2, 8 | CAPM alpha and VaR examples preserve the distinction between return, risk-adjusted return, and tail-risk claims. |
 
 ## See also
 
