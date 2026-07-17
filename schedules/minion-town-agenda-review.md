@@ -1,4 +1,4 @@
-cadence: hourly
+cadence: 6h
 last_dispatched: 2026-07-17T18:35:01Z
 job_basename_prefix: minion-town-agenda-review
 ---
