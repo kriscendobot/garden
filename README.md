@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-17T11:09:19Z_
+_As of 2026-07-17T11:12:47Z_
 
 ## Latest
 
@@ -679,18 +679,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.9M | $1202.35 _(notional, rate-card)_ | no quota set |
-| Codex | 182.9M _(+369.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
+| Claude | 117.1M | $1203.97 _(notional, rate-card)_ | no quota set |
+| Codex | 183.0M _(+371.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (10)
-- [`ebfb-retire-master-pr-344`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-344.md) — ---
 - [`endo-byte-array-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260717-060503.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260717-060503.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-sturdyref-press-20260717-072004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260717-072004.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+- [`endojs-endo-but-for-bots-pr346-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr346-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #346
 - [`endojs-endo-but-for-bots-pr771-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr771-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #771
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`scholar-package-json-bundlers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-bundlers.md) — Scholar: how bundlers and compilers read package.json
@@ -698,13 +698,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260717-072004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260717-072004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-stage8-daemon-bundle-imports`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage8-daemon-bundle-imports.md) — Stage-8 child 1/6 — daemon-bundle Node-only import fix (README item 1)
 
-### tada (2533)
+### tada (2534)
+- [`ebfb-retire-master-pr-344`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-344.md) — Completion report
 - [`minion-town-agenda-review-20260717-110501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260717-110501.md) — Completion report
 - [`ebfb-retire-master-pr-346`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-346.md) — Retired PR #346’s master base: rebased its head onto upstream endojs/endo mas...
 - [`build-endo-content-locators-magnet-urn-phase2-interface-methods`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-content-locators-magnet-urn-phase2-interface-methods.md) — Build Phase 2 — content-locator <verb>Content interface methods
 - [`ebfb-retire-master-pr-347`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-347.md) — Master base retired successfully. The rebase was a clean focused weave, so I ...
-- [`finbot-progress-20260717-105004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260717-105004.md) — Advanced finbot main to c0ff05e: evidence-gated per-asset GJR selection via -...
-- … and 2528 more
+- … and 2529 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
