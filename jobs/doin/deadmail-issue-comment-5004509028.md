@@ -40,3 +40,10 @@ why a private repository? I'm curious to look at ymax-e2e
 ----- END ORIGINAL MESSAGE -----
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: gardener
+  claimed_at: 2026-07-17T15:03:08Z
