@@ -624,3 +624,12 @@ Inspect via `git -C journal cat-file -p dec9184ce46e723bd880673ce16f69aa542f9c18
 - Context: gardener-7 on endolin-garden-ece02cb4: job 'xs2rust-endor-stage8-cxs-baseline' transient-classified (rc=1) but elapsed near-constant (177,177s) over 2 cycles — likely deterministic overrun, not a blip
 
 Inspect via `git -C journal cat-file -p d3629ba536b0073fb0f3d9775c8e19e9007b6d8b`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-17T12:30:01Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: b3d59011cf513cc2d05637daff9704359fc5c5d2
+- Context: gardener-12 on endolin-garden-ece02cb4: job 'endojs-endo-but-for-bots-pr250-shepherd' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p b3d59011cf513cc2d05637daff9704359fc5c5d2`.
