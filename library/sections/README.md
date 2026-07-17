@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6473 (530 parent indexes + 5943 children).
+Total section files: 6478 (530 parent indexes + 5948 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8158,6 +8158,14 @@ Total section files: 6473 (530 parent indexes + 5943 children).
 - [papers--hansen-lunde-nason-model-confidence-set-2011--empirical-applications-and-forecasting-boundary](papers--hansen-lunde-nason-model-confidence-set-2011--empirical-applications-and-forecasting-boundary.md)
 - [papers--hansen-lunde-nason-model-confidence-set-2011--overview-and-the-model-confidence-set-idea](papers--hansen-lunde-nason-model-confidence-set-2011--overview-and-the-model-confidence-set-idea.md)
 - [papers--hansen-lunde-nason-model-confidence-set-2011--relation-to-reality-check-spa-and-parameter-uncertainty](papers--hansen-lunde-nason-model-confidence-set-2011--relation-to-reality-check-spa-and-parameter-uncertainty.md)
+
+### papers--hansen-test-superior-predictive-ability-2005
+
+- [papers--hansen-test-superior-predictive-ability-2005--bootstrap-implementation-and-consistent-p-value](papers--hansen-test-superior-predictive-ability-2005--bootstrap-implementation-and-consistent-p-value.md)
+- [papers--hansen-test-superior-predictive-ability-2005--monte-carlo-power-and-inflation-application](papers--hansen-test-superior-predictive-ability-2005--monte-carlo-power-and-inflation-application.md)
+- [papers--hansen-test-superior-predictive-ability-2005--overview-and-the-spa-test-idea](papers--hansen-test-superior-predictive-ability-2005--overview-and-the-spa-test-idea.md)
+- [papers--hansen-test-superior-predictive-ability-2005--relation-to-reality-check-and-the-correction-lineage](papers--hansen-test-superior-predictive-ability-2005--relation-to-reality-check-and-the-correction-lineage.md)
+- [papers--hansen-test-superior-predictive-ability-2005--studentized-statistic-and-sample-dependent-null](papers--hansen-test-superior-predictive-ability-2005--studentized-statistic-and-sample-dependent-null.md)
 
 ### papers--maloyan-namiot-sleeper-channels-2026
 
