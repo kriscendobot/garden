@@ -9,3 +9,10 @@ Follow-on to scholar-package-json-schema-and-tooling. Ingest as library sources 
 - Bun: trustedDependencies, bun condition, reads overrides+resolutions, workspaces.
 - packageManager field + Corepack.
 - Focus: override dialects, peerDependencies auto-install differences, PnP vs node_modules vs pnpm strict layout. Add sections under topic `package-manifest`; update the project report; note remaining synthesis.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 19
+  worker_kind: gardener
+  claimed_at: 2026-07-17T05:55:50Z
