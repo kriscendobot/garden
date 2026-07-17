@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6414 (530 parent indexes + 5884 children).
+Total section files: 6419 (530 parent indexes + 5889 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8422,6 +8422,14 @@ Total section files: 6414 (530 parent indexes + 5884 children).
   - [Connection to the wider library](papers--taly-automated-analysis-of-security-critical-javascript-apis-2011--static-analysis-procedure-and-soundness-theorem--connection-to-the-wider-library.md)
   - [See also](papers--taly-automated-analysis-of-security-critical-javascript-apis-2011--static-analysis-procedure-and-soundness-theorem--see-also.md)
   - [Translation block (paper idiom → contemporary practice)](papers--taly-automated-analysis-of-security-critical-javascript-apis-2011--static-analysis-procedure-and-soundness-theorem--translation-block-paper-idiom-contemporary-practice.md)
+
+### papers--welch-comprehensive-look-equity-premium-prediction-2008
+
+- [papers--welch-comprehensive-look-equity-premium-prediction-2008--annual-results-and-oil-shock-instability](papers--welch-comprehensive-look-equity-premium-prediction-2008--annual-results-and-oil-shock-instability.md)
+- [papers--welch-comprehensive-look-equity-premium-prediction-2008--conclusion-historical-mean-is-hard-to-beat](papers--welch-comprehensive-look-equity-premium-prediction-2008--conclusion-historical-mean-is-hard-to-beat.md)
+- [papers--welch-comprehensive-look-equity-premium-prediction-2008--monthly-horizons-and-specification-search](papers--welch-comprehensive-look-equity-premium-prediction-2008--monthly-horizons-and-specification-search.md)
+- [papers--welch-comprehensive-look-equity-premium-prediction-2008--overview](papers--welch-comprehensive-look-equity-premium-prediction-2008--overview.md)
+- [papers--welch-comprehensive-look-equity-premium-prediction-2008--rolling-out-of-sample-historical-mean-benchmark](papers--welch-comprehensive-look-equity-premium-prediction-2008--rolling-out-of-sample-historical-mean-benchmark.md)
 
 ### system--readme
 
