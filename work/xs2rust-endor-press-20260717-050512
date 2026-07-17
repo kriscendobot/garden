@@ -1,0 +1,5 @@
+host: endolin-garden-ece02cb4
+gardener: 17
+worker_kind: gardener
+claimed_at: 2026-07-17T05:05:24Z
+worktree_dir: /home/kris/garden/scratch/gardener-wt-xs2rust-endor-press-20260717-050512
