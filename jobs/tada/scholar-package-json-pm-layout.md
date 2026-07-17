@@ -1,8 +1,6 @@
-Completed package-manager layout research for `package-json`.
+Completed package-manager layout research and updates.
 
-- Added eight primary-source-backed `package-manifest` sections: Yarn PnP and linkers, Yarn workspace protocol, pnpm symlinked layout, pnpm peer contexts and workspace YAML, plus Bun workspaces and isolated installs.
-- Updated the matrix, inconsistencies sections 4 and 9, strategies, and README coverage. The remaining synthesis flags concern bundlers and other explicitly unrelated gaps, not package-manager layout.
-- Checked the maintained Yarn Classic source tree; no standalone canonical v1 layout specification was found, so it is recorded only as the legacy hoisted comparison.
-- Verified with `library-link-check.sh --changed`; regenerated and landed the sections and topic-count indexes.
-
-Self-improvement: none.
+- Added eight source-backed package-manifest sections for Yarn, pnpm, and Bun layouts/workspaces.
+- Updated matrix, inconsistencies §§4/9, strategies, and coverage status.
+- Verified library links and regenerated indexes.
+- No follow-up required; Yarn Classic has no separate canonical layout document in its maintained source tree.
