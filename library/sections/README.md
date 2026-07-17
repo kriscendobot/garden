@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6424 (530 parent indexes + 5894 children).
+Total section files: 6429 (530 parent indexes + 5899 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8353,6 +8353,14 @@ Total section files: 6424 (530 parent indexes + 5894 children).
   - [Implications for Endo](papers--miller-vancutsem-tulloh-distributed-electronic-rights-2013--rights-as-property-and-money-as-right--implications-for-endo.md)
   - [See also](papers--miller-vancutsem-tulloh-distributed-electronic-rights-2013--rights-as-property-and-money-as-right--see-also.md)
   - [Translation block (paper idiom → contemporary Endo / Agoric surface)](papers--miller-vancutsem-tulloh-distributed-electronic-rights-2013--rights-as-property-and-money-as-right--translation-block-paper-idiom-contemporary-endo-agoric-surface.md)
+
+### papers--moreira-muir-volatility-managed-portfolios-2017
+
+- [papers--moreira-muir-volatility-managed-portfolios-2017--factor-evidence-crisis-exposure-and-costs](papers--moreira-muir-volatility-managed-portfolios-2017--factor-evidence-crisis-exposure-and-costs.md)
+- [papers--moreira-muir-volatility-managed-portfolios-2017--inverse-variance-volatility-managed-rule](papers--moreira-muir-volatility-managed-portfolios-2017--inverse-variance-volatility-managed-rule.md)
+- [papers--moreira-muir-volatility-managed-portfolios-2017--long-horizon-investors-still-care-about-volatility](papers--moreira-muir-volatility-managed-portfolios-2017--long-horizon-investors-still-care-about-volatility.md)
+- [papers--moreira-muir-volatility-managed-portfolios-2017--overview](papers--moreira-muir-volatility-managed-portfolios-2017--overview.md)
+- [papers--moreira-muir-volatility-managed-portfolios-2017--variance-timing-beats-mean-timing-under-weak-risk-return-link](papers--moreira-muir-volatility-managed-portfolios-2017--variance-timing-beats-mean-timing-under-weak-risk-return-link.md)
 
 ### papers--patton-volatility-forecast-comparison-imperfect-proxies-2011
 
