@@ -41,3 +41,10 @@ onto `llm`. If the merge is too large/conflict-heavy to converge this cycle, sto
 blockers (leave the PR open with a clear report) rather than force a bad merge. The `tada` report
 links the merge PR, summarizes what upstream brought in, lists notable conflict resolutions, and
 confirms `llm`'s post-merge CI state.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 16
+  worker_kind: gardener
+  claimed_at: 2026-07-17T03:43:41Z
