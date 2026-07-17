@@ -15,6 +15,7 @@ A `package.json` `"exports"` (or `"imports"`) mechanism that maps one specifier 
 | [node--doc-api-packages--conditional-exports](../sections/node--doc-api-packages--conditional-exports.md) | The fixed condition set, order significance, nested conditions, user `--conditions`, and the curated community conditions. |
 | [node--doc-api-packages--subpath-exports-imports-and-patterns](../sections/node--doc-api-packages--subpath-exports-imports-and-patterns.md) | `"imports"` uses the same conditional resolution for internal `#`-prefixed specifiers and may map to external packages. |
 | [node--doc-api-packages--self-referencing-and-dual-package](../sections/node--doc-api-packages--self-referencing-and-dual-package.md) | How the `import`/`require` conditions create the dual-package hazard. |
+| [typescript-website--packages-documentation-copy-en-modules-reference--exports-types-conditions-and-declaration-branches](../sections/typescript-website--packages-documentation-copy-en-modules-reference--exports-types-conditions-and-declaration-branches.md) | TypeScript always matches `types` and `default`; dual ESM/CJS packages put a first `types` condition inside each runtime branch. |
 
 ## See also
 
