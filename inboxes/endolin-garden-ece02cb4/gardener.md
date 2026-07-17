@@ -615,3 +615,12 @@ Inspect via `git -C journal cat-file -p 83c2dd76c77f95b450241dac8d32792a78f002d1
 - Context: gardener-5 on endolin-garden-ece02cb4: job 'xs2rust-endor-stage8-cxs-baseline' exit-0-unsatisfying but elapsed near-constant (898,898s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p dec9184ce46e723bd880673ce16f69aa542f9c18`.
+
+## lane 0 -- elapsed-constancy-overrun-suspect failure at 2026-07-17T12:26:28Z
+
+- PR: (none)
+- State: elapsed-constancy-overrun-suspect
+- Transcript SHA: d3629ba536b0073fb0f3d9775c8e19e9007b6d8b
+- Context: gardener-7 on endolin-garden-ece02cb4: job 'xs2rust-endor-stage8-cxs-baseline' transient-classified (rc=1) but elapsed near-constant (177,177s) over 2 cycles — likely deterministic overrun, not a blip
+
+Inspect via `git -C journal cat-file -p d3629ba536b0073fb0f3d9775c8e19e9007b6d8b`.
