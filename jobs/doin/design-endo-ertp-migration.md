@@ -56,3 +56,10 @@ the `@endo/ertp` recast + migration plan, grounded in the surveyed agoric ERTP-e
 corpus (cited link-free), with interop story, open questions, and a phased roadmap. The `tada` report
 lists the surveyed issue corpus (by plain number+title), links the new design PR, and confirms no
 agoric cross-links were created.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-17T05:39:43Z
