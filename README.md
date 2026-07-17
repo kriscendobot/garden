@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-17T04:12:33Z_
+_As of 2026-07-17T04:16:35Z_
 
 ## Latest
 
-The board is quiet — the only movement this cycle was the hourly [SturdyRef press](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260717-040505.md) tick completing and its follow-on first-wins `SturdyRef` shim build getting claimed. Nearly everything of substance is now parked on a maintainer decision. Several lanes are fully green and blocked only on a merge directive: the git-integration stack's [endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) (Phase 1) and [#707](https://github.com/endojs/endo-but-for-bots/pull/707) (Phase 3, M3's exit-criterion loop); M2's last two builds, [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (which also asks you to close the redundant, CI-failing #263); the esheets tree's sole blocker [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, un-drafted, 6 days awaiting re-review); and the SturdyRef effort's [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus a marshal rank-prefix pick. The foreman needs a package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) to unblock M3's module-loading tail. On the merge front, the upstream-master-into-`llm` job is deliberately merging only up to `ba88ef7970`, excluding the ESLint 10+ breaking pair as a separate migration project — confirm or override. Three provenance reconstructions (#69, #545, #720) are blocked because upstream master already contains their merge commits, so they rebase to empty diffs. Finally, a cluster of shepherd jobs overran the handler budget and were poisoned/parked (#763, #124, #704, agoric-sdk #15, and the kebab-case linter build), plus an escalation that the `avoid-name-abbreviations` gate has a structural blind spot for lines predating its deployment — your call on whether to widen it.
+A large upstream merge is in flight: a gardener is merging real upstream `endojs/endo` master into the `endo-but-for-bots` `llm` branch **up to `ba88ef7970`**, deliberately excluding the ESLint 10+ breaking pair ([endojs/endo#3319](https://github.com/endojs/endo/pull/3319)) as a separate migration project, and it flagged that the fork's `origin/master` mirror is the contaminated tree — it's holding the irreversible conduct-to-`llm` step for review. Meanwhile several effort lanes are fully green and dammed on maintainer calls: **M2 (Project Hygiene)** is one decision from done ([endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) both green, pending a `%URL%`/`%SharedURL%` adoption call and closing CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263)); **M3 module-loading** is blocked on choosing the MVS-resolver home between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403); the **git-integration** lane sits one merge directive from finishing, with [#705](https://github.com/endojs/endo-but-for-bots/pull/705) green/CLEAN and the loop-closing [#707](https://github.com/endojs/endo-but-for-bots/pull/707) green but still draft; the **SturdyRef** stack awaits a first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus a marshal rank-prefix pick; **OCapN-over-Noise** has M1–M5 demonstrated and asks whether to open a TCP port on minion.town to close the cross-host finish line; and the **esheets** tree remains dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621), sat six days awaiting re-review. On the autonomous side, finbot landed live GJR-GARCH leverage (gamma) MLE estimation (main → `df2a164`, 538 tests green). Worth flagging for cleanup: a cluster of shepherd jobs (#124, #704, #763, agoric-sdk #15) and two gauntlets (#694, #707) overran the handler budget and are **poisoned/parked** awaiting triage; three PR-reconstruction jobs (#545, #69, #720) blocked because the fork master already contains their merge commits (empty diffs); the `kriscendobot` bot token is reported **invalid**, blocking a branch-protection write that now needs an admin; and the avoid-name-abbreviations review cluster **recurred** on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`fetchImpl`), exposing a structural blind spot in the pre-push gate for lines predating its deployment — your call on whether to widen it.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 4h)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 5h)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 1d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 3d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 4d)
@@ -184,6 +184,23 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Everything BELOW that pair is convergent and valuable: SES "code" prop in errors ([endojs/endo#3130](https://github.com/endojs/endo/issues/3130)), immutable-arraybuffer drops the pseudo-prototype, new @endo/chacha12 + @endo/random packages, compartment-mapper host module exits, module-source analyzer.js subpath, skipLibCheck everywhere ([endojs/endo#3321](https://github.com/endojs/endo/issues/3321)), patterns fixes, evasive-transform makeEvasiveTransformVisitor, shellcheck lint.
 >
 > So I'm merging upstream master UP TO ba88ef7970 (i.e. all of current master EXCEPT the eslint-10 breaking pair) as a true merge, shepherding green, and conducting onto llm. The ESLint 10+ migration is flagged as a separate follow-up job. Shout if you want eslint-10 forced into this cycle instead.
+
+- `20260717T041621Z-4012e4` — from gardener:merge-upstream-master-into-llm-20260717, reply_to `merge-upstream-master-into-llm-20260717` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260717T041621Z-4012e4.md)
+
+> Heads-up on job merge-upstream-master-into-llm-20260717 (merge upstream master into llm).
+>
+> The job spec treats "endojs/endo master" and "the fork's origin/master mirror" as
+> equivalent, but they are NOT: the fork's origin/master (fcbb540ed, tip = broken
+> "feat(cbor): add canonical CBOR primitives") has diverged with 83 commits of fork
+> work and is exactly the contaminated master your 2026-07-16 [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475)
+> directive warns about. The real upstream endojs/endo master is 46d4edf31.
+>
+> Per that directive + the job's primary wording ("the current endojs/endo master"),
+> I'm merging endo/master (real upstream, 29 commits ahead of llm), NOT the
+> contaminated fork mirror. 48 conflicts; resolving faithfully now and opening a PR
+> based on llm. I'll shepherd to green but HOLD the irreversible conduct-to-llm step
+> for your review given the divergence. Shout if you'd rather I stop or pick the
+> other source.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -404,7 +421,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 103.0M | $1033.93 _(notional, rate-card)_ | no quota set |
+| Claude | 103.1M | $1035.34 _(notional, rate-card)_ | no quota set |
 | Codex | 162.7M _(+230.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
