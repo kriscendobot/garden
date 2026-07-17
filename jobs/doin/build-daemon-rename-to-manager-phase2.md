@@ -19,3 +19,10 @@ exhaustive per-file list and line hints. Rebase on llm immediately before push
 and re-run the whole-word replace after any rebase. Keep DRAFT; open on llm.
 Gate: after this phase, `Daemon`/`Daemonic` no longer occur in
 packages/daemon/src/ source. tsc + eslint + tests green.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 9
+  worker_kind: cleric
+  claimed_at: 2026-07-17T06:01:07Z
