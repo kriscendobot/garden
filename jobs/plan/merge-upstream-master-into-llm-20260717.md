@@ -1,3 +1,17 @@
+---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 2
+deadline_overruns: 1
+poisoned_at: 2026-07-17T05:03:08Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-17T05:03:08Z
+---
+
 # Merge upstream master into the endo-but-for-bots `llm` branch (propose PR -> shepherd -> conduct)
 
 Integrate the latest upstream into `llm`: merge upstream **`master`** into the **`llm`** roadmap
@@ -42,13 +56,5 @@ blockers (leave the PR open with a clear report) rather than force a bad merge. 
 links the merge PR, summarizes what upstream brought in, lists notable conflict resolutions, and
 confirms `llm`'s post-merge CI state.
 
-<!-- garden-reaped: 1 -->
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 7
-  worker_kind: gardener
-  claimed_at: 2026-07-17T04:13:11Z
