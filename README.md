@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-17T10:56:34Z_
+_As of 2026-07-17T10:58:13Z_
 
 ## Latest
 
@@ -314,6 +314,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260717T105524Z-116af4` — from gardener:finbot-progress-20260717-105004, reply_to `finbot-progress-20260717-105004` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260717T105524Z-116af4.md)
 
 > Advanced kriscendobot/finbot@main to c0ff05e: adaptive volatility now selects GJR-GARCH per asset only when the deterministic fitted gamma is material (>=0.05 with >=12 valid returns); otherwise it stays symmetric GARCH. Analyzer and forecaster share the same selection, artifacts expose model/gamma, and --adaptive-vol=auto demonstrates it. npm test passed; the dry-run OODA demo approved one simulated step with WALLET TOUCHED: false. Next unblocked model increment: EGARCH. Live execution still needs explicit paper-wallet/test-net authorization and a CapTP transport decision.
+
+- `20260717T105749Z-00b519` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260717T105749Z-00b519.md)
+
+> self-heal: garden-triager@kriscendobot-finbot exited rc=1 with no scoped fix. Capture: 0af1a5d2ba5950ce1c0c245e1b001f8db5df6ff3 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 0af1a5d2ba5950ce1c0c245e1b001f8db5df6ff3). Diagnosis: You've hit your session limit · resets 11am (UTC)
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -675,8 +679,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.4M | $1198.95 _(notional, rate-card)_ | no quota set |
-| Codex | 182.8M _(+361.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 55% _(plan; codex-reported)_ |
+| Claude | 116.3M | $1198.54 _(notional, rate-card)_ | no quota set |
+| Codex | 182.8M _(+362.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
