@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 9
+worker_kind: gardener
+claimed_at: 2026-07-17T20:14:45Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-self-heal-fix-garden-triager-kriscendobot-chrome-native-function-caller-arguments-repro-bound-repo-fetch-transient-degrade
