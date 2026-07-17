@@ -24,3 +24,10 @@ This job: the repo-wide remainder, one PR at a time.
 3. Only when NO open PR targets `master`: delete the fork's `master` branch
    (the directive authorizes this; verify base-ref emptiness immediately before
    the delete, then confirm the deletion in the report).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 5
+  worker_kind: cleric
+  claimed_at: 2026-07-17T00:19:43Z
