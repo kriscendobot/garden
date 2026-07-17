@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6419 (530 parent indexes + 5889 children).
+Total section files: 6424 (530 parent indexes + 5894 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8102,6 +8102,14 @@ Total section files: 6419 (530 parent indexes + 5889 children).
   - [Implications for Endo / Agoric](papers--drossopoulou-reasoning-about-risk-and-trust-2015--trust-as-hypothetical-and-risk-via-may-access-may-affect--implications-for-endo-agoric.md)
   - [See also](papers--drossopoulou-reasoning-about-risk-and-trust-2015--trust-as-hypothetical-and-risk-via-may-access-may-affect--see-also.md)
   - [Translation block (paper idiom → contemporary Endo / Agoric surface)](papers--drossopoulou-reasoning-about-risk-and-trust-2015--trust-as-hypothetical-and-risk-via-may-access-may-affect--translation-block-paper-idiom-contemporary-endo-agoric-surface.md)
+
+### papers--hansen-lunde-forecast-comparison-volatility-models-2005
+
+- [papers--hansen-lunde-forecast-comparison-volatility-models-2005--market-dependent-results-and-leverage-effect](papers--hansen-lunde-forecast-comparison-volatility-models-2005--market-dependent-results-and-leverage-effect.md)
+- [papers--hansen-lunde-forecast-comparison-volatility-models-2005--model-universe-and-garch-benchmark](papers--hansen-lunde-forecast-comparison-volatility-models-2005--model-universe-and-garch-benchmark.md)
+- [papers--hansen-lunde-forecast-comparison-volatility-models-2005--overview](papers--hansen-lunde-forecast-comparison-volatility-models-2005--overview.md)
+- [papers--hansen-lunde-forecast-comparison-volatility-models-2005--realized-variance-loss-and-holdout-protocol](papers--hansen-lunde-forecast-comparison-volatility-models-2005--realized-variance-loss-and-holdout-protocol.md)
+- [papers--hansen-lunde-forecast-comparison-volatility-models-2005--spa-corrects-the-330-model-search](papers--hansen-lunde-forecast-comparison-volatility-models-2005--spa-corrects-the-330-model-search.md)
 
 ### papers--maloyan-namiot-sleeper-channels-2026
 
