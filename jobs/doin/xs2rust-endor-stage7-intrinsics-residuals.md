@@ -59,6 +59,7 @@ ones that do plus a precise gap note.
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
