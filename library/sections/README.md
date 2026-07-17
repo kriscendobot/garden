@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6503 (530 parent indexes + 5973 children).
+Total section files: 6508 (530 parent indexes + 5978 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -264,6 +264,10 @@ Total section files: 6503 (530 parent indexes + 5973 children).
 - [blick--readme--design-rationale](blick--readme--design-rationale.md)
 - [blick--readme--draw-cycle-phases](blick--readme--draw-cycle-phases.md)
 - [blick--readme--overview](blick--readme--overview.md)
+
+### bun--docs-runtime-module-resolution-mdx
+
+- [bun--docs-runtime-module-resolution-mdx--package-exports-and-entrypoints](bun--docs-runtime-module-resolution-mdx--package-exports-and-entrypoints.md)
 
 ### cask--allocator-design
 
@@ -806,6 +810,14 @@ Total section files: 6503 (530 parent indexes + 5973 children).
 - [danfinlay-quickjs--native-ses--harden-c-deep-freeze](danfinlay-quickjs--native-ses--harden-c-deep-freeze.md)
 - [danfinlay-quickjs--native-ses--lockdown-freeze-intrinsics](danfinlay-quickjs--native-ses--lockdown-freeze-intrinsics.md)
 - [danfinlay-quickjs--native-ses--xs-transferable-strategies](danfinlay-quickjs--native-ses--xs-transferable-strategies.md)
+
+### deno--runtime-fundamentals-configuration-md
+
+- [deno--runtime-fundamentals-configuration-md--package-json-and-deno-json](deno--runtime-fundamentals-configuration-md--package-json-and-deno-json.md)
+
+### deno--runtime-fundamentals-node-md
+
+- [deno--runtime-fundamentals-node-md--npm-specifiers-and-node-projects](deno--runtime-fundamentals-node-md--npm-specifiers-and-node-projects.md)
 
 ### dialog-db--notes-architecture-overview
 
@@ -3897,6 +3909,11 @@ Total section files: 6503 (530 parent indexes + 5973 children).
   - [XS (experimental)](endo--pkg-compartment-mapper-readme--language-extensions--xs-experimental.md)
 - [endo--pkg-compartment-mapper-readme--overview](endo--pkg-compartment-mapper-readme--overview.md)
 - [endo--pkg-compartment-mapper-readme--writing-archive](endo--pkg-compartment-mapper-readme--writing-archive.md)
+
+### endo--pkg-compartment-mapper-readme-package-manifest
+
+- [endo--pkg-compartment-mapper-readme-package-manifest--language-extensions](endo--pkg-compartment-mapper-readme-package-manifest--language-extensions.md)
+- [endo--pkg-compartment-mapper-readme-package-manifest--package-descriptors](endo--pkg-compartment-mapper-readme-package-manifest--package-descriptors.md)
 
 ### endo--pkg-daemon-readme
 
