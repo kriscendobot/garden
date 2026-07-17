@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/57#issuecomment-5004583216
 oops! I didn't realize agoric-labs/ymax-agent-local-mcp wasn't public try https://github.com/agoric-labs/ymax-stdio-mcp 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: hermit
+  claimed_at: 2026-07-17T15:05:07Z
