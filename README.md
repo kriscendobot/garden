@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-17T11:39:13Z_
+_As of 2026-07-17T11:40:57Z_
 
 ## Latest
 
-Upstream `endojs/endo` master merged into the `llm` roadmap branch this cycle — a prior run's clean merge up to `ba88ef797` ([endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773), 24/24 green) was conducted, advancing `llm` to `d39605930` with the immutable-arraybuffer pseudo-prototype drop, SES console sanitization + `code` error prop, and `skipLibCheck`; the merge deliberately stops just before upstream's ESLint 10 flat-config migration, which the gardener quantified as a multi-cycle re-lint and flagged as a separate opt-in job. That merge job then overran its handler budget twice and is now parked as poison — one of several shepherds/merges (endo-but-for-bots [#763](https://github.com/endojs/endo-but-for-bots/pull/763), [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#585](https://github.com/endojs/endo-but-for-bots/pull/585), and kriscendobot/agoric-sdk [#15](https://github.com/kriscendobot/agoric-sdk/pull/15)) that blew the 2400s claim wall and need splitting before they can requeue.
+Upstream `endojs/endo` master was merged into the `llm` roadmap branch via [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) (immutable-arraybuffer pseudo-prototype drop, SES "code" error prop, skipLibCheck), stopping deliberately just short of upstream's ESLint 10 flat-config migration — flagged as a separate multi-cycle job, not force-merged. The git-integration press reports M3's worked git-loop green: Phase 1 [#705](https://github.com/endojs/endo-but-for-bots/pull/705) is un-drafted and CLEAN one `merge` directive away, and the milestone-exit Phase 3 [#707](https://github.com/endojs/endo-but-for-bots/pull/707) is green pending a weave onto `llm`.
 
-On the board itself little moved — the SturdyRef and xs2rust-endor press drivers logged routine hourly ticks. What a maintainer should notice is the stack of decision gates the fleet has surfaced and cannot clear itself: **M2** is one call from done ([endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) green/CLEAN, pending adoption of #719's `%URL%` split and closing the redundant #263); **M3** is stalled on a package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403); the git-integration lane is fully green and one `merge` directive on [#705](https://github.com/endojs/endo-but-for-bots/pull/705) from finishing M3's loop ([#707](https://github.com/endojs/endo-but-for-bots/pull/707)); the SturdyRef effort has three open gates on [#737](https://github.com/endojs/endo-but-for-bots/pull/737); and the esheets tree remains dammed behind a 6-day-stale re-review of [#621](https://github.com/endojs/endo-but-for-bots/pull/621). Separately, the OCapN-over-Noise driver is asking permission to open an inbound TCP port on minion.town to prove the last cross-host transport, and the `avoid-abbreviation` gate has recurred on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) via a pre-deployment `fetchImpl` line the deterministic scanner structurally can't see — flagged for your call on whether to widen it.
+Several lanes are fully dammed on maintainer decisions worth a pass: **M2** is one call from done — adopt [#719](https://github.com/endojs/endo-but-for-bots/pull/719)'s URL-shim split and merge it plus [#259](https://github.com/endojs/endo-but-for-bots/pull/259), closing the redundant CI-failing #263. **M3**'s module-loading tail is blocked on picking the MVS resolver's home between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403). The **esheets** tree is stalled behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, 6 days awaiting re-review), and the **SturdyRef** effort has three gates open including a first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737).
+
+Also notice the operational churn: an avoid-abbreviation regression recurred on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (the pre-push gate structurally can't see lines predating its deployment — your call on whether to widen it), and a wave of shepherd and merge jobs was poisoned for overrunning the handler budget — [#763](https://github.com/endojs/endo-but-for-bots/pull/763), [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), the pnpm/npm master migrations, and the upstream-merge job itself — all parked for promotion or splitting.
 
 ## Parked for maintainer feedback
 
@@ -683,29 +685,28 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 118.2M | $1213.99 _(notional, rate-card)_ | no quota set |
-| Codex | 190.9M _(+378.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 57% _(plan; codex-reported)_ |
+| Claude | 118.3M | $1215.01 _(notional, rate-card)_ | no quota set |
+| Codex | 190.9M _(+380.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 57% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (6)
 - [`ebfb-retire-master-pr-337`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-337.md) — ---
 - [`endo-byte-array-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260717-060503.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
-- [`endo-git-integration-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260717-060503.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`scholar-package-json-bundlers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-bundlers.md) — Scholar: how bundlers and compilers read package.json
 - [`scholar-package-json-package-managers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-package-managers.md) — Scholar: how package managers read package.json (Yarn, pnpm, Bun)
 - [`xs2rust-endor-stage8-cxs-baseline`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage8-cxs-baseline.md) — Stage-8 child 3/6 — libxs provisioning + boot-bundle generation + C-XS test:r...
 
-### tada (2542)
+### tada (2543)
+- [`endo-git-integration-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260717-060503.md) — Completion report — git-integration press dispatch (2026-07-17, 06:05Z claim;...
 - [`endo-sturdyref-press-20260717-113502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260717-113502.md) — Completion report — SturdyRef press tick (2026-07-17 11:35 dispatch)
 - [`xs2rust-endor-press-20260717-113502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260717-113502.md) — Completion report
 - [`endo-sturdyref-press-20260717-072004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260717-072004.md) — Completion report — SturdyRef press tick (07:20 dispatch, resumed post-reaper...
 - [`xs2rust-endor-stage8-boot-generators`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage8-boot-generators.md) — Stage-8 child 2/6 — worker/SES boot generators + sources — tada report
-- [`xs2rust-endor-press-20260717-072004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260717-072004.md) — Press report — xs2rust-endor-press-20260717-072004 (PR #600, hourly tick, res...
-- … and 2537 more
+- … and 2538 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
