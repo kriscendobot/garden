@@ -41,6 +41,14 @@
 | [bun--overrides--overview](../sections/bun--overrides--overview.md) | Bun overrides.mdx | Bun reads npm `overrides` and Yarn `resolutions`, top-level only (no nesting). |
 | [bun--lifecycle--trusted-dependencies](../sections/bun--lifecycle--trusted-dependencies.md) | Bun lifecycle.mdx | `trustedDependencies` and Bun's default-secure lifecycle policy (replaces, not extends; npm sources only). |
 | [corepack--readme--package-manager-field](../sections/corepack--readme--package-manager-field.md) | Corepack README | The `packageManager` field (name@version+hash) and `devEngines.packageManager`, consumed by Corepack. |
+| [yarn-berry--plugnplay--resolver-and-strict-visibility](../sections/yarn-berry--plugnplay--resolver-and-strict-visibility.md) | yarn Berry PnP | `.pnp.cjs` maps packages to locations and rejects undeclared dependency access. |
+| [yarn-berry--install-modes--pnp-pnpm-and-node-modules-linkers](../sections/yarn-berry--install-modes--pnp-pnpm-and-node-modules-linkers.md) | yarn Berry install modes | `nodeLinker` selects PnP, pnpm-style symlinks, or conventional node_modules. |
+| [yarn-berry--workspaces--workspace-protocol-and-publish-rewrite](../sections/yarn-berry--workspaces--workspace-protocol-and-publish-rewrite.md) | yarn Berry workspaces | `workspace:` resolves locally and rewrites ranges for publication. |
+| [pnpm-io--symlinked-node-modules-structure--store-and-strict-visibility](../sections/pnpm-io--symlinked-node-modules-structure--store-and-strict-visibility.md) | pnpm symlinked layout | `.pnpm` hardlinks store files and symlinks the dependency graph. |
+| [pnpm-io--how-peers-are-resolved--peer-context-store-variants](../sections/pnpm-io--how-peers-are-resolved--peer-context-store-variants.md) | pnpm peer resolution | Distinct peer contexts get distinct store-path instances. |
+| [pnpm-io--pnpm-workspace-yaml--packages-and-root-membership](../sections/pnpm-io--pnpm-workspace-yaml--packages-and-root-membership.md) | pnpm workspaces | YAML `packages:` globs define members and always include the root. |
+| [bun--workspaces--manifest-globs-and-workspace-publish-rewrite](../sections/bun--workspaces--manifest-globs-and-workspace-publish-rewrite.md) | Bun workspaces | `workspaces` supports glob/negation and `workspace:` publish rewrites. |
+| [bun--isolated-installs--bun-store-and-strict-layout](../sections/bun--isolated-installs--bun-store-and-strict-layout.md) | Bun isolated installs | `.bun` store entries plus symlinks provide strict dependency isolation. |
 
 ## See also
 
