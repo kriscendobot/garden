@@ -11,3 +11,10 @@ Follow-on to scholar-package-json-package-managers (which library-backed the man
 - Yarn Classic (v1): its own `resolutions`/hoisting specifics if a canonical source exists.
 
 Add sections under topic `package-manifest`; un-flag the remaining (synthesis) rows in projects/package-json/{property-consumer-matrix,inconsistencies}.md; update the project README coverage status.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: cleric
+  claimed_at: 2026-07-17T14:42:33Z
