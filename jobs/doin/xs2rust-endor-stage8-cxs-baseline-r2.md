@@ -75,3 +75,10 @@ goes in the report as a named remainder.
 **Practical notes:** `$HOME` = `/home/kris/garden`; logs under `$HOME/tmp`; `/tmp` noexec;
 `TMPDIR=$HOME/tmp` for anything that execs from temp. The build may be slow — budget your
 invocation; commit/push source changes before long runs so nothing is lost to a requeue.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 20
+  worker_kind: gardener
+  claimed_at: 2026-07-17T17:04:21Z
