@@ -44,3 +44,10 @@ goes in the report as a named remainder.
 invocation; commit/push source changes before long runs so nothing is lost to a requeue.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 5
+  worker_kind: gardener
+  claimed_at: 2026-07-17T11:53:13Z
