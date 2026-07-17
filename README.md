@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-17T11:05:54Z_
+_As of 2026-07-17T11:09:19Z_
 
 ## Latest
 
-Upstream integration landed: a gardener conducted [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) — a clean merge of real upstream `endojs/endo` master (deliberately stopping just before upstream's ESLint 10 flat-config migration) — onto `llm`, which now carries the immutable-arraybuffer pseudo-prototype drop, SES console-format sanitization plus the `code` error prop, and skipLibCheck; adopting the ESLint 10 trio is flagged as a separate multi-cycle job, not auto-run. On finbot, the volatility model went asymmetric end to end — live GJR-GARCH leverage-parameter (gamma) MLE, an asymmetric conditional-vol regime read, and now evidence-gated per-asset GJR selection (`main` → c0ff05e, suite 541 green). The git-integration M3 loop is one directive from done: [#706](https://github.com/endojs/endo-but-for-bots/pull/706) merged, with [#705](https://github.com/endojs/endo-but-for-bots/pull/705) and [#707](https://github.com/endojs/endo-but-for-bots/pull/707) green and awaiting merge, and the Chrome native-function `arguments`/`caller` reproduction is published and linked from [#259](https://github.com/endojs/endo-but-for-bots/pull/259).
+The headline change: the real upstream `endojs/endo` master (up to `ba88ef797`, deliberately stopping short of the breaking ESLint 10 flat-config migration) was merged into the `llm` roadmap branch via [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) and conducted in, advancing `llm` to `d39605930` — bringing the immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, and `skipLibCheck`. The gardener flagged the ESLint 10 adoption as a separate multi-cycle job (63 errors on the daemon package alone), and the daemon-rename Phase 1 PR ([#598](https://github.com/endojs/endo-but-for-bots/pull/598)) was already rebased clean onto the new base. finbot also progressed independently to `c0ff05e`, closing out the GJR-GARCH leverage arc with evidence-gated per-asset asymmetric volatility selection.
 
-What most needs the maintainer's attention is a stack of lanes that are fully built and green but blocked solely on your decisions: the M3 module-loading tail needs a package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403); M2 closes once you rule on [#719](https://github.com/endojs/endo-but-for-bots/pull/719)'s URL-shim split and merge/ferry it plus [#259](https://github.com/endojs/endo-but-for-bots/pull/259); the SturdyRef effort has three open gates including a first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737); the esheets tree is dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, six days awaiting re-review); and OCapN-over-Noise asks whether to open a TCP port on minion.town or accept the cross-host wss transcript as done. Separately, a wave of jobs poisoned on handler-budget overruns — the `merge-upstream-master-into-llm`, `merge #585` conductor, and several auto-dispatched shepherds ([#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#763](https://github.com/endojs/endo-but-for-bots/pull/763)) each exceed the 2400s handler wall and sit parked for split-or-detach triage — and the master-retirement reconstruction jobs (#69, #545, #720) are blocked because the fork's master already contains those merges as ancestors, leaving empty diffs.
+The larger story is a maintainer-decision backlog: multiple lanes are fully green and gated only on your call — git-integration ([#705](https://github.com/endojs/endo-but-for-bots/pull/705)/[#707](https://github.com/endojs/endo-but-for-bots/pull/707)) awaiting a merge directive to close M3; M2 ([#259](https://github.com/endojs/endo-but-for-bots/pull/259)/[#719](https://github.com/endojs/endo-but-for-bots/pull/719)) one adopt/close decision from complete; the SturdyRef stack blocked on a first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus a rank-prefix pick; the esheets tree dammed six days behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621); and M3's remaining module-loading work stalled on the registry package-home contest between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403). Separately, a cluster of shepherd/merge/gauntlet jobs ([#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#763](https://github.com/endojs/endo-but-for-bots/pull/763), the pnpm/kebab-case migrations) were poisoned for overrunning the handler wall-clock budget — they need splitting into claim-sized stages before they can run. A review-retrospective also escalated a recurring `impl` abbreviation on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) that the pre-push gate structurally can't catch, awaiting your call on whether to widen it.
 
 ## Parked for maintainer feedback
 
@@ -679,33 +679,32 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.7M | $1201.08 _(notional, rate-card)_ | no quota set |
-| Codex | 182.9M _(+367.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
+| Claude | 116.9M | $1202.35 _(notional, rate-card)_ | no quota set |
+| Codex | 182.9M _(+369.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (11)
+### doin (10)
 - [`ebfb-retire-master-pr-344`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-344.md) — ---
 - [`endo-byte-array-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260717-060503.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260717-060503.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-sturdyref-press-20260717-072004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260717-072004.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endojs-endo-but-for-bots-pr771-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr771-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #771
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/migrate-endo-but-for-bots-master-to-npm.md) — ---
-- [`minion-town-agenda-review-20260717-110501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260717-110501.md) — Minion Town hourly agenda review
 - [`scholar-package-json-bundlers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-bundlers.md) — Scholar: how bundlers and compilers read package.json
 - [`scholar-package-json-package-managers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-package-managers.md) — Scholar: how package managers read package.json (Yarn, pnpm, Bun)
 - [`xs2rust-endor-press-20260717-072004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260717-072004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-stage8-daemon-bundle-imports`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage8-daemon-bundle-imports.md) — Stage-8 child 1/6 — daemon-bundle Node-only import fix (README item 1)
 
-### tada (2532)
+### tada (2533)
+- [`minion-town-agenda-review-20260717-110501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260717-110501.md) — Completion report
 - [`ebfb-retire-master-pr-346`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-346.md) — Retired PR #346’s master base: rebased its head onto upstream endojs/endo mas...
 - [`build-endo-content-locators-magnet-urn-phase2-interface-methods`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-content-locators-magnet-urn-phase2-interface-methods.md) — Build Phase 2 — content-locator <verb>Content interface methods
 - [`ebfb-retire-master-pr-347`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-347.md) — Master base retired successfully. The rebase was a clean focused weave, so I ...
 - [`finbot-progress-20260717-105004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260717-105004.md) — Advanced finbot main to c0ff05e: evidence-gated per-asset GJR selection via -...
-- [`port-xs-to-rust-memory-safe-engine-s23`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s23.md) — Completion report — supervisor s23: stage-7 acceptance + stage-8 dispatch
-- … and 2527 more
+- … and 2528 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
