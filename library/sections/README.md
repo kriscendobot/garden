@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6444 (530 parent indexes + 5914 children).
+Total section files: 6449 (530 parent indexes + 5919 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8118,6 +8118,14 @@ Total section files: 6444 (530 parent indexes + 5914 children).
 - [papers--engle-autoregressive-conditional-heteroscedasticity-1982--overview](papers--engle-autoregressive-conditional-heteroscedasticity-1982--overview.md)
 - [papers--engle-autoregressive-conditional-heteroscedasticity-1982--stationarity-and-volatility-clustering](papers--engle-autoregressive-conditional-heteroscedasticity-1982--stationarity-and-volatility-clustering.md)
 - [papers--engle-autoregressive-conditional-heteroscedasticity-1982--uk-inflation-example-and-forecasting-boundary](papers--engle-autoregressive-conditional-heteroscedasticity-1982--uk-inflation-example-and-forecasting-boundary.md)
+
+### papers--engle-ng-measuring-testing-news-volatility-1991
+
+- [papers--engle-ng-measuring-testing-news-volatility-1991--asymmetric-volatility-models-and-leverage](papers--engle-ng-measuring-testing-news-volatility-1991--asymmetric-volatility-models-and-leverage.md)
+- [papers--engle-ng-measuring-testing-news-volatility-1991--japanese-equity-results-and-robustness-boundary](papers--engle-ng-measuring-testing-news-volatility-1991--japanese-equity-results-and-robustness-boundary.md)
+- [papers--engle-ng-measuring-testing-news-volatility-1991--overview-and-news-impact-curve](papers--engle-ng-measuring-testing-news-volatility-1991--overview-and-news-impact-curve.md)
+- [papers--engle-ng-measuring-testing-news-volatility-1991--partially-non-parametric-news-impact-benchmark](papers--engle-ng-measuring-testing-news-volatility-1991--partially-non-parametric-news-impact-benchmark.md)
+- [papers--engle-ng-measuring-testing-news-volatility-1991--sign-and-size-bias-diagnostics](papers--engle-ng-measuring-testing-news-volatility-1991--sign-and-size-bias-diagnostics.md)
 
 ### papers--hansen-lunde-forecast-comparison-volatility-models-2005
 
