@@ -14619,3 +14619,9 @@ VaR quantile forecast | garch-volatility-models
 Mincer-Zarnowitz forecast regression | mean-absolute-scaled-error
 volatility forecast evaluation | mean-absolute-scaled-error
 probability integral transform | mean-absolute-scaled-error
+nested-model forecast comparison | nested-model-forecast-comparison
+Clark-West test | nested-model-forecast-comparison
+Clark West test | nested-model-forecast-comparison
+MSPE-adjusted test | nested-model-forecast-comparison
+MSPE adjustment | nested-model-forecast-comparison
+equal predictive accuracy in nested models | nested-model-forecast-comparison
