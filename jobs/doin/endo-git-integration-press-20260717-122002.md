@@ -27,3 +27,10 @@ sub-job rather than implementing ahead of the spec. Cite real command/CI output 
 every green claim.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 20
+  worker_kind: gardener
+  claimed_at: 2026-07-17T12:43:13Z
