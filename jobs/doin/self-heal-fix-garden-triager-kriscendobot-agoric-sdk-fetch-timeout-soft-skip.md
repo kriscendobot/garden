@@ -5,3 +5,10 @@ Two changes:
 2. Reduce the chance of hitting the 900s kill on huge forks: fetch only the watched remote with a bounded wrapper — replace `--all` with an explicit `origin` fetch and wrap it in `timeout` (e.g. `timeout "${GARDEN_TRIAGE_FETCH_TIMEOUT:-600}s" git --git-dir="$BARE" fetch -q --prune origin`), keeping the same `+refs/heads/*:refs/remotes/origin/*` refspec configured at line 92 so the downstream `refs/remotes/origin/$ref` resolution still works. Optionally bump `TimeoutStartSec` in garden-triager@.service if the leader host's link genuinely needs longer for the initial deep fetch.
 
 Verify agoric-sdk (and any other large fork) triages cleanly after: a slow/interrupted fetch should log a WARN and exit 0, not mark the unit Failed, and should not re-trigger this self-heal responder.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  worker_kind: cleric
+  claimed_at: 2026-07-17T16:04:36Z
