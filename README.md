@@ -1,16 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-17T03:13:50Z_
+_As of 2026-07-17T03:15:58Z_
 
 ## Latest
 
-The board moved little this tick — the hourly SturdyRef and xs2rust-endor press-drivers each closed out a dispatch, with the xs2rust tick logging an observation-only hold, while shepherds keep churning on a run of red-CI PRs ([#755](https://github.com/endojs/endo-but-for-bots/pull/755), [#760](https://github.com/endojs/endo-but-for-bots/pull/760), [#762](https://github.com/endojs/endo-but-for-bots/pull/762), [#765](https://github.com/endojs/endo-but-for-bots/pull/765), [#768](https://github.com/endojs/endo-but-for-bots/pull/768), [#769](https://github.com/endojs/endo-but-for-bots/pull/769)). The real story is a pileup of green, review-ready work stalled on maintainer decisions: the git-integration M3 lane is one `merge` directive from the finish line on [#705](https://github.com/endojs/endo-but-for-bots/pull/705) (22/22 green, CLEAN) with its worked-loop exit criterion [#707](https://github.com/endojs/endo-but-for-bots/pull/707) also green; the SturdyRef effort's [#737](https://github.com/endojs/endo-but-for-bots/pull/737) awaits a first review plus a marshal rank-prefix pick and re-reviews of [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697); M2 is one call from done pending adoption of [#719](https://github.com/endojs/endo-but-for-bots/pull/719) and closing the redundant, red [#263](https://github.com/endojs/endo-but-for-bots/pull/263); and the esheets tree remains fully dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621), unmerged six days.
+Little moved on the board this window — only an xs2rust-endor observation tick completed — but several lanes are now fully green and stalled on your decisions. The git-integration M3 loop is one `merge` directive from done: [#705](https://github.com/endojs/endo-but-for-bots/pull/705) (Phase 1) is 22/22 green and CLEAN, and [#707](https://github.com/endojs/endo-but-for-bots/pull/707) (Phase 3, the milestone exit criterion) is green but still draft — its gauntlet job poisoned after exhausting requeues, so un-drafting it needs a hand. The SturdyRef effort is fully gated: [#737](https://github.com/endojs/endo-but-for-bots/pull/737) (single-squashed replacement for closed #521) is draft, 25/25 green, and awaiting a first review plus a marshal rank-prefix pick and re-reviews of designs [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697). OCapN-over-Noise has M1–M5 demonstrated and asks whether to open an inbound TCP port on minion.town to close the cross-host TCP transcript. M2 is one call from complete — [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) are green/CLEAN pending your adoption of #719's URL-shim split and closure of the CI-failing #263 — and M3's tail is blocked on picking the MVS resolver home between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403). The esheets tree remains dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621), green and un-drafted for six days awaiting re-review.
 
-Two items need a ruling before the fleet can proceed: the M3 module-loading tail is blocked on choosing the MVS resolver's home between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403), and the OCapN-over-Noise demo needs a yes/no on opening an inbound TCP port on minion.town to close its cross-host finish line. Note also a batch of casualties: shepherd jobs for [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#763](https://github.com/endojs/endo-but-for-bots/pull/763) and kriscendobot/agoric-sdk [#15](https://github.com/kriscendobot/agoric-sdk/pull/15) were poisoned for overrunning the handler budget (now parked awaiting promotion), three master-reconstruction jobs (PRs [#545](https://github.com/endojs/endo-but-for-bots/pull/545), [#69](https://github.com/endojs/endo-but-for-bots/pull/69), [#720](https://github.com/endojs/endo-but-for-bots/pull/720)) are blocked because the fork's master already contains their merges, and the avoid-abbreviation cluster recurred on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) — a pre-gate line the deterministic scanner structurally can't see, flagged for your call on whether to widen the gate.
+Two things to flag beyond the merge queue: the avoid-abbreviation cluster **recurred** on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`fetchImpl`) because the spell-out gate only scans newly-added diff lines and this one predated the gate's deployment — a structural blind spot needing your call on whether to widen it. And a wave of auto-dispatched shepherd/gauntlet jobs (#124, #704, #763, #694, #707, agoric-sdk#15, the kebab-case linter build) poisoned out on handler-budget overruns and now sit parked awaiting promotion or a split. Finbot advanced main to `df2a164`, adding live GJR-GARCH leverage-parameter estimation (538 tests green, wallet untouched); live execution still awaits your paper-wallet authorization and a chosen CapTP transport.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 3h)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 4h)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 1d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 3d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 4d)
@@ -394,14 +394,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.9M | $1036.77 _(notional, rate-card)_ | no quota set |
-| Codex | 162.2M _(+209.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
+| Claude | 101.9M | $1036.73 _(notional, rate-card)_ | no quota set |
+| Codex | 162.3M _(+210.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (18)
+### doin (17)
 - [`ebfb-retire-master-pr-719`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-719.md) — ---
 - [`endo-sturdyref-press-20260717-003509`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260717-003509.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-vfs-parity-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260717-000503.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
@@ -418,16 +418,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`mirror-endo-2780-cache-globals-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mirror-endo-2780-cache-globals-gauntlet.md) — Mirror upstream endojs/endo#2780 (Cache globals) onto a frozen master base, t...
 - [`ocapn-noise-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260717-000503.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`scholar-ingest-financial-forecasting-corpus-8`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-financial-forecasting-corpus-8.md) — ---
-- [`xs2rust-endor-press-20260717-003509`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260717-003509.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-stage7-intrinsics-residuals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage7-intrinsics-residuals.md) — Stage 7 child 2/7: intrinsics-ledger residuals (Reflect, typed-array-from-ite...
 
-### tada (2436)
+### tada (2437)
+- [`xs2rust-endor-press-20260717-003509`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260717-003509.md) — Completion report — xs2rust-endor press tick (observation only, no push)
 - [`xs2rust-endor-press-20260717-030502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260717-030502.md) — All press actions for this tick are complete. Final report:
 - [`endo-sturdyref-press-20260717-030502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260717-030502.md) — Completion report — SturdyRef press tick (2026-07-17T03:05 dispatch)
 - [`endo-sturdyref-press-20260717-015026`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260717-015026.md) — Completion report — SturdyRef press tick (2026-07-17T01:50 dispatch)
 - [`xs2rust-endor-press-20260717-015026`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260717-015026.md) — Observation tick complete — no press this hour, by charter design.
-- [`endojs-endo-but-for-bots-pr600-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-shepherd.md) — All CI checks on PR #600 are now **green**. Here's the shepherd completion re...
-- … and 2431 more
+- … and 2432 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
