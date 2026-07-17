@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6491 (530 parent indexes + 5961 children).
+Total section files: 6496 (530 parent indexes + 5966 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8153,6 +8153,14 @@ Total section files: 6491 (530 parent indexes + 5961 children).
 - [papers--engle-ng-measuring-testing-news-volatility-1991--overview-and-news-impact-curve](papers--engle-ng-measuring-testing-news-volatility-1991--overview-and-news-impact-curve.md)
 - [papers--engle-ng-measuring-testing-news-volatility-1991--partially-non-parametric-news-impact-benchmark](papers--engle-ng-measuring-testing-news-volatility-1991--partially-non-parametric-news-impact-benchmark.md)
 - [papers--engle-ng-measuring-testing-news-volatility-1991--sign-and-size-bias-diagnostics](papers--engle-ng-measuring-testing-news-volatility-1991--sign-and-size-bias-diagnostics.md)
+
+### papers--giacomini-white-tests-conditional-predictive-ability-2006
+
+- [papers--giacomini-white-tests-conditional-predictive-ability-2006--conditional-test-statistic-and-forecast-selection](papers--giacomini-white-tests-conditional-predictive-ability-2006--conditional-test-statistic-and-forecast-selection.md)
+- [papers--giacomini-white-tests-conditional-predictive-ability-2006--finite-window-estimation-uncertainty-and-scope](papers--giacomini-white-tests-conditional-predictive-ability-2006--finite-window-estimation-uncertainty-and-scope.md)
+- [papers--giacomini-white-tests-conditional-predictive-ability-2006--forecasting-methods-and-conditional-null](papers--giacomini-white-tests-conditional-predictive-ability-2006--forecasting-methods-and-conditional-null.md)
+- [papers--giacomini-white-tests-conditional-predictive-ability-2006--lineage-and-multiple-testing-boundary](papers--giacomini-white-tests-conditional-predictive-ability-2006--lineage-and-multiple-testing-boundary.md)
+- [papers--giacomini-white-tests-conditional-predictive-ability-2006--simulation-and-macroeconomic-application](papers--giacomini-white-tests-conditional-predictive-ability-2006--simulation-and-macroeconomic-application.md)
 
 ### papers--glosten-relation-expected-value-volatility-1993
 
