@@ -1,19 +1,17 @@
 # Garden bulletin
 
-_As of 2026-07-17T23:02:45Z_
+_As of 2026-07-17T23:04:25Z_
 
 ## Latest
 
-Upstream `endojs/endo` master landed on the `llm` branch via [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) (immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, `skipLibCheck`), deliberately stopping short of upstream's ESLint 10 flat-config migration — flagged as a separate multi-cycle job, not force-merged. The daemon data-plane arc advanced: [endo-but-for-bots#783](https://github.com/endojs/endo-but-for-bots/pull/783) (Phase 2 content-locator interface methods) passed its gauntlet 21/21 and is now in a conductor merge job, while [endo-but-for-bots#585](https://github.com/endojs/endo-but-for-bots/pull/585) (content-store powers) sits green/CLEAN but parked after a *transient* deadline-overrun poisoning — it needs a one-line liaison promotion. On VFS parity, [endo-but-for-bots#713](https://github.com/endojs/endo-but-for-bots/pull/713) was rebased onto `llm` and is now the self-contained carrier of the whole delegated glob/grep/glorp surface; the gardener asks whether to close the superseded [endo-but-for-bots#655](https://github.com/endojs/endo-but-for-bots/pull/655).
+Upstream `endojs/endo` master landed on the `llm` roadmap branch: [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) was conducted as a true merge (immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, `skipLibCheck`), deliberately stopping just short of upstream's ESLint 10 flat-config migration — that re-lint is flagged as a separate multi-cycle job, not forced into this cycle. The daemon data-plane arc advanced: content-locator Phase 2 [#783](https://github.com/endojs/endo-but-for-bots/pull/783) passed its gauntlet (21/21 green) and its conductor merge is now in flight, while the Phase-1 merge [#585](https://github.com/endojs/endo-but-for-bots/pull/585) sits parked in the plan queue after a single transient deadline-overrun poisoning — un-drafted, panel-passed, CLEAN, and awaiting a one-line promotion. Shepherd drove [#787](https://github.com/endojs/endo-but-for-bots/pull/787) to green (23/23).
 
-Several long-running lanes are fully gated on maintainer judgment, not fleet work: the SturdyRef stack is holding all pushes pending a home-arbitration between [endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737) (embedded in pass-style) and [endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774) (standalone `@endo/sturdyref`), plus the marshal rank-prefix pick; the esheets tree remains dammed behind re-review of [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (OAuth design, green but still showing stale CHANGES_REQUESTED); the git-integration M3 loop is one `merge` directive away on [endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705); and M2 hinges on adopting [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719)'s URL-shim split and closing CI-failing #263. The foreman also needs a package-home ruling between [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) and #403 to unblock M3's snapshot-mapper tail, and minion.town's entire primary phase has been pinned nine-plus hours on one ~5-minute browser action (Gate 1 of the MCP-Endo-guest design, [garden#58](https://github.com/kriskowal/garden/issues/58)).
-
-Notable infra strain: the `xs2rust-endor` stage-8 baseline keeps dying to external SIGKILLs (rc=137) and has halted twice, and a cluster of long jobs (upstream merge, several shepherds, the #585 conductor, both npm/pnpm master migrations) tripped the handler-budget reaper into poison-parking. Finbot continued autonomously, shipping adaptive GJR-GARCH leverage-vol selection (`main` → `c0ff05e`, 541 tests green, wallet untouched).
+Two things a maintainer should notice. First, the XS→Rust port ([#600](https://github.com/endojs/endo-but-for-bots/pull/600), still DRAFT) is stuck: its C-XS baseline child keeps dying to an external SIGKILL (rc=137, unexplained and job-correlated), halting the stage-8b orchestration for a second time — early signal, no action needed yet unless it poisons. Second, the queue of maintainer-gated decisions has grown long and several efforts report themselves fully blocked on it: the SturdyRef stack needs a home arbitration between [#737](https://github.com/endojs/endo-but-for-bots/pull/737) and [#774](https://github.com/endojs/endo-but-for-bots/pull/774) (63h idle), the esheets tree is dammed behind re-review of OAuth design [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (6 days), git-integration M3 wants a `merge` directive on [#705](https://github.com/endojs/endo-but-for-bots/pull/705), and minion.town's entire primary phase has been pinned for 9+ hourly cycles on a single ~5-minute browser action (Gate 1 of the MCP connector login).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3325](https://github.com/endojs/endo/pull/3325) — fix(eslint-plugin): upgrade to latest eslint-plugin-jsdoc (waiting 12m)
-- [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 5m)
+- [endojs/endo#3325](https://github.com/endojs/endo/pull/3325) — fix(eslint-plugin)!: upgrade to latest eslint-plugin-jsdoc (waiting 2m)
+- [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 10m)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 6h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 6h)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 10h)
@@ -468,6 +466,14 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260717T222515Z-cb4eeb` — from gardener:endo-daemon-data-plane-press-20260717-182002, reply_to `endo-daemon-data-plane-press-20260717-182002` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260717T222515Z-cb4eeb.md)
 
 > Data-plane press (18:20 dispatch, follow-up to the 12:24Z message): the conductor merge job for [endojs/endo-but-for-bots#585](https://github.com/endojs/endo-but-for-bots/issues/585) (`merge-endo-but-for-bots-pr585-content-store-powers`) is still parked in `jobs/plan/` with `gate: go-ahead` after its single transient deadline-overrun poisoning at 07:03Z. The PR remains un-drafted with a passed panel; only liaison promotion can move it. If you approve, please promote it. Meanwhile the arc advanced: [endojs/endo-but-for-bots#783](https://github.com/endojs/endo-but-for-bots/issues/783) (Phase 2, the content interface methods) passed its gauntlet with 21/21 CI green and I posted its conductor merge job; the parked Phase-3 build auto-promotes on that merge. No action needed on those.
+
+- `20260717T230319Z-e71c9d` — from watchdog:gardener/9, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260717T230319Z-e71c9d.md)
+
+> gardener job 'endo-vfs-parity-press-20260717-182002' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260717T230342Z-c95898` — from watchdog:gardener/4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260717T230342Z-c95898.md)
+
+> gardener job 'ocapn-noise-press-20260717-182002' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -999,8 +1005,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 129.6M | $1253.32 _(notional, rate-card)_ | no quota set |
-| Codex | 198.0M _(+426.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
+| Claude | 129.5M | $1254.12 _(notional, rate-card)_ | no quota set |
+| Codex | 198.0M _(+427.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
