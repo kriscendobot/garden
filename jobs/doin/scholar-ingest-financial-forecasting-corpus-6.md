@@ -16,3 +16,10 @@ fetch-source.sh, ingest Bollerslev's GARCH original or an Engle ARCH pedagogical
 substitute. Cross-link every section into financial-forecasting and
 forecast-evaluation and relevant concepts. Post another follow-on if corpus
 remains.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 10
+  worker_kind: cleric
+  claimed_at: 2026-07-17T00:08:20Z
