@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/57#issuecomment-5004509028
 why a private repository? I'm curious to look at ymax-e2e 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 11
+  worker_kind: gardener
+  claimed_at: 2026-07-17T14:55:26Z
