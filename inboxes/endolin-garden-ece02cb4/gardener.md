@@ -669,3 +669,12 @@ Inspect via `git -C journal cat-file -p 1f6753a8dc5a05878c2907e441cc56a93883a9f6
 - Context: gardener-6 on endolin-garden-ece02cb4: job 'port-xs-to-rust-memory-safe-engine-s25' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 088b4481cc137de725a19712eb3948c7a7daefbc`.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-07-17T22:57:38Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: a1055ad502f89b0dd0e9aa7c540f606ce32508b0
+- Context: gardener-6 on endolin-garden-ece02cb4: job 'port-xs-to-rust-memory-safe-engine-s25' exit-0-unsatisfying but elapsed near-constant (244,244s) over 2 cycles — likely a wedged child, not a working one
+
+Inspect via `git -C journal cat-file -p a1055ad502f89b0dd0e9aa7c540f606ce32508b0`.
