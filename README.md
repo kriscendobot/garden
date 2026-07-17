@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-17T05:09:06Z_
+_As of 2026-07-17T05:12:53Z_
 
 ## Latest
 
@@ -549,34 +549,34 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 104.9M | $1061.10 _(notional, rate-card)_ | no quota set |
-| Codex | 166.0M _(+249.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 105.3M | $1065.44 _(notional, rate-card)_ | no quota set |
+| Codex | 166.0M _(+251.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (12)
-- [`ebfb-retire-master-pr-586`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-586.md) — ---
-- [`endo-sturdyref-press-20260717-050512`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260717-050512.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+- [`ebfb-retire-master-pr-555`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-555.md) — ---
 - [`endojs-endo-but-for-bots-pr737-sturdyref-global-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr737-sturdyref-global-shim.md) — ---
 - [`endojs-endo-but-for-bots-pr755-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr755-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #755
 - [`endojs-endo-but-for-bots-pr760-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr760-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #760
 - [`endojs-endo-but-for-bots-pr762-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr762-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #762
 - [`endojs-endo-but-for-bots-pr774-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr774-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #774
+- [`issue-kriskowal-garden-58`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-58.md) — Issue from kriskowal on kriskowal/garden #58
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/migrate-endo-but-for-bots-master-to-pnpm.md) — ---
 - [`ocapn-noise-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260717-000503.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`scholar-ingest-financial-forecasting-corpus-13`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-financial-forecasting-corpus-13.md) — role: scholar
 - [`xs2rust-endor-stage7-boot-bundle-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage7-boot-bundle-gate.md) — Stage 7 child 6/7: the boot-bundle gate — daemon boot JS on endor vs the oracle
 
-### tada (2464)
+### tada (2466)
+- [`endo-sturdyref-press-20260717-050512`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260717-050512.md) — Completion report — SturdyRef press tick (2026-07-17T05:05 dispatch)
+- [`ebfb-retire-master-pr-586`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-586.md) — Empty inbox. Work is complete.
 - [`xs2rust-endor-press-20260717-050512`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260717-050512.md) — Completion report — xs2rust-endor press tick 2026-07-17T05:05Z (PR #600)
 - [`xs2rust-endor-stage7-guest-compartment`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage7-guest-compartment.md) — Stage 7 child 5/7: guest Compartment — completion report
 - [`scholar-ingest-financial-forecasting-corpus-12`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-financial-forecasting-corpus-12.md) — Completion report
-- [`ebfb-retire-master-pr-629`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-629.md) — The job is complete. The PR now targets the frozen master-46d4edf reflection ...
-- [`endo-sturdyref-press-20260717-003509`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260717-003509.md) — **Completion report — endo-sturdyref-press-20260717-003509 (resumed 00:35 pre...
-- … and 2459 more
+- … and 2461 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
