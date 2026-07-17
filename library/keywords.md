@@ -14522,6 +14522,12 @@ ARCH | garch-volatility-models
 ARCH effect | garch-volatility-models
 ARCH LM test | garch-volatility-models
 Engle ARCH | garch-volatility-models
+Engle-Ng news impact curve | garch-volatility-models
+News Impact Curve | garch-volatility-models
+sign-bias test | garch-volatility-models
+negative-size-bias test | garch-volatility-models
+positive-size-bias test | garch-volatility-models
+partially non-parametric ARCH | garch-volatility-models
 conditional forecast variance | garch-volatility-models
 volatility clustering | garch-volatility-models
 GARCH(1,1) | garch-volatility-models
