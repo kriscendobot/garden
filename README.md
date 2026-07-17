@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-17T14:38:56Z_
+_As of 2026-07-17T14:45:13Z_
 
 ## Latest
 
-Board is nearly idle this cycle — the only transition was completion of the hourly minion.town agenda review (garden #58), which reported no deployment action taken. What a maintainer should notice is the backlog of green-but-gated lanes piling up in the inbox, all waiting on merge or decision authority the fleet can't self-grant. Upstream `endojs/endo` master was merged into `llm` via [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) (stopping deliberately short of upstream's ESLint 10 flat-config migration, flagged as a separate multi-cycle job). The git-integration M3 lane is one `merge` directive from done: [endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) is 22/22 green and CLEAN, with [endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/pull/707) (the milestone-exit worked-loop) green behind it. M2 is one call from complete — [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) are review-ready, pending a decision to close the redundant #263. The esheets tree remains dammed behind [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (all CI green, 6 days awaiting re-review), and the OCapN-over-Noise press needs a yes/no on opening a TCP port on minion.town to close its cross-host finish line. Separately, the content-store merge [endo-but-for-bots#585](https://github.com/endojs/endo-but-for-bots/pull/585) was reaper-poisoned on a transient CI stall and sits parked awaiting promotion, alongside a wave of shepherd/gauntlet jobs that overran the 2400s handler budget and need splitting.
+The upstream-into-`llm` integration landed: a gardener conducted [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) — a clean merge of real upstream `endojs/endo` master up to `ba88ef797`, deliberately stopping before upstream's ESLint 10 flat-config migration — advancing `llm` to `d39605930` (immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, skipLibCheck). The ESLint 10 adoption is flagged as a separate multi-cycle job, not folded in. Downstream, [#598](https://github.com/endojs/endo-but-for-bots/pull/598) (daemon→manager Phase 1) was rebased clean onto the new base and is ready for shepherd.
+
+Several lanes are green and one directive from the finish line: git-integration M3 is fully green with [#705](https://github.com/endojs/endo-but-for-bots/pull/705) (remote push tier) and [#707](https://github.com/endojs/endo-but-for-bots/pull/707) (worked loop) awaiting a `merge`; the content-store [#585](https://github.com/endojs/endo-but-for-bots/pull/585) merge was reaper-poisoned on a transient CI-wait overrun (parked, safe to re-promote); and the VFS-parity press consolidated the whole delegated glob/grep/glorp surface into [#713](https://github.com/endojs/endo-but-for-bots/pull/713), retargeted to `llm`.
+
+Worth the maintainer's attention: a wave of maintainer gates remains open — the SturdyRef effort ([#737](https://github.com/endojs/endo-but-for-bots/pull/737) first review + marshal rank-prefix pick), the M3 package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403), M2 closeout ([#259](https://github.com/endojs/endo-but-for-bots/pull/259)/[#719](https://github.com/endojs/endo-but-for-bots/pull/719)), and the esheets tree dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621). A recurred "avoid abbreviation" review-retrospective on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) surfaced a structural gap — the pre-push linter only scans newly-added lines, so pre-deployment stragglers escape — and needs your call on whether to widen it. Several master-retirement reconstructions ([#69](https://github.com/endojs/endo-but-for-bots/pull/69), [#251](https://github.com/endojs/endo-but-for-bots/pull/251), #545, #720) stopped as no-ops because upstream master already contains the work, and the bot token is reported invalid (branch-protection and some `gh` writes blocked pending renewal). Otherwise, mostly automated churn: finbot advanced its adaptive GJR-GARCH volatility work, and several shepherd/gauntlet jobs poisoned on handler-budget overruns and sit parked for promotion.
 
 ## Parked for maintainer feedback
 
@@ -795,8 +799,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 121.4M | $1224.06 _(notional, rate-card)_ | no quota set |
-| Codex | 191.3M _(+398.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
+| Claude | 121.4M | $1224.15 _(notional, rate-card)_ | no quota set |
+| Codex | 191.3M _(+398.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -808,15 +812,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr250-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr250-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #250
 - [`port-xs-to-rust-memory-safe-engine-s24`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s24.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`scholar-package-json-bundlers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-bundlers.md) — Scholar: how bundlers and compilers read package.json
-- [`scholar-package-json-package-managers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-package-managers.md) — Scholar: how package managers read package.json (Yarn, pnpm, Bun)
+- [`scholar-package-json-pm-layout`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-pm-layout.md) — Scholar: package-manager LAYOUT internals + remaining PM details (follow-on)
 
-### tada (2570)
+### tada (2571)
+- [`scholar-package-json-package-managers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-package-json-package-managers.md) — Completion report
 - [`minion-town-agenda-review-20260717-143501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260717-143501.md) — Completion report
 - [`xs2rust-endor-press-20260717-135001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260717-135001.md) — Completion report
 - [`endo-sturdyref-press-20260717-135001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260717-135001.md) — Completion report — SturdyRef press tick (2026-07-17 13:50 dispatch)
 - [`endojs-endo-but-for-bots-pr783-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr783-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #783
-- [`minion-town-agenda-review-20260717-132004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260717-132004.md) — Reviewed and reported current agenda status on garden issue #58. No deploymen...
-- … and 2565 more
+- … and 2566 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
