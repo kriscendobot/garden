@@ -11,3 +11,10 @@ Create a fresh bot-authored branch based on the latest upstream master commit (f
 Acceptance is literal and exhaustive: a case-insensitive search of all tracked files must find no mention of yarn; npm install must reproduce from the committed npm lockfile; every applicable lint, format, typecheck, unit, integration, build, and CI-equivalent test must pass. Exercise workflows locally where practical and fix npm-specific lifecycle/workspace differences rather than skipping tests. Do not weaken checks or exclude failures. Record exact commands and results.
 
 Open one bot-authored PR on endojs/endo-but-for-bots against master, clearly labeled as the npm migration experiment and citing the exact upstream master SHA used. Run the normal build-produced gauntlet through clean panel review and un-draft only when all acceptance criteria are met. Do not merge.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-17T02:06:08Z
