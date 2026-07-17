@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 6
-worker_kind: gardener
-claimed_at: 2026-07-17T22:19:06Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-kriscendobot-agoric-sdk-pr15-review-9a12af5e
