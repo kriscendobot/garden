@@ -23,3 +23,10 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 Primary phase: - minion.town runs a systemd unit for Endo daemon at the host level. - minion.town’s oauth system triggers the creation of new guests in the daemon, mapping oauth credentials to the corresponding daemon guest agent. - minion.town MCP server is authenticated and a
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: cleric
+  claimed_at: 2026-07-17T05:11:38Z
