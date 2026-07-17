@@ -11,3 +11,10 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 retcon a separate commit per exo might be interesting / useful. but maybe not worth the bother 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: gardener
+  claimed_at: 2026-07-17T22:06:51Z
