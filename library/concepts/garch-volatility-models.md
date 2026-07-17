@@ -27,6 +27,7 @@ The family of models that forecast **conditional volatility** — the time-varyi
 | [papers--patton-volatility-forecast-comparison-imperfect-proxies-2011--robust-loss-functions-and-qlike](../sections/papers--patton-volatility-forecast-comparison-imperfect-proxies-2011--robust-loss-functions-and-qlike.md) | QLIKE is the practical robust score for comparing positive conditional-variance forecasts. |
 | [papers--patton-volatility-forecast-comparison-imperfect-proxies-2011--ibm-application-qlike-distinguishes-forecasts](../sections/papers--patton-volatility-forecast-comparison-imperfect-proxies-2011--ibm-application-qlike-distinguishes-forecasts.md) | IBM example: QLIKE can distinguish RiskMetrics from a rolling estimator where MSE cannot. |
 | [papers--patton-volatility-forecast-comparison-imperfect-proxies-2011--conclusion-evaluation-contract](../sections/papers--patton-volatility-forecast-comparison-imperfect-proxies-2011--conclusion-evaluation-contract.md) | A GARCH-model conclusion must state the target, proxy, loss, rolling protocol, and loss-difference uncertainty. |
+| [Hansen & Lunde market-dependent results](../sections/papers--hansen-lunde-forecast-comparison-volatility-models-2005--market-dependent-results-and-leverage-effect.md) | A GARCH(1,1) baseline survives the FX race but loses IBM to leverage-effect models: complexity is market-specific evidence, not a universal upgrade. |
 
 ## See also
 
