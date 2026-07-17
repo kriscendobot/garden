@@ -3,3 +3,10 @@ The shared bare clone /home/kris/garden2/worktrees/endojs-endo-but-for-bots.git 
 Repair suggestions: refetch missing objects from origin where pushed; for dead scratch worktrees repoint or remove their registrations (check for live claimants first — xs2rust s2x workers may still use theirs); expire the damaged reflogs (`git reflog expire --stale-fix`); then verify `git gc` completes and `git fsck --connectivity-only` is clean.
 
 Already done (2026-07-17, by endo-git-integration-press-20260717-060503): removed the stale derived commit-graph cache (objects/info/commit-graph*), which cleared a separate class of "exists in commit-graph but not in the object database" errors.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 9
+  worker_kind: cleric
+  claimed_at: 2026-07-17T06:37:36Z
