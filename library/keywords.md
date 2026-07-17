@@ -14515,6 +14515,13 @@ Deflated Sharpe Ratio | data-snooping-bias
 bootstrap reality check | data-snooping-bias
 Bootstrap Reality Check | data-snooping-bias
 Monte Carlo Reality Check | data-snooping-bias
+A Test for Superior Predictive Ability | data-snooping-bias
+Hansen 2005 SPA | data-snooping-bias
+studentized test statistic | data-snooping-bias
+sample-dependent null distribution | data-snooping-bias
+least favorable configuration | data-snooping-bias
+LFC | data-snooping-bias
+test for superior predictive ability | data-snooping-bias
 naive p-value | data-snooping-bias
 data mining | data-snooping-bias
 Diebold-Mariano | diebold-mariano-test
