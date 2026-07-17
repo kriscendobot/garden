@@ -343,6 +343,7 @@ case "$MODE" in
       exit 0
     fi
     log "tip $TIP: regenerated sections index differs; landing via land-journal-edit.sh"
-    printf '%s\n' "$out" | GARDEN_ROLE="${GARDEN_ROLE:-scholar}" "$HERE/land-journal-edit.sh" library/sections/README.md
+    BASE_BLOB="$(git -C "$DIR" rev-parse HEAD:library/sections/README.md)"
+    printf '%s\n' "$out" | GARDEN_ROLE="${GARDEN_ROLE:-scholar}" "$HERE/land-journal-edit.sh" --base-blob "$BASE_BLOB" library/sections/README.md
     ;;
 esac

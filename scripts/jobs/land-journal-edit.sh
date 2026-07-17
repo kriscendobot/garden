@@ -40,18 +40,22 @@
 # append the loop cannot see is caught by the scholar's next index-integrity pass.
 #
 # USAGE
-#   land-journal-edit.sh <journal2-relative-path> [<body-file>]
+#   land-journal-edit.sh [--base-blob <sha>] [--force] <journal2-relative-path> [<body-file>]
 #     body from <body-file>, else from stdin. The path is relative to the
 #     journal2 root and must live under an allowlisted tree (see ALLOWLIST).
+#     --base-blob is the blob SHA of the file when the caller read and composed
+#     the replacement. If the file changed before landing, refuse rather than
+#     overwrite that concurrent edit. --force explicitly accepts that overwrite.
 #   land-journal-edit.sh -h | --help
 #
 # Examples
-#   land-journal-edit.sh library/keywords.md < new-keywords.md
+#   land-journal-edit.sh --base-blob "$(git -C staging rev-parse HEAD:library/keywords.md)" library/keywords.md < new-keywords.md
 #   printf '%s\n' "$BODY" | land-journal-edit.sh library/concepts/pinchtab.md
 #
 # EXIT CODES
 #   0  the edit landed on origin/journal2 (verified reachable)
-#   1  could not land after the bounded retries
+#   1  could not land after the bounded retries, or a supplied read base differs
+#      from the current tip (use --force only when intentionally overwriting)
 #   2  usage error / disallowed path / live-worktree refusal
 #   75 EX_TEMPFAIL: transient connectivity outage during a tip sync (from
 #      sync_clone) — caller skips this tick and retries next cadence
@@ -73,6 +77,7 @@ require_tools git
 # Usage / disallowed-path / live-worktree refusals exit 2 (see EXIT CODES), kept
 # distinct from die's generic exit 1 (a failed land after retries).
 refuse() { log "FATAL: $*"; exit 2; }
+conflict() { log "REFUSING: $*"; exit 1; }
 
 # The trees a content edit may touch. library/ is the scholar's reference tree
 # and the library-lookup writeback target; projects/ is the per-project context
@@ -85,10 +90,23 @@ usage() {
   awk 'NR>1 && /^#/{sub(/^# ?/,"");print;next} NR>1{exit}' "$0"
 }
 
-case "${1:-}" in
-  -h|--help) usage; exit 0 ;;
-  ''|-*) usage >&2; refuse "usage: land-journal-edit.sh <journal2-relative-path> [body-file]" ;;
-esac
+base_blob=""
+force=0
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -h|--help) usage; exit 0 ;;
+    --base-blob)
+      [ $# -ge 2 ] && [ -n "$2" ] || { usage >&2; refuse "--base-blob needs a blob SHA"; }
+      base_blob="$2"
+      shift 2
+      ;;
+    --force) force=1; shift ;;
+    --) shift; break ;;
+    -*) usage >&2; refuse "unknown option '$1'" ;;
+    *) break ;;
+  esac
+done
+[ $# -ge 1 ] && [ $# -le 2 ] || { usage >&2; refuse "usage: land-journal-edit.sh [--base-blob <sha>] [--force] <journal2-relative-path> [body-file]"; }
 
 rel="$1"
 body_src="${2:-}"
@@ -137,6 +155,12 @@ ensure_clone "$DIR"
 
 for attempt in $(seq 1 50); do
   sync_clone "$DIR"                         # fetch + hard-reset to origin/journal2 tip (may exit 75)
+  if [ -n "$base_blob" ] && [ "$force" -eq 0 ]; then
+    # A missing file has no blob SHA, so it also differs from a caller's supplied
+    # read base. Do this after sync_clone and before staging any replacement.
+    tip_blob="$(git -C "$DIR" rev-parse "HEAD:$rel" 2>/dev/null || true)"
+    [ "$tip_blob" = "$base_blob" ] || conflict "the current tip's blob for $rel differs from --base-blob; you may be overwriting a concurrent edit (re-read and compose again, or pass --force to intentionally overwrite)"
+  fi
   mkdir -p "$DIR/$(dirname "$rel")"
   printf '%s\n' "$BODY" > "$DIR/$rel"
   git -C "$DIR" add "$rel"

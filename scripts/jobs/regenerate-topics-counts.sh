@@ -249,6 +249,7 @@ case "$MODE" in
       exit 0
     fi
     log "tip $TIP: reconciled topics index counts differ; landing via land-journal-edit.sh"
-    printf '%s\n' "$out" | GARDEN_ROLE="${GARDEN_ROLE:-scholar}" "$HERE/land-journal-edit.sh" library/topics/README.md
+    BASE_BLOB="$(git -C "$DIR" rev-parse HEAD:library/topics/README.md)"
+    printf '%s\n' "$out" | GARDEN_ROLE="${GARDEN_ROLE:-scholar}" "$HERE/land-journal-edit.sh" --base-blob "$BASE_BLOB" library/topics/README.md
     ;;
 esac

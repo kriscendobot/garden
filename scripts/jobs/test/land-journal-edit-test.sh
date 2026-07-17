@@ -68,6 +68,18 @@ origin_show() {  # origin_show <relpath>
   git -C "$BARE" show "journal2:$1" 2>/dev/null || true
 }
 
+# Land a peer's update after the caller has composed against an earlier tip.
+# This models the whole-file clobber the base-blob guard must stop.
+peer_update() {  # peer_update <relpath> <body>
+  local peer="$TR/peer"
+  rm -rf "$peer"
+  git clone -q --branch journal2 "$BARE" "$peer"
+  printf '%s\n' "$2" > "$peer/$1"
+  git -C "$peer" add "$1"
+  git -C "$peer" "${git_id[@]}" commit -q -m "peer concurrent update"
+  git -C "$peer" push -q origin journal2
+}
+
 # ============================================================================
 hr; echo "STATIC — the script parses (bash -n)"; hr
 bash -n "$LAND" && ok "land-journal-edit.sh parses" || bad "syntax error"
@@ -99,6 +111,28 @@ BODY="$(printf '%s\n' "# keywords" "term | caretaker-pattern")"
 run_land library/keywords.md
 [ "$RC" -eq 0 ] && ok "idempotent re-land exits 0" || bad "re-land exit $RC: $OUT"
 grep -qi "no change" <<<"$OUT" && ok "idempotent re-land reports no change" || bad "re-land did not detect no-op: $OUT"
+
+# ============================================================================
+hr; echo "GUARD — a supplied read base refuses a concurrent whole-file edit"; hr
+base_blob="$(git -C "$BARE" rev-parse journal2:library/keywords.md)"
+peer_update library/keywords.md "# keywords
+term | peer-writer"
+BODY="$(printf '%s\n' "# keywords" "term | stale-writer")"
+run_land --base-blob "$base_blob" library/keywords.md
+[ "$RC" -ne 0 ] && ok "concurrent read-base mismatch exits non-zero" || bad "concurrent read-base mismatch unexpectedly landed: $OUT"
+grep -qi "you may be overwriting a concurrent edit" <<<"$OUT" \
+  && ok "mismatch warns about overwriting a concurrent edit" || bad "mismatch warning missing: $OUT"
+grep -qF "term | peer-writer" <<<"$(origin_show library/keywords.md)" \
+  && ok "mismatch leaves the peer's content intact" || bad "mismatch clobbered the peer's content"
+grep -qF "term | stale-writer" <<<"$(origin_show library/keywords.md)" \
+  && bad "mismatch landed the stale replacement" || ok "stale replacement was not landed"
+
+# --force remains an intentional escape hatch for the rare caller that has
+# independently reconciled the concurrent change and chooses to replace it.
+run_land --force --base-blob "$base_blob" library/keywords.md
+[ "$RC" -eq 0 ] && ok "--force permits an intentional concurrent replacement" || bad "--force exit $RC: $OUT"
+grep -qF "term | stale-writer" <<<"$(origin_show library/keywords.md)" \
+  && ok "--force replacement reached origin/journal2" || bad "--force replacement did not land"
 
 # ============================================================================
 hr; echo "REJECT — an out-of-allowlist path is refused, nothing lands"; hr
