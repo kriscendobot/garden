@@ -23,3 +23,10 @@ Preserve the conditional-volatility/risk-forecast vs directional-return
 distinction. Cross-link every section into `financial-forecasting`,
 `forecast-evaluation`, and relevant concepts. Post the next follow-on if corpus
 remains.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 9
+  worker_kind: gardener
+  claimed_at: 2026-07-17T05:04:41Z
