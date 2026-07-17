@@ -31,6 +31,8 @@ The foundational statistical test of **equal predictive accuracy between two for
 | [Giacomini-White finite-window estimation uncertainty](../sections/papers--giacomini-white-tests-conditional-predictive-ability-2006--finite-window-estimation-uncertainty-and-scope.md) | A fixed or rolling window makes the estimator and refitting policy part of the compared method. |
 | [Giacomini-White lineage and multiple-testing boundary](../sections/papers--giacomini-white-tests-conditional-predictive-ability-2006--lineage-and-multiple-testing-boundary.md) | Pairwise conditional selection complements DM and West; it needs a separate multiplicity defense after model search. |
 
+| [Clark-West nested-null correction](../sections/papers--clark-nested-predictive-accuracy-2007--nested-null-makes-raw-mspe-difference-degenerate.md) | Ordinary pairwise loss-difference inference degenerates when one fitted model nests the other because the larger model estimates zero coefficients. |
+| [Clark-West adjusted pairwise test](../sections/papers--clark-nested-predictive-accuracy-2007--mspe-adjustment-and-practical-one-sided-test.md) | The MSPE adjustment repairs the nested-pair target before using fitted-forecast inference; it is not a search correction. |
 ## See also
 
 - [[data-snooping-bias]] — the multiple-model generalizations of DM (White's Reality Check, Hansen SPA, Model Confidence Set) that correct for searching `N` models; DM is the uncorrected pairwise case.
