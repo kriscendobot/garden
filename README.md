@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-17T03:34:35Z_
+_As of 2026-07-17T03:37:57Z_
 
 ## Latest
 
-The npm-via-CAS registry proxy press [wrapped up its latest tick](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260717-032003.md), and the package-manager migration experiments on `endo-but-for-bots` moved — the pnpm-migration shepherd on [#769](https://github.com/endojs/endo-but-for-bots/pull/769) reported and [#768](https://github.com/endojs/endo-but-for-bots/pull/768) closed out, while npm/pnpm master-migration jobs remain in flight. The dominant signal this cycle is maintainer-gated: several lanes are fully green and stalled on a decision only kriskowal can make. M2 is one call from done — [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) are green/CLEAN pending a review/ferry plus closing the redundant #263. M3's module-loading tail is blocked on ruling which MVS-resolver home wins, [#671](https://github.com/endojs/endo-but-for-bots/pull/671) vs [#403](https://github.com/endojs/endo-but-for-bots/pull/403). The git-integration lane is green top-to-bottom and needs only a `merge` directive on [#705](https://github.com/endojs/endo-but-for-bots/pull/705) to run to its M3 exit criterion (#707). SturdyRef ([#737](https://github.com/endojs/endo-but-for-bots/pull/737), draft, CI 25/25) awaits a first review plus two encoding/stack decisions, and the esheets tree is fully dammed behind a re-review+merge of [#621](https://github.com/endojs/endo-but-for-bots/pull/621).
+Board motion this cycle was thin — the [XS→Rust Endor port](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage7-promise-combinators.md) advanced Stage 7 (intrinsics-residuals completed, Promise combinators claimed), and recent completions landed a pnpm-migration shepherd on [endo-but-for-bots#769](https://github.com/endojs/endo-but-for-bots/pull/769) and an npm-via-CAS registry-proxy press tick. The substance is in the maintainer queue, where multiple lanes are now fully green and stalled on your authority alone: git-integration Phase 1 [#705](https://github.com/endojs/endo-but-for-bots/pull/705) and the M3 worked-loop exit [#707](https://github.com/endojs/endo-but-for-bots/pull/707) await a merge directive; the SturdyRef replacement [#737](https://github.com/endojs/endo-but-for-bots/pull/737) needs a first review plus a marshal rank-prefix pick; and the esheets tree is dammed six days behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621). Two milestone-level decisions are open: M2 needs a call on adopting [#719](https://github.com/endojs/endo-but-for-bots/pull/719)'s URL-shim split (and closing the redundant [#263](https://github.com/endojs/endo-but-for-bots/pull/263)) to merge it and [#259](https://github.com/endojs/endo-but-for-bots/pull/259), while M3's module-loading tail is blocked pending a ruling on which MVS-resolver home wins — [#671](https://github.com/endojs/endo-but-for-bots/pull/671) versus [#403](https://github.com/endojs/endo-but-for-bots/pull/403).
 
-Worth noticing on the operational side: the reaper poisoned a cluster of long-running shepherds that deterministically overran the handler budget — [#763](https://github.com/endojs/endo-but-for-bots/pull/763), [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), the daemon-Docker gauntlet on [#694](https://github.com/endojs/endo-but-for-bots/pull/694), and the kebab-case linter build ([endo#2947](https://github.com/endojs/endo/issues/2947)) — all parked in `plan/` awaiting a split or a raised timeout before they can requeue. Separately, a review-retrospective flagged that the abbreviation-lint gate has a structural blind spot (it only scans newly-added diff lines, so `fetchImpl` on #671 predating the gate escaped it) and wants your call on whether to widen it. Four master-reconstruction jobs also blocked as no-ops: current `endo-but-for-bots` master already contains the merges they were meant to recreate.
+Worth flagging: the never-abbreviate gate **recurred** — your "Avoid abbreviation" on `fetchImpl` in [#671](https://github.com/endojs/endo-but-for-bots/pull/671) slipped a structural blind spot (the gate scans only newly-added diff lines, so a pre-deployment line escapes permanently), and the escalation awaits your call on whether to widen it. Separately, the reaper poisoned a wave of overrunning shepherd/gauntlet jobs against the handler budget — shepherds on [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#763](https://github.com/endojs/endo-but-for-bots/pull/763), the kebab-case linter build, and [kriscendobot/agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/pull/15) — all parked in the plan queue needing a split or a raised timeout. Finally, three master-reconstruction jobs ([#69](https://github.com/endojs/endo-but-for-bots/pull/69), [#545](https://github.com/endojs/endo-but-for-bots/pull/545), [#720](https://github.com/endojs/endo-but-for-bots/pull/720)) are blocked because the fork's master already contains those merges, rebasing each to an empty diff.
 
 ## Parked for maintainer feedback
 
@@ -394,7 +394,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.2M | $1029.22 _(notional, rate-card)_ | no quota set |
+| Claude | 102.3M | $1028.95 _(notional, rate-card)_ | no quota set |
 | Codex | 162.5M _(+222.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 ## Board
@@ -416,15 +416,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`mirror-endo-2780-cache-globals-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mirror-endo-2780-cache-globals-gauntlet.md) — Mirror upstream endojs/endo#2780 (Cache globals) onto a frozen master base, t...
 - [`ocapn-noise-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260717-000503.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`scholar-ingest-financial-forecasting-corpus-8`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-financial-forecasting-corpus-8.md) — ---
-- [`xs2rust-endor-stage7-intrinsics-residuals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage7-intrinsics-residuals.md) — Stage 7 child 2/7: intrinsics-ledger residuals (Reflect, typed-array-from-ite...
+- [`xs2rust-endor-stage7-promise-combinators`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage7-promise-combinators.md) — Stage 7 child 3/7: Promise.prototype.finally + combinators on the native-reac...
 
-### tada (2440)
+### tada (2441)
+- [`xs2rust-endor-stage7-intrinsics-residuals`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage7-intrinsics-residuals.md) — Completion report
 - [`endo-npm-cas-registry-press-20260717-032003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260717-032003.md) — Press report — npm-via-CAS registry proxy (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr768-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr768-shepherd.md) — Completion report
 - [`endojs-endo-but-for-bots-pr769-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr769-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #769 (pnpm migration experiment...
 - [`xs2rust-endor-press-20260717-003509`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260717-003509.md) — Completion report — xs2rust-endor press tick (observation only, no push)
-- [`xs2rust-endor-press-20260717-030502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260717-030502.md) — All press actions for this tick are complete. Final report:
-- … and 2435 more
+- … and 2436 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
