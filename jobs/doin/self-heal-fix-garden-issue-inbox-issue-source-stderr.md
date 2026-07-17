@@ -4,3 +4,10 @@ Failure signature: `[issue-source] FATAL: issues enumeration for kriskowal/garde
 The three `gh_api_retry` calls in this handler (the new-issues enumeration at line 76, the parent-issue join at line 93, and the issue-comments enumeration at line 100) each carry a blanket `2>/dev/null`. `gh_api_retry` (scripts/jobs/common.sh:1796) already captures gh's raw stderr into a temp file and emits nothing on clean success — its sole stderr output is the curated `log` WARN that names the real cause ("definitive, rc=<code>: <stderr>" or "after N transient attempts: <stderr>"). The `2>/dev/null` discards exactly that WARN, so when an enumeration fails past the retry budget the operator sees only "rc=1" with no cause (auth vs 429 rate-limit vs DNS/TLS reset), leaving this failure class permanently undiagnosable.
 
 Fix: stop suppressing `gh_api_retry`'s curated failure diagnostics. Remove the `2>/dev/null` from these three calls (gh's raw stderr stays captured inside `gh_api_retry`, and it is silent on success, so no idle-window/`[]` noise returns), OR route the WARN into the handler's own log on the failure path so the `die` message is preceded by the actual gh stderr and rc. Update the now-stale block comment at lines 60–61 that claims the `2>/dev/null` intentionally suppresses "gh_api_retry's own retry/WARN lines" — the WARN on final failure must reach the log. Apply the same change to the sibling source handlers that copied the pattern: `scripts/jobs/handlers/mention-source-gh.sh` (lines 49/57/65/85), `scripts/jobs/handlers/pr-author-gh.sh` (line 30), and check `ci-pr-source-gh.sh`/`pages-runs-gh.sh` for the same. Add or extend a test in `scripts/jobs/test/` asserting that a stubbed `GARDEN_GH` returning a definitive error causes the handler's stderr to contain the gh error text (not just "rc=1"), so the diagnostic can't silently regress.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: cleric
+  claimed_at: 2026-07-17T00:07:48Z
