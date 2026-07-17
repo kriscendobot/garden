@@ -33,10 +33,13 @@
 # SUBTEST 4 is the dedup guard: a prior escalation entry for the base suppresses a
 # second. SUBTEST 5 is the not-enough-cycles guard: a first-pass job (reap-count 0)
 # with a transient failure escalates NOTHING (ordinary transient behavior intact).
-# SUBTEST 6 is the very-short-elapsed floor (GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS): a
-# transient-claude signature that appears BELOW the floor is reclassified a REAL
-# deterministic failure outright (a sub-few-second cap is implausible — a setup/spec
-# defect, not a self-resolving blip), and floor=0 preserves the old behavior.
+# SUBTEST 6 is the very-short-elapsed floor (GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS): an
+# AMBIGUOUS overload-shaped signature that appears BELOW the floor is reclassified a
+# REAL deterministic failure outright (a sub-few-second overload is implausible — a
+# setup/spec defect, not a self-resolving blip), and floor=0 preserves the old
+# behavior. SUBTEST 7 is the explicit-cap EXEMPTION: the first-person session/usage
+# cap wording stays transient below the floor (a real cap rejection IS fast — the
+# 2026-07-17 incident; is_explicit_cap_signature in common.sh).
 #
 # Usage: elapsed-constancy-classifier-test.sh
 set -euo pipefail
@@ -248,16 +251,20 @@ else
 fi
 
 # ============================================================================
-hr; echo "SUBTEST 6 — very-short-elapsed floor: a sub-floor transient signature is reclassified a REAL failure"; hr
-# A GENUINE usage/session cap cannot trip in a couple of seconds. The stub emits the
-# session-cap signature but exits in only ~3s; with GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS
-# raised ABOVE that elapsed, the signature is too fast to be a real cap and is
-# reclassified a DETERMINISTIC real failure OUTRIGHT — escalated NOW (a first-pass job,
-# no requeue history, so NOTHING about cross-cycle constancy is consulted). This is
-# the fix for the four 1–2s jobs of the 2026-07-03 batch that were mis-held transient.
+hr; echo "SUBTEST 6 — very-short-elapsed floor: a sub-floor AMBIGUOUS transient signature is reclassified a REAL failure"; hr
+# A GENUINE overload/5xx cannot trip in a couple of seconds. The stub emits an
+# AMBIGUOUS overload-shaped signature but exits in only ~3s; with
+# GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS raised ABOVE that elapsed, the signature is too
+# fast to be a real overload and is reclassified a DETERMINISTIC real failure
+# OUTRIGHT — escalated NOW (a first-pass job, no requeue history, so NOTHING about
+# cross-cycle constancy is consulted). This is the fix for the four 1–2s jobs of the
+# 2026-07-03 batch that were mis-held transient. (The EXPLICIT session-cap wording is
+# EXEMPT from the floor — see the subtest below; the floor bites only the ambiguous
+# overload-shaped alternatives, hence GARDEN_STUB_MESSAGE here.)
 read -r TR6 BARE6 < <(build_fixture 0 0 0)
 trap 'rm -rf "$TR2" "$TR3" "$TR4" "$TR5" "$TR6"' EXIT
-run_gardener "$BARE6" echost6 "$TR6" GARDEN_ELAPSED_CONSTANCY_CYCLES=2 GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=30
+run_gardener "$BARE6" echost6 "$TR6" GARDEN_ELAPSED_CONSTANCY_CYCLES=2 GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=30 \
+  GARDEN_STUB_MESSAGE="Error: overloaded_error (529)"
 CLONE6="$TR6/state/gardeners/1/journal"
 # (a) the floor tripped: the reclassification log line names the too-fast signature.
 if grep -q "too fast for a genuine usage/session cap" "$TR6/gardener.log"; then
@@ -281,12 +288,45 @@ fi
 # unconditional-transient behavior is preserved when the floor is off).
 read -r TR7 BARE7 < <(build_fixture 0 0 0)
 trap 'rm -rf "$TR2" "$TR3" "$TR4" "$TR5" "$TR6" "$TR7"' EXIT
-run_gardener "$BARE7" echost7 "$TR7" GARDEN_ELAPSED_CONSTANCY_CYCLES=2 GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=0
+run_gardener "$BARE7" echost7 "$TR7" GARDEN_ELAPSED_CONSTANCY_CYCLES=2 GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=0 \
+  GARDEN_STUB_MESSAGE="Error: overloaded_error (529)"
 CLONE7="$TR7/state/gardeners/1/journal"
 if grep -Eq "looks transient \(rc=1[,)]" "$TR7/gardener.log" && [ ! -e "$CLONE7/inboxes/echost7/gardener.md" ]; then
   ok "floor=0 disables the reclassification (fast signature stays transient, no escalation)"
 else
   bad "floor=0 did not preserve transient behavior (transient=$(grep -Eq "looks transient" "$TR7/gardener.log" && echo y || echo n) inbox=$([ -e "$CLONE7/inboxes/echost7/gardener.md" ] && echo y || echo n))"
+fi
+
+# ============================================================================
+hr; echo "SUBTEST 7 — explicit-cap exemption: a sub-floor EXPLICIT session-cap wording stays TRANSIENT"; hr
+# The floor's "too fast for a real cap" premise is FALSE for the first-person
+# session/usage-cap wordings: a real cap rejection is one fast API round trip
+# (2026-07-17 00:43Z, rc=1 after 2s, "You've hit your session limit · resets 2am
+# (UTC)" — misclassified deterministic twice, killing a review job and a press claim
+# for hours). The stub's DEFAULT message is exactly that wording; with the floor
+# raised above the ~3s elapsed, is_explicit_cap_signature must keep it transient —
+# no reclassification, no inbox escalation, job left in doin for the reaper.
+read -r TR8 BARE8 < <(build_fixture 0 0 0)
+trap 'rm -rf "$TR2" "$TR3" "$TR4" "$TR5" "$TR6" "$TR7" "$TR8"' EXIT
+run_gardener "$BARE8" echost8 "$TR8" GARDEN_ELAPSED_CONSTANCY_CYCLES=2 GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=30
+CLONE8="$TR8/state/gardeners/1/journal"
+# (a) the exemption log line fired (the floor was consulted and bypassed by content).
+if grep -q "EXPLICIT session/usage-cap wording" "$TR8/gardener.log"; then
+  ok "exemption fired: sub-floor explicit-cap capture kept transient by content"
+else
+  bad "exemption did NOT fire; log: $(grep -i 'transient\|floor\|too fast\|FAILED' "$TR8/gardener.log" | tail -5)"
+fi
+# (b) classified transient (the transient-outage verdict line), NOT reclassified.
+if grep -Eq "looks transient \(rc=1[,)]" "$TR8/gardener.log" && ! grep -q "too fast for a genuine usage/session cap" "$TR8/gardener.log"; then
+  ok "explicit-cap capture on the transient path (no 'too fast' reclassification)"
+else
+  bad "explicit-cap capture reclassified or not transient (transient=$(grep -Eq "looks transient" "$TR8/gardener.log" && echo y || echo n) toofast=$(grep -q "too fast" "$TR8/gardener.log" && echo y || echo n))"
+fi
+# (c) NO real-failure inbox escalation (the 2026-07-17 false escalation is the regression).
+if [ -e "$CLONE8/inboxes/echost8/gardener.md" ]; then
+  bad "inbox escalation created for a genuine sub-floor session cap (the 2026-07-17 misclassification)"
+else
+  ok "no inbox escalation — genuine cap left for the reaper's requeue past the reset"
 fi
 
 # ============================================================================

@@ -725,19 +725,32 @@ while :; do
       is_transient_empty_failure "$rc" && transient=1
     elif is_transient_claude_signature "$(tail -c 65536 "$capture" 2>/dev/null)"; then
       # A capture carrying ONLY a transient-claude signature normally means a
-      # self-resolving blip → transient. But a GENUINE usage/session-cap or overload
-      # overrun cannot trip in a couple of seconds (the CLI must cold-start, reach the
-      # API, and be told to stop). A signature that appears BELOW the
-      # GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS floor is implausibly fast for a real cap and
-      # is a setup/spec defect echoing an overload-shaped line (the four 1–2s jobs of
-      # the 2026-07-03 batch) — a DETERMINISTIC failure. Leave transient=0 so it falls
-      # through to the real-failure escalation NOW instead of burning the full poison
-      # cycle. A floor of 0 disables the reclassification (unconditional transient).
+      # self-resolving blip → transient. But a GENUINE overload/5xx overrun cannot
+      # trip in a couple of seconds (the CLI must cold-start, reach the API, and be
+      # told to stop). An AMBIGUOUS overload-shaped signature that appears BELOW the
+      # GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS floor is implausibly fast for a real
+      # overload and is a setup/spec defect echoing an overload-shaped line (the four
+      # 1–2s jobs of the 2026-07-03 batch) — a DETERMINISTIC failure. Leave
+      # transient=0 so it falls through to the real-failure escalation NOW instead of
+      # burning the full poison cycle. A floor of 0 disables the reclassification
+      # (unconditional transient).
+      # EXCEPTION: an EXPLICIT session/usage-cap wording (is_explicit_cap_signature,
+      # common.sh) is transient by CONTENT regardless of elapsed — a real cap
+      # rejection is one fast API round trip, so it legitimately dies under the
+      # floor (the 2026-07-17 00:43Z incident: rc=1 after 2s, "You've hit your
+      # session limit · resets 2am (UTC)", misclassified deterministic twice). The
+      # floor keeps its bite only for the AMBIGUOUS overload-shaped signatures it
+      # was built for.
       floor="$GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS"
       case "$floor" in ''|*[!0-9]*) floor=0 ;; esac   # misconfigured → disabled, never crash the loop
       if [ "$floor" -gt 0 ] && [ "$elapsed" -lt "$floor" ]; then
-        log "handler for '$base' emitted a transient-claude signature but died in only ${elapsed}s (< GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=${floor}s): too fast for a genuine usage/session cap — treating as a DETERMINISTIC setup/spec defect, escalating as a real failure (transient=0)"
-        transient=0   # sub-few-second signature: a setup/spec defect, not a blip
+        if is_explicit_cap_signature "$(tail -c 65536 "$capture" 2>/dev/null)"; then
+          log "handler for '$base' died in only ${elapsed}s (< GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=${floor}s) but the capture carries an EXPLICIT session/usage-cap wording — a real cap rejection IS this fast; keeping transient (transient=1)"
+          transient=1   # explicit cap statement: transient by content, elapsed irrelevant
+        else
+          log "handler for '$base' emitted a transient-claude signature but died in only ${elapsed}s (< GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=${floor}s): too fast for a genuine usage/session cap — treating as a DETERMINISTIC setup/spec defect, escalating as a real failure (transient=0)"
+          transient=0   # sub-few-second signature: a setup/spec defect, not a blip
+        fi
       else
         transient=1   # capture carries only a transient-claude signature
       fi

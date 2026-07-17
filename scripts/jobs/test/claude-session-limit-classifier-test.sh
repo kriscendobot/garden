@@ -72,6 +72,25 @@ assert_real "TypeError: cannot read properties of undefined (reading 'x')" "an o
 assert_real "no such file or directory: /home/kris/nope" "a missing-path defect is a real failure"
 
 # ============================================================================
+hr; echo "SUBTEST 1b — is_explicit_cap_signature: cap wordings only (the floor-exempt subset)"; hr
+# The explicit-cap subset (common.sh) exempts first-person cap statements from
+# gardener.sh's GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS floor (a real cap rejection is one
+# fast API round trip — the 2026-07-17 00:43Z 2s incident). It must match the cap
+# wordings and NOT the ambiguous overload-shaped alternatives, which keep the floor.
+assert_cap()    { if is_explicit_cap_signature "$1"; then ok "explicit cap: $2"; else bad "NOT explicit cap (expected match): $2 — [$1]"; fi; }
+assert_notcap() { if is_explicit_cap_signature "$1"; then bad "explicit cap (expected NO match): $2 — [$1]"; else ok "not explicit cap: $2"; fi; }
+assert_cap "$INCIDENT" "exact 2026-07-01 incident string"
+assert_cap "You've hit your session limit · resets 2am (UTC)" "exact 2026-07-17 incident string"
+assert_cap "You've hit your usage limit · resets 3:00pm (UTC)" "usage-limit wording"
+assert_cap "5-hour limit reached" "'5-hour limit reached'"
+assert_cap "resets 9:45pm (UTC)" "'resets … (utc)' clause alone"
+assert_notcap "Error: overloaded_error (529)" "overloaded stays floor-gated"
+assert_notcap "connection error: ECONNRESET" "connection drop stays floor-gated"
+assert_notcap "api error: 429 rate limit" "rate-limit/429 stays floor-gated"
+# Subset invariant: every explicit-cap match is also a transient match.
+assert_transient "You've hit your session limit · resets 2am (UTC)" "explicit-cap subset ⊆ transient set"
+
+# ============================================================================
 hr; echo "SUBTEST 2 — integration: exact capture + rc=1 → transient, no escalation"; hr
 TR="$(mktemp -d "${TMPDIR:-/tmp}/garden-sessioncap.XXXXXX")"; trap 'rm -rf "$TR"' EXIT
 BARE="$TR/journal.git"; BRANCH=journal2

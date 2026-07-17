@@ -1928,6 +1928,31 @@ is_transient_claude_signature() {
   printf '%s' "$1" | grep -qiE "$GARDEN_TRANSIENT_CLAUDE_SIGNATURES"
 }
 
+# EXPLICIT-CAP subset of the transient signatures: the first-person Claude Code
+# session/usage-cap wordings ("You've hit your session limit …", "usage limit
+# reached", the "resets H:MMam (UTC)" clause). These are definitive statements the
+# CLI prints about ITS OWN quota state, not ambient error text a setup script might
+# echo, so they are trustworthy on CONTENT alone — gardener.sh exempts them from
+# the GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS floor. The floor's premise ("a genuine cap
+# cannot trip in a couple of seconds") is empirically FALSE for these: a cap
+# rejection is one fast API round trip — on 2026-07-17T00:43:48Z a real cap hit
+# died rc=1 after 2s with "You've hit your session limit · resets 2am (UTC)"
+# (capture blob ac1a1d97f4) and was misclassified a deterministic defect twice,
+# killing a review job and a press claim until the reaper's TTL. The AMBIGUOUS
+# overload-shaped alternatives (overloaded / 429 / 5xx / api error / connection
+# drops — the 2026-07-03 sub-2s echo batch the floor was built for) are NOT in
+# this subset and keep the floor. Matched case-insensitively.
+: "${GARDEN_EXPLICIT_CAP_SIGNATURES:=hit your (session|usage) limit|(session|usage|5-hour) limit (reached|reset)|resets [0-9].*\(utc\)}"
+
+# Classify a failed `claude -p`'s combined output ($1) as carrying an EXPLICIT
+# session/usage-cap statement (returns 0) — transient by content, regardless of
+# how fast the handler died. Callers use this to bypass elapsed-plausibility
+# heuristics; it is a SUBSET refinement of is_transient_claude_signature, never a
+# replacement (anything matching this also matches the transient set).
+is_explicit_cap_signature() {
+  printf '%s' "$1" | grep -qiE "$GARDEN_EXPLICIT_CAP_SIGNATURES"
+}
+
 # Classify a handler exit code ($1) as an EXTERNAL signal-kill: SIGTERM (143),
 # SIGINT (130), or SIGKILL/OOM (137). Returns 0 for these, 1 otherwise. An
 # external signal-kill is NEVER a deterministic job defect — it is a deploy-window
