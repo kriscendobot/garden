@@ -10,6 +10,7 @@ Follow-on to scholar-package-json-schema-and-tooling. Ingest as library sources 
 - packageManager field + Corepack.
 - Focus: override dialects, peerDependencies auto-install differences, PnP vs node_modules vs pnpm strict layout. Add sections under topic `package-manifest`; update the project report; note remaining synthesis.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
