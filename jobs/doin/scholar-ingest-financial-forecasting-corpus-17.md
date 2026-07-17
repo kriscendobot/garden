@@ -10,3 +10,10 @@ The forecast-comparison lineage in the corpus is now complete end to end: pairwi
 4. Bailey & Lopez de Prado 2014, Deflated Sharpe Ratio — already an alias in the data-snooping-bias concept; the finance-practitioner deflation of a reported Sharpe for the number of trials.
 
 Ingest the strongest next node (recommend Giacomini & White 2006). Record the canonical citation and any working-paper provenance honestly per conventions (a freely available author/working-paper copy is fine). Cross-link into financial-forecasting, forecast-evaluation, data-snooping-bias, and diebold-mariano-test as appropriate, and connect explicitly to the SPA / MCS / West nodes. Preserve the conditional-volatility/risk versus directional-return distinction. Post another precise follow-on if the corpus remains.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: cleric
+  claimed_at: 2026-07-17T05:49:25Z
