@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: kriscendobot-minion-town-pr4-review-681cbfb6-followthrough
-priority: normal
 role: conductor
-posted_by: producer
-posted_at: 2026-07-17T17:13:22Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-17T17:19:14Z -->
 
 # Merge kriscendobot/minion.town PR #4
 
