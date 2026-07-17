@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6454 (530 parent indexes + 5924 children).
+Total section files: 6459 (530 parent indexes + 5929 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8083,6 +8083,14 @@ Total section files: 6454 (530 parent indexes + 5924 children).
 - [papers--corsi-simple-long-memory-model-realized-volatility-2009--heterogeneous-market-hypothesis-and-volatility-cascade](papers--corsi-simple-long-memory-model-realized-volatility-2009--heterogeneous-market-hypothesis-and-volatility-cascade.md)
 - [papers--corsi-simple-long-memory-model-realized-volatility-2009--out-of-sample-forecast-performance](papers--corsi-simple-long-memory-model-realized-volatility-2009--out-of-sample-forecast-performance.md)
 - [papers--corsi-simple-long-memory-model-realized-volatility-2009--overview](papers--corsi-simple-long-memory-model-realized-volatility-2009--overview.md)
+
+### papers--diebold-comparing-predictive-accuracy-1995
+
+- [papers--diebold-comparing-predictive-accuracy-1995--asymptotic-test-and-serial-correlation](papers--diebold-comparing-predictive-accuracy-1995--asymptotic-test-and-serial-correlation.md)
+- [papers--diebold-comparing-predictive-accuracy-1995--exact-finite-sample-sign-and-rank-tests](papers--diebold-comparing-predictive-accuracy-1995--exact-finite-sample-sign-and-rank-tests.md)
+- [papers--diebold-comparing-predictive-accuracy-1995--exchange-rate-example-and-comparison-contract](papers--diebold-comparing-predictive-accuracy-1995--exchange-rate-example-and-comparison-contract.md)
+- [papers--diebold-comparing-predictive-accuracy-1995--overview-and-equal-accuracy-null](papers--diebold-comparing-predictive-accuracy-1995--overview-and-equal-accuracy-null.md)
+- [papers--diebold-comparing-predictive-accuracy-1995--superseding-quadratic-loss-tests](papers--diebold-comparing-predictive-accuracy-1995--superseding-quadratic-loss-tests.md)
 
 ### papers--drossopoulou-reasoning-about-risk-and-trust-2015
 
