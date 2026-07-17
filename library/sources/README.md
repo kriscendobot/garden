@@ -933,6 +933,12 @@ External web content ingested in support of Workstream B (the persuasion suite).
 | [Deno Node compatibility](deno--runtime-fundamentals-node-md.md) | denoland/docs | runtime/fundamentals/node.md | `7bf3190` | 1 | current |
 | [Bun module resolution](bun--docs-runtime-module-resolution-mdx.md) | oven-sh/bun | docs/runtime/module-resolution.mdx | `6352b79` | 1 | current |
 | [Endo package descriptors and language extensions](endo--pkg-compartment-mapper-readme-package-manifest.md) | endojs/endo | packages/compartment-mapper/README.md | `46d4edf` | 2 | current |
+| [Yarn Berry manifest schema](yarn-berry--manifest-schema.md) | yarnpkg/berry | packages/docusaurus/static/configuration/manifest.json | `ab0afaf` | 3 | current |
+| [pnpm package.json fields](pnpm--package-json.md) | pnpm/pnpm.io | docs/package_json.md | `047db9a` | 2 | current |
+| [pnpm settings (pnpm-workspace.yaml)](pnpm--settings.md) | pnpm/pnpm.io | docs/settings.md | `0cf4bd3` | 2 | current |
+| [Bun overrides and resolutions](bun--overrides.md) | oven-sh/bun | docs/pm/overrides.mdx | `16a7269` | 1 | current |
+| [Bun lifecycle scripts (trustedDependencies)](bun--lifecycle.md) | oven-sh/bun | docs/pm/lifecycle.mdx | `16a7269` | 1 | current |
+| [Corepack and the packageManager field](corepack--readme.md) | nodejs/corepack | README.md | `05bc5f3` | 1 | current |
 
 ## Notes
 
