@@ -1,6 +1,6 @@
 # Cross-interactions and inconsistencies
 
-Where the `package.json` consumers disagree, fall back differently, or interact in ways that surprise. Grounded rows cite the ingested Node ([`../../library/sources/node--doc-api-packages.md`](../../library/sources/node--doc-api-packages.md), `cc37ad5`) and npm ([`../../library/sources/npm--configuring-npm-package-json.md`](../../library/sources/npm--configuring-npm-package-json.md), `ce7681f`) sources and the Endo README (`ca77052`); rows about not-yet-ingested consumers are **(synthesis)** from public documentation and are queued for library-backing.
+Where the `package.json` consumers disagree, fall back differently, or interact in ways that surprise. Grounded rows cite Node (`cc37ad5`), npm (`ce7681f`), Deno (`7bf3190`), Bun (`6352b79`), and Endo (`46d4edf`) library sources; unmarked remaining claims are **(synthesis)** and are queued for library-backing.
 
 ## 1. `exports` versus legacy `main` / `module` / `browser`
 
@@ -8,7 +8,8 @@ Once `"exports"` is present, Node **encapsulates** the package: any subpath not 
 
 - **Node:** if `"exports"` is present it is authoritative; `main` is used only as the `"."` fallback when no `exports` matches `"."`, and `module`/`browser` are **ignored entirely** (Node reads only five fields).
 - **Bundlers (synthesis):** when `exports` is absent, they walk a fallback chain, commonly `module` -> `browser` -> `main` (order and set vary per bundler). `module` is a non-standard field that exists **only** to give bundlers an ESM build to tree-shake; Node never reads it. A package that ships `module` but no `import` export condition therefore tree-shakes in bundlers but loads the CJS `main` in Node.
-- **Endo (README `ca77052`):** reads `main`, `browser`, and `exports`; `browser` is drawn in over `main` under the `browser` condition. No `module` field.
+- **Bun (module-resolution guide `6352b79`):** uses `exports` first, then `main` (or implicit `index.*`) before `module`; `bun` can select a TypeScript source entry. This is a different legacy fallback order from common bundler practice.
+- **Endo (README `46d4edf`):** reads `main`, `browser`, and `exports`; `browser` is drawn in over `main` under the `browser` condition. No `module` field.
 
 Practical hazard: a package can present three different entry points to three tools (bundler via `module`, Node via `exports`/`main`, browser via `browser`), and they can drift out of sync silently.
 
@@ -17,9 +18,9 @@ Practical hazard: a package can present three different entry points to three to
 Node matches conditions in **object key order**, most-specific-first, with `"default"` last, over a fixed built-in set (`node-addons`, `node`, `import`, `require`, `module-sync`, `default`) plus user `--conditions` (source: conditional-exports section). Divergences:
 
 - **Bundlers (synthesis):** each defines its own default condition list and precedence. webpack's default `conditionNames`, Vite's SSR-vs-client condition sets, esbuild's `--conditions`, and Rollup plugin defaults are all configurable and not identical. A `development`/`production` or `browser`/`node` split can resolve differently in two bundlers.
-- **Deno (synthesis):** adds a `deno` condition and resolves `node`/`import`/`default`; historically diverged on some ordering edge cases.
-- **Endo (README `ca77052`):** supports only `import`, `browser`, and `endo`. A package relying on `require`, `node`, `development`, or a custom condition gets Endo's fallback behavior, not the author's intended branch.
-- **TypeScript (synthesis):** resolves a `types` condition that the Node docs curate as "always included first," but only under `moduleResolution` `node16`/`nodenext`/`bundler`. Putting `types` anywhere but first breaks type resolution while runtime resolution still works, a silent split.
+- **Deno:** the ingested compatibility documentation establishes `npm:` and package-manifest operation but does not specify its export-condition set or order. Treat any `deno`-condition claim as remaining synthesis until a resolver specification or implementation source is ingested.
+- **Endo (README `46d4edf`):** supports only `import`, `browser`, and `endo`. A package relying on `require`, `node`, `development`, or a custom condition gets Endo's fallback behavior, not the author's intended branch.
+- **TypeScript:** under `moduleResolution` `node16`/`nodenext`/`bundler`, always matches `types` and `default` when present, then uses the import/require context. A dual package must put `types` first inside each matching runtime branch; otherwise one declaration format can shadow or fail to pair with its runtime branch while runtime loading still succeeds. The relevant `types`-condition ordering is now grounded in the TypeScript handbook source (`c8170c35`), rather than synthesis.
 
 The safe rule the Node docs give: always include a `"default"` branch, and prefer `node` + `default` over `node` + `browser`, so unknown environments get a universal implementation instead of impersonating a known one.
 
@@ -61,9 +62,9 @@ Porting a project between managers requires translating the dialect, and a mistr
 
 ## 8. How Deno / Endo / Bun diverge from Node
 
-- **Deno (synthesis):** primary config is `deno.json` (import maps, tasks); reads npm-package `exports`/`type` for `npm:` specifiers with a `deno` condition; does not use `node_modules` by default.
-- **Endo (README `ca77052`):** a deliberately small subset - `name`/`type`/`main`/`exports`/`browser`/`dependencies`/`files`, three conditions (`import`/`browser`/`endo`), no `imports` and no `*` patterns yet, plus its own `parsers` field. It also supports cross-format loading (CJS from ESM and ESM from CJS) more liberally than Node historically did, and can load JSON without an import attribute - both flagged in the README as reducing Node compatibility.
-- **Bun (synthesis):** honors the standard fields plus a `bun` export condition, `trustedDependencies` (gates lifecycle scripts, a security divergence from npm's run-everything default), and reads both `overrides` and `resolutions`.
+- **Deno:** `deno.json` supplies import maps and Deno tooling; `package.json` supplies dependencies and scripts. `npm:` is an explicit package-specifier form, and package projects use manual `node_modules`. The detailed exports-condition algorithm remains synthesis.
+- **Endo (README `46d4edf`):** a deliberately small subset - `name`/`type`/`main`/`exports`/`browser`/`dependencies`/`files`, three conditions (`import`/`browser`/`endo`), no `imports` and no `*` patterns yet, plus its own `parsers` field and `.ts` -> `.cts`/`.mts` hook. It can load CJS from ESM, ESM from CJS, and JSON without an import attribute, all documented as potentially reducing Node compatibility.
+- **Bun (module-resolution guide `6352b79`):** honors `exports`/`imports`, ordered conditions including `bun`, and `main` before `module` fallback. `trustedDependencies`, `overrides`, and `resolutions` are package-manager behavior still awaiting a dedicated primary-source ingest.
 
 ## 9. `workspaces` is not universal (synthesis)
 
