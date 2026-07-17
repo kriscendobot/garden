@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-17T18:05:56Z_
+_As of 2026-07-17T18:07:48Z_
 
 ## Latest
 
-Upstream `endojs/endo` master was merged into the `llm` roadmap branch and conducted live via [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) (llm advanced `da209e5c7`→`d39605930`), bringing the immutable-arraybuffer pseudo-prototype drop, the SES `code` error property, and skipLibCheck — deliberately stopping just short of upstream's ESLint 10 flat-config migration, which the gardener quantified as a multi-cycle re-lint and flagged as a dedicated follow-up rather than forcing into this cycle. On the forks, [kriscendobot/minion.town#7](https://github.com/kriscendobot/minion.town/pull/7) merged, and the VFS-parity press consolidated the delegated mount glob/grep/glorp surface onto `llm` in [endo-but-for-bots#713](https://github.com/endojs/endo-but-for-bots/pull/713) after discovering its lower rungs never reached the trunk.
+Upstream `endojs/endo` master landed on the `llm` trunk this cycle: [endojs/endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) was conducted as a true merge (immutable-arraybuffer pseudo-prototype drop, SES "code" error prop, skipLibCheck), deliberately stopping just short of upstream's ESLint 10 flat-config migration — that whole-repo re-lint is flagged as a separate multi-cycle job rather than forced in now. Several lanes are now one maintainer decision from the finish line: the git-integration M3 stack is fully green and waiting on a `merge` directive for [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705), with the worked version-controlled-filesystem loop [endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/pull/707) (M3's exit criterion) green behind it; OCapN-over-Noise has M1–M5 demonstrated across [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340)→[#684](https://github.com/endojs/endo-but-for-bots/pull/684)→[#688](https://github.com/endojs/endo-but-for-bots/pull/688)→[#693](https://github.com/endojs/endo-but-for-bots/pull/693) (lint fixed after a shellcheck SC2034) and asks whether to open an inbound TCP port on minion.town or treat cross-host wss as sufficient; and M2 hygiene wants a URL-shim adoption call on [#719](https://github.com/endojs/endo-but-for-bots/pull/719)/[#259](https://github.com/endojs/endo-but-for-bots/pull/259) plus closing CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263). The esheets tree stays dammed behind OAuth design [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green but stale CHANGES_REQUESTED; a gauntlet was posted to ready it for re-review), and the SturdyRef effort holds pending first review of [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737) and a marshal rank-prefix pick.
 
-The board is quiet (three press/status jobs just claimed, nothing new posted), but the operational signal to notice is a cluster of **handler-budget overruns**: the reaper poisoned and parked the [#585](https://github.com/endojs/endo-but-for-bots/pull/585) content-store conductor merge, the master→llm merge job itself, and the auto-shepherds for [#124](https://github.com/endojs/endo-but-for-bots/pull/124)/[#704](https://github.com/endojs/endo-but-for-bots/pull/704)/[#763](https://github.com/endojs/endo-but-for-bots/pull/763) — each needs splitting or a raised timeout before it can run. Two orchestrations halted mid-sweep (the master-branch-retire sweep at 34/35 on its delete step; the xs2rust-endor stage-8 C-XS baseline, now re-cut and running).
-
-Several lanes are one maintainer decision from finishing and worth a pass: the git-integration M3 loop awaits a `merge` directive on green Phase-1 [#705](https://github.com/endojs/endo-but-for-bots/pull/705); M2 hinges on adopting [#719](https://github.com/endojs/endo-but-for-bots/pull/719)'s URL-shim split and closing CI-red #263 to clear [#259](https://github.com/endojs/endo-but-for-bots/pull/259)/#719; the esheets tree is fully dammed behind re-reviewing [#621](https://github.com/endojs/endo-but-for-bots/pull/621); the SturdyRef stack wants a first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus a marshal rank-prefix pick; M3's snapshot-mapper tail needs the [#671](https://github.com/endojs/endo-but-for-bots/pull/671)-vs-[#403](https://github.com/endojs/endo-but-for-bots/pull/403) registry-home ruling; and — most cheaply — minion.town's entire primary phase has sat nine hourly cycles blocked on the ~5-minute human-only Gate 1 browser login in [garden#58](https://github.com/kriskowal/garden/issues/58).
+Two operational notes deserve attention. minion.town's entire primary phase has been blocked for ~9 consecutive hourly cycles on a single ~5-minute human browser action — Gate 1's Cognito login ([kriskowal/garden#58](https://github.com/kriskowal/garden/issues/58)). And the retire-master program is hitting structural friction: several PR reconstructions (#545, #69, #720, #251) find their diffs already merged upstream, the branch-sweep orchestration halted at its delete step, and a wave of handler-budget overruns poisoned several shepherd/merge/conduct jobs — including the [endojs/endo-but-for-bots#585](https://github.com/endojs/endo-but-for-bots/pull/585) content-store merge, now parked awaiting promotion.
 
 ## Parked for maintainer feedback
 
@@ -855,26 +853,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 125.7M | $1242.70 _(notional, rate-card)_ | no quota set |
+| Claude | 125.8M | $1244.24 _(notional, rate-card)_ | no quota set |
 | Codex | 196.3M _(+409.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`arc-status-daily-20260717-180501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260717-180501.md) — Daily status + change summary for the standing review arcs
-- [`endo-sturdyref-press-20260717-180501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260717-180501.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`xs2rust-endor-press-20260717-180501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260717-180501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-stage8-cxs-baseline-r2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage8-cxs-baseline-r2.md) — Stage-8b child 1/4 (was stage-8 child 3/6, re-cut after transient-outage pois...
 
-### tada (2614)
+### tada (2615)
+- [`endo-sturdyref-press-20260717-180501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260717-180501.md) — SturdyRef press 18:05 tick — observation-only, no movement; all lanes remain ...
 - [`minion-town-agenda-review-20260717-173501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260717-173501.md) — Completion report
 - [`kriscendobot-minion-town-pr4-review-681cbfb6-followthrough`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr4-review-681cbfb6-followthrough.md) — orchestration kriscendobot-minion-town-pr4-review-681cbfb6-followthrough — co...
 - [`kriscendobot-minion.town-pr7-review-c543864f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr7-review-c543864f.md) — PR #7 is merged (fd3e5bd, 2026-07-17T17:10:16Z), so its review branch is clos...
 - [`kriscendobot-minion-town-pr4-review-681cbfb6-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr4-review-681cbfb6-conduct.md) — Completion report
-- [`ebfb-retire-master-branch-sweep-orchestration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-branch-sweep-orchestration.md) — orchestration ebfb-retire-master-branch-sweep-orchestration — HALTED
-- … and 2609 more
+- … and 2610 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
