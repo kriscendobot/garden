@@ -2,7 +2,7 @@
 order: serial
 children: xs2rust-endor-stage8-cxs-baseline-r2 xs2rust-endor-stage8-class-construction xs2rust-endor-stage8-boot-surface-remainder xs2rust-endor-stage8-gate-remeasure
 on-child-failure: halt
-state: pending
+state: running
 created_by: supervisor-s24
 created_at: 2026-07-17T17:01:15Z
 ---
