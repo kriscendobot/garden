@@ -52,4 +52,4 @@ Use `publishConfig` (npm-grounded) to pin publish-time config independent of the
 
 ## Follow-on depth
 
-Each strategy above is grounded in the two ingested property sources but would benefit from dedicated library sections once the bundler / package-manager / TypeScript sources are ingested by the follow-on `scholar-*` jobs (see [README](README.md)). In particular: the exact per-bundler `sideEffects` and condition-order behavior, Yarn PnP and pnpm strict-layout mechanics, and the TypeScript dual-`types`-condition publishing recipe are named there as the deepening targets.
+Each strategy above is grounded in the ingested property sources. Dedicated package-manager layout sections now back Yarn PnP, pnpm's strict symlinked layout, and the workspace protocols (see [README](README.md)); remaining deepening targets are the exact per-bundler `sideEffects` and condition-order behavior.
