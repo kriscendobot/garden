@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6496 (530 parent indexes + 5966 children).
+Total section files: 6503 (530 parent indexes + 5973 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8559,6 +8559,19 @@ Total section files: 6496 (530 parent indexes + 5966 children).
 - [system--readme--history](system--readme--history.md)
 - [system--readme--overview](system--readme--overview.md)
 - [system--readme--usage-and-bootstrapping](system--readme--usage-and-bootstrapping.md)
+
+### typescript-website--packages-documentation-copy-en-declaration-files-publishing
+
+- [typescript-website--packages-documentation-copy-en-declaration-files-publishing--declaration-dependencies-and-packaging-red-flags](typescript-website--packages-documentation-copy-en-declaration-files-publishing--declaration-dependencies-and-packaging-red-flags.md)
+- [typescript-website--packages-documentation-copy-en-declaration-files-publishing--including-declarations-in-an-npm-package](typescript-website--packages-documentation-copy-en-declaration-files-publishing--including-declarations-in-an-npm-package.md)
+- [typescript-website--packages-documentation-copy-en-declaration-files-publishing--typesversions-folder-file-and-version-ordering](typescript-website--packages-documentation-copy-en-declaration-files-publishing--typesversions-folder-file-and-version-ordering.md)
+
+### typescript-website--packages-documentation-copy-en-modules-reference
+
+- [typescript-website--packages-documentation-copy-en-modules-reference--bundler-resolution](typescript-website--packages-documentation-copy-en-modules-reference--bundler-resolution.md)
+- [typescript-website--packages-documentation-copy-en-modules-reference--exports-types-conditions-and-declaration-branches](typescript-website--packages-documentation-copy-en-modules-reference--exports-types-conditions-and-declaration-branches.md)
+- [typescript-website--packages-documentation-copy-en-modules-reference--node16-and-nodenext-resolution](typescript-website--packages-documentation-copy-en-modules-reference--node16-and-nodenext-resolution.md)
+- [typescript-website--packages-documentation-copy-en-modules-reference--typesversions-and-legacy-types-fields](typescript-website--packages-documentation-copy-en-modules-reference--typesversions-and-legacy-types-fields.md)
 
 ### unum
 
