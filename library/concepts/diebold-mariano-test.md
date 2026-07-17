@@ -17,6 +17,8 @@ The foundational statistical test of **equal predictive accuracy between two for
 | [Exact finite-sample sign and signed-rank tests](../sections/papers--diebold-comparing-predictive-accuracy-1995--exact-finite-sample-sign-and-rank-tests.md) | Sign test `S2` (zero-median, binomial) and Wilcoxon signed-rank `S3` (symmetric); Bonferroni bound for serial correlation; robust to fat tails. |
 | [Superseding the quadratic-loss tests](../sections/papers--diebold-comparing-predictive-accuracy-1995--superseding-quadratic-loss-tests.md) | `F`/MGN/MR are wed to quadratic loss and mis-sized under correlation and fat tails; Monte Carlo shows `S1`/`S2a`/`S3a` hold size. |
 | [Exchange-rate example and the forecast-comparison contract](../sections/papers--diebold-comparing-predictive-accuracy-1995--exchange-rate-example-and-comparison-contract.md) | Dollar/guilder forward vs random walk, absolute-error loss, `S1 = −1.3`, `p = 0.19`: the "random walk wins" is not statistically significant. |
+| [White generalizes DM to N models](../sections/papers--white-reality-check-data-snooping-2000--framework-and-the-max-statistic.md) | Builds on Diebold–Mariano 1995 and West 1996: an l-vector of relative-performance moments and the max statistic V̄_l = max_k √n f̄_k test whether the best of N searched models beats the benchmark. |
+| [Reality Check placement and the correction lineage](../sections/papers--white-reality-check-data-snooping-2000--placement-and-the-correction-lineage.md) | DM is the uncorrected pairwise case; White's Reality Check is the search-correcting generalization, and the direct ancestor of Hansen's SPA test and the Model Confidence Set. |
 
 ## See also
 
