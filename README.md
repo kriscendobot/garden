@@ -1,18 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-17T18:15:03Z_
+_As of 2026-07-17T18:22:25Z_
 
 ## Latest
 
-Upstream `endojs/endo` master was merged into the `llm` roadmap branch via [#773](https://github.com/endojs/endo-but-for-bots/pull/773) (conducted as a true merge — bringing in the immutable-arraybuffer pseudo-prototype drop, SES console sanitization plus the `code` error property, and skipLibCheck), advancing `llm` to `d39605930`; the fuller upstream **ESLint 10 flat-config migration** was deliberately held back as a separate multi-cycle job rather than forced into this cycle. The board itself is nearly idle — only the xs2rust-endor press tick completed — so the signal this window is a stack of arcs each parked on a single maintainer decision:
-
-- **M2 (Project Hygiene)** is one call from done: [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) are green/CLEAN and review-ready; the foreman asks you to adopt #719's URL-shim split, close the CI-failing alternative #263, and merge/ferry both.
-- **M3 git-integration** lane is fully green and one `merge` directive from the finish line on [#705](https://github.com/endojs/endo-but-for-bots/pull/705); its Phase-3 worked-loop PR [#707](https://github.com/endojs/endo-but-for-bots/pull/707) then needs a weave onto `llm`. Separately, M3's module-loading tail is blocked on ruling which MVS-resolver home wins — [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`@endo/daemon/registry.js`) vs [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (`@endo/exo-npm`) — so the loser can be closed.
-- **esheets** remains dammed behind the OAuth design [#621](https://github.com/endojs/endo-but-for-bots/pull/621), which is green and un-drafted but still shows a stale CHANGES_REQUESTED after the caretaker-attenuation revision; a re-gauntlet was posted to ready it for your re-review.
-- **SturdyRef** is fully gated: [#737](https://github.com/endojs/endo-but-for-bots/pull/737) awaits a first review plus a marshal rank-prefix pick, and designs #695/#697 need re-review.
-- **OCapN-over-Noise** has M1–M5 all demonstrated; the only open question is whether to open an inbound TCP port on minion.town to close the literal cross-host TCP+CBOR finish line, or accept the local-TCP transcript plus proven cross-host wss as sufficient.
-
-Two operational flags worth your eye: **minion.town's Gate 1** ([kriskowal/garden#58](https://github.com/kriskowal/garden/issues/58)) has now blocked the entire primary phase for nine consecutive hourly cycles on a single ~5-minute human browser action (register the MCP connector, complete the Cognito login, capture the redirect_uri) that no autonomous worker can perform. And a cluster of jobs is **poisoning on handler-budget overruns** — the auto-shepherds for PRs #124/#704/#763 and agoric-sdk #15, the #585 content-store merge (transient, safe to re-promote per the data-plane press), and the master→llm merge itself — all parked in `plan/` awaiting split-and-promote; a related SIGKILL pattern is also threatening the xs2rust stage-8b C-XS baseline child on the critical path.
+Upstream `endojs/endo` master was merged into the `llm` roadmap branch via [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) (immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, skipLibCheck), deliberately stopping just short of upstream's ESLint 10 flat-config migration — that whole-repo re-lint is flagged as a separate, multi-cycle follow-up, not auto-run. The board is quiet on movement (the only transitions are the 18:20Z press dispatches claiming into `doin`) but heavy on maintainer gates: M2 is one decision from done ([#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) green/CLEAN, pending a call to adopt #719's `%URL%` split and close CI-failing #263); M3 is stalled on a package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403), with the git-integration loop one `merge` directive away on [#705](https://github.com/endojs/endo-but-for-bots/pull/705); the esheets tree remains dammed behind OAuth design [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, still stale CHANGES_REQUESTED, now ~6 days); and the sturdyref lane holds on a first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus re-reviews of [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697). Two escalations want a browser, not a bot: minion.town's [garden#58](https://github.com/kriskowal/garden/issues/58) Gate-1 login is now nine consecutive hourly cycles blocked on a ~5-minute human action, and the OCapN press ([#340](https://github.com/endojs/endo-but-for-bots/pull/340)→[#684](https://github.com/endojs/endo-but-for-bots/pull/684)→[#688](https://github.com/endojs/endo-but-for-bots/pull/688)→[#693](https://github.com/endojs/endo-but-for-bots/pull/693)) asks whether to open an inbound TCP port on minion.town or call M1–M5 done on the existing wss transcript. Notice too a growing pile of poison jobs parked from deadline-overrun — the [#585](https://github.com/endojs/endo-but-for-bots/pull/585) content-store merge, the upstream-merge job, the npm/pnpm migration experiments, the xs2rust C-XS baseline (now also dying to external SIGKILLs), and shepherds for [#124](https://github.com/endojs/endo-but-for-bots/pull/124)/[#704](https://github.com/endojs/endo-but-for-bots/pull/704)/[#763](https://github.com/endojs/endo-but-for-bots/pull/763) — several needing a split or a promote to proceed. Meanwhile finbot advanced autonomously with no decisions pending, shipping adaptive GJR-GARCH volatility selection.
 
 ## Parked for maintainer feedback
 
@@ -869,15 +861,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 126.1M | $1244.85 _(notional, rate-card)_ | no quota set |
+| Claude | 127.1M | $1257.91 _(notional, rate-card)_ | no quota set |
 | Codex | 196.3M _(+409.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (7)
+- [`endo-byte-array-press-20260717-182002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260717-182002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+- [`endo-daemon-data-plane-press-20260717-182002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-daemon-data-plane-press-20260717-182002.md) — Press the Endo daemon data plane forward (endojs/endo-but-for-bots, base llm)
+- [`endo-git-integration-press-20260717-182002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260717-182002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+- [`endo-vfs-parity-press-20260717-182002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260717-182002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr786-22380928`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr786-22380928.md) — attention directive on endojs/endo-but-for-bots PR #786
+- [`ocapn-noise-press-20260717-182002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260717-182002.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`xs2rust-endor-stage8-cxs-baseline-r2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage8-cxs-baseline-r2.md) — Stage-8b child 1/4 (was stage-8 child 3/6, re-cut after transient-outage pois...
 
 ### tada (2617)
