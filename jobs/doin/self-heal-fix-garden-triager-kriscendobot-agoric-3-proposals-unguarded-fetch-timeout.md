@@ -6,3 +6,10 @@ Fix: bring line 117 in line with the rest of the fleet's bounded-fetch pattern a
 2. On a transient/timeout failure (rc 124 from `timeout`, or a fetch that fails after retries), do NOT `die`. Instead `log` a WARN and `exit 0` so the next tick retries — no crash loop — and escalate only on persistence via the throttled `alert_maintainer` (dedup key e.g. `triager-fetch-failed-${slug//[^A-Za-z0-9._-]/_}`), mirroring the `triager-provision-failed-*` escalation at lines 96-104. Reserve a hard `die` for a genuinely non-transient fetch error if you can distinguish one, but the default for a network/SSH blip must be a clean skip.
 
 Keep behavior identical on success. This is the last unbounded git fetch in the triager and the direct cause of the recurring `garden-triager@kriscendobot-agoric-3-proposals` Failed→restart flaps.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 9
+  worker_kind: gardener
+  claimed_at: 2026-07-17T15:44:54Z
