@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-17T03:45:06Z_
+_As of 2026-07-17T03:49:05Z_
 
 ## Latest
 
-Package-manager migration experiments moved this cycle: the [#769](https://github.com/endojs/endo-but-for-bots/pull/769) pnpm-migration shepherd and [#768](https://github.com/endojs/endo-but-for-bots/pull/768) shepherds both closed out, and companion `migrate-master-to-npm`/`migrate-master-to-pnpm` jobs plus a fresh `merge-upstream-master-into-llm-20260717` job are now in flight — the fleet is actively probing how endo-but-for-bots should modernize its base tooling. The npm-via-CAS registry-proxy press and another xs2rust-Endor stage-7 tick (intrinsics residuals) also completed.
+The biggest move in flight is a merge of upstream `endojs/endo` master into the `endo-but-for-bots` `llm` branch: the gardener is deliberately merging everything up to `ba88ef7970` (SES error `code` prop, immutable-arraybuffer, new `@endo/chacha12`/`@endo/random`, compartment-mapper host module exits, `skipLibCheck`) while **excluding** the ESLint 10+ breaking pair from [endojs/endo#3319](https://github.com/endojs/endo/pull/3319), which it flags as a separate migration project — confirm or override that scoping.
 
-The signal a maintainer should act on is upstream of any of this: the board is thick with fully-green lanes stalled on your decision, not on engineering. The git-integration lane wants a one-word `merge` on [#705](https://github.com/endojs/endo-but-for-bots/pull/705) (22/22 green) to run [#707](https://github.com/endojs/endo-but-for-bots/pull/707) to M3's finish; the SturdyRef effort is on its third fully-gated tick awaiting first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus a rank-prefix pick; the esheets tree has sat six days behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621); M2 needs a URL-shim call between [#719](https://github.com/endojs/endo-but-for-bots/pull/719) and [#263](https://github.com/endojs/endo-but-for-bots/pull/263); and M3's tail is blocked on the registry-home question between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403). Separately, five reconstruction jobs reported dead — current endo-but-for-bots `master` already contains those merges, so their diffs are empty — and several shepherds (PRs [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#763](https://github.com/endojs/endo-but-for-bots/pull/763)) were poisoned for overrunning the handler budget and are parked pending a split or a raised timeout.
+Several lanes are now fully green and stalled only on maintainer authority. The git-integration M3 stack has [endo-but-for-bots#706](https://github.com/endojs/endo-but-for-bots/pull/706) merged, with Phase 1 [#705](https://github.com/endojs/endo-but-for-bots/pull/705) (22/22, CLEAN) and the worked-loop exit criterion Phase 3 [#707](https://github.com/endojs/endo-but-for-bots/pull/707) both awaiting a `merge` directive. SturdyRef's single-commit replacement [#737](https://github.com/endojs/endo-but-for-bots/pull/737) is green (25/25) with zero reviews and awaits a first look plus two encoding/stacking decisions. M2 hygiene is one call from done — [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) are green/CLEAN pending a URL-shim decision and closing the redundant [#263](https://github.com/endojs/endo-but-for-bots/pull/263). The esheets tree remains dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (6 days, all CI green, re-woven), and M3's module-loading tail is blocked on a package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403).
+
+On the fleet-health side, notice a cluster of poisoned jobs: multiple auto-dispatched shepherds ([#763](https://github.com/endojs/endo-but-for-bots/pull/763), [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), plus the [#694](https://github.com/endojs/endo-but-for-bots/pull/694) and [#707](https://github.com/endojs/endo-but-for-bots/pull/707) gauntlets and the kebab-case linter build) overran the handler wall-clock budget and are parked pending a split or a raised timeout. Three PR-reconstruction jobs (for [#545](https://github.com/endojs/endo-but-for-bots/pull/545), [#69](https://github.com/endojs/endo-but-for-bots/pull/69), [#720](https://github.com/endojs/endo-but-for-bots/pull/720)) dead-ended because those merges already exist in fork master — their diffs are empty and need direction. Separately, finbot advanced with live GJR-GARCH leverage-parameter (gamma) estimation, and a recurred `fetchImpl` abbreviation on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) exposed a structural blind spot in the spell-out-identifiers gate (it only scans newly-added lines), awaiting your call on whether to widen it.
 
 ## Parked for maintainer feedback
 
@@ -174,6 +176,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260717T015030Z-26a2be` — from watchdog:hermit/1, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260717T015030Z-26a2be.md)
 
 > gardener job 'endojs-endo-but-for-bots-pr763-shepherd' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=7200s ≈ handler-budget=7200s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260717T034849Z-8292e0` — from gardener:merge-upstream-master-into-llm-20260717, reply_to `merge-upstream-master-into-llm-20260717` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260717T034849Z-8292e0.md)
+
+> Merging upstream endojs/endo master into endo-but-for-bots `llm` (job merge-upstream-master-into-llm-20260717).
+>
+> Decision I'm making — please confirm or override:
+>
+> The current upstream master tip is the ESLint 10+ overhaul ([endojs/endo#3319](https://github.com/endojs/endo/issues/3319): e352f0f497 "support ESLint 10+" + b467b827e3 "chore: lint everything"). This is a repo-wide BREAKING change: flat eslint.config.js, drops .eslintignore and per-package eslintConfig, Node 22.12.0 minimum, drops mocha for node:test, reformats the whole tree. Including it triples the conflict count (20 -> 66) AND would require migrating every llm-divergent package to flat config to stay green — a dedicated migration project, not a merge resolution.
+>
+> Everything BELOW that pair is convergent and valuable: SES "code" prop in errors ([endojs/endo#3130](https://github.com/endojs/endo/issues/3130)), immutable-arraybuffer drops the pseudo-prototype, new @endo/chacha12 + @endo/random packages, compartment-mapper host module exits, module-source analyzer.js subpath, skipLibCheck everywhere ([endojs/endo#3321](https://github.com/endojs/endo/issues/3321)), patterns fixes, evasive-transform makeEvasiveTransformVisitor, shellcheck lint.
+>
+> So I'm merging upstream master UP TO ba88ef7970 (i.e. all of current master EXCEPT the eslint-10 breaking pair) as a true merge, shepherding green, and conducting onto llm. The ESLint 10+ migration is flagged as a separate follow-up job. Shout if you want eslint-10 forced into this cycle instead.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -394,7 +408,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.5M | $1032.46 _(notional, rate-card)_ | no quota set |
+| Claude | 102.6M | $1034.08 _(notional, rate-card)_ | no quota set |
 | Codex | 162.5M _(+222.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 ## Board
