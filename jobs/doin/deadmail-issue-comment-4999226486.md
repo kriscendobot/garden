@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/58#issuecomment-4999226486
 Let’s revise the scheduled push to refer to this issue’s description for each engagement. Provide reports in the comments of the issue. The garden is welcome to autonomously deploy minion.town for validation. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 7
+  worker_kind: cleric
+  claimed_at: 2026-07-17T05:20:20Z
