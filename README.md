@@ -1,21 +1,19 @@
 # Garden bulletin
 
-_As of 2026-07-17T13:55:21Z_
+_As of 2026-07-17T14:38:56Z_
 
 ## Latest
 
-Upstream `endojs/endo` master was merged into the `llm` roadmap branch via [#773](https://github.com/endojs/endo-but-for-bots/pull/773) (immutable-arraybuffer pseudo-prototype drop, SES "code" error prop, skipLibCheck), deliberately stopping just short of upstream's ESLint 10 flat-config overhaul — flagged as a separate multi-cycle re-lint, not this cycle's work. On the git-integration M3 lane, [#705](https://github.com/endojs/endo-but-for-bots/pull/705) (Phase 1 remote push tier) is green/CLEAN and one merge directive from unblocking [#707](https://github.com/endojs/endo-but-for-bots/pull/707), the worked version-controlled-filesystem loop that is M3's exit criterion; content-locator PR [#783](https://github.com/endojs/endo-but-for-bots/pull/783) passed its gauntlet and shepherd, clearing the Phase-3 magnet-URN build behind it. The OCapN-over-Noise stack ([#340](https://github.com/endojs/endo-but-for-bots/pull/340)→[#684](https://github.com/endojs/endo-but-for-bots/pull/684)→[#688](https://github.com/endojs/endo-but-for-bots/pull/688)→[#693](https://github.com/endojs/endo-but-for-bots/pull/693)) was rebased onto `llm` with a shellcheck lint fix; M1–M5 are all demonstrated, with only a cross-host TCP demo (needing an open port on minion.town) still gated on your call.
-
-Several long-running merges and shepherds hit the handler wall this window and are parked poisoned in the plan queue — the [#585](https://github.com/endojs/endo-but-for-bots/pull/585) content-store merge (CI green, safe to promote), the master→llm merge, and shepherds for [#124](https://github.com/endojs/endo-but-for-bots/pull/124)/[#704](https://github.com/endojs/endo-but-for-bots/pull/704)/[#763](https://github.com/endojs/endo-but-for-bots/pull/763) — each awaiting a promote or a split. Meanwhile a cluster of master-retirement reconstructions (PRs [#69](https://github.com/endojs/endo-but-for-bots/pull/69), [#251](https://github.com/endojs/endo-but-for-bots/pull/251), [#545](https://github.com/endojs/endo-but-for-bots/pull/545), [#720](https://github.com/endojs/endo-but-for-bots/pull/720)) stopped cleanly on discovering their diffs are already ancestors of the current fork master — candidates to close as superseded. The maintainer inbox is stacked with decisions that gate whole lanes: the MVS resolver home ([#671](https://github.com/endojs/endo-but-for-bots/pull/671) vs [#403](https://github.com/endojs/endo-but-for-bots/pull/403)) that blocks the rest of M3, M2 closeout ([#259](https://github.com/endojs/endo-but-for-bots/pull/259)/[#719](https://github.com/endojs/endo-but-for-bots/pull/719)), the esheets tree stalled 6 days on [#621](https://github.com/endojs/endo-but-for-bots/pull/621), and the sturdyref review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737).
+Board is nearly idle this cycle — the only transition was completion of the hourly minion.town agenda review (garden #58), which reported no deployment action taken. What a maintainer should notice is the backlog of green-but-gated lanes piling up in the inbox, all waiting on merge or decision authority the fleet can't self-grant. Upstream `endojs/endo` master was merged into `llm` via [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) (stopping deliberately short of upstream's ESLint 10 flat-config migration, flagged as a separate multi-cycle job). The git-integration M3 lane is one `merge` directive from done: [endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) is 22/22 green and CLEAN, with [endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/pull/707) (the milestone-exit worked-loop) green behind it. M2 is one call from complete — [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) are review-ready, pending a decision to close the redundant #263. The esheets tree remains dammed behind [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (all CI green, 6 days awaiting re-review), and the OCapN-over-Noise press needs a yes/no on opening a TCP port on minion.town to close its cross-host finish line. Separately, the content-store merge [endo-but-for-bots#585](https://github.com/endojs/endo-but-for-bots/pull/585) was reaper-poisoned on a transient CI stall and sits parked awaiting promotion, alongside a wave of shepherd/gauntlet jobs that overran the 2400s handler budget and need splitting.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 1h)
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 14h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 2h)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 15h)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 2d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 3d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 4d)
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 14d)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 15d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 18d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 17d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 31d)
@@ -797,7 +795,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 122.4M | $1245.88 _(notional, rate-card)_ | no quota set |
+| Claude | 121.4M | $1224.06 _(notional, rate-card)_ | no quota set |
 | Codex | 191.3M _(+398.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 ## Board
@@ -812,13 +810,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-package-json-bundlers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-bundlers.md) — Scholar: how bundlers and compilers read package.json
 - [`scholar-package-json-package-managers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-package-managers.md) — Scholar: how package managers read package.json (Yarn, pnpm, Bun)
 
-### tada (2569)
+### tada (2570)
+- [`minion-town-agenda-review-20260717-143501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260717-143501.md) — Completion report
 - [`xs2rust-endor-press-20260717-135001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260717-135001.md) — Completion report
 - [`endo-sturdyref-press-20260717-135001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260717-135001.md) — Completion report — SturdyRef press tick (2026-07-17 13:50 dispatch)
 - [`endojs-endo-but-for-bots-pr783-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr783-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #783
 - [`minion-town-agenda-review-20260717-132004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260717-132004.md) — Reviewed and reported current agenda status on garden issue #58. No deploymen...
-- [`gauntlet-endo-but-for-bots-pr783-content-locator-interface-methods`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr783-content-locator-interface-methods.md) — Panel review found no must-fix items; no fixer changes were needed. PR #783 i...
-- … and 2564 more
+- … and 2565 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
