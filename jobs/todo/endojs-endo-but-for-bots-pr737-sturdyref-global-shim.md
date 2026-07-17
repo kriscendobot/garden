@@ -20,12 +20,4 @@ This is a response to maintainer review https://github.com/endojs/endo-but-for-b
 
 Run relevant pass-style and ocapn tests, lint, and type checks. Commit and push the follow-up to the existing PR branch. Reply on all three review threads with addressing SHAs, post the required top-level summary comment, and re-request maintainer review only after the relevant CI is green.
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 15
-  worker_kind: gardener
-  claimed_at: 2026-07-17T05:33:12Z
+<!-- garden-reaped: 2 -->
