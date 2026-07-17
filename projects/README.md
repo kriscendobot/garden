@@ -14,6 +14,7 @@ The structure follows the [context-library](../../skills/context-library/SKILL.m
 | [cosgov](cosgov/README.md) | [dcfoundation/cosmos-proposal-builder](https://github.com/dcfoundation/cosmos-proposal-builder) | DC Foundation's cosmos-proposal-builder. Observation-only standing watch with a contributor allowlist; routine activity is driven by the maintainer directly. |
 | [garden](garden/README.md) | [kriskowal/garden](https://github.com/kriskowal/garden) | The garden itself. This is the meta library of roles, skills, and the journal you are reading. Driven by the maintainer and the in-session liaison. |
 | [ocapn](ocapn/README.md) | (the upstream OCapN protocol repository) | Reference-only fork at `kriscendobot/ocapn`. **Unusually strict engagement rules**: no comments, no cross-references, oblique references in outward-facing artifacts only. Read the project README before acting. |
+| [package-json](package-json/README.md) | (none; research/reference) | A journal-only research project: the `package.json` manifest schema and a property-by-consumer matrix across package managers, runtimes, and bundlers, with inconsistencies and publishing strategies. No upstream, no fork, no GitHub interaction. |
 
 ---
 
