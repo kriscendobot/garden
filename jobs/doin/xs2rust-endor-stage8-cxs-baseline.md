@@ -45,6 +45,7 @@ invocation; commit/push source changes before long runs so nothing is lost to a 
 
 <!-- garden-reaped: 4 -->
 
+<!-- garden-deadline-overrun: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
