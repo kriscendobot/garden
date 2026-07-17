@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6478 (530 parent indexes + 5948 children).
+Total section files: 6491 (530 parent indexes + 5961 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -7865,6 +7865,25 @@ Total section files: 6478 (530 parent indexes + 5948 children).
 ### ndim--readme
 
 - [ndim--readme--overview](ndim--readme--overview.md)
+
+### node--doc-api-packages
+
+- [node--doc-api-packages--conditional-exports](node--doc-api-packages--conditional-exports.md)
+- [node--doc-api-packages--determining-module-system](node--doc-api-packages--determining-module-system.md)
+- [node--doc-api-packages--field-definitions](node--doc-api-packages--field-definitions.md)
+- [node--doc-api-packages--overview](node--doc-api-packages--overview.md)
+- [node--doc-api-packages--package-entry-points](node--doc-api-packages--package-entry-points.md)
+- [node--doc-api-packages--package-maps](node--doc-api-packages--package-maps.md)
+- [node--doc-api-packages--self-referencing-and-dual-package](node--doc-api-packages--self-referencing-and-dual-package.md)
+- [node--doc-api-packages--subpath-exports-imports-and-patterns](node--doc-api-packages--subpath-exports-imports-and-patterns.md)
+
+### npm--configuring-npm-package-json
+
+- [npm--configuring-npm-package-json--dependencies-and-overrides](npm--configuring-npm-package-json--dependencies-and-overrides.md)
+- [npm--configuring-npm-package-json--environment-constraints-and-publishing](npm--configuring-npm-package-json--environment-constraints-and-publishing.md)
+- [npm--configuring-npm-package-json--files-entry-points-and-bin](npm--configuring-npm-package-json--files-entry-points-and-bin.md)
+- [npm--configuring-npm-package-json--identity-and-metadata](npm--configuring-npm-package-json--identity-and-metadata.md)
+- [npm--configuring-npm-package-json--scripts-config-and-native-build](npm--configuring-npm-package-json--scripts-config-and-native-build.md)
 
 ### ocap-history
 
