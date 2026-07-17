@@ -19,3 +19,10 @@ Required outcomes:
 This is a response to maintainer review https://github.com/endojs/endo-but-for-bots/pull/737#pullrequestreview-4718500574. It has three inline comments, all in `packages/ocapn/src/client/sturdyrefs.js`: lines 67-81 (opaque SturdyRefs and pass-style maker/test), 90-100 (move utility to `@endo/pass-style/sturdy-ref`), and 111-113 (global retained locator map and first-wins shim).
 
 Run relevant pass-style and ocapn tests, lint, and type checks. Commit and push the follow-up to the existing PR branch. Reply on all three review threads with addressing SHAs, post the required top-level summary comment, and re-request maintainer review only after the relevant CI is green.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 19
+  worker_kind: gardener
+  claimed_at: 2026-07-17T04:56:35Z
