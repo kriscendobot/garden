@@ -53,7 +53,6 @@ The family of models that forecast **conditional volatility** — the time-varyi
 | [papers--glosten-relation-expected-value-volatility-1993--gjr-asymmetric-variance-recursion](../sections/papers--glosten-relation-expected-value-volatility-1993--gjr-asymmetric-variance-recursion.md) | GJR-GARCH adds a negative-shock indicator so equal-sized good and bad news need not revise variance equally. |
 | [papers--glosten-relation-expected-value-volatility-1993--monthly-evidence-and-sampling-frequency](../sections/papers--glosten-relation-expected-value-volatility-1993--monthly-evidence-and-sampling-frequency.md) | Monthly CRSP evidence finds asymmetric variance revisions and less persistence than daily-return studies, a horizon warning. |
 | [papers--glosten-relation-expected-value-volatility-1993--conclusion-and-forecasting-contract](../sections/papers--glosten-relation-expected-value-volatility-1993--conclusion-and-forecasting-contract.md) | GJR is a leverage-aware candidate to validate out of sample, not a universal return-prediction rule. |
-| [West lineage and forecasting boundary](../sections/papers--west-asymptotic-inference-predictive-ability-1996--lineage-and-forecasting-boundary.md) | Fitted GARCH comparisons need parameter-error-aware inference and search correction; variance-forecast evidence is not directional-return evidence. |
 
 ## See also
 
