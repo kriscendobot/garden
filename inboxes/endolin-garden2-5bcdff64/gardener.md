@@ -597,3 +597,12 @@ Inspect via `git -C journal cat-file -p ce32f784b4c1eec5e72a5043f3bd0a00da2878cf
 - Context: gardener-7 on endolin-garden2-5bcdff64: job 'ocapn-noise-press-20260717-000503' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 9838b25af03d01e1ceb579bb06c4a81080a99bc3`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-17T00:32:40Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: ce32f784b4c1eec5e72a5043f3bd0a00da2878cf
+- Context: gardener-2 on endolin-garden2-5bcdff64: job 'endojs-endo-but-for-bots-pr765-shepherd' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p ce32f784b4c1eec5e72a5043f3bd0a00da2878cf`.
