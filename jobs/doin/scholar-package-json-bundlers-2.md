@@ -10,3 +10,10 @@ Follow-on to scholar-package-json-bundlers (which library-backed webpack, Rollup
 - Vite `optimizeDeps` detail (deferred from cycle 1).
 
 Add sections under topic `package-manifest`; update projects/package-json/property-consumer-matrix.md and inconsistencies.md to cite the new sections and drop the remaining (synthesis) markers for these tools.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 12
+  worker_kind: gardener
+  claimed_at: 2026-07-17T14:49:26Z
