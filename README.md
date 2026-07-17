@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-17T16:57:23Z_
+_As of 2026-07-17T16:59:16Z_
 
 ## Latest
 
-Upstream `endojs/endo` master is now merged into the `llm` roadmap branch: [#773](https://github.com/endojs/endo-but-for-bots/pull/773) was shepherded green and conducted (llm → d39605930), bringing the immutable-arraybuffer pseudo-prototype drop, SES console sanitization and `"code"` error prop, and `skipLibCheck` — deliberately stopping just short of upstream's ESLint 10 flat-config migration, which is flagged as a separate multi-cycle job. The reaper poisoned that same merge job and several shepherds/conductors ([#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#585](https://github.com/endojs/endo-but-for-bots/pull/585), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#763](https://github.com/endojs/endo-but-for-bots/pull/763)) for overrunning the handler budget — all parked in the plan queue awaiting promotion, and the two Yarn→npm/pnpm migration experiments requeue-exhausted likewise.
+Upstream `endojs/endo` master was merged into the `llm` roadmap branch via [#773](https://github.com/endojs/endo-but-for-bots/pull/773) (conducted as a true merge, bringing the immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, and skipLibCheck), deliberately stopping just short of upstream's ESLint 10 flat-config migration — flagged as a separate multi-cycle re-lint job, not this merge. The endoclaw-oauth gauntlet on [#621](https://github.com/endojs/endo-but-for-bots/pull/621) completed, though the design still shows `CHANGES_REQUESTED` and gates the entire esheets tree; the agoric-sdk PR #15 attention directive also closed out.
 
-Several lanes are fully green and blocked only on a maintainer directive: the git-integration M3 loop wants `merge` on Phase-1 [#705](https://github.com/endojs/endo-but-for-bots/pull/705) (22/22 green, CLEAN) to run to its exit criterion [#707](https://github.com/endojs/endo-but-for-bots/pull/707); M2 hygiene needs a call on the URL-shim split ([#719](https://github.com/endojs/endo-but-for-bots/pull/719) vs closing [#263](https://github.com/endojs/endo-but-for-bots/pull/263)) plus merge/ferry of [#259](https://github.com/endojs/endo-but-for-bots/pull/259); and the whole esheets tree is dammed behind OAuth design [#621](https://github.com/endojs/endo-but-for-bots/pull/621), still stale-`CHANGES_REQUESTED` six days after its revision landed. Two forcing decisions gate M3 more broadly: which MVS-resolver home wins ([#671](https://github.com/endojs/endo-but-for-bots/pull/671) vs [#403](https://github.com/endojs/endo-but-for-bots/pull/403)), and the SturdyRef stack's first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus its rank-prefix pick. OCapN-over-Noise reports M1–M5 all demonstrated and asks whether to open an inbound TCP port on minion.town to close the literal cross-host finish line. Most urgent human-only item: minion.town's primary phase is now nine consecutive hourly cycles stalled on Gate 1 ([garden#58](https://github.com/kriskowal/garden/issues/58)) — a ~5-minute browser login to add `https://minion.town/mcp` as a claude.ai connector and capture the redirect_uri.
+Several lanes are now fully green and stalled on a single maintainer action: the git-integration M3 loop wants a `merge` directive on [#705](https://github.com/endojs/endo-but-for-bots/pull/705) (Phase 1, 22/22 green, CLEAN) to finish the sequence behind the already-merged [#706](https://github.com/endojs/endo-but-for-bots/pull/706); the content-store conductor for [#585](https://github.com/endojs/endo-but-for-bots/pull/585) was reaper-poisoned on a transient CI stall and awaits re-promotion; the sturdyref stack ([#737](https://github.com/endojs/endo-but-for-bots/pull/737)) needs a first review plus a rank-prefix pick; and minion.town's whole primary phase is pinned at Gate 1 on a ~5-minute browser login the fleet cannot perform (now 9 hourly cycles blocked, [garden#58](https://github.com/kriskowal/garden/issues/58)). OCapN-over-Noise has M1–M5 all demonstrated across the [#340](https://github.com/endojs/endo-but-for-bots/pull/340)→[#684](https://github.com/endojs/endo-but-for-bots/pull/684)→[#688](https://github.com/endojs/endo-but-for-bots/pull/688)→[#693](https://github.com/endojs/endo-but-for-bots/pull/693) stack and asks only whether to open a TCP port on minion.town to close the literal finish line.
+
+Worth noticing: a cluster of long-running jobs (the [#585](https://github.com/endojs/endo-but-for-bots/pull/585) merge, the upstream-master merge, the [#124](https://github.com/endojs/endo-but-for-bots/pull/124)/[#704](https://github.com/endojs/endo-but-for-bots/pull/704)/[#763](https://github.com/endojs/endo-but-for-bots/pull/763) shepherds, the [#694](https://github.com/endojs/endo-but-for-bots/pull/694)/[#707](https://github.com/endojs/endo-but-for-bots/pull/707) gauntlets, and both Yarn→npm/pnpm migrations) overran the handler budget and are parked as poison in the plan queue awaiting promotion or a split — the board is momentarily empty of `todo` work as a result.
 
 ## Parked for maintainer feedback
 
@@ -837,25 +839,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.2M | $1246.13 _(notional, rate-card)_ | no quota set |
+| Claude | 124.1M | $1242.20 _(notional, rate-card)_ | no quota set |
 | Codex | 192.3M _(+406.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`gauntlet-endo-but-for-bots-pr621-endoclaw-oauth-caretaker`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr621-endoclaw-oauth-caretaker.md) — Run the gauntlet on endojs/endo-but-for-bots#621 (design/endoclaw-oauth-found...
-- [`kriscendobot-agoric-sdk-pr15-04672c99`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr15-04672c99.md) — attention directive on kriscendobot/agoric-sdk PR #15
+### doin (2)
+- [`ebfb-retire-master-pr-155`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-155.md) — ---
 - [`port-xs-to-rust-memory-safe-engine-s24`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s24.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
-### tada (2598)
+### tada (2600)
+- [`kriscendobot-agoric-sdk-pr15-04672c99`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-04672c99.md) — Completion report: PR #15 attention directive (kriscendobot/agoric-sdk)
+- [`gauntlet-endo-but-for-bots-pr621-endoclaw-oauth-caretaker`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr621-endoclaw-oauth-caretaker.md) — Completion report — gauntlet on endojs/endo-but-for-bots#621 (design/endoclaw...
 - [`ebfb-retire-master-pr-182`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-182.md) — Completion report — ebfb-retire-master-pr-182 (weaver)
 - [`endojs-endo-but-for-bots-pr250-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr250-shepherd.md) — CI is green for PR #250 at 6029ba7. I reran the flaky macOS Node 24 test afte...
 - [`deadmail-issue-comment-5005355494`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5005355494.md) — Implemented and pushed PinchTab spike to kriscendobot/ymax-stdio-mcp at a3ebcca.
-- [`esheets-supervisor-20260717-163501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260717-163501.md) — Completed daily supervision.
-- [`minion-town-agenda-review-20260717-163501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260717-163501.md) — Completion report — Minion Town hourly agenda review (16:40 UTC)
-- … and 2593 more
+- … and 2595 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
