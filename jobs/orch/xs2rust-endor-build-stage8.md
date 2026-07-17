@@ -2,7 +2,7 @@
 order: serial
 children: xs2rust-endor-stage8-daemon-bundle-imports xs2rust-endor-stage8-boot-generators xs2rust-endor-stage8-cxs-baseline xs2rust-endor-stage8-class-construction xs2rust-endor-stage8-boot-surface-remainder xs2rust-endor-stage8-gate-remeasure
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-07-17T10:51:53Z
 ---
