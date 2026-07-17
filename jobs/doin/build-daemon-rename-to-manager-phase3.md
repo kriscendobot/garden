@@ -16,3 +16,10 @@ Also update self-referential diagnostic strings still naming old files (e.g.
 bus-manager-node.js error "bus-daemon-node.js requires arguments", manager-go.js
 "daemon-go.js requires arguments") if not handled in Phase 2. Optional one-liner:
 rust endor.rs "legacy Node.js daemon child" comment → "manager".
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  worker_kind: gardener
+  claimed_at: 2026-07-17T06:11:08Z
