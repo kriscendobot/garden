@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-17T12:10:42Z_
+_As of 2026-07-17T12:16:17Z_
 
 ## Latest
 
-Upstream `endojs/endo` master was merged into the `llm` roadmap branch: [#773](https://github.com/endojs/endo-but-for-bots/pull/773) (a clean merge stopping deliberately *before* upstream's ESLint 10 flat-config migration) was shepherded green and conducted onto `llm`, advancing it to `d39605930` and pulling in the immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, and `skipLibCheck`. Adopting the full ESLint 10 trio is flagged as a separate multi-cycle job, not folded in. The master-retirement program advanced too, retiring stale mirror bases across PRs [#253](https://github.com/endojs/endo-but-for-bots/pull/253), [#258](https://github.com/endojs/endo-but-for-bots/pull/258), and [#259](https://github.com/endojs/endo-but-for-bots/pull/259), though several reconstruction jobs (PRs [#69](https://github.com/endojs/endo-but-for-bots/pull/69), [#545](https://github.com/endojs/endo-but-for-bots/pull/545), [#720](https://github.com/endojs/endo-but-for-bots/pull/720)) are stuck: their diffs are already ancestors of master and rebase to empty.
+The master-base retirement sweep is the only board movement this window: [endojs/endo-but-for-bots#251](https://github.com/endojs/endo-but-for-bots/pull/251) finished — flagged a stale, superseded-upstream mirror (its erights harden-exports feature already landed on endo master; recommend closing rather than rebasing) — and [endojs/endo-but-for-bots#250](https://github.com/endojs/endo-but-for-bots/pull/250) was claimed next.
 
-Several lanes are fully green and blocked only on your decision or merge authority: M2 wants a URL-shim adoption call on [#719](https://github.com/endojs/endo-but-for-bots/pull/719) plus merge of [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and closure of the redundant [#263](https://github.com/endojs/endo-but-for-bots/pull/263); the git-integration M3 loop needs a `merge` on [#705](https://github.com/endojs/endo-but-for-bots/pull/705) to unblock [#707](https://github.com/endojs/endo-but-for-bots/pull/707); M3's module-loading tail is stalled on a package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403); the sturdyref stack awaits a first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737); and the esheets tree is dammed on re-review/merge of [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (6 days green). An escalation also flags that the `avoid-abbreviation` cluster recurred on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) — the pre-push gate scans only newly-added lines, so `fetchImpl` (authored before the gate deployed) slipped past permanently; the fix is your call on whether to widen the gate. Meanwhile a cluster of long-running shepherd/merge jobs (PRs [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#585](https://github.com/endojs/endo-but-for-bots/pull/585), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#763](https://github.com/endojs/endo-but-for-bots/pull/763)) overran the handler budget and were poisoned into the plan queue, awaiting a split-and-promote.
+The bigger news is off-board: the `llm` trunk absorbed upstream via [endojs/endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773), a true merge of real upstream `endojs/endo` master up to `ba88ef797` (immutable-arraybuffer pseudo-prototype drop, SES "code" error prop, skipLibCheck) that deliberately stops **before** upstream's ESLint 10 flat-config migration — that migration is a multi-cycle re-lint across ~40 packages and is flagged for a dedicated follow-up job, not this merge. Watch for two operational snags surfaced this window: PRs retargeted to `master-<sha>` reflections silently skip Browser Tests (a base-branch filter), and a rash of shepherd/merge jobs ([#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#763](https://github.com/endojs/endo-but-for-bots/pull/763), [#585](https://github.com/endojs/endo-but-for-bots/pull/585) merge, agoric-sdk#15) overran the handler budget and were poisoned/parked, needing splits or detached runs.
+
+Several lanes are fully green and stalled on your call alone: git-integration Phase 1 [#705](https://github.com/endojs/endo-but-for-bots/pull/705) awaits a `merge` directive to unblock the M3 loop-closing [#707](https://github.com/endojs/endo-but-for-bots/pull/707); M2 is one decision from done ([#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) green, pending an adopt-and-close-#263 call); the esheets tree is dammed behind re-reviewing [#621](https://github.com/endojs/endo-but-for-bots/pull/621); the sturdyref effort needs a first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus two encoding decisions; and M3's module-loading tail is blocked on the registry package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403).
 
 ## Parked for maintainer feedback
 
@@ -322,6 +324,19 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260717T113825Z-f297be` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260717T113825Z-f297be.md)
 
 > The `xs2rust-endor-stage8-boot-generators` report leaves one gating follow-up before `cargo build --bin endor` and `packages/daemon` `test:rust` can run: the C-side blocker (probe N2) needs `c/moddable` populated at the oracle pin (or `xsnap/prebuilt/libxs.a` supplied) and a full Moddable XS build — described as "a separate child." This is a heavy, decision-laden step (which pin, whether to prioritize the XS build now), so it's your call: do you want me to post that Moddable-XS/endor build job? The remaining item (wiring the XS worker's `makeArchive`/`makeFromTree`/`makeUnconfined` stubs) is explicitly future work and needs no action now.
+
+- `20260717T121433Z-3cdeec` — from gardener:ebfb-retire-master-pr-251, reply_to `ebfb-retire-master-pr-251` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260717T121433Z-3cdeec.md)
+
+> Job ebfb-retire-master-pr-251 (retire master base for [endojs/endo-but-for-bots#251](https://github.com/endojs/endo-but-for-bots/issues/251)): STOPPED — not wedged, no fork mutation.
+>
+> [endojs/endo-but-for-bots#251](https://github.com/endojs/endo-but-for-bots/issues/251) is a stale/superseded mirror. It ports [endojs/endo#2404](https://github.com/endojs/endo/issues/2404) "support destructuring in harden-exports", but:
+>   - [endojs/endo#2404](https://github.com/endojs/endo/issues/2404) is CLOSED (never merged) upstream.
+>   - The equivalent functionality already landed on endojs/endo master via [endojs/endo#2390](https://github.com/endojs/endo/issues/2390) (destructuring patterns) + [endojs/endo#2632](https://github.com/endojs/endo/issues/2632) (skip M.* pattern makers), and the whole eslint-plugin package was restructured to ESLint 10 / createRule with `lib/rules/` moved to `src/rules/` (commit e352f0f).
+>   - So rebasing the PR head (4 commits on a 187-commit-stale base c2fc02e) onto upstream master (46d4edf) hits a modify/delete conflict: `lib/rules/harden-exports.js` was deleted (moved to `src/`), and the feature the PR adds is already present upstream. This is beyond a focused weave.
+>
+> Per the job's stale-mirror / conflict-beyond-weave guard I did NOT force the rebase, did NOT touch the fork master, did NOT edit the base. The frozen reflection `master-46d4edf` already exists on the fork if you later want it.
+>
+> Recommended follow-up: close [endojs/endo-but-for-bots#251](https://github.com/endojs/endo-but-for-bots/issues/251) as superseded-upstream (its intent is already in endo master), rather than rebasing.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -683,7 +698,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 119.7M | $1226.80 _(notional, rate-card)_ | no quota set |
+| Claude | 120.0M | $1229.08 _(notional, rate-card)_ | no quota set |
 | Codex | 191.1M _(+389.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
 
 ## Board
@@ -691,20 +706,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 (none)
 
 ### doin (6)
-- [`ebfb-retire-master-pr-251`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-251.md) — ---
+- [`ebfb-retire-master-pr-250`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-250.md) — ---
 - [`endo-byte-array-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260717-060503.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`scholar-package-json-bundlers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-bundlers.md) — Scholar: how bundlers and compilers read package.json
 - [`scholar-package-json-package-managers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-package-managers.md) — Scholar: how package managers read package.json (Yarn, pnpm, Bun)
 - [`xs2rust-endor-stage8-cxs-baseline`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage8-cxs-baseline.md) — Stage-8 child 3/6 — libxs provisioning + boot-bundle generation + C-XS test:r...
 
-### tada (2553)
+### tada (2554)
+- [`ebfb-retire-master-pr-251`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-251.md) — Completion report
 - [`ebfb-retire-master-pr-253`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-253.md) — PR #253 is open but is a stale mirror: all six head commits were already pres...
 - [`minion-town-agenda-review-20260717-120502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260717-120502.md) — Completion report
 - [`ebfb-retire-master-pr-258`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-258.md) — Retired PR #258’s master base: rebased and force-with-lease pushed its head, ...
 - [`ebfb-retire-master-pr-259`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-259.md) — Completion report
-- [`ebfb-retire-master-pr-263`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-263.md) — PR #263 remains open on master. Upstream endojs/endo master is 46d4edf; match...
-- … and 2548 more
+- … and 2549 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
