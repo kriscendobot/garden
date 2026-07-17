@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/57#issuecomment-5004449369
 oh! I totally forgot! the agent should submit its transactions using https://github.com/agoric-labs/ymax-agent-local-mcp in fact, please fork that repo and do your work there. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 17
+  worker_kind: gardener
+  claimed_at: 2026-07-17T14:50:14Z
