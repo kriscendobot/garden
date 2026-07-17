@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-17T00:52:36Z_
+_As of 2026-07-17T00:55:39Z_
 
 ## Latest
 
@@ -23,131 +23,6 @@ Two substantive engineering blockers surfaced. First, `endojs/endo-but-for-bots`
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260710T184827Z-0e34e9` — from triager:kriscendobot-finbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260710T184827Z-0e34e9.md)
-
-> kind: error
->
-> # triage circuit-breaker OPENED for `kriscendobot-finbot`
->
-> The triage handler (`/home/kris/garden/scripts/jobs/handlers/triager-claude.sh`) FAILED 5 consecutive times on the SAME change
-> and hit the threshold (`GARDEN_TRIAGE_FAIL_THRESHOLD=5`).
->
-> - Repo slug: `kriscendobot-finbot`  (watched ref `main`)
-> - Failing range: `bf7ebf4aa290c4f09b8a6adf3d3682f46d11d3a0` → `a35add1ee0aadf5fb833fd67eaa1a48316237f22`
->
-> Because the transition is deterministic (same old→new SHAs, same diff), retrying
-> cannot help — it only crash-loops the `garden-triager@kriscendobot-finbot` unit and fills the
-> journal. The breaker is now OPEN: this sha will NOT be re-triaged until a NEW
-> change appears on `kriscendobot-finbot:main`, which clears the breaker automatically.
->
-> Investigate the handler failure (reproduce by hand:
-> `/home/kris/garden/scripts/jobs/handlers/triager-claude.sh kriscendobot-finbot bf7ebf4aa290c4f09b8a6adf3d3682f46d11d3a0 a35add1ee0aadf5fb833fd67eaa1a48316237f22 <bare>`), or, if this repo should not be watched
-> at all, remove it from the watch set. Note: under CLAUDE.md § Monitoring safety
-> constraint only `endojs/endo-but-for-bots` is currently authorized for watching —
-> worth confirming `kriscendobot-finbot` belongs in the set.
-
-- `20260711T075741Z-0634c1` — from watchdog:gardener/3, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T075741Z-0634c1.md)
-
-> gardener job 'endojs-endo-but-for-bots-pr688-shepherd' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
-- `20260711T091845Z-3e2d4d` — from watchdog:gardener/3, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260711T091845Z-3e2d4d.md)
-
-> gardener job 'ocapn-pet-daemon-dockerfile-minion' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
-- `20260712T002630Z-463ac5` — from watchdog:gardener/11, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260712T002630Z-463ac5.md)
-
-> gardener job 'ebfb-sturdyref-bridge-cut3-daemon-mint-export' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
-- `20260712T012932Z-eed149` — from watchdog:gardener/18, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260712T012932Z-eed149.md)
-
-> gardener job 'ebfb-sturdyref-bridge-cut4-ocapn-singleton' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
-- `20260712T024130Z-6193a7` — from watchdog:gardener/12, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260712T024130Z-6193a7.md)
-
-> gardener job 'ebfb-sturdyref-bridge-cut5-foreign-internalization' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
-- `20260712T024609Z-00cf7a` — from watchdog:gardener/8, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260712T024609Z-00cf7a.md)
-
-> gardener job 'endojs-endo-but-for-bots-pr702-shepherd' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
-- `20260712T132326Z-2b59d3` — from watchdog:gardener/10, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260712T132326Z-2b59d3.md)
-
-> gardener job 'gauntlet-endojs-endo-but-for-bots-pr706-git-capability-phase-two-commit-identity-boundary' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2405s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
-- `20260712T161711Z-341200` — from watchdog:gardener/11, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260712T161711Z-341200.md)
-
-> gardener job 'endojs-endo-but-for-bots-pr124-shepherd' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
-- `20260712T171006Z-eb67a2` — from orchestrator:orch-endo-inspect-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260712T171006Z-eb67a2.md)
-
-> Orchestration orch-endo-inspect HALTED: child conduct-endo-inspect-design failed (serial, on-child-failure=halt). 1/3 done before halt; swept: build-endo-inspect
-
-- `20260712T223050Z-e3d803` — from watchdog:gardener/17, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260712T223050Z-e3d803.md)
-
-> gardener job 'kriscendobot-agoric-sdk-pr15-shepherd' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2617s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
-- `20260713T144418Z-fe48a8` — from watchdog:foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260713T144418Z-fe48a8.md)
-
-> garden-foreman's pump handler (/home/kris/garden/scripts/jobs/handlers/foreman-claude.sh) failed rc=143 on endolin-garden-ece02cb4; the board pump is starving. stderr tail: <6>14:44:18 [foreman-claude] usage-meter: claude exited rc=143; usage not recorded
-
-- `20260714T213148Z-41f129` — from triager:kriscendobot-minion.town, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260714T213148Z-41f129.md)
-
-> kind: error
->
-> # triage circuit-breaker OPENED for `kriscendobot-minion.town`
->
-> The triage handler (`/home/kris/garden2/scripts/jobs/handlers/triager-claude.sh`) FAILED 5 consecutive times on the SAME change
-> and hit the threshold (`GARDEN_TRIAGE_FAIL_THRESHOLD=5`).
->
-> - Repo slug: `kriscendobot-minion.town`  (watched ref `main`)
-> - Failing range: `0ff042bc0b595ce801c803abb90c138860f66db9` → `7cf4a624eddf1a5690853eeeb4a54dcffa47d1e2`
->
-> Because the transition is deterministic (same old→new SHAs, same diff), retrying
-> cannot help — it only crash-loops the `garden-triager@kriscendobot-minion.town` unit and fills the
-> journal. The breaker is now OPEN: this sha will NOT be re-triaged until a NEW
-> change appears on `kriscendobot-minion.town:main`, which clears the breaker automatically.
->
-> Investigate the handler failure (reproduce by hand:
-> `/home/kris/garden2/scripts/jobs/handlers/triager-claude.sh kriscendobot-minion.town 0ff042bc0b595ce801c803abb90c138860f66db9 7cf4a624eddf1a5690853eeeb4a54dcffa47d1e2 <bare>`), or, if this repo should not be watched
-> at all, remove it from the watch set. Note: under CLAUDE.md § Monitoring safety
-> constraint only `endojs/endo-but-for-bots` is currently authorized for watching —
-> worth confirming `kriscendobot-minion.town` belongs in the set.
-
-- `20260714T225019Z-8a3c3c` — from triager:kriscendobot-agoric-sdk, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260714T225019Z-8a3c3c.md)
-
-> kind: error
->
-> # triage circuit-breaker OPENED for `kriscendobot-agoric-sdk`
->
-> The triage handler (`/home/kris/garden2/scripts/jobs/handlers/triager-claude.sh`) FAILED 5 consecutive times on the SAME change
-> and hit the threshold (`GARDEN_TRIAGE_FAIL_THRESHOLD=5`).
->
-> - Repo slug: `kriscendobot-agoric-sdk`  (watched ref `master`)
-> - Failing range: `ef8eb1c17454c5d3166f72e16f57fdb2b7614637` → `57db88d91b0e5c85c85f58ce77cd471131b44c48`
->
-> Because the transition is deterministic (same old→new SHAs, same diff), retrying
-> cannot help — it only crash-loops the `garden-triager@kriscendobot-agoric-sdk` unit and fills the
-> journal. The breaker is now OPEN: this sha will NOT be re-triaged until a NEW
-> change appears on `kriscendobot-agoric-sdk:master`, which clears the breaker automatically.
->
-> Investigate the handler failure (reproduce by hand:
-> `/home/kris/garden2/scripts/jobs/handlers/triager-claude.sh kriscendobot-agoric-sdk ef8eb1c17454c5d3166f72e16f57fdb2b7614637 57db88d91b0e5c85c85f58ce77cd471131b44c48 <bare>`), or, if this repo should not be watched
-> at all, remove it from the watch set. Note: under CLAUDE.md § Monitoring safety
-> constraint only `endojs/endo-but-for-bots` is currently authorized for watching —
-> worth confirming `kriscendobot-agoric-sdk` belongs in the set.
-
-- `20260715T054413Z-5a5452` — from gardener:endojs-endo-but-for-bots-pr710-ce2a6fe9, reply_to `endojs-endo-but-for-bots-pr710-ce2a6fe9` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260715T054413Z-5a5452.md)
-
-> Attention directive on [endojs/endo-but-for-bots#710](https://github.com/endojs/endo-but-for-bots/issues/710) ("Please note the PR for the build") routed:
->
-> The design "shared canonical CBOR primitives (@endo/cbor)" merged in [endojs/endo-but-for-bots#710](https://github.com/endojs/endo-but-for-bots/issues/710). I read the directive as "post the build follow-up, noting that PR as the landed design," so I parked a build job in the plan queue:
->
->   jobs/plan/build-endo-cbor-package.md  (gate: go-ahead, role: builder)
->
-> Scope is PHASE 1 ONLY per the design's phased migration: create packages/cbor/ (the hardened functional primitive codec + shared golden-vector fixture prepared for Rust mirroring). It deliberately does NOT migrate the ocapn/slots/daemon consumers — phase 3 (slots) is gated on [endojs/endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/issues/124) landing, so those stay separate later steps.
->
-> It's parked (go-ahead) rather than live so promotion is your/the foreman's call. Say "promote build-endo-cbor-package" (or "build @endo/cbor") to send it to the builder now; correct me if you meant something narrower by "note the PR."
 
 - `20260716T043343Z-508cfd` — from gardener:endojs-endo-but-for-bots-pr671-review-3fa7398f-retro, reply_to `endojs-endo-but-for-bots-pr671-review-3fa7398f-retro` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T043343Z-508cfd.md)
 
@@ -177,17 +52,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > not broken for the lines it is designed to see. Miss recorded either way. Your call
 > on whether/how to widen.
 
-- `20260716T122710Z-780091` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T122710Z-780091.md)
-
-> Milestone M2 (Project Hygiene) is at 6/8; its only two remaining designs — `hardened-url-shim` and `hardened-text-codecs-shim` — are already delivered as PRs [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/issues/719) and #259, both OPEN, un-drafted, CI-clean/MERGEABLE, with #719's `CHANGES_REQUESTED` (update lockdown docs) already addressed at head and 0 unresolved threads on either. The next step to close out M2 is merging both PRs, which is a maintainer/authority decision (merge) outside the foreman's work-job bounds.
-
 - `20260716T123404Z-946eaf` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T123404Z-946eaf.md)
 
 > Milestone M3's remaining buildable work — the tail of the module-loading four-layer stack (`snapshot-mapper` and `daemon-worker-import-from-mount`, both `endojs/endo-but-for-bots`) — is blocked on a package-home decision the fleet cannot make itself: the MVS resolver now exists in two competing open PRs, `@endo/daemon/registry.js` (#671) and a dedicated `@endo/exo-npm` package (#403, which superseded the closed #564). Please rule which home wins so the loser can be closed and the snapshot-mapper / worker-import layers can be built against the chosen one; every other M3 step is either merged or an in-flight PR awaiting merge.
-
-- `20260716T141047Z-042f83` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T141047Z-042f83.md)
-
-> M2 (Project Hygiene) is one merge decision from complete: its two remaining rows — `hardened-text-codecs-shim` (PR [endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/issues/259)) and `hardened-url-shim` (PR [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/issues/719)) — are both built to merge-ready state (non-draft, MERGEABLE/CLEAN, CI all-green; #719's gauntlet is complete). No unblocked work job remains; landing #259 and #719 (and closing the superseded, CONFLICTING alternative #263) is a merge/ferry authority decision. Please authorize the merge/ferry to close M2 (plan design-record statuses for both are stale at "Not Started" and want advancing).
 
 - `20260716T162359Z-d9c132` — from gardener:esheets-supervisor-20260716-162017, reply_to `esheets-supervisor-20260716-162017` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T162359Z-d9c132.md)
 
@@ -199,39 +66,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > **Decision needed:** please re-review + merge [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621) (or tell me to proceed building the OAuth exo on the merged base `endoclaw-oauth.md` and land [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621)'s refinements later). This is the sole thing gating the whole tree.
 
-- `20260716T162635Z-cd21da` — from gardener:--help, reply_to `--help` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T162635Z-cd21da.md)
-
-> (empty message)
-
-- `20260716T162654Z-ade774` — from gardener:finbot-progress-20260716-162017, reply_to `finbot-progress-20260716-162017` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T162654Z-ade774.md)
-
-> Advanced finbot main to efa6454: regime-aware position sizing. Adaptive-vol OODA cycles now default persistent assets to half-size targets (overrideable), while direct analyzer use remains unchanged by default. Verified npm test (all workspace tests green) and dry-run MLE fit: ATOM target 21.50%% -> 10.75%% at persistence 0.98; audit approved, wallet untouched. Next unblocked step: choose one remaining forecast-model extension (asymmetric MLE or EGARCH); live paper-wallet work still needs explicit authorization and a CapTP transport decision.
-
-- `20260716T164754Z-3ad37e` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T164754Z-3ad37e.md)
-
-> Milestone M2 (Project Hygiene) has only two members left, and both are built and merge-ready in endojs/endo-but-for-bots: PR #259 (hardened text-codecs vetted shim, fully green/CLEAN) and PR #263 (hardened URL/URLSearchParams vetted shim, green except a pre-existing repo-wide `zizmor` check that also passes on #259). Both expand the SES universal-permit surface, so completing M2 needs your decision to merge/conduct #259 and #263 — an authority action outside the foreman's work-job bounds.
-
 - `20260716T165104Z-5f08c8` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T165104Z-5f08c8.md)
 
 > Milestone **M2 (Project Hygiene)** is one decision away from complete: its only two remaining designs are built and review-ready — `hardened-text-codecs-shim` (PR #259, green/CLEAN) and `hardened-url-shim` (PR #719, green/CLEAN, gauntlet-passed). Please decide whether to adopt #719's `%URL%`/`%SharedURL%` split for the URL shim and **close the redundant, CI-failing #263** (universal-permits alternative), then review + merge/ferry #259 and #719 to close out M2 — all remaining actions are merge/ferry authority the fleet cannot take.
-
-- `20260716T165737Z-ed87f2` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T165737Z-ed87f2.md)
-
-> Milestone M2 (Project Hygiene) is complete except for its two vetted-shim designs, whose PRs are built, gauntleted, and `MERGEABLE`/ready-for-review: `endojs/endo-but-for-bots` **#259** (hardened text-codecs shim) and **#719** (hardened URL/URLSearchParams shim). M2 completion — and the M3 phase work stacked behind these — is blocked on your decision to merge/ferry #259 and #719.
-
-- `20260716T184058Z-404cd3` — from gardener:endojs-endo-but-for-bots-pr475-shepherd, reply_to `endojs-endo-but-for-bots-pr475-shepherd` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T184058Z-404cd3.md)
-
-> shepherd [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) (feat/narrow-bytearray-to-uint8): red CI is NOT PR-attributable — master itself is red.
->
-> The PR's failing checks (lint, test x4, zizmor) are an exact subset of master's own failing checks. Root cause is on master, from an incomplete `packages/cbor` landing (the PR does not touch cbor, workflow pins, or the uniformity script):
->
->   • lint (check-package-uniformity): packages/cbor missing LICENSE + SECURITY.md, and package.json missing .author/.repository/.bugs/.publishConfig.
->   • test (all matrices): test/cbor.test.js -> ERR_MODULE_NOT_FOUND '@endo/eventual-send' (cbor package.json/install doesn't resolve it via ses-ava's generated import).
->   • zizmor: workflow action-pin version-comment mismatch (points to 249970729cb0) across ci.yml et al — also present on master.
->
-> Branch is 52 ahead / 5 behind master. Fix belongs on MASTER (a cbor-package fix job), not on this feature branch — pushing it to the PR head would be out-of-scope and wrong home. After master is green, rebase/weave the PR onto master to clear the inherited red and re-run CI.
->
-> Not pushing anything to the PR. next: liaison (fix broken master cbor package, then rebase the PR).
 
 - `20260716T200737Z-72c74a` — from gardener:endo-sturdyref-press-20260716-200513, reply_to `endo-sturdyref-press-20260716-200513` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T200737Z-72c74a.md)
 
@@ -264,19 +101,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > diluting the single-commit review shape of [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/issues/737).
 > Any one answer unblocks a lane.
 
-- `20260716T211440Z-c78e4b` — from gardener:xs2rust-endor-press-20260716-210915, reply_to `xs2rust-endor-press-20260716-210915` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T211440Z-c78e4b.md)
-
-> xs2rust-endor ([endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/issues/600)) press check-in: found the chain
-> silently stalled 5 days — the s19 supervisor (stage-5 acceptance + stage-6
-> dispatch) was parked behind a blocker that had already completed, because the
-> leader's garden-unblock.timer still had the monotonic-timer starvation bug the
-> 2026-07-03 fix missed (it never fired; LastTrigger empty for days). Fixed on
-> main2 (`6012296908`, OnCalendar+Persistent like the other four timers),
-> installed on the leader, fired the watcher: s19 promoted and already claimed
-> by a gardener. Chain is moving again; no branch pushes by me. Note:
-> proxy/watchman/mention-watcher/scaler/repo-watcher timers still carry the same
-> monotonic pattern — worth a sweep job if you want it.
-
 - `20260716T224153Z-8c9201` — from gardener:finbot-progress-20260716-223502, reply_to `finbot-progress-20260716-223502` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T224153Z-8c9201.md)
 
 > finbot progress (asymmetric/leverage MLE): advanced main efa6454 -> df2a164.
@@ -306,14 +130,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Maintainer decision still pending (unchanged): live execution stays blocked on an
 > explicit paper-wallet/test-net authorization and a chosen CapTP transport.
 
-- `20260716T224817Z-d54ddc` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T224817Z-d54ddc.md)
-
-> The endo-sturdyref-press job (report endo-sturdyref-press-20260716-223502) is blocked on you: a message (`72c74a`) is sitting in your inbox unread, and the job's decisions cannot proceed until you drain it. Please review your maintainer inbox — the stall is in the channel, not the work.
-
-- `20260716T230255Z-350ad2` — from gardener:reconstruct-ebfb-pr720-patterns-literal-inference, reply_to `reconstruct-ebfb-pr720-patterns-literal-inference` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T230255Z-350ad2.md)
-
-> Blocked: the current `endojs/endo-but-for-bots` `master` already contains the original merge commit `91c6718851e4cb40e5679678e117b6aec2884fa3` as an ancestor. The requested patch is therefore already present byte-for-byte (all three target blobs match), and applying `git diff 91c671885^1 91c671885` to a fresh `master` branch yields no diff. I have not opened a misleading empty DRAFT PR. Please direct whether to wait for the next mirror that drops the merge or take another action.
-
 - `20260716T230307Z-8abd89` — from gardener:reconstruct-ebfb-pr545-stream-flatmapreader, reply_to `reconstruct-ebfb-pr545-stream-flatmapreader` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T230307Z-8abd89.md)
 
 > Blocked: current endojs/endo-but-for-bots master (fcbb540ed, fetched 2026-07-15) already contains merge commit 364d69ba1 (git merge-base --is-ancestor returned 0), and all five reconstructed paths have zero diff versus master. Applying the original first-parent diff fails because the added files/content already exist. A fresh master-based PR cannot carry this diff. Please advise whether to close/cancel this reconstruction or identify a different base/revision.
@@ -332,26 +148,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Blocker: current endojs/endo-but-for-bots master (fcbb540ed) already contains merge commit 91c6718851e4cb40e5679678e117b6aec2884fa3 for [https://github.com/endojs/endo-but-for-bots/pull/720](https://github.com/endojs/endo-but-for-bots/pull/720). GitHub compare reports this recovered change is behind master by one commit and has zero files, so a master-based fresh PR cannot carry the requested diff faithfully. Please advise whether to wait for the expected hard mirror or use a different base.
 
-- `20260716T234249Z-aef697` — from watchdog:comment-watcher/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T234249Z-aef697.md)
-
-> ANOMALY: comment-watcher/kriscendobot-endo self-test FAILED on kriscendobot/endo — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on endolin-garden2-5bcdff64 and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet.
-
-- `20260716T234254Z-b293b0` — from watchdog:comment-watcher/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T234254Z-b293b0.md)
-
-> ANOMALY: comment-watcher/kriscendobot-agoric-3-proposals self-test FAILED on kriscendobot/agoric-3-proposals — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on endolin-garden2-5bcdff64 and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet.
-
-- `20260716T234424Z-69317f` — from watchdog:comment-watcher/kriscendobot-cosgov, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T234424Z-69317f.md)
-
-> ANOMALY: comment-watcher/kriscendobot-cosgov self-test FAILED on kriscendobot/cosgov — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on endolin-garden2-5bcdff64 and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet.
-
-- `20260716T234437Z-12323e` — from watchdog:comment-watcher/kriscendobot-finbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T234437Z-12323e.md)
-
-> ANOMALY: comment-watcher/kriscendobot-finbot self-test FAILED on kriscendobot/finbot — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on endolin-garden2-5bcdff64 and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet.
-
-- `20260716T234816Z-4b4784` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T234816Z-4b4784.md)
-
-> Report endo-sturdyref-press-20260716-233503 flags a garden-wide relay incident: 55 + 83 maintainer/liaison messages have been undelivered since ~07-14 and need a liaison session on the leader host (endolin-garden2-5bcdff64) to drain the inbox. This is blocking the sturdyref press (tracker #47 / #737), whose only live maintainer channel is now GitHub comments. Please run a liaison session on the leader host to drain the backlog.
-
 - `20260717T001224Z-3483f4` — from gardener:ocapn-noise-press-20260717-000503, reply_to `ocapn-noise-press-20260717-000503` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260717T001224Z-3483f4.md)
 
 > OCapN-over-Noise press status + one decision needed.
@@ -361,14 +157,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Decision needed: OCapN.md's definition of done wants cross-host (local <-> minion.town) over BOTH transports. wss+Noise cross-host is proven live (transcript in [endojs/endo-but-for-bots#693](https://github.com/endojs/endo-but-for-bots/issues/693)). TCP+CBOR+Noise invite/accept is proven only local<->local, because minion.town blocks all non-443 ingress - the demo README explicitly scoped remote TCP out. Closing the literal finish line requires opening an inbound TCP port (e.g. 8931) on minion.town's EC2 security group plus a docker port mapping for the daemon's TCP netlayer. That widens the host's attack surface (Noise IK still gates sessions, but the port itself is new exposure).
 >
 > May I open a dedicated TCP port on minion.town for the cross-host TCP+CBOR demo? Or do you consider the local TCP transcript + cross-host wss sufficient to call the goal done? Reply routes to inbox ocapn-noise-press-20260717-000503 (or the next 6h dispatch picks it up as a dead-letter).
-
-- `20260717T001253Z-4cf4cc` — from watchdog:gardener/4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260717T001253Z-4cf4cc.md)
-
-> gardener job 'build-kebab-case-lint-wildcard-test262' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
-- `20260717T001350Z-84839b` — from gardener:endojs-endo-but-for-bots-pr761-shepherd, reply_to `endojs-endo-but-for-bots-pr761-shepherd` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260717T001350Z-84839b.md)
-
-> Heads-up (endemic, not one PR): endo-but-for-bots CI job `zizmor` (Workflow security audit) is red repo-wide, including master since ~2026-07-15 (commit fcbb540). It's an online-audit `unpinned-uses` finding — every workflow's `@249970729cb0` action pin now has a "mismatched or missing version comment" (the upstream tag moved). Offline zizmor is clean; `.github/` is unchanged from base. Fix belongs in a separate repo-maintenance PR (refresh action-pin version comments, or run the repo's update-action-pins automation) — not inside feature/bugfix PRs. Shepherds on any PR that touches no workflows will keep leaving this one red as out-of-scope.
 
 - `20260717T002451Z-cb5a1b` — from gardener:endo-git-integration-press-20260717-000503, reply_to `endo-git-integration-press-20260717-000503` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260717T002451Z-cb5a1b.md)
 
@@ -573,7 +361,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 103.4M | $1058.61 _(notional, rate-card)_ | no quota set |
-| Codex | 146.3M _(+201.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 148.6M _(+204.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
