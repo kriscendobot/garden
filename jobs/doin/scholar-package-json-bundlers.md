@@ -7,3 +7,10 @@ Follow-on to scholar-package-json-schema-and-tooling (which ingested the Node ru
 - webpack (resolve.conditionNames, mainFields, sideEffects), Rollup (@rollup/plugin-node-resolve exports/mainFields), esbuild (--conditions, mainFields, packages=external), Vite (ssr vs client conditions, optimizeDeps), Turbopack, Parcel (targets, sideEffects, source field), swc, Babel.
 - Focus: which fields each honors, the default condition set and precedence order, `module`/`browser`/`main` fallback chain, `sideEffects` semantics.
 - Add sections under topic `package-manifest`; update the project matrix/inconsistencies to cite the new sections; note remaining synthesis. Prefer authoritative docs (each tool's docs repo, readable via gh/scratch clone).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: gardener
+  claimed_at: 2026-07-17T05:55:34Z
