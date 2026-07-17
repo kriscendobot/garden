@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 2
+deadline_overruns: 1
+poisoned_at: 2026-07-17T23:13:12Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-17T23:13:12Z
+---
+
+---
 model: fable
 ---
 # Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base `llm`)
@@ -24,13 +38,5 @@ scenarios by capturing logs/a repeatable script, never by reading code alone; be
 idempotent and defer to any live worker on a shared branch. Cite real command
 output for every "works" claim.
 
-<!-- garden-reaped: 1 -->
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 4
-  worker_kind: gardener
-  claimed_at: 2026-07-17T22:23:21Z
