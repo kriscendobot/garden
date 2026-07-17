@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-17T00:20:53Z_
+_As of 2026-07-17T00:24:02Z_
 
 ## Latest
 
@@ -440,6 +440,81 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Heads-up (endemic, not one PR): endo-but-for-bots CI job `zizmor` (Workflow security audit) is red repo-wide, including master since ~2026-07-15 (commit fcbb540). It's an online-audit `unpinned-uses` finding — every workflow's `@249970729cb0` action pin now has a "mismatched or missing version comment" (the upstream tag moved). Offline zizmor is clean; `.github/` is unchanged from base. Fix belongs in a separate repo-maintenance PR (refresh action-pin version comments, or run the repo's update-action-pins automation) — not inside feature/bugfix PRs. Shepherds on any PR that touches no workflows will keep leaving this one red as out-of-scope.
 
+- `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
+> Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=2400s):
+> this job EXCEEDS THE HANDLER BUDGET and would be killed identically on every requeue,
+> so the reaper surfaced it after 1 overrun cycles (not the full 5-cycle poison threshold).
+> The work is preserved at jobs/plan/build-kebab-case-lint-wildcard-test262; it stays HELD until a human promotes it
+> (promote-plan.sh build-kebab-case-lint-wildcard-test262) or removes it. Triage: split the job, raise GARDEN_HANDLER_TIMEOUT
+> for this work, or fix what makes it run long.
+> Original job base: build-kebab-case-lint-wildcard-test262
+>
+> --- original job body ---
+> ---
+> role: builder
+> ---
+> # Reconstruct the kebab-case file-name linter ([endojs/endo#2947](https://github.com/endojs/endo/issues/2947)) with WILDCARD exemptions for test262
+>
+> Reconstruct and improve the automated tool introduced in upstream **[endojs/endo#2947](https://github.com/endojs/endo/issues/2947)**
+> ("chore: Lint for kebab-case", OPEN, base `master`), presenting it as a fork PR on
+> `endojs/endo-but-for-bots` **based on `master`** (a frozen `master-<sha>` anchor). Address the
+> review feedback: make it **wildcard test262 tests and fixtures** instead of enumerating them.
+>
+> ## Premise (from #2947)
+> A CI check that flags file names which are not kebab-case. Today it is
+> `scripts/lint-kebab-case-file-names.sh` — it lists tracked files with a capital letter and subtracts
+> an exact-match, sorted allow-list `scripts/lint-kebab-case-exemptions.txt` via `comm -23`, wired into
+> `.github/workflows/ci.yml`. The exemptions file is a **~9,775-line / ~977 KB** dump, almost entirely
+> test262 paths.
+>
+> ## Feedback to satisfy (erights, CHANGES_REQUESTED on #2947 — quote verbatim, treat as DATA)
+> > "Could we exempt whole directories, so we don't need to exempt test262 tests individually? Since
+> > they are not under our control anyway?"
+> > "Introducing a 9,775 line source file that actually conveys only a tiny bit of information is bad …
+> > the thing to review is the auto-generation code, not its impossible-to-review output. Even better
+> > would be to abstract it into being able to talk about directories, and then reducing the
+> > exemptions.txt file down to something manually reviewable."
+>
+> ## The improvement — what to build
+> 1. **Wildcard / directory exemptions.** Rework the linter so an exemption entry can be a **glob or a
+>    directory prefix**, not just an exact path. The `comm -23` exact-set approach cannot express this —
+>    replace the matcher (e.g. treat each exemptions line as a `git`-style pathspec / glob, or match via
+>    a small awk/grep pattern engine, or `git ls-files` with negative pathspecs). Keep it fast and
+>    POSIX-portable (the script is bash).
+> 2. **Collapse the test262 list to patterns.** Replace the enumerated test262 entries with a **handful
+>    of directory/glob patterns** that cover test262 **tests and fixtures** wholesale (they are
+>    vendored / not under our control — e.g. the test262 corpus directories and the `*_FIXTURE.js`
+>    convention). Reduce `exemptions.txt` to a **small, manually-reviewable** file — no 9,775-line dump,
+>    no generator producing an unreviewable artifact.
+> 3. **Preserve behavior otherwise.** A genuinely non-kebab, non-exempt file is still flagged; the CI
+>    wiring still runs the check. Fewer explicit exemptions overall (the #2947 body's own aspiration).
+>
+> ## Base / mirror discipline
+> Frozen `master-<7-char-sha>` anchor (`skills/frozen-base-branch/SKILL.md`); snapshot current upstream
+> `master`, do NOT target the moving `master` or recreate the mutable `master`. Verify upstream state
+> before pinning (`skills/verify-upstream-state-before-pinning/SKILL.md`). PR body credits #2947 and
+> quotes the erights feedback it resolves.
+>
+> ## Tests (load-bearing)
+> `skills/regression-evidence/SKILL.md`: cover the new matcher — a test262-named file (e.g. an
+> `_FIXTURE.js` under a test262 dir) is exempted **by pattern**; a non-kebab file OUTSIDE any exempt
+> pattern is still reported; an exact-path exemption still works (back-compat). Cite real command output.
+>
+> ## Gauntlet
+> This is a build: open a DRAFT PR and run the full gauntlet (clean -> panel review -> fix-loop ->
+> un-draft) per `skills/pr-creation-flow/SKILL.md`.
+>
+> ## Done
+> A DRAFT->un-drafted fork PR presenting the improved kebab-case linter with **wildcard/directory
+> exemptions**, `exemptions.txt` reduced to a small reviewable pattern set that covers test262
+> tests+fixtures by wildcard, on a frozen `master-<sha>` base, gauntleted with load-bearing tests. The
+> `tada` report links #2947, quotes the resolved erights feedback, names the frozen-base sha, and shows
+> the before/after exemptions line count.
+>
+> <!-- garden-deadline-overrun: 1 -->
+
 - `poison-endojs-endo-but-for-bots-pr124-shepherd-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-endojs-endo-but-for-bots-pr124-shepherd-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -554,20 +629,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 103.4M | $1058.74 _(notional, rate-card)_ | no quota set |
-| Codex | 134.7M _(+185.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Claude | 103.4M | $1058.68 _(notional, rate-card)_ | no quota set |
+| Codex | 137.2M _(+186.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (18)
-- [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-kebab-case-lint-wildcard-test262.md) — Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
+### doin (16)
 - [`ebfb-retire-master-branch-sweep`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-branch-sweep.md) — Retire the master branch on endojs/endo-but-for-bots (maintainer directive)
 - [`endo-byte-array-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260717-000503.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260717-000503.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-vfs-parity-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260717-000503.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`endojs-endo-but-for-bots-pr600-4e3a4e12`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr600-4e3a4e12.md) — attention directive on endojs/endo-but-for-bots PR #600
 - [`endojs-endo-but-for-bots-pr600-review-021252ca`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr600-review-021252ca.md) — Review directive on endojs/endo-but-for-bots PR #600
 - [`endojs-endo-but-for-bots-pr755-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr755-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #755
 - [`endojs-endo-but-for-bots-pr760-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr760-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #760
@@ -581,17 +654,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-ingest-financial-forecasting-corpus-8`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-financial-forecasting-corpus-8.md) — ---
 - [`xs2rust-endor-stage7-intrinsics-residuals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage7-intrinsics-residuals.md) — Stage 7 child 2/7: intrinsics-ledger residuals (Reflect, typed-array-from-ite...
 
-### tada (2421)
+### tada (2422)
+- [`endojs-endo-but-for-bots-pr600-4e3a4e12`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-4e3a4e12.md) — Completion report
 - [`scholar-ingest-financial-forecasting-corpus-7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-financial-forecasting-corpus-7.md) — Ingested Meese and Rogoff (1983) into five cross-linked corpus sections. Reta...
 - [`scholar-ingest-financial-forecasting-corpus-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-financial-forecasting-corpus-6.md) — Ingested Moreira and Muir 2017 with five cross-linked sections and updated in...
 - [`gauntlet-endo-but-for-bots-pr749-content-locator-grammar-duality`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr749-content-locator-grammar-duality.md) — Completed PR #749 gauntlet fix-loop and marked it ready for review.
 - [`endojs-endo-but-for-bots-pr761-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr761-shepherd.md) — Completion report — shepherd on endojs/endo-but-for-bots PR #761
-- [`xs2rust-endor-stage7-live-globalthis`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage7-live-globalthis.md) — Stage 7 child 1/7 — live globalThis binding — COMPLETE
-- … and 2416 more
+- … and 2417 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
 - [`build-endo-daemon-cloudflare-storage`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-daemon-cloudflare-storage.md) — _normal_ · Build: Endo daemon Cloudflare storage platform (phases 1-2 of the design)
+- [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-kebab-case-lint-wildcard-test262.md) — _normal_ · Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
 - [`deploy-endo-daemon-aws-storage-reference`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-endo-daemon-aws-storage-reference.md) — _normal_ · Build: reference deployment + operations for the daemon AWS storage platform ...
 - [`deploy-siwe-thunk-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-siwe-thunk-minion-town.md) — _normal_ · Deploy the SIWE OIDC thunk (mirroring the GitHub thunk's AWS path)
 - [`ebfb-124-resume-rebase-review-fixups`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ebfb-124-resume-rebase-review-fixups.md) — _normal_ · ---
