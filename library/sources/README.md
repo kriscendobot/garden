@@ -709,6 +709,15 @@ The bot-fork's per-package READMEs (lal, fae, genie, familiar, whylip, exo, chat
 | [packages/whylip/src/SceneCanvas.jsx](endo-but-for-bots--packages-whylip-src-SceneCanvas-jsx.md) | 43-line `packages/whylip/src/SceneCanvas.jsx` — the React component implementing Layer 6 of the six-layer exfiltration defense. | 1 | current |
 | [packages/whylip/src/hooks/useConversation.js](endo-but-for-bots--packages-whylip-src-hooks-useConversation-js.md) | 444-line `packages/whylip/src/hooks/useConversation.js` — the React hook implementing Whylip's complete conversation state machine. | 1 | current |
 
+### package.json manifest specifications (nodejs/node, npm/cli; begin-ingest 2026-07-17)
+
+The authoritative primary sources for the `package.json` manifest, ingested for the `package-json` project (property-by-consumer matrix). Node's "Modules: Packages" is the runtime/module-system spec; npm's `package-json.md` is the field-by-field property catalog. Deeper per-consumer ingests (bundlers, Yarn Berry / pnpm / Bun, TypeScript module resolution, Deno, Endo compartment-mapper) are queued as follow-on `scholar-*` jobs.
+
+| Source | Repo | File | Sections | Status |
+|--------|------|------|----------|--------|
+| [doc/api/packages.md](node--doc-api-packages.md) | nodejs/node | doc/api/packages.md | 8 | current (file-commit `cc37ad5`) |
+| [configuring-npm/package-json.md](npm--configuring-npm-package-json.md) | npm/cli | docs/lib/content/configuring-npm/package-json.md | 5 | current (file-commit `ce7681f`) |
+
 ## Backlog (not yet ingested)
 
 Roughly grouped by priority. The full file inventory was captured during the pilot survey; the lists below are summaries, not authoritative manifests.
