@@ -47,7 +47,7 @@
 atomic_advance_tree() {
   local repo="${1:?repo}" old="${2:?old_sha}" up="${3:?up_sha}"
   local meta path newmode newsha status dir tmp target
-  local -a stage_src=() stage_dst=() del_paths=()
+  local -a stage_src=() stage_dst=() stage_status=() del_paths=()
 
   _ats_cleanup_temps() {
     local f
@@ -137,7 +137,7 @@ atomic_advance_tree() {
             esac
             ;;
         esac
-        stage_src+=("$tmp"); stage_dst+=("$repo/$path")
+        stage_src+=("$tmp"); stage_dst+=("$repo/$path"); stage_status+=("$status")
         ;;
       *)
         # With --no-renames only A/M/D/T should appear; anything else is unexpected
@@ -150,16 +150,21 @@ atomic_advance_tree() {
   done < "$rawdiff"
   rm -f "$rawdiff"
 
-  # --- Phase 2: swap every staged blob into place with an atomic rename, then
-  # apply deletions. These are fast syscalls; a failure here is the rare rc-2
-  # half-state (some paths advanced, some not), which the next deploy's dirty
-  # check refuses to advance over.
+  # --- Phase 2: swap additions into place before modifications/type changes,
+  # then apply deletions. An addition has no live counterpart, so it is safe to
+  # land first. This ensures an updated caller cannot observe a newly-added
+  # helper as absent while the swap is in progress. These are fast syscalls; a
+  # failure here is the rare rc-2 half-state (some paths advanced, some not),
+  # which the next deploy's dirty check refuses to advance over.
   local i
-  for i in "${!stage_dst[@]}"; do
-    if ! mv -f "${stage_src[$i]}" "${stage_dst[$i]}"; then
-      log "tree-swap: FATAL rename '${stage_src[$i]}' -> '${stage_dst[$i]}' failed mid-swap; tree is HALF-ADVANCED"
-      return 2
-    fi
+  for status in A M T; do
+    for i in "${!stage_dst[@]}"; do
+      [ "${stage_status[$i]}" = "$status" ] || continue
+      if ! mv -f "${stage_src[$i]}" "${stage_dst[$i]}"; then
+        log "tree-swap: FATAL rename '${stage_src[$i]}' -> '${stage_dst[$i]}' failed mid-swap; tree is HALF-ADVANCED"
+        return 2
+      fi
+    done
   done
   # Deletions last. A removed path corresponds to a retired unit that the deploy's
   # reconcile step (install-units enable-services) disables; unlink is inherently

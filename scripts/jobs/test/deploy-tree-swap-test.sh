@@ -64,11 +64,20 @@ hr; echo "STATIC — deploy-tree-swap.sh parses"; hr
 bash -n "$JOBS/deploy-tree-swap.sh" && ok "deploy-tree-swap.sh parses" || bad "syntax error"
 
 # ============================================================================
-hr; echo "CORRECTNESS — the advance reproduces up_sha exactly and leaves no litter"; hr
+hr; echo "CORRECTNESS — additions land before modified callers and the advance reproduces up_sha exactly"; hr
 D="$TR/correct"
 read -r OLD UP < <(build_repo "$D")
+MV_LOG="$TR/correct-mv.log"
+mv() {
+  printf '%s\n' "${@: -1}" >> "$MV_LOG"
+  command mv "$@"
+}
 atomic_advance_tree "$D" "$OLD" "$UP"; rc=$?
+unset -f mv
 [ "$rc" -eq 0 ] && ok "atomic_advance_tree returned 0" || bad "returned $rc"
+expected_additions="$(printf '%s\n' "$D/scripts/jobs/link-to-a" "$D/scripts/jobs/sub/new.sh" | sort)"
+actual_first="$(head -n 2 "$MV_LOG" | sort)"
+[ "$actual_first" = "$expected_additions" ] && ok "all added paths land before modified paths" || bad "phase-2 rename order did not put additions first: $(head -n 3 "$MV_LOG" | tr '\n' ' ')"
 [ "$(git -C "$D" rev-parse HEAD)" = "$UP" ] && ok "HEAD advanced to up_sha" || bad "HEAD not at up_sha"
 [ -z "$(git -C "$D" status --porcelain)" ] && ok "working tree clean after advance (index+tree == up_sha)" || bad "tree dirty: $(git -C "$D" status --porcelain)"
 grep -q 'NEW-A' "$D/scripts/jobs/a.sh" && ok "modified file has new content" || bad "a.sh not updated"
