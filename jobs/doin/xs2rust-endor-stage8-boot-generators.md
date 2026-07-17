@@ -44,3 +44,10 @@ authored worker entry only. Lint/format per repo norms. Capture bundler runs to 
 **Practical notes:** `$HOME` = `/home/kris/garden`; logs under `$HOME/tmp`; `/tmp` noexec; yarn
 PATH shim if needed; never `git add c/moddable`. Honest-partial discipline: commit what is done,
 report the precise remainder.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-17T11:25:12Z
