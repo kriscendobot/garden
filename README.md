@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-17T11:48:31Z_
+_As of 2026-07-17T11:49:21Z_
 
 ## Latest
 
-Upstream `endojs/endo` master landed on the `llm` roadmap branch: [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) was conducted as a true merge (immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, `skipLibCheck`), deliberately stopping just short of upstream's ESLint 10 flat-config overhaul — flagged as a separate multi-cycle re-lint job rather than forced into this pass. The retire-master weave finished on [endo-but-for-bots#334](https://github.com/endojs/endo-but-for-bots/pull/334).
+Upstream `endo` master finally landed on the `llm` roadmap branch: [#773](https://github.com/endojs/endo-but-for-bots/pull/773) was conducted in (immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, skipLibCheck), deliberately stopping short of upstream's ESLint 10 flat-config overhaul — that migration is flagged as a separate multi-cycle re-lint, not this merge. Note the merge job itself overran its handler budget and got poisoned/parked even though it completed, so the poison entry is stale.
 
-Three lanes are one directive from the finish line and need your call: git-integration M3, where [endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) (Phase 1) sits green/CLEAN awaiting a `merge` before [endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/pull/707) can close the milestone; M2 hygiene, where [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) are green/CLEAN pending merge/ferry and redundant [endo-but-for-bots#263](https://github.com/endojs/endo-but-for-bots/pull/263) wants closing; and the esheets tree, fully dammed six days behind [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, still showing stale CHANGES_REQUESTED). The foreman also needs a package-home ruling for the MVS resolver — [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) vs [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — before the M3 module-loading tail can build, and the SturdyRef effort ([endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737), draft, 25/25 green) is three-gates-blocked on a first review plus rank-prefix and stack-collapse decisions.
-
-Watch the reaper: a cluster of shepherd and merge jobs overran their handler budgets and were poisoned to the plan queue (shepherds for [endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124), [endo-but-for-bots#704](https://github.com/endojs/endo-but-for-bots/pull/704), [endo-but-for-bots#763](https://github.com/endojs/endo-but-for-bots/pull/763), the merge-upstream job itself, and the [endo-but-for-bots#585](https://github.com/endojs/endo-but-for-bots/pull/585) content-store merge), each needing a split or a raised timeout. Separately, the abbreviation-linter gate regressed on [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) (`fetchImpl` predating the gate's deployment escaped its diff-only scan) and awaits your call on whether to widen it. Off in the fork corners, four master-reconstruction jobs blocked because current `origin/master` already contains their merge commits (empty diffs), and the finbot line advanced through adaptive per-asset GJR-GARCH volatility selection — still holding for a paper-wallet/testnet authorization before any live execution.
+Several lanes are now fully green and gated solely on a merge directive: git-integration Phase 1 [#705](https://github.com/endojs/endo-but-for-bots/pull/705) and Phase 3 [#707](https://github.com/endojs/endo-but-for-bots/pull/707) — the M3 worked-loop exit criterion — after [#706](https://github.com/endojs/endo-but-for-bots/pull/706) merged, plus content-store powers [#585](https://github.com/endojs/endo-but-for-bots/pull/585). The foreman reports M2 one decision from done ([#719](https://github.com/endojs/endo-but-for-bots/pull/719) URL shim + [#259](https://github.com/endojs/endo-but-for-bots/pull/259) text-codecs green; asks to close CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263)) and asks you to rule the MVS-resolver home between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) to unblock M3's tail. Other stalls awaiting you: sturdyref [#737](https://github.com/endojs/endo-but-for-bots/pull/737) has zero reviews, the esheets tree is dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621), and the avoid-abbreviations pre-push gate recurred on a pre-gate line in [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (a structural blind spot needing your call on whether to widen it). Meanwhile the master-retirement reconstruction jobs (PRs #545, #69, #720) all blocked as no-ops — their diffs are already ancestors of the fork's master — and a cluster of shepherd/merge jobs was poisoned for overrunning the handler wall-clock budget.
 
 ## Parked for maintainer feedback
 
@@ -17,8 +15,8 @@ Watch the reaper: a cluster of shepherd and merge jobs overran their handler bud
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 3d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 4d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 14d)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 17d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 18d)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 17d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 31d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 56d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 56d)
@@ -685,14 +683,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 118.6M | $1217.47 _(notional, rate-card)_ | no quota set |
+| Claude | 118.7M | $1217.84 _(notional, rate-card)_ | no quota set |
 | Codex | 190.9M _(+383.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (6)
+- [`ebfb-retire-master-pr-303`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-303.md) — ---
 - [`endo-byte-array-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260717-060503.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`scholar-package-json-bundlers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-bundlers.md) — Scholar: how bundlers and compilers read package.json
