@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-17T00:33:59Z_
+_As of 2026-07-17T00:36:03Z_
 
 ## Latest
 
@@ -573,14 +573,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 103.4M | $1058.61 _(notional, rate-card)_ | no quota set |
-| Codex | 142.8M _(+191.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
+| Codex | 143.2M _(+193.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (12)
-- [`ebfb-retire-master-pr-759`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-759.md) — ---
+### doin (13)
+- [`endo-sturdyref-press-20260717-003509`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260717-003509.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-vfs-parity-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260717-000503.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr600-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr600-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #600
 - [`endojs-endo-but-for-bots-pr755-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr755-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #755
@@ -591,15 +591,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`mirror-endo-2780-cache-globals-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mirror-endo-2780-cache-globals-gauntlet.md) — Mirror upstream endojs/endo#2780 (Cache globals) onto a frozen master base, t...
 - [`ocapn-noise-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260717-000503.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`scholar-ingest-financial-forecasting-corpus-8`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-financial-forecasting-corpus-8.md) — ---
+- [`xs2rust-endor-press-20260717-003509`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260717-003509.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-stage7-intrinsics-residuals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage7-intrinsics-residuals.md) — Stage 7 child 2/7: intrinsics-ledger residuals (Reflect, typed-array-from-ite...
 
-### tada (2429)
+### tada (2430)
+- [`ebfb-retire-master-pr-759`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-759.md) — Rebased PR #759 onto upstream endojs/endo master 2708cac, reused master-2708c...
 - [`gauntlet-endo-but-for-bots-pr739-store-writefile-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr739-store-writefile-design.md) — Updated PR #739’s design to use a uniform writeFile tail-hub contract, includ...
 - [`ebfb-retire-master-branch-sweep`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-branch-sweep.md) — Enumerated 34 open master-base PRs and parked 34 per-PR weave children.
 - [`endo-byte-array-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260717-000503.md) — The sweep job was already claimed by a peer gardener, which has parked 31 per...
 - [`endo-git-integration-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260717-000503.md) — Completion report — git-integration press dispatch (2026-07-17, 00:05Z claim,...
-- [`gauntlet-endo-but-for-bots-pr585-content-store-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr585-content-store-powers.md) — Gauntlet complete — endojs/endo-but-for-bots PR #585 feat(platform): add cont...
-- … and 2424 more
+- … and 2425 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
