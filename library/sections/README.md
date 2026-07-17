@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6459 (530 parent indexes + 5929 children).
+Total section files: 6464 (530 parent indexes + 5934 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8494,6 +8494,14 @@ Total section files: 6459 (530 parent indexes + 5929 children).
 - [papers--welch-comprehensive-look-equity-premium-prediction-2008--monthly-horizons-and-specification-search](papers--welch-comprehensive-look-equity-premium-prediction-2008--monthly-horizons-and-specification-search.md)
 - [papers--welch-comprehensive-look-equity-premium-prediction-2008--overview](papers--welch-comprehensive-look-equity-premium-prediction-2008--overview.md)
 - [papers--welch-comprehensive-look-equity-premium-prediction-2008--rolling-out-of-sample-historical-mean-benchmark](papers--welch-comprehensive-look-equity-premium-prediction-2008--rolling-out-of-sample-historical-mean-benchmark.md)
+
+### papers--white-reality-check-data-snooping-2000
+
+- [papers--white-reality-check-data-snooping-2000--framework-and-the-max-statistic](papers--white-reality-check-data-snooping-2000--framework-and-the-max-statistic.md)
+- [papers--white-reality-check-data-snooping-2000--monte-carlo-and-bootstrap-reality-checks](papers--white-reality-check-data-snooping-2000--monte-carlo-and-bootstrap-reality-checks.md)
+- [papers--white-reality-check-data-snooping-2000--overview-and-the-data-snooping-null](papers--white-reality-check-data-snooping-2000--overview-and-the-data-snooping-null.md)
+- [papers--white-reality-check-data-snooping-2000--placement-and-the-correction-lineage](papers--white-reality-check-data-snooping-2000--placement-and-the-correction-lineage.md)
+- [papers--white-reality-check-data-snooping-2000--sp500-illustration-and-the-naive-p-value](papers--white-reality-check-data-snooping-2000--sp500-illustration-and-the-naive-p-value.md)
 
 ### system--readme
 
