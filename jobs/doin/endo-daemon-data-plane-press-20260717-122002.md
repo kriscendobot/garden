@@ -24,3 +24,10 @@ un-draft/merge and what the first unblocked builder increment is. If the design 
 not yet settled, press the **design** forward (post a designer sub-job) rather than
 manufacturing implementation ahead of the spec. Be idempotent and defer to live
 workers; cite real evidence for any "landed" claim.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 20
+  worker_kind: gardener
+  claimed_at: 2026-07-17T12:20:21Z
