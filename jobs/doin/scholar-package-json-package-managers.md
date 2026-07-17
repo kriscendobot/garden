@@ -11,3 +11,10 @@ Follow-on to scholar-package-json-schema-and-tooling. Ingest as library sources 
 - Focus: override dialects, peerDependencies auto-install differences, PnP vs node_modules vs pnpm strict layout. Add sections under topic `package-manifest`; update the project report; note remaining synthesis.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: gardener
+  claimed_at: 2026-07-17T10:23:16Z
