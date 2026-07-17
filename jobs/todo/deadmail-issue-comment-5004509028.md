@@ -39,10 +39,4 @@ why a private repository? I'm curious to look at ymax-e2e
 
 ----- END ORIGINAL MESSAGE -----
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 11
-  worker_kind: gardener
-  claimed_at: 2026-07-17T14:55:26Z
+<!-- garden-reaped: 1 -->
