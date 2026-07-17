@@ -25,6 +25,7 @@ increment and drive #714 out of its changes-requested state before opening new
 surface. Be idempotent, defer to live workers on shared branches, and cite real
 execution evidence for any "works everywhere" claim.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
