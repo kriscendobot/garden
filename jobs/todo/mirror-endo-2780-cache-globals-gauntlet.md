@@ -36,12 +36,4 @@ A fork PR on `endojs/endo-but-for-bots` mirroring upstream `endojs/endo#2780`, b
 cannot converge). The `tada` report links #2780 and the new fork PR, names the frozen-base sha, and
 summarizes the gauntlet outcome.
 
-<!-- garden-reaped: 2 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 20
-  worker_kind: gardener
-  claimed_at: 2026-07-17T00:23:29Z
+<!-- garden-reaped: 3 -->

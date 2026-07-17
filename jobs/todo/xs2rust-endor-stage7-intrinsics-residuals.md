@@ -57,10 +57,4 @@ ones that do plus a precise gap note.
 - Budget: ONE 2400s invocation. Land green increments; honest remainder in tada.
 - Report via tada ONLY; never inbox-send the parked supervisor.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 11
-  worker_kind: gardener
-  claimed_at: 2026-07-17T00:16:08Z
+<!-- garden-reaped: 1 -->
