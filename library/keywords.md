@@ -14625,3 +14625,20 @@ Clark West test | nested-model-forecast-comparison
 MSPE-adjusted test | nested-model-forecast-comparison
 MSPE adjustment | nested-model-forecast-comparison
 equal predictive accuracy in nested models | nested-model-forecast-comparison
+resolutions | dependency-overrides
+pnpm overrides | dependency-overrides
+pnpm-workspace.yaml overrides | dependency-overrides
+peerDependencyRules | dependency-overrides
+packageExtensions | dependency-overrides
+trustedDependencies | lifecycle-script-trust
+lifecycle scripts | lifecycle-script-trust
+postinstall trust | lifecycle-script-trust
+dependenciesMeta.built | lifecycle-script-trust
+ignore-scripts | lifecycle-script-trust
+default-secure install | lifecycle-script-trust
+packageManager | package-manager-pinning
+packageManager field | package-manager-pinning
+Corepack | package-manager-pinning
+devEngines.packageManager | package-manager-pinning
+dependenciesMeta.injected | (see section: pnpm--package-json--dependencies-meta-and-publishconfig)
+peer dependencies with default | (see section: yarn-berry--manifest-schema--dependency-metadata)
