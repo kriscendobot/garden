@@ -1,2 +1,9 @@
 In `scripts/jobs/triager.sh`, line 117 hard-dies on a transient fetch failure:
 `git --git-dir="$BARE" fetch -q --all --prune || die "fetch failed for $slug"`. The captured failure was `Terminated` + `FATAL: fetch failed for kriscendobot-vattr97`, i.e. the fetch was SIGTERM'd (a hung/slow fetch reaped by timeout/systemd), so `die` exited 1 and failed the `garden-triager@kriscendobot-vattr97` unit into a crash-loop. This is the only hard-die transient path in a script that otherwise uniformly skips-and-retries: missing clone (L83-86), failed self-provision (L95-104), corrupt clone (L74-82), and failed handler (circuit breaker, L160-167) all log + optionally `alert_maintainer` (throttled) and `exit 0`. Fix: make a fetch failure follow the same pattern instead of `die` — on `git fetch` failure, log a WARN, call `alert_maintainer "triager-fetch-failed-${slug//[^A-Za-z0-9._-]/_}" "<msg noting transient/unreachable, retrying next tick>"` (throttled per dedup key so a blip alerts at most once per window), and `exit 0` so the next tick retries rather than crash-looping. Additionally wrap the fetch in a bounded `timeout` (reuse the same bounded-timeout approach `bounded_clone` uses) so a hung fetch is reaped cleanly by the script rather than SIGTERM'd mid-run and misreported as a FATAL crash. Do not advance any cursor on this path. Verify the existing missing-clone/self-provision skip behavior is unchanged.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-17T16:04:58Z
