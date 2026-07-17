@@ -67,3 +67,10 @@ the maintainer finish line ("integrated with endor and passing all `test:rust` d
 - Capture runs to files, check `$?`; `/tmp` is noexec; use `$HOME/tmp` for TMPDIR.
 - Budget: ONE 2400s invocation.
 - Report via tada ONLY; never inbox-send the parked supervisor.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: gardener
+  claimed_at: 2026-07-17T05:28:15Z
