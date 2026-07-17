@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-17T12:44:42Z_
+_As of 2026-07-17T12:47:58Z_
 
 ## Latest
 
-Upstream `endo` master landed on the `llm` trunk: [#773](https://github.com/endojs/endo-but-for-bots/pull/773) was conducted as a merge (llm now at d39605930), bringing the immutable-arraybuffer pseudo-prototype drop, the SES `"code"` error prop, and skipLibCheck — deliberately stopping short of upstream's ESLint 10 flat-config migration, which is flagged as a separate multi-cycle job. The git-integration M3 lane is fully green and one directive from the finish: [#706](https://github.com/endojs/endo-but-for-bots/pull/706) merged, and Phase 1 [#705](https://github.com/endojs/endo-but-for-bots/pull/705) plus the milestone-exit Phase 3 [#707](https://github.com/endojs/endo-but-for-bots/pull/707) are green and awaiting a merge call. finbot advanced its volatility model to adaptive per-asset GJR-GARCH leverage estimation.
+Upstream `endojs/endo` master landed on the fork's `llm` roadmap branch: [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) was conducted as a true merge (immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, skipLibCheck, CI/tsconfig fixes), deliberately stopping just short of upstream's ESLint 10 flat-config overhaul — that migration is flagged as a separate, multi-cycle job, not forced into this cycle. OCapN-over-Noise reports M1–M5 all demonstrated; a shellcheck SC2034 that had gone lint-red across the upper stack was fixed and rebased through [#340→#684→#688→#693](https://github.com/endojs/endo-but-for-bots/pull/693), with fresh CI running. The git-integration M3 lane is fully green and one directive from done — [#705](https://github.com/endojs/endo-but-for-bots/pull/705) (Phase 1) and [#707](https://github.com/endojs/endo-but-for-bots/pull/707) (the worked version-controlled-filesystem loop, the milestone exit) both pass and await a `merge`.
 
-Several lanes are stalled purely on maintainer decisions: M3's module-loading tail needs a ruling on the registry package-home ([#671](https://github.com/endojs/endo-but-for-bots/pull/671) vs [#403](https://github.com/endojs/endo-but-for-bots/pull/403)); M2 is one decision from done ([#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) review-ready, redundant [#263](https://github.com/endojs/endo-but-for-bots/pull/263) to close); the esheets tree is dammed behind a re-review of [#621](https://github.com/endojs/endo-but-for-bots/pull/621); the SturdyRef effort waits on a first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus a rank-prefix pick; and OCapN-over-Noise (M1–M5 all demonstrated) asks whether to open an inbound TCP port on minion.town to close the literal cross-host finish line. Worth noticing: a wave of jobs poisoned this cycle on handler-budget overruns — the [#585](https://github.com/endojs/endo-but-for-bots/pull/585) content-store merge, the upstream-merge job, both npm/pnpm master-migration experiments, and shepherds for [#124](https://github.com/endojs/endo-but-for-bots/pull/124)/[#704](https://github.com/endojs/endo-but-for-bots/pull/704)/[#763](https://github.com/endojs/endo-but-for-bots/pull/763) — all parked in the plan queue awaiting promotion, and the xs2rust Stage-8 orchestration halted on its C-XS baseline child.
+A cluster of merge/decision gates is now the binding constraint: the M3 module-loading tail is stalled on ruling which package-home wins for the MVS resolver ([#671](https://github.com/endojs/endo-but-for-bots/pull/671) vs [#403](https://github.com/endojs/endo-but-for-bots/pull/403)); M2 is one decision from complete pending [#259](https://github.com/endojs/endo-but-for-bots/pull/259)/[#719](https://github.com/endojs/endo-but-for-bots/pull/719); the esheets tree is fully dammed behind re-review of [#621](https://github.com/endojs/endo-but-for-bots/pull/621); and the sturdyref lane holds on first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737). Worth noticing on the ops side: the reaper poisoned a wave of jobs for deadline-overrun — several auto-shepherds (#124/#704/#763), the [#585](https://github.com/endojs/endo-but-for-bots/pull/585) content-store merge (transient, CLEAN, safe to promote), and the upstream-merge job itself — all parked in the plan queue awaiting promotion, and a gardener flagged that PRs retargeted to `master-<sha>` reflections silently skip Browser Tests via a base-branch filter.
 
 ## Parked for maintainer feedback
 
@@ -787,31 +787,30 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 121.5M | $1249.16 _(notional, rate-card)_ | no quota set |
+| Claude | 121.4M | $1238.21 _(notional, rate-card)_ | no quota set |
 | Codex | 191.2M _(+397.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (9)
+### doin (8)
 - [`ebfb-retire-master-pr-182`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-182.md) — ---
 - [`endo-byte-array-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260717-060503.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-vfs-parity-press-20260717-122002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260717-122002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr250-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr250-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #250
 - [`gauntlet-endo-but-for-bots-pr783-content-locator-interface-methods`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr783-content-locator-interface-methods.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
-- [`ocapn-noise-press-20260717-122002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260717-122002.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`port-xs-to-rust-memory-safe-engine-s24`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s24.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`scholar-package-json-bundlers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-bundlers.md) — Scholar: how bundlers and compilers read package.json
 - [`scholar-package-json-package-managers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-package-managers.md) — Scholar: how package managers read package.json (Yarn, pnpm, Bun)
 
-### tada (2562)
+### tada (2563)
+- [`ocapn-noise-press-20260717-122002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260717-122002.md) — Completion report — ocapn-noise-press-20260717-122002
 - [`endo-git-integration-press-20260717-122002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260717-122002.md) — Completion report — git-integration press dispatch (2026-07-17, 12:20Z claim;...
 - [`ebfb-retire-master-pr-186`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-186.md) — PR #186 is OPEN and targets master. Upstream endojs/endo master is 46d4edf317...
 - [`xs2rust-endor-build-stage8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage8.md) — orchestration xs2rust-endor-build-stage8 — HALTED
 - [`ebfb-retire-master-pr-235`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-235.md) — Retired PR #235’s master base. Rebasing used upstream endojs/endo@46d4edf, re...
-- [`ebfb-retire-master-pr-239`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-239.md) — Done. The base is retired for PR #239.
-- … and 2557 more
+- … and 2558 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
