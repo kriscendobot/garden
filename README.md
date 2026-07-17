@@ -1,18 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-17T17:35:56Z_
+_As of 2026-07-17T17:39:33Z_
 
 ## Latest
 
-Upstream `endojs/endo` master (up to `ba88ef797`, deliberately stopping short of the breaking ESLint 10 flat-config migration) was merged into the `llm` roadmap branch via [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) and conducted, advancing `llm` to `d39605930` — bringing in the immutable-arraybuffer pseudo-prototype drop, SES console sanitization + error `code` prop, and `skipLibCheck`. Adopting the full ESLint 10 flat-config trio is flagged as a separate multi-cycle job (63 errors + 130 warnings on the daemon package alone), not folded in. finbot continued its steady solo advance through live GJR-GARCH leverage estimation to auto-selecting the asymmetric surface when fitted gamma is material, and the VFS-parity press consolidated the delegated glob/grep/glorp surface onto `llm` in [endo-but-for-bots#713](https://github.com/endojs/endo-but-for-bots/pull/713).
-
-Little moved on the board itself, and a maintainer should notice why: nearly every active lane is now dammed behind a decision only kriskowal can make. The critical ones — merge [endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) to finish git-integration M3; re-review/merge the OAuth design [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (6 days stalled, gating the entire esheets tree); rule the M3 registry package-home between [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403); close out M2 by adopting [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) + merging [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259); first review of the SturdyRef replacement [endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737); and the ~5-minute browser Gate 1 that has held all of minion.town ([kriskowal/garden#58](https://github.com/kriskowal/garden/issues/58)) for nine straight hourly cycles. Separately, a wave of jobs was reaper-poisoned for overrunning the 2400s handler budget — the long-running merge-upstream job, the PR585 content-store merge, and the auto-shepherds for [endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124), [endo-but-for-bots#704](https://github.com/endojs/endo-but-for-bots/pull/704), and [endo-but-for-bots#763](https://github.com/endojs/endo-but-for-bots/pull/763) — each parked and awaiting a promote, along with a recurring `avoid-abbreviations` gate miss escalated for a policy call.
+Upstream `endojs/endo` master landed on the `llm` roadmap branch: [#773](https://github.com/endojs/endo-but-for-bots/pull/773) was merged (a true merge up to `ba88ef797`), bringing the immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, and skipLibCheck — the gardener deliberately stopped short of upstream's ESLint 10 flat-config migration, flagging it as a multi-cycle re-lint that needs its own job rather than forcing it into this cycle. Several lanes are now one maintainer decision from finishing: git-integration Phase 1 [#705](https://github.com/endojs/endo-but-for-bots/pull/705) is green and un-drafted, one `merge` directive from closing milestone M3; the esheets tree remains dammed behind OAuth design [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (all CI green, but a stale CHANGES_REQUESTED); the sturdyref stack waits on a first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus a marshal rank-prefix pick; and M2 hangs on adopting the URL-shim split in [#719](https://github.com/endojs/endo-but-for-bots/pull/719)/[#259](https://github.com/endojs/endo-but-for-bots/pull/259) and closing the redundant, CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263). minion.town's entire primary phase is blocked on a ~5-minute human browser action (Gate 1 of the MCP-Endo-guest design), now nine consecutive hourly cycles idle. Notably, a wave of long-running jobs — several auto-shepherds, the upstream merge, the content-store merge [#585](https://github.com/endojs/endo-but-for-bots/pull/585), and the stage-8 XS→Rust baseline — tripped the handler-budget reaper and now sit poisoned in the plan queue awaiting split-and-promote.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 38m)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 44m)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 5h)
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 36m)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 42m)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 18h)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 2d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 3d)
@@ -853,24 +851,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 125.6M | $1247.12 _(notional, rate-card)_ | no quota set |
+| Claude | 125.6M | $1245.34 _(notional, rate-card)_ | no quota set |
 | Codex | 196.3M _(+409.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`minion-town-agenda-review-20260717-173501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260717-173501.md) — Minion Town hourly agenda review
+### doin (1)
 - [`xs2rust-endor-stage8-cxs-baseline-r2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage8-cxs-baseline-r2.md) — Stage-8b child 1/4 (was stage-8 child 3/6, re-cut after transient-outage pois...
 
-### tada (2613)
+### tada (2614)
+- [`minion-town-agenda-review-20260717-173501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260717-173501.md) — Completion report
 - [`kriscendobot-minion-town-pr4-review-681cbfb6-followthrough`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr4-review-681cbfb6-followthrough.md) — orchestration kriscendobot-minion-town-pr4-review-681cbfb6-followthrough — co...
 - [`kriscendobot-minion.town-pr7-review-c543864f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr7-review-c543864f.md) — PR #7 is merged (fd3e5bd, 2026-07-17T17:10:16Z), so its review branch is clos...
 - [`kriscendobot-minion-town-pr4-review-681cbfb6-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr4-review-681cbfb6-conduct.md) — Completion report
 - [`ebfb-retire-master-branch-sweep-orchestration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-branch-sweep-orchestration.md) — orchestration ebfb-retire-master-branch-sweep-orchestration — HALTED
-- [`kriscendobot-minion-town-pr4-review-681cbfb6-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr4-review-681cbfb6-fix.md) — Completion report
-- … and 2608 more
+- … and 2609 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
