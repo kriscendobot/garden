@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6526 (530 parent indexes + 5996 children).
+Total section files: 6528 (530 parent indexes + 5998 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -268,6 +268,10 @@ Total section files: 6526 (530 parent indexes + 5996 children).
 ### bun--docs-runtime-module-resolution-mdx
 
 - [bun--docs-runtime-module-resolution-mdx--package-exports-and-entrypoints](bun--docs-runtime-module-resolution-mdx--package-exports-and-entrypoints.md)
+
+### bun--lifecycle
+
+- [bun--lifecycle--trusted-dependencies](bun--lifecycle--trusted-dependencies.md)
 
 ### bun--overrides
 
@@ -806,6 +810,10 @@ Total section files: 6526 (530 parent indexes + 5996 children).
 ### combex--tech-index
 
 - [combex--tech-index--overview](combex--tech-index--overview.md)
+
+### corepack--readme
+
+- [corepack--readme--package-manager-field](corepack--readme--package-manager-field.md)
 
 ### danfinlay-quickjs--native-ses
 
