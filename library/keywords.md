@@ -14508,8 +14508,28 @@ SPA test | data-snooping-bias
 Hansen SPA | data-snooping-bias
 Model Confidence Set | data-snooping-bias
 Deflated Sharpe Ratio | data-snooping-bias
-Diebold-Mariano | data-snooping-bias
-DM test | data-snooping-bias
+Diebold-Mariano | diebold-mariano-test
+Diebold Mariano test | diebold-mariano-test
+Diebold-Mariano test | diebold-mariano-test
+DM test | diebold-mariano-test
+DM statistic | diebold-mariano-test
+Diebold-Mariano statistic | diebold-mariano-test
+equal predictive accuracy | diebold-mariano-test
+equal predictive accuracy test | diebold-mariano-test
+equal forecast accuracy | diebold-mariano-test
+test of equal forecast accuracy | diebold-mariano-test
+loss differential | diebold-mariano-test
+loss-differential test | diebold-mariano-test
+Comparing Predictive Accuracy | diebold-mariano-test
+forecast accuracy comparison | diebold-mariano-test
+forecast comparison test | diebold-mariano-test
+Harvey-Leybourne-Newbold correction | diebold-mariano-test
+HLN correction | diebold-mariano-test
+Morgan-Granger-Newbold test | diebold-mariano-test
+MGN test | diebold-mariano-test
+Meese-Rogoff test | diebold-mariano-test
+sign test forecast comparison | diebold-mariano-test
+Wilcoxon signed-rank forecast | diebold-mariano-test
 p-hacking | data-snooping-bias
 look-ahead bias | look-ahead-bias
 lookahead bias | look-ahead-bias
