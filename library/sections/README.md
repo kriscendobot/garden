@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6449 (530 parent indexes + 5919 children).
+Total section files: 6454 (530 parent indexes + 5924 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8126,6 +8126,14 @@ Total section files: 6449 (530 parent indexes + 5919 children).
 - [papers--engle-ng-measuring-testing-news-volatility-1991--overview-and-news-impact-curve](papers--engle-ng-measuring-testing-news-volatility-1991--overview-and-news-impact-curve.md)
 - [papers--engle-ng-measuring-testing-news-volatility-1991--partially-non-parametric-news-impact-benchmark](papers--engle-ng-measuring-testing-news-volatility-1991--partially-non-parametric-news-impact-benchmark.md)
 - [papers--engle-ng-measuring-testing-news-volatility-1991--sign-and-size-bias-diagnostics](papers--engle-ng-measuring-testing-news-volatility-1991--sign-and-size-bias-diagnostics.md)
+
+### papers--glosten-relation-expected-value-volatility-1993
+
+- [papers--glosten-relation-expected-value-volatility-1993--conclusion-and-forecasting-contract](papers--glosten-relation-expected-value-volatility-1993--conclusion-and-forecasting-contract.md)
+- [papers--glosten-relation-expected-value-volatility-1993--gjr-asymmetric-variance-recursion](papers--glosten-relation-expected-value-volatility-1993--gjr-asymmetric-variance-recursion.md)
+- [papers--glosten-relation-expected-value-volatility-1993--information-set-and-garch-m-identification](papers--glosten-relation-expected-value-volatility-1993--information-set-and-garch-m-identification.md)
+- [papers--glosten-relation-expected-value-volatility-1993--monthly-evidence-and-sampling-frequency](papers--glosten-relation-expected-value-volatility-1993--monthly-evidence-and-sampling-frequency.md)
+- [papers--glosten-relation-expected-value-volatility-1993--overview-and-risk-return-question](papers--glosten-relation-expected-value-volatility-1993--overview-and-risk-return-question.md)
 
 ### papers--hansen-lunde-forecast-comparison-volatility-models-2005
 
