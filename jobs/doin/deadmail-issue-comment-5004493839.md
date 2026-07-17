@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/57#issuecomment-5004493839
 I suppose the recording harness should take as input a mnemonic for the EOA that holds the funds that will go into the user's portfolio. that is: the portfolio of the user that the test harness is acting as. The test harness should also act as an LLM agent. maybe a garden-dispatc
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 16
+  worker_kind: gardener
+  claimed_at: 2026-07-17T14:55:10Z
