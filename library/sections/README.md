@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6528 (530 parent indexes + 5998 children).
+Total section files: 6535 (530 parent indexes + 6005 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8608,6 +8608,10 @@ Total section files: 6528 (530 parent indexes + 5998 children).
 - [pnpm--settings--overrides](pnpm--settings--overrides.md)
 - [pnpm--settings--package-extensions-and-peer-rules](pnpm--settings--package-extensions-and-peer-rules.md)
 
+### rollup--node-resolve-readme
+
+- [rollup--node-resolve-readme--export-conditions-main-fields-and-browser](rollup--node-resolve-readme--export-conditions-main-fields-and-browser.md)
+
 ### system--readme
 
 - [system--readme--extensions-translators-analyzers](system--readme--extensions-translators-analyzers.md)
@@ -8645,6 +8649,14 @@ Total section files: 6528 (530 parent indexes + 5998 children).
 - [unum--per-persona-model-tiers](unum--per-persona-model-tiers.md)
 - [unum--token-cost-ledger](unum--token-cost-ledger.md)
 - [unum--vigil-charge-initiative-budget](unum--vigil-charge-initiative-budget.md)
+
+### vite--config-shared-options
+
+- [vite--config-shared-options--resolve-conditions-main-fields-and-dedupe](vite--config-shared-options--resolve-conditions-main-fields-and-dedupe.md)
+
+### vite--config-ssr-options
+
+- [vite--config-ssr-options--ssr-conditions-and-externalization](vite--config-ssr-options--ssr-conditions-and-externalization.md)
 
 ### web--acme-challenge-types
 
@@ -8732,6 +8744,11 @@ Total section files: 6528 (530 parent indexes + 5998 children).
 
 - [web--csswg-css-anchor-position-1--position-try-order-and-descriptors](web--csswg-css-anchor-position-1--position-try-order-and-descriptors.md)
 - [web--csswg-css-anchor-position-1--try-tactic-flip-semantics](web--csswg-css-anchor-position-1--try-tactic-flip-semantics.md)
+
+### web--esbuild-api
+
+- [web--esbuild-api--conditions-main-fields-and-packages](web--esbuild-api--conditions-main-fields-and-packages.md)
+- [web--esbuild-api--tree-shaking-and-sideeffects](web--esbuild-api--tree-shaking-and-sideeffects.md)
 
 ### web--gcp-marketplace-partner-program
 
@@ -9005,6 +9022,14 @@ Total section files: 6528 (530 parent indexes + 5998 children).
 ### web--willison-muse-spark-1-1
 
 - [web--willison-muse-spark-1-1--overview](web--willison-muse-spark-1-1--overview.md)
+
+### webpack--config-resolve
+
+- [webpack--config-resolve--main-fields-and-condition-names](webpack--config-resolve--main-fields-and-condition-names.md)
+
+### webpack--guides-tree-shaking
+
+- [webpack--guides-tree-shaking--sideeffects-flag](webpack--guides-tree-shaking--sideeffects-flag.md)
 
 ### wizdom--readme
 
