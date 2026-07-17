@@ -82,6 +82,8 @@
 | [papers--romano-wolf-stepwise-multiple-testing-data-snooping-2005--overview-and-the-discovery-target](../sections/papers--romano-wolf-stepwise-multiple-testing-data-snooping-2005--overview-and-the-discovery-target.md) | Romano & Wolf 2005 | Strong-FWER StepM identifies which searched strategies beat a stated benchmark under the declared score. |
 | [papers--romano-wolf-stepwise-multiple-testing-data-snooping-2005--financial-examples-and-risk-direction-boundary](../sections/papers--romano-wolf-stepwise-multiple-testing-data-snooping-2005--financial-examples-and-risk-direction-boundary.md) | Romano & Wolf 2005 sec 2, 8 | CAPM alpha and VaR examples preserve the distinction between return, risk-adjusted return, and tail-risk claims. |
 
+| [Clark-West nested null and raw MSPE](../sections/papers--clark-nested-predictive-accuracy-2007--nested-null-makes-raw-mspe-difference-degenerate.md) | Clark & West 2007 | A larger fitted point-forecast model can have worse raw MSPE from zero-coefficient estimation noise, even under equal population accuracy. |
+| [Clark-West adjustment and target boundary](../sections/papers--clark-nested-predictive-accuracy-2007--empirical-examples-and-risk-directional-boundary.md) | Clark & West 2007 sec 7-8 | The adjustment tests incremental point-forecast content and does not turn return evidence into a risk or directional claim. |
 ## See also
 
 - [`forecast-evaluation`](forecast-evaluation.md) — how to judge the forecasts these methods produce (the anti-overfitting discipline).
