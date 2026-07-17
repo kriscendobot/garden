@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-17T18:07:48Z_
+_As of 2026-07-17T18:09:30Z_
 
 ## Latest
 
-Upstream `endojs/endo` master landed on the `llm` trunk this cycle: [endojs/endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) was conducted as a true merge (immutable-arraybuffer pseudo-prototype drop, SES "code" error prop, skipLibCheck), deliberately stopping just short of upstream's ESLint 10 flat-config migration — that whole-repo re-lint is flagged as a separate multi-cycle job rather than forced in now. Several lanes are now one maintainer decision from the finish line: the git-integration M3 stack is fully green and waiting on a `merge` directive for [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705), with the worked version-controlled-filesystem loop [endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/pull/707) (M3's exit criterion) green behind it; OCapN-over-Noise has M1–M5 demonstrated across [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340)→[#684](https://github.com/endojs/endo-but-for-bots/pull/684)→[#688](https://github.com/endojs/endo-but-for-bots/pull/688)→[#693](https://github.com/endojs/endo-but-for-bots/pull/693) (lint fixed after a shellcheck SC2034) and asks whether to open an inbound TCP port on minion.town or treat cross-host wss as sufficient; and M2 hygiene wants a URL-shim adoption call on [#719](https://github.com/endojs/endo-but-for-bots/pull/719)/[#259](https://github.com/endojs/endo-but-for-bots/pull/259) plus closing CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263). The esheets tree stays dammed behind OAuth design [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green but stale CHANGES_REQUESTED; a gauntlet was posted to ready it for re-review), and the SturdyRef effort holds pending first review of [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737) and a marshal rank-prefix pick.
+Upstream `endojs/endo` master was merged into the `llm` roadmap branch: [#773](https://github.com/endojs/endo-but-for-bots/pull/773) was conducted onto `llm` (advancing it to d39605930, bringing in the immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, and skipLibCheck), deliberately stopping just short of upstream's ESLint 10 flat-config migration — that re-lint is flagged as a separate multi-cycle follow-up, not folded in. Several lanes are now one maintainer action from finishing: the git-integration Phase 1 PR [#705](https://github.com/endojs/endo-but-for-bots/pull/705) is green/CLEAN and awaiting a `merge` directive to unblock the Phase 3 worked-loop [#707](https://github.com/endojs/endo-but-for-bots/pull/707); the M2 shims [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) are green and review-ready; and the esheets tree stays fully dammed behind the endoclaw-oauth design [#621](https://github.com/endojs/endo-but-for-bots/pull/621), which is green but still shows a stale CHANGES_REQUESTED (a fresh gauntlet was posted to clear it). The daemon→manager rename split into phases — [#780](https://github.com/endojs/endo-but-for-bots/pull/780) (Phase 2) is a fresh draft with Phase 3 correctly re-parked behind it — and the VFS-parity work consolidated its whole delegated glob/grep/glorp surface into [#713](https://github.com/endojs/endo-but-for-bots/pull/713), retargeted onto `llm`, with a request to close the superseded [#655](https://github.com/endojs/endo-but-for-bots/pull/655).
 
-Two operational notes deserve attention. minion.town's entire primary phase has been blocked for ~9 consecutive hourly cycles on a single ~5-minute human browser action — Gate 1's Cognito login ([kriskowal/garden#58](https://github.com/kriskowal/garden/issues/58)). And the retire-master program is hitting structural friction: several PR reconstructions (#545, #69, #720, #251) find their diffs already merged upstream, the branch-sweep orchestration halted at its delete step, and a wave of handler-budget overruns poisoned several shepherd/merge/conduct jobs — including the [endojs/endo-but-for-bots#585](https://github.com/endojs/endo-but-for-bots/pull/585) content-store merge, now parked awaiting promotion.
+Two things a maintainer should notice most: a **large poison wave** hit the board — the content-store merge [#585](https://github.com/endojs/endo-but-for-bots/pull/585) (transient CI overrun, safe to promote), the master→llm merge job, the xs2rust Stage-8 baseline, the npm/pnpm migration experiments, the kebab-case linter, and several auto-shepherds ([#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#763](https://github.com/endojs/endo-but-for-bots/pull/763), agoric-sdk #15) all deadline-overran their handler budgets and are parked awaiting promotion or splitting into claim-sized stages. And the **minion.town primary phase** ([kriskowal/garden#58](https://github.com/kriskowal/garden/issues/58)) has been blocked ~9 hours on a single ~5-minute human-only browser step (Gate 1: add `https://minion.town/mcp` as a claude.ai connector, complete the Cognito login, and capture the redirect_uri) — nothing autonomous can proceed ahead of it. finbot continued unattended, taking its volatility model through GJR-GARCH leverage estimation to an auto-selecting adaptive surface with no decisions pending.
 
 ## Parked for maintainer feedback
 
@@ -853,25 +853,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 125.8M | $1244.24 _(notional, rate-card)_ | no quota set |
+| Claude | 125.9M | $1245.91 _(notional, rate-card)_ | no quota set |
 | Codex | 196.3M _(+409.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`arc-status-daily-20260717-180501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260717-180501.md) — Daily status + change summary for the standing review arcs
+### doin (2)
 - [`xs2rust-endor-press-20260717-180501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260717-180501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-stage8-cxs-baseline-r2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage8-cxs-baseline-r2.md) — Stage-8b child 1/4 (was stage-8 child 3/6, re-cut after transient-outage pois...
 
-### tada (2615)
+### tada (2616)
+- [`arc-status-daily-20260717-180501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/arc-status-daily-20260717-180501.md) — Posted today's (2026-07-17 UTC) daily status comment to all nine arc-tracker ...
 - [`endo-sturdyref-press-20260717-180501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260717-180501.md) — SturdyRef press 18:05 tick — observation-only, no movement; all lanes remain ...
 - [`minion-town-agenda-review-20260717-173501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260717-173501.md) — Completion report
 - [`kriscendobot-minion-town-pr4-review-681cbfb6-followthrough`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr4-review-681cbfb6-followthrough.md) — orchestration kriscendobot-minion-town-pr4-review-681cbfb6-followthrough — co...
 - [`kriscendobot-minion.town-pr7-review-c543864f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr7-review-c543864f.md) — PR #7 is merged (fd3e5bd, 2026-07-17T17:10:16Z), so its review branch is clos...
-- [`kriscendobot-minion-town-pr4-review-681cbfb6-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr4-review-681cbfb6-conduct.md) — Completion report
-- … and 2610 more
+- … and 2611 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
