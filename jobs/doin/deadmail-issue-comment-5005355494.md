@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/57#issuecomment-5005355494
 > I would make PinchTab the first browser-automation spike _would_ make it? I wonder why the subjunctive / counter-factual. Please do!! 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  worker_kind: cleric
+  claimed_at: 2026-07-17T16:35:11Z
