@@ -44,6 +44,8 @@ confirms `llm`'s post-merge CI state.
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
