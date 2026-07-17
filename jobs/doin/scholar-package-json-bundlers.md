@@ -9,3 +9,10 @@ Follow-on to scholar-package-json-schema-and-tooling (which ingested the Node ru
 - Add sections under topic `package-manifest`; update the project matrix/inconsistencies to cite the new sections; note remaining synthesis. Prefer authoritative docs (each tool's docs repo, readable via gh/scratch clone).
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 20
+  worker_kind: gardener
+  claimed_at: 2026-07-17T14:33:16Z
