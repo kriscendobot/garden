@@ -37,3 +37,10 @@ cannot converge). The `tada` report links #2780 and the new fork PR, names the f
 summarizes the gauntlet outcome.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 13
+  worker_kind: gardener
+  claimed_at: 2026-07-17T00:03:15Z
