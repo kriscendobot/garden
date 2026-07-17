@@ -42,3 +42,10 @@ gitignored bundle output. If you cannot finish honestly in one invocation, commi
 report precisely what remains, and mark your report `orchestration-failed: true` ONLY if the
 work is actually broken (an honest partial with a clear remainder is a completion — the
 supervisor reads your report).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 19
+  worker_kind: gardener
+  claimed_at: 2026-07-17T10:52:21Z
