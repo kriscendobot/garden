@@ -82,3 +82,10 @@ the command and its observed output (the gardener reporting norm burned on #58).
 When you could not run a bar, report it "not verified" and why.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: gardener
+  claimed_at: 2026-07-17T22:23:16Z
