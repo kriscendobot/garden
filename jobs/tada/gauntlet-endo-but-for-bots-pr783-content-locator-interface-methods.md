@@ -1,0 +1,1 @@
+Panel review found no must-fix items; no fixer changes were needed. PR #783 is now ready for review (not merged). Completed CI checks passed; the rerun’s four test jobs remained stuck, with no required checks configured. Local daemon execution was blocked by Unix-socket path limits in the isolated worktree.
