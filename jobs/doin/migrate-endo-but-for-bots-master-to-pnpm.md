@@ -14,6 +14,7 @@ Open one bot-authored PR on endojs/endo-but-for-bots against master, clearly lab
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
