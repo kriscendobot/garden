@@ -615,3 +615,12 @@ Inspect via `git -C journal cat-file -p ce32f784b4c1eec5e72a5043f3bd0a00da2878cf
 - Context: gardener-6 on endolin-garden2-5bcdff64: job 'endo-vfs-parity-press-20260717-000503' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 15ca5d3419217aec9ebb2f0e491ca08860427456`.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-07-17T03:54:25Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: c4ad1ca99d638483ff2b6ced8cff725cdfed845e
+- Context: gardener-8 on endolin-garden2-5bcdff64: job 'migrate-endo-but-for-bots-master-to-npm' exit-0-unsatisfying but elapsed near-constant (56,56s) over 2 cycles — likely a wedged child, not a working one
+
+Inspect via `git -C journal cat-file -p c4ad1ca99d638483ff2b6ced8cff725cdfed845e`.
