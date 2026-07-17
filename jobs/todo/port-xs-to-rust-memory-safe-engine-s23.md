@@ -1,10 +1,7 @@
 ---
-gate: blocked
-blocked_on: xs2rust-endor-s22-compartment-isolation-fix
-priority: normal
-posted_by: producer
-posted_at: 2026-07-17T05:57:10Z
+model: fable
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-07-17T10:41:06Z -->
 
 ---
 model: fable
