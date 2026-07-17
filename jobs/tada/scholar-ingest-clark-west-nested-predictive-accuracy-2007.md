@@ -1,1 +1,5 @@
-Ingested Clark and West (2007) from the NBER Technical Working Paper 326 working-paper PDF and recorded the canonical DOI and provenance. Added five forecast-evaluation sections, the nested-model-forecast-comparison concept, topic/concept/keyword/source indexes, and a clear boundary among Clark-West, Giacomini-White, Romano-Wolf FWER, SPA, and MCS while preserving the risk-versus-directional distinction. Verified the landed source with library-link-check (all links resolve) and regenerated/check-verified the topic counts and sections index. Follow-ups: none.
+Ingested Clark-West (2007) from NBER Technical Working Paper 326, explicitly recording it as the August 2006 working-paper version and retaining the canonical DOI.
+
+Added five sections, a nested-model comparison concept, indexes, and keywords. Covered MSPE degeneracy/adjustment, West inference, method boundaries, and risk-versus-directional distinction.
+
+Verified source links and regenerated indexes. Follow-ups: none.
