@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-17T18:22:25Z_
+_As of 2026-07-17T18:24:02Z_
 
 ## Latest
 
-Upstream `endojs/endo` master was merged into the `llm` roadmap branch via [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) (immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, skipLibCheck), deliberately stopping just short of upstream's ESLint 10 flat-config migration — that whole-repo re-lint is flagged as a separate, multi-cycle follow-up, not auto-run. The board is quiet on movement (the only transitions are the 18:20Z press dispatches claiming into `doin`) but heavy on maintainer gates: M2 is one decision from done ([#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) green/CLEAN, pending a call to adopt #719's `%URL%` split and close CI-failing #263); M3 is stalled on a package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403), with the git-integration loop one `merge` directive away on [#705](https://github.com/endojs/endo-but-for-bots/pull/705); the esheets tree remains dammed behind OAuth design [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, still stale CHANGES_REQUESTED, now ~6 days); and the sturdyref lane holds on a first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus re-reviews of [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697). Two escalations want a browser, not a bot: minion.town's [garden#58](https://github.com/kriskowal/garden/issues/58) Gate-1 login is now nine consecutive hourly cycles blocked on a ~5-minute human action, and the OCapN press ([#340](https://github.com/endojs/endo-but-for-bots/pull/340)→[#684](https://github.com/endojs/endo-but-for-bots/pull/684)→[#688](https://github.com/endojs/endo-but-for-bots/pull/688)→[#693](https://github.com/endojs/endo-but-for-bots/pull/693)) asks whether to open an inbound TCP port on minion.town or call M1–M5 done on the existing wss transcript. Notice too a growing pile of poison jobs parked from deadline-overrun — the [#585](https://github.com/endojs/endo-but-for-bots/pull/585) content-store merge, the upstream-merge job, the npm/pnpm migration experiments, the xs2rust C-XS baseline (now also dying to external SIGKILLs), and shepherds for [#124](https://github.com/endojs/endo-but-for-bots/pull/124)/[#704](https://github.com/endojs/endo-but-for-bots/pull/704)/[#763](https://github.com/endojs/endo-but-for-bots/pull/763) — several needing a split or a promote to proceed. Meanwhile finbot advanced autonomously with no decisions pending, shipping adaptive GJR-GARCH volatility selection.
+Upstream `endojs/endo` master landed on the `llm` roadmap branch: a gardener conducted [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) (advancing `llm` to `d39605930`), deliberately stopping just short of upstream's ESLint 10 flat-config migration — that re-lint is flagged as a separate multi-cycle job, not folded in. The OCapN-over-Noise stack ([#340](https://github.com/endojs/endo-but-for-bots/pull/340)→[#684](https://github.com/endojs/endo-but-for-bots/pull/684)→[#688](https://github.com/endojs/endo-but-for-bots/pull/688)→[#693](https://github.com/endojs/endo-but-for-bots/pull/693)) was rebased onto `llm` and a shellcheck lint break fixed up the stack; M1–M5 are all demonstrated and it now waits on one call — whether to open an inbound TCP port on minion.town to close the last cross-host TCP+CBOR leg, or accept the wss transcript as done. VFS-parity work consolidated the delegated glob/grep/glorp surface into a single self-contained carrier, [#713](https://github.com/endojs/endo-but-for-bots/pull/713), after finding the lower rungs never reached `llm`.
+
+Two things a maintainer should notice. First, a **wave of deadline-overrun poisonings** parked real work rather than losing it: the content-store merge [#585](https://github.com/endojs/endo-but-for-bots/pull/585) (green and CLEAN — a data-plane gardener asks for it to be promoted), the upstream-merge job itself, several auto-shepherds ([#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#763](https://github.com/endojs/endo-but-for-bots/pull/763)), and the Yarn→npm/pnpm migration probes all exceeded the handler budget and now sit held in the plan queue. The xs2rust-endor Stage-8 C-XS baseline was hit worse — repeated external SIGKILLs (rc=137) poisoned it and halted its orchestration twice. Second, several efforts are **fully gated on your input**: the git-integration M3 lane is green end-to-end and one `merge` directive on [#705](https://github.com/endojs/endo-but-for-bots/pull/705) away from closing; the esheets tree is dammed behind a re-review of the OAuth design [#621](https://github.com/endojs/endo-but-for-bots/pull/621); the foreman needs a package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) to unblock M3's module-loading tail; and minion.town's entire primary phase has sat ~9 hours on a single ~5-minute browser action (Gate 1). The board is otherwise quiet — nothing queued, only standing press jobs in flight.
 
 ## Parked for maintainer feedback
 
@@ -855,27 +857,113 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
+- `poison-xs2rust-endor-stage8-cxs-baseline-r2-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-xs2rust-endor-stage8-cxs-baseline-r2-requeue-exhausted.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/xs2rust-endor-stage8-cxs-baseline-r2; it stays HELD until a human promotes it
+> (promote-plan.sh xs2rust-endor-stage8-cxs-baseline-r2) or removes it, so nothing is lost.
+> Original job base: xs2rust-endor-stage8-cxs-baseline-r2
+>
+> --- original job body ---
+> ---
+> model: opus
+> ---
+> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-17T17:04:13Z -->
+>
+> ---
+> model: opus
+> ---
+> # Stage-8b child 1/4 (was stage-8 child 3/6, re-cut after transient-outage poisoning) — libxs provisioning + boot-bundle generation + C-XS `test:rust` BASELINE
+>
+> **Program:** XS→Rust (Endor) port, PR endojs/endo-but-for-bots **#600**, branch `xs2rust-endor`
+> (base `llm`). **Keep the PR DRAFT.** Build child of serial orchestration
+> `xs2rust-endor-build-stage8b`; tada-only reporting. One 2400s invocation.
+>
+> **Worktree:** `scripts/jobs/ensure-project-worktree.sh <your-job-base> endojs/endo-but-for-bots
+> xs2rust-endor`; sync to the REAL remote tip; push via CAS, verify by exit code.
+>
+> **Recovery context (read before provisioning — it saves you most of the work).** The first cut
+> of this child (`xs2rust-endor-stage8-cxs-baseline`) was claimed 5× on 2026-07-17 and every
+> handler died to a transient API/usage-cap outage window (~11:30–12:40Z), so the reaper poisoned
+> it — a fleet-infra event, NOT a spec defect; the fleet has been healthy since ~13:00Z. Its
+> worktree survives with most provisioning DONE:
+> `/home/kris/garden/scratch/project-wt-xs2rust-endor-stage8-cxs-baseline-5cd7f36a` at
+> `65180ad877` (a pre-rebase equivalent of the current tip — verify by subject + empty
+> `git diff <old> <new> -- rust/engine` before trusting it): `node_modules` installed,
+> `c/moddable` populated at the oracle pin, all three gitignored boot bundles already emitted in
+> `rust/endo/xsnap/src/`, and the ROOT `target/` (770M) with `target/release/endor` built
+> (11:55Z). `cp -al` those caches into your worktree instead of rebuilding from scratch (mind the
+> empty-dir nesting gotcha for `c/moddable`).
+>
+> **CRITICAL measurement gotcha (post-mortem finding — do not repeat it).** The dead child DID
+> run `yarn test:rust` to completion (log: `/home/kris/garden/tmp/s8-test-rust.log`, 12:10Z):
+> 279 failed / 65 skipped, with 549 occurrences of `endo.sock not ready within 10000ms`. That is
+> NOT an honest engine baseline: the daemon's per-test socket path
+> `<worktree>/packages/daemon/tmp/<test>/endo.sock` is 126 bytes under the long scratch-worktree
+> name — over the AF_UNIX `sun_path` limit. `test/channel.test.js` caps at
+> `MAX_UNIX_SOCKET_PATH = 90` and truncates per-test dir names to fit, but under the long
+> worktree the FIXED overhead (`<worktree>/packages/daemon/tmp` ≈ 100 chars) already exceeds 90,
+> so truncation cannot save it — every daemon spawn fails identically regardless of engine. Your
+> own worktree name (`...-r2-<hash8>`) is just as long, and a symlink will NOT work (Node
+> resolves module/cwd paths to the real path). Fix: make a secondary MEASUREMENT checkout at a
+> short REAL path — e.g. `git clone --shared /home/kris/garden/worktrees/endojs-endo-but-for-bots.git
+> $HOME/tmp/s8cxs && git -C $HOME/tmp/s8cxs checkout <tip-sha>` (local clone is cheap), `cp -al`
+> the caches (node_modules, c/moddable, target, the generated bundles) into it, and run
+> `yarn test:rust` from `$HOME/tmp/s8cxs/packages/daemon`
+> (`.../s8cxs/packages/daemon/tmp` ≈ 48 chars — fits). Keep pushes/commits (if any) in your
+> ensure-project-worktree checkout; the short clone is measurement-only. THEN classify the
+> remaining failures honestly. Persist the log under `$HOME/tmp` EARLY and append as you go, so a
+> requeue cannot lose the measurement; note $HOME/tmp is shared and survives requeues.
+>
+> **Task — establish the C-XS-backed daemon baseline (the probe's step 4: "before any pure-Rust
+> swap").** Stage-8 children 1–2 (already landed on the branch) fixed the daemon bundle and
+> landed the three generators. Now:
+> 1. `yarn install` (yarn PATH shim if needed); run all three bundlers → emit the three gitignored
+>    boot `.js` into `rust/endo/xsnap/src/` (`daemon_bootstrap.js`, `worker_bootstrap.js`,
+>    `ses_boot.js`). NEVER commit them.
+> 2. Populate `c/moddable` at the oracle pin `23b4d6b0a65f35209d9118c4c13c6c9b3e68784d`
+>    (`git -C c/moddable fetch --depth 1 --filter=blob:none origin <sha> && git -C c/moddable
+>    checkout <sha>` — or `cp -al` the checkout from a sibling scratch worktree that has it; if
+>    `c/moddable` exists but is empty, `rmdir` it first so the copy does not nest). NEVER
+>    `git add c/moddable`. (`xsnap/build.rs` needs `c/moddable/xs/sources/xsAll.c` or a prebuilt
+>    `libxs.a`.)
+> 3. `cargo build --release --bin endor` from the repo root workspace (`cargo` at
+>    `$HOME/.cargo/bin`). Capture to a file, check `$?`.
+> 4. `cd packages/daemon && yarn test:rust` (it sets `ENDO_BIN=../../target/release/endor`,
+>    `ENDO_WORKER_BIN='… worker'`). Capture the FULL output; check `$?`.
+>
+> **Deliverable:** the measured C-XS baseline — how many `test:rust` tests exist, pass, fail, and
+> for each failure a one-line classification (pre-existing daemon issue vs bundle/provisioning
+> issue vs flake). A fully green baseline is NOT required to complete — an honestly measured
+> baseline is the deliverable (it is what the pure-Rust swap will be compared against). Land only
+> small unblocking source fixes if any are needed and clearly attributable; anything structural
+> goes in the report as a named remainder.
+>
+> **Practical notes:** `$HOME` = `/home/kris/garden`; logs under `$HOME/tmp`; `/tmp` noexec;
+> `TMPDIR=$HOME/tmp` for anything that execs from temp. The build may be slow — budget your
+> invocation; commit/push source changes before long runs so nothing is lost to a requeue.
+
 
 ## Spend & quota
 _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 127.1M | $1257.91 _(notional, rate-card)_ | no quota set |
+| Claude | 127.2M | $1258.79 _(notional, rate-card)_ | no quota set |
 | Codex | 196.3M _(+409.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (6)
 - [`endo-byte-array-press-20260717-182002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260717-182002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-daemon-data-plane-press-20260717-182002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-daemon-data-plane-press-20260717-182002.md) — Press the Endo daemon data plane forward (endojs/endo-but-for-bots, base llm)
 - [`endo-git-integration-press-20260717-182002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260717-182002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-vfs-parity-press-20260717-182002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260717-182002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr786-22380928`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr786-22380928.md) — attention directive on endojs/endo-but-for-bots PR #786
 - [`ocapn-noise-press-20260717-182002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260717-182002.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
-- [`xs2rust-endor-stage8-cxs-baseline-r2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage8-cxs-baseline-r2.md) — Stage-8b child 1/4 (was stage-8 child 3/6, re-cut after transient-outage pois...
 
 ### tada (2617)
 - [`xs2rust-endor-press-20260717-180501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260717-180501.md) — Completion report — press tick xs2rust-endor-press-20260717-180501
@@ -914,6 +1002,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
+- [`xs2rust-endor-stage8-cxs-baseline-r2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage8-cxs-baseline-r2.md) — _normal_ · Stage-8b child 1/4 (was stage-8 child 3/6, re-cut after transient-outage pois...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`endojs-endo-but-for-bots-pr600-review-021252ca-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr600-review-021252ca-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #600 (primary: endojs-endo-but-f...
