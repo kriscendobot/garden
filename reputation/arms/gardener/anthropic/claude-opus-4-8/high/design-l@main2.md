@@ -1,12 +1,12 @@
 kind: gardener
 provider: anthropic
-model: claude-fable-5
-thoughtfulness: medium
-work_class: other:l
+model: claude-opus-4-8
+thoughtfulness: high
+work_class: design:l
 target: main2
 attempts: 0
 accepts: 0
-censored: 24
+censored: 1
 mean_dollars: 0.000000
 m2: 0.000000
 acceptance_rate: 0.0000
