@@ -27,6 +27,7 @@ execution evidence for any "works everywhere" claim.
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
