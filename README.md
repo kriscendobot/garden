@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-17T15:36:12Z_
+_As of 2026-07-17T15:39:33Z_
 
 ## Latest
 
-Upstream landed on `llm`: a gardener conducted [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) — a clean merge of real upstream `endojs/endo` master (deliberately stopping just before upstream's ESLint 10 flat-config migration), advancing `llm` with the immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, and skipLibCheck; adopting ESLint 10 is flagged as a separate multi-cycle job, not auto-run. The M3 git-integration lane is fully green and one directive from the finish: Phase 1 [#705](https://github.com/endojs/endo-but-for-bots/pull/705) is CLEAN and awaits a `merge`, and the milestone-exit loop [#707](https://github.com/endojs/endo-but-for-bots/pull/707) is green but still draft. On the VFS-parity side, the delegated glob/grep/glorp surface was rebased onto `llm` and consolidated into [#713](https://github.com/endojs/endo-but-for-bots/pull/713), which now stands alone (superseding [#655](https://github.com/endojs/endo-but-for-bots/pull/655)). `finbot` advanced to adaptive GJR-GARCH leverage estimation (auto-selecting the asymmetric surface when fitted gamma is material), and the Chrome native-function `caller`/`arguments` reproduction was published and linked from [#259](https://github.com/endojs/endo-but-for-bots/pull/259).
+The job board went quiet this interval — `todo` is empty and the only completion was the hourly [minion.town agenda review](https://github.com/kriskowal/garden/issues/58) — but a large stack of green, maintainer-gated work has accumulated behind decisions the fleet cannot make itself. Upstream `endojs/endo` master was merged into `llm` via [#773](https://github.com/endojs/endo-but-for-bots/pull/773) (conducted as a true merge, deliberately stopping just short of upstream's ESLint 10 flat-config overhaul, which is flagged as a separate multi-cycle migration job). The git-integration M3 lane is fully green and one directive away: [#705](https://github.com/endojs/endo-but-for-bots/pull/705) (Phase 1) awaits a `merge`, and [#707](https://github.com/endojs/endo-but-for-bots/pull/707) — the worked version-controlled-filesystem loop that is M3's exit criterion — is green but still draft. M2 is likewise one decision from done: [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) are green/CLEAN, pending a call on #719's URL-shim split and closing the redundant, CI-failing #263.
 
-Several fronts are fully gated on maintainer calls: the M3 module-loading tail needs a package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) so the loser can close; M2 is one decision from done pending review/merge of [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) plus closing the CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263); the esheets tree is entirely blocked on re-review/merge of [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (6 days, all checks green); the sturdyref effort has three open gates (first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737), a marshal rank-prefix pick, and design re-reviews of [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697)); and the OCapN-over-Noise press (M1–M5 all demonstrated) asks whether to open a TCP port on minion.town to close the literal cross-host finish line. Worth noticing: a wave of shepherd/merge/migration jobs was reaper-poisoned on deadline overrun — [#763](https://github.com/endojs/endo-but-for-bots/pull/763), [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704) shepherds, the [#585](https://github.com/endojs/endo-but-for-bots/pull/585) content-store merge (transient, awaiting promotion), and the npm/pnpm master-migration experiments — all parked held awaiting promotion or splitting. Separately, the master-base reconstruction jobs for [#545](https://github.com/endojs/endo-but-for-bots/pull/545), [#69](https://github.com/endojs/endo-but-for-bots/pull/69), [#720](https://github.com/endojs/endo-but-for-bots/pull/720), and [#251](https://github.com/endojs/endo-but-for-bots/pull/251) all stopped cleanly — their diffs already exist upstream, so each is a close-as-superseded candidate. Finally, the recurring `avoid-abbreviation` cluster reopened (count 4) on [#671](https://github.com/endojs/endo-but-for-bots/pull/671), surfacing a structural blind spot in the spell-out gate — it only scans newly-added diff lines, so pre-gate identifiers escape permanently — and awaits your call on whether to widen it.
+Several lanes are dammed on a single ruling: the M3 module-loading tail needs a package-home decision between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403); the SturdyRef effort has three gates open (first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737), a marshal rank-prefix pick, and re-reviews of [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697)); the esheets tree is blocked entirely on re-reviewing and merging [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (all CI green, sitting six days on a stale CHANGES_REQUESTED); and the daemon data-plane merge [#585](https://github.com/endojs/endo-but-for-bots/pull/585) was reaper-poisoned on a transient CI stall and needs promotion from the plan queue. Worth noticing on infrastructure: a cluster of shepherd/gauntlet/merge jobs ([#763](https://github.com/endojs/endo-but-for-bots/pull/763), [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#694](https://github.com/endojs/endo-but-for-bots/pull/694), the two Yarn→npm/pnpm migrations, and the master→llm merge itself) tripped the handler-budget wall and were poisoned into `jobs/plan/` — a recurring signal that these need splitting or a raised timeout. Finally, minion.town's entire primary phase (8h stalled) hangs on a ~5-minute human browser action at Gate 1 of the MCP OAuth flow, and the `fetchImpl` abbreviation-gate miss on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) is escalated for your call on whether to widen the pre-push scan.
 
 ## Parked for maintainer feedback
 
@@ -353,6 +353,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > **What I did:** rebased the glorp branch onto `llm` and retargeted [endojs/endo-but-for-bots#713](https://github.com/endojs/endo-but-for-bots/issues/713) to `llm` — it is now the self-contained carrier of the whole delegated surface (EndoMount.glob + grep + glorp over the `@endo/platform/fs/search` engine already on `llm`). Local evidence on the PR: 11 platform search + 23 glob/grep/glorp + 123 mount-regression tests pass; CI re-running.
 >
 > **The call I need:** with the delegated grep now in [endojs/endo-but-for-bots#713](https://github.com/endojs/endo-but-for-bots/issues/713), [endojs/endo-but-for-bots#655](https://github.com/endojs/endo-but-for-bots/issues/655) (old non-delegated grep) looks fully superseded — OK to close it? [endojs/endo-but-for-bots#657](https://github.com/endojs/endo-but-for-bots/issues/657) (mount JSON) is orthogonal content still worth landing; I'd re-stage just its JSON commits onto `llm` (or onto the glorp branch) next dispatch. Say the word and I'll do both; silence keeps them open and I'll keep pressing only [endojs/endo-but-for-bots#656](https://github.com/endojs/endo-but-for-bots/issues/656) and [endojs/endo-but-for-bots#713](https://github.com/endojs/endo-but-for-bots/issues/713).
+
+- `20260717T153826Z-f64e74` — from gardener:minion-town-agenda-review-20260717-153501, reply_to `minion-town-agenda-review-20260717-153501` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260717T153826Z-f64e74.md)
+
+> minion.town agenda ([kriskowal/garden#58](https://github.com/kriskowal/garden/issues/58)) — one small human action is blocking the entire primary phase, now 8 hours running.
+>
+> The whole primary-phase chain is pinned at Gate 1 of designs/mcp-endo-guest.md, which by design must pass before ANY daemon work. Gate 1 can only be done by a human in a browser; the autonomous fleet cannot. Seven hourly issue comments haven't surfaced it, so I'm escalating directly once.
+>
+> The ~5-minute action:
+> 1. Add https://minion.town/mcp as a claude.ai custom connector (or: claude mcp add --transport http minion https://minion.town/mcp).
+> 2. Complete the GitHub-federated Cognito login as yourself.
+> 3. Note the redirect_uri value(s) Claude presents on the Cognito authorize page/error — we need it permanently for client registration (Cognito has no DCR endpoint), and it's the input M1 pre-registration consumes if a surface won't pin a static client id.
+>
+> Once you've done Gate 1 and its V1-V5 evidence is recorded, the daemon (Gate 2) unit + deploy target becomes buildable in-order and the first autonomous deployment is unblocked. Until then every hourly review will keep landing here. Full detail: [https://github.com/kriskowal/garden/issues/58](https://github.com/kriskowal/garden/issues/58)#issuecomment-5004906274
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -797,27 +810,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 122.4M | $1229.05 _(notional, rate-card)_ | no quota set |
+| Claude | 122.5M | $1229.88 _(notional, rate-card)_ | no quota set |
 | Codex | 192.1M _(+401.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`ebfb-retire-master-pr-182`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-182.md) — ---
 - [`endo-npm-cas-registry-press-20260717-153501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260717-153501.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr250-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr250-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #250
-- [`minion-town-agenda-review-20260717-153501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260717-153501.md) — Minion Town hourly agenda review
 - [`port-xs-to-rust-memory-safe-engine-s24`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s24.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
-### tada (2580)
+### tada (2581)
+- [`minion-town-agenda-review-20260717-153501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260717-153501.md) — Hourly minion.town agenda review complete (2026-07-17 15:37 UTC).
 - [`improve-land-journal-edit-concurrent-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-land-journal-edit-concurrent-guard.md) — Implemented and pushed 75a0623361 to main2.
 - [`scholar-package-json-bundlers-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-package-json-bundlers-2.md) — Completion report — scholar-package-json-bundlers-2
 - [`deadmail-issue-comment-5004583216`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5004583216.md) — Completion Report
 - [`endo-byte-array-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260717-060503.md) — **Press report — endo-byte-array-press (dispatch 2026-07-17T06:05Z, resumed 1...
-- [`deadmail-issue-comment-5004509028`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5004509028.md) — Completed the dead-lettered intent for issue #57 (kriskowal/garden), comment ...
-- … and 2575 more
+- … and 2576 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
