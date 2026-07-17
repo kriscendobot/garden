@@ -14,3 +14,10 @@ Work in an isolated project worktree for kriscendobot/minion.town PR #4. The PR 
 3. The originating review contains no inline comments. Post the authorized PR summary comment describing the addressing SHA(s), AWS outcome, and real verification evidence. Re-request kriskowal review only after CI is green if the push materially changes the reviewed head.
 
 Do not merge the PR. The next orchestrated conductor child owns finalization.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  worker_kind: gardener
+  claimed_at: 2026-07-17T17:13:50Z
