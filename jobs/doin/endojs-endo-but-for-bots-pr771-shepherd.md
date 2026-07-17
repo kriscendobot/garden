@@ -17,6 +17,7 @@ this job was minted from a rollup read at post time.
 <!-- garden-reaped: 2 -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
