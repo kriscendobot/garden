@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-17T12:30:39Z_
+_As of 2026-07-17T12:32:51Z_
 
 ## Latest
 
@@ -702,15 +702,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 120.9M | $1241.00 _(notional, rate-card)_ | no quota set |
-| Codex | 191.1M _(+396.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
+| Claude | 121.0M | $1243.15 _(notional, rate-card)_ | no quota set |
+| Codex | 191.2M _(+397.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (11)
-- [`ebfb-retire-master-pr-235`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-235.md) — ---
+### doin (10)
 - [`endo-byte-array-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260717-060503.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260717-122002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260717-122002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-vfs-parity-press-20260717-122002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260717-122002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
@@ -722,13 +721,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-package-json-package-managers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-package-managers.md) — Scholar: how package managers read package.json (Yarn, pnpm, Bun)
 - [`xs2rust-endor-stage8-cxs-baseline`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage8-cxs-baseline.md) — Stage-8 child 3/6 — libxs provisioning + boot-bundle generation + C-XS test:r...
 
-### tada (2558)
+### tada (2559)
+- [`ebfb-retire-master-pr-235`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-235.md) — Retired PR #235’s master base. Rebasing used upstream endojs/endo@46d4edf, re...
 - [`ebfb-retire-master-pr-239`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-239.md) — Done. The base is retired for PR #239.
 - [`endo-daemon-data-plane-press-20260717-122002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260717-122002.md) — Press dispatch complete — the arc advanced past both design milestones this c...
 - [`endo-byte-array-press-20260717-122002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260717-122002.md) — **Press report — endo-byte-array-press (dispatch 2026-07-17T12:20Z)**
 - [`ebfb-retire-master-pr-250`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-250.md) — Completion report — ebfb-retire-master-pr-250 (weaver)
-- [`ebfb-retire-master-pr-251`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-251.md) — Completion report
-- … and 2553 more
+- … and 2554 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
