@@ -39,6 +39,7 @@ why a private repository? I'm curious to look at ymax-e2e
 
 ----- END ORIGINAL MESSAGE -----
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
