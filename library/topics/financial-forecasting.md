@@ -71,6 +71,8 @@
 | [West parameter-estimation uncertainty](../sections/papers--west-asymptotic-inference-predictive-ability-1996--parameter-estimation-uncertainty.md) | West 1996 | A forecast-loss inference procedure must include the extra variability caused by estimated forecast-model parameters. |
 | [West covariance and window design](../sections/papers--west-asymptotic-inference-predictive-ability-1996--asymptotic-covariance-and-window-design.md) | West 1996 | The corrected covariance joins serial dependence with estimation uncertainty, making the refitting window part of the claim. |
 | [West lineage and forecasting boundary](../sections/papers--west-asymptotic-inference-predictive-ability-1996--lineage-and-forecasting-boundary.md) | West 1996 | DM handles two given forecasts, West handles fitted ones, and search corrections remain necessary; variance skill is not directional skill. |
+| [MCS overview and the model-confidence-set idea](../sections/papers--hansen-lunde-nason-model-confidence-set-2011--overview-and-the-model-confidence-set-idea.md) | Hansen, Lunde & Nason 2011 | The MCS returns a *set* of models containing the best with confidence 1−α; informative data yields a small set, uninformative data a large one. |
+| [MCS empirical applications and forecasting boundary](../sections/papers--hansen-lunde-nason-model-confidence-set-2011--empirical-applications-and-forecasting-boundary.md) | Hansen, Lunde & Nason 2011 | Stock-Watson inflation and Taylor-rule MCSs: set size reports data informativeness; loss-agnostic, so meaning is fixed by the loss (level/directional vs variance). |
 
 ## See also
 
