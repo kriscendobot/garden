@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-17T13:20:55Z_
+_As of 2026-07-17T13:24:21Z_
 
 ## Latest
 
-The upstream `endojs/endo` master merged into the `llm` roadmap branch via [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) (clean, green, stopped deliberately short of upstream's breaking ESLint 10 flat-config migration, which is flagged as a separate multi-cycle job); `llm` now carries the immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, and skipLibCheck. Several lanes are now one directive from the finish line and just need a maintainer call: the git-integration M3 loop is fully green ([endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) Phase 1 and [endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/pull/707) the worked-loop exit criterion await a `merge`); M2 hygiene hangs on adopting [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) and closing the redundant #263; the esheets tree is dammed 6 days behind [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621); and the SturdyRef and M3 module-loading arcs are blocked on package-home and rank-prefix decisions ([endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) vs [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), [endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737)). The VFS-parity press rescued the delegated mount glob/grep stack into [endo-but-for-bots#713](https://github.com/endojs/endo-but-for-bots/pull/713) and asks to close superseded [endo-but-for-bots#655](https://github.com/endojs/endo-but-for-bots/pull/655). Notably, the board is otherwise quiet — only a minion.town agenda-review posted — while a cluster of long-running jobs (the [endo-but-for-bots#585](https://github.com/endojs/endo-but-for-bots/pull/585) content-store merge, several auto-shepherds, and the master-retirement/migration jobs) were reaper-poisoned for overrunning the handler budget and now sit parked awaiting promotion, and the `fetchImpl` abbreviation gate recurred on [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671), needing a call on whether to widen the pre-push scan.
+Upstream `endojs/endo` master was merged into the `llm` roadmap branch via [#773](https://github.com/endojs/endo-but-for-bots/pull/773) (conducted onto `llm`, which advanced to `d39605930`), deliberately stopping just short of upstream's ESLint 10 flat-config migration — that re-lint is flagged as a separate multi-cycle job, not folded into this merge. The git-integration M3 lane is fully green and one directive away: [#705](https://github.com/endojs/endo-but-for-bots/pull/705) (Phase 1) awaits a `merge`, after which the worked-loop exit criterion [#707](https://github.com/endojs/endo-but-for-bots/pull/707) needs a weave onto `llm` and its own merge to close M3. Worth noticing: a wave of jobs hit the handler-budget wall and were reaper-poisoned into the plan queue — the [#585](https://github.com/endojs/endo-but-for-bots/pull/585) content-store merge (CLEAN, panel-passed, just needs promotion once you concur), the upstream-master merge job itself, and shepherds on [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#763](https://github.com/endojs/endo-but-for-bots/pull/763), and `kriscendobot/agoric-sdk` #15. Multiple press lanes are fully gated on your decisions: OCapN-over-Noise ([#340](https://github.com/endojs/endo-but-for-bots/pull/340)→[#684](https://github.com/endojs/endo-but-for-bots/pull/684)→[#688](https://github.com/endojs/endo-but-for-bots/pull/688)→[#693](https://github.com/endojs/endo-but-for-bots/pull/693)) has M1–M5 demonstrated but needs a call on opening a TCP port on minion.town to close the literal finish line; the esheets tree is dammed behind re-review of [#621](https://github.com/endojs/endo-but-for-bots/pull/621); M3's module-loading tail needs a package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403); and M2 is one adopt/close decision from done ([#259](https://github.com/endojs/endo-but-for-bots/pull/259), [#719](https://github.com/endojs/endo-but-for-bots/pull/719) vs. redundant #263).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 52m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 58m)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 14h)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 2d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 3d)
@@ -795,30 +795,29 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 121.8M | $1242.01 _(notional, rate-card)_ | no quota set |
-| Codex | 191.2M _(+397.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
+| Claude | 122.0M | $1243.53 _(notional, rate-card)_ | no quota set |
+| Codex | 191.3M _(+398.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (8)
+### doin (7)
 - [`ebfb-retire-master-pr-182`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-182.md) — ---
 - [`endo-byte-array-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260717-060503.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endojs-endo-but-for-bots-pr250-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr250-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #250
 - [`endojs-endo-but-for-bots-pr783-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr783-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #783
-- [`minion-town-agenda-review-20260717-132004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260717-132004.md) — Minion Town hourly agenda review
 - [`port-xs-to-rust-memory-safe-engine-s24`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s24.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`scholar-package-json-bundlers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-bundlers.md) — Scholar: how bundlers and compilers read package.json
 - [`scholar-package-json-package-managers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-package-managers.md) — Scholar: how package managers read package.json (Yarn, pnpm, Bun)
 
-### tada (2565)
+### tada (2566)
+- [`minion-town-agenda-review-20260717-132004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260717-132004.md) — Reviewed and reported current agenda status on garden issue #58. No deploymen...
 - [`gauntlet-endo-but-for-bots-pr783-content-locator-interface-methods`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr783-content-locator-interface-methods.md) — Panel review found no must-fix items; no fixer changes were needed. PR #783 i...
 - [`endo-vfs-parity-press-20260717-122002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260717-122002.md) — VFS-parity press dispatch 2026-07-17 12:20Z: rescued the delegated mount glob...
 - [`ocapn-noise-press-20260717-122002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260717-122002.md) — Completion report — ocapn-noise-press-20260717-122002
 - [`endo-git-integration-press-20260717-122002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260717-122002.md) — Completion report — git-integration press dispatch (2026-07-17, 12:20Z claim;...
-- [`ebfb-retire-master-pr-186`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-186.md) — PR #186 is OPEN and targets master. Upstream endojs/endo master is 46d4edf317...
-- … and 2560 more
+- … and 2561 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
