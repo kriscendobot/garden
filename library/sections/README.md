@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6521 (530 parent indexes + 5991 children).
+Total section files: 6526 (530 parent indexes + 5996 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8092,6 +8092,14 @@ Total section files: 6521 (530 parent indexes + 5991 children).
 - [papers--bollerslev-generalized-autoregressive-conditional-heteroskedasticity-1986--garch-p-q-and-stationary-unconditional-variance](papers--bollerslev-generalized-autoregressive-conditional-heteroskedasticity-1986--garch-p-q-and-stationary-unconditional-variance.md)
 - [papers--bollerslev-generalized-autoregressive-conditional-heteroskedasticity-1986--overview](papers--bollerslev-generalized-autoregressive-conditional-heteroskedasticity-1986--overview.md)
 - [papers--bollerslev-generalized-autoregressive-conditional-heteroskedasticity-1986--testing-and-inflation-uncertainty-example](papers--bollerslev-generalized-autoregressive-conditional-heteroskedasticity-1986--testing-and-inflation-uncertainty-example.md)
+
+### papers--clark-nested-predictive-accuracy-2007
+
+- [papers--clark-nested-predictive-accuracy-2007--empirical-examples-and-risk-directional-boundary](papers--clark-nested-predictive-accuracy-2007--empirical-examples-and-risk-directional-boundary.md)
+- [papers--clark-nested-predictive-accuracy-2007--mspe-adjustment-and-practical-one-sided-test](papers--clark-nested-predictive-accuracy-2007--mspe-adjustment-and-practical-one-sided-test.md)
+- [papers--clark-nested-predictive-accuracy-2007--nested-null-makes-raw-mspe-difference-degenerate](papers--clark-nested-predictive-accuracy-2007--nested-null-makes-raw-mspe-difference-degenerate.md)
+- [papers--clark-nested-predictive-accuracy-2007--pairwise-nested-correction-and-post-search-boundary](papers--clark-nested-predictive-accuracy-2007--pairwise-nested-correction-and-post-search-boundary.md)
+- [papers--clark-nested-predictive-accuracy-2007--west-inference-route-and-approximately-normal-boundary](papers--clark-nested-predictive-accuracy-2007--west-inference-route-and-approximately-normal-boundary.md)
 
 ### papers--close-acls-dont-2009
 
