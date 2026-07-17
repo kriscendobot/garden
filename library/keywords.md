@@ -14558,4 +14558,7 @@ Value-at-Risk | garch-volatility-models
 VaR quantile forecast | garch-volatility-models
 Mincer-Zarnowitz forecast regression | mean-absolute-scaled-error
 volatility forecast evaluation | mean-absolute-scaled-error
+volatility-managed portfolio | garch-volatility-models
+inverse-variance exposure | garch-volatility-models
+volatility timing | garch-volatility-models
 probability integral transform | mean-absolute-scaled-error
