@@ -1,6 +1,6 @@
 # Cross-interactions and inconsistencies
 
-Where the `package.json` consumers disagree, fall back differently, or interact in ways that surprise. Grounded rows cite Node (`cc37ad5`), npm (`ce7681f`), Deno (`7bf3190`), Bun (`6352b79`), and Endo (`46d4edf`) library sources; unmarked remaining claims are **(synthesis)** and are queued for library-backing.
+Where the `package.json` consumers disagree, fall back differently, or interact in ways that surprise. Grounded rows cite Node (`cc37ad5`), npm (`ce7681f`), Deno (`7bf3190`), Bun (`6352b79`), Endo (`46d4edf`), and the package-manager sources — Yarn Berry manifest (`ab0afaf`), pnpm `package.json` (`047db9a`) + settings (`0cf4bd3`), Bun overrides (`16a7269`) + lifecycle (`16a7269`), Corepack (`05bc5f3`) — library sources; unmarked remaining claims are **(synthesis)** and are queued for library-backing.
 
 ## 1. `exports` versus legacy `main` / `module` / `browser`
 
@@ -37,7 +37,7 @@ Three different physical realizations of the same manifest, with different visib
 - **pnpm:** a content-addressed store with a symlinked `node_modules/.pnpm` layout, also strict (only declared deps visible), but realized through symlinks rather than a resolver, so it works with tools that expect a real `node_modules`.
 - **Node's experimental package maps** (`--experimental-package-map`, added v26.4.0) are a fourth model: resolution from a static data table with no `node_modules` at all, explicitly to prevent phantom dependencies (Node package-maps section).
 
-The manifest is identical; the strictness a package experiences (whether `packageExtensions` is needed to declare a missing edge) depends entirely on the layout. npm's own docs call out that `packageExtensions` is "especially useful with `install-strategy=linked`" for exactly this reason.
+The manifest is identical; the strictness a package experiences (whether `packageExtensions` is needed to declare a missing edge) depends entirely on the layout. npm's own docs call out that `packageExtensions` is "especially useful with `install-strategy=linked`" for exactly this reason. The **manifest-side** override/`packageExtensions` fields of each manager are now library-backed (see §7); the **layout internals** themselves — the PnP `.pnp.cjs` resolver and pnpm's `node_modules/.pnpm` symlinked store — remain synthesis, deferred to the `scholar-package-json-pm-layout` follow-on.
 
 ## 5. `sideEffects` tree-shaking semantics (synthesis)
 
@@ -46,26 +46,27 @@ The manifest is identical; the strictness a package experiences (whether `packag
 ## 6. `peerDependencies` auto-install differences
 
 - **npm:** 3-6 warned but did not install; **v7+ installs by default** (source: dependencies-and-overrides section). A conflicting peer requirement can now fail the install.
-- **Yarn Berry / pnpm (synthesis):** do not silently auto-install peers the way npm v7 does; pnpm surfaces peer issues loudly and supports `pnpm.peerDependencyRules` to relax them; Yarn Berry reports peer requirements and relies on the resolver.
+- **Yarn Berry / pnpm (library-backed):** do not silently auto-install peers the way npm v7 does. pnpm surfaces peer issues loudly and relaxes them via `peerDependencyRules` (`ignoreMissing`/`allowedVersions`/`allowAny`), now in `pnpm-workspace.yaml` ([pnpm--settings--package-extensions-and-peer-rules](../../library/sections/pnpm--settings--package-extensions-and-peer-rules.md)). Yarn Berry relies on its resolver and additionally supports **peer-dependencies-with-default** — a dependency listed in both `dependencies` and `peerDependencies` solves the peer first and falls back to the regular dependency ([yarn-berry--manifest-schema--dependency-metadata](../../library/sections/yarn-berry--manifest-schema--dependency-metadata.md)). pnpm's `dependenciesMeta.injected` further lets one workspace package satisfy the *same* peer differently for different consumers via hard-linked copies ([pnpm--package-json--dependencies-meta-and-publishconfig](../../library/sections/pnpm--package-json--dependencies-meta-and-publishconfig.md)).
 
 The same manifest therefore produces different installed trees under different managers, and a package author testing only under one manager can ship a peer graph that breaks under another.
 
-## 7. `overrides` versus `resolutions` versus `pnpm.overrides` (synthesis + npm-grounded)
+## 7. `overrides` versus `resolutions` versus pnpm `overrides` (library-backed)
 
 Three dialects for the same job (force a transitive dependency version), all root-only, with different selector syntax and merge rules (concept [`../../library/concepts/dependency-overrides.md`](../../library/concepts/dependency-overrides.md)):
 
 - **npm `overrides`:** nested-object selectors, version-scoped parent keys (`"bar@2.0.0"`), `$name` references to a direct dependency's spec, `npm:`/`github:`/`file:` replacements (npm-grounded, dependencies-and-overrides section).
-- **Yarn `resolutions`:** glob-path selectors (`**/foo`, `pkg/**/foo`); a flatter syntax.
-- **pnpm `pnpm.overrides`:** lives under the `pnpm` manifest key; selector syntax closer to npm but with pnpm extensions.
+- **Yarn `resolutions`:** flat glob-path selectors (`parent/dep`, `parent@version/dep`), one level of specificity, root-only ([yarn-berry--manifest-schema--resolutions](../../library/sections/yarn-berry--manifest-schema--resolutions.md)). Bun also reads `resolutions`, but top-level only.
+- **pnpm `overrides`:** **since pnpm v11 lives in `pnpm-workspace.yaml`, not a `pnpm` block in `package.json`** ([pnpm--package-json--pnpm-field-moved-and-engines](../../library/sections/pnpm--package-json--pnpm-field-moved-and-engines.md)); `parent>dep` selectors, `catalog:` references, `-` removal, and it applies to peer dependencies ([pnpm--settings--overrides](../../library/sections/pnpm--settings--overrides.md)).
+- **Bun:** reads npm `overrides` and Yarn `resolutions` but supports **neither's nested selectors** (top-level only), a porting hazard from npm ([bun--overrides--overview](../../library/sections/bun--overrides--overview.md)).
 
-Porting a project between managers requires translating the dialect, and a mistranslation silently fails to pin the intended version. `packageExtensions` is the complementary field (add/correct the metadata that creates the edge rather than change what it resolves to) and also exists in three places (npm `packageExtensions`, Yarn Berry, pnpm `pnpm.packageExtensions`).
+Porting a project between managers requires translating the dialect, and a mistranslation silently fails to pin the intended version. `packageExtensions` is the complementary field (add/correct the metadata that creates the edge rather than change what it resolves to) and also exists in three places — npm `packageExtensions`, Yarn Berry (a `.yarnrc.yml` setting), and pnpm `packageExtensions` (in `pnpm-workspace.yaml` since v11); pnpm and Yarn co-maintain the shared `@yarnpkg/extensions` database ([pnpm--settings--package-extensions-and-peer-rules](../../library/sections/pnpm--settings--package-extensions-and-peer-rules.md)).
 
 ## 8. How Deno / Endo / Bun diverge from Node
 
 - **Deno:** `deno.json` supplies import maps and Deno tooling; `package.json` supplies dependencies and scripts. `npm:` is an explicit package-specifier form, and package projects use manual `node_modules`. The detailed exports-condition algorithm remains synthesis.
 - **Endo (README `46d4edf`):** a deliberately small subset - `name`/`type`/`main`/`exports`/`browser`/`dependencies`/`files`, three conditions (`import`/`browser`/`endo`), no `imports` and no `*` patterns yet, plus its own `parsers` field and `.ts` -> `.cts`/`.mts` hook. It can load CJS from ESM, ESM from CJS, and JSON without an import attribute, all documented as potentially reducing Node compatibility.
-- **Bun (module-resolution guide `6352b79`):** honors `exports`/`imports`, ordered conditions including `bun`, and `main` before `module` fallback. `trustedDependencies`, `overrides`, and `resolutions` are package-manager behavior still awaiting a dedicated primary-source ingest.
+- **Bun (module-resolution guide `6352b79`; overrides/lifecycle guides `16a7269`):** honors `exports`/`imports`, ordered conditions including `bun`, and `main` before `module` fallback. As a PM it reads npm `overrides` and Yarn `resolutions` (top-level only) and is **default-secure** — it runs a dependency's lifecycle scripts only for allow-listed packages named in `trustedDependencies`, which *replaces* (not extends) the curated built-in list and covers only npm-source packages, so a package relying on a `postinstall` build silently does not build unless trusted ([bun--overrides--overview](../../library/sections/bun--overrides--overview.md), [bun--lifecycle--trusted-dependencies](../../library/sections/bun--lifecycle--trusted-dependencies.md)).
 
 ## 9. `workspaces` is not universal (synthesis)
 
-npm, Yarn, and Bun read the `workspaces` array from `package.json`; **pnpm ignores it** and reads `pnpm-workspace.yaml` instead. A repo moved from npm/Yarn to pnpm silently loses its workspace definition until the YAML file is added.
+npm, Yarn, and Bun read the `workspaces` array from `package.json`; **pnpm ignores it** and reads `pnpm-workspace.yaml` instead — the same file that (since pnpm v11) holds pnpm's `overrides`/`packageExtensions`/`peerDependencyRules` settings ([pnpm--package-json--pnpm-field-moved-and-engines](../../library/sections/pnpm--package-json--pnpm-field-moved-and-engines.md)). A repo moved from npm/Yarn to pnpm silently loses its workspace definition until the YAML file is added. (The `packages:` workspaces field of `pnpm-workspace.yaml` itself awaits the `scholar-package-json-pm-layout` follow-on ingest.)
