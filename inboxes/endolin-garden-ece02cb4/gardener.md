@@ -498,3 +498,12 @@ Inspect via `git -C journal cat-file -p 0b2d51d0660cccfc58b60a50da023f8dea3b56a2
 - Context: gardener-4 on endolin-garden-ece02cb4: job 'migrate-endo-but-for-bots-master-to-pnpm' exit-0-unsatisfying but elapsed near-constant (47,47s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p 5b61f2141ea367332694811aac493e7b5b000c48`.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-07-17T04:36:41Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: 941bf7521fe0d604fc0a8e45041b51926804fe20
+- Context: gardener-5 on endolin-garden-ece02cb4: job 'ocapn-noise-press-20260717-000503' exit-0-unsatisfying but elapsed near-constant (161,161s) over 2 cycles — likely a wedged child, not a working one
+
+Inspect via `git -C journal cat-file -p 941bf7521fe0d604fc0a8e45041b51926804fe20`.
