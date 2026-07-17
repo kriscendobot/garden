@@ -58,3 +58,10 @@ ones that do plus a precise gap note.
 - Report via tada ONLY; never inbox-send the parked supervisor.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 11
+  worker_kind: gardener
+  claimed_at: 2026-07-17T00:33:26Z
