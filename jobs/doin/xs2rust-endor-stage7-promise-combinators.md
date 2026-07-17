@@ -48,3 +48,10 @@ implementation in `endor-vm` first — the ledger notes this is the intended sub
 - Capture test runs to files, check `$?`; `/tmp` is noexec; use `$HOME/tmp` for TMPDIR.
 - Budget: ONE 2400s invocation. Land green increments; honest remainder in tada.
 - Report via tada ONLY; never inbox-send the parked supervisor.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-17T03:37:07Z
