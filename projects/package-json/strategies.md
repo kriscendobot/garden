@@ -45,7 +45,7 @@ Use `publishConfig` (npm-grounded) to pin publish-time config independent of the
 
 ## 5. Monorepo `workspaces` publishing
 
-- Declare workspaces with the `workspaces` array (npm/Yarn/Bun) or `pnpm-workspace.yaml` (pnpm - the [workspaces divergence](inconsistencies.md#9-workspaces-is-not-universal-synthesis)). Each workspace is symlinked into the top-level `node_modules` so cross-workspace imports resolve during development.
+- Declare workspaces with the `workspaces` array (npm/Yarn/Bun) or `pnpm-workspace.yaml` (pnpm - the [workspaces divergence](inconsistencies.md#9-workspaces-is-not-universal)). Each workspace is symlinked into the top-level `node_modules` so cross-workspace imports resolve during development.
 - Set `"private": true` on the workspace root; publish the individual packages (Changesets, `npm publish --workspaces`, or `pnpm -r publish`).
 - Use the `repository.directory` field to point each package at its subdirectory within the monorepo (npm files-entry-points section), so registry links resolve to the right folder.
 - `packageExtensions` (or `pnpm.packageExtensions`) is the monorepo-hygiene tool for declaring dependency edges a third-party package forgot, which matters under strict/isolated layouts (pnpm, `install-strategy=linked`, Yarn PnP) where hoisting no longer papers over the omission.
