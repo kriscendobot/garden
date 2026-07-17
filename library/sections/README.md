@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6464 (530 parent indexes + 5934 children).
+Total section files: 6468 (530 parent indexes + 5938 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8494,6 +8494,13 @@ Total section files: 6464 (530 parent indexes + 5934 children).
 - [papers--welch-comprehensive-look-equity-premium-prediction-2008--monthly-horizons-and-specification-search](papers--welch-comprehensive-look-equity-premium-prediction-2008--monthly-horizons-and-specification-search.md)
 - [papers--welch-comprehensive-look-equity-premium-prediction-2008--overview](papers--welch-comprehensive-look-equity-premium-prediction-2008--overview.md)
 - [papers--welch-comprehensive-look-equity-premium-prediction-2008--rolling-out-of-sample-historical-mean-benchmark](papers--welch-comprehensive-look-equity-premium-prediction-2008--rolling-out-of-sample-historical-mean-benchmark.md)
+
+### papers--west-asymptotic-inference-predictive-ability-1996
+
+- [papers--west-asymptotic-inference-predictive-ability-1996--asymptotic-covariance-and-window-design](papers--west-asymptotic-inference-predictive-ability-1996--asymptotic-covariance-and-window-design.md)
+- [papers--west-asymptotic-inference-predictive-ability-1996--lineage-and-forecasting-boundary](papers--west-asymptotic-inference-predictive-ability-1996--lineage-and-forecasting-boundary.md)
+- [papers--west-asymptotic-inference-predictive-ability-1996--parameter-estimation-uncertainty](papers--west-asymptotic-inference-predictive-ability-1996--parameter-estimation-uncertainty.md)
+- [papers--west-asymptotic-inference-predictive-ability-1996--predictive-ability-target-and-scope](papers--west-asymptotic-inference-predictive-ability-1996--predictive-ability-target-and-scope.md)
 
 ### papers--white-reality-check-data-snooping-2000
 
