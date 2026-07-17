@@ -1,1 +1,8 @@
 In `scripts/jobs/triager.sh`, the fetch at line 117 (`git --git-dir="$BARE" fetch -q --all --prune || die "fetch failed for $slug"`) hard-`die`s (exit 1 → systemd unit failure → self-heal responder) on a transient network failure. This contradicts the deliberate skip-and-retry pattern the same script already uses for the self-provision clone-failure path (lines 94–104), whose comment names exactly these causes: "offline, DNS, a half-open connection reaped by the timeout." Observed signature: `FATAL: fetch failed for kriscendobot-cosgov` (preceded by a `Terminated`/SIGTERM on the prior run, i.e. a reaped connection). Change line 117 so a fetch failure on an existing bare clone is treated as likely-transient: log a WARN, call `alert_maintainer "triager-fetch-failed-${slug//[^A-Za-z0-9._-]/_}" "<msg>"` (throttled per dedup key, so a persistent outage escalates at most once per window but a blip is silent), and `exit 0` to skip this tick and retry next — instead of `die`. Mirror the wording/structure of the provision-failed branch (lines 95–104) for consistency. This keeps a network blip during fetch from crash-looping/failing the `garden-triager@` unit, matching how the missing-clone, corrupt-clone, and provision-failed cases already behave.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-17T16:04:07Z
