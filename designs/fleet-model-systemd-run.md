@@ -33,6 +33,15 @@ contention, the same contention the reaper's stuck-fetch janitor and the clone-l
 hardening keep fighting (the 2026-06-25 fleet wedge). `systemd-run`-per-job does **not**
 fix that either: *something* still has to poll the board to know when to spawn a worker.
 
+GitHub does support polite conditional polling: REST responses carry an `ETag`, and a
+subsequent request with `If-None-Match` receives `304 Not Modified` when the resource is
+unchanged. That avoids a response body and primary-rate-limit cost, but it is not a
+branch-specific long poll and does not avoid opening an HTTPS connection. The existing
+`github-activity-poll` producer already carries the durable ETag/last-seen discipline.
+The migration must reuse that primitive: one configured activity watcher owns a feed's
+conditional requests and translates a changed branch into a job-board post. Workers and
+dispatchers consume that post; they do not independently watch the branch.
+
 The genuinely useful application of `systemd-run` is therefore **not** "replace the
 loops" but **split claim from work**: a *small* resident **dispatcher** pool polls and
 wins claims, then `systemd-run`s the `claude -p` worker as a transient per-job unit that
@@ -153,29 +162,37 @@ dispatcher checks before spawning.
 - Per-job isolation, status, logs, and the free-deploy property all come for free.
 - The killswitch, reaper, and scaler translate cleanly (below).
 
+The single activity watcher and the job dispatcher have deliberately separate ownership.
+The watcher observes an upstream branch and posts a job once. The dispatcher claims an
+already-posted job and starts its worker. This keeps branch polling central without
+turning the dispatcher into an upstream watcher or duplicating a feed's request budget.
+
 ## Recommendation
 
 **Adopt the hybrid (C), incrementally and behind measurement; do not pursue A or B as
 stated.** Concretely:
 
-1. **First, fix the cheaper thing first.** The largest measured cost of the *current*
-   model — ~20 journal fetches/second from idle pollers — is partly addressable **without
-   `systemd-run` at all**, by lengthening/jittering `GARDEN_IDLE_SLEEP` under sustained
-   idle (back-pressure the poll) or by having the watchman/foreman wake idle gardeners via
-   the message bus instead of every gardener self-polling. This is worth doing regardless
-   and de-risks the bigger change. *(If this alone makes the pool cheap enough, the
-   `systemd-run` migration becomes purely an observability/deploy-ergonomics decision, not
-   a cost decision — which is the honest framing.)*
+1. **First, make feed ownership explicit.** Reuse the conditional-GET activity watcher
+   for the pilot's source branch, with one watcher instance and durable ETag/last-seen
+   state. It alone posts pilot work to the board. Measure its request count and `304` rate
+   before changing worker topology.
 
-2. **Then pilot the dispatcher/worker split** behind the existing handler seam. The
+2. **Then pilot the dispatcher/worker split in exactly one lane** behind the existing
+   handler seam. The
    `GARDEN_JOB_HANDLER` indirection already separates *claim/complete* (in `gardener.sh`)
    from *do the work* (the handler). The pilot is: a dispatcher that, instead of running
    the handler in-process, `systemd-run`s it as `garden-job@<base>.service`, and a
    `garden-jobs.slice` carrying the concurrency cap. Run it as a **single dispatcher lane
-   alongside the existing pool** on one host, compare per-job observability and deploy
-   ergonomics, and only then decide whether to shrink the resident pool.
+   alongside the existing pool** on one host. It has a dedicated, bounded concurrency
+   budget and no authority to alter the existing gardeners, scaler target, or other lanes.
 
-3. **Keep the journal-CAS claim protocol exactly as-is.** None of this touches the
+3. **Gate each next step.** Before enabling the lane, exercise claim, completion, reaper,
+   kill-switch, and deploy paths in test mode. During the lane, collect per-job cgroup
+   accounting, dispatcher fetches, queue latency, and failure/requeue observations. Expand
+   only after a written comparison against the resident lane and an explicit maintainer
+   decision; otherwise remove the pilot cleanly and retain the measurements.
+
+4. **Keep the journal-CAS claim protocol exactly as-is.** None of this touches the
    compare-and-swap; the dispatcher claims with today's `claim-job.sh` before it spawns.
 
 The recommendation is deliberately *not* "rip out the loops." The loops are cheap in the
@@ -221,27 +238,14 @@ hybrid captures that win without betting the fleet on it.
   `exec` the handler directly instead of `systemd-run`-ing it, so the CAS subtests are
   unaffected.
 
-## Open questions for the maintainer
+## Pilot decisions and remaining measurements
 
-1. **Is the poll-fetch load actually a felt problem today,** or is the journal contention
-   already adequately tamed by the clone-lock + stuck-fetch hardening? If the latter, the
-   `systemd-run` migration is justified by observability/deploy ergonomics alone — is that
-   enough to warrant the change?
-2. **Idle-poll back-pressure first?** Should we land the cheap `GARDEN_IDLE_SLEEP`
-   back-pressure / bus-wakeup change independently and re-measure before committing to the
-   dispatcher split?
-3. **Concurrency cap mechanism:** a `garden-jobs.slice` `TasksMax`/`MemoryMax` (kernel
-   enforces, dispatcher need not count) vs. the dispatcher counting live `garden-job@*`
-   units before spawning. The slice is more robust; the count is simpler. Preference?
-4. **Dispatcher count D:** how small can the resident dispatcher pool be while still
-   winning claims fast enough under burst? This is the one number the pilot should measure
-   directly.
-5. **Worker unit naming/collision:** `garden-job@<base>` keys on the job basename (already
-   the system's spine). A re-claimed job after a reap reuses the base — does
-   `--collect` + the reaper's TTL fully avoid a stale-unit-name collision, or do we need a
-   `<base>-<claim-epoch>` suffix?
-6. **Scope of adoption:** pilot on one host's single lane first (recommended), or model it
-   across all hosts in the design before any code?
+The review settles the adoption shape: a conditional-GET watcher is the sole branch
+observer, and the experiment is one non-disruptive lane. Before enabling it, the pilot
+implementation must select and test its bounded-concurrency mechanism and collision-safe
+worker-unit naming. It then measures the remaining operational questions rather than
+guessing: the smallest responsive dispatcher count, the observed fetch reduction, queue
+latency, and whether the observability/deploy benefits justify any later expansion.
 
 ---
 
