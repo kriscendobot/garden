@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-17T10:32:19Z_
+_As of 2026-07-17T10:36:38Z_
 
 ## Latest
 
@@ -672,13 +672,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 116.4M | $1199.56 _(notional, rate-card)_ | no quota set |
-| Codex | 182.4M _(+343.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 53% _(plan; codex-reported)_ |
+| Codex | 182.4M _(+347.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 53% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (15)
+### doin (14)
 - [`build-endo-content-locators-magnet-urn-phase2-interface-methods`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-content-locators-magnet-urn-phase2-interface-methods.md) — Build Phase 2 of the content-locator design: the <verb>Content interface meth...
 - [`ebfb-retire-master-pr-353`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-353.md) — ---
 - [`endo-byte-array-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260717-060503.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -688,20 +688,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr771-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr771-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #771
 - [`endojs-endo-but-for-bots-pr779-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr779-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #779
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/migrate-endo-but-for-bots-master-to-npm.md) — ---
-- [`ocapn-noise-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260717-060503.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`scholar-ingest-clark-west-nested-predictive-accuracy-2007`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-clark-west-nested-predictive-accuracy-2007.md) — ---
 - [`scholar-package-json-bundlers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-bundlers.md) — Scholar: how bundlers and compilers read package.json
 - [`scholar-package-json-package-managers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-package-managers.md) — Scholar: how package managers read package.json (Yarn, pnpm, Bun)
 - [`xs2rust-endor-press-20260717-072004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260717-072004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-s22-compartment-isolation-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-s22-compartment-isolation-fix.md) — Fix the stage-7 review findings on PR #600 (xs2rust-endor): compartment isola...
 
-### tada (2519)
+### tada (2520)
+- [`ocapn-noise-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260717-060503.md) — Completion report — ocapn-noise-press-20260717-060503
 - [`scholar-ingest-romano-wolf-stepwise-data-snooping-2005`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-romano-wolf-stepwise-data-snooping-2005.md) — Ingested Romano & Wolf 2005 with five sections, honest working-paper/Wayback ...
 - [`merge-endo-but-for-bots-pr749-content-locator-grammar-duality`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/merge-endo-but-for-bots-pr749-content-locator-grammar-duality.md) — Merged endojs/endo-but-for-bots PR #749 into live llm.
 - [`minion-town-agenda-review-20260717-100501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260717-100501.md) — Completion report
 - [`xs2rust-endor-press-20260717-093501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260717-093501.md) — Press report — xs2rust-endor-press-20260717-093501 (PR #600, hourly tick)
-- [`endo-sturdyref-press-20260717-093501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260717-093501.md) — Completion report — SturdyRef press tick (2026-07-17 09:35 dispatch)
-- … and 2514 more
+- … and 2515 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
