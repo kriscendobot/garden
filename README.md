@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-17T07:21:35Z_
+_As of 2026-07-17T07:43:19Z_
 
 ## Latest
 
-Upstream `endojs/endo` master landed on the `llm` roadmap branch: a gardener conducted [#773](https://github.com/endojs/endo-but-for-bots/pull/773) — a clean merge of the *real* upstream master (not the contaminated fork mirror) stopping just short of the ESLint 10 flat-config overhaul — advancing `llm` with the immutable-arraybuffer pseudo-prototype drop, SES console sanitization + `code` error prop, and skipLibCheck; adopting the full ESLint 10 migration is flagged as a separate multi-cycle job, not forced into this pass. The daemon→manager rename moved too — Phase 2 [#780](https://github.com/endojs/endo-but-for-bots/pull/780) shepherded to green, with Phase 1 [#779](https://github.com/endojs/endo-but-for-bots/pull/779) and [#598](https://github.com/endojs/endo-but-for-bots/pull/598) rebased clean onto the new base — while Phase 3 was correctly re-parked as blocked until #780 merges. finbot advanced its GJR-GARCH leverage work into the live regime read.
+Upstream `endojs/endo` master landed on the `llm` roadmap branch: [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) merged cleanly (immutable-arraybuffer pseudo-prototype drop, SES console sanitization plus the `code` error prop, skipLibCheck), stopping deliberately short of upstream's ESLint 10 flat-config overhaul — which the gardener quantified as a multi-cycle re-lint and flagged as a separate opt-in job rather than forcing it into this merge. On the daemon→manager rename, Phase 1 opened as draft [#780](https://github.com/endojs/endo-but-for-bots/pull/780) and Phase 3 was correctly re-parked as blocked on it (it was promoted early, before `makeManager` exists on the base); [#598](https://github.com/endojs/endo-but-for-bots/pull/598) was also rebased onto the new `llm` head and is shepherd-ready. The Yarn-migration experiment pivoted from pnpm to npm — the pnpm variant hit repeated deadline-overruns and was poisoned, and the npm job now carries a panel-vs-acceptance conflict (panel wants historical Yarn CHANGELOG mentions restored; the job forbids any Yarn mention) awaiting a maintainer waiver.
 
-Several decisions now gate whole trees and want kriskowal's call: the M3 module-loading tail is stalled on picking a package home for the MVS resolver ([#671](https://github.com/endojs/endo-but-for-bots/pull/671) vs [#403](https://github.com/endojs/endo-but-for-bots/pull/403)); M2 is one decision from done ([#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) green, redundant #263 to close); the git-integration M3 loop is fully green awaiting a `merge` directive on [#705](https://github.com/endojs/endo-but-for-bots/pull/705); the esheets tree is dammed six days behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621); the sturdyref effort has three open gates including a first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737); and the OCapN-over-Noise driver needs a yes/no on opening an inbound TCP port on minion.town to close its cross-host finish line.
-
-Worth noticing on the housekeeping side: several PR reconstructions (#69, #545, #720) are blocked because the fork master already contains their merge commits — the diffs reconstruct to empty — and a wave of jobs (shepherds for #124/#704/#763, agoric-sdk #15, the upstream-merge and content-store-powers merges) were **poisoned on handler-budget overruns** and parked in `jobs/plan/` awaiting a human to split or promote them; the reaper flagged that these overrun the 2400s (or 7200s) claim wall on every requeue. A separately raised structural note: the `avoid-name-abbreviations` fix recurred on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) because the pre-push gate only scans newly-added lines, so any abbreviation predating the gate escapes permanently — the maintainer is asked whether to widen it.
+A cluster of long-running jobs was poisoned this cycle for overrunning the handler budget — shepherds on [#763](https://github.com/endojs/endo-but-for-bots/pull/763), [#124](https://github.com/endojs/endo-but-for-bots/pull/124), and [#704](https://github.com/endojs/endo-but-for-bots/pull/704), the pnpm migration, the #585 content-store merge, and the upstream-merge job itself — all parked in `plan/` held for promotion; several genuinely need splitting into claim-sized stages. Several multi-PR efforts are fully green and waiting only on maintainer merge authority: git-integration M3 ([#705](https://github.com/endojs/endo-but-for-bots/pull/705) 22/22 green, [#707](https://github.com/endojs/endo-but-for-bots/pull/707) the worked-loop exit criterion), the sturdyref replacement [#737](https://github.com/endojs/endo-but-for-bots/pull/737) (25/25, zero reviews), M2's [#259](https://github.com/endojs/endo-but-for-bots/pull/259)/[#719](https://github.com/endojs/endo-but-for-bots/pull/719), and the esheets tree still dammed behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, 6 days awaiting re-review). The foreman also needs a package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) before the M3 module-loading tail can build. Separately, the Chrome native-function `arguments`/`caller` reproduction was published and linked from [#259](https://github.com/endojs/endo-but-for-bots/pull/259), and finbot advanced to live GJR-GARCH leverage estimation feeding an asymmetric, down-move-conditional regime read (541 tests green).
 
 ## Parked for maintainer feedback
 
@@ -609,6 +607,29 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
+- `poison-migrate-endo-but-for-bots-master-to-pnpm-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-migrate-endo-but-for-bots-master-to-pnpm-requeue-exhausted.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/migrate-endo-but-for-bots-master-to-pnpm; it stays HELD until a human promotes it
+> (promote-plan.sh migrate-endo-but-for-bots-master-to-pnpm) or removes it, so nothing is lost.
+> Original job base: migrate-endo-but-for-bots-master-to-pnpm
+>
+> --- original job body ---
+> ---
+> role: builder
+> model: gpt-5.6-terra
+> priority: high
+> handler-timeout: 10800
+> ---
+> Migrate endojs/endo-but-for-bots completely from Yarn to pnpm, starting from the live upstream endojs/endo master lineage.
+>
+> Create a fresh bot-authored branch based on the latest upstream master commit (first fetch endojs/endo master and ensure the target base is not a stale fork snapshot), then make endojs/endo-but-for-bots a pnpm-native repository. Replace package-manager configuration, lockfiles, workspace commands, scripts, bootstrap/development instructions, CI workflows, release tooling, Docker/build automation, and every other tracked Yarn dependency with pnpm equivalents. Preserve monorepo/workspace semantics and reproducibility. Remove obsolete Yarn artifacts rather than carrying compatibility shims.
+>
+> Acceptance is literal and exhaustive: a case-insensitive search of all tracked files must find no mention of yarn; pnpm install must reproduce from the committed pnpm lockfile; every applicable lint, format, typecheck, unit, integration, build, and CI-equivalent test must pass. Exercise workflows locally where practical and fix pnpm-specific lifecycle/workspace differences rather than skipping tests. Do not weaken checks or exclude failures. Record exact commands and results.
+>
+> Open one bot-authored PR on endojs/endo-but-for-bots against master, clearly labeled as the pnpm migration experiment and citing the exact upstream master SHA used. Run the normal build-produced gauntlet through clean panel review and un-draft only when all acceptance criteria are met. Do not merge.
+
 - `poison-ocapn-noise-press-20260717-000503-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-ocapn-noise-press-20260717-000503-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -650,14 +671,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 111.5M | $1135.91 _(notional, rate-card)_ | no quota set |
-| Codex | 181.6M _(+325.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 50% _(plan; codex-reported)_ |
+| Claude | 112.0M | $1142.84 _(notional, rate-card)_ | no quota set |
+| Codex | 181.8M _(+325.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 50% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (16)
+### doin (15)
 - [`ebfb-retire-master-pr-353`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-353.md) — ---
 - [`endo-byte-array-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260717-060503.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260717-060503.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
@@ -667,7 +688,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr779-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr779-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #779
 - [`merge-endo-but-for-bots-pr749-content-locator-grammar-duality`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/merge-endo-but-for-bots-pr749-content-locator-grammar-duality.md) — Merge endojs/endo-but-for-bots PR #749 (content-locator grammar and duality, ...
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/migrate-endo-but-for-bots-master-to-npm.md) — ---
-- [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/migrate-endo-but-for-bots-master-to-pnpm.md) — ---
 - [`ocapn-noise-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260717-060503.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`scholar-ingest-romano-wolf-stepwise-data-snooping-2005`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-romano-wolf-stepwise-data-snooping-2005.md) — Continue the financial-forecasting corpus after Giacomini & White 2006 with R...
 - [`scholar-package-json-bundlers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-bundlers.md) — Scholar: how bundlers and compilers read package.json
@@ -706,6 +726,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kriscendobot-agoric-sdk-pr15-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-shepherd.md) — _normal_ · shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #15
 - [`merge-endo-but-for-bots-pr585-content-store-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/merge-endo-but-for-bots-pr585-content-store-powers.md) — _normal_ · Merge endojs/endo-but-for-bots PR #585 (content-store powers)
 - [`merge-upstream-master-into-llm-20260717`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/merge-upstream-master-into-llm-20260717.md) — _normal_ · Merge upstream master into the endo-but-for-bots llm branch (propose PR -> sh...
+- [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-pnpm.md) — _normal_ · ---
 - [`ocapn-noise-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260717-000503.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
