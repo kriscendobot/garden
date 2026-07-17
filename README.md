@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-17T10:27:24Z_
+_As of 2026-07-17T10:31:22Z_
 
 ## Latest
 
@@ -672,13 +672,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 116.4M | $1199.56 _(notional, rate-card)_ | no quota set |
-| Codex | 182.3M _(+336.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 52% _(plan; codex-reported)_ |
+| Codex | 182.4M _(+342.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 53% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (15)
+### doin (16)
 - [`build-endo-content-locators-magnet-urn-phase2-interface-methods`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-content-locators-magnet-urn-phase2-interface-methods.md) — Build Phase 2 of the content-locator design: the <verb>Content interface meth...
 - [`ebfb-retire-master-pr-353`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-353.md) — ---
 - [`endo-byte-array-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260717-060503.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -689,6 +689,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr779-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr779-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #779
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`ocapn-noise-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260717-060503.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+- [`scholar-ingest-clark-west-nested-predictive-accuracy-2007`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-clark-west-nested-predictive-accuracy-2007.md) — ---
 - [`scholar-ingest-romano-wolf-stepwise-data-snooping-2005`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-romano-wolf-stepwise-data-snooping-2005.md) — Continue the financial-forecasting corpus after Giacomini & White 2006 with R...
 - [`scholar-package-json-bundlers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-bundlers.md) — Scholar: how bundlers and compilers read package.json
 - [`scholar-package-json-package-managers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-package-managers.md) — Scholar: how package managers read package.json (Yarn, pnpm, Bun)
