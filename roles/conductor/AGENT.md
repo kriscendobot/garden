@@ -40,6 +40,8 @@ For each PR in the job:
    Then rebase onto the now-live base. Conflicts: stall with reason `rebase conflict` and move on. Conflicts you do attempt follow [conflict-resolution]; no `--ours` / `--theirs`. If the unfreeze rebase requires more than the conductor's surgical scope (multi-package conflict, a semantic merge of intervening trunk work), stall with reason `needs weave: frozen-base unfreeze conflicts`; a weave job is posted to follow.
 
    If the PR's base is already a live trunk (`llm`, `main`, `master` without a `-<sha>` suffix), skip the unfreeze step and rebase directly per the same conflict discipline.
+
+   **Exception — `endojs/endo-but-for-bots` has no `master` trunk (maintainer directive, 2026-07-16, #475).** On that repo `master` is upstream `endojs/endo`'s branch, never the fork's; a PR based on a `master-<sha>` reflection is **never unfrozen to or merged into a fork `master`**. The conductor REFUSES `gh pr merge` into `endo-but-for-bots` `master` (or any base that would land there) and stalls with reason `ferry required: master work lands upstream via the boatman`. The `llm` trunk on that repo is unaffected.
 3. **Tidy the commit history.** Absorb fixer follow-up commits into the originals they amend so the merge cluster reads as a coherent change set:
    - **Noninteractive rebase with `--autosquash`** (`GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash <base>`): `fixup!`-prefixed commits (produced by `git commit --fixup=<sha>` in the fixer or shepherd stage, and left visible at the tip through review) are positioned after their targets and marked `fixup` automatically, so the absorb is deterministic and needs no editor session.
      When no `fixup!` commits are present, fall back to a plain `git rebase -i <base>` and change `pick` to `fixup` by hand for any follow-ups that need absorbing.
@@ -89,11 +91,12 @@ Pushing a tidied force-with-lease and issuing `gh pr merge` are upstream mutatio
 ## Definition of done
 
 - Every PR in the job is either merged (state=MERGED), enqueued for auto-merge (state=OPEN with autoMergeRequest), or stalled with a recorded reason. A PR is **never** left in `tada` green-but-unmerged: a still-pending CI is block-watched to terminal and merged in the same job, or the job is re-enqueued — it does not complete while waiting.
-- Every merged PR's `baseRefName` at merge time was the live trunk (`llm`, `main`, or `master`), never a frozen snapshot. Snapshots-as-base are unfrozen at step 2; merging onto a snapshot is a discipline violation.
+- Every merged PR's `baseRefName` at merge time was the live trunk (`llm`, `main`, or `master`), never a frozen snapshot. Snapshots-as-base are unfrozen at step 2; merging onto a snapshot is a discipline violation. On `endojs/endo-but-for-bots` there is no `master` trunk to merge into — `master-<sha>`-based PRs stall `ferry required` (step 2 exception).
 - The report lists the run's outcomes plus any unblocked-downstream PRs.
 
 ## Notes from the field
 
+- _2026-07-17_: step 2 grew the endo-but-for-bots `master` refusal per kriskowal's directive on #475 (2026-07-16): the fork must not carry a `master` branch; work targeting upstream `master` rides `master-<sha>` reflections of `endojs/endo` master during review and is ferried upstream by the boatman, never merged into the fork. The prior practice of merging bot PRs into a fork-local `master` had contaminated it (e.g. the broken `packages/cbor` that turned every master-based PR's CI red).
 - _2026-07-14_: step 3 adopted `git commit --fixup` plus noninteractive autosquash for post-retcon corrections.
   A minor lint, format, test, docs, or bug correction to code a PR introduced is authored by the fixer or shepherd as `git commit --fixup=<introducing-sha>`, left visible at the tip through panel and maintainer review, and absorbed here by `GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash <base>` so the merge cluster reads clean while the pre-tidy tree stays byte-identical.
   Independently reviewable behavior still ships as a normal `feat:` or `fix:` commit.

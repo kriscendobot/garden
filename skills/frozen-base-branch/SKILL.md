@@ -159,6 +159,13 @@ if [[ "$SNAPSHOT_BASE" =~ ^(llm|main|master)-[0-9a-f]{4,40}$ ]]; then
 fi
 ```
 
+**Exception — `endojs/endo-but-for-bots` `master` (maintainer directive,
+2026-07-16, #475):** that fork must not carry a `master` branch, so there is no
+live `master` to unfreeze to. A `master-<sha>` reflection there freezes
+**upstream `endojs/endo` master**, and the PR's landing path is the boatman's
+ferry to upstream — the conductor refuses the merge and stalls `ferry required`
+(see `roles/conductor/AGENT.md` step 2). The fork's `llm` trunk is unaffected.
+
 After the unfreeze, the merge job's normal rebase-then-merge sequence runs
 against the live tip. Conflicts that exceed the merge job's surgical scope stall
 and re-post a `rebase`/`weave` job (frozen-base unfreeze conflicts).
@@ -288,6 +295,12 @@ SHA) is invisible because the bot's fork only sees its own.
 
 (Append; terse and dated.)
 
+- _2026-07-17_: endo-but-for-bots `master` retired per kriskowal on #475
+  (2026-07-16): `master-<sha>` reflections there snapshot **upstream
+  `endojs/endo` master** (fetch the upstream remote, not the fork's `master`),
+  and such PRs are ferried upstream rather than unfrozen-and-merged into the
+  fork. First application: #475 itself, retargeted to `master-2708cac` with its
+  head rebased onto it.
 - _2026-05-22_: initial bootstrap. The convention landed across the PR flow and
   the builder/weaver/conductor/boatman roles.
 - _2026-06-06_: added the *Unfreeze before merge* section per a maintainer
