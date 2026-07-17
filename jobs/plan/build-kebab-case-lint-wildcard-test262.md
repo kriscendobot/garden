@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+poisoned_at: 2026-07-17T00:23:05Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-17T00:23:05Z
+---
+
+---
 role: builder
 ---
 # Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD exemptions for test262
@@ -60,10 +74,3 @@ tests+fixtures by wildcard, on a frozen `master-<sha>` base, gauntleted with loa
 the before/after exemptions line count.
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 4
-  worker_kind: gardener
-  claimed_at: 2026-07-16T23:32:21Z
