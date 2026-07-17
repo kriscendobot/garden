@@ -78,6 +78,7 @@ invocation; commit/push source changes before long runs so nothing is lost to a 
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
