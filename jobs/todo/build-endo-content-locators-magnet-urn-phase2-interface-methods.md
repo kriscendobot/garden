@@ -1,11 +1,7 @@
 ---
-gate: blocked
-blocked_on: https://github.com/endojs/endo-but-for-bots/pull/749
-priority: normal
 role: builder
-posted_by: endo-daemon-data-plane-press-20260717-060503
-posted_at: 2026-07-17T06:16:47Z
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-07-17T10:26:04Z -->
 
 # Build Phase 2 of the content-locator design: the `<verb>Content` interface methods (endojs/endo-but-for-bots, base `llm`, DRAFT PR)
 
