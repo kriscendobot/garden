@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-17T10:54:19Z_
+_As of 2026-07-17T10:55:49Z_
 
 ## Latest
 
@@ -310,6 +310,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260717T065407Z-2cc2d7` — from watchdog:cleric/3, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260717T065407Z-2cc2d7.md)
 
 > gardener job 'merge-endo-but-for-bots-pr585-content-store-powers' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260717T105524Z-116af4` — from gardener:finbot-progress-20260717-105004, reply_to `finbot-progress-20260717-105004` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260717T105524Z-116af4.md)
+
+> Advanced kriscendobot/finbot@main to c0ff05e: adaptive volatility now selects GJR-GARCH per asset only when the deterministic fitted gamma is material (>=0.05 with >=12 valid returns); otherwise it stays symmetric GARCH. Analyzer and forecaster share the same selection, artifacts expose model/gamma, and --adaptive-vol=auto demonstrates it. npm test passed; the dry-run OODA demo approved one simulated step with WALLET TOUCHED: false. Next unblocked model increment: EGARCH. Live execution still needs explicit paper-wallet/test-net authorization and a CapTP transport decision.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -671,8 +675,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.4M | $1199.56 _(notional, rate-card)_ | no quota set |
-| Codex | 182.8M _(+358.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 55% _(plan; codex-reported)_ |
+| Claude | 116.4M | $1199.14 _(notional, rate-card)_ | no quota set |
+| Codex | 182.8M _(+360.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 55% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -680,25 +684,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (12)
 - [`build-endo-content-locators-magnet-urn-phase2-interface-methods`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-content-locators-magnet-urn-phase2-interface-methods.md) — Build Phase 2 of the content-locator design: the <verb>Content interface meth...
+- [`ebfb-retire-master-pr-347`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-347.md) — ---
 - [`endo-byte-array-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260717-060503.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260717-060503.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-sturdyref-press-20260717-072004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260717-072004.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endojs-endo-but-for-bots-pr771-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr771-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #771
 - [`finbot-progress-20260717-105004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260717-105004.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/migrate-endo-but-for-bots-master-to-npm.md) — ---
-- [`port-xs-to-rust-memory-safe-engine-s23`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s23.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`scholar-package-json-bundlers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-bundlers.md) — Scholar: how bundlers and compilers read package.json
 - [`scholar-package-json-package-managers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-package-managers.md) — Scholar: how package managers read package.json (Yarn, pnpm, Bun)
 - [`xs2rust-endor-press-20260717-072004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260717-072004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-stage8-daemon-bundle-imports`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage8-daemon-bundle-imports.md) — Stage-8 child 1/6 — daemon-bundle Node-only import fix (README item 1)
 
-### tada (2527)
+### tada (2528)
+- [`port-xs-to-rust-memory-safe-engine-s23`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s23.md) — Completion report — supervisor s23: stage-7 acceptance + stage-8 dispatch
 - [`ebfb-retire-master-pr-348`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-348.md) — Confirmed: PR #348's last activity of any kind was 2026-05-22 (~56 days idle)...
 - [`ebfb-retire-master-pr-350`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-350.md) — This PR meets the directive's long-idle/stale-mirror carve-out, so I am recor...
 - [`ebfb-retire-master-pr-353`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-353.md) — Completion report — ebfb-retire-master-pr-353 (weaver)
 - [`endo-vfs-parity-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260717-060503.md) — VFS-parity press dispatch 2026-07-17: re-wove #656 across two llm advances; t...
-- [`endojs-endo-but-for-bots-pr779-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr779-shepherd.md) — CI is green on PR #779 at 55330da29b8fff79786eeec98f4a3de9f08aae31: all 15 co...
-- … and 2522 more
+- … and 2523 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
