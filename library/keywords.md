@@ -14546,6 +14546,12 @@ return predictability | efficient-market-hypothesis
 adaptive markets | efficient-market-hypothesis
 equity premium prediction | efficient-market-hypothesis
 Meese-Rogoff | efficient-market-hypothesis
+Meese and Rogoff | efficient-market-hypothesis
+exchange-rate forecasting | efficient-market-hypothesis
+exchange rate forecasting | efficient-market-hypothesis
+exchange-rate random walk | efficient-market-hypothesis
+random-walk benchmark | efficient-market-hypothesis
+random walk benchmark | efficient-market-hypothesis
 quadratic variation | garch-volatility-models
 realized variance | garch-volatility-models
 integrated volatility | garch-volatility-models
@@ -14558,7 +14564,4 @@ Value-at-Risk | garch-volatility-models
 VaR quantile forecast | garch-volatility-models
 Mincer-Zarnowitz forecast regression | mean-absolute-scaled-error
 volatility forecast evaluation | mean-absolute-scaled-error
-volatility-managed portfolio | garch-volatility-models
-inverse-variance exposure | garch-volatility-models
-volatility timing | garch-volatility-models
 probability integral transform | mean-absolute-scaled-error
