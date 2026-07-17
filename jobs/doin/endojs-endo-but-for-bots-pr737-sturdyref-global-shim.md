@@ -22,6 +22,7 @@ Run relevant pass-style and ocapn tests, lint, and type checks. Commit and push 
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
