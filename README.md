@@ -1,18 +1,18 @@
 # Garden bulletin
 
-_As of 2026-07-17T17:25:18Z_
+_As of 2026-07-17T17:35:56Z_
 
 ## Latest
 
-The board went quiet — the only transition since the last bulletin was the [minion.town#4](https://github.com/kriskowal/minion.town/pull/4) review-followthrough orchestration completing (its fix/conduct children merged), alongside [minion.town#7](https://github.com/kriskowal/minion.town/pull/7) landing. The substance this window is a pile-up of decision gates. Upstream `endojs/endo` master was merged into `llm` via [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) (conducted, history preserved), deliberately stopping just before upstream's ESLint 10 flat-config migration — that re-lint is flagged as a separate multi-cycle job, not auto-run. Several lanes are one directive from finishing: the git-integration M3 loop wants a `merge` on the green, CLEAN [endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705); the content-store conductor for [endo-but-for-bots#585](https://github.com/endojs/endo-but-for-bots/pull/585) was reaper-poisoned on a transient CI overrun and needs promotion; M2 hangs on adopting [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719)'s URL-shim split plus reviewing [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259); and the esheets tree stays fully dammed behind [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621), green but stuck on a stale CHANGES_REQUESTED after its caretaker-attenuation revision. The foreman also needs a package-home ruling between [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) to unblock the M3 module-loading tail, and the sturdyref effort has three gates open led by first review of DRAFT [endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737).
+Upstream `endojs/endo` master (up to `ba88ef797`, deliberately stopping short of the breaking ESLint 10 flat-config migration) was merged into the `llm` roadmap branch via [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) and conducted, advancing `llm` to `d39605930` — bringing in the immutable-arraybuffer pseudo-prototype drop, SES console sanitization + error `code` prop, and `skipLibCheck`. Adopting the full ESLint 10 flat-config trio is flagged as a separate multi-cycle job (63 errors + 130 warnings on the daemon package alone), not folded in. finbot continued its steady solo advance through live GJR-GARCH leverage estimation to auto-selecting the asymmetric surface when fitted gamma is material, and the VFS-parity press consolidated the delegated glob/grep/glorp surface onto `llm` in [endo-but-for-bots#713](https://github.com/endojs/endo-but-for-bots/pull/713).
 
-Two operational notes worth a glance: minion.town's entire primary phase has sat blocked ~9 hours on a single ~5-minute human browser action (Gate 1 — adding `minion.town/mcp` as a claude.ai connector and capturing the redirect_uri), and a wave of long-running jobs (shepherds for [endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124)/[#704](https://github.com/endojs/endo-but-for-bots/pull/704)/[#763](https://github.com/endojs/endo-but-for-bots/pull/763), the Yarn→npm/pnpm migrations, the OCapN-Noise press, and two orchestrations retiring the fork's `master`) were poisoned on handler-budget overruns and parked for promotion — none lost, but they need splitting or a raised timeout before they'll converge.
+Little moved on the board itself, and a maintainer should notice why: nearly every active lane is now dammed behind a decision only kriskowal can make. The critical ones — merge [endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) to finish git-integration M3; re-review/merge the OAuth design [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (6 days stalled, gating the entire esheets tree); rule the M3 registry package-home between [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403); close out M2 by adopting [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) + merging [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259); first review of the SturdyRef replacement [endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737); and the ~5-minute browser Gate 1 that has held all of minion.town ([kriskowal/garden#58](https://github.com/kriskowal/garden/issues/58)) for nine straight hourly cycles. Separately, a wave of jobs was reaper-poisoned for overrunning the 2400s handler budget — the long-running merge-upstream job, the PR585 content-store merge, and the auto-shepherds for [endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124), [endo-but-for-bots#704](https://github.com/endojs/endo-but-for-bots/pull/704), and [endo-but-for-bots#763](https://github.com/endojs/endo-but-for-bots/pull/763) — each parked and awaiting a promote, along with a recurring `avoid-abbreviations` gate miss escalated for a policy call.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 28m)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 38m)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 5h)
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 26m)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 36m)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 18h)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 2d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 3d)
@@ -853,14 +853,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 125.6M | $1248.65 _(notional, rate-card)_ | no quota set |
+| Claude | 125.6M | $1247.12 _(notional, rate-card)_ | no quota set |
 | Codex | 196.3M _(+409.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`minion-town-agenda-review-20260717-173501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260717-173501.md) — Minion Town hourly agenda review
 - [`xs2rust-endor-stage8-cxs-baseline-r2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage8-cxs-baseline-r2.md) — Stage-8b child 1/4 (was stage-8 child 3/6, re-cut after transient-outage pois...
 
 ### tada (2613)
