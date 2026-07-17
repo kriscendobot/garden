@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6429 (530 parent indexes + 5899 children).
+Total section files: 6434 (530 parent indexes + 5904 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8134,6 +8134,14 @@ Total section files: 6429 (530 parent indexes + 5899 children).
   - [Implications for the garden](papers--maloyan-namiot-sleeper-channels-2026--sleeper-channel-taxonomy-and-running-scenario--implications-for-the-garden.md)
   - [See also](papers--maloyan-namiot-sleeper-channels-2026--sleeper-channel-taxonomy-and-running-scenario--see-also.md)
   - [Translation block (paper idiom → garden / Endo equivalent)](papers--maloyan-namiot-sleeper-channels-2026--sleeper-channel-taxonomy-and-running-scenario--translation-block-paper-idiom-garden-endo-equivalent.md)
+
+### papers--meese-rogoff-exchange-rate-models-seventies-1983
+
+- [papers--meese-rogoff-exchange-rate-models-seventies-1983--diagnosis-and-operational-boundary](papers--meese-rogoff-exchange-rate-models-seventies-1983--diagnosis-and-operational-boundary.md)
+- [papers--meese-rogoff-exchange-rate-models-seventies-1983--overview](papers--meese-rogoff-exchange-rate-models-seventies-1983--overview.md)
+- [papers--meese-rogoff-exchange-rate-models-seventies-1983--random-walk-benchmark-survives-the-horse-race](papers--meese-rogoff-exchange-rate-models-seventies-1983--random-walk-benchmark-survives-the-horse-race.md)
+- [papers--meese-rogoff-exchange-rate-models-seventies-1983--rolling-out-of-sample-protocol-and-error-metrics](papers--meese-rogoff-exchange-rate-models-seventies-1983--rolling-out-of-sample-protocol-and-error-metrics.md)
+- [papers--meese-rogoff-exchange-rate-models-seventies-1983--structural-and-time-series-contenders](papers--meese-rogoff-exchange-rate-models-seventies-1983--structural-and-time-series-contenders.md)
 
 ### papers--miller-capability-myths-demolished-2003
 
