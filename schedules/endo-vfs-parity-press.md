@@ -19,12 +19,17 @@ and `fs-interface-consolidation.md`.
 
 **Each dispatch (every 6h; be idempotent):** Assess, don't assume — read those two
 reconciliation designs plus `daemon-mount.md`, `agent-tools-mount-fs-tools.md`,
-`namehub-interface-unification.md`, and `endopi-edit-tool.md`, and the live PRs —
-**#656** (provideSubMount, clean), **#713** (glorp glob+grep, clean), **#714**
-(listTree/rangeRead consolidation — DIRTY + CHANGES_REQUESTED, the current front;
-read the review thread), **#655** (mount grep), **#657** (mount JSON) — noting
-**#643** already merged (mount+git contract consolidation) and **#658** is closed
-(mount-path verbs superseded). Determine which parity gap is the next unblocked
-increment and drive #714 out of its changes-requested state before opening new
-surface. Be idempotent, defer to live workers on shared branches, and cite real
-execution evidence for any "works everywhere" claim.
+`namehub-interface-unification.md`, and `endopi-edit-tool.md`, and the live PRs.
+State as of 2026-07-17: **#714 MERGED** (listTree/rangeRead consolidation, merged
+2026-07-16 as `25978ee499`) and **#643** merged earlier (mount+git contract
+consolidation); **#658** closed (mount-path verbs superseded). Open and GREEN,
+awaiting maintainer review/merge: **#656** (provideSubMount; rebased onto llm
+`4f09410a2e` on 2026-07-17, mergeable, evidence on the PR), **#713** (glorp
+glob+grep), **#655** (mount grep), **#657** (mount JSON). Re-verify each PR's
+mergeable/CI state (a merge of one may dirty the others — re-weave whichever
+conflicts); once the open set is landed or blocked on review only, the next
+parity gap is the remaining finish-line surface (edit-with-hashline parity per
+`endopi-edit-tool.md`, and glob+grep parity beyond the mount — genie/lal/fae).
+Do not open new surface while an open PR needs a weave or a CI fix. Be
+idempotent, defer to live workers on shared branches, and cite real execution
+evidence for any "works everywhere" claim.
