@@ -8,3 +8,10 @@ Strongest gap: the two lineage nodes White's Reality Check explicitly builds on 
   3. Andersen & Bollerslev 1998, "Answering the Skeptics: Yes, Standard Volatility Models Do Provide Accurate Forecasts" (International Economic Review 39:885-905) — the realized-volatility rehabilitation of GARCH forecast evaluation; acceptable volatility-forecasting alternative if a comparison-test PDF is unreachable.
 
 Any of these deepens `data-snooping-bias`, `diebold-mariano-test`, or `garch-volatility-models`. Preserve the conditional-volatility/risk-forecast vs directional-return distinction. Cross-link every section into `financial-forecasting`, `forecast-evaluation`, and relevant concepts. Post the next follow-on if corpus remains.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  claimed_at: 2026-07-17T05:18:26Z
