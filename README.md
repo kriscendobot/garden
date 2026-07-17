@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-17T15:50:52Z_
+_As of 2026-07-17T15:55:27Z_
 
 ## Latest
 
@@ -808,7 +808,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 122.9M | $1233.23 _(notional, rate-card)_ | no quota set |
+| Claude | 123.0M | $1234.90 _(notional, rate-card)_ | no quota set |
 | Codex | 192.1M _(+401.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
@@ -816,20 +816,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 (none)
 
 ### doin (6)
+- [`deadmail-issue-comment-5005029872`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5005029872.md) — Dead-lettered message — pick up its intent
 - [`ebfb-retire-master-pr-182`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-182.md) — ---
 - [`endo-npm-cas-registry-press-20260717-153501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260717-153501.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
-- [`endo-sturdyref-press-20260717-155004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260717-155004.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endojs-endo-but-for-bots-pr250-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr250-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #250
 - [`port-xs-to-rust-memory-safe-engine-s24`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s24.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`xs2rust-endor-press-20260717-155004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260717-155004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (2582)
+### tada (2583)
+- [`endo-sturdyref-press-20260717-155004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260717-155004.md) — Completion report — SturdyRef press tick (2026-07-17 15:50 dispatch)
 - [`self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-unguarded-fetch-timeout`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-unguarded-fetch-timeout.md) — Completion report
 - [`minion-town-agenda-review-20260717-153501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260717-153501.md) — Hourly minion.town agenda review complete (2026-07-17 15:37 UTC).
 - [`improve-land-journal-edit-concurrent-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-land-journal-edit-concurrent-guard.md) — Implemented and pushed 75a0623361 to main2.
 - [`scholar-package-json-bundlers-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-package-json-bundlers-2.md) — Completion report — scholar-package-json-bundlers-2
-- [`deadmail-issue-comment-5004583216`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5004583216.md) — Completion Report
-- … and 2577 more
+- … and 2578 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
