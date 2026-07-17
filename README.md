@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-17T00:11:18Z_
+_As of 2026-07-17T00:15:28Z_
 
 ## Latest
 
@@ -422,6 +422,24 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Report endo-sturdyref-press-20260716-233503 flags a garden-wide relay incident: 55 + 83 maintainer/liaison messages have been undelivered since ~07-14 and need a liaison session on the leader host (endolin-garden2-5bcdff64) to drain the inbox. This is blocking the sturdyref press (tracker #47 / #737), whose only live maintainer channel is now GitHub comments. Please run a liaison session on the leader host to drain the backlog.
 
+- `20260717T001224Z-3483f4` — from gardener:ocapn-noise-press-20260717-000503, reply_to `ocapn-noise-press-20260717-000503` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260717T001224Z-3483f4.md)
+
+> OCapN-over-Noise press status + one decision needed.
+>
+> Status: M1-M5 all demonstrated. The stack ([endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340) -> [endojs/endo-but-for-bots#684](https://github.com/endojs/endo-but-for-bots/issues/684) -> [endojs/endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/issues/688) -> [endojs/endo-but-for-bots#693](https://github.com/endojs/endo-but-for-bots/issues/693)) was rebased onto llm yesterday; today's dispatch found lint red on the upper three PRs from a shellcheck SC2034 (unused loop var) in the new demo/minion-town/ssm.sh. Fixed on the [endojs/endo-but-for-bots#684](https://github.com/endojs/endo-but-for-bots/issues/684) branch and propagated up the stack via clean rebases; fresh CI is running. The remaining macOS test failures are flakes in @endo/agentry and @endo/chat - packages the stack never touches.
+>
+> Decision needed: OCapN.md's definition of done wants cross-host (local <-> minion.town) over BOTH transports. wss+Noise cross-host is proven live (transcript in [endojs/endo-but-for-bots#693](https://github.com/endojs/endo-but-for-bots/issues/693)). TCP+CBOR+Noise invite/accept is proven only local<->local, because minion.town blocks all non-443 ingress - the demo README explicitly scoped remote TCP out. Closing the literal finish line requires opening an inbound TCP port (e.g. 8931) on minion.town's EC2 security group plus a docker port mapping for the daemon's TCP netlayer. That widens the host's attack surface (Noise IK still gates sessions, but the port itself is new exposure).
+>
+> May I open a dedicated TCP port on minion.town for the cross-host TCP+CBOR demo? Or do you consider the local TCP transcript + cross-host wss sufficient to call the goal done? Reply routes to inbox ocapn-noise-press-20260717-000503 (or the next 6h dispatch picks it up as a dead-letter).
+
+- `20260717T001253Z-4cf4cc` — from watchdog:gardener/4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260717T001253Z-4cf4cc.md)
+
+> gardener job 'build-kebab-case-lint-wildcard-test262' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260717T001350Z-84839b` — from gardener:endojs-endo-but-for-bots-pr761-shepherd, reply_to `endojs-endo-but-for-bots-pr761-shepherd` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260717T001350Z-84839b.md)
+
+> Heads-up (endemic, not one PR): endo-but-for-bots CI job `zizmor` (Workflow security audit) is red repo-wide, including master since ~2026-07-15 (commit fcbb540). It's an online-audit `unpinned-uses` finding — every workflow's `@249970729cb0` action pin now has a "mismatched or missing version comment" (the upstream tag moved). Offline zizmor is clean; `.github/` is unchanged from base. Fix belongs in a separate repo-maintenance PR (refresh action-pin version comments, or run the repo's update-action-pins automation) — not inside feature/bugfix PRs. Shepherds on any PR that touches no workflows will keep leaving this one red as out-of-scope.
+
 - `poison-endojs-endo-but-for-bots-pr124-shepherd-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-endojs-endo-but-for-bots-pr124-shepherd-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -536,40 +554,37 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 103.1M | $1052.61 _(notional, rate-card)_ | no quota set |
-| Codex | 132.4M _(+178.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
+| Claude | 103.5M | $1060.22 _(notional, rate-card)_ | no quota set |
+| Codex | 132.8M _(+181.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (18)
+### doin (15)
 - [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-kebab-case-lint-wildcard-test262.md) — Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
 - [`endo-byte-array-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260717-000503.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260717-000503.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-vfs-parity-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260717-000503.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr755-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr755-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #755
-- [`endojs-endo-but-for-bots-pr757-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr757-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #757
 - [`endojs-endo-but-for-bots-pr760-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr760-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #760
-- [`endojs-endo-but-for-bots-pr761-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr761-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #761
 - [`endojs-endo-but-for-bots-pr762-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr762-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #762
 - [`endojs-endo-but-for-bots-pr763-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr763-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #763
 - [`endojs-endo-but-for-bots-pr764-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr764-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #764
 - [`gauntlet-endo-but-for-bots-pr585-content-store-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr585-content-store-powers.md) — Run the gauntlet (panel review → fix-loop) on endojs/endo-but-for-bots PR #58...
 - [`gauntlet-endo-but-for-bots-pr739-store-writefile-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr739-store-writefile-design.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
-- [`gauntlet-endo-but-for-bots-pr749-content-locator-grammar-duality`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr749-content-locator-grammar-duality.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
 - [`mirror-endo-2780-cache-globals-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mirror-endo-2780-cache-globals-gauntlet.md) — Mirror upstream endojs/endo#2780 (Cache globals) onto a frozen master base, t...
 - [`ocapn-noise-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260717-000503.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`scholar-ingest-financial-forecasting-corpus-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-financial-forecasting-corpus-6.md) — Scholar: ingest remaining financial-forecasting corpus (follow-on 6)
-- [`xs2rust-endor-stage7-live-globalthis`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage7-live-globalthis.md) — Stage 7 child 1/7: live globalThis binding
+- [`scholar-ingest-financial-forecasting-corpus-7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-financial-forecasting-corpus-7.md) — Scholar: ingest remaining financial-forecasting corpus (follow-on 7)
 
-### tada (2415)
+### tada (2419)
+- [`gauntlet-endo-but-for-bots-pr749-content-locator-grammar-duality`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr749-content-locator-grammar-duality.md) — Completed PR #749 gauntlet fix-loop and marked it ready for review.
+- [`endojs-endo-but-for-bots-pr761-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr761-shepherd.md) — Completion report — shepherd on endojs/endo-but-for-bots PR #761
+- [`xs2rust-endor-stage7-live-globalthis`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage7-live-globalthis.md) — Stage 7 child 1/7 — live globalThis binding — COMPLETE
+- [`endojs-endo-but-for-bots-pr757-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr757-shepherd.md) — CI green for PR #757.
 - [`self-heal-fix-garden-issue-inbox-issue-source-stderr`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-issue-inbox-issue-source-stderr.md) — Implemented and pushed 4ff7ca2e66 to main2.
-- [`endo-daemon-data-plane-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260717-000503.md) — Press dispatch complete — the arc has crossed the design finish line and this...
-- [`scholar-ingest-financial-forecasting-corpus-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-financial-forecasting-corpus-5.md) — Ingested Hansen–Lunde 2005 with five linked sections, source index, topics, a...
-- [`endojs-endo-but-for-bots-pr589-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr589-shepherd.md) — CI is green for PR #589 at 4f14a7f: all 18 checks passed in run 29542374596. ...
-- [`scholar-ingest-financial-forecasting-corpus-4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-financial-forecasting-corpus-4.md) — Ingested Welch & Goyal (2008) as five corpus sections, with DOI, mirror, Wayb...
-- … and 2410 more
+- … and 2414 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
