@@ -66,3 +66,10 @@ green locally (cite commands + observed output in your report — see
 `skills/changeset-discipline`, yarn.lock churn in its own commit if any
 (`skills/yarn-lock-separate-commit`). Report which confinement property
 each test pins. Keep the PR DRAFT; do not merge or restack #737.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  claimed_at: 2026-07-17T04:10:17Z
