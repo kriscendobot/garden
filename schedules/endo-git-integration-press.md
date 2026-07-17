@@ -29,10 +29,12 @@ the M3 exit criterion: green; its base is a frozen snapshot of #705's exact head
 so after #705 lands it needs a weave onto `llm`, then its merge closes M3),
 **#708** (exo-git QID/hash, green on `llm-41cb580`; its guile-interop check flakes
 on external Guix/Codeberg infra — rerun, don't debug), and the **endor-bindings**
-design **#740** — plus branch HEADs. **#645** (Phase-4 replay verbs) is worked by
-0xpatrickbot on explicit maintainer directive — defer to it; #626 (Phase-5
-stack-surgery eval) waits on those verbs. Determine the next unblocked phase.
-Respect stack order (don't merge/rebase out of sequence) and defer to any live
-worker on a shared branch; if the endor CAS bindings need design settling, press
-#740 forward or post a designer sub-job rather than implementing ahead of the
-spec. Cite real command/CI output for every green claim.
+design **#740** (panel passed 2026-07-16, no open threads) — plus branch HEADs.
+**#645** (Phase-4 replay verbs) MERGED into `llm` 2026-07-17T17:54Z; that
+unblocked **#626** (Phase-5 stack-surgery eval, DRAFT, CONFLICTING), for which a
+weaver job `weave-endo-but-for-bots-pr626-stack-surgery-eval` was posted
+2026-07-17 — check its lifecycle state, don't double-post. Determine the next
+unblocked phase. Respect stack order (don't merge/rebase out of sequence) and
+defer to any live worker on a shared branch; if the endor CAS bindings need
+design settling, press #740 forward or post a designer sub-job rather than
+implementing ahead of the spec. Cite real command/CI output for every green claim.
