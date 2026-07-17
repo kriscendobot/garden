@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 5
+deadline_overruns: 1
+poisoned_at: 2026-07-17T12:33:10Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-17T12:33:10Z
+---
+
+---
 model: opus
 ---
 <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-17T11:34:03Z -->
@@ -43,13 +57,5 @@ goes in the report as a named remainder.
 `TMPDIR=$HOME/tmp` for anything that execs from temp. The build may be slow — budget your
 invocation; commit/push source changes before long runs so nothing is lost to a requeue.
 
-<!-- garden-reaped: 4 -->
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 7
-  worker_kind: gardener
-  claimed_at: 2026-07-17T12:23:11Z
