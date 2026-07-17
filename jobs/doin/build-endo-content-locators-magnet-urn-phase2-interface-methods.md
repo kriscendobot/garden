@@ -30,3 +30,10 @@ plane hookup as a clearly-marked Phase-3 seam. Do NOT build Phases 3–5
 
 Follow `skills/pr-creation-flow/SKILL.md`; cite the design and PR #749 in the PR
 body.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 17
+  worker_kind: gardener
+  claimed_at: 2026-07-17T10:26:07Z
