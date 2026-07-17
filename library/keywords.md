@@ -19,8 +19,12 @@ plain. Letter case in keywords is preserved when meaningful (e.g.
 
 `@keypair` | per-agent-keypair
 Giacomini-White test | diebold-mariano-test
+Romano-Wolf StepM | data-snooping-bias
+StepM | data-snooping-bias
 conditional predictive ability | diebold-mariano-test
+familywise error rate | data-snooping-bias
 forecasting method | diebold-mariano-test
+stepwise multiple testing | data-snooping-bias
 `'0'.repeat(64)` | local-node-sentinel
 Aifred | delegates-and-epithets
 AI assistant disclosure | delegates-and-epithets
