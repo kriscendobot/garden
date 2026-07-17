@@ -42,3 +42,10 @@ Maintainer directive (2026-07-17): the elevation contact for minion.town is
 `main` in `deploy/aws/systemd/minion-mcp.service`, and either shipped live via `deploy-app.sh` or the
 deploy surfaced as maintainer-/host-gated (Phase C or AWS access not ready). The `tada` report states
 what was pushed, the deploy outcome, and the rendered-contact verification (or why it is deferred).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  worker_kind: cleric
+  claimed_at: 2026-07-17T04:36:18Z
