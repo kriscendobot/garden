@@ -940,6 +940,26 @@ External web content ingested in support of Workstream B (the persuasion suite).
 | [Bun lifecycle scripts (trustedDependencies)](bun--lifecycle.md) | oven-sh/bun | docs/pm/lifecycle.mdx | `16a7269` | 1 | current |
 | [Corepack and the packageManager field](corepack--readme.md) | nodejs/corepack | README.md | `05bc5f3` | 1 | current |
 
+## Bundler and compiler sources
+
+How each bundler/compiler consumes `package.json` (resolution conditions, `mainFields`, `sideEffects`, and the compiler-vs-resolver distinction). Repo-doc rows carry a git commit; `source_kind: web` rows (no public docs git repository) carry a content SHA-256 anchor. Ingested across `scholar-package-json-bundlers` (webpack, Rollup, esbuild, Vite) and `scholar-package-json-bundlers-2` (Parcel, Turbopack, swc, Babel, Vite `optimizeDeps`).
+
+| Source | Repo / kind | Path / anchor | Sections | Status |
+|--------|-------------|---------------|----------|--------|
+| [webpack resolve configuration](webpack--config-resolve.md) | webpack/webpack.js.org | src/content/configuration/resolve.mdx (`c0038eb`) | 1 | current (`scholar-package-json-bundlers`) |
+| [webpack tree-shaking guide](webpack--guides-tree-shaking.md) | webpack/webpack.js.org | src/content/guides/tree-shaking.mdx (`6f1e6f2`) | 1 | current (`scholar-package-json-bundlers`) |
+| [Rollup @rollup/plugin-node-resolve README](rollup--node-resolve-readme.md) | rollup/plugins | packages/node-resolve/README.md (`d455fff`) | 1 | current (`scholar-package-json-bundlers`) |
+| [esbuild API documentation](web--esbuild-api.md) | web | https://esbuild.github.io/api/ (content `2c986ac`) | 2 | current (`scholar-package-json-bundlers`) |
+| [Vite shared (client) options](vite--config-shared-options.md) | vitejs/vite | docs/config/shared-options.md (`9beae37`) | 1 | current (`scholar-package-json-bundlers`) |
+| [Vite SSR options](vite--config-ssr-options.md) | vitejs/vite | docs/config/ssr-options.md (`01337ad`) | 1 | current (`scholar-package-json-bundlers`) |
+| [Vite dep-optimization options](vite--config-dep-optimization-options.md) | vitejs/vite | docs/config/dep-optimization-options.md (`9beae37`) | 1 | current (`scholar-package-json-bundlers-2`; `optimizeDeps` pre-bundler) |
+| [Parcel dependency resolution](web--parcel-dependency-resolution.md) | web | https://parceljs.org/features/dependency-resolution/ (content `ce144ef`) | 2 | current (`scholar-package-json-bundlers-2`) |
+| [Parcel targets](web--parcel-targets.md) | web | https://parceljs.org/features/targets/ (content `6dd8dea`) | 1 | current (`scholar-package-json-bundlers-2`) |
+| [Parcel production (tree shaking)](web--parcel-production.md) | web | https://parceljs.org/features/production/ (content `898c5ec`) | 1 | current (`scholar-package-json-bundlers-2`) |
+| [Next.js Turbopack configuration](web--nextjs-turbopack-config.md) | web | https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack (content `871ded2b`) | 1 | current (`scholar-package-json-bundlers-2`) |
+| [swc compilation configuration](web--swc-compilation.md) | web | https://swc.rs/docs/configuration/compilation (content `2981937c`) | 1 | current (`scholar-package-json-bundlers-2`; compiler, not resolver) |
+| [Babel options](web--babel-options.md) | web | https://babeljs.io/docs/options (content `068855fa`) | 1 | current (`scholar-package-json-bundlers-2`; compiler, not resolver) |
+
 ## Notes
 
 - Some files have only one commit in `git log` (probably post-rename); their content date may predate the commit date. The pilot ingestion flagged these in per-source `notes:` fields. A future contradiction-check pass should compare pre- and post- rename content if the upstream history is recovered.
