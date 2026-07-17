@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-17T11:58:21Z_
+_As of 2026-07-17T12:01:40Z_
 
 ## Latest
 
-The upstream merge into `llm` landed: a gardener conducted [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) — a true merge of real upstream `endojs/endo` master (immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, skipLibCheck) — deliberately stopping just short of upstream's ESLint 10 flat-config migration, which is flagged as a separate multi-cycle job (quantified at 63 errors + 130 warnings on a single package). Note the handler-budget fallout: that merge job, plus several shepherds ([#763](https://github.com/endojs/endo-but-for-bots/pull/763), [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704)) and the [#585](https://github.com/endojs/endo-but-for-bots/pull/585) content-store merge, overran the wall clock and were poisoned into the plan queue awaiting your go-ahead to split or re-run.
+The upstream integration landed: gardener conducted [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) — a clean merge of real upstream `endojs/endo` master (immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, skipLibCheck) — onto `llm`, deliberately stopping just before upstream's ESLint 10 flat-config migration, which is flagged as a separate multi-cycle job rather than forced into this cycle. The daemon→manager rename advanced: Phase 1 ([endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598)) was rebased clean onto the new `llm` base and Phase 2 opened as draft [endo-but-for-bots#780](https://github.com/endojs/endo-but-for-bots/pull/780), while Phase 3 was correctly re-parked as blocked on #780 after being promoted early. The liaison published the Chrome native-function `caller`/`arguments` reproduction and linked it from [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259), and finbot's volatility model went fully asymmetric (per-asset GJR-GARCH auto-selected when fitted leverage gamma is material).
 
-The board is otherwise idle (only [#259](https://github.com/endojs/endo-but-for-bots/pull/259) retire-master work in flight) because most lanes are dammed behind maintainer decisions that piled up in your inbox: the M3 module-loading tail is blocked on a package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403); M2 is one decision from done ([#259](https://github.com/endojs/endo-but-for-bots/pull/259) + [#719](https://github.com/endojs/endo-but-for-bots/pull/719), close redundant [#263](https://github.com/endojs/endo-but-for-bots/pull/263)); the git-integration lane is a single `merge` directive on [#705](https://github.com/endojs/endo-but-for-bots/pull/705) from closing M3 via [#707](https://github.com/endojs/endo-but-for-bots/pull/707); the SturdyRef effort has three open gates on [#737](https://github.com/endojs/endo-but-for-bots/pull/737); the esheets tree is entirely stalled on re-review of [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (6 days waiting); and OCapN-over-Noise needs your call on opening a TCP port on minion.town to finish cross-host proof. Separately, the abbreviation-lint gate recurred on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (a pre-deployment straggler the diff-scoped gate structurally can't see) and awaits your call on whether to widen it. Off the roadmap, kriscendobot/finbot advanced its volatility model to per-asset adaptive GJR-GARCH (leverage asymmetry now feeds the live regime read), still holding for paper-wallet authorization.
+Several lanes are stalled purely on your decisions, not on work: the SturdyRef stack ([endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737), draft/green, plus two design re-reviews), the git-integration M3 loop (Phase 1 [endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) is one `merge` directive from landing), the esheets tree dammed behind [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (6 days awaiting re-review), M2 hygiene ([endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) green, with redundant #263 to close), and M3's module-loading tail blocked on the registry-home choice between [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403). Two operational items also need a call: the `avoid-name-abbreviations` cluster recurred on [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) because the pre-push gate only scans newly-added lines (a structural blind spot for pre-existing code), and a wave of long-running shepherd/merge jobs (#763, #124, #704, the upstream-merge job, content-store #585) was poisoned for overrunning the handler budget and now sits parked awaiting go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -683,28 +683,27 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 119.2M | $1222.81 _(notional, rate-card)_ | no quota set |
-| Codex | 191.0M _(+387.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
+| Claude | 119.3M | $1223.83 _(notional, rate-card)_ | no quota set |
+| Codex | 191.1M _(+389.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
-- [`ebfb-retire-master-pr-259`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-259.md) — ---
+### doin (5)
 - [`endo-byte-array-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260717-060503.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`scholar-package-json-bundlers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-bundlers.md) — Scholar: how bundlers and compilers read package.json
 - [`scholar-package-json-package-managers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-package-managers.md) — Scholar: how package managers read package.json (Yarn, pnpm, Bun)
 - [`xs2rust-endor-stage8-cxs-baseline`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage8-cxs-baseline.md) — Stage-8 child 3/6 — libxs provisioning + boot-bundle generation + C-XS test:r...
 
-### tada (2549)
+### tada (2550)
+- [`ebfb-retire-master-pr-259`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-259.md) — Completion report
 - [`ebfb-retire-master-pr-263`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-263.md) — PR #263 remains open on master. Upstream endojs/endo master is 46d4edf; match...
 - [`improve-deploy-tree-swap-additions-first`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-deploy-tree-swap-additions-first.md) — Implemented additions-first phase-2 swaps and regression coverage. Pushed 3b0...
 - [`ebfb-retire-master-pr-280`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-280.md) — PR #280 remains open on master. Upstream endojs/endo master is 46d4edf; its e...
 - [`ebfb-retire-master-pr-303`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-303.md) — This PR clearly meets the directive's "do not wedge" escape conditions. I'm i...
-- [`ebfb-retire-master-pr-334`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-334.md) — Completion report — ebfb-retire-master-pr-334 (weaver)
-- … and 2544 more
+- … and 2545 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
