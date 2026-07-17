@@ -8,6 +8,7 @@ Follow-on to scholar-package-json-schema-and-tooling (which ingested the Node ru
 - Focus: which fields each honors, the default condition set and precedence order, `module`/`browser`/`main` fallback chain, `sideEffects` semantics.
 - Add sections under topic `package-manifest`; update the project matrix/inconsistencies to cite the new sections; note remaining synthesis. Prefer authoritative docs (each tool's docs repo, readable via gh/scratch clone).
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
