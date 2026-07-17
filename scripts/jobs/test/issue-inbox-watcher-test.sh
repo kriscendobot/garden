@@ -350,5 +350,35 @@ run_watcher "$STATE_L" "$BARE_L" "$FIX_L3" "$PL_L" "$ML_L" "$ERR_L" \
 grep -q '@someone-else' "$MAINT_L" && ok "the second surfaced message names the different author (@someone-else)" || bad "second author not named"
 
 # ============================================================================
+hr; echo "M - issue-source preserves gh_api_retry's definitive diagnostic"; hr
+# Exercise the real source with a GARDEN_GH stub. The handler must fail the tick
+# and carry the curated gh_api_retry WARN through stderr, rather than leaving the
+# watcher with only an opaque rc=1.
+GHSTUB="$TR/gh-definitive-stub.sh"
+cat > "$GHSTUB" <<'EOF'
+#!/bin/bash
+echo 'gh: Bad credentials (HTTP 401)' >&2
+exit 1
+EOF
+chmod +x "$GHSTUB"
+GHCOMMAND="$TR/gh"
+cat > "$GHCOMMAND" <<'EOF'
+#!/bin/bash
+exit 0
+EOF
+chmod +x "$GHCOMMAND"
+SOURCE_ERR="$TR/issue-source-definitive.err"
+set +e
+env PATH="$TR:$PATH" GARDEN_GH="$GHSTUB" GARDEN_GH_API_ATTEMPTS=1 \
+  "$JOBS/handlers/issue-source-gh.sh" "$REPO" 2026-07-06T00:00:00Z \
+  >/dev/null 2>"$SOURCE_ERR"
+source_rc=$?
+set -e
+[ "$source_rc" -ne 0 ] && ok "definitive source failure exits nonzero" || bad "definitive source failure unexpectedly succeeded"
+grep -q 'Bad credentials (HTTP 401)' "$SOURCE_ERR" \
+  && ok "source stderr contains the definitive gh diagnostic" \
+  || bad "source stderr lost gh diagnostic: $(cat "$SOURCE_ERR")"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]

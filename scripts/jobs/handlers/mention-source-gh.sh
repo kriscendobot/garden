@@ -46,7 +46,7 @@ oneline='(.body // "") | gsub("[\t\r\n]+"; " ")'
 
 emit_comment() {  # emit_comment <repo> <surface> <number> <comment-api-url>
   local repo="$1" surface="$2" number="$3" curl="$4"
-  gh_api_retry "$curl" 2>/dev/null | jq -r --arg repo "$repo" --arg surface "$surface" --arg n "$number" "
+  gh_api_retry "$curl" | jq -r --arg repo "$repo" --arg surface "$surface" --arg n "$number" "
       [ .created_at, \$surface, (.id|tostring), \$repo, \$n, .user.login, .html_url, ($oneline) ]
       | @tsv" 2>/dev/null || true
 }
@@ -54,7 +54,7 @@ emit_comment() {  # emit_comment <repo> <surface> <number> <comment-api-url>
 emit_subject() {  # emit_subject <repo> <subject-type> <subject-api-url>
   local repo="$1" stype="$2" surl="$3" surface
   case "$stype" in PullRequest) surface=pr-body;; *) surface=issue-body;; esac
-  gh_api_retry "$surl" 2>/dev/null | jq -r --arg repo "$repo" --arg surface "$surface" "
+  gh_api_retry "$surl" | jq -r --arg repo "$repo" --arg surface "$surface" "
       [ (.created_at // .updated_at), \$surface, (.number|tostring), \$repo,
         (.number|tostring), .user.login, .html_url, ($oneline) ]
       | @tsv" 2>/dev/null || true
@@ -62,7 +62,7 @@ emit_subject() {  # emit_subject <repo> <subject-type> <subject-api-url>
 
 # 1) notifications (reason==mention). `since` filters by updated time; `all=true`
 #    so a read mention is still resolved (the cursor, not the read flag, dedups).
-gh_api_retry --paginate "notifications?all=true&since=${since}&per_page=100" 2>/dev/null \
+gh_api_retry --paginate "notifications?all=true&since=${since}&per_page=100" \
   | jq -r '.[] | select(.reason=="mention")
             | [ .repository.full_name, .subject.type,
                 (.subject.latest_comment_url // ""), (.subject.url // "") ] | @tsv' 2>/dev/null \
@@ -82,7 +82,7 @@ gh_api_retry --paginate "notifications?all=true&since=${since}&per_page=100" 2>/
 
 # 2) search API: issue/PR BODIES that @-mention the bot (notifications can miss a
 #    body mention if the bot is not subscribed to the thread).
-gh_api_retry --paginate "search/issues?q=mentions:${bot}+updated:>=${since}&per_page=100" 2>/dev/null \
+gh_api_retry --paginate "search/issues?q=mentions:${bot}+updated:>=${since}&per_page=100" \
   | jq -r --arg s "$since" "
       .items // [] | .[]
       | select((.created_at // \"\") >= \$s)

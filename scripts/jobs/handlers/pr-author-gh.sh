@@ -21,10 +21,9 @@ GARDEN_TAG="pr-author"
 repo="${1:?owner/name}"; num="${2:?pr-or-issue number}"
 require_tools gh
 
-# `2>/dev/null`: a 404 (deleted/transferred) or a transient blip yields an empty
-# login, which the caller treats as "author unknown → not mention-only" (fail
-# open to UNCHANGED behavior, never silently mention-only-suppress on an error).
-# gh_api_retry rides out a TRANSIENT blip (5xx / 429 / DNS-TLS-reset) under
-# backoff before falling open, so a single GitHub flake no longer flips a listed
-# author to "unknown" for that tick; a DEFINITIVE 404 still falls open at once.
-gh_api_retry "repos/$repo/issues/$num" --jq '.user.login // ""' 2>/dev/null || true
+# A 404 (deleted/transferred) or a transient blip yields an empty login, which the
+# caller treats as "author unknown -> not mention-only" (fail open to unchanged
+# behavior, never silently mention-only-suppress on an error). gh_api_retry rides
+# out a transient blip before falling open. Its final WARN stays on stderr so an
+# authentication, rate-limit, or transport failure remains diagnosable.
+gh_api_retry "repos/$repo/issues/$num" --jq '.user.login // ""' || true

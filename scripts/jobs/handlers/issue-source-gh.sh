@@ -57,13 +57,12 @@ oneline='(.body // "") | gsub("[\t\r\n]+"; " ")'
 # so a single GitHub flake no longer blanks an endpoint; a DEFINITIVE 404 is not
 # retried and falls through to the same degrade path.
 #
-# Stderr policy: the two HARD-FAIL enumerations capture gh_api_retry's stderr
-# quietly. On a clean tick this keeps expected-empty API noise out of the watcher.
-# On a failure, enum_die appends the final WARN (including gh's HTTP/transport
-# diagnostic) to the fatal message so issue-inbox-watcher relays it as `source:`
-# output. Do NOT restore `2>/dev/null`: that caused the 2026-06-24 silent-empty
-# outage. jq carries NO redirect: a jq parse error is a real fault that must surface.
-# The tolerated per-comment parent lookup still suppresses its expected failure noise.
+# Stderr policy: the HARD-FAIL enumerations retain gh_api_retry's final WARN in a
+# temp file, then enum_die includes it in the fatal message. The parent-issue join
+# lets the WARN reach stderr directly before its own fatal path. On a clean tick
+# gh_api_retry is silent, so this adds no idle-window or empty-result noise. Do NOT
+# suppress gh_api_retry's stderr: that caused the 2026-06-24 silent-empty outage.
+# jq carries NO redirect: a jq parse error is a real fault that must surface.
 #
 # Failure policy: an endpoint that FAILS (past gh_api_retry's transient budget)
 # fails the WHOLE tick with a nonzero exit, never degrades to empty output. The
@@ -108,7 +107,7 @@ issue_meta() {  # issue_meta <number> -> echoes submitter \t state \t closed_by 
   if [ -n "${_ISSUE_META[$n]+x}" ]; then printf '%s' "${_ISSUE_META[$n]}"; return; fi
   # closed_by AND closed_at use a '-' sentinel when empty so the TAB-IFS `read` below
   # does not collapse an empty middle field and mis-assign is_pr (see watcher's note).
-  raw="$(gh_api_retry "repos/$repo/issues/$n" 2>/dev/null \
+  raw="$(gh_api_retry "repos/$repo/issues/$n" \
          | jq -r '[ .user.login, .state, (.closed_by.login // "-"), (.closed_at // "-"),
                     (if has("pull_request") then "pr" else "issue" end) ] | @tsv' \
          | head -1 || true)"
