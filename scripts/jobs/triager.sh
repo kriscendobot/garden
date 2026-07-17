@@ -125,9 +125,24 @@ ref="$GARDEN_WATCH_REF"
 if [ -z "$ref" ]; then
   ref="$(git --git-dir="$BARE" symbolic-ref --short HEAD 2>/dev/null || echo master)"
 fi
-new_sha="$(git --git-dir="$BARE" rev-parse --verify -q "refs/remotes/origin/$ref^{commit}" \
-            || git --git-dir="$BARE" rev-parse --verify -q "$ref^{commit}")" \
-  || die "cannot resolve ref '$ref' in $slug"
+if ! new_sha="$(git --git-dir="$BARE" rev-parse --verify -q "refs/remotes/origin/$ref^{commit}" \
+            || git --git-dir="$BARE" rev-parse --verify -q "$ref^{commit}")"; then
+  # An EMPTY / unborn-HEAD bare clone (zero refs) has nothing to resolve: the fetch at
+  # line ~117 succeeds with nothing to fetch, and this is the own-fork auto-provisioning
+  # path (fork-watch-provisioner) racing a fork that was created upstream but not yet
+  # populated. Treat it like the missing-clone branches above — "no content to triage
+  # yet", skip this tick with exit 0 — rather than die-ing (exit 1 fails the systemd unit
+  # and triggers self-heal churn every tick until the fork gets its first commit). It
+  # self-heals the moment a commit lands and a ref appears.
+  if [ -z "$(git --git-dir="$BARE" for-each-ref --count=1 2>/dev/null)" ]; then
+    log "$slug is empty (unborn HEAD, no commits yet) — skipping this tick"
+    exit 0
+  fi
+  # A clone that HAS refs but still cannot resolve the watched ref is a genuine
+  # misconfiguration (wrong GARDEN_WATCH_REF, deleted branch — the agoric-sdk scenario
+  # the fallback above targets); keep the loud escalation so it is not masked.
+  die "cannot resolve ref '$ref' in $slug"
+fi
 # Fail loudly on a poisoned new_sha rather than handing a bad revision downstream.
 # `--verify -q` (above) already keeps a failed rev-parse from echoing its unresolved
 # argument to stdout, so this should always hold; the assert is a cheap tripwire that

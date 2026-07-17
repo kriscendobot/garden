@@ -499,6 +499,56 @@ git -C "$REPOS/$NOSLUG.git" rev-parse --absolute-git-dir >/dev/null 2>&1 \
 grep -q "^triager-clone-corrupt-" "$ALERTS" && ok "escalates the corrupt clone to the maintainer inbox" || bad "no maintainer escalation recorded ($(cat "$ALERTS"))"
 
 # ============================================================================
+hr; echo "K — empty / unborn-HEAD bare clone (zero refs): skip this tick (exit 0), never die"; hr
+# The own-fork auto-provisioning path (fork-watch-provisioner) can race a fork that was
+# created upstream but not yet populated: the bare clone has ZERO refs, so `fetch --all
+# --prune` is a clean no-op and the rev-parse of the watched ref fails on BOTH the primary
+# and fallback. Before the fix this hit the `die "cannot resolve ref"` → exit 1, failing
+# the systemd unit and driving self-heal churn EVERY tick until the fork got its first
+# commit. The guard must detect the empty-repo case (for-each-ref empty) and skip the tick
+# with exit 0 ("no content to triage yet"), self-healing the moment a commit lands.
+rm -rf "$TR/state12"; STATE="$TR/state12"; rm -rf "$BARE"; seed_journal
+rm -rf "$REPOS/$SLUG.git"
+git init -q --bare "$REPOS/$SLUG.git"             # a real bare git repo with NO refs
+[ -z "$(git --git-dir="$REPOS/$SLUG.git" for-each-ref --count=1 2>/dev/null)" ] \
+  && ok "fixture: bare clone has zero refs (unborn HEAD, no commits)" || bad "fixture invalid: bare unexpectedly has refs"
+: > "$CALLS"; KOUT="$TR/triager-empty.out"; : > "$KOUT"
+set +e
+env GARDEN=testhost GARDEN_STATE="$STATE" \
+    JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_REPOS="$REPOS" GARDEN_WATCH_REF="$REF" \
+    GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_RC=0 CALL_LOG="$CALLS" \
+    GARDEN_TRIAGE_FAIL_THRESHOLD=5 \
+    "$JOBS/triager.sh" "$SLUG" >>"$KOUT" 2>&1
+rc=$?; set -e
+[ "$rc" -eq 0 ] && ok "empty-clone tick exits 0 (skip this tick, not a crash-looping die)" || bad "tick exit = $rc (want 0; the die 'cannot resolve ref' bug is back)"
+grep -qi "empty (unborn HEAD" "$KOUT" && ok "logs the empty/unborn-HEAD skip reason" || bad "empty-clone skip log missing (out: $(cat "$KOUT"))"
+[ ! -s "$CALLS" ] && ok "handler never invoked (nothing to triage yet)" || bad "handler ran ($(grep -c . "$CALLS") calls; want 0)"
+[ -z "$(cursor_field "activity/$SLUG" last_sha)" ] && ok "activity cursor NOT advanced (nothing observed)" || bad "cursor advanced on an empty clone"
+
+# ============================================================================
+hr; echo "L — refs present but watched ref unresolvable: still dies loudly (misconfig not masked)"; hr
+# The empty-repo guard (case K) must NOT swallow the genuine misconfiguration the fallback
+# die targets: a clone that HAS refs but still cannot resolve the watched ref (wrong
+# GARDEN_WATCH_REF, a deleted branch). for-each-ref is non-empty there, so the guard falls
+# through to `die` and the tick fails loudly — a real bad config is surfaced, not skipped.
+rm -rf "$TR/state13"; STATE="$TR/state13"; rm -rf "$BARE"; seed_journal
+seed_watched_bare                                  # a bare WITH refs (origin/$REF resolves)
+: > "$CALLS"; LOUT="$TR/triager-badref.out"; : > "$LOUT"
+set +e
+env GARDEN=testhost GARDEN_STATE="$STATE" \
+    JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_REPOS="$REPOS" GARDEN_WATCH_REF=no-such-branch \
+    GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_RC=0 CALL_LOG="$CALLS" \
+    GARDEN_TRIAGE_FAIL_THRESHOLD=5 \
+    "$JOBS/triager.sh" "$SLUG" >>"$LOUT" 2>&1
+rc=$?; set -e
+[ "$rc" -ne 0 ] && ok "unresolvable-ref-with-refs-present dies non-zero (misconfig not masked)" || bad "tick exit = $rc (want non-zero; the empty-guard must not swallow a real bad ref)"
+grep -qi "cannot resolve ref 'no-such-branch'" "$LOUT" && ok "die names the unresolvable ref" || bad "die message missing (out: $(cat "$LOUT"))"
+! grep -qi "empty (unborn HEAD" "$LOUT" && ok "did NOT take the empty-clone skip path (refs are present)" || bad "took the empty-clone path despite refs being present"
+[ ! -s "$CALLS" ] && ok "handler never invoked on an unresolvable ref" || bad "handler ran ($(grep -c . "$CALLS") calls; want 0)"
+
+# ============================================================================
 hr
 echo "TOTAL: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
