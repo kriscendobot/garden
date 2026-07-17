@@ -87,3 +87,10 @@ Address ONLY this review's directive (typed-pattern adoption). The sibling comme
 3606553507 ("Each exo guard should match its static type … Do a focused panel
 review on this aspect") belongs to a SEPARATE review (4726532241) and is handled by
 its own review-directive job — do not fold it in here.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 15
+  worker_kind: gardener
+  claimed_at: 2026-07-17T22:32:24Z
