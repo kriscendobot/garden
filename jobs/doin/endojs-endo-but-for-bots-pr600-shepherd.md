@@ -13,3 +13,10 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Shepherd. 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 9
+  worker_kind: gardener
+  claimed_at: 2026-07-17T00:25:20Z
