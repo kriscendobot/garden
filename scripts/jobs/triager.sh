@@ -125,11 +125,16 @@ fi
 # transport child), retried with backoff up to GARDEN_FETCH_RETRIES. The
 # `if … ; then … else rc=$?; fi` form keeps a non-zero fetch from tripping `set -e`
 # before we can read its rc.
+# Capture the final attempt's stderr so a failure can be CLASSIFIED (transient
+# outage → skip-this-tick, vs structural → die) rather than blindly die-ing on
+# every network blip. Mirrors the sibling watchers' $ERRF capture (ci-watcher.sh
+# ~242, comment-watcher.sh) that feeds is_transient_net_error.
+fetch_err="$(mktemp)"
 fetch_attempt=1
 fetch_rc=0
 while :; do
   if timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
-       git --git-dir="$BARE" fetch -q --all --prune 2>/dev/null; then
+       git --git-dir="$BARE" fetch -q --all --prune 2>"$fetch_err"; then
     fetch_rc=0
     break
   else
@@ -143,8 +148,26 @@ while :; do
   backoff "$fetch_attempt"; fetch_attempt=$((fetch_attempt+1))
 done
 if [ "$fetch_rc" -ne 0 ]; then
+  # CLASSIFY the failure instead of die-ing on all of them. A TRANSIENT connectivity
+  # failure — the wall-clock kill (rc 124/137, the observed `Terminated` + FATAL
+  # signature that marks the unit Failed and fires self-heal) OR a git-transport
+  # outage signature on stderr (DNS / reset / TLS / 5xx / Early EOF … the canonical
+  # GARDEN_OFFLINE_SIGNATURES set, plus is_transient_net_error's gh-flavored ones) —
+  # is "we couldn't fetch right now", not a broken clone. Degrade exactly like the
+  # transient-tolerant clone-provision path above (lines ~95–104): WARN + exit 0 to
+  # retry next tick, so a network blip no longer detonates a self-heal restart storm.
+  # Only a STRUCTURAL fetch error (a genuine repo/config fault) still dies loud.
+  fetch_stderr="$(cat "$fetch_err" 2>/dev/null || true)"
+  rm -f "$fetch_err"
+  if [ "$fetch_rc" -eq 124 ] || [ "$fetch_rc" -eq 137 ] \
+     || is_transient_net_error "$fetch_stderr" || _fetch_stderr_is_offline "$fetch_stderr"; then
+    log "WARN: fetch for $slug failed transiently (rc=$fetch_rc) — skipping this tick, retry next${fetch_stderr:+ (last stderr: $fetch_stderr)}"
+    exit 0
+  fi
+  log "fetch for $slug failed structurally (rc=$fetch_rc)${fetch_stderr:+: $fetch_stderr}"
   die "fetch failed for $slug"
 fi
+rm -f "$fetch_err"
 
 # resolve the ref to watch. --verify -q keeps a missing primary ref from echoing its
 # unresolved name to stdout (which the `||` fallback would then glue onto the real SHA —
