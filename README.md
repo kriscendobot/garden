@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-17T22:18:11Z_
+_As of 2026-07-17T22:20:41Z_
 
 ## Latest
 
-Upstream `endojs/endo` master was merged into the `llm` roadmap branch via [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) — a clean, green merge that deliberately stops just short of upstream's ESLint 10 flat-config migration (immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, and `skipLibCheck` land now; the whole-repo re-lint is flagged as a separate multi-cycle job, not auto-run). The board itself is quiet: an auto-shepherd was posted for red CI on [endo-but-for-bots#787](https://github.com/endojs/endo-but-for-bots/pull/787), and review work continues on [kriscendobot/agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/pull/15).
+Upstream endo `master` was merged into the `llm` roadmap branch: [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) was conducted onto `llm` (advancing it to `d39605930`), bringing the immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, and `skipLibCheck` — deliberately stopping just short of upstream's ESLint 10 flat-config migration, which is flagged as a separate multi-cycle job. The daemon→manager rename split into stacked phases ([#780](https://github.com/endojs/endo-but-for-bots/pull/780) Phase 2 draft, Phase 3 re-parked as blocked), and finbot's adaptive GJR-GARCH volatility work continued on its private fork.
 
-What a maintainer should notice is the pileup of decision gates, not new code. Several fully-green lanes are one directive from the finish line — git-integration Phase 1 [endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) (22/22, closes out M3 once merged), the content-store merge [endo-but-for-bots#585](https://github.com/endojs/endo-but-for-bots/pull/585) (panel-passed, now poisoned on a handler-budget overrun and parked for promotion), the esheets OAuth design [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green but stuck on a stale CHANGES_REQUESTED, blocking the entire Sheets tree), and the M2-closing shim pair [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259)/[endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719). Two arbitrations remain open: the SturdyRef "home" pick between [endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737) and [endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774) (all lanes holding pushes on it), and the M3 registry package-home between [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403). Separately, the minion.town primary phase is now ~9 hours pinned on a single ~5-minute human browser action (Gate 1 of the MCP connector login), and a rash of long-running jobs — the upstream-merge, three shepherds, and the xs2rust stage-8 C-XS baseline — are being reaper-poisoned for exceeding the 2400s handler budget, suggesting several of these need splitting into claim-sized stages.
+The dominant signal for the maintainer is a wall of gates, not new code: nearly every standing press-driver is idle-blocked on a decision only kriskowal can make. Git-integration is one directive from the finish line — [#705](https://github.com/endojs/endo-but-for-bots/pull/705) (Phase 1) is green/CLEAN and awaiting a `merge`. M2 closes on reviewing [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719); M3 is stalled on a package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403); the sturdyref lanes need a home arbitration between [#737](https://github.com/endojs/endo-but-for-bots/pull/737) and [#774](https://github.com/endojs/endo-but-for-bots/pull/774) (now 63h untouched); the esheets tree remains dammed behind an OAuth re-review of [#621](https://github.com/endojs/endo-but-for-bots/pull/621); and minion.town's entire primary phase is pinned on a ~5-minute browser Gate-1 login ([garden#58](https://github.com/kriskowal/garden/issues/58), now nine hourly cycles blocked).
+
+Meanwhile the board is churning against a resource ceiling: a large batch of jobs — the upstream merge, the #585 content-store conductor, several auto-shepherds (#124, #704, #763), and both npm/pnpm migration experiments — were reaper-poisoned for overrunning the 2400s handler budget, and the xs2rust Stage-8 C-XS baseline died twice to external SIGKILLs, halting stage-8b. Most are parked in the plan queue awaiting a human promote/split.
 
 ## Parked for maintainer feedback
 
@@ -993,8 +995,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 128.7M | $1240.65 _(notional, rate-card)_ | no quota set |
-| Codex | 196.7M _(+412.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
+| Claude | 129.0M | $1242.37 _(notional, rate-card)_ | no quota set |
+| Codex | 196.7M _(+414.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -1007,18 +1009,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-vfs-parity-press-20260717-182002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260717-182002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr787-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr787-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #787
 - [`kriscendobot-agoric-sdk-pr15-coverage-5007919173`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr15-coverage-5007919173.md) — ---
-- [`kriscendobot-agoric-sdk-pr15-review-63f630f8`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr15-review-63f630f8.md) — Review directive on kriscendobot/agoric-sdk PR #15
+- [`kriscendobot-agoric-sdk-pr15-review-9a12af5e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr15-review-9a12af5e.md) — Review directive on kriscendobot/agoric-sdk PR #15
 - [`ocapn-noise-press-20260717-182002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260717-182002.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`port-xs-to-rust-memory-safe-engine-s25`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s25.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`xs2rust-endor-press-20260717-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260717-220501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (2633)
+### tada (2634)
+- [`kriscendobot-agoric-sdk-pr15-review-63f630f8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-review-63f630f8.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr15-review-2bf0daa3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-review-2bf0daa3.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr15-retcon`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-retcon.md) — Completion report: retcon kriscendobot/agoric-sdk PR #15
 - [`kriscendobot-agoric-sdk-pr15-75aa58fc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-75aa58fc.md) — Routed coverage work to cleaner job kriscendobot-agoric-sdk-pr15-coverage-500...
 - [`endo-sturdyref-press-20260717-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260717-220501.md) — SturdyRef press, 22:05 tick — **observation-only; no movement, all lanes stil...
-- [`endo-npm-cas-registry-press-20260717-213501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260717-213501.md) — Press tick complete: this dispatch landed the **XS execution half of Phase 4*...
-- … and 2628 more
+- … and 2629 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1066,6 +1068,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kriscendobot-agoric-sdk-pr15-review-396a141c-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-review-396a141c-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #15 (primary: kriscendobot-agoric...
 - [`kriscendobot-agoric-sdk-pr15-review-2bf0daa3-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-review-2bf0daa3-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #15 (primary: kriscendobot-agoric...
 - [`kriscendobot-agoric-sdk-pr15-review-63f630f8-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-review-63f630f8-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #15 (primary: kriscendobot-agoric...
+- [`kriscendobot-agoric-sdk-pr15-review-9a12af5e-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-review-9a12af5e-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #15 (primary: kriscendobot-agoric...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-content-locators-magnet-urn-phase3-planes-resolution`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-content-locators-magnet-urn-phase3-planes-resolution.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/783` · Build Phase 3 of the magnet-URN content-locator design: @planes and resolution
