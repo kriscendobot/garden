@@ -37,6 +37,7 @@ slug="${1:?usage: triager.sh <repo-slug>}"
 GARDEN_TAG="triager/$slug"
 : "${GARDEN_TRIAGE_HANDLER:=$HERE/handlers/triager-claude.sh}"
 : "${GARDEN_WATCH_REF:=}"   # empty → use the bare clone's HEAD branch
+: "${GARDEN_TRIAGE_FETCH_TIMEOUT:=600}" # keep below the unit's 900s start timeout
 # Consecutive-failure circuit-breaker threshold: after this many failures of the
 # handler on the SAME new_sha, stop re-triaging that sha (0 disables the breaker).
 : "${GARDEN_TRIAGE_FAIL_THRESHOLD:=5}"
@@ -114,41 +115,23 @@ if ! is_own_git_repo "$BARE"; then
   fi
 fi
 
-# Steady-state clone refresh. git has NO IO timeout of its own, so a half-open SSH
-# fetch (e.g. ssh://git@github.com/kriscendobot/agoric-3-proposals.git) would hang
-# until systemd's TimeoutStartSec=900 SIGKILLs the git child — producing the observed
-# `Terminated` + FATAL + exit-1 signature that marks the unit Failed and triggers
-# self-heal on every transient network/SSH blip. So the fetch is BOUNDED exactly like
-# the rest of the fleet (clone-keeper's bounded_fetch, common.sh's journal_fetch): each
-# attempt runs under `timeout --kill-after=GARDEN_FETCH_KILL_AFTER GARDEN_FETCH_TIMEOUT`
-# (SIGTERM at the wall-clock deadline, SIGKILL escalation for a SIGTERM-ignoring
-# transport child), retried with backoff up to GARDEN_FETCH_RETRIES. The
-# `if … ; then … else rc=$?; fi` form keeps a non-zero fetch from tripping `set -e`
-# before we can read its rc.
-fetch_attempt=1
-fetch_rc=0
-while :; do
-  if timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
-       git --git-dir="$BARE" fetch -q --all --prune 2>/dev/null; then
-    fetch_rc=0
-    break
-  else
-    fetch_rc=$?
-  fi
-  # 124 = SIGTERM ended the fetch at the deadline; 137 = a SIGTERM-ignoring transport
-  # child was escalated to SIGKILL by --kill-after. Both are the same wall-clock kill.
-  { [ "$fetch_rc" -eq 124 ] || [ "$fetch_rc" -eq 137 ]; } \
-    && log "fetch for $slug timed out (>${GARDEN_FETCH_TIMEOUT}s, rc=$fetch_rc) on attempt $fetch_attempt"
-  if [ "$fetch_attempt" -ge "$GARDEN_FETCH_RETRIES" ]; then break; fi
-  backoff "$fetch_attempt"; fetch_attempt=$((fetch_attempt+1))
-done
-if [ "$fetch_rc" -ne 0 ]; then
-  # A transient network/SSH blip or a timeout must NOT die: a hard `die` (exit 1) fails
-  # the systemd unit and crash-loops self-heal every tick, mirroring the provision path
-  # (lines ~96-104) which treats an unreachable upstream as a clean exit-0 skip and
-  # retries next tick. Escalate only on PERSISTENCE via the throttled alert_maintainer
-  # (deduped per key, pages at most once per window), so a blip alerts at most once.
-  fmsg="triager: steady-state fetch for $slug failed after $fetch_attempt attempt(s) (last rc=$fetch_rc) — transient network/SSH blip or timeout. Retried next tick; if this persists the upstream is unreachable (offline, DNS, firewalled, half-open SSH) and $slug is not being triaged until it recovers."
+# Steady-state clone refresh. Fetch only the watched origin and bound it well below
+# the unit's 900s start timeout. A failed or interrupted fetch is a clean skip: its
+# partially transferred objects remain in the bare clone for the next tick.
+# A just-created empty bare may not yet have an origin configured. It has no content
+# to triage, so retain the existing empty-clone clean-skip behavior.
+if ! git --git-dir="$BARE" remote get-url origin >/dev/null 2>&1 \
+   && [ -z "$(git --git-dir="$BARE" for-each-ref --count=1 2>/dev/null)" ]; then
+  log "$slug is empty (unborn HEAD, no commits yet) - skipping this tick"
+  exit 0
+fi
+if timeout --kill-after="${GARDEN_TRIAGE_FETCH_KILL_AFTER:-10}s" \
+    "${GARDEN_TRIAGE_FETCH_TIMEOUT}s" \
+    git --git-dir="$BARE" fetch -q --prune origin 2>/dev/null; then
+  :
+else
+  fetch_rc=$?
+  fmsg="triager: steady-state fetch for $slug failed (rc=$fetch_rc; timeout ${GARDEN_TRIAGE_FETCH_TIMEOUT}s). Retried next tick; if this persists the upstream is unreachable and $slug is not being triaged until it recovers."
   log "WARN: $fmsg (skipping this tick)"
   alert_maintainer "triager-fetch-failed-${slug//[^A-Za-z0-9._-]/_}" "$fmsg"
   exit 0

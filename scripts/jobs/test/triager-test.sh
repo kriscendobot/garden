@@ -554,7 +554,7 @@ hr; echo "M — steady-state fetch fails (timeout/SSH blip): clean skip (exit 0)
 # upstream (ssh://git@github.com/kriscendobot/agoric-3-proposals.git) hangs until systemd's
 # TimeoutStartSec=900 SIGKILLs it — a `Terminated` + FATAL + exit-1 signature that marks the
 # unit Failed and self-heal-flaps on every transient network blip. The steady-state fetch is
-# now BOUNDED (timeout + retry) and a transient failure must SKIP cleanly (exit 0, retry next
+# now BOUNDED (timeout) and a transient failure must SKIP cleanly (exit 0, retry next
 # tick) with a throttled maintainer escalation — never the old hard `die`. We force the fetch
 # to fail with a scoped `git` shim (real for everything except `git … fetch`, which exits 1),
 # reproducing a blip WITHOUT any real hang.
@@ -564,17 +564,18 @@ FSHIMDIR="$TR/fetch-shimbin"; mkdir -p "$FSHIMDIR"
 cat > "$FSHIMDIR/git" <<EOF
 #!/bin/bash
 # fail ONLY the steady-state 'git … fetch …'; pass every other git call to the real binary.
-for _a in "\$@"; do [ "\$_a" = fetch ] && { echo "ssh: connect to host github.com port 22: Connection timed out" >&2; exit 1; }; done
+for _a in "\$@"; do [ "\$_a" = fetch ] && { printf '%s\n' "\$*" >> "\${FETCH_ARGS:?set FETCH_ARGS}"; echo "ssh: connect to host github.com port 22: Connection timed out" >&2; exit 1; }; done
 exec "$REAL_GIT" "\$@"
 EOF
 chmod +x "$FSHIMDIR/git"
 : > "$CALLS"; : > "$ALERTS"; MOUT="$TR/triager-fetchfail.out"; : > "$MOUT"
+FETCH_ARGS="$TR/fetch-args.out"; : > "$FETCH_ARGS"
 set +e
 env PATH="$FSHIMDIR:$PATH" \
     GARDEN=testhost GARDEN_STATE="$STATE" \
     JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_REPOS="$REPOS" GARDEN_WATCH_REF="$REF" \
-    GARDEN_FETCH_RETRIES=2 GARDEN_FETCH_TIMEOUT=5 GARDEN_BACKOFF_CAP_MS=5 \
+    GARDEN_TRIAGE_FETCH_TIMEOUT=5 FETCH_ARGS="$FETCH_ARGS" \
     GARDEN_ALERT_CMD="$ALERT_STUB" \
     GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_RC=0 CALL_LOG="$CALLS" \
     GARDEN_TRIAGE_FAIL_THRESHOLD=5 \
@@ -583,6 +584,9 @@ rc=$?; set -e
 [ "$rc" -eq 0 ] && ok "fetch-failure tick exits 0 (clean skip, not a crash-looping die)" || bad "tick exit = $rc (want 0; the unbounded-fetch hard-die is back)"
 grep -qi "WARN:.*fetch for $SLUG failed" "$MOUT" && ok "logs a WARN naming the failed steady-state fetch" || bad "WARN fetch-failed log missing (out: $(cat "$MOUT"))"
 grep -q "^triager-fetch-failed-${SLUG//[^A-Za-z0-9._-]/_}|" "$ALERTS" && ok "escalates the persistent fetch failure to the maintainer inbox (throttled key)" || bad "no triager-fetch-failed escalation (alerts: $(cat "$ALERTS"))"
+grep -q -- "fetch -q --prune origin$" "$FETCH_ARGS" && ! grep -q -- "--all" "$FETCH_ARGS" \
+  && ok "fetches only origin with the configured remote-tracking refspec" \
+  || bad "fetch command did not target only origin (args: $(cat "$FETCH_ARGS"))"
 [ ! -s "$CALLS" ] && ok "handler never invoked (no refs resolved past a failed fetch)" || bad "handler ran ($(grep -c . "$CALLS") calls; want 0 — a failed fetch must not reach triage)"
 [ -z "$(cursor_field "activity/$SLUG" last_sha)" ] && ok "activity cursor NOT advanced on a failed fetch" || bad "cursor advanced despite a failed fetch"
 
