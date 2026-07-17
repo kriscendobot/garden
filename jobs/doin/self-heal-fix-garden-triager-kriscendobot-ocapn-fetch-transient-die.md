@@ -1,3 +1,10 @@
 In `scripts/jobs/triager.sh` line 117, the routine ref fetch hard-dies on failure:
 `git --git-dir="$BARE" fetch -q --all --prune || die "fetch failed for $slug"`.
 A `git fetch` failure is almost always transient/environmental (network blip, DNS, GitHub rate-limit, or — as in the captured log, `Terminated` immediately before `FATAL: fetch failed for kriscendobot-ocapn` — a half-open connection reaped by SIGTERM). Failing exit 1 crash-fails the unit and triggers self-heal on every GitHub hiccup, contradicting this script's own design principle (see the missing/corrupt/provision-failed paths above at lines 73–115, which all "skip cleanly (exit 0) so the next tick retries — no crash loop"). Change line 117 so a fetch failure does NOT die: log a WARN and `exit 0` (retry next tick), matching the provision-failed path. Optionally add a throttled `alert_maintainer` under a deterministic dedup key (e.g. `triager-fetch-failed-${slug//[^A-Za-z0-9._-]/_}`) so a *persistent* fetch failure still surfaces once per window rather than silently skipping forever — mirroring the "PERSISTENTLY unreachable source... ALSO escalates" reasoning at lines 96–104. Failure signature: `FATAL: fetch failed for <slug>` with a preceding `Terminated`, unit `garden-triager@kriscendobot-ocapn` exiting 1.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-17T16:04:25Z
