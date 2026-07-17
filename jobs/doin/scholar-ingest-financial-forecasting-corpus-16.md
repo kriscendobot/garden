@@ -5,3 +5,10 @@ Continue the financial-forecasting corpus after Hansen, Lunde & Nason 2011, `pap
 Next strongest unsourced node: Peter R. Hansen 2005, "A Test for Superior Predictive Ability" (Journal of Business & Economic Statistics 23(4):365-380). It is the missing middle link of the lineage — both endpoints (White 2000 Reality Check and the 2011 MCS) are already sourced, but the SPA test that improves on the Reality Check is only referenced, not ingested. Ingest a readable original PDF (a freely available working-paper/author copy is fine — e.g. Peter Hansen's site or the Brown/Stanford working-paper series; record the canonical JBES citation and the working-paper provenance honestly in the source frontmatter, as the MCS ingest did with the CREATES 2010-76 version).
 
 Explain SPA as the power-improving successor to White's Reality Check: the studentized/standardized statistic, the sample-dependent null distribution that down-weights poor and irrelevant benchmark-inferior models (so an analyst cannot dilute significance by padding the model set), and the consistent p-value. Cross-link every section into `financial-forecasting`, `forecast-evaluation`, `data-snooping-bias`, and `diebold-mariano-test` as appropriate, and connect it explicitly to the already-ingested `papers--hansen-lunde-forecast-comparison-volatility-models-2005` (the 330-model GARCH horse race that *applies* SPA). Preserve the conditional-volatility/risk-forecast versus directional-return distinction. Post another precise follow-on if the corpus remains (candidate later nodes: Giacomini & White 2006 conditional predictive ability; Romano & Wolf 2005 stepwise multiple testing; Bailey & Lopez de Prado 2014 Deflated Sharpe Ratio; Clark & West 2007 nested-model MSPE-adjusted).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  worker_kind: gardener
+  claimed_at: 2026-07-17T05:36:35Z
