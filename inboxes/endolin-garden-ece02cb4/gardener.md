@@ -417,3 +417,12 @@ Inspect via `git -C journal cat-file -p 0e4885d62977a3a0ac7a25cb3f1aa3c4398c376f
 - Context: gardener-20 on endolin-garden-ece02cb4: job 'mirror-endo-2780-cache-globals-gauntlet' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 1873a9acc83cad683ae08d864dde3c4556870838`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-17T00:35:42Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: e6fe0633def09ec1789110e5aee2000ef48d1ea7
+- Context: gardener-16 on endolin-garden-ece02cb4: job 'endo-sturdyref-press-20260717-003509' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p e6fe0633def09ec1789110e5aee2000ef48d1ea7`.
