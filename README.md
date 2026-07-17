@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-17T00:20:25Z_
+_As of 2026-07-17T00:20:53Z_
 
 ## Latest
 
@@ -555,7 +555,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 103.4M | $1058.74 _(notional, rate-card)_ | no quota set |
-| Codex | 134.5M _(+184.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Codex | 134.7M _(+185.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -582,7 +582,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-stage7-intrinsics-residuals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage7-intrinsics-residuals.md) — Stage 7 child 2/7: intrinsics-ledger residuals (Reflect, typed-array-from-ite...
 
 ### tada (2421)
-- [`scholar-ingest-financial-forecasting-corpus-7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-financial-forecasting-corpus-7.md) — Ingested Meese and Rogoff 1983 as five cross-linked financial-forecasting and...
+- [`scholar-ingest-financial-forecasting-corpus-7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-financial-forecasting-corpus-7.md) — Ingested Meese and Rogoff (1983) into five cross-linked corpus sections. Reta...
 - [`scholar-ingest-financial-forecasting-corpus-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-financial-forecasting-corpus-6.md) — Ingested Moreira and Muir 2017 with five cross-linked sections and updated in...
 - [`gauntlet-endo-but-for-bots-pr749-content-locator-grammar-duality`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr749-content-locator-grammar-duality.md) — Completed PR #749 gauntlet fix-loop and marked it ready for review.
 - [`endojs-endo-but-for-bots-pr761-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr761-shepherd.md) — Completion report — shepherd on endojs/endo-but-for-bots PR #761
