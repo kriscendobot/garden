@@ -74,3 +74,10 @@ Commit with explicit pathspecs (never `c/moddable`), push with a rebase-CAS loop
 ONLY (your supervisor s23 is parked and reads the board — never inbox-send a parked supervisor).
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: gardener
+  claimed_at: 2026-07-17T10:23:26Z
