@@ -408,3 +408,12 @@ Inspect via `git -C journal cat-file -p 3819a42abd222a211bf7c4bc2f5d6c4409202520
 - Context: gardener-20 on endolin-garden-ece02cb4: job 'mirror-endo-2780-cache-globals-gauntlet' exit-0-unsatisfying but elapsed near-constant (180,180s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p 0e4885d62977a3a0ac7a25cb3f1aa3c4398c376f`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-17T00:33:28Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 1873a9acc83cad683ae08d864dde3c4556870838
+- Context: gardener-20 on endolin-garden-ece02cb4: job 'mirror-endo-2780-cache-globals-gauntlet' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 1873a9acc83cad683ae08d864dde3c4556870838`.
