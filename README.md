@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-17T17:19:44Z_
+_As of 2026-07-17T17:22:24Z_
 
 ## Latest
 
-The upstream‑integration merge landed: [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) was conducted onto `llm` (advancing it to `d39605930`), pulling in the immutable‑arraybuffer pseudo‑prototype drop, SES `code` error prop, and skipLibCheck — but deliberately stopping just short of upstream's ESLint 10 flat‑config migration, which is flagged as a separate multi‑cycle job (63 errors on one package alone). Watch the `master`‑retirement program: the `ebfb-retire-master-branch-sweep` orchestration HALTED one step from done (34/35 children complete) when the final delete child failed, and several individual retire/reconstruct jobs stopped because the fork's `origin/master` already contains the target merges (zero‑diff), so [#251](https://github.com/endojs/endo-but-for-bots/pull/251) and others are recommended for closure as superseded‑upstream rather than rebased.
+Upstream `endojs/endo` master merged into the `llm` roadmap branch: [#773](https://github.com/endojs/endo-but-for-bots/pull/773) was conducted after resolving a source-divergence trap (the real upstream master, not the contaminated fork mirror), bringing in the immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, and skipLibCheck — deliberately stopping short of upstream's ESLint 10 flat-config migration, which is flagged as a separate multi-cycle job. On the board itself little moved (one minion.town PR #4 conduct completed); finbot advanced several cycles to auto-select GJR-GARCH volatility per asset when fitted leverage is material.
 
-A wave of long‑running jobs got reaper‑poisoned on handler‑budget overruns and now sit parked awaiting your go‑ahead — notably the [#585](https://github.com/endojs/endo-but-for-bots/pull/585) content‑store merge (un‑drafted, CLEAN, panel‑passed; the overrun looks transient, promote to finish), plus shepherds for [#124](https://github.com/endojs/endo-but-for-bots/pull/124)/[#704](https://github.com/endojs/endo-but-for-bots/pull/704)/[#763](https://github.com/endojs/endo-but-for-bots/pull/763) and both the npm and pnpm master‑migration experiments.
-
-Several lanes are fully green and gated only on your decision: the git‑integration M3 loop wants a `merge` directive on [#705](https://github.com/endojs/endo-but-for-bots/pull/705) to reach the finish line; OCapN‑over‑Noise has M1–M5 proven and asks whether to open a minion.town TCP port (or call cross‑host wss sufficient); and the esheets tree remains dammed behind the [#621](https://github.com/endojs/endo-but-for-bots/pull/621) OAuth design, still stale `CHANGES_REQUESTED` after its caretaker‑attenuation revision. Separately, minion.town's entire primary phase has been blocked for nine straight hourly cycles on one ~5‑minute human action (Gate 1's browser Cognito login). Finbot continued its autonomous march, shipping adaptive GJR‑GARCH leverage vol selection (541+ tests green).
+The signal for the maintainer is a growing stack of gated decisions, several blocking whole lanes: the esheets tree is fully dammed behind OAuth design [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, un-drafted, 6 days awaiting re-review despite a stale `CHANGES_REQUESTED`); the git-integration M3 lane is green and one `merge` directive from the finish on [#705](https://github.com/endojs/endo-but-for-bots/pull/705); M2 is one call from done pending review/merge of [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) plus closing the redundant #263; the SturdyRef effort has three open gates (first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737), a marshal rank-prefix pick, and re-reviews of #695/#697); OCapN-over-Noise has M1–M5 proven and asks only whether to open a TCP port on minion.town or call cross-host WSS sufficient; and the daemon package-home conflict (#671 vs #403) still blocks the M3 module-loading tail. Separately, minion.town's entire primary phase ([garden#58](https://github.com/kriskowal/garden/issues/58)) has sat idle 9 hourly cycles on one ~5-minute human-only browser action (Gate 1). A cluster of shepherd/gauntlet/merge jobs was poisoned this window on deadline-overruns (handler-budget limits, not deterministic faults) and now sits parked in the plan queue awaiting promotion.
 
 ## Parked for maintainer feedback
 
@@ -855,25 +853,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 125.3M | $1246.40 _(notional, rate-card)_ | no quota set |
+| Claude | 125.4M | $1247.18 _(notional, rate-card)_ | no quota set |
 | Codex | 196.3M _(+409.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`kriscendobot-minion-town-pr4-review-681cbfb6-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr4-review-681cbfb6-conduct.md) — Merge kriscendobot/minion.town PR #4
+### doin (2)
 - [`kriscendobot-minion.town-pr7-review-c543864f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr7-review-c543864f.md) — Review directive on kriscendobot/minion.town PR #7
 - [`xs2rust-endor-stage8-cxs-baseline-r2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage8-cxs-baseline-r2.md) — Stage-8b child 1/4 (was stage-8 child 3/6, re-cut after transient-outage pois...
 
-### tada (2610)
+### tada (2611)
+- [`kriscendobot-minion-town-pr4-review-681cbfb6-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr4-review-681cbfb6-conduct.md) — Completion report
 - [`ebfb-retire-master-branch-sweep-orchestration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-branch-sweep-orchestration.md) — orchestration ebfb-retire-master-branch-sweep-orchestration — HALTED
 - [`kriscendobot-minion-town-pr4-review-681cbfb6-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr4-review-681cbfb6-fix.md) — Completion report
 - [`finbot-progress-20260717-170502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260717-170502.md) — This cycle added factory-level test coverage for the auto-gjr-garch volSurfac...
 - [`ebfb-retire-master-delete`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-delete.md) — Completion report
-- [`kriscendobot-minion.town-pr4-review-681cbfb6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr4-review-681cbfb6.md) — Review preflight proceeded. Fetched review body and found 0 inline comments.
-- … and 2605 more
+- … and 2606 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
