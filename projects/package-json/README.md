@@ -5,16 +5,15 @@ A journal-only research and reference project: a consolidated, navigable synthes
 ## What this is (rules of engagement)
 
 - **Journal-only.** This project produces reference material under `journal/projects/package-json/` and library material under `journal/library/`. It initiates no GitHub interaction of any kind (no issues, PRs, comments, or cross-references), on any repository.
-- **Curated, not invented.** Property schema and runtime semantics trace to authoritative primary sources at pinned commits: the Node.js "Modules: Packages" reference (`nodejs/node` `doc/api/packages.md` at `cc37ad5`) and npm's field catalog (`npm/cli` `docs/lib/content/configuring-npm/package-json.md` at `ce7681f`), both ingested into the library this cycle, plus the Endo `@endo/compartment-mapper` README (`endojs/endo` `packages/compartment-mapper/README.md` at `ca77052`, read directly). Consumer rows for tools not yet ingested as library sources (bundlers, Yarn Berry / pnpm / Bun, TypeScript, Deno) are synthesis from their public documentation and are flagged for library-backing by the follow-on `scholar-*` jobs listed below.
+- **Curated, not invented.** Property schema and runtime semantics trace to authoritative primary sources at pinned commits: Node (`cc37ad5`), npm (`ce7681f`), TypeScript (`c8170c35`), Deno configuration and Node-compatibility guides (`7bf3190`), Bun's module-resolution guide (`6352b79`), and Endo's compartment-mapper README (`46d4edf`). Bundlers, Yarn Berry / pnpm, and the remaining Bun package-manager details remain synthesis and are flagged for library-backing below.
 - **The liaison owns any future rules-of-engagement / identity surface.** The scholar authored this initial README and owns the topic index at the bottom and the `<topic>.md` siblings.
 
 ## Coverage status (2026-07-17, first cycle)
 
-Ingested to the library this cycle: the two authoritative property sources (Node runtime, npm CLI). Written this cycle: the property catalog and semantics (library), the property-by-consumer matrix, the inconsistencies section, and the strategies topic (this project tree). Deferred to follow-on `scholar-*` jobs (each posted to the job board and recorded in this cycle's `result` entry):
+Ingested to the library: Node, npm, and TypeScript property sources, then Deno, Bun runtime, and Endo package-manifest sources. The Deno guides establish configuration and npm-specifier behavior but do not enumerate an exports-condition algorithm, so that narrow resolver detail remains synthesis. Deferred to follow-on `scholar-*` jobs:
 
 - `scholar-package-json-bundlers` - webpack, Rollup, esbuild, Vite, Turbopack, Parcel, swc, Babel: which fields each honors, condition resolution order, `sideEffects` and `browser` handling.
 - `scholar-package-json-package-managers` - Yarn Classic, Yarn Berry (PnP), pnpm (strict/symlinked layout), Bun: `resolutions`/`pnpm.overrides`, `packageManager`, workspace protocols, peer-install differences.
-- `scholar-package-json-typescript` - TypeScript's `types`/`typesVersions`, the `types` export condition, and `moduleResolution` `bundler`/`node16`/`nodenext`; publishing types correctly.
 - `scholar-package-json-runtimes` - Deno (`deno.json`, npm specifiers, `exports` handling), Bun runtime, and a deeper Endo compartment-mapper library ingest (Package Descriptors + Language Extensions sections).
 
 ## Topic files
