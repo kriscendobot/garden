@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-17T10:50:33Z_
+_As of 2026-07-17T10:52:32Z_
 
 ## Latest
 
@@ -672,15 +672,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 116.4M | $1199.56 _(notional, rate-card)_ | no quota set |
-| Codex | 182.6M _(+355.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 55% _(plan; codex-reported)_ |
+| Codex | 182.7M _(+357.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 55% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (12)
+### doin (13)
 - [`build-endo-content-locators-magnet-urn-phase2-interface-methods`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-content-locators-magnet-urn-phase2-interface-methods.md) — Build Phase 2 of the content-locator design: the <verb>Content interface meth...
-- [`ebfb-retire-master-pr-350`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-350.md) — ---
+- [`ebfb-retire-master-pr-348`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-348.md) — ---
 - [`endo-byte-array-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260717-060503.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260717-060503.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-sturdyref-press-20260717-072004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260717-072004.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
@@ -691,14 +691,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-package-json-bundlers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-bundlers.md) — Scholar: how bundlers and compilers read package.json
 - [`scholar-package-json-package-managers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-package-managers.md) — Scholar: how package managers read package.json (Yarn, pnpm, Bun)
 - [`xs2rust-endor-press-20260717-072004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260717-072004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+- [`xs2rust-endor-stage8-daemon-bundle-imports`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage8-daemon-bundle-imports.md) — Stage-8 child 1/6 — daemon-bundle Node-only import fix (README item 1)
 
-### tada (2525)
+### tada (2526)
+- [`ebfb-retire-master-pr-350`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-350.md) — This PR meets the directive's long-idle/stale-mirror carve-out, so I am recor...
 - [`ebfb-retire-master-pr-353`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-353.md) — Completion report — ebfb-retire-master-pr-353 (weaver)
 - [`endo-vfs-parity-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260717-060503.md) — VFS-parity press dispatch 2026-07-17: re-wove #656 across two llm advances; t...
 - [`endojs-endo-but-for-bots-pr779-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr779-shepherd.md) — CI is green on PR #779 at 55330da29b8fff79786eeec98f4a3de9f08aae31: all 15 co...
 - [`scholar-ingest-clark-west-nested-predictive-accuracy-2007`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-clark-west-nested-predictive-accuracy-2007.md) — Ingested Clark-West (2007) from NBER Technical Working Paper 326, explicitly ...
-- [`xs2rust-endor-s22-compartment-isolation-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-s22-compartment-isolation-fix.md) — Completion report
-- … and 2520 more
+- … and 2521 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
