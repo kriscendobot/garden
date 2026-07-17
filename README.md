@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-17T03:37:57Z_
+_As of 2026-07-17T03:45:06Z_
 
 ## Latest
 
-Board motion this cycle was thin — the [XS→Rust Endor port](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage7-promise-combinators.md) advanced Stage 7 (intrinsics-residuals completed, Promise combinators claimed), and recent completions landed a pnpm-migration shepherd on [endo-but-for-bots#769](https://github.com/endojs/endo-but-for-bots/pull/769) and an npm-via-CAS registry-proxy press tick. The substance is in the maintainer queue, where multiple lanes are now fully green and stalled on your authority alone: git-integration Phase 1 [#705](https://github.com/endojs/endo-but-for-bots/pull/705) and the M3 worked-loop exit [#707](https://github.com/endojs/endo-but-for-bots/pull/707) await a merge directive; the SturdyRef replacement [#737](https://github.com/endojs/endo-but-for-bots/pull/737) needs a first review plus a marshal rank-prefix pick; and the esheets tree is dammed six days behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621). Two milestone-level decisions are open: M2 needs a call on adopting [#719](https://github.com/endojs/endo-but-for-bots/pull/719)'s URL-shim split (and closing the redundant [#263](https://github.com/endojs/endo-but-for-bots/pull/263)) to merge it and [#259](https://github.com/endojs/endo-but-for-bots/pull/259), while M3's module-loading tail is blocked pending a ruling on which MVS-resolver home wins — [#671](https://github.com/endojs/endo-but-for-bots/pull/671) versus [#403](https://github.com/endojs/endo-but-for-bots/pull/403).
+Package-manager migration experiments moved this cycle: the [#769](https://github.com/endojs/endo-but-for-bots/pull/769) pnpm-migration shepherd and [#768](https://github.com/endojs/endo-but-for-bots/pull/768) shepherds both closed out, and companion `migrate-master-to-npm`/`migrate-master-to-pnpm` jobs plus a fresh `merge-upstream-master-into-llm-20260717` job are now in flight — the fleet is actively probing how endo-but-for-bots should modernize its base tooling. The npm-via-CAS registry-proxy press and another xs2rust-Endor stage-7 tick (intrinsics residuals) also completed.
 
-Worth flagging: the never-abbreviate gate **recurred** — your "Avoid abbreviation" on `fetchImpl` in [#671](https://github.com/endojs/endo-but-for-bots/pull/671) slipped a structural blind spot (the gate scans only newly-added diff lines, so a pre-deployment line escapes permanently), and the escalation awaits your call on whether to widen it. Separately, the reaper poisoned a wave of overrunning shepherd/gauntlet jobs against the handler budget — shepherds on [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#763](https://github.com/endojs/endo-but-for-bots/pull/763), the kebab-case linter build, and [kriscendobot/agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/pull/15) — all parked in the plan queue needing a split or a raised timeout. Finally, three master-reconstruction jobs ([#69](https://github.com/endojs/endo-but-for-bots/pull/69), [#545](https://github.com/endojs/endo-but-for-bots/pull/545), [#720](https://github.com/endojs/endo-but-for-bots/pull/720)) are blocked because the fork's master already contains those merges, rebasing each to an empty diff.
+The signal a maintainer should act on is upstream of any of this: the board is thick with fully-green lanes stalled on your decision, not on engineering. The git-integration lane wants a one-word `merge` on [#705](https://github.com/endojs/endo-but-for-bots/pull/705) (22/22 green) to run [#707](https://github.com/endojs/endo-but-for-bots/pull/707) to M3's finish; the SturdyRef effort is on its third fully-gated tick awaiting first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus a rank-prefix pick; the esheets tree has sat six days behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621); M2 needs a URL-shim call between [#719](https://github.com/endojs/endo-but-for-bots/pull/719) and [#263](https://github.com/endojs/endo-but-for-bots/pull/263); and M3's tail is blocked on the registry-home question between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403). Separately, five reconstruction jobs reported dead — current endo-but-for-bots `master` already contains those merges, so their diffs are empty — and several shepherds (PRs [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#763](https://github.com/endojs/endo-but-for-bots/pull/763)) were poisoned for overrunning the handler budget and are parked pending a split or a raised timeout.
 
 ## Parked for maintainer feedback
 
@@ -394,14 +394,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.3M | $1028.95 _(notional, rate-card)_ | no quota set |
+| Claude | 102.5M | $1032.46 _(notional, rate-card)_ | no quota set |
 | Codex | 162.5M _(+222.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (15)
+### doin (16)
 - [`ebfb-retire-master-pr-719`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-719.md) — ---
 - [`endo-sturdyref-press-20260717-003509`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260717-003509.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-vfs-parity-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260717-000503.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
@@ -411,6 +411,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr760-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr760-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #760
 - [`endojs-endo-but-for-bots-pr762-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr762-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #762
 - [`endojs-endo-but-for-bots-pr765-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr765-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #765
+- [`merge-upstream-master-into-llm-20260717`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/merge-upstream-master-into-llm-20260717.md) — Merge upstream master into the endo-but-for-bots llm branch (propose PR -> sh...
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/migrate-endo-but-for-bots-master-to-pnpm.md) — ---
 - [`mirror-endo-2780-cache-globals-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mirror-endo-2780-cache-globals-gauntlet.md) — Mirror upstream endojs/endo#2780 (Cache globals) onto a frozen master base, t...
