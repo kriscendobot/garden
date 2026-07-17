@@ -14507,6 +14507,10 @@ Superior Predictive Ability | data-snooping-bias
 SPA test | data-snooping-bias
 Hansen SPA | data-snooping-bias
 Model Confidence Set | data-snooping-bias
+Hansen Lunde Nason | data-snooping-bias
+MCS p-value | data-snooping-bias
+equivalence test | data-snooping-bias
+elimination rule | data-snooping-bias
 Deflated Sharpe Ratio | data-snooping-bias
 bootstrap reality check | data-snooping-bias
 Bootstrap Reality Check | data-snooping-bias
