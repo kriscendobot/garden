@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6543 (530 parent indexes + 6013 children).
+Total section files: 6551 (530 parent indexes + 6021 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8670,6 +8670,10 @@ Total section files: 6543 (530 parent indexes + 6013 children).
 - [unum--token-cost-ledger](unum--token-cost-ledger.md)
 - [unum--vigil-charge-initiative-budget](unum--vigil-charge-initiative-budget.md)
 
+### vite--config-dep-optimization-options
+
+- [vite--config-dep-optimization-options--optimizedeps-dependency-prebundling](vite--config-dep-optimization-options--optimizedeps-dependency-prebundling.md)
+
 ### vite--config-shared-options
 
 - [vite--config-shared-options--resolve-conditions-main-fields-and-dedupe](vite--config-shared-options--resolve-conditions-main-fields-and-dedupe.md)
@@ -8737,6 +8741,10 @@ Total section files: 6543 (530 parent indexes + 6013 children).
 - [web--azure-marketplace-publisher-guide--offer-type-taxonomy](web--azure-marketplace-publisher-guide--offer-type-taxonomy.md)
 - [web--azure-marketplace-publisher-guide--saas-offer-requirements](web--azure-marketplace-publisher-guide--saas-offer-requirements.md)
 - [web--azure-marketplace-publisher-guide--vm-offer-requirements](web--azure-marketplace-publisher-guide--vm-offer-requirements.md)
+
+### web--babel-options
+
+- [web--babel-options--compiler-not-resolver-browserslist-and-sourcetype](web--babel-options--compiler-not-resolver-browserslist-and-sourcetype.md)
 
 ### web--brandon-against-sql
 
@@ -8989,6 +8997,10 @@ Total section files: 6543 (530 parent indexes + 6013 children).
 - [web--miller-grant-matcher-puzzle--setting-up-the-puzzle](web--miller-grant-matcher-puzzle--setting-up-the-puzzle.md)
 - [web--miller-grant-matcher-puzzle--when-it-works](web--miller-grant-matcher-puzzle--when-it-works.md)
 
+### web--nextjs-turbopack-config
+
+- [web--nextjs-turbopack-config--module-resolution-aliases-and-extensions](web--nextjs-turbopack-config--module-resolution-aliases-and-extensions.md)
+
 ### web--openai-symphony-codex-orchestration
 
 - [web--openai-symphony-codex-orchestration--interactive-agent-ceiling](web--openai-symphony-codex-orchestration--interactive-agent-ceiling.md)
@@ -9005,9 +9017,26 @@ Total section files: 6543 (530 parent indexes + 6013 children).
 - [web--openai-symphony-codex-orchestration--spec-workflow-md-contract](web--openai-symphony-codex-orchestration--spec-workflow-md-contract.md)
 - [web--openai-symphony-codex-orchestration--spec-workspace-management-and-safety](web--openai-symphony-codex-orchestration--spec-workspace-management-and-safety.md)
 
+### web--parcel-dependency-resolution
+
+- [web--parcel-dependency-resolution--aliases-source-field-and-specifiers](web--parcel-dependency-resolution--aliases-source-field-and-specifiers.md)
+- [web--parcel-dependency-resolution--entries-order-exports-and-conditions](web--parcel-dependency-resolution--entries-order-exports-and-conditions.md)
+
+### web--parcel-production
+
+- [web--parcel-production--tree-shaking-and-scope-hoisting](web--parcel-production--tree-shaking-and-scope-hoisting.md)
+
+### web--parcel-targets
+
+- [web--parcel-targets--targets-source-engines-and-output-format](web--parcel-targets--targets-source-engines-and-output-format.md)
+
 ### web--simonw-llm-meta-ai
 
 - [web--simonw-llm-meta-ai--invocation-and-features](web--simonw-llm-meta-ai--invocation-and-features.md)
+
+### web--swc-compilation
+
+- [web--swc-compilation--compiler-not-resolver-env-targets-and-module](web--swc-compilation--compiler-not-resolver-env-targets-and-module.md)
 
 ### web--tailscale-oauth-apps
 
