@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-17T15:59:45Z_
+_As of 2026-07-17T16:08:29Z_
 
 ## Latest
 
-Upstream `endojs/endo` master landed on the fork's `llm` roadmap branch: [#773](https://github.com/endojs/endo-but-for-bots/pull/773) was conducted as a true merge, advancing `llm` with the immutable-arraybuffer pseudo-prototype drop, the SES "code" error prop, and skipLibCheck — deliberately stopping just short of upstream's ESLint 10 flat-config migration, which is flagged as a separate multi-cycle job (one package alone already trips 63 errors). The board is otherwise nearly idle (empty todo, two press jobs claimed), because almost every active lane is now parked on a maintainer decision. The git-integration M3 loop is fully green and one `merge` directive away on [#705](https://github.com/endojs/endo-but-for-bots/pull/705), with the exit-criterion PR [#707](https://github.com/endojs/endo-but-for-bots/pull/707) green behind it; M2 needs a call to adopt [#719](https://github.com/endojs/endo-but-for-bots/pull/719)'s URL-shim split and close CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263) so [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and #719 can land; M3's remaining module-loading work is dammed on a package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403); the esheets tree is stalled six days on re-reviewing [#621](https://github.com/endojs/endo-but-for-bots/pull/621); and the SturdyRef effort has three open gates (first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737), a marshal rank-prefix pick, and re-reviews of [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697)). OCapN-over-Noise reports M1–M5 all demonstrated (stack [#340](https://github.com/endojs/endo-but-for-bots/pull/340)→[#684](https://github.com/endojs/endo-but-for-bots/pull/684)→[#688](https://github.com/endojs/endo-but-for-bots/pull/688)→[#693](https://github.com/endojs/endo-but-for-bots/pull/693)) and asks whether to open an inbound TCP port on minion.town to close the last cross-host transport, while the minion.town deployment itself is blocked on a ~5-minute human browser action at Gate 1 of the MCP-Endo-guest design. Meanwhile the reaper poisoned a cluster of long-running jobs for handler-budget overruns — shepherds on PRs #124/#704/#763, the #585 content-store merge, and the upstream-merge job — that need splitting or a raised timeout before requeue; finbot progressed independently to adaptive per-asset GJR-GARCH volatility selection, still gated on paper-wallet authorization before any live execution.
+A wave of self-heal fixes hardened the per-repo triager fetch path on `main2` — unbounded project fetches, transient fetch dies, timeouts, and a crashloop across the finbot, agoric-sdk, endo, minion.town, cosgov, ocapn, and vattr97 triagers all landed. The larger change this cycle: upstream `endojs/endo` master was merged into the `llm` roadmap branch via [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) (immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, skipLibCheck), advancing `llm` to `d39605930`; the ESLint 10 flat-config migration was deliberately held back as a separate multi-cycle job. Several lanes are now one maintainer decision from closing: the git-integration M3 loop needs only a `merge` on [endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) to unblock [endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/pull/707); M2 hygiene awaits review/merge of [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719); and the esheets tree is fully dammed behind a re-review of [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621). Note two structural snags: the content-store conductor job for [endo-but-for-bots#585](https://github.com/endojs/endo-but-for-bots/pull/585) was reaper-poisoned on a handler-budget overrun (parked, awaiting promotion though CI is green and CLEAN), and the M3 module-loading tail is stalled pending a package-home ruling between [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403).
 
 ## Parked for maintainer feedback
 
@@ -364,6 +364,21 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > 3. Note the redirect_uri value(s) Claude presents on the Cognito authorize page/error — we need it permanently for client registration (Cognito has no DCR endpoint), and it's the input M1 pre-registration consumes if a surface won't pin a static client id.
 >
 > Once you've done Gate 1 and its V1-V5 evidence is recorded, the daemon (Gate 2) unit + deploy target becomes buildable in-order and the first autonomous deployment is unblocked. Until then every hourly review will keep landing here. Full detail: [https://github.com/kriskowal/garden/issues/58](https://github.com/kriskowal/garden/issues/58)#issuecomment-5004906274
+
+- `20260717T160415Z-f19879` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260717T160415Z-f19879.md)
+
+> self-heal: garden-triager@kriscendobot-ymax-e2e exited rc=1 with no scoped fix. Capture: c889a33d0725027b33b0a56a792d7a34ba235a01 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p c889a33d0725027b33b0a56a792d7a34ba235a01). Diagnosis: I've diagnosed the failure. Here's what happened.
+>
+> **Failure signature:** The two-line log is:
+> ```
+> Terminated
+> <3>16:03:00 [triager/kriscendobot-ymax-e2e] FATAL: fetch failed for kriscendobot-ymax-e2e
+> ```
+>
+> The `FATAL` comes from `scripts/jobs/triager.sh:117` — `git --git-dir="$BARE" fetch -q --all --prune || die "fetch failed for $slug"`. Crucially, the line immediately above it is bash's `Terminated`, which is what the shell prints when a child process is killed by **SIGTERM** — not a git-level error (auth failure, bad ref, missing repo all print their own diagnostics, and none appear here). So the `git fetch` subprocess was signal-killed mid-flight, returned 143, and tripped `die`.
+>
+> **Verification that there's no persistent fault:**
+> - The bare clone exists (`worktrees/kriscendobot-yma
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -808,8 +823,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 123.0M | $1234.90 _(notional, rate-card)_ | no quota set |
-| Codex | 192.1M _(+401.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 123.7M | $1244.15 _(notional, rate-card)_ | no quota set |
+| Codex | 192.1M _(+402.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -821,13 +836,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr250-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr250-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #250
 - [`port-xs-to-rust-memory-safe-engine-s24`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s24.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
-### tada (2585)
-- [`xs2rust-endor-press-20260717-155004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260717-155004.md) — Completion report — press tick xs2rust-endor-press-20260717-155004
-- [`deadmail-issue-comment-5005029872`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5005029872.md) — Checked PinchTab and replied on garden issue #57: https://github.com/kriskowa...
-- [`endo-sturdyref-press-20260717-155004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260717-155004.md) — Completion report — SturdyRef press tick (2026-07-17 15:50 dispatch)
-- [`self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-unguarded-fetch-timeout`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-unguarded-fetch-timeout.md) — Completion report
-- [`minion-town-agenda-review-20260717-153501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260717-153501.md) — Hourly minion.town agenda review complete (2026-07-17 15:37 UTC).
-- … and 2580 more
+### tada (2592)
+- [`self-heal-fix-garden-triager-kriscendobot-finbot-unbounded-project-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-finbot-unbounded-project-fetch.md) — Implemented and pushed a24e3c92c6 to main2.
+- [`self-heal-fix-garden-triager-kriscendobot-agoric-sdk-fetch-timeout-soft-skip`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-sdk-fetch-timeout-soft-skip.md) — Implemented and pushed 467ca35f5c to main2.
+- [`self-heal-fix-garden-triager-kriscendobot-vattr97-fetch-die-crashloop`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-vattr97-fetch-die-crashloop.md) — Completion report
+- [`self-heal-fix-garden-triager-kriscendobot-minion-town-fetch-die-transient-exit1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-fetch-die-transient-exit1.md) — Verification
+- [`self-heal-fix-garden-triager-kriscendobot-endo-fetch-transient-skip`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-endo-fetch-transient-skip.md) — Completion report
+- … and 2587 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
