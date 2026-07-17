@@ -61,3 +61,10 @@ Standard scholar bounds (`roles/scholar/AGENT.md`): journal-only writes (`librar
 it exceeds one cycle's budget, write what is well-supported this cycle and **post follow-on
 `scholar-*` jobs** for the remainder (e.g. one per consumer family: bundlers, package managers,
 runtimes, strategies). Record a `result` entry with what was covered and what was deferred.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 10
+  worker_kind: gardener
+  claimed_at: 2026-07-17T05:31:20Z
