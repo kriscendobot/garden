@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-17T11:14:40Z_
+_As of 2026-07-17T11:22:55Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ Worth noticing operationally: the reaper poisoned a cluster of handlers that ove
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 11h)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 12h)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 2d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 3d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 4d)
@@ -681,14 +681,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 117.2M | $1204.93 _(notional, rate-card)_ | no quota set |
-| Codex | 183.0M _(+373.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 57% _(plan; codex-reported)_ |
+| Claude | 117.3M | $1205.57 _(notional, rate-card)_ | no quota set |
+| Codex | 185.7M _(+374.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (10)
+### doin (9)
 - [`ebfb-retire-master-pr-337`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-337.md) — ---
 - [`endo-byte-array-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260717-060503.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260717-060503.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
@@ -698,15 +698,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-package-json-bundlers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-bundlers.md) — Scholar: how bundlers and compilers read package.json
 - [`scholar-package-json-package-managers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-package-json-package-managers.md) — Scholar: how package managers read package.json (Yarn, pnpm, Bun)
 - [`xs2rust-endor-press-20260717-072004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260717-072004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
-- [`xs2rust-endor-stage8-daemon-bundle-imports`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage8-daemon-bundle-imports.md) — Stage-8 child 1/6 — daemon-bundle Node-only import fix (README item 1)
 
-### tada (2535)
+### tada (2536)
+- [`xs2rust-endor-stage8-daemon-bundle-imports`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage8-daemon-bundle-imports.md) — Completion report — Stage-8 child 1/6: daemon-bundle Node-only import fix (RE...
 - [`endojs-endo-but-for-bots-pr346-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr346-shepherd.md) — Completion report — shepherd on endojs/endo-but-for-bots PR #346
 - [`ebfb-retire-master-pr-344`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-344.md) — Completion report
 - [`minion-town-agenda-review-20260717-110501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260717-110501.md) — Completion report
 - [`ebfb-retire-master-pr-346`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-346.md) — Retired PR #346’s master base: rebased its head onto upstream endojs/endo mas...
-- [`build-endo-content-locators-magnet-urn-phase2-interface-methods`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-content-locators-magnet-urn-phase2-interface-methods.md) — Build Phase 2 — content-locator <verb>Content interface methods
-- … and 2530 more
+- … and 2531 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
