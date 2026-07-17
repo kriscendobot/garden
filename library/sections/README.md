@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6516 (530 parent indexes + 5986 children).
+Total section files: 6521 (530 parent indexes + 5991 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8481,6 +8481,14 @@ Total section files: 6516 (530 parent indexes + 5986 children).
 - [papers--patton-volatility-forecast-comparison-imperfect-proxies-2011--noisy-proxies-can-reverse-rankings](papers--patton-volatility-forecast-comparison-imperfect-proxies-2011--noisy-proxies-can-reverse-rankings.md)
 - [papers--patton-volatility-forecast-comparison-imperfect-proxies-2011--overview](papers--patton-volatility-forecast-comparison-imperfect-proxies-2011--overview.md)
 - [papers--patton-volatility-forecast-comparison-imperfect-proxies-2011--robust-loss-functions-and-qlike](papers--patton-volatility-forecast-comparison-imperfect-proxies-2011--robust-loss-functions-and-qlike.md)
+
+### papers--romano-wolf-stepwise-multiple-testing-data-snooping-2005
+
+- [papers--romano-wolf-stepwise-multiple-testing-data-snooping-2005--financial-examples-and-risk-direction-boundary](papers--romano-wolf-stepwise-multiple-testing-data-snooping-2005--financial-examples-and-risk-direction-boundary.md)
+- [papers--romano-wolf-stepwise-multiple-testing-data-snooping-2005--lineage-and-estimation-uncertainty-boundary](papers--romano-wolf-stepwise-multiple-testing-data-snooping-2005--lineage-and-estimation-uncertainty-boundary.md)
+- [papers--romano-wolf-stepwise-multiple-testing-data-snooping-2005--overview-and-the-discovery-target](papers--romano-wolf-stepwise-multiple-testing-data-snooping-2005--overview-and-the-discovery-target.md)
+- [papers--romano-wolf-stepwise-multiple-testing-data-snooping-2005--stepm-stepdown-bootstrap-and-strong-fwer](papers--romano-wolf-stepwise-multiple-testing-data-snooping-2005--stepm-stepdown-bootstrap-and-strong-fwer.md)
+- [papers--romano-wolf-stepwise-multiple-testing-data-snooping-2005--studentization-and-dependence-aware-power](papers--romano-wolf-stepwise-multiple-testing-data-snooping-2005--studentization-and-dependence-aware-power.md)
 
 ### papers--stiegler-karp-yee-miller-polaris-2004
 
