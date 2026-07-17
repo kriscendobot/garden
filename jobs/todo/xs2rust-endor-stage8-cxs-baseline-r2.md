@@ -76,12 +76,4 @@ goes in the report as a named remainder.
 `TMPDIR=$HOME/tmp` for anything that execs from temp. The build may be slow — budget your
 invocation; commit/push source changes before long runs so nothing is lost to a requeue.
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 5
-  worker_kind: gardener
-  claimed_at: 2026-07-17T17:23:13Z
+<!-- garden-reaped: 2 -->
