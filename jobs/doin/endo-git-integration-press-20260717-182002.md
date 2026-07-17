@@ -34,3 +34,10 @@ worker on a shared branch; if the endor CAS bindings need design settling, press
 spec. Cite real command/CI output for every green claim.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 16
+  worker_kind: gardener
+  claimed_at: 2026-07-17T22:23:18Z
