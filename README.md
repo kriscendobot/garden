@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-17T04:59:21Z_
+_As of 2026-07-17T05:09:06Z_
 
 ## Latest
 
-The endo-but-for-bots `llm` trunk absorbed upstream endo master via [#773](https://github.com/endojs/endo-but-for-bots/pull/773) — immutable-arraybuffer pseudo-prototype drop, SES "code" error prop, skipLibCheck — conducted as a merge that advanced llm to `d39605930`, deliberately stopping short of upstream's ESLint 10 flat-config migration (flagged as a separate multi-cycle re-lint, not forced into this cycle). On the fresh base, [#598](https://github.com/endojs/endo-but-for-bots/pull/598) (daemon→manager phase 1) was rebased clean and is ready for shepherd, and finbot advanced its GJR-GARCH leverage read (`df2a164`→`abf643b`, suite green).
+Upstream `endojs/endo` master landed on the `llm` roadmap branch: a gardener conducted [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) — a true merge up to `ba88ef797`, deliberately stopping just short of upstream's ESLint 10 flat-config overhaul — bringing in the immutable-arraybuffer pseudo-prototype drop, SES console sanitization plus the `code` error prop, and `skipLibCheck`. The maintainer should note the flagged follow-up: adopting the remaining ESLint 10 trio is a multi-cycle re-lint (63 errors on one package alone), recommended as a dedicated job, not forced into this merge. That merge job overran its handler budget and is parked as poison for a split.
 
-Beyond that, the board is largely decision-bound: multiple lanes report all forward work gated on you. M2 sits one call from done — [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) are green/review-ready pending a decision to close the CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263); the esheets tree is dammed behind re-reviewing/merging [#621](https://github.com/endojs/endo-but-for-bots/pull/621); the SturdyRef lane awaits first review of [#737](https://github.com/endojs/endo-but-for-bots/pull/737) plus a marshal rank-prefix pick and re-reviews of [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697); git-integration needs a merge directive on [#705](https://github.com/endojs/endo-but-for-bots/pull/705) to close M3's worked-loop [#707](https://github.com/endojs/endo-but-for-bots/pull/707); M3's remaining module-loading work is blocked on choosing the registry home between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403); and OCapN-over-Noise asks whether to open an inbound TCP port on minion.town to close its cross-host finish line.
+Elsewhere: [endo-but-for-bots#629](https://github.com/endojs/endo-but-for-bots/pull/629) was retargeted onto a frozen `master-46d4edf` anchor and closed out; the daemon→manager Phase 1 [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598) was rebased clean onto the new `llm` tip and is shepherd-ready; and the xs2rust-endor Stage 7 port advanced (guest Compartment child done, boot-bundle-gate now in flight) against [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600). Shepherds are chewing on red CI for #755, #760, #762, and #774.
 
-Two operational notes worth your eye: a cluster of shepherd jobs ([#763](https://github.com/endojs/endo-but-for-bots/pull/763), [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), the [#694](https://github.com/endojs/endo-but-for-bots/pull/694)/[#707](https://github.com/endojs/endo-but-for-bots/pull/707) gauntlets, the kebab-case linter build, and [kriscendobot/agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/pull/15)) were poisoned for overrunning their handler budget and parked for triage; and the avoid-abbreviations retrospective flags a recurrence on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) (a pre-gate `fetchImpl` line the deterministic scanner structurally can't see), awaiting your call on whether to widen the pre-push gate.
+The dominant signal is a wall of maintainer gates: **M2** wants a URL-shim decision ([endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) vs. closing the CI-failing #263) plus merge/ferry of #719 and [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259); **M3** is stalled on a package-home ruling between [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403); the git-integration lane is one `merge` directive from the finish on [endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705); the SturdyRef effort is fully gated on a first review of [endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737); and the esheets tree is dammed six days behind [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621). Note too the recurring `fetchImpl` abbreviation miss on #671 (a structural blind spot — the pre-push gate only scans newly-added lines) and the OCapN-over-Noise ask to open an inbound TCP port on minion.town to close its cross-host definition of done. A cluster of shepherd/gauntlet jobs (#763, #124, #704, #694, #707, agoric-sdk #15) and the three history-reconstruction jobs (#545, #69, #720 — all already ancestors of master) are poisoned or blocked and parked for triage.
 
 ## Parked for maintainer feedback
 
@@ -17,7 +17,7 @@ Two operational notes worth your eye: a cluster of shepherd jobs ([#763](https:/
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 3d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 4d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 14d)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 16d)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 17d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 17d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 20d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 31d)
@@ -484,39 +484,99 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
+- `poison-merge-upstream-master-into-llm-20260717-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-merge-upstream-master-into-llm-20260717-deadline-overrun.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
+> Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=2400s):
+> this job EXCEEDS THE HANDLER BUDGET and would be killed identically on every requeue,
+> so the reaper surfaced it after 1 overrun cycles (not the full 5-cycle poison threshold).
+> The work is preserved at jobs/plan/merge-upstream-master-into-llm-20260717; it stays HELD until a human promotes it
+> (promote-plan.sh merge-upstream-master-into-llm-20260717) or removes it. Triage: split the job, raise GARDEN_HANDLER_TIMEOUT
+> for this work, or fix what makes it run long.
+> Original job base: merge-upstream-master-into-llm-20260717
+>
+> --- original job body ---
+> # Merge upstream master into the endo-but-for-bots `llm` branch (propose PR -> shepherd -> conduct)
+>
+> Integrate the latest upstream into `llm`: merge upstream **`master`** into the **`llm`** roadmap
+> branch of `endojs/endo-but-for-bots`, driving the full lifecycle — propose a PR, shepherd it to
+> green, and conduct it onto `llm`. "Upstream master" = the current `endojs/endo` `master` (equivalently
+> the fork's `origin/master` mirror of it); fetch it fresh. This is an integration merge WITHIN the
+> fork (mirror -> working branch); do NOT push to or recreate the mutable `master`, and no frozen-base
+> anchor is involved (anchors are for fork PRs of upstream-destined work, not for master->llm).
+>
+> ## 1. Propose the merge PR
+> - Work in an isolated worktree. Create an integration branch off `llm`:
+>   `integrate/master-into-llm-20260717`.
+> - Merge the current upstream `master` into it as a **true merge** (preserve history — an integration
+>   merge, not a rebase/squash). Resolve conflicts **faithfully**: keep `llm`'s deliberate roadmap
+>   divergences where they are intentional, take upstream where `llm` has no opinion; where a conflict
+>   is non-obvious (e.g. a package upstream overhauled that `llm` also changed), document the resolution
+>   in the PR rather than guessing. Update `yarn.lock` in its own commit
+>   (`skills/yarn-lock-separate-commit/SKILL.md`).
+> - Push the integration branch and open a PR, **base `llm`**, e.g. "chore: merge upstream master into
+>   llm (2026-07-17)". Body: summarize what upstream brings in and every notable conflict resolution.
+>
+> ## 2. Shepherd to green (`roles/shepherd/AGENT.md`)
+> - Drive CI green on the PR (`skills/ci-failure-classification-loop/SKILL.md`). Fix merge-induced
+>   breakages on the integration branch — adapt `llm` code to upstream API changes, reconcile lockfile
+>   and types, etc. Iterate until checks pass and the PR is mergeable. Use `skills/local-verify` and
+>   `skills/pre-push-gates` before each push.
+>
+> ## 3. Conduct to `llm` (`roles/conductor/AGENT.md`)
+> - When green and mergeable, conduct (merge) the PR into `llm` per the conductor role — a **merge**
+>   (not squash), to preserve the upstream merge history. Confirm `llm` now contains the upstream
+>   changes and remains green post-merge.
+>
+> ## Skills
+> `skills/conflict-resolution/SKILL.md`, `skills/ci-failure-classification-loop/SKILL.md`,
+> `skills/yarn-lock-separate-commit/SKILL.md`, `skills/local-verify/SKILL.md`,
+> `skills/pre-push-gates/SKILL.md`; roles `shepherd`, `conductor`.
+>
+> ## Done
+> `llm` has upstream `master` merged in, via a PR that was proposed, shepherded to green, and conducted
+> onto `llm`. If the merge is too large/conflict-heavy to converge this cycle, stop and surface the
+> blockers (leave the PR open with a clear report) rather than force a bad merge. The `tada` report
+> links the merge PR, summarizes what upstream brought in, lists notable conflict resolutions, and
+> confirms `llm`'s post-merge CI state.
+>
+>
+> <!-- garden-deadline-overrun: 1 -->
+
 
 ## Spend & quota
 _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 103.9M | $1048.22 _(notional, rate-card)_ | no quota set |
-| Codex | 165.9M _(+245.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
+| Claude | 104.9M | $1061.10 _(notional, rate-card)_ | no quota set |
+| Codex | 166.0M _(+249.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (11)
-- [`endo-sturdyref-press-20260717-003509`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260717-003509.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+### doin (12)
+- [`ebfb-retire-master-pr-586`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-586.md) — ---
+- [`endo-sturdyref-press-20260717-050512`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260717-050512.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endojs-endo-but-for-bots-pr737-sturdyref-global-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr737-sturdyref-global-shim.md) — ---
 - [`endojs-endo-but-for-bots-pr755-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr755-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #755
 - [`endojs-endo-but-for-bots-pr760-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr760-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #760
 - [`endojs-endo-but-for-bots-pr762-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr762-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #762
-- [`merge-upstream-master-into-llm-20260717`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/merge-upstream-master-into-llm-20260717.md) — Merge upstream master into the endo-but-for-bots llm branch (propose PR -> sh...
+- [`endojs-endo-but-for-bots-pr774-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr774-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #774
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/migrate-endo-but-for-bots-master-to-pnpm.md) — ---
 - [`ocapn-noise-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260717-000503.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
-- [`scholar-ingest-financial-forecasting-corpus-12`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-financial-forecasting-corpus-12.md) — ---
-- [`xs2rust-endor-stage7-guest-compartment`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage7-guest-compartment.md) — Stage 7 child 5/7: guest Compartment
+- [`scholar-ingest-financial-forecasting-corpus-13`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-financial-forecasting-corpus-13.md) — role: scholar
+- [`xs2rust-endor-stage7-boot-bundle-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage7-boot-bundle-gate.md) — Stage 7 child 6/7: the boot-bundle gate — daemon boot JS on endor vs the oracle
 
-### tada (2459)
-- [`ebfb-retire-master-pr-719`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-719.md) — The PR is untouched (base still master, head still f11aacfa41, open, non-draf...
-- [`endojs-endo-but-for-bots-pr598-a5ffa84f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr598-a5ffa84f.md) — Job Completed: endojs/endo-but-for-bots PR #598
-- [`endojs-endo-but-for-bots-pr737-review-3363fee9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr737-review-3363fee9.md) — Fetched review body and all 3 inline comments. Preflight proceeded; no peer r...
-- [`endo-vfs-parity-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260717-000503.md) — Completion report
-- [`mirror-endo-2780-cache-globals-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mirror-endo-2780-cache-globals-gauntlet.md) — What was done
-- … and 2454 more
+### tada (2464)
+- [`xs2rust-endor-press-20260717-050512`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260717-050512.md) — Completion report — xs2rust-endor press tick 2026-07-17T05:05Z (PR #600)
+- [`xs2rust-endor-stage7-guest-compartment`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage7-guest-compartment.md) — Stage 7 child 5/7: guest Compartment — completion report
+- [`scholar-ingest-financial-forecasting-corpus-12`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-financial-forecasting-corpus-12.md) — Completion report
+- [`ebfb-retire-master-pr-629`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retire-master-pr-629.md) — The job is complete. The PR now targets the frozen master-46d4edf reflection ...
+- [`endo-sturdyref-press-20260717-003509`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260717-003509.md) — **Completion report — endo-sturdyref-press-20260717-003509 (resumed 00:35 pre...
+- … and 2459 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -539,6 +599,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting.md) — _normal_ · ---
 - [`gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop.md) — _normal_ · ---
 - [`kriscendobot-agoric-sdk-pr15-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-shepherd.md) — _normal_ · shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #15
+- [`merge-upstream-master-into-llm-20260717`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/merge-upstream-master-into-llm-20260717.md) — _normal_ · Merge upstream master into the endo-but-for-bots llm branch (propose PR -> sh...
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
