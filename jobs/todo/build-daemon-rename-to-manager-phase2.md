@@ -1,10 +1,4 @@
----
-gate: blocked
-blocked_on: https://github.com/endojs/endo-but-for-bots/pull/598
-priority: normal
-posted_by: gardener
-posted_at: 2026-07-02T10:16:36Z
----
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-07-17T06:01:03Z -->
 
 # Build: daemon→manager rename Phase 2 (identifier renames)
 
