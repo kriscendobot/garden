@@ -43,6 +43,7 @@ goes in the report as a named remainder.
 `TMPDIR=$HOME/tmp` for anything that execs from temp. The build may be slow — budget your
 invocation; commit/push source changes before long runs so nothing is lost to a requeue.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
