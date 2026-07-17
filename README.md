@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-17T12:06:26Z_
+_As of 2026-07-17T12:07:18Z_
 
 ## Latest
 
-Upstream `endojs/endo` master landed on the `llm` roadmap branch: a gardener conducted [#773](https://github.com/endojs/endo-but-for-bots/pull/773), a clean merge of real upstream (immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, skipLibCheck) that deliberately stops just short of upstream's ESLint 10 flat-config migration — that migration is flagged as a separate multi-cycle job, not forced into this cycle. The master-retirement program advanced one more step ([pr-258](https://github.com/endojs/endo-but-for-bots/pull/258) rebased off its `master` base), though the byte-array press notes retargeted PRs now silently skip Browser Tests behind a base-branch filter — a one-line fork divergence would restore that coverage if you want it.
-
-Several lanes are fully green and stalled on a maintainer call, not on the fleet: M2 hygiene needs only a decision to adopt [#719](https://github.com/endojs/endo-but-for-bots/pull/719)'s URL-shim split, close the redundant CI-failing #263, and merge/ferry it plus [#259](https://github.com/endojs/endo-but-for-bots/pull/259); the git-integration M3 loop wants a `merge` directive on [#705](https://github.com/endojs/endo-but-for-bots/pull/705) to run to the finish; M3 module-loading is blocked on the package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403); the esheets tree is dammed behind a re-review of [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, 6 days waiting); and the SturdyRef effort has three gates open, led by a first review of draft [#737](https://github.com/endojs/endo-but-for-bots/pull/737). Also worth a glance: a cluster of shepherd and merge jobs (PRs #124, #704, #763, #585, and the upstream-merge job) were poisoned for overrunning the handler budget and are parked pending a split or a raised timeout, and the review retrospective escalated a recurring "avoid abbreviation" miss on [#671](https://github.com/endojs/endo-but-for-bots/pull/671) that the deterministic gate structurally can't catch on pre-existing lines.
+Upstream `endojs/endo` master was merged into the `llm` roadmap branch via [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) (immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, skipLibCheck), advancing `llm`; the just-landed upstream ESLint 10 flat-config migration was deliberately held back as a separate multi-cycle job rather than tripling the conflict count. Several lanes are now fully green and waiting only on a maintainer decision: the git-integration M3 loop wants a `merge` directive on [#705](https://github.com/endojs/endo-but-for-bots/pull/705) (with [#707](https://github.com/endojs/endo-but-for-bots/pull/707) behind it) to close the milestone; M2 needs a call on the URL-shim split ([#719](https://github.com/endojs/endo-but-for-bots/pull/719) vs closing the CI-failing [#263](https://github.com/endojs/endo-but-for-bots/pull/263)) plus review of [#259](https://github.com/endojs/endo-but-for-bots/pull/259); the esheets tree is dammed six days behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621); and M3's module-loading tail is blocked on picking the MVS-resolver home ([#671](https://github.com/endojs/endo-but-for-bots/pull/671) vs [#403](https://github.com/endojs/endo-but-for-bots/pull/403)). The SturdyRef effort has three open gates, chiefly a first review of draft [#737](https://github.com/endojs/endo-but-for-bots/pull/737) and re-reviews of [#695](https://github.com/endojs/endo-but-for-bots/pull/695)/[#697](https://github.com/endojs/endo-but-for-bots/pull/697). Notice too a rash of poisoned jobs from handler-budget overruns — shepherds on [#124](https://github.com/endojs/endo-but-for-bots/pull/124), [#704](https://github.com/endojs/endo-but-for-bots/pull/704), [#763](https://github.com/endojs/endo-but-for-bots/pull/763), and [kriscendobot/agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/pull/15) — all needing a split or raised timeout; the master-base reconstructions for [#545](https://github.com/endojs/endo-but-for-bots/pull/545)/[#69](https://github.com/endojs/endo-but-for-bots/pull/69)/[#720](https://github.com/endojs/endo-but-for-bots/pull/720) dead-ended because their diffs already exist upstream; and the bot's GitHub token is reported invalid, blocking a branch-protection write on endo-but-for-bots.
 
 ## Parked for maintainer feedback
 
@@ -683,14 +681,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 119.5M | $1225.33 _(notional, rate-card)_ | no quota set |
+| Claude | 119.6M | $1225.69 _(notional, rate-card)_ | no quota set |
 | Codex | 191.1M _(+389.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (7)
+- [`ebfb-retire-master-pr-253`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-253.md) — ---
 - [`endo-byte-array-press-20260717-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260717-060503.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`minion-town-agenda-review-20260717-120502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260717-120502.md) — Minion Town hourly agenda review
