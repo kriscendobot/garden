@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-17T15:57:15Z_
+_As of 2026-07-17T15:59:45Z_
 
 ## Latest
 
@@ -815,20 +815,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`ebfb-retire-master-pr-182`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retire-master-pr-182.md) — ---
 - [`endo-npm-cas-registry-press-20260717-153501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260717-153501.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr250-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr250-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #250
 - [`port-xs-to-rust-memory-safe-engine-s24`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s24.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
-- [`xs2rust-endor-press-20260717-155004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260717-155004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (2584)
+### tada (2585)
+- [`xs2rust-endor-press-20260717-155004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260717-155004.md) — Completion report — press tick xs2rust-endor-press-20260717-155004
 - [`deadmail-issue-comment-5005029872`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5005029872.md) — Checked PinchTab and replied on garden issue #57: https://github.com/kriskowa...
 - [`endo-sturdyref-press-20260717-155004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260717-155004.md) — Completion report — SturdyRef press tick (2026-07-17 15:50 dispatch)
 - [`self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-unguarded-fetch-timeout`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-unguarded-fetch-timeout.md) — Completion report
 - [`minion-town-agenda-review-20260717-153501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260717-153501.md) — Hourly minion.town agenda review complete (2026-07-17 15:37 UTC).
-- [`improve-land-journal-edit-concurrent-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-land-journal-edit-concurrent-guard.md) — Implemented and pushed 75a0623361 to main2.
-- … and 2579 more
+- … and 2580 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
