@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6468 (530 parent indexes + 5938 children).
+Total section files: 6473 (530 parent indexes + 5943 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8150,6 +8150,14 @@ Total section files: 6468 (530 parent indexes + 5938 children).
 - [papers--hansen-lunde-forecast-comparison-volatility-models-2005--overview](papers--hansen-lunde-forecast-comparison-volatility-models-2005--overview.md)
 - [papers--hansen-lunde-forecast-comparison-volatility-models-2005--realized-variance-loss-and-holdout-protocol](papers--hansen-lunde-forecast-comparison-volatility-models-2005--realized-variance-loss-and-holdout-protocol.md)
 - [papers--hansen-lunde-forecast-comparison-volatility-models-2005--spa-corrects-the-330-model-search](papers--hansen-lunde-forecast-comparison-volatility-models-2005--spa-corrects-the-330-model-search.md)
+
+### papers--hansen-lunde-nason-model-confidence-set-2011
+
+- [papers--hansen-lunde-nason-model-confidence-set-2011--algorithm-equivalence-test-and-mcs-p-values](papers--hansen-lunde-nason-model-confidence-set-2011--algorithm-equivalence-test-and-mcs-p-values.md)
+- [papers--hansen-lunde-nason-model-confidence-set-2011--bootstrap-tests-and-loss-differential-t-statistics](papers--hansen-lunde-nason-model-confidence-set-2011--bootstrap-tests-and-loss-differential-t-statistics.md)
+- [papers--hansen-lunde-nason-model-confidence-set-2011--empirical-applications-and-forecasting-boundary](papers--hansen-lunde-nason-model-confidence-set-2011--empirical-applications-and-forecasting-boundary.md)
+- [papers--hansen-lunde-nason-model-confidence-set-2011--overview-and-the-model-confidence-set-idea](papers--hansen-lunde-nason-model-confidence-set-2011--overview-and-the-model-confidence-set-idea.md)
+- [papers--hansen-lunde-nason-model-confidence-set-2011--relation-to-reality-check-spa-and-parameter-uncertainty](papers--hansen-lunde-nason-model-confidence-set-2011--relation-to-reality-check-spa-and-parameter-uncertainty.md)
 
 ### papers--maloyan-namiot-sleeper-channels-2026
 
