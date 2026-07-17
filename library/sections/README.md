@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6434 (530 parent indexes + 5904 children).
+Total section files: 6439 (530 parent indexes + 5909 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8044,6 +8044,14 @@ Total section files: 6434 (530 parent indexes + 5904 children).
 - [papers--andersen-modeling-forecasting-realized-volatility-2003--measuring-realized-volatility-from-intraday-returns](papers--andersen-modeling-forecasting-realized-volatility-2003--measuring-realized-volatility-from-intraday-returns.md)
 - [papers--andersen-modeling-forecasting-realized-volatility-2003--overview](papers--andersen-modeling-forecasting-realized-volatility-2003--overview.md)
 - [papers--andersen-modeling-forecasting-realized-volatility-2003--quadratic-variation-and-realized-volatility](papers--andersen-modeling-forecasting-realized-volatility-2003--quadratic-variation-and-realized-volatility.md)
+
+### papers--bollerslev-generalized-autoregressive-conditional-heteroskedasticity-1986
+
+- [papers--bollerslev-generalized-autoregressive-conditional-heteroskedasticity-1986--diagnosis-and-maximum-likelihood-estimation](papers--bollerslev-generalized-autoregressive-conditional-heteroskedasticity-1986--diagnosis-and-maximum-likelihood-estimation.md)
+- [papers--bollerslev-generalized-autoregressive-conditional-heteroskedasticity-1986--garch-1-1-persistence-and-heavy-tails](papers--bollerslev-generalized-autoregressive-conditional-heteroskedasticity-1986--garch-1-1-persistence-and-heavy-tails.md)
+- [papers--bollerslev-generalized-autoregressive-conditional-heteroskedasticity-1986--garch-p-q-and-stationary-unconditional-variance](papers--bollerslev-generalized-autoregressive-conditional-heteroskedasticity-1986--garch-p-q-and-stationary-unconditional-variance.md)
+- [papers--bollerslev-generalized-autoregressive-conditional-heteroskedasticity-1986--overview](papers--bollerslev-generalized-autoregressive-conditional-heteroskedasticity-1986--overview.md)
+- [papers--bollerslev-generalized-autoregressive-conditional-heteroskedasticity-1986--testing-and-inflation-uncertainty-example](papers--bollerslev-generalized-autoregressive-conditional-heteroskedasticity-1986--testing-and-inflation-uncertainty-example.md)
 
 ### papers--close-acls-dont-2009
 
