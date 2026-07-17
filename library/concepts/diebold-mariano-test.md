@@ -23,6 +23,8 @@ The foundational statistical test of **equal predictive accuracy between two for
 | [West parameter-estimation uncertainty](../sections/papers--west-asymptotic-inference-predictive-ability-1996--parameter-estimation-uncertainty.md) | West adds the fitted-model parameter-error contribution that a given-forecast loss differential omits. |
 | [West covariance and window design](../sections/papers--west-asymptotic-inference-predictive-ability-1996--asymptotic-covariance-and-window-design.md) | Rolling and recursive refits change the covariance required for a fitted-forecast comparison. |
 | [West lineage and forecasting boundary](../sections/papers--west-asymptotic-inference-predictive-ability-1996--lineage-and-forecasting-boundary.md) | West is the estimated-parameter complement to DM, before White corrects the many-model selection event. |
+| [MCS bootstrap tests built on the DM loss-differential t-statistic](../sections/papers--hansen-lunde-nason-model-confidence-set-2011--bootstrap-tests-and-loss-differential-t-statistics.md) | The feasible MCS uses exactly the DM/West two-forecast t-statistic t_ij = d̄_ij/se, aggregated over a whole set into the range T_R and max T_max statistics. |
+| [MCS as the set-valued successor to pairwise DM](../sections/papers--hansen-lunde-nason-model-confidence-set-2011--relation-to-reality-check-spa-and-parameter-uncertainty.md) | Completes the DM → Reality Check/SPA → MCS lineage: DM compares two forecasts, the MCS returns the set indistinguishable from the best without needing a benchmark. |
 
 ## See also
 
