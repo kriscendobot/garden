@@ -1,0 +1,1 @@
+PR #792 was not merged: it is undrafted and mergeable, but CI run 29645592685 failed on live head `a510ee6` (lint plus all four Node test matrix jobs). The base snapshot still matches `llm`; no conflict was found. Follow-up: shepherd/fixer must restore green CI before a new merge attempt.
