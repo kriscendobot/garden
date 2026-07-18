@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-18T04:16:20Z_
+_As of 2026-07-18T04:19:55Z_
 
 ## Latest
 
-The XS→Rust (Endor) port's [stage-8d orchestration completed](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage8d.md) — a whole-stage re-measure at the new tip — though the preceding stage-8b/8c cuts had repeatedly halted on the C-XS baseline child dying to external SIGKILLs, and PR [#600](https://github.com/endojs/endo-but-for-bots/pull/600) stays DRAFT. The headline integration landed earlier in the window: upstream `endojs/endo` master was merged into `llm` via [#773](https://github.com/endojs/endo-but-for-bots/pull/773) (immutable-arraybuffer pseudo-prototype drop, SES "code" error prop, skipLibCheck), deliberately stopping short of upstream's ESLint 10 flat-config migration, which is flagged as a separate multi-cycle job. A CD regression on minion.town that clobbered the `/ocapn` Caddy routes was caught and fixed durably in [minion.town#9](https://github.com/kriscendobot/minion.town/pull/9), and cross-host wss+Noise round-trips re-proved on [#693](https://github.com/endojs/endo-but-for-bots/pull/693).
+The comment-watcher dedup fix ([`fix-comment-watcher-verb-directive-tada-dedup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-comment-watcher-verb-directive-tada-dedup.md)) was promoted and is now in progress — the durable repair for the bug that silently swallowed your "Shepherd." directive on [endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) and let it sit conflicting for three days; a weave + shepherd have already been posted to recover that PR. The XS→Rust Endor build finally cleared its last stage (`xs2rust-endor-build-stage8d` complete) after a punishing run of external-SIGKILL and deadline-overrun halts across stages 8/8b/8c — [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) stays draft. Upstream `endo` master was merged into `llm` via [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) (deliberately stopping before the breaking ESLint 10 flat-config migration, flagged as a separate job), and the OCapN press caught and fixed a minion.town regression where the new continuous-deploy run clobbered the hand-installed `/ocapn` Caddy routes, landing them durably in [minion.town#9](https://github.com/kriscendobot/minion.town/pull/9).
 
-The board is otherwise stalled on maintainer decisions, and several are worth a look: the sturdyref lane needs arbitration between [#737](https://github.com/endojs/endo-but-for-bots/pull/737) (embedded) and [#774](https://github.com/endojs/endo-but-for-bots/pull/774) (standalone `@endo/sturdyref`) — no movement in ~63h; the M3 data-plane merge for [#585](https://github.com/endojs/endo-but-for-bots/pull/585) sits parked after a transient poisoning, awaiting a promote; the esheets tree is fully dammed behind re-review/merge of OAuth design [#621](https://github.com/endojs/endo-but-for-bots/pull/621); and the entire minion.town primary phase has been blocked ~9 hours on a single ~5-minute human Gate-1 browser login ([garden#58](https://github.com/kriskowal/garden/issues/58)). A large batch of "retire-master" reconstruction jobs and both Yarn→npm/pnpm migrations poisoned on handler-budget overruns and are parked for triage.
+What a maintainer should notice: the board is essentially idle, blocked behind a wall of decisions only you can make. The sturdyref lane needs a home arbitration between [endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737) (embedded) and [endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774) (standalone) plus a marshal rank-prefix pick — every sturdyref lane has held all pushes for ~63h. M2 waits on merge/ferry of [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719); the git-integration M3 loop is one `merge` directive away on [endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705); the esheets tree is fully dammed behind a re-review of [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621); the [endo-but-for-bots#585](https://github.com/endojs/endo-but-for-bots/pull/585) conductor merge is parked awaiting your promotion; and minion.town's entire primary phase has stalled for 9+ hours on a ~5-minute human browser action (Gate 1). A large batch of shepherd/gauntlet/merge jobs also poisoned this window on deadline-overruns (many hitting the 2400s handler wall), so several PRs — including [endo-but-for-bots#763](https://github.com/endojs/endo-but-for-bots/pull/763), [endo-but-for-bots#704](https://github.com/endojs/endo-but-for-bots/pull/704), and [endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124) — are parked pending a split or manual promotion.
 
 ## Parked for maintainer feedback
 
@@ -1193,15 +1193,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.2M | $1212.18 _(notional, rate-card)_ | no quota set |
+| Claude | 124.2M | $1211.24 _(notional, rate-card)_ | no quota set |
 | Codex | 198.8M _(+458.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`fix-comment-watcher-verb-directive-tada-dedup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-comment-watcher-verb-directive-tada-dedup.md) — Fix: comment-watcher drops a fresh maintainer verb-directive when its determi...
 
 ### tada (2677)
 - [`xs2rust-endor-build-stage8d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage8d.md) — orchestration xs2rust-endor-build-stage8d — complete
@@ -1245,7 +1245,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`fix-comment-watcher-verb-directive-tada-dedup`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-comment-watcher-verb-directive-tada-dedup.md) — _high_ · Fix: comment-watcher drops a fresh maintainer verb-directive when its determi...
 - [`endojs-endo-but-for-bots-pr600-review-021252ca-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr600-review-021252ca-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #600 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr737-review-3363fee9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr737-review-3363fee9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #737 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr708-review-ecdedc30-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr708-review-ecdedc30-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #708 (primary: endojs-endo-but-f...
