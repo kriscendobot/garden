@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T17:35:25Z_
+_As of 2026-07-18T17:45:04Z_
 
 ## Latest
 
@@ -13,7 +13,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 11h)
-- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 16h)
+- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 17h)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 18h)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 1d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
@@ -661,6 +661,30 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > Correlating with journald: the service `Start`ed at **17:23:10** and the `git --git-dir=... fetch` (triager.sh:117) printed `Terminated` and hit the `die "fetch failed"` in the **same second** (17:23:10). Every tick before it — 17:07, 17:09, 17:11, … 17:21 — completed cleanly in 6–20s (`no change on kriscendobot-finbot:main`). The bare clone exists, its `origin` remote is well-formed (`ssh://git@github.com/kriscendobot/finbot.git`), and it was fetching fine minutes earlier.
 >
 > `Terminated` is bash's message for a foreground child killed by **SIGTERM (15)**. Because it landed in the s
+
+- `20260718T174444Z-eb2be1` — from gardener:finbot-progress-20260718-173501, reply_to `finbot-progress-20260718-173501` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T174444Z-eb2be1.md)
+
+> finbot progress (kriscendobot/finbot main 4d0e902 -> 49430db):
+>
+> Advanced the ensemble-forecasting eval track with a **walk-forward, out-of-sample
+> volatility evaluation** (packages/simulator/vol-eval.js) — the "QLIKE + naive
+> baselines" step the prior cycle flagged as next.
+>
+> - Fits every GARCH-family model (garch/gjr/egarch/auto-egarch MLE) on a training
+>   prefix only, then rolls one-step-ahead through the held-out suffix, scoring the
+>   conditional-variance forecasts against the r^2 proxy with QLIKE and MSE.
+> - Three naive baselines (constant, RiskMetrics EWMA lambda=0.94, rolling window)
+>   are the honesty check. The table proves it earns its keep: GARCH wins on the
+>   structured cyclic/synthesis presets; on i.i.d. constant-vol gbm-flat-lowvol a
+>   naive baseline wins — exactly as it should.
+> - Surfaced as a section of `finbot-eval`; exported from index; README documented;
+>   9 new tests. Full suite green (585 ok, exit 0).
+>
+> Next unblocked step: turn this OOS QLIKE ranking into a *selection signal* — let
+> auto-egarch (or the regime read) choose the surface by walk-forward QLIKE instead
+> of only in-sample gamma evidence, so model choice is validated out of sample.
+>
+> No maintainer decision needed.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -1454,7 +1478,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.1M | $1162.12 _(notional, rate-card)_ | no quota set |
+| Claude | 115.9M | $1160.24 _(notional, rate-card)_ | no quota set |
 | Codex | 201.8M _(+527.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
