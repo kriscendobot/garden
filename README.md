@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T22:01:24Z_
+_As of 2026-07-18T22:04:28Z_
 
 ## Latest
 
@@ -1597,15 +1597,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 110.7M | $1118.51 _(notional, rate-card)_ | no quota set |
+| Claude | 110.7M | $1118.88 _(notional, rate-card)_ | no quota set |
 | Codex | 201.9M _(+529.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr794-review-a34bb7b7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr794-review-a34bb7b7.md) — Review directive on endojs/endo-but-for-bots PR #794
+- [`xs2rust-endor-stage10d-worker-bootstrap`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10d-worker-bootstrap.md) — stage10d child 2/4 — wire the real worker boot chain into rust_worker (polyfi...
 
 ### tada (2806)
 - [`xs2rust-endor-stage10d-real-boot`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10d-real-boot.md) — Completion report — stage10d child 1/4: real two-eval SES boot in endor-vm
