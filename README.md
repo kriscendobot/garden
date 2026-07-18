@@ -1,19 +1,19 @@
 # Garden bulletin
 
-_As of 2026-07-18T01:17:32Z_
+_As of 2026-07-18T01:36:05Z_
 
 ## Latest
 
-The [PR #671](https://github.com/endojs/endo-but-for-bots/pull/671) weave completed — the byte-array press caught that your 2026-07-15 "Shepherd." directive was silently swallowed by a comment-watcher dedup collision and the PR sat conflicting for three days; it's now rebased onto `llm` with a shepherd chained behind it, and a durable watcher fix is parked. Upstream `endojs/endo` master was merged into `llm` (via conducted [#773](https://github.com/endojs/endo-but-for-bots/pull/773)), deliberately stopping just before upstream's ESLint 10 flat-config overhaul, which is flagged as a separate multi-cycle migration.
+The endo-but-for-bots [#671](https://github.com/endojs/endo-but-for-bots/pull/671) EndoRegistry PR was finally re-woven and shepherded to green after its maintainer "Shepherd." directive sat dropped for three days — a comment-watcher dedup collision swallowed it, and a durable watcher fix is now parked. Upstream `endojs/endo` master was merged into `llm` via [#773](https://github.com/endojs/endo-but-for-bots/pull/773) (SES `code` error prop, immutable-arraybuffer pseudo-prototype drop, skipLibCheck), deliberately stopping short of upstream's ESLint 10 flat-config migration, which is flagged as a multi-cycle follow-up. On minion.town, the new continuous-deploy workflow clobbered the hand-installed `/ocapn` Caddy routes; both were landed durably in [minion.town#9](https://github.com/kriscendobot/minion.town/pull/9) and cross-host Noise round-trips proven again. finbot advanced through its GARCH stack to a landed EGARCH volatility surface.
 
-Most substantive work is dammed behind maintainer decisions, and several efforts are re-sending the same nudges: the SturdyRef stack needs a home arbitration between [#737](https://github.com/endojs/endo-but-for-bots/pull/737) (embedded) and [#774](https://github.com/endojs/endo-but-for-bots/pull/774) (standalone `@endo/sturdyref`) plus a marshal rank-prefix pick; the esheets tree is fully blocked on re-reviewing/merging OAuth design [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, still stale CHANGES_REQUESTED); the git-integration M3 loop is one `merge` directive from the finish, with Phase-1 [#705](https://github.com/endojs/endo-but-for-bots/pull/705) green/CLEAN and the exit-criterion Phase-3 [#707](https://github.com/endojs/endo-but-for-bots/pull/707) green; M2 awaits a URL-shim decision on [#719](https://github.com/endojs/endo-but-for-bots/pull/719)/[#259](https://github.com/endojs/endo-but-for-bots/pull/259); and the content-store merge for [#585](https://github.com/endojs/endo-but-for-bots/pull/585) needs promotion after a transient poisoning. Two operational items to notice: **minion.town** is now nine-plus hourly cycles blocked on a single ~5-minute browser Gate 1 action ([garden#58](https://github.com/kriskowal/garden/issues/58)), and a wave of jobs — the xs2rust stage-8 C-XS baseline, several shepherds, and the two package-manager migration builds — are being reaper-poisoned for overrunning the 2400s handler budget, so they need splitting or a raised timeout rather than requeuing.
+What needs your attention: a cluster of green-but-gated lanes waiting only on your judgment — SturdyRef needs a home arbitration between embedded [#737](https://github.com/endojs/endo-but-for-bots/pull/737) and standalone [#774](https://github.com/endojs/endo-but-for-bots/pull/774) (all sturdyref lanes have held ~63h with no pushes); esheets is dammed behind a re-review of OAuth design [#621](https://github.com/endojs/endo-but-for-bots/pull/621); M3's module-loading tail is blocked on picking the MVS-resolver home between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403); and minion.town's entire primary phase is pinned nine hours on one ~5-minute browser action (Gate 1). Separately, the board is running unusually hot with reaper poisonings — roughly a dozen press, merge, shepherd, and xs2rust-stage8 jobs hit the 2400s handler-budget wall this cycle, several structurally too large for a single claim; the parked [#585](https://github.com/endojs/endo-but-for-bots/pull/585) content-store merge and others await your promote.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 2h)
-- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 29m)
+- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 52m)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 8h)
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 12h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 13h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 8h)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 1d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 4d)
@@ -1193,24 +1193,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 130.3M | $1270.01 _(notional, rate-card)_ | no quota set |
+| Claude | 128.8M | $1256.15 _(notional, rate-card)_ | no quota set |
 | Codex | 198.6M _(+456.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr671-shepherd-20260718`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr671-shepherd-20260718.md) — Shepherd endojs/endo-but-for-bots PR #671 CI to green (role: shepherd)
+### doin (1)
 - [`port-xs-to-rust-memory-safe-engine-s25`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s25.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
-### tada (2664)
+### tada (2665)
+- [`endojs-endo-but-for-bots-pr671-shepherd-20260718`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-shepherd-20260718.md) — Shepherd report — endojs/endo-but-for-bots PR #671
 - [`endojs-endo-but-for-bots-pr789-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr789-shepherd.md) — Completion report
 - [`fix-endo-but-for-bots-pr626-stack-surgery-pass-path`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-endo-but-for-bots-pr626-stack-surgery-pass-path.md) — Completion report: fix-endo-but-for-bots-pr626-stack-surgery-pass-path
 - [`ocapn-noise-press-20260718-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260718-002002.md) — Completion report — ocapn-noise-press-20260718-002002
 - [`self-heal-fix-garden-triager-kriscendobot-finbot-fetch-hard-die-crashloop`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-finbot-fetch-hard-die-crashloop.md) — The fix described in this job has already been implemented and pushed to orig...
-- [`endo-vfs-parity-press-20260718-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260718-002002.md) — Both PRs' lint checks pass on the fixed heads; remaining checks are the stand...
-- … and 2659 more
+- … and 2660 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
