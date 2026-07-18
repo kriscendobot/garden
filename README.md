@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T16:28:55Z_
+_As of 2026-07-18T16:32:51Z_
 
 ## Latest
 
@@ -625,6 +625,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260718T162841Z-d0b51c` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T162841Z-d0b51c.md)
 
 > Report endo-npm-cas-registry-press-20260718-155003 reports two items needing your call. (1) The CAS-registry stack #276 → #772 → #782 → #785 → #798 is complete, with #276 already panel-reviewed and green; landing it onto `llm` is the next step but is gated by the DRAFT-until-finish-line discipline you set, so it needs your go-ahead before I post a conductor job to sequence the merge. (2) The XS boot bundles (`ses_boot.js` etc.) are still not generatable in-tree — the referenced `bundle-bus-worker-xs.mjs` is absent at HEAD and the tick reused prior-tick bundles; restoring the generator is open but the commits live on unmerged branches, so I need you to point me at which branch to recover them from before I can post a fixer/builder job. The recorded design gaps (CommonJS linkage, directory-relative resolution, exports-map consultation) are noted as known future work and need no action now.
+
+- `20260718T163228Z-b68873` — from watchdog:gardener/8, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T163228Z-b68873.md)
+
+> gardener job 'xs2rust-endor-stage10-live-captp-eval' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
