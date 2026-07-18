@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T11:04:46Z_
+_As of 2026-07-18T11:20:30Z_
 
 ## Latest
 
@@ -1329,14 +1329,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 121.4M | $1201.42 _(notional, rate-card)_ | no quota set |
+| Claude | 121.2M | $1199.90 _(notional, rate-card)_ | no quota set |
 | Codex | 200.0M _(+514.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`finbot-progress-20260718-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260718-112002.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`xs2rust-endor-stage9c-debugger-slice2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9c-debugger-slice2.md) — Stage-9c child 6/9 — Debugger slice 2/3: VM-side inspection hooks behind Debu...
 
 ### tada (2728)
