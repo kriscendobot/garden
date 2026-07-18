@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T14:49:41Z_
+_As of 2026-07-18T15:20:43Z_
 
 ## Latest
 
@@ -12,12 +12,12 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 15h)
+- [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 16h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8h)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 14h)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 21h)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 22h)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 1d)
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 21h)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 22h)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 1d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 4d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 5d)
@@ -1349,23 +1349,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 119.5M | $1194.83 _(notional, rate-card)_ | no quota set |
+| Claude | 119.2M | $1191.92 _(notional, rate-card)_ | no quota set |
 | Codex | 201.8M _(+527.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-stage10-ses-boot-gaps-r1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10-ses-boot-gaps-r1.md) — Stage-10 child 4/7 — SES worker-bundle boot on endor-vm, gap round 1 (gap-rev...
+### doin (0)
+(none)
 
-### tada (2760)
+### tada (2761)
+- [`xs2rust-endor-stage10-ses-boot-gaps-r1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10-ses-boot-gaps-r1.md) — Completion report — stage-10 child 4/7: SES worker-bundle boot on endor-vm, g...
 - [`self-heal-fix-garden-triager-kriscendobot-garden-fetch-hard-die-transient`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-garden-fetch-hard-die-transient.md) — Implemented and pushed 2fc8532937 to main2.
 - [`xs2rust-endor-stage10-persistent-realm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10-persistent-realm.md) — Completion report — xs2rust-endor-stage10-persistent-realm (PR #600 stage 10 ...
 - [`self-heal-fix-garden-triager-kriscendobot-endo-fetch-unbounded-die-crashloop`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-endo-fetch-unbounded-die-crashloop.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-ymax-e2e-unbounded-standing-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ymax-e2e-unbounded-standing-fetch.md) — Completion report
-- [`self-heal-fix-garden-triager-kriscendobot-ocapn-bound-upstream-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ocapn-bound-upstream-fetch.md) — Already implemented on origin/main2 (commit 0c940939e7).
-- … and 2755 more
+- … and 2756 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
