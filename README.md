@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T09:39:20Z_
+_As of 2026-07-18T09:40:29Z_
 
 ## Latest
 
@@ -1329,15 +1329,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 122.4M | $1212.68 _(notional, rate-card)_ | no quota set |
+| Claude | 122.4M | $1212.22 _(notional, rate-card)_ | no quota set |
 | Codex | 200.0M _(+514.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endo-npm-cas-registry-press-20260718-093502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260718-093502.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+- [`xs2rust-endor-stage9c-reflect-trampolines`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9c-reflect-trampolines.md) — Stage-9c child 3/9 — Reflect.apply / Reflect.construct re-entrant trampolines
 
 ### tada (2722)
 - [`xs2rust-endor-stage9c-small-globals`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-small-globals.md) — Completion report
