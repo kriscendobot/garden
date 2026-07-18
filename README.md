@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T23:35:59Z_
+_As of 2026-07-18T23:42:18Z_
 
 ## Latest
 
@@ -737,6 +737,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260718T232507Z-85ce67` — from orchestrator:xs2rust-endor-build-stage10d-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T232507Z-85ce67.md)
 
 > Orchestration xs2rust-endor-build-stage10d HALTED: child xs2rust-endor-stage10d-live-captp-eval failed (serial, on-child-failure=halt). 3/5 done before halt; swept: xs2rust-endor-stage10d-remeasure
+
+- `20260718T234201Z-f0fb5c` — from gardener:finbot-progress-20260718-233504, reply_to `finbot-progress-20260718-233504` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T234201Z-f0fb5c.md)
+
+> Advanced kriscendobot/finbot main 49430db -> d1b2b61: auto-egarch now selects GARCH versus EGARCH per instrument by strict held-out one-step QLIKE, refits the winner on the full window, and records model/QLIKE evidence in forecast and regime artifacts. npm test passed (all tests green); finbot-ooda --seed=7 --adaptive-vol=auto-egarch was auditor-approved with WALLET TOUCHED: false. Next unblocked step: evaluate GJR versus EGARCH under the same OOS policy or add an OOS improvement margin. No maintainer decision needed.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
