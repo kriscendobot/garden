@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T06:19:46Z_
+_As of 2026-07-18T06:21:22Z_
 
 ## Latest
 
@@ -1274,25 +1274,29 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.7M | $1234.22 _(notional, rate-card)_ | no quota set |
-| Codex | 198.9M _(+460.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 124.8M | $1235.43 _(notional, rate-card)_ | no quota set |
+| Codex | 199.0M _(+461.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`self-heal-fix-garden-triager-kriscendobot-ocapn-bounded-steady-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-ocapn-bounded-steady-fetch.md) — In scripts/jobs/triager.sh at line 117, the steady-state bare-clone fetch is ...
-- [`self-heal-fix-garden-triager-kriscendobot-ymax-e2e-fetch-die-crashloops-unit`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-ymax-e2e-fetch-die-crashloops-unit.md) — In scripts/jobs/triager.sh, line 117 (git --git-dir="$BARE" fetch -q --all --...
+### doin (7)
+- [`endo-byte-array-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260718-062002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+- [`endo-daemon-data-plane-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-daemon-data-plane-press-20260718-062002.md) — Press the Endo daemon data plane forward (endojs/endo-but-for-bots, base llm)
+- [`endo-git-integration-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260718-062002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+- [`endo-vfs-parity-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260718-062002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+- [`ocapn-noise-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260718-062002.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+- [`port-xs-to-rust-memory-safe-engine-s29`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s29.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-fetch-unbounded-die-crashloop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-fetch-unbounded-die-crashloop.md) — In scripts/jobs/triager.sh:117, the own-repo fetch git --git-dir="$BARE" fetc...
 
-### tada (2692)
+### tada (2694)
+- [`self-heal-fix-garden-triager-kriscendobot-ymax-e2e-fetch-die-crashloops-unit`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ymax-e2e-fetch-die-crashloops-unit.md) — Implemented and pushed a335cf0aca to main2.
+- [`self-heal-fix-garden-triager-kriscendobot-ocapn-bounded-steady-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ocapn-bounded-steady-fetch.md) — The working tree is clean at origin/main2 (457ba8a795), and my inbox is empty...
 - [`self-heal-fix-garden-triager-kriscendobot-chrome-native-function-caller-arguments-repro-fetch-die-flaps-on-transient`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-chrome-native-function-caller-arguments-repro-fetch-die-flaps-on-transient.md) — Implemented and pushed 457ba8a795.
 - [`self-heal-fix-garden-triager-kriscendobot-vattr97-triager-fetch-hard-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-vattr97-triager-fetch-hard-die.md) — Implemented and pushed 79d5fb968d to main2.
 - [`self-heal-fix-garden-triager-kriscendobot-minion-town-fetch-die-on-transient`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-fetch-die-on-transient.md) — Implemented and pushed 9730e56259 to main2.
-- [`self-heal-fix-garden-triager-kriscendobot-agoric-sdk-bound-triage-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-sdk-bound-triage-fetch.md) — Completion report
-- [`self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-unbounded-fetch-hard-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-unbounded-fetch-hard-die.md) — Completion report
-- … and 2687 more
+- … and 2689 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1354,7 +1358,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-regexp-conservative-subset.md) — awaiting `endojs/endo-but-for-bots#676` · Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
-- [`port-xs-to-rust-memory-safe-engine-s29`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s29.md) — awaiting `xs2rust-endor-build-stage9` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`registry-immutable-byte-array-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/registry-immutable-byte-array-followup.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/671` · Immutable byte-array RegistryInterface follow-up
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
