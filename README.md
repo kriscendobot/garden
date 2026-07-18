@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T02:53:22Z_
+_As of 2026-07-18T02:57:54Z_
 
 ## Latest
 
@@ -1194,23 +1194,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 126.1M | $1232.75 _(notional, rate-card)_ | no quota set |
-| Codex | 198.6M _(+456.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
+| Codex | 198.8M _(+458.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr259-review-8288f2bf`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr259-review-8288f2bf.md) — Review directive on endojs/endo-but-for-bots PR #259
+### doin (1)
 - [`port-xs-to-rust-memory-safe-engine-s25`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s25.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
-### tada (2667)
+### tada (2668)
+- [`endojs-endo-but-for-bots-pr259-review-8288f2bf`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr259-review-8288f2bf.md) — Reviewed and addressed the sole inline comment at cauterize-property.js:62.
 - [`xs2rust-endor-press-20260718-020501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-020501.md) — Press tick complete — took the wheel and landed real progress: rebase + a boo...
 - [`endo-sturdyref-press-20260718-020501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-020501.md) — SturdyRef press, 02:05 tick (2026-07-18) — **observation-only; zero movement,...
 - [`endojs-endo-but-for-bots-pr671-shepherd-20260718`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-shepherd-20260718.md) — Shepherd report — endojs/endo-but-for-bots PR #671
 - [`endojs-endo-but-for-bots-pr789-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr789-shepherd.md) — Completion report
-- [`fix-endo-but-for-bots-pr626-stack-surgery-pass-path`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-endo-but-for-bots-pr626-stack-surgery-pass-path.md) — Completion report: fix-endo-but-for-bots-pr626-stack-surgery-pass-path
-- … and 2662 more
+- … and 2663 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
