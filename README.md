@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T17:45:04Z_
+_As of 2026-07-18T17:45:20Z_
 
 ## Latest
 
@@ -1485,17 +1485,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
-- [`finbot-progress-20260718-173501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260718-173501.md) — Push progress on kriscendobot/finbot (every 6h)
+### doin (1)
 - [`xs2rust-endor-stage10b-ses-boot-r4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10b-ses-boot-r4.md) — Stage-10b child 3/5 — SES worker-bundle boot, gap round 4 (continuation)
 
-### tada (2775)
+### tada (2776)
+- [`finbot-progress-20260718-173501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260718-173501.md) — Completion report
 - [`xs2rust-endor-stage10b-ses-boot-r3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10b-ses-boot-r3.md) — Completion report — stage-10b child 2/5: SES worker-bundle boot, composed-boo...
 - [`self-heal-fix-garden-triager-kriscendobot-cosgov-unbounded-fetch-timeout`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-cosgov-unbounded-fetch-timeout.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-fetch-blip-hard-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-fetch-blip-hard-die.md) — Completion report
 - [`xs2rust-endor-stage10b-cross-turn-functions`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10b-cross-turn-functions.md) — Completion report — xs2rust-endor-stage10b-cross-turn-functions (PR #600 stag...
-- [`library-index-sources-readme-3-missing-20260718`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/library-index-sources-readme-3-missing-20260718.md) — Completion report
-- … and 2770 more
+- … and 2771 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
