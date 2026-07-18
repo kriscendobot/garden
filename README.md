@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T09:09:00Z_
+_As of 2026-07-18T09:10:23Z_
 
 ## Latest
 
@@ -1329,15 +1329,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 123.3M | $1226.77 _(notional, rate-card)_ | no quota set |
+| Claude | 123.2M | $1225.75 _(notional, rate-card)_ | no quota set |
 | Codex | 200.0M _(+514.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-stage9c-small-globals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9c-small-globals.md) — Stage-9c child 2/9 — three small engine gaps: Object.is, String.replace dolla...
 
 ### tada (2721)
 - [`xs2rust-endor-stage9c-rest-spread`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-rest-spread.md) — Completion report — xs2rust-endor-stage9c-rest-spread
