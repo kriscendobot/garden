@@ -1,10 +1,7 @@
 ---
-gate: blocked
-blocked_on: xs2rust-endor-s27-module-corpora-fix
-priority: normal
-posted_by: producer
-posted_at: 2026-07-18T04:29:28Z
+model: fable
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-07-18T04:46:06Z -->
 
 ---
 model: fable
