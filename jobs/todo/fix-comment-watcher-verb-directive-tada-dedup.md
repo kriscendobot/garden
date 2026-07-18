@@ -1,10 +1,7 @@
 ---
-gate: deferred
-priority: high
 role: fixer
-posted_by: endo-byte-array-press-20260718-002002
-posted_at: 2026-07-18T00:24:39Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=high at=2026-07-18T04:19:03Z -->
 
 # Fix: comment-watcher drops a fresh maintainer verb-directive when its deterministic base sits in tada/
 
