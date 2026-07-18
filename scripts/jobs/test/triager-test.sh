@@ -591,6 +591,7 @@ rc=$?; set -e
 [ "$(wc -l < "$FETCH_CALLS")" -eq 2 ] && ok "retries the failed fetch through GARDEN_FETCH_RETRIES before degrading" || bad "fetch attempts = $(wc -l < "$FETCH_CALLS") (want 2)"
 grep -q "WARN: fetch for $SLUG hit a transient network/gh blip" "$MOUT" && ok "transient skip logs the network/gh WARN" || bad "transient WARN missing (out: $(cat "$MOUT"))"
 ! grep -q "FATAL: fetch failed for $SLUG" "$MOUT" && ok "no FATAL on a transient fetch failure" || bad "a transient failure still died FATAL (out: $(cat "$MOUT"))"
+[ "$(wc -l < "$ALERTS")" -eq 1 ] && grep -Fq "triager-fetch-failed-$SLUG" "$ALERTS" && ok "transient fetch failure sends the throttled maintainer alert" || bad "transient fetch alert missing or wrong (alerts: $(cat "$ALERTS"))"
 [ ! -s "$CALLS" ] && ok "handler never invoked (no refs resolved past a skipped fetch)" || bad "handler ran ($(grep -c . "$CALLS") calls; want 0 — a failed fetch must not reach triage)"
 [ -z "$(cursor_field "activity/$SLUG" last_sha)" ] && ok "activity cursor NOT advanced on a transient fetch failure" || bad "cursor advanced despite a failed fetch"
 
@@ -605,6 +606,7 @@ FETCH_CALLS="$TR/fetch-calls-gh"; : > "$FETCH_CALLS"
 set +e
 env PATH="$TR/fetch-shim-gh:$PATH" GIT_FETCH_CALLS="$FETCH_CALLS" \
     GARDEN=testhost GARDEN_STATE="$STATE" \
+    GARDEN_NO_MAINTAINER_ALERT=1 \
     JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_REPOS="$REPOS" GARDEN_WATCH_REF="$REF" \
     GARDEN_FETCH_RETRIES=1 GARDEN_FETCH_TIMEOUT=5 GARDEN_BACKOFF_CAP_MS=5 \

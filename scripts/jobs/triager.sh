@@ -126,15 +126,15 @@ fi
 # `if … ; then … else rc=$?; fi` form keeps a non-zero fetch from tripping `set -e`
 # before we can read its rc.
 # Capture the final attempt's stderr so a failure can be CLASSIFIED (transient
-# outage → skip-this-tick, vs structural → die) rather than blindly die-ing on
+# outage -> skip-this-tick, vs structural -> die) rather than blindly die-ing on
 # every network blip. Mirrors the sibling watchers' $ERRF capture (ci-watcher.sh
 # ~242, comment-watcher.sh) that feeds is_transient_net_error.
-ERRF="$(mktemp)"
 fetch_attempt=1
 fetch_rc=0
+fetch_stderr=""
 while :; do
-  if timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
-       git --git-dir="$BARE" fetch -q --all --prune 2>"$ERRF"; then
+  if fetch_stderr="$(timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
+       git --git-dir="$BARE" fetch -q --all --prune 2>&1 1>/dev/null)"; then
     fetch_rc=0
     break
   else
@@ -157,19 +157,17 @@ if [ "$fetch_rc" -ne 0 ]; then
   # transient-tolerant clone-provision path above (lines ~95–104): WARN + exit 0 to
   # retry next tick, so a network blip no longer detonates a self-heal restart storm.
   # Only a STRUCTURAL fetch error (a genuine repo/config fault) still dies loud.
-  fetch_stderr="$(cat "$ERRF" 2>/dev/null || true)"
   if [ "$fetch_rc" -eq 124 ] || [ "$fetch_rc" -eq 137 ] \
-     || is_transient_net_error "$ERRF" || is_transient_gh_source_error "$ERRF" \
+     || is_transient_net_error "$fetch_stderr" || is_transient_gh_source_error "$fetch_stderr" \
      || _fetch_stderr_is_offline "$fetch_stderr"; then
-    rm -f "$ERRF"
-    log "WARN: fetch for $slug hit a transient network/gh blip — skipping tick (never guess)"
+    msg="fetch for $slug hit a transient network/gh blip; skipping this tick and retrying next${fetch_stderr:+ (last stderr: $fetch_stderr)}"
+    log "WARN: $msg"
+    alert_maintainer "triager-fetch-failed-${slug//[^A-Za-z0-9._-]/_}" "$msg"
     exit 0
   fi
-  rm -f "$ERRF"
   log "fetch for $slug failed structurally (rc=$fetch_rc)${fetch_stderr:+: $fetch_stderr}"
   die "fetch failed for $slug"
 fi
-rm -f "$ERRF"
 
 # resolve the ref to watch. --verify -q keeps a missing primary ref from echoing its
 # unresolved name to stdout (which the `||` fallback would then glue onto the real SHA —
