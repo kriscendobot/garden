@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T00:32:05Z_
+_As of 2026-07-18T00:34:11Z_
 
 ## Latest
 
@@ -1193,29 +1193,28 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 132.7M | $1302.57 _(notional, rate-card)_ | no quota set |
-| Codex | 198.3M _(+440.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 66% _(plan; codex-reported)_ |
+| Claude | 132.6M | $1306.58 _(notional, rate-card)_ | no quota set |
+| Codex | 198.3M _(+441.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 66% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (6)
 - [`endo-vfs-parity-press-20260718-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260718-002002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr671-shepherd-20260718`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr671-shepherd-20260718.md) — Shepherd endojs/endo-but-for-bots PR #671 CI to green (role: shepherd)
 - [`endojs-endo-but-for-bots-pr789-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr789-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #789
 - [`fix-endo-but-for-bots-pr626-stack-surgery-pass-path`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-endo-but-for-bots-pr626-stack-surgery-pass-path.md) — Complete the stack-surgery eval pass-path on endojs/endo-but-for-bots PR #626...
-- [`improve-reaper-poison-notice-alert-not-silently-dropped`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-reaper-poison-notice-alert-not-silently-dropped.md) — scripts/jobs/reaper.sh
 - [`ocapn-noise-press-20260718-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260718-002002.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`port-xs-to-rust-memory-safe-engine-s25`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s25.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
-### tada (2656)
+### tada (2657)
+- [`improve-reaper-poison-notice-alert-not-silently-dropped`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-reaper-poison-notice-alert-not-silently-dropped.md) — Completion report
 - [`endo-git-integration-press-20260718-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260718-002002.md) — Press dispatch report — git-integration / M3 loop (2026-07-18T00:20Z)
 - [`endojs-endo-but-for-bots-pr671-weave-20260718`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-weave-20260718.md) — Completion report
 - [`endo-byte-array-press-20260718-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260718-002002.md) — **Press report — endo-byte-array-press (dispatch 2026-07-18T00:20Z)**
 - [`endo-daemon-data-plane-press-20260718-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260718-002002.md) — Press dispatch complete — the arc advanced past its design finish-line and th...
-- [`xs2rust-endor-build-stage8c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage8c.md) — orchestration xs2rust-endor-build-stage8c — HALTED
-- … and 2651 more
+- … and 2652 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
