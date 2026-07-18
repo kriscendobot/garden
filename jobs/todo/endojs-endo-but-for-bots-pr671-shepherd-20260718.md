@@ -1,11 +1,7 @@
 ---
-gate: blocked
-blocked_on: endojs-endo-but-for-bots-pr671-weave-20260718
-priority: high
 role: shepherd
-posted_by: endo-byte-array-press-20260718-002002
-posted_at: 2026-07-18T00:24:21Z
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=high at=2026-07-18T00:31:05Z -->
 
 # Shepherd endojs/endo-but-for-bots PR #671 CI to green (role: shepherd)
 
