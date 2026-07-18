@@ -29,3 +29,10 @@ Engine workspace EXIT=0 all-0-failed (50 `test result:` lines / 736 passed at cu
 - **Push-per-gap**; **STOP-and-checkpoint** at ~1800s-with-nothing-pushed: land an honest verified increment, push, tada with the exact frontier + resume point.
 - `cargo` at `$HOME/.cargo/bin`; the Rust workspace is `rust/engine`, ROOT workspace for the `endo` crate. A `cargo test` piped to `tail` masks the exit code — capture to a file, check `$?`. `mkdir -p $HOME/tmp`; `TMPDIR=$HOME/tmp` (`/tmp` is noexec).
 - Report via tada ONLY — never inbox-send the parked supervisor. Keep the PR DRAFT; no PR comments.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 19
+  worker_kind: gardener
+  claimed_at: 2026-07-18T23:34:08Z
