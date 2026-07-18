@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T17:31:29Z_
+_As of 2026-07-18T17:35:25Z_
 
 ## Latest
 
@@ -1454,14 +1454,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.2M | $1164.01 _(notional, rate-card)_ | no quota set |
+| Claude | 116.1M | $1162.12 _(notional, rate-card)_ | no quota set |
 | Codex | 201.8M _(+527.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`finbot-progress-20260718-173501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260718-173501.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`xs2rust-endor-stage10b-ses-boot-r4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10b-ses-boot-r4.md) — Stage-10b child 3/5 — SES worker-bundle boot, gap round 4 (continuation)
 
 ### tada (2775)
