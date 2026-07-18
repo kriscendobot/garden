@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T09:35:33Z_
+_As of 2026-07-18T09:39:20Z_
 
 ## Latest
 
@@ -1329,24 +1329,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 122.5M | $1213.80 _(notional, rate-card)_ | no quota set |
+| Claude | 122.4M | $1212.68 _(notional, rate-card)_ | no quota set |
 | Codex | 200.0M _(+514.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endo-npm-cas-registry-press-20260718-093502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260718-093502.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
-- [`xs2rust-endor-stage9c-small-globals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9c-small-globals.md) — Stage-9c child 2/9 — three small engine gaps: Object.is, String.replace dolla...
 
-### tada (2721)
+### tada (2722)
+- [`xs2rust-endor-stage9c-small-globals`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-small-globals.md) — Completion report
 - [`xs2rust-endor-stage9c-rest-spread`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-rest-spread.md) — Completion report — xs2rust-endor-stage9c-rest-spread
 - [`self-heal-fix-garden-triager-kriscendobot-finbot-unguarded-fetch-die-exit1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-finbot-unguarded-fetch-die-exit1.md) — Implemented and pushed 0c940939e7 to main2.
 - [`fix-comment-watcher-ack-without-post`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-comment-watcher-ack-without-post.md) — Completion report
 - [`port-xs-to-rust-memory-safe-engine-s30`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s30.md) — Completion report — port-xs-to-rust-memory-safe-engine-s30 (stage-9b halt rec...
-- [`xs2rust-endor-build-stage9b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage9b.md) — orchestration xs2rust-endor-build-stage9b — HALTED
-- … and 2716 more
+- … and 2717 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
