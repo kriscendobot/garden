@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T02:05:37Z_
+_As of 2026-07-18T02:07:13Z_
 
 ## Latest
 
@@ -1193,25 +1193,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 127.4M | $1243.43 _(notional, rate-card)_ | no quota set |
+| Claude | 127.3M | $1242.97 _(notional, rate-card)_ | no quota set |
 | Codex | 198.6M _(+456.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endo-sturdyref-press-20260718-020501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260718-020501.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+### doin (2)
 - [`port-xs-to-rust-memory-safe-engine-s25`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s25.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`xs2rust-endor-press-20260718-020501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260718-020501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (2665)
+### tada (2666)
+- [`endo-sturdyref-press-20260718-020501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-020501.md) — SturdyRef press, 02:05 tick (2026-07-18) — **observation-only; zero movement,...
 - [`endojs-endo-but-for-bots-pr671-shepherd-20260718`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-shepherd-20260718.md) — Shepherd report — endojs/endo-but-for-bots PR #671
 - [`endojs-endo-but-for-bots-pr789-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr789-shepherd.md) — Completion report
 - [`fix-endo-but-for-bots-pr626-stack-surgery-pass-path`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-endo-but-for-bots-pr626-stack-surgery-pass-path.md) — Completion report: fix-endo-but-for-bots-pr626-stack-surgery-pass-path
 - [`ocapn-noise-press-20260718-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260718-002002.md) — Completion report — ocapn-noise-press-20260718-002002
-- [`self-heal-fix-garden-triager-kriscendobot-finbot-fetch-hard-die-crashloop`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-finbot-fetch-hard-die-crashloop.md) — The fix described in this job has already been implemented and pushed to orig...
-- … and 2660 more
+- … and 2661 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
