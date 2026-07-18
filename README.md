@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T14:19:09Z_
+_As of 2026-07-18T14:23:28Z_
 
 ## Latest
 
@@ -1349,24 +1349,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 119.4M | $1192.75 _(notional, rate-card)_ | no quota set |
+| Claude | 119.4M | $1192.47 _(notional, rate-card)_ | no quota set |
 | Codex | 201.7M _(+526.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`design-endo-content-plane-git-http`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-content-plane-git-http.md) — Design: Git-over-HTTP content data plane (endo-content-plane-git-http)
+### doin (1)
 - [`xs2rust-endor-stage10-persistent-realm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10-persistent-realm.md) — Stage-10 child 3/7 — persistent guest realm + host-reply channel in the worke...
 
-### tada (2748)
+### tada (2749)
+- [`design-endo-content-plane-git-http`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-content-plane-git-http.md) — Completion report
 - [`xs2rust-endor-stage10-newtarget-construct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10-newtarget-construct.md) — Completion report — xs2rust-endor-stage10-newtarget-construct (PR #600 stage ...
 - [`xs2rust-endor-stage10-function-prototype`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10-function-prototype.md) — Completion report
 - [`merge-endo-but-for-bots-pr792-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/merge-endo-but-for-bots-pr792-http-web-seed.md) — PR #792 was not merged: it is undrafted and mergeable, but CI run 29645592685...
 - [`endo-vfs-parity-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260718-122003.md) — **Press tick complete — VFS tool-call-surface parity arc (endojs/endo-but-for...
-- [`gauntlet-endo-but-for-bots-pr792-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr792-http-web-seed.md) — Gauntlet Report — PR #792 feat(daemon): serve content through HTTP web seeds
-- … and 2743 more
+- … and 2744 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
