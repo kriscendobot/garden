@@ -5,3 +5,10 @@ Fix, mirroring the patterns already in this file and `common.sh`:
 2. On fetch failure, do a **clean skip** (`log "WARN: ..."; exit 0`) so systemd retries next tick instead of `die` (exit 1) flapping the unit — matching the self-provision-failed branch directly above (lines ~95–105) and the ci-watcher circuit-breaker discipline referenced in the header comment.
 3. Escalate only on persistence: throttled `alert_maintainer "triager-fetch-failed-${slug//[^A-Za-z0-9._-]/_}" "..."` (as the provision-failed path does) rather than crash-looping.
 Preserve the existing behavior on success (cursor advance, ref resolution below stay unchanged). Add/extend a test guard alongside the existing clone-provision cases asserting that a failing fetch resolves to a clean exit 0, not a die.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-18T06:15:07Z
