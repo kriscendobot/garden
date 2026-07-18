@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T11:01:45Z_
+_As of 2026-07-18T11:04:46Z_
 
 ## Latest
 
@@ -1336,8 +1336,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-stage9c-debugger-slice2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9c-debugger-slice2.md) — Stage-9c child 6/9 — Debugger slice 2/3: VM-side inspection hooks behind Debu...
 
 ### tada (2728)
 - [`xs2rust-endor-stage9c-handled-promise-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-handled-promise-shim.md) — Completion report — stage-9c child 5/9: the HandledPromise / eventual-send sh...
