@@ -5,3 +5,10 @@ In `scripts/jobs/triager.sh` at line 117, the steady-state bare-clone fetch is u
 Failure signature (garden-triager@kriscendobot-ocapn, exit 1): a two-line log `Terminated` / `FATAL: fetch failed for kriscendobot-ocapn` — a `git fetch` child killed by SIGTERM (stuck/half-open connection) that then hard-`die`s, crash-looping the unit. This is the same transient network class the file's OWN self-provision path (lines 94–104) already handles gracefully with a WARN + `exit 0` retry-next-tick, and the same class `common.sh` hardens everywhere else (`bounded_clone` line 717, `journal_fetch`, `GARDEN_FETCH_TIMEOUT`, `is_transient_net_error` line 296). The steady-state fetch is the lone unhardened one.
 
 Change: wrap this fetch in the fleet's bounded-fetch discipline — run it under `timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT"` with `GARDEN_FETCH_RETRIES`/`backoff` (mirror `bounded_clone`), capturing stderr. On a TRANSIENT failure (rc 124 wall-clock kill, or stderr matching `is_transient_net_error`), do NOT `die`: log a WARN and `exit 0` so the timer retries next tick — exactly as the provisioning path does — with a throttled `alert_maintainer` (dedup key `triager-fetch-failed-${slug//[^A-Za-z0-9._-]/_}`) only on persistence. Reserve the hard `die` for a STRUCTURAL failure (auth/gone repo, i.e. `is_transient_gh_source_error`/non-transient), so a network blip never crash-loops the unit. Consider factoring a `bounded_fetch <git-dir>` helper in `common.sh` alongside `bounded_clone` so this and any future call sites share one timeout+retry+classify path. Preserve the existing consecutive-failure circuit breaker semantics below line 117.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 12
+  worker_kind: gardener
+  claimed_at: 2026-07-18T06:15:18Z
