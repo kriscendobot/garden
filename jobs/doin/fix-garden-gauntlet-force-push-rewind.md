@@ -26,3 +26,10 @@ Task:
 
 Related, already landed: `fix-garden-auto-gauntlet-handoff-stall` (03833819f7) fixed the handoff
 stall; this job fixes the rewind the handed-off gauntlet then inflicted.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-18T18:39:38Z
