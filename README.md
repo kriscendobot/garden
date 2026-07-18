@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T00:21:41Z_
+_As of 2026-07-18T00:26:04Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ Several lanes are one maintainer decision from moving: git-integration [#705](ht
 
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 1h)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 7h)
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 11h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 12h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 7h)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 1d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 2d)
@@ -513,6 +513,21 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260718T001606Z-755628` — from orchestrator:xs2rust-endor-build-stage8c-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T001606Z-755628.md)
 
 > Orchestration xs2rust-endor-build-stage8c HALTED: child xs2rust-endor-stage8-boot-surface-remainder failed (serial, on-child-failure=halt). 1/3 done before halt; swept: xs2rust-endor-stage8-gate-remeasure
+
+- `20260718T002511Z-88aefe` — from gardener:endo-byte-array-press-20260718-002002, reply_to `endo-byte-array-press-20260718-002002` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T002511Z-88aefe.md)
+
+> Byte-array press found a dropped maintainer directive: your "Shepherd." on
+> [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/issues/671) (2026-07-15) never became a job — the
+> comment-watcher's derived base `endojs-endo-but-for-bots-pr671-shepherd` collided
+> with a completed 2026-07-10 tada entry and the dedup silently swallowed it, so
+> [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/issues/671) sat conflicting for 3 days. Corrected now: posted
+> `endojs-endo-but-for-bots-pr671-weave-20260718` (live; the PR is dirty vs `llm`,
+> CI cannot dispatch until rebased) with
+> `endojs-endo-but-for-bots-pr671-shepherd-20260718` chained behind it to drive CI
+> green, and parked `fix-comment-watcher-verb-directive-tada-dedup` (high) for the
+> durable watcher fix. Byte-array fronts themselves are unchanged:
+> [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) head 1b1dc75ba9 CI 17/17 green awaiting your +
+> erights re-review; [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/issues/503) idle.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -1156,7 +1171,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 131.8M | $1284.31 _(notional, rate-card)_ | no quota set |
+| Claude | 132.4M | $1293.79 _(notional, rate-card)_ | no quota set |
 | Codex | 198.3M _(+440.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 66% _(plan; codex-reported)_ |
 
 ## Board
@@ -1164,21 +1179,21 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 (none)
 
 ### doin (7)
-- [`endo-byte-array-press-20260718-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260718-002002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
-- [`endo-daemon-data-plane-press-20260718-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-daemon-data-plane-press-20260718-002002.md) — Press the Endo daemon data plane forward (endojs/endo-but-for-bots, base llm)
 - [`endo-git-integration-press-20260718-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260718-002002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-vfs-parity-press-20260718-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260718-002002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+- [`endojs-endo-but-for-bots-pr671-weave-20260718`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr671-weave-20260718.md) — Weave endojs/endo-but-for-bots PR #671 onto current llm (role: weaver)
 - [`endojs-endo-but-for-bots-pr789-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr789-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #789
+- [`improve-reaper-poison-notice-alert-not-silently-dropped`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-reaper-poison-notice-alert-not-silently-dropped.md) — scripts/jobs/reaper.sh
 - [`ocapn-noise-press-20260718-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260718-002002.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`port-xs-to-rust-memory-safe-engine-s25`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s25.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
-### tada (2652)
+### tada (2654)
+- [`endo-byte-array-press-20260718-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260718-002002.md) — **Press report — endo-byte-array-press (dispatch 2026-07-18T00:20Z)**
+- [`endo-daemon-data-plane-press-20260718-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260718-002002.md) — Press dispatch complete — the arc advanced past its design finish-line and th...
 - [`xs2rust-endor-build-stage8c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage8c.md) — orchestration xs2rust-endor-build-stage8c — HALTED
 - [`endo-sturdyref-press-20260718-000501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-000501.md) — The two earlier entries are from xs2rust peers — my entry posted exactly once...
 - [`xs2rust-endor-press-20260718-000501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-000501.md) — Press tick complete — observed and deferred, chain healthy and actively advan...
-- [`kriscendobot-agoric-sdk-pr15-coverage-5007919173`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-coverage-5007919173.md) — Completed coverage pass on PR #15.
-- [`xs2rust-endor-stage8-class-construction`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage8-class-construction.md) — Completion report — Stage-8c child 1/3: class-instance construction (PR #600,...
-- … and 2647 more
+- … and 2649 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1215,6 +1230,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-stage8-boot-surface-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage8-boot-surface-remainder.md) — _normal_ · Stage-8c child 2/3 (was stage-8 child 5/6) — engine: boot-surface remainder (...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
+- [`fix-comment-watcher-verb-directive-tada-dedup`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-comment-watcher-verb-directive-tada-dedup.md) — _high_ · Fix: comment-watcher drops a fresh maintainer verb-directive when its determi...
 - [`endojs-endo-but-for-bots-pr600-review-021252ca-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr600-review-021252ca-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #600 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr737-review-3363fee9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr737-review-3363fee9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #737 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr708-review-ecdedc30-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr708-review-ecdedc30-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #708 (primary: endojs-endo-but-f...
@@ -1235,9 +1251,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kriscendobot-agoric-sdk-pr15-review-aad444c1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-review-aad444c1-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #15 (primary: kriscendobot-agoric...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
+- [`build-endo-content-locators-magnet-urn-phase4-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-content-locators-magnet-urn-phase4-http-web-seed.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/789` · Build Phase 4 of the magnet-URN content-locator design: the HTTP web-seed plane
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-regexp-conservative-subset.md) — awaiting `endojs/endo-but-for-bots#676` · Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
+- [`endojs-endo-but-for-bots-pr671-shepherd-20260718`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr671-shepherd-20260718.md) — awaiting `endojs-endo-but-for-bots-pr671-weave-20260718` · Shepherd endojs/endo-but-for-bots PR #671 CI to green (role: shepherd)
 - [`registry-immutable-byte-array-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/registry-immutable-byte-array-followup.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/671` · Immutable byte-array RegistryInterface follow-up
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
