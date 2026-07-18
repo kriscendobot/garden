@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T11:26:25Z_
+_As of 2026-07-18T11:28:30Z_
 
 ## Latest
 
@@ -1333,7 +1333,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 121.2M | $1200.26 _(notional, rate-card)_ | no quota set |
+| Claude | 121.1M | $1199.23 _(notional, rate-card)_ | no quota set |
 | Codex | 200.1M _(+516.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
@@ -1341,15 +1341,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 (none)
 
 ### doin (1)
-- [`xs2rust-endor-stage9c-debugger-slice2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9c-debugger-slice2.md) — Stage-9c child 6/9 — Debugger slice 2/3: VM-side inspection hooks behind Debu...
+- [`xs2rust-endor-stage9c-debugger-slice3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9c-debugger-slice3.md) — Stage-9c child 7/9 — Debugger slice 3/3: daemon bus integration + debugger ac...
 
-### tada (2729)
+### tada (2730)
+- [`xs2rust-endor-stage9c-debugger-slice2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-debugger-slice2.md) — Completion report
 - [`finbot-progress-20260718-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260718-112002.md) — Advanced kriscendobot/finbot main: 29d4683 -> 4d0e902.
 - [`xs2rust-endor-stage9c-handled-promise-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-handled-promise-shim.md) — Completion report — stage-9c child 5/9: the HandledPromise / eventual-send sh...
 - [`xs2rust-endor-stage9c-proxy-mop`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-proxy-mop.md) — Completion report
 - [`xs2rust-endor-press-20260718-102001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-102001.md) — What I found
-- [`endo-sturdyref-press-20260718-102001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-102001.md) — SturdyRef press — 10:20 tick complete. Observation-only: no movement since th...
-- … and 2724 more
+- … and 2725 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
