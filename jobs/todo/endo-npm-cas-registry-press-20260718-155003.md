@@ -42,10 +42,4 @@ Selection** for version resolution. The CAS is the cache of the registry.
    of a program with a real npm dependency, fetched-then-cached, with the command and
    its output cited. Reading code is not proof.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 15
-  worker_kind: gardener
-  claimed_at: 2026-07-18T15:50:08Z
+<!-- garden-reaped: 1 -->
