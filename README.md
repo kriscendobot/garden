@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T13:11:20Z_
+_As of 2026-07-18T13:14:26Z_
 
 ## Latest
 
@@ -1337,25 +1337,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 120.1M | $1194.80 _(notional, rate-card)_ | no quota set |
-| Codex | 201.5M _(+520.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 120.0M | $1194.23 _(notional, rate-card)_ | no quota set |
+| Codex | 201.6M _(+521.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endo-vfs-parity-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260718-122003.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+### doin (2)
 - [`merge-endo-but-for-bots-pr792-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/merge-endo-but-for-bots-pr792-http-web-seed.md) — Merge endojs/endo-but-for-bots PR #792 (HTTP web-seed content plane, Phase 4)
 - [`xs2rust-endor-stage10-function-prototype`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10-function-prototype.md) — Stage-10 child 1/7 — function .prototype reads (+ own-property surface on fun...
 
-### tada (2744)
+### tada (2745)
+- [`endo-vfs-parity-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260718-122003.md) — **Press tick complete — VFS tool-call-surface parity arc (endojs/endo-but-for...
 - [`gauntlet-endo-but-for-bots-pr792-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr792-http-web-seed.md) — Gauntlet Report — PR #792 feat(daemon): serve content through HTTP web seeds
 - [`port-xs-to-rust-memory-safe-engine-s31`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s31.md) — Completion report — supervisor s31: STAGE 9 ACCEPTED, stage 10 dispatched
 - [`xs2rust-endor-build-stage9c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage9c.md) — orchestration xs2rust-endor-build-stage9c — complete
 - [`xs2rust-endor-stage9c-finish-line-measure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-finish-line-measure.md) — Completion report — stage-9c child 9/9: test:rust finish-line measurement
-- [`minion-town-agenda-review-20260718-123503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260718-123503.md) — Minion Town hourly agenda review — 2026-07-18 12:50 UTC
-- … and 2739 more
+- … and 2740 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
