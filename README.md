@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T06:13:48Z_
+_As of 2026-07-18T06:16:31Z_
 
 ## Latest
 
@@ -581,6 +581,18 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260718T061128Z-a8a4f5` — from watchdog:gardener/1, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T061128Z-a8a4f5.md)
 
 > gardener job 'xs2rust-endor-stage9-boot-surface-close' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260718T061535Z-f74996` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T061535Z-f74996.md)
+
+> self-heal: garden-triager@kriscendobot-cosgov exited rc=1 with no scoped fix. Capture: fcc06be88eb3aed3ea860c646a901aabf620ec61 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p fcc06be88eb3aed3ea860c646a901aabf620ec61). Diagnosis: ## Diagnosis
+>
+> **Failure signature:** `Terminated` followed by `FATAL: fetch failed for kriscendobot-cosgov` — i.e. `scripts/jobs/triager.sh:117` (`git --git-dir="$BARE" fetch -q --all --prune || die "fetch failed for $slug"`). The bare clone exists and is valid (the run got past the self-provision guard to the steady-state fetch), and the fetch itself is *not* structurally broken — I reproduced it just now and it returns `rc=0`. The `Terminated` line is git's SIGTERM message: a transient SSH-transport hang to `ssh://git@github.com/kriscendobot/cosgov.git` was killed by a wall-clock timeout, git exited non-zero, and the unguarded `|| die` on line 117 hard-failed the whole unit — marking it Failed and firing self-heal on a mere network blip.
+>
+> **This is already fixed upstream — it is 
+
+- `20260718T061606Z-71a630` — from orchestrator:xs2rust-endor-build-stage9-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T061606Z-71a630.md)
+
+> Orchestration xs2rust-endor-build-stage9 HALTED: child xs2rust-endor-stage9-boot-surface-close failed (serial, on-child-failure=halt). 1/6 done before halt; swept: xs2rust-endor-stage9-handled-promise xs2rust-endor-stage9-endor-vm-daemon-wiring xs2rust-endor-stage9-debugger xs2rust-endor-stage9-test-rust-finish-line
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -1262,23 +1274,31 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.5M | $1230.51 _(notional, rate-card)_ | no quota set |
-| Codex | 198.8M _(+458.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
+| Claude | 124.7M | $1233.56 _(notional, rate-card)_ | no quota set |
+| Codex | 198.9M _(+459.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (9)
+- [`self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-unbounded-fetch-hard-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-unbounded-fetch-hard-die.md) — Repo: garden (kriskowal/garden), file scripts/jobs/triager.sh, line 117.
+- [`self-heal-fix-garden-triager-kriscendobot-agoric-sdk-bound-triage-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-agoric-sdk-bound-triage-fetch.md) — Route the triager's repo fetch through the fleet's bounded-fetch discipline i...
+- [`self-heal-fix-garden-triager-kriscendobot-chrome-native-function-caller-arguments-repro-fetch-die-flaps-on-transient`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-chrome-native-function-caller-arguments-repro-fetch-die-flaps-on-transient.md) — In scripts/jobs/triager.sh line 117, the upstream-refresh fetch git --git-dir...
+- [`self-heal-fix-garden-triager-kriscendobot-endo-fetch-transient-soft-skip`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-endo-fetch-transient-soft-skip.md) — In scripts/jobs/triager.sh, the git --git-dir="$BARE" fetch -q --all --prune ...
+- [`self-heal-fix-garden-triager-kriscendobot-minion-town-fetch-die-on-transient`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-minion-town-fetch-die-on-transient.md) — In scripts/jobs/triager.sh, the existing-clone fetch at line 117 (git --git-d...
+- [`self-heal-fix-garden-triager-kriscendobot-ocapn-bounded-steady-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-ocapn-bounded-steady-fetch.md) — In scripts/jobs/triager.sh at line 117, the steady-state bare-clone fetch is ...
+- [`self-heal-fix-garden-triager-kriscendobot-vattr97-triager-fetch-hard-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-vattr97-triager-fetch-hard-die.md) — In scripts/jobs/triager.sh, the bare-clone fetch at line 117 —
+- [`self-heal-fix-garden-triager-kriscendobot-ymax-e2e-fetch-die-crashloops-unit`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-ymax-e2e-fetch-die-crashloops-unit.md) — In scripts/jobs/triager.sh, line 117 (git --git-dir="$BARE" fetch -q --all --...
+- [`self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-fetch-unbounded-die-crashloop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-fetch-unbounded-die-crashloop.md) — In scripts/jobs/triager.sh:117, the own-repo fetch git --git-dir="$BARE" fetc...
 
-### tada (2685)
+### tada (2686)
+- [`xs2rust-endor-build-stage9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage9.md) — orchestration xs2rust-endor-build-stage9 — HALTED
 - [`xs2rust-endor-press-20260718-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-060503.md) — Completion report — xs2rust-endor press tick 06:05Z (observed; deferred to li...
 - [`endo-sturdyref-press-20260718-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-060503.md) — SturdyRef press — 06:05 tick complete. Observation-only: no movement, all lan...
 - [`xs2rust-endor-stage9-toprimitive-add`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9-toprimitive-add.md) — Completion report — Stage-9 child 1/6: ToPrimitive-in-op_add native→JS trampo...
 - [`finbot-progress-20260718-050503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260718-050503.md) — Completion report
-- [`port-xs-to-rust-memory-safe-engine-s28`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s28.md) — Completion report — supervisor s28 (XS→Rust Endor port)
-- … and 2680 more
+- … and 2681 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
