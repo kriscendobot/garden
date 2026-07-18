@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T06:35:28Z_
+_As of 2026-07-18T06:36:29Z_
 
 ## Latest
 
@@ -1274,14 +1274,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.9M | $1240.45 _(notional, rate-card)_ | no quota set |
+| Claude | 124.8M | $1240.81 _(notional, rate-card)_ | no quota set |
 | Codex | 199.1M _(+464.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
+- [`build-endo-content-locators-magnet-urn-phase4-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-content-locators-magnet-urn-phase4-http-web-seed.md) — Build Phase 4 of the magnet-URN content-locator design: the HTTP web-seed plane
 - [`endo-git-integration-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260718-062002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-vfs-parity-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260718-062002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`minion-town-agenda-review-20260718-063502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260718-063502.md) — Minion Town hourly agenda review
@@ -1350,7 +1351,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr259-review-8288f2bf-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr259-review-8288f2bf-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #259 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
-- [`build-endo-content-locators-magnet-urn-phase4-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-content-locators-magnet-urn-phase4-http-web-seed.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/789` · Build Phase 4 of the magnet-URN content-locator design: the HTTP web-seed plane
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-regexp-conservative-subset.md) — awaiting `endojs/endo-but-for-bots#676` · Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
