@@ -48,6 +48,7 @@ worker code.** If a measured regression is real, you report it precisely; you do
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
