@@ -20,9 +20,10 @@ and `fs-interface-consolidation.md`.
 **Each dispatch (every 6h; be idempotent):** Assess, don't assume — read those two
 reconciliation designs plus `daemon-mount.md`, `agent-tools-mount-fs-tools.md`,
 `namehub-interface-unification.md`, and `endopi-edit-tool.md`, and the live PRs.
-State as of 2026-07-18 (post-12:20 tick): **#714** and **#643** MERGED;
+State as of 2026-07-18 (post-18:35 tick): **#714** and **#643** MERGED;
 **#658** closed (superseded). Open, review-blocked, ALL verified green and
-mergeable at 12:20: **#656** (provideSubMount), **#655** (old non-delegated
+mergeable at 18:35 (23–24 SUCCESS checks each; no repo activity since the
+12:20 tick): **#656** (provideSubMount), **#655** (old non-delegated
 mount grep — maintainer asked about closing as superseded by #713, no reply
 yet; msg 20260717T124846Z-815188; do not re-ping), **#657** (mount JSON),
 **#713** (mount glob+grep+glorp; full matrix confirmed green on 454b2b97db
@@ -43,7 +44,9 @@ glob/grep (blocked on #713/#655 — its fs tools ride the tree capability,
 so they need the mount-side verbs), `EndoMount.edit`/`EndoGuest.edit` +
 `endo edit` CLI hashline wiring (blocked on the mount stack landing; the
 pure core is #796), and exposing hashline on the agent read/edit tools
-(after the wiring).
+(after the wiring). All remaining surface is review-blocked on the open
+mount stack; while that holds, a tick with no repo activity is a
+verify-and-stand-down tick.
 Do not open new surface while an open PR needs a weave or a CI fix. Be
 idempotent, defer to live workers on shared branches, and cite real execution
 evidence for any "works everywhere" claim.
