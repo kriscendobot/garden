@@ -28,3 +28,10 @@ Slices (push each; a coherent prefix landed honestly beats an unsound whole):
 If the full row exceeds one invocation, land the protocol/transport core + tests and report the precise remainder in your tada report for re-dispatch.
 
 **Verification bar (report numbers + exit codes):** fresh clean of the three crates, then: workspace EXIT=0 all `test result:` lines 0 failed; curated compile-diff all-identical + SYMB; boot gate still 14-green-equivalent (no regressions); zero new Rust warnings; `forbid(unsafe_code)` intact at all 7 roots (the debugger must not introduce unsafe); metering unchanged on non-debug paths (no computron drift in dual-run tests).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-18T07:31:07Z
