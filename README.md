@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T06:05:34Z_
+_As of 2026-07-18T06:07:38Z_
 
 ## Latest
 
@@ -1220,25 +1220,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.5M | $1224.98 _(notional, rate-card)_ | no quota set |
+| Claude | 124.4M | $1224.73 _(notional, rate-card)_ | no quota set |
 | Codex | 198.8M _(+458.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endo-sturdyref-press-20260718-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260718-060503.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
-- [`xs2rust-endor-press-20260718-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260718-060503.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+### doin (1)
 - [`xs2rust-endor-stage9-boot-surface-close`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9-boot-surface-close.md) — Stage-9 child 2/6 — boot-surface close: receiver-aware resolve_at_key + tagge...
 
-### tada (2683)
+### tada (2685)
+- [`xs2rust-endor-press-20260718-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-060503.md) — Completion report — xs2rust-endor press tick 06:05Z (observed; deferred to li...
+- [`endo-sturdyref-press-20260718-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-060503.md) — SturdyRef press — 06:05 tick complete. Observation-only: no movement, all lan...
 - [`xs2rust-endor-stage9-toprimitive-add`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9-toprimitive-add.md) — Completion report — Stage-9 child 1/6: ToPrimitive-in-op_add native→JS trampo...
 - [`finbot-progress-20260718-050503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260718-050503.md) — Completion report
 - [`port-xs-to-rust-memory-safe-engine-s28`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s28.md) — Completion report — supervisor s28 (XS→Rust Endor port)
-- [`xs2rust-endor-s27-module-corpora-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-s27-module-corpora-fix.md) — Job: xs2rust-endor-s27-module-corpora-fix — completion report
-- [`fix-comment-watcher-verb-directive-tada-dedup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-comment-watcher-verb-directive-tada-dedup.md) — Completion report
-- … and 2678 more
+- … and 2680 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
