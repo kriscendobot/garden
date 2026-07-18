@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T12:32:41Z_
+_As of 2026-07-18T12:35:44Z_
 
 ## Latest
 
@@ -1337,16 +1337,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 120.2M | $1192.07 _(notional, rate-card)_ | no quota set |
+| Claude | 120.3M | $1194.00 _(notional, rate-card)_ | no quota set |
 | Codex | 200.2M _(+520.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`endo-vfs-parity-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260718-122003.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`gauntlet-endo-but-for-bots-pr792-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr792-http-web-seed.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
+- [`minion-town-agenda-review-20260718-123503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260718-123503.md) — Minion Town hourly agenda review
 - [`xs2rust-endor-stage9c-finish-line-measure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9c-finish-line-measure.md) — Stage-9c child 9/9 — the test:rust finish-line measurement on the Rust engine...
 
 ### tada (2739)
