@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T15:20:43Z_
+_As of 2026-07-18T15:22:19Z_
 
 ## Latest
 
@@ -1349,15 +1349,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 119.2M | $1191.92 _(notional, rate-card)_ | no quota set |
+| Claude | 119.1M | $1191.65 _(notional, rate-card)_ | no quota set |
 | Codex | 201.8M _(+527.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-stage10-ses-boot-gaps-r2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10-ses-boot-gaps-r2.md) — Stage-10 child 5/7 — SES worker-bundle boot on endor-vm, gap round 2
 
 ### tada (2761)
 - [`xs2rust-endor-stage10-ses-boot-gaps-r1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10-ses-boot-gaps-r1.md) — Completion report — stage-10 child 4/7: SES worker-bundle boot on endor-vm, g...
