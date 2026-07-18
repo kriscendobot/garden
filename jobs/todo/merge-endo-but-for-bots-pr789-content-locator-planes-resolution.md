@@ -1,10 +1,7 @@
 ---
-gate: blocked
-blocked_on: gauntlet-endo-but-for-bots-pr789-content-locator-planes-resolution
-priority: normal
-posted_by: producer
-posted_at: 2026-07-18T06:22:53Z
+role: conductor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-07-18T06:31:18Z -->
 
 ---
 role: conductor
