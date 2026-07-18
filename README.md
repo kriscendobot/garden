@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T06:19:11Z_
+_As of 2026-07-18T06:19:46Z_
 
 ## Latest
 
@@ -1274,26 +1274,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.7M | $1234.34 _(notional, rate-card)_ | no quota set |
-| Codex | 198.9M _(+460.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 124.7M | $1234.22 _(notional, rate-card)_ | no quota set |
+| Codex | 198.9M _(+460.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
-- [`self-heal-fix-garden-triager-kriscendobot-chrome-native-function-caller-arguments-repro-fetch-die-flaps-on-transient`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-chrome-native-function-caller-arguments-repro-fetch-die-flaps-on-transient.md) — In scripts/jobs/triager.sh line 117, the upstream-refresh fetch git --git-dir...
+### doin (3)
 - [`self-heal-fix-garden-triager-kriscendobot-ocapn-bounded-steady-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-ocapn-bounded-steady-fetch.md) — In scripts/jobs/triager.sh at line 117, the steady-state bare-clone fetch is ...
 - [`self-heal-fix-garden-triager-kriscendobot-ymax-e2e-fetch-die-crashloops-unit`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-ymax-e2e-fetch-die-crashloops-unit.md) — In scripts/jobs/triager.sh, line 117 (git --git-dir="$BARE" fetch -q --all --...
 - [`self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-fetch-unbounded-die-crashloop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-fetch-unbounded-die-crashloop.md) — In scripts/jobs/triager.sh:117, the own-repo fetch git --git-dir="$BARE" fetc...
 
-### tada (2691)
+### tada (2692)
+- [`self-heal-fix-garden-triager-kriscendobot-chrome-native-function-caller-arguments-repro-fetch-die-flaps-on-transient`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-chrome-native-function-caller-arguments-repro-fetch-die-flaps-on-transient.md) — Implemented and pushed 457ba8a795.
 - [`self-heal-fix-garden-triager-kriscendobot-vattr97-triager-fetch-hard-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-vattr97-triager-fetch-hard-die.md) — Implemented and pushed 79d5fb968d to main2.
 - [`self-heal-fix-garden-triager-kriscendobot-minion-town-fetch-die-on-transient`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-fetch-die-on-transient.md) — Implemented and pushed 9730e56259 to main2.
 - [`self-heal-fix-garden-triager-kriscendobot-agoric-sdk-bound-triage-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-sdk-bound-triage-fetch.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-unbounded-fetch-hard-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-unbounded-fetch-hard-die.md) — Completion report
-- [`self-heal-fix-garden-triager-kriscendobot-endo-fetch-transient-soft-skip`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-endo-fetch-transient-soft-skip.md) — Implemented and pushed 8d83681ebe to main2.
-- … and 2686 more
+- … and 2687 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
