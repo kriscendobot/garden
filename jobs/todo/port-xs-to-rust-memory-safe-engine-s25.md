@@ -297,11 +297,4 @@ implementation at test262 parity**, reviewed to completion by you, un-drafted, a
 maintainer with a status summary. The maintainer is asked to look **once**, at the end. Journal the full
 lifecycle (design PR, approval, build, review rounds, hand-off).
 
-<!-- garden-reaped: 3 -->
-
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 9
-  worker_kind: gardener
-  claimed_at: 2026-07-17T23:13:18Z
+<!-- garden-reaped: 4 -->
