@@ -20,3 +20,10 @@ matching the surrounding entry style. Both concepts carry topics
 Acceptance: grep for dual-package-hazard and for package-type-field each hit
 keywords.md; a library-lookup on e.g. '"type": "module"' resolves to
 package-type-field.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 10
+  worker_kind: gardener
+  claimed_at: 2026-07-18T16:56:19Z
