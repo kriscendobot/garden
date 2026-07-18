@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T20:58:20Z_
+_As of 2026-07-18T21:01:22Z_
 
 ## Latest
 
@@ -1597,14 +1597,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 111.4M | $1127.68 _(notional, rate-card)_ | no quota set |
+| Claude | 111.4M | $1128.77 _(notional, rate-card)_ | no quota set |
 | Codex | 201.9M _(+529.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`port-xs-to-rust-memory-safe-engine-s34`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s34.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`xs2rust-endor-press-20260718-205002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260718-205002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (2801)
@@ -1673,7 +1674,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-regexp-conservative-subset.md) — awaiting `endojs/endo-but-for-bots#676` · Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
-- [`port-xs-to-rust-memory-safe-engine-s34`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s34.md) — awaiting `xs2rust-endor-build-stage10c` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`registry-immutable-byte-array-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/registry-immutable-byte-array-followup.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/671` · Immutable byte-array RegistryInterface follow-up
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
