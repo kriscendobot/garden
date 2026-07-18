@@ -6,3 +6,10 @@ Task: deploy the updated Caddy config to the minion.town AWS host and reload Cad
 - Confirm the existing `/ocapn*` routes and the browser login gate for other paths are unaffected (no regression from the new handle block).
 
 This closes the naming gap from kriskowal/garden#58 flagged in three consecutive hourly agenda reviews. The change is reversible; if deploy/verification fails, capture the failing evidence and report rather than force it.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 19
+  worker_kind: gardener
+  claimed_at: 2026-07-18T18:59:44Z
