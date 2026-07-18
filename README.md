@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T23:34:56Z_
+_As of 2026-07-18T23:35:30Z_
 
 ## Latest
 
@@ -1665,7 +1665,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`finbot-progress-20260718-233504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260718-233504.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`port-xs-to-rust-memory-safe-engine-s35`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s35.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`xs2rust-endor-stage10e-worker-gaps`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10e-worker-gaps.md) — stage10e child 1/3 — worker-bundle frontier gap round (resume at Unsupported(...
 
