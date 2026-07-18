@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T21:23:48Z_
+_As of 2026-07-18T21:25:31Z_
 
 ## Latest
 
@@ -1604,8 +1604,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-stage10d-freeze-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10d-freeze-fixer.md) — stage10d child 0/5 — FIXER: frozen arrays must actually be immutable (stage-1...
 
 ### tada (2803)
 - [`port-xs-to-rust-memory-safe-engine-s34`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s34.md) — Completion report — port-xs-to-rust-memory-safe-engine-s34 (XS→Rust endor sup...
