@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T20:52:06Z_
+_As of 2026-07-18T20:52:43Z_
 
 ## Latest
 
@@ -1597,25 +1597,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 111.9M | $1129.00 _(notional, rate-card)_ | no quota set |
+| Claude | 111.6M | $1126.84 _(notional, rate-card)_ | no quota set |
 | Codex | 201.9M _(+529.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endo-sturdyref-press-20260718-205002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260718-205002.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+### doin (2)
 - [`xs2rust-endor-press-20260718-205002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260718-205002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-stage10c-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10c-remeasure.md) — Stage-10c child 5/5 — re-measure the bounded-serial 52-file daemon sweep (mea...
 
-### tada (2798)
+### tada (2799)
+- [`endo-sturdyref-press-20260718-205002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-205002.md) — SturdyRef press tick 2026-07-18T20:50Z — observation + nudge re-send; no code...
 - [`xs2rust-endor-stage10c-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10c-live-captp-eval.md) — Completion report — xs2rust-endor-stage10c-live-captp-eval (PR #600 stage-10c...
 - [`xs2rust-endor-stage10c-ses-boot-r6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10c-ses-boot-r6.md) — Completion report — stage-10c child 3/5: SES worker-bundle boot, gap round 6
 - [`endojs-endo-but-for-bots-pr794-noise-ik-relay-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr794-noise-ik-relay-design.md) — Amended PR #794 with noise-protocol-ik-relay design direction and pushed 3880...
 - [`endojs-endo-but-for-bots-pr406-0cc0c326`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr406-0cc0c326.md) — Routed maintainer’s refinement to amend existing design PR #794 with a standa...
-- [`xs2rust-endor-stage10c-ses-boot-r5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10c-ses-boot-r5.md) — Completion report — stage-10c child 2/5: SES worker-bundle boot, gap round 5
-- … and 2793 more
+- … and 2794 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
