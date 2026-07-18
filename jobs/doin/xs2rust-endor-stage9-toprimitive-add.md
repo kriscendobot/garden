@@ -31,3 +31,10 @@ Items (push each separately):
 Advisory, in scope ONLY if it falls out trivially from the same trampoline: `Reflect.apply`/`Reflect.construct` re-entrancy (a standing ledger item). Otherwise leave it ledgered and say so.
 
 **Verification bar (report numbers + exit codes):** after a fresh clean of the three crates — workspace `cargo test --workspace --no-fail-fast` EXIT=0 with all `test result:` lines 0 failed; curated `./target/debug/compile-diff` (no `--`) all-identical + SYMB; boot gate `cargo test -p endor-262 --test boot_bundle_gate` green with your conversion included; zero new Rust warnings; `#![forbid(unsafe_code)]` untouched at all 7 crate roots.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 12
+  worker_kind: gardener
+  claimed_at: 2026-07-18T05:01:07Z
