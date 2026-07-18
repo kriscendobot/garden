@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T08:56:50Z_
+_As of 2026-07-18T08:58:04Z_
 
 ## Latest
 
@@ -13,9 +13,9 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2h)
-- [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 9h)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 15h)
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 15h)
+- [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 10h)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 16h)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 16h)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 8h)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 20h)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 1d)
@@ -1329,24 +1329,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 123.5M | $1232.75 _(notional, rate-card)_ | no quota set |
+| Claude | 123.5M | $1232.82 _(notional, rate-card)_ | no quota set |
 | Codex | 200.0M _(+514.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`self-heal-fix-garden-triager-kriscendobot-finbot-unguarded-fetch-die-exit1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-finbot-unguarded-fetch-die-exit1.md) — In scripts/jobs/triager.sh:117, the watched-repo refresh is a bare, unguarded...
+### doin (1)
 - [`xs2rust-endor-stage9c-rest-spread`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9c-rest-spread.md) — Stage-9c child 1/9 — rest parameters + spread call (the Unsupported("argument...
 
-### tada (2719)
+### tada (2720)
+- [`self-heal-fix-garden-triager-kriscendobot-finbot-unguarded-fetch-die-exit1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-finbot-unguarded-fetch-die-exit1.md) — Implemented and pushed 0c940939e7 to main2.
 - [`fix-comment-watcher-ack-without-post`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-comment-watcher-ack-without-post.md) — Completion report
 - [`port-xs-to-rust-memory-safe-engine-s30`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s30.md) — Completion report — port-xs-to-rust-memory-safe-engine-s30 (stage-9b halt rec...
 - [`xs2rust-endor-build-stage9b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage9b.md) — orchestration xs2rust-endor-build-stage9b — HALTED
 - [`endojs-endo-but-for-bots-pr792-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr792-shepherd.md) — Fixed PR #792 CI failures and pushed 020fb0b7841, 6e9937cd66d.
-- [`xs2rust-endor-press-20260718-080504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-080504.md) — Completion report — xs2rust-endor-press-20260718-080504
-- … and 2714 more
+- … and 2715 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
