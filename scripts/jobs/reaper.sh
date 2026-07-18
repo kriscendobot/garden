@@ -113,6 +113,122 @@ GARDEN_TAG="reaper"
 # a re-claim (claim-job appends its stamp BELOW the body).
 REAP_MARKER_RE='^<!-- garden-reaped: [0-9][0-9]* -->$'
 
+# --- durable poison-notice spool (un-surfaced-alert recovery) -----------------
+#
+# poison-notice.sh already retries its OWN push budget (GARDEN_POST_ATTEMPTS, 50)
+# with backoff and `die`s LOUDLY when the maintainer inbox is genuinely
+# unreachable (the journal is down, its clone is broken, or it never won a push
+# race). Historically the reaper swallowed that die with `>/dev/null 2>&1` and only
+# logged a bare "WARNING: could not surface …", then fell through and `break`ed out
+# of the requeue loop — so the poison job stayed PARKED in jobs/plan/ (held) but the
+# maintainer was NEVER told and the WARNING named no cause. A deterministically
+# overrunning job (the 00:15:19 `xs2rust-…-boot-surface-remainder` tail) thus
+# vanished from human view: the only signal it was stuck was permanently dropped.
+#
+# So the reaper no longer drops the alert. surface_poison() CAPTURES
+# poison-notice.sh's stderr and names the cause in the WARNING (a lost push race, an
+# unreachable clone, a bad key), and on failure it SPOOLS the notice to a durable
+# directory. drain_poison_spool(), run at the top of every tick, re-attempts each
+# spooled notice — so a transient inbox-unreachable window heals on a LATER tick
+# instead of losing the notice forever. The spool file is keyed by the same
+# <base>+<signature> dedup key poison-notice.sh uses, so a re-spool overwrites
+# (idempotent) rather than accreting, and a successful delivery clears it.
+: "${GARDEN_POISON_SPOOL:=$GARDEN_STATE/reaper/poison-spool}"
+
+# poison_key <base> <signature> — the deterministic dedup/filesystem key, computed
+# the SAME way poison-notice.sh derives its maintainer-inbox filename, so the spool
+# entry and the notice it recovers share one identity.
+poison_key() {
+  local key
+  key="$(printf 'poison-%s-%s' "$1" "$2" | tr -c 'A-Za-z0-9._-' '-')"
+  printf '%s' "$key"
+}
+
+# spool_poison <base> <signature> <sender> <body> — persist an un-surfaced poison
+# notice under GARDEN_POISON_SPOOL so the next tick can re-drain it. Keyed by
+# poison_key so a re-spool of the same job+condition overwrites the prior entry
+# rather than accumulating duplicates. The small header carries everything
+# drain_poison_spool needs to re-invoke poison-notice.sh; the body follows the
+# first `---` line (the body itself may contain `---`, so the split is first-only).
+spool_poison() {
+  local base="$1" signature="$2" sender="$3" body="$4" key dest
+  key="$(poison_key "$base" "$signature")"
+  if ! mkdir -p "$GARDEN_POISON_SPOOL" 2>/dev/null; then
+    log "WARNING: cannot create poison spool dir '$GARDEN_POISON_SPOOL'; poison alert for '$base' NOT durably recorded (will not survive this tick)"
+    return 1
+  fi
+  dest="$GARDEN_POISON_SPOOL/$key.md"
+  {
+    printf 'base: %s\n'       "$base"
+    printf 'signature: %s\n'  "$signature"
+    printf 'sender: %s\n'     "$sender"
+    printf 'spooled_at: %s\n' "$(date -u +%FT%TZ)"
+    printf -- '---\n'
+    printf '%s\n' "$body"
+  } > "$dest" 2>/dev/null \
+    || { log "WARNING: could not write poison spool entry '$dest' for '$base'"; return 1; }
+  return 0
+}
+
+# surface_poison <base> <signature> <sender> <body> — deliver ONE poison notice to
+# the maintainer inbox via poison-notice.sh, CAPTURING its stderr so a failure is
+# DIAGNOSABLE. On success, clear any spooled copy of the same notice and return 0.
+# On failure, log the captured cause (the FATAL die line, else the last stderr line)
+# AND spool the notice durably so the next tick re-drains it, then return 1 — the
+# alert is never permanently swallowed.
+surface_poison() {
+  local base="$1" signature="$2" sender="$3" body="$4" key err cause
+  key="$(poison_key "$base" "$signature")"
+  err="$(mktemp "${TMPDIR:-/tmp}/reaper-poison-notice.XXXXXX" 2>/dev/null)" || err=""
+  if printf '%s' "$body" | GARDEN_SENDER="$sender" \
+       "$HERE/poison-notice.sh" "$base" "$signature" >/dev/null 2>"${err:-/dev/null}"; then
+    [ -n "$err" ] && rm -f "$err"
+    rm -f "$GARDEN_POISON_SPOOL/$key.md" 2>/dev/null || true
+    return 0
+  fi
+  cause=""
+  if [ -n "$err" ]; then
+    # Prefer the FATAL die line (the definitive cause); fall back to the last
+    # non-blank line. Strip the leading `<N>` journald syslog-level prefix.
+    cause="$(grep -aE 'FATAL' "$err" 2>/dev/null | tail -1)"
+    [ -n "$cause" ] || cause="$(grep -avE '^[[:space:]]*$' "$err" 2>/dev/null | tail -1)"
+    cause="$(printf '%s' "$cause" | sed 's/^<[0-9]>//')"
+    rm -f "$err"
+  fi
+  [ -n "$cause" ] || cause="(poison-notice.sh failed; no stderr captured)"
+  log "WARNING: could not surface poison job '$base' ($signature) to maintainer inbox: $cause — spooling to '$GARDEN_POISON_SPOOL' for the next tick to re-drain"
+  spool_poison "$base" "$signature" "$sender" "$body" || true
+  return 1
+}
+
+# drain_poison_spool — at the top of every tick, re-attempt every spooled poison
+# notice from a prior tick. A notice that now delivers is cleared from the spool
+# (surface_poison rm's it on success); one that still fails stays for a later tick.
+# Best-effort and independent of the reaper's own journal clone (poison-notice.sh
+# operates on the producer clone), so it never blocks or aborts the requeue path.
+drain_poison_spool() {
+  local f base signature sender body
+  [ -d "$GARDEN_POISON_SPOOL" ] || return 0
+  local entries=()
+  local e; for e in "$GARDEN_POISON_SPOOL"/*.md; do [ -e "$e" ] && entries+=("$e"); done
+  [ "${#entries[@]}" -gt 0 ] || return 0
+  log "draining ${#entries[@]} spooled poison notice(s) from a prior tick"
+  for f in "${entries[@]}"; do
+    [ -f "$f" ] || continue
+    base="$(sed -n 's/^base: *//p' "$f" | head -1)"
+    signature="$(sed -n 's/^signature: *//p' "$f" | head -1)"
+    sender="$(sed -n 's/^sender: *//p' "$f" | head -1)"
+    # Body is everything after the FIRST `---` line (the body may itself contain `---`).
+    body="$(awk 'seen{print} /^---$/{if(!seen){seen=1}}' "$f")"
+    if [ -z "$base" ] || [ -z "$signature" ]; then
+      log "WARNING: malformed poison spool entry '$f' (missing base/signature); leaving in place for inspection"
+      continue
+    fi
+    [ -n "$sender" ] || sender="reaper:$GARDEN"
+    surface_poison "$base" "$signature" "$sender" "$body" || true
+  done
+}
+
 # --- stuck-fetch janitor -----------------------------------------------------
 #
 # A journal fetch should finish in well under a minute; git has no default IO
@@ -374,6 +490,13 @@ sync_clone "$DIR"
 # inert — the stuck-fetch janitor above still runs first).
 gc_scratch
 
+# Re-drain any poison notices a PRIOR tick spooled because the maintainer inbox was
+# unreachable then. Runs UNCONDITIONALLY every tick — before the no-stale-claims
+# early exit below — so a transient inbox outage heals on a later tick instead of
+# permanently dropping the "this job is stuck" signal. Independent of the reaper's
+# clone (poison-notice.sh uses the producer clone), so this never blocks the requeue.
+drain_poison_spool
+
 # --- 1. detect the stale set -------------------------------------------------
 now="$(date -u +%s)"
 declare -a STALE=()
@@ -631,7 +754,7 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
         # maintainer reads "this job exceeds the handler budget", not a generic
         # "poison after N cycles".
         log "POISON (deadline-overrun): '$pbase' hit the handler wall-clock budget ${povr}× (≥ ${GARDEN_REAP_OVERRUN_THRESHOLD}); parked in plan/ (held), surfacing to maintainer"
-        {
+        pbody="$(
           printf 'POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after %s DEADLINE-OVERRUN cycles on %s.\n' \
                  "$povr" "$GARDEN"
           printf 'Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=%ss):\n' \
@@ -644,12 +767,11 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
           printf 'for this work, or fix what makes it run long.\n'
           printf 'Original job base: %s\n\n--- original job body ---\n%s\n' \
                  "$pbase" "${POISON_BODY[$i]}"
-        } | GARDEN_SENDER="reaper:$GARDEN" \
-            "$HERE/poison-notice.sh" "$pbase" "$psig" >/dev/null 2>&1 \
-          || log "WARNING: could not surface deadline-overrun poison job '$pbase' to maintainer inbox"
+        )"
+        surface_poison "$pbase" "$psig" "reaper:$GARDEN" "$pbody" || true
       else
         log "POISON: '$pbase' reaped ${POISON_COUNT[$i]}× (≥ ${GARDEN_REAP_POISON_THRESHOLD}); parked in plan/ (held), surfacing to maintainer"
-        {
+        pbody="$(
           printf 'POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after %s requeue cycles on %s.\n' \
                  "${POISON_COUNT[$i]}" "$GARDEN"
           printf 'Its handler appears to fail every time; the reaper stopped requeueing it.\n'
@@ -657,9 +779,8 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
           printf '(promote-plan.sh %s) or removes it, so nothing is lost.\n' "$pbase"
           printf 'Original job base: %s\n\n--- original job body ---\n%s\n' \
                  "$pbase" "${POISON_BODY[$i]}"
-        } | GARDEN_SENDER="reaper:$GARDEN" \
-            "$HERE/poison-notice.sh" "$pbase" "$psig" >/dev/null 2>&1 \
-          || log "WARNING: could not surface poison job '$pbase' to maintainer inbox"
+        )"
+        surface_poison "$pbase" "$psig" "reaper:$GARDEN" "$pbody" || true
       fi
     done
     break

@@ -17,6 +17,13 @@
 #   3. DIFFERENT  — poisoning the same job for a MATERIALLY DIFFERENT reason
 #                   (deadline-overrun vs requeue-exhausted) posts a NEW message
 #                   (distinct key), not an amend.
+#   4. SPOOL      — when the maintainer inbox is UNREACHABLE (poison-notice.sh
+#                   exhausts its push budget and dies), the reap still lands but the
+#                   alert is DIAGNOSED (a WARNING naming the cause) and SPOOLED to a
+#                   durable dir — NOT silently dropped (the bug this test guards).
+#   5. DRAIN      — once the inbox heals, the NEXT reaper tick re-drains the spool
+#                   (even with no new stale claims): the notice is delivered and the
+#                   spool cleared, so a transient failure recovers on a later tick.
 #
 # Usage: reaper-poison-park-test.sh
 
@@ -175,6 +182,79 @@ grep -q '^poison_signature: deadline-overrun$' "$V/jobs/plan/boom.md" \
 [ "$diff_ok" -eq 1 ] \
   && ok "same job, different reason: a NEW keyed notice posted (2 total), plan updated in place" \
   || bad "different-reason: unread=[$(ls "$V/inbox/maintainer/unread" 2>/dev/null)]"
+
+# ============================================================================
+hr; echo "SUBTEST 4 — SPOOL: an unreachable maintainer inbox is diagnosed + spooled, not dropped"; hr
+# Simulate the maintainer inbox being unreachable while the reap itself still lands:
+# a pre-receive hook on the shared origin REJECTS any push that touches
+# inbox/maintainer/ (poison-notice.sh's destination) but ACCEPTS the reap batch
+# (which touches only jobs/ + the reaped job's own inbox). poison-notice.sh thus
+# exhausts its push budget and dies; the reaper must (a) log a DIAGNOSABLE WARNING
+# naming the cause and (b) SPOOL the notice durably rather than swallowing it — the
+# exact "poison alert permanently dropped" bug this job fixes.
+HOOK="$BARE/hooks/pre-receive"
+cat > "$HOOK" <<'EOF'
+#!/bin/sh
+while read -r old new ref; do
+  if git diff --name-only "$old" "$new" 2>/dev/null | grep -q '^inbox/maintainer/'; then
+    echo "TEST: maintainer inbox push rejected" >&2
+    exit 1
+  fi
+done
+exit 0
+EOF
+chmod +x "$HOOK"
+
+SPOOL_DIR="$TR/state/reaper/poison-spool"
+spool_file="$SPOOL_DIR/poison-stuck-requeue-exhausted.md"
+rm -f "$spool_file"
+place_stale stuck
+# GARDEN_POST_ATTEMPTS=2 (+ a tiny backoff cap) keeps poison-notice.sh's doomed
+# push loop fast; the reap's OWN budget (GARDEN_REAP_PUSH_ATTEMPTS) is untouched.
+env GARDEN_POST_ATTEMPTS=2 GARDEN_BACKOFF_CAP_MS=20 \
+    "$JOBS/reaper.sh" >"$TR/reap-spool.log" 2>&1 || true
+resync
+
+spool_ok=1
+# the reap still landed: stuck is parked in plan/, gone from doin/
+[ -f "$V/jobs/plan/stuck.md" ] || { spool_ok=0; echo "    plan/stuck.md missing (reap did not land)"; }
+[ -f "$V/jobs/doin/stuck.md" ] && { spool_ok=0; echo "    doin/stuck.md still present"; }
+# the maintainer notice did NOT get through (the inbox push was blocked)
+[ -f "$V/inbox/maintainer/unread/poison-stuck-requeue-exhausted.md" ] \
+  && { spool_ok=0; echo "    notice unexpectedly delivered despite the block"; }
+# it was SPOOLED durably instead, carrying everything needed to re-deliver
+[ -f "$spool_file" ] || { spool_ok=0; echo "    spool file $spool_file missing"; }
+if [ -f "$spool_file" ]; then
+  grep -q '^base: stuck$'                  "$spool_file" || { spool_ok=0; echo "    spool entry missing base"; }
+  grep -q '^signature: requeue-exhausted$' "$spool_file" || { spool_ok=0; echo "    spool entry missing signature"; }
+  grep -q 'the original work body for stuck' "$spool_file" || { spool_ok=0; echo "    spool entry body not preserved"; }
+fi
+# the WARNING both NAMES a cause and says it spooled (diagnosable, not the bare old message)
+grep -qi "could not surface poison job 'stuck'" "$TR/reap-spool.log" || { spool_ok=0; echo "    no surface-failure WARNING logged"; }
+grep -qi 'spooling'                             "$TR/reap-spool.log" || { spool_ok=0; echo "    WARNING did not mention spooling"; }
+grep -qiE 'FATAL|could not deliver'             "$TR/reap-spool.log" || { spool_ok=0; echo "    WARNING did not carry a diagnosable cause"; }
+[ "$spool_ok" -eq 1 ] \
+  && ok "unreachable inbox: reap landed, notice DIAGNOSED + SPOOLED (not silently dropped)" \
+  || bad "spool: spooldir=[$(ls "$SPOOL_DIR" 2>/dev/null)] log=[$(tr '\n' '|' <"$TR/reap-spool.log")]"
+
+# ============================================================================
+hr; echo "SUBTEST 5 — DRAIN: the next tick re-drains the spool once the inbox heals"; hr
+# Heal the inbox (remove the block). The NEXT reaper tick must re-drain the spooled
+# notice — even though there are NO new stale claims — delivering it and clearing
+# the spool. This is the "transient failure heals on a later tick" guarantee: the
+# whole point of the durable spool over a permanently-dropped alert.
+rm -f "$HOOK"
+"$JOBS/reaper.sh" >"$TR/reap-drain.log" 2>&1 || true
+resync
+
+drain_ok=1
+[ -f "$spool_file" ] && { drain_ok=0; echo "    spool file still present after drain"; }
+[ -f "$V/inbox/maintainer/unread/poison-stuck-requeue-exhausted.md" ] \
+  || { drain_ok=0; echo "    notice not delivered on drain"; }
+grep -qi 'draining .* spooled poison notice' "$TR/reap-drain.log" || { drain_ok=0; echo "    drain not logged"; }
+[ "$drain_ok" -eq 1 ] \
+  && ok "next tick re-drained the spool: notice delivered, spool cleared (transient failure recovered)" \
+  || bad "drain: spool=[$(ls "$SPOOL_DIR" 2>/dev/null)] unread=[$(ls "$V/inbox/maintainer/unread" 2>/dev/null)] log=[$(tr '\n' '|' <"$TR/reap-drain.log")]"
 
 # ============================================================================
 hr
