@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T20:50:36Z_
+_As of 2026-07-18T20:52:06Z_
 
 ## Latest
 
@@ -693,6 +693,42 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260718T183412Z-a20322` — from orchestrator:xs2rust-endor-build-stage10b-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T183412Z-a20322.md)
 
 > Orchestration xs2rust-endor-build-stage10b HALTED: child xs2rust-endor-stage10b-live-captp-eval failed (serial, on-child-failure=halt). 3/5 done before halt; swept: xs2rust-endor-stage10b-remeasure
+
+- `20260718T205150Z-d826b6` — from gardener:endo-sturdyref-press-20260718-205002, reply_to `endo-sturdyref-press-20260718-205002` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T205150Z-d826b6.md)
+
+> # SturdyRef effort: re-send — all lanes still blocked on the same maintainer gates
+>
+> Re-send of the consolidated nudge from 2026-07-17T20:07Z
+> (`inbox/maintainer/unread/20260717T200708Z-5cde04.md`, still unread ~24.8h
+> later), per the standing 24h re-send norm. Verified live at 2026-07-18T20:53Z:
+> zero movement on every sturdyref PR since your CHANGES_REQUESTED on
+> [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/issues/737) at 2026-07-17T06:19Z (~38.6h ago); all heads and
+> timestamps identical across the last five hourly ticks. The hourly driver
+> continues to hold (no pushes) rather than dilute the single-commit review
+> shapes under your review. Any one answer unblocks a lane:
+>
+> 1. **Shim-placement arbitration** — [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/issues/737) (embedded in
+>    pass-style, single-squashed-commit, CHANGES_REQUESTED 07-17 06:19Z with the
+>    fleet's re-review request posted 05:15Z) vs [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/issues/774)
+>    (standalone `@endo/sturdyref`, no review yet). Both CI-green at unmoved
+>    heads (b56b346534 / 59bd235e2b). The bridge-cut restack
+>    ([endojs/endo-but-for-bots#698](https://github.com/endojs/endo-but-for-bots/issues/698) → [endojs/endo-but-for-bots#700](https://github.com/endojs/endo-but-for-bots/issues/700) →
+>    [endojs/endo-but-for-bots#541](https://github.com/endojs/endo-but-for-bots/issues/541)) waits on this pick.
+> 2. **Decisions re-surfaced in**
+>    [https://github.com/endojs/endo-but-for-bots/pull/737](https://github.com/endojs/endo-but-for-bots/pull/737)#issuecomment-4994276944:
+>    marshal rank-prefix pick (A/`q` vs B/`t` vs C/`w`), and stack-collapse
+>    preference (fold [endojs/endo-but-for-bots#541](https://github.com/endojs/endo-but-for-bots/issues/541) + the bridge cuts into
+>    [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/issues/737), or restack onto its branch).
+> 3. **Design re-reviews** you marked CHANGES_REQUESTED (fleet responses posted
+>    the same hour): [endojs/endo-but-for-bots#695](https://github.com/endojs/endo-but-for-bots/issues/695) (agent provide/accept — gates
+>    the Lal/Fae/Genie "throughout" bar, cuts A–F), [endojs/endo-but-for-bots#697](https://github.com/endojs/endo-but-for-bots/issues/697)
+>    (cross-peer bridge), and [endojs/endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/issues/539) (closely-held
+>    enlivenment, CHANGES_REQUESTED 07-11).
+>
+> Confinement invariants ride [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/issues/774)'s four tests
+> (no-location, no-identification/unlinkability, withheld-from-compartments,
+> first-wins convergence) and [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/issues/737)'s pass-style opacity
+> coverage — last verified green at the current (unmoved) heads.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -1561,7 +1597,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 112.0M | $1128.39 _(notional, rate-card)_ | no quota set |
+| Claude | 111.9M | $1129.00 _(notional, rate-card)_ | no quota set |
 | Codex | 201.9M _(+529.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
