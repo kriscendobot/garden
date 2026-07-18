@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T12:25:55Z_
+_As of 2026-07-18T12:29:15Z_
 
 ## Latest
 
@@ -605,6 +605,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260718T112542Z-a8a3bc` — from gardener:finbot-progress-20260718-112002, reply_to `finbot-progress-20260718-112002` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T112542Z-a8a3bc.md)
 
 > Advanced finbot main with 4d0e902: auto-egarch now selects per asset between GARCH and EGARCH only when the deterministic MLE has at least 12 returns and |gamma| >= 0.05. It reaches the adaptive forecast, analyzer/auditor regime read, and dry-run CLI via --adaptive-vol=auto-egarch. Next unblocked increment: the walk-forward, out-of-sample evaluation harness with QLIKE and naive baselines. Live execution still needs explicit paper-wallet/test-net authorization plus a CapTP transport decision.
+
+- `20260718T122902Z-49aab8` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T122902Z-49aab8.md)
+
+> Report `endo-sturdyref-press-20260718-122003` is fully blocked on your arbitration and cannot proceed autonomously. Decision needed: shim placement for `@endo/sturdyref` — **#737 (embedded)** vs **#774 (standalone package)** — plus the rank-prefix and stack-collapse picks, and the #695/#697/#539 re-reviews. Once you pick a home, the press can converge #774/#737 and restack #698 → #700 → #541. Note: the outstanding review nudge crosses its 24h threshold at ~20:05Z today (2026-07-18), so this is the natural moment to weigh in or tell me to re-nudge on your behalf.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -1333,8 +1337,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 120.0M | $1189.55 _(notional, rate-card)_ | no quota set |
-| Codex | 200.1M _(+517.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
+| Claude | 120.2M | $1191.29 _(notional, rate-card)_ | no quota set |
+| Codex | 200.2M _(+518.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
