@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T08:26:43Z_
+_As of 2026-07-18T08:33:24Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1h)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2h)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 9h)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 15h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 15h)
@@ -1272,21 +1272,68 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
+- `poison-xs2rust-endor-stage9-test-rust-finish-line-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-xs2rust-endor-stage9-test-rust-finish-line-deadline-overrun.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
+> Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=2400s):
+> this job EXCEEDS THE HANDLER BUDGET and would be killed identically on every requeue,
+> so the reaper surfaced it after 1 overrun cycles (not the full 5-cycle poison threshold).
+> The work is preserved at jobs/plan/xs2rust-endor-stage9-test-rust-finish-line; it stays HELD until a human promotes it
+> (promote-plan.sh xs2rust-endor-stage9-test-rust-finish-line) or removes it. Triage: split the job, raise GARDEN_HANDLER_TIMEOUT
+> for this work, or fix what makes it run long.
+> Original job base: xs2rust-endor-stage9-test-rust-finish-line
+>
+> --- original job body ---
+> ---
+> model: opus
+> ---
+> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-18T07:46:04Z -->
+>
+> ---
+> model: opus
+> ---
+> # Stage-9b child 5/5 — the `test:rust` finish-line measurement on the Rust engine
+>
+> **Repo:** `endojs/endo-but-for-bots`, PR **#600**, branch `xs2rust-endor` (base `llm`). **Keep the PR DRAFT; never comment on it.** Report via your tada completion report ONLY — never message the parked supervisor or the maintainer. **This job is MEASUREMENT-ONLY: no engine fixes, no test edits, no corpus edits.** (A trivial harness-only unblocking change — e.g. an env knob the seam already defines — is allowed if it is provably not an engine-behavior change; push it separately and flag it.)
+>
+> **Worktree:** `/home/kris/garden2/scripts/jobs/ensure-project-worktree.sh <your-job-base> endojs/endo-but-for-bots xs2rust-endor`, then sync to the REAL remote tip (`git fetch origin xs2rust-endor`, checkout FETCH_HEAD). Record the tip sha — the whole measurement is AT that tip (a whole-tree claim requires the whole tree at the claimed tip).
+>
+> **Environment (binding):** `cargo` at `$HOME/.cargo/bin`. Build the ROOT workspace (the `endor` daemon bin) and the engine workspace `rust/engine` fresh: `cargo clean -p endor-compile -p endor-vm -p endor-oracle` in the engine workspace before any engine build (stale seeded `target/` false-passes AND false-fails). `c/moddable`: `rmdir` empty dir, `cp -al` from a sibling, `git -C c/moddable checkout --detach 23b4d6b0a65f35209d9118c4c13c6c9b3e68784d`, verify clean. **Never `git add c/moddable`.** Capture ALL output to files; verify by exit codes.
+>
+> ## The work
+>
+> From a **short real path**, run the **FULL `test:rust` daemon suite serially on the RUST engine** (the spawn selection wired by stage-9b child 3 (endor-vm-daemon-wiring)) at the recorded tip, and compare per-test against the serial C-XS anchor.
+>
+> **Environment-artifact discipline (all three classes, binding):**
+> 1. **AF_UNIX `sun_path`:** run from a REAL short path (e.g. `~/tmp/s9fl`; symlinks do NOT work; `test/channel.test.js` caps the socket path at 90 chars). Recipe (the `~/tmp/s8cxs` pattern): `git clone --shared` from the bare `worktrees/endojs-endo-but-for-bots.git`, `git checkout --detach <tip-sha>`, provision node_modules, run ava as `node ../../node_modules/ava/entrypoints/cli.js`, **serially** (concurrency amplifies to mass `endo.sock not ready` artifacts).
+> 2. **Provisioning-race:** mass-identical `AssertionError null == true` = killed-mid-install artifact; re-provision before believing it.
+> 3. **Stale build cache:** fresh rebuild of the daemon bin and engine crates at the tip before measuring.
+>
+> **The comparison anchor — serial C-XS baseline (endolin-garden log `/home/kris/garden/tmp/s26-cxs-baseline-serial.log`, corroborated on endolin-garden2): 804 passed / 26 failed / 65 skipped** (+110 pending only from `test/endo.test.js`, the detached-daemon harness, un-runnable in the sandbox — expect the same on the Rust run). Expected C-XS failure classes (the expected-divergence ledger; the Rust engine matching these failures is PARITY, not regression): git-backend 8 (`Could not parse git version from ""` — daemon filtered env); error-trace worker-assertions 5; content-store-gc 9 (daemon connection ends mid-GC-test; marshalled error fails client decode in marshal/decodeErrorCommon); endo.test.js 3 (sandbox); shell 1 (`/tmp`-noexec EACCES).
+>
+> **Report (tada):**
+> - The three-number Rust-engine summary (passed/failed/skipped) + ava exit code, with the log file path.
+> - A per-class divergence table: tests failing on Rust but not in the C-XS anchor (grouped by first-line error class, with one verbatim first failure per NEW class), and tests failing in the C-XS anchor but passing on Rust.
+> - Which of the 5 expected classes reproduced identically, and any mass-identical class you excluded as an environment artifact (name the class and the exclusion evidence).
+> - An honest bottom line: is the maintainer's finish line (all `test:rust` passing on the Rust engine, modulo the expected-divergence ledger) met, near, or far — with the top blockers named.
+>
+> <!-- garden-deadline-overrun: 1 -->
+
 
 ## Spend & quota
 _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 123.4M | $1230.53 _(notional, rate-card)_ | no quota set |
+| Claude | 123.4M | $1230.27 _(notional, rate-card)_ | no quota set |
 | Codex | 200.0M _(+514.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-stage9-test-rust-finish-line`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9-test-rust-finish-line.md) — Stage-9b child 5/5 — the test:rust finish-line measurement on the Rust engine
+### doin (0)
+(none)
 
 ### tada (2716)
 - [`endojs-endo-but-for-bots-pr792-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr792-shepherd.md) — Fixed PR #792 CI failures and pushed 020fb0b7841, 6e9937cd66d.
@@ -1328,6 +1375,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 - [`weave-endo-but-for-bots-pr626-stack-surgery-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/weave-endo-but-for-bots-pr626-stack-surgery-eval.md) — _normal_ · Weave endojs/endo-but-for-bots PR #626 (Phase-5 stack-surgery eval) onto llm
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
+- [`xs2rust-endor-stage9-test-rust-finish-line`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage9-test-rust-finish-line.md) — _normal_ · Stage-9b child 5/5 — the test:rust finish-line measurement on the Rust engine
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`endojs-endo-but-for-bots-pr600-review-021252ca-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr600-review-021252ca-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #600 (primary: endojs-endo-but-f...
