@@ -678,3 +678,12 @@ Inspect via `git -C journal cat-file -p 088b4481cc137de725a19712eb3948c7a7daefbc
 - Context: gardener-6 on endolin-garden-ece02cb4: job 'port-xs-to-rust-memory-safe-engine-s25' exit-0-unsatisfying but elapsed near-constant (244,244s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p a1055ad502f89b0dd0e9aa7c540f606ce32508b0`.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-07-18T12:54:17Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: ffeabd6e2864ed891bf71b4948f5e3f84de7fb96
+- Context: gardener-1 on endolin-garden-ece02cb4: job 'endo-vfs-parity-press-20260718-122003' exit-0-unsatisfying but elapsed near-constant (52,52s) over 2 cycles — likely a wedged child, not a working one
+
+Inspect via `git -C journal cat-file -p ffeabd6e2864ed891bf71b4948f5e3f84de7fb96`.
