@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T07:30:17Z_
+_As of 2026-07-18T07:31:21Z_
 
 ## Latest
 
@@ -1275,14 +1275,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 123.9M | $1229.14 _(notional, rate-card)_ | no quota set |
-| Codex | 199.8M _(+489.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
+| Codex | 199.9M _(+491.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr792-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr792-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #792
+- [`xs2rust-endor-stage9-debugger`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9-debugger.md) — Stage-9b child 4/5 — the Debugger row (design row 7, requirement 1b)
 
 ### tada (2712)
 - [`xs2rust-endor-stage9-endor-vm-daemon-wiring`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9-endor-vm-daemon-wiring.md) — Job: xs2rust-endor-stage9b child 3/5 — endor-vm path-dep + daemon spawn wirin...
