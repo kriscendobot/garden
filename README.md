@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T16:42:31Z_
+_As of 2026-07-18T16:43:32Z_
 
 ## Latest
 
@@ -1440,7 +1440,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 117.3M | $1174.43 _(notional, rate-card)_ | no quota set |
+| Claude | 117.2M | $1173.70 _(notional, rate-card)_ | no quota set |
 | Codex | 201.8M _(+527.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
@@ -1448,15 +1448,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 (none)
 
 ### doin (1)
-- [`port-xs-to-rust-memory-safe-engine-s32`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s32.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
+- [`xs2rust-endor-stage10b-cross-turn-functions`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10b-cross-turn-functions.md) — Stage-10b child 1/5 — cross-turn function invocation (the persistent realm's ...
 
-### tada (2767)
+### tada (2768)
+- [`port-xs-to-rust-memory-safe-engine-s32`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s32.md) — Completion report — port-xs-to-rust-memory-safe-engine-s32
 - [`esheets-supervisor-20260718-163503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260718-163503.md) — Completion report — esheets-supervisor-20260718-163503
 - [`endo-sturdyref-press-20260718-163503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-163503.md) — SturdyRef press tick 16:35Z, 2026-07-18 — observation-only; no movement, hold...
 - [`xs2rust-endor-press-20260718-163503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-163503.md) — Press report — xs2rust-endor-press-20260718-163503 (DEFER, clean)
 - [`xs2rust-endor-build-stage10`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10.md) — orchestration xs2rust-endor-build-stage10 — HALTED
-- [`endo-npm-cas-registry-press-20260718-155003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260718-155003.md) — Completion report — npm-via-CAS registry-proxy press (2026-07-18 tick)
-- … and 2762 more
+- … and 2763 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
