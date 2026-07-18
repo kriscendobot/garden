@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T05:28:41Z_
+_As of 2026-07-18T05:31:30Z_
 
 ## Latest
 
@@ -1227,8 +1227,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-stage9-boot-surface-close`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9-boot-surface-close.md) — Stage-9 child 2/6 — boot-surface close: receiver-aware resolve_at_key + tagge...
 
 ### tada (2683)
 - [`xs2rust-endor-stage9-toprimitive-add`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9-toprimitive-add.md) — Completion report — Stage-9 child 1/6: ToPrimitive-in-op_add native→JS trampo...
