@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T13:14:26Z_
+_As of 2026-07-18T13:34:04Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 6h)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 7h)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 14h)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 12h)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 20h)
@@ -1337,24 +1337,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 120.0M | $1194.23 _(notional, rate-card)_ | no quota set |
-| Codex | 201.6M _(+521.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 119.6M | $1189.35 _(notional, rate-card)_ | no quota set |
+| Codex | 201.6M _(+525.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`merge-endo-but-for-bots-pr792-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/merge-endo-but-for-bots-pr792-http-web-seed.md) — Merge endojs/endo-but-for-bots PR #792 (HTTP web-seed content plane, Phase 4)
+### doin (1)
 - [`xs2rust-endor-stage10-function-prototype`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10-function-prototype.md) — Stage-10 child 1/7 — function .prototype reads (+ own-property surface on fun...
 
-### tada (2745)
+### tada (2746)
+- [`merge-endo-but-for-bots-pr792-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/merge-endo-but-for-bots-pr792-http-web-seed.md) — PR #792 was not merged: it is undrafted and mergeable, but CI run 29645592685...
 - [`endo-vfs-parity-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260718-122003.md) — **Press tick complete — VFS tool-call-surface parity arc (endojs/endo-but-for...
 - [`gauntlet-endo-but-for-bots-pr792-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr792-http-web-seed.md) — Gauntlet Report — PR #792 feat(daemon): serve content through HTTP web seeds
 - [`port-xs-to-rust-memory-safe-engine-s31`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s31.md) — Completion report — supervisor s31: STAGE 9 ACCEPTED, stage 10 dispatched
 - [`xs2rust-endor-build-stage9c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage9c.md) — orchestration xs2rust-endor-build-stage9c — complete
-- [`xs2rust-endor-stage9c-finish-line-measure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-finish-line-measure.md) — Completion report — stage-9c child 9/9: test:rust finish-line measurement
-- … and 2740 more
+- … and 2741 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
