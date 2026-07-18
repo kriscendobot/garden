@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T12:16:29Z_
+_As of 2026-07-18T12:21:15Z_
 
 ## Latest
 
@@ -1333,14 +1333,21 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 120.0M | $1189.58 _(notional, rate-card)_ | no quota set |
+| Claude | 120.1M | $1190.90 _(notional, rate-card)_ | no quota set |
 | Codex | 200.1M _(+516.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (8)
+- [`endo-byte-array-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260718-122003.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+- [`endo-daemon-data-plane-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-daemon-data-plane-press-20260718-122003.md) — Press the Endo daemon data plane forward (endojs/endo-but-for-bots, base llm)
+- [`endo-git-integration-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260718-122003.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+- [`endo-sturdyref-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260718-122003.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+- [`endo-vfs-parity-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260718-122003.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+- [`ocapn-noise-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260718-122003.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+- [`xs2rust-endor-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260718-122003.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-stage9c-finish-line-measure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9c-finish-line-measure.md) — Stage-9c child 9/9 — the test:rust finish-line measurement on the Rust engine...
 
 ### tada (2732)
