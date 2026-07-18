@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T19:42:52Z_
+_As of 2026-07-18T19:52:44Z_
 
 ## Latest
 
@@ -16,7 +16,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 20h)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 1d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
-- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 18h)
+- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 19h)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 1d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 1d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 4d)
@@ -1561,23 +1561,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 113.1M | $1138.49 _(notional, rate-card)_ | no quota set |
+| Claude | 112.8M | $1135.77 _(notional, rate-card)_ | no quota set |
 | Codex | 201.9M _(+529.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-stage10c-ses-boot-r6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10c-ses-boot-r6.md) — Stage-10c child 3/5 — SES worker-bundle boot, gap round 6 (target: lockdown()...
+### doin (0)
+(none)
 
-### tada (2796)
+### tada (2797)
+- [`xs2rust-endor-stage10c-ses-boot-r6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10c-ses-boot-r6.md) — Completion report — stage-10c child 3/5: SES worker-bundle boot, gap round 6
 - [`endojs-endo-but-for-bots-pr794-noise-ik-relay-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr794-noise-ik-relay-design.md) — Amended PR #794 with noise-protocol-ik-relay design direction and pushed 3880...
 - [`endojs-endo-but-for-bots-pr406-0cc0c326`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr406-0cc0c326.md) — Routed maintainer’s refinement to amend existing design PR #794 with a standa...
 - [`xs2rust-endor-stage10c-ses-boot-r5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10c-ses-boot-r5.md) — Completion report — stage-10c child 2/5: SES worker-bundle boot, gap round 5
 - [`merge-endo-but-for-bots-pr792-http-web-seed-restored`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/merge-endo-but-for-bots-pr792-http-web-seed-restored.md) — Completion report
-- [`minion-town-022b92e-deploy-verify-ocapn-cbor-np-caddy`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-022b92e-deploy-verify-ocapn-cbor-np-caddy.md) — Completion report
-- … and 2791 more
+- … and 2792 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
