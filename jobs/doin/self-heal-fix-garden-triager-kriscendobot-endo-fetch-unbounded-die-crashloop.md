@@ -1,1 +1,8 @@
 In `scripts/jobs/triager.sh:117`, the steady-state fetch `git --git-dir="$BARE" fetch -q --all --prune || die "fetch failed for $slug"` is unbounded and hard-dies (exit 1) on ANY failure, including a transient SIGTERM/timeout. Observed live: `garden-triager@kriscendobot-endo` failed with the two-line signature `Terminated` / `FATAL: fetch failed for kriscendobot-endo` — `git fetch` was SIGTERM-killed (a hung/half-open fetch of the large endo clone), which crash-loops the unit on exit 1 instead of skipping. Bring this fetch in line with the rest of the fleet: wrap it in the same `timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT"` bound that `bounded_clone`/`journal_fetch` use in `common.sh`, and treat a timeout/transient failure (rc 124/137, plus a stderr match against the canonical transient-connectivity signature set already defined in `common.sh`) as a clean `log WARN` + `exit 0` skip-and-retry-next-tick, exactly as the self-provision-failure branch (triager.sh:94–105) already does — reserving a hard `die` for a genuine, non-transient repo error. Ideally reuse/extract the existing bounded-fetch helper rather than open-coding a new timeout wrapper, so the triager inherits the retry/backoff and offline-classification logic instead of duplicating it. Add/extend a test mirroring the existing triager guard cases: an injected fetch that returns 124 (or emits a transient signature) must skip cleanly (exit 0), while a non-transient fetch error still dies.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 12
+  worker_kind: gardener
+  claimed_at: 2026-07-18T14:45:02Z

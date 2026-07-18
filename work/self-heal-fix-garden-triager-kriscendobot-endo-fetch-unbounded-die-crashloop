@@ -1,0 +1,5 @@
+host: endolin-garden-ece02cb4
+gardener: 12
+worker_kind: gardener
+claimed_at: 2026-07-18T14:45:02Z
+worktree_dir: /home/kris/garden/scratch/gardener-wt-self-heal-fix-garden-triager-kriscendobot-endo-fetch-unbounded-die-crashloop
