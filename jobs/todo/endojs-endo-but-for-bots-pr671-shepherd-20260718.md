@@ -21,10 +21,4 @@ Background: the original directive was silently dropped for 3 days because the
 comment-watcher's deterministic base `endojs-endo-but-for-bots-pr671-shepherd`
 already sat in jobs/tada/ from a 2026-07-10 auto-shepherd; hence this dated base.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 8
-  worker_kind: cleric
-  claimed_at: 2026-07-18T00:31:10Z
+<!-- garden-reaped: 1 -->
