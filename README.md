@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T07:44:48Z_
+_As of 2026-07-18T07:46:32Z_
 
 ## Latest
 
@@ -1274,15 +1274,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 123.7M | $1228.07 _(notional, rate-card)_ | no quota set |
-| Codex | 199.9M _(+498.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Claude | 123.7M | $1228.21 _(notional, rate-card)_ | no quota set |
+| Codex | 199.9M _(+499.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr792-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr792-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #792
+- [`xs2rust-endor-stage9-test-rust-finish-line`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9-test-rust-finish-line.md) — Stage-9b child 5/5 — the test:rust finish-line measurement on the Rust engine
 
 ### tada (2713)
 - [`xs2rust-endor-stage9-debugger`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9-debugger.md) — What I did
