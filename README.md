@@ -1,20 +1,20 @@
 # Garden bulletin
 
-_As of 2026-07-18T03:51:50Z_
+_As of 2026-07-18T03:59:29Z_
 
 ## Latest
 
-Upstream `endojs/endo` master was merged into the `llm` roadmap branch via [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) (conducted as a true merge), pulling in the immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, and skipLibCheck — while deliberately stopping short of upstream's ESLint 10 flat-config overhaul, which is flagged as a separate multi-cycle migration job. On minion.town, the OCapN press caught and fixed a continuous-deploy regression that had clobbered the hand-installed `/ocapn` Caddy routes (they were 302-redirecting Noise dialers into OAuth); the routes are now durable in the repo ([kriscendobot/minion.town#9](https://github.com/kriscendobot/minion.town/pull/9), merged) and a cross-host Noise round-trip through wss://minion.town/ocapn is re-proven. finbot landed an EGARCH volatility surface.
+The board went quiet — the only transition was completion of the xs2rust‑endor stage‑8 boot‑surface remainder child, leaving todo/doin empty. Under that calm, the standing presses converged on a wall of maintainer decisions. The upstream‑master→`llm` integration landed: [#773](https://github.com/endojs/endo-but-for-bots/pull/773) was conducted onto `llm` (bringing the immutable‑arraybuffer pseudo‑prototype drop, SES `code` error prop, and skipLibCheck), deliberately stopping just short of upstream's ESLint‑10 flat‑config migration, which is flagged as a separate multi‑cycle job. On minion.town, a continuous‑deploy regression that had clobbered the `/ocapn` Caddy routes was fixed durably via [minion.town#9](https://github.com/kriscendobot/minion.town/pull/9), restoring the cross‑host Noise round‑trip.
 
-Several lanes are stalled on maintainer decisions worth noticing: the SturdyRef effort is fully blocked pending a "home" pick between embedded [#737](https://github.com/endojs/endo-but-for-bots/pull/737) and standalone [#774](https://github.com/endojs/endo-but-for-bots/pull/774); the esheets/OAuth tree waits on a re-review of [#621](https://github.com/endojs/endo-but-for-bots/pull/621); git-integration Phase 1 [#705](https://github.com/endojs/endo-but-for-bots/pull/705) is one merge directive from green; the content-store merge for [#585](https://github.com/endojs/endo-but-for-bots/pull/585) sits parked after a transient deadline-overrun and needs promotion; and minion.town's entire primary phase is pinned on a ~5-minute human browser action (Gate 1). Separately, a wave of handler-budget overruns poisoned a batch of shepherd, merge, and press jobs — several now parked in the plan queue awaiting split or promotion.
+Most forward lanes are now gated on kriskowal alone: the SturdyRef effort needs a home arbitration between embedded [#737](https://github.com/endojs/endo-but-for-bots/pull/737) and standalone [#774](https://github.com/endojs/endo-but-for-bots/pull/774) (plus a marshal rank‑prefix pick); M3 needs a package‑home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403); the git‑integration loop needs only a `merge` on [#705](https://github.com/endojs/endo-but-for-bots/pull/705); the esheets tree is fully dammed behind re‑review of OAuth design [#621](https://github.com/endojs/endo-but-for-bots/pull/621); and M2 awaits merge/ferry of [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719). The content‑store conductor [#585](https://github.com/endojs/endo-but-for-bots/pull/585) is parked after a transient deadline‑overrun poisoning and wants a one‑line promote. Two operational things to notice: the xs2rust‑endor stage‑8 orchestration has now halted three times on its C‑XS baseline child (external SIGKILLs plus a 126‑byte AF_UNIX socket‑path trap), and a raft of long‑running press/shepherd/merge jobs are landing in the poison queue on the 2400s handler budget — several need splitting or a raised timeout rather than a requeue. Finally, minion.town's entire primary phase remains blocked on a ~5‑minute human Gate‑1 browser login ([garden#58](https://github.com/kriskowal/garden/issues/58)), now nine hourly cycles deep.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 4h)
+- [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 5h)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 3h)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 10h)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 11h)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 15h)
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 10h)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 11h)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 1d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 4d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 5d)
@@ -1193,23 +1193,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 125.0M | $1220.84 _(notional, rate-card)_ | no quota set |
+| Claude | 124.8M | $1219.46 _(notional, rate-card)_ | no quota set |
 | Codex | 198.8M _(+458.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-stage8-boot-surface-remainder-r2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage8-boot-surface-remainder-r2.md) — Stage-8d child 1/2 — engine: boot-surface remainder r2 (method shorthand, Str...
+### doin (0)
+(none)
 
-### tada (2672)
+### tada (2673)
+- [`xs2rust-endor-stage8-boot-surface-remainder-r2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage8-boot-surface-remainder-r2.md) — Completion report — stage-8d child 1/2: engine boot-surface remainder r2
 - [`endo-npm-cas-registry-press-20260718-033501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260718-033501.md) — Press tick complete for the npm-via-CAS registry-proxy arc.
 - [`port-xs-to-rust-memory-safe-engine-s26`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s26.md) — Completion report — supervisor s26: stage-8c halt recovery (round three) + st...
 - [`port-xs-to-rust-memory-safe-engine-s25`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s25.md) — Completion report — port-xs-to-rust-memory-safe-engine-s25
 - [`endojs-endo-but-for-bots-pr259-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr259-shepherd.md) — Completion report
-- [`endojs-endo-but-for-bots-pr259-review-8288f2bf`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr259-review-8288f2bf.md) — Reviewed and addressed the sole inline comment at cauterize-property.js:62.
-- … and 2667 more
+- … and 2668 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
