@@ -43,3 +43,10 @@ Child 1 (`xs2rust-endor-stage10d-real-boot`) targeted: REAL `polyfills.js` + REA
 
 - **Push-per-item**; **STOP-and-checkpoint** if ~1800s in with nothing pushed (land an honest WIP that keeps all bars green, push, tada with exact resume point).
 - Report via tada ONLY — never inbox-send the parked supervisor. Keep the PR DRAFT; no PR comments.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: gardener
+  claimed_at: 2026-07-18T22:04:17Z
