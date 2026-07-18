@@ -31,6 +31,8 @@ From a **short real path**, run the **FULL `test:rust` daemon suite serially on 
 - Which of the 5 expected classes reproduced identically, and any mass-identical class you excluded as an environment artifact (name the class and the exclusion evidence).
 - An honest bottom line: is the maintainer's finish line (all `test:rust` passing on the Rust engine, modulo the expected-divergence ledger) met, near, or far — with the top blockers named.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
