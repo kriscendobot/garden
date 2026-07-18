@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T19:03:55Z_
+_As of 2026-07-18T19:04:30Z_
 
 ## Latest
 
@@ -1561,7 +1561,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 114.7M | $1150.60 _(notional, rate-card)_ | no quota set |
+| Claude | 114.6M | $1149.85 _(notional, rate-card)_ | no quota set |
 | Codex | 201.8M _(+527.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
@@ -1569,15 +1569,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 (none)
 
 ### doin (1)
-- [`merge-endo-but-for-bots-pr792-http-web-seed-restored`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/merge-endo-but-for-bots-pr792-http-web-seed-restored.md) — Merge endojs/endo-but-for-bots PR #792 (HTTP web-seed content plane) — retry ...
+- [`xs2rust-endor-stage10c-ses-boot-r5`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10c-ses-boot-r5.md) — Stage-10c child 2/5 — SES worker-bundle boot, gap round 5 (error own-property...
 
-### tada (2792)
+### tada (2793)
+- [`merge-endo-but-for-bots-pr792-http-web-seed-restored`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/merge-endo-but-for-bots-pr792-http-web-seed-restored.md) — Completion report
 - [`minion-town-022b92e-deploy-verify-ocapn-cbor-np-caddy`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-022b92e-deploy-verify-ocapn-cbor-np-caddy.md) — Completion report
 - [`xs2rust-endor-stage10c-cross-turn-symbols`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10c-cross-turn-symbols.md) — Completion report — xs2rust-endor-stage10c-cross-turn-symbols (PR #600 stage-...
 - [`minion-town-agenda-review-20260718-185002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260718-185002.md) — Completion report
 - [`xs2rust-endor-press-20260718-185002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-185002.md) — Press check complete — deferred per charter, chain healthy and advancing unde...
-- [`endo-sturdyref-press-20260718-185002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-185002.md) — No movement this tick — everything remains gated on the same maintainer decis...
-- … and 2787 more
+- … and 2788 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
