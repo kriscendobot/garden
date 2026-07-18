@@ -20,16 +20,19 @@ and `fs-interface-consolidation.md`.
 **Each dispatch (every 6h; be idempotent):** Assess, don't assume — read those two
 reconciliation designs plus `daemon-mount.md`, `agent-tools-mount-fs-tools.md`,
 `namehub-interface-unification.md`, and `endopi-edit-tool.md`, and the live PRs.
-State as of 2026-07-17: **#714 MERGED** (listTree/rangeRead consolidation, merged
-2026-07-16 as `25978ee499`) and **#643** merged earlier (mount+git contract
-consolidation); **#658** closed (mount-path verbs superseded). Open and GREEN,
-awaiting maintainer review/merge: **#656** (provideSubMount; rebased onto llm
-`4f09410a2e` on 2026-07-17, mergeable, evidence on the PR), **#713** (glorp
-glob+grep), **#655** (mount grep), **#657** (mount JSON). Re-verify each PR's
-mergeable/CI state (a merge of one may dirty the others — re-weave whichever
-conflicts); once the open set is landed or blocked on review only, the next
-parity gap is the remaining finish-line surface (edit-with-hashline parity per
-`endopi-edit-tool.md`, and glob+grep parity beyond the mount — genie/lal/fae).
+State as of 2026-07-18: **#714** and **#643** MERGED; **#658** closed
+(superseded). Open, GREEN, review-blocked only: **#656** (provideSubMount),
+**#713** (mount glob+grep+glorp, self-contained against llm), **#655** (old
+non-delegated mount grep — maintainer asked about closing as superseded by
+#713, no reply yet; msg 20260717T124846Z-815188), **#657** (mount JSON).
+Next-gap PRs opened by this press: **#788** (genie: shared edit algorithm +
+glob/grep over the platform engine; green) and **#790** (fae: glob/grep over
+node-fs powers; opened 2026-07-18, verify CI landed green). Re-verify each
+PR's mergeable/CI state (a merge of one may dirty the others — re-weave
+whichever conflicts). Remaining finish-line surface after those: lal
+glob/grep (blocked on #713/#655 — its fs tools ride the tree capability, so
+they need the mount-side verbs), and the hashline patch format
+(`cli-edit-verb.md`) which no agent surface exposes yet.
 Do not open new surface while an open PR needs a weave or a CI fix. Be
 idempotent, defer to live workers on shared branches, and cite real execution
 evidence for any "works everywhere" claim.
