@@ -103,8 +103,23 @@ run_if "$DETECT_CATCH_ALL_SWALLOW" check "$wt" "$base" -- "$GARDEN_CATCH_ALL_SWA
 : "${GARDEN_EVAL:=$HERE/local-verify.sh}"
 "$GARDEN_EVAL" "$wt" || fail "local verification (inspect the emitted blob SHAs)"
 
-# --- push for CI (deterministic; mechanics elided in the scaffold) ----------
-# git -C "$wt" push --force-with-lease ...   # supervisor/boatman owns identity
+# --- push for CI: history-preserving, NEVER rewinding a peer's newer commits -
+# The gauntlet's follow-up pushes only ever ADD commits on top of the live head,
+# so they go through the advance-mode safe push: fetch the live head fresh, REFUSE
+# if our outgoing HEAD is an ancestor of (behind) or diverged from it, and push
+# with --force-with-lease keyed to the just-fetched sha. This closes the
+# branch-rewind hazard (endojs/endo-but-for-bots #792): a gauntlet supervised from
+# a worktree that predated a shepherd's CI fixes must NOT clobber them with a plain
+# forced update. On a REFUSED push (rc 3) the caller must rebase onto the live head
+# and re-run — a rewind is never the answer. GARDEN_PR_REMOTE/GARDEN_PR_HEAD name
+# the fork remote and the PR head branch; when unset (the scaffold, and tests that
+# exercise the decision flow without a real remote) the push is skipped, since the
+# remote/identity wiring is the supervisor's/boatman's to provide.
+: "${GARDEN_SAFE_PUSH:=$HERE/safe-push-pr-head.sh}"
+if [ -n "${GARDEN_PR_REMOTE:-}" ] && [ -n "${GARDEN_PR_HEAD:-}" ]; then
+  "$GARDEN_SAFE_PUSH" --mode advance "$wt" "$GARDEN_PR_REMOTE" "$GARDEN_PR_HEAD" \
+    || fail "safe push (outgoing head is behind/diverged from the live PR head — rebase onto it, then re-run)"
+fi
 
 # --- loop decision ----------------------------------------------------------
 # STRICT parse, never substring: `*loop*)` matched "do not loop" / "stop — no

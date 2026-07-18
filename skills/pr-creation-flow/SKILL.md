@@ -271,6 +271,21 @@ un-draft.
 - **The cleaner pushing onto a CONFLICTING head.** The cleaner stage verifies
   `mergeable_state` first; if `CONFLICTING`, it surfaces a weave/rebase need and
   stops.
+- **A follow-up push REWINDING a peer's newer commits.** The gauntlet may claim a
+  PR long after a shepherd or fixer pushed CI fixes; if it works from a worktree
+  that predates those commits, a plain `git push --force` rewinds the head to an
+  ancestor and silently discards them (endojs/endo-but-for-bots #792, 2026-07-18:
+  green head rewound to a strict ancestor, CI went red, the arc stalled until a
+  manual restore). **Never `--force` a PR head.** Every head push — the state
+  machine's CI push and any fixer/cleaner/assayer follow-up wired via
+  `GARDEN_PANEL_FIXER` — goes through
+  [`scripts/jobs/gardening/safe-push-pr-head.sh`](../../scripts/jobs/gardening/safe-push-pr-head.sh),
+  which fetches the live head fresh, **refuses** to push a head that is behind
+  (an ancestor of) or diverged from it (rc 3 — rebase onto the live head and
+  re-run), and otherwise pushes with `--force-with-lease` keyed to the just-fetched
+  sha. `garden-pr.sh` calls it automatically when `GARDEN_PR_REMOTE`/`GARDEN_PR_HEAD`
+  are wired; a rebase/retcon that intends to rewrite history passes `--mode rewrite`
+  (still refused for a strictly-behind head).
 - **A maintainer's `CHANGES_REQUESTED` reactivating draft state.** It does not.
   After maintainer review the loop is fixer → CI-green → re-request the maintainer
   (no re-cleaner, no re-panel by default). The PR stays out of draft.
