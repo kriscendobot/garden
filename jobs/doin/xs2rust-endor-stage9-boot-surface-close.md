@@ -22,6 +22,8 @@ model: opus
 
 **Verification bar (report numbers + exit codes):** fresh clean of the three crates, then: workspace EXIT=0 all `test result:` lines 0 failed; curated compile-diff all-identical + SYMB; boot gate green including your conversions; zero new Rust warnings; `forbid(unsafe_code)` intact at all 7 roots.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
