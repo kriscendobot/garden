@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T00:29:36Z_
+_As of 2026-07-18T00:32:05Z_
 
 ## Latest
 
@@ -11,11 +11,11 @@ Most substantive work is dammed behind maintainer decisions, and several efforts
 ## Parked for maintainer feedback
 
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 1h)
+- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 3m)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 7h)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 12h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 7h)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 1d)
-- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 2d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 4d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 5d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 15d)
@@ -526,6 +526,30 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > durable watcher fix. Byte-array fronts themselves are unchanged:
 > [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) head 1b1dc75ba9 CI 17/17 green awaiting your +
 > erights re-review; [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/issues/503) idle.
+
+- `20260718T003113Z-f2c074` — from gardener:ocapn-noise-press-20260718-002002, reply_to `ocapn-noise-press-20260718-002002` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T003113Z-f2c074.md)
+
+> OCapN press (00:20Z): found and fixed a regression on minion.town. The new
+> continuous-deploy workflow you merged there yesterday (first run 17:21Z) renders
+> deploy/aws/caddy/ onto the box wholesale — it clobbered the hand-installed
+> /ocapn and /ocapn-daemon Caddy routes, so both endpoints were 302-redirecting
+> into the oauth2 sign-in flow (which non-browser Noise dialers cannot complete).
+> The listeners themselves were unharmed.
+>
+> Fix: I landed both routes durably in the repo's Caddyfile —
+> [kriscendobot/minion.town#9](https://github.com/kriscendobot/minion.town/issues/9), merged; the CD run validated and reloaded Caddy.
+> Both endpoints answer 426 again, and I re-proved a real cross-host Noise IK
+> capability round-trip from the garden through wss://minion.town/ocapn (RESULT
+> ok, transcript in the press comment on [endojs/endo-but-for-bots#693](https://github.com/endojs/endo-but-for-bots/issues/693)).
+>
+> Heads-up worth keeping: anything hand-installed on the box that overlaps CD's
+> surface (app, oauth2-proxy, caddy, www) now dies on the next push to main unless
+> it is landed in the repo. The pet-daemon container and its systemd unit are
+> outside CD's surface, so they are safe.
+>
+> Also still pending your call (msg 20260717T001224Z-3483f4, unread): whether to
+> open a non-443 TCP port on minion.town's security group for the cross-host
+> TCP+CBOR demo, or accept local-TCP + cross-host-wss as done.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -1169,15 +1193,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 132.5M | $1296.04 _(notional, rate-card)_ | no quota set |
+| Claude | 132.7M | $1302.57 _(notional, rate-card)_ | no quota set |
 | Codex | 198.3M _(+440.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 66% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (7)
 - [`endo-vfs-parity-press-20260718-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260718-002002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+- [`endojs-endo-but-for-bots-pr671-shepherd-20260718`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr671-shepherd-20260718.md) — Shepherd endojs/endo-but-for-bots PR #671 CI to green (role: shepherd)
 - [`endojs-endo-but-for-bots-pr789-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr789-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #789
 - [`fix-endo-but-for-bots-pr626-stack-surgery-pass-path`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-endo-but-for-bots-pr626-stack-surgery-pass-path.md) — Complete the stack-surgery eval pass-path on endojs/endo-but-for-bots PR #626...
 - [`improve-reaper-poison-notice-alert-not-silently-dropped`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-reaper-poison-notice-alert-not-silently-dropped.md) — scripts/jobs/reaper.sh
@@ -1252,7 +1277,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-regexp-conservative-subset.md) — awaiting `endojs/endo-but-for-bots#676` · Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
-- [`endojs-endo-but-for-bots-pr671-shepherd-20260718`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr671-shepherd-20260718.md) — awaiting `endojs-endo-but-for-bots-pr671-weave-20260718` · Shepherd endojs/endo-but-for-bots PR #671 CI to green (role: shepherd)
 - [`registry-immutable-byte-array-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/registry-immutable-byte-array-followup.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/671` · Immutable byte-array RegistryInterface follow-up
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
