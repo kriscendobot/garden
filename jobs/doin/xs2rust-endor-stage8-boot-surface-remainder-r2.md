@@ -59,3 +59,10 @@ ledgered honestly the day it lands + swept by `lockdown_roots()` if it holds hea
 **Practical:** `$HOME` = `/home/kris/garden`; `cargo` at `$HOME/.cargo/bin`; logs under
 `$HOME/tmp`; exit-code discipline (never pipe `cargo test` to `tail`); honest-partial
 discipline — report exactly which items landed and which remain named skips.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 9
+  worker_kind: gardener
+  claimed_at: 2026-07-18T03:40:07Z
