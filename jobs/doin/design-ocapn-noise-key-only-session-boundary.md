@@ -59,3 +59,10 @@ pipeline) that works out the two boundaries. Anchor points in the current tree
 This is a DESIGN job (produce a reviewable design PR/doc for the maintainer to
 steer), not a build. Do not implement the refactor. Follow the garden's designer
 role brief (roles/designer/AGENT.md) and design→PR pipeline.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  worker_kind: cleric
+  claimed_at: 2026-07-18T06:59:50Z
