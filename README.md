@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T17:27:21Z_
+_As of 2026-07-18T17:30:27Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 10h)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 11h)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 16h)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 18h)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 1d)
@@ -1454,23 +1454,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.3M | $1165.16 _(notional, rate-card)_ | no quota set |
+| Claude | 116.2M | $1164.31 _(notional, rate-card)_ | no quota set |
 | Codex | 201.8M _(+527.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-stage10b-ses-boot-r3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10b-ses-boot-r3.md) — Stage-10b child 2/5 — SES worker-bundle boot, gap round 3 (composed boot: bun...
+### doin (0)
+(none)
 
-### tada (2774)
+### tada (2775)
+- [`xs2rust-endor-stage10b-ses-boot-r3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10b-ses-boot-r3.md) — Completion report — stage-10b child 2/5: SES worker-bundle boot, composed-boo...
 - [`self-heal-fix-garden-triager-kriscendobot-cosgov-unbounded-fetch-timeout`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-cosgov-unbounded-fetch-timeout.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-fetch-blip-hard-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-fetch-blip-hard-die.md) — Completion report
 - [`xs2rust-endor-stage10b-cross-turn-functions`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10b-cross-turn-functions.md) — Completion report — xs2rust-endor-stage10b-cross-turn-functions (PR #600 stag...
 - [`library-index-sources-readme-3-missing-20260718`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/library-index-sources-readme-3-missing-20260718.md) — Completion report
-- [`library-index-keywords-2-concepts-20260718`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/library-index-keywords-2-concepts-20260718.md) — Completion report
-- … and 2769 more
+- … and 2770 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
