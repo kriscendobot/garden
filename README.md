@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T17:00:21Z_
+_As of 2026-07-18T17:01:46Z_
 
 ## Latest
 
@@ -16,7 +16,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 16h)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 18h)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 1d)
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 23h)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 1d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 1d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 4d)
@@ -1447,16 +1447,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-stage10b-cross-turn-functions`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10b-cross-turn-functions.md) — Stage-10b child 1/5 — cross-turn function invocation (the persistent realm's ...
+### doin (0)
+(none)
 
-### tada (2771)
+### tada (2772)
+- [`xs2rust-endor-stage10b-cross-turn-functions`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10b-cross-turn-functions.md) — Completion report — xs2rust-endor-stage10b-cross-turn-functions (PR #600 stag...
 - [`library-index-sources-readme-3-missing-20260718`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/library-index-sources-readme-3-missing-20260718.md) — Completion report
 - [`library-index-keywords-2-concepts-20260718`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/library-index-keywords-2-concepts-20260718.md) — Completion report
 - [`librarian-library-audit-20260718-165009`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/librarian-library-audit-20260718-165009.md) — Librarian library-audit completion report
 - [`port-xs-to-rust-memory-safe-engine-s32`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s32.md) — Completion report — port-xs-to-rust-memory-safe-engine-s32
-- [`esheets-supervisor-20260718-163503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260718-163503.md) — Completion report — esheets-supervisor-20260718-163503
-- … and 2766 more
+- … and 2767 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
