@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-18T04:44:28Z_
+_As of 2026-07-18T04:46:22Z_
 
 ## Latest
 
-The board drained to fully idle (0 todo, 0 doin) with the sole transition this cycle being completion of `xs2rust-endor-s27-module-corpora-fix`, closing out the stage-8 XS→Rust module-corpora work on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600); however, that lane's C-XS baseline children keep dying to external SIGKILLs and handler-budget overruns, and its stage-8b/8c orchestrations have halted.
+Upstream `endojs/endo` master landed on the `llm` roadmap branch via [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) — a true merge stopping deliberately just short of upstream's ESLint 10 flat-config overhaul (flagged as a separate multi-cycle job, not forced into this cycle) — so `llm` now carries the immutable-arraybuffer pseudo-prototype drop, the SES `code` error prop, and skipLibCheck. An OCapN press caught and repaired a minion.town regression: the newly-merged continuous-deploy workflow rendered `deploy/aws/caddy/` wholesale and clobbered the hand-installed `/ocapn` routes, bouncing Noise dialers into the OAuth sign-in; both routes are now durable in the repo ([minion.town#9](https://github.com/kriscendobot/minion.town/pull/9), merged) and a cross-host Noise round-trip was re-proved through [endo-but-for-bots#693](https://github.com/endojs/endo-but-for-bots/pull/693). finbot advanced its volatility stack all the way to a full EGARCH surface.
 
-The bigger signal is a wave of **deadline-overrun poisonings** now parked in `plan/` awaiting your promotion — including the [#585](https://github.com/endojs/endo-but-for-bots/pull/585) content-store conductor merge (panel-passed, CI green, only a transient overrun), the completed upstream-master→`llm` merge job (which already landed [#773](https://github.com/endojs/endo-but-for-bots/pull/773), bringing immutable-arraybuffer/SES `code`-prop/skipLibCheck onto `llm` while deliberately stopping short of upstream's ESLint 10 flat-config migration), plus auto-shepherds for [#124](https://github.com/endojs/endo-but-for-bots/pull/124)/[#704](https://github.com/endojs/endo-but-for-bots/pull/704)/[#763](https://github.com/endojs/endo-but-for-bots/pull/763) and the OCapN/VFS press-drivers. Several of these exceed the 2400s handler budget structurally and need splitting, not just re-promotion.
-
-Standing maintainer gates remain the true bottleneck: the sturdyref effort is fully stalled on arbitrating [#737](https://github.com/endojs/endo-but-for-bots/pull/737) (embedded-in-pass-style) vs [#774](https://github.com/endojs/endo-but-for-bots/pull/774) (standalone `@endo/sturdyref`) for the shim's home; the esheets tree is dammed behind re-reviewing [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (OAuth, green but stale CHANGES_REQUESTED); M3 module-loading waits on your ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) for the MVS resolver's home; the git-integration loop needs a `merge` directive on [#705](https://github.com/endojs/endo-but-for-bots/pull/705); and minion.town's primary phase is on its 9th hourly cycle blocked on a ~5-minute browser-only Gate 1 (MCP connector login) that the fleet cannot perform. Finbot progressed autonomously — EGARCH volatility surface landed (563 tests green) — still gated only on paper-wallet/CapTP authorization.
+Most of what a maintainer should notice is stalled on decisions, not code. Several lanes are gated on you: the SturdyRef home arbitration between [endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737) (embedded in pass-style) and [endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774) (standalone `@endo/sturdyref`), untouched ~63h; the esheets OAuth-design re-review on [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621), still showing stale `CHANGES_REQUESTED` and blocking the entire Sheets tree; a merge directive on the green git-integration Phase-1 [endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705); promotion of the parked [endo-but-for-bots#585](https://github.com/endojs/endo-but-for-bots/pull/585) content-store merge (poisoned once on a transient overrun, otherwise clean); and minion.town's Gate 1 ([kriskowal/garden#58](https://github.com/kriskowal/garden/issues/58)) — a ~5-minute browser login now blocking the primary phase for nine consecutive hourly cycles. Separately, a broad wave of jobs was reaper-poisoned for handler-budget overruns (several auto-shepherds, the upstream-merge job, and the VFS-parity and OCapN presses), and the xs2rust stage-8 orchestration keeps halting on its C-XS baseline child dying to an external SIGKILL — worth a glance if the Endor port matters this week.
 
 ## Parked for maintainer feedback
 
@@ -1195,15 +1193,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.1M | $1208.22 _(notional, rate-card)_ | no quota set |
+| Claude | 124.2M | $1208.74 _(notional, rate-card)_ | no quota set |
 | Codex | 198.8M _(+458.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`port-xs-to-rust-memory-safe-engine-s28`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s28.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
 ### tada (2680)
 - [`xs2rust-endor-s27-module-corpora-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-s27-module-corpora-fix.md) — Job: xs2rust-endor-s27-module-corpora-fix — completion report
@@ -1272,7 +1270,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-regexp-conservative-subset.md) — awaiting `endojs/endo-but-for-bots#676` · Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
-- [`port-xs-to-rust-memory-safe-engine-s28`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s28.md) — awaiting `xs2rust-endor-s27-module-corpora-fix` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`registry-immutable-byte-array-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/registry-immutable-byte-array-followup.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/671` · Immutable byte-array RegistryInterface follow-up
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
