@@ -70,3 +70,10 @@ gate conversion table + residual-skip ledger, the module_corpora verdict, and a 
 **Practical:** `$HOME` = `/home/kris/garden`; `cargo` at `$HOME/.cargo/bin`; logs under
 `$HOME/tmp`; exit-code discipline throughout; commit+push any corpus/test additions before your
 window closes (an unpushed tree at reap time is a total loss).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: gardener
+  claimed_at: 2026-07-18T04:01:06Z
