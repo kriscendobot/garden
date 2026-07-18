@@ -40,3 +40,10 @@ Engine workspace (`rust/engine`) `cargo test --workspace --no-fail-fast` EXIT=0,
 - **Push-per-item**: each verified surface (length-write guard, push guard, remaining mutators, gate test) is its own commit, pushed immediately with a CAS rebase loop.
 - **STOP-and-checkpoint** at ~1800s-with-nothing-pushed: land the smallest honest verified increment, push, tada with the exact resume point.
 - Report via your tada completion report ONLY — never inbox-send the parked supervisor. Keep the PR DRAFT; no PR comments.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-18T21:25:11Z
