@@ -18,3 +18,10 @@ signatures and retain the PR's added `registry` maker. Keep the tree prettier-cl
 (`prettier --check` on touched daemon/registry sources) so the earlier lint fix is
 preserved. The PR's review changes were already addressed at head `1eabe975cb`;
 preserve those commits verbatim — this is a weave, not a rework.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  worker_kind: gardener
+  claimed_at: 2026-07-18T00:24:09Z
