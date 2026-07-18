@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T12:24:12Z_
+_As of 2026-07-18T12:25:11Z_
 
 ## Latest
 
@@ -1333,16 +1333,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 120.0M | $1189.60 _(notional, rate-card)_ | no quota set |
+| Claude | 120.0M | $1189.36 _(notional, rate-card)_ | no quota set |
 | Codex | 200.1M _(+516.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (5)
 - [`endo-daemon-data-plane-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-daemon-data-plane-press-20260718-122003.md) — Press the Endo daemon data plane forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260718-122003.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+- [`fix-garden-auto-gauntlet-handoff-stall`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-garden-auto-gauntlet-handoff-stall.md) — Fix: builds' auto-gauntlet never fires (4 consecutive stalls)
+- [`gauntlet-endo-but-for-bots-pr792-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr792-http-web-seed.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
 - [`xs2rust-endor-stage9c-finish-line-measure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9c-finish-line-measure.md) — Stage-9c child 9/9 — the test:rust finish-line measurement on the Rust engine...
 
 ### tada (2737)
@@ -1411,6 +1413,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-regexp-conservative-subset.md) — awaiting `endojs/endo-but-for-bots#676` · Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
+- [`design-endo-content-plane-git-http`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/design-endo-content-plane-git-http.md) — awaiting `merge-endo-but-for-bots-pr792-http-web-seed` · Design: Git-over-HTTP content data plane (endo-content-plane-git-http)
+- [`merge-endo-but-for-bots-pr792-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/merge-endo-but-for-bots-pr792-http-web-seed.md) — awaiting `gauntlet-endo-but-for-bots-pr792-http-web-seed` · Merge endojs/endo-but-for-bots PR #792 (HTTP web-seed content plane, Phase 4)
 - [`port-xs-to-rust-memory-safe-engine-s31`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s31.md) — awaiting `xs2rust-endor-build-stage9c` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`registry-immutable-byte-array-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/registry-immutable-byte-array-followup.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/671` · Immutable byte-array RegistryInterface follow-up
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
