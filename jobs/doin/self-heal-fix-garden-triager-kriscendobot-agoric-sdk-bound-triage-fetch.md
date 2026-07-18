@@ -1,1 +1,8 @@
 Route the triager's repo fetch through the fleet's bounded-fetch discipline instead of a bare unbounded `die`. In `scripts/jobs/triager.sh:117`, replace `git --git-dir="$BARE" fetch -q --all --prune || die "fetch failed for $slug"` with a `timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT"` wrapper plus `GARDEN_FETCH_RETRIES` bounded attempts and backoff (mirroring `journal_fetch`/`bounded_clone` in `common.sh`, both already sourced here). Capture the fetch stderr and, on failure, classify: if the rc is a timeout kill (124/137) or `is_transient_net_error` matches the captured stderr, `log "WARN: transient fetch failure for $slug; skipping this tick"` and `exit 0` (a clean skip that resumes next tick from the journal cursor) — do NOT `die`, since a hard exit marks the oneshot Failed and crash-loops the self-heal responder on every transient/slow fetch. Reserve `die` for a structural failure (auth/404/corrupt). Failure signature: combined tail `Terminated` immediately followed by `FATAL: fetch failed for kriscendobot-agoric-sdk` — an externally-SIGTERM'd unbounded `fetch --all` on the large agoric-sdk clone. Optionally narrow `--all` to the watched branch refspec to cut fetch volume on repos with thousands of refs. Add/extend a test alongside the existing triager fetch-path tests asserting that an injected transient/timeout fetch yields `exit 0` (skip), not a non-zero die.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-18T06:14:58Z
