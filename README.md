@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T08:58:04Z_
+_As of 2026-07-18T09:09:00Z_
 
 ## Latest
 
@@ -1329,23 +1329,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 123.5M | $1232.82 _(notional, rate-card)_ | no quota set |
+| Claude | 123.3M | $1226.77 _(notional, rate-card)_ | no quota set |
 | Codex | 200.0M _(+514.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-stage9c-rest-spread`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9c-rest-spread.md) — Stage-9c child 1/9 — rest parameters + spread call (the Unsupported("argument...
+### doin (0)
+(none)
 
-### tada (2720)
+### tada (2721)
+- [`xs2rust-endor-stage9c-rest-spread`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-rest-spread.md) — Completion report — xs2rust-endor-stage9c-rest-spread
 - [`self-heal-fix-garden-triager-kriscendobot-finbot-unguarded-fetch-die-exit1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-finbot-unguarded-fetch-die-exit1.md) — Implemented and pushed 0c940939e7 to main2.
 - [`fix-comment-watcher-ack-without-post`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-comment-watcher-ack-without-post.md) — Completion report
 - [`port-xs-to-rust-memory-safe-engine-s30`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s30.md) — Completion report — port-xs-to-rust-memory-safe-engine-s30 (stage-9b halt rec...
 - [`xs2rust-endor-build-stage9b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage9b.md) — orchestration xs2rust-endor-build-stage9b — HALTED
-- [`endojs-endo-but-for-bots-pr792-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr792-shepherd.md) — Fixed PR #792 CI failures and pushed 020fb0b7841, 6e9937cd66d.
-- … and 2715 more
+- … and 2716 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
