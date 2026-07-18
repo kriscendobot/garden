@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T13:45:57Z_
+_As of 2026-07-18T14:15:35Z_
 
 ## Latest
 
@@ -12,12 +12,12 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 14h)
+- [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 15h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 7h)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 13h)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 20h)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 21h)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 1d)
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 20h)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 21h)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 1d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 4d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 5d)
@@ -1345,24 +1345,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 119.6M | $1189.53 _(notional, rate-card)_ | no quota set |
+| Claude | 119.5M | $1193.50 _(notional, rate-card)_ | no quota set |
 | Codex | 201.7M _(+526.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`design-endo-content-plane-git-http`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-content-plane-git-http.md) — Design: Git-over-HTTP content data plane (endo-content-plane-git-http)
-- [`xs2rust-endor-stage10-newtarget-construct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10-newtarget-construct.md) — Stage-10 child 2/7 — new.target retargeting + Promise-subclass construction
 
-### tada (2747)
+### tada (2748)
+- [`xs2rust-endor-stage10-newtarget-construct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10-newtarget-construct.md) — Completion report — xs2rust-endor-stage10-newtarget-construct (PR #600 stage ...
 - [`xs2rust-endor-stage10-function-prototype`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10-function-prototype.md) — Completion report
 - [`merge-endo-but-for-bots-pr792-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/merge-endo-but-for-bots-pr792-http-web-seed.md) — PR #792 was not merged: it is undrafted and mergeable, but CI run 29645592685...
 - [`endo-vfs-parity-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260718-122003.md) — **Press tick complete — VFS tool-call-surface parity arc (endojs/endo-but-for...
 - [`gauntlet-endo-but-for-bots-pr792-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr792-http-web-seed.md) — Gauntlet Report — PR #792 feat(daemon): serve content through HTTP web seeds
-- [`port-xs-to-rust-memory-safe-engine-s31`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s31.md) — Completion report — supervisor s31: STAGE 9 ACCEPTED, stage 10 dispatched
-- … and 2742 more
+- … and 2743 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
