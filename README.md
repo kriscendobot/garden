@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T15:51:35Z_
+_As of 2026-07-18T15:52:52Z_
 
 ## Latest
 
@@ -1349,15 +1349,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 118.8M | $1188.45 _(notional, rate-card)_ | no quota set |
+| Claude | 118.7M | $1188.21 _(notional, rate-card)_ | no quota set |
 | Codex | 201.8M _(+527.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endo-npm-cas-registry-press-20260718-155003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260718-155003.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+- [`xs2rust-endor-stage10-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10-live-captp-eval.md) — Stage-10 child 6/7 — the live worker-evaluate round trip (error-trace un-hang...
 
 ### tada (2762)
 - [`xs2rust-endor-stage10-ses-boot-gaps-r2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10-ses-boot-gaps-r2.md) — Completion report — stage-10 child 5/7: SES worker-bundle boot on endor-vm, g...
