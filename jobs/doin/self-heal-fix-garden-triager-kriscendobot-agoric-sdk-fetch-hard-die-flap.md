@@ -17,3 +17,10 @@ activity cursor on a skipped tick (leaving it here already does that, since the
 early `exit 0` runs before the cursor block), so the change re-triages once the
 network recovers. This keeps a network blip from flapping the unit while still
 surfacing a persistent fetch outage once per throttle window.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-18T14:44:44Z
