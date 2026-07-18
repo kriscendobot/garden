@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T03:31:32Z_
+_As of 2026-07-18T03:35:20Z_
 
 ## Latest
 
@@ -1200,7 +1200,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endo-npm-cas-registry-press-20260718-033501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260718-033501.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`port-xs-to-rust-memory-safe-engine-s26`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s26.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
 ### tada (2670)
