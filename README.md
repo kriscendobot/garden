@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T16:36:34Z_
+_As of 2026-07-18T16:37:59Z_
 
 ## Latest
 
@@ -633,6 +633,20 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260718T163406Z-e606e4` — from orchestrator:xs2rust-endor-build-stage10-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T163406Z-e606e4.md)
 
 > Orchestration xs2rust-endor-build-stage10 HALTED: child xs2rust-endor-stage10-live-captp-eval failed (serial, on-child-failure=halt). 5/7 done before halt; swept: xs2rust-endor-stage10-remeasure
+
+- `20260718T163715Z-be0f48` — from gardener:esheets-supervisor-20260718-163503, reply_to `esheets-supervisor-20260718-163503` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T163715Z-be0f48.md)
+
+> **esheets supervisor — daily standup (2026-07-18)**
+>
+> Tree (design endojs/endo-but-for-bots PR 612, merged into `llm`): `@endo/exo-google-sheets` → `@endo/google-sheets` → OAuth exo (`endoclaw-oauth`) → `endoclaw-network-fetch`. Webhooks/push deferred by design.
+>
+> - **MERGED:** `endoclaw-network-fetch` (HTTP confinement floor) + the base designs `endoclaw-oauth.md` / `exo-google-sheets.md`.
+> - **THE SOLE BLOCKER — [https://github.com/endojs/endo-but-for-bots/pull/621](https://github.com/endojs/endo-but-for-bots/pull/621)** (refine endoclaw-oauth, caretaker-attenuation): OPEN, non-draft, **all 5 CI checks GREEN, `mergeable: MERGEABLE`, one-click state `BLOCKED` = awaiting your approving review only.** Your 2026-07-10 `CHANGES_REQUESTED` (recursive partition/delegation + naming the composite pattern) was **addressed on the head and re-panelled green** by yesterday's gauntlet, which re-requested your review (comment 2026-07-17 16:56). It has now sat **8 days** awaiting re-review.
+> - **NOT started, all dammed behind 621:** OAuth exo, `@endo/google-sheets`, `@endo/exo-google-sheets` — no impl packages exist on `llm`.
+>
+> **Posted today: nothing** — deliberately. Everything below 621 is blocked; 621 itself is already green + re-requested, so another weave/gauntlet would be noise.
+>
+> **Decision needed from you (one of):** (a) approve + merge [https://github.com/endojs/endo-but-for-bots/pull/621](https://github.com/endojs/endo-but-for-bots/pull/621) so I can post the OAuth-exo builder tomorrow; or (b) authorize building the OAuth exo on the already-merged base `endoclaw-oauth.md` design and landing 621's refinements later. Without one of these the whole tree stays stalled.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -1426,26 +1440,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 117.5M | $1177.39 _(notional, rate-card)_ | no quota set |
+| Claude | 117.4M | $1175.65 _(notional, rate-card)_ | no quota set |
 | Codex | 201.8M _(+527.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
-- [`endo-sturdyref-press-20260718-163503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260718-163503.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
-- [`esheets-supervisor-20260718-163503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260718-163503.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
+### doin (1)
 - [`port-xs-to-rust-memory-safe-engine-s32`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s32.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
-- [`xs2rust-endor-press-20260718-163503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260718-163503.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (2764)
+### tada (2767)
+- [`esheets-supervisor-20260718-163503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260718-163503.md) — Completion report — esheets-supervisor-20260718-163503
+- [`endo-sturdyref-press-20260718-163503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-163503.md) — SturdyRef press tick 16:35Z, 2026-07-18 — observation-only; no movement, hold...
+- [`xs2rust-endor-press-20260718-163503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-163503.md) — Press report — xs2rust-endor-press-20260718-163503 (DEFER, clean)
 - [`xs2rust-endor-build-stage10`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10.md) — orchestration xs2rust-endor-build-stage10 — HALTED
 - [`endo-npm-cas-registry-press-20260718-155003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260718-155003.md) — Completion report — npm-via-CAS registry-proxy press (2026-07-18 tick)
-- [`xs2rust-endor-stage10-ses-boot-gaps-r2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10-ses-boot-gaps-r2.md) — Completion report — stage-10 child 5/7: SES worker-bundle boot on endor-vm, g...
-- [`xs2rust-endor-stage10-ses-boot-gaps-r1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10-ses-boot-gaps-r1.md) — Completion report — stage-10 child 4/7: SES worker-bundle boot on endor-vm, g...
-- [`self-heal-fix-garden-triager-kriscendobot-garden-fetch-hard-die-transient`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-garden-fetch-hard-die-transient.md) — Implemented and pushed 2fc8532937 to main2.
-- … and 2759 more
+- … and 2762 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
