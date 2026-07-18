@@ -115,16 +115,28 @@ if ! is_own_git_repo "$BARE"; then
 fi
 
 # Steady-state clone refresh. git has no IO timeout of its own, so a half-open
-# SSH fetch can hang until systemd kills it, marking the unit Failed. common.sh's
-# bounded_fetch applies a timeout with SIGKILL escalation, bounded retries, and
-# backoff. A failed refresh is a clean tick skip, not a systemd failure.
-if ! bounded_fetch "$BARE" --all --prune; then
-  # A failed refresh is retried on the next timer tick. Keep the unit healthy,
-  # and surface a persistent failure through the throttled maintainer alert.
-  fmsg="triager: fetch failed for $slug (unreachable/offline?); skipping this tick, retry next"
-  log "WARN: $fmsg"
-  alert_maintainer "triager-fetch-failed-${slug//[^A-Za-z0-9._-]/_}" "$fmsg"
-  exit 0
+# SSH fetch can hang until systemd kills it and marks the unit Failed. Keep its
+# diagnostic in a file: the transient matcher deliberately distinguishes a
+# connectivity blip from a malformed local clone or remote configuration.
+ERRF="$(mktemp)"
+trap 'rm -f "$ERRF"' EXIT
+fetch_rc=0
+if timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
+     git --git-dir="$BARE" fetch -q --all --prune 2>"$ERRF"; then
+  :
+else
+  fetch_rc=$?
+fi
+if [ "$fetch_rc" -ne 0 ]; then
+  # timeout returns 124 when it sends SIGTERM and 137 when its kill-after
+  # escalation is needed. 143 additionally covers a terminated fetch reported
+  # by a wrapper. All are transient stalls, just like a recognized network error.
+  if [ "$fetch_rc" -eq 124 ] || [ "$fetch_rc" -eq 137 ] || [ "$fetch_rc" -eq 143 ] \
+      || is_transient_net_error "$ERRF"; then
+    log "WARN: transient fetch failure for $slug; skipping this tick (retry next tick)"
+    exit 0
+  fi
+  die "fetch failed for $slug"
 fi
 
 # resolve the ref to watch. --verify -q keeps a missing primary ref from echoing its
