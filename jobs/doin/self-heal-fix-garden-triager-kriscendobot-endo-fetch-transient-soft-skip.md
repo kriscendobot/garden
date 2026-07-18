@@ -1,1 +1,8 @@
 In `scripts/jobs/triager.sh`, the `git --git-dir="$BARE" fetch -q --all --prune || die "fetch failed for $slug"` at line 117 turns a transient network fetch failure of an existing bare clone into a hard `die` (`common.sh:285` → `exit 1`), crashing the `garden-triager@` unit and tripping self-heal. Observed failure signature: the service tail is `Terminated` (git fetch killed by SIGTERM after stalling) followed by `FATAL: fetch failed for kriscendobot-endo`. Make this fetch failure transient-tolerant, matching the clone-provision path already in the same file (lines 95–104): (1) wrap the fetch in a deterministic `timeout` (e.g. `timeout "${GARDEN_FETCH_TIMEOUT:-120}s" git --git-dir="$BARE" fetch -q --all --prune`) so a hung fetch is reaped cleanly instead of by systemd; and (2) on failure, do NOT `die` — instead `log "WARN: triager: fetch failed for $slug (unreachable/offline?); skipping this tick, retry next"`, fire a throttled `alert_maintainer "triager-fetch-failed-${slug//[^A-Za-z0-9._-]/_}" "$pmsg"`, and `exit 0` so the service skips-and-retries rather than crash-looping. Keep the existing hard-fail semantics only for genuinely unrecoverable states (missing clone with no derivable URL, malformed new_sha); a network fetch blip on a present clone should never fail the unit.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  claimed_at: 2026-07-18T06:14:30Z
