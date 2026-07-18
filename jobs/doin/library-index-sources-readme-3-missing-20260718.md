@@ -22,3 +22,10 @@ live successor erights--elang-intro IS listed) — do not add it.
 
 Acceptance: each of the 3 slugs resolves in sources/README.md; the library
 link-check passes.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 14
+  worker_kind: gardener
+  claimed_at: 2026-07-18T16:56:02Z
