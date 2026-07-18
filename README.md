@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T09:40:29Z_
+_As of 2026-07-18T09:53:38Z_
 
 ## Latest
 
@@ -16,7 +16,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 10h)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 16h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 16h)
-- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 8h)
+- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 9h)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 21h)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 1d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 4d)
@@ -1329,24 +1329,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 122.4M | $1212.22 _(notional, rate-card)_ | no quota set |
+| Claude | 121.8M | $1204.20 _(notional, rate-card)_ | no quota set |
 | Codex | 200.0M _(+514.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endo-npm-cas-registry-press-20260718-093502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260718-093502.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+### doin (1)
 - [`xs2rust-endor-stage9c-reflect-trampolines`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9c-reflect-trampolines.md) — Stage-9c child 3/9 — Reflect.apply / Reflect.construct re-entrant trampolines
 
-### tada (2722)
+### tada (2723)
+- [`endo-npm-cas-registry-press-20260718-093502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260718-093502.md) — Press tick complete for the npm-via-CAS registry-proxy arc.
 - [`xs2rust-endor-stage9c-small-globals`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-small-globals.md) — Completion report
 - [`xs2rust-endor-stage9c-rest-spread`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-rest-spread.md) — Completion report — xs2rust-endor-stage9c-rest-spread
 - [`self-heal-fix-garden-triager-kriscendobot-finbot-unguarded-fetch-die-exit1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-finbot-unguarded-fetch-die-exit1.md) — Implemented and pushed 0c940939e7 to main2.
 - [`fix-comment-watcher-ack-without-post`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-comment-watcher-ack-without-post.md) — Completion report
-- [`port-xs-to-rust-memory-safe-engine-s30`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s30.md) — Completion report — port-xs-to-rust-memory-safe-engine-s30 (stage-9b halt rec...
-- … and 2717 more
+- … and 2718 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
