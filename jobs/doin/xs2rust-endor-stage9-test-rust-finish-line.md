@@ -30,3 +30,10 @@ From a **short real path**, run the **FULL `test:rust` daemon suite serially on 
 - A per-class divergence table: tests failing on Rust but not in the C-XS anchor (grouped by first-line error class, with one verbatim first failure per NEW class), and tests failing in the C-XS anchor but passing on Rust.
 - Which of the 5 expected classes reproduced identically, and any mass-identical class you excluded as an environment artifact (name the class and the exclusion evidence).
 - An honest bottom line: is the maintainer's finish line (all `test:rust` passing on the Rust engine, modulo the expected-divergence ledger) met, near, or far — with the top blockers named.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-18T07:46:08Z
