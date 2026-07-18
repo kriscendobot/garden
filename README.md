@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T23:23:19Z_
+_As of 2026-07-18T23:25:33Z_
 
 ## Latest
 
@@ -733,6 +733,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260718T231443Z-e13204` — from watchdog:gardener/1, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T231443Z-e13204.md)
 
 > gardener job 'xs2rust-endor-stage10d-live-captp-eval' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260718T232507Z-85ce67` — from orchestrator:xs2rust-endor-build-stage10d-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T232507Z-85ce67.md)
+
+> Orchestration xs2rust-endor-build-stage10d HALTED: child xs2rust-endor-stage10d-live-captp-eval failed (serial, on-child-failure=halt). 3/5 done before halt; swept: xs2rust-endor-stage10d-remeasure
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -1654,7 +1658,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 109.4M | $1104.98 _(notional, rate-card)_ | no quota set |
+| Claude | 109.3M | $1104.61 _(notional, rate-card)_ | no quota set |
 | Codex | 201.9M _(+529.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
@@ -1664,13 +1668,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (0)
 (none)
 
-### tada (2811)
+### tada (2812)
+- [`xs2rust-endor-build-stage10d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10d.md) — orchestration xs2rust-endor-build-stage10d — HALTED
 - [`xs2rust-endor-press-20260718-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-225004.md) — Observation tick complete — deferred to the live stage10d chain, no push made.
 - [`endo-sturdyref-press-20260718-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-225004.md) — SturdyRef press tick (22:50 dispatch) — **hold; no movement, observation reco...
 - [`xs2rust-endor-stage10d-worker-bootstrap`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10d-worker-bootstrap.md) — Completion report
 - [`endo-npm-cas-registry-press-20260718-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260718-220501.md) — Press tick complete for the npm-via-CAS registry-proxy arc. This dispatch mov...
-- [`endojs-endo-but-for-bots-pr794-review-a34bb7b7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr794-review-a34bb7b7.md) — Completion report
-- … and 2806 more
+- … and 2807 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
