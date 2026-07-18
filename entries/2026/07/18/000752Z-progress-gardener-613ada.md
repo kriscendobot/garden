@@ -1,0 +1,46 @@
+---
+kind: progress
+role: gardener
+host: endolin-garden2-5bcdff64
+at: 2026-07-18T00:07:54Z
+---
+# SturdyRef press — 00:05 dispatch tick (no movement; nudge in flight, held)
+
+Observation-only tick. Verified live (00:0xZ, 2026-07-18) that nothing has
+moved since the 22:05 tick
+(`entries/2026/07/17/220627Z-progress-gardener-fd1ffd.md`).
+
+**Verified live (`gh pr view --json state,isDraft,updatedAt,headRefOid,reviewDecision`):**
+- endojs/endo-but-for-bots#737 updated 2026-07-17T06:19:35Z, CHANGES_REQUESTED,
+  head b56b346534; #774 05:11:07Z, no review, head 59bd235e2b; #695 07-15
+  CHANGES_REQUESTED (f5df0a4c83); #697 07-15 CHANGES_REQUESTED (e4a0a614b8);
+  #539 07-11 CHANGES_REQUESTED (22923949b2); #698 (4e21536286) / #700
+  (951cde7f13) / #541 (fab626e84a) all 07-11, OPEN drafts. Every timestamp and
+  head identical to the last six ticks — no pushes, reviews, or comments.
+- The consolidated maintainer nudge re-sent 2026-07-17T20:07Z
+  (`inbox/maintainer/unread/20260717T200708Z-5cde04.md`) is still unread, ~4h
+  old — inside the 24h re-send window (next re-send due ~2026-07-18T20:07Z).
+  Held per the standing norm; no re-send this tick.
+- No peer sturdyref job live (`inbox-list.sh`: xs2rust presses + self-heal
+  agents only; `jobs/doin/` holds no sturdyref job); my inbox empty.
+- CI not re-run this tick: branch heads unmoved since the 07-17 11:36Z green
+  verification (b56b346534 / 59bd235e2b) — a re-check would observe the same
+  commits; not re-verified this tick.
+
+**Action taken:** none beyond verification — all lanes remain gated on the same
+three maintainer answers (shim-placement arbitration #737-embedded vs
+#774-standalone; rank-prefix + stack-collapse picks re-surfaced in the #737
+comment thread; design re-reviews #695/#697/#539) and the nudge is freshly in
+flight. No code pushed, preserving endojs/endo-but-for-bots#737's
+single-commit review shape.
+
+**Confinement:** no sturdyref behavior changed this tick; the invariants
+continue to ride #774's four confinement tests (no-location,
+no-identification/unlinkability, withheld-from-compartments, first-wins
+convergence) and #737's pass-style opacity coverage, last verified green at the
+current unmoved heads.
+
+**Next driver:** watch for kriskowal's arbitration / re-reviews or a reply to
+`20260717T200708Z-5cde04`; re-send the nudge if still unread past
+~2026-07-18T20:07Z; on arbitration, converge #774/#737 on the chosen home
+before restacking the bridge cuts #698 → #700 → #541.
