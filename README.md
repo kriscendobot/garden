@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T19:32:52Z_
+_As of 2026-07-18T19:35:04Z_
 
 ## Latest
 
@@ -1569,16 +1569,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 (none)
 
 ### doin (2)
-- [`endojs-endo-but-for-bots-pr406-0cc0c326`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr406-0cc0c326.md) — attention directive on endojs/endo-but-for-bots PR #406
+- [`endojs-endo-but-for-bots-pr794-noise-ik-relay-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr794-noise-ik-relay-design.md) — Amend design PR for the relay-package direction
 - [`xs2rust-endor-stage10c-ses-boot-r6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10c-ses-boot-r6.md) — Stage-10c child 3/5 — SES worker-bundle boot, gap round 6 (target: lockdown()...
 
-### tada (2794)
+### tada (2795)
+- [`endojs-endo-but-for-bots-pr406-0cc0c326`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr406-0cc0c326.md) — Routed maintainer’s refinement to amend existing design PR #794 with a standa...
 - [`xs2rust-endor-stage10c-ses-boot-r5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10c-ses-boot-r5.md) — Completion report — stage-10c child 2/5: SES worker-bundle boot, gap round 5
 - [`merge-endo-but-for-bots-pr792-http-web-seed-restored`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/merge-endo-but-for-bots-pr792-http-web-seed-restored.md) — Completion report
 - [`minion-town-022b92e-deploy-verify-ocapn-cbor-np-caddy`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-022b92e-deploy-verify-ocapn-cbor-np-caddy.md) — Completion report
 - [`xs2rust-endor-stage10c-cross-turn-symbols`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10c-cross-turn-symbols.md) — Completion report — xs2rust-endor-stage10c-cross-turn-symbols (PR #600 stage-...
-- [`minion-town-agenda-review-20260718-185002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260718-185002.md) — Completion report
-- … and 2789 more
+- … and 2790 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
