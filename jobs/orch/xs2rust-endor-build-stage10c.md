@@ -2,7 +2,7 @@
 order: serial
 children: xs2rust-endor-stage10c-cross-turn-symbols xs2rust-endor-stage10c-ses-boot-r5 xs2rust-endor-stage10c-ses-boot-r6 xs2rust-endor-stage10c-live-captp-eval xs2rust-endor-stage10c-remeasure
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-07-18T18:41:14Z
 ---
