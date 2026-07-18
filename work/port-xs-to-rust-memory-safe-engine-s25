@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 9
-worker_kind: gardener
-claimed_at: 2026-07-18T03:23:14Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-port-xs-to-rust-memory-safe-engine-s25
