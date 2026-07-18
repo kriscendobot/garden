@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T07:05:35Z_
+_As of 2026-07-18T07:09:08Z_
 
 ## Latest
 
@@ -1274,25 +1274,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.2M | $1231.45 _(notional, rate-card)_ | no quota set |
-| Codex | 199.6M _(+481.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
+| Claude | 124.3M | $1233.36 _(notional, rate-card)_ | no quota set |
+| Codex | 199.6M _(+484.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`daily-progress-summary-20260718-070501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260718-070501.md) — Daily midnight Pacific progress summary
-- [`design-ocapn-noise-key-only-session-boundary`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-ocapn-noise-key-only-session-boundary.md) — Design: lower peer authentication & encryption to the OCapN-Noise network lay...
 - [`xs2rust-endor-stage9-endor-vm-daemon-wiring`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9-endor-vm-daemon-wiring.md) — Stage-9b child 3/5 — endor-vm path-dep + daemon spawn wiring (probe step 5)
 
-### tada (2709)
+### tada (2710)
+- [`design-ocapn-noise-key-only-session-boundary`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-ocapn-noise-key-only-session-boundary.md) — Completed design and opened draft PR #794: https://github.com/endojs/endo-but...
 - [`xs2rust-endor-stage9-handled-promise`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9-handled-promise.md) — Completion report — Stage-9b child 2/5: HandledPromise / eventual-send surface
 - [`endojs-endo-but-for-bots-pr406-e468d467`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr406-e468d467.md) — Completion report
 - [`endojs-endo-but-for-bots-pr606-8d70b971`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr606-8d70b971.md) — Completion report
 - [`build-endo-content-locators-magnet-urn-phase4-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-content-locators-magnet-urn-phase4-http-web-seed.md) — Implemented Phase 4 HTTP web seeds and opened draft PR #792.
-- [`endo-vfs-parity-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260718-062002.md) — Completion report
-- … and 2704 more
+- … and 2705 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
