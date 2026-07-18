@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T06:54:59Z_
+_As of 2026-07-18T06:55:19Z_
 
 ## Latest
 
@@ -1274,26 +1274,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.5M | $1234.35 _(notional, rate-card)_ | no quota set |
+| Claude | 124.5M | $1234.69 _(notional, rate-card)_ | no quota set |
 | Codex | 199.4M _(+480.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
-- [`build-endo-content-locators-magnet-urn-phase4-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-content-locators-magnet-urn-phase4-http-web-seed.md) — Build Phase 4 of the magnet-URN content-locator design: the HTTP web-seed plane
+### doin (3)
 - [`endojs-endo-but-for-bots-pr406-e468d467`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr406-e468d467.md) — attention directive on endojs/endo-but-for-bots PR #406
 - [`endojs-endo-but-for-bots-pr606-8d70b971`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr606-8d70b971.md) — attention directive on endojs/endo-but-for-bots PR #606
 - [`xs2rust-endor-stage9-handled-promise`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9-handled-promise.md) — Stage-9b child 2/5 — HandledPromise / eventual-send surface
 
-### tada (2705)
+### tada (2706)
+- [`build-endo-content-locators-magnet-urn-phase4-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-content-locators-magnet-urn-phase4-http-web-seed.md) — Implemented Phase 4 HTTP web seeds and opened draft PR #792.
 - [`endo-vfs-parity-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260718-062002.md) — Completion report
 - [`xs2rust-endor-stage9b-template-cache`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9b-template-cache.md) — Completion report — xs2rust-endor-stage9b-template-cache (Item B)
 - [`minion-town-agenda-review-20260718-063502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260718-063502.md) — Reviewed and reported on garden issue #58: https://github.com/kriskowal/garde...
 - [`endo-git-integration-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260718-062002.md) — Completion report: endo-git-integration-press-20260718-062002
-- [`merge-endo-but-for-bots-pr789-content-locator-planes-resolution`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/merge-endo-but-for-bots-pr789-content-locator-planes-resolution.md) — Merged endojs/endo-but-for-bots PR #789 into llm as merge commit b43e801633b9...
-- … and 2700 more
+- … and 2701 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
