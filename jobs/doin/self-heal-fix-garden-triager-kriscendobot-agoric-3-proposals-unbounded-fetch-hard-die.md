@@ -11,3 +11,10 @@ This bypasses the fleet's stuck-fetch hardening in `scripts/jobs/common.sh` (§ 
 2. On a **transient/offline** failure (rc 124 or 137, or stderr matching the offline signature via the existing `_fetch_stderr_is_offline`/`is_transient_net_error` helper), take the clean-skip path — `log "offline; skipping tick"; exit 0` (retry next timer tick) — instead of `die`. This mirrors both the triager's own provisioning branch (triager.sh:95-104, which already skips cleanly on a transient clone-fetch failure) and `sync_clone`'s EX_TEMPFAIL handling. Only a **structural** fetch failure (auth, deleted fork, wrong ref) should still `die`/escalate.
 
 Rationale: dying on a transient fetch failure provides no recovery benefit (a Type=oneshot timer re-runs the same fetch next tick either way) and only produces a Failed unit plus a self-heal invocation per network blip. Add/adjust a triager test to assert that a fetch killed at the timeout (simulated rc 124/137) results in a clean skip (exit 0), not a die.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: gardener
+  claimed_at: 2026-07-18T06:15:47Z
