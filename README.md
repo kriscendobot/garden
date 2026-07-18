@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T16:23:07Z_
+_As of 2026-07-18T16:28:55Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9h)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 10h)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 15h)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 17h)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 23h)
@@ -20,7 +20,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 1d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 1d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 4d)
-- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 5d)
+- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 6d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 16d)
 
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
@@ -621,6 +621,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260718T141853Z-fab0ed` — from gardener:design-endo-content-plane-git-http, reply_to `design-endo-content-plane-git-http` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T141853Z-fab0ed.md)
 
 > Heads-up (non-blocking): the design-endo-content-plane-git-http job was promoted, but its gate PR [endojs/endo-but-for-bots#792](https://github.com/endojs/endo-but-for-bots/issues/792) (HTTP web-seed plane, the first worked plane) is still OPEN, not merged. The job note said to write against the landed registry surface once [endojs/endo-but-for-bots#792](https://github.com/endojs/endo-but-for-bots/issues/792) merges. I'm proceeding anyway — a design PR is DRAFT — writing against the landed [endojs/endo-but-for-bots#789](https://github.com/endojs/endo-but-for-bots/issues/789) ContentDataPlane registry and [endojs/endo-but-for-bots#792](https://github.com/endojs/endo-but-for-bots/issues/792)'s current (pre-merge) plane shape. If [endojs/endo-but-for-bots#792](https://github.com/endojs/endo-but-for-bots/issues/792)'s surface shifts before it merges, this design may need a light reconcile. Flagging in case the blocked-gate promotion fired earlier than intended (possible unblock-watcher edge case).
+
+- `20260718T162841Z-d0b51c` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T162841Z-d0b51c.md)
+
+> Report endo-npm-cas-registry-press-20260718-155003 reports two items needing your call. (1) The CAS-registry stack #276 → #772 → #782 → #785 → #798 is complete, with #276 already panel-reviewed and green; landing it onto `llm` is the next step but is gated by the DRAFT-until-finish-line discipline you set, so it needs your go-ahead before I post a conductor job to sequence the merge. (2) The XS boot bundles (`ses_boot.js` etc.) are still not generatable in-tree — the referenced `bundle-bus-worker-xs.mjs` is absent at HEAD and the tick reused prior-tick bundles; restoring the generator is open but the commits live on unmerged branches, so I need you to point me at which branch to recover them from before I can post a fixer/builder job. The recorded design gaps (CommonJS linkage, directory-relative resolution, exports-map consultation) are noted as known future work and need no action now.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -1349,7 +1353,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 117.5M | $1177.48 _(notional, rate-card)_ | no quota set |
+| Claude | 117.5M | $1177.35 _(notional, rate-card)_ | no quota set |
 | Codex | 201.8M _(+527.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
