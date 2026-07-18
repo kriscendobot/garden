@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+poisoned_at: 2026-07-18T08:33:04Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-18T08:33:04Z
+---
+
+---
 model: opus
 ---
 <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-18T07:46:04Z -->
@@ -32,10 +46,3 @@ From a **short real path**, run the **FULL `test:rust` daemon suite serially on 
 - An honest bottom line: is the maintainer's finish line (all `test:rust` passing on the Rust engine, modulo the expected-divergence ledger) met, near, or far — with the top blockers named.
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 6
-  worker_kind: gardener
-  claimed_at: 2026-07-18T07:46:08Z
