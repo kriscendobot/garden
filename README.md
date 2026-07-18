@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T04:07:17Z_
+_As of 2026-07-18T04:07:40Z_
 
 ## Latest
 
@@ -1193,24 +1193,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.7M | $1218.58 _(notional, rate-card)_ | no quota set |
+| Claude | 124.7M | $1218.64 _(notional, rate-card)_ | no quota set |
 | Codex | 198.8M _(+458.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`xs2rust-endor-press-20260718-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260718-040502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+### doin (1)
 - [`xs2rust-endor-stage8-gate-remeasure-r2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage8-gate-remeasure-r2.md) — Stage-8d child 2/2 — boot-gate re-measure + whole-stage verify (r2)
 
-### tada (2674)
+### tada (2675)
+- [`xs2rust-endor-press-20260718-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-040502.md) — Completion report — xs2rust-endor press tick 04:05Z (observed; deferred to li...
 - [`endo-sturdyref-press-20260718-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-040502.md) — SturdyRef press, 04:05 tick (2026-07-18) — **observation-only; zero movement,...
 - [`xs2rust-endor-stage8-boot-surface-remainder-r2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage8-boot-surface-remainder-r2.md) — Completion report — stage-8d child 1/2: engine boot-surface remainder r2
 - [`endo-npm-cas-registry-press-20260718-033501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260718-033501.md) — Press tick complete for the npm-via-CAS registry-proxy arc.
 - [`port-xs-to-rust-memory-safe-engine-s26`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s26.md) — Completion report — supervisor s26: stage-8c halt recovery (round three) + st...
-- [`port-xs-to-rust-memory-safe-engine-s25`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s25.md) — Completion report — port-xs-to-rust-memory-safe-engine-s25
-- … and 2669 more
+- … and 2670 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
