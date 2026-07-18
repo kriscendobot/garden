@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T05:13:10Z_
+_As of 2026-07-18T05:13:30Z_
 
 ## Latest
 
@@ -1220,24 +1220,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.7M | $1213.95 _(notional, rate-card)_ | no quota set |
+| Claude | 124.6M | $1211.37 _(notional, rate-card)_ | no quota set |
 | Codex | 198.8M _(+458.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`finbot-progress-20260718-050503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260718-050503.md) — Push progress on kriscendobot/finbot (every 6h)
+### doin (1)
 - [`xs2rust-endor-stage9-toprimitive-add`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9-toprimitive-add.md) — Stage-9 child 1/6 — ToPrimitive-in-op_add: the native→JS call trampoline
 
-### tada (2681)
+### tada (2682)
+- [`finbot-progress-20260718-050503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260718-050503.md) — Completion report
 - [`port-xs-to-rust-memory-safe-engine-s28`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s28.md) — Completion report — supervisor s28 (XS→Rust Endor port)
 - [`xs2rust-endor-s27-module-corpora-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-s27-module-corpora-fix.md) — Job: xs2rust-endor-s27-module-corpora-fix — completion report
 - [`fix-comment-watcher-verb-directive-tada-dedup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-comment-watcher-verb-directive-tada-dedup.md) — Completion report
 - [`port-xs-to-rust-memory-safe-engine-s27`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s27.md) — Completion report — supervisor s27: whole-stage-8 review (findings round)
-- [`xs2rust-endor-build-stage8d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage8d.md) — orchestration xs2rust-endor-build-stage8d — complete
-- … and 2676 more
+- … and 2677 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
