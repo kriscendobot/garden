@@ -6,3 +6,10 @@ Fix: make this fetch transient-aware, mirroring the existing pattern in `ci-watc
 3. Because the observed kill is an external SIGTERM/`Terminated` on a stalled fetch (a signature `is_transient_net_error` does not currently match), also wrap the fetch in a bounded timeout (reuse the bounded/timeout helper the clone path uses, or `timeout <N>`) so a hung fetch fails fast under our own control, and treat that timeout/terminated exit as transient (WARN + exit 0) as well — either by adding a `Terminated|timed out|killed` signature to `is_transient_net_error` or by treating the timeout wrapper's dedicated exit code as transient at the call site. A bare-clone `git fetch` failure is essentially always network/remote (ref-resolution structural cases are handled separately downstream at lines 128–137), so degrading it to skip-and-retry cannot mask a real logic bug.
 
 Definition of done: a transient or terminated fetch in triager.sh exits 0 (WARN + skip, cursor unadvanced) instead of exit 1, so a network blip no longer marks `garden-triager@<slug>` failed or trips self-heal; add/extend the triager test guards to cover the transient-fetch-skip path alongside the existing missing/corrupt-clone skip cases.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  worker_kind: cleric
+  claimed_at: 2026-07-18T14:45:27Z
