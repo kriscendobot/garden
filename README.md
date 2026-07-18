@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T06:38:17Z_
+_As of 2026-07-18T06:48:02Z_
 
 ## Latest
 
@@ -12,8 +12,8 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 7m)
-- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 5h)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 21m)
+- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 6h)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 7h)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 13h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 13h)
@@ -1274,25 +1274,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.8M | $1239.99 _(notional, rate-card)_ | no quota set |
-| Codex | 199.2M _(+465.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Claude | 124.6M | $1234.79 _(notional, rate-card)_ | no quota set |
+| Codex | 199.4M _(+472.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (1)
 - [`build-endo-content-locators-magnet-urn-phase4-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-content-locators-magnet-urn-phase4-http-web-seed.md) — Build Phase 4 of the magnet-URN content-locator design: the HTTP web-seed plane
-- [`endo-vfs-parity-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260718-062002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`xs2rust-endor-stage9b-template-cache`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9b-template-cache.md) — Stage-9b child 1/5 — tagged-template template_cache (the real String.raw call...
 
-### tada (2703)
+### tada (2705)
+- [`endo-vfs-parity-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260718-062002.md) — Completion report
+- [`xs2rust-endor-stage9b-template-cache`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9b-template-cache.md) — Completion report — xs2rust-endor-stage9b-template-cache (Item B)
 - [`minion-town-agenda-review-20260718-063502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260718-063502.md) — Reviewed and reported on garden issue #58: https://github.com/kriskowal/garde...
 - [`endo-git-integration-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260718-062002.md) — Completion report: endo-git-integration-press-20260718-062002
 - [`merge-endo-but-for-bots-pr789-content-locator-planes-resolution`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/merge-endo-but-for-bots-pr789-content-locator-planes-resolution.md) — Merged endojs/endo-but-for-bots PR #789 into llm as merge commit b43e801633b9...
-- [`gauntlet-endo-but-for-bots-pr789-content-locator-planes-resolution`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr789-content-locator-planes-resolution.md) — Reviewed and un-drafted endojs/endo-but-for-bots#789 at 747ef04510.
-- [`port-xs-to-rust-memory-safe-engine-s29`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s29.md) — Completion report — supervisor s29: stage-9 halt recovery → stage9b dispatched
-- … and 2698 more
+- … and 2700 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
