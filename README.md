@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T06:26:02Z_
+_As of 2026-07-18T06:26:35Z_
 
 ## Latest
 
@@ -1274,28 +1274,27 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.8M | $1236.80 _(notional, rate-card)_ | no quota set |
-| Codex | 199.0M _(+462.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 124.9M | $1238.44 _(notional, rate-card)_ | no quota set |
+| Codex | 199.0M _(+462.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
-- [`endo-byte-array-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260718-062002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+### doin (5)
 - [`endo-git-integration-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260718-062002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-vfs-parity-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260718-062002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`gauntlet-endo-but-for-bots-pr789-content-locator-planes-resolution`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr789-content-locator-planes-resolution.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
 - [`port-xs-to-rust-memory-safe-engine-s29`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s29.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`xs2rust-endor-stage9b-template-cache`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9b-template-cache.md) — Stage-9b child 1/5 — tagged-template template_cache (the real String.raw call...
 
-### tada (2697)
+### tada (2698)
+- [`endo-byte-array-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260718-062002.md) — Completion report — endo-byte-array-press-20260718-062002
 - [`ocapn-noise-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260718-062002.md) — Completion report — ocapn-noise-press-20260718-062002
 - [`endo-daemon-data-plane-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260718-062002.md) — Press dispatch complete — this dispatch un-stalled the predicted gauntlet gap...
 - [`self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-fetch-unbounded-die-crashloop`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-fetch-unbounded-die-crashloop.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-ymax-e2e-fetch-die-crashloops-unit`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ymax-e2e-fetch-die-crashloops-unit.md) — Implemented and pushed a335cf0aca to main2.
-- [`self-heal-fix-garden-triager-kriscendobot-ocapn-bounded-steady-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ocapn-bounded-steady-fetch.md) — The working tree is clean at origin/main2 (457ba8a795), and my inbox is empty...
-- … and 2692 more
+- … and 2693 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1357,6 +1356,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-regexp-conservative-subset.md) — awaiting `endojs/endo-but-for-bots#676` · Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`merge-endo-but-for-bots-pr789-content-locator-planes-resolution`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/merge-endo-but-for-bots-pr789-content-locator-planes-resolution.md) — awaiting `gauntlet-endo-but-for-bots-pr789-content-locator-planes-resolution` · Merge endojs/endo-but-for-bots PR #789 (content data-plane resolution, Phase 3)
+- [`port-xs-to-rust-memory-safe-engine-s30`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s30.md) — awaiting `xs2rust-endor-build-stage9b` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`registry-immutable-byte-array-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/registry-immutable-byte-array-followup.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/671` · Immutable byte-array RegistryInterface follow-up
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
