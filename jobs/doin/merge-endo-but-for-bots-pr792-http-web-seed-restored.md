@@ -24,6 +24,7 @@ Task:
 This PR is the closing implementation increment (Phases 4+5) of the merged magnet-URN content-locator
 design (#662); its merge meets the data-plane arc's implementation finish line.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
