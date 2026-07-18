@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 6
-worker_kind: gardener
-claimed_at: 2026-07-18T06:15:07Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-fetch-unbounded-die-crashloop
