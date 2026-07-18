@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T12:14:43Z_
+_As of 2026-07-18T12:16:29Z_
 
 ## Latest
 
@@ -1340,8 +1340,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-stage9c-finish-line-measure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9c-finish-line-measure.md) — Stage-9c child 9/9 — the test:rust finish-line measurement on the Rust engine...
 
 ### tada (2732)
 - [`xs2rust-endor-stage9c-worker-surface`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-worker-surface.md) — Completion report — stage-9c child 8/9: the endor-vm worker surface
