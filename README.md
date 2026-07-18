@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T13:36:31Z_
+_As of 2026-07-18T13:37:59Z_
 
 ## Latest
 
@@ -609,6 +609,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260718T122902Z-49aab8` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T122902Z-49aab8.md)
 
 > Report `endo-sturdyref-press-20260718-122003` is fully blocked on your arbitration and cannot proceed autonomously. Decision needed: shim placement for `@endo/sturdyref` — **#737 (embedded)** vs **#774 (standalone package)** — plus the rank-prefix and stack-collapse picks, and the #695/#697/#539 re-reviews. Once you pick a home, the press can converge #774/#737 and restack #698 → #700 → #541. Note: the outstanding review nudge crosses its 24h threshold at ~20:05Z today (2026-07-18), so this is the natural moment to weigh in or tell me to re-nudge on your behalf.
+
+- `20260718T133731Z-68998a` — from gardener:design-endo-content-plane-git-http, reply_to `design-endo-content-plane-git-http` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T133731Z-68998a.md)
+
+> Blocked before drafting: GitHub currently reports [endojs/endo-but-for-bots#792](https://github.com/endojs/endo-but-for-bots/issues/792) as OPEN and unmerged (base llm-b43e801), while this job requires writing against its landed registry surface. Please merge it or explicitly authorize drafting against its current head.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -1338,23 +1342,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 119.6M | $1189.35 _(notional, rate-card)_ | no quota set |
-| Codex | 201.6M _(+525.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Codex | 201.7M _(+526.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`design-endo-content-plane-git-http`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-content-plane-git-http.md) — Design: Git-over-HTTP content data plane (endo-content-plane-git-http)
-- [`xs2rust-endor-stage10-function-prototype`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10-function-prototype.md) — Stage-10 child 1/7 — function .prototype reads (+ own-property surface on fun...
 
-### tada (2746)
+### tada (2747)
+- [`xs2rust-endor-stage10-function-prototype`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10-function-prototype.md) — Completion report
 - [`merge-endo-but-for-bots-pr792-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/merge-endo-but-for-bots-pr792-http-web-seed.md) — PR #792 was not merged: it is undrafted and mergeable, but CI run 29645592685...
 - [`endo-vfs-parity-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260718-122003.md) — **Press tick complete — VFS tool-call-surface parity arc (endojs/endo-but-for...
 - [`gauntlet-endo-but-for-bots-pr792-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr792-http-web-seed.md) — Gauntlet Report — PR #792 feat(daemon): serve content through HTTP web seeds
 - [`port-xs-to-rust-memory-safe-engine-s31`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s31.md) — Completion report — supervisor s31: STAGE 9 ACCEPTED, stage 10 dispatched
-- [`xs2rust-endor-build-stage9c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage9c.md) — orchestration xs2rust-endor-build-stage9c — complete
-- … and 2741 more
+- … and 2742 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
