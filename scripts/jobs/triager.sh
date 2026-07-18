@@ -125,16 +125,11 @@ fi
 # transport child), retried with backoff up to GARDEN_FETCH_RETRIES. The
 # `if … ; then … else rc=$?; fi` form keeps a non-zero fetch from tripping `set -e`
 # before we can read its rc.
-# Capture the final attempt's stderr so a failure can be CLASSIFIED (transient
-# outage -> skip-this-tick, vs structural -> die) rather than blindly die-ing on
-# every network blip. Mirrors the sibling watchers' $ERRF capture (ci-watcher.sh
-# ~242, comment-watcher.sh) that feeds is_transient_net_error.
 fetch_attempt=1
 fetch_rc=0
-fetch_stderr=""
 while :; do
-  if fetch_stderr="$(timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
-       git --git-dir="$BARE" fetch -q --all --prune 2>&1 1>/dev/null)"; then
+  if timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
+       git --git-dir="$BARE" fetch -q --all --prune; then
     fetch_rc=0
     break
   else
@@ -148,25 +143,19 @@ while :; do
   backoff "$fetch_attempt"; fetch_attempt=$((fetch_attempt+1))
 done
 if [ "$fetch_rc" -ne 0 ]; then
-  # CLASSIFY the failure instead of die-ing on all of them. A TRANSIENT connectivity
-  # failure — the wall-clock kill (rc 124/137, the observed `Terminated` + FATAL
-  # signature that marks the unit Failed and fires self-heal) OR a git-transport
-  # outage signature on stderr (DNS / reset / TLS / 5xx / Early EOF … the canonical
-  # GARDEN_OFFLINE_SIGNATURES set, plus is_transient_net_error's gh-flavored ones) —
-  # is "we couldn't fetch right now", not a broken clone. Degrade exactly like the
-  # transient-tolerant clone-provision path above (lines ~95–104): WARN + exit 0 to
-  # retry next tick, so a network blip no longer detonates a self-heal restart storm.
-  # Only a STRUCTURAL fetch error (a genuine repo/config fault) still dies loud.
-  if [ "$fetch_rc" -eq 124 ] || [ "$fetch_rc" -eq 137 ] \
-     || is_transient_net_error "$fetch_stderr" || is_transient_gh_source_error "$fetch_stderr" \
-     || _fetch_stderr_is_offline "$fetch_stderr"; then
-    msg="fetch for $slug hit a transient network/gh blip; skipping this tick and retrying next${fetch_stderr:+ (last stderr: $fetch_stderr)}"
-    log "WARN: $msg"
-    alert_maintainer "triager-fetch-failed-${slug//[^A-Za-z0-9._-]/_}" "$msg"
+  # A child terminated by a signal reports 128 plus its signal number. This is
+  # normal during a drain or shutdown, so do not alert and let the next tick retry.
+  if [ "$fetch_rc" -ge 128 ]; then
+    log "fetch for $slug stopped by signal (rc=$fetch_rc); skipping this tick"
     exit 0
   fi
-  log "fetch for $slug failed structurally (rc=$fetch_rc)${fetch_stderr:+: $fetch_stderr}"
-  die "fetch failed for $slug"
+  # Network failures are usually transient (offline, DNS, or a half-open
+  # connection reaped by the timeout). Surface a persistent bad upstream through
+  # the throttled alert, but keep this timer tick successful and retry next time.
+  fmsg="triager: refresh fetch for $slug failed (rc=$fetch_rc); skipping this tick and retrying next tick. If this persists, the upstream or its network path needs attention."
+  log "WARN: $fmsg"
+  alert_maintainer "triager-fetch-failed-${slug//[^A-Za-z0-9._-]/_}" "$fmsg"
+  exit 0
 fi
 
 # resolve the ref to watch. --verify -q keeps a missing primary ref from echoing its
