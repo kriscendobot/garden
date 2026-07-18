@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T18:50:38Z_
+_As of 2026-07-18T18:52:22Z_
 
 ## Latest
 
@@ -1561,27 +1561,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 114.8M | $1152.07 _(notional, rate-card)_ | no quota set |
+| Claude | 114.8M | $1152.38 _(notional, rate-card)_ | no quota set |
 | Codex | 201.8M _(+527.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
-- [`endo-sturdyref-press-20260718-185002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260718-185002.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+### doin (4)
 - [`merge-endo-but-for-bots-pr792-http-web-seed-restored`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/merge-endo-but-for-bots-pr792-http-web-seed-restored.md) — Merge endojs/endo-but-for-bots PR #792 (HTTP web-seed content plane) — retry ...
 - [`minion-town-agenda-review-20260718-185002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260718-185002.md) — Minion Town hourly agenda review
 - [`xs2rust-endor-press-20260718-185002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260718-185002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-stage10c-cross-turn-symbols`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10c-cross-turn-symbols.md) — Stage-10c child 1/5 — cross-turn SYMBOL resolution (prior-turn handler bodies...
 
-### tada (2787)
+### tada (2788)
+- [`endo-sturdyref-press-20260718-185002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-185002.md) — No movement this tick — everything remains gated on the same maintainer decis...
 - [`fix-garden-conductor-decline-tada-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-garden-conductor-decline-tada-gate.md) — Completion report
 - [`fix-garden-gauntlet-force-push-rewind`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-garden-gauntlet-force-push-rewind.md) — Completion report
 - [`port-xs-to-rust-memory-safe-engine-s33`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s33.md) — Completion report — port-xs-to-rust-memory-safe-engine-s33
 - [`endo-daemon-data-plane-press-20260718-183502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260718-183502.md) — All three jobs are already claimed by peer gardeners, CI is running on the re...
-- [`ocapn-noise-press-20260718-183502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260718-183502.md) — Press dispatch 8 (2026-07-18 18:35Z) — steady state; M1–M5 remain proven live
-- … and 2782 more
+- … and 2783 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
