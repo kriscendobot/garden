@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T13:09:01Z_
+_As of 2026-07-18T13:11:20Z_
 
 ## Latest
 
@@ -1344,8 +1344,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endo-vfs-parity-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260718-122003.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+- [`merge-endo-but-for-bots-pr792-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/merge-endo-but-for-bots-pr792-http-web-seed.md) — Merge endojs/endo-but-for-bots PR #792 (HTTP web-seed content plane, Phase 4)
 - [`xs2rust-endor-stage10-function-prototype`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10-function-prototype.md) — Stage-10 child 1/7 — function .prototype reads (+ own-property surface on fun...
 
 ### tada (2744)
@@ -1415,7 +1416,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-regexp-conservative-subset.md) — awaiting `endojs/endo-but-for-bots#676` · Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`design-endo-content-plane-git-http`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/design-endo-content-plane-git-http.md) — awaiting `merge-endo-but-for-bots-pr792-http-web-seed` · Design: Git-over-HTTP content data plane (endo-content-plane-git-http)
-- [`merge-endo-but-for-bots-pr792-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/merge-endo-but-for-bots-pr792-http-web-seed.md) — awaiting `gauntlet-endo-but-for-bots-pr792-http-web-seed` · Merge endojs/endo-but-for-bots PR #792 (HTTP web-seed content plane, Phase 4)
 - [`port-xs-to-rust-memory-safe-engine-s32`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s32.md) — awaiting `xs2rust-endor-build-stage10` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`registry-immutable-byte-array-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/registry-immutable-byte-array-followup.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/671` · Immutable byte-array RegistryInterface follow-up
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
