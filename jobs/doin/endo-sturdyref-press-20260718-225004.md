@@ -99,3 +99,10 @@ two tokens or read a locator.
 No bar is "verified"/"green" without real-execution evidence — cite the command and
 its observed output. When you could not run a bar, report it "not verified" and why.
 State the confinement property preserved in every report.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  claimed_at: 2026-07-18T22:50:13Z
