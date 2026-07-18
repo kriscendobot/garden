@@ -12,6 +12,7 @@ Repo: endojs/endo-but-for-bots (base `llm`; PRs DRAFT). File the follow-up back-
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
