@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T06:16:31Z_
+_As of 2026-07-18T06:17:52Z_
 
 ## Latest
 
@@ -12,8 +12,8 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 7h)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 5h)
+- [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 7h)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 13h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 13h)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 17h)
@@ -1274,31 +1274,27 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.7M | $1233.56 _(notional, rate-card)_ | no quota set |
-| Codex | 198.9M _(+459.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Claude | 124.7M | $1233.76 _(notional, rate-card)_ | no quota set |
+| Codex | 198.9M _(+460.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (9)
-- [`self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-unbounded-fetch-hard-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-unbounded-fetch-hard-die.md) — Repo: garden (kriskowal/garden), file scripts/jobs/triager.sh, line 117.
-- [`self-heal-fix-garden-triager-kriscendobot-agoric-sdk-bound-triage-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-agoric-sdk-bound-triage-fetch.md) — Route the triager's repo fetch through the fleet's bounded-fetch discipline i...
+### doin (5)
 - [`self-heal-fix-garden-triager-kriscendobot-chrome-native-function-caller-arguments-repro-fetch-die-flaps-on-transient`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-chrome-native-function-caller-arguments-repro-fetch-die-flaps-on-transient.md) — In scripts/jobs/triager.sh line 117, the upstream-refresh fetch git --git-dir...
-- [`self-heal-fix-garden-triager-kriscendobot-endo-fetch-transient-soft-skip`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-endo-fetch-transient-soft-skip.md) — In scripts/jobs/triager.sh, the git --git-dir="$BARE" fetch -q --all --prune ...
-- [`self-heal-fix-garden-triager-kriscendobot-minion-town-fetch-die-on-transient`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-minion-town-fetch-die-on-transient.md) — In scripts/jobs/triager.sh, the existing-clone fetch at line 117 (git --git-d...
 - [`self-heal-fix-garden-triager-kriscendobot-ocapn-bounded-steady-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-ocapn-bounded-steady-fetch.md) — In scripts/jobs/triager.sh at line 117, the steady-state bare-clone fetch is ...
 - [`self-heal-fix-garden-triager-kriscendobot-vattr97-triager-fetch-hard-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-vattr97-triager-fetch-hard-die.md) — In scripts/jobs/triager.sh, the bare-clone fetch at line 117 —
 - [`self-heal-fix-garden-triager-kriscendobot-ymax-e2e-fetch-die-crashloops-unit`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-ymax-e2e-fetch-die-crashloops-unit.md) — In scripts/jobs/triager.sh, line 117 (git --git-dir="$BARE" fetch -q --all --...
 - [`self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-fetch-unbounded-die-crashloop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-fetch-unbounded-die-crashloop.md) — In scripts/jobs/triager.sh:117, the own-repo fetch git --git-dir="$BARE" fetc...
 
-### tada (2686)
+### tada (2690)
+- [`self-heal-fix-garden-triager-kriscendobot-minion-town-fetch-die-on-transient`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-fetch-die-on-transient.md) — Implemented and pushed 9730e56259 to main2.
+- [`self-heal-fix-garden-triager-kriscendobot-agoric-sdk-bound-triage-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-sdk-bound-triage-fetch.md) — Completion report
+- [`self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-unbounded-fetch-hard-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-unbounded-fetch-hard-die.md) — Completion report
+- [`self-heal-fix-garden-triager-kriscendobot-endo-fetch-transient-soft-skip`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-endo-fetch-transient-soft-skip.md) — Implemented and pushed 8d83681ebe to main2.
 - [`xs2rust-endor-build-stage9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage9.md) — orchestration xs2rust-endor-build-stage9 — HALTED
-- [`xs2rust-endor-press-20260718-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-060503.md) — Completion report — xs2rust-endor press tick 06:05Z (observed; deferred to li...
-- [`endo-sturdyref-press-20260718-060503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-060503.md) — SturdyRef press — 06:05 tick complete. Observation-only: no movement, all lan...
-- [`xs2rust-endor-stage9-toprimitive-add`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9-toprimitive-add.md) — Completion report — Stage-9 child 1/6: ToPrimitive-in-op_add native→JS trampo...
-- [`finbot-progress-20260718-050503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260718-050503.md) — Completion report
-- … and 2681 more
+- … and 2685 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
