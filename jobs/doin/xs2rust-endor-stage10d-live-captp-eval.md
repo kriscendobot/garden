@@ -37,6 +37,8 @@ Engine workspace EXIT=0 all-0-failed (708 at cut); compile-diff 1909/1909 + SYMB
 - **Push-per-item**; **STOP-and-checkpoint** at ~1800s-with-nothing-pushed: land an honest verified increment (even partial glue behind a test), push, tada with the exact resume point + halt signature.
 - Report via tada ONLY — never inbox-send the parked supervisor. Keep the PR DRAFT; no PR comments.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
