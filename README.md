@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T14:35:32Z_
+_As of 2026-07-18T14:37:25Z_
 
 ## Latest
 
@@ -1349,25 +1349,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 119.3M | $1192.19 _(notional, rate-card)_ | no quota set |
+| Claude | 119.3M | $1192.60 _(notional, rate-card)_ | no quota set |
 | Codex | 201.7M _(+526.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endo-sturdyref-press-20260718-143502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260718-143502.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+### doin (2)
 - [`xs2rust-endor-press-20260718-143502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260718-143502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-stage10-persistent-realm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10-persistent-realm.md) — Stage-10 child 3/7 — persistent guest realm + host-reply channel in the worke...
 
-### tada (2749)
+### tada (2750)
+- [`endo-sturdyref-press-20260718-143502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-143502.md) — No movement this tick — recorded an observation-only progress entry and compl...
 - [`design-endo-content-plane-git-http`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-content-plane-git-http.md) — Completion report
 - [`xs2rust-endor-stage10-newtarget-construct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10-newtarget-construct.md) — Completion report — xs2rust-endor-stage10-newtarget-construct (PR #600 stage ...
 - [`xs2rust-endor-stage10-function-prototype`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10-function-prototype.md) — Completion report
 - [`merge-endo-but-for-bots-pr792-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/merge-endo-but-for-bots-pr792-http-web-seed.md) — PR #792 was not merged: it is undrafted and mergeable, but CI run 29645592685...
-- [`endo-vfs-parity-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260718-122003.md) — **Press tick complete — VFS tool-call-surface parity arc (endojs/endo-but-for...
-- … and 2744 more
+- … and 2745 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
