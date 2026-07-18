@@ -1,11 +1,7 @@
 ---
-gate: blocked
-blocked_on: https://github.com/endojs/endo-but-for-bots/pull/789
-priority: normal
 role: builder
-posted_by: gardener
-posted_at: 2026-07-18T00:22:52Z
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-07-18T06:36:04Z -->
 
 # Build Phase 4 of the magnet-URN content-locator design: the HTTP web-seed plane
 
