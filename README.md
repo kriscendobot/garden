@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T17:26:16Z_
+_As of 2026-07-18T17:27:21Z_
 
 ## Latest
 
@@ -1454,24 +1454,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.3M | $1165.39 _(notional, rate-card)_ | no quota set |
+| Claude | 116.3M | $1165.16 _(notional, rate-card)_ | no quota set |
 | Codex | 201.8M _(+527.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`self-heal-fix-garden-triager-kriscendobot-cosgov-unbounded-fetch-timeout`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-cosgov-unbounded-fetch-timeout.md) — In scripts/jobs/triager.sh, the watch-target fetch at line 117 (git --git-dir...
+### doin (1)
 - [`xs2rust-endor-stage10b-ses-boot-r3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10b-ses-boot-r3.md) — Stage-10b child 2/5 — SES worker-bundle boot, gap round 3 (composed boot: bun...
 
-### tada (2773)
+### tada (2774)
+- [`self-heal-fix-garden-triager-kriscendobot-cosgov-unbounded-fetch-timeout`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-cosgov-unbounded-fetch-timeout.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-fetch-blip-hard-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-fetch-blip-hard-die.md) — Completion report
 - [`xs2rust-endor-stage10b-cross-turn-functions`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10b-cross-turn-functions.md) — Completion report — xs2rust-endor-stage10b-cross-turn-functions (PR #600 stag...
 - [`library-index-sources-readme-3-missing-20260718`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/library-index-sources-readme-3-missing-20260718.md) — Completion report
 - [`library-index-keywords-2-concepts-20260718`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/library-index-keywords-2-concepts-20260718.md) — Completion report
-- [`librarian-library-audit-20260718-165009`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/librarian-library-audit-20260718-165009.md) — Librarian library-audit completion report
-- … and 2768 more
+- … and 2769 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
