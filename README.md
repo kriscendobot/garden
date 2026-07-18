@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T12:23:22Z_
+_As of 2026-07-18T12:24:12Z_
 
 ## Latest
 
@@ -1333,27 +1333,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 120.1M | $1191.04 _(notional, rate-card)_ | no quota set |
+| Claude | 120.0M | $1189.60 _(notional, rate-card)_ | no quota set |
 | Codex | 200.1M _(+516.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (3)
 - [`endo-daemon-data-plane-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-daemon-data-plane-press-20260718-122003.md) — Press the Endo daemon data plane forward (endojs/endo-but-for-bots, base llm)
-- [`endo-git-integration-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260718-122003.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-vfs-parity-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260718-122003.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`ocapn-noise-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260718-122003.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`xs2rust-endor-stage9c-finish-line-measure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9c-finish-line-measure.md) — Stage-9c child 9/9 — the test:rust finish-line measurement on the Rust engine...
 
-### tada (2735)
+### tada (2737)
+- [`endo-git-integration-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260718-122003.md) — Press report — git-integration / M3 loop (2026-07-18T12:20Z dispatch)
+- [`ocapn-noise-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260718-122003.md) — Press dispatch 7 (2026-07-18 12:20Z) — steady state, all green, live proofs r...
 - [`xs2rust-endor-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-122003.md) — Press tick complete — this was an observe-and-defer tick, correctly so, and t...
 - [`endo-sturdyref-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-122003.md) — SturdyRef press — 12:20Z tick completion report
 - [`endo-byte-array-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260718-122003.md) — Completion report — endo-byte-array-press-20260718-122003
-- [`xs2rust-endor-stage9c-worker-surface`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-worker-surface.md) — Completion report — stage-9c child 8/9: the endor-vm worker surface
-- [`xs2rust-endor-stage9c-debugger-slice3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-debugger-slice3.md) — Completion report — stage-9c child 7/9: debugger slice 3/3 (daemon bus integr...
-- … and 2730 more
+- … and 2732 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
