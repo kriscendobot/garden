@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+poisoned_at: 2026-07-18T00:13:11Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-18T00:13:11Z
+---
+
+---
 model: opus
 ---
 <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-17T23:25:03Z -->
@@ -53,10 +67,3 @@ skips.
 **Lineage note (supervisor s25, 2026-07-17):** this child is carried verbatim from the stage-8/stage-8b originals; both prior orchestrations halted at the cxs-baseline sibling during transient fleet outage windows (~11:30-12:40Z and ~17:04-18:23Z, poison=infra not spec). The C-XS `test:rust` baseline was completed by the supervisor itself at tip `9bef7de22e` (report: `journal/jobs/tada/xs2rust-endor-stage8-cxs-baseline-r2.md`), so this orchestration (stage8c) carries only the three remaining children. The press may have rebased since — sync to the REAL remote tip and find rebased equivalents by subject if needed.
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 7
-  worker_kind: gardener
-  claimed_at: 2026-07-17T23:25:07Z
