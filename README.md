@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T13:04:25Z_
+_As of 2026-07-18T13:05:15Z_
 
 ## Latest
 
@@ -1337,8 +1337,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 120.2M | $1195.64 _(notional, rate-card)_ | no quota set |
-| Codex | 200.3M _(+520.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 120.2M | $1195.36 _(notional, rate-card)_ | no quota set |
+| Codex | 200.4M _(+520.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
@@ -1418,6 +1418,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`design-endo-content-plane-git-http`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/design-endo-content-plane-git-http.md) — awaiting `merge-endo-but-for-bots-pr792-http-web-seed` · Design: Git-over-HTTP content data plane (endo-content-plane-git-http)
 - [`merge-endo-but-for-bots-pr792-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/merge-endo-but-for-bots-pr792-http-web-seed.md) — awaiting `gauntlet-endo-but-for-bots-pr792-http-web-seed` · Merge endojs/endo-but-for-bots PR #792 (HTTP web-seed content plane, Phase 4)
+- [`port-xs-to-rust-memory-safe-engine-s32`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s32.md) — awaiting `xs2rust-endor-build-stage10` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`registry-immutable-byte-array-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/registry-immutable-byte-array-followup.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/671` · Immutable byte-array RegistryInterface follow-up
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
