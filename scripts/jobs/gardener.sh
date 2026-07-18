@@ -432,6 +432,24 @@ while :; do
       fi
     fi
   fi
+  # A completed feature build has one more mandatory completion edge: its open
+  # draft PR must receive a gauntlet job before this build is allowed into tada.
+  # Historically the generic Claude handler only *instructed* the builder to
+  # continue, so builds posted by post-plan --blocked completed and vanished
+  # from the board with their draft PRs stranded. Keep the handoff inside the
+  # worker's durable completion path. A posting failure becomes a normal failed
+  # claim below, which the reaper retries, rather than a silent stalled build.
+  if [ "$hrc" -eq 0 ] && [ -e "$completion_sentinel" ]; then
+    set +e
+    "$HERE/auto-gauntlet-handoff.sh" "$base" "$jobfile" "$report" >>"$capture" 2>&1
+    handoff_rc=$?
+    set -e
+    if [ "$handoff_rc" -ne 0 ]; then
+      hrc=$handoff_rc
+      log "auto-gauntlet handoff FAILED for '$base' (rc=$hrc); leaving build in doin for retry"
+    fi
+  fi
+
   if [ "$hrc" -eq 0 ] && [ -e "$completion_sentinel" ]; then
     # DETERMINISTIC COMPLETION GATE: the handler both exited 0 AND wrote the
     # completion sentinel (the worker reached its final act and emitted

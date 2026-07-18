@@ -76,6 +76,18 @@ whose cost we want to avoid when a signal says they cannot matter.
 5. **loop decision** — `decide` whether to wait on CI and loop, or stop. Emits
    `loop` to the supervisor or exits quietly.
 
+## Build handoff invariant
+
+The builder's initial draft PR is followed by a durable board edge, not merely a
+prompt instruction. When `gardener.sh` sees a genuinely completed `role: builder`
+job, `auto-gauntlet-handoff.sh` extracts its reported PR URL and queries GitHub.
+For an open draft feature PR it posts the idempotent `<build-base>-gauntlet` job
+before the build can move from `doin/` to `tada/`. The posted job records the
+source build and PR URL, which makes the handoff visible on the journal board.
+A failed post leaves the build claim unfinished for requeue rather than silently
+stranding a draft PR. Probe builds are recognized from their gap-revealing PR/body
+annotation and deliberately skip this edge.
+
 The scaffold wires the rebase/push mechanics as placeholders where a project
 plugs in its real commands; the `GARDEN_EVAL` gate now defaults to the
 `local-verify` harness rather than the original `true` no-op. The control flow,
