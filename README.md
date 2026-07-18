@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T17:45:20Z_
+_As of 2026-07-18T17:50:40Z_
 
 ## Latest
 
@@ -1478,23 +1478,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 115.9M | $1160.24 _(notional, rate-card)_ | no quota set |
+| Claude | 115.7M | $1159.12 _(notional, rate-card)_ | no quota set |
 | Codex | 201.8M _(+527.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-stage10b-ses-boot-r4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10b-ses-boot-r4.md) — Stage-10b child 3/5 — SES worker-bundle boot, gap round 4 (continuation)
+### doin (0)
+(none)
 
-### tada (2776)
+### tada (2777)
+- [`xs2rust-endor-stage10b-ses-boot-r4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10b-ses-boot-r4.md) — Completion report — stage-10b child 3/5: SES worker-bundle boot, gap round 4
 - [`finbot-progress-20260718-173501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260718-173501.md) — Completion report
 - [`xs2rust-endor-stage10b-ses-boot-r3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10b-ses-boot-r3.md) — Completion report — stage-10b child 2/5: SES worker-bundle boot, composed-boo...
 - [`self-heal-fix-garden-triager-kriscendobot-cosgov-unbounded-fetch-timeout`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-cosgov-unbounded-fetch-timeout.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-fetch-blip-hard-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-fetch-blip-hard-die.md) — Completion report
-- [`xs2rust-endor-stage10b-cross-turn-functions`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10b-cross-turn-functions.md) — Completion report — xs2rust-endor-stage10b-cross-turn-functions (PR #600 stag...
-- … and 2771 more
+- … and 2772 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
