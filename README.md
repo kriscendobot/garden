@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T00:39:40Z_
+_As of 2026-07-18T00:40:29Z_
 
 ## Latest
 
@@ -1193,14 +1193,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 132.2M | $1307.66 _(notional, rate-card)_ | no quota set |
-| Codex | 198.4M _(+443.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
+| Claude | 132.3M | $1308.83 _(notional, rate-card)_ | no quota set |
+| Codex | 198.4M _(+443.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (7)
+- [`deadmail-issue-comment-5008851178`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5008851178.md) — Dead-lettered message — pick up its intent
 - [`endo-vfs-parity-press-20260718-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260718-002002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr671-shepherd-20260718`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr671-shepherd-20260718.md) — Shepherd endojs/endo-but-for-bots PR #671 CI to green (role: shepherd)
 - [`endojs-endo-but-for-bots-pr789-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr789-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #789
