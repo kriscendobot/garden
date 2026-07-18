@@ -80,6 +80,7 @@ End the job when the queue is empty, every remaining entry has stalled this run,
 - **Always `--merge`.** Preserves the cluster the merge commit ties to the base; flattening defeats unit-revertibility upstream.
 - **The cluster is the tidied cluster.** Absorb fixer follow-ups before push. Tidying is bookkeeping, not fixer work.
 - **Stall, do not escalate.** Builder, fixer, standalone shepherd, weave are separate jobs a triager posts; the conductor records the need but does not post them.
+- **A DECLINED merge marks its report `orchestration-failed: true`.** When you finish the job WITHOUT the PR reaching MERGED / auto-merge-enqueued — any stall (`ci red: needs shepherd`, `rebase conflict`, `merge blocked`, `ferry required`, `needs weave`, `flaky`) — put a top-line `orchestration-failed: true` in the completion report. The job still completes (moves to `tada`), but that marker tells the deterministic gates the *gated outcome (the merge) did not happen*: a downstream job parked `blocked_on` this merge is then HELD for the maintainer rather than promoted onto a base that never landed (`scripts/jobs/unblock.sh`), and an orchestration halts on it (`scripts/jobs/orchestrate.sh`). A report of an ACTUAL merge (state=MERGED or auto-merge enqueued) carries NO such marker — the gate is genuinely satisfied. This is the [tada-failed] contract; see the field § below.
 - **Verify before reporting.** `gh pr view <N> --json state,autoMergeRequest` must show either `state=MERGED` or `autoMergeRequest != null`. If neither, the merge has not happened.
 - **Issue the merge command in the same job as the push.** A push followed by exit leaves `autoMergeRequest=null` and the next conductor inherits a tidied branch with no pending merge.
 - **Do not loop forever on a flaky PR.** Two re-rebase-and-walk attempts without convergence: stall `flaky` and move on.
@@ -92,7 +93,11 @@ Pushing a tidied force-with-lease and issuing `gh pr merge` are upstream mutatio
 
 - Every PR in the job is either merged (state=MERGED), enqueued for auto-merge (state=OPEN with autoMergeRequest), or stalled with a recorded reason. A PR is **never** left in `tada` green-but-unmerged: a still-pending CI is block-watched to terminal and merged in the same job, or the job is re-enqueued — it does not complete while waiting.
 - Every merged PR's `baseRefName` at merge time was the live trunk (`llm`, `main`, or `master`), never a frozen snapshot. Snapshots-as-base are unfrozen at step 2; merging onto a snapshot is a discipline violation. On `endojs/endo-but-for-bots` there is no `master` trunk to merge into — `master-<sha>`-based PRs stall `ferry required` (step 2 exception).
-- The report lists the run's outcomes plus any unblocked-downstream PRs.
+- The report lists the run's outcomes plus any unblocked-downstream PRs. **A report for a PR you did NOT merge carries `orchestration-failed: true`** (operating norms § *A DECLINED merge…*), so a merge-gated downstream is not falsely unblocked; a report for a genuinely merged PR does not.
+
+## The tada-failed contract (declined-merge marker)
+
+A `merge` job that completes WITHOUT the merge happening writes a top-line `orchestration-failed: true` in its completion report. This is the single "completed but did not achieve the gated outcome" marker the garden's deterministic gates honor (`tada_failed`, `scripts/jobs/common.sh`): the unblock watcher holds a `blocked_on`-this-merge dependent for the maintainer instead of promoting it, and the orchestrate watcher applies its `on-child-failure` policy. Emit it for EVERY non-merge outcome (any stall reason); OMIT it only when the PR is verifiably MERGED or auto-merge-enqueued. Belt-and-suspenders for the consumer side: merge-gated follow-up jobs should still verify the underlying PR state themselves as a precondition — several job bodies already do this defensively — since a hand-authored or pre-marker report might not carry the flag.
 
 ## Notes from the field
 

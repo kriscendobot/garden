@@ -3236,6 +3236,25 @@ orch_state() {
   local s; s="$(plan_field "$1" state)"; printf '%s\n' "${s:-pending}"
 }
 
+# Did a job's tada REPORT declare that the job completed WITHOUT achieving its
+# gated outcome? A job can reach tada/ (it finished, its worker exited cleanly)
+# yet decline the very thing a downstream gate keys on — the canonical case is a
+# conductor whose `merge` job correctly REFUSES to merge (CI red, base frozen,
+# ferry-required) but still completes. Such a report carries an explicit failure
+# marker so a dependent is NOT satisfied by the mere completion:
+#   orchestration-failed: true|yes            (or: yes)
+#   orchestration-status: fail…               (halted / failed / fail)
+# Returns 0 when the marker is present, 1 otherwise. This is the SINGLE source of
+# truth for "completed-but-declined", honored by BOTH deterministic serial
+# primitives: the orchestrate watcher (a child that failed → on-child-failure
+# policy) and the unblock watcher (a blocked_on predecessor that declined → do
+# NOT promote; hold for the maintainer). Keep the two in lock-step by reading the
+# same marker here rather than re-spelling the grep in each.
+tada_failed() {
+  grep -qiE '^orchestration-(status:[[:space:]]*fail|failed:[[:space:]]*(true|yes))' \
+    "$1" 2>/dev/null
+}
+
 # Parse an artifact string as a GitHub pull-request reference. On a match prints
 # "<owner>/<repo>\t<number>" and returns 0; on no match prints nothing, returns 1.
 # Recognized: a full PR URL (…github.com/<o>/<r>/pull/<n>[/…|#…|?…]) and the short

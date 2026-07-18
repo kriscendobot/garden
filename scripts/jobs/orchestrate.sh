@@ -72,8 +72,9 @@ sync_clone "$DIR"
 child_state() {  # <child-base> → done|active|parked|failed
   local c="$1"
   if [ -e "$DIR/$JOBS_TADA/$c.md" ]; then
-    if grep -qiE '^orchestration-(status:[[:space:]]*fail|failed:[[:space:]]*(true|yes))' \
-         "$DIR/$JOBS_TADA/$c.md" 2>/dev/null; then
+    # A tada report can carry the "completed but declined its gated outcome"
+    # marker (tada_failed, common.sh) — shared with the unblock watcher.
+    if tada_failed "$DIR/$JOBS_TADA/$c.md"; then
       printf 'failed\n'
     else
       printf 'done\n'

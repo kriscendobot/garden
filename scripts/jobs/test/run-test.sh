@@ -2190,6 +2190,36 @@ blocked_block="$(awk '/^### blocked/{f=1} f' <<<"$BQ_OUT")"
   && printf '%s' "$blocked_block" | grep -qF "$PR_URL"; } \
   && ok "bulletin renders the blocked group with the parked job and its awaited artifact" \
   || bad "bulletin blocked group wrong ($blocked_block)"
+
+# (9) DECLINED-BLOCKER: a blocker JOB that reaches tada/ but marks its report
+# `orchestration-failed: true` (a conductor that refused to merge) does NOT
+# satisfy the gate. The dependent is HELD (gate blocked → blocked-failed, stays
+# in plan/, never promoted to todo/) and the stalled dependency surfaces to the
+# maintainer. Regression guard for the conductor-decline-tada-gate gap.
+push_change_bare2 "jobs/plan/blk-job-d.md" \
+  "$(printf -- '---\ngate: blocked\nblocked_on: some-declined-merge\npriority: normal\n---\n# depends on the merge actually landing')" \
+  "park a job blocked on a merge that will be declined"
+push_change_bare2 "jobs/tada/some-declined-merge.md" \
+  "$(printf -- 'orchestration-failed: true\n# conductor DECLINED: ci red: needs shepherd\n')" \
+  "complete the blocker as a DECLINE (did not merge)"
+run_unblock
+{ blhas jobs/plan/blk-job-d.md && ! blhas jobs/todo/blk-job-d.md \
+  && blcat jobs/plan/blk-job-d.md | grep -q '^gate: blocked-failed' \
+  && blcat jobs/plan/blk-job-d.md | grep -q '^blocked_failed_reason:'; } \
+  && ok "unblock does NOT promote off a DECLINED (orchestration-failed) blocker; holds plan gate=blocked-failed" \
+  || bad "declined-blocker dependent mishandled (plan=$(blhas jobs/plan/blk-job-d.md&&echo y||echo n) todo=$(blhas jobs/todo/blk-job-d.md&&echo y||echo n) gate=$(blcat jobs/plan/blk-job-d.md | sed -n 's/^gate:[[:space:]]*//p' | head -1))"
+# the stalled dependency surfaced to the maintainer inbox (unread), naming the held job
+mtread="$(mktemp -d "$TR/mtrd.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BLBARE" "$mtread" 2>/dev/null
+held_notice_n=$(grep -rl 'blk-job-d' "$mtread/inbox/maintainer/unread" 2>/dev/null | grep -c . || true); rm -rf "$mtread"
+[ "$held_notice_n" -ge 1 ] \
+  && ok "declined-blocker hold surfaced to the maintainer inbox (names the held job)" \
+  || bad "no maintainer notice for the held declined-blocker dependent (found=$held_notice_n)"
+# idempotent: a second tick must NOT re-promote and must NOT re-notify (gate is held)
+run_unblock
+held_notice_n2=$(git clone -q --single-branch --branch "$BRANCH" "$BLBARE" "$TR/mtrd2" 2>/dev/null; grep -rl 'blk-job-d' "$TR/mtrd2/inbox/maintainer/unread" 2>/dev/null | grep -c . || true); rm -rf "$TR/mtrd2"
+{ ! blhas jobs/todo/blk-job-d.md && [ "$held_notice_n2" -eq "$held_notice_n" ]; } \
+  && ok "held declined-blocker stays held on re-tick (no re-promote, no re-notify)" \
+  || bad "held declined-blocker not idempotent (todo=$(blhas jobs/todo/blk-job-d.md&&echo y||echo n) notices=$held_notice_n2 was=$held_notice_n)"
 rm -f "$ba" "$bb"
 unset JOURNAL_REMOTE
 
