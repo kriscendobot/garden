@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T00:34:11Z_
+_As of 2026-07-18T00:35:33Z_
 
 ## Latest
 
@@ -1193,18 +1193,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 132.6M | $1306.58 _(notional, rate-card)_ | no quota set |
-| Codex | 198.3M _(+441.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 66% _(plan; codex-reported)_ |
+| Claude | 132.6M | $1308.39 _(notional, rate-card)_ | no quota set |
+| Codex | 198.3M _(+441.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (7)
 - [`endo-vfs-parity-press-20260718-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260718-002002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr671-shepherd-20260718`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr671-shepherd-20260718.md) — Shepherd endojs/endo-but-for-bots PR #671 CI to green (role: shepherd)
 - [`endojs-endo-but-for-bots-pr789-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr789-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #789
 - [`fix-endo-but-for-bots-pr626-stack-surgery-pass-path`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-endo-but-for-bots-pr626-stack-surgery-pass-path.md) — Complete the stack-surgery eval pass-path on endojs/endo-but-for-bots PR #626...
+- [`minion-town-agenda-review-20260718-003501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260718-003501.md) — Minion Town hourly agenda review
 - [`ocapn-noise-press-20260718-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260718-002002.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`port-xs-to-rust-memory-safe-engine-s25`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s25.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
