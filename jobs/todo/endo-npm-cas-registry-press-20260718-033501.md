@@ -1,7 +1,3 @@
-cadence: 6h
-last_dispatched: 2026-07-18T03:35:01Z
-job_basename_prefix: endo-npm-cas-registry-press
----
 ---
 model: fable
 ---
