@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T22:50:34Z_
+_As of 2026-07-18T22:52:21Z_
 
 ## Latest
 
@@ -1597,25 +1597,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 109.8M | $1107.61 _(notional, rate-card)_ | no quota set |
+| Claude | 109.8M | $1107.91 _(notional, rate-card)_ | no quota set |
 | Codex | 201.9M _(+529.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endo-sturdyref-press-20260718-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260718-225004.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
-- [`xs2rust-endor-press-20260718-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260718-225004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+### doin (1)
 - [`xs2rust-endor-stage10d-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10d-live-captp-eval.md) — stage10d child 3/4 — live daemon worker-evaluate round trip on the Rust engin...
 
-### tada (2809)
+### tada (2811)
+- [`xs2rust-endor-press-20260718-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-225004.md) — Observation tick complete — deferred to the live stage10d chain, no push made.
+- [`endo-sturdyref-press-20260718-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-225004.md) — SturdyRef press tick (22:50 dispatch) — **hold; no movement, observation reco...
 - [`xs2rust-endor-stage10d-worker-bootstrap`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10d-worker-bootstrap.md) — Completion report
 - [`endo-npm-cas-registry-press-20260718-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260718-220501.md) — Press tick complete for the npm-via-CAS registry-proxy arc. This dispatch mov...
 - [`endojs-endo-but-for-bots-pr794-review-a34bb7b7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr794-review-a34bb7b7.md) — Completion report
-- [`xs2rust-endor-stage10d-real-boot`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10d-real-boot.md) — Completion report — stage10d child 1/4: real two-eval SES boot in endor-vm
-- [`endojs-endo-but-for-bots-pr794-7b9dcba3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr794-7b9dcba3.md) — Updated PR #794 with static responder mapping and graceful SIGHUP reload sema...
-- … and 2804 more
+- … and 2806 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
