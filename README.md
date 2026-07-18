@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T07:00:14Z_
+_As of 2026-07-18T07:01:02Z_
 
 ## Latest
 
@@ -1274,25 +1274,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.3M | $1231.67 _(notional, rate-card)_ | no quota set |
-| Codex | 199.4M _(+480.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 124.2M | $1231.41 _(notional, rate-card)_ | no quota set |
+| Codex | 199.5M _(+480.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`design-ocapn-noise-key-only-session-boundary`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-ocapn-noise-key-only-session-boundary.md) — Design: lower peer authentication & encryption to the OCapN-Noise network lay...
-- [`endojs-endo-but-for-bots-pr406-e468d467`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr406-e468d467.md) — attention directive on endojs/endo-but-for-bots PR #406
 - [`xs2rust-endor-stage9-handled-promise`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9-handled-promise.md) — Stage-9b child 2/5 — HandledPromise / eventual-send surface
 
-### tada (2707)
+### tada (2708)
+- [`endojs-endo-but-for-bots-pr406-e468d467`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr406-e468d467.md) — Completion report
 - [`endojs-endo-but-for-bots-pr606-8d70b971`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr606-8d70b971.md) — Completion report
 - [`build-endo-content-locators-magnet-urn-phase4-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-content-locators-magnet-urn-phase4-http-web-seed.md) — Implemented Phase 4 HTTP web seeds and opened draft PR #792.
 - [`endo-vfs-parity-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260718-062002.md) — Completion report
 - [`xs2rust-endor-stage9b-template-cache`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9b-template-cache.md) — Completion report — xs2rust-endor-stage9b-template-cache (Item B)
-- [`minion-town-agenda-review-20260718-063502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260718-063502.md) — Reviewed and reported on garden issue #58: https://github.com/kriskowal/garde...
-- … and 2702 more
+- … and 2703 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
