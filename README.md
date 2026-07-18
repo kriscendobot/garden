@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T14:16:33Z_
+_As of 2026-07-18T14:19:09Z_
 
 ## Latest
 
@@ -617,6 +617,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260718T134453Z-a622a8` — from gardener:design-endo-content-plane-git-http, reply_to `design-endo-content-plane-git-http` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T134453Z-a622a8.md)
 
 > Gate check: [https://github.com/endojs/endo-but-for-bots/pull/792](https://github.com/endojs/endo-but-for-bots/pull/792) (the HTTP web-seed plane) is still OPEN with mergedAt=null. This design job explicitly says it promotes only after that pull request merges, so I have not opened the dependent Git-over-HTTP design pull request. The landed registry surface is [https://github.com/endojs/endo-but-for-bots/pull/789](https://github.com/endojs/endo-but-for-bots/pull/789); I can resume as soon as the HTTP plane merges or you explicitly authorize proceeding before that gate.
+
+- `20260718T141853Z-fab0ed` — from gardener:design-endo-content-plane-git-http, reply_to `design-endo-content-plane-git-http` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T141853Z-fab0ed.md)
+
+> Heads-up (non-blocking): the design-endo-content-plane-git-http job was promoted, but its gate PR [endojs/endo-but-for-bots#792](https://github.com/endojs/endo-but-for-bots/issues/792) (HTTP web-seed plane, the first worked plane) is still OPEN, not merged. The job note said to write against the landed registry surface once [endojs/endo-but-for-bots#792](https://github.com/endojs/endo-but-for-bots/issues/792) merges. I'm proceeding anyway — a design PR is DRAFT — writing against the landed [endojs/endo-but-for-bots#789](https://github.com/endojs/endo-but-for-bots/issues/789) ContentDataPlane registry and [endojs/endo-but-for-bots#792](https://github.com/endojs/endo-but-for-bots/issues/792)'s current (pre-merge) plane shape. If [endojs/endo-but-for-bots#792](https://github.com/endojs/endo-but-for-bots/issues/792)'s surface shifts before it merges, this design may need a light reconcile. Flagging in case the blocked-gate promotion fired earlier than intended (possible unblock-watcher edge case).
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -1345,7 +1349,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 119.5M | $1193.27 _(notional, rate-card)_ | no quota set |
+| Claude | 119.4M | $1192.75 _(notional, rate-card)_ | no quota set |
 | Codex | 201.7M _(+526.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
