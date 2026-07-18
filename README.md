@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T19:35:04Z_
+_As of 2026-07-18T19:42:52Z_
 
 ## Latest
 
@@ -1561,24 +1561,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 113.4M | $1142.31 _(notional, rate-card)_ | no quota set |
-| Codex | 201.8M _(+527.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 113.1M | $1138.49 _(notional, rate-card)_ | no quota set |
+| Codex | 201.9M _(+529.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr794-noise-ik-relay-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr794-noise-ik-relay-design.md) — Amend design PR for the relay-package direction
+### doin (1)
 - [`xs2rust-endor-stage10c-ses-boot-r6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10c-ses-boot-r6.md) — Stage-10c child 3/5 — SES worker-bundle boot, gap round 6 (target: lockdown()...
 
-### tada (2795)
+### tada (2796)
+- [`endojs-endo-but-for-bots-pr794-noise-ik-relay-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr794-noise-ik-relay-design.md) — Amended PR #794 with noise-protocol-ik-relay design direction and pushed 3880...
 - [`endojs-endo-but-for-bots-pr406-0cc0c326`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr406-0cc0c326.md) — Routed maintainer’s refinement to amend existing design PR #794 with a standa...
 - [`xs2rust-endor-stage10c-ses-boot-r5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10c-ses-boot-r5.md) — Completion report — stage-10c child 2/5: SES worker-bundle boot, gap round 5
 - [`merge-endo-but-for-bots-pr792-http-web-seed-restored`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/merge-endo-but-for-bots-pr792-http-web-seed-restored.md) — Completion report
 - [`minion-town-022b92e-deploy-verify-ocapn-cbor-np-caddy`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-022b92e-deploy-verify-ocapn-cbor-np-caddy.md) — Completion report
-- [`xs2rust-endor-stage10c-cross-turn-symbols`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10c-cross-turn-symbols.md) — Completion report — xs2rust-endor-stage10c-cross-turn-symbols (PR #600 stage-...
-- … and 2790 more
+- … and 2791 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
