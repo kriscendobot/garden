@@ -298,3 +298,10 @@ maintainer with a status summary. The maintainer is asked to look **once**, at t
 lifecycle (design PR, approval, build, review rounds, hand-off).
 
 <!-- garden-reaped: 4 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 9
+  worker_kind: gardener
+  claimed_at: 2026-07-18T03:23:14Z
