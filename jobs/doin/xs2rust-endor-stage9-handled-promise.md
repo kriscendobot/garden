@@ -26,3 +26,10 @@ Method — honest scoping first, then slices:
 If the honest surface is too large for one invocation, land the coherent prefix push-per-item and report the precise remainder in your tada report — the supervisor re-dispatches; do not rush an unsound surface.
 
 **Verification bar (report numbers + exit codes):** fresh clean of the three crates, then: workspace EXIT=0 all `test result:` lines 0 failed; curated compile-diff all-identical + SYMB; boot gate green (your conversion/split included); zero new Rust warnings; `forbid(unsafe_code)` intact at all 7 roots.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 20
+  worker_kind: gardener
+  claimed_at: 2026-07-18T06:49:33Z
