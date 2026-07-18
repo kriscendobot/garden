@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T23:35:30Z_
+_As of 2026-07-18T23:35:59Z_
 
 ## Latest
 
@@ -1665,18 +1665,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`finbot-progress-20260718-233504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260718-233504.md) — Push progress on kriscendobot/finbot (every 6h)
-- [`port-xs-to-rust-memory-safe-engine-s35`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s35.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`xs2rust-endor-stage10e-worker-gaps`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10e-worker-gaps.md) — stage10e child 1/3 — worker-bundle frontier gap round (resume at Unsupported(...
 
-### tada (2812)
+### tada (2813)
+- [`port-xs-to-rust-memory-safe-engine-s35`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s35.md) — Completion report — supervisor s35 (port-xs-to-rust-memory-safe-engine)
 - [`xs2rust-endor-build-stage10d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10d.md) — orchestration xs2rust-endor-build-stage10d — HALTED
 - [`xs2rust-endor-press-20260718-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-225004.md) — Observation tick complete — deferred to the live stage10d chain, no push made.
 - [`endo-sturdyref-press-20260718-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-225004.md) — SturdyRef press tick (22:50 dispatch) — **hold; no movement, observation reco...
 - [`xs2rust-endor-stage10d-worker-bootstrap`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10d-worker-bootstrap.md) — Completion report
-- [`endo-npm-cas-registry-press-20260718-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260718-220501.md) — Press tick complete for the npm-via-CAS registry-proxy arc. This dispatch mov...
-- … and 2807 more
+- … and 2808 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
