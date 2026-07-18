@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T11:28:30Z_
+_As of 2026-07-18T11:52:22Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 5h)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 12h)
-- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 10h)
+- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 11h)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 18h)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 23h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 18h)
@@ -1333,23 +1333,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 121.1M | $1199.23 _(notional, rate-card)_ | no quota set |
+| Claude | 120.8M | $1197.57 _(notional, rate-card)_ | no quota set |
 | Codex | 200.1M _(+516.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-stage9c-debugger-slice3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9c-debugger-slice3.md) — Stage-9c child 7/9 — Debugger slice 3/3: daemon bus integration + debugger ac...
+### doin (0)
+(none)
 
-### tada (2730)
+### tada (2731)
+- [`xs2rust-endor-stage9c-debugger-slice3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-debugger-slice3.md) — Completion report — stage-9c child 7/9: debugger slice 3/3 (daemon bus integr...
 - [`xs2rust-endor-stage9c-debugger-slice2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-debugger-slice2.md) — Completion report
 - [`finbot-progress-20260718-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260718-112002.md) — Advanced kriscendobot/finbot main: 29d4683 -> 4d0e902.
 - [`xs2rust-endor-stage9c-handled-promise-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-handled-promise-shim.md) — Completion report — stage-9c child 5/9: the HandledPromise / eventual-send sh...
 - [`xs2rust-endor-stage9c-proxy-mop`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-proxy-mop.md) — Completion report
-- [`xs2rust-endor-press-20260718-102001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-102001.md) — What I found
-- … and 2725 more
+- … and 2726 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
