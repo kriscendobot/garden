@@ -42,3 +42,10 @@ Stage-10c/press rounds r1–r8 made the **prelude-stand-in single-eval dual-run*
 - **Push-per-item**: every verified item is its own commit, pushed immediately. Zero-push deadline deaths are the failure mode this discipline exists to prevent (two prior children died with zero pushes).
 - **STOP-and-checkpoint**: if you are ~1800s in with NOTHING pushed, STOP opening new fronts; land what you have as an honest WIP that keeps all bars green (e.g. the two-eval harness + the first gap fix), push it, and write your tada with the exact resume point.
 - Report via your tada completion report ONLY — never inbox-send the parked supervisor. Keep the PR DRAFT; no PR comments.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-18T21:46:11Z
