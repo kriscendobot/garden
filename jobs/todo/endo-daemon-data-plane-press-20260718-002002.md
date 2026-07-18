@@ -1,7 +1,3 @@
-cadence: 6h
-last_dispatched: 2026-07-18T00:20:02Z
-job_basename_prefix: endo-daemon-data-plane-press
----
 ---
 model: fable
 ---
