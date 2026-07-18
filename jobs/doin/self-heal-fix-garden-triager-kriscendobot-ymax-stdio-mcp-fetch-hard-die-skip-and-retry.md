@@ -1,3 +1,10 @@
 In `scripts/jobs/triager.sh` line 117, the bare-clone refresh `git --git-dir="$BARE" fetch -q --all --prune || die "fetch failed for $slug"` treats a transient fetch failure as a hard `die` (exit 1, via `common.sh:285`), which flaps the `garden-triager@<slug>` systemd unit on a network blip. Observed signature (kriscendobot-ymax-stdio-mcp): stderr shows `Terminated` (the fetch transport reaped by a timeout/SIGTERM) immediately followed by `FATAL: fetch failed for kriscendobot-ymax-stdio-mcp`, exit 1.
 
 Make the fetch resilient in the same shape the self-provision path already uses (lines 94–104): on fetch failure, `log` a WARN, fire a throttled `alert_maintainer` with a per-slug dedup key (e.g. `triager-fetch-failed-${slug//[^A-Za-z0-9._-]/_}`) so a persistent bad/unreachable remote still escalates at most once per window, then `exit 0` to skip this tick and retry next tick — do NOT advance the cursor. Keep it a hard failure only if you can distinguish a genuinely corrupt local repo from a transient network error; otherwise treat all fetch failures as skip-and-retry, matching the "a missing clone must never be a hard die" invariant documented at lines 48–51. Add/extend a test to cover a failing `git fetch` resolving to exit 0 (skip) rather than exit 1.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: gardener
+  claimed_at: 2026-07-18T14:44:53Z
