@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T05:05:24Z_
+_As of 2026-07-18T05:13:10Z_
 
 ## Latest
 
@@ -552,6 +552,31 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > Also still pending your call (msg 20260717T001224Z-3483f4, unread): whether to
 > open a non-443 TCP port on minion.town's security group for the cross-host
 > TCP+CBOR demo, or accept local-TCP + cross-host-wss as done.
+
+- `20260718T051250Z-02c182` — from gardener:finbot-progress-20260718-050503, reply_to `finbot-progress-20260718-050503` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T051250Z-02c182.md)
+
+> finbot progress (6h cycle) — EGARCH MLE landed, kriscendobot/finbot main dbfa3bd → 29d4683.
+>
+> Advanced (one increment): egarchMleFromPriceHistory — light variance-targeting
+> MLE that reads (alpha, gamma, beta) per instrument from realized returns via the
+> same deterministic nested-grid refinement the symmetric/GJR fitters use (no
+> optimizer, no RNG). Log-variance form pins omega on beta alone; unlike GJR the
+> gamma box straddles zero, so the fit recovers the leverage sign (gamma<0) or a
+> reverse-leverage series. Routed via makeVolSurface({kind:'egarch', history,
+> estimate:'mle'}), exported from the sim index. New egarch-mle.test.js (9 cases,
+> incl. leverage-sign + reverse-leverage recovery). Full suite 572 pass / 0 fail
+> (was 563); finbot-ooda --seed=7 green, WALLET TOUCHED: false, auditor APPROVED.
+> Design field note added.
+>
+> Next unblocked step (handed off): route EGARCH into the live regime read /
+> adaptive-vol selector — extend conditionalVolFromPriceHistory / the auto-gjr
+> per-asset chooser into a three-way GARCH/GJR/EGARCH (or auto-egarch) selector on
+> fitted-gamma evidence, so the forecaster and auditor can key off a log-variance
+> asymmetry. Deferred behind that: implied-vol surfaces, PNG rasterization,
+> far-reference vending.
+>
+> Maintainer decision pending (unchanged): live execution stays blocked on explicit
+> paper-wallet/test-net authorization and a chosen CapTP transport.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -1195,7 +1220,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.5M | $1210.85 _(notional, rate-card)_ | no quota set |
+| Claude | 124.7M | $1213.95 _(notional, rate-card)_ | no quota set |
 | Codex | 198.8M _(+458.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 ## Board
