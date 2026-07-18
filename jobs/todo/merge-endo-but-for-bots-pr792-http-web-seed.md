@@ -1,10 +1,7 @@
 ---
-gate: blocked
-blocked_on: gauntlet-endo-but-for-bots-pr792-http-web-seed
-priority: normal
-posted_by: producer
-posted_at: 2026-07-18T12:24:42Z
+role: conductor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-07-18T13:11:04Z -->
 
 ---
 role: conductor
