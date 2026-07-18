@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T10:06:33Z_
+_As of 2026-07-18T10:07:28Z_
 
 ## Latest
 
@@ -1336,8 +1336,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-stage9c-proxy-mop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9c-proxy-mop.md) — Stage-9c child 4/9 — minimal Proxy MOP: construction + get trap (then has/set...
 
 ### tada (2724)
 - [`xs2rust-endor-stage9c-reflect-trampolines`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-reflect-trampolines.md) — Completion report
