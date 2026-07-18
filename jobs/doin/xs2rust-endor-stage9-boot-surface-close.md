@@ -21,3 +21,10 @@ model: opus
 **Item B — tagged-template `template_cache` (the real `String.raw` call form).** Stage 8 bound the `String.raw` static and greened the error-formatting boot step; the assert shim's actual call site is a tagged template (``String.raw`…` ``), which needs the per-site template-object cache per XS semantics (xsCode.c template creation + xsRun.c caching — one frozen template array per site, identity-stable across calls). Implement with XS-annotated semantics; add corpus entries for tagged templates (byte-identity vs the oracle) and dual-run tests covering template-object identity across repeated calls, `raw` contents, and the assert shim's actual form.
 
 **Verification bar (report numbers + exit codes):** fresh clean of the three crates, then: workspace EXIT=0 all `test result:` lines 0 failed; curated compile-diff all-identical + SYMB; boot gate green including your conversions; zero new Rust warnings; `forbid(unsafe_code)` intact at all 7 roots.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-18T05:31:08Z
