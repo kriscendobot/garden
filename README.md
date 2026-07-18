@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T19:30:16Z_
+_As of 2026-07-18T19:31:23Z_
 
 ## Latest
 
@@ -1568,8 +1568,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-stage10c-ses-boot-r6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10c-ses-boot-r6.md) — Stage-10c child 3/5 — SES worker-bundle boot, gap round 6 (target: lockdown()...
 
 ### tada (2794)
 - [`xs2rust-endor-stage10c-ses-boot-r5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10c-ses-boot-r5.md) — Completion report — stage-10c child 2/5: SES worker-bundle boot, gap round 5
