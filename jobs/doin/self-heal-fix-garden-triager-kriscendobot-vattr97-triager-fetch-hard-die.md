@@ -17,3 +17,10 @@ the existing patterns in this file/common.sh:
   - Only `die` on a genuinely structural fetch error (non-transient, non-timeout), preserving the loud-surface behavior for a real bug.
 Add/extend the triager test guards to cover a transient fetch failure resolving to
 a clean skip (exit 0) rather than a crash.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  claimed_at: 2026-07-18T06:15:32Z
