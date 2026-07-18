@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T20:24:31Z_
+_As of 2026-07-18T20:50:36Z_
 
 ## Latest
 
@@ -12,9 +12,9 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 13h)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 14h)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 21h)
-- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 19h)
+- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 20h)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 1d)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 1d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
@@ -1561,14 +1561,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 112.4M | $1132.53 _(notional, rate-card)_ | no quota set |
+| Claude | 112.0M | $1128.39 _(notional, rate-card)_ | no quota set |
 | Codex | 201.9M _(+529.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`endo-sturdyref-press-20260718-205002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260718-205002.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+- [`xs2rust-endor-press-20260718-205002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260718-205002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-stage10c-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10c-remeasure.md) — Stage-10c child 5/5 — re-measure the bounded-serial 52-file daemon sweep (mea...
 
 ### tada (2798)
