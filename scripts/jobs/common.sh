@@ -703,6 +703,32 @@ derive_clone_url() {
   printf '%s/%s/%s.git\n' "$GARDEN_CLONE_URL_BASE" "$owner" "$name"
 }
 
+# Bounded fetch in <dir>. The remaining arguments are passed to `git fetch`, so
+# callers can fetch a named remote/branch or refresh every configured remote.
+# Each attempt has a wall-clock deadline, retries with backoff, and returns the
+# last non-zero status only after the retry budget is spent. This is shared by
+# clone-keeper and triager: a network blip must not leave either timer running
+# until systemd kills it.
+bounded_fetch() {
+  local dir="$1" attempt=1 rc=0
+  shift
+  while :; do
+    if timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
+         git -C "$dir" fetch -q "$@" 2>/dev/null; then
+      return 0
+    else
+      rc=$?
+    fi
+    { [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ]; } \
+      && log "fetch $* in $dir timed out (>${GARDEN_FETCH_TIMEOUT}s, rc=$rc) on attempt $attempt"
+    if [ "$attempt" -ge "$GARDEN_FETCH_RETRIES" ]; then
+      log "fetch $* in $dir failed after $attempt attempt(s) (last rc=$rc)"
+      return "$rc"
+    fi
+    backoff "$attempt"; attempt=$((attempt+1))
+  done
+}
+
 # Bounded bare clone of <src> into <abs>, mirroring bounded_fetch's timeout+retry
 # discipline (git has no IO timeout of its own). We NEVER clone straight into the
 # tracked path: git clone removes its own target on an internal error, but a

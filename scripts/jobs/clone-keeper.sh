@@ -115,33 +115,10 @@ GARDEN_TAG="clone-keeper"
 # is_own_git_repo / is_remote_location / derive_clone_url / bounded_clone helpers
 # (triager.sh self-provisions with the same logic). Overridable for offline tests.
 
-# Bounded ref fetch for an arbitrary remote/branch, mirroring common.sh's
-# journal_fetch (which is hardwired to the journal branch): each attempt is
-# wrapped in `timeout GARDEN_FETCH_TIMEOUT`, transient failures retry with backoff
-# up to GARDEN_FETCH_RETRIES. The `if … ; then … ; else rc=$?; fi` form keeps a
-# non-zero fetch from tripping the caller's `set -e` before we can read its rc.
-# Returns 0 on success, the last non-zero rc after the retry budget is spent.
-bounded_fetch() {
-  local dir="$1" remote="$2" branch="$3" attempt=1 rc=0
-  while :; do
-    if timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" git -C "$dir" fetch -q "$remote" "$branch" 2>/dev/null; then
-      return 0
-    else
-      rc=$?
-    fi
-    [ "$rc" -eq 124 ] && log "fetch $remote $branch in $dir timed out (>${GARDEN_FETCH_TIMEOUT}s) on attempt $attempt"
-    if [ "$attempt" -ge "$GARDEN_FETCH_RETRIES" ]; then
-      log "fetch $remote $branch in $dir failed after $attempt attempt(s) (last rc=$rc)"
-      return "$rc"
-    fi
-    backoff "$attempt"; attempt=$((attempt+1))
-  done
-}
-
 # is_own_git_repo, is_remote_location, derive_clone_url, and bounded_clone are
-# shared helpers defined in common.sh (triager.sh self-provisions a never-held clone
-# with the same derive-URL + bounded-atomic-clone logic). They were factored out of
-# this keeper verbatim; see common.sh § standing bare-clone provisioning helpers.
+# shared helpers defined in common.sh. bounded_fetch accepts arbitrary fetch
+# arguments, so triager can refresh all remotes while this keeper fetches its
+# configured remote/branch. See common.sh § standing bare-clone provisioning helpers.
 
 # Fetch + fast-forward one tracked clone. Self-contained: every failure path is
 # logged and returns 0, so one unreachable/diverged clone never aborts the rest.

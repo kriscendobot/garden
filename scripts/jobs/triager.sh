@@ -114,36 +114,11 @@ if ! is_own_git_repo "$BARE"; then
   fi
 fi
 
-# Steady-state clone refresh. git has NO IO timeout of its own, so a half-open SSH
-# fetch (e.g. ssh://git@github.com/kriscendobot/agoric-3-proposals.git) would hang
-# until systemd's TimeoutStartSec=900 SIGKILLs the git child — producing the observed
-# `Terminated` + FATAL + exit-1 signature that marks the unit Failed and triggers
-# self-heal on every transient network/SSH blip. So the fetch is BOUNDED exactly like
-# the rest of the fleet (clone-keeper's bounded_fetch, common.sh's journal_fetch): each
-# attempt runs under `timeout --kill-after=GARDEN_FETCH_KILL_AFTER GARDEN_FETCH_TIMEOUT`
-# (SIGTERM at the wall-clock deadline, SIGKILL escalation for a SIGTERM-ignoring
-# transport child), retried with backoff up to GARDEN_FETCH_RETRIES. The
-# `if … ; then … else rc=$?; fi` form keeps a non-zero fetch from tripping `set -e`
-# before we can read its rc.
-fetch_attempt=1
-fetch_rc=0
-fetch_stderr=""
-while :; do
-  if timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
-       git --git-dir="$BARE" fetch -q --all --prune; then
-    fetch_rc=0
-    break
-  else
-    fetch_rc=$?
-  fi
-  # 124 = SIGTERM ended the fetch at the deadline; 137 = a SIGTERM-ignoring transport
-  # child was escalated to SIGKILL by --kill-after. Both are the same wall-clock kill.
-  { [ "$fetch_rc" -eq 124 ] || [ "$fetch_rc" -eq 137 ]; } \
-    && log "fetch for $slug timed out (>${GARDEN_FETCH_TIMEOUT}s, rc=$fetch_rc) on attempt $fetch_attempt"
-  if [ "$fetch_attempt" -ge "$GARDEN_FETCH_RETRIES" ]; then break; fi
-  backoff "$fetch_attempt"; fetch_attempt=$((fetch_attempt+1))
-done
-if [ "$fetch_rc" -ne 0 ]; then
+# Steady-state clone refresh. git has no IO timeout of its own, so a half-open
+# SSH fetch can hang until systemd kills it, marking the unit Failed. common.sh's
+# bounded_fetch applies a timeout with SIGKILL escalation, bounded retries, and
+# backoff. A failed refresh is a clean tick skip, not a systemd failure.
+if ! bounded_fetch "$BARE" --all --prune; then
   # A failed refresh is retried on the next timer tick. Keep the unit healthy,
   # and surface a persistent failure through the throttled maintainer alert.
   fmsg="triager: fetch failed for $slug (unreachable/offline?); skipping this tick, retry next"
