@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T18:41:47Z_
+_As of 2026-07-18T18:43:35Z_
 
 ## Latest
 
@@ -1561,18 +1561,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 115.1M | $1156.42 _(notional, rate-card)_ | no quota set |
+| Claude | 115.1M | $1157.17 _(notional, rate-card)_ | no quota set |
 | Codex | 201.8M _(+527.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`fix-garden-conductor-decline-tada-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-garden-conductor-decline-tada-gate.md) — Fix: a conductor that DECLINES to merge still satisfies blocked_on gates
 - [`fix-garden-gauntlet-force-push-rewind`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-garden-gauntlet-force-push-rewind.md) — Fix: gauntlet force-push can rewind a peer's newer commits (branch-rewind haz...
 - [`merge-endo-but-for-bots-pr792-http-web-seed-restored`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/merge-endo-but-for-bots-pr792-http-web-seed-restored.md) — Merge endojs/endo-but-for-bots PR #792 (HTTP web-seed content plane) — retry ...
 - [`port-xs-to-rust-memory-safe-engine-s33`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s33.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
+- [`xs2rust-endor-stage10c-cross-turn-symbols`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10c-cross-turn-symbols.md) — Stage-10c child 1/5 — cross-turn SYMBOL resolution (prior-turn handler bodies...
 
 ### tada (2784)
 - [`endo-daemon-data-plane-press-20260718-183502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260718-183502.md) — All three jobs are already claimed by peer gardeners, CI is running on the re...
