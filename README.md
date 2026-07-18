@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T07:01:02Z_
+_As of 2026-07-18T07:01:33Z_
 
 ## Latest
 
@@ -1275,23 +1275,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 124.2M | $1231.41 _(notional, rate-card)_ | no quota set |
-| Codex | 199.5M _(+480.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Codex | 199.5M _(+480.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`design-ocapn-noise-key-only-session-boundary`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-ocapn-noise-key-only-session-boundary.md) — Design: lower peer authentication & encryption to the OCapN-Noise network lay...
-- [`xs2rust-endor-stage9-handled-promise`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9-handled-promise.md) — Stage-9b child 2/5 — HandledPromise / eventual-send surface
 
-### tada (2708)
+### tada (2709)
+- [`xs2rust-endor-stage9-handled-promise`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9-handled-promise.md) — Completion report — Stage-9b child 2/5: HandledPromise / eventual-send surface
 - [`endojs-endo-but-for-bots-pr406-e468d467`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr406-e468d467.md) — Completion report
 - [`endojs-endo-but-for-bots-pr606-8d70b971`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr606-8d70b971.md) — Completion report
 - [`build-endo-content-locators-magnet-urn-phase4-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-content-locators-magnet-urn-phase4-http-web-seed.md) — Implemented Phase 4 HTTP web seeds and opened draft PR #792.
 - [`endo-vfs-parity-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260718-062002.md) — Completion report
-- [`xs2rust-endor-stage9b-template-cache`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9b-template-cache.md) — Completion report — xs2rust-endor-stage9b-template-cache (Item B)
-- … and 2703 more
+- … and 2704 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
