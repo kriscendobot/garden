@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T14:15:35Z_
+_As of 2026-07-18T14:16:33Z_
 
 ## Latest
 
@@ -1345,15 +1345,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 119.5M | $1193.50 _(notional, rate-card)_ | no quota set |
+| Claude | 119.5M | $1193.27 _(notional, rate-card)_ | no quota set |
 | Codex | 201.7M _(+526.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`design-endo-content-plane-git-http`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-content-plane-git-http.md) — Design: Git-over-HTTP content data plane (endo-content-plane-git-http)
+- [`xs2rust-endor-stage10-persistent-realm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10-persistent-realm.md) — Stage-10 child 3/7 — persistent guest realm + host-reply channel in the worke...
 
 ### tada (2748)
 - [`xs2rust-endor-stage10-newtarget-construct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10-newtarget-construct.md) — Completion report — xs2rust-endor-stage10-newtarget-construct (PR #600 stage ...
