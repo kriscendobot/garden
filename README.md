@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T17:04:29Z_
+_As of 2026-07-18T17:25:08Z_
 
 ## Latest
 
@@ -647,6 +647,20 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > **Posted today: nothing** — deliberately. Everything below 621 is blocked; 621 itself is already green + re-requested, so another weave/gauntlet would be noise.
 >
 > **Decision needed from you (one of):** (a) approve + merge [https://github.com/endojs/endo-but-for-bots/pull/621](https://github.com/endojs/endo-but-for-bots/pull/621) so I can post the OAuth-exo builder tomorrow; or (b) authorize building the OAuth exo on the already-merged base `endoclaw-oauth.md` design and landing 621's refinements later. Without one of these the whole tree stays stalled.
+
+- `20260718T172444Z-f77e5b` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T172444Z-f77e5b.md)
+
+> self-heal: garden-triager@kriscendobot-finbot exited rc=1 with no scoped fix. Capture: 5b9b62bf69e09f92e60990cdab093a0647315d37 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 5b9b62bf69e09f92e60990cdab093a0647315d37). Diagnosis: I've diagnosed the failure. Here's what the evidence shows.
+>
+> The captured blob is just two lines:
+> ```
+> Terminated
+> <3>17:23:10 [triager/kriscendobot-finbot] FATAL: fetch failed for kriscendobot-finbot
+> ```
+>
+> Correlating with journald: the service `Start`ed at **17:23:10** and the `git --git-dir=... fetch` (triager.sh:117) printed `Terminated` and hit the `die "fetch failed"` in the **same second** (17:23:10). Every tick before it — 17:07, 17:09, 17:11, … 17:21 — completed cleanly in 6–20s (`no change on kriscendobot-finbot:main`). The bare clone exists, its `origin` remote is well-formed (`ssh://git@github.com/kriscendobot/finbot.git`), and it was fetching fine minutes earlier.
+>
+> `Terminated` is bash's message for a foreground child killed by **SIGTERM (15)**. Because it landed in the s
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -1440,14 +1454,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.7M | $1168.68 _(notional, rate-card)_ | no quota set |
+| Claude | 116.3M | $1166.47 _(notional, rate-card)_ | no quota set |
 | Codex | 201.8M _(+527.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-fetch-blip-hard-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-fetch-blip-hard-die.md) — In scripts/jobs/triager.sh at line 117, the source-clone fetch git --git-dir=...
+- [`self-heal-fix-garden-triager-kriscendobot-cosgov-unbounded-fetch-timeout`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-cosgov-unbounded-fetch-timeout.md) — In scripts/jobs/triager.sh, the watch-target fetch at line 117 (git --git-dir...
 - [`xs2rust-endor-stage10b-ses-boot-r3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10b-ses-boot-r3.md) — Stage-10b child 2/5 — SES worker-bundle boot, gap round 3 (composed boot: bun...
 
 ### tada (2772)
