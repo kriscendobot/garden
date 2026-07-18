@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 3
+worker_kind: gardener
+claimed_at: 2026-07-18T19:55:06Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-xs2rust-endor-stage10c-live-captp-eval
