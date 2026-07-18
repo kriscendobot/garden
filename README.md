@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T18:36:19Z_
+_As of 2026-07-18T18:38:37Z_
 
 ## Latest
 
@@ -1561,28 +1561,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 114.9M | $1153.36 _(notional, rate-card)_ | no quota set |
+| Claude | 115.0M | $1154.12 _(notional, rate-card)_ | no quota set |
 | Codex | 201.8M _(+527.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
-- [`endo-byte-array-press-20260718-183502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260718-183502.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+### doin (3)
 - [`endo-daemon-data-plane-press-20260718-183502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-daemon-data-plane-press-20260718-183502.md) — Press the Endo daemon data plane forward (endojs/endo-but-for-bots, base llm)
-- [`endo-git-integration-press-20260718-183502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260718-183502.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
-- [`endo-vfs-parity-press-20260718-183502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260718-183502.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260718-183502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260718-183502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`port-xs-to-rust-memory-safe-engine-s33`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s33.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
-### tada (2779)
+### tada (2782)
+- [`endo-vfs-parity-press-20260718-183502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260718-183502.md) — Completion report — endo-vfs-parity-press tick (2026-07-18, 18:35 dispatch)
+- [`endo-git-integration-press-20260718-183502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260718-183502.md) — Press report — git-integration / M3 loop (endojs/endo-but-for-bots), dispatch...
+- [`endo-byte-array-press-20260718-183502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260718-183502.md) — Assessment complete — the entire byte-array press is in a wait-on-human state...
 - [`xs2rust-endor-build-stage10b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10b.md) — orchestration xs2rust-endor-build-stage10b — HALTED
 - [`arc-status-daily-20260718-180502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/arc-status-daily-20260718-180502.md) — Daily arc status for 2026-07-18 UTC posted: exactly one ## Daily status — 202...
-- [`xs2rust-endor-stage10b-ses-boot-r4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10b-ses-boot-r4.md) — Completion report — stage-10b child 3/5: SES worker-bundle boot, gap round 4
-- [`finbot-progress-20260718-173501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260718-173501.md) — Completion report
-- [`xs2rust-endor-stage10b-ses-boot-r3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10b-ses-boot-r3.md) — Completion report — stage-10b child 2/5: SES worker-bundle boot, composed-boo...
-- … and 2774 more
+- … and 2777 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
