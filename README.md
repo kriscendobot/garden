@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T11:52:22Z_
+_As of 2026-07-18T11:55:19Z_
 
 ## Latest
 
@@ -1333,15 +1333,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 120.8M | $1197.57 _(notional, rate-card)_ | no quota set |
+| Claude | 120.8M | $1197.12 _(notional, rate-card)_ | no quota set |
 | Codex | 200.1M _(+516.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-stage9c-worker-surface`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9c-worker-surface.md) — Stage-9c child 8/9 — the endor-vm worker surface: CapTP deliver-envelope serv...
 
 ### tada (2731)
 - [`xs2rust-endor-stage9c-debugger-slice3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-debugger-slice3.md) — Completion report — stage-9c child 7/9: debugger slice 3/3 (daemon bus integr...
