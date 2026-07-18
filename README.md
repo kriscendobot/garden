@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T22:32:50Z_
+_As of 2026-07-18T22:34:44Z_
 
 ## Latest
 
@@ -1597,15 +1597,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 110.2M | $1112.96 _(notional, rate-card)_ | no quota set |
+| Claude | 110.1M | $1112.64 _(notional, rate-card)_ | no quota set |
 | Codex | 201.9M _(+529.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-stage10d-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10d-live-captp-eval.md) — stage10d child 3/4 — live daemon worker-evaluate round trip on the Rust engin...
 
 ### tada (2809)
 - [`xs2rust-endor-stage10d-worker-bootstrap`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10d-worker-bootstrap.md) — Completion report
