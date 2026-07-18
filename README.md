@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T06:07:38Z_
+_As of 2026-07-18T06:11:54Z_
 
 ## Latest
 
@@ -577,6 +577,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Maintainer decision pending (unchanged): live execution stays blocked on explicit
 > paper-wallet/test-net authorization and a chosen CapTP transport.
+
+- `20260718T061128Z-a8a4f5` — from watchdog:gardener/1, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T061128Z-a8a4f5.md)
+
+> gardener job 'xs2rust-endor-stage9-boot-surface-close' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -1220,7 +1224,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.4M | $1224.73 _(notional, rate-card)_ | no quota set |
+| Claude | 124.4M | $1228.74 _(notional, rate-card)_ | no quota set |
 | Codex | 198.8M _(+458.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 ## Board
