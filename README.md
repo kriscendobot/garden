@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T13:37:59Z_
+_As of 2026-07-18T13:40:34Z_
 
 ## Latest
 
@@ -1341,15 +1341,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 119.6M | $1189.35 _(notional, rate-card)_ | no quota set |
+| Claude | 119.5M | $1188.78 _(notional, rate-card)_ | no quota set |
 | Codex | 201.7M _(+526.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`design-endo-content-plane-git-http`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-content-plane-git-http.md) — Design: Git-over-HTTP content data plane (endo-content-plane-git-http)
+- [`xs2rust-endor-stage10-newtarget-construct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10-newtarget-construct.md) — Stage-10 child 2/7 — new.target retargeting + Promise-subclass construction
 
 ### tada (2747)
 - [`xs2rust-endor-stage10-function-prototype`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10-function-prototype.md) — Completion report
