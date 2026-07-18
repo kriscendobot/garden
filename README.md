@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T16:43:32Z_
+_As of 2026-07-18T16:50:35Z_
 
 ## Latest
 
@@ -13,7 +13,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 10h)
-- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 15h)
+- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 16h)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 17h)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 23h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 23h)
@@ -1440,14 +1440,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 117.2M | $1173.70 _(notional, rate-card)_ | no quota set |
+| Claude | 116.9M | $1170.26 _(notional, rate-card)_ | no quota set |
 | Codex | 201.8M _(+527.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`librarian-library-audit-20260718-165009`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/librarian-library-audit-20260718-165009.md) — Librarian library audit
 - [`xs2rust-endor-stage10b-cross-turn-functions`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10b-cross-turn-functions.md) — Stage-10b child 1/5 — cross-turn function invocation (the persistent realm's ...
 
 ### tada (2768)
