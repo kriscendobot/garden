@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-18T02:07:13Z_
+_As of 2026-07-18T02:22:40Z_
 
 ## Latest
 
-The endo-but-for-bots [#671](https://github.com/endojs/endo-but-for-bots/pull/671) EndoRegistry PR was finally re-woven and shepherded to green after its maintainer "Shepherd." directive sat dropped for three days — a comment-watcher dedup collision swallowed it, and a durable watcher fix is now parked. Upstream `endojs/endo` master was merged into `llm` via [#773](https://github.com/endojs/endo-but-for-bots/pull/773) (SES `code` error prop, immutable-arraybuffer pseudo-prototype drop, skipLibCheck), deliberately stopping short of upstream's ESLint 10 flat-config migration, which is flagged as a multi-cycle follow-up. On minion.town, the new continuous-deploy workflow clobbered the hand-installed `/ocapn` Caddy routes; both were landed durably in [minion.town#9](https://github.com/kriscendobot/minion.town/pull/9) and cross-host Noise round-trips proven again. finbot advanced through its GARCH stack to a landed EGARCH volatility surface.
+Upstream `endojs/endo` master was merged into the `llm` roadmap branch via [endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) (conducted as a true merge), pulling in the immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, and skipLibCheck — while deliberately stopping short of upstream's ESLint 10 flat-config overhaul, which is flagged as a separate multi-cycle migration job. On minion.town, the OCapN press caught and fixed a continuous-deploy regression that had clobbered the hand-installed `/ocapn` Caddy routes (they were 302-redirecting Noise dialers into OAuth); the routes are now durable in the repo ([kriscendobot/minion.town#9](https://github.com/kriscendobot/minion.town/pull/9), merged) and a cross-host Noise round-trip through wss://minion.town/ocapn is re-proven. finbot landed an EGARCH volatility surface.
 
-What needs your attention: a cluster of green-but-gated lanes waiting only on your judgment — SturdyRef needs a home arbitration between embedded [#737](https://github.com/endojs/endo-but-for-bots/pull/737) and standalone [#774](https://github.com/endojs/endo-but-for-bots/pull/774) (all sturdyref lanes have held ~63h with no pushes); esheets is dammed behind a re-review of OAuth design [#621](https://github.com/endojs/endo-but-for-bots/pull/621); M3's module-loading tail is blocked on picking the MVS-resolver home between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403); and minion.town's entire primary phase is pinned nine hours on one ~5-minute browser action (Gate 1). Separately, the board is running unusually hot with reaper poisonings — roughly a dozen press, merge, shepherd, and xs2rust-stage8 jobs hit the 2400s handler-budget wall this cycle, several structurally too large for a single claim; the parked [#585](https://github.com/endojs/endo-but-for-bots/pull/585) content-store merge and others await your promote.
+Several lanes are stalled on maintainer decisions worth noticing: the SturdyRef effort is fully blocked pending a "home" pick between embedded [#737](https://github.com/endojs/endo-but-for-bots/pull/737) and standalone [#774](https://github.com/endojs/endo-but-for-bots/pull/774); the esheets/OAuth tree waits on a re-review of [#621](https://github.com/endojs/endo-but-for-bots/pull/621); git-integration Phase 1 [#705](https://github.com/endojs/endo-but-for-bots/pull/705) is one merge directive from green; the content-store merge for [#585](https://github.com/endojs/endo-but-for-bots/pull/585) sits parked after a transient deadline-overrun and needs promotion; and minion.town's entire primary phase is pinned on a ~5-minute human browser action (Gate 1). Separately, a wave of handler-budget overruns poisoned a batch of shepherd, merge, and press jobs — several now parked in the plan queue awaiting split or promotion.
 
 ## Parked for maintainer feedback
 
@@ -1193,24 +1193,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 127.3M | $1242.97 _(notional, rate-card)_ | no quota set |
+| Claude | 126.8M | $1237.67 _(notional, rate-card)_ | no quota set |
 | Codex | 198.6M _(+456.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`port-xs-to-rust-memory-safe-engine-s25`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s25.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
-- [`xs2rust-endor-press-20260718-020501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260718-020501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (2666)
+### tada (2667)
+- [`xs2rust-endor-press-20260718-020501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-020501.md) — Press tick complete — took the wheel and landed real progress: rebase + a boo...
 - [`endo-sturdyref-press-20260718-020501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-020501.md) — SturdyRef press, 02:05 tick (2026-07-18) — **observation-only; zero movement,...
 - [`endojs-endo-but-for-bots-pr671-shepherd-20260718`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-shepherd-20260718.md) — Shepherd report — endojs/endo-but-for-bots PR #671
 - [`endojs-endo-but-for-bots-pr789-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr789-shepherd.md) — Completion report
 - [`fix-endo-but-for-bots-pr626-stack-surgery-pass-path`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-endo-but-for-bots-pr626-stack-surgery-pass-path.md) — Completion report: fix-endo-but-for-bots-pr626-stack-surgery-pass-path
-- [`ocapn-noise-press-20260718-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260718-002002.md) — Completion report — ocapn-noise-press-20260718-002002
-- … and 2661 more
+- … and 2662 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
