@@ -16,3 +16,10 @@ find why the post failed or was skipped while the ack succeeded (ordering, dedup
 retry giving up, error swallowed), fix the ordering/retry so ack-implies-posted, and add the
 failure mode to the watcher's self-checks. Garden repo work on `main2` (normal worktree, push
 CAS). Report the root cause in your tada.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 15
+  worker_kind: gardener
+  claimed_at: 2026-07-18T08:47:34Z
