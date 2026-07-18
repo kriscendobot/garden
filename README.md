@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T18:34:31Z_
+_As of 2026-07-18T18:36:19Z_
 
 ## Latest
 
@@ -1561,15 +1561,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 114.9M | $1152.75 _(notional, rate-card)_ | no quota set |
+| Claude | 114.9M | $1153.36 _(notional, rate-card)_ | no quota set |
 | Codex | 201.8M _(+527.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (6)
+- [`endo-byte-array-press-20260718-183502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260718-183502.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+- [`endo-daemon-data-plane-press-20260718-183502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-daemon-data-plane-press-20260718-183502.md) — Press the Endo daemon data plane forward (endojs/endo-but-for-bots, base llm)
+- [`endo-git-integration-press-20260718-183502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260718-183502.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+- [`endo-vfs-parity-press-20260718-183502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260718-183502.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+- [`ocapn-noise-press-20260718-183502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260718-183502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+- [`port-xs-to-rust-memory-safe-engine-s33`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s33.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
 ### tada (2779)
 - [`xs2rust-endor-build-stage10b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10b.md) — orchestration xs2rust-endor-build-stage10b — HALTED
@@ -1639,7 +1644,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-regexp-conservative-subset.md) — awaiting `endojs/endo-but-for-bots#676` · Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
-- [`port-xs-to-rust-memory-safe-engine-s33`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s33.md) — awaiting `xs2rust-endor-build-stage10b` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`registry-immutable-byte-array-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/registry-immutable-byte-array-followup.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/671` · Immutable byte-array RegistryInterface follow-up
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
