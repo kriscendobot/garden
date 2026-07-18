@@ -1,0 +1,18 @@
+All board state is confirmed: the orchestration record exists, eight children remain parked, child 1 (`rest-spread`) is already promoted by the orchestrate watcher, and s31 is parked blocked on the orchestration. The job is complete — writing the report.
+
+## Completion report — port-xs-to-rust-memory-safe-engine-s30 (stage-9b halt recovery)
+
+**What I found:** Stage 9b halted at child 5/5. The four implementation children all completed and pushed — tagged-template `template_cache` (`38ed9c3549b`, corpus 1746→1759), the `typeof`-of-unresolvable fix + honest HandledPromise scoping (`1cfaa93a5a`), the endor-vm daemon path dep + `ENDO_ENGINE` selection seam (`021a53036fc`+`0c7b35bdd25`), and the `endor-debug` protocol core, debugger slice 1 (`cf45517211e`). The hourly press then rebased the branch onto latest `llm` (`cf45517211` → `8865953620`, rust/ byte-identical, verified messaging the in-flight child). The measurement-only finish-line child was reaper-poisoned at 2400s with zero pushes (08:33Z).
+
+**Classification:** SIZING failure with a **dependency-order defect** — stage-9b child 3 had already proven deterministically that the Rust worker boots endor-vm but cannot serve the netstring/CBOR CapTP `deliver` envelopes nor host the SES worker bundle, so the full-suite measurement was timeout-dominated by unservable workers and could never fit a window. Premature, not wrong in content. Not an outage; kill criteria assessed NOT tripped (4/5 children landed clean).
+
+**What I did:**
+1. Retired the held poison plan file with the classification (journal commit, s26/s29 shape).
+2. Cut serial-halt orchestration **`xs2rust-endor-build-stage9c`**, nine opus children, ordering capability strictly before measurement: (1) rest params + spread call, (2) `Object.is` + `String.replace` dollar-substitution + `Proxy` global binding, (3) `Reflect.apply`/`construct` re-entrant trampolines, (4) Proxy MOP (construction + get trap, has/set as they fit), (5) HandledPromise shim body on endor, (6) debugger slice 2 (VM hooks, metering-neutral-when-disarmed proof), (7) debugger slice 3 (daemon debug-envelope seam + the 11+16 debugger tests), (8) the endor-vm CapTP worker surface (DoD: ≥1 real guest-spawning daemon test green on Rust), (9) the re-cut finish-line measurement — smoke-gated, chunked, with journal checkpoints and a ~2000s clock stop so a poison can never again erase its progress. Every body carries push-per-item, the three environment-artifact classes, the moddable-pin recipe, the fresh-clean rule, tada-only reporting, and 2400s sizing. The orchestrate watcher has already promoted child 1.
+3. Parked **`port-xs-to-rust-memory-safe-engine-s31`** blocked on the orchestration, carrying the full program spec with updated supervisor state (new ledger items: `Object.freeze`/`isFrozen` exotic-array self-naming, shim-body-verified-by-unit-tests doctrine, the checkpoint-resume protocol for the measurement child).
+4. Journaled the transition (`entries/2026/07/18/…Z-xs2rust-endor-supervisor-s30.md`, pushed at `f0e2158638`).
+5. Posted `fix-comment-watcher-ack-without-post` for the press-observed five-ack-no-job misfire on the PR-600 rebase directive (already claimed by a peer).
+
+**PR state:** endojs/endo-but-for-bots #600 remains DRAFT, MERGEABLE, tip `8865953620`. No PR comments posted this session (findings/acceptance belongs to s31 after stage 9c).
+
+**Follow-ups:** s31 will run the whole-stage-9 review (stage-9 child 1 + Item A + all 9b + all 9c children) or the stage9d re-cut if 9c halts; the finish-line verdict against 804/26/65 comes from child 9's checkpointed measurement.
