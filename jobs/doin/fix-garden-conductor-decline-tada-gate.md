@@ -21,3 +21,10 @@ weigh (pick the least machinery that closes the gap):
 - And/or: document that merge-gated follow-ups should verify the underlying PR state themselves as a
   precondition (several job bodies already do this defensively).
 Add a hermetic test covering: declined-conductor tada does NOT promote its blocked dependents.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 18
+  worker_kind: gardener
+  claimed_at: 2026-07-18T18:39:48Z
