@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-18T04:07:40Z_
+_As of 2026-07-18T04:13:25Z_
 
 ## Latest
 
-The board went quiet — the only transition was completion of the xs2rust‑endor stage‑8 boot‑surface remainder child, leaving todo/doin empty. Under that calm, the standing presses converged on a wall of maintainer decisions. The upstream‑master→`llm` integration landed: [#773](https://github.com/endojs/endo-but-for-bots/pull/773) was conducted onto `llm` (bringing the immutable‑arraybuffer pseudo‑prototype drop, SES `code` error prop, and skipLibCheck), deliberately stopping just short of upstream's ESLint‑10 flat‑config migration, which is flagged as a separate multi‑cycle job. On minion.town, a continuous‑deploy regression that had clobbered the `/ocapn` Caddy routes was fixed durably via [minion.town#9](https://github.com/kriscendobot/minion.town/pull/9), restoring the cross‑host Noise round‑trip.
+Upstream `endojs/endo` master was merged into the `llm` roadmap branch via [endojs/endo-but-for-bots#773](https://github.com/endojs/endo-but-for-bots/pull/773) (conducted as a true merge — immutable-arraybuffer pseudo-prototype drop, SES `code` error prop, skipLibCheck), deliberately stopping just before upstream's ESLint 10 flat-config overhaul, which is flagged as a separate multi-cycle re-lint job rather than forced into this cycle. On the ops side, a new continuous-deploy workflow on minion.town clobbered the hand-installed `/ocapn` Caddy routes (breaking non-browser Noise dialers); the OCapN press landed both routes durably in the repo via [kriscendobot/minion.town#9](https://github.com/kriscendobot/minion.town/pull/9) and re-proved a cross-host Noise round-trip.
 
-Most forward lanes are now gated on kriskowal alone: the SturdyRef effort needs a home arbitration between embedded [#737](https://github.com/endojs/endo-but-for-bots/pull/737) and standalone [#774](https://github.com/endojs/endo-but-for-bots/pull/774) (plus a marshal rank‑prefix pick); M3 needs a package‑home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403); the git‑integration loop needs only a `merge` on [#705](https://github.com/endojs/endo-but-for-bots/pull/705); the esheets tree is fully dammed behind re‑review of OAuth design [#621](https://github.com/endojs/endo-but-for-bots/pull/621); and M2 awaits merge/ferry of [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719). The content‑store conductor [#585](https://github.com/endojs/endo-but-for-bots/pull/585) is parked after a transient deadline‑overrun poisoning and wants a one‑line promote. Two operational things to notice: the xs2rust‑endor stage‑8 orchestration has now halted three times on its C‑XS baseline child (external SIGKILLs plus a 126‑byte AF_UNIX socket‑path trap), and a raft of long‑running press/shepherd/merge jobs are landing in the poison queue on the 2400s handler budget — several need splitting or a raised timeout rather than a requeue. Finally, minion.town's entire primary phase remains blocked on a ~5‑minute human Gate‑1 browser login ([garden#58](https://github.com/kriskowal/garden/issues/58)), now nine hourly cycles deep.
+The board is otherwise idle — nearly everything is dammed behind maintainer decisions. Merge/review gates awaiting a directive: [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) (git-integration Phase 1, green, one `merge` from finishing M3) and [endojs/endo-but-for-bots#585](https://github.com/endojs/endo-but-for-bots/pull/585) (content-store, green but parked in the plan queue after a single transient deadline-overrun poisoning — needs promotion). The esheets tree is fully blocked on re-review/merge of the OAuth design [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621), and the whole SturdyRef effort waits on a home arbitration between [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737) and [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774). VFS parity consolidated onto the self-contained [endojs/endo-but-for-bots#713](https://github.com/endojs/endo-but-for-bots/pull/713) (retargeted to `llm`), and finbot advanced its volatility stack through EGARCH. Worth noticing: a wave of jobs poisoned on handler-budget overruns (shepherds, the #585 merge, the upstream-merge job, xs2rust stage-8 baseline) are parked awaiting promotion, and minion.town's Gate 1 has now blocked its primary phase for nine straight hourly cycles on one ~5-minute browser action only the maintainer can perform.
 
 ## Parked for maintainer feedback
 
@@ -1193,23 +1193,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.7M | $1218.64 _(notional, rate-card)_ | no quota set |
+| Claude | 124.2M | $1212.44 _(notional, rate-card)_ | no quota set |
 | Codex | 198.8M _(+458.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-stage8-gate-remeasure-r2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage8-gate-remeasure-r2.md) — Stage-8d child 2/2 — boot-gate re-measure + whole-stage verify (r2)
+### doin (0)
+(none)
 
-### tada (2675)
+### tada (2676)
+- [`xs2rust-endor-stage8-gate-remeasure-r2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage8-gate-remeasure-r2.md) — Stage-8d child 2/2 — whole-stage re-measure at the tip 43b6128e185
 - [`xs2rust-endor-press-20260718-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-040502.md) — Completion report — xs2rust-endor press tick 04:05Z (observed; deferred to li...
 - [`endo-sturdyref-press-20260718-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-040502.md) — SturdyRef press, 04:05 tick (2026-07-18) — **observation-only; zero movement,...
 - [`xs2rust-endor-stage8-boot-surface-remainder-r2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage8-boot-surface-remainder-r2.md) — Completion report — stage-8d child 1/2: engine boot-surface remainder r2
 - [`endo-npm-cas-registry-press-20260718-033501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260718-033501.md) — Press tick complete for the npm-via-CAS registry-proxy arc.
-- [`port-xs-to-rust-memory-safe-engine-s26`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s26.md) — Completion report — supervisor s26: stage-8c halt recovery (round three) + st...
-- … and 2670 more
+- … and 2671 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
