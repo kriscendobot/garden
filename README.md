@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T06:24:32Z_
+_As of 2026-07-18T06:26:02Z_
 
 ## Latest
 
@@ -1274,8 +1274,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.7M | $1235.32 _(notional, rate-card)_ | no quota set |
-| Codex | 199.0M _(+461.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 124.8M | $1236.80 _(notional, rate-card)_ | no quota set |
+| Codex | 199.0M _(+462.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -1286,16 +1286,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-git-integration-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260718-062002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-vfs-parity-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260718-062002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`gauntlet-endo-but-for-bots-pr789-content-locator-planes-resolution`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr789-content-locator-planes-resolution.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
-- [`ocapn-noise-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260718-062002.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`port-xs-to-rust-memory-safe-engine-s29`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s29.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
+- [`xs2rust-endor-stage9b-template-cache`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9b-template-cache.md) — Stage-9b child 1/5 — tagged-template template_cache (the real String.raw call...
 
-### tada (2696)
+### tada (2697)
+- [`ocapn-noise-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260718-062002.md) — Completion report — ocapn-noise-press-20260718-062002
 - [`endo-daemon-data-plane-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260718-062002.md) — Press dispatch complete — this dispatch un-stalled the predicted gauntlet gap...
 - [`self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-fetch-unbounded-die-crashloop`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-fetch-unbounded-die-crashloop.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-ymax-e2e-fetch-die-crashloops-unit`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ymax-e2e-fetch-die-crashloops-unit.md) — Implemented and pushed a335cf0aca to main2.
 - [`self-heal-fix-garden-triager-kriscendobot-ocapn-bounded-steady-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ocapn-bounded-steady-fetch.md) — The working tree is clean at origin/main2 (457ba8a795), and my inbox is empty...
-- [`self-heal-fix-garden-triager-kriscendobot-chrome-native-function-caller-arguments-repro-fetch-die-flaps-on-transient`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-chrome-native-function-caller-arguments-repro-fetch-die-flaps-on-transient.md) — Implemented and pushed 457ba8a795.
-- … and 2691 more
+- … and 2692 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
