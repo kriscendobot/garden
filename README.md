@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T20:55:34Z_
+_As of 2026-07-18T20:58:20Z_
 
 ## Latest
 
@@ -1597,7 +1597,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 111.4M | $1126.01 _(notional, rate-card)_ | no quota set |
+| Claude | 111.4M | $1127.68 _(notional, rate-card)_ | no quota set |
 | Codex | 201.9M _(+529.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
@@ -1607,13 +1607,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (1)
 - [`xs2rust-endor-press-20260718-205002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260718-205002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (2800)
+### tada (2801)
+- [`xs2rust-endor-build-stage10c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10c.md) — orchestration xs2rust-endor-build-stage10c — complete
 - [`xs2rust-endor-stage10c-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10c-remeasure.md) — Completion report — stage-10c child 5/5: bounded-serial 52-file daemon sweep ...
 - [`endo-sturdyref-press-20260718-205002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-205002.md) — SturdyRef press tick 2026-07-18T20:50Z — observation + nudge re-send; no code...
 - [`xs2rust-endor-stage10c-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10c-live-captp-eval.md) — Completion report — xs2rust-endor-stage10c-live-captp-eval (PR #600 stage-10c...
 - [`xs2rust-endor-stage10c-ses-boot-r6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10c-ses-boot-r6.md) — Completion report — stage-10c child 3/5: SES worker-bundle boot, gap round 6
-- [`endojs-endo-but-for-bots-pr794-noise-ik-relay-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr794-noise-ik-relay-design.md) — Amended PR #794 with noise-protocol-ik-relay design direction and pushed 3880...
-- … and 2795 more
+- … and 2796 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
