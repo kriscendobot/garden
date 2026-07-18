@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T00:40:29Z_
+_As of 2026-07-18T00:44:39Z_
 
 ## Latest
 
@@ -11,7 +11,7 @@ Most substantive work is dammed behind maintainer decisions, and several efforts
 ## Parked for maintainer feedback
 
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 1h)
-- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 3m)
+- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 9m)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 7h)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 12h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 7h)
@@ -1193,29 +1193,28 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 132.3M | $1308.83 _(notional, rate-card)_ | no quota set |
-| Codex | 198.4M _(+443.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
+| Claude | 132.1M | $1301.48 _(notional, rate-card)_ | no quota set |
+| Codex | 198.5M _(+446.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (7)
-- [`deadmail-issue-comment-5008851178`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5008851178.md) — Dead-lettered message — pick up its intent
-- [`endo-vfs-parity-press-20260718-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260718-002002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+### doin (6)
 - [`endojs-endo-but-for-bots-pr671-shepherd-20260718`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr671-shepherd-20260718.md) — Shepherd endojs/endo-but-for-bots PR #671 CI to green (role: shepherd)
 - [`endojs-endo-but-for-bots-pr789-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr789-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #789
 - [`fix-endo-but-for-bots-pr626-stack-surgery-pass-path`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-endo-but-for-bots-pr626-stack-surgery-pass-path.md) — Complete the stack-surgery eval pass-path on endojs/endo-but-for-bots PR #626...
 - [`ocapn-noise-press-20260718-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260718-002002.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`port-xs-to-rust-memory-safe-engine-s25`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s25.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
+- [`self-heal-fix-garden-triager-kriscendobot-finbot-fetch-hard-die-crashloop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-finbot-fetch-hard-die-crashloop.md) — In scripts/jobs/triager.sh line 117, the main-line bare-clone fetch hard-dies...
 
-### tada (2658)
+### tada (2660)
+- [`endo-vfs-parity-press-20260718-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260718-002002.md) — Both PRs' lint checks pass on the fixed heads; remaining checks are the stand...
+- [`deadmail-issue-comment-5008851178`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5008851178.md) — Rechecked ab25f2325 with Lean 4.12.0 and replied on garden issue #39. lake bu...
 - [`minion-town-agenda-review-20260718-003501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260718-003501.md) — Completion report
 - [`improve-reaper-poison-notice-alert-not-silently-dropped`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-reaper-poison-notice-alert-not-silently-dropped.md) — Completion report
 - [`endo-git-integration-press-20260718-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260718-002002.md) — Press dispatch report — git-integration / M3 loop (2026-07-18T00:20Z)
-- [`endojs-endo-but-for-bots-pr671-weave-20260718`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-weave-20260718.md) — Completion report
-- [`endo-byte-array-press-20260718-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260718-002002.md) — **Press report — endo-byte-array-press (dispatch 2026-07-18T00:20Z)**
-- … and 2653 more
+- … and 2655 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
