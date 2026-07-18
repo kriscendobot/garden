@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T03:59:29Z_
+_As of 2026-07-18T04:01:27Z_
 
 ## Latest
 
@@ -1193,15 +1193,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.8M | $1219.46 _(notional, rate-card)_ | no quota set |
+| Claude | 124.9M | $1219.51 _(notional, rate-card)_ | no quota set |
 | Codex | 198.8M _(+458.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-stage8-gate-remeasure-r2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage8-gate-remeasure-r2.md) — Stage-8d child 2/2 — boot-gate re-measure + whole-stage verify (r2)
 
 ### tada (2673)
 - [`xs2rust-endor-stage8-boot-surface-remainder-r2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage8-boot-surface-remainder-r2.md) — Completion report — stage-8d child 1/2: engine boot-surface remainder r2
