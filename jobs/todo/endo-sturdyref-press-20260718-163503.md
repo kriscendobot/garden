@@ -1,7 +1,3 @@
-cadence: 2h
-last_dispatched: 2026-07-18T16:35:03Z
-job_basename_prefix: endo-sturdyref-press
----
 ---
 model: fable
 ---
