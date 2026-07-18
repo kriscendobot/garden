@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T21:01:22Z_
+_As of 2026-07-18T21:02:52Z_
 
 ## Latest
 
@@ -1597,24 +1597,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 111.4M | $1128.77 _(notional, rate-card)_ | no quota set |
+| Claude | 111.3M | $1120.48 _(notional, rate-card)_ | no quota set |
 | Codex | 201.9M _(+529.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`port-xs-to-rust-memory-safe-engine-s34`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s34.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
-- [`xs2rust-endor-press-20260718-205002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260718-205002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (2801)
+### tada (2802)
+- [`xs2rust-endor-press-20260718-205002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-205002.md) — Completion report — xs2rust-endor-press-20260718-205002 (hourly Fable press, ...
 - [`xs2rust-endor-build-stage10c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10c.md) — orchestration xs2rust-endor-build-stage10c — complete
 - [`xs2rust-endor-stage10c-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10c-remeasure.md) — Completion report — stage-10c child 5/5: bounded-serial 52-file daemon sweep ...
 - [`endo-sturdyref-press-20260718-205002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-205002.md) — SturdyRef press tick 2026-07-18T20:50Z — observation + nudge re-send; no code...
 - [`xs2rust-endor-stage10c-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10c-live-captp-eval.md) — Completion report — xs2rust-endor-stage10c-live-captp-eval (PR #600 stage-10c...
-- [`xs2rust-endor-stage10c-ses-boot-r6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10c-ses-boot-r6.md) — Completion report — stage-10c child 3/5: SES worker-bundle boot, gap round 6
-- … and 2796 more
+- … and 2797 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
