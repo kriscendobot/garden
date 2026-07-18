@@ -14,3 +14,10 @@ defaulted in `common.sh`, so no new knobs are needed. Optionally log a distinct
 legible in logs and self-heal reports rather than looking like a hard failure.
 This makes a hung fetch fail fast and retry on the next tick instead of being
 killed by systemd and cascading into a unit failure.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 9
+  worker_kind: gardener
+  claimed_at: 2026-07-18T14:44:31Z
