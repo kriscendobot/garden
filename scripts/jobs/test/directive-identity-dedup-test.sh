@@ -141,6 +141,41 @@ has plain-job-no-identity && ok "7a plain (no-identity) post still creates its j
 [ "$(nidx)" -eq "$before" ] && ok "7b plain post wrote no index entry" \
                             || bad "7b plain post unexpectedly wrote an index entry"
 
+# --- 8: a COMPLETED job (in tada/, same base) never swallows a FRESH directive --
+# The mechanical-verb producers key the base on (PR,verb), NOT the comment id, so a
+# second maintainer directive on the same PR derives the SAME base as an already-
+# COMPLETED job. With a directive identity present, the identity index — not the
+# basename-in-tada — is the authoritative re-see guard, so a genuinely NEW directive
+# must still post (the endo-but-for-bots #671 "Shepherd." drop, where a finished
+# auto-shepherd in tada/ silently deduped a fresh directive of the same base).
+CBASE=verb-collide-pr671-shepherd
+IDA="endojs/endo-but-for-bots#671:comment:1111111111"   # the OLD (completed) directive
+IDB="endojs/endo-but-for-bots#671:comment:2222222222"   # a FRESH directive, new comment
+post --identity "$IDA" "$CBASE" "$(bodyfile 'first shepherd on #671')"
+has "$CBASE" && ok "8a first same-base directive posted" || bad "8a first directive did not post"
+# Complete it: move todo → tada (the finished auto-shepherd shape).
+CC="$TR/complete"; git clone -q -b journal2 "$BARE" "$CC" 2>/dev/null
+git -C "$CC" mv "jobs/todo/$CBASE.md" "jobs/tada/$CBASE.md"
+git -C "$CC" -c user.name=t -c user.email=t@l commit -q -m 'complete shepherd (todo->tada)'
+git -C "$CC" push -q origin journal2
+! has "$CBASE" && ok "8b the completed job is now in tada/ (not todo)" || bad "8b completed job still in todo"
+post --identity "$IDB" "$CBASE" "$(bodyfile 'a SECOND shepherd on #671, days later')"
+has "$CBASE" && ok "8c a FRESH directive re-mints the base despite the completed tada job" \
+             || bad "8c fresh directive swallowed by the tada entry (the #671 silent drop)"
+
+# --- 8d: a NO-IDENTITY post whose base sits in tada/ is STILL deduped ----------
+# The identity layer is what relaxes the tada-basename dedup; a plain producer (no
+# identity, e.g. a commit triager re-seeing an old completed change) keeps FULL tada
+# idempotency, unchanged.
+NIB=plain-tada-idempotent
+CC3="$TR/ntada"; git clone -q -b journal2 "$BARE" "$CC3" 2>/dev/null
+printf 'done\n' > "$CC3/jobs/tada/$NIB.md"
+git -C "$CC3" add -A; git -C "$CC3" -c user.name=t -c user.email=t@l commit -q -m 'seed tada for no-id case'
+git -C "$CC3" push -q origin journal2
+post "$NIB" "$(bodyfile 'plain no-identity re-post')"
+! has "$NIB" && ok "8d a no-identity post whose base is in tada stays deduped (unchanged)" \
+             || bad "8d no-identity tada dedup regressed (re-minted into todo)"
+
 echo "----------------------------------------------------------------"
 echo "directive-identity-dedup-test: PASS=$PASS FAIL=$FAIL"
 [ "$FAIL" -eq 0 ]

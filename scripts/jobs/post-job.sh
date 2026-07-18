@@ -9,14 +9,19 @@
 #   --identity   optional stable directive identity (see below). May also be
 #                supplied via the GARDEN_JOB_IDENTITY env var.
 #
-# Idempotent by BASENAME: if <basename> already exists anywhere in the lifecycle
-# (plan/todo/doin/tada) the post is a no-op success — a triager that re-sees the
-# same change across ticks will not duplicate the job, provided the basename
-# is derived deterministically from the change identity. plan/ counts: a job the
-# proxy parked as blocked (proxy.sh park_blocked_jobs moves the ONLY live copy
-# there) must not be re-minted into todo/ by a producer re-seeing the directive —
-# that would run the "blocked" job AND let promote-plan.sh later clobber it with
-# the stale plan body.
+# Idempotent by BASENAME: if <basename> already exists in the lifecycle the post is
+# a no-op success — a triager that re-sees the same change across ticks will not
+# duplicate the job, provided the basename is derived deterministically from the
+# change identity. plan/todo/doin ALWAYS count: plan/ because a job the proxy parked
+# as blocked (proxy.sh park_blocked_jobs moves the ONLY live copy there) must not be
+# re-minted into todo/ by a producer re-seeing the directive — that would run the
+# "blocked" job AND let promote-plan.sh later clobber it with the stale plan body.
+# tada/ (COMPLETED) counts ONLY when NO directive identity is given: with an identity,
+# the identity index (below) is the authoritative re-see guard and a FINISHED job must
+# not swallow a FRESH directive that happens to derive the same base (the #671
+# "Shepherd." drop — see the basename check below). A base is NOT comment-unique for
+# the mechanical-verb producers (it is keyed on (PR,verb)), so tada-blocking a fresh
+# directive there was a silent-drop hazard the identity layer already guards against.
 #
 # Idempotent by DIRECTIVE IDENTITY: basename dedup only collapses re-posts of the
 # SAME base. It does NOT catch two DIFFERENT producers minting DIFFERENTLY-named
@@ -140,8 +145,20 @@ fi
 
 for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   sync_clone "$DIR"
+  # Basename dedup. A same-named LIVE job (plan/todo/doin) is always a no-op — the base
+  # is the reservation spine, and a live copy means the work is queued/running (this is
+  # also how two producers sharing a base convention — the CI-status auto-shepherd and a
+  # manual "shepherd" — coordinate). A COMPLETED job (tada) only blocks when the caller
+  # gave NO directive identity: with an identity, the jobs/index map (checked just below,
+  # and it counts tada via job_in_lifecycle) is the authoritative re-see guard, so a
+  # FRESH directive that merely derives the same (PR,verb) base as a finished job is NOT
+  # swallowed by that stale tada entry — the endo-but-for-bots #671 "Shepherd." drop,
+  # where a 2026-07-10 auto-shepherd in tada/ silently deduped a fresh 2026-07-15
+  # maintainer directive of the same base. Without an identity, tada still blocks, so a
+  # plain triager re-seeing an old completed change stays idempotent as before.
   if [ -e "$DIR/$JOBS_PLAN/$base.md" ] || [ -e "$DIR/$JOBS_TODO/$base.md" ] \
-     || [ -e "$DIR/$JOBS_DOIN/$base.md" ] || [ -e "$DIR/$JOBS_TADA/$base.md" ]; then
+     || [ -e "$DIR/$JOBS_DOIN/$base.md" ] \
+     || { [ -z "$idhash" ] && [ -e "$DIR/$JOBS_TADA/$base.md" ]; }; then
     log "job '$base' already present in lifecycle; nothing to do"
     exit 0
   fi

@@ -1876,5 +1876,50 @@ env GARDEN_STATE="$TR/state-s2" JOURNAL_REMOTE="$BARE_S2" JOURNAL_BRANCH="$BRANC
 grep -qx "issue-comment 991 eyes" "$RLOG_S2" && ok "reactji posted for the gate-passing author" || bad "reactji missing ($(cat "$RLOG_S2"))"
 
 # ============================================================================
+hr; echo "TADA — a FRESH verb directive whose (PR,verb) base sits COMPLETED in tada/ must still post"; hr
+# Regression for the dropped #671 "Shepherd." (kriskowal, 2026-07-15, issuecomment
+# 4977246906): the derived base `<slug>-pr671-shepherd` is keyed on (PR,verb), NOT the
+# comment id, so it collided with a 2026-07-10 auto-shepherd already sitting in
+# jobs/tada/. The old idempotency pre-check (and post-job.sh's basename check) counted
+# tada, so the FRESH directive deduped against the FINISHED job and was silently
+# dropped — zero reactji, no job, and the PR sat conflicting for three days. The fix:
+# the pre-check is live-only (todo/doin) and post-job.sh's tada-basename dedup yields to
+# the comment-id identity index. A fresh directive of the same base must now post a NEW
+# live job + reactji + advance the cursor. (shepherd is a branch-op verb → trust-
+# independent, so run_watcher's denied-trust wiring still mints it, like case A/D.)
+BARE_TADA="$TR/tada.git"; seed_bare "$BARE_TADA"
+# Pre-seed a COMPLETED shepherd of the SAME base into tada/ (the finished 2026-07-10 run).
+tv="$TR/tada-seed"; git clone -q --single-branch --branch "$BRANCH" "$BARE_TADA" "$tv"
+printf '# shepherd (auto, completed)\n\ngarden-job-complete: true\n' > "$tv/jobs/tada/$SLUG-pr671-shepherd.md"
+git -C "$tv" add -A; git -C "$tv" "${git_id[@]}" commit -q -m "seed completed shepherd in tada"
+git -C "$tv" push -q origin "HEAD:$BRANCH"; rm -rf "$tv"
+FIX_TADA="$TR/fix-tada.tsv"; RLOG_TADA="$TR/react-tada.log"; : > "$RLOG_TADA"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-07-15T05:40:00Z issue-comment 4977246906 671 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/671#issuecomment-4977246906 \
+  'Shepherd.' > "$FIX_TADA"
+run_watcher "$TR/state-tada" "$BARE_TADA" "$FIX_TADA" "$RLOG_TADA"
+# rc 0 iff a LIVE shepherd job (todo|doin) of the base is on the board — the fresh post,
+# distinct from the pre-seeded tada entry that board_has() would otherwise mask.
+tada_live() {
+  local v rc=1; v="$(mktemp -d "$TR/tht.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$BARE_TADA" "$v" 2>/dev/null
+  { [ -e "$v/jobs/todo/$SLUG-pr671-shepherd.md" ] || [ -e "$v/jobs/doin/$SLUG-pr671-shepherd.md" ]; } && rc=0
+  rm -rf "$v"; return $rc
+}
+tada_live && ok "a FRESH shepherd job was posted despite a COMPLETED same-base job in tada/" || bad "fresh directive swallowed by the tada entry (the #671 silent drop)"
+grep -qx "issue-comment 4977246906 eyes" "$RLOG_TADA" && ok "the fresh directive got its 👀 receipt (no more zero-reaction drop)" || bad "no reactji on the fresh directive ($(cat "$RLOG_TADA"))"
+[ "$(cursor_seen "$TR/state-tada" "$BARE_TADA")" = 2026-07-15T05:40:00Z ] && ok "cursor advanced past the actioned fresh directive" || bad "cursor not advanced ($(cursor_seen "$TR/state-tada" "$BARE_TADA"))"
+
+hr; echo "TADA2 — re-poll of the fresh directive is idempotent (no duplicate live job)"; hr
+# Reuse TADA's board + state + fixture: a second tick must not fan out a second job
+# (the boundary dedup skips the at-cursor comment; the identity index would collapse it
+# even if re-processed). Exactly one live copy must remain.
+run_watcher "$TR/state-tada" "$BARE_TADA" "$FIX_TADA" "$RLOG_TADA"
+ndup=$(git clone -q --single-branch --branch "$BRANCH" "$BARE_TADA" "$TR/tada-dup" 2>/dev/null && { cat <(ls -1 "$TR/tada-dup/jobs/todo" 2>/dev/null) <(ls -1 "$TR/tada-dup/jobs/doin" 2>/dev/null) | grep -c "^$SLUG-pr671-shepherd.md$"; } || true); rm -rf "$TR/tada-dup"
+[ "${ndup:-0}" -le 1 ] && ok "no duplicate live job on re-poll (still exactly one)" || bad "re-poll duplicated the job (live copies=$ndup)"
+[ "$(cursor_seen "$TR/state-tada" "$BARE_TADA")" = 2026-07-15T05:40:00Z ] && ok "cursor stable on idempotent re-poll" || bad "cursor moved on re-poll"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]

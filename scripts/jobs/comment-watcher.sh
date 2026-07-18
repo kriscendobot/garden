@@ -357,10 +357,37 @@ verify_fetch() {  # verify_fetch [fresh]; ensure+fetch the VERIFY clone (once/ti
 # The pre-post idempotency check reuses the tick's cached fetch (stale-tolerant: a
 # missed peer-post at worst re-reacts); the post-confirm passes `fresh` so a lost
 # push is always seen.
-verify_posted() {  # verify_posted <base> [fresh]
+#
+# verify_posted counts tada — a job posted then instantly claimed+completed WITHIN
+# the same tick is still "landed", so the post-confirm must accept it. But the
+# idempotency PRE-check must NOT count tada: the derived base is keyed on (PR,verb)
+# (e.g. `<slug>-pr671-shepherd`), NOT on the comment id, so a FRESH maintainer
+# directive (a new comment) derives the SAME base as an ALREADY-COMPLETED job — and
+# counting tada there silently deduped the new directive against the finished one.
+# That is exactly how kriskowal's 2026-07-15 "Shepherd." on endo-but-for-bots #671
+# was dropped (zero reactji, no job): a 2026-07-10 auto-shepherd of the same base sat
+# in tada/. A true re-see of the SAME directive is still caught downstream: the
+# comment-id DIRECTIVE IDENTITY dedup (post-job.sh's jobs/index, which counts tada via
+# job_in_lifecycle) collapses it — so tada belongs only in the post-confirm, never the
+# pre-check. This mirrors ci-watcher.sh's shepherd_live (todo/doin) vs posted_anywhere
+# (incl. tada) split for the very same reason.
+verify_posted() {  # verify_posted <base> [fresh]; landed anywhere incl. tada (post-confirm)
   local base="$1" sub
   verify_fetch "${2:-}" || return 1
   for sub in todo doin tada; do
+    git -C "$VERIFY" cat-file -e "origin/$JOURNAL_BRANCH:jobs/$sub/$base.md" 2>/dev/null && return 0
+  done
+  return 1
+}
+# Live-only variant for the idempotency PRE-check: todo/doin only (NOT tada), so a
+# FINISHED same-base job never masks a fresh directive (the #671 drop above). A live
+# copy DOES dedup — it means the work is already queued/running, including the
+# cross-producer case where the CI-status auto-shepherd and a manual "shepherd" share
+# the `<slug>-pr<N>-shepherd` base.
+base_live() {  # base_live <base>; job present in todo|doin (NOT tada)
+  local base="$1" sub
+  verify_fetch || return 1
+  for sub in todo doin; do
     git -C "$VERIFY" cat-file -e "origin/$JOURNAL_BRANCH:jobs/$sub/$base.md" 2>/dev/null && return 0
   done
   return 1
@@ -1496,11 +1523,16 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
     *)                      IDENTITY="$repo#$pr:comment:$cid";;
   esac
 
-  # Idempotency: if the job is already on the board this comment was already
-  # actioned (a re-poll across the inclusive `since=` boundary, or a prior tick).
-  # Skip the reactji AND the post so re-polling is a true no-op.
-  if verify_posted "$base"; then
-    log "already actioned: $base (idempotent skip)"; rm -f "$bf"; slide "$created"; continue
+  # Idempotency: if a LIVE job (todo/doin) of this base is already on the board this
+  # comment was already actioned (a re-poll across the inclusive `since=` boundary, or
+  # a prior tick). Skip the reactji AND the post so re-polling is a true no-op.
+  # Deliberately base_live (NOT verify_posted): a COMPLETED job (tada) of the same
+  # (PR,verb) base must NOT swallow a fresh directive — that silently dropped the #671
+  # "Shepherd." against a finished auto-shepherd. A genuine re-see of the SAME comment
+  # is still deduped one layer down by post-job.sh's comment-id directive-identity index
+  # (which does count tada), so nothing re-posts on a true re-see.
+  if base_live "$base"; then
+    log "already actioned: live job $base on the board (idempotent skip)"; rm -f "$bf"; slide "$created"; continue
   fi
 
   # Reactji FIRST (the "received and processing" signal), then post. Reviews are
