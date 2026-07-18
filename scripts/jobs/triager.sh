@@ -115,25 +115,38 @@ if ! is_own_git_repo "$BARE"; then
 fi
 
 # Steady-state clone refresh. git has no IO timeout of its own, so a half-open
-# SSH fetch can hang until systemd kills it and marks the unit Failed. Keep its
-# diagnostic in a file: the transient matcher deliberately distinguishes a
-# connectivity blip from a malformed local clone or remote configuration.
+# SSH fetch can hang until systemd kills the unit and marks it Failed (the captured
+# `Terminated` then `FATAL: fetch failed for <slug>` signature). Bound it with the
+# SAME timeout+kill-after+retry discipline as bounded_fetch/journal_fetch: each
+# attempt has a wall-clock deadline, we retry GARDEN_FETCH_RETRIES times with
+# backoff, and only THEN classify. Keep the last attempt's diagnostic in a file so
+# the transient matcher can distinguish a connectivity blip (skip the tick, retry
+# next timer fire) from a malformed local clone or remote configuration (die loud).
 ERRF="$(mktemp)"
 trap 'rm -f "$ERRF"' EXIT
 fetch_rc=0
-if timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
-     git --git-dir="$BARE" fetch -q --all --prune 2>"$ERRF"; then
-  :
-else
+fetch_attempt=1
+while :; do
+  if timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
+       git --git-dir="$BARE" fetch -q --all --prune 2>"$ERRF"; then
+    fetch_rc=0
+    break
+  fi
   fetch_rc=$?
-fi
+  # 124 = SIGTERM at the wall-clock deadline; 137 = --kill-after SIGKILL escalation
+  # of a SIGTERM-ignoring transport child. Both are the timeout kill — log identically.
+  { [ "$fetch_rc" -eq 124 ] || [ "$fetch_rc" -eq 137 ]; } \
+    && log "fetch for $slug timed out (>${GARDEN_FETCH_TIMEOUT}s, rc=$fetch_rc) on attempt $fetch_attempt"
+  [ "$fetch_attempt" -ge "$GARDEN_FETCH_RETRIES" ] && break
+  backoff "$fetch_attempt"; fetch_attempt=$((fetch_attempt+1))
+done
 if [ "$fetch_rc" -ne 0 ]; then
   # timeout returns 124 when it sends SIGTERM and 137 when its kill-after
   # escalation is needed. 143 additionally covers a terminated fetch reported
   # by a wrapper. All are transient stalls, just like a recognized network error.
   if [ "$fetch_rc" -eq 124 ] || [ "$fetch_rc" -eq 137 ] || [ "$fetch_rc" -eq 143 ] \
       || is_transient_net_error "$ERRF"; then
-    log "WARN: transient fetch failure for $slug; skipping this tick (retry next tick)"
+    log "WARN: transient fetch failure for $slug after $fetch_attempt attempt(s); skipping this tick (retry next tick)"
     exit 0
   fi
   die "fetch failed for $slug"
