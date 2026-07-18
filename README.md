@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-18T05:01:28Z_
+_As of 2026-07-18T05:05:24Z_
 
 ## Latest
 
-The XS→Rust (Endor) port ([endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) rolled from stage 8 into stage 9 — supervisor s28 filed its completion report and the first stage-9 child (ToPrimitive in `op_add`, the native→JS call trampoline) is now the sole job in flight; note that stage-8's C-XS baseline children repeatedly poisoned on handler-budget overruns and an unexplained external SIGKILL, and several are parked awaiting promotion.
+The job board went quiet this window — the only transition was a fresh claim of the recurring `finbot-progress` job — while a wave of long-running handlers hit the 2400s (and one 7200s) handler budget and were **poison-parked**: the [#585](https://github.com/endojs/endo-but-for-bots/pull/585) content-store conductor merge, the `merge-upstream-master-into-llm` job, the OCapN-over-Noise and VFS-parity press-drivers, the [#124](https://github.com/endojs/endo-but-for-bots/pull/124)/[#704](https://github.com/endojs/endo-but-for-bots/pull/704)/[#763](https://github.com/endojs/endo-but-for-bots/pull/763) shepherds, the Yarn→npm/pnpm migrations, and the xs2rust Stage-8 C-XS baseline (whose orchestration halted repeatedly). Most need splitting into claim-sized stages or a promote before they move again.
 
-Otherwise completions were quiet and the board is dominated by lanes stalled on maintainer decisions. The standing press-drivers each report their downstream work fully gated: OCapN-over-Noise has M1–M5 proven (stack [#340](https://github.com/endojs/endo-but-for-bots/pull/340)→[#684](https://github.com/endojs/endo-but-for-bots/pull/684)→[#688](https://github.com/endojs/endo-but-for-bots/pull/688)→[#693](https://github.com/endojs/endo-but-for-bots/pull/693)) and needs only a yes/no on opening a non-443 TCP port on minion.town; SturdyRef is blocked on a home arbitration between [#737](https://github.com/endojs/endo-but-for-bots/pull/737) and [#774](https://github.com/endojs/endo-but-for-bots/pull/774); the esheets tree is dammed behind re-review/merge of OAuth design [#621](https://github.com/endojs/endo-but-for-bots/pull/621); git-integration M3 needs a `merge` on [#705](https://github.com/endojs/endo-but-for-bots/pull/705); and M2 awaits review/merge of [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) plus closing the redundant [#263](https://github.com/endojs/endo-but-for-bots/pull/263). Two integration events did land: real upstream `endojs/endo` master was merged into `llm` (via [#773](https://github.com/endojs/endo-but-for-bots/pull/773), deliberately stopping short of upstream's ESLint 10 flat-config migration, flagged as a separate follow-up), and the OCapN press repaired a minion.town continuous-deploy regression that had clobbered the `/ocapn` Caddy routes ([kriscendobot/minion.town#9](https://github.com/kriscendobot/minion.town/pull/9)). Most urgent human action: minion.town's entire primary phase is now ~9 hours pinned on a ~5-minute browser-only Gate 1 login ([kriskowal/garden#58](https://github.com/kriskowal/garden/issues/58)).
+Underneath, real work did land despite the churn: the upstream `endojs/endo` master was merged into `llm` via [#773](https://github.com/endojs/endo-but-for-bots/pull/773) (deliberately stopping short of the ESLint 10 flat-config migration, flagged as a separate multi-cycle job), the OCapN press repaired minion.town's clobbered Caddy routes ([minion.town#9](https://github.com/kriscendobot/minion.town/pull/9)) and re-proved a cross-host Noise round-trip, [#713](https://github.com/endojs/endo-but-for-bots/pull/713) was rebased to become the self-contained carrier of the delegated glob/grep/glorp surface, and finbot advanced its volatility stack through GJR-GARCH MLE to a full EGARCH surface.
+
+The dominant thing for the maintainer to notice is a stack of decision gates blocking whole lanes: the sturdyref effort is frozen on a home-arbitration between [#774](https://github.com/endojs/endo-but-for-bots/pull/774) and [#737](https://github.com/endojs/endo-but-for-bots/pull/737); the esheets tree is dammed 6+ days behind a re-review/merge of [#621](https://github.com/endojs/endo-but-for-bots/pull/621); git-integration needs only a merge directive on [#705](https://github.com/endojs/endo-but-for-bots/pull/705) to close M3; M2 waits on adopting [#719](https://github.com/endojs/endo-but-for-bots/pull/719) and merging it plus [#259](https://github.com/endojs/endo-but-for-bots/pull/259); M3's module-loading tail needs a package-home ruling between [#671](https://github.com/endojs/endo-but-for-bots/pull/671) and #403; and the entire minion.town primary phase has sat 9+ hourly cycles idle on a single ~5-minute browser action (Gate 1). Several reconstruction jobs also reported their target diffs already present on master and stopped cleanly rather than force empty PRs.
 
 ## Parked for maintainer feedback
 
@@ -19,7 +21,7 @@ Otherwise completions were quiet and the board is dominated by lanes stalled on 
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 4d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 5d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 15d)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 17d)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 18d)
 
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
@@ -1193,14 +1195,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.4M | $1210.33 _(notional, rate-card)_ | no quota set |
+| Claude | 124.5M | $1210.85 _(notional, rate-card)_ | no quota set |
 | Codex | 198.8M _(+458.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`finbot-progress-20260718-050503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260718-050503.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`xs2rust-endor-stage9-toprimitive-add`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9-toprimitive-add.md) — Stage-9 child 1/6 — ToPrimitive-in-op_add: the native→JS call trampoline
 
 ### tada (2681)
