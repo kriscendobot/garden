@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T06:31:40Z_
+_As of 2026-07-18T06:33:02Z_
 
 ## Latest
 
@@ -1274,26 +1274,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.8M | $1238.09 _(notional, rate-card)_ | no quota set |
-| Codex | 199.1M _(+464.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 124.8M | $1238.43 _(notional, rate-card)_ | no quota set |
+| Codex | 199.1M _(+464.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endo-git-integration-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260718-062002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-vfs-parity-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260718-062002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`merge-endo-but-for-bots-pr789-content-locator-planes-resolution`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/merge-endo-but-for-bots-pr789-content-locator-planes-resolution.md) — Merge endojs/endo-but-for-bots PR #789 (content data-plane resolution, Phase 3)
 - [`xs2rust-endor-stage9b-template-cache`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9b-template-cache.md) — Stage-9b child 1/5 — tagged-template template_cache (the real String.raw call...
 
-### tada (2700)
+### tada (2701)
+- [`merge-endo-but-for-bots-pr789-content-locator-planes-resolution`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/merge-endo-but-for-bots-pr789-content-locator-planes-resolution.md) — Merged endojs/endo-but-for-bots PR #789 into llm as merge commit b43e801633b9...
 - [`gauntlet-endo-but-for-bots-pr789-content-locator-planes-resolution`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr789-content-locator-planes-resolution.md) — Reviewed and un-drafted endojs/endo-but-for-bots#789 at 747ef04510.
 - [`port-xs-to-rust-memory-safe-engine-s29`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s29.md) — Completion report — supervisor s29: stage-9 halt recovery → stage9b dispatched
 - [`endo-byte-array-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260718-062002.md) — Completion report — endo-byte-array-press-20260718-062002
 - [`ocapn-noise-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260718-062002.md) — Completion report — ocapn-noise-press-20260718-062002
-- [`endo-daemon-data-plane-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260718-062002.md) — Press dispatch complete — this dispatch un-stalled the predicted gauntlet gap...
-- … and 2695 more
+- … and 2696 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
