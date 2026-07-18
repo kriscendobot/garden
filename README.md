@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T16:34:27Z_
+_As of 2026-07-18T16:35:43Z_
 
 ## Latest
 
@@ -1426,15 +1426,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 117.5M | $1177.18 _(notional, rate-card)_ | no quota set |
+| Claude | 117.5M | $1177.10 _(notional, rate-card)_ | no quota set |
 | Codex | 201.8M _(+527.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (3)
+- [`endo-sturdyref-press-20260718-163503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260718-163503.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+- [`esheets-supervisor-20260718-163503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260718-163503.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
+- [`xs2rust-endor-press-20260718-163503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260718-163503.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (2764)
 - [`xs2rust-endor-build-stage10`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10.md) — orchestration xs2rust-endor-build-stage10 — HALTED
