@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T03:40:35Z_
+_As of 2026-07-18T03:41:41Z_
 
 ## Latest
 
@@ -1200,18 +1200,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endo-npm-cas-registry-press-20260718-033501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260718-033501.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
-- [`port-xs-to-rust-memory-safe-engine-s26`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s26.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`xs2rust-endor-stage8-boot-surface-remainder-r2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage8-boot-surface-remainder-r2.md) — Stage-8d child 1/2 — engine: boot-surface remainder r2 (method shorthand, Str...
 
-### tada (2670)
+### tada (2671)
+- [`port-xs-to-rust-memory-safe-engine-s26`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s26.md) — Completion report — supervisor s26: stage-8c halt recovery (round three) + st...
 - [`port-xs-to-rust-memory-safe-engine-s25`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s25.md) — Completion report — port-xs-to-rust-memory-safe-engine-s25
 - [`endojs-endo-but-for-bots-pr259-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr259-shepherd.md) — Completion report
 - [`endojs-endo-but-for-bots-pr259-review-8288f2bf`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr259-review-8288f2bf.md) — Reviewed and addressed the sole inline comment at cauterize-property.js:62.
 - [`xs2rust-endor-press-20260718-020501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-020501.md) — Press tick complete — took the wheel and landed real progress: rebase + a boo...
-- [`endo-sturdyref-press-20260718-020501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-020501.md) — SturdyRef press, 02:05 tick (2026-07-18) — **observation-only; zero movement,...
-- … and 2665 more
+- … and 2666 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
