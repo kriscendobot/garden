@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T07:01:33Z_
+_As of 2026-07-18T07:04:25Z_
 
 ## Latest
 
@@ -1274,15 +1274,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.2M | $1231.41 _(notional, rate-card)_ | no quota set |
-| Codex | 199.5M _(+480.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 124.1M | $1230.84 _(notional, rate-card)_ | no quota set |
+| Codex | 199.6M _(+481.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`design-ocapn-noise-key-only-session-boundary`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-ocapn-noise-key-only-session-boundary.md) — Design: lower peer authentication & encryption to the OCapN-Noise network lay...
+- [`xs2rust-endor-stage9-endor-vm-daemon-wiring`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9-endor-vm-daemon-wiring.md) — Stage-9b child 3/5 — endor-vm path-dep + daemon spawn wiring (probe step 5)
 
 ### tada (2709)
 - [`xs2rust-endor-stage9-handled-promise`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9-handled-promise.md) — Completion report — Stage-9b child 2/5: HandledPromise / eventual-send surface
