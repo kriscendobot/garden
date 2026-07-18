@@ -51,3 +51,10 @@ enumeration untouched or explained), and an exact resume point.
 **Sizing + push discipline (binding):** you have ONE 2400s handler invocation. Push each coherent item AS IT COMPLETES (`git push origin HEAD:xs2rust-endor`; verify by git EXIT CODE; concurrent pushes race at the CAS — fetch, rebase, retry), so a deadline poison loses only the in-flight item. If you cannot finish everything, land what is verified and report the remainder honestly in your tada — an honest, precisely-named remainder is a GOOD outcome, not a failure.
 
 **Verification bar for engine changes:** engine-workspace `cargo test` EXIT=0 captured to a file (every `test result:` line 0 failed — 47 lines / 673 passed at stage-9 close); curated compile-diff all-identical + SYMB (report the count — **1878** at stage-9 close, may have grown); boot gate green (report the count — 17 at stage-9 close — and any skip→green conversions); **zero NEW Rust warnings**; `#![forbid(unsafe_code)]` intact at every engine crate root (grep and report the count — 7 at stage-9 close; `endor-oracle` stays the audited FFI seam); `c/moddable` clean at the pin, never staged; no committed bundles. Any NEW VM side table must be ledgered the day it lands (GC-roots + snapshot contract — the pattern of `proxies` (Pending) and `DebuggerState` (SnapshotExcluded) in `endor-snapshot/src/sidetable.rs`). **DOCTRINE: accuracy-over-parity** — result agreement gates; computron-vs-oracle is advisory telemetry; never back-fit meters to oracle computrons or CESU-8 byte lengths.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 11
+  worker_kind: gardener
+  claimed_at: 2026-07-18T14:49:26Z
