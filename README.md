@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T22:05:29Z_
+_As of 2026-07-18T22:06:55Z_
 
 ## Latest
 
@@ -1597,25 +1597,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 110.7M | $1119.42 _(notional, rate-card)_ | no quota set |
+| Claude | 110.5M | $1116.17 _(notional, rate-card)_ | no quota set |
 | Codex | 201.9M _(+529.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endo-npm-cas-registry-press-20260718-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260718-220501.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
-- [`endojs-endo-but-for-bots-pr794-review-a34bb7b7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr794-review-a34bb7b7.md) — Review directive on endojs/endo-but-for-bots PR #794
 - [`xs2rust-endor-stage10d-worker-bootstrap`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10d-worker-bootstrap.md) — stage10d child 2/4 — wire the real worker boot chain into rust_worker (polyfi...
 
-### tada (2806)
+### tada (2807)
+- [`endojs-endo-but-for-bots-pr794-review-a34bb7b7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr794-review-a34bb7b7.md) — Completion report
 - [`xs2rust-endor-stage10d-real-boot`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10d-real-boot.md) — Completion report — stage10d child 1/4: real two-eval SES boot in endor-vm
 - [`endojs-endo-but-for-bots-pr794-7b9dcba3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr794-7b9dcba3.md) — Updated PR #794 with static responder mapping and graceful SIGHUP reload sema...
 - [`xs2rust-endor-stage10d-freeze-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10d-freeze-fixer.md) — Completion report
 - [`port-xs-to-rust-memory-safe-engine-s34`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s34.md) — Completion report — port-xs-to-rust-memory-safe-engine-s34 (XS→Rust endor sup...
-- [`xs2rust-endor-press-20260718-205002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-205002.md) — Completion report — xs2rust-endor-press-20260718-205002 (hourly Fable press, ...
-- … and 2801 more
+- … and 2802 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
