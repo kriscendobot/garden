@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T08:47:09Z_
+_As of 2026-07-18T08:47:58Z_
 
 ## Latest
 
@@ -1329,14 +1329,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 123.3M | $1229.27 _(notional, rate-card)_ | no quota set |
+| Claude | 123.3M | $1229.03 _(notional, rate-card)_ | no quota set |
 | Codex | 200.0M _(+514.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`fix-comment-watcher-ack-without-post`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-comment-watcher-ack-without-post.md) — Fix: comment-watcher acked a directive five times without a job reaching the ...
 - [`port-xs-to-rust-memory-safe-engine-s30`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s30.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`xs2rust-endor-stage9c-rest-spread`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9c-rest-spread.md) — Stage-9c child 1/9 — rest parameters + spread call (the Unsupported("argument...
 
