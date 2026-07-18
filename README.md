@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T19:31:23Z_
+_As of 2026-07-18T19:32:52Z_
 
 ## Latest
 
@@ -1561,14 +1561,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 113.5M | $1142.64 _(notional, rate-card)_ | no quota set |
+| Claude | 113.4M | $1142.31 _(notional, rate-card)_ | no quota set |
 | Codex | 201.8M _(+527.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr406-0cc0c326`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr406-0cc0c326.md) — attention directive on endojs/endo-but-for-bots PR #406
 - [`xs2rust-endor-stage10c-ses-boot-r6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10c-ses-boot-r6.md) — Stage-10c child 3/5 — SES worker-bundle boot, gap round 6 (target: lockdown()...
 
 ### tada (2794)
