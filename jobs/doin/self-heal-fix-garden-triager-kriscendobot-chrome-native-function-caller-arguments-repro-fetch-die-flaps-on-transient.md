@@ -1,8 +1,0 @@
-In `scripts/jobs/triager.sh` line 117, the upstream-refresh fetch `git --git-dir="$BARE" fetch -q --all --prune || die "fetch failed for $slug"` treats a transient fetch failure as a fatal (exit 1), which flaps the `garden-triager@<slug>` unit and trips self-heal on every network blip or drain-time SIGTERM. The observed failure was `Terminated` (SIGTERM to the git-fetch child) immediately followed by `FATAL: fetch failed for kriscendobot-chrome-native-function-caller-arguments-repro`, i.e. the fetch was killed by a signal, not a real upstream fault. Give the refresh fetch parity with the *provision* fetch path (same script, lines 95–104), which already documents fetch failures as "usually transient (offline, DNS, a half-open connection reaped by the timeout)" and responds with `log WARN` + throttled `alert_maintainer` + `exit 0` (skip tick, retry next tick). Specifically: capture the fetch rc instead of `die`ing; on a signal-kill (rc ≥ 128, especially SIGTERM rc 143 — a drain/shutdown) `log` and `exit 0` silently (no alert — it's not a bad upstream); on any other fetch failure, `log WARN` + throttled `alert_maintainer` (dedup key `triager-fetch-failed-${slug//[^A-Za-z0-9._-]/_}`, mirroring the provision path's key) and `exit 0` so a persistent bad upstream still surfaces once but a blip does not flap the unit into self-heal. Do not change the handler circuit-breaker or cursor logic; the cursor already stays at old_sha when the tick exits before triage, so the next tick re-fetches and resumes cleanly.
-
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: cleric
-  claimed_at: 2026-07-18T06:14:49Z
