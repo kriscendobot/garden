@@ -10,10 +10,12 @@
 #
 #     poll comments since a durable cursor
 #       → map the verb table DETERMINISTICALLY (NO claude anywhere in this path)
-#       → reactji-acknowledge the source comment (👀, before posting)
 #       → post the corresponding job for a gardener to claim
-#       → VERIFY the post actually landed on origin/journal2 before advancing
-#         the cursor (a lost push must re-poll, never drop the directive).
+#       → VERIFY the post actually landed on origin/journal2
+#       → ONLY THEN reactji-acknowledge the source comment (👀) — an ack IMPLIES a
+#         posted job, never before (a lost push withholds the 👀 and re-polls, so a
+#         dropped directive can never look handled — the #600 five-acks-no-job fix).
+#         A lost push re-polls next tick and never drops the directive.
 #
 # ── FULLY DETERMINISTIC observe→post-job (NO LLM), maintainer directive 2026-07-01 ─
 # There is NO `claude -p` anywhere between observing a comment and posting a job.
@@ -1017,6 +1019,29 @@ post_reply() {  # post_reply <surface> <cid> <author> <pr> <reply-text>
   rm -f "$rbf"
 }
 
+# --- ack the source comment (a 👀 receipt) — ONLY after the job has LANDED -------
+# INVARIANT: an ack IMPLIES a posted job. The reactji is emitted AFTER the post is
+# confirmed on origin/journal2 (or deduped onto a peer's already-live job), NEVER
+# before. The old shape reacted FIRST and posted second; when the post kept failing
+# (POST LOST) the head-of-line cursor stayed frozen below the comment, so the next
+# tick re-polled the SAME comment and re-fired the reactji — with no job ever
+# landing. That is exactly the endojs/endo-but-for-bots #600 incident (2026-07-18
+# ~04:30Z): a `pr600-rebase` directive was reactji-acked FIVE times across five
+# ticks while no job ever reached the board, so a silently-dropped directive looked
+# handled (a passing press tick had to cover its intent). Gating the ack on a
+# CONFIRMED landing closes the invariant: a comment whose post never lands is never
+# acked, so a failing post can no longer masquerade as done — and the WITHHELD 👀,
+# alongside the loud repeating "POST LOST" log line, is itself the "something is
+# wrong here" signal instead of five reassuring receipts. Idempotent: a 👀 already
+# present is a GitHub no-op, so a benign re-poll after a real landing never
+# double-reacts. Reviews are the one unreactable surface (the job IS the response).
+ack_reactji() {  # ack_reactji <surface> <cid>
+  local surface="$1" cid="$2"
+  [ "$surface" = pr-review-body ] && return 0
+  "$GARDEN_COMMENT_REACTJI" "$repo" "$surface" "$cid" eyes \
+    || log "WARN: reactji failed on $surface/$cid (continuing)"
+}
+
 ack_or_log_slide() {  # ack_or_log_slide <reason> <surface> <cid> <author> <url> <pr>
   local reason="$1" surface="$2" cid="$3" author="$4" url="$5" pr="$6"
   if [ "$surface" != pr-review-body ] && is_trusted "$author"; then
@@ -1535,18 +1560,21 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
     log "already actioned: live job $base on the board (idempotent skip)"; rm -f "$bf"; slide "$created"; continue
   fi
 
-  # Reactji FIRST (the "received and processing" signal), then post. Reviews are
-  # not reactable, so skip the ack for a review body (the job is the response).
-  if [ "$surface" != pr-review-body ]; then
-    "$GARDEN_COMMENT_REACTJI" "$repo" "$surface" "$cid" eyes \
-      || log "WARN: reactji failed on $surface/$cid (continuing to post)"
-  fi
-
+  # POST FIRST, then ACK — an ack must IMPLY a posted job (ack_reactji, above). The
+  # reactji used to fire HERE, before the post; a repeatedly-failing post then re-
+  # acked the same comment every tick from the frozen head-of-line cursor without a
+  # job ever landing (endojs/endo-but-for-bots #600: five 👀, zero pr600-rebase,
+  # 2026-07-18). The reactji now fires ONLY in the confirmed-landed / deduped
+  # branches below, so the 👀 is a faithful receipt for a job that reached the board.
   jb="$(mktemp)"; write_job_body "$jb" "$VERB" "$surface" "$author" "$pr" "$url" "$bf" "${PRIMARY_VERB:-}" "$cid"
   GARDEN_JOB_IDENTITY="$IDENTITY" "$GARDEN_COMMENT_POST" "$base" "$jb" >/dev/null 2>&1 || true
   rm -f "$jb" "$bf"
 
   if verify_posted "$base" fresh; then
+    # The job LANDED on origin/journal2 — NOW (and only now) ack the source comment,
+    # so the 👀 always implies a posted job. Reviews are unreactable (ack_reactji
+    # no-ops the pr-review-body surface, whose response IS the job).
+    ack_reactji "$surface" "$cid"
     # An ACTIONABLE comment gets a reply NAMING the active job, not just the reactji
     # (the #58 directive). Skip the conversation reply for `review`/`finalize`: those
     # are answered on the PR's review threads / by the conductor, and post_reply
@@ -1566,8 +1594,10 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
   elif owner="$(journal_identity_owner_live "$VERIFY" "origin/$JOURNAL_BRANCH" "$IDENTITY")"; then
     # post-job.sh deduped this directive onto an existing live job (a peer or the
     # mention-watcher already owns identity $IDENTITY under a different base). The
-    # directive IS being handled — treat as success (the reactji already acked it);
-    # advance the cursor rather than misreading the intentional no-op as a lost push.
+    # directive IS being handled — a live job exists on the board — so ack the source
+    # comment (the invariant holds: an ack implies a posted job) and advance the
+    # cursor rather than misreading the intentional no-op as a lost push.
+    ack_reactji "$surface" "$cid"
     # Still mint the retro: the primary is handled by the peer, but no OTHER producer
     # mints the second loop, so pair it here (idempotent on <base>-retro).
     [ -n "$retro_eligible" ] && mint_retro "$base" "$VERB" "$surface" "$author" "$pr" "$url" "$IDENTITY"

@@ -2,14 +2,18 @@
 # comment-watcher-test.sh — validate the PR/issue comment watcher on throwaway
 # fixtures, with no GitHub and no claude. The comment SOURCE, the REACTJI poster,
 # and (for the lost-post case) the JOB POSTER are stubbed deterministically; the
-# verb mapping, reactji-before-post sequencing, idempotency, and cursor-advance
-# logic under test run for real against a throwaway journal.
+# verb mapping, ack-AFTER-post sequencing (an ack implies a posted job),
+# idempotency, and cursor-advance logic under test run for real against a throwaway
+# journal.
 #
 # Asserts:
 #   A. a "rebase #N" comment → a rebase job + an eyes reactji + cursor advance
 #   B. a non-directive comment → no job, no reactji, cursor still slides past it
 #   C. re-polling an already-actioned comment → idempotent (no dup job/reactji)
-#   D. a post that did NOT land on origin/journal2 → cursor does NOT advance
+#   D. a post that did NOT land on origin/journal2 → NO reactji, cursor does NOT advance
+#   AK. a directive whose post keeps FAILING is never acked, no matter how many
+#       ticks re-poll it (ack-implies-posted; the endo-but-for-bots #600 five-acks-
+#       no-job regression), and the FIRST tick whose post lands acks exactly once
 #
 # Usage: comment-watcher-test.sh
 set -euo pipefail
@@ -228,8 +232,40 @@ printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
   'please shepherd #59' > "$FIX_D"
 run_watcher "$TR/state-d" "$BARE_D" "$FIX_D" "$RLOG_D" "$LIESTUB"
 board_has "$BARE_D" "$SLUG-pr59-shepherd" && bad "lying poster somehow landed the job" || ok "job correctly absent (push was lost)"
+[ ! -s "$RLOG_D" ] && ok "no reactji on a lost post (ack implies a posted job)" || bad "reactji posted despite a lost push: $(cat "$RLOG_D")"
 seen_d="$(cursor_seen "$TR/state-d" "$BARE_D")"
 [ -z "$seen_d" ] && ok "cursor did NOT advance past a lost post (will re-poll)" || bad "cursor advanced despite lost post ($seen_d)"
+
+# ============================================================================
+hr; echo "AK — a repeatedly-FAILING post never acks (endo-but-for-bots #600); the tick that lands acks once"; hr
+# The #600 incident (2026-07-18 ~04:30Z): a pr600-rebase directive was reactji-acked
+# FIVE times across five ticks while no job ever reached the board — the ack fired
+# BEFORE the post, so each re-poll from the frozen head-of-line cursor re-acked a
+# comment whose job never landed, making a silently-dropped directive look handled.
+# The fix acks only AFTER the post is confirmed on origin/journal2. Reproduce: run
+# the watcher against a LYING poster across several ticks; the cursor stays frozen
+# (re-polling the same comment each tick) and NOT ONE reactji must be emitted. Then
+# switch to the REAL poster on a later tick: the post lands and the comment is acked
+# exactly once — proving the ack was merely deferred, never lost.
+BARE_AK="$TR/ak.git"; seed_bare "$BARE_AK"
+FIX_AK="$TR/fix-ak.tsv"; RLOG_AK="$TR/react-ak.log"; : > "$RLOG_AK"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-07-18T04:30:00Z issue-comment 4870000600 600 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/600#issuecomment-4870000600 \
+  'Please rebase on #789' > "$FIX_AK"
+# Five ticks against the LYING poster (never lands): mimics the five 04:30Z re-polls.
+for _ in 1 2 3 4 5; do
+  run_watcher "$TR/state-ak" "$BARE_AK" "$FIX_AK" "$RLOG_AK" "$LIESTUB"
+done
+board_has "$BARE_AK" "$SLUG-pr600-rebase" && bad "lying poster somehow landed the #600 job" || ok "#600 job correctly absent across five failing ticks"
+[ ! -s "$RLOG_AK" ] && ok "ZERO reactji across five failing ticks (no five-acks-no-job; the #600 fix)" || bad "reactji fired on a failing post: $(grep -c . "$RLOG_AK") ack(s) — $(cat "$RLOG_AK")"
+[ -z "$(cursor_seen "$TR/state-ak" "$BARE_AK")" ] && ok "cursor frozen below the un-postable directive (keeps re-polling)" || bad "cursor advanced past an un-posted directive"
+# Now the post SUCCEEDS on a later tick (real poster) — the comment is acked once.
+run_watcher "$TR/state-ak" "$BARE_AK" "$FIX_AK" "$RLOG_AK"
+board_has "$BARE_AK" "$SLUG-pr600-rebase" && ok "the #600 job lands once the post succeeds" || bad "job did not land with a working poster"
+grep -qx "issue-comment 4870000600 eyes" "$RLOG_AK" && ok "the comment is acked once its job lands (ack was deferred, not lost)" || bad "no reactji after a successful post ($(cat "$RLOG_AK"))"
+[ "$(grep -c . "$RLOG_AK")" -eq 1 ] && ok "exactly one reactji total across all six ticks" || bad "reactji count across ticks: $(grep -c . "$RLOG_AK")"
+[ "$(cursor_seen "$TR/state-ak" "$BARE_AK")" = 2026-07-18T04:30:00Z ] && ok "cursor advances once the directive is genuinely handled" || bad "cursor not advanced after a successful post"
 
 # ============================================================================
 hr; echo "HOL — an EARLIER lost post must NOT block a LATER directive (head-of-line fix)"; hr
