@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T14:47:30Z_
+_As of 2026-07-18T14:47:53Z_
 
 ## Latest
 
@@ -1350,24 +1350,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 119.5M | $1194.83 _(notional, rate-card)_ | no quota set |
-| Codex | 201.8M _(+526.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Codex | 201.8M _(+526.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`self-heal-fix-garden-triager-kriscendobot-endo-fetch-unbounded-die-crashloop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-endo-fetch-unbounded-die-crashloop.md) — In scripts/jobs/triager.sh:117, the steady-state fetch git --git-dir="$BARE" ...
+### doin (2)
 - [`self-heal-fix-garden-triager-kriscendobot-garden-fetch-hard-die-transient`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-garden-fetch-hard-die-transient.md) — In scripts/jobs/triager.sh, the steady-state fetch at line 117 (git --git-dir...
 - [`xs2rust-endor-stage10-persistent-realm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10-persistent-realm.md) — Stage-10 child 3/7 — persistent guest realm + host-reply channel in the worke...
 
-### tada (2757)
+### tada (2758)
+- [`self-heal-fix-garden-triager-kriscendobot-endo-fetch-unbounded-die-crashloop`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-endo-fetch-unbounded-die-crashloop.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-ymax-e2e-unbounded-standing-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ymax-e2e-unbounded-standing-fetch.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-ocapn-bound-upstream-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ocapn-bound-upstream-fetch.md) — Already implemented on origin/main2 (commit 0c940939e7).
 - [`self-heal-fix-garden-triager-kriscendobot-minion-town-fetch-die-soft-skip`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-fetch-die-soft-skip.md) — The job is already fully resolved on main2. Every requirement in the spec is ...
 - [`self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-fetch-hard-die-skip-and-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-fetch-hard-die-skip-and-retry.md) — Completion report
-- [`self-heal-fix-garden-triager-kriscendobot-agoric-sdk-fetch-hard-die-flap`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-sdk-fetch-hard-die-flap.md) — What I found
-- … and 2752 more
+- … and 2753 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
