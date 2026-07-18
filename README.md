@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T08:47:58Z_
+_As of 2026-07-18T08:48:55Z_
 
 ## Latest
 
@@ -1329,25 +1329,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 123.3M | $1229.03 _(notional, rate-card)_ | no quota set |
+| Claude | 123.3M | $1229.14 _(notional, rate-card)_ | no quota set |
 | Codex | 200.0M _(+514.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`fix-comment-watcher-ack-without-post`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-comment-watcher-ack-without-post.md) — Fix: comment-watcher acked a directive five times without a job reaching the ...
-- [`port-xs-to-rust-memory-safe-engine-s30`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s30.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`xs2rust-endor-stage9c-rest-spread`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9c-rest-spread.md) — Stage-9c child 1/9 — rest parameters + spread call (the Unsupported("argument...
 
-### tada (2717)
+### tada (2718)
+- [`port-xs-to-rust-memory-safe-engine-s30`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s30.md) — Completion report — port-xs-to-rust-memory-safe-engine-s30 (stage-9b halt rec...
 - [`xs2rust-endor-build-stage9b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage9b.md) — orchestration xs2rust-endor-build-stage9b — HALTED
 - [`endojs-endo-but-for-bots-pr792-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr792-shepherd.md) — Fixed PR #792 CI failures and pushed 020fb0b7841, 6e9937cd66d.
 - [`xs2rust-endor-press-20260718-080504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-080504.md) — Completion report — xs2rust-endor-press-20260718-080504
 - [`endo-sturdyref-press-20260718-080504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-080504.md) — Completion report — SturdyRef press, 08:05Z tick (2026-07-18)
-- [`xs2rust-endor-stage9-debugger`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9-debugger.md) — What I did
-- … and 2712 more
+- … and 2713 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
