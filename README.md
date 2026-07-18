@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T03:35:20Z_
+_As of 2026-07-18T03:38:16Z_
 
 ## Latest
 
@@ -1244,7 +1244,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 - [`weave-endo-but-for-bots-pr626-stack-surgery-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/weave-endo-but-for-bots-pr626-stack-surgery-eval.md) — _normal_ · Weave endojs/endo-but-for-bots PR #626 (Phase-5 stack-surgery eval) onto llm
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
-- [`xs2rust-endor-stage8-boot-surface-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage8-boot-surface-remainder.md) — _normal_ · Stage-8c child 2/3 (was stage-8 child 5/6) — engine: boot-surface remainder (...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`fix-comment-watcher-verb-directive-tada-dedup`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-comment-watcher-verb-directive-tada-dedup.md) — _high_ · Fix: comment-watcher drops a fresh maintainer verb-directive when its determi...
