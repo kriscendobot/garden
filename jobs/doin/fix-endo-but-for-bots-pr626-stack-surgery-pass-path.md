@@ -47,3 +47,10 @@ eval-live row, refresh the stale comments and the PR title/description. Run the 
 test suite locally and get CI green; cite real command output for every green claim. Push
 to the existing head branch (a concurrent-push CAS race is fine; use your isolated per-job
 project worktree per the job preamble).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 10
+  worker_kind: gardener
+  claimed_at: 2026-07-18T00:27:52Z
