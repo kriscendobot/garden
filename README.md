@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T10:37:59Z_
+_As of 2026-07-18T10:40:37Z_
 
 ## Latest
 
@@ -1336,8 +1336,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-stage9c-handled-promise-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9c-handled-promise-shim.md) — Stage-9c child 5/9 — the HandledPromise / eventual-send shim body boots on endor
 
 ### tada (2727)
 - [`xs2rust-endor-stage9c-proxy-mop`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-proxy-mop.md) — Completion report
