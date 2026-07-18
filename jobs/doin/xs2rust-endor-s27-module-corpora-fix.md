@@ -65,3 +65,10 @@ The full 121-run enumeration is NOT your job (the s28 supervisor round re-measur
 Tada completion report ONLY (never inbox-send the parked supervisor): the diagnosis (what the byte was,
 why endor diverged), the fix, each bar's measured numbers + exit codes, commit shas pushed. Keep PR #600
 DRAFT; do not comment on the PR (the supervisor posts the acceptance).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 9
+  worker_kind: gardener
+  claimed_at: 2026-07-18T04:27:31Z
