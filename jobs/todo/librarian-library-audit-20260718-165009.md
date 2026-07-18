@@ -1,7 +1,3 @@
-cadence: weekly
-last_dispatched: 2026-07-18T16:50:09Z
-job_basename_prefix: librarian-library-audit
----
 # Librarian library audit
 
 Dispatch a librarian (garden/roles/librarian/AGENT.md) to perform its proactive
