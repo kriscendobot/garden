@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T08:07:24Z_
+_As of 2026-07-18T08:11:33Z_
 
 ## Latest
 
@@ -1274,25 +1274,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 123.4M | $1228.68 _(notional, rate-card)_ | no quota set |
-| Codex | 199.9M _(+507.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Claude | 123.4M | $1229.70 _(notional, rate-card)_ | no quota set |
+| Codex | 199.9M _(+508.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr792-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr792-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #792
-- [`xs2rust-endor-press-20260718-080504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260718-080504.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-stage9-test-rust-finish-line`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9-test-rust-finish-line.md) — Stage-9b child 5/5 — the test:rust finish-line measurement on the Rust engine
 
-### tada (2714)
+### tada (2715)
+- [`xs2rust-endor-press-20260718-080504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-080504.md) — Completion report — xs2rust-endor-press-20260718-080504
 - [`endo-sturdyref-press-20260718-080504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-080504.md) — Completion report — SturdyRef press, 08:05Z tick (2026-07-18)
 - [`xs2rust-endor-stage9-debugger`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9-debugger.md) — What I did
 - [`xs2rust-endor-stage9-endor-vm-daemon-wiring`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9-endor-vm-daemon-wiring.md) — Job: xs2rust-endor-stage9b child 3/5 — endor-vm path-dep + daemon spawn wirin...
 - [`daily-progress-summary-20260718-070501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260718-070501.md) — Completion report
-- [`design-ocapn-noise-key-only-session-boundary`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-ocapn-noise-key-only-session-boundary.md) — Completed design and opened draft PR #794: https://github.com/endojs/endo-but...
-- … and 2709 more
+- … and 2710 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
