@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+poisoned_at: 2026-07-18T23:23:03Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-18T23:23:03Z
+---
+
+---
 model: opus
 ---
 <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-18T22:34:16Z -->
@@ -38,10 +52,3 @@ Engine workspace EXIT=0 all-0-failed (708 at cut); compile-diff 1909/1909 + SYMB
 - Report via tada ONLY — never inbox-send the parked supervisor. Keep the PR DRAFT; no PR comments.
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: gardener
-  claimed_at: 2026-07-18T22:34:21Z
