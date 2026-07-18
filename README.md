@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T12:25:11Z_
+_As of 2026-07-18T12:25:55Z_
 
 ## Latest
 
@@ -12,11 +12,11 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 5h)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 6h)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 13h)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 11h)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 19h)
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 23h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 1d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 19h)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 1d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 4d)
@@ -1333,27 +1333,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 120.0M | $1189.36 _(notional, rate-card)_ | no quota set |
-| Codex | 200.1M _(+516.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
+| Claude | 120.0M | $1189.55 _(notional, rate-card)_ | no quota set |
+| Codex | 200.1M _(+517.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
-- [`endo-daemon-data-plane-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-daemon-data-plane-press-20260718-122003.md) — Press the Endo daemon data plane forward (endojs/endo-but-for-bots, base llm)
+### doin (4)
 - [`endo-vfs-parity-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260718-122003.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`fix-garden-auto-gauntlet-handoff-stall`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-garden-auto-gauntlet-handoff-stall.md) — Fix: builds' auto-gauntlet never fires (4 consecutive stalls)
 - [`gauntlet-endo-but-for-bots-pr792-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr792-http-web-seed.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
 - [`xs2rust-endor-stage9c-finish-line-measure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9c-finish-line-measure.md) — Stage-9c child 9/9 — the test:rust finish-line measurement on the Rust engine...
 
-### tada (2737)
+### tada (2738)
+- [`endo-daemon-data-plane-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260718-122003.md) — Press dispatch complete — the design half of the finish line is fully landed,...
 - [`endo-git-integration-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260718-122003.md) — Press report — git-integration / M3 loop (2026-07-18T12:20Z dispatch)
 - [`ocapn-noise-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260718-122003.md) — Press dispatch 7 (2026-07-18 12:20Z) — steady state, all green, live proofs r...
 - [`xs2rust-endor-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-122003.md) — Press tick complete — this was an observe-and-defer tick, correctly so, and t...
 - [`endo-sturdyref-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-122003.md) — SturdyRef press — 12:20Z tick completion report
-- [`endo-byte-array-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260718-122003.md) — Completion report — endo-byte-array-press-20260718-122003
-- … and 2732 more
+- … and 2733 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
