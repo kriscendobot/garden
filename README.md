@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T23:15:07Z_
+_As of 2026-07-18T23:23:19Z_
 
 ## Latest
 
@@ -18,7 +18,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 1d)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 1d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 1d)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 2d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 4d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 6d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 16d)
@@ -1363,6 +1363,59 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
+- `poison-xs2rust-endor-stage10d-live-captp-eval-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-xs2rust-endor-stage10d-live-captp-eval-deadline-overrun.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
+> Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=2400s):
+> this job EXCEEDS THE HANDLER BUDGET and would be killed identically on every requeue,
+> so the reaper surfaced it after 1 overrun cycles (not the full 5-cycle poison threshold).
+> The work is preserved at jobs/plan/xs2rust-endor-stage10d-live-captp-eval; it stays HELD until a human promotes it
+> (promote-plan.sh xs2rust-endor-stage10d-live-captp-eval) or removes it. Triage: split the job, raise GARDEN_HANDLER_TIMEOUT
+> for this work, or fix what makes it run long.
+> Original job base: xs2rust-endor-stage10d-live-captp-eval
+>
+> --- original job body ---
+> ---
+> model: opus
+> ---
+> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-18T22:34:16Z -->
+>
+> ---
+> model: opus
+> ---
+> # stage10d child 3/4 — live daemon worker-evaluate round trip on the Rust engine (`error-trace` un-hangs)
+>
+> **Repo:** `endojs/endo-but-for-bots`, PR **#600** (DRAFT — keep it DRAFT, post NO PR comments), branch `xs2rust-endor`, base `llm`. Tip at cut: `c345aa838` — **sync to the REAL remote tip first**; verify pushes by git EXIT CODE. Isolated checkout via `scripts/jobs/ensure-project-worktree.sh <your-job-base> endojs/endo-but-for-bots xs2rust-endor`.
+>
+> ## BINDING precondition gate (run FIRST, ~300s budget)
+>
+> At your tip verify BOTH: (a) the real two-eval SES boot gate (child 1) is green, and (b) the worker boot-chain + `handleCommand` dispatch tests (child 2; ROOT-workspace `cargo test -p endo --lib`) are green. **If EITHER gate is RED, do NOT attempt the daemon round trip** — this job DEGRADES to the next gap round on whichever capability is missing (continue from the predecessor's exact named remainder, push-per-gap; an honest capability increment is success). Two prior live-captp children died at deadline with ZERO pushes attempting the round trip without its prerequisites; the gate exists to prevent a third.
+>
+> ## Definition of done (gates green)
+>
+> 1. Build the ROOT-workspace release worker: `cargo build --release -p endo --bin endor` (needs the generated JS bundles — generate them, never commit them).
+> 2. Drive the daemon test that pins the finish-line blocker: `packages/daemon` **`error-trace.test.js`** with `ENDO_WORKER_BIN='<abs>/endor worker -e rust'` (NOT `ENDO_ENGINE` — it does not route child-process workers). At stage-9/10 anchor this file is 1 pass + **6 pending after timeout (worker-evaluate HANG)**. DoD: the worker-evaluate round trip **completes** — the 6 pending tests reach real pass/fail verdicts (report exact counts; a real fail with a named cause is progress, a hang is the blocker).
+> 3. Push every piece of glue/engine fix as its own commit immediately (push-per-item). Grounded oracle snippets for engine-semantic fixes.
+> 4. Use the default (non-TAP) ava reporter for truth on timeouts (the TAP reporter crashes in `dumpError` on a timed-out test — known measurement artifact).
+>
+> ## Daemon environment (the sharp edges, all previously hit)
+>
+> - AF_UNIX `sun_path` overflow: run from a REAL short path. `~/tmp/s9r` is an existing short-path daemon checkout on host endolin-garden; on another host create `~/tmp/<short>` equivalently (clone + install per repo README; seed `node_modules` from a sibling checkout if available). `mkdir -p $HOME/tmp` first; `TMPDIR=$HOME/tmp` (`/tmp` is noexec).
+> - Sync the short-path checkout to your tip before measuring; rebuild the release `endor` bin at that tip; confirm `git status` clean + tip sha before trusting any seeded cache (`cp -al` seeding from same-commit siblings only).
+> - Uniform provisioning-race asserts and stale seeded `target/` are the other two known environment-artifact classes — if a mass failure appears, classify against these three before blaming the engine.
+> - Smoke gate before the measurement: `channel.test.js` on the Rust worker must pass (it is green at anchor).
+>
+> ## Bars that must stay green (before EVERY push; outputs to files, check `$?`)
+>
+> Engine workspace EXIT=0 all-0-failed (708 at cut); compile-diff 1909/1909 + SYMB 1909/1909; boot gate 28 (binary count canonical); ROOT `cargo test -p endo --lib` ≥84/0; zero new Rust warnings; forbid intact (7 anchored roots, oracle exempt); new side tables ledgered day-they-land (VARIANT_COUNT 35 at cut); `c/moddable` at pin `23b4d6b0a65f…` clean, never staged; no committed bundles. Doctrine: accuracy-over-parity (result agreement gates).
+>
+> ## Discipline (BINDING)
+>
+> - **Push-per-item**; **STOP-and-checkpoint** at ~1800s-with-nothing-pushed: land an honest verified increment (even partial glue behind a test), push, tada with the exact resume point + halt signature.
+> - Report via tada ONLY — never inbox-send the parked supervisor. Keep the PR DRAFT; no PR comments.
+>
+> <!-- garden-deadline-overrun: 1 -->
+
 - `poison-xs2rust-endor-stage8-cxs-baseline-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-xs2rust-endor-stage8-cxs-baseline-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -1601,15 +1654,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 109.5M | $1105.37 _(notional, rate-card)_ | no quota set |
+| Claude | 109.4M | $1104.98 _(notional, rate-card)_ | no quota set |
 | Codex | 201.9M _(+529.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-stage10d-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10d-live-captp-eval.md) — stage10d child 3/4 — live daemon worker-evaluate round trip on the Rust engin...
+### doin (0)
+(none)
 
 ### tada (2811)
 - [`xs2rust-endor-press-20260718-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-225004.md) — Observation tick complete — deferred to the live stage10d chain, no push made.
@@ -1651,6 +1704,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 - [`weave-endo-but-for-bots-pr626-stack-surgery-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/weave-endo-but-for-bots-pr626-stack-surgery-eval.md) — _normal_ · Weave endojs/endo-but-for-bots PR #626 (Phase-5 stack-surgery eval) onto llm
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
+- [`xs2rust-endor-stage10d-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage10d-live-captp-eval.md) — _normal_ · stage10d child 3/4 — live daemon worker-evaluate round trip on the Rust engin...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`endojs-endo-but-for-bots-pr600-review-021252ca-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr600-review-021252ca-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #600 (primary: endojs-endo-but-f...
