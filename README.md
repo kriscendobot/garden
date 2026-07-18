@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T08:33:24Z_
+_As of 2026-07-18T08:34:19Z_
 
 ## Latest
 
@@ -597,6 +597,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260718T082630Z-ad3256` — from watchdog:gardener/6, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T082630Z-ad3256.md)
 
 > gardener job 'xs2rust-endor-stage9-test-rust-finish-line' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260718T083406Z-8246b2` — from orchestrator:xs2rust-endor-build-stage9b-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T083406Z-8246b2.md)
+
+> Orchestration xs2rust-endor-build-stage9b HALTED: child xs2rust-endor-stage9-test-rust-finish-line failed (serial, on-child-failure=halt). 4/5 done before halt; swept: none
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -1335,13 +1339,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (0)
 (none)
 
-### tada (2716)
+### tada (2717)
+- [`xs2rust-endor-build-stage9b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage9b.md) — orchestration xs2rust-endor-build-stage9b — HALTED
 - [`endojs-endo-but-for-bots-pr792-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr792-shepherd.md) — Fixed PR #792 CI failures and pushed 020fb0b7841, 6e9937cd66d.
 - [`xs2rust-endor-press-20260718-080504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-080504.md) — Completion report — xs2rust-endor-press-20260718-080504
 - [`endo-sturdyref-press-20260718-080504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-080504.md) — Completion report — SturdyRef press, 08:05Z tick (2026-07-18)
 - [`xs2rust-endor-stage9-debugger`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9-debugger.md) — What I did
-- [`xs2rust-endor-stage9-endor-vm-daemon-wiring`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9-endor-vm-daemon-wiring.md) — Job: xs2rust-endor-stage9b child 3/5 — endor-vm path-dep + daemon spawn wirin...
-- … and 2711 more
+- … and 2712 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
