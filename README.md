@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T16:57:22Z_
+_As of 2026-07-18T16:58:05Z_
 
 ## Latest
 
@@ -1440,25 +1440,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.7M | $1169.27 _(notional, rate-card)_ | no quota set |
+| Claude | 116.7M | $1168.68 _(notional, rate-card)_ | no quota set |
 | Codex | 201.8M _(+527.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`library-index-keywords-2-concepts-20260718`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/library-index-keywords-2-concepts-20260718.md) — Library index gap — library/keywords.md is missing 2 concept mappings.
+### doin (2)
 - [`library-index-sources-readme-3-missing-20260718`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/library-index-sources-readme-3-missing-20260718.md) — Library index gap — library/sources/README.md is missing 3 source pages.
 - [`xs2rust-endor-stage10b-cross-turn-functions`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10b-cross-turn-functions.md) — Stage-10b child 1/5 — cross-turn function invocation (the persistent realm's ...
 
-### tada (2769)
+### tada (2770)
+- [`library-index-keywords-2-concepts-20260718`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/library-index-keywords-2-concepts-20260718.md) — Completion report
 - [`librarian-library-audit-20260718-165009`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/librarian-library-audit-20260718-165009.md) — Librarian library-audit completion report
 - [`port-xs-to-rust-memory-safe-engine-s32`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s32.md) — Completion report — port-xs-to-rust-memory-safe-engine-s32
 - [`esheets-supervisor-20260718-163503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260718-163503.md) — Completion report — esheets-supervisor-20260718-163503
 - [`endo-sturdyref-press-20260718-163503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-163503.md) — SturdyRef press tick 16:35Z, 2026-07-18 — observation-only; no movement, hold...
-- [`xs2rust-endor-press-20260718-163503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-163503.md) — Press report — xs2rust-endor-press-20260718-163503 (DEFER, clean)
-- … and 2764 more
+- … and 2765 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
