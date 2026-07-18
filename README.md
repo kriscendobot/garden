@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T18:44:02Z_
+_As of 2026-07-18T18:44:52Z_
 
 ## Latest
 
@@ -1561,27 +1561,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 115.1M | $1158.68 _(notional, rate-card)_ | no quota set |
+| Claude | 115.0M | $1154.39 _(notional, rate-card)_ | no quota set |
 | Codex | 201.8M _(+527.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`fix-garden-conductor-decline-tada-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-garden-conductor-decline-tada-gate.md) — Fix: a conductor that DECLINES to merge still satisfies blocked_on gates
 - [`fix-garden-gauntlet-force-push-rewind`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-garden-gauntlet-force-push-rewind.md) — Fix: gauntlet force-push can rewind a peer's newer commits (branch-rewind haz...
 - [`merge-endo-but-for-bots-pr792-http-web-seed-restored`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/merge-endo-but-for-bots-pr792-http-web-seed-restored.md) — Merge endojs/endo-but-for-bots PR #792 (HTTP web-seed content plane) — retry ...
-- [`port-xs-to-rust-memory-safe-engine-s33`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s33.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`xs2rust-endor-stage10c-cross-turn-symbols`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10c-cross-turn-symbols.md) — Stage-10c child 1/5 — cross-turn SYMBOL resolution (prior-turn handler bodies...
 
-### tada (2784)
+### tada (2785)
+- [`port-xs-to-rust-memory-safe-engine-s33`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s33.md) — Completion report — port-xs-to-rust-memory-safe-engine-s33
 - [`endo-daemon-data-plane-press-20260718-183502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260718-183502.md) — All three jobs are already claimed by peer gardeners, CI is running on the re...
 - [`ocapn-noise-press-20260718-183502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260718-183502.md) — Press dispatch 8 (2026-07-18 18:35Z) — steady state; M1–M5 remain proven live
 - [`endo-vfs-parity-press-20260718-183502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260718-183502.md) — Completion report — endo-vfs-parity-press tick (2026-07-18, 18:35 dispatch)
 - [`endo-git-integration-press-20260718-183502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260718-183502.md) — Press report — git-integration / M3 loop (endojs/endo-but-for-bots), dispatch...
-- [`endo-byte-array-press-20260718-183502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260718-183502.md) — Assessment complete — the entire byte-array press is in a wait-on-human state...
-- … and 2779 more
+- … and 2780 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
