@@ -22,3 +22,10 @@ comment-watcher's deterministic base `endojs-endo-but-for-bots-pr671-shepherd`
 already sat in jobs/tada/ from a 2026-07-10 auto-shepherd; hence this dated base.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  claimed_at: 2026-07-18T01:03:13Z
