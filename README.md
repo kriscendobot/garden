@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T04:29:39Z_
+_As of 2026-07-18T04:30:57Z_
 
 ## Latest
 
@@ -1193,25 +1193,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.2M | $1210.60 _(notional, rate-card)_ | no quota set |
+| Claude | 124.2M | $1210.81 _(notional, rate-card)_ | no quota set |
 | Codex | 198.8M _(+458.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`fix-comment-watcher-verb-directive-tada-dedup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-comment-watcher-verb-directive-tada-dedup.md) — Fix: comment-watcher drops a fresh maintainer verb-directive when its determi...
-- [`port-xs-to-rust-memory-safe-engine-s27`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s27.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`xs2rust-endor-s27-module-corpora-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-s27-module-corpora-fix.md) — Fix the top-level-await module-bytecode divergence (stage-8 review F1) + the ...
 
-### tada (2677)
+### tada (2678)
+- [`port-xs-to-rust-memory-safe-engine-s27`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s27.md) — Completion report — supervisor s27: whole-stage-8 review (findings round)
 - [`xs2rust-endor-build-stage8d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage8d.md) — orchestration xs2rust-endor-build-stage8d — complete
 - [`xs2rust-endor-stage8-gate-remeasure-r2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage8-gate-remeasure-r2.md) — Stage-8d child 2/2 — whole-stage re-measure at the tip 43b6128e185
 - [`xs2rust-endor-press-20260718-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-040502.md) — Completion report — xs2rust-endor press tick 04:05Z (observed; deferred to li...
 - [`endo-sturdyref-press-20260718-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-040502.md) — SturdyRef press, 04:05 tick (2026-07-18) — **observation-only; zero movement,...
-- [`xs2rust-endor-stage8-boot-surface-remainder-r2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage8-boot-surface-remainder-r2.md) — Completion report — stage-8d child 1/2: engine boot-surface remainder r2
-- … and 2672 more
+- … and 2673 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
