@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T15:50:31Z_
+_As of 2026-07-18T15:51:35Z_
 
 ## Latest
 
@@ -1349,24 +1349,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 118.8M | $1188.29 _(notional, rate-card)_ | no quota set |
+| Claude | 118.8M | $1188.45 _(notional, rate-card)_ | no quota set |
 | Codex | 201.8M _(+527.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endo-npm-cas-registry-press-20260718-155003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260718-155003.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
-- [`xs2rust-endor-stage10-ses-boot-gaps-r2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10-ses-boot-gaps-r2.md) — Stage-10 child 5/7 — SES worker-bundle boot on endor-vm, gap round 2
 
-### tada (2761)
+### tada (2762)
+- [`xs2rust-endor-stage10-ses-boot-gaps-r2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10-ses-boot-gaps-r2.md) — Completion report — stage-10 child 5/7: SES worker-bundle boot on endor-vm, g...
 - [`xs2rust-endor-stage10-ses-boot-gaps-r1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10-ses-boot-gaps-r1.md) — Completion report — stage-10 child 4/7: SES worker-bundle boot on endor-vm, g...
 - [`self-heal-fix-garden-triager-kriscendobot-garden-fetch-hard-die-transient`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-garden-fetch-hard-die-transient.md) — Implemented and pushed 2fc8532937 to main2.
 - [`xs2rust-endor-stage10-persistent-realm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10-persistent-realm.md) — Completion report — xs2rust-endor-stage10-persistent-realm (PR #600 stage 10 ...
 - [`self-heal-fix-garden-triager-kriscendobot-endo-fetch-unbounded-die-crashloop`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-endo-fetch-unbounded-die-crashloop.md) — Completion report
-- [`self-heal-fix-garden-triager-kriscendobot-ymax-e2e-unbounded-standing-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ymax-e2e-unbounded-standing-fetch.md) — Completion report
-- … and 2756 more
+- … and 2757 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
