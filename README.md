@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T22:04:28Z_
+_As of 2026-07-18T22:05:29Z_
 
 ## Latest
 
@@ -1597,14 +1597,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 110.7M | $1118.88 _(notional, rate-card)_ | no quota set |
+| Claude | 110.7M | $1119.42 _(notional, rate-card)_ | no quota set |
 | Codex | 201.9M _(+529.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`endo-npm-cas-registry-press-20260718-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260718-220501.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr794-review-a34bb7b7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr794-review-a34bb7b7.md) — Review directive on endojs/endo-but-for-bots PR #794
 - [`xs2rust-endor-stage10d-worker-bootstrap`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10d-worker-bootstrap.md) — stage10d child 2/4 — wire the real worker boot chain into rust_worker (polyfi...
 
