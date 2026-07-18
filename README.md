@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T08:11:33Z_
+_As of 2026-07-18T08:25:49Z_
 
 ## Latest
 
@@ -17,7 +17,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 15h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 15h)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 7h)
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 19h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 20h)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 1d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 4d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 5d)
@@ -1274,24 +1274,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 123.4M | $1229.70 _(notional, rate-card)_ | no quota set |
-| Codex | 199.9M _(+508.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Claude | 123.4M | $1230.53 _(notional, rate-card)_ | no quota set |
+| Codex | 200.0M _(+514.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr792-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr792-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #792
+### doin (1)
 - [`xs2rust-endor-stage9-test-rust-finish-line`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9-test-rust-finish-line.md) — Stage-9b child 5/5 — the test:rust finish-line measurement on the Rust engine
 
-### tada (2715)
+### tada (2716)
+- [`endojs-endo-but-for-bots-pr792-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr792-shepherd.md) — Fixed PR #792 CI failures and pushed 020fb0b7841, 6e9937cd66d.
 - [`xs2rust-endor-press-20260718-080504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-080504.md) — Completion report — xs2rust-endor-press-20260718-080504
 - [`endo-sturdyref-press-20260718-080504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-080504.md) — Completion report — SturdyRef press, 08:05Z tick (2026-07-18)
 - [`xs2rust-endor-stage9-debugger`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9-debugger.md) — What I did
 - [`xs2rust-endor-stage9-endor-vm-daemon-wiring`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9-endor-vm-daemon-wiring.md) — Job: xs2rust-endor-stage9b child 3/5 — endor-vm path-dep + daemon spawn wirin...
-- [`daily-progress-summary-20260718-070501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260718-070501.md) — Completion report
-- … and 2710 more
+- … and 2711 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
