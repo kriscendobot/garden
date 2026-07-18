@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T14:48:32Z_
+_As of 2026-07-18T14:49:41Z_
 
 ## Latest
 
@@ -1356,8 +1356,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-stage10-ses-boot-gaps-r1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10-ses-boot-gaps-r1.md) — Stage-10 child 4/7 — SES worker-bundle boot on endor-vm, gap round 1 (gap-rev...
 
 ### tada (2760)
 - [`self-heal-fix-garden-triager-kriscendobot-garden-fetch-hard-die-transient`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-garden-fetch-hard-die-transient.md) — Implemented and pushed 2fc8532937 to main2.
