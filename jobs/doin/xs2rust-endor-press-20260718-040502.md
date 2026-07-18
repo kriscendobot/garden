@@ -80,3 +80,10 @@ Press the implementation forward until ALL of the following hold, then stop:
 Do not claim a bar is "verified"/"green" without real-execution evidence — cite
 the command and its observed output (the gardener reporting norm burned on #58).
 When you could not run a bar, report it "not verified" and why.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 15
+  worker_kind: gardener
+  claimed_at: 2026-07-18T04:05:17Z
