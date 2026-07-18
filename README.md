@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T21:44:36Z_
+_As of 2026-07-18T21:46:33Z_
 
 ## Latest
 
@@ -1597,15 +1597,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 110.8M | $1119.02 _(notional, rate-card)_ | no quota set |
+| Claude | 110.7M | $1117.27 _(notional, rate-card)_ | no quota set |
 | Codex | 201.9M _(+529.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-stage10d-real-boot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10d-real-boot.md) — stage10d child 1/4 — real two-eval SES boot in endor-vm (polyfills.js → ses_b...
 
 ### tada (2804)
 - [`xs2rust-endor-stage10d-freeze-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10d-freeze-fixer.md) — Completion report
