@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T07:09:08Z_
+_As of 2026-07-18T07:11:07Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 39m)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 44m)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 6h)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 8h)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 14h)
@@ -1274,24 +1274,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.3M | $1233.36 _(notional, rate-card)_ | no quota set |
+| Claude | 124.2M | $1232.37 _(notional, rate-card)_ | no quota set |
 | Codex | 199.6M _(+484.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`daily-progress-summary-20260718-070501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260718-070501.md) — Daily midnight Pacific progress summary
+### doin (1)
 - [`xs2rust-endor-stage9-endor-vm-daemon-wiring`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9-endor-vm-daemon-wiring.md) — Stage-9b child 3/5 — endor-vm path-dep + daemon spawn wiring (probe step 5)
 
-### tada (2710)
+### tada (2711)
+- [`daily-progress-summary-20260718-070501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260718-070501.md) — Completion report
 - [`design-ocapn-noise-key-only-session-boundary`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-ocapn-noise-key-only-session-boundary.md) — Completed design and opened draft PR #794: https://github.com/endojs/endo-but...
 - [`xs2rust-endor-stage9-handled-promise`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9-handled-promise.md) — Completion report — Stage-9b child 2/5: HandledPromise / eventual-send surface
 - [`endojs-endo-but-for-bots-pr406-e468d467`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr406-e468d467.md) — Completion report
 - [`endojs-endo-but-for-bots-pr606-8d70b971`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr606-8d70b971.md) — Completion report
-- [`build-endo-content-locators-magnet-urn-phase4-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-content-locators-magnet-urn-phase4-http-web-seed.md) — Implemented Phase 4 HTTP web seeds and opened draft PR #792.
-- … and 2705 more
+- … and 2706 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
