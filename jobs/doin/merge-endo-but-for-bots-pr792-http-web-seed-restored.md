@@ -25,3 +25,10 @@ This PR is the closing implementation increment (Phases 4+5) of the merged magne
 design (#662); its merge meets the data-plane arc's implementation finish line.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 9
+  worker_kind: gardener
+  claimed_at: 2026-07-18T18:43:13Z
