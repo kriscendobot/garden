@@ -24,3 +24,10 @@ already-soft clone-provision-failed path in this same script (triager.sh:101–1
 
 Keep the existing consecutive-failure circuit breaker for the handler untouched;
 this change only covers the fetch step that precedes it.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-18T14:45:36Z
