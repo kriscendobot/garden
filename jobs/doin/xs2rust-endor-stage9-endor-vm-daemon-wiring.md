@@ -27,3 +27,10 @@ model: opus
 - Expected C-XS baseline divergences (do NOT chase these): git-backend (`Could not parse git version from ""`), error-trace worker-assertions, content-store-gc marshal decode, endo.test.js (sandbox-unrunnable), shell `/tmp`-noexec EACCES.
 
 **Verification bar:** root workspace builds clean (EXIT=0, no new warnings); engine workspace untouched or still green (`cargo test --workspace` in `rust/engine` if you touched engine code — with the fresh-clean rule `cargo clean -p endor-compile -p endor-vm -p endor-oracle`); the smoke subset's per-test table with exit codes; `forbid(unsafe_code)` intact at all 7 engine crate roots.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-18T07:04:14Z
