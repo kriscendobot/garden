@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T06:48:02Z_
+_As of 2026-07-18T06:48:43Z_
 
 ## Latest
 
@@ -1275,14 +1275,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 124.6M | $1234.79 _(notional, rate-card)_ | no quota set |
-| Codex | 199.4M _(+472.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Codex | 199.4M _(+473.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`build-endo-content-locators-magnet-urn-phase4-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-content-locators-magnet-urn-phase4-http-web-seed.md) — Build Phase 4 of the magnet-URN content-locator design: the HTTP web-seed plane
+- [`endojs-endo-but-for-bots-pr606-8d70b971`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr606-8d70b971.md) — attention directive on endojs/endo-but-for-bots PR #606
 
 ### tada (2705)
 - [`endo-vfs-parity-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260718-062002.md) — Completion report
