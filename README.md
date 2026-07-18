@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T14:46:10Z_
+_As of 2026-07-18T14:46:29Z_
 
 ## Latest
 
@@ -1349,29 +1349,28 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 119.5M | $1195.34 _(notional, rate-card)_ | no quota set |
-| Codex | 201.7M _(+526.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 119.5M | $1195.09 _(notional, rate-card)_ | no quota set |
+| Codex | 201.8M _(+526.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (6)
 - [`self-heal-fix-garden-triager-kriscendobot-endo-fetch-unbounded-die-crashloop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-endo-fetch-unbounded-die-crashloop.md) — In scripts/jobs/triager.sh:117, the steady-state fetch git --git-dir="$BARE" ...
 - [`self-heal-fix-garden-triager-kriscendobot-garden-fetch-hard-die-transient`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-garden-fetch-hard-die-transient.md) — In scripts/jobs/triager.sh, the steady-state fetch at line 117 (git --git-dir...
 - [`self-heal-fix-garden-triager-kriscendobot-minion-town-fetch-die-soft-skip`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-minion-town-fetch-die-soft-skip.md) — In scripts/jobs/triager.sh, the standing-clone refresh at line 117 —
 - [`self-heal-fix-garden-triager-kriscendobot-ocapn-bound-upstream-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-ocapn-bound-upstream-fetch.md) — In scripts/jobs/triager.sh, the upstream fetch at line 117 (git --git-dir="$B...
 - [`self-heal-fix-garden-triager-kriscendobot-ymax-e2e-unbounded-standing-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-ymax-e2e-unbounded-standing-fetch.md) — Harden the standing bare-clone fetch in scripts/jobs/triager.sh:117. Today it...
-- [`self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-fetch-hard-die-skip-and-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-fetch-hard-die-skip-and-retry.md) — In scripts/jobs/triager.sh line 117, the bare-clone refresh git --git-dir="$B...
 - [`xs2rust-endor-stage10-persistent-realm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10-persistent-realm.md) — Stage-10 child 3/7 — persistent guest realm + host-reply channel in the worke...
 
-### tada (2753)
+### tada (2754)
+- [`self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-fetch-hard-die-skip-and-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-fetch-hard-die-skip-and-retry.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-agoric-sdk-fetch-hard-die-flap`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-sdk-fetch-hard-die-flap.md) — What I found
 - [`self-heal-fix-garden-triager-kriscendobot-chrome-native-function-caller-arguments-repro-unbounded-fetch-timeout`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-chrome-native-function-caller-arguments-repro-unbounded-fetch-timeout.md) — The job is already resolved on main2. The current triager.sh no longer has th...
 - [`xs2rust-endor-press-20260718-143502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260718-143502.md) — Press report — xs2rust-endor-press-20260718-143502 (DEFER, clean)
 - [`endo-sturdyref-press-20260718-143502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260718-143502.md) — No movement this tick — recorded an observation-only progress entry and compl...
-- [`design-endo-content-plane-git-http`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-content-plane-git-http.md) — Completion report
-- … and 2748 more
+- … and 2749 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
