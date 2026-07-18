@@ -29,3 +29,10 @@ Related prior art: memory/press-schedule-cadence-gotchas (the press-side variant
 the same tada-counting dedup). Immediate stall was already corrected by jobs
 endojs-endo-but-for-bots-pr671-weave-20260718 +
 endojs-endo-but-for-bots-pr671-shepherd-20260718; this job is the durable fix.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-18T04:19:08Z
