@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T12:45:03Z_
+_As of 2026-07-18T12:45:23Z_
 
 ## Latest
 
@@ -1337,25 +1337,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 120.3M | $1194.95 _(notional, rate-card)_ | no quota set |
+| Claude | 120.3M | $1195.09 _(notional, rate-card)_ | no quota set |
 | Codex | 200.2M _(+520.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endo-vfs-parity-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260718-122003.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`gauntlet-endo-but-for-bots-pr792-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr792-http-web-seed.md) — Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-...
-- [`xs2rust-endor-stage9c-finish-line-measure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9c-finish-line-measure.md) — Stage-9c child 9/9 — the test:rust finish-line measurement on the Rust engine...
 
-### tada (2740)
+### tada (2741)
+- [`xs2rust-endor-stage9c-finish-line-measure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-finish-line-measure.md) — Completion report — stage-9c child 9/9: test:rust finish-line measurement
 - [`minion-town-agenda-review-20260718-123503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260718-123503.md) — Minion Town hourly agenda review — 2026-07-18 12:50 UTC
 - [`fix-garden-auto-gauntlet-handoff-stall`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-garden-auto-gauntlet-handoff-stall.md) — Implemented and pushed 03833819f7 to main2.
 - [`endo-daemon-data-plane-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260718-122003.md) — Press dispatch complete — the design half of the finish line is fully landed,...
 - [`endo-git-integration-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260718-122003.md) — Press report — git-integration / M3 loop (2026-07-18T12:20Z dispatch)
-- [`ocapn-noise-press-20260718-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260718-122003.md) — Press dispatch 7 (2026-07-18 12:20Z) — steady state, all green, live proofs r...
-- … and 2735 more
+- … and 2736 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
