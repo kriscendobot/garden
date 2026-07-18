@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-18T06:48:43Z_
+_As of 2026-07-18T06:49:54Z_
 
 ## Latest
 
@@ -1274,16 +1274,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.6M | $1234.79 _(notional, rate-card)_ | no quota set |
-| Codex | 199.4M _(+473.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Claude | 124.5M | $1234.20 _(notional, rate-card)_ | no quota set |
+| Codex | 199.4M _(+474.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`build-endo-content-locators-magnet-urn-phase4-http-web-seed`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-content-locators-magnet-urn-phase4-http-web-seed.md) — Build Phase 4 of the magnet-URN content-locator design: the HTTP web-seed plane
 - [`endojs-endo-but-for-bots-pr606-8d70b971`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr606-8d70b971.md) — attention directive on endojs/endo-but-for-bots PR #606
+- [`xs2rust-endor-stage9-handled-promise`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage9-handled-promise.md) — Stage-9b child 2/5 — HandledPromise / eventual-send surface
 
 ### tada (2705)
 - [`endo-vfs-parity-press-20260718-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260718-062002.md) — Completion report
