@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/39#issuecomment-5008851178
 look again as of [ab25f2325e](https://codeberg.org/PatrickM123/darkwow/commit/ab25f2325ee49d347c02718ac796cae0856a6bed)  
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: cleric
+  claimed_at: 2026-07-18T00:40:07Z
