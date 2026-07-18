@@ -127,6 +127,7 @@ fi
 # before we can read its rc.
 fetch_attempt=1
 fetch_rc=0
+fetch_stderr=""
 while :; do
   if timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
        git --git-dir="$BARE" fetch -q --all --prune; then
@@ -143,16 +144,9 @@ while :; do
   backoff "$fetch_attempt"; fetch_attempt=$((fetch_attempt+1))
 done
 if [ "$fetch_rc" -ne 0 ]; then
-  # A child terminated by a signal reports 128 plus its signal number. This is
-  # normal during a drain or shutdown, so do not alert and let the next tick retry.
-  if [ "$fetch_rc" -ge 128 ]; then
-    log "fetch for $slug stopped by signal (rc=$fetch_rc); skipping this tick"
-    exit 0
-  fi
-  # Network failures are usually transient (offline, DNS, or a half-open
-  # connection reaped by the timeout). Surface a persistent bad upstream through
-  # the throttled alert, but keep this timer tick successful and retry next time.
-  fmsg="triager: refresh fetch for $slug failed (rc=$fetch_rc); skipping this tick and retrying next tick. If this persists, the upstream or its network path needs attention."
+  # A failed refresh is retried on the next timer tick. Keep the unit healthy,
+  # and surface a persistent failure through the throttled maintainer alert.
+  fmsg="triager: fetch failed for $slug (unreachable/offline?); skipping this tick, retry next"
   log "WARN: $fmsg"
   alert_maintainer "triager-fetch-failed-${slug//[^A-Za-z0-9._-]/_}" "$fmsg"
   exit 0

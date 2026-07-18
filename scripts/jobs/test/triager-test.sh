@@ -549,15 +549,15 @@ grep -qi "cannot resolve ref 'no-such-branch'" "$LOUT" && ok "die names the unre
 [ ! -s "$CALLS" ] && ok "handler never invoked on an unresolvable ref" || bad "handler ran ($(grep -c . "$CALLS") calls; want 0)"
 
 # ============================================================================
-hr; echo "M — steady-state fetch failures skip the tick; signal stops stay quiet"; hr
+hr; echo "M — steady-state fetch failure: bounded retry, alert, and skip"; hr
 # git has NO IO timeout of its own, so an unguarded `git fetch` against a half-open SSH
 # upstream (ssh://git@github.com/kriscendobot/agoric-3-proposals.git) hangs until systemd's
 # TimeoutStartSec=900 SIGKILLs it — a `Terminated` + FATAL + exit-1 signature that marks the
 # unit Failed and self-heal-flaps on every transient network blip. The steady-state fetch is
-# now BOUNDED (timeout + retry). After the retry budget is exhausted, a signal stop
-# (rc >= 128) skips quietly, while every other failure logs a WARN, sends the throttled
-# maintainer alert, and exits 0. We drive each case with a scoped `git` shim (real for
-# everything except `git ... fetch`), reproducing a blip without any real hang.
+# now bounded (timeout + retry). After the retry budget is exhausted, every failure
+# logs a WARN, alerts the maintainer with a throttled per-slug key, and cleanly skips.
+# We drive each case with a scoped `git` shim (real for everything except `git ... fetch`),
+# reproducing a failure without any real hang.
 mk_fetch_shim() {  # mk_fetch_shim <dir> <fetch-rc> <fetch-stderr>
   local d="$1" frc="$2" ferr="$3"; mkdir -p "$d"
   cat > "$d/git" <<EOF
@@ -569,7 +569,7 @@ EOF
   chmod +x "$d/git"
 }
 
-# M1 — non-signal failure: warn, alert, and skip without advancing the cursor.
+# M1 — TRANSIENT stderr signature (Connection timed out, rc 1): degrade to a clean skip.
 rm -rf "$TR/state14"; STATE="$TR/state14"; rm -rf "$BARE"; seed_journal
 seed_watched_bare                                  # a well-formed bare (fetch would normally succeed)
 mk_fetch_shim "$TR/fetch-shim-transient" 1 "ssh: connect to host github.com port 22: Connection timed out"
@@ -586,22 +586,46 @@ env PATH="$TR/fetch-shim-transient:$PATH" GIT_FETCH_CALLS="$FETCH_CALLS" \
     GARDEN_TRIAGE_FAIL_THRESHOLD=5 \
     "$JOBS/triager.sh" "$SLUG" >>"$MOUT" 2>&1
 rc=$?; set -e
-[ "$rc" -eq 0 ] && ok "non-signal fetch failure exits 0 (not a self-heal-firing die)" || bad "tick exit = $rc (want 0; a fetch failure must not die)"
+[ "$rc" -eq 0 ] && ok "transient fetch failure degrades to a clean skip (exit 0, not a self-heal-firing die)" || bad "tick exit = $rc (want 0; a transient blip must not die)"
 [ "$(wc -l < "$FETCH_CALLS")" -eq 2 ] && ok "retries the failed fetch through GARDEN_FETCH_RETRIES before degrading" || bad "fetch attempts = $(wc -l < "$FETCH_CALLS") (want 2)"
-grep -q "WARN: triager: refresh fetch for $SLUG failed (rc=1)" "$MOUT" && ok "non-signal skip logs a WARN" || bad "WARN missing (out: $(cat "$MOUT"))"
-grep -q "^triager-fetch-failed-${SLUG//[^A-Za-z0-9._-]/_}|" "$ALERTS" && ok "non-signal failure alerts with the triager fetch key" || bad "fetch alert missing ($(cat "$ALERTS"))"
-! grep -q "FATAL: fetch failed for $SLUG" "$MOUT" && ok "no FATAL on a fetch failure" || bad "a fetch failure still died FATAL (out: $(cat "$MOUT"))"
-[ ! -s "$CALLS" ] && ok "handler never invoked (no refs resolved past a skipped fetch)" || bad "handler ran ($(grep -c . "$CALLS") calls; want 0; a failed fetch must not reach triage)"
-[ -z "$(cursor_field "activity/$SLUG" last_sha)" ] && ok "activity cursor NOT advanced on a fetch failure" || bad "cursor advanced despite a failed fetch"
+grep -q "WARN: triager: fetch failed for $SLUG" "$MOUT" && ok "transient skip logs a WARN" || bad "transient WARN missing (out: $(cat "$MOUT"))"
+! grep -q "FATAL: fetch failed for $SLUG" "$MOUT" && ok "no FATAL on a transient fetch failure" || bad "a transient failure still died FATAL (out: $(cat "$MOUT"))"
+[ "$(grep -c "^triager-fetch-failed-" "$ALERTS")" -eq 1 ] && ok "transient fetch failure alerts the maintainer" || bad "fetch alert missing or duplicated ($(cat "$ALERTS"))"
+[ ! -s "$CALLS" ] && ok "handler never invoked (no refs resolved past a skipped fetch)" || bad "handler ran ($(grep -c . "$CALLS") calls; want 0 — a failed fetch must not reach triage)"
+[ -z "$(cursor_field "activity/$SLUG" last_sha)" ] && ok "activity cursor NOT advanced on a transient fetch failure" || bad "cursor advanced despite a failed fetch"
 
-# M2 — SIGTERM (128 + 15 = 143): log and skip, with no alert during a drain.
+# M1b - GitHub gateway HTML instead of JSON is also transient. This signature is
+# deliberately outside the plain network matcher; it proves the fetch branch uses
+# is_transient_gh_source_error alongside is_transient_net_error.
+rm -rf "$TR/state14gh"; STATE="$TR/state14gh"; rm -rf "$BARE"; seed_journal
+seed_watched_bare
+mk_fetch_shim "$TR/fetch-shim-gh" 1 "invalid character '<' looking for beginning of value"
+: > "$CALLS"; : > "$ALERTS"; MOUT="$TR/triager-fetch-gh.out"; : > "$MOUT"
+FETCH_CALLS="$TR/fetch-calls-gh"; : > "$FETCH_CALLS"
+set +e
+env PATH="$TR/fetch-shim-gh:$PATH" GIT_FETCH_CALLS="$FETCH_CALLS" \
+    GARDEN=testhost GARDEN_STATE="$STATE" \
+    JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_REPOS="$REPOS" GARDEN_WATCH_REF="$REF" \
+    GARDEN_FETCH_RETRIES=1 GARDEN_FETCH_TIMEOUT=5 GARDEN_BACKOFF_CAP_MS=5 \
+    GARDEN_ALERT_CMD="$ALERT_STUB" \
+    GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_RC=0 CALL_LOG="$CALLS" \
+    GARDEN_TRIAGE_FAIL_THRESHOLD=5 \
+    "$JOBS/triager.sh" "$SLUG" >>"$MOUT" 2>&1
+rc=$?; set -e
+[ "$rc" -eq 0 ] && ok "transient gh-source fetch stderr degrades to a clean skip" || bad "gh-source tick exit = $rc (want 0)"
+grep -q "WARN: triager: fetch failed for $SLUG" "$MOUT" && ok "gh-source skip logs a WARN" || bad "gh-source WARN missing (out: $(cat "$MOUT"))"
+! grep -q "FATAL: fetch failed for $SLUG" "$MOUT" && ok "no FATAL on a transient gh-source fetch failure" || bad "gh-source failure still died FATAL (out: $(cat "$MOUT"))"
+[ "$(grep -c "^triager-fetch-failed-" "$ALERTS")" -eq 1 ] && ok "gh-source fetch failure alerts the maintainer" || bad "gh-source fetch alert missing or duplicated ($(cat "$ALERTS"))"
+
+# M2 — wall-clock kill (rc 124, the observed `Terminated` case): also degrades to a skip.
 rm -rf "$TR/state14b"; STATE="$TR/state14b"; rm -rf "$BARE"; seed_journal
 seed_watched_bare
-mk_fetch_shim "$TR/fetch-shim-sigterm" 143 "Terminated"
-: > "$CALLS"; : > "$ALERTS"; MOUT="$TR/triager-fetch-sigterm.out"; : > "$MOUT"
-FETCH_CALLS="$TR/fetch-calls-sigterm"; : > "$FETCH_CALLS"
+mk_fetch_shim "$TR/fetch-shim-timeout" 124 "Terminated"
+: > "$CALLS"; : > "$ALERTS"; MOUT="$TR/triager-fetch-timeout.out"; : > "$MOUT"
+FETCH_CALLS="$TR/fetch-calls-timeout"; : > "$FETCH_CALLS"
 set +e
-env PATH="$TR/fetch-shim-sigterm:$PATH" GIT_FETCH_CALLS="$FETCH_CALLS" \
+env PATH="$TR/fetch-shim-timeout:$PATH" GIT_FETCH_CALLS="$FETCH_CALLS" \
     GARDEN=testhost GARDEN_STATE="$STATE" \
     JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_REPOS="$REPOS" GARDEN_WATCH_REF="$REF" \
@@ -611,15 +635,15 @@ env PATH="$TR/fetch-shim-sigterm:$PATH" GIT_FETCH_CALLS="$FETCH_CALLS" \
     GARDEN_TRIAGE_FAIL_THRESHOLD=5 \
     "$JOBS/triager.sh" "$SLUG" >>"$MOUT" 2>&1
 rc=$?; set -e
-[ "$rc" -eq 0 ] && ok "SIGTERM fetch stop exits 0 (the Terminated+FATAL self-heal signature is gone)" || bad "tick exit = $rc (want 0; a signal stop must not die)"
-grep -q "fetch for $SLUG stopped by signal (rc=143); skipping this tick" "$MOUT" && ok "signal stop is logged with its rc" || bad "signal-stop log missing (out: $(cat "$MOUT"))"
-[ ! -s "$ALERTS" ] && ok "SIGTERM fetch stop sends no maintainer alert" || bad "unexpected signal-stop alert: $(cat "$ALERTS")"
-! grep -q "FATAL: fetch failed for $SLUG" "$MOUT" && ok "no FATAL on a SIGTERM fetch stop" || bad "a SIGTERM fetch stop still died FATAL (out: $(cat "$MOUT"))"
+[ "$rc" -eq 0 ] && ok "rc-124 wall-clock kill degrades to a clean skip (the Terminated+FATAL self-heal signature is gone)" || bad "tick exit = $rc (want 0; a wall-clock kill must not die)"
+grep -q "WARN: triager: fetch failed for $SLUG" "$MOUT" && ok "rc-124 skip logs a WARN" || bad "rc-124 WARN missing (out: $(cat "$MOUT"))"
+! grep -q "FATAL: fetch failed for $SLUG" "$MOUT" && ok "no FATAL on an rc-124 wall-clock kill" || bad "an rc-124 kill still died FATAL (out: $(cat "$MOUT"))"
+[ "$(grep -c "^triager-fetch-failed-" "$ALERTS")" -eq 1 ] && ok "rc-124 fetch failure alerts the maintainer" || bad "rc-124 fetch alert missing or duplicated ($(cat "$ALERTS"))"
 
-# M3 — another non-signal failure also warns, alerts, and skips.
+# M3 — persistent-looking fetch error: also skips and alerts.
 rm -rf "$TR/state14c"; STATE="$TR/state14c"; rm -rf "$BARE"; seed_journal
 seed_watched_bare
-mk_fetch_shim "$TR/fetch-shim-structural" 2 "fatal: Authentication failed for 'https://github.com/x/y.git/'"
+mk_fetch_shim "$TR/fetch-shim-structural" 128 "fatal: Authentication failed for 'https://github.com/x/y.git/'"
 : > "$CALLS"; : > "$ALERTS"; MOUT="$TR/triager-fetch-structural.out"; : > "$MOUT"
 FETCH_CALLS="$TR/fetch-calls-structural"; : > "$FETCH_CALLS"
 set +e
@@ -633,11 +657,11 @@ env PATH="$TR/fetch-shim-structural:$PATH" GIT_FETCH_CALLS="$FETCH_CALLS" \
     GARDEN_TRIAGE_FAIL_THRESHOLD=5 \
     "$JOBS/triager.sh" "$SLUG" >>"$MOUT" 2>&1
 rc=$?; set -e
-[ "$rc" -eq 0 ] && ok "structural fetch error exits 0 after alerting" || bad "tick exit = $rc (want 0 on a fetch failure)"
-[ "$(wc -l < "$FETCH_CALLS")" -eq 2 ] && ok "structural error is retried through GARDEN_FETCH_RETRIES before skipping" || bad "fetch attempts = $(wc -l < "$FETCH_CALLS") (want 2)"
-grep -q "WARN: triager: refresh fetch for $SLUG failed (rc=2)" "$MOUT" && ok "structural failure logs a WARN" || bad "structural WARN missing (out: $(cat "$MOUT"))"
-grep -q "^triager-fetch-failed-${SLUG//[^A-Za-z0-9._-]/_}|" "$ALERTS" && ok "structural failure alerts with the triager fetch key" || bad "fetch alert missing ($(cat "$ALERTS"))"
-! grep -q "FATAL: fetch failed for $SLUG" "$MOUT" && ok "structural fetch failure does not die" || bad "structural fetch failure still died FATAL (out: $(cat "$MOUT"))"
+[ "$rc" -eq 0 ] && ok "persistent fetch error skips instead of failing the unit" || bad "tick exit = $rc (want 0)"
+[ "$(wc -l < "$FETCH_CALLS")" -eq 2 ] && ok "persistent error retries through GARDEN_FETCH_RETRIES before skipping" || bad "fetch attempts = $(wc -l < "$FETCH_CALLS") (want 2)"
+grep -q "WARN: triager: fetch failed for $SLUG" "$MOUT" && ok "persistent failure logs a WARN" || bad "persistent WARN missing (out: $(cat "$MOUT"))"
+! grep -q "FATAL: fetch failed for $SLUG" "$MOUT" && ok "no FATAL on a persistent fetch failure" || bad "persistent failure still died FATAL (out: $(cat "$MOUT"))"
+[ "$(grep -c "^triager-fetch-failed-" "$ALERTS")" -eq 1 ] && ok "persistent fetch failure alerts the maintainer" || bad "persistent fetch alert missing or duplicated ($(cat "$ALERTS"))"
 [ -z "$(cursor_field "activity/$SLUG" last_sha)" ] && ok "activity cursor NOT advanced on a structural fetch failure" || bad "cursor advanced despite a failed fetch"
 
 # ============================================================================
