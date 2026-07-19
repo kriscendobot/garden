@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T00:37:00Z_
+_As of 2026-07-19T00:37:45Z_
 
 ## Latest
 
@@ -1669,20 +1669,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`endo-daemon-data-plane-press-20260719-003513`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-daemon-data-plane-press-20260719-003513.md) — Press the Endo daemon data plane forward (endojs/endo-but-for-bots, base llm)
 - [`endo-git-integration-press-20260719-003513`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260719-003513.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
-- [`endo-vfs-parity-press-20260719-003513`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260719-003513.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260719-003513`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260719-003513.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`xs2rust-endor-stage10e-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10e-remeasure.md) — stage10e child 3/3 — bounded-serial 52-file daemon sweep re-measure (measurem...
 
-### tada (2817)
+### tada (2818)
+- [`endo-vfs-parity-press-20260719-003513`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260719-003513.md) — Verify-and-stand-down tick — nothing changed since the last dispatch, and all...
 - [`endo-byte-array-press-20260719-003513`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260719-003513.md) — All fronts confirmed unchanged. This is an assess-only dispatch — I'll record...
 - [`xs2rust-endor-stage10e-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10e-live-captp-eval.md) — Completion report
 - [`xs2rust-endor-stage10e-worker-gaps`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10e-worker-gaps.md) — Completion report
 - [`finbot-progress-20260718-233504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260718-233504.md) — Advanced finbot main 49430db -> d1b2b61: auto-EGARCH now selects by held-out ...
-- [`port-xs-to-rust-memory-safe-engine-s35`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s35.md) — Completion report — supervisor s35 (port-xs-to-rust-memory-safe-engine)
-- … and 2812 more
+- … and 2813 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
