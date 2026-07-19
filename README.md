@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T13:06:02Z_
+_As of 2026-07-19T13:06:57Z_
 
 ## Latest
 
@@ -1860,28 +1860,27 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.3M | $1018.88 _(notional, rate-card)_ | no quota set |
+| Claude | 97.4M | $1020.11 _(notional, rate-card)_ | no quota set |
 | Codex | 204.8M _(+538.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - [`endo-byte-array-press-20260719-130501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260719-130501.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-daemon-data-plane-press-20260719-130501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-daemon-data-plane-press-20260719-130501.md) — Press the Endo daemon data plane forward (endojs/endo-but-for-bots, base llm)
 - [`endo-git-integration-press-20260719-130501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260719-130501.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
-- [`endo-vfs-parity-press-20260719-130501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260719-130501.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260719-130501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260719-130501.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`xs2rust-endor-stage10j-live-captp-dispatch`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10j-live-captp-dispatch.md) — Builder: the CapTP-dispatch frontier — from full boot to the LIVE round trip ...
 
-### tada (2885)
+### tada (2886)
+- [`endo-vfs-parity-press-20260719-130501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260719-130501.md) — Everything is verified: this is a no-activity tick, so per the press's standi...
 - [`xs2rust-endor-stage10j-flag-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10j-flag-fixer.md) — Completion report — F1(s40) + F2(s40), PR #600 (stage 10j)
 - [`port-xs-to-rust-memory-safe-engine-s40`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s40.md) — Completion report — port-xs-to-rust-memory-safe-engine-s40
 - [`finbot-progress-20260719-115001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260719-115001.md) — Completion report
 - [`xs2rust-endor-build-stage10i`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10i.md) — orchestration xs2rust-endor-build-stage10i — complete
-- [`self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-fetch-hard-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-fetch-hard-die.md) — Updated triager fetch-failure alert to identify the slug and bare-clone path;...
-- … and 2880 more
+- … and 2881 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
