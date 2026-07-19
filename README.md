@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T05:47:25Z_
+_As of 2026-07-19T05:48:04Z_
 
 ## Latest
 
@@ -1800,25 +1800,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 104.9M | $1086.59 _(notional, rate-card)_ | no quota set |
-| Codex | 203.5M _(+537.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 104.9M | $1086.16 _(notional, rate-card)_ | no quota set |
+| Codex | 203.6M _(+537.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr160-review-9858a782`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-9858a782.md) — Review directive on endojs/endo-but-for-bots PR #160
 - [`endojs-endo-but-for-bots-pr794-conductor`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr794-conductor.md) — ---
-- [`endojs-endo-but-for-bots-pr794-review-cdf94916`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr794-review-cdf94916.md) — Review directive on endojs/endo-but-for-bots PR #794
 
-### tada (2835)
+### tada (2836)
+- [`endojs-endo-but-for-bots-pr794-review-cdf94916`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr794-review-cdf94916.md) — Addressed PR #794 review feedback in 1f2654f99; replied inline and posted a s...
 - [`xs2rust-endor-build-stage10e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10e.md) — orchestration xs2rust-endor-build-stage10e — HALTED
 - [`endojs-endo-but-for-bots-pr138-review-add866fa`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr138-review-add866fa.md) — Completion report
 - [`xs2rust-endor-press-20260719-050501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260719-050501.md) — Completion report
 - [`endojs-endo-but-for-bots-pr793-review-16e5c4ce`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr793-review-16e5c4ce.md) — Completion report
-- [`endo-sturdyref-press-20260719-050501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260719-050501.md) — **Tick outcome: hold + observation (no movement to press on).**
-- … and 2830 more
+- … and 2831 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
