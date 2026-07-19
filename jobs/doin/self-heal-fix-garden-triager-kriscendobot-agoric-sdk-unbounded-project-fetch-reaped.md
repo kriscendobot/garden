@@ -5,3 +5,10 @@ Fix, mirroring the journal-fetch discipline already in `scripts/jobs/common.sh` 
 2. Classify a timeout/reap kill (rc 124/137/143) as a **transient skip-this-tick**, not a FATAL: on those codes, `log "WARN: fetch for $slug timed out (>Ns); skipping this tick, retrying next"` and `exit 0` (matching how the self-provision path at lines ~96-103 treats a transient clone failure), reserving `die`/exit 1 for a genuine fetch error (bad ref, real repo corruption). A slow-but-progressing large-repo fetch must not mark the unit Failed and trip self-heal.
 3. Ensure the chosen bound sits below `GARDEN_FETCH_REAP_AGE` so triager.sh's own `timeout` — not the reaper — is what bounds the fetch, keeping the reaper as pure backstop.
 Verify: shellcheck triager.sh, and confirm rc 124/137/143 now yield `exit 0` with a WARN while a real fetch failure still exits non-zero.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: gardener
+  claimed_at: 2026-07-19T08:25:16Z
