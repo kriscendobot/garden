@@ -602,6 +602,7 @@ rc=$?; set -e
 grep -q "WARN: fetch failed for $SLUG (transient? retrying next tick)" "$MOUT" && ok "transient skip logs retry status" || bad "retry log missing (out: $(cat "$MOUT"))"
 ! grep -q "FATAL: fetch failed for $SLUG" "$MOUT" && ok "no FATAL on a transient fetch failure" || bad "a transient failure still died FATAL (out: $(cat "$MOUT"))"
 grep -q "triager-fetch-failed-${SLUG//[^A-Za-z0-9._-]/_}" "$ALERTS" && ok "transient failure alerts with the per-slug key" || bad "fetch-failure alert missing ($(cat "$ALERTS"))"
+grep -Fq "fetch for $SLUG at $REPOS/$SLUG.git failed" "$ALERTS" && ok "transient failure alert identifies the bare clone" || bad "fetch-failure alert omitted bare clone ($(cat "$ALERTS"))"
 [ ! -s "$CALLS" ] && ok "handler never invoked (no refs resolved past a skipped fetch)" || bad "handler ran ($(grep -c . "$CALLS") calls; want 0 — a failed fetch must not reach triage)"
 [ -z "$(cursor_field "activity/$SLUG" last_sha)" ] && ok "activity cursor NOT advanced on a transient fetch failure" || bad "cursor advanced despite a failed fetch"
 

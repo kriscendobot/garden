@@ -128,7 +128,7 @@ else
   rc=$?
 fi
 if [ "$rc" -ne 0 ]; then
-  fmsg="triager: fetch failed for $slug (rc=$rc). Retrying next tick; if this persists, the remote is unreachable or gone and $slug cannot be triaged until it is restored."
+  fmsg="triager: fetch for $slug at $BARE failed (rc=$rc). Retrying next tick; if this persists, the upstream is unreachable and $slug cannot be triaged until it is restored."
   log "WARN: fetch failed for $slug (transient? retrying next tick)"
   alert_maintainer "triager-fetch-failed-${slug//[^A-Za-z0-9._-]/_}" "$fmsg"
   exit 0
