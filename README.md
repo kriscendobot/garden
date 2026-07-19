@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T12:08:43Z_
+_As of 2026-07-19T12:09:54Z_
 
 ## Latest
 
@@ -1860,24 +1860,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.6M | $1020.18 _(notional, rate-card)_ | no quota set |
+| Claude | 97.5M | $1020.33 _(notional, rate-card)_ | no quota set |
 | Codex | 204.8M _(+538.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`port-xs-to-rust-memory-safe-engine-s40`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s40.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
+### doin (1)
 - [`xs2rust-endor-stage10j-flag-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10j-flag-fixer.md) — Fixer: F1(s40) + F2(s40) — class-method DONT_ENUM and inferred .name dropped ...
 
-### tada (2883)
+### tada (2884)
+- [`port-xs-to-rust-memory-safe-engine-s40`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s40.md) — Completion report — port-xs-to-rust-memory-safe-engine-s40
 - [`finbot-progress-20260719-115001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260719-115001.md) — Completion report
 - [`xs2rust-endor-build-stage10i`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10i.md) — orchestration xs2rust-endor-build-stage10i — complete
 - [`self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-fetch-hard-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-fetch-hard-die.md) — Updated triager fetch-failure alert to identify the slug and bare-clone path;...
 - [`xs2rust-endor-stage10i-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10i-remeasure.md) — Completion report — stage-10i 52-file daemon sweep re-measure
-- [`xs2rust-endor-stage10i-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10i-live-captp-eval.md) — Completion report — xs2rust-endor-stage10i-live-captp-eval (PR #600, stage 10i)
-- … and 2878 more
+- … and 2879 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
