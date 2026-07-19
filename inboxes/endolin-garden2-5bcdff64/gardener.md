@@ -660,3 +660,12 @@ Inspect via `git -C journal cat-file -p 67dd02a117aa7fe899d7a6f27ec4f5a5cb614567
 - Context: gardener-6 on endolin-garden2-5bcdff64: job 'ocapn-noise-press-20260717-182002' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p e46b7ea246006e6f18caeee59a791e074b4430f4`.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-07-19T01:04:14Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: 7127bc766dfe1d6289e3aceb68e7d09004d7c497
+- Context: gardener-9 on endolin-garden2-5bcdff64: job 'xs2rust-endor-stage10e-remeasure' exit-0-unsatisfying but elapsed near-constant (36,36s) over 2 cycles — likely a wedged child, not a working one
+
+Inspect via `git -C journal cat-file -p 7127bc766dfe1d6289e3aceb68e7d09004d7c497`.
