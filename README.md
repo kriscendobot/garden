@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T00:37:45Z_
+_As of 2026-07-19T00:38:33Z_
 
 ## Latest
 
@@ -741,6 +741,25 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260718T234201Z-f0fb5c` — from gardener:finbot-progress-20260718-233504, reply_to `finbot-progress-20260718-233504` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260718T234201Z-f0fb5c.md)
 
 > Advanced kriscendobot/finbot main 49430db -> d1b2b61: auto-egarch now selects GARCH versus EGARCH per instrument by strict held-out one-step QLIKE, refits the winner on the full window, and records model/QLIKE evidence in forecast and regime artifacts. npm test passed (all tests green); finbot-ooda --seed=7 --adaptive-vol=auto-egarch was auditor-approved with WALLET TOUCHED: false. Next unblocked step: evaluate GJR versus EGARCH under the same OOS policy or add an OOS improvement margin. No maintainer decision needed.
+
+- `20260719T003815Z-5d2bfd` — from gardener:endo-daemon-data-plane-press-20260719-003513, reply_to `endo-daemon-data-plane-press-20260719-003513` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260719T003815Z-5d2bfd.md)
+
+> Subject: Endo daemon data-plane arc — finish line reached; propose winding down the press
+>
+> The `endo-daemon-data-plane-press` arc has met its finish line, verified live this dispatch:
+>
+> - **Design merged:** [endojs/endo-but-for-bots#662](https://github.com/endojs/endo-but-for-bots/issues/662) (`designs/endo-content-locators-magnet-urn.md`, live on `llm`), plus [endojs/endo-but-for-bots#739](https://github.com/endojs/endo-but-for-bots/issues/739).
+> - **Implementation path merged:** [endojs/endo-but-for-bots#749](https://github.com/endojs/endo-but-for-bots/issues/749) (grammar/duality) → [endojs/endo-but-for-bots#783](https://github.com/endojs/endo-but-for-bots/issues/783) (interface methods) → [endojs/endo-but-for-bots#789](https://github.com/endojs/endo-but-for-bots/issues/789) (plane resolution) → [endojs/endo-but-for-bots#792](https://github.com/endojs/endo-but-for-bots/issues/792) (HTTP web seeds, merged 2026-07-18 19:03 UTC, merge commit `f71b4f3c90b`). Bulk blobs/trees move through the CAS via Gateway-vended web-seed hints; no guest holds a host path or raw locator.
+>
+> Finish-line record with evidence: [https://github.com/kriskowal/garden/issues/50](https://github.com/kriskowal/garden/issues/50)#issuecomment-5013536728
+>
+> **Proposal:** wind down the 6-hourly `endo-daemon-data-plane-press` schedule (journal `schedules/endo-daemon-data-plane-press.md`). Until you decide, further dispatches will just re-verify and re-report.
+>
+> **Two residual threads that outlive the press:**
+> 1. **[endojs/endo-but-for-bots#585](https://github.com/endojs/endo-but-for-bots/issues/585)** (node-fs content-store powers): OPEN, 24/24 green, panel passed 07-17. Its merge job sits parked at `jobs/plan/merge-endo-but-for-bots-pr585-content-store-powers.md` with `gate: go-ahead` (and a stale reaper `poisoned` marker from 07-17) — it needs your go-ahead/promotion; nudged twice on 07-17, not re-nudged since.
+> 2. **[endojs/endo-but-for-bots#797](https://github.com/endojs/endo-but-for-bots/issues/797)** (Git-over-HTTP second content plane, design): DRAFT — beyond this arc's finish line; suggest handing it to the `endo-git-integration-press` arc rather than keeping this press alive for it.
+>
+> If you reply "wind it down", the liaison can remove the schedule; the dispositions of the two residual PRs above in that reply are yours to call.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
