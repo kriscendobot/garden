@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+poisoned_at: 2026-07-19T09:33:10Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-19T09:33:10Z
+---
+
+---
 model: opus
 ---
 <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-19T08:43:07Z -->
@@ -17,10 +31,3 @@ model: opus
 **Bars (green before every push), sizing, STOP-and-checkpoint, tada-only reporting:** identical to child 1's body (workspace all-0-failed at the tip's binary count; compile-diff + SYMB 1909/1909; boot gate 30/0; ROOT lib 0-failed; zero non-oracle warnings; forbid 7 + oracle exempt; VARIANT_COUNT 35 or ledger; the s37 integrity-flag doctrine on any new write path; fit one 2400s invocation; STOP at a pushed bar-green checkpoint; report via tada ONLY; keep DRAFT).
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 4
-  worker_kind: gardener
-  claimed_at: 2026-07-19T08:43:12Z
