@@ -1,8 +1,0 @@
-In `scripts/jobs/triager.sh`, line 117 does `git --git-dir="$BARE" fetch -q --all --prune || die "fetch failed for $slug"`. A transient fetch failure (the captured signature: a SIGTERM "Terminated" during fetch followed by `FATAL: fetch failed for kriscendobot-garden`, exit 1) hard-dies the unit and trips the self-heal responder, contradicting the script's own crash-loop-avoidance design. Every other clone/fetch failure mode in this script — the corrupt-clone path (~L74-82), the self-provision-failure path (~L94-104), and the underivable-URL path (~L106-113) — deliberately skips the tick (`exit 0`, log WARN) and escalates only via throttled `alert_maintainer` on persistence, exactly because "a fetch … would hard-die every tick and crash-loop the unit" (header comments L47-72). Change the plain fetch at L117 to the same pattern: on fetch failure, log a WARN and `exit 0` (skip this tick, retry next), and raise a per-slug throttled `alert_maintainer` (dedup key `triager-fetch-failed-${slug//[^A-Za-z0-9._-]/_}`) so a persistent/unreachable-origin fetch failure surfaces once per window rather than dying forever. Do NOT advance the cursor (the fetch never produced a new_sha, so the next tick re-fetches cleanly). Keep the existing `--verify -q` ref-resolution `die` on L128-130 as-is (that guards a genuinely malformed state, not a transient network fault).
-
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 7
-  worker_kind: cleric
-  claimed_at: 2026-07-19T08:24:20Z
