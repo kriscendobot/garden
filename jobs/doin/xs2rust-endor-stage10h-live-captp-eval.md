@@ -21,3 +21,10 @@ model: opus
 **HARD STOP discipline (binding — FOUR live-captp predecessors died at deadline; 10g's landed one push then overran):** after EVERY pushed item, reassess the wall clock; prefer an honest partial tada at a pushed bar-green checkpoint over ANY further reach. Checkpoint artifacts under `~/tmp/s10h-results/` as they land.
 
 **Bars (green before every push):** engine workspace `cargo test --workspace -- --test-threads=1` all-0-failed at the tip's binary count (last measured 842/0 across 64 binaries at `f95d7bcc32`; counts GROW — cite the measured number at your tip); `compile-diff` + SYMB 1909/1909 EXIT=0; boot gate `boot_bundle_gate` 30/0; ROOT `cargo test -p endo --lib` 0-failed with real bundles; zero new non-oracle warnings; forbid 7 anchored roots + oracle exempt; VARIANT_COUNT 35 or ledger the change; the s34+s37 integrity-flag doctrine on any new write path (never `set_own_unmetered` onto a guest-reachable target that can carry flagged or accessor keys). Capture `cargo test` to a file and check `$?` — piping to `tail` masks the exit code. Fit one 2400s invocation; report via tada ONLY (never inbox-send the parked supervisor); keep DRAFT.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-19T09:43:07Z
