@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T07:04:49Z_
+_As of 2026-07-19T07:05:47Z_
 
 ## Latest
 
@@ -1808,14 +1808,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.4M | $1055.16 _(notional, rate-card)_ | no quota set |
+| Claude | 101.4M | $1055.60 _(notional, rate-card)_ | no quota set |
 | Codex | 204.7M _(+537.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (5)
+- [`daily-progress-summary-20260719-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260719-070502.md) — Daily midnight Pacific progress summary
+- [`endo-sturdyref-press-20260719-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260719-070502.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+- [`minion-town-agenda-review-20260719-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260719-070502.md) — Minion Town hourly agenda review
+- [`xs2rust-endor-press-20260719-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260719-070502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-stage10f-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10f-remeasure.md) — stage10f child 3/3 — bounded-serial 52-file daemon sweep re-measure (measurem...
 
 ### tada (2847)
