@@ -17,3 +17,10 @@ pattern), and on final failure `log` + `alert_maintainer` (throttled per
 `exit 1`. This keeps a network blip from crashing the service while still escalating a
 genuinely persistent unreachable-remote condition exactly once per window.
 Failure signature: `FATAL: fetch failed for <slug>` preceded by `Terminated`, exit 1.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: cleric
+  claimed_at: 2026-07-19T08:24:34Z
