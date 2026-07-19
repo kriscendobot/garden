@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T07:09:36Z_
+_As of 2026-07-19T07:10:46Z_
 
 ## Latest
 
@@ -1808,24 +1808,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.5M | $1056.99 _(notional, rate-card)_ | no quota set |
+| Claude | 101.4M | $1055.69 _(notional, rate-card)_ | no quota set |
 | Codex | 204.7M _(+537.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`daily-progress-summary-20260719-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260719-070502.md) — Daily midnight Pacific progress summary
+### doin (1)
 - [`xs2rust-endor-stage10f-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10f-remeasure.md) — stage10f child 3/3 — bounded-serial 52-file daemon sweep re-measure (measurem...
 
-### tada (2850)
+### tada (2851)
+- [`daily-progress-summary-20260719-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260719-070502.md) — The periodical is committed and pushed to origin/journal2. The job is done.
 - [`minion-town-agenda-review-20260719-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260719-070502.md) — Reviewed and reported current minion.town agenda status on garden issue #58: ...
 - [`xs2rust-endor-press-20260719-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260719-070502.md) — Completion report
 - [`endo-sturdyref-press-20260719-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260719-070502.md) — Hold tick complete — no movement to press on, observation recorded.
 - [`endo-git-integration-press-20260719-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260719-065003.md) — Press report — git-integration / M3 loop (dispatch 2026-07-19)
-- [`ocapn-noise-press-20260719-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260719-065003.md) — Press dispatch 9 (2026-07-19 06:50Z) — poisoned predecessor's restack verifie...
-- … and 2845 more
+- … and 2846 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
