@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T05:48:53Z_
+_As of 2026-07-19T05:50:18Z_
 
 ## Latest
 
@@ -1800,15 +1800,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 104.8M | $1085.98 _(notional, rate-card)_ | no quota set |
-| Codex | 203.8M _(+537.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 104.8M | $1085.59 _(notional, rate-card)_ | no quota set |
+| Codex | 204.2M _(+537.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr160-review-9858a782`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-9858a782.md) — Review directive on endojs/endo-but-for-bots PR #160
+- [`finbot-progress-20260719-055001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260719-055001.md) — Push progress on kriscendobot/finbot (every 6h)
 
 ### tada (2837)
 - [`endojs-endo-but-for-bots-pr794-conductor`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr794-conductor.md) — Conductor report — endojs/endo-but-for-bots PR #794
