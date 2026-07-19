@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: requeue-exhausted
+poison_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+poisoned_at: 2026-07-19T05:43:26Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-19T05:43:26Z
+---
+
+---
 model: opus
 ---
 <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-19T00:34:03Z -->
@@ -25,12 +39,3 @@ Measured tip sha; totals table (pass/fail/skip/pending vs both anchors); per-fil
 ## Discipline
 
 Checkpoint continuously (a partial sweep with a TSV is an honest tada); report via tada ONLY — never inbox-send the parked supervisor.
-
-<!-- garden-reaped: 4 -->
-
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: gardener
-  claimed_at: 2026-07-19T01:43:14Z
