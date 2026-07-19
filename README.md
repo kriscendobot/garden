@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T02:50:17Z_
+_As of 2026-07-19T03:04:51Z_
 
 ## Latest
 
@@ -760,6 +760,41 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > 2. **[endojs/endo-but-for-bots#797](https://github.com/endojs/endo-but-for-bots/issues/797)** (Git-over-HTTP second content plane, design): DRAFT — beyond this arc's finish line; suggest handing it to the `endo-git-integration-press` arc rather than keeping this press alive for it.
 >
 > If you reply "wind it down", the liaison can remove the schedule; the dispositions of the two residual PRs above in that reply are yours to call.
+
+- `20260719T030402Z-077361` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260719T030402Z-077361.md)
+
+> self-heal: garden-triager@kriscendobot-vattr97 exited rc=1 with no scoped fix. Capture: 7974106b6179f759f5409ad602c5f3f28ac1f4b7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 7974106b6179f759f5409ad602c5f3f28ac1f4b7). Diagnosis: The failure is transient — no code fix is warranted, so I'm emitting no JOB block.
+>
+> **Diagnosis:** The blob is two lines:
+>
+> ```
+> Terminated
+> <3>03:03:07 [triager/kriscendobot-vattr97] FATAL: fetch failed for kriscendobot-vattr97
+> ```
+>
+> This is `triager.sh:117` — `git --git-dir="$BARE" fetch -q --all --prune || die "fetch failed for $slug"`. The `Terminated` line is bash reporting that the `git fetch` child received **SIGTERM** (the process was killed mid-fetch, not that git itself diagnosed a failure); git then exited non-zero and `|| die` fired, producing the FATAL and exit 1.
+>
+> I verified this is not a bad-source condition:
+> - The bare clone exists at `worktrees/kriscendobot-vattr97.git` with a valid remote (`ssh://git@github.com/kriscendobot/vattr97.git`).
+> - The upstream repo exists (`kris
+
+- `20260719T030425Z-e3410b` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260719T030425Z-e3410b.md)
+
+> self-heal: garden-triager@kriscendobot-agoric-3-proposals exited rc=1 with no scoped fix. Capture: 46866d31c1a3300521f86d681f239eaa275c2360 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 46866d31c1a3300521f86d681f239eaa275c2360). Diagnosis: The failure is transient/environmental — no code fix warranted.
+>
+> **Diagnosis.** The captured tail is just two lines:
+> ```
+> Terminated
+> <3>03:03:07 [triager/kriscendobot-agoric-3-proposals] FATAL: fetch failed for kriscendobot-agoric-3-proposals
+> ```
+> This maps exactly to `scripts/jobs/triager.sh:117`:
+> ```sh
+> git --git-dir="$BARE" fetch -q --all --prune || die "fetch failed for $slug"
+> ```
+> The `Terminated` line is the shell reporting that the `git fetch` child received **SIGTERM** — i.e. the fetch hung (slow/stalled SSH to `github.com`) and was killed mid-transfer, so the `|| die` fired. This is a network stall, not a defect in the script or a bad clone.
+>
+> **Verification that it's not persistent:**
+> - The bare clone exists and is healthy (`worktrees/kriscendobot-agoric-3-proposals.git`, 15M, val
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -1716,14 +1751,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 106.6M | $1099.03 _(notional, rate-card)_ | no quota set |
+| Claude | 106.5M | $1098.61 _(notional, rate-card)_ | no quota set |
 | Codex | 202.0M _(+530.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (4)
+- [`self-heal-fix-garden-triager-kriscendobot-cosgov-fetch-hard-die-on-transient`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-cosgov-fetch-hard-die-on-transient.md) — In scripts/jobs/triager.sh line 117, the periodic fetch git --git-dir="$BARE"...
+- [`self-heal-fix-garden-triager-kriscendobot-finbot-fetch-die-should-skip-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-finbot-fetch-die-should-skip-retry.md) — In scripts/jobs/triager.sh around line 117, the steady-state bare-clone fetch...
+- [`self-heal-fix-garden-triager-kriscendobot-minion-town-fetch-transient-skip`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-minion-town-fetch-transient-skip.md) — In scripts/jobs/triager.sh line 117, the periodic bare-clone refresh git --gi...
 - [`xs2rust-endor-stage10e-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10e-remeasure.md) — stage10e child 3/3 — bounded-serial 52-file daemon sweep re-measure (measurem...
 
 ### tada (2823)
