@@ -114,66 +114,21 @@ if ! is_own_git_repo "$BARE"; then
   fi
 fi
 
-# Steady-state clone refresh. git has no IO timeout of its own, so a half-open
-# SSH fetch can hang until systemd kills the unit and marks it Failed (the captured
-# `Terminated` then `FATAL: fetch failed for <slug>` signature). Bound it with the
-# SAME timeout+kill-after+retry discipline as bounded_fetch/journal_fetch: each
-# attempt has a wall-clock deadline, we retry GARDEN_FETCH_RETRIES times with
-# backoff, and only THEN classify. Keep the last attempt's diagnostic in a file so
-# the transient matcher can distinguish a connectivity blip (skip the tick, retry
-# next timer fire) from a malformed local clone or remote configuration (die loud).
-ERRF="$(mktemp)"
-trap 'rm -f "$ERRF"' EXIT
-fetch_rc=0
-fetch_attempt=1
-while :; do
-  # Capture the fetch's REAL exit code with `|| fetch_rc=$?`, NOT via `if …; then;
-  # fi; fetch_rc=$?`: after an `if cmd; then …; fi` whose cmd fails and that has no
-  # else, `$?` is 0 (the compound `if` succeeds), so a failed fetch would read as
-  # rc=0 and the failure classification below would never run — the tick would sail
-  # past a broken fetch and triage stale refs. The `|| fetch_rc=$?` form reads the
-  # timeout/git exit directly and is `set -e`-safe (the `||` guards the failure).
-  fetch_rc=0
-  timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
-    git --git-dir="$BARE" fetch -q --all --prune 2>"$ERRF" || fetch_rc=$?
-  [ "$fetch_rc" -eq 0 ] && break
-  # 124 = SIGTERM at the wall-clock deadline; 137 = --kill-after SIGKILL escalation
-  # of a SIGTERM-ignoring transport child. Both are the timeout kill — log identically.
-  { [ "$fetch_rc" -eq 124 ] || [ "$fetch_rc" -eq 137 ]; } \
-    && log "fetch for $slug timed out (>${GARDEN_FETCH_TIMEOUT}s, rc=$fetch_rc) on attempt $fetch_attempt"
-  [ "$fetch_attempt" -ge "$GARDEN_FETCH_RETRIES" ] && break
-  backoff "$fetch_attempt"; fetch_attempt=$((fetch_attempt+1))
-done
-if [ "$fetch_rc" -ne 0 ]; then
-  # A fetch that fails after every retry — a timeout kill (124 SIGTERM / 137
-  # kill-after SIGKILL / 143 wrapper-reported terminate), a recognized transient
-  # network error, OR an unclassified failure — must NEVER hard-die. A die() here
-  # exit-1s and fails the systemd unit every tick, crash-looping it (the observed
-  # `Terminated` then `FATAL: fetch failed for <slug>` signature) and contradicting
-  # this file's own skip-and-retry invariant — the very shape the bounded_clone and
-  # present-but-corrupt branches above already avoid. So mirror the bounded_clone-
-  # failed branch: WARN, escalate through a THROTTLED maintainer alert under a single
-  # per-slug dedup key (a blip alerts at most once per window; a PERSISTENTLY
-  # unreachable/hung upstream surfaces once per window instead of an every-tick unit
-  # failure), and exit 0 so the next timer fire retries. Only the downstream
-  # malformed-new_sha assert stays a hard die — that one is deterministic, not a
-  # connectivity condition, and re-triaging it cannot help.
-  last_err="$(tr -d '\0' <"$ERRF" 2>/dev/null | tail -n1)"
-  if [ "$fetch_rc" -eq 124 ] || [ "$fetch_rc" -eq 137 ] || [ "$fetch_rc" -eq 143 ] \
-      || is_transient_net_error "$ERRF"; then
-    log "WARN: transient fetch failure for $slug after $fetch_attempt attempt(s) (rc=$fetch_rc); skipping this tick (retry next tick)"
-  else
-    log "WARN: fetch failed for $slug after $fetch_attempt attempt(s) (rc=$fetch_rc): ${last_err:-unknown error}; skipping this tick (retry next tick)"
+# Steady-state clone refresh. Bound git's otherwise unbounded network IO, and
+# retain stderr for the same offline classification sync_clone uses. The `if`
+# preserves the failed command's rc under set -e.
+if GARDEN_FETCH_STDERR="$(timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
+    git --git-dir="$BARE" fetch -q --all --prune 2>&1 1>/dev/null)"; then
+  rc=0
+else
+  rc=$?
+fi
+if [ "$rc" -ne 0 ]; then
+  if [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ] || _fetch_stderr_is_offline "$GARDEN_FETCH_STDERR"; then
+    log "offline; skipping tick"
+    exit "$GARDEN_OFFLINE_RC"
   fi
-  # Escalate EVERY class of fetch failure — transient blip, timeout kill, or an
-  # unclassified/persistent breakage (deleted fork, firewall, malformed remote
-  # config) — through ONE throttled per-slug dedup key, so a persistently hung
-  # upstream (the cosgov timeout signature) surfaces at most once per window instead
-  # of never (the transient branch used to exit before alerting) and never as an
-  # every-tick unit failure. alert_maintainer never fails its caller.
-  alert_maintainer "triager-fetch-failed-${slug//[^A-Za-z0-9._-]/_}" \
-    "triager: git fetch for $slug failed after $fetch_attempt attempt(s) (rc=$fetch_rc): ${last_err:-unknown error}. Skipped this tick and retried next tick; if this persists the upstream is unreachable/hung or the clone's remote is misconfigured, and $slug is not being triaged until it recovers."
-  exit 0
+  die "fetch failed for $slug"
 fi
 
 # resolve the ref to watch. --verify -q keeps a missing primary ref from echoing its
