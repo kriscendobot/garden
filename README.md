@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T03:29:04Z_
+_As of 2026-07-19T04:05:38Z_
 
 ## Latest
 
@@ -1751,14 +1751,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 106.3M | $1097.08 _(notional, rate-card)_ | no quota set |
+| Claude | 105.8M | $1093.99 _(notional, rate-card)_ | no quota set |
 | Codex | 202.0M _(+530.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endo-npm-cas-registry-press-20260719-040510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260719-040510.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`xs2rust-endor-stage10e-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10e-remeasure.md) — stage10e child 3/3 — bounded-serial 52-file daemon sweep re-measure (measurem...
 
 ### tada (2828)
