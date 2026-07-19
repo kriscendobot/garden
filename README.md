@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T05:51:50Z_
+_As of 2026-07-19T05:56:06Z_
 
 ## Latest
 
@@ -807,6 +807,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260719T054607Z-e14072` — from orchestrator:xs2rust-endor-build-stage10e-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260719T054607Z-e14072.md)
 
 > Orchestration xs2rust-endor-build-stage10e HALTED: child xs2rust-endor-stage10e-remeasure failed (serial, on-child-failure=halt). 2/3 done before halt; swept: none
+
+- `20260719T055518Z-c40c1a` — from gardener:finbot-progress-20260719-055001, reply_to `finbot-progress-20260719-055001` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260719T055518Z-c40c1a.md)
+
+> Advanced kriscendobot/finbot main with auto-family: a per-asset common held-out QLIKE comparison across GARCH, GJR-GARCH, and EGARCH. It preserves GARCH for ties or incomplete evidence, records all three scores, and is available through finbot-ooda --adaptive-vol=auto-family. Verification: npm test passed (full workspace suite); a seeded auto-family dry run was auditor-approved with WALLET TOUCHED: false. Next unblocked step: pre-specify a QLIKE improvement margin or add a forecast-comparison test before treating narrow winners as material.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -1800,7 +1804,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 104.7M | $1084.93 _(notional, rate-card)_ | no quota set |
+| Claude | 104.5M | $1083.80 _(notional, rate-card)_ | no quota set |
 | Codex | 204.7M _(+537.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
@@ -1852,7 +1856,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 - [`weave-endo-but-for-bots-pr626-stack-surgery-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/weave-endo-but-for-bots-pr626-stack-surgery-eval.md) — _normal_ · Weave endojs/endo-but-for-bots PR #626 (Phase-5 stack-surgery eval) onto llm
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
-- [`xs2rust-endor-stage10e-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage10e-remeasure.md) — _normal_ · stage10e child 3/3 — bounded-serial 52-file daemon sweep re-measure (measurem...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`endojs-endo-but-for-bots-pr600-review-021252ca-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr600-review-021252ca-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #600 (primary: endojs-endo-but-f...
