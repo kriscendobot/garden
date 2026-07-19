@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T09:20:34Z_
+_As of 2026-07-19T09:22:01Z_
 
 ## Latest
 
@@ -1808,25 +1808,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 99.2M | $1036.94 _(notional, rate-card)_ | no quota set |
+| Claude | 99.2M | $1036.95 _(notional, rate-card)_ | no quota set |
 | Codex | 204.8M _(+537.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endo-sturdyref-press-20260719-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260719-092001.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
-- [`xs2rust-endor-press-20260719-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260719-092001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-stage10g-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10g-live-captp-eval.md) — stage10g child 2/3 — gated live daemon round trip (BINDING precondition gate;...
 
-### tada (2862)
+### tada (2863)
+- [`xs2rust-endor-press-20260719-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260719-092001.md) — Completion report
 - [`xs2rust-endor-stage10g-worker-gaps`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10g-worker-gaps.md) — Completion report — xs2rust-endor-stage10g-worker-gaps
 - [`self-heal-fix-garden-triager-kriscendobot-agoric-sdk-unbounded-project-fetch-reaped`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-sdk-unbounded-project-fetch-reaped.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-fetch-transient-die-exit1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-fetch-transient-die-exit1.md) — Implemented and pushed d539ac5235 to main2.
 - [`self-heal-fix-garden-triager-kriscendobot-ymax-e2e-bound-fetch-skip-not-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ymax-e2e-bound-fetch-skip-not-die.md) — Completion report
-- [`self-heal-fix-garden-triager-kriscendobot-ocapn-unbounded-fetch-hard-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ocapn-unbounded-fetch-hard-die.md) — Verified existing fix at fae75ed3d3 on main2: bounded retrying fetch, throttl...
-- … and 2857 more
+- … and 2858 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
