@@ -2,6 +2,7 @@ In `scripts/jobs/triager.sh`, the bare-clone fetch at line 117 (`git --git-dir="
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
