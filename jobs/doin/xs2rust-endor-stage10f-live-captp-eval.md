@@ -35,3 +35,10 @@ Engine workspace EXIT=0 all-0-failed (797 passed at cut; binary count canonical)
 
 - **Push-per-item**; **STOP-and-checkpoint** at ~1800s-with-nothing-pushed: land an honest verified increment, push, tada with the exact resume point + halt signature.
 - Report via tada ONLY — never inbox-send the parked supervisor. Keep the PR DRAFT; no PR comments.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-19T06:28:07Z
