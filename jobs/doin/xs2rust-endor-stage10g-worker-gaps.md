@@ -17,3 +17,10 @@ model: opus
 **Bars (green before every push):** engine workspace `cargo test --workspace -- --test-threads=1` all-0-failed EXIT=0 at the tip's binary count (cite the measured number; 821 at s37 review + the fixer's additions); `./target/debug/compile-diff` 1909/1909 + SYMB 1909/1909 EXIT=0; boot gate `--test boot_bundle_gate` 30/0 (binary count); ROOT `cargo test -p endo --lib` 0-failed with real bundles; zero new non-oracle warnings; forbid 7 roots + oracle exempt; VARIANT_COUNT 35 unless a new side table is ledgered the day it lands; capture test output to a file and check `$?` (a pipe to `tail` masks it).
 
 **Sizing/STOP:** fit one 2400s handler invocation — expect ~2-3 gaps; STOP at a pushed, bar-green checkpoint rather than over-reach (three prior live-captp children died at deadline chasing one more gap). An honest partial WITH the exact frontier in the marker is SUCCESS. Report via tada ONLY (never inbox-send the parked supervisor). Keep the PR DRAFT.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 9
+  worker_kind: gardener
+  claimed_at: 2026-07-19T08:16:09Z
