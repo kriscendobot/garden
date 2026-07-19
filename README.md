@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T11:31:22Z_
+_As of 2026-07-19T11:50:30Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 5h)
+- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 6h)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 1d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 1d)
@@ -1848,14 +1848,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.7M | $1021.25 _(notional, rate-card)_ | no quota set |
+| Claude | 97.8M | $1023.64 _(notional, rate-card)_ | no quota set |
 | Codex | 204.8M _(+538.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`finbot-progress-20260719-115001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260719-115001.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-fetch-hard-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-fetch-hard-die.md) — In scripts/jobs/triager.sh, the bare-clone fetch at line 117 (git --git-dir="...
 - [`xs2rust-endor-stage10i-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10i-remeasure.md) — Measurement: 52-file daemon sweep re-measure at the stage-10i tip (PR #600) —...
 
