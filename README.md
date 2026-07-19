@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T09:33:37Z_
+_As of 2026-07-19T09:34:32Z_
 
 ## Latest
 
@@ -819,6 +819,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260719T092333Z-98f491` — from watchdog:gardener/4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260719T092333Z-98f491.md)
 
 > gardener job 'xs2rust-endor-stage10g-live-captp-eval' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260719T093412Z-94d7b7` — from orchestrator:xs2rust-endor-build-stage10g-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260719T093412Z-94d7b7.md)
+
+> Orchestration xs2rust-endor-build-stage10g HALTED: child xs2rust-endor-stage10g-live-captp-eval failed (serial, on-child-failure=halt). 2/4 done before halt; swept: xs2rust-endor-stage10g-remeasure
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -1844,7 +1848,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 99.1M | $1036.16 _(notional, rate-card)_ | no quota set |
+| Claude | 99.0M | $1035.95 _(notional, rate-card)_ | no quota set |
 | Codex | 204.8M _(+537.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
@@ -1854,13 +1858,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (0)
 (none)
 
-### tada (2864)
+### tada (2865)
+- [`xs2rust-endor-build-stage10g`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10g.md) — orchestration xs2rust-endor-build-stage10g — HALTED
 - [`endo-sturdyref-press-20260719-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260719-092001.md) — SturdyRef press tick (2026-07-19 09:20Z) — **hold + observation; no movement ...
 - [`xs2rust-endor-press-20260719-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260719-092001.md) — Completion report
 - [`xs2rust-endor-stage10g-worker-gaps`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10g-worker-gaps.md) — Completion report — xs2rust-endor-stage10g-worker-gaps
 - [`self-heal-fix-garden-triager-kriscendobot-agoric-sdk-unbounded-project-fetch-reaped`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-sdk-unbounded-project-fetch-reaped.md) — Completion report
-- [`self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-fetch-transient-die-exit1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-fetch-transient-die-exit1.md) — Implemented and pushed d539ac5235 to main2.
-- … and 2859 more
+- … and 2860 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
