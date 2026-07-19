@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T12:09:54Z_
+_As of 2026-07-19T12:38:01Z_
 
 ## Latest
 
@@ -17,7 +17,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 1d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 1d)
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 1d)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 2d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 2d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 5d)
@@ -1860,23 +1860,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.5M | $1020.33 _(notional, rate-card)_ | no quota set |
+| Claude | 97.4M | $1019.00 _(notional, rate-card)_ | no quota set |
 | Codex | 204.8M _(+538.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-stage10j-flag-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10j-flag-fixer.md) — Fixer: F1(s40) + F2(s40) — class-method DONT_ENUM and inferred .name dropped ...
+### doin (0)
+(none)
 
-### tada (2884)
+### tada (2885)
+- [`xs2rust-endor-stage10j-flag-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10j-flag-fixer.md) — Completion report — F1(s40) + F2(s40), PR #600 (stage 10j)
 - [`port-xs-to-rust-memory-safe-engine-s40`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s40.md) — Completion report — port-xs-to-rust-memory-safe-engine-s40
 - [`finbot-progress-20260719-115001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260719-115001.md) — Completion report
 - [`xs2rust-endor-build-stage10i`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10i.md) — orchestration xs2rust-endor-build-stage10i — complete
 - [`self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-fetch-hard-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-fetch-hard-die.md) — Updated triager fetch-failure alert to identify the slug and bare-clone path;...
-- [`xs2rust-endor-stage10i-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10i-remeasure.md) — Completion report — stage-10i 52-file daemon sweep re-measure
-- … and 2879 more
+- … and 2880 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
