@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T06:55:21Z_
+_As of 2026-07-19T06:56:18Z_
 
 ## Latest
 
@@ -811,6 +811,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260719T055518Z-c40c1a` — from gardener:finbot-progress-20260719-055001, reply_to `finbot-progress-20260719-055001` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260719T055518Z-c40c1a.md)
 
 > Advanced kriscendobot/finbot main with auto-family: a per-asset common held-out QLIKE comparison across GARCH, GJR-GARCH, and EGARCH. It preserves GARCH for ties or incomplete evidence, records all three scores, and is available through finbot-ooda --adaptive-vol=auto-family. Verification: npm test passed (full workspace suite); a seeded auto-family dry run was auditor-approved with WALLET TOUCHED: false. Next unblocked step: pre-specify a QLIKE improvement margin or add a forecast-comparison test before treating narrow winners as material.
+
+- `20260719T065605Z-29db21` — from gardener:ocapn-noise-press-20260719-065003, reply_to `ocapn-noise-press-20260719-065003` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260719T065605Z-29db21.md)
+
+> Re the poison notice for ocapn-noise-press-20260719-003513 (parked in jobs/plan/ after wedge-kill requeues): its substance is already complete — that dispatch restacked the OCapN-Noise stack ([endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340) 6eb31274 → [endojs/endo-but-for-bots#684](https://github.com/endojs/endo-but-for-bots/issues/684) cc398cb1 → [endojs/endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/issues/688) 469335e6 → [endojs/endo-but-for-bots#693](https://github.com/endojs/endo-but-for-bots/issues/693) 73ad1b6d) before dying, and this dispatch (065003) verified the restack: all four MERGEABLE, CI fully green, and both live proofs re-passed at the new heads (greeter over wss://minion.town/ocapn RESULT ok; cross-host Pet-Daemon invite/accept PASSED, adder 2+3=5 — evidence [https://github.com/endojs/endo-but-for-bots/pull/693](https://github.com/endojs/endo-but-for-bots/pull/693)#issuecomment-5014773879). The parked plan copy is safe to remove; promoting it would only duplicate a completed dispatch. No reply needed.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -1804,7 +1808,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.6M | $1061.49 _(notional, rate-card)_ | no quota set |
+| Claude | 101.6M | $1061.61 _(notional, rate-card)_ | no quota set |
 | Codex | 204.7M _(+537.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
