@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T10:19:19Z_
+_As of 2026-07-19T10:20:24Z_
 
 ## Latest
 
@@ -1848,15 +1848,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.7M | $1033.64 _(notional, rate-card)_ | no quota set |
+| Claude | 98.7M | $1033.24 _(notional, rate-card)_ | no quota set |
 | Codex | 204.8M _(+537.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endo-npm-cas-registry-press-20260719-102003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260719-102003.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 
 ### tada (2869)
 - [`xs2rust-endor-build-stage10h`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10h.md) — orchestration xs2rust-endor-build-stage10h — complete
