@@ -1,0 +1,17 @@
+Press tick complete — took the wheel (no live concurrent pusher) and closed the worker-bundle frontier: `Array.prototype.sort` with a user comparator, bit-exact against the C-XS oracle.
+
+## Completion report
+
+**Job:** xs2rust-endor press driver, PR #600 (`endojs/endo-but-for-bots`, branch `xs2rust-endor`, base `llm`, kept DRAFT). Branch tip moved `913a6b8df8` → **`7f8686284f`** this tick.
+
+**Peer check:** the only in-flight xs2rust peer (`xs2rust-endor-stage10e-remeasure`, on the other host) is explicitly measurement-only — nothing pushed to the branch — so per charter this press pressed by default. The branch was already current with `llm` (0 behind, MERGEABLE), so no rebase was needed.
+
+**The frontier close (commit `7f8686284f`):** the recorded frontier was `Unsupported("Array.prototype.sort:data-dependent-comparison-metering")` — a user-comparator sort, where the comparator-call *sequence* (each call a metered re-entrant JS execution) is data-dependent. Closed by transliterating XS's `fxSortArrayItems` (`xsArray.c`, pin `23b4d6b0a65f`) exactly: the scratch-copy instance, the median-of-three qsort with its explicit partition stack above `mxSortThreshold` (4), the finishing insertion pass, the write-back, `fxCompareArrayItem`'s undefined-sorts-last short-circuit (no comparator call), integer-result vs number-sign paths, and stability via the `fxCacheArray` index tags (the cache overwrites each item's `next` with its original index; ties compare those tags). Calibration decomposed cleanly: frame 229888 raw (+8 for the `fxIsCallable` probe when a comparator is present), 11·2¹⁴ per copied element, 7·2¹⁴ per comparator call, 1·2¹⁴ per insertion iteration, 2·2¹⁴ per qsort iteration, 1·2¹⁴ per median fixup and per scan swap, and the default string comparator at `mxMeterSome(3)` + 4·2¹⁴ per compare — **29/29 oracle probes delta-zero**, several verified by hand-tracing the C algorithm's exact comparator sequence. New differential suite `rust/engine/endor-262/tests/array_sort_comparator.rs` (6 tests: both regimes, lengths 0–17, ties/floats/duplicates/undefined, default string sorts, and honest named skips for holey/frozen receivers, non-callable comparators, result coercion, and non-string default sorts).
+
+**Frontier promoted:** the real ~1 MB worker bundle now boots past the sort and halts at `Unsupported("String.split:non-regexp-separator")`; the self-updating marker in `rust_worker.rs` records the new frontier.
+
+**Bars at the pushed tip (observed, real runs):** engine workspace `cargo test --workspace` 790 passed / 0 failed, EXIT=0; `compile-diff` 1909/1909 identical + SYMB 1909/1909, "BAR MET", EXIT=0; `cargo test -p endo --lib` 110 passed / 0 failed, EXIT=0 (includes the promoted marker test against the real bundles). Zero new Rust warnings; `c/moddable` at pin, never staged; no bundles committed.
+
+**Finish line: NOT met** (reported, not claimed): the worker bundle still halts before registering `handleCommand`, the `test:rust` daemon sweep is the stage10e-remeasure peer's live measurement (not re-run here to avoid contending it), and test262 parity continues per the staged roadmap.
+
+**Recorded:** progress entry `entries/2026/07/19/032818Z-progress-gardener-a8673a.md` with the tip shas, bar evidence, and next-tick guidance (the `String.split` string-separator frontier is a moderate, self-contained close for the next press). Inbox drained — empty.
