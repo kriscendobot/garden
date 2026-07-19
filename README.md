@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T11:29:54Z_
+_As of 2026-07-19T11:31:22Z_
 
 ## Latest
 
@@ -1855,8 +1855,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-fetch-hard-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-fetch-hard-die.md) — In scripts/jobs/triager.sh, the bare-clone fetch at line 117 (git --git-dir="...
+- [`xs2rust-endor-stage10i-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10i-remeasure.md) — Measurement: 52-file daemon sweep re-measure at the stage-10i tip (PR #600) —...
 
 ### tada (2879)
 - [`xs2rust-endor-stage10i-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10i-live-captp-eval.md) — Completion report — xs2rust-endor-stage10i-live-captp-eval (PR #600, stage 10i)
