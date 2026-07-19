@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T10:40:19Z_
+_As of 2026-07-19T10:58:21Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 4h)
+- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 5h)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 1d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 1d)
@@ -1848,23 +1848,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.5M | $1031.69 _(notional, rate-card)_ | no quota set |
+| Claude | 98.3M | $1029.31 _(notional, rate-card)_ | no quota set |
 | Codex | 204.8M _(+537.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-stage10i-accessor-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10i-accessor-fixer.md) — Fixer: literal/class accessor definitions must stop wrong-completing (finding...
+### doin (0)
+(none)
 
-### tada (2871)
+### tada (2872)
+- [`xs2rust-endor-stage10i-accessor-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10i-accessor-fixer.md) — Completion report — xs2rust-endor-stage10i-accessor-fixer (F1 s39, PR #600)
 - [`port-xs-to-rust-memory-safe-engine-s39`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s39.md) — Completion report — port-xs-to-rust-memory-safe-engine-s39
 - [`endo-npm-cas-registry-press-20260719-102003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260719-102003.md) — Press tick complete — this dispatch landed **Phase 5 (offline mode + .npmrc)*...
 - [`xs2rust-endor-build-stage10h`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10h.md) — orchestration xs2rust-endor-build-stage10h — complete
 - [`xs2rust-endor-stage10h-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10h-remeasure.md) — stage10h child 2/2 — 52-file daemon sweep re-measure — TADA
-- [`xs2rust-endor-stage10h-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10h-live-captp-eval.md) — Completion report — xs2rust-endor-stage10h-live-captp-eval (child 1/2)
-- … and 2866 more
+- … and 2867 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
