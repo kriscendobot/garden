@@ -21,3 +21,10 @@ Repo `endojs/endo-but-for-bots`, branch `xs2rust-endor` (PR #600, DRAFT — neve
 **The moment the gate is GREEN: verify NO silent-ack masking** — a command the handler completes must flow its REAL value back through `dispatch_deliver` (compare against the fold-ack shape; a masked ack is a wrong completion — report it as a finding in your tada).
 
 **HARD STOP discipline:** reassess the clock after EVERY pushed item. The LIVE daemon round trip (`ENDO_WORKER_BIN='<abs>/endor worker -e rust'` — NOT `ENDO_ENGINE`; short-path env, the proven `/home/kris/garden/tmp/s9r` on endolin-garden) ONLY if the gate is GREEN AND ≥1200s remain; otherwise checkpoint and tada. Report via your tada completion report ONLY — never inbox-send the parked supervisor.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  worker_kind: gardener
+  claimed_at: 2026-07-19T14:10:08Z
