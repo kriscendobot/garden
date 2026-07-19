@@ -28,6 +28,7 @@ Checkpoint continuously (a partial sweep with a TSV is an honest tada); report v
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
