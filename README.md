@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T11:22:49Z_
+_As of 2026-07-19T11:25:06Z_
 
 ## Latest
 
@@ -1848,14 +1848,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.8M | $1023.81 _(notional, rate-card)_ | no quota set |
+| Claude | 97.8M | $1023.69 _(notional, rate-card)_ | no quota set |
 | Codex | 204.8M _(+537.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (6)
+- [`self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-fetch-hard-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-fetch-hard-die.md) — In scripts/jobs/triager.sh, the bare-clone fetch at line 117 (git --git-dir="...
+- [`self-heal-fix-garden-triager-kriscendobot-cosgov-fetch-transient-soft-skip`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-cosgov-fetch-transient-soft-skip.md) — In scripts/jobs/triager.sh line 117, the steady-state fetch of an existing ba...
+- [`self-heal-fix-garden-triager-kriscendobot-finbot-bare-fetch-hard-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-finbot-bare-fetch-hard-die.md) — In scripts/jobs/triager.sh line 117, the standing-bare-clone refresh git --gi...
+- [`self-heal-fix-garden-triager-kriscendobot-minion-town-repo-fetch-offline-skip`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-minion-town-repo-fetch-offline-skip.md) — Harden the project-repo fetch in scripts/jobs/triager.sh:117 so a transient c...
+- [`self-heal-fix-garden-triager-kriscendobot-vattr97-fetch-hard-die-exit1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-vattr97-fetch-hard-die-exit1.md) — In scripts/jobs/triager.sh line 117, the routine fetch of an already-provisio...
 - [`xs2rust-endor-stage10i-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10i-live-captp-eval.md) — Builder: worker-bundle frontier — the for_of iteration-protocol op, then the ...
 
 ### tada (2874)
