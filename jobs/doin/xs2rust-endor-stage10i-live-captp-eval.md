@@ -62,3 +62,10 @@ doctrine binds: any new write/mutation path onto guest-reachable targets routes 
 machinery, never `set_own_unmetered`.
 
 Size to ONE 2400s invocation. Report via your tada ONLY; keep PR #600 DRAFT; confirm its state.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 20
+  worker_kind: gardener
+  claimed_at: 2026-07-19T11:01:07Z
