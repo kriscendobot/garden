@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T05:44:08Z_
+_As of 2026-07-19T05:46:36Z_
 
 ## Latest
 
@@ -12,6 +12,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
+- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 3m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 23h)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 1d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 1d)
@@ -20,7 +21,6 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 1d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 2d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 5d)
-- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 6d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 16d)
 
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
@@ -803,6 +803,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > 1. Phase 5 (`--offline` hard-fail, `.npmrc`, scoped registries) proposes porting PR #782's substance onto the new #800 stack rather than rebasing it. This is the next phase of the press and depends on the reland (follow-up above) settling first — confirm you want to spend builder effort on Phase 5 and in what order relative to the reland.
 >
 > 2. The seven old-generation drafts are marked superseded/reference but left OPEN. Closing them is a maintainer decision — say the word and I'll have them closed, or leave them as reference.
+
+- `20260719T054607Z-e14072` — from orchestrator:xs2rust-endor-build-stage10e-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260719T054607Z-e14072.md)
+
+> Orchestration xs2rust-endor-build-stage10e HALTED: child xs2rust-endor-stage10e-remeasure failed (serial, on-child-failure=halt). 2/3 done before halt; swept: none
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -1797,7 +1801,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 105.0M | $1086.99 _(notional, rate-card)_ | no quota set |
-| Codex | 202.5M _(+535.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Codex | 203.1M _(+536.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
@@ -1807,13 +1811,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr160-review-9858a782`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-9858a782.md) — Review directive on endojs/endo-but-for-bots PR #160
 - [`endojs-endo-but-for-bots-pr794-review-cdf94916`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr794-review-cdf94916.md) — Review directive on endojs/endo-but-for-bots PR #794
 
-### tada (2834)
+### tada (2835)
+- [`xs2rust-endor-build-stage10e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10e.md) — orchestration xs2rust-endor-build-stage10e — HALTED
 - [`endojs-endo-but-for-bots-pr138-review-add866fa`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr138-review-add866fa.md) — Completion report
 - [`xs2rust-endor-press-20260719-050501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260719-050501.md) — Completion report
 - [`endojs-endo-but-for-bots-pr793-review-16e5c4ce`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr793-review-16e5c4ce.md) — Completion report
 - [`endo-sturdyref-press-20260719-050501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260719-050501.md) — **Tick outcome: hold + observation (no movement to press on).**
-- [`fu-endo-npm-cas-registry-press-20260719-040510-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-endo-npm-cas-registry-press-20260719-040510-1.md) — Completion report
-- … and 2829 more
+- … and 2830 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
