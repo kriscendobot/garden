@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T03:06:50Z_
+_As of 2026-07-19T03:07:40Z_
 
 ## Latest
 
@@ -1751,27 +1751,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 106.5M | $1098.64 _(notional, rate-card)_ | no quota set |
+| Claude | 106.5M | $1098.90 _(notional, rate-card)_ | no quota set |
 | Codex | 202.0M _(+530.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
-- [`endo-sturdyref-press-20260719-030501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260719-030501.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+### doin (4)
 - [`self-heal-fix-garden-triager-kriscendobot-cosgov-fetch-hard-die-on-transient`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-cosgov-fetch-hard-die-on-transient.md) — In scripts/jobs/triager.sh line 117, the periodic fetch git --git-dir="$BARE"...
 - [`self-heal-fix-garden-triager-kriscendobot-finbot-fetch-die-should-skip-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-finbot-fetch-die-should-skip-retry.md) — In scripts/jobs/triager.sh around line 117, the steady-state bare-clone fetch...
 - [`xs2rust-endor-press-20260719-030501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260719-030501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-stage10e-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10e-remeasure.md) — stage10e child 3/3 — bounded-serial 52-file daemon sweep re-measure (measurem...
 
-### tada (2824)
+### tada (2825)
+- [`endo-sturdyref-press-20260719-030501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260719-030501.md) — SturdyRef press — 03:05 tick: **hold + observation, no movement to press.**
 - [`self-heal-fix-garden-triager-kriscendobot-minion-town-fetch-transient-skip`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-fetch-transient-skip.md) — Completion report
 - [`xs2rust-endor-press-20260719-005013`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260719-005013.md) — Completion report
 - [`minion-town-agenda-review-20260719-005013`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260719-005013.md) — Reviewed and reported on [garden issue #58](https://github.com/kriskowal/gard...
 - [`endo-sturdyref-press-20260719-005013`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260719-005013.md) — Completion report
-- [`endo-git-integration-press-20260719-003513`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260719-003513.md) — Press report — git-integration / M3 loop (endojs/endo-but-for-bots), dispatch...
-- … and 2819 more
+- … and 2820 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
