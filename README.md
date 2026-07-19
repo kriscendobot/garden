@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T05:46:36Z_
+_As of 2026-07-19T05:47:25Z_
 
 ## Latest
 
@@ -1800,15 +1800,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 105.0M | $1086.99 _(notional, rate-card)_ | no quota set |
-| Codex | 203.1M _(+536.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 104.9M | $1086.59 _(notional, rate-card)_ | no quota set |
+| Codex | 203.5M _(+537.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr160-review-9858a782`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-9858a782.md) — Review directive on endojs/endo-but-for-bots PR #160
+- [`endojs-endo-but-for-bots-pr794-conductor`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr794-conductor.md) — ---
 - [`endojs-endo-but-for-bots-pr794-review-cdf94916`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr794-review-cdf94916.md) — Review directive on endojs/endo-but-for-bots PR #794
 
 ### tada (2835)
