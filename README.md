@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T10:58:21Z_
+_As of 2026-07-19T11:01:18Z_
 
 ## Latest
 
@@ -1848,15 +1848,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.3M | $1029.31 _(notional, rate-card)_ | no quota set |
+| Claude | 98.2M | $1028.88 _(notional, rate-card)_ | no quota set |
 | Codex | 204.8M _(+537.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-stage10i-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10i-live-captp-eval.md) — Builder: worker-bundle frontier — the for_of iteration-protocol op, then the ...
 
 ### tada (2872)
 - [`xs2rust-endor-stage10i-accessor-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10i-accessor-fixer.md) — Completion report — xs2rust-endor-stage10i-accessor-fixer (F1 s39, PR #600)
