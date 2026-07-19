@@ -16,6 +16,8 @@ model: opus
 
 **Bars (green before every push), sizing, STOP-and-checkpoint, tada-only reporting:** identical to child 1's body (workspace all-0-failed at the tip's binary count; compile-diff + SYMB 1909/1909; boot gate 30/0; ROOT lib 0-failed; zero non-oracle warnings; forbid 7 + oracle exempt; VARIANT_COUNT 35 or ledger; the s37 integrity-flag doctrine on any new write path; fit one 2400s invocation; STOP at a pushed bar-green checkpoint; report via tada ONLY; keep DRAFT).
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
