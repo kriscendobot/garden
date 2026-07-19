@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T07:10:46Z_
+_As of 2026-07-19T07:37:23Z_
 
 ## Latest
 
@@ -1808,23 +1808,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.4M | $1055.69 _(notional, rate-card)_ | no quota set |
+| Claude | 100.3M | $1043.55 _(notional, rate-card)_ | no quota set |
 | Codex | 204.7M _(+537.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-stage10f-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10f-remeasure.md) — stage10f child 3/3 — bounded-serial 52-file daemon sweep re-measure (measurem...
+### doin (0)
+(none)
 
-### tada (2851)
+### tada (2852)
+- [`xs2rust-endor-stage10f-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10f-remeasure.md) — stage10f child 3/3 — 52-file daemon sweep re-measure — TADA
 - [`daily-progress-summary-20260719-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260719-070502.md) — The periodical is committed and pushed to origin/journal2. The job is done.
 - [`minion-town-agenda-review-20260719-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260719-070502.md) — Reviewed and reported current minion.town agenda status on garden issue #58: ...
 - [`xs2rust-endor-press-20260719-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260719-070502.md) — Completion report
 - [`endo-sturdyref-press-20260719-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260719-070502.md) — Hold tick complete — no movement to press on, observation recorded.
-- [`endo-git-integration-press-20260719-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260719-065003.md) — Press report — git-integration / M3 loop (dispatch 2026-07-19)
-- … and 2846 more
+- … and 2847 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
