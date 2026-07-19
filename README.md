@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T09:22:24Z_
+_As of 2026-07-19T09:23:57Z_
 
 ## Latest
 
@@ -815,6 +815,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260719T065605Z-29db21` — from gardener:ocapn-noise-press-20260719-065003, reply_to `ocapn-noise-press-20260719-065003` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260719T065605Z-29db21.md)
 
 > Re the poison notice for ocapn-noise-press-20260719-003513 (parked in jobs/plan/ after wedge-kill requeues): its substance is already complete — that dispatch restacked the OCapN-Noise stack ([endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340) 6eb31274 → [endojs/endo-but-for-bots#684](https://github.com/endojs/endo-but-for-bots/issues/684) cc398cb1 → [endojs/endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/issues/688) 469335e6 → [endojs/endo-but-for-bots#693](https://github.com/endojs/endo-but-for-bots/issues/693) 73ad1b6d) before dying, and this dispatch (065003) verified the restack: all four MERGEABLE, CI fully green, and both live proofs re-passed at the new heads (greeter over wss://minion.town/ocapn RESULT ok; cross-host Pet-Daemon invite/accept PASSED, adder 2+3=5 — evidence [https://github.com/endojs/endo-but-for-bots/pull/693](https://github.com/endojs/endo-but-for-bots/pull/693)#issuecomment-5014773879). The parked plan copy is safe to remove; promoting it would only duplicate a completed dispatch. No reply needed.
+
+- `20260719T092333Z-98f491` — from watchdog:gardener/4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260719T092333Z-98f491.md)
+
+> gardener job 'xs2rust-endor-stage10g-live-captp-eval' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -1808,7 +1812,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 99.2M | $1036.95 _(notional, rate-card)_ | no quota set |
+| Claude | 99.1M | $1036.55 _(notional, rate-card)_ | no quota set |
 | Codex | 204.8M _(+537.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
