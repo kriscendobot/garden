@@ -21,3 +21,10 @@ Repo `endojs/endo-but-for-bots`, branch `xs2rust-endor` (PR #600, DRAFT — neve
 **BINDING no-boot-regression clause — at EVERY push:** engine workspace `cargo test --workspace -- --test-threads=1` EXIT=0 (last: 894/0, 70 result lines); compile-diff no-arg **1909/1909 + SYMB 1909/1909** EXIT=0; ROOT `cargo test -p endo --lib` **111/0** with real bundles and BOTH markers GREEN (`boot_drives_the_real_chain_to_the_worker_bundle_frontier` + `real_handler_decodes_a_real_envelope_to_the_dispatch_path_frontier`). No new `unsafe` (7 forbid roots + oracle exempt), no new side table without a same-day ledger row (VARIANT_COUNT 35), 0 non-oracle warnings.
 
 Commit a dual-run suite (endor-262/tests style: both record shapes + your fresh variants). Push-per-item to `origin/xs2rust-endor` (verify by git EXIT CODE; rebase-CAS on race). Your tada MUST state: the redefine sweep answer (is the stale-accessor-redefine set now EMPTY?), each push sha, and the bar numbers at your tip. Report via your tada completion report ONLY — never inbox-send the parked supervisor.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-19T13:58:07Z
