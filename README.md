@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T06:52:55Z_
+_As of 2026-07-19T06:53:37Z_
 
 ## Latest
 
@@ -1804,25 +1804,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.7M | $1061.89 _(notional, rate-card)_ | no quota set |
+| Claude | 101.7M | $1061.63 _(notional, rate-card)_ | no quota set |
 | Codex | 204.7M _(+537.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endo-git-integration-press-20260719-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260719-065003.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`ocapn-noise-press-20260719-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260719-065003.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
-- [`xs2rust-endor-stage10f-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10f-live-captp-eval.md) — stage10f child 2/3 — live daemon worker-evaluate round trip on the Rust engin...
 
-### tada (2844)
+### tada (2845)
+- [`xs2rust-endor-stage10f-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10f-live-captp-eval.md) — Completion report — stage-10f child 2/3 (live-captp-eval → degraded to worker...
 - [`endo-vfs-parity-press-20260719-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260719-065003.md) — No activity on any arc PR since the last tick, and no maintainer reply on the...
 - [`endo-byte-array-press-20260719-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260719-065003.md) — Both erights-last threads are closed loops — his final replies are "That make...
 - [`endo-daemon-data-plane-press-20260719-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260719-065003.md) — All verification is complete. The state is: finish line still met, no maintai...
 - [`xs2rust-endor-stage10f-worker-gaps`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10f-worker-gaps.md) — Completion report — stage-10f worker-bundle frontier gap round
-- [`port-xs-to-rust-memory-safe-engine-s36`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s36.md) — Completion report — supervisor s36 (stage-10e halt recovery → stage-10f dispa...
-- … and 2839 more
+- … and 2840 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
