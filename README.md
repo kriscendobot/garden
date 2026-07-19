@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T06:56:44Z_
+_As of 2026-07-19T07:04:49Z_
 
 ## Latest
 
@@ -1808,24 +1808,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.6M | $1061.93 _(notional, rate-card)_ | no quota set |
+| Claude | 101.4M | $1055.16 _(notional, rate-card)_ | no quota set |
 | Codex | 204.7M _(+537.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endo-git-integration-press-20260719-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260719-065003.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+### doin (1)
 - [`xs2rust-endor-stage10f-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10f-remeasure.md) — stage10f child 3/3 — bounded-serial 52-file daemon sweep re-measure (measurem...
 
-### tada (2846)
+### tada (2847)
+- [`endo-git-integration-press-20260719-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260719-065003.md) — Press report — git-integration / M3 loop (dispatch 2026-07-19)
 - [`ocapn-noise-press-20260719-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260719-065003.md) — Press dispatch 9 (2026-07-19 06:50Z) — poisoned predecessor's restack verifie...
 - [`xs2rust-endor-stage10f-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10f-live-captp-eval.md) — Completion report — stage-10f child 2/3 (live-captp-eval → degraded to worker...
 - [`endo-vfs-parity-press-20260719-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260719-065003.md) — No activity on any arc PR since the last tick, and no maintainer reply on the...
 - [`endo-byte-array-press-20260719-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260719-065003.md) — Both erights-last threads are closed loops — his final replies are "That make...
-- [`endo-daemon-data-plane-press-20260719-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260719-065003.md) — All verification is complete. The state is: finish line still met, no maintai...
-- … and 2841 more
+- … and 2842 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
