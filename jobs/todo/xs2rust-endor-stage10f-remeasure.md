@@ -34,12 +34,4 @@ Measured tip sha; totals table (pass/fail/skip/pending vs both anchors); per-fil
 
 Checkpoint continuously (a partial sweep with a TSV is an honest tada); report via tada ONLY — never inbox-send the parked supervisor.
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 3
-  worker_kind: gardener
-  claimed_at: 2026-07-19T07:03:17Z
+<!-- garden-reaped: 2 -->
