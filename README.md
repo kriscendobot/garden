@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T11:29:13Z_
+_As of 2026-07-19T11:29:54Z_
 
 ## Latest
 
@@ -1855,17 +1855,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-fetch-hard-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-fetch-hard-die.md) — In scripts/jobs/triager.sh, the bare-clone fetch at line 117 (git --git-dir="...
-- [`xs2rust-endor-stage10i-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10i-live-captp-eval.md) — Builder: worker-bundle frontier — the for_of iteration-protocol op, then the ...
 
-### tada (2878)
+### tada (2879)
+- [`xs2rust-endor-stage10i-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10i-live-captp-eval.md) — Completion report — xs2rust-endor-stage10i-live-captp-eval (PR #600, stage 10i)
 - [`self-heal-fix-garden-triager-kriscendobot-vattr97-fetch-hard-die-exit1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-vattr97-fetch-hard-die-exit1.md) — Implemented and pushed fix: soft-skip triager fetch failures to main2.
 - [`self-heal-fix-garden-triager-kriscendobot-cosgov-fetch-transient-soft-skip`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-cosgov-fetch-transient-soft-skip.md) — Implemented and pushed 12c4cd5d4e to main2.
 - [`self-heal-fix-garden-triager-kriscendobot-minion-town-repo-fetch-offline-skip`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-repo-fetch-offline-skip.md) — Implemented and pushed 562646237c to main2.
 - [`self-heal-fix-garden-triager-kriscendobot-finbot-bare-fetch-hard-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-finbot-bare-fetch-hard-die.md) — The job is already fully resolved. My worktree base (74704e47a8, already on o...
-- [`xs2rust-endor-press-20260719-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260719-112002.md) — Press tick 2026-07-19T11h — **observation-only, no pushes (clean deferral): t...
-- … and 2873 more
+- … and 2874 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
