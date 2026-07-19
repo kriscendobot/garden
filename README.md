@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T08:42:59Z_
+_As of 2026-07-19T08:43:33Z_
 
 ## Latest
 
@@ -1815,8 +1815,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-stage10g-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10g-live-captp-eval.md) — stage10g child 2/3 — gated live daemon round trip (BINDING precondition gate;...
 
 ### tada (2862)
 - [`xs2rust-endor-stage10g-worker-gaps`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10g-worker-gaps.md) — Completion report — xs2rust-endor-stage10g-worker-gaps
