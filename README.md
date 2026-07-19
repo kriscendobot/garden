@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T14:09:31Z_
+_As of 2026-07-19T14:10:26Z_
 
 ## Latest
 
@@ -1867,8 +1867,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-stage10k-live-captp-dispatch`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10k-live-captp-dispatch.md) — stage-10k child 1: trace + dub_at — flip the CapTP dispatch gate GREEN, then ...
 
 ### tada (2898)
 - [`xs2rust-endor-stage10k-accessor-redefine-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10k-accessor-redefine-fixer.md) — Completion report
