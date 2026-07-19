@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T13:16:32Z_
+_As of 2026-07-19T13:20:32Z_
 
 ## Latest
 
@@ -1860,14 +1860,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.3M | $1018.51 _(notional, rate-card)_ | no quota set |
+| Claude | 97.3M | $1018.77 _(notional, rate-card)_ | no quota set |
 | Codex | 204.8M _(+538.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`minion-town-agenda-review-20260719-132001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260719-132001.md) — Minion Town hourly agenda review
 - [`xs2rust-endor-stage10j-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10j-remeasure.md) — Measurement: 52-file daemon sweep re-measure at the stage-10j tip (PR #600) —...
 
 ### tada (2891)
