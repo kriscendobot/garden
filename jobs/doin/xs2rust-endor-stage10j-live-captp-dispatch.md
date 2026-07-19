@@ -68,3 +68,10 @@ non-oracle warnings; any new side table ledgered same-day.
 
 **Sizing:** fit one 2400s handler invocation. Report via your tada completion report ONLY —
 never inbox-send the parked supervisor.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 5
+  worker_kind: gardener
+  claimed_at: 2026-07-19T12:40:16Z
