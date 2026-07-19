@@ -1,5 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 5
-worker_kind: gardener
-claimed_at: 2026-07-19T13:16:10Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-xs2rust-endor-stage10j-remeasure
