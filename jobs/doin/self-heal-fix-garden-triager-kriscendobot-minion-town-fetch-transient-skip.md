@@ -1,1 +1,8 @@
 In `scripts/jobs/triager.sh` line 117, the periodic bare-clone refresh `git --git-dir="$BARE" fetch -q --all --prune || die "fetch failed for $slug"` treats a transient fetch failure as FATAL (exit 1), crash-looping the `garden-triager@<slug>` unit on any network blip (observed: a `Terminated`/reaped fetch → `FATAL: fetch failed for kriscendobot-minion.town`, exit 1, self-heal churn). This contradicts the script's own self-provision path (lines 94–105), which classifies the same failure mode ("offline, DNS, a half-open connection reaped by the timeout") as transient and skips-and-retries with `exit 0` plus a throttled `alert_maintainer`. Change line 117 to match that pattern: on fetch failure, `log "WARN: ..."`, call `alert_maintainer` with a per-slug dedup key (e.g. `triager-fetch-failed-${slug//[^A-Za-z0-9._-]/_}`) so a *persistent* fetch failure (deleted fork, firewall) still surfaces at most once per throttle window, then `exit 0` to skip this tick and retry next cadence — rather than `die`. This keeps a real persistent breakage visible while stopping single network blips from failing the unit and triggering self-heal.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 17
+  worker_kind: gardener
+  claimed_at: 2026-07-19T03:04:38Z
