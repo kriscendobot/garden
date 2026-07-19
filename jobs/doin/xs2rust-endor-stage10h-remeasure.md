@@ -18,6 +18,7 @@ model: opus
 
 **Output:** tada with the totals table, per-file delta vs anchor with every divergent file classified, the error-trace pin status, and the finish-line statement. Fit one 2400s invocation for the SUPERVISED part (the detached sweep itself may outlive the handler — that is the design). Report via tada ONLY; never inbox-send the parked supervisor.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
