@@ -43,3 +43,10 @@ stage10i for_of/round-trip work may change worker behavior materially; if any er
 flips to pass/fail, show the per-test list; (2) any NEW daemon class vs the ledger; (3) the
 finish-line statement (does any `test:rust` daemon class fail beyond the expected-divergence
 ledger at the measured tip?). Report via your tada ONLY; never inbox-send the parked supervisor.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-19T11:31:08Z
