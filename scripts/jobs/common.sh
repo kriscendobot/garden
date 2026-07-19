@@ -216,6 +216,15 @@ export GARDEN
 # alongside the rc=124 wall-clock kill (journal_fetch / sync_clone below).
 : "${GARDEN_FETCH_KILL_AFTER:=10}"  # seconds after SIGTERM before SIGKILL escalation
 : "${GARDEN_FETCH_RETRIES:=3}"    # bounded attempts for a journal fetch
+# A PROJECT bare-clone refresh (triager.sh) fetches a full application repo, which
+# for a large monorepo (kriscendobot-agoric-sdk) legitimately takes far longer than
+# the ~45s journal fetch. Give it its own, more generous per-attempt bound so a
+# slow-but-progressing fetch completes instead of being killed every tick (which
+# would classify transient, skip, and never triage the repo). The bound MUST stay
+# comfortably UNDER the reaper's stuck-fetch janitor age (GARDEN_FETCH_REAP_AGE,
+# 120s) so triager.sh's own `timeout` — not the reaper — is what bounds the fetch,
+# keeping the reaper a pure backstop.
+: "${GARDEN_TRIAGE_FETCH_TIMEOUT:=90}"  # seconds before a project bare-clone fetch is killed and retried (< GARDEN_FETCH_REAP_AGE)
 : "${GARDEN_OFFLINE_RC:=75}"      # EX_TEMPFAIL: sync_clone exit on a connectivity/DNS outage
 : "${GARDEN_LOCK_WAIT:=60}"       # seconds a clone-lock waiter blocks before backing off
 : "${GARDEN_LOCK_RETRIES:=3}"     # bounded waits before a lock acquisition gives up
