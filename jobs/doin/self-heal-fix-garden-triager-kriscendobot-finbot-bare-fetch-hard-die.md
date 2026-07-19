@@ -1,8 +1,0 @@
-In `scripts/jobs/triager.sh` line 117, the standing-bare-clone refresh `git --git-dir="$BARE" fetch -q --all --prune || die "fetch failed for $slug"` is (a) unbounded — git has no IO timeout, so a half-open connection hangs until an external SIGTERM (the captured failure shows exactly this: a `Terminated` fetch followed by `FATAL: fetch failed for kriscendobot-finbot`, exit 1, crash-looping the `garden-triager@kriscendobot-finbot` unit into self-heal), and (b) a hard `die` on any failure, inconsistent with every other network path in this same file which treats a transient failure as a clean skip-and-retry-next-tick (`exit 0`) — see the `bounded_clone` provisioning block at lines 95–104. Fix: wrap the fetch with the existing timeout discipline (`timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" git --git-dir="$BARE" fetch -q --all --prune`, the same wrapper `bounded_clone`/`journal_fetch` use in `common.sh`), and on failure log a WARN and `exit 0` (skip this tick; the cursor stays unadvanced so no change is dropped and the next tick retries) instead of `die`. Optionally escalate via the throttled `alert_maintainer` (as the provision-failed path does) only after a persistent run of failures, so a genuinely dead source still surfaces without every transient stall firing self-heal. This makes a transient fetch stall a benign skip rather than a failed unit.
-
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 10
-  worker_kind: gardener
-  claimed_at: 2026-07-19T11:24:47Z
