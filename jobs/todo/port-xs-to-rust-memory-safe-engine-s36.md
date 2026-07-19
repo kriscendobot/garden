@@ -1,10 +1,7 @@
 ---
-gate: blocked
-blocked_on: xs2rust-endor-build-stage10e
-priority: normal
-posted_by: supervisor-s35
-posted_at: 2026-07-18T23:34:43Z
+model: fable
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-07-19T05:51:04Z -->
 
 ---
 model: fable
