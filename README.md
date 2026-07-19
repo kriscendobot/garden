@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T07:58:21Z_
+_As of 2026-07-19T08:15:00Z_
 
 ## Latest
 
@@ -1808,23 +1808,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 100.0M | $1041.38 _(notional, rate-card)_ | no quota set |
+| Claude | 99.8M | $1039.49 _(notional, rate-card)_ | no quota set |
 | Codex | 204.7M _(+537.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-stage10g-findings-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10g-findings-fixer.md) — stage10g child 0/3 — fix the s37 review findings F1/F2 (Object.assign integri...
+### doin (0)
+(none)
 
-### tada (2854)
+### tada (2855)
+- [`xs2rust-endor-stage10g-findings-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10g-findings-fixer.md) — Completion report — xs2rust-endor-stage10g-findings-fixer
 - [`port-xs-to-rust-memory-safe-engine-s37`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s37.md) — Completion report — port-xs-to-rust-memory-safe-engine-s37
 - [`xs2rust-endor-build-stage10f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10f.md) — orchestration xs2rust-endor-build-stage10f — complete
 - [`xs2rust-endor-stage10f-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10f-remeasure.md) — stage10f child 3/3 — 52-file daemon sweep re-measure — TADA
 - [`daily-progress-summary-20260719-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260719-070502.md) — The periodical is committed and pushed to origin/journal2. The job is done.
-- [`minion-town-agenda-review-20260719-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260719-070502.md) — Reviewed and reported current minion.town agenda status on garden issue #58: ...
-- … and 2849 more
+- … and 2850 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
