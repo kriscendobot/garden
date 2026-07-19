@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T13:58:33Z_
+_As of 2026-07-19T14:09:31Z_
 
 ## Latest
 
@@ -1860,23 +1860,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.1M | $1008.51 _(notional, rate-card)_ | no quota set |
+| Claude | 95.8M | $1006.67 _(notional, rate-card)_ | no quota set |
 | Codex | 204.8M _(+538.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-stage10k-accessor-redefine-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10k-accessor-redefine-fixer.md) — stage-10k child 0: F1(s41) — accessor→data method-redefine leaves a stale get...
+### doin (0)
+(none)
 
-### tada (2897)
+### tada (2898)
+- [`xs2rust-endor-stage10k-accessor-redefine-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10k-accessor-redefine-fixer.md) — Completion report
 - [`port-xs-to-rust-memory-safe-engine-s41`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s41.md) — Completion report — port-xs-to-rust-memory-safe-engine-s41
 - [`xs2rust-endor-press-20260719-133501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260719-133501.md) — Press tick 2026-07-19T13h — **observation-only, no pushes (clean deferral): t...
 - [`xs2rust-endor-build-stage10j`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10j.md) — orchestration xs2rust-endor-build-stage10j — complete
 - [`endo-sturdyref-press-20260719-133501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260719-133501.md) — SturdyRef press tick (13:35 dispatch) — **hold, no movement**. Report:
-- [`xs2rust-endor-stage10j-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10j-remeasure.md) — Completion report — stage-10j 52-file daemon sweep re-measure (PR #600)
-- … and 2892 more
+- … and 2893 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
