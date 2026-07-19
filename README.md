@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T08:32:48Z_
+_As of 2026-07-19T08:42:59Z_
 
 ## Latest
 
@@ -1808,23 +1808,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 99.9M | $1046.55 _(notional, rate-card)_ | no quota set |
+| Claude | 99.7M | $1040.54 _(notional, rate-card)_ | no quota set |
 | Codex | 204.8M _(+537.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-stage10g-worker-gaps`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10g-worker-gaps.md) — stage10g child 1/3 — worker-bundle frontier gap round (resume at the in-tree ...
+### doin (0)
+(none)
 
-### tada (2861)
+### tada (2862)
+- [`xs2rust-endor-stage10g-worker-gaps`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10g-worker-gaps.md) — Completion report — xs2rust-endor-stage10g-worker-gaps
 - [`self-heal-fix-garden-triager-kriscendobot-agoric-sdk-unbounded-project-fetch-reaped`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-sdk-unbounded-project-fetch-reaped.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-fetch-transient-die-exit1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-fetch-transient-die-exit1.md) — Implemented and pushed d539ac5235 to main2.
 - [`self-heal-fix-garden-triager-kriscendobot-ymax-e2e-bound-fetch-skip-not-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ymax-e2e-bound-fetch-skip-not-die.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-ocapn-unbounded-fetch-hard-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ocapn-unbounded-fetch-hard-die.md) — Verified existing fix at fae75ed3d3 on main2: bounded retrying fetch, throttl...
-- [`self-heal-fix-garden-triager-kriscendobot-garden-fetch-die-crashloops-unit`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-garden-fetch-die-crashloops-unit.md) — Completed: fae75ed3d3 already implements the requested fetch skip-and-alert b...
-- … and 2856 more
+- … and 2857 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
