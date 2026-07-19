@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T05:51:21Z_
+_As of 2026-07-19T05:51:50Z_
 
 ## Latest
 
@@ -1800,25 +1800,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 104.7M | $1084.95 _(notional, rate-card)_ | no quota set |
-| Codex | 204.6M _(+537.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 104.7M | $1084.93 _(notional, rate-card)_ | no quota set |
+| Codex | 204.7M _(+537.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr160-review-9858a782`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-9858a782.md) — Review directive on endojs/endo-but-for-bots PR #160
+### doin (2)
 - [`finbot-progress-20260719-055001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260719-055001.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`port-xs-to-rust-memory-safe-engine-s36`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s36.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
-### tada (2837)
+### tada (2838)
+- [`endojs-endo-but-for-bots-pr160-review-9858a782`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr160-review-9858a782.md) — **Completion Report for endojs-endo-but-for-bots PR #160 — kriskowal review #...
 - [`endojs-endo-but-for-bots-pr794-conductor`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr794-conductor.md) — Conductor report — endojs/endo-but-for-bots PR #794
 - [`endojs-endo-but-for-bots-pr794-review-cdf94916`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr794-review-cdf94916.md) — Addressed PR #794 review feedback in 1f2654f99; replied inline and posted a s...
 - [`xs2rust-endor-build-stage10e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10e.md) — orchestration xs2rust-endor-build-stage10e — HALTED
 - [`endojs-endo-but-for-bots-pr138-review-add866fa`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr138-review-add866fa.md) — Completion report
-- [`xs2rust-endor-press-20260719-050501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260719-050501.md) — Completion report
-- … and 2832 more
+- … and 2833 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
