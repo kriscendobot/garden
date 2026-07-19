@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T08:15:00Z_
+_As of 2026-07-19T08:16:20Z_
 
 ## Latest
 
@@ -1808,15 +1808,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 99.8M | $1039.49 _(notional, rate-card)_ | no quota set |
+| Claude | 99.6M | $1038.00 _(notional, rate-card)_ | no quota set |
 | Codex | 204.7M _(+537.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-stage10g-worker-gaps`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10g-worker-gaps.md) — stage10g child 1/3 — worker-bundle frontier gap round (resume at the in-tree ...
 
 ### tada (2855)
 - [`xs2rust-endor-stage10g-findings-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10g-findings-fixer.md) — Completion report — xs2rust-endor-stage10g-findings-fixer
