@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T07:09:16Z_
+_As of 2026-07-19T07:09:36Z_
 
 ## Latest
 
@@ -1820,7 +1820,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-stage10f-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10f-remeasure.md) — stage10f child 3/3 — bounded-serial 52-file daemon sweep re-measure (measurem...
 
 ### tada (2850)
-- [`minion-town-agenda-review-20260719-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260719-070502.md) — Completed the hourly agenda review and posted the substantive report to https...
+- [`minion-town-agenda-review-20260719-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260719-070502.md) — Reviewed and reported current minion.town agenda status on garden issue #58: ...
 - [`xs2rust-endor-press-20260719-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260719-070502.md) — Completion report
 - [`endo-sturdyref-press-20260719-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260719-070502.md) — Hold tick complete — no movement to press on, observation recorded.
 - [`endo-git-integration-press-20260719-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260719-065003.md) — Press report — git-integration / M3 loop (dispatch 2026-07-19)
