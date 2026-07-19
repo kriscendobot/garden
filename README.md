@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T07:07:32Z_
+_As of 2026-07-19T07:07:52Z_
 
 ## Latest
 
@@ -1808,26 +1808,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.4M | $1056.26 _(notional, rate-card)_ | no quota set |
+| Claude | 101.4M | $1056.52 _(notional, rate-card)_ | no quota set |
 | Codex | 204.7M _(+537.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`daily-progress-summary-20260719-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260719-070502.md) — Daily midnight Pacific progress summary
 - [`minion-town-agenda-review-20260719-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260719-070502.md) — Minion Town hourly agenda review
-- [`xs2rust-endor-press-20260719-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260719-070502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-stage10f-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10f-remeasure.md) — stage10f child 3/3 — bounded-serial 52-file daemon sweep re-measure (measurem...
 
-### tada (2848)
+### tada (2849)
+- [`xs2rust-endor-press-20260719-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260719-070502.md) — Completion report
 - [`endo-sturdyref-press-20260719-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260719-070502.md) — Hold tick complete — no movement to press on, observation recorded.
 - [`endo-git-integration-press-20260719-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260719-065003.md) — Press report — git-integration / M3 loop (dispatch 2026-07-19)
 - [`ocapn-noise-press-20260719-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260719-065003.md) — Press dispatch 9 (2026-07-19 06:50Z) — poisoned predecessor's restack verifie...
 - [`xs2rust-endor-stage10f-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10f-live-captp-eval.md) — Completion report — stage-10f child 2/3 (live-captp-eval → degraded to worker...
-- [`endo-vfs-parity-press-20260719-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260719-065003.md) — No activity on any arc PR since the last tick, and no maintainer reply on the...
-- … and 2843 more
+- … and 2844 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
