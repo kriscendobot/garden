@@ -24,3 +24,10 @@ next tick) and `common.sh`'s `bounded_clone`/`journal_fetch`:
 Add a test alongside the existing triager clone-handling cases asserting a failing
 `GARDEN_FETCH_CMD`-injected fetch results in exit 0 (skip) plus one throttled
 maintainer alert, not exit 1.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-19T08:25:00Z
