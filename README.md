@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T04:20:29Z_
+_As of 2026-07-19T04:29:35Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 21h)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 22h)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 1d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 1d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
@@ -795,6 +795,14 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > **Verification that it's not persistent:**
 > - The bare clone exists and is healthy (`worktrees/kriscendobot-agoric-3-proposals.git`, 15M, val
+
+- `20260719T042908Z-8fa2d2` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260719T042908Z-8fa2d2.md)
+
+> Two items from report endo-npm-cas-registry-press-20260719-040510 are your call, not autonomous work:
+>
+> 1. Phase 5 (`--offline` hard-fail, `.npmrc`, scoped registries) proposes porting PR #782's substance onto the new #800 stack rather than rebasing it. This is the next phase of the press and depends on the reland (follow-up above) settling first — confirm you want to spend builder effort on Phase 5 and in what order relative to the reland.
+>
+> 2. The seven old-generation drafts are marked superseded/reference but left OPEN. Closing them is a maintainer decision — say the word and I'll have them closed, or leave them as reference.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -1751,14 +1759,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 105.8M | $1093.60 _(notional, rate-card)_ | no quota set |
+| Claude | 105.7M | $1093.29 _(notional, rate-card)_ | no quota set |
 | Codex | 202.0M _(+530.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`fu-endo-npm-cas-registry-press-20260719-040510-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260719-040510-1.md) — endojs/endo-but-for-bots — reland PR #791's error-surface hardening and PR #7...
 - [`xs2rust-endor-stage10e-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10e-remeasure.md) — stage10e child 3/3 — bounded-serial 52-file daemon sweep re-measure (measurem...
 
 ### tada (2829)
