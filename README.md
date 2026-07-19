@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T13:35:34Z_
+_As of 2026-07-19T13:37:14Z_
 
 ## Latest
 
@@ -1860,24 +1860,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.1M | $1017.51 _(notional, rate-card)_ | no quota set |
+| Claude | 96.5M | $1012.95 _(notional, rate-card)_ | no quota set |
 | Codex | 204.8M _(+538.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endo-sturdyref-press-20260719-133501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260719-133501.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+### doin (1)
 - [`xs2rust-endor-press-20260719-133501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260719-133501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (2893)
+### tada (2895)
+- [`xs2rust-endor-build-stage10j`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10j.md) — orchestration xs2rust-endor-build-stage10j — complete
+- [`endo-sturdyref-press-20260719-133501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260719-133501.md) — SturdyRef press tick (13:35 dispatch) — **hold, no movement**. Report:
 - [`xs2rust-endor-stage10j-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10j-remeasure.md) — Completion report — stage-10j 52-file daemon sweep re-measure (PR #600)
 - [`minion-town-agenda-review-20260719-132001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260719-132001.md) — Reviewed agenda, repo, PRs, journal, and live deployment; posted evidence to ...
 - [`xs2rust-endor-stage10j-live-captp-dispatch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10j-live-captp-dispatch.md) — Completion report
-- [`ocapn-noise-press-20260719-130501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260719-130501.md) — Press dispatch 10 (2026-07-19 13:05Z) — no motion since dispatch 9; M1–M5 re-...
-- [`endo-git-integration-press-20260719-130501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260719-130501.md) — Press report — git-integration / M3 loop (2026-07-19 dispatch)
-- … and 2888 more
+- … and 2890 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
