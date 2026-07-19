@@ -118,36 +118,21 @@ fi
 # retain stderr for the same offline classification sync_clone uses. The `if`
 # preserves the failed command's rc under set -e.
 #
-# The bound is the triage-specific GARDEN_TRIAGE_FETCH_TIMEOUT (90s), NOT the ~45s
-# journal GARDEN_FETCH_TIMEOUT: this fetches a full application repo, and a large
-# monorepo (kriscendobot-agoric-sdk) legitimately needs longer than a journal
-# fetch. Too tight a bound kills a slow-but-progressing fetch EVERY tick, which
-# then classifies transient and skips forever — the repo never triages. The 90s
-# bound still sits comfortably under the reaper's stuck-fetch janitor age
-# (GARDEN_FETCH_REAP_AGE, 120s), so this file's own `timeout` — not the reaper —
-# is what bounds the fetch, keeping the reaper a pure backstop (an externally
-# reaped fetch surfaces as `Terminated`/rc 143, marks the unit Failed, and trips
-# self-heal every slow tick — the very signature this bound prevents). We fetch
-# `origin` by name rather than `--all`: a bare project clone has a single origin
-# remote, so `--all`'s multi-remote walk only adds cost.
-if GARDEN_FETCH_STDERR="$(timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_TRIAGE_FETCH_TIMEOUT" \
-    git --git-dir="$BARE" fetch -q --prune origin 2>&1 1>/dev/null)"; then
+# Use the shared fetch timeout knobs, and retain stderr for the same offline
+# classification sync_clone uses. `if` preserves the failed command's status
+# under set -e so the clean-skip branch below can run.
+if GARDEN_FETCH_STDERR="$(timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
+    git --git-dir="$BARE" fetch -q --all --prune 2>&1 1>/dev/null)"; then
   rc=0
 else
   rc=$?
 fi
 if [ "$rc" -ne 0 ]; then
-  # 124 = SIGTERM at the wall-clock deadline; 137 = --kill-after SIGKILL escalation
-  # of a SIGTERM-ignoring transport child; 143 = a wrapper/reaper-reported SIGTERM
-  # terminate (128+15) — should not arise while the bound stays under the reaper age,
-  # but classify it transient too so a backstop reap skips the tick instead of dying.
-  # A recognized offline stderr signature is likewise a transient blip. All skip via
-  # GARDEN_OFFLINE_RC (75=EX_TEMPFAIL), which self-heal-run.sh normalizes to a clean
-  # exit 0 — no Failed unit, no responder burned. A genuine fetch error (bad ref, real
-  # repo corruption) still die()s so it surfaces loudly.
-  if [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ] || [ "$rc" -eq 143 ] \
+  # Timeout's 124 and 137 exits, or a recognized offline stderr signature,
+  # are transient. A real repository error remains loud.
+  if [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ] \
       || _fetch_stderr_is_offline "$GARDEN_FETCH_STDERR"; then
-    log "WARN: fetch for $slug timed out or hit a transient outage (rc=$rc, bound >${GARDEN_TRIAGE_FETCH_TIMEOUT}s); skipping this tick (retry next tick)"
+    log "offline; skipping tick"
     exit "$GARDEN_OFFLINE_RC"
   fi
   die "fetch failed for $slug"
