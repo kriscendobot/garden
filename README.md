@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T09:43:31Z_
+_As of 2026-07-19T09:44:28Z_
 
 ## Latest
 
@@ -1848,24 +1848,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.8M | $1034.06 _(notional, rate-card)_ | no quota set |
+| Claude | 98.9M | $1034.42 _(notional, rate-card)_ | no quota set |
 | Codex | 204.8M _(+537.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`port-xs-to-rust-memory-safe-engine-s38`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s38.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
+### doin (1)
 - [`xs2rust-endor-stage10h-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10h-live-captp-eval.md) — stage10h child 1/2 — hostGetDaemonHandle host binding, then the gated live da...
 
-### tada (2865)
+### tada (2866)
+- [`port-xs-to-rust-memory-safe-engine-s38`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s38.md) — Completion report — port-xs-to-rust-memory-safe-engine-s38
 - [`xs2rust-endor-build-stage10g`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10g.md) — orchestration xs2rust-endor-build-stage10g — HALTED
 - [`endo-sturdyref-press-20260719-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260719-092001.md) — SturdyRef press tick (2026-07-19 09:20Z) — **hold + observation; no movement ...
 - [`xs2rust-endor-press-20260719-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260719-092001.md) — Completion report
 - [`xs2rust-endor-stage10g-worker-gaps`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10g-worker-gaps.md) — Completion report — xs2rust-endor-stage10g-worker-gaps
-- [`self-heal-fix-garden-triager-kriscendobot-agoric-sdk-unbounded-project-fetch-reaped`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-agoric-sdk-unbounded-project-fetch-reaped.md) — Completion report
-- … and 2860 more
+- … and 2861 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
