@@ -15,3 +15,10 @@ model: opus
 **If the gate is GREEN:** run the live round trip — build the ROOT release binary (`cargo build --release -p endo --bin endor`), then drive the daemon smoke gates in the short-path env `~/tmp/s10e` (host endolin-garden2; AF_UNIX sun_path limit — real short path only; sync its source files to your tip and `cargo clean -p endor-compile -p endor-vm -p endor-oracle` + fresh release build first, per `~/tmp/s10f-results/build.sh`): `context.test.js` 10/10, then `channel.test.js` with the DEFAULT ava reporter (TAP crashes in `dumpError` on a timed-out test; channel.test.js cannot finish a 90s serial window — throughput artifact, NOT a hang) under `ENDO_WORKER_BIN='<abs>/endor worker -e rust'` (NOT `ENDO_ENGINE`). Push-per-item any engine fixes surfaced; checkpoint every artifact under `~/tmp/s10g-results/` as it lands.
 
 **Bars (green before every push), sizing, STOP-and-checkpoint, tada-only reporting:** identical to child 1's body (workspace all-0-failed at the tip's binary count; compile-diff + SYMB 1909/1909; boot gate 30/0; ROOT lib 0-failed; zero non-oracle warnings; forbid 7 + oracle exempt; VARIANT_COUNT 35 or ledger; the s37 integrity-flag doctrine on any new write path; fit one 2400s invocation; STOP at a pushed bar-green checkpoint; report via tada ONLY; keep DRAFT).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: gardener
+  claimed_at: 2026-07-19T08:43:12Z
