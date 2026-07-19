@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T05:05:46Z_
+_As of 2026-07-19T05:07:21Z_
 
 ## Latest
 
@@ -1759,25 +1759,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 105.4M | $1090.99 _(notional, rate-card)_ | no quota set |
+| Claude | 105.3M | $1090.65 _(notional, rate-card)_ | no quota set |
 | Codex | 202.0M _(+530.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endo-sturdyref-press-20260719-050501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260719-050501.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+### doin (2)
 - [`xs2rust-endor-press-20260719-050501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260719-050501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-stage10e-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10e-remeasure.md) — stage10e child 3/3 — bounded-serial 52-file daemon sweep re-measure (measurem...
 
-### tada (2830)
+### tada (2831)
+- [`endo-sturdyref-press-20260719-050501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260719-050501.md) — **Tick outcome: hold + observation (no movement to press on).**
 - [`fu-endo-npm-cas-registry-press-20260719-040510-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-endo-npm-cas-registry-press-20260719-040510-1.md) — Completion report
 - [`endo-npm-cas-registry-press-20260719-040510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260719-040510.md) — Completion report — endo-npm-cas-registry-press-20260719-040510
 - [`xs2rust-endor-press-20260719-030501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260719-030501.md) — Completion report
 - [`self-heal-fix-garden-triager-kriscendobot-finbot-fetch-die-should-skip-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-finbot-fetch-die-should-skip-retry.md) — Completion report
-- [`self-heal-fix-garden-triager-kriscendobot-cosgov-fetch-hard-die-on-transient`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-cosgov-fetch-hard-die-on-transient.md) — Completion report
-- … and 2825 more
+- … and 2826 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
