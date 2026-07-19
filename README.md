@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T05:58:34Z_
+_As of 2026-07-19T05:59:18Z_
 
 ## Latest
 
@@ -1811,17 +1811,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
-- [`port-xs-to-rust-memory-safe-engine-s36`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s36.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
+### doin (1)
 - [`xs2rust-endor-stage10f-worker-gaps`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10f-worker-gaps.md) — stage10f child 1/3 — worker-bundle frontier gap round (resume at Unsupported(...
 
-### tada (2839)
+### tada (2840)
+- [`port-xs-to-rust-memory-safe-engine-s36`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s36.md) — Completion report — supervisor s36 (stage-10e halt recovery → stage-10f dispa...
 - [`finbot-progress-20260719-055001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260719-055001.md) — Advanced finbot main: f804aa3 adds three-way OOS QLIKE selection across GARCH...
 - [`endojs-endo-but-for-bots-pr160-review-9858a782`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr160-review-9858a782.md) — **Completion Report for endojs-endo-but-for-bots PR #160 — kriskowal review #...
 - [`endojs-endo-but-for-bots-pr794-conductor`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr794-conductor.md) — Conductor report — endojs/endo-but-for-bots PR #794
 - [`endojs-endo-but-for-bots-pr794-review-cdf94916`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr794-review-cdf94916.md) — Addressed PR #794 review feedback in 1f2654f99; replied inline and posted a s...
-- [`xs2rust-endor-build-stage10e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10e.md) — orchestration xs2rust-endor-build-stage10e — HALTED
-- … and 2834 more
+- … and 2835 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
