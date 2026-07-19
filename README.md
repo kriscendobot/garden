@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T11:56:34Z_
+_As of 2026-07-19T11:58:13Z_
 
 ## Latest
 
@@ -823,6 +823,18 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260719T093412Z-94d7b7` — from orchestrator:xs2rust-endor-build-stage10g-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260719T093412Z-94d7b7.md)
 
 > Orchestration xs2rust-endor-build-stage10g HALTED: child xs2rust-endor-stage10g-live-captp-eval failed (serial, on-child-failure=halt). 2/4 done before halt; swept: xs2rust-endor-stage10g-remeasure
+
+- `20260719T115759Z-b2be99` — from gardener:finbot-progress-20260719-115001, reply_to `finbot-progress-20260719-115001` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260719T115759Z-b2be99.md)
+
+> finbot cycle (builder) — one increment landed, tree green.
+>
+> Advanced kriscendobot/finbot main f804aa3 -> 53cfcfb: a **parsimony margin** on the auto-garch-family volatility selector. Previously an asymmetric branch (GJR/EGARCH) was taken on ANY held-out QLIKE edge over symmetric GARCH; on a symmetric DGP that edge is noise-level (~0.01 nats) and spuriously flipped the selection. Now the best asymmetric candidate must beat the GARCH baseline by a pre-specified margin (default 0.02 nats, override via opts.selectionMargin) before its extra leverage parameter is accepted; the two equally-complex asymmetric branches still race on raw QLIKE between themselves. A best-but-within-margin outcome keeps GARCH and records selection='oos-qlike-within-margin', so the near-miss is visible in the fit artifact. Threshold chosen from observed spreads: ~0.01 (symmetric noise) vs ~0.07 (genuine leverage). This was the exact next step the prior cycle handed off.
+>
+> Verified: full workspace suite 591 pass / 0 fail (+6 new tests); seeded dry-run OODA on --adaptive-vol=auto-family and on the default path both auditor-APPROVED with WALLET TOUCHED: false.
+>
+> Next unblocked step: apply the same parsimony margin to the two-way auto-egarch selector (AutoEgarchSurface), which still uses raw argmin and has the identical over-selection flaw; then a pre-specified forecast-comparison (Diebold-Mariano) test for whether the QLIKE gap is statistically significant, not just above a fixed nat threshold.
+>
+> Maintainer decision pending (unchanged): live execution stays blocked on explicit paper-wallet/test-net authorization and a chosen CapTP transport.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -1848,7 +1860,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.7M | $1023.03 _(notional, rate-card)_ | no quota set |
+| Claude | 97.7M | $1023.54 _(notional, rate-card)_ | no quota set |
 | Codex | 204.8M _(+538.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
