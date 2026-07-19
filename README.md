@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T00:38:55Z_
+_As of 2026-07-19T00:50:56Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 1d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 18h)
-- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 23h)
+- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 1d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 1d)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 1d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
@@ -1681,15 +1681,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 107.9M | $1095.43 _(notional, rate-card)_ | no quota set |
+| Claude | 107.9M | $1096.68 _(notional, rate-card)_ | no quota set |
 | Codex | 201.9M _(+529.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (5)
+- [`endo-sturdyref-press-20260719-005013`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260719-005013.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+- [`minion-town-agenda-review-20260719-005013`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260719-005013.md) — Minion Town hourly agenda review
 - [`ocapn-noise-press-20260719-003513`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260719-003513.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+- [`xs2rust-endor-press-20260719-005013`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260719-005013.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-stage10e-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10e-remeasure.md) — stage10e child 3/3 — bounded-serial 52-file daemon sweep re-measure (measurem...
 
 ### tada (2820)
