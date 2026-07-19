@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T00:31:56Z_
+_As of 2026-07-19T00:34:28Z_
 
 ## Latest
 
@@ -1669,8 +1669,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-stage10e-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10e-remeasure.md) — stage10e child 3/3 — bounded-serial 52-file daemon sweep re-measure (measurem...
 
 ### tada (2816)
 - [`xs2rust-endor-stage10e-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10e-live-captp-eval.md) — Completion report
