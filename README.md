@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T07:37:23Z_
+_As of 2026-07-19T07:40:22Z_
 
 ## Latest
 
@@ -1818,13 +1818,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (0)
 (none)
 
-### tada (2852)
+### tada (2853)
+- [`xs2rust-endor-build-stage10f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10f.md) — orchestration xs2rust-endor-build-stage10f — complete
 - [`xs2rust-endor-stage10f-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10f-remeasure.md) — stage10f child 3/3 — 52-file daemon sweep re-measure — TADA
 - [`daily-progress-summary-20260719-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260719-070502.md) — The periodical is committed and pushed to origin/journal2. The job is done.
 - [`minion-town-agenda-review-20260719-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260719-070502.md) — Reviewed and reported current minion.town agenda status on garden issue #58: ...
 - [`xs2rust-endor-press-20260719-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260719-070502.md) — Completion report
-- [`endo-sturdyref-press-20260719-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260719-070502.md) — Hold tick complete — no movement to press on, observation recorded.
-- … and 2847 more
+- … and 2848 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
