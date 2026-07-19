@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T00:34:28Z_
+_As of 2026-07-19T00:36:17Z_
 
 ## Latest
 
@@ -1662,14 +1662,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 107.9M | $1095.43 _(notional, rate-card)_ | no quota set |
+| Claude | 108.0M | $1096.02 _(notional, rate-card)_ | no quota set |
 | Codex | 201.9M _(+529.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (6)
+- [`endo-byte-array-press-20260719-003513`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260719-003513.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+- [`endo-daemon-data-plane-press-20260719-003513`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-daemon-data-plane-press-20260719-003513.md) — Press the Endo daemon data plane forward (endojs/endo-but-for-bots, base llm)
+- [`endo-git-integration-press-20260719-003513`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260719-003513.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+- [`endo-vfs-parity-press-20260719-003513`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260719-003513.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+- [`ocapn-noise-press-20260719-003513`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260719-003513.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`xs2rust-endor-stage10e-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10e-remeasure.md) — stage10e child 3/3 — bounded-serial 52-file daemon sweep re-measure (measurem...
 
 ### tada (2816)
