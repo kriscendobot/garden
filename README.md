@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T00:52:41Z_
+_As of 2026-07-19T01:20:56Z_
 
 ## Latest
 
@@ -1681,25 +1681,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 107.9M | $1097.32 _(notional, rate-card)_ | no quota set |
+| Claude | 108.0M | $1104.16 _(notional, rate-card)_ | no quota set |
 | Codex | 202.0M _(+530.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`ocapn-noise-press-20260719-003513`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260719-003513.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
-- [`xs2rust-endor-press-20260719-005013`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260719-005013.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-stage10e-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10e-remeasure.md) — stage10e child 3/3 — bounded-serial 52-file daemon sweep re-measure (measurem...
 
-### tada (2822)
+### tada (2823)
+- [`xs2rust-endor-press-20260719-005013`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260719-005013.md) — Completion report
 - [`minion-town-agenda-review-20260719-005013`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260719-005013.md) — Reviewed and reported on [garden issue #58](https://github.com/kriskowal/gard...
 - [`endo-sturdyref-press-20260719-005013`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260719-005013.md) — Completion report
 - [`endo-git-integration-press-20260719-003513`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260719-003513.md) — Press report — git-integration / M3 loop (endojs/endo-but-for-bots), dispatch...
 - [`endo-daemon-data-plane-press-20260719-003513`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260719-003513.md) — Press dispatch complete — the arc's **finish line is met and verified**; this...
-- [`endo-vfs-parity-press-20260719-003513`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260719-003513.md) — Verify-and-stand-down tick — nothing changed since the last dispatch, and all...
-- … and 2817 more
+- … and 2818 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
