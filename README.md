@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T11:20:37Z_
+_As of 2026-07-19T11:22:49Z_
 
 ## Latest
 
@@ -1848,25 +1848,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.0M | $1025.43 _(notional, rate-card)_ | no quota set |
+| Claude | 97.8M | $1023.81 _(notional, rate-card)_ | no quota set |
 | Codex | 204.8M _(+537.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endo-sturdyref-press-20260719-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260719-112002.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
-- [`xs2rust-endor-press-20260719-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260719-112002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+### doin (1)
 - [`xs2rust-endor-stage10i-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10i-live-captp-eval.md) — Builder: worker-bundle frontier — the for_of iteration-protocol op, then the ...
 
-### tada (2872)
+### tada (2874)
+- [`xs2rust-endor-press-20260719-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260719-112002.md) — Press tick 2026-07-19T11h — **observation-only, no pushes (clean deferral): t...
+- [`endo-sturdyref-press-20260719-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260719-112002.md) — Hold tick — no movement; observation recorded, no code pushed.
 - [`xs2rust-endor-stage10i-accessor-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10i-accessor-fixer.md) — Completion report — xs2rust-endor-stage10i-accessor-fixer (F1 s39, PR #600)
 - [`port-xs-to-rust-memory-safe-engine-s39`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s39.md) — Completion report — port-xs-to-rust-memory-safe-engine-s39
 - [`endo-npm-cas-registry-press-20260719-102003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260719-102003.md) — Press tick complete — this dispatch landed **Phase 5 (offline mode + .npmrc)*...
-- [`xs2rust-endor-build-stage10h`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10h.md) — orchestration xs2rust-endor-build-stage10h — complete
-- [`xs2rust-endor-stage10h-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10h-remeasure.md) — stage10h child 2/2 — 52-file daemon sweep re-measure — TADA
-- … and 2867 more
+- … and 2869 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
