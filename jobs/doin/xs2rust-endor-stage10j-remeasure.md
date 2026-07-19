@@ -47,3 +47,10 @@ than restarting; classify any kill honestly.
    measured tip? Trigger a C-XS re-run ONLY on a CHANGED class (anchor 530/19/20/0).
 
 Report via your tada completion report ONLY — never inbox-send the parked supervisor.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 5
+  worker_kind: gardener
+  claimed_at: 2026-07-19T13:16:10Z
