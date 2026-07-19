@@ -149,7 +149,17 @@ if [ "$fetch_rc" -ne 0 ]; then
     log "WARN: transient fetch failure for $slug after $fetch_attempt attempt(s); skipping this tick (retry next tick)"
     exit 0
   fi
-  die "fetch failed for $slug"
+  # An UNCLASSIFIED fetch failure (not a recognized timeout/kill or transient net
+  # error) reaches here. It could still be a blip the matcher did not catch, or a
+  # PERSISTENT breakage (deleted fork, firewall, malformed remote config). Do NOT
+  # die: exit 1 fails the systemd unit and triggers self-heal churn EVERY tick.
+  # Match the self-provision path above — WARN, alert_maintainer (throttled per
+  # dedup key so a persistent failure surfaces at most once per window, and a
+  # single blip never floods), then skip this tick and retry next cadence.
+  fmsg="triager: steady-state fetch failed for $slug (rc=$fetch_rc, not a recognized transient) after $fetch_attempt attempt(s). Retried next tick; if this persists the clone or its remote is broken (deleted fork, firewalled, or malformed remote config) and $slug cannot be triaged until it is restored.$( [ -s "$ERRF" ] && printf ' Last error: %s' "$(tail -n1 "$ERRF")" )"
+  log "WARN: $fmsg (skipping this tick)"
+  alert_maintainer "triager-fetch-failed-${slug//[^A-Za-z0-9._-]/_}" "$fmsg"
+  exit 0
 fi
 
 # resolve the ref to watch. --verify -q keeps a missing primary ref from echoing its
