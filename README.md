@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T13:08:31Z_
+_As of 2026-07-19T13:09:48Z_
 
 ## Latest
 
@@ -1860,24 +1860,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.4M | $1020.28 _(notional, rate-card)_ | no quota set |
+| Claude | 97.3M | $1018.51 _(notional, rate-card)_ | no quota set |
 | Codex | 204.8M _(+538.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`ocapn-noise-press-20260719-130501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260719-130501.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+### doin (1)
 - [`xs2rust-endor-stage10j-live-captp-dispatch`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10j-live-captp-dispatch.md) — Builder: the CapTP-dispatch frontier — from full boot to the LIVE round trip ...
 
-### tada (2889)
+### tada (2890)
+- [`ocapn-noise-press-20260719-130501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260719-130501.md) — Press dispatch 10 (2026-07-19 13:05Z) — no motion since dispatch 9; M1–M5 re-...
 - [`endo-git-integration-press-20260719-130501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260719-130501.md) — Press report — git-integration / M3 loop (2026-07-19 dispatch)
 - [`endo-byte-array-press-20260719-130501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260719-130501.md) — Completion report — endo-byte-array-press (dispatch 2026-07-19)
 - [`endo-daemon-data-plane-press-20260719-130501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260719-130501.md) — All verification is complete and the picture is unchanged. The wind-down prop...
 - [`endo-vfs-parity-press-20260719-130501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260719-130501.md) — Everything is verified: this is a no-activity tick, so per the press's standi...
-- [`xs2rust-endor-stage10j-flag-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10j-flag-fixer.md) — Completion report — F1(s40) + F2(s40), PR #600 (stage 10j)
-- … and 2884 more
+- … and 2885 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
