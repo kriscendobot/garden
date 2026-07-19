@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T05:07:21Z_
+_As of 2026-07-19T05:21:55Z_
 
 ## Latest
 
@@ -1759,14 +1759,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 105.3M | $1090.65 _(notional, rate-card)_ | no quota set |
+| Claude | 105.0M | $1087.14 _(notional, rate-card)_ | no quota set |
 | Codex | 202.0M _(+530.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr793-review-16e5c4ce`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr793-review-16e5c4ce.md) — Review directive on endojs/endo-but-for-bots PR #793
 - [`xs2rust-endor-press-20260719-050501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260719-050501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-stage10e-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10e-remeasure.md) — stage10e child 3/3 — bounded-serial 52-file daemon sweep re-measure (measurem...
 
@@ -1833,6 +1834,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kriscendobot-agoric-sdk-pr15-review-aad444c1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-review-aad444c1-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #15 (primary: kriscendobot-agoric...
 - [`endojs-endo-but-for-bots-pr259-review-8288f2bf-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr259-review-8288f2bf-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #259 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr794-review-a34bb7b7-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr794-review-a34bb7b7-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #794 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr793-review-16e5c4ce-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr793-review-16e5c4ce-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #793 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
