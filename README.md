@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T11:50:30Z_
+_As of 2026-07-19T11:54:24Z_
 
 ## Latest
 
@@ -1848,25 +1848,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.8M | $1023.64 _(notional, rate-card)_ | no quota set |
+| Claude | 97.8M | $1022.55 _(notional, rate-card)_ | no quota set |
 | Codex | 204.8M _(+538.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`finbot-progress-20260719-115001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260719-115001.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-fetch-hard-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-agoric-3-proposals-fetch-hard-die.md) — In scripts/jobs/triager.sh, the bare-clone fetch at line 117 (git --git-dir="...
-- [`xs2rust-endor-stage10i-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10i-remeasure.md) — Measurement: 52-file daemon sweep re-measure at the stage-10i tip (PR #600) —...
 
-### tada (2879)
+### tada (2880)
+- [`xs2rust-endor-stage10i-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10i-remeasure.md) — Completion report — stage-10i 52-file daemon sweep re-measure
 - [`xs2rust-endor-stage10i-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10i-live-captp-eval.md) — Completion report — xs2rust-endor-stage10i-live-captp-eval (PR #600, stage 10i)
 - [`self-heal-fix-garden-triager-kriscendobot-vattr97-fetch-hard-die-exit1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-vattr97-fetch-hard-die-exit1.md) — Implemented and pushed fix: soft-skip triager fetch failures to main2.
 - [`self-heal-fix-garden-triager-kriscendobot-cosgov-fetch-transient-soft-skip`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-cosgov-fetch-transient-soft-skip.md) — Implemented and pushed 12c4cd5d4e to main2.
 - [`self-heal-fix-garden-triager-kriscendobot-minion-town-repo-fetch-offline-skip`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-minion-town-repo-fetch-offline-skip.md) — Implemented and pushed 562646237c to main2.
-- [`self-heal-fix-garden-triager-kriscendobot-finbot-bare-fetch-hard-die`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-finbot-bare-fetch-hard-die.md) — The job is already fully resolved. My worktree base (74704e47a8, already on o...
-- … and 2874 more
+- … and 2875 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
