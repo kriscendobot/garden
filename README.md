@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T10:36:59Z_
+_As of 2026-07-19T10:37:36Z_
 
 ## Latest
 
@@ -1855,8 +1855,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`port-xs-to-rust-memory-safe-engine-s39`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s39.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
+- [`xs2rust-endor-stage10i-accessor-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10i-accessor-fixer.md) — Fixer: literal/class accessor definitions must stop wrong-completing (finding...
 
 ### tada (2870)
 - [`endo-npm-cas-registry-press-20260719-102003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260719-102003.md) — Press tick complete — this dispatch landed **Phase 5 (offline mode + .npmrc)*...
