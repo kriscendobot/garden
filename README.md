@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T09:44:28Z_
+_As of 2026-07-19T09:57:33Z_
 
 ## Latest
 
@@ -13,8 +13,8 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 4h)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 1d)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 1d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 1d)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 1d)
@@ -1848,23 +1848,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.9M | $1034.42 _(notional, rate-card)_ | no quota set |
+| Claude | 98.8M | $1034.16 _(notional, rate-card)_ | no quota set |
 | Codex | 204.8M _(+537.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-stage10h-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10h-live-captp-eval.md) — stage10h child 1/2 — hostGetDaemonHandle host binding, then the gated live da...
+### doin (0)
+(none)
 
-### tada (2866)
+### tada (2867)
+- [`xs2rust-endor-stage10h-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10h-live-captp-eval.md) — Completion report — xs2rust-endor-stage10h-live-captp-eval (child 1/2)
 - [`port-xs-to-rust-memory-safe-engine-s38`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s38.md) — Completion report — port-xs-to-rust-memory-safe-engine-s38
 - [`xs2rust-endor-build-stage10g`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10g.md) — orchestration xs2rust-endor-build-stage10g — HALTED
 - [`endo-sturdyref-press-20260719-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260719-092001.md) — SturdyRef press tick (2026-07-19 09:20Z) — **hold + observation; no movement ...
 - [`xs2rust-endor-press-20260719-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260719-092001.md) — Completion report
-- [`xs2rust-endor-stage10g-worker-gaps`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10g-worker-gaps.md) — Completion report — xs2rust-endor-stage10g-worker-gaps
-- … and 2861 more
+- … and 2862 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
