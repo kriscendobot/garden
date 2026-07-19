@@ -128,14 +128,10 @@ else
   rc=$?
 fi
 if [ "$rc" -ne 0 ]; then
-  # Timeout's 124 and 137 exits, or a recognized offline stderr signature,
-  # are transient. A real repository error remains loud.
-  if [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ] \
-      || _fetch_stderr_is_offline "$GARDEN_FETCH_STDERR"; then
-    log "offline; skipping tick"
-    exit "$GARDEN_OFFLINE_RC"
-  fi
-  die "fetch failed for $slug"
+  fmsg="triager: fetch failed for $slug (rc=$rc). Retrying next tick; if this persists, the remote is unreachable or gone and $slug cannot be triaged until it is restored."
+  log "WARN: fetch failed for $slug (transient? retrying next tick)"
+  alert_maintainer "triager-fetch-failed-${slug//[^A-Za-z0-9._-]/_}" "$fmsg"
+  exit 0
 fi
 
 # resolve the ref to watch. --verify -q keeps a missing primary ref from echoing its

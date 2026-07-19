@@ -501,8 +501,8 @@ grep -q "^triager-clone-corrupt-" "$ALERTS" && ok "escalates the corrupt clone t
 # ============================================================================
 hr; echo "K — empty / unborn-HEAD bare clone (zero refs): skip this tick (exit 0), never die"; hr
 # The own-fork auto-provisioning path (fork-watch-provisioner) can race a fork that was
-# created upstream but not yet populated: the bare clone has ZERO refs, so `fetch --all
-# --prune` is a clean no-op and the rev-parse of the watched ref fails on BOTH the primary
+# created upstream but not yet populated: the bare clone has ZERO refs, so `fetch origin`
+# is a clean no-op and the rev-parse of the watched ref fails on BOTH the primary
 # and fallback. Before the fix this hit the `die "cannot resolve ref"` → exit 1, failing
 # the systemd unit and driving self-heal churn EVERY tick until the fork got its first
 # commit. The guard must detect the empty-repo case (for-each-ref empty) and skip the tick
@@ -510,6 +510,9 @@ hr; echo "K — empty / unborn-HEAD bare clone (zero refs): skip this tick (exit
 rm -rf "$TR/state12"; STATE="$TR/state12"; rm -rf "$BARE"; seed_journal
 rm -rf "$REPOS/$SLUG.git"
 git init -q --bare "$REPOS/$SLUG.git"             # a real bare git repo with NO refs
+EMPTY_SRC="$TR/empty-source.git"
+git init -q --bare "$EMPTY_SRC"                    # origin also has no refs, so fetch succeeds
+git -C "$REPOS/$SLUG.git" remote add origin "$EMPTY_SRC"
 [ -z "$(git --git-dir="$REPOS/$SLUG.git" for-each-ref --count=1 2>/dev/null)" ] \
   && ok "fixture: bare clone has zero refs (unborn HEAD, no commits)" || bad "fixture invalid: bare unexpectedly has refs"
 : > "$CALLS"; KOUT="$TR/triager-empty.out"; : > "$KOUT"
@@ -549,31 +552,35 @@ grep -qi "cannot resolve ref 'no-such-branch'" "$LOUT" && ok "die names the unre
 [ ! -s "$CALLS" ] && ok "handler never invoked on an unresolvable ref" || bad "handler ran ($(grep -c . "$CALLS") calls; want 0)"
 
 # ============================================================================
-hr; echo "M — steady-state fetch failure: offline skip or loud structural failure"; hr
+hr; echo "M — steady-state fetch failure: soft-skip and throttled alert"; hr
 # git has NO IO timeout of its own, so an unguarded `git fetch` against a half-open SSH
 # upstream (ssh://git@github.com/kriscendobot/agoric-3-proposals.git) hangs until systemd's
 # TimeoutStartSec=900 SIGKILLs it — a `Terminated` + FATAL + exit-1 signature that marks the
 # unit Failed and self-heal-flaps on every transient network blip (observed live for
 # kriscendobot-cosgov). The steady-state fetch is bounded (timeout + SIGKILL escalation), and
-# a transient signature or wall-clock kill exits EX_TEMPFAIL so the self-heal wrapper
-# clean-skips this tick. A structural fetch error remains loud because retrying a
-# malformed remote configuration will not recover it.
+# every failure exits 0 so the systemd unit cannot crash-loop. A throttled maintainer
+# alert makes a persistently unreachable or gone remote visible.
 # We drive each case with a scoped `git` shim (real for everything except the steady-state
 # `fetch --all`), reproducing a failure without any real hang.
 mk_fetch_shim() {  # mk_fetch_shim <dir> <fetch-rc> <fetch-stderr>
   local d="$1" frc="$2" ferr="$3"; mkdir -p "$d"
   cat > "$d/git" <<EOF
 #!/bin/bash
-# fail ONLY the steady-state clone refresh 'git --git-dir=… fetch --all --prune'
+# fail ONLY the steady-state clone refresh 'git --git-dir=… fetch -q --prune origin'
 # (rc $frc); pass every OTHER git call — crucially the journal/cursor fetch, which is
 # 'git -C … fetch origin <branch>' and carries no --all — straight through to real git.
-for _a in "\$@"; do [ "\$_a" = --all ] && { echo fetch >> "\$GIT_FETCH_CALLS"; printf '%s\n' "$ferr" >&2; exit $frc; }; done
+has_git_dir=0; has_fetch=0
+for _a in "\$@"; do
+  [[ "\$_a" = --git-dir=* ]] && has_git_dir=1
+  [ "\$_a" = fetch ] && has_fetch=1
+done
+[ "\$has_git_dir" -eq 1 ] && [ "\$has_fetch" -eq 1 ] && { echo fetch >> "\$GIT_FETCH_CALLS"; printf '%s\n' "$ferr" >&2; exit $frc; }
 exec "$REAL_GIT" "\$@"
 EOF
   chmod +x "$d/git"
 }
 
-# M1 — TRANSIENT stderr signature (Connection timed out, rc 1): clean-skip EX_TEMPFAIL.
+# M1 — transient stderr signature (Connection timed out, rc 1): clean-skip and alert.
 rm -rf "$TR/state14"; STATE="$TR/state14"; rm -rf "$BARE"; seed_journal
 seed_watched_bare                                  # a well-formed bare (fetch would normally succeed)
 mk_fetch_shim "$TR/fetch-shim-transient" 1 "ssh: connect to host github.com port 22: Connection timed out"
@@ -590,11 +597,11 @@ env PATH="$TR/fetch-shim-transient:$PATH" GIT_FETCH_CALLS="$FETCH_CALLS" \
     GARDEN_TRIAGE_FAIL_THRESHOLD=5 \
     "$JOBS/triager.sh" "$SLUG" >>"$MOUT" 2>&1
 rc=$?; set -e
-[ "$rc" -eq 75 ] && ok "transient fetch failure clean-skips with EX_TEMPFAIL" || bad "tick exit = $rc (want 75)"
+[ "$rc" -eq 0 ] && ok "transient fetch failure exits 0 for the next tick" || bad "tick exit = $rc (want 0)"
 [ "$(wc -l < "$FETCH_CALLS")" -eq 1 ] && ok "runs one bounded fetch before the next timer tick retries" || bad "fetch attempts = $(wc -l < "$FETCH_CALLS") (want 1)"
-grep -q "offline; skipping tick" "$MOUT" && ok "transient skip logs offline status" || bad "offline skip log missing (out: $(cat "$MOUT"))"
+grep -q "WARN: fetch failed for $SLUG (transient? retrying next tick)" "$MOUT" && ok "transient skip logs retry status" || bad "retry log missing (out: $(cat "$MOUT"))"
 ! grep -q "FATAL: fetch failed for $SLUG" "$MOUT" && ok "no FATAL on a transient fetch failure" || bad "a transient failure still died FATAL (out: $(cat "$MOUT"))"
-[ ! -s "$ALERTS" ] && ok "transient failure does not alert" || bad "unexpected alert ($(cat "$ALERTS"))"
+grep -q "triager-fetch-failed-${SLUG//[^A-Za-z0-9._-]/_}" "$ALERTS" && ok "transient failure alerts with the per-slug key" || bad "fetch-failure alert missing ($(cat "$ALERTS"))"
 [ ! -s "$CALLS" ] && ok "handler never invoked (no refs resolved past a skipped fetch)" || bad "handler ran ($(grep -c . "$CALLS") calls; want 0 — a failed fetch must not reach triage)"
 [ -z "$(cursor_field "activity/$SLUG" last_sha)" ] && ok "activity cursor NOT advanced on a transient fetch failure" || bad "cursor advanced despite a failed fetch"
 
@@ -615,10 +622,10 @@ env PATH="$TR/fetch-shim-timeout:$PATH" GIT_FETCH_CALLS="$FETCH_CALLS" \
     GARDEN_TRIAGE_FAIL_THRESHOLD=5 \
     "$JOBS/triager.sh" "$SLUG" >>"$MOUT" 2>&1
 rc=$?; set -e
-[ "$rc" -eq 75 ] && ok "rc-124 wall-clock kill clean-skips with EX_TEMPFAIL" || bad "tick exit = $rc (want 75)"
-grep -q "offline; skipping tick" "$MOUT" && ok "rc-124 skip logs offline status" || bad "rc-124 offline log missing (out: $(cat "$MOUT"))"
+[ "$rc" -eq 0 ] && ok "rc-124 wall-clock kill exits 0 for the next tick" || bad "tick exit = $rc (want 0)"
+grep -q "WARN: fetch failed for $SLUG (transient? retrying next tick)" "$MOUT" && ok "rc-124 skip logs retry status" || bad "rc-124 retry log missing (out: $(cat "$MOUT"))"
 ! grep -q "FATAL: fetch failed for $SLUG" "$MOUT" && ok "no FATAL on an rc-124 wall-clock kill" || bad "an rc-124 kill still died FATAL (out: $(cat "$MOUT"))"
-[ ! -s "$ALERTS" ] && ok "rc-124 kill does not alert" || bad "unexpected alert ($(cat "$ALERTS"))"
+grep -q "triager-fetch-failed-${SLUG//[^A-Za-z0-9._-]/_}" "$ALERTS" && ok "rc-124 kill alerts with the per-slug key" || bad "fetch-failure alert missing ($(cat "$ALERTS"))"
 
 # M3 — SIGKILL escalation (rc 137) takes the same clean-skip branch.
 rm -rf "$TR/state14c"; STATE="$TR/state14c"; rm -rf "$BARE"; seed_journal
@@ -636,11 +643,12 @@ env PATH="$TR/fetch-shim-kill:$PATH" GIT_FETCH_CALLS="$FETCH_CALLS" \
     GARDEN_TRIAGE_FAIL_THRESHOLD=5 \
     "$JOBS/triager.sh" "$SLUG" >>"$MOUT" 2>&1
 rc=$?; set -e
-[ "$rc" -eq 75 ] && ok "rc-137 SIGKILL escalation clean-skips with EX_TEMPFAIL" || bad "tick exit = $rc (want 75)"
-grep -q "offline; skipping tick" "$MOUT" && ok "rc-137 skip logs offline status" || bad "rc-137 offline log missing (out: $(cat "$MOUT"))"
+[ "$rc" -eq 0 ] && ok "rc-137 SIGKILL escalation exits 0 for the next tick" || bad "tick exit = $rc (want 0)"
+grep -q "WARN: fetch failed for $SLUG (transient? retrying next tick)" "$MOUT" && ok "rc-137 skip logs retry status" || bad "rc-137 retry log missing (out: $(cat "$MOUT"))"
 ! grep -q "FATAL: fetch failed for $SLUG" "$MOUT" && ok "no FATAL on an rc-137 kill" || bad "an rc-137 kill still died FATAL (out: $(cat "$MOUT"))"
+grep -q "triager-fetch-failed-${SLUG//[^A-Za-z0-9._-]/_}" "$ALERTS" && ok "rc-137 kill alerts with the per-slug key" || bad "fetch-failure alert missing ($(cat "$ALERTS"))"
 
-# M4 — a structural (non-transient) fetch error remains loud.
+# M4 — a structural fetch error also soft-skips and escalates.
 rm -rf "$TR/state14c"; STATE="$TR/state14c"; rm -rf "$BARE"; seed_journal
 seed_watched_bare
 mk_fetch_shim "$TR/fetch-shim-structural" 128 "fatal: Authentication failed for 'https://github.com/x/y.git/'"
@@ -657,10 +665,10 @@ env PATH="$TR/fetch-shim-structural:$PATH" GIT_FETCH_CALLS="$FETCH_CALLS" \
     GARDEN_TRIAGE_FAIL_THRESHOLD=5 \
     "$JOBS/triager.sh" "$SLUG" >>"$MOUT" 2>&1
 rc=$?; set -e
-[ "$rc" -ne 0 ] && ok "structural fetch error remains non-zero" || bad "tick exit = $rc (want non-zero)"
+[ "$rc" -eq 0 ] && ok "structural fetch error exits 0 for the next tick" || bad "tick exit = $rc (want 0)"
 [ "$(wc -l < "$FETCH_CALLS")" -eq 1 ] && ok "structural failure runs one bounded fetch" || bad "fetch attempts = $(wc -l < "$FETCH_CALLS") (want 1)"
-grep -q "FATAL: fetch failed for $SLUG" "$MOUT" && ok "structural failure dies with its slug" || bad "structural FATAL missing (out: $(cat "$MOUT"))"
-[ ! -s "$ALERTS" ] && ok "structural failure does not send an offline alert" || bad "unexpected alert ($(cat "$ALERTS"))"
+grep -q "WARN: fetch failed for $SLUG (transient? retrying next tick)" "$MOUT" && ok "structural failure logs retry status" || bad "structural retry log missing (out: $(cat "$MOUT"))"
+grep -q "triager-fetch-failed-${SLUG//[^A-Za-z0-9._-]/_}" "$ALERTS" && ok "structural failure alerts with the per-slug key" || bad "fetch-failure alert missing ($(cat "$ALERTS"))"
 [ -z "$(cursor_field "activity/$SLUG" last_sha)" ] && ok "activity cursor NOT advanced on a structural fetch failure" || bad "cursor advanced despite a failed fetch"
 
 # ============================================================================
