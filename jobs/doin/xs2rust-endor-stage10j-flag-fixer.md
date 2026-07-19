@@ -64,3 +64,10 @@ diagnose, and report rather than push a red tree. No new side table without a le
 **Sizing/HARD STOP:** fit one 2400s handler invocation; reassess the clock after every pushed
 item; if F2(s40) does not fit after F1(s40) lands, push F1 alone and report the remainder
 honestly. Report via your tada completion report ONLY — never inbox-send the parked supervisor.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-19T12:07:06Z
