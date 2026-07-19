@@ -77,3 +77,10 @@ poisons every later read/write/reflection. The `defineProperty`-created accessor
 Size to ONE 2400s handler invocation; push each self-contained increment as it lands (the branch
 must never be left with unpushed work at deadline). Report via your tada completion report ONLY —
 never inbox-send the parked supervisor. Keep PR #600 DRAFT; confirm its state at the end.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: gardener
+  claimed_at: 2026-07-19T10:37:13Z
