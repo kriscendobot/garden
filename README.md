@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T10:16:14Z_
+_As of 2026-07-19T10:19:19Z_
 
 ## Latest
 
@@ -1848,7 +1848,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.7M | $1033.77 _(notional, rate-card)_ | no quota set |
+| Claude | 98.7M | $1033.64 _(notional, rate-card)_ | no quota set |
 | Codex | 204.8M _(+537.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
@@ -1858,13 +1858,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (0)
 (none)
 
-### tada (2868)
+### tada (2869)
+- [`xs2rust-endor-build-stage10h`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10h.md) — orchestration xs2rust-endor-build-stage10h — complete
 - [`xs2rust-endor-stage10h-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10h-remeasure.md) — stage10h child 2/2 — 52-file daemon sweep re-measure — TADA
 - [`xs2rust-endor-stage10h-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10h-live-captp-eval.md) — Completion report — xs2rust-endor-stage10h-live-captp-eval (child 1/2)
 - [`port-xs-to-rust-memory-safe-engine-s38`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s38.md) — Completion report — port-xs-to-rust-memory-safe-engine-s38
 - [`xs2rust-endor-build-stage10g`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10g.md) — orchestration xs2rust-endor-build-stage10g — HALTED
-- [`endo-sturdyref-press-20260719-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260719-092001.md) — SturdyRef press tick (2026-07-19 09:20Z) — **hold + observation; no movement ...
-- … and 2863 more
+- … and 2864 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
