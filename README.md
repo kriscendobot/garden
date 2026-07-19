@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T05:41:13Z_
+_As of 2026-07-19T05:44:08Z_
 
 ## Latest
 
@@ -1521,6 +1521,43 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
+- `poison-xs2rust-endor-stage10e-remeasure-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-xs2rust-endor-stage10e-remeasure-requeue-exhausted.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/xs2rust-endor-stage10e-remeasure; it stays HELD until a human promotes it
+> (promote-plan.sh xs2rust-endor-stage10e-remeasure) or removes it, so nothing is lost.
+> Original job base: xs2rust-endor-stage10e-remeasure
+>
+> --- original job body ---
+> ---
+> model: opus
+> ---
+> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-19T00:34:03Z -->
+>
+> ---
+> model: opus
+> ---
+> # stage10e child 3/3 — bounded-serial 52-file daemon sweep re-measure (measurement-only)
+>
+> **Repo:** `endojs/endo-but-for-bots`, PR **#600** (DRAFT — keep DRAFT, no PR comments), branch `xs2rust-endor`. **Measurement-only: no engine/worker/test edits, nothing committed or pushed to the branch.** Sync your isolated checkout (`scripts/jobs/ensure-project-worktree.sh <your-job-base> endojs/endo-but-for-bots xs2rust-endor`) to the REAL remote tip and RECORD the measured sha in your tada.
+>
+> ## Procedure
+>
+> 1. Short-path daemon environment (AF_UNIX limit): `~/tmp/s9r` exists on host endolin-garden; else create `~/tmp/<short>` (clone + install; seed node_modules from a sibling). Sync it to the measured tip. Rebuild the release worker fresh at that tip: `cargo build --release -p endo --bin endor` after `cargo clean -p endor-compile -p endor-vm -p endor-oracle`; generated bundles regenerated, never committed; `c/moddable` at pin `23b4d6b0a65f…` clean.
+> 2. **Smoke gate first:** `channel.test.js` on `ENDO_WORKER_BIN='<abs>/endor worker -e rust'` (NOT `ENDO_ENGINE`). If it fails, classify against the three environment-artifact classes (AF_UNIX path length, provisioning-race asserts, stale seeded target/) before proceeding or blaming the engine.
+> 3. Sweep all 52 daemon test files serially, `--concurrency=1 --timeout=25s`, generous per-file outer timeout (channel.test.js needs >600s at concurrency 1 — 124 tests × ~5s worker spin-up; its non-finish inside a 90s window is a KNOWN harness-throughput artifact, not a hang). Checkpoint per-file results to a TSV OUTSIDE the worktree (`~/tmp/s10e-results/`), so a deadline death loses nothing.
+> 4. Use the default ava reporter to confirm any timeout file (the TAP reporter crashes in `dumpError` on timed-out tests — known artifact); `error-trace.test.js` is the finish-line pin (anchor: 1 pass + 6 pending HANG; if the stage10e round-trip child landed, expect it to move — report exact per-test verdicts).
+> 5. Compare per-file classes vs the stage-10 Rust anchor (fail=14: content-store-gc 9, git 3, git-remote 2 — all daemon-side engine-independent; skip=20; 6 pending + 1 hang at error-trace) and the C-XS anchor **530/19/20/0** (re-run C-XS via `~/tmp/s8cxs` ONLY for classes that changed). Explain EVERY class delta; maintain the expected-divergence ledger.
+>
+> ## Output (tada report)
+>
+> Measured tip sha; totals table (pass/fail/skip/pending vs both anchors); per-file delta table with verdicts; environment artifacts encountered; the finish-line statement (does any `test:rust` daemon class still fail on the Rust engine beyond the expected-divergence ledger — name each).
+>
+> ## Discipline
+>
+> Checkpoint continuously (a partial sweep with a TSV is an honest tada); report via tada ONLY — never inbox-send the parked supervisor.
+
 - `poison-xs2rust-endor-stage8-cxs-baseline-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-xs2rust-endor-stage8-cxs-baseline-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -1760,16 +1797,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 105.0M | $1086.99 _(notional, rate-card)_ | no quota set |
-| Codex | 202.1M _(+534.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Codex | 202.5M _(+535.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr160-review-9858a782`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-9858a782.md) — Review directive on endojs/endo-but-for-bots PR #160
 - [`endojs-endo-but-for-bots-pr794-review-cdf94916`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr794-review-cdf94916.md) — Review directive on endojs/endo-but-for-bots PR #794
-- [`xs2rust-endor-stage10e-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10e-remeasure.md) — stage10e child 3/3 — bounded-serial 52-file daemon sweep re-measure (measurem...
 
 ### tada (2834)
 - [`endojs-endo-but-for-bots-pr138-review-add866fa`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr138-review-add866fa.md) — Completion report
@@ -1812,6 +1848,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 - [`weave-endo-but-for-bots-pr626-stack-surgery-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/weave-endo-but-for-bots-pr626-stack-surgery-eval.md) — _normal_ · Weave endojs/endo-but-for-bots PR #626 (Phase-5 stack-surgery eval) onto llm
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
+- [`xs2rust-endor-stage10e-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage10e-remeasure.md) — _normal_ · stage10e child 3/3 — bounded-serial 52-file daemon sweep re-measure (measurem...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`endojs-endo-but-for-bots-pr600-review-021252ca-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr600-review-021252ca-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #600 (primary: endojs-endo-but-f...
