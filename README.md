@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T08:43:33Z_
+_As of 2026-07-19T09:20:34Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 2h)
+- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 3h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 1d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 1d)
@@ -1808,14 +1808,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 99.7M | $1040.54 _(notional, rate-card)_ | no quota set |
+| Claude | 99.2M | $1036.94 _(notional, rate-card)_ | no quota set |
 | Codex | 204.8M _(+537.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`endo-sturdyref-press-20260719-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260719-092001.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+- [`xs2rust-endor-press-20260719-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260719-092001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-stage10g-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10g-live-captp-eval.md) — stage10g child 2/3 — gated live daemon round trip (BINDING precondition gate;...
 
 ### tada (2862)
