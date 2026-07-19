@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T06:53:37Z_
+_As of 2026-07-19T06:55:21Z_
 
 ## Latest
 
@@ -1804,16 +1804,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.7M | $1061.63 _(notional, rate-card)_ | no quota set |
+| Claude | 101.6M | $1061.49 _(notional, rate-card)_ | no quota set |
 | Codex | 204.7M _(+537.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endo-git-integration-press-20260719-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260719-065003.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`ocapn-noise-press-20260719-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260719-065003.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+- [`xs2rust-endor-stage10f-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10f-remeasure.md) — stage10f child 3/3 — bounded-serial 52-file daemon sweep re-measure (measurem...
 
 ### tada (2845)
 - [`xs2rust-endor-stage10f-live-captp-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10f-live-captp-eval.md) — Completion report — stage-10f child 2/3 (live-captp-eval → degraded to worker...
