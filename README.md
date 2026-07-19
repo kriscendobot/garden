@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T12:38:01Z_
+_As of 2026-07-19T12:40:37Z_
 
 ## Latest
 
@@ -1860,15 +1860,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.4M | $1019.00 _(notional, rate-card)_ | no quota set |
+| Claude | 97.3M | $1018.60 _(notional, rate-card)_ | no quota set |
 | Codex | 204.8M _(+538.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-stage10j-live-captp-dispatch`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10j-live-captp-dispatch.md) — Builder: the CapTP-dispatch frontier — from full boot to the LIVE round trip ...
 
 ### tada (2885)
 - [`xs2rust-endor-stage10j-flag-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10j-flag-fixer.md) — Completion report — F1(s40) + F2(s40), PR #600 (stage 10j)
