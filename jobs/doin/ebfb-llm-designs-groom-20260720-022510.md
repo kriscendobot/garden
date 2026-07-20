@@ -24,3 +24,10 @@ Each run:
 Report the files and design records examined, changes made, checks run, PR URL if
 any, and maintainer decisions intentionally left unresolved. Bot identity only;
 do not merge and do not comment on unrelated upstream work.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-20T02:30:04Z
