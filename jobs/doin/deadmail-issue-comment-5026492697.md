@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/58#issuecomment-5026492697
 # minion.town MCP — all `mcp/minions:*` tools rejected with `insufficient_scope` **Server:** `https://minion.town/mcp` (HTTP MCP, resource name "minion.town MCP") **Severity:** Blocking — every minion-touching tool is unusable; only `mcp/tools` baseline works. ## Summary Ever
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 9
+  worker_kind: gardener
+  claimed_at: 2026-07-20T19:50:10Z
