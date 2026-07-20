@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T03:27:30Z_
+_As of 2026-07-20T03:27:54Z_
 
 ## Latest
 
@@ -2045,28 +2045,27 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.0M | $807.38 _(notional, rate-card)_ | no quota set |
+| Claude | 74.0M | $807.25 _(notional, rate-card)_ | no quota set |
 | Codex | 205.2M _(+546.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
-- [`deadmail-20260720T032025Z-c013ed`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260720T032025Z-c013ed.md) — Dead-lettered message — pick up its intent
+### doin (5)
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
 - [`self-heal-fix-garden-cleric-reclone-on-corrupt-journal-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-cleric-reclone-on-corrupt-journal-clone.md) — In scripts/jobs/common.sh, teach sync_clone (and symmetrically the reset-fail...
 - [`self-heal-fix-garden-gardener-journal-clone-corrupt-gc-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-journal-clone-corrupt-gc-reclone.md) — In scripts/jobs/common.sh, extend the clone self-heal so a present-but-corrup...
 - [`self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs.md) — In scripts/jobs/common.sh, handle LOCAL journal-clone corruption the way ensu...
 - [`xs2rust-endor-stage10l-live-round-trip`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10l-live-round-trip.md) — Stage-10l child 1: the LIVE daemon round trip — flip the error-trace pin (PR ...
 
-### tada (2925)
+### tada (2926)
+- [`deadmail-20260720T032025Z-c013ed`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260720T032025Z-c013ed.md) — Completion report
 - [`endojs-endo-but-for-bots-pr160-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr160-shepherd.md) — Shepherd completion report — endojs/endo-but-for-bots PR #160
 - [`xs2rust-endor-stage10l-reflection-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10l-reflection-fixer.md) — Completion report
 - [`endojs-endo-but-for-bots-pr160-review-81d82318`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr160-review-81d82318.md) — Completion report
 - [`self-heal-fix-garden-repo-watcher-corrupt-local-ref-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-repo-watcher-corrupt-local-ref-reclone.md) — Completion report
-- [`port-xs-to-rust-memory-safe-engine-s42`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s42.md) — s42 completion report — stage-10k ACCEPTED, stage-10l dispatched, s43 parked
-- … and 2920 more
+- … and 2921 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
