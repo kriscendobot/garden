@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T03:24:00Z_
+_As of 2026-07-20T03:25:44Z_
 
 ## Latest
 
@@ -2052,9 +2052,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
+- [`deadmail-20260720T032025Z-c013ed`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260720T032025Z-c013ed.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
 - [`self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs.md) — In scripts/jobs/common.sh, handle LOCAL journal-clone corruption the way ensu...
+- [`xs2rust-endor-stage10l-live-round-trip`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10l-live-round-trip.md) — Stage-10l child 1: the LIVE daemon round trip — flip the error-trace pin (PR ...
 
 ### tada (2925)
 - [`endojs-endo-but-for-bots-pr160-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr160-shepherd.md) — Shepherd completion report — endojs/endo-but-for-bots PR #160
