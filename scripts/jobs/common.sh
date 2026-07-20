@@ -1775,7 +1775,7 @@ _fetch_stderr_is_offline() {
 # tree/sha1/object) to catch any `unable to read <path>` the object DB throws;
 # the offline classifier runs FIRST, so a transport `Could not read from remote`
 # is claimed as offline before this set ever sees it.
-: "${GARDEN_CORRUPT_CLONE_SIGNATURES:=bad object|invalid sha1 pointer|bad ref for|broken ref|invalid HEAD|does not point to a valid object|did not send all necessary objects|unable to read|object file .* is empty|loose object .* is corrupt|packfile .* cannot be accessed|invalid index-pack output|did not receive expected object|failed to run repack|gc\.log|fsck error}"
+: "${GARDEN_CORRUPT_CLONE_SIGNATURES:=bad object|invalid sha1 pointer|bad ref for|broken ref|invalid HEAD|does not point to a valid object|did not send all necessary objects|unable to read|object file .* is empty|loose object .* is corrupt|packfile .* cannot be accessed|invalid index-pack output|did not receive expected object|failed to run repack|gc\.log|fsck}"
 
 _fetch_stderr_is_corrupt() {
   printf '%s' "$1" | grep -qiE "$GARDEN_CORRUPT_CLONE_SIGNATURES"
