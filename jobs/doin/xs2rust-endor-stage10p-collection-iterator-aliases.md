@@ -53,3 +53,10 @@ boot_bundle_gate` (30/0), ROOT `cargo test -p endo --lib` (111/0), 0 non-oracle 
 nesting when the gitlink dir exists; verify `git -C c/moddable rev-parse HEAD`). Accuracy-over-parity:
 RESULT agreement gates; computrons advisory; honest-skip over wrong-complete, always. Size the work to
 one 2400s invocation; report via your tada ONLY (never inbox-send the parked supervisor). Keep PR DRAFT.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 9
+  worker_kind: gardener
+  claimed_at: 2026-07-20T09:22:11Z
