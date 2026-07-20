@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T02:33:00Z_
+_As of 2026-07-20T02:36:18Z_
 
 ## Latest
 
@@ -891,6 +891,20 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > (no-location, no-identification/unlinkability, withheld-from-compartments,
 > first-wins convergence) and [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/issues/737)'s pass-style
 > opacity coverage — last verified green at the current (unmoved) heads.
+
+- `20260720T023540Z-f8e688` — from gardener:endo-npm-cas-registry-press-20260720-022510, reply_to `endo-npm-cas-registry-press-20260720-022510` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T023540Z-f8e688.md)
+
+> npm-via-CAS registry-proxy arc: FINISH LINE VERIFIED and stack un-drafted.
+>
+> This tick I independently rebuilt the stack head and re-ran the end-to-end demo: `endor run` fetched p-limit@4.0.0 + transitive yocto-queue@1.2.2 live from registry.npmjs.org into the CAS, executed in XS (correct output), then replayed identically with --offline (zero network by construction) — no npm CLI, no node_modules, no lockfile. 139/139 unit tests. Package tree hashes byte-identical to the prior tick's evidence.
+>
+> Actions: closed the 7 superseded pre-merge-base PRs ([endojs/endo-but-for-bots#772](https://github.com/endojs/endo-but-for-bots/issues/772), [endojs/endo-but-for-bots#785](https://github.com/endojs/endo-but-for-bots/issues/785), [endojs/endo-but-for-bots#787](https://github.com/endojs/endo-but-for-bots/issues/787), [endojs/endo-but-for-bots#791](https://github.com/endojs/endo-but-for-bots/issues/791), [endojs/endo-but-for-bots#795](https://github.com/endojs/endo-but-for-bots/issues/795), [endojs/endo-but-for-bots#798](https://github.com/endojs/endo-but-for-bots/issues/798), [endojs/endo-but-for-bots#782](https://github.com/endojs/endo-but-for-bots/issues/782)); the arc is now the single canonical stack [endojs/endo-but-for-bots#799](https://github.com/endojs/endo-but-for-bots/issues/799) -> [endojs/endo-but-for-bots#800](https://github.com/endojs/endo-but-for-bots/issues/800) -> [endojs/endo-but-for-bots#801](https://github.com/endojs/endo-but-for-bots/issues/801) -> [endojs/endo-but-for-bots#802](https://github.com/endojs/endo-but-for-bots/issues/802) -> [endojs/endo-but-for-bots#803](https://github.com/endojs/endo-but-for-bots/issues/803), all CI-green and marked READY FOR REVIEW (finish line reached, per the press charter). Evidence: [https://github.com/endojs/endo-but-for-bots/pull/803](https://github.com/endojs/endo-but-for-bots/pull/803)#issuecomment-5018255641
+>
+> Two caveats worth your eye: (1) new known gap found while verifying — top-level-await entry modules fail (`TypeError: async module`, synchronous importNow path); recorded in the design doc. (2) CI does not compile rust/endo at all, and the xsnap JS bundles (ses_boot and friends) are not generatable from the tree (pre-existing xs2rust gap), so local runs are the only execution evidence for this crate. Review of the stack is the next move; the press keeps watching.
+
+- `20260720T023545Z-02c663` — from gardener:finbot-progress-20260720-022510, reply_to `finbot-progress-20260720-022510` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T023545Z-02c663.md)
+
+> Advanced kriscendobot/finbot main from 53cfcfb to 4251bb2: auto-egarch now accepts EGARCH only when its held-out QLIKE improvement over GARCH exceeds a configurable 0.02 parsimony margin; the fit artifact records the margin and within-margin outcome. npm test passed and finbot-ooda --seed=7 --adaptive-vol=auto-egarch was auditor-approved with WALLET TOUCHED: false. Next unblocked step: add a Diebold-Mariano forecast-comparison test for the observed QLIKE gaps. No maintainer decision needed.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -1916,32 +1930,30 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.0M | $818.73 _(notional, rate-card)_ | no quota set |
-| Codex | 205.1M _(+541.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Claude | 75.1M | $820.68 _(notional, rate-card)_ | no quota set |
+| Codex | 205.1M _(+544.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (10)
+### doin (8)
 - [`ebfb-llm-designs-groom-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-llm-designs-groom-20260720-022510.md) — Weekly llm designs-directory grooming — Sunday
-- [`endo-npm-cas-registry-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260720-022510.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr160-review-81d82318`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-81d82318.md) — Review directive on endojs/endo-but-for-bots PR #160
 - [`endojs-endo-but-for-bots-pr160-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #160
-- [`finbot-progress-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260720-022510.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`ocapn-noise-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260720-022510.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`self-heal-fix-garden-cleric-reclone-on-corrupt-remote-ref`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-cleric-reclone-on-corrupt-remote-ref.md) — In scripts/jobs/common.sh, sync_clone dies permanently when journal_fetch fai...
 - [`self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs.md) — In scripts/jobs/common.sh, handle LOCAL journal-clone corruption the way ensu...
 - [`xs2rust-endor-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-022510.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-stage10k-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10k-remeasure.md) — stage-10k child 2: outage-hardened 52-file daemon sweep remeasure (PR #600)
 
-### tada (2912)
+### tada (2914)
+- [`finbot-progress-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260720-022510.md) — Advanced finbot main 53cfcfb -> 4251bb2: gated auto-EGARCH selection behind a...
+- [`endo-npm-cas-registry-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260720-022510.md) — Completion report — endo-npm-cas-registry-press-20260720-022510
 - [`plan-recalibrate-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/plan-recalibrate-20260720-022510.md) — Reconciled chat-pending-commands to Complete after PR #133 merge. Recalibrate...
 - [`self-heal-fix-garden-gardener-corrupt-journal-clone-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-gardener-corrupt-journal-clone-reclone.md) — Implemented and pushed e80d69e7b6 to main2.
 - [`self-heal-fix-garden-reputation-reducer-corrupt-local-journal-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-reputation-reducer-corrupt-local-journal-clone.md) — Implemented and pushed 98e7f6229e to main2.
-- [`minion-town-agenda-review-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-022510.md) — Posted the substantive agenda review to [garden issue 58](https://github.com/...
-- [`arc-status-daily-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/arc-status-daily-20260720-022510.md) — Inbox empty. Job complete.
-- … and 2907 more
+- … and 2909 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
