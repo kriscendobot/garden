@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T10:56:21Z_
+_As of 2026-07-20T10:59:28Z_
 
 ## Latest
 
@@ -13,7 +13,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 6h)
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 11m)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 18m)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 1d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 2d)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 2d)
@@ -2318,7 +2318,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`weave-endo-but-for-bots-pr626-stack-surgery-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/weave-endo-but-for-bots-pr626-stack-surgery-eval.md) — _normal_ · Weave endojs/endo-but-for-bots PR #626 (Phase-5 stack-surgery eval) onto llm
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 - [`xs2rust-endor-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-press-20260720-022510.md) — _normal_ · Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
-- [`xs2rust-endor-stage10p-unbound-builtins`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage10p-unbound-builtins.md) — _normal_ · Stage-10p child 2: the unbound-builtin cluster (PR #600, xs2rust-endor)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`endojs-endo-but-for-bots-pr737-review-3363fee9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr737-review-3363fee9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #737 (primary: endojs-endo-but-f...
