@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T20:05:29Z_
+_As of 2026-07-20T20:06:07Z_
 
 ## Latest
 
@@ -2800,9 +2800,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`build-daemon-mapstore-gh59`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-daemon-mapstore-gh59.md) — Build Phase 1: durable MapStore in the endo pet daemon (closes kriskowal/gard...
 - [`deadmail-issue-comment-5026725853`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5026725853.md) — Dead-lettered message — pick up its intent
+- [`endojs-endo-but-for-bots-pr809-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr809-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #809
 
 ### tada (3026)
 - [`issue-kriskowal-garden-59`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-59.md) — Completion report — issue-kriskowal-garden-59
