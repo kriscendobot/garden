@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T02:44:47Z_
+_As of 2026-07-20T02:45:23Z_
 
 ## Latest
 
@@ -1938,29 +1938,28 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.9M | $820.25 _(notional, rate-card)_ | no quota set |
+| Claude | 74.8M | $817.37 _(notional, rate-card)_ | no quota set |
 | Codex | 205.2M _(+546.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (6)
 - [`endojs-endo-but-for-bots-pr160-review-81d82318`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-81d82318.md) — Review directive on endojs/endo-but-for-bots PR #160
 - [`endojs-endo-but-for-bots-pr160-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #160
 - [`ocapn-noise-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260720-022510.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`self-heal-fix-garden-cleric-reclone-on-corrupt-remote-ref`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-cleric-reclone-on-corrupt-remote-ref.md) — In scripts/jobs/common.sh, sync_clone dies permanently when journal_fetch fai...
 - [`self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs.md) — In scripts/jobs/common.sh, handle LOCAL journal-clone corruption the way ensu...
 - [`xs2rust-endor-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-022510.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
-- [`xs2rust-endor-stage10k-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10k-remeasure.md) — stage-10k child 2: outage-hardened 52-file daemon sweep remeasure (PR #600)
 
-### tada (2915)
+### tada (2916)
+- [`xs2rust-endor-stage10k-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10k-remeasure.md) — Completion report — stage-10k 52-file daemon sweep re-measure (PR #600)
 - [`ebfb-llm-designs-groom-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-llm-designs-groom-20260720-022510.md) — Completion report
 - [`finbot-progress-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260720-022510.md) — Advanced finbot main 53cfcfb -> 4251bb2: gated auto-EGARCH selection behind a...
 - [`endo-npm-cas-registry-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260720-022510.md) — Completion report — endo-npm-cas-registry-press-20260720-022510
 - [`plan-recalibrate-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/plan-recalibrate-20260720-022510.md) — Reconciled chat-pending-commands to Complete after PR #133 merge. Recalibrate...
-- [`self-heal-fix-garden-gardener-corrupt-journal-clone-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-gardener-corrupt-journal-clone-reclone.md) — Implemented and pushed e80d69e7b6 to main2.
-- … and 2910 more
+- … and 2911 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
