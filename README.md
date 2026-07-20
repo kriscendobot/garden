@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-19T14:46:46Z_
+_As of 2026-07-20T02:30:44Z_
 
 ## Latest
 
@@ -12,15 +12,15 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 9h)
+- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 20h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
-- [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 1d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 1d)
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
-- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 1d)
+- [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 2d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 2d)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 2d)
+- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 2d)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 2d)
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 2d)
-- [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 5d)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 3d)
+- [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 6d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 17d)
 
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
@@ -835,6 +835,62 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > Next unblocked step: apply the same parsimony margin to the two-way auto-egarch selector (AutoEgarchSurface), which still uses raw argmin and has the identical over-selection flaw; then a pre-specified forecast-comparison (Diebold-Mariano) test for whether the QLIKE gap is statistically significant, not just above a fixed nat threshold.
 >
 > Maintainer decision pending (unchanged): live execution stays blocked on explicit paper-wallet/test-net authorization and a chosen CapTP transport.
+
+- `20260720T022859Z-236d7b` — from gardener:esheets-supervisor-20260720-022510, reply_to `esheets-supervisor-20260720-022510` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T022859Z-236d7b.md)
+
+> **esheets supervisor — daily standup (2026-07-20)**
+>
+> The `@endo/exo-google-sheets` tree has not moved and is blocked on ONE maintainer decision, now stalled 10 days.
+>
+> **Merged (llm):** `endoclaw-network-fetch` (HTTP floor) + base designs `endoclaw-oauth.md`, `exo-google-sheets.md`.
+> **Sole blocker — [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621)** (refine endoclaw-oauth foundation): [https://github.com/endojs/endo-but-for-bots/pull/621](https://github.com/endojs/endo-but-for-bots/pull/621) — OPEN, non-draft, all 5 CI checks GREEN, one-click-mergeable (state = awaiting your approving review only). Your 2026-07-10 CHANGES_REQUESTED was addressed, re-panelled green, and re-requested 2026-07-17; `reviewDecision` is a stale CHANGES_REQUESTED. It has now sat 10 days.
+> **Not started (all dammed behind [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621)):** OAuth exo, `@endo/google-sheets`, `@endo/exo-google-sheets` — no such packages on `llm`.
+>
+> **Posted today:** nothing — everything downstream is blocked on you; [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621) is already green + re-requested, so another gauntlet/weave would be pure noise.
+>
+> **Decision needed (pick one):**
+> (a) approve + merge [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621) → I post the OAuth-exo builder next fire (deepest unblocked node); or
+> (b) authorize building the OAuth exo on the already-merged base `endoclaw-oauth.md` now, landing the refinements from [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621) after — and I proceed without waiting on the re-review.
+
+- `20260720T022911Z-800ee8` — from gardener:endo-sturdyref-press-20260720-022510, reply_to `endo-sturdyref-press-20260720-022510` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T022911Z-800ee8.md)
+
+> # SturdyRef effort: 2nd re-send — all lanes still blocked on the same maintainer gates
+>
+> Second re-send of the consolidated nudge (originals:
+> `inbox/maintainer/unread/20260717T200708Z-5cde04.md`, re-sent as
+> `20260718T205150Z-d826b6.md`, both still unread ~29.6h after the last
+> re-send), per the standing 24h re-send norm. Verified live at
+> 2026-07-20T02:28Z: zero movement on every sturdyref PR since your
+> CHANGES_REQUESTED on [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/issues/737) at 2026-07-17T06:19Z
+> (~68h ago); all heads and timestamps identical across every tick since.
+> The hourly driver continues to hold (no pushes) rather than dilute the
+> single-commit review shapes under your review. Any one answer unblocks a
+> lane:
+>
+> 1. **Shim-placement arbitration** — [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/issues/737) (embedded
+>    in pass-style, single-squashed-commit, CHANGES_REQUESTED 07-17 06:19Z
+>    with the fleet's re-review request posted 05:15Z) vs
+>    [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/issues/774) (standalone `@endo/sturdyref`, no review
+>    yet). Both CI-green at unmoved heads (b56b346534 / 59bd235e2b). The
+>    bridge-cut restack ([endojs/endo-but-for-bots#698](https://github.com/endojs/endo-but-for-bots/issues/698) →
+>    [endojs/endo-but-for-bots#700](https://github.com/endojs/endo-but-for-bots/issues/700) → [endojs/endo-but-for-bots#541](https://github.com/endojs/endo-but-for-bots/issues/541)) waits on
+>    this pick.
+> 2. **Decisions re-surfaced in**
+>    [https://github.com/endojs/endo-but-for-bots/pull/737](https://github.com/endojs/endo-but-for-bots/pull/737)#issuecomment-4994276944:
+>    marshal rank-prefix pick (A/`q` vs B/`t` vs C/`w`), and stack-collapse
+>    preference (fold [endojs/endo-but-for-bots#541](https://github.com/endojs/endo-but-for-bots/issues/541) + the bridge cuts into
+>    [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/issues/737), or restack onto its branch).
+> 3. **Design re-reviews** you marked CHANGES_REQUESTED (fleet responses
+>    posted the same hour): [endojs/endo-but-for-bots#695](https://github.com/endojs/endo-but-for-bots/issues/695) (agent
+>    provide/accept — gates the Lal/Fae/Genie "throughout" bar, cuts A–F),
+>    [endojs/endo-but-for-bots#697](https://github.com/endojs/endo-but-for-bots/issues/697) (cross-peer bridge), and
+>    [endojs/endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/issues/539) (closely-held enlivenment,
+>    CHANGES_REQUESTED 07-11).
+>
+> Confinement invariants ride [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/issues/774)'s four tests
+> (no-location, no-identification/unlinkability, withheld-from-compartments,
+> first-wins convergence) and [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/issues/737)'s pass-style
+> opacity coverage — last verified green at the current (unmoved) heads.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -1860,23 +1916,36 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.2M | $1002.63 _(notional, rate-card)_ | no quota set |
-| Codex | 204.8M _(+538.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
+| Claude | 74.9M | $816.41 _(notional, rate-card)_ | no quota set |
+| Codex | 205.0M _(+539.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (14)
+- [`arc-status-daily-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260720-022510.md) — Daily status + change summary for the standing review arcs
+- [`ebfb-llm-designs-groom-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-llm-designs-groom-20260720-022510.md) — Weekly llm designs-directory grooming — Sunday
+- [`endo-npm-cas-registry-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260720-022510.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+- [`endojs-endo-but-for-bots-pr160-review-81d82318`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-81d82318.md) — Review directive on endojs/endo-but-for-bots PR #160
+- [`finbot-progress-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260720-022510.md) — Push progress on kriscendobot/finbot (every 6h)
+- [`minion-town-agenda-review-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260720-022510.md) — Minion Town hourly agenda review
+- [`ocapn-noise-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260720-022510.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+- [`plan-recalibrate-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/plan-recalibrate-20260720-022510.md) — Weekly plan recalibration and grooming (Sunday evening)
+- [`self-heal-fix-garden-cleric-reclone-on-corrupt-remote-ref`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-cleric-reclone-on-corrupt-remote-ref.md) — In scripts/jobs/common.sh, sync_clone dies permanently when journal_fetch fai...
+- [`self-heal-fix-garden-gardener-corrupt-journal-clone-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-corrupt-journal-clone-reclone.md) — In scripts/jobs/common.sh, add a local-repo-corruption self-heal to the journ...
+- [`self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs.md) — In scripts/jobs/common.sh, handle LOCAL journal-clone corruption the way ensu...
+- [`self-heal-fix-garden-reputation-reducer-corrupt-local-journal-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-reputation-reducer-corrupt-local-journal-clone.md) — **Failure signature:** garden-reputation-reducer (and any sync_clone caller) ...
+- [`xs2rust-endor-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-022510.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+- [`xs2rust-endor-stage10k-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10k-remeasure.md) — stage-10k child 2: outage-hardened 52-file daemon sweep remeasure (PR #600)
 
-### tada (2899)
-- [`xs2rust-endor-stage10k-live-captp-dispatch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10k-live-captp-dispatch.md) — Completion report
-- [`xs2rust-endor-stage10k-accessor-redefine-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10k-accessor-redefine-fixer.md) — Completion report
-- [`port-xs-to-rust-memory-safe-engine-s41`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s41.md) — Completion report — port-xs-to-rust-memory-safe-engine-s41
-- [`xs2rust-endor-press-20260719-133501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260719-133501.md) — Press tick 2026-07-19T13h — **observation-only, no pushes (clean deferral): t...
-- [`xs2rust-endor-build-stage10j`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10j.md) — orchestration xs2rust-endor-build-stage10j — complete
-- … and 2894 more
+### tada (2907)
+- [`endojs-endo-but-for-bots-pr160-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr160-rebase.md) — Completion report
+- [`endo-sturdyref-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260720-022510.md) — SturdyRef press tick (2026-07-20 02:25Z dispatch): **hold + maintainer-nudge ...
+- [`endo-git-integration-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260720-022510.md) — Press report — git-integration / M3 loop (2026-07-20 dispatch)
+- [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260720-022510.md) — Completion report — esheets-supervisor-20260720-022510
+- [`endojs-endo-but-for-bots-pr600-review-021252ca-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-review-021252ca-retro.md) — Retrospective recorded as not-a-miss: the review corrected an earlier maintai...
+- … and 2902 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1913,7 +1982,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr600-review-021252ca-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr600-review-021252ca-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #600 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr737-review-3363fee9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr737-review-3363fee9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #737 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr708-review-ecdedc30-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr708-review-ecdedc30-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #708 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr598-a5ffa84f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr598-a5ffa84f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #598 (primary: endojs-endo-but-f...
@@ -1937,6 +2005,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr794-review-cdf94916-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr794-review-cdf94916-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #794 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr138-review-add866fa-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr138-review-add866fa-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #138 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr160-review-9858a782-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr160-review-9858a782-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #160 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr160-review-81d82318-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr160-review-81d82318-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #160 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
