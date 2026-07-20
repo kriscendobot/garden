@@ -64,3 +64,10 @@ compile-diff 1909/1909 + SYMB 1909/1909, boot gate 30/0, ROOT `cargo test -p end
 three markers GREEN. Forbid roots intact, VARIANT_COUNT 35 unless ledgered same-day, 0 non-oracle
 warnings, no new `unsafe`, no new side table without a same-day ledger row. Report via tada ONLY; name
 commits, skips added/removed, measured bars at your final tip.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 18
+  worker_kind: gardener
+  claimed_at: 2026-07-20T04:52:14Z
