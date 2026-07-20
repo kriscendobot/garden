@@ -52,3 +52,10 @@ submitter: dckc
 
 Reply on the issue when done:
   gh issue comment https://github.com/kriskowal/garden/issues/59 --body "…"
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 13
+  worker_kind: gardener
+  claimed_at: 2026-07-20T20:00:08Z
