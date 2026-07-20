@@ -1,17 +1,19 @@
 ---
 slug: exo-guard-matches-static-type
 category: spec-violation
-status: closed
-count: 4
+status: open
+count: 5
 members:
   - kriscendobot-agoric-sdk-pr15-review-396a141c
   - kriscendobot-agoric-sdk-pr15-review-63f630f8
   - kriscendobot-agoric-sdk-pr15-review-9a12af5e
   - kriscendobot-agoric-sdk-pr15-review-ccb767b7
+  - kriscendobot-agoric-sdk-pr15-review-d6c7561e
 prs: [15]
 improvement_job: review-improve-exo-guard-matches-static-type
 improved_by: 8ec780c5ac: roles/builder/AGENT.md, roles/jurors/spec-keeper/AGENT.md, skills/panel-hints/SKILL.md, skills/panel-hints/probes/C-spec-keeper.sh
 ---
+
 
 
 
