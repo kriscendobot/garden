@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T10:53:28Z_
+_As of 2026-07-20T10:55:25Z_
 
 ## Latest
 
@@ -996,6 +996,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260720T104732Z-ffc48d` — from watchdog:gardener/5, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T104732Z-ffc48d.md)
 
 > gardener job 'xs2rust-endor-stage10p-unbound-builtins' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260720T105507Z-8cecbb` — from orchestrator:xs2rust-endor-build-stage10p-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T105507Z-8cecbb.md)
+
+> Orchestration xs2rust-endor-build-stage10p HALTED: child xs2rust-endor-stage10p-unbound-builtins failed (serial, on-child-failure=halt). 2/4 done before halt; swept: xs2rust-endor-stage10p-fresh-env-sweep
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -2261,7 +2265,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 73.1M | $812.36 _(notional, rate-card)_ | no quota set |
+| Claude | 73.1M | $812.43 _(notional, rate-card)_ | no quota set |
 | Codex | 205.9M _(+554.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
@@ -2271,13 +2275,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (0)
 (none)
 
-### tada (2972)
+### tada (2973)
+- [`xs2rust-endor-build-stage10p`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10p.md) — orchestration xs2rust-endor-build-stage10p — HALTED
 - [`weave-endo-but-for-bots-pr621-endoclaw-oauth-20260720`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr621-endoclaw-oauth-20260720.md) — Rebased PR #621 onto llm and force-pushed 61b511b5ea88f56b7a125f22755aea786ab...
 - [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260720-022510.md) — Assessed the tree and posted weave-endo-but-for-bots-pr621-endoclaw-oauth-202...
 - [`xs2rust-endor-stage10p-regexp-lastindex-at-key`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10p-regexp-lastindex-at-key.md) — Completion report
 - [`xs2rust-endor-stage10p-collection-iterator-aliases`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10p-collection-iterator-aliases.md) — Completion report — s10p child 0: collection @@iterator alias completion (F1(...
-- [`port-xs-to-rust-memory-safe-engine-s46`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s46.md) — Completion report — port-xs-to-rust-memory-safe-engine-s46
-- … and 2967 more
+- … and 2968 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
