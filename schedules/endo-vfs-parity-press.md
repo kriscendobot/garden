@@ -20,11 +20,14 @@ and `fs-interface-consolidation.md`.
 **Each dispatch (every 6h; be idempotent):** Assess, don't assume — read those two
 reconciliation designs plus `daemon-mount.md`, `agent-tools-mount-fs-tools.md`,
 `namehub-interface-unification.md`, and `endopi-edit-tool.md`, and the live PRs.
-State as of 2026-07-20 (post-08:36 tick): **#714** and **#643** MERGED;
+State as of 2026-07-20 (post-21:06 tick): **#714** and **#643** MERGED;
 **#658** closed (superseded). Open, review-blocked, ALL re-verified green and
-mergeable at 2026-07-20 08:36 (23–24 SUCCESS checks each, zero pending; no
-activity on any press PR since 2026-07-18 — recent repo events are on
-unrelated PRs #600/#503/#160/#693): **#656** (provideSubMount, head
+MERGEABLE/CLEAN at 2026-07-20 21:07 (23–24 SUCCESS checks each, zero
+pending/failed; no activity on any press PR since 2026-07-18 — recent repo
+events are unrelated: #808 floot session reaper, #809/#811 persistent-store
+design+build, and #810, a CI checkout-hash repin, MERGED into `llm`
+2026-07-20 20:51, after which every press PR was re-polled and still
+CLEAN — no re-weave needed): **#656** (provideSubMount, head
 76e6800ee5), **#655** (old non-delegated
 mount grep, head 741642e2ee — maintainer asked about closing as superseded
 by #713, still no reply as of 2026-07-20; msg 20260717T124846Z-815188; do
