@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T23:18:18Z_
+_As of 2026-07-20T23:33:24Z_
 
 ## Latest
 
@@ -20,7 +20,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 2d)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 3d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 4d)
-- [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 6d)
+- [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 7d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 18d)
 
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
@@ -3083,14 +3083,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 74.8M | $836.25 _(notional, rate-card)_ | no quota set |
-| Codex | 290.6M _(+573.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 297.1M _(+573.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`xs2rust-endor-press-20260720-230516`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260720-230516.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### doin (1)
-- [`xs2rust-endor-press-20260720-230516`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-230516.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+### doin (0)
+(none)
 
 ### tada (3046)
 - [`kriscendobot-agoric-sdk-pr10-review-e3ccce0c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-e3ccce0c.md) — Completed review 4739631968.
