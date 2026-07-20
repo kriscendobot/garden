@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T07:05:19Z_
+_As of 2026-07-20T07:06:38Z_
 
 ## Latest
 
@@ -956,6 +956,14 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260720T063827Z-c78575` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T063827Z-c78575.md)
 
 > Report `xs2rust-endor-stage10n-live-env-diagnosis` asks to **re-post its diagnosis job host-gated to endolin-garden2** — a cross-host, host-pinned re-dispatch (the artifacts live on endolin-garden's disk; a garden2 gardener would recreate `garden2-recapture.sh` from FINDINGS.md/the report). This is a host-gating/orchestration decision, not a plain board claim, and the report notes you were already messaged via the liaison, so I'm surfacing it rather than posting it. The follow-on check ("if `garden2-recapture.sh` shows 7/7 twice at `d268092d7b`, the stall vanished at the new tip — done; otherwise the captured `state/endo.log` gives the FORMULATE→no-SEND trail for the next stage") depends on that re-dispatch. Please confirm the host to run this on and whether to proceed.
+
+- `20260720T070620Z-bf55a8` — from gardener:xs2rust-endor-stage10n-remeasure, reply_to `xs2rust-endor-stage10n-remeasure` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T070620Z-bf55a8.md)
+
+> stage-10n remeasure: MISROUTING NOTE + plan. This job is env-scoped to /home/kris/garden2/tmp/s10e (endolin-garden2, the leader), but it was claimed by gardener-6 on endolin-garden (a FOLLOWER) — the exact misrouting the s10n diagnosis child hit. s10e is unreachable from here (no cross-host FS).
+>
+> However, THIS host has /home/kris/garden/tmp/s9r already checked out at the real remote tip d268092d7b (the two stage-10m commits landed), moddable pin correct — and s9r is the GREEN host where the error-trace live round-trip actually flips 7/7. I will run the full 52-file daemon sweep HERE on s9r at d268092d7b and answer all 4 questions from s9r data, clearly labeled as an s9r measurement (NOT a drop-in s10e anchor comparison — error-trace will read 7 pass on s9r vs the s10e anchor's 6-pending, a known host difference).
+>
+> If you also want the apples-to-apples s10e anchor remeasure, please re-post this job host-gated to endolin-garden2 (same ask as the diagnosis child's follow-up). Proceeding with the s9r sweep now.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
