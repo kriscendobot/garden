@@ -11,3 +11,10 @@ What to change:
 4. Extend `scripts/jobs/test/run-test.sh` with a case that injects the `bad object` / `did not send all necessary objects` stderr via `GARDEN_FETCH_CMD` and asserts the corrupt path triggers a re-clone-and-retry rather than the offline skip or a bare die (alongside the existing `expect_online "bad object"` case at run-test.sh:2391, which currently only checks classification — add the heal-and-recover assertion).
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 10
+  worker_kind: cleric
+  claimed_at: 2026-07-20T06:33:12Z
