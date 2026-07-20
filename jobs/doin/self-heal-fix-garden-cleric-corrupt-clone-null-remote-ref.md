@@ -10,3 +10,10 @@ Change: before `sync_clone` dies on a non-offline fetch failure, attempt a bound
 Guardrails: keep this strictly for the cleric/gardener journal *mirror* clones (no local-only state); do not apply reclone to live project/journal worktrees. Reuse `clone_lock`/`clone_unlock` so no concurrent producer races the destination. Add a signature constant next to `GARDEN_OFFLINE_SIGNATURES` (e.g. `GARDEN_CLONE_CORRUPT_SIGNATURES`) as the single source of truth, and a test in `scripts/jobs/test/run-test.sh` that injects a `GARDEN_FETCH_CMD` emitting the `bad object …/failed to run repack` stderr and asserts sync_clone reclones and succeeds rather than dying.
 
 Immediate manual mitigation (independent of the code fix, to unwedge cleric 7 now): `rm -rf /home/kris/garden/.garden-state/clerics/7/journal` so its next tick re-clones cleanly.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: gardener
+  claimed_at: 2026-07-20T07:58:19Z
