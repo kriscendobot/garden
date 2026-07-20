@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T08:54:53Z_
+_As of 2026-07-20T08:55:35Z_
 
 ## Latest
 
@@ -2204,9 +2204,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260720-022510.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
 - [`ocapn-noise-press-20260720-083504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260720-083504.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+- [`xs2rust-endor-stage10o-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10o-remeasure.md) — stage-10o child 2: outage-hardened 52-file daemon sweep re-measure at the sta...
 
 ### tada (2964)
 - [`xs2rust-endor-stage10o-live-env-diagnosis`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10o-live-env-diagnosis.md) — Completion report — xs2rust-endor-stage10o-live-env-diagnosis
