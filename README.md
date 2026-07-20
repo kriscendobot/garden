@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T14:14:30Z_
+_As of 2026-07-20T14:19:00Z_
 
 ## Latest
 
@@ -2464,16 +2464,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`kriscendobot-minion.town-pr7-review-c543864f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr7-review-c543864f-retro.md) — Retrospective on kriscendobot/minion.town PR #7 (primary: kriscendobot-minion...
+### doin (0)
+(none)
 
-### tada (2983)
+### tada (2984)
+- [`kriscendobot-minion.town-pr7-review-c543864f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr7-review-c543864f-retro.md) — Completion report — kriscendobot-minion.town-pr7-review-c543864f-retro
 - [`xs2rust-endor-press-20260720-135002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260720-135002.md) — All three finish-line bars are met on branch xs2rust-endor at HEAD b901ddf7b....
 - [`endojs-endo-but-for-bots-pr598-review-53d23086-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr598-review-53d23086-retro.md) — Completion report: prosecutor retrospective on endojs/endo-but-for-bots #598 ...
 - [`kriscendobot-minion.town-pr8-review-b00f7a71-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr8-review-b00f7a71-retro.md) — Completion report
 - [`kriskowal-garden-pr7-review-4798277a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr7-review-4798277a-retro.md) — Recorded a process review miss for garden PR #7: its design-panel gauntlet di...
-- [`endojs-endo-but-for-bots-pr771-review-c92c5d14-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr771-review-c92c5d14-retro.md) — Completion report
-- … and 2978 more
+- … and 2979 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
