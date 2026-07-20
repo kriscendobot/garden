@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/57#issuecomment-5026725853
 > Pushed commit a3ebcca to kriscendobot/ymax-stdio-mcp. make it into a DRAFT PR so I can comment on it, line by line (why didn't you do that in the 1st place?) 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 15
+  worker_kind: gardener
+  claimed_at: 2026-07-20T20:05:09Z
