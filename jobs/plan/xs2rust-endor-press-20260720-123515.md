@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+poisoned_at: 2026-07-20T13:23:05Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-20T13:23:05Z
+---
+
+---
 model: qwen3.6
 ---
 # Press xs2rust-endor (PR #600) forward — to endor integration + green daemon tests + test262 parity
@@ -82,10 +96,3 @@ the command and its observed output (the gardener reporting norm burned on #58).
 When you could not run a bar, report it "not verified" and why.
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: hermit
-  claimed_at: 2026-07-20T12:35:40Z
