@@ -1,10 +1,7 @@
 ---
-gate: deferred
-priority: low
 role: prosecutor
-posted_by: producer
-posted_at: 2026-07-18T02:52:59Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=low at=2026-07-20T18:09:03Z -->
 
 # Retrospective on endojs/endo-but-for-bots PR #259 (primary: endojs-endo-but-for-bots-pr259-review-8288f2bf)
 
