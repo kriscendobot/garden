@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T08:24:03Z_
+_As of 2026-07-20T08:25:31Z_
 
 ## Latest
 
@@ -2188,8 +2188,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260720-022510.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
+- [`xs2rust-endor-stage10o-live-env-diagnosis`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10o-live-env-diagnosis.md) — stage-10o child 1: diagnose the s10e live-round-trip stall — HOST-GATED garde...
 
 ### tada (2954)
 - [`xs2rust-endor-stage10o-reflection-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10o-reflection-completion.md) — Completion report — stage-10o child 0: native-fn reflection completion (F1/F2...
