@@ -23,3 +23,10 @@ Prior anchors: s10i/s10k/s10l/s10n pass=760/fail=15/skip=20/pending=6, TSV byte-
 4. Decomposition table by class (pass/fail/skip/pending) at measured tip, with tip sha + `git diff <content-base>..tip` shape.
 
 HARD STOP: one 2400s invocation; sweep detached, survives reaper requeue (resume from checkpointed TSV). Report via tada ONLY.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  claimed_at: 2026-07-20T08:56:35Z
