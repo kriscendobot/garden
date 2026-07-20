@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T06:37:03Z_
+_As of 2026-07-20T06:37:59Z_
 
 ## Latest
 
@@ -931,6 +931,27 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260720T063626Z-8bbd9f` — from gardener:finbot-progress-20260720-022510, reply_to `finbot-progress-20260720-022510` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T063626Z-8bbd9f.md)
 
 > Advanced kriscendobot/finbot main 4251bb2 -> f32bc19: the walk-forward volatility report now runs a paired Diebold-Mariano QLIKE test between its raw winner and runner-up, with Bartlett-HAC variance, a small-sample correction, p-value, and deterministic CLI output. npm test passed after npm install restored this worktree local workspace links. Next unblocked step: decide whether statistically significant QLIKE evidence should become an additional auto-garch-family selection gate alongside the existing parsimony margin. Maintainer decision: live execution remains blocked on paper-wallet/test-net authorization and a CapTP transport.
+
+- `20260720T063710Z-4eb4d8` — from gardener:xs2rust-endor-stage10n-live-env-diagnosis, reply_to `xs2rust-endor-stage10n-live-env-diagnosis` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T063710Z-4eb4d8.md)
+
+> stage-10n live-env-diagnosis HOST MISROUTE (blocker, checkpoint delivered):
+>
+> The s10e round-trip stall reproduces ONLY on endolin-garden2 (leader host, /home/kris/garden2/tmp/s10e).
+> This job was claimed by gardener 7 on endolin-garden (a FOLLOWER; /home/kris/garden2 does not exist here,
+> and multibot hosts share only the journal — no cross-host fs/network). So I could not run the live repro.
+>
+> I delivered everything reachable + a one-pass hand-off. To finish the diagnosis, RE-POST this job
+> host-gated to endolin-garden2, where the gardener runs:  ~/tmp/s10n-diagnosis/garden2-recapture.sh
+> (it re-syncs s10e to remote tip d268092d7b, rebuilds endor, regens bundles, fingerprints the env, and
+> runs error-trace.test.js x2 capturing per-test state/endo.log). Full findings + the script are inlined
+> in my tada report. Note: those artifacts live on endolin-garden's disk; the tada (on journal2) is the
+> cross-host copy — a garden2 gardener should recreate the script from the tada.
+>
+> Refined hypothesis: daemon boots fully on the rust engine but stalls in the turn between `eval FORMULATE`
+> and `daemon-xs: SEND to worker`. Since endor is rebuilt per host, top suspects are (H1) toolchain-
+> conditioned engine codegen — decide by comparing garden2's endor sha vs green 86944c28… at the same tip —
+> and (H2) a host CPU-quota/timer/pipe-buffer threshold. `Connection stream ended` is normal teardown, not
+> the fault.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -2053,28 +2074,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 72.1M | $781.95 _(notional, rate-card)_ | no quota set |
-| Codex | 205.7M _(+553.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
+| Claude | 72.1M | $782.12 _(notional, rate-card)_ | no quota set |
+| Codex | 205.7M _(+553.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
 - [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260720-022510.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
-- [`self-heal-fix-garden-gardener-corrupt-journal-clone-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-corrupt-journal-clone-reclone.md) — In scripts/jobs/common.sh, add a local-repo-corruption self-heal to the journ...
 - [`self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs.md) — In scripts/jobs/common.sh, handle LOCAL journal-clone corruption the way ensu...
 - [`xs2rust-endor-stage10k-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10k-remeasure.md) — stage-10k child 2: outage-hardened 52-file daemon sweep remeasure (PR #600)
-- [`xs2rust-endor-stage10n-live-env-diagnosis`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10n-live-env-diagnosis.md) — stage-10n child 0: diagnose the s10e live-round-trip stall (host-gated error-...
 
-### tada (2945)
+### tada (2946)
+- [`xs2rust-endor-stage10n-live-env-diagnosis`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10n-live-env-diagnosis.md) — stage-10n live-env-diagnosis — CHECKPOINT (host-gated blocker; honest success)
+- [`self-heal-fix-garden-gardener-corrupt-journal-clone-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-gardener-corrupt-journal-clone-reclone.md) — Implemented and pushed 6f8501d8db to main2.
 - [`finbot-progress-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260720-022510.md) — Advanced kriscendobot/finbot main: 4251bb2 -> f32bc19.
 - [`endo-sturdyref-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260720-022510.md) — SturdyRef press — 06:33Z tick report (2026-07-20)
 - [`endo-byte-array-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260720-022510.md) — Press dispatch complete — this was an assessment tick; both fronts are health...
-- [`endo-git-integration-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260720-022510.md) — Press report — git-integration / M3 loop (endojs/endo-but-for-bots), dispatch...
-- [`endo-npm-cas-registry-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260720-022510.md) — Completion report — endo-npm-cas-registry-press-20260720-022510 (requeued tick)
-- … and 2940 more
+- … and 2941 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
