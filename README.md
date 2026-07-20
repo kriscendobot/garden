@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T14:19:21Z_
+_As of 2026-07-20T14:21:38Z_
 
 ## Latest
 
@@ -2457,14 +2457,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 73.5M | $818.52 _(notional, rate-card)_ | no quota set |
-| Codex | 229.1M _(+556.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 73.5M | $818.90 _(notional, rate-card)_ | no quota set |
+| Codex | 229.2M _(+556.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`improve-ci-wait-merge-review-decision-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-ci-wait-merge-review-decision-gate.md) — scripts/jobs/gardening/ci-wait-merge.sh
 - [`kriscendobot-minion.town-pr4-review-681cbfb6-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr4-review-681cbfb6-retro.md) — Retrospective on kriscendobot/minion.town PR #4 (primary: kriscendobot-minion...
 
 ### tada (2984)
