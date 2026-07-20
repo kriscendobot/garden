@@ -62,3 +62,10 @@ Size to one 2400s invocation with the detached sweep carrying past it (requeue r
 ONLY (never inbox-send the parked supervisor); keep PR DRAFT; zero pushes.
 
 <!-- garden-reaped: 4 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 7
+  worker_kind: gardener
+  claimed_at: 2026-07-20T11:53:28Z
