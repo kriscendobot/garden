@@ -2428,6 +2428,40 @@ hr; echo "SUBTEST 23 — OFFLINE CLASSIFIER: transient signatures → EX_TEMPFAI
   expect_online  "non-fast-forward"     "! [rejected]        journal2 -> journal2 (non-fast-forward)"
   expect_online  "no such ref"          "fatal: couldn't find remote ref refs/heads/nope"
   expect_online  "merge conflict"       "error: could not apply abc1234... commit"
+
+  # --- LOCAL-CORRUPTION classifier (_fetch_stderr_is_corrupt) ----------------
+  # A corrupt local clone is NOT a network outage: it is a permanent-until-repaired
+  # fault sync_clone must self-heal (targeted repair or re-clone) rather than die
+  # on every tick. Feed each corruption signature through the classifier and assert
+  # it flags corrupt; then assert a genuine outage is NOT flagged corrupt (so the
+  # offline path, which runs ahead, still owns it). The garden-cleric item-7
+  # incident — a null-sha refs/remotes/origin/journal2 → `bad object refs/…` +
+  # `did not send all necessary objects` (fetch) / `invalid sha1 pointer` (fsck) —
+  # is the headline fixture.
+  expect_corrupt() {  # <description> <stderr-text>
+    if _fetch_stderr_is_corrupt "$2"; then echo "  PASS: corrupt classified: $1"; cpass=$((cpass+1))
+    else echo "  FAIL: classifier missed corruption signature: $1"; cfail=$((cfail+1)); fi
+  }
+  expect_not_corrupt() {  # <description> <stderr-text>
+    if _fetch_stderr_is_corrupt "$2"; then echo "  FAIL: classifier wrongly flagged as corrupt: $1"; cfail=$((cfail+1))
+    else echo "  PASS: non-corruption not classified corrupt: $1"; cpass=$((cpass+1)); fi
+  }
+  # the garden-cleric item-7 incident: a null-sha remote-tracking ref
+  expect_corrupt "null-sha remote ref"   "fatal: bad object refs/remotes/origin/journal2
+error: /root/.garden-state/clerics/7/journal did not send all necessary objects"
+  expect_corrupt "did not send objects"  "error: remote did not send all necessary objects"
+  expect_corrupt "fsck null pointer"     "error: refs/remotes/origin/journal2: invalid sha1 pointer 0000000000000000000000000000000000000000"
+  expect_corrupt "bad ref for"           "fatal: bad ref for refs/remotes/origin/journal2"
+  expect_corrupt "broken ref"            "error: refs/remotes/origin/journal2 does not point to a valid object!\nbroken ref"
+  expect_corrupt "unable to read sha1"   "error: unable to read sha1 file of jobs/todo/x (deadbeef...)"
+  expect_corrupt "loose object corrupt"  "error: loose object 0d5645f4298ba42b49e45f951ae711c129c87618 is corrupt"
+  expect_corrupt "empty object file"     "fatal: object file .git/objects/0d/5645... is empty"
+  # case-insensitivity: an upper-cased corruption diagnostic still classifies
+  expect_corrupt "uppercased corrupt"    "FATAL: BAD OBJECT REFS/REMOTES/ORIGIN/JOURNAL2"
+  # a genuine connectivity outage is NOT corruption (offline path owns it)
+  expect_not_corrupt "dns outage"        "fatal: unable to access 'https://github.com/': Could not resolve host: github.com"
+  expect_not_corrupt "connection reset"  "error: RPC failed; curl 56 Recv failure: Connection reset by peer"
+
   echo "$cpass $cfail" > "$TR/classifier-counts"
 )
 # The cases ran in a subshell (to source common.sh in isolation), so reconcile
@@ -2497,43 +2531,83 @@ unset SELF_HEAL_STUB_CALLS SELF_HEAL_HANDLER
   || bad "self-heal did not normalize the sync_clone outage (rc=$rwrap calls=$(shcalls))"
 
 # A deterministic local corruption is neither an offline skip nor an immediate
-# fatal. The first injected fetch reports the real gardener/11 signature; after
-# sync_clone atomically replaces the clone, the second fetch succeeds. A marker
-# in the old clone proves it was replaced rather than merely retried in place.
-cat > "$S24/bin/corrupt-then-ok-fetch" <<'EOF'
+# fatal. sync_clone self-heals it in place, cheapest repair first, and only then
+# retries the fetch — so the tick makes progress instead of `die`-looping the
+# worker (and its systemd unit) forever, the garden-cleric item-7 incident. Two
+# paths, both asserted:
+#   (A) TARGETED repair heals it — the incident's own null-sha remote-tracking ref,
+#       fixed by `update-ref -d` + `remote prune` + one re-fetch, NO re-clone.
+#   (B) FULL re-clone when the targeted repair cannot clear it (a damaged object
+#       DB, not just a ref) — rm -rf + ensure_clone, then re-fetch.
+
+# (A) REAL null-sha corruption against the REAL bare remote (default git fetch, no
+# stub): refs/remotes/origin/$BRANCH is overwritten with the null sha (an
+# interrupted ref update), so the first fetch aborts `bad object refs/…` / `did not
+# send all necessary objects`. The cheap targeted repair drops that ref, prunes,
+# and re-fetches — restoring it WITHOUT a re-clone. A sentinel PROVES the clone was
+# repaired in place, not replaced.
+CORRUPT_A="$S24/corrupt-clone-a"; CORRUPT_A_LOG="$S24/corrupt-a.log"
+git clone -q --single-branch --branch "$BRANCH" "$BARE" "$CORRUPT_A"
+seed_sha="$(git -C "$CORRUPT_A" rev-parse "origin/$BRANCH")"
+printf 'repaired in place, not replaced\n' > "$CORRUPT_A/keep-sentinel"
+mkdir -p "$CORRUPT_A/.git/refs/remotes/origin"
+printf '%s\n' 0000000000000000000000000000000000000000 > "$CORRUPT_A/.git/refs/remotes/origin/$BRANCH"
+set +e
+(
+  . "$JOBS/common.sh"
+  export GARDEN_FETCH_RETRIES=1
+  sync_clone "$CORRUPT_A"
+) >"$CORRUPT_A_LOG" 2>&1
+rca=$?
+set -e
+{ [ "$rca" -eq 0 ] \
+  && [ "$(git -C "$CORRUPT_A" rev-parse "origin/$BRANCH" 2>/dev/null)" = "$seed_sha" ] \
+  && [ -e "$CORRUPT_A/keep-sentinel" ] \
+  && grep -qi 'self-healing by re-cloning' "$CORRUPT_A_LOG" \
+  && ! grep -q 'REPAIRED: re-cloned' "$CORRUPT_A_LOG" \
+  && ! grep -q 'offline; skipping tick' "$CORRUPT_A_LOG"; } \
+  && ok "sync_clone repairs a null-sha corrupt ref in place (targeted repair, no re-clone) → exit 0, ref restored, not die" \
+  || bad "sync_clone did not repair null-sha corruption in place (rc=$rca ref=$(git -C "$CORRUPT_A" rev-parse "origin/$BRANCH" 2>/dev/null) log: $(tr '\n' '|' <"$CORRUPT_A_LOG"))"
+
+# (B) A stateful stub whose corruption OUTLASTS the targeted repair (fails corrupt
+# on the initial fetch AND the cheap-repair re-fetch, succeeds only on the third
+# call) forces sync_clone to fall through to the full rm -rf + ensure_clone
+# re-clone. A sentinel in the old clone PROVES it was replaced, not retried.
+cat > "$S24/bin/corrupt-twice-then-ok-fetch" <<'EOF'
 #!/bin/bash
 n="$(cat "$GARDEN_FETCH_COUNT" 2>/dev/null || echo 0)"
 n=$((n + 1))
 printf '%s\n' "$n" > "$GARDEN_FETCH_COUNT"
-if [ "$n" -eq 1 ]; then
+if [ "$n" -le 2 ]; then
   echo "fatal: bad object refs/remotes/origin/journal2" >&2
   echo "error: github.com:kriskowal/garden.git did not send all necessary objects" >&2
   exit 128
 fi
 exit 0
 EOF
-chmod +x "$S24/bin/corrupt-then-ok-fetch"
-CORRUPT_CLONE="$S24/corrupt-clone"
+chmod +x "$S24/bin/corrupt-twice-then-ok-fetch"
+CORRUPT_B="$S24/corrupt-clone-b"
 GARDEN_FETCH_COUNT="$S24/corrupt-fetch-count"
-CORRUPT_LOG="$S24/corrupt-repair.log"
-git clone -q --single-branch --branch "$BRANCH" "$BARE" "$CORRUPT_CLONE"
-printf 'old clone must be replaced\n' > "$CORRUPT_CLONE/stale-sentinel"
+CORRUPT_B_LOG="$S24/corrupt-b.log"
+rm -f "$GARDEN_FETCH_COUNT"
+git clone -q --single-branch --branch "$BRANCH" "$BARE" "$CORRUPT_B"
+printf 'old clone must be replaced\n' > "$CORRUPT_B/stale-sentinel"
 set +e
 (
   . "$JOBS/common.sh"
-  export GARDEN_FETCH_RETRIES=1 GARDEN_FETCH_CMD="$S24/bin/corrupt-then-ok-fetch" GARDEN_FETCH_COUNT
-  sync_clone "$CORRUPT_CLONE"
-) >"$CORRUPT_LOG" 2>&1
+  export GARDEN_FETCH_RETRIES=1 GARDEN_FETCH_CMD="$S24/bin/corrupt-twice-then-ok-fetch" GARDEN_FETCH_COUNT
+  sync_clone "$CORRUPT_B"
+) >"$CORRUPT_B_LOG" 2>&1
 rcorrupt=$?
 set -e
-{ [ "$rcorrupt" -eq 0 ] && [ "$(cat "$GARDEN_FETCH_COUNT")" -eq 2 ] \
-  && [ ! -e "$CORRUPT_CLONE/stale-sentinel" ] \
-  && git -C "$CORRUPT_CLONE" rev-parse -q --verify "origin/$BRANCH" >/dev/null \
-  && grep -q 'REPAIRED: re-cloned corrupt journal clone' "$CORRUPT_LOG" \
-  && grep -qi 'signature: bad object' "$CORRUPT_LOG" \
-  && ! grep -q 'offline; skipping tick' "$CORRUPT_LOG"; } \
-  && ok "sync_clone re-clones a corrupt journal clone and retries fetch once" \
-  || bad "sync_clone did not repair corrupt clone (rc=$rcorrupt fetches=$(cat "$GARDEN_FETCH_COUNT" 2>/dev/null || echo 0))"
+{ [ "$rcorrupt" -eq 0 ] && [ "$(cat "$GARDEN_FETCH_COUNT")" -eq 3 ] \
+  && [ ! -e "$CORRUPT_B/stale-sentinel" ] \
+  && git -C "$CORRUPT_B" rev-parse -q --verify "origin/$BRANCH" >/dev/null \
+  && grep -q 'REPAIRED: re-cloned corrupt journal clone' "$CORRUPT_B_LOG" \
+  && grep -qi 'signature: bad object' "$CORRUPT_B_LOG" \
+  && ! grep -q 'offline; skipping tick' "$CORRUPT_B_LOG"; } \
+  && ok "sync_clone re-clones when targeted repair cannot heal, then retries fetch (fetches=3, old clone replaced)" \
+  || bad "sync_clone did not re-clone persistent corruption (rc=$rcorrupt fetches=$(cat "$GARDEN_FETCH_COUNT" 2>/dev/null || echo 0) log: $(tr '\n' '|' <"$CORRUPT_B_LOG"))"
 
 # ============================================================================
 hr; echo "SUBTEST 25 — DRAINING MARKER: fleet_draining predicate + drain-fleet helper"; hr
