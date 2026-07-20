@@ -83,3 +83,10 @@ Artifacts to `$HOME/tmp/s10o-diagnosis/` (mkdir first; `$HOME` IS the garden roo
 HARD STOP: size to one 2400s invocation; reassess the clock after every consequential step. A classified
 checkpoint is an honest success. Report via your tada completion report ONLY (never inbox-send the parked
 supervisor).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-20T08:25:10Z
