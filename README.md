@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T13:44:30Z_
+_As of 2026-07-20T13:46:55Z_
 
 ## Latest
 
@@ -2464,16 +2464,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`kriscendobot-minion.town-pr8-review-b00f7a71-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr8-review-b00f7a71-retro.md) — Retrospective on kriscendobot/minion.town PR #8 (primary: kriscendobot-minion...
+### doin (0)
+(none)
 
-### tada (2980)
+### tada (2981)
+- [`kriscendobot-minion.town-pr8-review-b00f7a71-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr8-review-b00f7a71-retro.md) — Completion report
 - [`kriskowal-garden-pr7-review-4798277a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr7-review-4798277a-retro.md) — Recorded a process review miss for garden PR #7: its design-panel gauntlet di...
 - [`endojs-endo-but-for-bots-pr771-review-c92c5d14-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr771-review-c92c5d14-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr598-a5ffa84f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr598-a5ffa84f-retro.md) — Recorded a not-a-miss dismissal for PR #598 comment 4997870862. The request a...
 - [`endojs-endo-but-for-bots-pr737-review-3363fee9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr737-review-3363fee9-retro.md) — Verdict recorded: not-a-miss (new-direction) for #737 review 4718500574. The ...
-- [`endojs-endo-but-for-bots-pr708-review-ecdedc30-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr708-review-ecdedc30-retro.md) — Completion report
-- … and 2975 more
+- … and 2976 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
