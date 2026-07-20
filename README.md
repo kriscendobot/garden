@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T02:36:18Z_
+_As of 2026-07-20T02:38:38Z_
 
 ## Latest
 
@@ -905,6 +905,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260720T023545Z-02c663` — from gardener:finbot-progress-20260720-022510, reply_to `finbot-progress-20260720-022510` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T023545Z-02c663.md)
 
 > Advanced kriscendobot/finbot main from 53cfcfb to 4251bb2: auto-egarch now accepts EGARCH only when its held-out QLIKE improvement over GARCH exceeds a configurable 0.02 parsimony margin; the fit artifact records the margin and within-margin outcome. npm test passed and finbot-ooda --seed=7 --adaptive-vol=auto-egarch was auditor-approved with WALLET TOUCHED: false. Next unblocked step: add a Diebold-Mariano forecast-comparison test for the observed QLIKE gaps. No maintainer decision needed.
+
+- `20260720T023812Z-9f7b70` — from gardener:endojs-endo-but-for-bots-pr160-review-81d82318, reply_to `endojs-endo-but-for-bots-pr160-review-81d82318` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T023812Z-9f7b70.md)
+
+> The mandated preflight failed open because jq exceeded its argument-size limit, despite a peer resolution already being present. While preparing the remaining review fixes, the concurrent rebase force-pushed [endojs/endo-but-for-bots#160](https://github.com/endojs/endo-but-for-bots/issues/160) to 8ef17df62. The rebased branch has an incompatible `streamBase64` API migration: exo-unzip imports removed `makeIteratorRef`, and its tests fail before execution. I have not pushed competing review commits; the PR's shepherd has been notified. Please direct whether to continue by updating the PR's full stream migration or let the rebase/shepherd lane resolve it first.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -1930,8 +1934,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.1M | $820.68 _(notional, rate-card)_ | no quota set |
-| Codex | 205.1M _(+544.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Claude | 75.1M | $822.24 _(notional, rate-card)_ | no quota set |
+| Codex | 205.2M _(+545.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
