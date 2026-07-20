@@ -1,6 +1,3 @@
-once: 2026-07-20T16:00:00Z
-job_basename_prefix: minion-town-restore-hourly
----
 # Restore minion-town-agenda-review to hourly (weekend cadence reduction over)
 
 The weekend cadence reduction (Fri 2026-07-17 -> Sun 2026-07-19, `minion-town-agenda-review` dropped
