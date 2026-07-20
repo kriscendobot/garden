@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+poisoned_at: 2026-07-20T10:53:05Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-20T10:53:05Z
+---
+
+---
 model: opus
 ---
 <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-20T10:07:03Z -->
@@ -41,10 +55,3 @@ item must carry its gates and bars. Report the remainder explicitly in your tada
 Tada ONLY; keep PR DRAFT.
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 5
-  worker_kind: gardener
-  claimed_at: 2026-07-20T10:07:07Z
