@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T23:33:44Z_
+_As of 2026-07-20T23:40:04Z_
 
 ## Latest
 
@@ -3083,13 +3083,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 74.8M | $836.25 _(notional, rate-card)_ | no quota set |
-| Codex | 297.1M _(+573.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 297.7M _(+573.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`encode-ci-parity-policy`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/encode-ci-parity-policy.md) — Encode the standing policy: a CI lint/test failure is a defect in our automation
 - [`xs2rust-endor-press-20260720-230516`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-230516.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3046)
