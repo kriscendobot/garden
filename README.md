@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T08:09:22Z_
+_As of 2026-07-20T08:13:33Z_
 
 ## Latest
 
@@ -1123,6 +1123,93 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
+- `poison-endojs-endo-but-for-bots-pr160-fixer-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-endojs-endo-but-for-bots-pr160-fixer-requeue-exhausted.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr160-fixer; it stays HELD until a human promotes it
+> (promote-plan.sh endojs-endo-but-for-bots-pr160-fixer) or removes it, so nothing is lost.
+> Original job base: endojs-endo-but-for-bots-pr160-fixer
+>
+> --- original job body ---
+> # fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
+>
+> Posted by the pr160 **shepherd** after driving CI from a fully-red matrix down
+> to a single root cause it classified `next: fixer` (contextual impasse: the fix
+> needs the `@endo/exo-stream` reader-pump convention and a judgment call on a
+> documented contract). Head branch endojs/endo-but-for-bots @ `feat/exo-zip-package`
+> (bot-pushable). Re-fetch live state before acting.
+>
+> ## What the shepherd already landed (all green now)
+> - `chore: Update yarn.lock` fixup — exo-unzip's new `@endo/bytes`/`@endo/errors`
+>   deps were missing from the lockfile; `yarn install --immutable` failed, which
+>   reddened the ENTIRE matrix at install.
+> - `throw Fail`...`` trailing-comma SyntaxError → semicolons.
+> - Local `makeIteratorRef` helper in exo-unzip (workspace has no `@endo/daemon`).
+> - `help` + `listTree` added to the UnzipTree/UnzipBlob exos (required by
+>   `ReadableTreeInterface`/`ReadableBlobInterface`; mirrored platform `LocalTree`).
+> - Regenerated composite tsconfigs (`yarn build:types:gen`) — `build:types:check`
+>   drift from the two new packages.
+>
+> ## The remaining failure (9 tests: 3 exo-unzip + 6 exo-zip)
+> All trace to ONE root cause. `packages/exo-unzip/src/unzip.js` implements
+> `streamBase64` as a 0-arg method returning a Far async-iterator (`.next()`), and
+> the shepherd's interim `makeIteratorRef` doubles down on that. But the current
+> shared `@endo/platform/fs/lite` `ReadableBlobInterface` guard is
+> `streamBase64: M.call(M.any()).returns(M.promise())` — the platform evolved to
+> the **syn/ack reader-pump protocol**: `streamBase64(synHead) -> StreamNode`,
+> consumed via `iterateBytesReader` (which base64-DECODES each ack chunk to
+> `Uint8Array`). The 0-arg call the tests/consumer make is rejected by the guard
+> ("Expected at least 1 arguments").
+>
+> ## Recommended fix (Option A — conform to the platform protocol; matches `local-blob`)
+> 1. `packages/exo-unzip/src/unzip.js`
+>    - Remove the local `makeIteratorRef` helper and the `@endo/far` `Far` import.
+>    - `import { makeReaderPump } from '@endo/exo-stream/reader-pump.js';`
+>    - Blob method, mirroring `packages/platform/src/fs-node/local-blob.js`
+>      (fresh pump per call → re-streamable, lazy):
+>      ```js
+>      streamBase64: synHead => {
+>        const pump = makeReaderPump(base64Chunks(zipReader.get(fullPath)));
+>        return pump(synHead);
+>      },
+>      ```
+>      (`base64Chunks` already yields base64 strings, so no `mapReader`/encode
+>      wrapper is needed — its yields ARE the ack values.)
+> 2. `packages/exo-zip/src/zip.js`
+>    - `import { iterateBytesReader } from '@endo/exo-stream/iterate-bytes-reader.js';`
+>    - Replace `const readerRef = await E(node).streamBase64(); const bytes =
+>      await drainBase64(readerRef);` and the string-concat `drainBase64` with a
+>      byte drain: `for await (const chunk of iterateBytesReader(node)) {...}` then
+>      concatenate the `Uint8Array` chunks. (`node` IS the reader; its
+>      `streamBase64` is the stream method.)
+> 3. Tests — `packages/exo-unzip/test/unzip.test.js` and any exo-zip test drain:
+>    - Rewrite the `drainBase64` helper + the `streamBase64 decodes to original
+>      bytes` test to consume via `iterateBytesReader(blob)` (yields bytes).
+>    - The `streamBase64 chunks at 3-byte raw boundaries (no mid-stream padding)`
+>      test inspects base64-STRING chunk lengths via `.next()`. Under the byte
+>      reader those chunks are decoded `Uint8Array`s, so the base64-padding
+>      concern is subsumed (per-chunk decode, not concat). Preserve its verifiable
+>      intent — multi-chunk streaming + byte-exact reconstruction — and drop the
+>      now-unobservable base64-string-length sub-assertion. This is NOT weakening
+>      to hide a failure; it migrates the test to the evolved contract.
+> 4. Add `@endo/exo-stream` as a dependency to BOTH `packages/exo-{zip,unzip}/package.json`
+>    (`"workspace:^"`), then `yarn install --mode=update-lockfile` and commit the
+>    lockfile in its own `chore: Update yarn.lock` fixup (retcon discipline). Also
+>    re-run `yarn build:types:gen` in case the new dep shifts composite refs.
+>
+> ## Maintainer heads-up (already surfaced by the shepherd, non-blocking)
+> The author documented the base64-string-concat "no mid-stream padding" contract
+> deliberately. Option A retires it in favor of the platform byte-reader protocol
+> (the reason `ReadableBlobInterface` exists). If the maintainer wants to KEEP the
+> base64-concat contract instead, the alternative (Option B) is to give exo-unzip
+> its own interface rather than the platform's — but that likely defeats the PR's
+> goal of handing trees to `E(agent).storeTree(...)` over CapTP. Prefer Option A
+> unless the maintainer directs otherwise.
+>
+> Verify locally: `yarn workspace @endo/exo-unzip test` and
+> `yarn workspace @endo/exo-zip test` both green, then confirm the CI matrix.
+
 - `poison-endojs-endo-but-for-bots-pr704-shepherd-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-endojs-endo-but-for-bots-pr704-shepherd-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -2094,15 +2181,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 72.4M | $789.77 _(notional, rate-card)_ | no quota set |
+| Claude | 72.4M | $789.83 _(notional, rate-card)_ | no quota set |
 | Codex | 205.8M _(+554.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
+### doin (2)
 - [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260720-022510.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
 - [`xs2rust-endor-stage10o-reflection-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10o-reflection-completion.md) — stage-10o child 0: native-fn reflection completion (F1/F2(s45)) — engine-wide
 
@@ -2127,6 +2213,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-vfs-parity-press-20260717-182002`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-vfs-parity-press-20260717-182002.md) — _normal_ · Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr124-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr124-shepherd.md) — _normal_ · shepherd (auto: red CI) on endojs/endo-but-for-bots PR #124
 - [`endojs-endo-but-for-bots-pr132-report-render-mode`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-report-render-mode.md) — _normal_ · re-port render-mode toggle onto @endo/space-chat InboxRoot (endojs/endo-but-f...
+- [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr160-fixer.md) — _normal_ · fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — _normal_ · Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
 - [`endojs-endo-but-for-bots-pr704-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr704-shepherd.md) — _normal_ · shepherd (auto: red CI) on endojs/endo-but-for-bots PR #704
 - [`endojs-endo-but-for-bots-pr763-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr763-shepherd.md) — _normal_ · shepherd (auto: red CI) on endojs/endo-but-for-bots PR #763
