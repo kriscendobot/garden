@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T23:40:04Z_
+_As of 2026-07-20T23:44:56Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 12h)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 13h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 19h)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 1d)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 3d)
@@ -3083,23 +3083,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 74.8M | $836.25 _(notional, rate-card)_ | no quota set |
-| Codex | 297.7M _(+573.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 299.7M _(+573.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`encode-ci-parity-policy`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/encode-ci-parity-policy.md) — Encode the standing policy: a CI lint/test failure is a defect in our automation
+### doin (1)
 - [`xs2rust-endor-press-20260720-230516`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-230516.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3046)
+### tada (3047)
+- [`encode-ci-parity-policy`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/encode-ci-parity-policy.md) — Completion report — encode-ci-parity-policy
 - [`kriscendobot-agoric-sdk-pr10-review-e3ccce0c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-e3ccce0c.md) — Completed review 4739631968.
 - [`minion-town-agenda-review-20260720-230516`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-230516.md) — Hourly agenda review complete. No garden (main2) code changes were warranted ...
 - [`kriscendobot-agoric-sdk-pr10-review-9acf0d53`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-9acf0d53.md) — Completion report
 - [`kriscendobot-minion.town-pr10-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr10-conduct.md) — Completion report
-- [`minion-town-agenda-review-20260720-215002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-215002.md) — Reviewed and reported on garden issue #58: https://github.com/kriskowal/garde...
-- … and 3041 more
+- … and 3042 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
