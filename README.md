@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T07:57:04Z_
+_As of 2026-07-20T07:58:50Z_
 
 ## Latest
 
@@ -964,6 +964,14 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > However, THIS host has /home/kris/garden/tmp/s9r already checked out at the real remote tip d268092d7b (the two stage-10m commits landed), moddable pin correct — and s9r is the GREEN host where the error-trace live round-trip actually flips 7/7. I will run the full 52-file daemon sweep HERE on s9r at d268092d7b and answer all 4 questions from s9r data, clearly labeled as an s9r measurement (NOT a drop-in s10e anchor comparison — error-trace will read 7 pass on s9r vs the s10e anchor's 6-pending, a known host difference).
 >
 > If you also want the apples-to-apples s10e anchor remeasure, please re-post this job host-gated to endolin-garden2 (same ask as the diagnosis child's follow-up). Proceeding with the s9r sweep now.
+
+- `20260720T075833Z-27f6e4` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T075833Z-27f6e4.md)
+
+> Report `port-xs-to-rust-memory-safe-engine-s45` surfaced two follow-ups on the XS→Rust port that I'm holding rather than auto-posting, because both are your call:
+>
+> 1. **s10e sweep-observability diagnosis** — the report says this needs a *garden2-hosted* run and that the re-cut is deliberately **host-gated to prevent another follower misroute**. A naive board post could be claimed by a follower and misroute again, so this needs a host-pinned dispatch decision from you (or confirmation to pin it to garden2) rather than an ordinary gardener job.
+>
+> 2. **stage-10o fixer targets** — F1/F2/F3(s45) + unbound builtins + AT-key `lastIndex` remain, and the finish line (test:rust modulo ledger + test262 parity closure row 8 + ecosystem row 9) is **not yet met**. This is continued multi-stage engine-port effort; the digest names no repo/PR URL and it's a judgment call whether to spend another fixer round now. Confirm you want stage-10o fixer work posted (and against which fork/PR) and I'll cut the job.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -2086,16 +2094,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 72.4M | $789.48 _(notional, rate-card)_ | no quota set |
+| Claude | 72.4M | $789.65 _(notional, rate-card)_ | no quota set |
 | Codex | 205.8M _(+554.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
 - [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260720-022510.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
+- [`self-heal-fix-garden-cleric-corrupt-clone-null-remote-ref`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-cleric-corrupt-clone-null-remote-ref.md) — In scripts/jobs/common.sh, extend the journal-clone self-heal to cover a clon...
 - [`xs2rust-endor-stage10o-reflection-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10o-reflection-completion.md) — stage-10o child 0: native-fn reflection completion (F1/F2(s45)) — engine-wide
 
 ### tada (2952)
