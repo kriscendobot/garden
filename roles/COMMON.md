@@ -43,6 +43,7 @@ Three prose-style rules apply to every document you author or edit in the garden
 - `garden/skills/relative-paths/SKILL.md`: paths within one document tree are relative; absolute paths are reserved for the cross-tree case (a document instructing an agent in another tree, as this file does for subagents reading it from a dispatch-root copy of `garden/`).
 - `garden/skills/no-latin-shorthand/SKILL.md`: avoid Latin shorthand (`cf.`, `i.e.`, `e.g.`, `etc.`, `et al.`, `vs.`, `viz.`, `ad hoc`) in bot-authored prose; use the English equivalent.
 - `garden/skills/typist-friendly-code-points/SKILL.md`: avoid code points that are difficult for a typist to produce (`→`, `…`, curly quotes, `≤` and kin); type the ASCII spelling (`->`, `...`, straight quotes, `<=`).
+- `garden/skills/fully-qualified-github-urls/SKILL.md`: in GitHub-rendered text (issue/PR comments, reviews), every reference to a repo, commit, or site is a fully-qualified `https://` URL, never `owner/repo` / bare-SHA / bare-host shorthand.
 
 Vendored content under `references/<source>/` is exempt from all of these: references are read-only snapshots.
 
@@ -253,5 +254,6 @@ The garden's standing style rules. Every dispatched agent follows these on every
 - `garden/skills/no-latin-shorthand/SKILL.md`: avoid Latin shorthand (`cf.`, `i.e.`, `e.g.`, `etc.`, `et al.`, `vs.`, `viz.`, `ad hoc`) in bot-authored prose; use the English equivalent.
 - `garden/skills/typist-friendly-code-points/SKILL.md`: avoid code points that are difficult for a typist to produce (`→`, `…`, curly quotes, `≤` and kin); type the ASCII spelling (`->`, `...`, straight quotes, `<=`).
 - `garden/skills/test-title-spec-spelling/SKILL.md`: when a test title names a spec-defined surface, spell it exactly as the specification does.
+- `garden/skills/fully-qualified-github-urls/SKILL.md`: in GitHub-rendered text (issue/PR comments, reviews), every reference to a repo, commit, or site is a fully-qualified `https://` URL, never `owner/repo` / bare-SHA / bare-host shorthand. This is a GitHub-communication rule, distinct from `relative-paths` (which keeps links *inside* a document tree relative).
 
-Vendored content under `references/<source>/` is exempt from all of these: references are read-only snapshots. The first four rules are also summarized in § Style above, which the existing prose-style references point at; this section is the consolidated index of all five standing-style skills.
+Vendored content under `references/<source>/` is exempt from all of these: references are read-only snapshots. The first four rules are also summarized in § Style above, which the existing prose-style references point at; this section is the consolidated index of all standing-style skills.
