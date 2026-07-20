@@ -1,20 +1,19 @@
-## Completion report — endo-npm-cas-registry-press-20260720-022510
+Nothing has changed since the prior tick completed: no new reviews or comments on any of the five PRs, branch heads unchanged (#803 still at `0b9c32e6f2`, the commit that tick pushed), `llm` unmoved, all CI green and mergeable. No live peer on the arc. The finish line remains crossed and verified; the critical path is review/merge, which is not a press step. This tick is a steady-state observation — re-messaging the maintainer or churning the branches during review would be noise, so I'll record the observation and complete.
 
-**The arc crossed its finish line this tick, verified with real execution, and the PR stack is consolidated and un-drafted for review.**
+## Completion report — endo-npm-cas-registry-press-20260720-022510 (requeued tick)
 
-**Assessment.** Phase 2 (#276) merged 2026-07-18. Prior ticks had produced two overlapping Phase 4/5 generations: an old pre-#276 stack (#772, #785, #787, #791, #795, #798, #782) and a canonical post-#276 stack #799 (resolver) → #800 (assembly + XS execution) → #801 (hardening reland) → #802 (exports reland) → #803 (Phase 5 offline/.npmrc). All CI green; no reviews pending; no live peer on these branches.
+**Steady state confirmed; nothing to press this tick.** This claim is a requeue: the prior run of this same job base completed the full tick at 2026-07-20T02:35Z (its tada report is on the board), then was reaped anyway. I re-assessed rather than redid.
 
-**Independent finish-line verification** (evidence bar: PR-body claims from prior ticks are not proof). Rebuilt #803's head in my isolated worktree (restored the Moddable submodule and the gitignored xsnap JS bundles) and ran, fresh state:
-- `cargo test -p endo --lib`: **139 passed, 0 failed**.
-- Cold `--offline` → typed refusal naming the blocked URL, exit 1.
-- Live `endor run main.js` (deps: `p-limit@^4.0.0`) → fetched `p-limit@4.0.0` + transitively `yocto-queue@1.2.2` from registry.npmjs.org, CAS-ingested, executed in XS: `squares=1,4,9,16`, exit 0. Package tree hashes byte-identical to #800's recorded evidence — content-addressing determinism across machines.
-- `--offline` replay → identical hashes/output, exit 0, zero network by construction; `npm-resolve --offline` served fully from cache; no `node_modules` ever created.
+**Assessment (06:33Z+).**
+- The canonical stack stands as the prior tick left it: `llm` ← **#799** (Phase 4 resolver) ← **#800** (Phase 4 assembly + XS execution) ← **#801** (exec-hardening reland) ← **#802** (exports-resolution reland) ← **#803** (Phase 5 offline + `.npmrc`). All five OPEN, un-drafted, CI fully green (21–24 SUCCESS checks each), MERGEABLE, zero review decisions.
+- No new comments or reviews arrived on any of the five PRs since 02:40Z; branch heads are byte-identical to what the prior tick pushed (#803 head `0b9c32e6f2`, which includes the TLA known-gap design-doc commit); `llm` has not moved (`00a04f5b`), so no rebase is needed.
+- No live peer is working this arc (checked `inbox-list`; the other live presses are the byte-array, git-integration, and sturdyref arcs). Inbox empty — no maintainer reply yet to the prior tick's milestone message.
+- The finish line (fetch → CAS → registry table → MVS → XS execution, no npm CLI / `node_modules` / lockfile, offline replay) was independently re-verified with real execution by the prior tick; no code or CI change since invalidates that evidence.
 
-**Changes made.**
-1. **New gap found and recorded**: top-level-await entry modules fail (`TypeError: async module`; synchronous `importNow` path). Committed to the design doc's Known gaps on #803's branch (`0b9c32e6f2`).
-2. Posted the verification evidence as a comment on #803 (issuecomment-5018255641).
-3. **Closed the 7 superseded old-generation PRs** with successor pointers — the arc is now one canonical 5-PR stack.
-4. **Un-drafted #799, #800, #803** (finish line reached per the press charter; #801/#802 were already ready).
-5. Messaged the maintainer with the milestone and caveats.
+**Changes made this tick.** None — deliberately. The next step on the arc's critical path is **human/panel review and merge of the five-PR stack**, which the prior tick already surfaced to the maintainer; re-messaging four hours later or pushing new commits under a stack awaiting review would be churn, not progress.
 
-**Follow-ups.** (1) Review/merge of the stack is now the arc's critical path. (2) TLA-capable async import path (new known gap). (3) Pre-existing xs2rust gap sharpened in evidence: CI never compiles `rust/endo`, and the xsnap bootstrap bundles aren't generatable from the tree — local runs are the only execution evidence; worth a CI build lane once the bundle generators land.
+**Follow-ups (unchanged from prior tick).**
+1. Review/merge of #799→#803 is the arc's critical path; once #799 merges the stack should be re-based and re-verified tip-first.
+2. Known gap: top-level-await entry modules (`TypeError: async module`, synchronous `importNow` path) — a candidate next phase after the stack lands.
+3. CI never compiles `rust/endo`; a build lane is worth adding once the xsnap bundle generators land.
+4. Board hygiene observation: this base was reaped *after* writing its tada report, producing a duplicate dispatch — worth a look at the reaper's tada-vs-claim ordering.
