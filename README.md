@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T21:32:02Z_
+_As of 2026-07-20T21:33:38Z_
 
 ## Latest
 
@@ -2973,24 +2973,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.4M | $830.53 _(notional, rate-card)_ | no quota set |
+| Claude | 74.4M | $831.01 _(notional, rate-card)_ | no quota set |
 | Codex | 280.9M _(+571.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr160-review-81d82318-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-81d82318-retro.md) — Retrospective on endojs/endo-but-for-bots PR #160 (primary: endojs-endo-but-f...
+### doin (1)
 - [`endojs-endo-but-for-bots-pr812-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr812-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #812
 
-### tada (3039)
+### tada (3040)
+- [`endojs-endo-but-for-bots-pr160-review-81d82318-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr160-review-81d82318-retro.md) — Completion report
 - [`endo-npm-cas-registry-press-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260720-210504.md) — Completion report — endo-npm-cas-registry-press-20260720-210504
 - [`finbot-progress-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260720-210504.md) — Advanced kriscendobot/finbot main to e770b53.
 - [`endojs-endo-but-for-bots-pr811-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr811-weave.md) — Completion report
 - [`endo-vfs-parity-press-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260720-210504.md) — VFS parity press — dispatch report (2026-07-20 21:06 tick)
-- [`ocapn-noise-press-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260720-210504.md) — Assessment complete — #811 is unrelated (daemon MapStore). This is a clean st...
-- … and 3034 more
+- … and 3035 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
