@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T03:34:18Z_
+_As of 2026-07-20T03:35:35Z_
 
 ## Latest
 
@@ -2052,8 +2052,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
+- [`scholar-library-cycle-20260720-033503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260720-033503.md) — Hourly scholar library cycle
 - [`self-heal-fix-garden-cleric-reclone-on-corrupt-journal-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-cleric-reclone-on-corrupt-journal-clone.md) — In scripts/jobs/common.sh, teach sync_clone (and symmetrically the reset-fail...
 - [`self-heal-fix-garden-gardener-journal-clone-corrupt-gc-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-journal-clone-corrupt-gc-reclone.md) — In scripts/jobs/common.sh, extend the clone self-heal so a present-but-corrup...
 - [`self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs.md) — In scripts/jobs/common.sh, handle LOCAL journal-clone corruption the way ensu...
