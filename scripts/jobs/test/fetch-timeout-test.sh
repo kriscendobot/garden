@@ -127,7 +127,46 @@ else
 fi
 
 # ============================================================================
-hr; echo "SUBTEST 5 — sync_clone offline path survives a BARE set -e caller"; hr
+hr; echo "SUBTEST 5 — sync_clone re-clones a corrupt local journal clone once"; hr
+# A corrupt loose object is a local repository failure, not an outage. The
+# first injected fetch reports the production failure signature; the second,
+# after sync_clone removes and atomically re-clones the destination, succeeds.
+# The final reset uses a real local journal remote, proving the repaired clone
+# is usable without touching a network remote.
+CB="$TR/corrupt-journal.git"; CS="$TR/corrupt-seed"; CC="$TR/corrupt-clone"
+git init -q --bare "$CB"
+git init -q "$CS"
+git -C "$CS" checkout -q -b journal2
+printf 'seed\n' > "$CS/README"
+git -C "$CS" add README
+git -C "$CS" -c user.name=test -c user.email=test@localhost commit -q -m seed
+git -C "$CS" remote add origin "$CB"
+git -C "$CS" push -q origin HEAD:journal2
+git clone -q --single-branch --branch journal2 "$CB" "$CC"
+touch "$CC/poisoned-before-reclone"
+CORRUPT_COUNT="$TR/corrupt-fetch-count"; echo 0 > "$CORRUPT_COUNT"
+cat > "$TR/bin/corrupt-then-good-fetch" <<EOF
+#!/bin/bash
+n=\$(cat "$CORRUPT_COUNT"); n=\$((n+1)); echo "\$n" > "$CORRUPT_COUNT"
+if [ "\$n" -eq 1 ]; then
+  echo "error: object file .git/objects/7c/57850328be is empty" >&2
+  echo "fatal: fetch-pack: invalid index-pack output" >&2
+  exit 1
+fi
+exit 0
+EOF
+chmod +x "$TR/bin/corrupt-then-good-fetch"
+rc=0
+( export JOURNAL_REMOTE="$CB" GARDEN_FETCH_RETRIES=1 GARDEN_FETCH_CMD="$TR/bin/corrupt-then-good-fetch"
+  sync_clone "$CC" ) >/dev/null 2>&1 || rc=$?
+if [ "$rc" -eq 0 ] && [ "$(cat "$CORRUPT_COUNT")" -eq 2 ] && [ -d "$CC/.git" ] && [ ! -e "$CC/poisoned-before-reclone" ]; then
+  ok "sync_clone removed and re-cloned a corrupt local journal clone once"
+else
+  bad "sync_clone did not complete one corrupt-clone re-clone (rc=$rc, fetches=$(cat "$CORRUPT_COUNT"))"
+fi
+
+# ============================================================================
+hr; echo "SUBTEST 6 — sync_clone offline path survives a BARE set -e caller"; hr
 # REGRESSION GUARD. SUBTEST 3 invokes sync_clone as `( ... sync_clone ) || rc=$?`,
 # which suspends set -e for the whole subshell — so it never exercised the path
 # the real claim/complete callers use: a BARE `sync_clone "$DIR"` under an active
@@ -156,7 +195,7 @@ else
 fi
 
 # ============================================================================
-hr; echo "SUBTEST 6 — sync_clone classifies a transient outage on the RESET path as EX_TEMPFAIL (75)"; hr
+hr; echo "SUBTEST 7 — sync_clone classifies a transient outage on the RESET path as EX_TEMPFAIL (75)"; hr
 # The fetch can SUCCEED yet the subsequent `git reset --hard origin/journal2`
 # still fail 128 on a momentary network/ref blip. Under set -e that raw 128 would
 # escape classification. sync_clone must guard the reset too: on a reset failure
@@ -208,7 +247,7 @@ EOF
 chmod +x "$TR/bin/git"
 
 # ============================================================================
-hr; echo "SUBTEST 7 — the gardener loop ABSORBS a transient claim outage (does not exit 1)"; hr
+hr; echo "SUBTEST 8 — the gardener loop ABSORBS a transient claim outage (does not exit 1)"; hr
 # End-to-end: a claim that exits EX_TEMPFAIL (75) because of an offline blip must
 # make the long-running gardener SKIP the tick (sleep + continue), NOT die(1) and
 # force a systemd restart. We point gardener.sh at a real local clone (so
@@ -256,7 +295,7 @@ else
 fi
 
 # ============================================================================
-hr; echo "SUBTEST 8 — a SIGTERM-IGNORING fetch is escalated to SIGKILL by --kill-after (rc=137), bounded + classified TRANSIENT"; hr
+hr; echo "SUBTEST 9 — a SIGTERM-IGNORING fetch is escalated to SIGKILL by --kill-after (rc=137), bounded + classified TRANSIENT"; hr
 # THIRD outage shape (2026-06-29): bare `timeout` sends only SIGTERM, but git's
 # transport child (git-remote-https on a half-open TLS connection) does not reliably
 # die on SIGTERM — `git fetch` blocks in waitpid on the wedged child, so the timeout

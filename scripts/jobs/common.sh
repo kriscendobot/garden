@@ -1749,6 +1749,17 @@ _fetch_stderr_is_offline() {
   printf '%s' "$1" | grep -qiE "$GARDEN_OFFLINE_SIGNATURES"
 }
 
+# Canonical local-clone-corruption signature set. Unlike connectivity outages,
+# these failures cannot resolve on their own: the local journal clone must be
+# replaced before the next fetch can succeed. Keep this separate from
+# GARDEN_OFFLINE_SIGNATURES so corruption triggers repair rather than an
+# indefinitely repeated offline skip.
+: "${GARDEN_CORRUPT_CLONE_SIGNATURES:=object file .* is empty|loose object .* is corrupt|invalid index-pack output|did not receive expected object|unable to read .* object|fsck error|packfile .* cannot be accessed}"
+
+_fetch_stderr_is_corrupt() {
+  printf '%s' "$1" | grep -qiE "$GARDEN_CORRUPT_CLONE_SIGNATURES"
+}
+
 # --- bounded read-only gh-api retry (the transient-blip absorber) ------------
 #
 # Every read-only gh handler in the watcher fleet used to issue a SINGLE bare
@@ -2558,7 +2569,19 @@ sync_clone() {
       log "offline; skipping tick (rc=$GARDEN_OFFLINE_RC)"
       exit "$GARDEN_OFFLINE_RC"
     fi
-    die "fetch failed in $dir after bounded retries"
+    # A corrupt loose object in this local clone makes every future fetch fail.
+    # Re-clone while retaining the clone lock, so no concurrent producer can
+    # observe or write the destination while ensure_clone atomically replaces it.
+    # This branch deliberately runs only once per sync: if the fresh clone's
+    # fetch fails too, the ordinary fatal path below reports it rather than
+    # looping forever.
+    if _fetch_stderr_is_corrupt "$GARDEN_FETCH_STDERR"; then
+      log "WARN: corrupt local journal clone $dir; self-healing by re-cloning"
+      rm -rf "$dir"
+      ensure_clone "$dir"
+      if journal_fetch "$dir"; then rc=0; else rc=$?; fi
+    fi
+    [ "$rc" -eq 0 ] || die "fetch failed in $dir after bounded retries"
   fi
   # The fetch above succeeded, but the hard reset can ITSELF exit 128 on a
   # momentary network/ref inconsistency (a blip racing the local ref update).
