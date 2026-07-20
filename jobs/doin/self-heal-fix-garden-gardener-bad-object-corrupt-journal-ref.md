@@ -5,3 +5,10 @@ Fix: when a fetch fails with a **non-offline, corruption** signature (`bad objec
   2. Prune any zero-byte loose ref under `<dir>/.git/refs/remotes/origin/` (or `git for-each-ref`/`git update-ref -d` where the ref is unreadable; a truncated file needs a plain `rm` since update-ref can't parse it), so the valid packed-ref is unshadowed.
   3. `git -C <dir> fetch --prune` once more; if it still fails, fall back to a clean re-clone of the journal via the existing `ensure_clone` path.
 Then log the repair (one line, distinct from the offline-skip line) and either succeed or take the EX_TEMPFAIL/`die` path as appropriate. Guard the repair so it only fires on the corruption signatures, never on a genuine offline outage. Add a test alongside the existing fetch-classification tests injecting the `bad object refs/…` + gc.log shape and asserting the clone is repaired rather than the worker dying. Also repair the currently-corrupt live clone at `.garden-state/gardeners/11/journal` (rm the 0-byte `.git/refs/remotes/origin/journal2` and `.git/gc.log`) so gardener 11 recovers immediately.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  worker_kind: cleric
+  claimed_at: 2026-07-20T05:56:59Z
