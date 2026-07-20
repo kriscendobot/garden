@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T08:13:33Z_
+_As of 2026-07-20T08:24:03Z_
 
 ## Latest
 
@@ -2181,24 +2181,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 72.4M | $789.83 _(notional, rate-card)_ | no quota set |
+| Claude | 72.4M | $790.44 _(notional, rate-card)_ | no quota set |
 | Codex | 205.8M _(+554.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260720-022510.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
-- [`xs2rust-endor-stage10o-reflection-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10o-reflection-completion.md) — stage-10o child 0: native-fn reflection completion (F1/F2(s45)) — engine-wide
 
-### tada (2953)
+### tada (2954)
+- [`xs2rust-endor-stage10o-reflection-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10o-reflection-completion.md) — Completion report — stage-10o child 0: native-fn reflection completion (F1/F2...
 - [`self-heal-fix-garden-cleric-corrupt-clone-null-remote-ref`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-cleric-corrupt-clone-null-remote-ref.md) — Completion report
 - [`port-xs-to-rust-memory-safe-engine-s45`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s45.md) — s45 completion report
 - [`self-heal-fix-garden-cleric-corrupt-clone-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-cleric-corrupt-clone-reclone.md) — Implemented and pushed 4465b7d45a to main2.
 - [`xs2rust-endor-build-stage10n`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10n.md) — orchestration xs2rust-endor-build-stage10n — complete
-- [`xs2rust-endor-stage10n-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10n-remeasure.md) — Completion report — stage-10n 52-file daemon sweep re-measure (PR #600, endoj...
-- … and 2948 more
+- … and 2949 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
