@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T10:04:32Z_
+_As of 2026-07-20T10:07:18Z_
 
 ## Latest
 
@@ -2204,8 +2204,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260720-022510.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
+- [`xs2rust-endor-stage10p-unbound-builtins`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10p-unbound-builtins.md) — Stage-10p child 2: the unbound-builtin cluster (PR #600, xs2rust-endor)
 
 ### tada (2971)
 - [`xs2rust-endor-stage10p-regexp-lastindex-at-key`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10p-regexp-lastindex-at-key.md) — Completion report
