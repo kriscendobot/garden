@@ -44,3 +44,10 @@ Push-per-item; full bars on every pushed engine change with measured numbers at 
 ROOT 111/0; 0 non-oracle warnings; no new `unsafe`; no new side table — extending an EXISTING RegExp
 side table is fine, ADDING a new one must be snapshot-ledgered the same day). Accuracy-over-parity.
 One 2400s invocation; tada ONLY; keep PR DRAFT.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-20T09:40:10Z
