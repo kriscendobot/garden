@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T19:55:48Z_
+_As of 2026-07-20T20:00:28Z_
 
 ## Latest
 
@@ -2699,7 +2699,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`build-daemon-mapstore-gh59`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-daemon-mapstore-gh59.md) — Build Phase 1: durable MapStore in the endo pet daemon (closes kriskowal/gard...
 - [`issue-kriskowal-garden-59`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-59.md) — Issue from dckc on kriskowal/garden #59
 - [`xs2rust-endor-press-20260720-192031`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-192031.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
