@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T20:41:01Z_
+_As of 2026-07-20T20:43:33Z_
 
 ## Latest
 
@@ -1071,6 +1071,75 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260720T204034Z-6b68cc` — from watchdog:gardener/13, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T204034Z-6b68cc.md)
 
 > gardener job 'build-daemon-mapstore-gh59' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `poison-build-daemon-mapstore-gh59-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-daemon-mapstore-gh59-deadline-overrun.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
+> Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=2400s):
+> this job EXCEEDS THE HANDLER BUDGET and would be killed identically on every requeue,
+> so the reaper surfaced it after 1 overrun cycles (not the full 5-cycle poison threshold).
+> The work is preserved at jobs/plan/build-daemon-mapstore-gh59; it stays HELD until a human promotes it
+> (promote-plan.sh build-daemon-mapstore-gh59) or removes it. Triage: split the job, raise GARDEN_HANDLER_TIMEOUT
+> for this work, or fix what makes it run long.
+> Original job base: build-daemon-mapstore-gh59
+>
+> --- original job body ---
+> role: builder
+>
+> # Build Phase 1: durable MapStore in the endo pet daemon (closes [kriskowal/garden#59](https://github.com/kriskowal/garden/issues/59))
+>
+> Repo: endojs/endo-but-for-bots (branch `llm`).
+> Design: `packages/daemon/designs/daemon-persistent-stores.md` (design PR
+> [https://github.com/endojs/endo-but-for-bots/pull/809](https://github.com/endojs/endo-but-for-bots/pull/809)). READ IT FIRST — it
+> grounds every path and decision below in the actual daemon source.
+>
+> ## Task
+>
+> Implement **Phase 1** of that design: a durable, incrementally-mutable
+> `MapStore` (scalar keys) that a guest/host can create by pet name and that
+> survives a daemon restart. This is what the issue asks for ("if not, make a
+> design and build it"). Mirror the `@agoric/store` `MapStore` API
+> (init/set/get/delete/has/getSize/keys/values/entries/snapshot) over the
+> daemon's native formula + SQLite durability substrate — do NOT add an
+> `@agoric/*` dependency. Reuse `@endo/patterns` and `@endo/exo`.
+>
+> Concrete surface (see the design for detail and file:line grounding):
+> - add `map-store` to `packages/daemon/src/formula-type.js` and a record schema
+>   in `formula-record.js`;
+> - add a `map_store_entry(store_number, key_body, key_slots, value_body,
+>   value_slots)` table in `manager-database.js`, following how `pet_store_entry`
+>   / `synced_store_entry` were added;
+> - new `packages/daemon/src/map-store.js` exo (M-guarded `MapStore` interface),
+>   write-through to SQLite on every mutation; serialize keys/values with the
+>   daemon's existing marshal body+slots encoding so remotable entries join the
+>   retention graph (see `src/store-controller.js`);
+> - dispatch `map-store` → `makeIdentifiedMapStore` in `manager.js`;
+> - expose `makeMapStore(petName)` on the guest and host interfaces
+>   (`src/interfaces.js`), alongside `makeDirectory` / `storeValue`.
+>
+> ## Tests (the deliverable the issue wants to SEE)
+>
+> Add tests demonstrating: init/set/get/delete/has/getSize/keys/values/entries/
+> snapshot semantics including throw-conditions; CapTP round-trip of a remotable
+> value; and **restart persistence** (create store → set entries → restart the
+> daemon → entries still present). `test/endo.test.js` is the established home for
+> restart-survival tests. Run `yarn lint` and the daemon package tests locally
+> (see garden memory "Endo local test bin shims" for the PATH shims needed).
+>
+> Open a DRAFT PR against `llm`; the build auto-runs the gauntlet (clean → panel →
+> fix-loop → un-draft). Keep the PR scoped to Phase 1 only. When the PR is green
+> and un-drafted, comment the outcome back on the issue below (link the PR).
+>
+> ----- ISSUE NOTE (copy this block VERBATIM into every follow-on job) -----
+> issue_spine: issue-kriskowal-garden-59
+> issue_url: [https://github.com/kriskowal/garden/issues/59](https://github.com/kriskowal/garden/issues/59)
+> submitter: dckc
+> ----- END ISSUE NOTE -----
+>
+> Reply on the issue when done:
+>   gh issue comment [https://github.com/kriskowal/garden/issues/59](https://github.com/kriskowal/garden/issues/59) --body "…"
+>
+> <!-- garden-deadline-overrun: 1 -->
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -2797,15 +2866,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.3M | $828.91 _(notional, rate-card)_ | no quota set |
-| Codex | 269.4M _(+566.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 74.3M | $829.10 _(notional, rate-card)_ | no quota set |
+| Codex | 270.6M _(+566.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`build-daemon-mapstore-gh59`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-daemon-mapstore-gh59.md) — Build Phase 1: durable MapStore in the endo pet daemon (closes kriskowal/gard...
+### doin (1)
 - [`xs2rust-endor-press-20260720-203502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-203502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3029)
@@ -2818,6 +2886,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
+- [`build-daemon-mapstore-gh59`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-mapstore-gh59.md) — _normal_ · Build Phase 1: durable MapStore in the endo pet daemon (closes kriskowal/gard...
 - [`build-endo-daemon-cloudflare-storage`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-daemon-cloudflare-storage.md) — _normal_ · Build: Endo daemon Cloudflare storage platform (phases 1-2 of the design)
 - [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-kebab-case-lint-wildcard-test262.md) — _normal_ · Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
 - [`deploy-endo-daemon-aws-storage-reference`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-endo-daemon-aws-storage-reference.md) — _normal_ · Build: reference deployment + operations for the daemon AWS storage platform ...
