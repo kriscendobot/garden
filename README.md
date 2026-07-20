@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T16:38:18Z_
+_As of 2026-07-20T16:39:28Z_
 
 ## Latest
 
@@ -2568,23 +2568,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 73.8M | $822.54 _(notional, rate-card)_ | no quota set |
-| Codex | 241.7M _(+560.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 241.8M _(+560.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`kriscendobot-agoric-sdk-pr15-review-9a12af5e-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr15-review-9a12af5e-retro.md) — Retrospective on kriscendobot/agoric-sdk PR #15 (primary: kriscendobot-agoric...
+### doin (1)
 - [`review-improve-exo-guard-matches-static-type`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/review-improve-exo-guard-matches-static-type.md) — review-improve: exo interface guards must match their known static type
 
-### tada (3005)
+### tada (3006)
+- [`kriscendobot-agoric-sdk-pr15-review-9a12af5e-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-review-9a12af5e-retro.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr15-review-63f630f8-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-review-63f630f8-retro.md) — Completion report
 - [`minion-town-agenda-review-20260720-162001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-162001.md) — Completion report
 - [`xs2rust-endor-press-20260720-160510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260720-160510.md) — Branch state
 - [`minion-town-restore-hourly`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-restore-hourly.md) — Completion report
-- [`answer-garden-issue51-heap-snapshot-diffs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/answer-garden-issue51-heap-snapshot-diffs.md) — Completion report
-- … and 3000 more
+- … and 3001 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
