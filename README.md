@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T20:00:28Z_
+_As of 2026-07-20T20:01:25Z_
 
 ## Latest
 
@@ -2699,18 +2699,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`build-daemon-mapstore-gh59`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-daemon-mapstore-gh59.md) — Build Phase 1: durable MapStore in the endo pet daemon (closes kriskowal/gard...
-- [`issue-kriskowal-garden-59`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-59.md) — Issue from dckc on kriskowal/garden #59
 - [`xs2rust-endor-press-20260720-192031`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-192031.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3025)
+### tada (3026)
+- [`issue-kriskowal-garden-59`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-59.md) — Completion report — issue-kriskowal-garden-59
 - [`deadmail-issue-comment-5026492697`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5026492697.md) — Completion report
 - [`endojs-endo-but-for-bots-pr160-review-9858a782-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr160-review-9858a782-retro.md) — Completion report
 - [`minion-town-agenda-review-20260720-192031`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-192031.md) — Completion report
 - [`deadmail-issue-comment-5026079913`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5026079913.md) — Completion report
-- [`endojs-endo-but-for-bots-pr138-review-add866fa-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr138-review-add866fa-retro.md) — Completion report
-- … and 3020 more
+- … and 3021 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
