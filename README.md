@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T23:06:52Z_
+_As of 2026-07-20T23:09:17Z_
 
 ## Latest
 
@@ -3083,23 +3083,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 74.8M | $836.25 _(notional, rate-card)_ | no quota set |
-| Codex | 286.1M _(+573.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 286.4M _(+573.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`minion-town-agenda-review-20260720-230516`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260720-230516.md) — Minion Town hourly agenda review
+### doin (1)
 - [`xs2rust-endor-press-20260720-230516`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-230516.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3044)
+### tada (3045)
+- [`minion-town-agenda-review-20260720-230516`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-230516.md) — Hourly agenda review complete. No garden (main2) code changes were warranted ...
 - [`kriscendobot-agoric-sdk-pr10-review-9acf0d53`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-9acf0d53.md) — Completion report
 - [`kriscendobot-minion.town-pr10-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr10-conduct.md) — Completion report
 - [`minion-town-agenda-review-20260720-215002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-215002.md) — Reviewed and reported on garden issue #58: https://github.com/kriskowal/garde...
 - [`endojs-endo-but-for-bots-pr812-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr812-shepherd.md) — Completion report
-- [`endojs-endo-but-for-bots-pr160-review-81d82318-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr160-review-81d82318-retro.md) — Completion report
-- … and 3039 more
+- … and 3040 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
