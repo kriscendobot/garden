@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T23:33:24Z_
+_As of 2026-07-20T23:33:44Z_
 
 ## Latest
 
@@ -3086,11 +3086,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Codex | 297.1M _(+573.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (1)
-- [`xs2rust-endor-press-20260720-230516`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260720-230516.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
-
-### doin (0)
+### todo (0)
 (none)
+
+### doin (1)
+- [`xs2rust-endor-press-20260720-230516`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-230516.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3046)
 - [`kriscendobot-agoric-sdk-pr10-review-e3ccce0c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-e3ccce0c.md) — Completed review 4739631968.
