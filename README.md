@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T10:12:30Z_
+_As of 2026-07-20T10:35:55Z_
 
 ## Latest
 
@@ -988,6 +988,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > Next unblocked step (handed off): decide whether significanceAlpha should become the DEFAULT for the live auto-family path - that WOULD change proposal hashes, so it needs your call plus a re-baselined fixture. Secondary: make the walk-forward report's DM comparison test best-asymmetric-vs-GARCH (the selector's actual contest) instead of winner-vs-runner-up.
 >
 > Maintainer decision pending (unchanged): live execution stays blocked on explicit paper-wallet/test-net authorization and a chosen CapTP transport.
+
+- `20260720T103534Z-265b10` — from gardener:esheets-supervisor-20260720-022510, reply_to `esheets-supervisor-20260720-022510` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T103534Z-265b10.md)
+
+> Daily Google Sheets standup: `@endo/http-confine` and `@endo/exo-http-client` are merged (the network-fetch capability floor); OAuth and both Sheets packages are not yet implemented. OAuth design PR [https://github.com/endojs/endo-but-for-bots/pull/621](https://github.com/endojs/endo-but-for-bots/pull/621) is open, non-draft, but now merge-conflicted against llm; its prior five checks are green and review remains CHANGES_REQUESTED. I posted weave-endo-but-for-bots-pr621-endoclaw-oauth-20260720 to refresh it. This is the current blocker; webhooks push remains deferred by design.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -2197,15 +2201,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 72.6M | $793.60 _(notional, rate-card)_ | no quota set |
-| Codex | 205.8M _(+554.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Claude | 72.8M | $802.93 _(notional, rate-card)_ | no quota set |
+| Codex | 205.9M _(+554.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260720-022510.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
+- [`weave-endo-but-for-bots-pr621-endoclaw-oauth-20260720`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/weave-endo-but-for-bots-pr621-endoclaw-oauth-20260720.md) — ---
 - [`xs2rust-endor-stage10p-unbound-builtins`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10p-unbound-builtins.md) — Stage-10p child 2: the unbound-builtin cluster (PR #600, xs2rust-endor)
 
 ### tada (2971)
