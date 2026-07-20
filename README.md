@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T04:31:22Z_
+_As of 2026-07-20T04:32:28Z_
 
 ## Latest
 
@@ -2046,26 +2046,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 73.0M | $797.78 _(notional, rate-card)_ | no quota set |
-| Codex | 205.4M _(+548.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
+| Codex | 205.4M _(+549.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
-- [`self-heal-fix-garden-gardener-journal-clone-corrupt-bad-object-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-journal-clone-corrupt-bad-object-reclone.md) — In scripts/jobs/common.sh, add a corruption self-heal for a per-worker journa...
 - [`self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs.md) — In scripts/jobs/common.sh, handle LOCAL journal-clone corruption the way ensu...
 - [`self-heal-fix-garden-repo-watcher-corrupt-journal-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-corrupt-journal-clone.md) — scripts/jobs/common.sh
 - [`xs2rust-endor-stage10m-set-property-at`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10m-set-property-at.md) — stage-10m child 0: land the set_property_at runtime-opcode frontier (computed...
 
-### tada (2935)
+### tada (2936)
+- [`self-heal-fix-garden-gardener-journal-clone-corrupt-bad-object-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-gardener-journal-clone-corrupt-bad-object-reclone.md) — Implemented and pushed a31a27558b to main2.
 - [`port-xs-to-rust-memory-safe-engine-s43`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s43.md) — Completion report — supervisor s43 (XS→Rust Endor port)
 - [`endojs-endo-but-for-bots-pr503-1f49fc2e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr503-1f49fc2e.md) — Corrected PR #503’s Security Considerations wording and acknowledged erights’...
 - [`xs2rust-endor-build-stage10l`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10l.md) — orchestration xs2rust-endor-build-stage10l — complete
 - [`self-heal-fix-garden-repo-watcher-journal-clone-broken-ref`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-repo-watcher-journal-clone-broken-ref.md) — Completion report
-- [`xs2rust-endor-stage10l-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10l-remeasure.md) — Completion report — stage-10l 52-file daemon sweep re-measure (PR #600, endoj...
-- … and 2930 more
+- … and 2931 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
