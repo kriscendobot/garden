@@ -51,12 +51,4 @@ across them; C-XS same-harness anchor **530/19/20/0**.
 HARD STOP: size to one 2400s invocation; the detached sweep + TSV resume is proven across reaper
 requeues — if requeued, RESUME from the TSV, do not restart. Report via your tada completion report ONLY.
 
-<!-- garden-reaped: 3 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 14
-  worker_kind: gardener
-  claimed_at: 2026-07-20T07:13:11Z
+<!-- garden-reaped: 4 -->
