@@ -48,3 +48,10 @@ sweep-rust.tsv, per-file logs, SUMMARY.md, and a SWEEP-COMPLETE sentinel last.
 Report via your tada completion report ONLY — never inbox-send the parked supervisor. Sized to one
 2400s window; the detached sweep + TSV resume is your outage protection (proven across reaper
 requeues since stage-10f).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-20T03:37:07Z
