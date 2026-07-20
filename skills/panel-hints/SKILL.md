@@ -1,6 +1,6 @@
 ---
 created: 2026-05-22
-updated: 2026-07-16
+updated: 2026-07-20
 author: gardener
 ---
 
@@ -89,7 +89,7 @@ Every `fire` line collects into the recommended set.
 
 ### 5. Content-regex-triggered seats (7)
 
-For each, the probe runs `git diff "$BASE...HEAD" -U0 | grep -E '^\+'` and tests for at least one match against the regex set: `warden`, `locksmith`, `purist`, `spec-keeper`, `wire-watcher`, `engine-realist`, `typist`. A single regex hit anywhere in the added lines fires the seat; false positives are accepted, false negatives minimized. The probe reports the first hit so the seat list can be verified. The full regex sets live in the per-seat `probes/C-<seat>.sh` files. The typist probe fires on an inline `import()` type reference in a JSDoc tag, because the always-on seat is still the backstop when a gauntlet skips the gate.
+For each, the probe runs `git diff "$BASE...HEAD" -U0 | grep -E '^\+'` and tests for at least one match against the regex set: `warden`, `locksmith`, `purist`, `spec-keeper`, `wire-watcher`, `engine-realist`, `typist`. A single regex hit anywhere in the added lines fires the seat; false positives are accepted, false negatives minimized. The probe reports the first hit so the seat list can be verified. The full regex sets live in the per-seat `probes/C-<seat>.sh` files. The `spec-keeper` probe additionally fires on an added `M.any()` or broad `M.record()` in a changed `.ts`/`.js` exo or `M.interface(...)` guard, so the seat can decide whether a documented compatibility exception justifies it. The typist probe fires on an inline `import()` type reference in a JSDoc tag, because the always-on seat is still the backstop when a gauntlet skips the gate.
 
 ### 6. Design-panel routing
 
@@ -134,7 +134,7 @@ When the gardener adds a seat, the corresponding probe is added in the same comm
 
 1. Name by category prefix + seat slug: `probes/B-<seat>.sh` (path-triggered), `probes/C-<seat>.sh` (content-triggered), `probes/X-<seat>.sh` (cross-panel). **Exception — always-fire seats** whose signal is not a diff path/content shape (e.g. `scribe`, `releaser`, `coverage-auditor`) have no probe; they are listed in the `ALWAYS_FIRE` string instead. `coverage-auditor` in particular is gated downstream at *dispatch* by its deterministic c8 pre-pass (`seat-gate-coverage-auditor.sh`), not by a diff probe.
 2. The probe reads the diff via `git diff "$BASE...HEAD" --name-only` (path patterns) or `git diff "$BASE...HEAD" -U0 | grep -E '^\+'` (content regexes) and emits one of `fire <seat>  <reason>` or `skip <seat>`.
-3. Add a row to *Path-triggered seats* or *Content-regex-triggered seats* with the trigger and empirical source.
+3. Add a row to *Path-triggered seats* or *Content-regex-triggered seats* with the trigger and empirical source. When extending an existing seat's probe, update its documented trigger in the same commit as the seat amendment.
 
 `panel-hints.sh` picks up the new probe automatically (it globs `probes/*.sh`).
 

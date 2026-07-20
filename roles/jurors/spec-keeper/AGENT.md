@@ -1,6 +1,6 @@
 ---
 created: 2026-05-15
-updated: 2026-05-15
+updated: 2026-07-20
 author: gardener
 ---
 
@@ -36,6 +36,7 @@ Assumes you have already read `roles/COMMON.md`.
   - **Primordial preservation.** Captured `Reflect.apply` over `.call`. Captured `Array.prototype.slice` over `[].slice`. The spec-keeper flags every `.method()` call on a value that comes from outside the module's trust boundary, even when the surrounding code "assumes the primordial". The recurring formulation: "we should continue to prefer use of a captured `Reflect.apply` over `.call`".
   - **Forward-compatibility with proposals.** When the PR mirrors a TC39 proposal at stage 1 or 2, the spec-keeper asks whether the surface is narrow enough to absorb the proposal's expected evolution without a breaking change here. "Given that the proposal is at stage 1, this claim is too strong" is the recurring spec-keeper objection; "I'd prefer to pare down the API to the point where such a swap becomes possible" is the recurring spec-keeper recommendation.
   - **Less coupling.** When the PR introduces a new type to express a constraint that an existing type could express with a narrowing, the spec-keeper asks why. "Why introduce a new type? What breaks if `CopyArray` is instead updated to use `ReadonlyArray` rather than `Array`?" is the canonical instance. The lens reduces the type system's footprint where possible.
+  - **Exo guard/type alignment.** On an agoric-sdk exo `M.interface(...)` diff, compare every method's argument **and return** guard with its known static type. Per that repository's `packages/portfolio-contract/CONTRIBUTING.md` § `TypedPattern`s convention, runtime guards must be as precise as the known type; `M.any()`, broad `M.record()`, or another loose matcher is a must-fix under-specification unless a nearby comment documents a deliberate, reasoned compatibility boundary. Prefer an already-exported precise shape (for example `FlowKeyShape`), and require `M.promise()` for an async handler. Do not accept “upgrade-safe” looseness by itself as justification.
   - **Brittle-test resistance.** Tests that compare against a literal `NaN` bit pattern, a particular property-enumeration order, a `Date` toString format, an `Error` stack format. The spec-keeper flags these as engine-fragile and proposes either a spec-citation-derived assertion or a relaxed match.
   - **Hygiene nits.** Object-freeze calls on declared functions, named arrow exports, consistent `name` properties on returned functions. The spec-keeper's recurring small-nit: "ensure a name for this function". Stay terse on these; one line, then move on.
 - **Secondary surface (overlap).** Regression-evidence quality when the test rests on engine-defined behavior. The prover owns the broader regression-evidence axis; the spec-keeper's overlap is the "this test would pass on one engine and fail on another, so it does not pin the spec-derived contract" slice. Cite the spec section and the engines whose behavior diverges.
