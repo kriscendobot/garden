@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T12:23:33Z_
+_As of 2026-07-20T12:30:01Z_
 
 ## Latest
 
@@ -18,7 +18,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 2d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 2d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 2d)
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 2d)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 3d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 3d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 6d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 17d)
@@ -2356,15 +2356,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 73.2M | $816.03 _(notional, rate-card)_ | no quota set |
+| Claude | 73.4M | $816.84 _(notional, rate-card)_ | no quota set |
 | Codex | 214.1M _(+554.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr708-review-ecdedc30-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr708-review-ecdedc30-retro.md) — Retrospective on endojs/endo-but-for-bots PR #708 (primary: endojs-endo-but-f...
 
 ### tada (2975)
 - [`xs2rust-endor-press-20260720-112009`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260720-112009.md) — Progress journal entry posted to entries/2026/07/20/115218Z-progress-gardener...
@@ -2413,7 +2413,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`endojs-endo-but-for-bots-pr737-review-3363fee9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr737-review-3363fee9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #737 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr708-review-ecdedc30-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr708-review-ecdedc30-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #708 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr598-a5ffa84f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr598-a5ffa84f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #598 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr771-review-c92c5d14-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr771-review-c92c5d14-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #771 (primary: endojs-endo-but-f...
 - [`kriskowal-garden-pr7-review-4798277a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriskowal-garden-pr7-review-4798277a-retro.md) — _low_ · Retrospective on kriskowal/garden PR #7 (primary: kriskowal-garden-pr7-review...
