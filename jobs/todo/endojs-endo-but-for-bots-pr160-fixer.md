@@ -76,12 +76,4 @@ unless the maintainer directs otherwise.
 Verify locally: `yarn workspace @endo/exo-unzip test` and
 `yarn workspace @endo/exo-zip test` both green, then confirm the CI matrix.
 
-<!-- garden-reaped: 3 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 14
-  worker_kind: gardener
-  claimed_at: 2026-07-20T07:53:18Z
+<!-- garden-reaped: 4 -->
