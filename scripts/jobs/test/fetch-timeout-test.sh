@@ -165,6 +165,21 @@ else
   bad "sync_clone did not complete one corrupt-clone re-clone (rc=$rc, fetches=$(cat "$CORRUPT_COUNT"))"
 fi
 
+# Guard the EXACT reported repo-watcher signature (a zero-byte loose
+# refs/heads/journal2 shadowing packed-refs + bad reflogs): its fetch stderr must
+# classify as CORRUPT (heal by re-clone) and NOT as an offline outage (skip tick).
+REPORTED_STDERR="fatal: bad object refs/heads/journal2
+error: refs/heads/journal2 does not point to a valid object!
+fatal: did not send all necessary objects
+error: bad ref for .git/logs/refs/heads/journal2
+error: bad ref for .git/logs/HEAD
+fatal: invalid HEAD"
+if _fetch_stderr_is_corrupt "$REPORTED_STDERR" && ! _fetch_stderr_is_offline "$REPORTED_STDERR"; then
+  ok "reported repo-watcher stderr classifies CORRUPT and not offline"
+else
+  bad "reported repo-watcher stderr misclassified (corrupt=$(_fetch_stderr_is_corrupt "$REPORTED_STDERR" && echo y || echo n), offline=$(_fetch_stderr_is_offline "$REPORTED_STDERR" && echo y || echo n))"
+fi
+
 # ============================================================================
 hr; echo "SUBTEST 6 — sync_clone offline path survives a BARE set -e caller"; hr
 # REGRESSION GUARD. SUBTEST 3 invokes sync_clone as `( ... sync_clone ) || rc=$?`,

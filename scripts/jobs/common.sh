@@ -1756,11 +1756,14 @@ _fetch_stderr_is_offline() {
 # unnecessary re-clone, and corruption never gets silently skipped as offline.
 # Matched case-insensitively for the same cross-version diagnostic variance as
 # the offline classifier above. `invalid sha1 pointer` / `bad ref for` / `broken
-# ref` / `does not point to a valid object` cover a damaged REF specifically (the
-# garden-cleric item-7 incident, whose refs/remotes/origin/journal2 was the null
-# sha 0000…0000 left by an interrupted ref update: fetch aborted `fatal: bad
-# object refs/…` / `did not send all necessary objects`, and `git fsck` reported
-# `invalid sha1 pointer 0000...0000`).
+# ref` / `invalid HEAD` / `does not point to a valid object` cover a damaged
+# REF/reflog specifically — both the garden-cleric item-7 remote-tracking case
+# (refs/remotes/origin/journal2 = the null sha 0000…0000 left by an interrupted
+# ref update) AND the repo-watcher local-ref case (a zero-byte loose
+# refs/heads/journal2 shadowing a valid packed-refs entry, with bad
+# .git/logs/{HEAD,refs/…} reflogs): fetch aborts `fatal: bad object refs/…` /
+# `bad ref for …` / `did not send all necessary objects`, and `git fsck` reports
+# `invalid sha1 pointer 0000...0000` / `invalid HEAD`. Either shape re-clones.
 #
 # A second cleric-item-7 shape observed later was a damaged OBJECT DB, not just a
 # ref: a stale `.git/gc.log` blocked every repack and gc, so fetch's implicit
@@ -1772,7 +1775,7 @@ _fetch_stderr_is_offline() {
 # tree/sha1/object) to catch any `unable to read <path>` the object DB throws;
 # the offline classifier runs FIRST, so a transport `Could not read from remote`
 # is claimed as offline before this set ever sees it.
-: "${GARDEN_CORRUPT_CLONE_SIGNATURES:=bad object|invalid sha1 pointer|bad ref for|broken ref|does not point to a valid object|did not send all necessary objects|unable to read|object file .* is empty|loose object .* is corrupt|packfile .* cannot be accessed|invalid index-pack output|did not receive expected object|failed to run repack|gc\.log|fsck error}"
+: "${GARDEN_CORRUPT_CLONE_SIGNATURES:=bad object|invalid sha1 pointer|bad ref for|broken ref|invalid HEAD|does not point to a valid object|did not send all necessary objects|unable to read|object file .* is empty|loose object .* is corrupt|packfile .* cannot be accessed|invalid index-pack output|did not receive expected object|failed to run repack|gc\.log|fsck error}"
 
 _fetch_stderr_is_corrupt() {
   printf '%s' "$1" | grep -qiE "$GARDEN_CORRUPT_CLONE_SIGNATURES"
@@ -2593,39 +2596,36 @@ sync_clone() {
       log "offline; skipping tick (rc=$GARDEN_OFFLINE_RC)"
       exit "$GARDEN_OFFLINE_RC"
     fi
-    # A corrupt local clone cannot recover by retrying the same fetch, but it can
-    # be healed in place. Two-stage self-heal, cheapest first:
-    #   (a) TARGETED repair — a corrupt remote-tracking ref (the garden-cleric
-    #       item-7 null-sha case) is fixed by dropping that ref and pruning, no
-    #       re-clone needed: `update-ref -d` + `remote prune origin`, then re-fetch
-    #       once. This recovers the commonest corruption for the price of one fetch.
-    #   (b) FULL re-clone — if the targeted repair did not clear it (a damaged
-    #       object database, not just a ref), blow the clone away and re-provision
-    #       through ensure_clone's atomic-temp-clone path, then re-fetch.
+    # A corrupt LOCAL clone cannot recover by retrying the same fetch: a damaged
+    # local ref/reflog or object DB heals only by wiping the clone and
+    # re-provisioning it. This is the reported repo-watcher case — a zero-byte
+    # loose refs/heads/journal2 shadowing a valid packed-refs entry, plus bad
+    # .git/logs/{HEAD,refs/…} reflogs — where `git fetch` dies `bad object refs/…`
+    # / `bad ref for …` / `did not send all necessary objects`. A remote-tracking
+    # ref prune (`update-ref -d` + `remote prune`) would NOT touch the corrupt
+    # LOCAL refs/heads ref or reflogs, so only a full re-clone repairs it: blow the
+    # clone away and re-create it atomically through ensure_clone's
+    # temp-clone-then-rename path, then re-fetch once. This is exactly
+    # ensure_clone's poisoned-partial-clone handling, generalized from
+    # "missing .git" to "corrupt refs/reflogs/objects".
     # ensure_clone runs in a SUBSHELL (exactly as leader_host does): its terminal
     # clone_unlock would otherwise unset _CLONE_LOCK_FD[$dir] and close the fd,
     # RELEASING the flock sync_clone holds for this whole sync→write→push critical
     # section. The subshell closes only its inherited copy of the fd, so the
-    # parent's still-open fd keeps the lock — no peer can race the replacement.
-    # Heal only once per invocation: corruption surviving a fresh clone is an
-    # upstream error and must surface rather than spin a re-clone loop.
+    # parent's still-open fd keeps the lock — no peer can race the wipe/replace.
+    # Heal only ONCE per invocation: corruption surviving a fresh clone is an
+    # upstream error (or a genuinely unreachable remote) and must surface rather
+    # than spin a re-clone loop.
     if _fetch_stderr_is_corrupt "$GARDEN_FETCH_STDERR"; then
       corrupt_sig="$(_fetch_stderr_corrupt_signature "$GARDEN_FETCH_STDERR")"
-      log "WARN: $dir journal clone corrupt (signature: ${corrupt_sig:-unknown}); self-healing by re-cloning"
-      # (a) cheap targeted repair: drop the corrupt remote-tracking ref + prune.
-      git -C "$dir" update-ref -d "refs/remotes/origin/$JOURNAL_BRANCH" 2>/dev/null || true
-      git -C "$dir" remote prune origin 2>/dev/null || true
+      log "WARN: $dir local journal clone corrupt (signature: ${corrupt_sig:-unknown}); self-healing by re-cloning"
+      rm -rf "$dir"
+      ( ensure_clone "$dir" ) || true
+      log "REPAIRED: re-cloned corrupt journal clone $dir (signature: ${corrupt_sig:-unknown})"
       if journal_fetch "$dir"; then rc=0; else rc=$?; fi
-      if [ "$rc" -ne 0 ]; then
-        # (b) targeted repair insufficient — full re-provision via ensure_clone.
-        rm -rf "$dir"
-        ( ensure_clone "$dir" ) || true
-        log "REPAIRED: re-cloned corrupt journal clone $dir (signature: ${corrupt_sig:-unknown})"
-        if journal_fetch "$dir"; then rc=0; else rc=$?; fi
-      fi
-      # If the heal recovered the fetch (rc=0) we fall through to the reset below;
-      # a still-failing fetch that raced into a connectivity outage takes the
-      # clean-skip path, otherwise it surfaces.
+      # A re-clone that recovered the fetch (rc=0) falls through to the reset
+      # below; a still-failing fetch that raced into a connectivity outage takes
+      # the clean-skip path, otherwise the corruption is unhealable and surfaces.
       if [ "$rc" -ne 0 ]; then
         if [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ] || _fetch_stderr_is_offline "$GARDEN_FETCH_STDERR"; then
           log "offline; skipping tick (rc=$GARDEN_OFFLINE_RC)"
