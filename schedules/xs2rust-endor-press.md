@@ -1,6 +1,7 @@
 cadence: hourly
 last_dispatched: 2026-07-20T18:20:10Z
 job_basename_prefix: xs2rust-endor-press
+handler-timeout: 7200
 ---
 ---
 model: qwen3.6
