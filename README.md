@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T12:34:02Z_
+_As of 2026-07-20T12:36:09Z_
 
 ## Latest
 
@@ -2357,14 +2357,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 73.4M | $816.84 _(notional, rate-card)_ | no quota set |
-| Codex | 214.1M _(+554.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 214.2M _(+555.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr737-review-3363fee9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr737-review-3363fee9-retro.md) — Retrospective on endojs/endo-but-for-bots PR #737 (primary: endojs-endo-but-f...
+- [`xs2rust-endor-press-20260720-123515`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-123515.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (2976)
 - [`endojs-endo-but-for-bots-pr708-review-ecdedc30-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr708-review-ecdedc30-retro.md) — Completion report
