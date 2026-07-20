@@ -70,3 +70,10 @@ s42/s43: today the whole surface honest-skips `set_property_at`. Transliterate b
   `unsafe`, no new side table without a same-day ledger row.
 - Report via your tada completion report ONLY (never inbox-send the parked supervisor). Name every landed
   item's commit sha, every honest skip added/removed, and the measured bar numbers at your final tip.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 13
+  worker_kind: gardener
+  claimed_at: 2026-07-20T04:25:07Z
