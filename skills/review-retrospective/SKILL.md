@@ -67,13 +67,15 @@ scripts/jobs/review-miss-record.sh record <record-file>
 Miss-record frontmatter (see the design Q2 for the full shape): `kind`,
 `primary_job` (the store key), `verdict: miss`, `category` (taxonomy below),
 `pr`, `cluster` (the slug to join or mint), `cluster_pattern` (one line, used only
-when minting), plus `repo`, `comment_url`, `identity`, `producing_role`/
-`producing_job` when recoverable, `missed_by` (seat/stage), `severity`, and a
-`grounds` paragraph. A dismissal uses `verdict: not-a-miss`, `category:
-new-direction`, and `grounds`; it mints no cluster.
+when minting), `review_at` (the comment/review timestamp, ISO-8601 — always set it;
+the writer consults it only when the miss joins a **closed** cluster, to tell a
+genuine post-fix recurrence from a backlog-drain artifact, § 6), plus `repo`,
+`comment_url`, `identity`, `producing_role`/`producing_job` when recoverable,
+`missed_by` (seat/stage), `severity`, and a `grounds` paragraph. A dismissal uses
+`verdict: not-a-miss`, `category: new-direction`, and `grounds`; it mints no cluster.
 
 The writer prints a summary line you parse:
-`recorded=<path> verdict=miss cluster=<slug> count=<n> status=<s> prs=<a,b> recurrence=<0|1>`.
+`recorded=<path> verdict=miss cluster=<slug> count=<n> status=<s> prs=<a,b> recurrence=<0|1> drain_reopen=<0|1>`.
 
 ### 3. Cluster (deterministic first, judgment second)
 
@@ -179,10 +181,24 @@ scripts/jobs/review-miss-record.sh cluster-status <slug> closed \
 
 ### 6. Recurrence after closure
 
-A new miss joining a `closed` cluster reopens it (the writer flips `status` back to
-`open` and reports `recurrence=1`). When you see `recurrence=1`, message the
-maintainer (`message-user.sh`): the improvement demonstrably failed to prevent or
-catch the pattern, and a second improvement round should not proceed on autopilot.
+A new miss joining a `closed` cluster is one of two very different things, and the
+writer now tells them apart **mechanically** from the miss's `review_at` versus the
+cluster's improvement time (the `improved_by` commit's committer date, or the
+`improvement_job` dispatch time) — so the escalation gate runs identically on every
+host instead of resting on a per-prosecutor timestamp eyeball:
+
+- **Genuine post-fix recurrence** (`review_at` postdates the improvement): the
+  writer reopens the cluster (`status=open`) and reports `recurrence=1
+  drain_reopen=0`. When you see `recurrence=1`, message the maintainer
+  (`message-user.sh`): the improvement demonstrably failed to prevent or catch the
+  pattern, and a second improvement round should not proceed on autopilot.
+- **Backlog-drain artifact** (`review_at` predates the improvement — a pre-fix
+  cascade review that merely landed after the cluster closed mid-drain): the writer
+  keeps `status=closed` and reports `recurrence=0 drain_reopen=1`. This is a
+  record-and-re-close: the member is stored, but **do not escalate** — the
+  improvement was never in force when the missed review happened, so it did not
+  fail. (If timing is undeterminable — no `review_at`, no derivable improvement
+  time — the writer falls back to the conservative `recurrence=1` reopen.)
 
 ## Reconciliation with the other self-improvement loops
 

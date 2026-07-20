@@ -27,10 +27,17 @@
 #         pr: <n>                    REQUIRED for a miss (the distinct-PR count)
 #         cluster: <slug>           REQUIRED for a miss (join target / mint slug)
 #         cluster_pattern: <line>   used ONLY when minting a new cluster
+#         review_at: <iso>          the reopening miss's review/comment timestamp;
+#                                    used ONLY when a miss joins a CLOSED cluster,
+#                                    to tell a genuine post-fix recurrence (miss
+#                                    postdates the improvement → recurrence=1,
+#                                    reopen, escalate) from a backlog-drain
+#                                    artifact (miss predates it → drain_reopen=1,
+#                                    stay closed, record-and-re-close, no escalate)
 #       Idempotent on primary_job: if misses/<base>.md OR dismissed/<base>.md
 #       already exists the call is a no-op success. On success prints a
 #       machine-readable summary line the prosecutor parses:
-#         recorded=<path> verdict=<v> [cluster=<slug> count=<n> status=<s> prs=<a,b> recurrence=<0|1>]
+#         recorded=<path> verdict=<v> [cluster=<slug> count=<n> status=<s> prs=<a,b> recurrence=<0|1> drain_reopen=<0|1>]
 #
 #   cluster-status <slug> <status> [--job B] [--rationale-file F] [--improved-by TEXT]
 #       Advance a cluster's lifecycle (open|improvement-dispatched|closed) and set
@@ -80,6 +87,49 @@ fm_body() {  # fm_body <file>
 # Add <item> to a space-separated set (no-op if present); prints the new set.
 set_add() {  # set_add <set> <item>
   local s=" $1 "; case "$s" in *" $2 "*) printf '%s' "$1";; *) printf '%s' "${1:+$1 }$2";; esac
+}
+
+# True iff timestamp A strictly precedes timestamp B. Both are normalized through
+# `date -d` so mixed ISO-8601 spellings (Z vs +00:00 vs an offset) compare
+# correctly. Returns false (non-zero) whenever either is empty or unparseable —
+# the conservative default, so an undeterminable timing falls back to today's
+# escalate-on-reopen behavior rather than silently suppressing.
+is_before() {  # is_before <ts-a> <ts-b>
+  local a b
+  [ -n "${1:-}" ] && [ -n "${2:-}" ] || return 1
+  a="$(date -d "$1" +%s 2>/dev/null)" || return 1
+  b="$(date -d "$2" +%s 2>/dev/null)" || return 1
+  [ -n "$a" ] && [ -n "$b" ] || return 1
+  [ "$a" -lt "$b" ]
+}
+
+# The instant a cluster's improvement landed, as an ISO-8601 string, or empty if
+# not derivable. Prefers the committer date of the improvement commit(s) named in
+# `improved_by` (the latest, if several); falls back to the `improvement_job`
+# dispatch time — the commit date of this cluster's `→ improvement-dispatched`
+# transition.
+cluster_improvement_time() {  # cluster_improvement_time <clone-dir> <cluster-file> <slug>
+  local dir="$1" cf="$2" slug="$3" improved job tok t best=""
+  improved="$(fm "$cf" improved_by)"
+  # `improved_by` may carry commit SHAs alongside prose/paths. Take the latest
+  # committer date among any tokens that resolve to a commit (%cI is a single
+  # consistent format across the repo, so a lexical max is safe here).
+  for tok in $(printf '%s' "$improved" | tr ',' ' '); do
+    tok="${tok%%[^0-9a-fA-F]*}"  # trim at the first non-hex char
+    case "$tok" in
+      [0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]*)
+        t="$(git -C "$dir" show -s --format=%cI "$tok^{commit}" 2>/dev/null)" || t=""
+        if [ -n "$t" ] && { [ -z "$best" ] || [[ "$t" > "$best" ]]; }; then best="$t"; fi
+        ;;
+    esac
+  done
+  if [ -n "$best" ]; then printf '%s' "$best"; return 0; fi
+  job="$(fm "$cf" improvement_job)"
+  if [ -n "$job" ]; then
+    t="$(git -C "$dir" log -1 --format=%cI --grep='→ improvement-dispatched' \
+          -- "$STORE/clusters/$slug.md" 2>/dev/null)" || t=""
+    [ -n "$t" ] && printf '%s' "$t"
+  fi
 }
 
 seed_readme() {  # seed_readme <clone-dir>
@@ -158,7 +208,7 @@ cmd_record() {
     fi
     seed_readme "$DIR"
 
-    local dest recurrence=0 count status prs
+    local dest recurrence=0 drain_reopen=0 count status prs
     if [ "$verdict" = not-a-miss ]; then
       dest="$STORE/dismissed/$base.md"
       mkdir -p "$DIR/$STORE/dismissed"
@@ -179,9 +229,26 @@ cmd_record() {
         members="$(set_add "$members" "$base")"
         prs="$(set_add "$prs" "$pr")"
         status="$oldstatus"
-        # Recurrence: a new miss joining a CLOSED cluster reopens it (the
-        # improvement did not take — the prosecutor escalates to the maintainer).
-        if [ "$oldstatus" = closed ]; then status=open; recurrence=1; fi
+        # A new miss joining a CLOSED cluster is one of two very different things,
+        # decided here mechanically from timestamps rather than in the prosecutor's
+        # head (skills/review-retrospective/SKILL.md § 6):
+        #   * genuine post-fix RECURRENCE — the miss postdates the improvement, so
+        #     the fix did not take: reopen and set recurrence=1 (escalate); or
+        #   * a backlog-DRAIN artifact — a pre-improvement cascade review that
+        #     merely landed after the cluster closed mid-drain: keep it closed and
+        #     set drain_reopen=1 (record-and-re-close, no escalation).
+        # When the timing is undeterminable (no review_at, no derivable improvement
+        # time) we fall through to the conservative recurrence=1 reopen.
+        if [ "$oldstatus" = closed ]; then
+          local review_at imp_time
+          review_at="$(fm "$rec" review_at)"
+          imp_time="$(cluster_improvement_time "$DIR" "$cf" "$cluster")"
+          if is_before "$review_at" "$imp_time"; then
+            status=closed; drain_reopen=1
+          else
+            status=open; recurrence=1
+          fi
+        fi
         count="$(printf '%s\n' $members | grep -c .)"
         write_cluster "$cf" "$cluster" "$category" "$status" "$count" "$members" "$prs" \
           "$(fm "$cf" improvement_job)" "$(fm "$cf" improved_by)" "$(fm_body "$cf")"
@@ -195,9 +262,9 @@ cmd_record() {
 
     if commit_and_push "$DIR" "review-miss($base) $verdict${cluster:+ → cluster $cluster} by $GARDEN"; then
       if [ "$verdict" = miss ]; then
-        log "recorded review-miss '$base' → cluster '$cluster' (count=$count status=$status recurrence=$recurrence)"
-        printf 'recorded=%s verdict=miss cluster=%s count=%s status=%s prs=%s recurrence=%s\n' \
-          "$dest" "$cluster" "$count" "$status" "$(printf '%s' "$prs" | tr ' ' ',')" "$recurrence"
+        log "recorded review-miss '$base' → cluster '$cluster' (count=$count status=$status recurrence=$recurrence drain_reopen=$drain_reopen)"
+        printf 'recorded=%s verdict=miss cluster=%s count=%s status=%s prs=%s recurrence=%s drain_reopen=%s\n' \
+          "$dest" "$cluster" "$count" "$status" "$(printf '%s' "$prs" | tr ' ' ',')" "$recurrence" "$drain_reopen"
       else
         log "recorded review-miss dismissal '$base' (not-a-miss)"
         printf 'recorded=%s verdict=not-a-miss\n' "$dest"

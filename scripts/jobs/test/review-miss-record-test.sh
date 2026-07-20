@@ -11,7 +11,12 @@
 #   4. DISMISS   — a not-a-miss writes dismissed/<base>.md and mints no cluster.
 #   5. STATUS    — cluster-status advances open→improvement-dispatched→closed and
 #                  guards a double-dispatch (already-dispatched is a no-op).
-#   6. RECURRENCE — a new miss joining a CLOSED cluster reopens it (recurrence=1).
+#   6. RECURRENCE — a new miss joining a CLOSED cluster with undeterminable timing
+#                  reopens it (recurrence=1) — the conservative default.
+#   7. DRAIN-REOPEN — a miss whose review PREDATES the improvement is a backlog-
+#                  drain artifact: stays closed, drain_reopen=1, no escalation.
+#   8. POST-FIX RECURRENCE — a miss whose review POSTDATES the improvement is a
+#                  genuine recurrence: reopens, recurrence=1.
 #
 # Usage: review-miss-record-test.sh
 
@@ -53,8 +58,9 @@ tip() {  # tip <path-under-journal> → cat file at the committed tip (empty if 
 exists() { rm -rf "$V"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$V"; [ -e "$V/$1" ]; }
 cfield() { tip "$1" | sed -n "s/^$2:[[:space:]]*//p" | head -1; }
 
-# Build a miss record file.
-mk_miss() {  # mk_miss <out> <base> <pr> <cluster> <category>
+# Build a miss record file. Optional 6th arg sets `review_at:` (the reopening
+# miss's review/comment timestamp; only consulted when joining a CLOSED cluster).
+mk_miss() {  # mk_miss <out> <base> <pr> <cluster> <category> [review_at]
   cat > "$1" <<EOF
 ---
 kind: review-miss
@@ -71,6 +77,7 @@ severity: moderate
 verdict: miss
 cluster: $4
 cluster_pattern: Empty-input boundaries keep slipping past the panel.
+${6:+review_at: $6}
 ---
 Paraphrase: the change did not guard the empty-input boundary; the panel should
 have run corner-prober here.
@@ -148,6 +155,34 @@ out4="$("$RMR" record "$M4")"
 [ "$(cfield review-misses/clusters/empty-input-boundaries.md status)" = open ] && ok "closed cluster reopened by a new miss" || bad "cluster not reopened"
 echo "$out4" | grep -q 'recurrence=1' && ok "recurrence flagged in summary" || bad "recurrence not flagged: $out4"
 [ "$(cfield review-misses/clusters/empty-input-boundaries.md count)" = 4 ] && ok "count continues (4)" || bad "count did not continue"
+
+# ============================================================================
+hr; echo "7 — DRAIN-REOPEN: a pre-improvement miss re-closes, no escalation"; hr
+# Mint a fresh cluster and drive it closed, naming a REAL commit as the
+# improvement so its committer date is the improvement instant.
+M7a="$TR/m7a.md"; mk_miss "$M7a" endojs-ebfb-pr800-review-ff66 800 drain-input missed-edge-case
+"$RMR" record "$M7a" >/dev/null
+rm -rf "$V"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$V"
+IMPSHA="$(git -C "$V" rev-parse HEAD)"
+IMPEPOCH="$(git -C "$V" show -s --format=%ct "$IMPSHA")"
+"$RMR" cluster-status drain-input improvement-dispatched --job review-improve-drain-input >/dev/null
+"$RMR" cluster-status drain-input closed --improved-by "$IMPSHA" >/dev/null
+[ "$(cfield review-misses/clusters/drain-input.md status)" = closed ] && ok "cluster closed" || bad "cluster not closed"
+# A miss whose review PREDATES the improvement is a backlog-drain artifact.
+BEFORE="$(date -u -d "@$((IMPEPOCH - 3600))" +%Y-%m-%dT%H:%M:%SZ)"
+M7b="$TR/m7b.md"; mk_miss "$M7b" endojs-ebfb-pr801-review-aa77 801 drain-input missed-edge-case "$BEFORE"
+out7="$("$RMR" record "$M7b")"
+[ "$(cfield review-misses/clusters/drain-input.md status)" = closed ] && ok "pre-improvement miss did NOT reopen" || bad "cluster wrongly reopened"
+echo "$out7" | grep -q 'recurrence=0 drain_reopen=1' && ok "drain_reopen=1, recurrence=0 in summary" || bad "flags wrong: $out7"
+[ "$(cfield review-misses/clusters/drain-input.md count)" = 2 ] && ok "member still recorded (count 2)" || bad "member not recorded"
+
+# ============================================================================
+hr; echo "8 — POST-FIX RECURRENCE: a miss after the fix reopens + escalates"; hr
+AFTER="$(date -u -d "@$((IMPEPOCH + 3600))" +%Y-%m-%dT%H:%M:%SZ)"
+M8="$TR/m8.md"; mk_miss "$M8" endojs-ebfb-pr802-review-bb88 802 drain-input missed-edge-case "$AFTER"
+out8="$("$RMR" record "$M8")"
+[ "$(cfield review-misses/clusters/drain-input.md status)" = open ] && ok "post-improvement miss reopened cluster" || bad "cluster not reopened"
+echo "$out8" | grep -q 'recurrence=1 drain_reopen=0' && ok "recurrence=1, drain_reopen=0 in summary" || bad "flags wrong: $out8"
 
 hr
 echo "review-miss-record: $PASS passed, $FAIL failed"
