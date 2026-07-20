@@ -1,0 +1,18 @@
+In `scripts/jobs/common.sh`, add a local-repo-corruption self-heal to the journal-fetch path so a gardener whose per-worker clone (`.garden-state/gardeners/<n>/journal`) develops a corrupt remote-tracking ref recovers instead of dying on every restart forever.
+
+Failure signature (from gardener/11, exit 1 at claim): `git fetch origin journal2` fails deterministically with
+`fatal: bad object refs/remotes/origin/journal2` + `error: github.com:kriskowal/garden.git did not send all necessary objects`.
+This matches no `GARDEN_OFFLINE_SIGNATURES` (correct — it is not transient), so `journal_fetch` retries 3× identically and `sync_clone` hits `die "fetch failed in $dir after bounded retries"` (common.sh:2510). `ensure_clone` (common.sh:1538) does NOT heal it because `$dir/.git` exists — its self-heal only fires when `.git` is absent (poisoned partial clone).
+
+What to change:
+1. Add a corruption-signature classifier next to `_fetch_stderr_is_offline` (common.sh:1722), e.g. `_fetch_stderr_is_corrupt`, matching case-insensitively on: `bad object`, `did not send all necessary objects`, `unable to read (tree|sha1|object)`, `object file .* is empty`, `loose object .* is corrupt`, `packfile .* cannot be accessed`. Keep it strictly separate from the offline set so a real outage is never mistaken for corruption (which would trigger an unnecessary re-clone) and vice-versa.
+2. In `sync_clone` (common.sh:2483), when `journal_fetch` fails and the stderr is NOT offline but IS a corruption signature, self-heal by re-cloning `$dir` once: `rm -rf "$dir"` then re-run `ensure_clone "$dir"` (which now clones fresh via its atomic `${dir}.tmp.$$` temp-and-rename path), then retry `journal_fetch` once. Do this under the clone_lock already held by sync_clone. Only if the post-reclone fetch still fails do we `die`. Log a `REPAIRED: re-cloned corrupt journal clone $dir (signature: <sig>)` line, mirroring the existing poisoned-partial-clone WARN at common.sh:1555.
+3. Guard against a reclone loop: heal at most once per sync_clone invocation (a corruption that survives a fresh clone is a genuine upstream problem and should surface as a die, not spin).
+4. Extend `scripts/jobs/test/run-test.sh` with a case that injects the `bad object` / `did not send all necessary objects` stderr via `GARDEN_FETCH_CMD` and asserts the corrupt path triggers a re-clone-and-retry rather than the offline skip or a bare die (alongside the existing `expect_online "bad object"` case at run-test.sh:2391, which currently only checks classification — add the heal-and-recover assertion).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 9
+  worker_kind: cleric
+  claimed_at: 2026-07-20T02:27:28Z
