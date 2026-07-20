@@ -2542,17 +2542,15 @@ unset SELF_HEAL_STUB_CALLS SELF_HEAL_HANDLER
   || bad "self-heal did not normalize the sync_clone outage (rc=$rwrap calls=$(shcalls))"
 
 # A deterministic local corruption is neither an offline skip nor an immediate
-# fatal. sync_clone first removes a stale gc.log and zero-byte origin refs under
-# the held clone_lock, then re-fetches. It falls back to an atomic re-clone only
-# when that cheap repair is insufficient. The fixtures prove the reported zero-byte
-# remote-tracking ref plus gc.log heals in place, and recovery does not become an
-# infinite re-clone loop.
+# fatal. sync_clone replaces the affected clone through ensure_clone's atomic
+# re-clone path under the held lock, then makes one fetch attempt against the
+# fresh clone. A second failure must surface rather than loop.
 
 # (A) The reported shape: a REAL zero-byte ref corruption against the REAL bare remote
 # (default git fetch, no stub), plus a stale gc.log. refs/remotes/origin/$BRANCH is overwritten with the null sha (an
 # interrupted ref update) shadowing the valid packed-refs entry, so the first fetch
-# aborts `bad object refs/…` / `did not send all necessary objects`. The cheap
-# repair removes the loose zero-byte ref so the packed ref is usable again.
+# aborts `bad object refs/…` / `did not send all necessary objects` and must be
+# replaced rather than retried in place.
 CORRUPT_A="$S24/corrupt-clone-a"; CORRUPT_A_LOG="$S24/corrupt-a.log"
 git clone -q --single-branch --branch "$BRANCH" "$BARE" "$CORRUPT_A"
 seed_sha="$(git -C "$CORRUPT_A" rev-parse "origin/$BRANCH")"
@@ -2570,16 +2568,15 @@ rca=$?
 set -e
 { [ "$rca" -eq 0 ] \
   && [ "$(git -C "$CORRUPT_A" rev-parse "origin/$BRANCH" 2>/dev/null)" = "$seed_sha" ] \
-  && [ -e "$CORRUPT_A/stale-sentinel" ] \
+  && [ ! -e "$CORRUPT_A/stale-sentinel" ] \
   && [ ! -e "$CORRUPT_A/.git/gc.log" ] \
-  && grep -q 'REPAIRED: healed corrupt journal clone' "$CORRUPT_A_LOG" \
-  && ! grep -q 'repair insufficient; self-healing by re-cloning' "$CORRUPT_A_LOG" \
+  && grep -q 'REPAIRED: re-cloned corrupt journal clone' "$CORRUPT_A_LOG" \
   && ! grep -q 'offline; skipping tick' "$CORRUPT_A_LOG"; } \
-  && ok "sync_clone repairs the zeroed origin ref + stale gc.log in place via a real fetch" \
-  || bad "sync_clone did not repair the null-sha + gc.log corruption in place (rc=$rca ref=$(git -C "$CORRUPT_A" rev-parse "origin/$BRANCH" 2>/dev/null) log: $(tr '\n' '|' <"$CORRUPT_A_LOG"))"
+  && ok "sync_clone re-clones the zeroed origin ref + stale gc.log via a real fetch" \
+  || bad "sync_clone did not re-clone the null-sha + gc.log corruption (rc=$rca ref=$(git -C "$CORRUPT_A" rev-parse "origin/$BRANCH" 2>/dev/null) log: $(tr '\n' '|' <"$CORRUPT_A_LOG"))"
 
-# (B) An injected corrupt fetch followed by a successful post-repair fetch. A
-# sentinel in the clone proves the cheap repair avoided an unnecessary re-clone.
+# (B) An injected corrupt fetch followed by success after re-cloning. The sentinel
+# proves the corrupt clone was replaced, rather than skipped as offline or retried.
 cat > "$S24/bin/corrupt-twice-then-ok-fetch" <<'EOF'
 #!/bin/bash
 n="$(cat "$GARDEN_FETCH_COUNT" 2>/dev/null || echo 0)"
@@ -2608,17 +2605,15 @@ set +e
 rcorrupt=$?
 set -e
 { [ "$rcorrupt" -eq 0 ] && [ "$(cat "$GARDEN_FETCH_COUNT")" -eq 2 ] \
-  && [ -e "$CORRUPT_B/stale-sentinel" ] \
+  && [ ! -e "$CORRUPT_B/stale-sentinel" ] \
   && git -C "$CORRUPT_B" rev-parse -q --verify "origin/$BRANCH" >/dev/null \
-  && grep -q 'REPAIRED: healed corrupt journal clone' "$CORRUPT_B_LOG" \
-  && ! grep -q 'repair insufficient; self-healing by re-cloning' "$CORRUPT_B_LOG" \
+  && grep -q 'REPAIRED: re-cloned corrupt journal clone' "$CORRUPT_B_LOG" \
   && ! grep -q 'offline; skipping tick' "$CORRUPT_B_LOG"; } \
-  && ok "sync_clone repairs and recovers on its one post-repair fetch (fetches=2, clone retained)" \
-  || bad "sync_clone did not repair+recover injected corruption (rc=$rcorrupt fetches=$(cat "$GARDEN_FETCH_COUNT" 2>/dev/null || echo 0) log: $(tr '\n' '|' <"$CORRUPT_B_LOG"))"
+  && ok "sync_clone re-clones and recovers on its one post-reclone fetch (fetches=2)" \
+  || bad "sync_clone did not re-clone+recover injected corruption (rc=$rcorrupt fetches=$(cat "$GARDEN_FETCH_COUNT" 2>/dev/null || echo 0) log: $(tr '\n' '|' <"$CORRUPT_B_LOG"))"
 
 # (C) Corruption that OUTLASTS the re-clone: an ALWAYS-corrupt injected fetch.
-# sync_clone must re-clone AT MOST ONCE (the initial, repair retry, and one
-# post-reclone fetch),
+# sync_clone must re-clone AT MOST ONCE (the initial and one post-reclone fetch),
 # then `die` loud — never spin a
 # reclone-per-tick loop. This exercises the heal-once guard: a genuinely
 # unrecoverable remote still dies rather than looping.
@@ -2646,11 +2641,10 @@ set +e
 rcc=$?
 set -e
 { [ "$rcc" -ne 0 ] && [ "$rcc" -ne "${GARDEN_OFFLINE_RC:-75}" ] \
-  && [ "$(cat "$CORRUPT_C_COUNT")" -eq 3 ] \
-  && grep -qi 'repair insufficient; self-healing by re-cloning' "$CORRUPT_C_LOG" \
+  && [ "$(cat "$CORRUPT_C_COUNT")" -eq 2 ] \
   && grep -q 'fetch failed in .* after re-cloning corrupt journal clone' "$CORRUPT_C_LOG" \
   && ! grep -q 'offline; skipping tick' "$CORRUPT_C_LOG"; } \
-  && ok "sync_clone re-clones at most once on unhealable corruption, then dies loud (fetches=3)" \
+  && ok "sync_clone re-clones at most once on unhealable corruption, then dies loud (fetches=2)" \
   || bad "sync_clone did not bound the re-clone to once on unhealable corruption (rc=$rcc fetches=$(cat "$CORRUPT_C_COUNT" 2>/dev/null || echo 0) log: $(tr '\n' '|' <"$CORRUPT_C_LOG"))"
 
 # (D) The REPORTED garden-repo-watcher shape reproduced against the REAL bare
@@ -2689,8 +2683,7 @@ set -e
   && git -C "$CORRUPT_D" show-ref --verify -q "refs/heads/$BRANCH" \
   && [ ! -e "$CORRUPT_D/stale-sentinel" ] \
   && [ ! -e "$CORRUPT_D/.git/gc.log.lock" ] \
-  && grep -qi 'corrupt journal clone; self-healing by re-cloning' "$CORRUPT_D_LOG" \
-  && grep -q 'REPAIRED: healed corrupt journal clone' "$CORRUPT_D_LOG" \
+  && grep -q 'REPAIRED: re-cloned corrupt journal clone' "$CORRUPT_D_LOG" \
   && ! grep -q 'offline; skipping tick' "$CORRUPT_D_LOG"; } \
   && ok "sync_clone heals a REAL zeroed refs/heads/$BRANCH + stale gc.log.lock (garden-repo-watcher shape) via re-clone → exit 0, refs restored, lock cleared" \
   || bad "sync_clone did not heal the real repo-watcher corrupt-clone shape (rcd=$rcd ref=$(git -C "$CORRUPT_D" rev-parse "origin/$BRANCH" 2>/dev/null) sentinel=$([ -e "$CORRUPT_D/stale-sentinel" ] && echo present || echo gone) lock=$([ -e "$CORRUPT_D/.git/gc.log.lock" ] && echo present || echo gone) log: $(tr '\n' '|' <"$CORRUPT_D_LOG"))"
