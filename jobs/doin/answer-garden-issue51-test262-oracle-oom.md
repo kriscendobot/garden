@@ -19,3 +19,10 @@ etc.). Then draft a concise, technically-grounded reply and POST it as a comment
 on issue #51 (bot identity) addressed to @kumavis, citing sources. If the answer
 is not yet knowable from current state, say so plainly and name what would
 settle it.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  worker_kind: cleric
+  claimed_at: 2026-07-20T15:27:59Z
