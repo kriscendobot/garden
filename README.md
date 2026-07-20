@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T21:48:50Z_
+_As of 2026-07-20T21:50:57Z_
 
 ## Latest
 
@@ -2973,15 +2973,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.4M | $830.53 _(notional, rate-card)_ | no quota set |
-| Codex | 280.9M _(+571.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 74.4M | $830.77 _(notional, rate-card)_ | no quota set |
+| Codex | 281.0M _(+571.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`minion-town-agenda-review-20260720-215002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260720-215002.md) — Minion Town hourly agenda review
+- [`xs2rust-endor-press-20260720-215002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-215002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3041)
 - [`endojs-endo-but-for-bots-pr812-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr812-shepherd.md) — Completion report
