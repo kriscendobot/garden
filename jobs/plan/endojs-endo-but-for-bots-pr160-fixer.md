@@ -1,3 +1,17 @@
+---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: requeue-exhausted
+poison_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+poisoned_at: 2026-07-20T08:13:06Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-20T08:13:06Z
+---
+
 # fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
 
 Posted by the pr160 **shepherd** after driving CI from a fully-red matrix down
@@ -75,13 +89,3 @@ unless the maintainer directs otherwise.
 
 Verify locally: `yarn workspace @endo/exo-unzip test` and
 `yarn workspace @endo/exo-zip test` both green, then confirm the CI matrix.
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 12
-  worker_kind: gardener
-  claimed_at: 2026-07-20T08:03:21Z
