@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/57#issuecomment-5026079913
 Please revise all references above to fully qualified URLs. Please take this advice generally when communicating through Github. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 20
+  worker_kind: gardener
+  claimed_at: 2026-07-20T19:05:09Z
