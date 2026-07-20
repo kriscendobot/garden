@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T03:23:08Z_
+_As of 2026-07-20T03:24:00Z_
 
 ## Latest
 
@@ -2045,26 +2045,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.3M | $815.30 _(notional, rate-card)_ | no quota set |
+| Claude | 74.1M | $808.06 _(notional, rate-card)_ | no quota set |
 | Codex | 205.2M _(+546.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
-- [`endojs-endo-but-for-bots-pr160-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #160
 - [`self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs.md) — In scripts/jobs/common.sh, handle LOCAL journal-clone corruption the way ensu...
-- [`xs2rust-endor-stage10l-reflection-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10l-reflection-fixer.md) — Stage-10l child 0: fix the two s42 reflection findings (PR #600, endojs/endo-...
 
-### tada (2923)
+### tada (2925)
+- [`endojs-endo-but-for-bots-pr160-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr160-shepherd.md) — Shepherd completion report — endojs/endo-but-for-bots PR #160
+- [`xs2rust-endor-stage10l-reflection-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10l-reflection-fixer.md) — Completion report
 - [`endojs-endo-but-for-bots-pr160-review-81d82318`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr160-review-81d82318.md) — Completion report
 - [`self-heal-fix-garden-repo-watcher-corrupt-local-ref-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-repo-watcher-corrupt-local-ref-reclone.md) — Completion report
 - [`port-xs-to-rust-memory-safe-engine-s42`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s42.md) — s42 completion report — stage-10k ACCEPTED, stage-10l dispatched, s43 parked
-- [`self-heal-fix-garden-cleric-corrupt-journal-clone-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-cleric-corrupt-journal-clone-reclone.md) — Completion report
-- [`ocapn-noise-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260720-022510.md) — Press dispatch 10 complete. Report:
-- … and 2918 more
+- … and 2920 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
