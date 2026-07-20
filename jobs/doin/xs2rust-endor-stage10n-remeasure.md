@@ -52,3 +52,10 @@ HARD STOP: size to one 2400s invocation; the detached sweep + TSV resume is prov
 requeues — if requeued, RESUME from the TSV, do not restart. Report via your tada completion report ONLY.
 
 <!-- garden-reaped: 4 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  worker_kind: gardener
+  claimed_at: 2026-07-20T07:23:11Z
