@@ -12,3 +12,10 @@
 2. In `sync_clone` (`common.sh:~2506`), before the `die "fetch failed ... after bounded retries"`, add a self-heal branch that fires when `_fetch_stderr_is_corrupt "$GARDEN_FETCH_STDERR"` matches: log a WARN ("corrupt local journal clone $dir; self-healing by re-cloning"), `rm -rf "$dir"`, then `ensure_clone "$dir"` + one more `journal_fetch`/reset (the atomic-temp-then-rename path in `ensure_clone` already makes the re-clone crash-safe). Keep it under the same `clone_lock "$dir"` already held so no producer races the destination. Guard against an infinite reclone loop by only self-healing once per tick (if the post-reclone fetch still fails, fall through to `die` as today). This converges on the next tick exactly like the poisoned-partial-clone heal does.
 
 Optionally, a lighter first attempt before the full reclone — `git -C "$dir" prune-packed` won't clear an empty loose object, but the reclone is the reliable cure, so prefer the reclone path for determinism.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  claimed_at: 2026-07-20T02:28:07Z
