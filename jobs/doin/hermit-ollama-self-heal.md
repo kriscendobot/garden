@@ -60,3 +60,10 @@ crash re-triggers self-heal rather than being masked for the rest of the boot.
   verification (kill `ollama`, watch a `model: qwen3.6` tick recover) requires that
   host; if you are not on it, verify the logic statically + via tests and say so.
 - Report the branch/commit on `main2`, test output, and the activation follow-up.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 13
+  worker_kind: gardener
+  claimed_at: 2026-07-20T15:05:03Z
