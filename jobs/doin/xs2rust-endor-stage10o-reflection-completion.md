@@ -81,3 +81,10 @@ Report via your tada completion report ONLY (never inbox-send the parked supervi
 the exact reflection gaps closed (per method, with the arity source line in the pinned C), F2/F3 outcome,
 and the bars at each pushed tip. If you discover MORE bound-but-unreflected natives than named here, that
 is expected — close them all and enumerate them.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 10
+  worker_kind: gardener
+  claimed_at: 2026-07-20T07:55:11Z
