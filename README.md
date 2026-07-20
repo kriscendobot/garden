@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T19:19:35Z_
+_As of 2026-07-20T19:21:01Z_
 
 ## Latest
 
@@ -2692,15 +2692,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 73.9M | $825.23 _(notional, rate-card)_ | no quota set |
+| Claude | 74.0M | $825.41 _(notional, rate-card)_ | no quota set |
 | Codex | 261.2M _(+566.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr160-review-9858a782-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-9858a782-retro.md) — Retrospective on endojs/endo-but-for-bots PR #160 (primary: endojs-endo-but-f...
+- [`minion-town-agenda-review-20260720-192031`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260720-192031.md) — Minion Town hourly agenda review
 
 ### tada (3022)
 - [`deadmail-issue-comment-5026079913`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5026079913.md) — Completion report
