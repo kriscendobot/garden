@@ -1,6 +1,6 @@
 ---
 created: 2026-06-16
-updated: 2026-06-24
+updated: 2026-07-20
 author: gardener
 ---
 
@@ -144,6 +144,34 @@ Detection happens at orientation; it is not a separate phase.
 
 The maintainer's framing on 2026-06-16: *"Regressions (failures that were green
 and went red, flag urgently)."*
+
+#### The parity question (atop every class): was this anticipable locally?
+
+For **every** failing job, before deciding its class, ask a fifth question that
+sits atop the four: *should [local-verify](../local-verify/SKILL.md) have caught
+this before the push?* The maintainer's standing policy (@kriskowal, 2026-07-20;
+`roles/COMMON.md` § Reporting): any lint or test CI failure is a defect in our
+automation to *anticipate* it, so greening the PR is only half the fix.
+
+A lint failure, a type break, a unit-test failure, a format nit: these are all
+checks `local-verify` runs (or should run). When a red CI check is one the local
+gate should have caught, the loop must **also emit the parity follow-up**, not
+merely green the PR:
+
+- If `local-verify` **omitted** the check CI ran, that is a coverage gap: extend
+  it (add the check to its candidate table, or wire the project's script /
+  override) so the class cannot slip to CI again.
+- If both ran but **diverged** (the check passed locally and failed in CI, or was
+  silently skipped locally), that is an environment-parity defect: restore parity
+  (a missing PATH shim, a version skew) so the local gate is a true predictor.
+
+Emit this as a distinct follow-up alongside the fixer step (a parity task on the
+board, or the fixer's brief carrying "also close the local-verify gap"), and note
+it in the cycle record. A cycle that greens the check but leaves the local gate
+blind to the same class has fixed the symptom, not the defect. A failure that was
+**not** locally anticipable (a CI-only integration test, an external-infra flake,
+a maintainer-authorized Class A skew) carries no parity follow-up: the question
+simply returns "no" and the four-class disposition stands.
 
 ### 3. Decide: pick the next class
 
@@ -302,4 +330,11 @@ maintainer / queue merge step / etc.).
   state machine: "orchestrator re-prompt across CI cycles" became the script's
   `loop` signal that the supervising gardener reacts to; "dispatch a fixer"
   became "queue a fixer step"; the v1 steward-owned/liaison-tracked/driver-lane framings
-  collapsed into the single gardener-supervised form; gamut → gauntlet.
+  collapsed into the single gardener-supervised form; gamut -> gauntlet.
+- _2026-07-20_: added [the parity question](#the-parity-question-atop-every-class-was-this-anticipable-locally)
+  (job `encode-ci-parity-policy`) per the maintainer's standing policy that any
+  lint/test CI failure is a defect in our automation. The loop now asks, atop the
+  four classes, whether [local-verify](../local-verify/SKILL.md) should have caught
+  the failure, and emits a parity follow-up (close the coverage gap or restore
+  environment parity) when it should have. Greening the PR alone is only half the
+  fix.

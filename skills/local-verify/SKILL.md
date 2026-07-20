@@ -1,6 +1,6 @@
 ---
 created: 2026-06-25
-updated: 2026-07-16
+updated: 2026-07-20
 author: gardener
 ---
 
@@ -9,9 +9,19 @@ author: gardener
 The deterministic, no-LLM pre-PR verification harness. A builder, fixer, or the
 gardening state machine runs it in the project worktree right before pushing a
 change for a pull request. It runs the project's real verification steps, in
-order, so the work is **offloaded from the CI server**: a change that passes
-here is far more likely to be green on the first CI push, which shortens (or
-eliminates) the shepherd loop and spends fewer tokens on remote test discovery.
+order, so the work is **offloaded from the CI server**.
+
+Running it is an **invariant, not an optimization**. The maintainer's standing
+policy (@kriskowal, 2026-07-20): treat any lint or test failure in CI as a
+failure of our automation to *anticipate* it. Every lint and test CI runs must
+be run locally before pushing; a red CI check is a defect in our tooling to
+close, not merely a PR to fix; and a local-pass/CI-fail discrepancy is itself an
+environment-parity defect (see [Parity is the contract](#parity-is-the-contract)
+below). This skill is where the fleet meets that bar (`roles/COMMON.md`
+§ Reporting). A change that clears the gate is then far more likely to be green
+on the first CI push, which shortens (or eliminates) the shepherd loop and spends
+fewer tokens on remote test discovery, but that speed is a consequence of the
+invariant, not its purpose.
 
 The executable is `scripts/jobs/gardening/local-verify.sh`; this skill is the
 contract it implements. It is the default body of the gardening state machine's
@@ -26,6 +36,38 @@ shepherd loop, and the shepherd then pulls the failure log into an agent's
 context to read it. Running the same steps locally first, deterministically and
 silently, moves that discovery off the CI server and out of the agent's context:
 the shepherd's job shrinks to confirming CI, not discovering failures.
+
+## Parity is the contract
+
+The local set **must cover every lint and test CI runs**: enumerate against the
+project's actual CI config (its workflow YAML, its `package.json` scripts), not
+guesswork. Parity, not a representative sample, is the contract: the whole point
+is that a silent local gate implies a green CI push.
+
+So a change that passes locally and then **fails CI is a defect**, one of two
+kinds, and both must be closed (never worked around with a one-off green push):
+
+1. **A coverage gap**: `local-verify` omitted a check CI runs. Fix: add the
+   missing check (extend the candidate table in [The steps](#the-steps-in-order),
+   or wire the project's `package.json` script / a `LOCAL_VERIFY_<STEP>` override)
+   so the step runs locally next time.
+2. **An environment divergence**: the same check ran in both places but behaved
+   differently (a tool absent locally, a version skew, a PATH the sandbox blocks).
+   Fix: restore parity. Example: running `endojs/endo-but-for-bots` package tests
+   locally needs `yarn`/`ava`/`eslint` PATH shims because the sandbox blocks
+   `node_modules/.bin` exec; without them the test step silently skips locally and
+   only CI runs it. The parity fix is to provide the shims (see the field notes),
+   not to accept the skip.
+
+The fix is therefore always **two-part**: (i) green the PR, and (ii) close the
+gap (add the missing check or restore the environment parity) so the same class
+of local-pass/CI-fail cannot recur. Part (ii) is the defect fix the maintainer's
+policy demands; part (i) alone leaves the automation blind to the same failure
+next time. The
+[ci-failure-classification-loop](../ci-failure-classification-loop/SKILL.md) is
+where that second part is enforced during a live CI drive: whenever a red CI check
+was one this gate should have caught, the loop emits the parity follow-up, not
+just the green.
 
 ## The steps (in order)
 
@@ -252,3 +294,11 @@ and `shellcheck` clean.
   `git diff --stat`. Hardens against endojs/endo-but-for-bots#714, where a rebase
   staled `packages/agentry/src/execute/{git,fs}-types.js` and silently red-lit all
   CI test jobs after approval until the regen was committed.
+- _2026-07-20_: reframed from optimization to **invariant** (job
+  `encode-ci-parity-policy`) per the maintainer's standing policy: any lint/test
+  CI failure is a defect in our automation, not merely a PR fix. Added the
+  [Parity is the contract](#parity-is-the-contract) section: the local set must
+  cover every check CI runs, and a local-pass/CI-fail discrepancy is a coverage
+  gap or an environment divergence to close (two-part fix: green + close the gap).
+  Cross-linked from `roles/COMMON.md` § Reporting and
+  [ci-failure-classification-loop](../ci-failure-classification-loop/SKILL.md).
