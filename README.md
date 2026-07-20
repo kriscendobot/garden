@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T18:14:37Z_
+_As of 2026-07-20T18:17:19Z_
 
 ## Latest
 
@@ -2699,16 +2699,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr794-review-a34bb7b7-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr794-review-a34bb7b7-retro.md) — Retrospective on endojs/endo-but-for-bots PR #794 (primary: endojs-endo-but-f...
+### doin (0)
+(none)
 
-### tada (3013)
+### tada (3014)
+- [`endojs-endo-but-for-bots-pr794-review-a34bb7b7-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr794-review-a34bb7b7-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr259-review-8288f2bf-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr259-review-8288f2bf-retro.md) — Recorded a review-process miss for PR #259: the prior panel accepted an unsup...
 - [`improve-review-miss-drain-reopen-distinction`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-review-miss-drain-reopen-distinction.md) — Completion report
 - [`minion-town-agenda-review-20260720-172003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-172003.md) — Completion report — Minion Town hourly agenda review (kriskowal/garden#58), 2...
 - [`kriscendobot-agoric-sdk-pr15-review-aad444c1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-review-aad444c1-retro.md) — Completion report
-- [`kriscendobot-agoric-sdk-pr15-review-d6c7561e-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-review-d6c7561e-retro.md) — Recorded a major spec-violation miss for PR #15 review 4726532241, joining ex...
-- … and 3008 more
+- … and 3009 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
