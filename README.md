@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T16:34:22Z_
+_As of 2026-07-20T16:38:18Z_
 
 ## Latest
 
@@ -2574,8 +2574,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`kriscendobot-agoric-sdk-pr15-review-9a12af5e-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr15-review-9a12af5e-retro.md) — Retrospective on kriscendobot/agoric-sdk PR #15 (primary: kriscendobot-agoric...
+- [`review-improve-exo-guard-matches-static-type`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/review-improve-exo-guard-matches-static-type.md) — review-improve: exo interface guards must match their known static type
 
 ### tada (3005)
 - [`kriscendobot-agoric-sdk-pr15-review-63f630f8-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-review-63f630f8-retro.md) — Completion report
