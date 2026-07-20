@@ -1,10 +1,7 @@
 ---
-gate: deferred
-priority: low
 role: prosecutor
-posted_by: producer
-posted_at: 2026-07-17T05:27:21Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=low at=2026-07-20T13:39:07Z -->
 
 # Retrospective on kriskowal/garden PR #7 (primary: kriskowal-garden-pr7-review-4798277a)
 
