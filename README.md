@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T07:55:35Z_
+_As of 2026-07-20T07:57:04Z_
 
 ## Latest
 
@@ -2093,19 +2093,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
 - [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260720-022510.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
-- [`port-xs-to-rust-memory-safe-engine-s45`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s45.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`xs2rust-endor-stage10o-reflection-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10o-reflection-completion.md) — stage-10o child 0: native-fn reflection completion (F1/F2(s45)) — engine-wide
 
-### tada (2951)
+### tada (2952)
+- [`port-xs-to-rust-memory-safe-engine-s45`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s45.md) — s45 completion report
 - [`self-heal-fix-garden-cleric-corrupt-clone-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-cleric-corrupt-clone-reclone.md) — Implemented and pushed 4465b7d45a to main2.
 - [`xs2rust-endor-build-stage10n`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10n.md) — orchestration xs2rust-endor-build-stage10n — complete
 - [`xs2rust-endor-stage10n-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10n-remeasure.md) — Completion report — stage-10n 52-file daemon sweep re-measure (PR #600, endoj...
 - [`daily-progress-summary-20260720-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260720-070502.md) — Created and pushed periodicals/2026/07/19.md to journal2 in commit 679650115.
-- [`xs2rust-endor-stage10k-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10k-remeasure.md) — Completion report — stage-10k child 2 (outage-hardened) 52-file daemon sweep ...
-- … and 2946 more
+- … and 2947 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
