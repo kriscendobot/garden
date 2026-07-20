@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T16:18:20Z_
+_As of 2026-07-20T16:20:20Z_
 
 ## Latest
 
@@ -2563,15 +2563,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 73.7M | $821.67 _(notional, rate-card)_ | no quota set |
+| Claude | 73.7M | $821.79 _(notional, rate-card)_ | no quota set |
 | Codex | 241.7M _(+560.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`minion-town-agenda-review-20260720-162001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260720-162001.md) — Minion Town hourly agenda review
 
 ### tada (3003)
 - [`xs2rust-endor-press-20260720-160510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260720-160510.md) — Branch state
