@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T16:39:28Z_
+_As of 2026-07-20T16:45:12Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 5h)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 6h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 12h)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 1d)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 2d)
@@ -2568,22 +2568,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 73.8M | $822.54 _(notional, rate-card)_ | no quota set |
-| Codex | 241.8M _(+560.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
+| Codex | 241.8M _(+561.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`review-improve-exo-guard-matches-static-type`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/review-improve-exo-guard-matches-static-type.md) — review-improve: exo interface guards must match their known static type
+### doin (0)
+(none)
 
-### tada (3006)
+### tada (3007)
+- [`review-improve-exo-guard-matches-static-type`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/review-improve-exo-guard-matches-static-type.md) — Implemented and pushed 8ec780c5ac to main2.
 - [`kriscendobot-agoric-sdk-pr15-review-9a12af5e-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-review-9a12af5e-retro.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr15-review-63f630f8-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-review-63f630f8-retro.md) — Completion report
 - [`minion-town-agenda-review-20260720-162001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-162001.md) — Completion report
 - [`xs2rust-endor-press-20260720-160510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260720-160510.md) — Branch state
-- [`minion-town-restore-hourly`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-restore-hourly.md) — Completion report
-- … and 3001 more
+- … and 3002 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
