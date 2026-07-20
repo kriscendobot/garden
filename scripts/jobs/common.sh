@@ -1799,16 +1799,16 @@ _fetch_stderr_is_offline() {
 # tree/sha1/object) to catch any `unable to read <path>` the object DB throws;
 # the offline classifier runs FIRST, so a transport `Could not read from remote`
 # is claimed as offline before this set ever sees it.
-: "${GARDEN_CORRUPT_CLONE_SIGNATURES:=bad object|invalid sha1 pointer|bad ref for|broken ref|invalid HEAD|does not point to a valid object|did not send all necessary objects|unable to read|object file .* is empty|loose object .* is corrupt|packfile .* cannot be accessed|invalid index-pack output|did not receive expected object|failed to run repack|gc\.log|fsck}"
+: "${GARDEN_CORRUPT_SIGNATURES:=bad object|invalid sha1 pointer|bad ref for|broken ref|invalid HEAD|does not point to a valid object|did not send all necessary objects|unable to read|object file .* is empty|loose object .* is corrupt|packfile .* cannot be accessed|invalid index-pack output|did not receive expected object|failed to run repack|gc\.log|fsck}"
 
 _fetch_stderr_is_corrupt() {
-  printf '%s' "$1" | grep -qiE "$GARDEN_CORRUPT_CLONE_SIGNATURES"
+  printf '%s' "$1" | grep -qiE "$GARDEN_CORRUPT_SIGNATURES"
 }
 
 # Print the first matching corruption signature for an operator-useful repair
 # log. This deliberately shares the classifier's source of truth.
 _fetch_stderr_corrupt_signature() {
-  printf '%s\n' "$1" | grep -ioEm1 "$GARDEN_CORRUPT_CLONE_SIGNATURES" || true
+  printf '%s\n' "$1" | grep -ioEm1 "$GARDEN_CORRUPT_SIGNATURES" || true
 }
 
 # --- bounded read-only gh-api retry (the transient-blip absorber) ------------
@@ -2627,6 +2627,7 @@ sync_clone() {
     # reason to spin a re-clone loop.
     if _fetch_stderr_is_corrupt "$GARDEN_FETCH_STDERR" || [ -e "$dir/.git/gc.log" ]; then
       corrupt_sig="$(_fetch_stderr_corrupt_signature "$GARDEN_FETCH_STDERR")"
+      log "WARN: $dir corrupt (${corrupt_sig:-stale gc.log}); self-healing by re-cloning"
       rm -rf "$dir"
       # ensure_clone re-enters the inherited lock in a subshell and closes only
       # that subshell's fd, so this sync_clone invocation remains serialized.

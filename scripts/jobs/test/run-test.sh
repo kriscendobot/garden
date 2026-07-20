@@ -2570,6 +2570,7 @@ set -e
   && [ "$(git -C "$CORRUPT_A" rev-parse "origin/$BRANCH" 2>/dev/null)" = "$seed_sha" ] \
   && [ ! -e "$CORRUPT_A/stale-sentinel" ] \
   && [ ! -e "$CORRUPT_A/.git/gc.log" ] \
+  && grep -q 'WARN: .* corrupt (bad object); self-healing by re-cloning' "$CORRUPT_A_LOG" \
   && grep -q 'REPAIRED: re-cloned corrupt journal clone' "$CORRUPT_A_LOG" \
   && ! grep -q 'offline; skipping tick' "$CORRUPT_A_LOG"; } \
   && ok "sync_clone re-clones the zeroed origin ref + stale gc.log via a real fetch" \
@@ -2607,6 +2608,7 @@ set -e
 { [ "$rcorrupt" -eq 0 ] && [ "$(cat "$GARDEN_FETCH_COUNT")" -eq 2 ] \
   && [ ! -e "$CORRUPT_B/stale-sentinel" ] \
   && git -C "$CORRUPT_B" rev-parse -q --verify "origin/$BRANCH" >/dev/null \
+  && grep -q 'WARN: .* corrupt (bad object); self-healing by re-cloning' "$CORRUPT_B_LOG" \
   && grep -q 'REPAIRED: re-cloned corrupt journal clone' "$CORRUPT_B_LOG" \
   && ! grep -q 'offline; skipping tick' "$CORRUPT_B_LOG"; } \
   && ok "sync_clone re-clones and recovers on its one post-reclone fetch (fetches=2)" \
