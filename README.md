@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T11:07:57Z_
+_As of 2026-07-20T11:09:10Z_
 
 ## Latest
 
@@ -2265,24 +2265,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 73.1M | $813.62 _(notional, rate-card)_ | no quota set |
+| Claude | 73.1M | $813.82 _(notional, rate-card)_ | no quota set |
 | Codex | 205.9M _(+554.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`port-xs-to-rust-memory-safe-engine-s47`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s47.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
+### doin (1)
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10p-fresh-env-sweep.md) — Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 
-### tada (2973)
+### tada (2974)
+- [`port-xs-to-rust-memory-safe-engine-s47`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s47.md) — Completion report — port-xs-to-rust-memory-safe-engine-s47
 - [`xs2rust-endor-build-stage10p`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10p.md) — orchestration xs2rust-endor-build-stage10p — HALTED
 - [`weave-endo-but-for-bots-pr621-endoclaw-oauth-20260720`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr621-endoclaw-oauth-20260720.md) — Rebased PR #621 onto llm and force-pushed 61b511b5ea88f56b7a125f22755aea786ab...
 - [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260720-022510.md) — Assessed the tree and posted weave-endo-but-for-bots-pr621-endoclaw-oauth-202...
 - [`xs2rust-endor-stage10p-regexp-lastindex-at-key`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10p-regexp-lastindex-at-key.md) — Completion report
-- [`xs2rust-endor-stage10p-collection-iterator-aliases`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10p-collection-iterator-aliases.md) — Completion report — s10p child 0: collection @@iterator alias completion (F1(...
-- … and 2968 more
+- … and 2969 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
