@@ -1,5 +1,7 @@
-Posted the substantive agenda review to [garden issue 58](https://github.com/kriskowal/garden/issues/58#issuecomment-5018239903).
+Completed hourly Minion Town agenda review and posted findings to garden issue #58.
 
-No deployment or repository changes were made. Fresh checks captured the MCP OAuth boundary, CBOR/Noise WebSocket route, unresolved wildcard DNS, and missing daemon CD target. Next action remains maintainer Gate 1 browser OAuth-to-MCP validation.
+No deployment or source change was needed. Fresh checks confirmed healthy MCP/OAuth and CBOR/Noise endpoints; Gate 1 interactive OAuth validation remains the blocker.
+
+Follow-up: maintainer OAuth-to-live-MCP validation, then guest/tool bridge and weblet gateway work.
 
 Self-improvement: nothing this cycle.
