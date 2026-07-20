@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T16:05:43Z_
+_As of 2026-07-20T16:06:03Z_
 
 ## Latest
 
@@ -2465,16 +2465,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 73.7M | $821.59 _(notional, rate-card)_ | no quota set |
+| Claude | 73.8M | $821.77 _(notional, rate-card)_ | no quota set |
 | Codex | 238.5M _(+560.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (1)
-- [`xs2rust-endor-press-20260720-160510`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260720-160510.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+### todo (0)
+(none)
 
-### doin (2)
+### doin (3)
 - [`minion-town-restore-hourly`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-restore-hourly.md) — Restore minion-town-agenda-review to hourly (weekend cadence reduction over)
 - [`xs2rust-endor-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-145005.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+- [`xs2rust-endor-press-20260720-160510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-160510.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3001)
 - [`answer-garden-issue51-heap-snapshot-diffs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/answer-garden-issue51-heap-snapshot-diffs.md) — Completion report
