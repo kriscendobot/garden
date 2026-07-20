@@ -487,3 +487,10 @@ claim:
   gardener: 18
   worker_kind: gardener
   claimed_at: 2026-07-20T06:21:08Z
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 18
+  worker_kind: gardener
+  claimed_at: 2026-07-20T07:31:09Z
