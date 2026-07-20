@@ -1,7 +1,3 @@
-cadence: 2h
-last_dispatched: 2026-07-20T02:25:10Z
-job_basename_prefix: xs2rust-endor-press
----
 ---
 model: fable
 ---
