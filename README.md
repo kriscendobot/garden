@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T19:05:42Z_
+_As of 2026-07-20T19:06:52Z_
 
 ## Latest
 
@@ -2699,17 +2699,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`deadmail-issue-comment-5026079913`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5026079913.md) — Dead-lettered message — pick up its intent
-- [`endojs-endo-but-for-bots-pr138-review-add866fa-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr138-review-add866fa-retro.md) — Retrospective on endojs/endo-but-for-bots PR #138 (primary: endojs-endo-but-f...
 
-### tada (3020)
+### tada (3021)
+- [`endojs-endo-but-for-bots-pr138-review-add866fa-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr138-review-add866fa-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr794-review-cdf94916-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr794-review-cdf94916-retro.md) — Completion report
 - [`xs2rust-endor-press-20260720-182010`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260720-182010.md) — Press Report — xs2rust-endor-press-20260720-182010
 - [`improve-scheduler-handler-timeout-passthrough`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-handler-timeout-passthrough.md) — Implemented and pushed scheduler timeout passthrough to main2.
 - [`endojs-endo-but-for-bots-pr600-f097238e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-f097238e.md) — Completion report
-- [`minion-town-agenda-review-20260720-182010`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-182010.md) — Completion report
-- … and 3015 more
+- … and 3016 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
