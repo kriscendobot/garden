@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T03:39:51Z_
+_As of 2026-07-20T03:46:21Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 21h)
+- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 22h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 2d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 2d)
@@ -2045,26 +2045,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.1M | $807.88 _(notional, rate-card)_ | no quota set |
+| Claude | 74.1M | $809.13 _(notional, rate-card)_ | no quota set |
 | Codex | 205.3M _(+548.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
-- [`self-heal-fix-garden-gardener-journal-clone-corrupt-gc-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-journal-clone-corrupt-gc-reclone.md) — In scripts/jobs/common.sh, extend the clone self-heal so a present-but-corrup...
 - [`self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs.md) — In scripts/jobs/common.sh, handle LOCAL journal-clone corruption the way ensu...
 - [`xs2rust-endor-stage10l-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10l-remeasure.md) — Stage-10l child 2: outage-hardened 52-file daemon sweep re-measure (PR #600, ...
 
-### tada (2929)
+### tada (2930)
+- [`self-heal-fix-garden-gardener-journal-clone-corrupt-gc-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-gardener-journal-clone-corrupt-gc-reclone.md) — Completion report
 - [`scholar-library-cycle-20260720-033503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260720-033503.md) — Completed scholar cycle: removed dangling EGARCH/QLIKE keyword routes; no sou...
 - [`self-heal-fix-garden-cleric-reclone-on-corrupt-journal-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-cleric-reclone-on-corrupt-journal-clone.md) — Completion report
 - [`xs2rust-endor-stage10l-live-round-trip`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10l-live-round-trip.md) — Completion report — stage-10l LIVE daemon round trip (PR #600, endojs/endo-bu...
 - [`deadmail-20260720T032025Z-c013ed`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260720T032025Z-c013ed.md) — Completion report
-- [`endojs-endo-but-for-bots-pr160-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr160-shepherd.md) — Shepherd completion report — endojs/endo-but-for-bots PR #160
-- … and 2924 more
+- … and 2925 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
