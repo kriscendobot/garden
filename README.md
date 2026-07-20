@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T06:31:36Z_
+_As of 2026-07-20T06:32:02Z_
 
 ## Latest
 
@@ -2050,13 +2050,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 72.1M | $781.95 _(notional, rate-card)_ | no quota set |
-| Codex | 205.4M _(+549.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
+| Codex | 205.4M _(+549.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (18)
+### doin (17)
 - [`arc-status-daily-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260720-022510.md) — Daily status + change summary for the standing review arcs
 - [`endo-byte-array-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260720-022510.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260720-022510.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
@@ -2069,20 +2069,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260720-022510.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
 - [`finbot-progress-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260720-022510.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`minion-town-agenda-review-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260720-022510.md) — Minion Town hourly agenda review
-- [`port-xs-to-rust-memory-safe-engine-s44`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s44.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`self-heal-fix-garden-cleric-reclone-on-corrupt-remote-ref`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-cleric-reclone-on-corrupt-remote-ref.md) — In scripts/jobs/common.sh, sync_clone dies permanently when journal_fetch fai...
 - [`self-heal-fix-garden-gardener-corrupt-journal-clone-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-corrupt-journal-clone-reclone.md) — In scripts/jobs/common.sh, add a local-repo-corruption self-heal to the journ...
 - [`self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs.md) — In scripts/jobs/common.sh, handle LOCAL journal-clone corruption the way ensu...
 - [`xs2rust-endor-stage10k-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10k-remeasure.md) — stage-10k child 2: outage-hardened 52-file daemon sweep remeasure (PR #600)
 - [`xs2rust-endor-stage10n-live-env-diagnosis`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10n-live-env-diagnosis.md) — stage-10n child 0: diagnose the s10e live-round-trip stall (host-gated error-...
 
-### tada (2944)
+### tada (2945)
+- [`port-xs-to-rust-memory-safe-engine-s44`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s44.md) — Completion report — port-xs-to-rust-memory-safe-engine-s44
 - [`self-heal-fix-garden-gardener-corrupt-clone-bad-object-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-gardener-corrupt-clone-bad-object-reclone.md) — Implemented and pushed 822fb07540 to main2.
 - [`xs2rust-endor-build-stage10m`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10m.md) — orchestration xs2rust-endor-build-stage10m — HALTED
 - [`self-heal-fix-garden-gardener-bad-object-corrupt-journal-ref`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-gardener-bad-object-corrupt-journal-ref.md) — Implemented and pushed fbba4983bb to main2.
 - [`deadmail-issue-comment-5018998071`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5018998071.md) — Completion report
-- [`xs2rust-endor-stage10m-native-fn-reflection`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10m-native-fn-reflection.md) — Completion report — F1(s43) native-method length/name reflection (PR #600, br...
-- … and 2939 more
+- … and 2940 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
