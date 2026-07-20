@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T14:24:45Z_
+_As of 2026-07-20T14:34:32Z_
 
 ## Latest
 
@@ -2464,8 +2464,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr786-22380928-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr786-22380928-retro.md) — Retrospective on endojs/endo-but-for-bots PR #786 (primary: endojs-endo-but-f...
 
 ### tada (2986)
 - [`improve-ci-wait-merge-review-decision-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-wait-merge-review-decision-gate.md) — Completion report
@@ -2514,7 +2514,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage10p-fresh-env-sweep.md) — _normal_ · Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr786-22380928-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr786-22380928-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #786 (primary: endojs-endo-but-f...
 - [`kriscendobot-agoric-sdk-pr15-review-396a141c-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-review-396a141c-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #15 (primary: kriscendobot-agoric...
 - [`kriscendobot-agoric-sdk-pr15-review-2bf0daa3-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-review-2bf0daa3-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #15 (primary: kriscendobot-agoric...
 - [`kriscendobot-agoric-sdk-pr15-review-63f630f8-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-review-63f630f8-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #15 (primary: kriscendobot-agoric...
