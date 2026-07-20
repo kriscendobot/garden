@@ -7,3 +7,10 @@
 **Change:** Add a local-corruption classifier alongside `_fetch_stderr_is_offline` (a `GARDEN_CORRUPT_SIGNATURES` regex covering: `bad object`, `did not send all necessary objects`, `failed to run repack`, `unable to read`, `loose object .* is corrupt`, `object file .* is empty`, `does not point to a valid object`, `gc\.log`). In `sync_clone`, in the fetch-failure branch (common.sh:2492–2510), *before* the final `die`, when the captured `GARDEN_FETCH_STDERR` matches a corruption signature (and is NOT offline): log a self-heal warning, `clone_unlock` + `rm -rf "$dir"`, then `ensure_clone "$dir"` (fresh single-branch clone via the existing atomic sibling-temp + rename path) and retry the fetch/reset once; only `die` if the post-reclone fetch still fails. Guard against a reclone loop (e.g. a one-shot marker or a single retry, matching the reset-retry idiom already at 2520–2529) so a genuinely unrecoverable state still surfaces rather than spinning. Removing `.git/gc.log` is subsumed by the reclone. Extend the corruption path's test coverage next to the existing offline-classification tests (search `_fetch_stderr_is_offline` / `GARDEN_OFFLINE_SIGNATURES` in `scripts/jobs/test/`).
 
 Optional immediate unblock for work item 7 while the code fix lands: `rm -rf /home/kris/garden/.garden-state/clerics/7/journal` so the next restart reclones fresh (the current restart will otherwise keep failing until the guard exists).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-20T02:56:40Z
