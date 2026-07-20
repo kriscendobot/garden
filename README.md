@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T02:45:23Z_
+_As of 2026-07-20T02:46:18Z_
 
 ## Latest
 
@@ -1938,7 +1938,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.8M | $817.37 _(notional, rate-card)_ | no quota set |
+| Claude | 74.8M | $817.52 _(notional, rate-card)_ | no quota set |
 | Codex | 205.2M _(+546.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
@@ -1953,13 +1953,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs.md) — In scripts/jobs/common.sh, handle LOCAL journal-clone corruption the way ensu...
 - [`xs2rust-endor-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-022510.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (2916)
+### tada (2917)
+- [`xs2rust-endor-build-stage10k`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10k.md) — orchestration xs2rust-endor-build-stage10k — complete
 - [`xs2rust-endor-stage10k-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10k-remeasure.md) — Completion report — stage-10k 52-file daemon sweep re-measure (PR #600)
 - [`ebfb-llm-designs-groom-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-llm-designs-groom-20260720-022510.md) — Completion report
 - [`finbot-progress-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260720-022510.md) — Advanced finbot main 53cfcfb -> 4251bb2: gated auto-EGARCH selection behind a...
 - [`endo-npm-cas-registry-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260720-022510.md) — Completion report — endo-npm-cas-registry-press-20260720-022510
-- [`plan-recalibrate-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/plan-recalibrate-20260720-022510.md) — Reconciled chat-pending-commands to Complete after PR #133 merge. Recalibrate...
-- … and 2911 more
+- … and 2912 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
