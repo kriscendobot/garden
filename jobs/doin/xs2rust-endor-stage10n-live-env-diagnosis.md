@@ -71,3 +71,10 @@ Work on endolin-garden2 in `/home/kris/garden2/tmp/s10e`. Artifacts to `$HOME/tm
 HARD STOP: size to one 2400s invocation; reassess the clock after every consequential step. A
 classified checkpoint short of a root cause is an honest success — tada with the trail rather than
 overrun. Report via your tada completion report ONLY (never inbox-send the parked supervisor).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 7
+  worker_kind: gardener
+  claimed_at: 2026-07-20T06:31:09Z
