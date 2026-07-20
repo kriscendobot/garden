@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T03:25:44Z_
+_As of 2026-07-20T03:27:30Z_
 
 ## Latest
 
@@ -2045,16 +2045,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.1M | $808.06 _(notional, rate-card)_ | no quota set |
+| Claude | 74.0M | $807.38 _(notional, rate-card)_ | no quota set |
 | Codex | 205.2M _(+546.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (6)
 - [`deadmail-20260720T032025Z-c013ed`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260720T032025Z-c013ed.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
+- [`self-heal-fix-garden-cleric-reclone-on-corrupt-journal-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-cleric-reclone-on-corrupt-journal-clone.md) — In scripts/jobs/common.sh, teach sync_clone (and symmetrically the reset-fail...
+- [`self-heal-fix-garden-gardener-journal-clone-corrupt-gc-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-journal-clone-corrupt-gc-reclone.md) — In scripts/jobs/common.sh, extend the clone self-heal so a present-but-corrup...
 - [`self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs.md) — In scripts/jobs/common.sh, handle LOCAL journal-clone corruption the way ensu...
 - [`xs2rust-endor-stage10l-live-round-trip`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10l-live-round-trip.md) — Stage-10l child 1: the LIVE daemon round trip — flip the error-trace pin (PR ...
 
