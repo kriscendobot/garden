@@ -5,3 +5,10 @@ Failure signature to match (case-insensitive), captured in `GARDEN_FETCH_STDERR`
 `bad object`, `did not send all necessary objects`, `failed to run repack`, `object file .* is empty`, `loose object .* is corrupt`, `unable to read (tree|sha1)`, `fsck` errors — plus the presence of a stale `$dir/.git/gc.log`.
 
 Fix: in `sync_clone`, before the `die` at common.sh:2510, add a **corruption-recovery** branch parallel to the existing offline branch. When the last-attempt stderr matches a persistent repository-integrity signature (define a `GARDEN_CORRUPT_SIGNATURES` set alongside `GARDEN_OFFLINE_SIGNATURES` at common.sh:1715 so the list has one source of truth and cannot drift), or `$dir/.git/gc.log` is present, discard and re-clone the journal instead of dying: under the already-held `clone_lock`, `rm -rf "$dir"` and re-run `ensure_clone "$dir"` (which does the tmp-path + atomic-rename clone), then retry the fetch/reset once. Bound the reclone to avoid an infinite reclone loop (e.g. a one-shot per invocation; if the fresh clone *also* fails to fetch, fall through to the existing `die`). Log a `WARN: $dir corrupt (<signature>); self-healing by re-cloning` line mirroring the poisoned-partial-clone message at common.sh:1555. Add a `run-test.sh` case that injects a `bad object` / `did not send all necessary objects` fetch stderr (via `GARDEN_FETCH_CMD`) and asserts sync_clone re-clones rather than dying — a sibling to the existing offline-classification tests near run-test.sh:2391.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: cleric
+  claimed_at: 2026-07-20T07:27:33Z
