@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T06:36:08Z_
+_As of 2026-07-20T06:36:41Z_
 
 ## Latest
 
@@ -927,6 +927,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260720T061617Z-d44ed0` — from orchestrator:xs2rust-endor-build-stage10m-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T061617Z-d44ed0.md)
 
 > Orchestration xs2rust-endor-build-stage10m HALTED: child xs2rust-endor-stage10m-live-env-diagnosis failed (serial, on-child-failure=halt). 2/4 done before halt; swept: xs2rust-endor-stage10m-remeasure
+
+- `20260720T063626Z-8bbd9f` — from gardener:finbot-progress-20260720-022510, reply_to `finbot-progress-20260720-022510` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T063626Z-8bbd9f.md)
+
+> Advanced kriscendobot/finbot main 4251bb2 -> f32bc19: the walk-forward volatility report now runs a paired Diebold-Mariano QLIKE test between its raw winner and runner-up, with Bartlett-HAC variance, a small-sample correction, p-value, and deterministic CLI output. npm test passed after npm install restored this worktree local workspace links. Next unblocked step: decide whether statistically significant QLIKE evidence should become an additional auto-garch-family selection gate alongside the existing parsimony margin. Maintainer decision: live execution remains blocked on paper-wallet/test-net authorization and a CapTP transport.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -2049,17 +2053,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 72.1M | $783.39 _(notional, rate-card)_ | no quota set |
-| Codex | 205.7M _(+552.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
+| Claude | 72.1M | $781.95 _(notional, rate-card)_ | no quota set |
+| Codex | 205.7M _(+552.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (10)
-- [`endo-byte-array-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260720-022510.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
-- [`endo-git-integration-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260720-022510.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
-- [`endo-sturdyref-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260720-022510.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+### doin (7)
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
 - [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260720-022510.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
 - [`finbot-progress-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260720-022510.md) — Push progress on kriscendobot/finbot (every 6h)
@@ -2069,11 +2070,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-stage10n-live-env-diagnosis`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10n-live-env-diagnosis.md) — stage-10n child 0: diagnose the s10e live-round-trip stall (host-gated error-...
 
 ### tada (2945)
+- [`endo-sturdyref-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260720-022510.md) — SturdyRef press — 06:33Z tick report (2026-07-20)
+- [`endo-byte-array-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260720-022510.md) — Press dispatch complete — this was an assessment tick; both fronts are health...
+- [`endo-git-integration-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260720-022510.md) — Press report — git-integration / M3 loop (endojs/endo-but-for-bots), dispatch...
 - [`endo-npm-cas-registry-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260720-022510.md) — Completion report — endo-npm-cas-registry-press-20260720-022510 (requeued tick)
 - [`self-heal-fix-garden-cleric-reclone-on-corrupt-remote-ref`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-cleric-reclone-on-corrupt-remote-ref.md) — Implemented and pushed 822fb07540 to main2.
-- [`endojs-endo-but-for-bots-pr160-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr160-rebase.md) — PR #160 is already rebased: llm (00a04f5) is an ancestor of head a5e4487; beh...
-- [`endojs-endo-but-for-bots-pr600-review-021252ca-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-review-021252ca-retro.md) — Retrospective was already recorded as a not-a-miss. No improvement job was wa...
-- [`endo-vfs-parity-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260720-022510.md) — Completion report — endo-vfs-parity-press-20260720-022510
 - … and 2940 more
 
 ## Plan queue (parked — not claimable until promoted)
