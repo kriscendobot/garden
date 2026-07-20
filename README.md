@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T18:59:54Z_
+_As of 2026-07-20T19:02:26Z_
 
 ## Latest
 
@@ -2699,16 +2699,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr794-review-cdf94916-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr794-review-cdf94916-retro.md) — Retrospective on endojs/endo-but-for-bots PR #794 (primary: endojs-endo-but-f...
+### doin (0)
+(none)
 
-### tada (3019)
+### tada (3020)
+- [`endojs-endo-but-for-bots-pr794-review-cdf94916-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr794-review-cdf94916-retro.md) — Completion report
 - [`xs2rust-endor-press-20260720-182010`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260720-182010.md) — Press Report — xs2rust-endor-press-20260720-182010
 - [`improve-scheduler-handler-timeout-passthrough`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-handler-timeout-passthrough.md) — Implemented and pushed scheduler timeout passthrough to main2.
 - [`endojs-endo-but-for-bots-pr600-f097238e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-f097238e.md) — Completion report
 - [`minion-town-agenda-review-20260720-182010`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-182010.md) — Completion report
-- [`endojs-endo-but-for-bots-pr793-review-16e5c4ce-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr793-review-16e5c4ce-retro.md) — Recorded a durable not-a-miss dismissal for PR #793’s review. The feedback wa...
-- … and 3014 more
+- … and 3015 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
