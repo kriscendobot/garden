@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T04:05:58Z_
+_As of 2026-07-20T04:07:24Z_
 
 ## Latest
 
@@ -2052,18 +2052,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
-- [`endojs-endo-but-for-bots-pr503-1f49fc2e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr503-1f49fc2e.md) — attention directive on endojs/endo-but-for-bots PR #503
 - [`self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs.md) — In scripts/jobs/common.sh, handle LOCAL journal-clone corruption the way ensu...
 
-### tada (2932)
+### tada (2934)
+- [`endojs-endo-but-for-bots-pr503-1f49fc2e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr503-1f49fc2e.md) — Corrected PR #503’s Security Considerations wording and acknowledged erights’...
+- [`xs2rust-endor-build-stage10l`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10l.md) — orchestration xs2rust-endor-build-stage10l — complete
 - [`self-heal-fix-garden-repo-watcher-journal-clone-broken-ref`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-repo-watcher-journal-clone-broken-ref.md) — Completion report
 - [`xs2rust-endor-stage10l-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10l-remeasure.md) — Completion report — stage-10l 52-file daemon sweep re-measure (PR #600, endoj...
 - [`self-heal-fix-garden-gardener-journal-clone-corrupt-gc-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-gardener-journal-clone-corrupt-gc-reclone.md) — Completion report
-- [`scholar-library-cycle-20260720-033503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260720-033503.md) — Completed scholar cycle: removed dangling EGARCH/QLIKE keyword routes; no sou...
-- [`self-heal-fix-garden-cleric-reclone-on-corrupt-journal-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-cleric-reclone-on-corrupt-journal-clone.md) — Completion report
-- … and 2927 more
+- … and 2929 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
