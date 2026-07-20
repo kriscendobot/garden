@@ -2614,6 +2614,51 @@ set -e
   && ok "sync_clone re-clones and recovers on its one post-reclone fetch (fetches=2)" \
   || bad "sync_clone did not re-clone+recover injected corruption (rc=$rcorrupt fetches=$(cat "$GARDEN_FETCH_COUNT" 2>/dev/null || echo 0) log: $(tr '\n' '|' <"$CORRUPT_B_LOG"))"
 
+# (B2) The SECOND cleric-item-7 shape as an INJECTED reclone-success case: a stale
+# .git/gc.log blocks the fetch's implicit gc/maintenance, so fetch fails with
+# `failed to run repack` and names `.git/gc.log` — emitting NO `bad object` line of
+# its own. This shape only classifies corrupt because `failed to run repack`/`gc\.log`
+# are in GARDEN_CORRUPT_SIGNATURES; without them it slips past the classifier and
+# crash-loops the unit (the observed cleric-7 wedge). (B) proves the `bad object`
+# path re-clones; this proves the gc.log/repack path does too, end-to-end through
+# the injected fetch — a regression guard for that half of the signature set.
+cat > "$S24/bin/repack-fail-then-ok-fetch" <<'EOF'
+#!/bin/bash
+n="$(cat "$GARDEN_FETCH_COUNT" 2>/dev/null || echo 0)"
+n=$((n + 1))
+printf '%s\n' "$n" > "$GARDEN_FETCH_COUNT"
+if [ "$n" -le 1 ]; then
+  echo "warning: The last gc run reported the following. Please correct the root cause" >&2
+  echo "and remove .git/gc.log." >&2
+  echo "fatal: failed to run repack" >&2
+  exit 128
+fi
+exit 0
+EOF
+chmod +x "$S24/bin/repack-fail-then-ok-fetch"
+CORRUPT_B2="$S24/corrupt-clone-b2"
+CORRUPT_B2_COUNT="$S24/corrupt-fetch-count-b2"
+CORRUPT_B2_LOG="$S24/corrupt-b2.log"
+rm -f "$CORRUPT_B2_COUNT"
+git clone -q --single-branch --branch "$BRANCH" "$BARE" "$CORRUPT_B2"
+printf 'old clone must be replaced\n' > "$CORRUPT_B2/stale-sentinel"
+set +e
+(
+  . "$JOBS/common.sh"
+  export GARDEN_FETCH_RETRIES=1 GARDEN_FETCH_CMD="$S24/bin/repack-fail-then-ok-fetch" GARDEN_FETCH_COUNT="$CORRUPT_B2_COUNT"
+  sync_clone "$CORRUPT_B2"
+) >"$CORRUPT_B2_LOG" 2>&1
+rcorrupt2=$?
+set -e
+{ [ "$rcorrupt2" -eq 0 ] && [ "$(cat "$CORRUPT_B2_COUNT")" -eq 2 ] \
+  && [ ! -e "$CORRUPT_B2/stale-sentinel" ] \
+  && git -C "$CORRUPT_B2" rev-parse -q --verify "origin/$BRANCH" >/dev/null \
+  && grep -qE 'WARN: .* corrupt \((gc\.log|failed to run repack)\); self-healing by re-cloning' "$CORRUPT_B2_LOG" \
+  && grep -q 'REPAIRED: re-cloned corrupt journal clone' "$CORRUPT_B2_LOG" \
+  && ! grep -q 'offline; skipping tick' "$CORRUPT_B2_LOG"; } \
+  && ok "sync_clone re-clones the injected 'failed to run repack'/gc.log shape (no bad-object line) and recovers (fetches=2)" \
+  || bad "sync_clone did not re-clone+recover injected repack/gc.log corruption (rc=$rcorrupt2 fetches=$(cat "$CORRUPT_B2_COUNT" 2>/dev/null || echo 0) log: $(tr '\n' '|' <"$CORRUPT_B2_LOG"))"
+
 # (C) Corruption that OUTLASTS the re-clone: an ALWAYS-corrupt injected fetch.
 # sync_clone must re-clone AT MOST ONCE (the initial and one post-reclone fetch),
 # then `die` loud — never spin a
