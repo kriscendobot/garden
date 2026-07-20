@@ -66,3 +66,10 @@ frontier named) is SUCCESS even if not all 6 flipped. Artifacts to `$HOME/tmp/s1
 (mkdir `$HOME/tmp` first — it is per-host). Report via your tada completion report ONLY — never
 inbox-send the parked supervisor. Metering doctrine: accuracy-over-parity; results gate, computrons
 are advisory.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 16
+  worker_kind: gardener
+  claimed_at: 2026-07-20T03:25:08Z
