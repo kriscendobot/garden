@@ -53,6 +53,7 @@ requeues — if requeued, RESUME from the TSV, do not restart. Report via your t
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
