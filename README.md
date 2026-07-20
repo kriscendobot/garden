@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T10:36:20Z_
+_As of 2026-07-20T10:41:58Z_
 
 ## Latest
 
@@ -13,12 +13,12 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 6h)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 37s)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 1d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 2d)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 2d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 2d)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 2d)
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 2d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 3d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 6d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 17d)
@@ -2201,24 +2201,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 72.8M | $803.32 _(notional, rate-card)_ | no quota set |
+| Claude | 73.0M | $807.51 _(notional, rate-card)_ | no quota set |
 | Codex | 205.9M _(+554.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`weave-endo-but-for-bots-pr621-endoclaw-oauth-20260720`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/weave-endo-but-for-bots-pr621-endoclaw-oauth-20260720.md) — ---
+### doin (1)
 - [`xs2rust-endor-stage10p-unbound-builtins`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10p-unbound-builtins.md) — Stage-10p child 2: the unbound-builtin cluster (PR #600, xs2rust-endor)
 
-### tada (2971)
+### tada (2972)
+- [`weave-endo-but-for-bots-pr621-endoclaw-oauth-20260720`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr621-endoclaw-oauth-20260720.md) — Rebased PR #621 onto llm and force-pushed 61b511b5ea88f56b7a125f22755aea786ab...
 - [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260720-022510.md) — Assessed the tree and posted weave-endo-but-for-bots-pr621-endoclaw-oauth-202...
 - [`xs2rust-endor-stage10p-regexp-lastindex-at-key`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10p-regexp-lastindex-at-key.md) — Completion report
 - [`xs2rust-endor-stage10p-collection-iterator-aliases`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10p-collection-iterator-aliases.md) — Completion report — s10p child 0: collection @@iterator alias completion (F1(...
 - [`port-xs-to-rust-memory-safe-engine-s46`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s46.md) — Completion report — port-xs-to-rust-memory-safe-engine-s46
-- [`ocapn-noise-press-20260720-083504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260720-083504.md) — **Press dispatch 11 close-out (resumed after reap) — steady state confirmed, ...
-- … and 2966 more
+- … and 2967 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
