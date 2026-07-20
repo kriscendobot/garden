@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T11:29:05Z_
+_As of 2026-07-20T11:53:21Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 47m)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 7h)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 1d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 2d)
@@ -2284,24 +2284,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 73.2M | $814.70 _(notional, rate-card)_ | no quota set |
-| Codex | 207.4M _(+554.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 73.2M | $815.32 _(notional, rate-card)_ | no quota set |
+| Codex | 214.1M _(+554.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`xs2rust-endor-press-20260720-112009`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-112009.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+### doin (1)
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10p-fresh-env-sweep.md) — Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 
-### tada (2974)
+### tada (2975)
+- [`xs2rust-endor-press-20260720-112009`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260720-112009.md) — Progress journal entry posted to entries/2026/07/20/115218Z-progress-gardener...
 - [`port-xs-to-rust-memory-safe-engine-s47`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s47.md) — Completion report — port-xs-to-rust-memory-safe-engine-s47
 - [`xs2rust-endor-build-stage10p`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10p.md) — orchestration xs2rust-endor-build-stage10p — HALTED
 - [`weave-endo-but-for-bots-pr621-endoclaw-oauth-20260720`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr621-endoclaw-oauth-20260720.md) — Rebased PR #621 onto llm and force-pushed 61b511b5ea88f56b7a125f22755aea786ab...
 - [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260720-022510.md) — Assessed the tree and posted weave-endo-but-for-bots-pr621-endoclaw-oauth-202...
-- [`xs2rust-endor-stage10p-regexp-lastindex-at-key`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10p-regexp-lastindex-at-key.md) — Completion report
-- … and 2969 more
+- … and 2970 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
