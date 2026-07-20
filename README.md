@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T05:15:22Z_
+_As of 2026-07-20T05:19:57Z_
 
 ## Latest
 
@@ -2045,26 +2045,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 72.6M | $790.67 _(notional, rate-card)_ | no quota set |
+| Claude | 72.6M | $790.02 _(notional, rate-card)_ | no quota set |
 | Codex | 205.4M _(+549.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`deadmail-issue-comment-5018998071`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5018998071.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
 - [`self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs.md) — In scripts/jobs/common.sh, handle LOCAL journal-clone corruption the way ensu...
-- [`xs2rust-endor-stage10m-native-fn-reflection`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10m-native-fn-reflection.md) — stage-10m child 1: F1(s43) — native-method length/name own-property reflectio...
 
-### tada (2939)
+### tada (2940)
+- [`xs2rust-endor-stage10m-native-fn-reflection`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10m-native-fn-reflection.md) — Completion report — F1(s43) native-method length/name reflection (PR #600, br...
 - [`self-heal-fix-garden-cleric-reclone-corrupt-journal-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-cleric-reclone-corrupt-journal-clone.md) — The work is fully landed on origin/main2 and verified. Writing the completion...
 - [`xs2rust-endor-stage10m-set-property-at`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10m-set-property-at.md) — Completion report
 - [`self-heal-fix-garden-repo-watcher-corrupt-journal-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-repo-watcher-corrupt-journal-clone.md) — Implemented on main2 (already present at d492de4996): corrupt journal-fetch s...
 - [`self-heal-fix-garden-gardener-journal-clone-corrupt-bad-object-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-gardener-journal-clone-corrupt-bad-object-reclone.md) — Implemented and pushed a31a27558b to main2.
-- [`port-xs-to-rust-memory-safe-engine-s43`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s43.md) — Completion report — supervisor s43 (XS→Rust Endor port)
-- … and 2934 more
+- … and 2935 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
