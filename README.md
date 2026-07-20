@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T14:37:13Z_
+_As of 2026-07-20T14:39:33Z_
 
 ## Latest
 
@@ -21,7 +21,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 3d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 3d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 6d)
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 17d)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 18d)
 
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
@@ -2464,8 +2464,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriscendobot-agoric-sdk-pr15-review-396a141c-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr15-review-396a141c-retro.md) — Retrospective on kriscendobot/agoric-sdk PR #15 (primary: kriscendobot-agoric...
 
 ### tada (2987)
 - [`endojs-endo-but-for-bots-pr786-22380928-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr786-22380928-retro.md) — Recorded a not-a-miss dismissal for the assigned directive. It was a review r...
@@ -2514,7 +2514,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage10p-fresh-env-sweep.md) — _normal_ · Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`kriscendobot-agoric-sdk-pr15-review-396a141c-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-review-396a141c-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #15 (primary: kriscendobot-agoric...
 - [`kriscendobot-agoric-sdk-pr15-review-2bf0daa3-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-review-2bf0daa3-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #15 (primary: kriscendobot-agoric...
 - [`kriscendobot-agoric-sdk-pr15-review-63f630f8-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-review-63f630f8-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #15 (primary: kriscendobot-agoric...
 - [`kriscendobot-agoric-sdk-pr15-review-9a12af5e-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-review-9a12af5e-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #15 (primary: kriscendobot-agoric...
