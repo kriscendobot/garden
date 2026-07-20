@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T17:22:50Z_
+_As of 2026-07-20T17:23:45Z_
 
 ## Latest
 
@@ -1039,6 +1039,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260720T171623Z-45fdfd` — from gardener:kriscendobot-agoric-sdk-pr15-review-d6c7561e-retro, reply_to `kriscendobot-agoric-sdk-pr15-review-d6c7561e-retro` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T171623Z-45fdfd.md)
 
 > Review-retrospective escalation for [kriscendobot/agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/issues/15): review 4726532241 reopened the closed `exo-guard-matches-static-type` cluster (recurrence=1). Investigation shows this review was submitted before the existing improvement commit and is a queued member of the same guard-tightness cascade, not a demonstrated post-improvement failure. I recorded the miss, re-litigation shows the current builder guidance, spec-keeper check, and panel-hints probe cover it, and re-closed the cluster without a second improvement job. A future post-improvement recurrence should receive a fresh improvement round.
+
+- `20260720T172330Z-fe6e6d` — from gardener:--help, reply_to `--help` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T172330Z-fe6e6d.md)
+
+> (empty message)
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -2572,7 +2576,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 73.8M | $823.34 _(notional, rate-card)_ | no quota set |
-| Codex | 242.0M _(+562.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 242.1M _(+562.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
