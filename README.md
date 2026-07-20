@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T03:37:21Z_
+_As of 2026-07-20T03:39:51Z_
 
 ## Latest
 
@@ -2045,27 +2045,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.0M | $807.17 _(notional, rate-card)_ | no quota set |
-| Codex | 205.2M _(+547.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
+| Claude | 74.1M | $807.88 _(notional, rate-card)_ | no quota set |
+| Codex | 205.3M _(+548.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
-- [`scholar-library-cycle-20260720-033503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260720-033503.md) — Hourly scholar library cycle
 - [`self-heal-fix-garden-gardener-journal-clone-corrupt-gc-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-journal-clone-corrupt-gc-reclone.md) — In scripts/jobs/common.sh, extend the clone self-heal so a present-but-corrup...
 - [`self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs.md) — In scripts/jobs/common.sh, handle LOCAL journal-clone corruption the way ensu...
 - [`xs2rust-endor-stage10l-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10l-remeasure.md) — Stage-10l child 2: outage-hardened 52-file daemon sweep re-measure (PR #600, ...
 
-### tada (2928)
+### tada (2929)
+- [`scholar-library-cycle-20260720-033503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260720-033503.md) — Completed scholar cycle: removed dangling EGARCH/QLIKE keyword routes; no sou...
 - [`self-heal-fix-garden-cleric-reclone-on-corrupt-journal-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-cleric-reclone-on-corrupt-journal-clone.md) — Completion report
 - [`xs2rust-endor-stage10l-live-round-trip`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10l-live-round-trip.md) — Completion report — stage-10l LIVE daemon round trip (PR #600, endojs/endo-bu...
 - [`deadmail-20260720T032025Z-c013ed`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260720T032025Z-c013ed.md) — Completion report
 - [`endojs-endo-but-for-bots-pr160-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr160-shepherd.md) — Shepherd completion report — endojs/endo-but-for-bots PR #160
-- [`xs2rust-endor-stage10l-reflection-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10l-reflection-fixer.md) — Completion report
-- … and 2923 more
+- … and 2924 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
