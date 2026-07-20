@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T15:00:32Z_
+_As of 2026-07-20T15:05:14Z_
 
 ## Latest
 
@@ -2461,14 +2461,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 73.7M | $820.41 _(notional, rate-card)_ | no quota set |
-| Codex | 230.9M _(+560.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 73.7M | $820.71 _(notional, rate-card)_ | no quota set |
+| Codex | 231.2M _(+560.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`hermit-ollama-self-heal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/hermit-ollama-self-heal.md) — Self-heal local Ollama inference for hermit workers (supervised unit + handle...
 - [`xs2rust-endor-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-145005.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (2998)
