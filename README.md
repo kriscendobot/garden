@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T14:49:19Z_
+_As of 2026-07-20T14:52:34Z_
 
 ## Latest
 
@@ -2457,23 +2457,30 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 73.5M | $818.90 _(notional, rate-card)_ | no quota set |
-| Codex | 229.3M _(+558.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
+| Claude | 73.6M | $820.75 _(notional, rate-card)_ | no quota set |
+| Codex | 229.4M _(+558.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`xs2rust-endor-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260720-145005.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### doin (1)
-- [`kriscendobot-agoric-sdk-pr15-review-2bf0daa3-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr15-review-2bf0daa3-retro.md) — Retrospective on kriscendobot/agoric-sdk PR #15 (primary: kriscendobot-agoric...
+### doin (8)
+- [`endo-daemon-data-plane-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-daemon-data-plane-press-20260720-145005.md) — Press the Endo daemon data plane forward (endojs/endo-but-for-bots, base llm)
+- [`endo-git-integration-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260720-145005.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+- [`endo-npm-cas-registry-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260720-145005.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+- [`endo-sturdyref-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260720-145005.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+- [`endo-vfs-parity-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260720-145005.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+- [`finbot-progress-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260720-145005.md) — Push progress on kriscendobot/finbot (every 6h)
+- [`minion-town-agenda-review-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260720-145005.md) — Minion Town hourly agenda review
+- [`ocapn-noise-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260720-145005.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### tada (2988)
+### tada (2990)
+- [`endo-byte-array-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260720-145005.md) — Byte-array press dispatch report (2026-07-20 14:50 UTC)
+- [`kriscendobot-agoric-sdk-pr15-review-2bf0daa3-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-review-2bf0daa3-retro.md) — Recorded a not-a-miss dismissal: the feedback was comment-hygiene direction, ...
 - [`kriscendobot-agoric-sdk-pr15-review-396a141c-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-review-396a141c-retro.md) — Completion report — review retrospective, kriscendobot/agoric-sdk PR #15 (rev...
 - [`endojs-endo-but-for-bots-pr786-22380928-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr786-22380928-retro.md) — Recorded a not-a-miss dismissal for the assigned directive. It was a review r...
 - [`improve-ci-wait-merge-review-decision-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-wait-merge-review-decision-gate.md) — Completion report
-- [`kriscendobot-minion.town-pr4-review-681cbfb6-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr4-review-681cbfb6-retro.md) — Recorded a not-a-miss dismissal for PR #4 review 4724665640: it authorized po...
-- [`kriscendobot-minion.town-pr7-review-c543864f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr7-review-c543864f-retro.md) — Completion report — kriscendobot-minion.town-pr7-review-c543864f-retro
-- … and 2983 more
+- … and 2985 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
