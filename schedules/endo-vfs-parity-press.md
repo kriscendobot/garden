@@ -20,20 +20,25 @@ and `fs-interface-consolidation.md`.
 **Each dispatch (every 6h; be idempotent):** Assess, don't assume — read those two
 reconciliation designs plus `daemon-mount.md`, `agent-tools-mount-fs-tools.md`,
 `namehub-interface-unification.md`, and `endopi-edit-tool.md`, and the live PRs.
-State as of 2026-07-18 (post-18:35 tick): **#714** and **#643** MERGED;
-**#658** closed (superseded). Open, review-blocked, ALL verified green and
-mergeable at 18:35 (23–24 SUCCESS checks each; no repo activity since the
-12:20 tick): **#656** (provideSubMount), **#655** (old non-delegated
-mount grep — maintainer asked about closing as superseded by #713, no reply
-yet; msg 20260717T124846Z-815188; do not re-ping), **#657** (mount JSON),
+State as of 2026-07-20 (post-08:36 tick): **#714** and **#643** MERGED;
+**#658** closed (superseded). Open, review-blocked, ALL re-verified green and
+mergeable at 2026-07-20 08:36 (23–24 SUCCESS checks each, zero pending; no
+activity on any press PR since 2026-07-18 — recent repo events are on
+unrelated PRs #600/#503/#160/#693): **#656** (provideSubMount, head
+76e6800ee5), **#655** (old non-delegated
+mount grep, head 741642e2ee — maintainer asked about closing as superseded
+by #713, still no reply as of 2026-07-20; msg 20260717T124846Z-815188; do
+not re-ping), **#657** (mount JSON, head 89482d66ad),
 **#713** (mount glob+grep+glorp; full matrix confirmed green on 454b2b97db
 after one macOS `test (22.x)` flake — an unrelated @endo/agentry
 failed-to-exit hang in rootfs-form/sandbox-slice-mint tests, cleared by
 `gh run rerun --failed`; that hang is a known recurring flake, rerun before
 diagnosing). Next-gap PRs opened by this press, all green: **#788** (genie:
-shared edit algorithm + glob/grep over the platform engine), **#790** (fae:
-glob/grep over node-fs powers), and **#796** (hashline edit-format pure
-core, `packages/daemon/src/hashline.js` per `cli-edit-verb.md` — parser,
+shared edit algorithm + glob/grep over the platform engine, head
+c5507b7e2c), **#790** (fae: glob/grep over node-fs powers, head
+4aa39721cc), and **#796** (hashline edit-format pure
+core, head cd11b28bcf, `packages/daemon/src/hashline.js` per
+`cli-edit-verb.md` — parser,
 validator, renderer, CAS splice, reapply; full matrix verified green
 2026-07-18 — no mount/CLI wiring yet, deliberately, to avoid conflicts
 with the open mount stack). Re-verify each PR's mergeable/CI
