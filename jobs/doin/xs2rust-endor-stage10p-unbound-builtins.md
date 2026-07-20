@@ -40,6 +40,8 @@ If the 2400s budget runs short, land FEWER complete items rather than all six ha
 item must carry its gates and bars. Report the remainder explicitly in your tada. Accuracy-over-parity.
 Tada ONLY; keep PR DRAFT.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
