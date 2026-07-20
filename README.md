@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T20:03:28Z_
+_As of 2026-07-20T20:05:29Z_
 
 ## Latest
 
@@ -2793,15 +2793,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.0M | $825.74 _(notional, rate-card)_ | no quota set |
+| Claude | 74.1M | $826.78 _(notional, rate-card)_ | no quota set |
 | Codex | 268.6M _(+566.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`build-daemon-mapstore-gh59`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-daemon-mapstore-gh59.md) — Build Phase 1: durable MapStore in the endo pet daemon (closes kriskowal/gard...
+- [`deadmail-issue-comment-5026725853`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5026725853.md) — Dead-lettered message — pick up its intent
 
 ### tada (3026)
 - [`issue-kriskowal-garden-59`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-59.md) — Completion report — issue-kriskowal-garden-59
