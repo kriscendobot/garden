@@ -67,10 +67,4 @@ no-boot-regression bars apply (engine workspace EXIT=0, compile-diff 1909/1909 +
 ROOT lib 111/0 + three markers, forbid/VARIANT_COUNT/warnings/`unsafe` invariants). Report via your tada
 completion report ONLY (never inbox-send the parked supervisor).
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 6
-  worker_kind: gardener
-  claimed_at: 2026-07-20T05:22:08Z
+<!-- garden-reaped: 1 -->
