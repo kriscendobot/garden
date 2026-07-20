@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T12:30:01Z_
+_As of 2026-07-20T12:34:02Z_
 
 ## Latest
 
@@ -2364,15 +2364,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 (none)
 
 ### doin (1)
-- [`endojs-endo-but-for-bots-pr708-review-ecdedc30-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr708-review-ecdedc30-retro.md) — Retrospective on endojs/endo-but-for-bots PR #708 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr737-review-3363fee9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr737-review-3363fee9-retro.md) — Retrospective on endojs/endo-but-for-bots PR #737 (primary: endojs-endo-but-f...
 
-### tada (2975)
+### tada (2976)
+- [`endojs-endo-but-for-bots-pr708-review-ecdedc30-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr708-review-ecdedc30-retro.md) — Completion report
 - [`xs2rust-endor-press-20260720-112009`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260720-112009.md) — Progress journal entry posted to entries/2026/07/20/115218Z-progress-gardener...
 - [`port-xs-to-rust-memory-safe-engine-s47`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s47.md) — Completion report — port-xs-to-rust-memory-safe-engine-s47
 - [`xs2rust-endor-build-stage10p`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10p.md) — orchestration xs2rust-endor-build-stage10p — HALTED
 - [`weave-endo-but-for-bots-pr621-endoclaw-oauth-20260720`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr621-endoclaw-oauth-20260720.md) — Rebased PR #621 onto llm and force-pushed 61b511b5ea88f56b7a125f22755aea786ab...
-- [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260720-022510.md) — Assessed the tree and posted weave-endo-but-for-bots-pr621-endoclaw-oauth-202...
-- … and 2970 more
+- … and 2971 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -2412,7 +2412,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage10p-fresh-env-sweep.md) — _normal_ · Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr737-review-3363fee9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr737-review-3363fee9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #737 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr598-a5ffa84f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr598-a5ffa84f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #598 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr771-review-c92c5d14-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr771-review-c92c5d14-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #771 (primary: endojs-endo-but-f...
 - [`kriskowal-garden-pr7-review-4798277a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriskowal-garden-pr7-review-4798277a-retro.md) — _low_ · Retrospective on kriskowal/garden PR #7 (primary: kriskowal-garden-pr7-review...
