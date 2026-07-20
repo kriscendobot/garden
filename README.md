@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T08:40:08Z_
+_As of 2026-07-20T08:45:55Z_
 
 ## Latest
 
@@ -972,6 +972,22 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > 1. **s10e sweep-observability diagnosis** — the report says this needs a *garden2-hosted* run and that the re-cut is deliberately **host-gated to prevent another follower misroute**. A naive board post could be claimed by a follower and misroute again, so this needs a host-pinned dispatch decision from you (or confirmation to pin it to garden2) rather than an ordinary gardener job.
 >
 > 2. **stage-10o fixer targets** — F1/F2/F3(s45) + unbound builtins + AT-key `lastIndex` remain, and the finish line (test:rust modulo ledger + test262 parity closure row 8 + ecosystem row 9) is **not yet met**. This is continued multi-stage engine-port effort; the digest names no repo/PR URL and it's a judgment call whether to spend another fixer round now. Confirm you want stage-10o fixer work posted (and against which fork/PR) and I'll cut the job.
+
+- `20260720T084538Z-0b6d3d` — from gardener:finbot-progress-20260720-083504, reply_to `finbot-progress-20260720-083504` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T084538Z-0b6d3d.md)
+
+> finbot progress (cycle 20260720-083504): auto-garch-family gains an optional Diebold-Mariano significance gate.
+>
+> Advanced kriscendobot/finbot main f32bc19 -> 45470c4. This answers last cycle's handoff question ("should DM significance become a selector gate alongside the parsimony margin?"): yes, as an OPT-IN second gate, defaulted off.
+>
+> - New opt `significanceAlpha` on autoGarchFamilyMleFromPriceHistory / conditionalVolFromPriceHistory / --adaptive-vol=auto-family. When set, an asymmetric branch that already cleared the fixed-nat parsimony margin must ALSO beat GARCH by a significant paired DM QLIKE test before acceptance; else GARCH is kept and the reason is recorded (oos-qlike-insignificant / oos-qlike-significant / oos-qlike-unverifiable). Default null leaves live behavior and every proposal hash byte-for-byte unchanged.
+> - The margin is an effect-size floor; the gate is a sampling-noise floor - complementary. A noisy edge can clear the first and fail the second (new tests exercise exactly that).
+> - Plumbing: walkForwardQlike now returns per-observation losses; dieboldMariano moved to the leaf vol-selection.js (re-exported from vol-eval.js) to avoid an import cycle.
+>
+> Verified: full suite 598 pass / 0 fail (+7). Seeded dry-run OODA on default and auto-family paths both auditor-APPROVED, WALLET TOUCHED: false. Tree left green.
+>
+> Next unblocked step (handed off): decide whether significanceAlpha should become the DEFAULT for the live auto-family path - that WOULD change proposal hashes, so it needs your call plus a re-baselined fixture. Secondary: make the walk-forward report's DM comparison test best-asymmetric-vs-GARCH (the selector's actual contest) instead of winner-vs-runner-up.
+>
+> Maintainer decision pending (unchanged): live execution stays blocked on explicit paper-wallet/test-net authorization and a chosen CapTP transport.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -2181,7 +2197,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 72.6M | $795.53 _(notional, rate-card)_ | no quota set |
+| Claude | 72.7M | $801.12 _(notional, rate-card)_ | no quota set |
 | Codex | 205.8M _(+554.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
