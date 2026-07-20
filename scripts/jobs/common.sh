@@ -1558,11 +1558,41 @@ clone_unlock() {
   exec {fd}>&- || true
 }
 
-# Ensure a single-branch journal clone exists at $1 and is identity-pinned. The
-# clone + config write is serialized so concurrent producers don't race a cold
+# clone_is_corrupt <dir> -- a cheap local health probe for a present journal
+# clone. A checkout can retain a `.git` directory while its origin tracking ref
+# points at a missing object, so merely testing for `.git` is not enough. gc.log
+# is also an explicit poison marker: git leaves it after a failed maintenance
+# run and may refuse future repacks until it is removed. Re-cloning is safer than
+# trying to reason about the rest of that object database.
+clone_is_corrupt() {
+  local dir="$1"
+  [ -e "$dir/.git/gc.log" ] && return 0
+  git -C "$dir" rev-parse -q --verify "refs/remotes/origin/$JOURNAL_BRANCH^{commit}" >/dev/null 2>&1 || return 0
+  return 1
+}
+
+# reclone_clone <dir> <remote> -- replace a missing, partial, or corrupt clone
+# through a sibling temporary directory. The caller holds clone_lock, so the
+# remove/clone/rename sequence cannot race another producer using this clone.
+reclone_clone() {
+  local dir="$1" remote="$2" tmp
+  rm -rf "$dir"
+  mkdir -p "$(dirname "$dir")"
+  tmp="${dir}.tmp.$$"
+  rm -rf "$tmp"
+  if git clone -q --single-branch --branch "$JOURNAL_BRANCH" "$remote" "$tmp"; then
+    mv "$tmp" "$dir" || { rm -rf "$tmp"; die "atomic rename of fresh clone $tmp -> $dir failed"; }
+  else
+    rm -rf "$tmp"
+    die "clone of $remote ($JOURNAL_BRANCH) into $dir failed"
+  fi
+}
+
+# Ensure a single-branch journal clone exists, is healthy, and is identity-pinned.
+# The clone + config write is serialized so concurrent producers don't race a cold
 # `git clone` into the same dir or collide on `.git/config`.
 ensure_clone() {
-  local dir="$1" remote tmp; remote="$(journal_remote)"
+  local dir="$1" remote; remote="$(journal_remote)"
   clone_lock "$dir"
   if [ ! -d "$dir/.git" ]; then
     # A destination that exists but lacks .git is a POISONED PARTIAL CLONE: a
@@ -1579,17 +1609,11 @@ ensure_clone() {
     # throughout, so no concurrent producer races the same destination.
     if [ -e "$dir" ]; then
       log "WARN: $dir exists without .git (poisoned partial clone); self-healing by re-cloning"
-      rm -rf "$dir"
     fi
-    mkdir -p "$(dirname "$dir")"
-    tmp="${dir}.tmp.$$"
-    rm -rf "$tmp"
-    if git clone -q --single-branch --branch "$JOURNAL_BRANCH" "$remote" "$tmp"; then
-      mv "$tmp" "$dir" || { rm -rf "$tmp"; die "atomic rename of fresh clone $tmp -> $dir failed"; }
-    else
-      rm -rf "$tmp"
-      die "clone of $remote ($JOURNAL_BRANCH) into $dir failed"
-    fi
+    reclone_clone "$dir" "$remote"
+  elif clone_is_corrupt "$dir"; then
+    log "WARN: $dir has a corrupt clone; self-healing by re-cloning"
+    reclone_clone "$dir" "$remote"
   fi
   git -C "$dir" config user.name  "$(bot_name)"
   git -C "$dir" config user.email "$(bot_email)"

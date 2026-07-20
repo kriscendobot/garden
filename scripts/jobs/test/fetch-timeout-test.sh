@@ -214,6 +214,26 @@ else
   bad "sync_clone TIER 2 fallback wrong (rc=$rc, fetches=$(cat "$CORRUPT_COUNT2"), poison=$([ -e "$CC2/poisoned-before-reclone" ] && echo kept || echo gone))"
 fi
 
+# A present `.git` is not proof of health. Seed the exact gardener/14 shape:
+# a bad origin/journal2 object plus stale gc.log. ensure_clone runs before every
+# normal sync, so it must replace this clone atomically before a fetch can die.
+EC="$TR/ensure-corrupt-clone"
+git clone -q --single-branch --branch journal2 "$CB" "$EC"
+touch "$EC/poisoned-before-reclone"
+mkdir -p "$EC/.git/refs/remotes/origin"
+printf '%040d\n' 0 > "$EC/.git/refs/remotes/origin/journal2"
+printf 'failed gc\n' > "$EC/.git/gc.log"
+rc=0
+( export JOURNAL_REMOTE="$CB"
+  ensure_clone "$EC" ) >/dev/null 2>&1 || rc=$?
+if [ "$rc" -eq 0 ] && [ -d "$EC/.git" ] && [ ! -e "$EC/poisoned-before-reclone" ] \
+   && [ ! -e "$EC/.git/gc.log" ] \
+   && git -C "$EC" rev-parse -q --verify "refs/remotes/origin/journal2^{commit}" >/dev/null 2>&1; then
+  ok "ensure_clone re-cloned a present corrupt clone (bad origin ref + gc.log)"
+else
+  bad "ensure_clone did not re-clone the present corrupt clone (rc=$rc, poison=$([ -e "$EC/poisoned-before-reclone" ] && echo kept || echo gone), gc.log=$([ -e "$EC/.git/gc.log" ] && echo present || echo gone))"
+fi
+
 # Guard the EXACT reported repo-watcher signature (a zero-byte loose
 # refs/heads/journal2 shadowing packed-refs + bad reflogs): its fetch stderr must
 # classify as CORRUPT (heal by re-clone) and NOT as an offline outage (skip tick).
