@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T18:30:48Z_
+_As of 2026-07-20T18:54:32Z_
 
 ## Latest
 
@@ -13,7 +13,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 14h)
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 7h)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 8h)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 1d)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 2d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 2d)
@@ -2692,23 +2692,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 73.9M | $825.01 _(notional, rate-card)_ | no quota set |
-| Codex | 250.4M _(+566.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 73.9M | $825.23 _(notional, rate-card)_ | no quota set |
+| Codex | 261.2M _(+566.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-press-20260720-182010`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-182010.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+### doin (0)
+(none)
 
-### tada (3018)
+### tada (3019)
+- [`xs2rust-endor-press-20260720-182010`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260720-182010.md) — Press Report — xs2rust-endor-press-20260720-182010
 - [`improve-scheduler-handler-timeout-passthrough`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-handler-timeout-passthrough.md) — Implemented and pushed scheduler timeout passthrough to main2.
 - [`endojs-endo-but-for-bots-pr600-f097238e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-f097238e.md) — Completion report
 - [`minion-town-agenda-review-20260720-182010`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-182010.md) — Completion report
 - [`endojs-endo-but-for-bots-pr793-review-16e5c4ce-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr793-review-16e5c4ce-retro.md) — Recorded a durable not-a-miss dismissal for PR #793’s review. The feedback wa...
-- [`endojs-endo-but-for-bots-pr794-review-a34bb7b7-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr794-review-a34bb7b7-retro.md) — Completion report
-- … and 3013 more
+- … and 3014 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
