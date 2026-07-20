@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T16:06:03Z_
+_As of 2026-07-20T16:07:23Z_
 
 ## Latest
 
@@ -2465,25 +2465,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 73.8M | $821.77 _(notional, rate-card)_ | no quota set |
-| Codex | 238.5M _(+560.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 73.7M | $821.59 _(notional, rate-card)_ | no quota set |
+| Codex | 238.6M _(+560.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`minion-town-restore-hourly`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-restore-hourly.md) — Restore minion-town-agenda-review to hourly (weekend cadence reduction over)
+### doin (2)
 - [`xs2rust-endor-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-145005.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260720-160510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-160510.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3001)
+### tada (3002)
+- [`minion-town-restore-hourly`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-restore-hourly.md) — Completion report
 - [`answer-garden-issue51-heap-snapshot-diffs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/answer-garden-issue51-heap-snapshot-diffs.md) — Completion report
 - [`hermit-ollama-self-heal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/hermit-ollama-self-heal.md) — Completion report — hermit-ollama-self-heal
 - [`answer-garden-issue51-test262-oracle-oom`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/answer-garden-issue51-test262-oracle-oom.md) — Investigated and posted the source-grounded reply on garden issue #51: https:...
 - [`ocapn-noise-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260720-145005.md) — **Press dispatch 12 complete — steady state re-proven live; no new work unblo...
-- [`endo-npm-cas-registry-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260720-145005.md) — Press tick complete for the npm-via-CAS registry-proxy arc (endojs/endo-but-f...
-- … and 2996 more
+- … and 2997 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
