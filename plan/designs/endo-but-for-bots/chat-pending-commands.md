@@ -1,14 +1,14 @@
 ---
 slug: chat-pending-commands
 repository: endo-but-for-bots
-status: In Progress
+status: Complete
 size: M
 milestone: M9
 depends_on: []
 pr: endo-but-for-bots#133
 created: 2026-03-11
-updated: 2026-05-19
 source: imported from origin/llm designs/README.md
+updated: 2026-07-20T02:29:49Z
 ---
 
 # Chat Pending Commands Region
@@ -194,3 +194,6 @@ is deferred.
 > It may be necessary to evaluate whether we can model all commands as
 > messages are logged and where their results are replies. This is a more
 > invasive but possibly necessary change to the daemon architecture.
+
+---
+_Reconciled 2026-07-20T02:29:49Z: status → Complete (PR endojs/endo-but-for-bots#133 observed merged)._

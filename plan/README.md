@@ -19,36 +19,23 @@ of records, so a milestone spanning repositories rolls up as one.
 
 | Milestone | Designs | Complete | % | Est. days (remaining) |
 |---|---|---|---|---|
-| M1 | 7 | 7 | 100% | 0 |
+| M1 | 8 | 8 | 100% | 0 |
 | M2 | 8 | 6 | 75% | 0 |
 | M3 | 28 | 6 | 21% | 59 |
 | M4 | 9 | 1 | 11% | 21 |
 | M6 | 1 | 0 | 0% | 3 |
 | M7 | 11 | 1 | 9% | 22 |
 | M8 | 4 | 0 | 0% | 9 |
-| M9 | 20 | 3 | 15% | 47 |
+| M9 | 33 | 17 | 51% | 44 |
 | M10 | 9 | 0 | 0% | 53 |
 | M11 | 7 | 3 | 42% | 30 |
-| (unfiled) | 37 | 26 | 70% | 0 |
+| (unfiled) | 23 | 12 | 52% | 0 |
 
 ## Designs
 
 | Design | Repository | Milestone | Status | Size | PR |
 |---|---|---|---|---|---|
 | agent-tools-mount-fs-tools | endo-but-for-bots | — | Not Started | — | — |
-| chat-color-schemes | endo-but-for-bots | — | Complete | — | — |
-| chat-command-bar | endo-but-for-bots | — | Complete | — | — |
-| chat-components | endo-but-for-bots | — | Complete | — | — |
-| chat-focus-message | endo-but-for-bots | — | Complete | — | — |
-| chat-high-contrast-mode | endo-but-for-bots | — | Complete | — | — |
-| chat-invariants | endo-but-for-bots | — | Complete | — | — |
-| chat-markdown-render | endo-but-for-bots | — | Complete | — | — |
-| chat-per-space-color-scheme | endo-but-for-bots | — | Complete | — | — |
-| chat-rename-dismiss-to-clear | endo-but-for-bots | — | Complete | — | — |
-| chat-spaces-gutter | endo-but-for-bots | — | Complete | — | — |
-| chat-spaces-home | endo-but-for-bots | — | Complete | — | — |
-| chat-spaces-inbox | endo-but-for-bots | — | Complete | — | — |
-| chat-test-coverage | endo-but-for-bots | — | Complete | — | — |
 | cli-http-client | endo-but-for-bots | — | Proposed | — | — |
 | cli-store-verb-text-modes | endo-but-for-bots | — | Proposed | — | — |
 | daemon-capability-bus | endo-but-for-bots | — | In Progress | — | — |
@@ -64,7 +51,6 @@ of records, so a milestone spanning repositories rolls up as one.
 | endo-fs-backend-seam | endo-but-for-bots | — | Complete | — | — |
 | endoclaw | endo-but-for-bots | — | Reference | — | — |
 | endopi | endo-but-for-bots | — | Reference | — | — |
-| familiar-electron-shell | endo-but-for-bots | — | Complete | — | — |
 | familiar-gateway-migration | endo-but-for-bots | — | Complete | — | — |
 | familiar-localhttp-protocol | endo-but-for-bots | — | In Progress | — | — |
 | forge-gap-analysis | endo-but-for-bots | — | Reference | — | — |
@@ -77,6 +63,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | daemon-value-message | endo-but-for-bots | M1 | Complete | — | — |
 | familiar-bundled-agents | endo-but-for-bots | M1 | Complete | — | — |
 | familiar-daemon-bundling | endo-but-for-bots | M1 | Complete | — | — |
+| familiar-electron-shell | endo-but-for-bots | M1 | Complete | — | — |
 | lal-fae-form-provisioning | endo-but-for-bots | M1 | Complete | — | — |
 | lal-reply-chain-transcripts | endo-but-for-bots | M1 | Complete | — | — |
 | daemon-capability-bank | endo-but-for-bots | M10 | Not Started | XL | — |
@@ -156,11 +143,24 @@ of records, so a milestone spanning repositories rolls up as one.
 | endo-app-sharing | endo-but-for-bots | M8 | Proposed | M | — |
 | familiar-app-ui-hosting | endo-but-for-bots | M8 | Proposed | M | — |
 | familiar-deep-link-invitations | endo-but-for-bots | M8 | Proposed | M | — |
+| chat-color-schemes | endo-but-for-bots | M9 | Complete | — | — |
+| chat-command-bar | endo-but-for-bots | M9 | Complete | — | — |
+| chat-components | endo-but-for-bots | M9 | Complete | — | — |
 | chat-edit-message-ui | endo-but-for-bots | M9 | Not Started | M | — |
+| chat-focus-message | endo-but-for-bots | M9 | Complete | — | — |
+| chat-high-contrast-mode | endo-but-for-bots | M9 | Complete | — | — |
+| chat-invariants | endo-but-for-bots | M9 | Complete | — | — |
 | chat-inventory-create-menu | endo-but-for-bots | M9 | Not Started | L | — |
-| chat-pending-commands | endo-but-for-bots | M9 | In Progress | M | endo-but-for-bots#133 |
+| chat-markdown-render | endo-but-for-bots | M9 | Complete | — | — |
+| chat-pending-commands | endo-but-for-bots | M9 | Complete | M | endo-but-for-bots#133 |
+| chat-per-space-color-scheme | endo-but-for-bots | M9 | Complete | — | — |
+| chat-rename-dismiss-to-clear | endo-but-for-bots | M9 | Complete | — | — |
 | chat-reply-chain-visualization | endo-but-for-bots | M9 | Deprecated | — | — |
 | chat-slot-slash-commands | endo-but-for-bots | M9 | Proposed | M | — |
+| chat-spaces-gutter | endo-but-for-bots | M9 | Complete | — | — |
+| chat-spaces-home | endo-but-for-bots | M9 | Complete | — | — |
+| chat-spaces-inbox | endo-but-for-bots | M9 | Complete | — | — |
+| chat-test-coverage | endo-but-for-bots | M9 | Complete | — | — |
 | chat-view-edit-commands | endo-but-for-bots | M9 | Complete | M | — |
 | daemon-commands-as-messages | endo-but-for-bots | M9 | Not Started | L | — |
 | daemon-message-streaming | endo-but-for-bots | M9 | In Progress | — | endo-but-for-bots#287 |

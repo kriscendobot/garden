@@ -2,6 +2,7 @@
 slug: chat-spaces-gutter
 repository: endo-but-for-bots
 status: Complete
+milestone: M9
 depends_on: []
 created: 2026-02-21
 updated: 2026-02-26

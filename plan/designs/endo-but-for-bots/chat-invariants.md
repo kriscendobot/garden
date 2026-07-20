@@ -2,6 +2,7 @@
 slug: chat-invariants
 repository: endo-but-for-bots
 status: Complete
+milestone: M9
 depends_on: []
 created: 2026-03-02
 updated: 2026-03-02

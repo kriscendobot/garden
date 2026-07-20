@@ -2,6 +2,7 @@
 slug: familiar-electron-shell
 repository: endo-but-for-bots
 status: Complete
+milestone: M1
 depends_on: []
 created: 2026-02-14
 updated: 2026-02-26

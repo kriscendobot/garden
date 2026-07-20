@@ -41,6 +41,16 @@ from the week's merged-PR cadence.
 
 ## Recalibration log
 
+- **2026-07-20** (`endo-but-for-bots`): the trailing 7-day window (2026-07-13 →
+  2026-07-20) merged **39 PRs**, with 7, 2, 5, 9, 11, 3, and 2 merges by day.
+  Thirty PRs formed the review-queue cohort (open→merge at or below five days),
+  with a median of **0.81 days**; nine older PRs form the tail. The raw all-in
+  median was 1.47 days. The robust review-queue figure therefore continues to
+  round to **`review-queue-latency-days: 1`**, so the latency and S/M/L/XL effort
+  mapping remain unchanged. This throughput is parallel-fleet activity, not a
+  calibrated effort-days→calendar-days conversion; milestone `target:` dates
+  remain intentionally unstamped.
+
 - **2026-07-12** (`endo-but-for-bots`): the trailing 7-day window (2026-07-05 →
   2026-07-12) merged **26 PRs**, spread far more evenly than last week — 1, 4, 11,
   2, 5, 0, 3 by day (no fleet-down availability gap this week; last week's

@@ -2,6 +2,7 @@
 slug: chat-focus-message
 repository: endo-but-for-bots
 status: Complete
+milestone: M9
 depends_on: []
 created: 2026-03-04
 updated: 2026-05-19

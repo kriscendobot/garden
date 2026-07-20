@@ -2,6 +2,7 @@
 slug: chat-rename-dismiss-to-clear
 repository: endo-but-for-bots
 status: Complete
+milestone: M9
 depends_on: []
 created: 2026-03-03
 updated: 2026-05-19
