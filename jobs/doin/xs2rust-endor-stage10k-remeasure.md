@@ -20,3 +20,10 @@ model: opus
 3. **Did any class change?** If yes, re-run the C-XS same-harness baseline (anchor 530/19/20/0) and report the direct comparison; if no class changed, C-XS is not re-run — say so.
 
 Report via your tada completion report ONLY — never inbox-send the parked supervisor.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  claimed_at: 2026-07-20T02:25:18Z
