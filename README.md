@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T11:20:29Z_
+_As of 2026-07-20T11:20:51Z_
 
 ## Latest
 
@@ -1000,6 +1000,25 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260720T105507Z-8cecbb` — from orchestrator:xs2rust-endor-build-stage10p-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T105507Z-8cecbb.md)
 
 > Orchestration xs2rust-endor-build-stage10p HALTED: child xs2rust-endor-stage10p-unbound-builtins failed (serial, on-child-failure=halt). 2/4 done before halt; swept: xs2rust-endor-stage10p-fresh-env-sweep
+
+- `20260720T112027Z-3e6ff9` — from issue-inbox-watcher, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T112027Z-3e6ff9.md)
+
+> kind: access-request
+>
+> @kumavis interacted with the garden's issue inbox on kriskowal/garden #51 but is NOT on
+> the maintainer allowlist, so the interaction was DROPPED (dispatched
+> nothing). If this is a collaborator you want to let drive the garden by
+> issue, add them:
+>
+>     scripts/jobs/add-maintainer.sh kumavis
+>
+> After that, FUTURE issues/comments from @kumavis will dispatch — but THIS one
+> was already dropped, so ask them to re-post it (or re-post it yourself)
+> if it still matters.
+>
+> Interaction: [https://github.com/kriskowal/garden/issues/51](https://github.com/kriskowal/garden/issues/51)#issuecomment-5021654884
+>
+> You are shown this ONCE per individual. Reply or archive to dismiss it.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -2265,14 +2284,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 73.1M | $814.00 _(notional, rate-card)_ | no quota set |
+| Claude | 73.1M | $814.10 _(notional, rate-card)_ | no quota set |
 | Codex | 205.9M _(+554.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`xs2rust-endor-press-20260720-112009`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260720-112009.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+### todo (0)
+(none)
 
-### doin (1)
+### doin (2)
+- [`xs2rust-endor-press-20260720-112009`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-112009.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10p-fresh-env-sweep.md) — Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 
 ### tada (2974)
