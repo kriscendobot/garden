@@ -8,3 +8,10 @@ Change:
 3. Reuse the existing `clone_lock`/`clone_unlock` discipline so a concurrent producer never races the wipe (mirror ensure_clone's poisoned-partial-clone handling, which this generalizes from "missing .git" to "corrupt refs/reflogs").
 
 Because every gardener and watcher routes journal reads through `sync_clone`, this fix covers the whole fleet, not just repo-watcher. Add a unit test alongside the existing sync_clone offline-classification tests: inject a `GARDEN_FETCH_CMD` (or seed a zero-byte loose ref in a throwaway clone) that emits the corruption stderr, and assert sync_clone re-clones and recovers rather than dying. As a one-time unblock, the fix job may also `rm -rf /home/kris/garden/.garden-state/repo-watcher/journal` on the affected host so the watcher recovers on its next tick before the code fix lands.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  worker_kind: gardener
+  claimed_at: 2026-07-20T02:58:58Z
