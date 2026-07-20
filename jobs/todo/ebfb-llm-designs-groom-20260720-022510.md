@@ -1,7 +1,3 @@
-cadence: weekly
-last_dispatched: 2026-07-20T02:25:10Z
-job_basename_prefix: ebfb-llm-designs-groom
----
 # Weekly `llm` designs-directory grooming — Sunday
 
 Act as a gardener and groom the `designs/` directory of
