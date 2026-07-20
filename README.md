@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T19:24:57Z_
+_As of 2026-07-20T19:50:32Z_
 
 ## Latest
 
@@ -13,7 +13,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 15h)
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 8h)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 9h)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 1d)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 2d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 2d)
@@ -2692,14 +2692,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.0M | $825.51 _(notional, rate-card)_ | no quota set |
-| Codex | 261.5M _(+566.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 74.0M | $825.70 _(notional, rate-card)_ | no quota set |
+| Codex | 268.6M _(+566.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`deadmail-issue-comment-5026492697`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5026492697.md) — Dead-lettered message — pick up its intent
 - [`xs2rust-endor-press-20260720-192031`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-192031.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3024)
