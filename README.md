@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T13:23:35Z_
+_As of 2026-07-20T13:29:34Z_
 
 ## Latest
 
@@ -2457,15 +2457,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 73.5M | $818.05 _(notional, rate-card)_ | no quota set |
+| Claude | 73.5M | $818.13 _(notional, rate-card)_ | no quota set |
 | Codex | 223.0M _(+555.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr598-a5ffa84f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr598-a5ffa84f-retro.md) — Retrospective on endojs/endo-but-for-bots PR #598 (primary: endojs-endo-but-f...
 
 ### tada (2977)
 - [`endojs-endo-but-for-bots-pr737-review-3363fee9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr737-review-3363fee9-retro.md) — Verdict recorded: not-a-miss (new-direction) for #737 review 4718500574. The ...
@@ -2514,7 +2514,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage10p-fresh-env-sweep.md) — _normal_ · Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr598-a5ffa84f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr598-a5ffa84f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #598 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr771-review-c92c5d14-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr771-review-c92c5d14-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #771 (primary: endojs-endo-but-f...
 - [`kriskowal-garden-pr7-review-4798277a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriskowal-garden-pr7-review-4798277a-retro.md) — _low_ · Retrospective on kriskowal/garden PR #7 (primary: kriskowal-garden-pr7-review...
 - [`kriscendobot-minion.town-pr8-review-b00f7a71-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr8-review-b00f7a71-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #8 (primary: kriscendobot-minion...
