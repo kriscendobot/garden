@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T07:08:51Z_
+_As of 2026-07-20T07:25:27Z_
 
 ## Latest
 
@@ -2086,25 +2086,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 72.3M | $786.26 _(notional, rate-card)_ | no quota set |
+| Claude | 72.3M | $784.91 _(notional, rate-card)_ | no quota set |
 | Codex | 205.7M _(+553.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
 - [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260720-022510.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
-- [`xs2rust-endor-stage10n-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10n-remeasure.md) — stage-10n child 1: outage-hardened 52-file daemon sweep re-measure at the sta...
 
-### tada (2948)
+### tada (2949)
+- [`xs2rust-endor-stage10n-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10n-remeasure.md) — Completion report — stage-10n 52-file daemon sweep re-measure (PR #600, endoj...
 - [`daily-progress-summary-20260720-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260720-070502.md) — Created and pushed periodicals/2026/07/19.md to journal2 in commit 679650115.
 - [`xs2rust-endor-stage10k-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10k-remeasure.md) — Completion report — stage-10k child 2 (outage-hardened) 52-file daemon sweep ...
 - [`self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs.md) — Completion report
 - [`xs2rust-endor-stage10n-live-env-diagnosis`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10n-live-env-diagnosis.md) — stage-10n live-env-diagnosis — CHECKPOINT (host-gated blocker; honest success)
-- [`self-heal-fix-garden-gardener-corrupt-journal-clone-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-gardener-corrupt-journal-clone-reclone.md) — Implemented and pushed 6f8501d8db to main2.
-- … and 2943 more
+- … and 2944 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
