@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T18:25:58Z_
+_As of 2026-07-20T18:29:30Z_
 
 ## Latest
 
@@ -2693,24 +2693,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 73.9M | $825.01 _(notional, rate-card)_ | no quota set |
-| Codex | 248.6M _(+564.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
+| Codex | 249.9M _(+566.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr600-f097238e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr600-f097238e.md) — attention directive on endojs/endo-but-for-bots PR #600
+### doin (2)
 - [`improve-scheduler-handler-timeout-passthrough`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scheduler-handler-timeout-passthrough.md) — scripts/jobs/scheduler.sh
 - [`xs2rust-endor-press-20260720-182010`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-182010.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3016)
+### tada (3017)
+- [`endojs-endo-but-for-bots-pr600-f097238e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-f097238e.md) — Completion report
 - [`minion-town-agenda-review-20260720-182010`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-182010.md) — Completion report
 - [`endojs-endo-but-for-bots-pr793-review-16e5c4ce-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr793-review-16e5c4ce-retro.md) — Recorded a durable not-a-miss dismissal for PR #793’s review. The feedback wa...
 - [`endojs-endo-but-for-bots-pr794-review-a34bb7b7-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr794-review-a34bb7b7-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr259-review-8288f2bf-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr259-review-8288f2bf-retro.md) — Recorded a review-process miss for PR #259: the prior panel accepted an unsup...
-- [`improve-review-miss-drain-reopen-distinction`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-review-miss-drain-reopen-distinction.md) — Completion report
-- … and 3011 more
+- … and 3012 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
