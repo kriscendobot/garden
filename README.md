@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T06:30:49Z_
+_As of 2026-07-20T06:31:36Z_
 
 ## Latest
 
@@ -1811,84 +1811,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
-- `poison-xs2rust-endor-stage10m-live-env-diagnosis-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-xs2rust-endor-stage10m-live-env-diagnosis-requeue-exhausted.md)
-
-> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
-> Its handler appears to fail every time; the reaper stopped requeueing it.
-> The work is preserved at jobs/plan/xs2rust-endor-stage10m-live-env-diagnosis; it stays HELD until a human promotes it
-> (promote-plan.sh xs2rust-endor-stage10m-live-env-diagnosis) or removes it, so nothing is lost.
-> Original job base: xs2rust-endor-stage10m-live-env-diagnosis
->
-> --- original job body ---
-> ---
-> model: opus
-> ---
-> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-20T05:22:04Z -->
->
-> ---
-> model: opus
-> ---
-> # stage-10m child 2: diagnose the s10e live-round-trip stall (host-gated error-trace pin)
->
-> **Repo:** `endojs/endo-but-for-bots`, PR **#600** (DRAFT — keep DRAFT), branch `xs2rust-endor`.
-> **This is a DIAGNOSIS job: default to zero engine pushes.** An engine fix is in scope ONLY if you
-> root-cause a genuine engine/bundle defect AND it fits the clock with the full binding bars; otherwise
-> deliver the classification + a minimal repro + a findings report via tada.
->
-> ## The question (binding for the program's sweep-observability)
->
-> At tip `1481757f7f` the LIVE daemon round trip (`error-trace.test.js` under
-> `ENDO_WORKER_BIN='<abs>/endor worker -e rust'`) is **deterministically 7/7 green on
-> `/home/kris/garden/tmp/s9r` (endolin-garden)** — the pin MOVED there, with genuine frames (stage-10l
-> child 1, two runs) — but **deterministically stalls on `/home/kris/garden2/tmp/s10e`
-> (endolin-garden2)**: only `host exposes a traces facet` passes; the first worker-eval test hangs until
-> timeout with `CapTP client exception: Error: Connection stream ended` (`connection.js:197`). Same tip,
-> same binary recipe, opposite outcomes. WHY?
->
-> **What s43 already localized (endolin-garden2, `~/tmp/s43-results/error-trace-live-s43.log` + the
-> stage-10l remeasure's `/home/kris/garden2/tmp/s10l-results/error-trace-{isolated,longto}.log`):**
-> - The engine-hosted daemon (ENDO_BIN is the rust `endor`; the daemon bundle runs ON the rust engine)
->   boots fully: both workers spawn, `endor-worker: init handshake OK`, guests boot
->   (`serving envelopes`), `WORKER_READY` both, socket listener up, client sessions form,
->   `CTP_BOOTSTRAP` and the first `CTP_CALL` get `CTP_RETURN`s.
-> - The eval IS formulated (`T+61ms  9e62a1ebfe92  eval  FORMULATE`) but the second `CTP_CALL` never gets
->   a `CTP_RETURN` and there is NO `daemon-xs: SEND to worker` for the eval — the daemon stalls between
->   formulation and worker delivery. Then a `kill <pid> SIGTERM` line and the stream-ended teardown.
-> - NOT the three env-artifact classes: single AF_UNIX sock at 91 chars (< 108), no provisioning-race
->   asserts, fresh target. Not load (reproduced idle), not a tight deadline (hangs > 6 min at
->   `--timeout=120s`). Node v22.23.1 on endolin-garden2. Daemon per-test state under
->   `packages/daemon/tmp/<test>/state/endo.log` is where the trace above came from.
->
-> ## Procedure
->
-> Work on endolin-garden2 in `/home/kris/garden2/tmp/s10e` (already at tip with a built release binary —
-> verify tip sha + rebuild only if the branch advanced; child 0/1 of this orchestration land engine
-> commits BEFORE you, so re-sync + rebuild and FIRST re-run the repro: if the stall vanished at the new
-> tip, say so, capture the evidence, and you are done early). Suggested attack order:
-> 1. Re-run the single file; capture `state/endo.log` per test dir. Bisect the stall INSIDE the daemon:
->    add `endor: [trace]`-style host tracing if needed (the `trace` host global rides
->    `host_trace_fns`/`host_trace_outbox`) — LOCAL, uncommitted instrumentation is fine.
-> 2. Compare the environments: node version on s9r was proven-good — check what differs (node minor,
->    kernel, ulimits, cgroup cpu quota, tmpfs vs disk, path lengths in DERIVED strings even where the
->    listener sock fits). A deterministic env-conditioned branch suggests a concrete threshold (a path
->    byte-length, an fd count, a pipe buffer size, a timer coalescing difference), not a race.
-> 3. Classify: (a) env deficiency of s10e → deliver the remediation (an env change making the flip
->    observable in sweeps on endolin-garden2) and prove it by running the file 7/7 green twice; or
->    (b) genuine engine/bundle defect that s9r masks → minimal repro + findings report (and a fix only if
->    it fits the clock with full bars); or (c) honest checkpoint with the evidence trail if the clock runs
->    out — say exactly where the trail ends.
-> - Artifacts to `$HOME/tmp/s10m-diagnosis/` (mkdir first; `$HOME` IS the garden root).
-> - ava's TAP reporter crashes in `dumpError` on a timed-out test — use the default reporter.
-> - Reap stray `endor` processes after every run (`pgrep -f 'target/release/endor' | xargs -r kill -9`).
->
-> ## Discipline
->
-> HARD STOP: ONE 2400s invocation; reassess the clock after each phase; an honest classified checkpoint
-> beats an unfinished fix. If (and only if) you push an engine change: push-per-item, and the full BINDING
-> no-boot-regression bars apply (engine workspace EXIT=0, compile-diff 1909/1909 + SYMB, boot gate 30/0,
-> ROOT lib 111/0 + three markers, forbid/VARIANT_COUNT/warnings/`unsafe` invariants). Report via your tada
-> completion report ONLY (never inbox-send the parked supervisor).
-
 - `poison-xs2rust-endor-stage8-cxs-baseline-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-xs2rust-endor-stage8-cxs-baseline-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -2134,10 +2056,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (18)
+- [`arc-status-daily-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260720-022510.md) — Daily status + change summary for the standing review arcs
+- [`endo-byte-array-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260720-022510.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+- [`endo-git-integration-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260720-022510.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+- [`endo-npm-cas-registry-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260720-022510.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+- [`endo-sturdyref-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260720-022510.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+- [`endo-vfs-parity-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260720-022510.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
+- [`endojs-endo-but-for-bots-pr160-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #160
+- [`endojs-endo-but-for-bots-pr600-review-021252ca-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr600-review-021252ca-retro.md) — Retrospective on endojs/endo-but-for-bots PR #600 (primary: endojs-endo-but-f...
+- [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260720-022510.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
+- [`finbot-progress-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260720-022510.md) — Push progress on kriscendobot/finbot (every 6h)
+- [`minion-town-agenda-review-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260720-022510.md) — Minion Town hourly agenda review
 - [`port-xs-to-rust-memory-safe-engine-s44`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s44.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
+- [`self-heal-fix-garden-cleric-reclone-on-corrupt-remote-ref`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-cleric-reclone-on-corrupt-remote-ref.md) — In scripts/jobs/common.sh, sync_clone dies permanently when journal_fetch fai...
+- [`self-heal-fix-garden-gardener-corrupt-journal-clone-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-corrupt-journal-clone-reclone.md) — In scripts/jobs/common.sh, add a local-repo-corruption self-heal to the journ...
 - [`self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs.md) — In scripts/jobs/common.sh, handle LOCAL journal-clone corruption the way ensu...
+- [`xs2rust-endor-stage10k-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10k-remeasure.md) — stage-10k child 2: outage-hardened 52-file daemon sweep remeasure (PR #600)
+- [`xs2rust-endor-stage10n-live-env-diagnosis`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10n-live-env-diagnosis.md) — stage-10n child 0: diagnose the s10e live-round-trip stall (host-gated error-...
 
 ### tada (2944)
 - [`self-heal-fix-garden-gardener-corrupt-clone-bad-object-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-gardener-corrupt-clone-bad-object-reclone.md) — Implemented and pushed 822fb07540 to main2.
@@ -2181,7 +2118,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`weave-endo-but-for-bots-pr626-stack-surgery-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/weave-endo-but-for-bots-pr626-stack-surgery-eval.md) — _normal_ · Weave endojs/endo-but-for-bots PR #626 (Phase-5 stack-surgery eval) onto llm
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 - [`xs2rust-endor-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-press-20260720-022510.md) — _normal_ · Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
-- [`xs2rust-endor-stage10m-live-env-diagnosis`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage10m-live-env-diagnosis.md) — _normal_ · stage-10m child 2: diagnose the s10e live-round-trip stall (host-gated error-...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`endojs-endo-but-for-bots-pr737-review-3363fee9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr737-review-3363fee9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #737 (primary: endojs-endo-but-f...
