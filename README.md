@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T02:30:44Z_
+_As of 2026-07-20T02:31:36Z_
 
 ## Latest
 
@@ -1916,36 +1916,34 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.9M | $816.41 _(notional, rate-card)_ | no quota set |
-| Codex | 205.0M _(+539.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Claude | 75.0M | $817.34 _(notional, rate-card)_ | no quota set |
+| Codex | 205.1M _(+540.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (14)
-- [`arc-status-daily-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260720-022510.md) — Daily status + change summary for the standing review arcs
+### doin (12)
 - [`ebfb-llm-designs-groom-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-llm-designs-groom-20260720-022510.md) — Weekly llm designs-directory grooming — Sunday
 - [`endo-npm-cas-registry-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260720-022510.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr160-review-81d82318`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-81d82318.md) — Review directive on endojs/endo-but-for-bots PR #160
+- [`endojs-endo-but-for-bots-pr160-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #160
 - [`finbot-progress-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260720-022510.md) — Push progress on kriscendobot/finbot (every 6h)
-- [`minion-town-agenda-review-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260720-022510.md) — Minion Town hourly agenda review
 - [`ocapn-noise-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260720-022510.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`plan-recalibrate-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/plan-recalibrate-20260720-022510.md) — Weekly plan recalibration and grooming (Sunday evening)
 - [`self-heal-fix-garden-cleric-reclone-on-corrupt-remote-ref`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-cleric-reclone-on-corrupt-remote-ref.md) — In scripts/jobs/common.sh, sync_clone dies permanently when journal_fetch fai...
 - [`self-heal-fix-garden-gardener-corrupt-journal-clone-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-corrupt-journal-clone-reclone.md) — In scripts/jobs/common.sh, add a local-repo-corruption self-heal to the journ...
 - [`self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs.md) — In scripts/jobs/common.sh, handle LOCAL journal-clone corruption the way ensu...
-- [`self-heal-fix-garden-reputation-reducer-corrupt-local-journal-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-reputation-reducer-corrupt-local-journal-clone.md) — **Failure signature:** garden-reputation-reducer (and any sync_clone caller) ...
 - [`xs2rust-endor-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-022510.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-stage10k-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10k-remeasure.md) — stage-10k child 2: outage-hardened 52-file daemon sweep remeasure (PR #600)
 
-### tada (2907)
+### tada (2910)
+- [`self-heal-fix-garden-reputation-reducer-corrupt-local-journal-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-reputation-reducer-corrupt-local-journal-clone.md) — Implemented and pushed 98e7f6229e to main2.
+- [`minion-town-agenda-review-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-022510.md) — Posted the substantive agenda review to [garden issue 58](https://github.com/...
+- [`arc-status-daily-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/arc-status-daily-20260720-022510.md) — Inbox empty. Job complete.
 - [`endojs-endo-but-for-bots-pr160-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr160-rebase.md) — Completion report
 - [`endo-sturdyref-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260720-022510.md) — SturdyRef press tick (2026-07-20 02:25Z dispatch): **hold + maintainer-nudge ...
-- [`endo-git-integration-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260720-022510.md) — Press report — git-integration / M3 loop (2026-07-20 dispatch)
-- [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260720-022510.md) — Completion report — esheets-supervisor-20260720-022510
-- [`endojs-endo-but-for-bots-pr600-review-021252ca-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-review-021252ca-retro.md) — Retrospective recorded as not-a-miss: the review corrected an earlier maintai...
-- … and 2902 more
+- … and 2905 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
