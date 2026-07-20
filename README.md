@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T16:22:53Z_
+_As of 2026-07-20T16:23:35Z_
 
 ## Latest
 
@@ -2567,7 +2567,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 73.8M | $823.00 _(notional, rate-card)_ | no quota set |
+| Claude | 73.8M | $822.35 _(notional, rate-card)_ | no quota set |
 | Codex | 241.7M _(+560.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
@@ -2575,15 +2575,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 (none)
 
 ### doin (1)
-- [`minion-town-agenda-review-20260720-162001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260720-162001.md) — Minion Town hourly agenda review
+- [`kriscendobot-agoric-sdk-pr15-review-63f630f8-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr15-review-63f630f8-retro.md) — Retrospective on kriscendobot/agoric-sdk PR #15 (primary: kriscendobot-agoric...
 
-### tada (3003)
+### tada (3004)
+- [`minion-town-agenda-review-20260720-162001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-162001.md) — Completion report
 - [`xs2rust-endor-press-20260720-160510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260720-160510.md) — Branch state
 - [`minion-town-restore-hourly`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-restore-hourly.md) — Completion report
 - [`answer-garden-issue51-heap-snapshot-diffs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/answer-garden-issue51-heap-snapshot-diffs.md) — Completion report
 - [`hermit-ollama-self-heal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/hermit-ollama-self-heal.md) — Completion report — hermit-ollama-self-heal
-- [`answer-garden-issue51-test262-oracle-oom`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/answer-garden-issue51-test262-oracle-oom.md) — Investigated and posted the source-grounded reply on garden issue #51: https:...
-- … and 2998 more
+- … and 2999 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -2625,7 +2625,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage10p-fresh-env-sweep.md) — _normal_ · Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`kriscendobot-agoric-sdk-pr15-review-63f630f8-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-review-63f630f8-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #15 (primary: kriscendobot-agoric...
 - [`kriscendobot-agoric-sdk-pr15-review-9a12af5e-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-review-9a12af5e-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #15 (primary: kriscendobot-agoric...
 - [`kriscendobot-agoric-sdk-pr15-review-d6c7561e-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-review-d6c7561e-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #15 (primary: kriscendobot-agoric...
 - [`kriscendobot-agoric-sdk-pr15-review-ccb767b7-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-review-ccb767b7-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #15 (primary: kriscendobot-agoric...
