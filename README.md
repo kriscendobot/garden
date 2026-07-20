@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T13:46:55Z_
+_As of 2026-07-20T13:49:20Z_
 
 ## Latest
 
@@ -2464,8 +2464,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr598-review-53d23086-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr598-review-53d23086-retro.md) — Retrospective on endojs/endo-but-for-bots PR #598 (primary: endojs-endo-but-f...
 
 ### tada (2981)
 - [`kriscendobot-minion.town-pr8-review-b00f7a71-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr8-review-b00f7a71-retro.md) — Completion report
@@ -2514,7 +2514,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage10p-fresh-env-sweep.md) — _normal_ · Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr598-review-53d23086-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr598-review-53d23086-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #598 (primary: endojs-endo-but-f...
 - [`kriscendobot-minion.town-pr7-review-c543864f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr7-review-c543864f-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #7 (primary: kriscendobot-minion...
 - [`kriscendobot-minion.town-pr4-review-681cbfb6-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr4-review-681cbfb6-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #4 (primary: kriscendobot-minion...
 - [`endojs-endo-but-for-bots-pr786-22380928-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr786-22380928-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #786 (primary: endojs-endo-but-f...
