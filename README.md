@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T21:54:23Z_
+_As of 2026-07-20T21:55:05Z_
 
 ## Latest
 
@@ -2974,7 +2974,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 74.4M | $830.77 _(notional, rate-card)_ | no quota set |
-| Codex | 281.6M _(+572.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 281.7M _(+573.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
@@ -2984,7 +2984,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260720-215002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-215002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3042)
-- [`minion-town-agenda-review-20260720-215002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-215002.md) — Completed the hourly agenda review for https://github.com/kriskowal/garden/is...
+- [`minion-town-agenda-review-20260720-215002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-215002.md) — Reviewed and reported on garden issue #58: https://github.com/kriskowal/garde...
 - [`endojs-endo-but-for-bots-pr812-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr812-shepherd.md) — Completion report
 - [`endojs-endo-but-for-bots-pr160-review-81d82318-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr160-review-81d82318-retro.md) — Completion report
 - [`endo-npm-cas-registry-press-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260720-210504.md) — Completion report — endo-npm-cas-registry-press-20260720-210504
