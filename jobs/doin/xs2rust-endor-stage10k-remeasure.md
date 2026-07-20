@@ -22,3 +22,10 @@ model: opus
 Report via your tada completion report ONLY — never inbox-send the parked supervisor.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-20T06:33:50Z
