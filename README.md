@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T08:57:02Z_
+_As of 2026-07-20T08:57:20Z_
 
 ## Latest
 
@@ -2204,18 +2204,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260720-022510.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
 - [`ocapn-noise-press-20260720-083504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260720-083504.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
-- [`xs2rust-endor-stage10o-remeasure-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10o-remeasure-retry.md) — stage-10o child 2 re-measure (RETRY after MISROUTE) — 52-file daemon sweep at...
 
-### tada (2965)
+### tada (2966)
+- [`xs2rust-endor-stage10o-remeasure-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10o-remeasure-retry.md) — Host gate failed — MISROUTED. /home/kris/garden2/tmp/s10e is absent, and the ...
 - [`xs2rust-endor-stage10o-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10o-remeasure.md) — Completion report
 - [`xs2rust-endor-stage10o-live-env-diagnosis`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10o-live-env-diagnosis.md) — Completion report — xs2rust-endor-stage10o-live-env-diagnosis
 - [`endo-npm-cas-registry-press-20260720-083504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260720-083504.md) — Completion report — endo-npm-cas-registry-press-20260720-083504
 - [`xs2rust-endor-press-20260720-083504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260720-083504.md) — Press tick complete — pressed by default, landed a real engine fix, all bars ...
-- [`finbot-progress-20260720-083504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260720-083504.md) — Completion report
-- … and 2960 more
+- … and 2961 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
