@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T12:36:09Z_
+_As of 2026-07-20T12:36:29Z_
 
 ## Latest
 
@@ -2363,17 +2363,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr737-review-3363fee9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr737-review-3363fee9-retro.md) — Retrospective on endojs/endo-but-for-bots PR #737 (primary: endojs-endo-but-f...
+### doin (1)
 - [`xs2rust-endor-press-20260720-123515`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-123515.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (2976)
+### tada (2977)
+- [`endojs-endo-but-for-bots-pr737-review-3363fee9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr737-review-3363fee9-retro.md) — Verdict recorded: not-a-miss (new-direction) for #737 review 4718500574. The ...
 - [`endojs-endo-but-for-bots-pr708-review-ecdedc30-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr708-review-ecdedc30-retro.md) — Completion report
 - [`xs2rust-endor-press-20260720-112009`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260720-112009.md) — Progress journal entry posted to entries/2026/07/20/115218Z-progress-gardener...
 - [`port-xs-to-rust-memory-safe-engine-s47`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s47.md) — Completion report — port-xs-to-rust-memory-safe-engine-s47
 - [`xs2rust-endor-build-stage10p`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10p.md) — orchestration xs2rust-endor-build-stage10p — HALTED
-- [`weave-endo-but-for-bots-pr621-endoclaw-oauth-20260720`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr621-endoclaw-oauth-20260720.md) — Rebased PR #621 onto llm and force-pushed 61b511b5ea88f56b7a125f22755aea786ab...
-- … and 2971 more
+- … and 2972 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
