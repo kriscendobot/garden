@@ -127,12 +127,15 @@ else
 fi
 
 # ============================================================================
-hr; echo "SUBTEST 5 — sync_clone re-clones a corrupt local journal clone once"; hr
-# A corrupt loose object is a local repository failure, not an outage. The
-# first injected fetch reports the production failure signature; the second,
-# after sync_clone removes and atomically re-clones the destination, succeeds.
-# The final reset uses a real local journal remote, proving the repaired clone
-# is usable without touching a network remote.
+hr; echo "SUBTEST 5 — sync_clone heals a corrupt local journal clone in two tiers"; hr
+# A corrupt local clone is a repository failure, not an outage. sync_clone heals
+# in two escalating tiers: (1) a cheap in-place repair (rm gc.log + the corrupt
+# remote-tracking ref/reflog/packed-refs line, then re-fetch), and (2) a full
+# atomic re-clone if the repair's re-fetch still fails. Both use a REAL local
+# journal remote for the reset, proving the healed clone is usable. The injected
+# fetch mock reports the production corruption signature on its failing calls and,
+# on success, (re)creates the remote-tracking ref exactly as a real fetch would,
+# so the subsequent `reset --hard origin/journal2` resolves.
 CB="$TR/corrupt-journal.git"; CS="$TR/corrupt-seed"; CC="$TR/corrupt-clone"
 git init -q --bare "$CB"
 git init -q "$CS"
@@ -142,27 +145,73 @@ git -C "$CS" add README
 git -C "$CS" -c user.name=test -c user.email=test@localhost commit -q -m seed
 git -C "$CS" remote add origin "$CB"
 git -C "$CS" push -q origin HEAD:journal2
+
+# --- Tier 1: cheap in-place repair (the gardener-6 signature) ----------------
+# fetch #1 fails with a wedged remote-tracking ref + failed-repack; the cheap
+# repair removes gc.log + the corrupt ref, and fetch #2 succeeds WITHOUT a wipe,
+# so the pre-existing poison file must SURVIVE (proving no re-clone ran).
 git clone -q --single-branch --branch journal2 "$CB" "$CC"
 touch "$CC/poisoned-before-reclone"
+printf 'bad gc\n' > "$CC/.git/gc.log"
+mkdir -p "$CC/.git/refs/remotes/origin"
+printf '%s\n' 0000000000000000000000000000000000000000 > "$CC/.git/refs/remotes/origin/journal2"
 CORRUPT_COUNT="$TR/corrupt-fetch-count"; echo 0 > "$CORRUPT_COUNT"
 cat > "$TR/bin/corrupt-then-good-fetch" <<EOF
 #!/bin/bash
 n=\$(cat "$CORRUPT_COUNT"); n=\$((n+1)); echo "\$n" > "$CORRUPT_COUNT"
 if [ "\$n" -eq 1 ]; then
-  echo "error: object file .git/objects/7c/57850328be is empty" >&2
-  echo "fatal: fetch-pack: invalid index-pack output" >&2
+  echo "fatal: bad object refs/remotes/origin/journal2" >&2
+  echo "error: refs/remotes/origin/journal2: invalid sha1 pointer 0000000000000000000000000000000000000000" >&2
+  echo "fatal: failed to run repack" >&2
   exit 1
 fi
+# success: behave like a real fetch — (re)create the remote-tracking ref
+git -C "\$GARDEN_FETCH_DIR" update-ref refs/remotes/origin/journal2 "\$(git -C "$CB" rev-parse journal2)" 2>/dev/null || true
 exit 0
 EOF
 chmod +x "$TR/bin/corrupt-then-good-fetch"
 rc=0
 ( export JOURNAL_REMOTE="$CB" GARDEN_FETCH_RETRIES=1 GARDEN_FETCH_CMD="$TR/bin/corrupt-then-good-fetch"
   sync_clone "$CC" ) >/dev/null 2>&1 || rc=$?
-if [ "$rc" -eq 0 ] && [ "$(cat "$CORRUPT_COUNT")" -eq 2 ] && [ -d "$CC/.git" ] && [ ! -e "$CC/poisoned-before-reclone" ]; then
-  ok "sync_clone removed and re-cloned a corrupt local journal clone once"
+if [ "$rc" -eq 0 ] && [ "$(cat "$CORRUPT_COUNT")" -eq 2 ] && [ -d "$CC/.git" ] \
+   && [ -e "$CC/poisoned-before-reclone" ] && [ ! -e "$CC/.git/gc.log" ]; then
+  ok "sync_clone TIER 1 cheap-repaired a corrupt clone in place (gc.log + ref removed, no re-clone)"
 else
-  bad "sync_clone did not complete one corrupt-clone re-clone (rc=$rc, fetches=$(cat "$CORRUPT_COUNT"))"
+  bad "sync_clone TIER 1 repair wrong (rc=$rc, fetches=$(cat "$CORRUPT_COUNT"), poison=$([ -e "$CC/poisoned-before-reclone" ] && echo kept || echo gone), gc.log=$([ -e "$CC/.git/gc.log" ] && echo present || echo gone))"
+fi
+
+# --- Tier 2: full re-clone fallback (repair insufficient) --------------------
+# fetch #1 AND the cheap repair's re-fetch #2 both fail corrupt (a refs/heads +
+# reflog corruption the cheap repair cannot touch), so sync_clone escalates to a
+# full atomic re-clone; fetch #3 (after the fresh clone) succeeds. The pre-existing
+# poison file must be GONE (proving the wipe/re-clone ran), and exactly 3 fetches.
+CB2="$TR/corrupt-journal2.git"; CC2="$TR/corrupt-clone2"
+git init -q --bare "$CB2"
+git -C "$CS" push -q "$CB2" HEAD:journal2
+git clone -q --single-branch --branch journal2 "$CB2" "$CC2"
+touch "$CC2/poisoned-before-reclone"
+printf 'bad gc\n' > "$CC2/.git/gc.log"
+CORRUPT_COUNT2="$TR/corrupt-fetch-count2"; echo 0 > "$CORRUPT_COUNT2"
+cat > "$TR/bin/corrupt-twice-then-good-fetch" <<EOF
+#!/bin/bash
+n=\$(cat "$CORRUPT_COUNT2"); n=\$((n+1)); echo "\$n" > "$CORRUPT_COUNT2"
+if [ "\$n" -le 2 ]; then
+  echo "fatal: bad object refs/heads/journal2" >&2
+  echo "error: refs/heads/journal2 does not point to a valid object!" >&2
+  echo "fatal: did not send all necessary objects" >&2
+  exit 1
+fi
+git -C "\$GARDEN_FETCH_DIR" update-ref refs/remotes/origin/journal2 "\$(git -C "$CB2" rev-parse journal2)" 2>/dev/null || true
+exit 0
+EOF
+chmod +x "$TR/bin/corrupt-twice-then-good-fetch"
+rc=0
+( export JOURNAL_REMOTE="$CB2" GARDEN_FETCH_RETRIES=1 GARDEN_FETCH_CMD="$TR/bin/corrupt-twice-then-good-fetch"
+  sync_clone "$CC2" ) >/dev/null 2>&1 || rc=$?
+if [ "$rc" -eq 0 ] && [ "$(cat "$CORRUPT_COUNT2")" -eq 3 ] && [ -d "$CC2/.git" ] && [ ! -e "$CC2/poisoned-before-reclone" ]; then
+  ok "sync_clone TIER 2 re-cloned once when the cheap repair's re-fetch still failed"
+else
+  bad "sync_clone TIER 2 fallback wrong (rc=$rc, fetches=$(cat "$CORRUPT_COUNT2"), poison=$([ -e "$CC2/poisoned-before-reclone" ] && echo kept || echo gone))"
 fi
 
 # Guard the EXACT reported repo-watcher signature (a zero-byte loose
