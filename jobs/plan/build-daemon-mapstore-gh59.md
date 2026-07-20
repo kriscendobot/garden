@@ -1,3 +1,17 @@
+---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+poisoned_at: 2026-07-20T20:43:07Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-20T20:43:07Z
+---
+
 role: builder
 
 # Build Phase 1: durable MapStore in the endo pet daemon (closes kriskowal/garden#59)
@@ -54,10 +68,3 @@ Reply on the issue when done:
   gh issue comment https://github.com/kriskowal/garden/issues/59 --body "…"
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 13
-  worker_kind: gardener
-  claimed_at: 2026-07-20T20:00:08Z
