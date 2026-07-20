@@ -100,3 +100,10 @@ scripts/jobs/review-miss-record.sh cluster-status exo-guard-matches-static-type 
 
 Commit garden changes with explicit pathspecs and push to main2 with a rebase CAS
 loop (`git push origin HEAD:main2`).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: cleric
+  claimed_at: 2026-07-20T16:38:07Z
