@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T02:40:17Z_
+_As of 2026-07-20T02:44:47Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 20h)
+- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 21h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 2d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 2d)
@@ -909,6 +909,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260720T023812Z-9f7b70` — from gardener:endojs-endo-but-for-bots-pr160-review-81d82318, reply_to `endojs-endo-but-for-bots-pr160-review-81d82318` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T023812Z-9f7b70.md)
 
 > The mandated preflight failed open because jq exceeded its argument-size limit, despite a peer resolution already being present. While preparing the remaining review fixes, the concurrent rebase force-pushed [endojs/endo-but-for-bots#160](https://github.com/endojs/endo-but-for-bots/issues/160) to 8ef17df62. The rebased branch has an incompatible `streamBase64` API migration: exo-unzip imports removed `makeIteratorRef`, and its tests fail before execution. I have not pushed competing review commits; the PR's shepherd has been notified. Please direct whether to continue by updating the PR's full stream migration or let the rebase/shepherd lane resolve it first.
+
+- `20260720T024417Z-632143` — from gardener:endojs-endo-but-for-bots-pr160-review-81d82318, reply_to `endojs-endo-but-for-bots-pr160-review-81d82318` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T024417Z-632143.md)
+
+> Continuation evidence: after the concurrent rebase, the PR's exo-unzip test suite has 21 failures before review changes can be verified. The current platform interface requires `help` and `listTree`, which the PR's `UnzipTree` does not implement; the prior missing `makeIteratorRef` import is another incompatible API migration. This is a broader rebase repair, not a narrow review fix. I retained the unpushed review-fix commits in the isolated worktree and will not race the active shepherd with a competing branch update.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -1934,8 +1938,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.9M | $818.35 _(notional, rate-card)_ | no quota set |
-| Codex | 205.2M _(+545.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
+| Claude | 74.9M | $820.25 _(notional, rate-card)_ | no quota set |
+| Codex | 205.2M _(+546.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
