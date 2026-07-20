@@ -15,6 +15,13 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 GARDEN_TAG="scheduler"
 
+# Keep schedule-declared handler budgets inside the same single-claim invariant
+# enforced by gardener.sh. A schedule is durable configuration, so reject an
+# impossible value before it reaches every dispatched job (the gardener retains
+# its clamp as the final defense for non-scheduled jobs and deploy skew).
+: "${GARDEN_HANDLER_KILL_AFTER:=60}"
+: "${GARDEN_CLAIM_TTL:=14400}"
+
 # GARDEN_SCHEDULER_NOW overrides the clock (epoch seconds) for deterministic
 # cadence tests — mirrors GARDEN_FOREMAN_NOW / GARDEN_USAGE_NOW. When set, the
 # cadence comparison, the last_dispatched stamp, and the dispatched job's
@@ -121,18 +128,37 @@ anchored_window() {  # $1=cadence $2=anchor-stamp-iso
 }
 
 # Rewrite a recurring schedule's frontmatter with a fresh last_dispatched stamp,
-# PRESERVING the optional preflight field. Both the dispatch path and the gated
-# (no-work) path go through this so the preflight: line is never dropped when the
-# scheduler re-stamps the file.
-# $1=dest, $2=cadence, $3=stamp, $4=prefix, $5=preflight (may be empty), $6=body.
+# PRESERVING the optional preflight and handler-timeout fields. Both the dispatch
+# path and the gated (no-work) path go through this so either line is never
+# dropped when the scheduler re-stamps the file.
+# $1=dest, $2=cadence, $3=stamp, $4=prefix, $5=preflight (may be empty),
+# $6=handler-timeout (may be empty), $7=body.
 write_schedule() {
-  local dest="$1" cad="$2" stamp="$3" prefix="$4" preflight="$5" body="$6"
+  local dest="$1" cad="$2" stamp="$3" prefix="$4" preflight="$5" handler_timeout="$6" body="$7"
   {
     printf 'cadence: %s\nlast_dispatched: %s\njob_basename_prefix: %s\n' "$cad" "$stamp" "$prefix"
     [ -n "$preflight" ] && printf 'preflight: %s\n' "$preflight"
+    [ -n "$handler_timeout" ] && printf 'handler-timeout: %s\n' "$handler_timeout"
     printf -- '---\n'
     printf '%s\n' "$body"
   } > "$dest"
+}
+
+# Echo a schedule's usable handler timeout, or return nonzero after logging why
+# it will not be passed to the dispatched job. Preserve the original field in the
+# schedule so an operator can correct it without losing the configured value.
+schedule_handler_timeout() {  # $1=schedule name, $2=raw value
+  local sname="$1" raw="$2" budget_max
+  if [[ ! "$raw" =~ ^[1-9][0-9]*$ ]]; then
+    [ -n "$raw" ] && log "WARN schedule $sname has invalid handler-timeout '$raw'; expected a positive integer, ignoring it for this dispatch"
+    return 1
+  fi
+  budget_max=$(( GARDEN_CLAIM_TTL - GARDEN_HANDLER_KILL_AFTER - 1 ))
+  if [ "$budget_max" -lt 1 ] || [ "$raw" -gt "$budget_max" ]; then
+    log "WARN schedule $sname handler-timeout=${raw}s exceeds claim budget max ${budget_max}s; ignoring it for this dispatch"
+    return 1
+  fi
+  printf '%s\n' "$raw"
 }
 
 # Per-host, one-shot dedup+diagnosis state for a NOT-FOUND preflight gate. The
@@ -288,6 +314,7 @@ for name in $(list_jobs "$DIR" schedules); do
   last_iso="$(sed -n 's/^last_dispatched:[[:space:]]*//p' "$f" | head -1)"
   prefix="$(sed -n 's/^job_basename_prefix:[[:space:]]*//p' "$f" | head -1)"
   preflight="$(sed -n 's/^preflight:[[:space:]]*//p' "$f" | head -1)"
+  handler_timeout_raw="$(sed -n 's/^handler-timeout:[[:space:]]*//p' "$f" | head -1)"
   last=0; [ -n "$last_iso" ] && last="$(date -u -d "$last_iso" +%s 2>/dev/null || echo 0)"
   # Due-ness + the stamp to write come from schedule_due_stamp: interval cadences
   # stamp `now`; anchored `daily-at-HH:MM-TZ` cadences stamp the anchor instant so
@@ -303,6 +330,9 @@ for name in $(list_jobs "$DIR" schedules); do
     stamp="$(schedule_due_stamp "$cad" "$last" "$now")" || { log "$name no longer due; skip"; break; }
 
     body="$(sed '1,/^---$/d' "$DIR/schedules/$name")"
+    handler_timeout_raw="$(sed -n 's/^handler-timeout:[[:space:]]*//p' "$DIR/schedules/$name" | head -1)"
+    handler_timeout=""
+    handler_timeout="$(schedule_handler_timeout "$name" "$handler_timeout_raw")" || handler_timeout=""
 
     # Optional deterministic preflight gate (designs/job-board.md; skills/schedule).
     # A `preflight:` script proves in plain code whether this schedule has any work,
@@ -335,7 +365,7 @@ for name in $(list_jobs "$DIR" schedules); do
       fi
       if [ "$pf_rc" -eq 2 ]; then
         # No work: advance the clock so the cadence keeps marching, post nothing.
-        write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$body"
+        write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$handler_timeout_raw" "$body"
         git -C "$DIR" add "schedules/$name"
         # Capture with `|| rc=$?` (a false `if` with no `else` is exit 0 and would
         # swallow commit_and_push's rc=2 "nothing to stamp" on an already-current clock).
@@ -371,6 +401,12 @@ for name in $(list_jobs "$DIR" schedules); do
     # carry-forward block (if any) precedes both — mirroring this context-injection.
     win="$(anchored_window "$cad" "$stamp")"
     {
+      # Place the schedule-owned setting in a real job frontmatter block, before
+      # any carry-forward or anchored-window prose, so gardener.sh sees it as
+      # ordinary per-job configuration.
+      if [ -n "$handler_timeout" ]; then
+        printf -- '---\nhandler-timeout: %s\n---\n\n' "$handler_timeout"
+      fi
       if [ "${#cf_files[@]}" -gt 0 ]; then
         printf 'Carried-forward report(s) from prior ticks of this schedule, delivered\n'
         printf 'to you as the schedule'\''s next tick — the true reader. Each sub-job below\n'
@@ -394,8 +430,8 @@ for name in $(list_jobs "$DIR" schedules); do
       fi
       printf '%s\n' "$body"
     } > "$DIR/$JOBS_TODO/$base.md"
-    # stamp last_dispatched in the same commit (preserving preflight:)
-    write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$body"
+    # Stamp last_dispatched in the same commit, preserving optional schedule config.
+    write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$handler_timeout_raw" "$body"
     git -C "$DIR" add "$JOBS_TODO/$base.md" "schedules/$name"
     # Retire the drained carry-forward files in this same CAS commit.
     if [ "${#cf_files[@]}" -gt 0 ]; then

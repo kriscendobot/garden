@@ -21,6 +21,7 @@ cadence: weekly            # interval: weekly | daily | hourly | <N>s | <N>m | <
 last_dispatched: <ISO>     # stamped by the scheduler; the dispatch note
 job_basename_prefix: <p>   # dispatched job basename = <p>-<YYYYMMDD-HHMMSS>
 preflight: <script>        # OPTIONAL deterministic gate (see below)
+handler-timeout: <seconds> # OPTIONAL positive per-job handler budget (see below)
 ---
 <the task body to duplicate each period>
 ```
@@ -68,6 +69,17 @@ with `GARDEN_SCHEDULE_PREFLIGHT=<script> set-schedule.sh …`; it is preserved a
 later cadence edits exactly like `last_dispatched`. Example:
 `scholar-preflight.sh` gates `scholar-library-cycle` on a non-empty scholar inbox,
 a claimable `scholar-*` job, or a fresh `role/scholar` broadcast.
+
+The optional `handler-timeout:` field gives an inherently-long recurring driver a
+per-dispatch wall-clock budget instead of the gardener's default. It must be a
+positive integer no greater than `GARDEN_CLAIM_TTL - GARDEN_HANDLER_KILL_AFTER -
+1` (14339 seconds with shipped defaults). The scheduler preserves it when it
+stamps `last_dispatched` and writes it into each dispatched job's frontmatter.
+An invalid or over-limit value remains visible in the schedule but is logged and
+ignored for that dispatch. Set it with
+`GARDEN_SCHEDULE_HANDLER_TIMEOUT=<seconds> set-schedule.sh ...`; an existing
+value is preserved on later schedule edits when the environment variable is
+unset.
 
 **Carry-forward from a dead-lettered tick reply.** A recurring driver dispatches
 each tick as a fresh short-lived doer with a TIMESTAMPED base

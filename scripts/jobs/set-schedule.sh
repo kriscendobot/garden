@@ -17,6 +17,10 @@
 # executable file), so a dangling gate can never be committed and later fail open
 # every cadence in the scheduler. See scheduler.sh and skills/schedule/SKILL.md.
 #
+# Optional handler budget (env GARDEN_SCHEDULE_HANDLER_TIMEOUT=<seconds>): writes
+# a `handler-timeout:` line for the scheduler to stamp into every dispatched job.
+# An existing value is preserved when the env var is unset.
+#
 # Writes schedules/<name>; the scheduler service dispatches it on its cadence
 # and stamps last_dispatched. Add-only-ish (overwrites one file), so a rejected
 # push just re-syncs and retries.
@@ -62,8 +66,19 @@ validate_preflight() {
   [ -x "$pf" ] || die "preflight gate '$ref' ($src) not found or not executable at $pf; refusing to register schedule $name (a dangling gate fails open and re-dispatches every tick)"
 }
 
+validate_handler_timeout() {
+  local value="$1" budget_max
+  [[ "$value" =~ ^[1-9][0-9]*$ ]] || die "handler timeout '$value' must be a positive integer"
+  : "${GARDEN_HANDLER_KILL_AFTER:=60}"
+  : "${GARDEN_CLAIM_TTL:=14400}"
+  budget_max=$(( GARDEN_CLAIM_TTL - GARDEN_HANDLER_KILL_AFTER - 1 ))
+  [ "$budget_max" -ge 1 ] && [ "$value" -le "$budget_max" ] \
+    || die "handler timeout '${value}s' exceeds claim budget max ${budget_max}s"
+}
+
 # Validate a gate supplied via the env var up front, before we touch the clone.
 [ -n "${GARDEN_SCHEDULE_PREFLIGHT:-}" ] && validate_preflight "$GARDEN_SCHEDULE_PREFLIGHT" "env GARDEN_SCHEDULE_PREFLIGHT"
+[ -n "${GARDEN_SCHEDULE_HANDLER_TIMEOUT:-}" ] && validate_handler_timeout "$GARDEN_SCHEDULE_HANDLER_TIMEOUT"
 
 DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
 ensure_clone "$DIR"
@@ -74,19 +89,25 @@ for attempt in $(seq 1 50); do
   # preserve an existing last_dispatched if the schedule already exists
   last=""
   preflight="${GARDEN_SCHEDULE_PREFLIGHT:-}"
+  handler_timeout="${GARDEN_SCHEDULE_HANDLER_TIMEOUT:-}"
   if [ -f "$DIR/schedules/$name.md" ]; then
     last="$(sed -n 's/^last_dispatched:[[:space:]]*//p' "$DIR/schedules/$name.md" | head -1)"
     # preserve an existing preflight when no new one is supplied via the env var
     [ -n "$preflight" ] || preflight="$(sed -n 's/^preflight:[[:space:]]*//p' "$DIR/schedules/$name.md" | head -1)"
+    [ -n "$handler_timeout" ] || handler_timeout="$(sed -n 's/^handler-timeout:[[:space:]]*//p' "$DIR/schedules/$name.md" | head -1)"
   fi
   # Validate a PRESERVED gate too (the env-supplied case was checked up front),
   # so re-running to change cadence can never carry a dangling gate forward.
   if [ -z "${GARDEN_SCHEDULE_PREFLIGHT:-}" ] && [ -n "$preflight" ]; then
     validate_preflight "$preflight" "preserved from schedules/$name.md"
   fi
+  if [ -z "${GARDEN_SCHEDULE_HANDLER_TIMEOUT:-}" ] && [ -n "$handler_timeout" ]; then
+    validate_handler_timeout "$handler_timeout"
+  fi
   {
     printf 'cadence: %s\nlast_dispatched: %s\njob_basename_prefix: %s\n' "$cadence" "$last" "$prefix"
     [ -n "$preflight" ] && printf 'preflight: %s\n' "$preflight"
+    [ -n "$handler_timeout" ] && printf 'handler-timeout: %s\n' "$handler_timeout"
     printf -- '---\n'
     printf '%s\n' "$BODY"
   } > "$DIR/schedules/$name.md"
