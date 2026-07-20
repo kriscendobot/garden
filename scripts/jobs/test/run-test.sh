@@ -2668,6 +2668,50 @@ set -e
   && ok "sync_clone heals at most once on unhealable corruption, then dies loud (fetches=3, no reclone loop)" \
   || bad "sync_clone did not bound the heal to once on unhealable corruption (rc=$rcc fetches=$(cat "$CORRUPT_C_COUNT" 2>/dev/null || echo 0) log: $(tr '\n' '|' <"$CORRUPT_C_LOG"))"
 
+# (D) The REPORTED garden-repo-watcher shape reproduced against the REAL bare
+# remote with the DEFAULT git fetch (no stub): a ZERO-LENGTH refs/heads/$BRANCH
+# LOOSE ref shadowing the valid packed-refs entry (an auto-`git gc` crashed with a
+# glibc malloc assertion mid-ref-write and truncated the loose ref to 0 bytes), a
+# bad .git/logs reflog for it, and the stale .git/gc.log.lock the crashed gc left
+# behind. The first real fetch aborts `fatal: bad object refs/heads/$BRANCH` /
+# `did not send all necessary objects` — the exact incident signature. TIER 1's
+# remote-tracking repair does NOT touch refs/heads, so its cheap re-fetch STILL
+# fails and sync_clone escalates to TIER 2 (full re-clone), healing to a working
+# clone (refs/heads restored, origin/$BRANCH back at the seed sha). A sentinel in
+# the old clone must be GONE (proving the wipe/re-clone) and the stale gc.log.lock
+# must be cleared by the rm -rf. Proves the reported wedge heals end-to-end from a
+# genuinely corrupt on-disk clone, not just an injected fetch stub.
+CORRUPT_D="$S24/corrupt-clone-d"; CORRUPT_D_LOG="$S24/corrupt-d.log"
+git clone -q --single-branch --branch "$BRANCH" "$BARE" "$CORRUPT_D"
+d_seed_sha="$(git -C "$CORRUPT_D" rev-parse "origin/$BRANCH")"
+# Fold the valid tip into packed-refs, then truncate the shadowing loose ref to
+# zero bytes (the crashed-gc corruption) and plant a bad reflog + stale gc.log.lock.
+git -C "$CORRUPT_D" pack-refs --all
+printf 'old clone must be replaced\n' > "$CORRUPT_D/stale-sentinel"
+mkdir -p "$CORRUPT_D/.git/refs/heads" "$CORRUPT_D/.git/logs/refs/heads"
+: > "$CORRUPT_D/.git/refs/heads/$BRANCH"                                          # zero-length loose ref
+printf '%s\n' 0000000000000000000000000000000000000000 > "$CORRUPT_D/.git/logs/refs/heads/$BRANCH"  # bad reflog
+: > "$CORRUPT_D/.git/gc.log.lock"                                                 # stale crashed-gc lock
+set +e
+(
+  . "$JOBS/common.sh"
+  export GARDEN_FETCH_RETRIES=1
+  sync_clone "$CORRUPT_D"
+) >"$CORRUPT_D_LOG" 2>&1
+rcd=$?
+set -e
+{ [ "$rcd" -eq 0 ] \
+  && [ "$(git -C "$CORRUPT_D" rev-parse "origin/$BRANCH" 2>/dev/null)" = "$d_seed_sha" ] \
+  && git -C "$CORRUPT_D" show-ref --verify -q "refs/heads/$BRANCH" \
+  && [ ! -e "$CORRUPT_D/stale-sentinel" ] \
+  && [ ! -e "$CORRUPT_D/.git/gc.log.lock" ] \
+  && grep -qi 'self-healing by repair' "$CORRUPT_D_LOG" \
+  && grep -qi 'repair insufficient, self-healing by re-clone' "$CORRUPT_D_LOG" \
+  && grep -q 'REPAIRED: healed corrupt journal clone' "$CORRUPT_D_LOG" \
+  && ! grep -q 'offline; skipping tick' "$CORRUPT_D_LOG"; } \
+  && ok "sync_clone TIER 2 heals a REAL zeroed refs/heads/$BRANCH + stale gc.log.lock (garden-repo-watcher shape) via re-clone → exit 0, refs restored, lock cleared" \
+  || bad "sync_clone did not heal the real repo-watcher corrupt-clone shape (rcd=$rcd ref=$(git -C "$CORRUPT_D" rev-parse "origin/$BRANCH" 2>/dev/null) sentinel=$([ -e "$CORRUPT_D/stale-sentinel" ] && echo present || echo gone) lock=$([ -e "$CORRUPT_D/.git/gc.log.lock" ] && echo present || echo gone) log: $(tr '\n' '|' <"$CORRUPT_D_LOG"))"
+
 # ============================================================================
 hr; echo "SUBTEST 25 — DRAINING MARKER: fleet_draining predicate + drain-fleet helper"; hr
 # The fleet pauses gracefully when a host-local marker file EXISTS. The predicate
