@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T08:54:25Z_
+_As of 2026-07-20T08:54:53Z_
 
 ## Latest
 
@@ -2197,25 +2197,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 72.7M | $799.18 _(notional, rate-card)_ | no quota set |
+| Claude | 72.5M | $791.02 _(notional, rate-card)_ | no quota set |
 | Codex | 205.8M _(+554.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260720-022510.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
 - [`ocapn-noise-press-20260720-083504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260720-083504.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
-- [`xs2rust-endor-stage10o-live-env-diagnosis`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10o-live-env-diagnosis.md) — stage-10o child 1: diagnose the s10e live-round-trip stall — HOST-GATED garde...
 
-### tada (2963)
+### tada (2964)
+- [`xs2rust-endor-stage10o-live-env-diagnosis`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10o-live-env-diagnosis.md) — Completion report — xs2rust-endor-stage10o-live-env-diagnosis
 - [`endo-npm-cas-registry-press-20260720-083504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260720-083504.md) — Completion report — endo-npm-cas-registry-press-20260720-083504
 - [`xs2rust-endor-press-20260720-083504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260720-083504.md) — Press tick complete — pressed by default, landed a real engine fix, all bars ...
 - [`finbot-progress-20260720-083504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260720-083504.md) — Completion report
 - [`minion-town-agenda-review-20260720-083504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-083504.md) — Posted: https://github.com/kriskowal/garden/issues/58#issuecomment-5020313079
-- [`endo-vfs-parity-press-20260720-083504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260720-083504.md) — Verify-and-stand-down tick complete — no work needed on the stack, state note...
-- … and 2958 more
+- … and 2959 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
