@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: requeue-exhausted
+poison_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+poisoned_at: 2026-07-20T06:13:04Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-20T06:13:04Z
+---
+
+---
 model: opus
 ---
 <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-20T05:22:04Z -->
@@ -66,13 +80,3 @@ beats an unfinished fix. If (and only if) you push an engine change: push-per-it
 no-boot-regression bars apply (engine workspace EXIT=0, compile-diff 1909/1909 + SYMB, boot gate 30/0,
 ROOT lib 111/0 + three markers, forbid/VARIANT_COUNT/warnings/`unsafe` invariants). Report via your tada
 completion report ONLY (never inbox-send the parked supervisor).
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: gardener
-  claimed_at: 2026-07-20T06:03:10Z
