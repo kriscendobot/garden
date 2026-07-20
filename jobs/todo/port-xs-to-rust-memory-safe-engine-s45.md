@@ -1,10 +1,4 @@
----
-gate: blocked
-blocked_on: xs2rust-endor-build-stage10n
-priority: normal
-posted_by: producer
-posted_at: 2026-07-20T06:30:30Z
----
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-07-20T07:31:05Z -->
 
 # Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-ready, autonomously
 
