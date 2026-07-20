@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T07:03:38Z_
+_As of 2026-07-20T07:05:19Z_
 
 ## Latest
 
@@ -2085,7 +2085,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
+- [`daily-progress-summary-20260720-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260720-070502.md) — Daily midnight Pacific progress summary
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
 - [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260720-022510.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
 - [`xs2rust-endor-stage10n-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10n-remeasure.md) — stage-10n child 1: outage-hardened 52-file daemon sweep re-measure at the sta...
