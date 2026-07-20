@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T21:06:40Z_
+_As of 2026-07-20T21:07:21Z_
 
 ## Latest
 
@@ -2866,16 +2866,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.4M | $831.68 _(notional, rate-card)_ | no quota set |
-| Codex | 278.9M _(+568.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 74.5M | $832.91 _(notional, rate-card)_ | no quota set |
+| Codex | 279.0M _(+568.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (10)
+### doin (9)
 - [`endo-byte-array-press-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260720-210504.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
-- [`endo-daemon-data-plane-press-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-daemon-data-plane-press-20260720-210504.md) — Press the Endo daemon data plane forward (endojs/endo-but-for-bots, base llm)
 - [`endo-git-integration-press-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260720-210504.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260720-210504.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-sturdyref-press-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260720-210504.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
@@ -2885,13 +2884,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260720-210504.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`xs2rust-endor-press-20260720-203502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-203502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3030)
+### tada (3031)
+- [`endo-daemon-data-plane-press-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260720-210504.md) — All checkpoints verified — this is another quiet steady-state pass. Everythin...
 - [`endojs-endo-but-for-bots-pr811-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr811-shepherd.md) — Fixed and pushed:
 - [`minion-town-agenda-review-20260720-203502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-203502.md) — Reviewed agenda, repository, journal, PRs, and live endpoints. No deployment:...
 - [`endojs-endo-but-for-bots-pr809-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr809-shepherd.md) — CI is green on PR #809 head 0c54930ce310154f33083a5564266d65c92bfedf. Verifie...
 - [`deadmail-issue-comment-5026725853`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5026725853.md) — Completion report
-- [`issue-kriskowal-garden-59`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-59.md) — Completion report — issue-kriskowal-garden-59
-- … and 3025 more
+- … and 3026 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
