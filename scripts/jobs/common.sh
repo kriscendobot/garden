@@ -1749,15 +1749,23 @@ _fetch_stderr_is_offline() {
   printf '%s' "$1" | grep -qiE "$GARDEN_OFFLINE_SIGNATURES"
 }
 
-# Canonical local-clone-corruption signature set. Unlike connectivity outages,
-# these failures cannot resolve on their own: the local journal clone must be
-# replaced before the next fetch can succeed. Keep this separate from
-# GARDEN_OFFLINE_SIGNATURES so corruption triggers repair rather than an
-# indefinitely repeated offline skip.
-: "${GARDEN_CORRUPT_CLONE_SIGNATURES:=object file .* is empty|loose object .* is corrupt|invalid index-pack output|did not receive expected object|unable to read .* object|fsck error|packfile .* cannot be accessed}"
+# Local repository corruption is distinct from a transient transport outage: a
+# retry against the same clone will deterministically fail, but a fresh clone
+# can recover a bad remote-tracking ref or damaged object database. Keep this
+# set separate from GARDEN_OFFLINE_SIGNATURES so an outage never causes an
+# unnecessary re-clone, and corruption never gets silently skipped as offline.
+# Matched case-insensitively for the same cross-version diagnostic variance as
+# the offline classifier above.
+: "${GARDEN_CORRUPT_CLONE_SIGNATURES:=bad object|did not send all necessary objects|unable to read (tree|sha1|object)|object file .* is empty|loose object .* is corrupt|packfile .* cannot be accessed|invalid index-pack output|did not receive expected object|fsck error}"
 
 _fetch_stderr_is_corrupt() {
   printf '%s' "$1" | grep -qiE "$GARDEN_CORRUPT_CLONE_SIGNATURES"
+}
+
+# Print the first matching corruption signature for an operator-useful repair
+# log. This deliberately shares the classifier's source of truth.
+_fetch_stderr_corrupt_signature() {
+  printf '%s\n' "$1" | grep -ioEm1 "$GARDEN_CORRUPT_CLONE_SIGNATURES" || true
 }
 
 # --- bounded read-only gh-api retry (the transient-blip absorber) ------------
@@ -2543,7 +2551,7 @@ job_cycle_productive() {
 # read-only caller that never pushes releases the lock at process exit (fd close)
 # or on its next sync_clone (clone_lock re-entry).
 sync_clone() {
-  local dir="$1" rc
+  local dir="$1" rc corrupt_sig
   clone_lock "$dir"
   # `journal_fetch ...; rc=$?` would trip the caller's `set -e` at the call itself
   # when the fetch fails (a function returning non-zero in a bare statement is a
@@ -2569,19 +2577,21 @@ sync_clone() {
       log "offline; skipping tick (rc=$GARDEN_OFFLINE_RC)"
       exit "$GARDEN_OFFLINE_RC"
     fi
-    # A corrupt loose object in this local clone makes every future fetch fail.
-    # Re-clone while retaining the clone lock, so no concurrent producer can
-    # observe or write the destination while ensure_clone atomically replaces it.
-    # This branch deliberately runs only once per sync: if the fresh clone's
-    # fetch fails too, the ordinary fatal path below reports it rather than
-    # looping forever.
+    # A corrupt local clone cannot recover by retrying the same fetch. The
+    # clone lock remains held across removal and ensure_clone's atomic fresh
+    # clone, so no peer can observe or race the replacement. Heal only once in
+    # this invocation: corruption surviving a fresh clone is an upstream error
+    # and must surface rather than spin a re-clone loop.
     if _fetch_stderr_is_corrupt "$GARDEN_FETCH_STDERR"; then
-      log "WARN: corrupt local journal clone $dir; self-healing by re-cloning"
+      corrupt_sig="$(_fetch_stderr_corrupt_signature "$GARDEN_FETCH_STDERR")"
       rm -rf "$dir"
       ensure_clone "$dir"
+      log "REPAIRED: re-cloned corrupt journal clone $dir (signature: ${corrupt_sig:-unknown})"
       if journal_fetch "$dir"; then rc=0; else rc=$?; fi
+      [ "$rc" -eq 0 ] || die "fetch failed in $dir after re-cloning corrupt journal clone"
+    else
+      die "fetch failed in $dir after bounded retries"
     fi
-    [ "$rc" -eq 0 ] || die "fetch failed in $dir after bounded retries"
   fi
   # The fetch above succeeded, but the hard reset can ITSELF exit 128 on a
   # momentary network/ref inconsistency (a blip racing the local ref update).

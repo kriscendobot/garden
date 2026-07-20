@@ -2394,6 +2394,10 @@ hr; echo "SUBTEST 23 — OFFLINE CLASSIFIER: transient signatures → EX_TEMPFAI
     if _fetch_stderr_is_offline "$2"; then echo "  FAIL: classifier wrongly flagged as offline: $1"; cfail=$((cfail+1))
     else echo "  PASS: real error not classified offline: $1"; cpass=$((cpass+1)); fi
   }
+  expect_corrupt() {  # <description> <stderr-text>
+    if _fetch_stderr_is_corrupt "$2"; then echo "  PASS: corruption classified: $1"; cpass=$((cpass+1))
+    else echo "  FAIL: classifier missed corruption signature: $1"; cfail=$((cfail+1)); fi
+  }
   # DNS / resolver
   expect_offline "git HTTPS resolver"   "fatal: unable to access 'https://github.com/': Could not resolve host: github.com"
   expect_offline "SSH resolver"         "ssh: Could not resolve hostname github.com: Name or service not known"
@@ -2419,6 +2423,8 @@ hr; echo "SUBTEST 23 — OFFLINE CLASSIFIER: transient signatures → EX_TEMPFAI
   expect_offline "uppercased reset"     "CONNECTION RESET BY PEER"
   # genuine repository errors must NOT classify as offline
   expect_online  "bad object"           "fatal: bad object HEAD"
+  expect_corrupt "bad object"           "fatal: bad object HEAD"
+  expect_corrupt "missing objects"      "error: github.com:kriskowal/garden.git did not send all necessary objects"
   expect_online  "non-fast-forward"     "! [rejected]        journal2 -> journal2 (non-fast-forward)"
   expect_online  "no such ref"          "fatal: couldn't find remote ref refs/heads/nope"
   expect_online  "merge conflict"       "error: could not apply abc1234... commit"
@@ -2489,6 +2495,45 @@ unset SELF_HEAL_STUB_CALLS SELF_HEAL_HANDLER
 { [ "$rwrap" -eq 0 ] && [ "$(shcalls)" -eq 0 ]; } \
   && ok "self-heal normalizes the sync_clone outage rc to clean exit 0, no responder" \
   || bad "self-heal did not normalize the sync_clone outage (rc=$rwrap calls=$(shcalls))"
+
+# A deterministic local corruption is neither an offline skip nor an immediate
+# fatal. The first injected fetch reports the real gardener/11 signature; after
+# sync_clone atomically replaces the clone, the second fetch succeeds. A marker
+# in the old clone proves it was replaced rather than merely retried in place.
+cat > "$S24/bin/corrupt-then-ok-fetch" <<'EOF'
+#!/bin/bash
+n="$(cat "$GARDEN_FETCH_COUNT" 2>/dev/null || echo 0)"
+n=$((n + 1))
+printf '%s\n' "$n" > "$GARDEN_FETCH_COUNT"
+if [ "$n" -eq 1 ]; then
+  echo "fatal: bad object refs/remotes/origin/journal2" >&2
+  echo "error: github.com:kriskowal/garden.git did not send all necessary objects" >&2
+  exit 128
+fi
+exit 0
+EOF
+chmod +x "$S24/bin/corrupt-then-ok-fetch"
+CORRUPT_CLONE="$S24/corrupt-clone"
+GARDEN_FETCH_COUNT="$S24/corrupt-fetch-count"
+CORRUPT_LOG="$S24/corrupt-repair.log"
+git clone -q --single-branch --branch "$BRANCH" "$BARE" "$CORRUPT_CLONE"
+printf 'old clone must be replaced\n' > "$CORRUPT_CLONE/stale-sentinel"
+set +e
+(
+  . "$JOBS/common.sh"
+  export GARDEN_FETCH_RETRIES=1 GARDEN_FETCH_CMD="$S24/bin/corrupt-then-ok-fetch" GARDEN_FETCH_COUNT
+  sync_clone "$CORRUPT_CLONE"
+) >"$CORRUPT_LOG" 2>&1
+rcorrupt=$?
+set -e
+{ [ "$rcorrupt" -eq 0 ] && [ "$(cat "$GARDEN_FETCH_COUNT")" -eq 2 ] \
+  && [ ! -e "$CORRUPT_CLONE/stale-sentinel" ] \
+  && git -C "$CORRUPT_CLONE" rev-parse -q --verify "origin/$BRANCH" >/dev/null \
+  && grep -q 'REPAIRED: re-cloned corrupt journal clone' "$CORRUPT_LOG" \
+  && grep -qi 'signature: bad object' "$CORRUPT_LOG" \
+  && ! grep -q 'offline; skipping tick' "$CORRUPT_LOG"; } \
+  && ok "sync_clone re-clones a corrupt journal clone and retries fetch once" \
+  || bad "sync_clone did not repair corrupt clone (rc=$rcorrupt fetches=$(cat "$GARDEN_FETCH_COUNT" 2>/dev/null || echo 0))"
 
 # ============================================================================
 hr; echo "SUBTEST 25 — DRAINING MARKER: fleet_draining predicate + drain-fleet helper"; hr
