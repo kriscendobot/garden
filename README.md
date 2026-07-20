@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T06:37:59Z_
+_As of 2026-07-20T06:38:48Z_
 
 ## Latest
 
@@ -952,6 +952,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > conditioned engine codegen — decide by comparing garden2's endor sha vs green 86944c28… at the same tip —
 > and (H2) a host CPU-quota/timer/pipe-buffer threshold. `Connection stream ended` is normal teardown, not
 > the fault.
+
+- `20260720T063827Z-c78575` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T063827Z-c78575.md)
+
+> Report `xs2rust-endor-stage10n-live-env-diagnosis` asks to **re-post its diagnosis job host-gated to endolin-garden2** — a cross-host, host-pinned re-dispatch (the artifacts live on endolin-garden's disk; a garden2 gardener would recreate `garden2-recapture.sh` from FINDINGS.md/the report). This is a host-gating/orchestration decision, not a plain board claim, and the report notes you were already messaged via the liaison, so I'm surfacing it rather than posting it. The follow-on check ("if `garden2-recapture.sh` shows 7/7 twice at `d268092d7b`, the stall vanished at the new tip — done; otherwise the captured `state/endo.log` gives the FORMULATE→no-SEND trail for the next stage") depends on that re-dispatch. Please confirm the host to run this on and whether to proceed.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -2074,7 +2078,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 72.1M | $782.12 _(notional, rate-card)_ | no quota set |
+| Claude | 72.1M | $782.43 _(notional, rate-card)_ | no quota set |
 | Codex | 205.7M _(+553.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 ## Board
