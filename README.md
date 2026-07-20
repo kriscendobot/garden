@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T15:22:20Z_
+_As of 2026-07-20T15:28:23Z_
 
 ## Latest
 
@@ -2461,14 +2461,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 73.7M | $820.92 _(notional, rate-card)_ | no quota set |
-| Codex | 236.9M _(+560.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 73.7M | $821.30 _(notional, rate-card)_ | no quota set |
+| Codex | 237.5M _(+560.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
+- [`answer-garden-issue51-heap-snapshot-diffs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/answer-garden-issue51-heap-snapshot-diffs.md) — researcher — answer @kumavis on kriskowal/garden#51 (heap snapshot format + d...
+- [`answer-garden-issue51-test262-oracle-oom`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/answer-garden-issue51-test262-oracle-oom.md) — researcher — answer @kumavis on kriskowal/garden#51 (test262 oracle OOM)
 - [`hermit-ollama-self-heal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/hermit-ollama-self-heal.md) — Self-heal local Ollama inference for hermit workers (supervised unit + handle...
 - [`xs2rust-endor-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-145005.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
