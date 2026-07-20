@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T20:35:56Z_
+_As of 2026-07-20T20:38:17Z_
 
 ## Latest
 
@@ -2794,24 +2794,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 74.3M | $828.91 _(notional, rate-card)_ | no quota set |
-| Codex | 268.6M _(+566.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 268.9M _(+566.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`build-daemon-mapstore-gh59`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-daemon-mapstore-gh59.md) — Build Phase 1: durable MapStore in the endo pet daemon (closes kriskowal/gard...
-- [`minion-town-agenda-review-20260720-203502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260720-203502.md) — Minion Town hourly agenda review
 - [`xs2rust-endor-press-20260720-203502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-203502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3028)
+### tada (3029)
+- [`minion-town-agenda-review-20260720-203502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-203502.md) — Reviewed agenda, repository, journal, PRs, and live endpoints. No deployment:...
 - [`endojs-endo-but-for-bots-pr809-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr809-shepherd.md) — CI is green on PR #809 head 0c54930ce310154f33083a5564266d65c92bfedf. Verifie...
 - [`deadmail-issue-comment-5026725853`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5026725853.md) — Completion report
 - [`issue-kriskowal-garden-59`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-59.md) — Completion report — issue-kriskowal-garden-59
 - [`deadmail-issue-comment-5026492697`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5026492697.md) — Completion report
-- [`endojs-endo-but-for-bots-pr160-review-9858a782-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr160-review-9858a782-retro.md) — Completion report
-- … and 3023 more
+- … and 3024 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
