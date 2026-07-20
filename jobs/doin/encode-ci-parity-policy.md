@@ -61,3 +61,10 @@ never worked around with a one-off green push.
 - Report the `main2` commit sha and the exact sections changed.
 - ACTIVATION: this takes effect fleet-wide only after the next deliberate deploy of
   `main2` to each root (leader-supervised) — note that in your completion report.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 19
+  worker_kind: gardener
+  claimed_at: 2026-07-20T23:39:38Z
