@@ -15,3 +15,10 @@ Guards (the watcher already enforced these; re-verify before merging):
 
 Source: pr-review-body by kriskowal
 Approval: https://github.com/kriscendobot/minion.town/pull/10#pullrequestreview-4739311958
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 13
+  worker_kind: gardener
+  claimed_at: 2026-07-20T22:02:15Z
