@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T19:51:55Z_
+_As of 2026-07-20T19:55:48Z_
 
 ## Latest
 
@@ -2692,25 +2692,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.0M | $826.20 _(notional, rate-card)_ | no quota set |
+| Claude | 74.0M | $825.74 _(notional, rate-card)_ | no quota set |
 | Codex | 268.6M _(+566.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`deadmail-issue-comment-5026492697`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5026492697.md) — Dead-lettered message — pick up its intent
+### doin (2)
 - [`issue-kriskowal-garden-59`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-59.md) — Issue from dckc on kriskowal/garden #59
 - [`xs2rust-endor-press-20260720-192031`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-192031.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3024)
+### tada (3025)
+- [`deadmail-issue-comment-5026492697`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5026492697.md) — Completion report
 - [`endojs-endo-but-for-bots-pr160-review-9858a782-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr160-review-9858a782-retro.md) — Completion report
 - [`minion-town-agenda-review-20260720-192031`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-192031.md) — Completion report
 - [`deadmail-issue-comment-5026079913`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5026079913.md) — Completion report
 - [`endojs-endo-but-for-bots-pr138-review-add866fa-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr138-review-add866fa-retro.md) — Completion report
-- [`endojs-endo-but-for-bots-pr794-review-cdf94916-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr794-review-cdf94916-retro.md) — Completion report
-- … and 3019 more
+- … and 3020 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
