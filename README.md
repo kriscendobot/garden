@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T13:32:31Z_
+_As of 2026-07-20T13:34:35Z_
 
 ## Latest
 
@@ -2464,8 +2464,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr771-review-c92c5d14-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr771-review-c92c5d14-retro.md) — Retrospective on endojs/endo-but-for-bots PR #771 (primary: endojs-endo-but-f...
 
 ### tada (2978)
 - [`endojs-endo-but-for-bots-pr598-a5ffa84f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr598-a5ffa84f-retro.md) — Recorded a not-a-miss dismissal for PR #598 comment 4997870862. The request a...
@@ -2514,7 +2514,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage10p-fresh-env-sweep.md) — _normal_ · Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr771-review-c92c5d14-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr771-review-c92c5d14-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #771 (primary: endojs-endo-but-f...
 - [`kriskowal-garden-pr7-review-4798277a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriskowal-garden-pr7-review-4798277a-retro.md) — _low_ · Retrospective on kriskowal/garden PR #7 (primary: kriskowal-garden-pr7-review...
 - [`kriscendobot-minion.town-pr8-review-b00f7a71-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr8-review-b00f7a71-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #8 (primary: kriscendobot-minion...
 - [`endojs-endo-but-for-bots-pr598-review-53d23086-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr598-review-53d23086-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #598 (primary: endojs-endo-but-f...
