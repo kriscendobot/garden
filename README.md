@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T14:39:33Z_
+_As of 2026-07-20T14:45:04Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 3h)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 4h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 10h)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 1d)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 2d)
@@ -2464,16 +2464,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`kriscendobot-agoric-sdk-pr15-review-396a141c-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr15-review-396a141c-retro.md) — Retrospective on kriscendobot/agoric-sdk PR #15 (primary: kriscendobot-agoric...
+### doin (0)
+(none)
 
-### tada (2987)
+### tada (2988)
+- [`kriscendobot-agoric-sdk-pr15-review-396a141c-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-review-396a141c-retro.md) — Completion report — review retrospective, kriscendobot/agoric-sdk PR #15 (rev...
 - [`endojs-endo-but-for-bots-pr786-22380928-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr786-22380928-retro.md) — Recorded a not-a-miss dismissal for the assigned directive. It was a review r...
 - [`improve-ci-wait-merge-review-decision-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-wait-merge-review-decision-gate.md) — Completion report
 - [`kriscendobot-minion.town-pr4-review-681cbfb6-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr4-review-681cbfb6-retro.md) — Recorded a not-a-miss dismissal for PR #4 review 4724665640: it authorized po...
 - [`kriscendobot-minion.town-pr7-review-c543864f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr7-review-c543864f-retro.md) — Completion report — kriscendobot-minion.town-pr7-review-c543864f-retro
-- [`xs2rust-endor-press-20260720-135002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260720-135002.md) — All three finish-line bars are met on branch xs2rust-endor at HEAD b901ddf7b....
-- … and 2982 more
+- … and 2983 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
