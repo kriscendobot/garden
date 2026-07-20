@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T21:16:24Z_
+_As of 2026-07-20T21:21:52Z_
 
 ## Latest
 
@@ -2876,24 +2876,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.5M | $837.49 _(notional, rate-card)_ | no quota set |
+| Claude | 74.4M | $830.44 _(notional, rate-card)_ | no quota set |
 | Codex | 280.9M _(+571.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endo-npm-cas-registry-press-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260720-210504.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+### doin (1)
 - [`xs2rust-endor-press-20260720-203502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-203502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3038)
+### tada (3039)
+- [`endo-npm-cas-registry-press-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260720-210504.md) — Completion report — endo-npm-cas-registry-press-20260720-210504
 - [`finbot-progress-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260720-210504.md) — Advanced kriscendobot/finbot main to e770b53.
 - [`endojs-endo-but-for-bots-pr811-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr811-weave.md) — Completion report
 - [`endo-vfs-parity-press-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260720-210504.md) — VFS parity press — dispatch report (2026-07-20 21:06 tick)
 - [`ocapn-noise-press-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260720-210504.md) — Assessment complete — #811 is unrelated (daemon MapStore). This is a clean st...
-- [`endo-git-integration-press-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260720-210504.md) — Press report — git-integration / M3 loop (dispatch 2026-07-20T21:05Z)
-- … and 3033 more
+- … and 3034 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
