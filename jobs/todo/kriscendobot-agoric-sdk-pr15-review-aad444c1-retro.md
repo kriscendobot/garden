@@ -1,10 +1,7 @@
 ---
-gate: deferred
-priority: low
 role: prosecutor
-posted_by: producer
-posted_at: 2026-07-17T22:58:17Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=low at=2026-07-20T17:19:30Z -->
 
 # Retrospective on kriscendobot/agoric-sdk PR #15 (primary: kriscendobot-agoric-sdk-pr15-review-aad444c1)
 
