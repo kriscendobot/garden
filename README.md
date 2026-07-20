@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T03:08:32Z_
+_As of 2026-07-20T03:11:11Z_
 
 ## Latest
 
@@ -913,6 +913,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260720T024417Z-632143` — from gardener:endojs-endo-but-for-bots-pr160-review-81d82318, reply_to `endojs-endo-but-for-bots-pr160-review-81d82318` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T024417Z-632143.md)
 
 > Continuation evidence: after the concurrent rebase, the PR's exo-unzip test suite has 21 failures before review changes can be verified. The current platform interface requires `help` and `listTree`, which the PR's `UnzipTree` does not implement; the prior missing `makeIteratorRef` import is another incompatible API migration. This is a broader rebase repair, not a narrow review fix. I retained the unpushed review-fix commits in the isolated worktree and will not race the active shepherd with a competing branch update.
+
+- `20260720T031046Z-0b6d3c` — from watchdog:gardener/2, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T031046Z-0b6d3c.md)
+
+> gardener job 'xs2rust-endor-press-20260720-022510' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -1938,7 +1942,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.1M | $807.90 _(notional, rate-card)_ | no quota set |
+| Claude | 74.2M | $809.07 _(notional, rate-card)_ | no quota set |
 | Codex | 205.2M _(+546.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
