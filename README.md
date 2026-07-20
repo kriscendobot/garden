@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T13:34:35Z_
+_As of 2026-07-20T13:39:01Z_
 
 ## Latest
 
@@ -2464,16 +2464,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr771-review-c92c5d14-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr771-review-c92c5d14-retro.md) — Retrospective on endojs/endo-but-for-bots PR #771 (primary: endojs-endo-but-f...
+### doin (0)
+(none)
 
-### tada (2978)
+### tada (2979)
+- [`endojs-endo-but-for-bots-pr771-review-c92c5d14-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr771-review-c92c5d14-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr598-a5ffa84f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr598-a5ffa84f-retro.md) — Recorded a not-a-miss dismissal for PR #598 comment 4997870862. The request a...
 - [`endojs-endo-but-for-bots-pr737-review-3363fee9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr737-review-3363fee9-retro.md) — Verdict recorded: not-a-miss (new-direction) for #737 review 4718500574. The ...
 - [`endojs-endo-but-for-bots-pr708-review-ecdedc30-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr708-review-ecdedc30-retro.md) — Completion report
 - [`xs2rust-endor-press-20260720-112009`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260720-112009.md) — Progress journal entry posted to entries/2026/07/20/115218Z-progress-gardener...
-- [`port-xs-to-rust-memory-safe-engine-s47`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s47.md) — Completion report — port-xs-to-rust-memory-safe-engine-s47
-- … and 2973 more
+- … and 2974 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
