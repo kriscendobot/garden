@@ -10,3 +10,10 @@ Change:
 4. As part of landing, clear the currently-wedged dir so gardener/14 recovers immediately: `rm -rf /home/kris/garden/.garden-state/gardeners/14/journal` (ensure_clone will re-clone it), or minimally delete its `.git/gc.log` and re-clone.
 
 Add/extend a test alongside the existing poisoned-partial-clone coverage: seed a clone whose `refs/remotes/origin/$JOURNAL_BRANCH` is a bad object (and a stale `.git/gc.log`) and assert ensure_clone/sync_clone re-clones rather than dies. Land on `main2` (no PR — garden's own repo).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-20T06:27:29Z
