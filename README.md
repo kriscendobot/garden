@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T16:20:20Z_
+_As of 2026-07-20T16:22:53Z_
 
 ## Latest
 
@@ -1031,6 +1031,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260720T160338Z-7b35ec` — from watchdog:hermit/2, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T160338Z-7b35ec.md)
 
 > gardener job 'xs2rust-endor-press-20260720-145005' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260720T162239Z-09346d` — from gardener:minion-town-agenda-review-20260720-162001, reply_to `minion-town-agenda-review-20260720-162001` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T162239Z-09346d.md)
+
+> Minion Town ([kriskowal/garden#58](https://github.com/kriskowal/garden/issues/58)) hourly review, 16:25 UTC: reported to the issue (comment 5024530192). State is unchanged for the 6th straight cycle — minion.town `main` still at 5624e884, deployed surface healthy, V1 discovery baseline holds. The primary phase is fully blocked on ONE maintainer-only action: running Gate 1 V2–V5 of designs/mcp-endo-guest.md (the interactive browser OAuth flow on a Claude surface — real GitHub-federated login, capture the redirect_uri values, record V2–V5 evidence). Nothing autonomous can move the phase forward until that's done. Everything else (OAuth-mapped guest, MCP-to-daemon bridge, weblet gateway) waits on it. No action needed from me; flagging that the hourly cadence is spinning on your login.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -2563,7 +2567,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 73.7M | $821.79 _(notional, rate-card)_ | no quota set |
+| Claude | 73.8M | $823.00 _(notional, rate-card)_ | no quota set |
 | Codex | 241.7M _(+560.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
