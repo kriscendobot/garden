@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T15:28:23Z_
+_As of 2026-07-20T15:31:03Z_
 
 ## Latest
 
@@ -2461,26 +2461,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 73.7M | $821.30 _(notional, rate-card)_ | no quota set |
-| Codex | 237.5M _(+560.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 73.7M | $821.42 _(notional, rate-card)_ | no quota set |
+| Codex | 237.7M _(+560.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`answer-garden-issue51-heap-snapshot-diffs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/answer-garden-issue51-heap-snapshot-diffs.md) — researcher — answer @kumavis on kriskowal/garden#51 (heap snapshot format + d...
-- [`answer-garden-issue51-test262-oracle-oom`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/answer-garden-issue51-test262-oracle-oom.md) — researcher — answer @kumavis on kriskowal/garden#51 (test262 oracle OOM)
 - [`hermit-ollama-self-heal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/hermit-ollama-self-heal.md) — Self-heal local Ollama inference for hermit workers (supervised unit + handle...
 - [`xs2rust-endor-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-145005.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (2998)
+### tada (2999)
+- [`answer-garden-issue51-test262-oracle-oom`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/answer-garden-issue51-test262-oracle-oom.md) — Investigated and posted the source-grounded reply on garden issue #51: https:...
 - [`ocapn-noise-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260720-145005.md) — **Press dispatch 12 complete — steady state re-proven live; no new work unblo...
 - [`endo-npm-cas-registry-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260720-145005.md) — Press tick complete for the npm-via-CAS registry-proxy arc (endojs/endo-but-f...
 - [`endo-git-integration-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260720-145005.md) — Completion report — endo-git-integration-press-20260720-145005
 - [`finbot-progress-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260720-145005.md) — Advanced finbot main to 55c7c02: DM reporting now tests the live selector’s b...
-- [`minion-town-agenda-review-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-145005.md) — Reviewed and reported on garden issue #58: https://github.com/kriskowal/garde...
-- … and 2993 more
+- … and 2994 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
