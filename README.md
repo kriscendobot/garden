@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T21:33:38Z_
+_As of 2026-07-20T21:48:50Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 10h)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 11h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 17h)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 1d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 2d)
@@ -2973,23 +2973,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.4M | $831.01 _(notional, rate-card)_ | no quota set |
+| Claude | 74.4M | $830.53 _(notional, rate-card)_ | no quota set |
 | Codex | 280.9M _(+571.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr812-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr812-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #812
+### doin (0)
+(none)
 
-### tada (3040)
+### tada (3041)
+- [`endojs-endo-but-for-bots-pr812-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr812-shepherd.md) — Completion report
 - [`endojs-endo-but-for-bots-pr160-review-81d82318-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr160-review-81d82318-retro.md) — Completion report
 - [`endo-npm-cas-registry-press-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260720-210504.md) — Completion report — endo-npm-cas-registry-press-20260720-210504
 - [`finbot-progress-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260720-210504.md) — Advanced kriscendobot/finbot main to e770b53.
 - [`endojs-endo-but-for-bots-pr811-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr811-weave.md) — Completion report
-- [`endo-vfs-parity-press-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260720-210504.md) — VFS parity press — dispatch report (2026-07-20 21:06 tick)
-- … and 3035 more
+- … and 3036 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
