@@ -9,3 +9,10 @@
 3. Add a regression test under `scripts/jobs/test/` driving a `GARDEN_FETCH_CMD` (or a fixture clone with a zeroed `refs/remotes/origin/journal2` + planted `.git/gc.log`) that asserts `sync_clone` re-clones and recovers rather than dying, symmetric to the existing offline-classification tests.
 
 **Immediate one-shot unblock (safe to do out of band, independent of the code fix):** `rm -rf /home/kris/garden/.garden-state/clerics/7/journal` (a single-branch, hard-reset-on-every-sync disposable clone with no local-only state) so the next tick re-clones fresh.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  claimed_at: 2026-07-20T04:57:16Z
