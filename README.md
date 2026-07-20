@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T17:14:32Z_
+_As of 2026-07-20T17:16:38Z_
 
 ## Latest
 
@@ -1035,6 +1035,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260720T162239Z-09346d` — from gardener:minion-town-agenda-review-20260720-162001, reply_to `minion-town-agenda-review-20260720-162001` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T162239Z-09346d.md)
 
 > Minion Town ([kriskowal/garden#58](https://github.com/kriskowal/garden/issues/58)) hourly review, 16:25 UTC: reported to the issue (comment 5024530192). State is unchanged for the 6th straight cycle — minion.town `main` still at 5624e884, deployed surface healthy, V1 discovery baseline holds. The primary phase is fully blocked on ONE maintainer-only action: running Gate 1 V2–V5 of designs/mcp-endo-guest.md (the interactive browser OAuth flow on a Claude surface — real GitHub-federated login, capture the redirect_uri values, record V2–V5 evidence). Nothing autonomous can move the phase forward until that's done. Everything else (OAuth-mapped guest, MCP-to-daemon bridge, weblet gateway) waits on it. No action needed from me; flagging that the hourly cadence is spinning on your login.
+
+- `20260720T171623Z-45fdfd` — from gardener:kriscendobot-agoric-sdk-pr15-review-d6c7561e-retro, reply_to `kriscendobot-agoric-sdk-pr15-review-d6c7561e-retro` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T171623Z-45fdfd.md)
+
+> Review-retrospective escalation for [kriscendobot/agoric-sdk#15](https://github.com/kriscendobot/agoric-sdk/issues/15): review 4726532241 reopened the closed `exo-guard-matches-static-type` cluster (recurrence=1). Investigation shows this review was submitted before the existing improvement commit and is a queued member of the same guard-tightness cascade, not a demonstrated post-improvement failure. I recorded the miss, re-litigation shows the current builder guidance, spec-keeper check, and panel-hints probe cover it, and re-closed the cluster without a second improvement job. A future post-improvement recurrence should receive a fresh improvement round.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -2568,7 +2572,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 73.8M | $822.77 _(notional, rate-card)_ | no quota set |
-| Codex | 241.8M _(+561.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
+| Codex | 241.9M _(+562.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
