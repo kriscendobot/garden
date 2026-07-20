@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T17:25:47Z_
+_As of 2026-07-20T17:27:47Z_
 
 ## Latest
 
@@ -2592,23 +2592,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 73.8M | $823.56 _(notional, rate-card)_ | no quota set |
-| Codex | 242.6M _(+562.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 243.1M _(+562.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`improve-review-miss-drain-reopen-distinction`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-review-miss-drain-reopen-distinction.md) — scripts/jobs/review-miss-record.sh
+### doin (1)
 - [`xs2rust-endor-press-20260720-172003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-172003.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3011)
+### tada (3012)
+- [`improve-review-miss-drain-reopen-distinction`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-review-miss-drain-reopen-distinction.md) — Completion report
 - [`minion-town-agenda-review-20260720-172003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-172003.md) — Completion report — Minion Town hourly agenda review (kriskowal/garden#58), 2...
 - [`kriscendobot-agoric-sdk-pr15-review-aad444c1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-review-aad444c1-retro.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr15-review-d6c7561e-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-review-d6c7561e-retro.md) — Recorded a major spec-violation miss for PR #15 review 4726532241, joining ex...
 - [`kriscendobot-agoric-sdk-pr15-review-ccb767b7-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-review-ccb767b7-retro.md) — Completion report
-- [`review-improve-exo-guard-matches-static-type`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/review-improve-exo-guard-matches-static-type.md) — Implemented and pushed 8ec780c5ac to main2.
-- … and 3006 more
+- … and 3007 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
