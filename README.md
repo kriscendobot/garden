@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T10:47:59Z_
+_As of 2026-07-20T10:53:28Z_
 
 ## Latest
 
@@ -13,7 +13,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 6h)
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 6m)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 11m)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 1d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 2d)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 2d)
@@ -1967,6 +1967,62 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
+- `poison-xs2rust-endor-stage10p-unbound-builtins-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-xs2rust-endor-stage10p-unbound-builtins-deadline-overrun.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
+> Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=2400s):
+> this job EXCEEDS THE HANDLER BUDGET and would be killed identically on every requeue,
+> so the reaper surfaced it after 1 overrun cycles (not the full 5-cycle poison threshold).
+> The work is preserved at jobs/plan/xs2rust-endor-stage10p-unbound-builtins; it stays HELD until a human promotes it
+> (promote-plan.sh xs2rust-endor-stage10p-unbound-builtins) or removes it. Triage: split the job, raise GARDEN_HANDLER_TIMEOUT
+> for this work, or fix what makes it run long.
+> Original job base: xs2rust-endor-stage10p-unbound-builtins
+>
+> --- original job body ---
+> ---
+> model: opus
+> ---
+> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-20T10:07:03Z -->
+>
+> ---
+> model: opus
+> ---
+> # Stage-10p child 2: the unbound-builtin cluster (PR #600, xs2rust-endor)
+>
+> **Repo:** `endojs/endo-but-for-bots`, branch `xs2rust-endor`, PR #600 (DRAFT — keep DRAFT).
+> **Worktree:** `scripts/jobs/ensure-project-worktree.sh <your-job-base> endojs/endo-but-for-bots xs2rust-endor`;
+> sync to the REAL remote tip first (press + earlier stage-10p children advance the branch). Cache
+> seeding, bundle rules, oracle pin `23b4d6b0a65f35209d9118c4c13c6c9b3e68784d`, cargo/TMPDIR notes:
+> identical to child 0's brief (same-tip siblings on endolin-garden include
+> `scratch/project-wt-port-xs-to-rust-memory-safe-engine-s46-5cd7f36a`).
+>
+> ## The findings (s45, re-scoped by the stage-10o oracle-driven sweep — absence wrong-completions)
+>
+> Six builtins are entirely UNBOUND in endor (`typeof` → `undefined`; a call throws "not a function";
+> reflection reads wrong-complete by absence): `String.prototype.padStart`, `String.prototype.padEnd`,
+> `Number.prototype.toFixed`, `Number.prototype.toPrecision`, `Map.groupBy`, `RegExp.escape`.
+>
+> ## Task — reproduce-first, transliterate, push-per-item (6 items)
+>
+> For EACH builtin, in its own commit:
+> 1. Reproduce absence at tip via dual-run (`typeof`, a call, `.length` read).
+> 2. Bind it with arity/name transliterated from the pinned C builder tables (`xsString.c`, `xsNumber.c`,
+>    `xsMapSet.c`, `xsRegExp.c` — cite file:line in the commit body; NEVER guess), and semantics mirroring
+>    the C callback (`fx_String_prototype_padStart`, `fx_Number_prototype_toFixed`, …). Where the C
+>    semantics need machinery endor lacks (e.g. locale/float formatting corners), implement the covered
+>    core and make uncovered corners HONEST skips (`Unsupported`) — never a differing result.
+> 3. Gate tests (dual-run agreement) covering the mainline plus edge shapes the oracle certifies
+>    (padStart/padEnd truncated fills and empty pad; toFixed/toPrecision boundary digits and rounding;
+>    Map.groupBy key identity incl. -0 normalization per C; RegExp.escape metachar coverage).
+> 4. Full bars at the pushed tip (workspace count GROWS; compile-diff 1909/1909 + SYMB; boot 30/0; ROOT
+>    111/0; 0 non-oracle warnings; no new `unsafe`; no new side table).
+>
+> If the 2400s budget runs short, land FEWER complete items rather than all six half-done — every pushed
+> item must carry its gates and bars. Report the remainder explicitly in your tada. Accuracy-over-parity.
+> Tada ONLY; keep PR DRAFT.
+>
+> <!-- garden-deadline-overrun: 1 -->
+
 - `poison-xs2rust-endor-stage8-cxs-baseline-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-xs2rust-endor-stage8-cxs-baseline-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -2205,15 +2261,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 73.0M | $811.89 _(notional, rate-card)_ | no quota set |
+| Claude | 73.1M | $812.36 _(notional, rate-card)_ | no quota set |
 | Codex | 205.9M _(+554.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-stage10p-unbound-builtins`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10p-unbound-builtins.md) — Stage-10p child 2: the unbound-builtin cluster (PR #600, xs2rust-endor)
+### doin (0)
+(none)
 
 ### tada (2972)
 - [`weave-endo-but-for-bots-pr621-endoclaw-oauth-20260720`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr621-endoclaw-oauth-20260720.md) — Rebased PR #621 onto llm and force-pushed 61b511b5ea88f56b7a125f22755aea786ab...
@@ -2258,6 +2314,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`weave-endo-but-for-bots-pr626-stack-surgery-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/weave-endo-but-for-bots-pr626-stack-surgery-eval.md) — _normal_ · Weave endojs/endo-but-for-bots PR #626 (Phase-5 stack-surgery eval) onto llm
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 - [`xs2rust-endor-press-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-press-20260720-022510.md) — _normal_ · Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+- [`xs2rust-endor-stage10p-unbound-builtins`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage10p-unbound-builtins.md) — _normal_ · Stage-10p child 2: the unbound-builtin cluster (PR #600, xs2rust-endor)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`endojs-endo-but-for-bots-pr737-review-3363fee9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr737-review-3363fee9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #737 (primary: endojs-endo-but-f...
