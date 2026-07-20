@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T21:29:30Z_
+_As of 2026-07-20T21:32:02Z_
 
 ## Latest
 
@@ -2980,8 +2980,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr160-review-81d82318-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-81d82318-retro.md) — Retrospective on endojs/endo-but-for-bots PR #160 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr812-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr812-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #812
 
 ### tada (3039)
 - [`endo-npm-cas-registry-press-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260720-210504.md) — Completion report — endo-npm-cas-registry-press-20260720-210504
