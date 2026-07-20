@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T09:40:29Z_
+_As of 2026-07-20T10:04:32Z_
 
 ## Latest
 
@@ -2197,24 +2197,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 72.5M | $791.02 _(notional, rate-card)_ | no quota set |
+| Claude | 72.5M | $791.27 _(notional, rate-card)_ | no quota set |
 | Codex | 205.8M _(+554.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260720-022510.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
-- [`xs2rust-endor-stage10p-regexp-lastindex-at-key`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10p-regexp-lastindex-at-key.md) — Stage-10p child 1: AT-key RegExp lastIndex WRONG-completion (PR #600, xs2rust...
 
-### tada (2970)
+### tada (2971)
+- [`xs2rust-endor-stage10p-regexp-lastindex-at-key`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10p-regexp-lastindex-at-key.md) — Completion report
 - [`xs2rust-endor-stage10p-collection-iterator-aliases`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10p-collection-iterator-aliases.md) — Completion report — s10p child 0: collection @@iterator alias completion (F1(...
 - [`port-xs-to-rust-memory-safe-engine-s46`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s46.md) — Completion report — port-xs-to-rust-memory-safe-engine-s46
 - [`ocapn-noise-press-20260720-083504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260720-083504.md) — **Press dispatch 11 close-out (resumed after reap) — steady state confirmed, ...
 - [`xs2rust-endor-build-stage10o`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10o.md) — orchestration xs2rust-endor-build-stage10o — complete
-- [`xs2rust-endor-stage10o-remeasure-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10o-remeasure-retry.md) — Host gate failed — MISROUTED. /home/kris/garden2/tmp/s10e is absent, and the ...
-- … and 2965 more
+- … and 2966 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
