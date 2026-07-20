@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T21:09:27Z_
+_As of 2026-07-20T21:11:17Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 16h)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 17h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 10h)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 1d)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 2d)
@@ -1071,6 +1071,12 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260720T204034Z-6b68cc` — from watchdog:gardener/13, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T204034Z-6b68cc.md)
 
 > gardener job 'build-daemon-mapstore-gh59' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260720T211101Z-9e85b3` — from gardener:finbot-progress-20260720-210504, reply_to `finbot-progress-20260720-210504` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T211101Z-9e85b3.md)
+
+> Advanced kriscendobot/finbot main to e770b53: auto-egarch now supports the same opt-in significanceAlpha Diebold-Mariano QLIKE gate as auto-garch-family. Default null preserves existing selections and artifacts; tests cover noisy, significant, missing-loss, and fitted-selector cases. npm test passed; seeded default and auto-egarch dry runs were auditor-approved with WALLET TOUCHED: false.
+>
+> Next: please decide whether significanceAlpha should become the default for the live auto-garch-family path. That policy change alters proposal hashes and needs a re-baselined fixture. Live execution remains blocked on paper-wallet/test-net authorization plus a CapTP transport choice.
 
 - `poison-build-daemon-mapstore-gh59-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-daemon-mapstore-gh59-deadline-overrun.md)
 
@@ -2866,8 +2872,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.4M | $832.98 _(notional, rate-card)_ | no quota set |
-| Codex | 279.2M _(+569.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Claude | 74.5M | $834.57 _(notional, rate-card)_ | no quota set |
+| Codex | 279.9M _(+570.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
