@@ -7,3 +7,10 @@ Fix (in `scripts/jobs/common.sh`), mirroring the poisoned-partial-clone self-hea
 4. Add a test under `scripts/jobs/test/` that seeds a clone with a zeroed `refs/heads/journal2` loose ref shadowing a valid `packed-refs` entry (plus a stale `gc.log.lock`) and asserts `sync_clone` self-heals to a working clone instead of dying.
 
 Immediate one-shot unblock for the currently-wedged instance (safe to run now): `rm -rf /home/kris/garden/.garden-state/repo-watcher/journal` — the next tick's `ensure_clone` re-clones it. The code change makes this automatic and fleet-wide.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-20T03:59:49Z
