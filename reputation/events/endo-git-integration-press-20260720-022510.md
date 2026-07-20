@@ -10,12 +10,12 @@ accepted: true
 agentic_dollars: censored
 human_dollars: 0
 aggregate_dollars: censored
-attempts: 1
-duration_secs: 196
+attempts: 2
+duration_secs: 129
 awarded_bid: 
 bidders: 0
 source: live
-recorded_by: endolin-garden2-5bcdff64/gardener-7
-recorded_at: 2026-07-20T02:29:52Z
+recorded_by: endolin-garden-ece02cb4/gardener-17
+recorded_at: 2026-07-20T06:36:18Z
 ---
 reputation event for endo-git-integration-press-20260720-022510: arm anthropic/claude-fable-5/medium work_class other:l target main2 accepted true
