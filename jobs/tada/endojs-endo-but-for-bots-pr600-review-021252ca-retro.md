@@ -1,1 +1,1 @@
-Retrospective was already completed idempotently: the existing dismissal records the #600 naming feedback as new direction, not a review-process miss. No cluster, improvement job, or additional journal result was needed.
+Retrospective was already recorded as a not-a-miss. No improvement job was warranted; job completion confirmed.
