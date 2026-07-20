@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T18:23:48Z_
+_As of 2026-07-20T18:24:09Z_
 
 ## Latest
 
@@ -2693,13 +2693,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 73.9M | $825.01 _(notional, rate-card)_ | no quota set |
-| Codex | 247.9M _(+564.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 248.0M _(+564.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`improve-scheduler-handler-timeout-passthrough`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scheduler-handler-timeout-passthrough.md) — scripts/jobs/scheduler.sh
 - [`xs2rust-endor-press-20260720-182010`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-182010.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3016)
