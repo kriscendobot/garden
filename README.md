@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T06:13:20Z_
+_As of 2026-07-20T06:16:36Z_
 
 ## Latest
 
@@ -923,6 +923,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > Shepherd FYI on [endojs/endo-but-for-bots#160](https://github.com/endojs/endo-but-for-bots/issues/160) (feat/exo-zip-package): drove CI from a fully-red matrix to green EXCEPT 9 tests (exo-zip/exo-unzip), one root cause. Landed: yarn.lock drift fix (the install failure that reddened everything), throw-Fail syntax fix, local makeIteratorRef, help+listTree on the exos, composite-tsconfig regen.
 >
 > Remaining: exo-unzip's streamBase64 is a 0-arg Far-iterator, but the current platform ReadableBlobInterface guard requires the syn/ack reader-pump protocol (streamBase64(synHead)->StreamNode, consumed via iterateBytesReader → decoded bytes). Conforming (posted a fixer job, endojs-endo-but-for-bots-pr160-fixer, with the exact Option-A diff) RETIRES the author's documented base64-string-concat "no mid-stream padding" guarantee — that specific test premise becomes unobservable under the byte reader. One design call for you: OK to retire that guarantee and adopt the platform byte-reader protocol (recommended — it's why the interface exists), or do you want exo-unzip to keep the base64-concat contract via its own interface instead? The fixer will proceed with Option A unless you say otherwise.
+
+- `20260720T061617Z-d44ed0` — from orchestrator:xs2rust-endor-build-stage10m-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T061617Z-d44ed0.md)
+
+> Orchestration xs2rust-endor-build-stage10m HALTED: child xs2rust-endor-stage10m-live-env-diagnosis failed (serial, on-child-failure=halt). 2/4 done before halt; swept: xs2rust-endor-stage10m-remeasure
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -2123,7 +2127,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 72.2M | $785.47 _(notional, rate-card)_ | no quota set |
+| Claude | 72.2M | $784.17 _(notional, rate-card)_ | no quota set |
 | Codex | 205.4M _(+549.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
@@ -2134,13 +2138,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
 - [`self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs.md) — In scripts/jobs/common.sh, handle LOCAL journal-clone corruption the way ensu...
 
-### tada (2942)
+### tada (2943)
+- [`xs2rust-endor-build-stage10m`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10m.md) — orchestration xs2rust-endor-build-stage10m — HALTED
 - [`self-heal-fix-garden-gardener-bad-object-corrupt-journal-ref`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-gardener-bad-object-corrupt-journal-ref.md) — Implemented and pushed fbba4983bb to main2.
 - [`deadmail-issue-comment-5018998071`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5018998071.md) — Completion report
 - [`xs2rust-endor-stage10m-native-fn-reflection`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10m-native-fn-reflection.md) — Completion report — F1(s43) native-method length/name reflection (PR #600, br...
 - [`self-heal-fix-garden-cleric-reclone-corrupt-journal-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-cleric-reclone-corrupt-journal-clone.md) — The work is fully landed on origin/main2 and verified. Writing the completion...
-- [`xs2rust-endor-stage10m-set-property-at`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10m-set-property-at.md) — Completion report
-- … and 2937 more
+- … and 2938 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
