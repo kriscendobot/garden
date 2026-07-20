@@ -53,6 +53,8 @@ submitter: dckc
 Reply on the issue when done:
   gh issue comment https://github.com/kriskowal/garden/issues/59 --body "…"
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
