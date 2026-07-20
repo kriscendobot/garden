@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: requeue-exhausted
+poison_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+poisoned_at: 2026-07-20T12:23:07Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-20T12:23:07Z
+---
+
+---
 model: opus
 ---
 # Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchanged): FRESH-ENV live drive + 52-file sweep remeasure (PR #600, xs2rust-endor)
@@ -60,13 +74,3 @@ HOST-LOCAL SOFTWARE INSTALL of the s10e env (node_modules vintage / node binary 
 
 Size to one 2400s invocation with the detached sweep carrying past it (requeue resumes from TSV). Tada
 ONLY (never inbox-send the parked supervisor); keep PR DRAFT; zero pushes.
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 7
-  worker_kind: gardener
-  claimed_at: 2026-07-20T11:53:28Z
