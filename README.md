@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T08:38:35Z_
+_As of 2026-07-20T08:39:04Z_
 
 ## Latest
 
@@ -2181,16 +2181,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 72.7M | $796.19 _(notional, rate-card)_ | no quota set |
+| Claude | 72.7M | $795.56 _(notional, rate-card)_ | no quota set |
 | Codex | 205.8M _(+554.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (8)
+### doin (7)
 - [`endo-npm-cas-registry-press-20260720-083504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260720-083504.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
-- [`endo-vfs-parity-press-20260720-083504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260720-083504.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260720-022510.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
 - [`finbot-progress-20260720-083504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260720-083504.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`minion-town-agenda-review-20260720-083504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260720-083504.md) — Minion Town hourly agenda review
@@ -2198,13 +2197,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260720-083504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-083504.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-stage10o-live-env-diagnosis`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10o-live-env-diagnosis.md) — stage-10o child 1: diagnose the s10e live-round-trip stall — HOST-GATED garde...
 
-### tada (2958)
+### tada (2959)
+- [`endo-vfs-parity-press-20260720-083504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260720-083504.md) — Verify-and-stand-down tick complete — no work needed on the stack, state note...
 - [`endo-git-integration-press-20260720-083504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260720-083504.md) — The "Open Work" items in the roadmap map exactly onto the built PRs (#705 too...
 - [`endo-sturdyref-press-20260720-083504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260720-083504.md) — SturdyRef press — 08:35 tick: **hold + observation; no movement, nothing pres...
 - [`endo-byte-array-press-20260720-083504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260720-083504.md) — Both fronts verified: all 17 checks green on #475 and all 15 on #503. Nothing...
 - [`endo-daemon-data-plane-press-20260720-083504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260720-083504.md) — All checks confirm the same steady state as the last dispatch. The correct id...
-- [`xs2rust-endor-stage10o-reflection-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10o-reflection-completion.md) — Completion report — stage-10o child 0: native-fn reflection completion (F1/F2...
-- … and 2953 more
+- … and 2954 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
