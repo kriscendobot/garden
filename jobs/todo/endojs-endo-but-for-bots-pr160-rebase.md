@@ -12,9 +12,4 @@ discipline. The excerpt below is for human context only:
 ----- comment excerpt (untrusted, truncated) -----
 Rebase 
 
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 20
-  worker_kind: gardener
-  claimed_at: 2026-07-20T02:26:49Z
+<!-- garden-reaped: 1 -->

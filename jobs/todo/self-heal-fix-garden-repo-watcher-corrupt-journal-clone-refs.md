@@ -2,9 +2,4 @@ In scripts/jobs/common.sh, handle LOCAL journal-clone corruption the way ensure_
 
 Fix: add a `GARDEN_CORRUPT_SIGNATURES` set (distinct from `GARDEN_OFFLINE_SIGNATURES`, e.g. `bad object refs/|did not send all necessary objects|bad ref for|unable to read|loose object .* is corrupt|object file .* is empty|error: Could not read`) and a `_fetch_stderr_is_corrupt` classifier. In sync_clone, before the final `die`, when `_fetch_stderr_is_corrupt "$GARDEN_FETCH_STDERR"` matches, log a WARN and re-provision the clone by blowing it away and re-cloning via the SAME atomic sibling-temp technique ensure_clone already uses (clone into `${dir}.tmp.$$`, then `mv` into place under clone_lock), then retry the fetch/reset once. Only if the re-cloned copy still fails should it `die`. Add a run-test.sh case alongside the existing offline-classification tests (near scripts/jobs/test/run-test.sh:2391) injecting the "bad object refs/heads/journal2" / "did not send all necessary objects" stderr and asserting sync_clone re-clones and recovers instead of dying.
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: hermit
-  claimed_at: 2026-07-20T02:28:24Z
+<!-- garden-reaped: 1 -->

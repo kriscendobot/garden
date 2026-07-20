@@ -98,9 +98,4 @@ here.
   `endoclaw-webhooks` gap), say so plainly in the daily check-in and name the
   decision needed, rather than posting nothing without explanation.
 
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 8
-  worker_kind: gardener
-  claimed_at: 2026-07-20T02:26:45Z
+<!-- garden-reaped: 1 -->

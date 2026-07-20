@@ -10,9 +10,4 @@ What to change:
 3. Guard against a reclone loop: heal at most once per sync_clone invocation (a corruption that survives a fresh clone is a genuine upstream problem and should surface as a die, not spin).
 4. Extend `scripts/jobs/test/run-test.sh` with a case that injects the `bad object` / `did not send all necessary objects` stderr via `GARDEN_FETCH_CMD` and asserts the corrupt path triggers a re-clone-and-retry rather than the offline skip or a bare die (alongside the existing `expect_online "bad object"` case at run-test.sh:2391, which currently only checks classification — add the heal-and-recover assertion).
 
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 9
-  worker_kind: cleric
-  claimed_at: 2026-07-20T02:27:28Z
+<!-- garden-reaped: 1 -->
