@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T07:58:50Z_
+_As of 2026-07-20T08:09:22Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3h)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4h)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 1d)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 2d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 2d)
@@ -2094,26 +2094,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 72.4M | $789.65 _(notional, rate-card)_ | no quota set |
+| Claude | 72.4M | $789.77 _(notional, rate-card)_ | no quota set |
 | Codex | 205.8M _(+554.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
 - [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260720-022510.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
-- [`self-heal-fix-garden-cleric-corrupt-clone-null-remote-ref`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-cleric-corrupt-clone-null-remote-ref.md) — In scripts/jobs/common.sh, extend the journal-clone self-heal to cover a clon...
 - [`xs2rust-endor-stage10o-reflection-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10o-reflection-completion.md) — stage-10o child 0: native-fn reflection completion (F1/F2(s45)) — engine-wide
 
-### tada (2952)
+### tada (2953)
+- [`self-heal-fix-garden-cleric-corrupt-clone-null-remote-ref`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-cleric-corrupt-clone-null-remote-ref.md) — Completion report
 - [`port-xs-to-rust-memory-safe-engine-s45`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s45.md) — s45 completion report
 - [`self-heal-fix-garden-cleric-corrupt-clone-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-cleric-corrupt-clone-reclone.md) — Implemented and pushed 4465b7d45a to main2.
 - [`xs2rust-endor-build-stage10n`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10n.md) — orchestration xs2rust-endor-build-stage10n — complete
 - [`xs2rust-endor-stage10n-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10n-remeasure.md) — Completion report — stage-10n 52-file daemon sweep re-measure (PR #600, endoj...
-- [`daily-progress-summary-20260720-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260720-070502.md) — Created and pushed periodicals/2026/07/19.md to journal2 in commit 679650115.
-- … and 2947 more
+- … and 2948 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
