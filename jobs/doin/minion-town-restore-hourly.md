@@ -11,3 +11,10 @@ to 6h) is over. Restore it to **hourly**.
 
 ## Done
 `minion-town-agenda-review` is back to hourly cadence on `journal2`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  worker_kind: gardener
+  claimed_at: 2026-07-20T16:05:15Z
