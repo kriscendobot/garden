@@ -687,3 +687,12 @@ Inspect via `git -C journal cat-file -p 3afbec2de036793e7bcaa420bc7e10dea5047244
 - Context: gardener-2 on endolin-garden2-5bcdff64: job 'self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p ab56a348f02de9bb869bcc033c8ed0ec718effd6`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-20T03:22:44Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: d8017eec336350bc92cd2d20412fa3b93e8765b9
+- Context: gardener-2 on endolin-garden2-5bcdff64: job 'endojs-endo-but-for-bots-pr160-fixer' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p d8017eec336350bc92cd2d20412fa3b93e8765b9`.
