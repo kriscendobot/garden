@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T14:56:56Z_
+_As of 2026-07-20T14:58:31Z_
 
 ## Latest
 
@@ -2461,26 +2461,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 73.5M | $819.33 _(notional, rate-card)_ | no quota set |
-| Codex | 229.9M _(+560.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 73.7M | $820.41 _(notional, rate-card)_ | no quota set |
+| Codex | 230.4M _(+560.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
-- [`endo-git-integration-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260720-145005.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+### doin (3)
 - [`endo-npm-cas-registry-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260720-145005.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260720-145005.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`xs2rust-endor-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-145005.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (2995)
+### tada (2996)
+- [`endo-git-integration-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260720-145005.md) — Completion report — endo-git-integration-press-20260720-145005
 - [`finbot-progress-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260720-145005.md) — Advanced finbot main to 55c7c02: DM reporting now tests the live selector’s b...
 - [`minion-town-agenda-review-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-145005.md) — Reviewed and reported on garden issue #58: https://github.com/kriskowal/garde...
 - [`endo-sturdyref-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260720-145005.md) — SturdyRef press — 14:51 tick completion report
 - [`endo-daemon-data-plane-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260720-145005.md) — All checks confirm the same steady state as the previous dispatches, verified...
-- [`endo-vfs-parity-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260720-145005.md) — Completion report
-- … and 2990 more
+- … and 2991 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
