@@ -13,3 +13,10 @@ Fix (mirror the atomic re-clone ensure_clone already does for the missing-`.git`
 3. Do the repair under the per-clone lock (clone_lock/clone_unlock) so a concurrent producer cannot race the destination, exactly as ensure_clone does.
 
 Keep the change surgical and covered by a test in scripts/jobs/test/ that seeds a clone with a zeroed `refs/remotes/origin/journal2` + a stale `.git/gc.log`, runs the claim/sync path, and asserts the clone is transparently re-cloned and the worker no longer exits 1. Note in a comment that this is the ref/object-DB-corruption sibling of ensure_clone's poisoned-partial-clone heal.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  worker_kind: cleric
+  claimed_at: 2026-07-20T04:27:01Z
