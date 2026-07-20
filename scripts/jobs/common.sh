@@ -1787,6 +1787,24 @@ _fetch_stderr_corrupt_signature() {
   printf '%s\n' "$1" | grep -ioEm1 "$GARDEN_CORRUPT_CLONE_SIGNATURES" || true
 }
 
+# repair_corrupt_clone <dir> -- remove the cheap, known corruption left by an
+# interrupted fetch or gc, then try one fresh fetch. A zero-length loose
+# remote-tracking ref shadows a healthy packed ref, but git cannot delete the
+# unreadable ref itself, so remove that file directly. This deliberately only
+# touches origin's remote-tracking refs: other damaged repository state falls
+# through to sync_clone's clean re-clone fallback.
+repair_corrupt_clone() {
+  local dir="$1" refs ref
+  rm -f "$dir/.git/gc.log"
+  refs="$dir/.git/refs/remotes/origin"
+  if [ -d "$refs" ]; then
+    while IFS= read -r -d '' ref; do
+      if [ ! -s "$ref" ]; then rm -f "$ref"; fi
+    done < <(find "$refs" -type f -size 0 -print0 2>/dev/null)
+  fi
+  journal_fetch "$dir"
+}
+
 # --- bounded read-only gh-api retry (the transient-blip absorber) ------------
 #
 # Every read-only gh handler in the watcher fleet used to issue a SINGLE bare
@@ -2596,29 +2614,39 @@ sync_clone() {
       log "offline; skipping tick (rc=$GARDEN_OFFLINE_RC)"
       exit "$GARDEN_OFFLINE_RC"
     fi
-    # A corrupt LOCAL clone cannot recover by retrying the same fetch: a damaged
-    # ref/object DB or stale gc.log must be replaced. This is the ref/object-DB-
-    # corruption sibling of ensure_clone's poisoned-partial-clone heal. Keep it
-    # separate from the offline classifier: a corrupt clone must be repaired, not
-    # silently skipped as though the network were down. The clone_lock acquired
-    # above stays held across the wipe, atomic re-clone, and retry.
+    # A corrupt LOCAL clone cannot recover by retrying unchanged. First remove
+    # the known stale gc marker and zero-length origin refs, then retry once. If
+    # that proves insufficient, replace the clone atomically through ensure_clone.
+    # Keep this separate from the offline classifier: corruption must be repaired,
+    # never silently skipped as though the network were down.
     if _fetch_stderr_is_corrupt "$GARDEN_FETCH_STDERR" || [ -e "$dir/.git/gc.log" ]; then
       corrupt_sig="$(_fetch_stderr_corrupt_signature "$GARDEN_FETCH_STDERR")"
-      log "WARN: corrupt journal clone; self-healing by re-cloning ($dir; ${corrupt_sig:-stale gc.log})"
-      rm -f "$dir/.git/gc.log"
-      # ensure_clone uses its sibling-temp clone + atomic mv path. Its subshell
-      # closes only an inherited lock fd, leaving this caller's lock held.
-      rm -rf "$dir"
-      ( ensure_clone "$dir" ) || true
-      if journal_fetch "$dir"; then rc=0; else rc=$?; fi
+      if repair_corrupt_clone "$dir"; then
+        rc=0
+        log "REPAIRED: healed corrupt journal clone $dir (${corrupt_sig:-stale gc.log})"
+      else
+        rc=$?
+      fi
       if [ "$rc" -ne 0 ]; then
         if [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ] || _fetch_stderr_is_offline "$GARDEN_FETCH_STDERR"; then
           log "offline; skipping tick (rc=$GARDEN_OFFLINE_RC)"
           exit "$GARDEN_OFFLINE_RC"
         fi
-        die "fetch failed in $dir after re-cloning corrupt journal clone"
+        log "WARN: corrupt journal clone repair insufficient; self-healing by re-cloning ($dir; ${corrupt_sig:-stale gc.log})"
+        # ensure_clone uses its sibling-temp clone + atomic mv path. Its subshell
+        # closes only an inherited lock fd, leaving this caller's lock held.
+        rm -rf "$dir"
+        ( ensure_clone "$dir" ) || true
+        if journal_fetch "$dir"; then rc=0; else rc=$?; fi
+        if [ "$rc" -ne 0 ]; then
+          if [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ] || _fetch_stderr_is_offline "$GARDEN_FETCH_STDERR"; then
+            log "offline; skipping tick (rc=$GARDEN_OFFLINE_RC)"
+            exit "$GARDEN_OFFLINE_RC"
+          fi
+          die "fetch failed in $dir after re-cloning corrupt journal clone"
+        fi
+        log "REPAIRED: healed corrupt journal clone $dir (${corrupt_sig:-stale gc.log})"
       fi
-      log "REPAIRED: healed corrupt journal clone $dir (${corrupt_sig:-unknown})"
     else
       die "fetch failed in $dir after bounded retries"
     fi

@@ -154,7 +154,7 @@ git clone -q --single-branch --branch journal2 "$CB" "$CC"
 touch "$CC/poisoned-before-reclone"
 printf 'bad gc\n' > "$CC/.git/gc.log"
 mkdir -p "$CC/.git/refs/remotes/origin"
-printf '%s\n' 0000000000000000000000000000000000000000 > "$CC/.git/refs/remotes/origin/journal2"
+: > "$CC/.git/refs/remotes/origin/journal2"
 CORRUPT_COUNT="$TR/corrupt-fetch-count"; echo 0 > "$CORRUPT_COUNT"
 cat > "$TR/bin/corrupt-then-good-fetch" <<EOF
 #!/bin/bash
