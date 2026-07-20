@@ -17,3 +17,10 @@ content-addressing friendliness, expected diff density. Draft a concise,
 technically-grounded reply and POST it as a comment on issue #51 (bot identity)
 addressed to @kumavis, citing sources. If not yet knowable, say so and name what
 would settle it.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: gardener
+  claimed_at: 2026-07-20T15:28:10Z
