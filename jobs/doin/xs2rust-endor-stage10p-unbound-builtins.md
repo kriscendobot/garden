@@ -39,3 +39,10 @@ For EACH builtin, in its own commit:
 If the 2400s budget runs short, land FEWER complete items rather than all six half-done — every pushed
 item must carry its gates and bars. Report the remainder explicitly in your tada. Accuracy-over-parity.
 Tada ONLY; keep PR DRAFT.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: gardener
+  claimed_at: 2026-07-20T10:07:07Z
