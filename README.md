@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T17:23:45Z_
+_As of 2026-07-20T17:24:42Z_
 
 ## Latest
 
@@ -1043,6 +1043,22 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260720T172330Z-fe6e6d` — from gardener:--help, reply_to `--help` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T172330Z-fe6e6d.md)
 
 > (empty message)
+
+- `20260720T172424Z-025fef` — from gardener:minion-town-agenda-review-20260720-172003, reply_to `minion-town-agenda-review-20260720-172003` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T172424Z-025fef.md)
+
+> Minion Town ([kriskowal/garden#58](https://github.com/kriskowal/garden/issues/58)) hourly review — the primary phase has now stalled at the SAME blocker for 6 consecutive cycles, so I'm surfacing a decision rather than re-reporting.
+>
+> State: kriscendobot/minion.town main unchanged (5624e88, [kriscendobot/minion.town#11](https://github.com/kriscendobot/minion.town/issues/11)) since 2026-07-18; deployed surface healthy (V1 discovery baseline holds, /mcp 401+PRM 200, OCapN CBOR/Noise listener live at 426, Cognito DCR still absent -> M1 manual-client path). Only open PR is [kriscendobot/minion.town#10](https://github.com/kriscendobot/minion.town/issues/10) (topology doc, deploys nothing).
+>
+> The critical path is Gate 1 of designs/mcp-endo-guest.md — the interactive browser OAuth flow (claude.ai custom connector -> Cognito GitHub-federated login -> V2-V5 evidence). It is genuinely maintainer-only; a non-interactive review cannot produce it. ~15 min of your time unblocks the whole daemon/guest/weblet chain.
+>
+> I need one of two decisions to make real forward motion:
+>   (A) You run Gate 1 V2-V5 once and drop the redirect_uri capture + evidence on [kriskowal/garden#58](https://github.com/kriskowal/garden/issues/58); then the OAuth-mapped guest + MCP->daemon tool bridge (Gate 2/3) becomes buildable; OR
+>   (B) You authorize me to build the Gate 2/3 GuestControl transplant module ahead of Gate 1 — UNIT-validated only against an in-memory backend, live validation explicitly sequenced/escalated — exactly the discipline the design's §10.4 already used (and you accepted) for the root-control module now on main. Zero production risk (optionality: no ENDO_SOCK ⇒ toolset doesn't mount ⇒ byte-for-byte today's app).
+>
+> Fresh evidence this cycle: I actually ran the §10 root-control suite — 13/13 green, full-tree typecheck clean on main (prior cycles asserted this; this is the first to execute it).
+>
+> Default if I hear nothing: keep the review cadence, no autonomous gate-jump. Which lane?
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -2576,7 +2592,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 73.8M | $823.34 _(notional, rate-card)_ | no quota set |
-| Codex | 242.1M _(+562.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 242.4M _(+562.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
