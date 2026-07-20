@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T21:00:12Z_
+_As of 2026-07-20T21:06:40Z_
 
 ## Latest
 
@@ -2866,15 +2866,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.3M | $829.81 _(notional, rate-card)_ | no quota set |
-| Codex | 277.9M _(+568.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Claude | 74.4M | $831.68 _(notional, rate-card)_ | no quota set |
+| Codex | 278.9M _(+568.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (10)
+- [`endo-byte-array-press-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260720-210504.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+- [`endo-daemon-data-plane-press-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-daemon-data-plane-press-20260720-210504.md) — Press the Endo daemon data plane forward (endojs/endo-but-for-bots, base llm)
+- [`endo-git-integration-press-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260720-210504.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+- [`endo-npm-cas-registry-press-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260720-210504.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+- [`endo-sturdyref-press-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260720-210504.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+- [`endo-vfs-parity-press-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260720-210504.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr811-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr811-weave.md) — Weave/rebase endojs/endo-but-for-bots PR #811 (https://github.com/endojs/endo...
+- [`finbot-progress-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260720-210504.md) — Push progress on kriscendobot/finbot (every 6h)
+- [`ocapn-noise-press-20260720-210504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260720-210504.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`xs2rust-endor-press-20260720-203502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-203502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3030)
