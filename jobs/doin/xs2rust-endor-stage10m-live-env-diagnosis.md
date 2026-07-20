@@ -69,6 +69,7 @@ completion report ONLY (never inbox-send the parked supervisor).
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
