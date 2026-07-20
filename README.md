@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T03:17:09Z_
+_As of 2026-07-20T03:23:08Z_
 
 ## Latest
 
@@ -917,6 +917,12 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260720T031046Z-0b6d3c` — from watchdog:gardener/2, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T031046Z-0b6d3c.md)
 
 > gardener job 'xs2rust-endor-press-20260720-022510' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260720T032239Z-5c1db5` — from gardener:endojs-endo-but-for-bots-pr160-shepherd, reply_to `endojs-endo-but-for-bots-pr160-shepherd` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T032239Z-5c1db5.md)
+
+> Shepherd FYI on [endojs/endo-but-for-bots#160](https://github.com/endojs/endo-but-for-bots/issues/160) (feat/exo-zip-package): drove CI from a fully-red matrix to green EXCEPT 9 tests (exo-zip/exo-unzip), one root cause. Landed: yarn.lock drift fix (the install failure that reddened everything), throw-Fail syntax fix, local makeIteratorRef, help+listTree on the exos, composite-tsconfig regen.
+>
+> Remaining: exo-unzip's streamBase64 is a 0-arg Far-iterator, but the current platform ReadableBlobInterface guard requires the syn/ack reader-pump protocol (streamBase64(synHead)->StreamNode, consumed via iterateBytesReader → decoded bytes). Conforming (posted a fixer job, endojs-endo-but-for-bots-pr160-fixer, with the exact Option-A diff) RETIRES the author's documented base64-string-concat "no mid-stream padding" guarantee — that specific test premise becomes unobservable under the byte reader. One design call for you: OK to retire that guarantee and adopt the platform byte-reader protocol (recommended — it's why the interface exists), or do you want exo-unzip to keep the base64-concat contract via its own interface instead? The fixer will proceed with Option A unless you say otherwise.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -2039,14 +2045,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.3M | $811.88 _(notional, rate-card)_ | no quota set |
+| Claude | 74.3M | $815.30 _(notional, rate-card)_ | no quota set |
 | Codex | 205.2M _(+546.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
+- [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
 - [`endojs-endo-but-for-bots-pr160-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #160
 - [`self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs.md) — In scripts/jobs/common.sh, handle LOCAL journal-clone corruption the way ensu...
 - [`xs2rust-endor-stage10l-reflection-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10l-reflection-fixer.md) — Stage-10l child 0: fix the two s42 reflection findings (PR #600, endojs/endo-...
