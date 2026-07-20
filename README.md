@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T03:46:21Z_
+_As of 2026-07-20T04:00:11Z_
 
 ## Latest
 
@@ -2045,16 +2045,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.1M | $809.13 _(notional, rate-card)_ | no quota set |
+| Claude | 74.0M | $808.58 _(notional, rate-card)_ | no quota set |
 | Codex | 205.3M _(+548.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
 - [`self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs.md) — In scripts/jobs/common.sh, handle LOCAL journal-clone corruption the way ensu...
+- [`self-heal-fix-garden-repo-watcher-journal-clone-broken-ref`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-journal-clone-broken-ref.md) — garden-repo-watcher (and any service using a .garden-state/<svc>/journal mirr...
 - [`xs2rust-endor-stage10l-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10l-remeasure.md) — Stage-10l child 2: outage-hardened 52-file daemon sweep re-measure (PR #600, ...
 
 ### tada (2930)
