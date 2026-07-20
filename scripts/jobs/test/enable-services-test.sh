@@ -81,6 +81,10 @@ done
 for f in "$SRC"/garden-*.service; do
   b="$(basename "$f")"; case "$b" in *@*) continue;; esac
   [ "$b" = garden-mention-watcher.service ] && continue
+  # garden-ollama is hermit-count-gated (armed by `scale hermit N>0`, not the standing
+  # enable set), so — like the monitoring-gated mention-watcher — it is NOT in the
+  # derived intended set. See install-units.sh intended_units / reconcile_ollama_unit.
+  [ "$b" = garden-ollama.service ] && continue
   base="${b%.service}"; [ -e "$SRC/$base.timer" ] && continue
   grep -q '^WantedBy=' "$f" && echo "$b" >> "$expected"
 done
@@ -228,6 +232,43 @@ grep -q 'stop --no-block garden-gardener@3.service' "$GARDEN_MOCK_LOG" \
 # retries the stop. The disable of @2 must have been issued before the hung stop.
 grep -q 'disable garden-gardener@2.service' "$GARDEN_MOCK_LOG" \
   && ok "@2's cheap disable ran (only its non-blocking stop hit the bound)" || bad "@2's disable not issued"
+
+# ============================================================================
+hr; echo "HERMIT-GATE — garden-ollama tracks the hermit count, off on zero-hermit"; hr
+# The supervised local-inference endpoint (garden-ollama.service) is needed ONLY where
+# hermit (provider: local) workers run. It is EXCLUDED from the standing enable set
+# (asserted below via the derived-set diff already run) and instead armed by the
+# hermit scale path: `scale hermit N>0` enables+starts it, `scale hermit 0` disables+
+# stops it, and a gardener/cleric scale never touches it. A zero-hermit host (no
+# `hermits:` line → the scaler never calls `scale hermit`) thus never enables it.
+reset_mock
+# It must NOT be in the standing enable set (enable-services never enables it).
+populate_dest
+"$INSTALL" enable-services >/dev/null 2>&1
+grep -qxF 'garden-ollama.service' "$GARDEN_MOCK_STATE" \
+  && bad "garden-ollama was auto-enabled by enable-services (should be hermit-gated)" \
+  || ok "garden-ollama NOT in the standing enable set (hermit-count-gated)"
+# scale hermit 2 → enable+start garden-ollama.
+reset_mock
+HG="$TR/hermit-gate"; rm -rf "$HG"
+GARDEN_STATE="$HG" "$INSTALL" scale hermit 2 >/dev/null 2>&1
+grep -qxF 'garden-ollama.service' "$GARDEN_MOCK_STATE" \
+  && ok "scale hermit 2 → garden-ollama enabled (endpoint up)" || bad "scale hermit 2 did NOT enable garden-ollama"
+grep -q 'start --no-block garden-ollama.service' "$GARDEN_MOCK_LOG" \
+  && ok "scale hermit 2 → garden-ollama started (non-blocking)" || bad "scale hermit 2 did NOT start garden-ollama"
+# scale gardener 3 must NOT touch garden-ollama.
+reset_mock
+GARDEN_STATE="$HG" "$INSTALL" scale gardener 3 >/dev/null 2>&1
+grep -q 'garden-ollama' "$GARDEN_MOCK_LOG" \
+  && bad "a gardener scale touched garden-ollama (should be hermit-only)" \
+  || ok "gardener scale leaves garden-ollama alone (hermit-only reconcile)"
+# scale hermit 0 → disable+stop garden-ollama (host dropped its last hermit).
+reset_mock
+GARDEN_STATE="$HG" "$INSTALL" scale hermit 0 >/dev/null 2>&1
+grep -q 'disable garden-ollama.service' "$GARDEN_MOCK_LOG" \
+  && ok "scale hermit 0 → garden-ollama disabled (no local workers)" || bad "scale hermit 0 did NOT disable garden-ollama"
+grep -q 'stop --no-block garden-ollama.service' "$GARDEN_MOCK_LOG" \
+  && ok "scale hermit 0 → garden-ollama stopped (non-blocking)" || bad "scale hermit 0 did NOT stop garden-ollama"
 
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 rm -rf "$TR"

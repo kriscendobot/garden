@@ -89,6 +89,10 @@ intended_units() {
     b="$(basename "$f")"
     case "$b" in *@*) continue;; esac          # template → enabled per-instance
     is_excluded "$b" && continue
+    # garden-ollama is hermit-count-gated: it is armed by `scale hermit N>0`
+    # (reconcile_ollama_unit), NOT by the standing enable set, so a zero-hermit host
+    # never enables it. Skip it here exactly as a template is skipped.
+    [ "$b" = garden-ollama.service ] && continue
     case "$b" in
       *.timer)
         grep -q '^WantedBy=timers\.target' "$f" && printf '%s\n' "$b"
@@ -199,6 +203,35 @@ scale_skip_note() {
   fi
 }
 
+# reconcile_ollama_unit <hermit-count> — the supervised local-inference endpoint
+# (garden-ollama.service) is needed ONLY where hermit (provider: local) workers run,
+# so its enablement tracks THIS host's hermit pool size — the SAME `hermits:` count
+# the scaler passes to `scale hermit N`. N>0 → enable+start the endpoint; N==0 →
+# disable+stop it (a host that just dropped its last hermit must not keep serving).
+# Gated here, inside the hermit scale path, so a zero-hermit host (no `hermits:` line
+# → `scale hermit` is never invoked for it) never enables the endpoint, and
+# `set-hermits.sh N` brings it up/down on the next scaler tick with no separate step.
+# Uses the same mockable unit_ctl / unit_ctl_bounded (cheap enable/disable file op +
+# non-blocking start/stop) the pool scale uses, so it cannot block the reconcile loop.
+reconcile_ollama_unit() {
+  local n="${1:?reconcile_ollama_unit: count required}" unit=garden-ollama.service
+  if [ "$n" -gt 0 ]; then
+    local erc=0 src=0
+    unit_ctl enable "$unit" || erc=$?
+    [ "$erc" -eq 0 ] || scale_skip_note "enable" "$unit" "$erc"
+    unit_ctl_bounded start --no-block "$unit" || src=$?
+    [ "$src" -eq 0 ] || scale_skip_note "start --no-block" "$unit" "$src"
+    log "hermits=$n>0 → garden-ollama enabled (local inference endpoint up)"
+  else
+    local drc=0 src=0
+    unit_ctl disable "$unit" || drc=$?
+    [ "$drc" -eq 0 ] || scale_skip_note "disable" "$unit" "$drc"
+    unit_ctl_bounded stop --no-block "$unit" || src=$?
+    [ "$src" -eq 0 ] || scale_skip_note "stop --no-block" "$unit" "$src"
+    log "hermits=0 → garden-ollama disabled (no local workers on this host)"
+  fi
+}
+
 scale() {
   # scale [<kind>] <N> — reconcile the <kind> worker pool to N instances. The kind
   # is OPTIONAL and defaults to gardener, so the historical `scale <N>` (and every
@@ -268,6 +301,12 @@ scale() {
     esac
   done < <(unit_ctl_bounded list-units --all "${unit_base}*.service" --no-legend 2>/dev/null || true)
   log "scaled $kind pool to $n (deferred $deferred mid-job extra(s) for a later tick)"
+  # The hermit pool needs its local-inference endpoint: track garden-ollama's
+  # enablement to the hermit count (up when N>0, down when N==0). Only the hermit
+  # kind touches it — gardener/cleric scales leave it alone. Kept an `if` (not
+  # `... && ...`) so scale() still returns 0 for a non-hermit kind — a trailing false
+  # `[ ]` test would make scale exit non-zero and kill a `set -e` caller.
+  if [ "$kind" = hermit ]; then reconcile_ollama_unit "$n"; fi
 }
 
 # reconcile_identity — restart any RUNNING gardener whose in-process GARDEN host

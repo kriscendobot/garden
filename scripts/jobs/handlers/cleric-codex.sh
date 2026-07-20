@@ -55,9 +55,13 @@ state_ns="$(worker_kind_field "$KIND" state_ns 2>/dev/null || echo clerics)"
 #
 # A backend outage must read as a HOST defect, not a job defect: die with a clear
 # diagnostic rather than letting codex fail deep in the run and look like the job's
-# fault. The check is gated behind a per-boot marker (keyed on the boot id + the
-# kind's state namespace) so it runs once per host boot, not once per job.
-codex_provider_preflight "$provider" "$KIND" "$base" "$state_ns" || exit 1
+# fault. For a paid provider the check is gated behind a per-boot marker (keyed on the
+# boot id + the kind's state namespace) so it runs once per host boot. For the LOCAL
+# provider (hermit) it is a PER-JOB liveness check that SELF-HEALS (5th arg = 1): a
+# down on-box Ollama endpoint is recovered by (re)starting garden-ollama.service and
+# polling for readiness before dying, so a pinned `model: qwen3.6` tick never strands
+# on a crashed/never-started endpoint — the whole point of this handler's self-heal.
+codex_provider_preflight "$provider" "$KIND" "$base" "$state_ns" 1 || exit 1
 
 # --- session resume across a reaper requeue ----------------------------------
 #

@@ -167,8 +167,24 @@ it installs with `curl -fsSL https://ollama.com/install.sh | sh` and pulls
 
 **Serve + smoke test:**
 
+> **STANDING WAY TO SERVE (LANDED): the supervised `garden-ollama.service` unit.**
+> Do **not** hand-run `ollama serve &` in production — the endpoint is now a
+> supervised systemd `--user` unit, `garden-ollama.service` (source
+> `scripts/systemd/garden-ollama.service`, wrapper `scripts/jobs/ollama-serve.sh`),
+> with `Restart=always` so a crash self-restarts. It is enabled **only on hosts that
+> declare hermits** (`hermits: N>0` in `hosts/<host>` → `install-units.sh scale
+> hermit N` enables it; a zero-hermit host never does) and derives its `OLLAMA_HOST`
+> from `GARDEN_LOCAL_OLLAMA_URL` (via `ollama_serve_host`, `common.sh`) so the served
+> bind address and the hermit handler's client URL cannot drift. The hermit handler
+> additionally **self-heals** a down endpoint: its per-job preflight
+> (`codex-provider-common.sh`) starts this unit and polls `/v1/models` for readiness
+> before failing, so a pinned `model: qwen3.6` tick never strands on a crashed or
+> never-started endpoint (§ 6 Durability). The manual line below is the underlying
+> invocation the unit runs, kept for a one-off smoke test:
+
 ```sh
-# Serve. OLLAMA_IGPU_ENABLE=1 is mandatory or the iGPU is ignored.
+# Serve (ONE-OFF smoke only; production uses garden-ollama.service — see above).
+# OLLAMA_IGPU_ENABLE=1 is mandatory or the iGPU is ignored.
 # Must run as a user in the video+render groups, or as root (see § Container GPU access).
 OLLAMA_IGPU_ENABLE=1 OLLAMA_HOST=127.0.0.1:11434 ollama serve &
 
@@ -525,11 +541,35 @@ RUN for attempt in 1 2 3; do \
 
 The GPU-group grant is **NOT** a Dockerfile `usermod -aG video,render` (that hardcodes
 gids that vary per host) — it is the host-adaptive entrypoint block described in
-§ Container GPU access. Then a small unit/wrapper runs `OLLAMA_IGPU_ENABLE=1 ollama
-serve` as the bot user (leader-host-only if the endpoint is shared; or per-host if each
-host runs its own local worker). Pre-`ollama pull` the chosen model(s) at build time
-only if you want them in the image layer — otherwise the first serve pulls on demand
-into the bind-mounted home (intentionally left to first serve here).
+§ Container GPU access. Pre-`ollama pull` the chosen model(s) at build time only if you
+want them in the image layer — otherwise the first serve pulls on demand into the
+bind-mounted home (intentionally left to first serve here).
+
+**LANDED: the supervised `garden-ollama.service` unit (self-healing endpoint).** The
+endpoint is no longer a hand-run `OLLAMA_IGPU_ENABLE=1 ollama serve &`; it is a
+supervised systemd `--user` unit — `scripts/systemd/garden-ollama.service`, whose
+`ExecStart` is the thin wrapper `scripts/jobs/ollama-serve.sh` (sets the mandatory
+`OLLAMA_IGPU_ENABLE=1` and derives `OLLAMA_HOST` from `GARDEN_LOCAL_OLLAMA_URL` via
+`ollama_serve_host`, so the served and client endpoints cannot drift). `Restart=always`
+self-restarts a crash. It is a **per-host** singleton (NOT leader-only: every host with
+its own hermits runs its own endpoint), enabled **only where `hermits: N>0`** —
+`install-units.sh scale hermit N` (the same hermit-count signal the scaler reads)
+enables+starts it when N>0 and disables+stops it at N==0, and a zero-hermit host (e.g.
+`endolin-garden`) never enables it (`reconcile_ollama_unit`). Two recovery layers work
+together: (1) `Restart=always` covers a crash **between** jobs; (2) the hermit handler's
+per-job preflight (`codex_provider_preflight` in `scripts/jobs/handlers/codex-provider-common.sh`,
+self-heal requested by `cleric-codex.sh`) covers "the endpoint was **already down** when
+a hermit job started" — it starts `garden-ollama.service` and polls `/v1/models` for
+~`GARDEN_OLLAMA_HEAL_TIMEOUT`s (default 30) before dying with the host-defect diagnostic.
+That preflight is a **per-job** liveness check for the local provider (it does **not**
+use the once-per-boot auth marker the paid providers use), so a mid-life Ollama crash
+re-triggers self-heal on the very next hermit tick instead of being masked for the rest
+of the boot. There is **no** paid-inference fallback — a `model: qwen3.6` job stays
+local; if self-heal genuinely fails the tick dies and the hourly press cadence retries.
+**Activation:** on the hermit host (leader `endolin-garden2`) this takes effect after a
+deliberate deploy of `main2` + `set-hermits.sh N` (which the scaler turns into `scale
+hermit N`, enabling the unit); on a fresh bring-up the entrypoint's GPU-group grant and
+the Dockerfile's Ollama install make it come up with no manual step.
 
 **Not yet captured / follow-ups:**
 

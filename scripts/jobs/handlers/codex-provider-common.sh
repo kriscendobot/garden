@@ -7,29 +7,80 @@
 
 : "${GARDEN_LOCAL_OLLAMA_URL:=http://127.0.0.1:11434/v1}"
 
-# codex_provider_preflight <provider> <kind> <base> <state-namespace>
+# Seconds to poll a just-(re)started local endpoint for readiness before giving up.
+: "${GARDEN_OLLAMA_HEAL_TIMEOUT:=30}"
+
+# codex_local_endpoint_ready — one bounded probe of the local /v1/models endpoint.
+# True (0) when it answers. Isolated so the preflight and the self-heal poll agree.
+codex_local_endpoint_ready() {
+  curl -fsS --max-time 5 "$GARDEN_LOCAL_OLLAMA_URL/models" >/dev/null 2>&1
+}
+
+# codex_local_self_heal <kind> <base> — recover an unreachable local endpoint: start
+# the supervised garden-ollama.service (Restart=always covers a crash BETWEEN jobs;
+# this covers "the endpoint was already down when a hermit job started", plus a
+# first-ever start), then poll /v1/models for readiness. Returns 0 as soon as the
+# endpoint answers, 1 if it is still down after GARDEN_OLLAMA_HEAL_TIMEOUT seconds.
+codex_local_self_heal() {
+  local kind="${1:?kind}" base="${2:?base}" waited=0
+  log "local inference endpoint $GARDEN_LOCAL_OLLAMA_URL unreachable for $kind '$base'; starting garden-ollama.service and polling ~${GARDEN_OLLAMA_HEAL_TIMEOUT}s for readiness"
+  systemctl --user start garden-ollama.service >/dev/null 2>&1 || true
+  while [ "$waited" -lt "$GARDEN_OLLAMA_HEAL_TIMEOUT" ]; do
+    if codex_local_endpoint_ready; then
+      log "local inference endpoint recovered after ~${waited}s of self-heal"
+      return 0
+    fi
+    sleep 1; waited=$((waited + 1))
+  done
+  return 1
+}
+
+# codex_provider_preflight <provider> <kind> <base> <state-namespace> [self_heal]
 #
-# Match the worker handler's once-per-boot availability convention.  A caller
-# may treat a nonzero result as a reason to try another configured provider.
+# A backend outage must read as a HOST defect, not a job defect. For a paid provider
+# this stays a once-per-boot auth check (a codex login probe is comparatively
+# expensive and its result is stable for the boot). For the LOCAL provider it is
+# instead a PER-JOB liveness check: the once-per-boot marker is NOT used, because a
+# mid-life Ollama crash must re-trigger recovery on the very next hermit job rather
+# than being masked by a stale "auth-ok" marker for the rest of the boot (the per-boot
+# gap this change closes).
+#
+# self_heal (5th arg, "1" to enable) controls what happens when the local endpoint is
+# down. A HERMIT worker (cleric-codex.sh) sets it: the tick is PINNED local with no
+# fallback, so the preflight (re)starts garden-ollama.service and polls before dying —
+# the host-defect diagnostic only after recovery fails, and the hourly press cadence
+# retries next tick (no paid fallback: a model: qwen3.6 job stays local). The FOREMAN
+# leaves it off: it probes local only to decide provider order and has other providers
+# to fall through to, so an unreachable endpoint must advance immediately, not block
+# on a 30s heal it does not need.
 codex_provider_preflight() {
-  local provider="${1:?provider}" kind="${2:?kind}" base="${3:?base}" state_ns="${4:?state namespace}"
+  local provider="${1:?provider}" kind="${2:?kind}" base="${3:?base}" state_ns="${4:?state namespace}" self_heal="${5:-0}"
   command -v codex >/dev/null 2>&1 || {
     printf 'codex not on PATH; cannot run %s handler for %q\n' "$kind" "$base" >&2
     return 1
   }
+
+  if [ "$provider" = local ]; then
+    # PER-JOB liveness (NOT the per-boot marker): probe now; self-heal only if the
+    # caller requested it (a pinned hermit tick), else fail through for the caller
+    # (the foreman) to try the next provider.
+    codex_local_endpoint_ready && return 0
+    if [ "$self_heal" = 1 ] && codex_local_self_heal "$kind" "$base"; then
+      return 0
+    fi
+    printf 'local inference endpoint %s not reachable%s; %s cannot run %q. Ensure garden-ollama.service is running (ollama on PATH, GPU group access — context/operations/local-inference-amd.md).\n' \
+      "$GARDEN_LOCAL_OLLAMA_URL" \
+      "$([ "$self_heal" = 1 ] && printf ' and self-heal (start garden-ollama.service + %ss poll) failed' "$GARDEN_OLLAMA_HEAL_TIMEOUT")" \
+      "$kind" "$base" >&2
+    return 1
+  fi
 
   local auth_boot auth_marker
   auth_boot="$(tr -dc 'a-f0-9' < /proc/sys/kernel/random/boot_id 2>/dev/null || true)"
   auth_marker="$GARDEN_STATE/$state_ns/auth-ok-${auth_boot:-noboot}"
   [ -e "$auth_marker" ] && return 0
 
-  if [ "$provider" = local ]; then
-    if ! curl -fsS --max-time 5 "$GARDEN_LOCAL_OLLAMA_URL/models" >/dev/null 2>&1; then
-      printf 'local inference endpoint %s not reachable; %s cannot run %q. Ensure ollama serve is running.\n' \
-        "$GARDEN_LOCAL_OLLAMA_URL" "$kind" "$base" >&2
-      return 1
-    fi
-  elif ! codex login status >/dev/null 2>&1; then
+  if ! codex login status >/dev/null 2>&1; then
     printf 'codex is not authenticated on this host; %s cannot run %q. Run codex login as the bot user.\n' \
       "$kind" "$base" >&2
     return 1

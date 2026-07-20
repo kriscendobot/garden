@@ -1,0 +1,43 @@
+[Unit]
+Description=Garden local-inference endpoint (Ollama /v1) for hermit workers
+# The supervised on-box Ollama endpoint the hermit (provider: local) codex worker
+# dispatches to. A PER-HOST singleton — NOT leader-only: every host declaring
+# `hermits: N>0` runs its own local endpoint (install-units.sh scale hermit N enables
+# this unit iff N>0; a zero-hermit host never enables it). Restart=always self-heals a
+# crash between jobs; the handler's preflight (codex-provider-common.sh) covers the
+# "endpoint was down when a job started" case by (re)starting this unit and polling.
+# See context/operations/local-inference-amd.md and the hermit worker kind (common.sh).
+After=default.target
+# CollectMode is a [Unit] key (systemd rejects it under [Service]).
+CollectMode=inactive-or-failed
+# A deploy window may advance the checkout while this is (re)starting; disable the
+# start-rate limiter so a transient exec failure during a deploy cannot wedge the
+# endpoint DOWN past StartLimitBurst (mirrors garden-worker@).
+StartLimitIntervalSec=0
+
+[Service]
+Type=exec
+Slice=background.slice
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+# The wrapper derives OLLAMA_HOST from GARDEN_LOCAL_OLLAMA_URL and sets the mandatory
+# OLLAMA_IGPU_ENABLE=1 before exec'ing `ollama serve`, so the served endpoint and the
+# hermit handler's client URL cannot drift. exec /bin/bash (always present) avoids a
+# 203/EXEC burst if the script is momentarily absent mid-deploy.
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/ollama-serve.sh
+# Keep the endpoint up: a crashed/OOM'd ollama self-restarts so a pinned hermit tick
+# never strands on a dead endpoint (the outage this whole change removes).
+Restart=always
+RestartSec=5
+# A systemd stop/restart SIGTERMs the server; a signalled shutdown is a CLEAN exit.
+SuccessExitStatus=143 130 SIGTERM SIGINT
+# SIGTERM only the main process on stop; ollama drains its own in-flight request.
+KillMode=mixed
+TimeoutStopSec=30
+# Memory accounting so a runaway model load is contained to this cgroup rather than
+# pressuring the host OOM killer into an arbitrary victim. No hard MemoryMax: a large
+# MoE model legitimately maps tens of GiB of unified memory (GTT), so a cap would kill
+# a healthy serve; accounting alone gives the operator visibility without a false kill.
+MemoryAccounting=yes
+
+[Install]
+WantedBy=default.target

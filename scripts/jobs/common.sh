@@ -142,6 +142,16 @@ export GARDEN
 # on its first successful read, after which this default no longer applies.
 : "${GARDEN_LEADER_DEFAULT:=leader}"
 
+# --- local inference (hermit worker backend, provider: local) ----------------
+# GARDEN_LOCAL_OLLAMA_URL is the OpenAI-compatible /v1 base URL the hermit (provider:
+# local) codex worker's reachability probe and inline provider block target, and from
+# which the supervised endpoint (garden-ollama.service → ollama-serve.sh) derives its
+# OLLAMA_HOST bind address — so the served endpoint and the client base URL cannot
+# drift on a host serving a non-default port/box. Canonical default lives HERE (both
+# ollama-serve.sh and codex-provider-common.sh read it) so all three agree.
+# See context/operations/local-inference-amd.md.
+: "${GARDEN_LOCAL_OLLAMA_URL:=http://127.0.0.1:11434/v1}"
+
 # The dev / next-version branch. Subagents land development here from their own
 # worktrees; the deliberate deploy (deploy-garden.sh) merges it into the root
 # checkout, and the upgrade monitor compares its tip to the deployed sha. Named
@@ -447,6 +457,18 @@ read_desired_count() {
   v="$(sed -n "s/^$count_key:[[:space:]]*//p" "$f" | head -1)"
   [[ "$v" =~ ^[0-9]+$ ]] || return 1
   printf '%s\n' "$v"
+}
+
+# ollama_serve_host — the OLLAMA_HOST (host:port, NO scheme, NO /v1 path) that
+# `ollama serve` must bind so it answers requests to GARDEN_LOCAL_OLLAMA_URL. The
+# supervised endpoint (ollama-serve.sh) derives its bind address from the SAME client
+# URL the hermit handler probes, so the two cannot drift. Strips the scheme and any
+# trailing path from GARDEN_LOCAL_OLLAMA_URL (http://127.0.0.1:11434/v1 → 127.0.0.1:11434).
+ollama_serve_host() {
+  local u="${GARDEN_LOCAL_OLLAMA_URL:-http://127.0.0.1:11434/v1}"
+  u="${u#*://}"     # strip scheme://
+  u="${u%%/*}"      # strip any path (/v1, /v1/, …) → host:port
+  printf '%s\n' "${u:-127.0.0.1:11434}"
 }
 
 # gardener.sh drops a local, lock-free marker file while a job handler runs and
