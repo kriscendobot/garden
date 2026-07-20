@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-07-14
+updated: 2026-07-20
 author: liaison, gardener
 ---
 
@@ -86,3 +86,4 @@ Posting a green-run URL on the PR after a shepherd push (or any other comment) r
   The `fixup!` prefix lets the conductor autosquash the shepherd's corrections into their targets at merge time without manual reordering ([conductor](../conductor/AGENT.md) step 3).
   Proposed by 0xpatrick (gist 4100622d).
 - _2026-06-18_: SES-init gotcha. Test files using `import 'ses'; import '@endo/eventual-send/shim.js'` do not call `lockdown()`, so `harden` is undefined at runtime. After a migration adds a new `@endo/exo-stream` consumer (whose `iterateReader()` calls `harden()` internally), affected test files fail with `ReferenceError: harden is not defined`. Fix: replace the two-line pattern with `import '@endo/init/debug.js'`. When a migration adds a new `@endo/exo-stream` consumer adapter, scan test files in the changed packages for the two-line SES pattern and replace before pushing.
+- _2026-07-20_: zizmor `stale-action-refs` is a **time-bomb** failure that fires with **no change in the PR's own diff**. endojs/endo-but-for-bots runs zizmor at `persona: pedantic` + `min-severity: low`, and this audit resolves each action's version-comment tag over the network at run time. When upstream moves the tag (`actions/checkout`'s `# v4` now resolves to a newer commit than an old pin like `34e114876b0b`), the audit fails even though nobody touched the workflow file. Confusing tell: the finding's `points to commit <hash>` is the commit the **comment** now resolves to, **not** the SHA in the file, so `grep <hash>` in the workflow finds nothing. Diagnose by comparing the PR's stack against the default branch: the passing branches have already repinned. Fix = repin the stragglers to match sibling usages / the default branch (here three `actions/checkout@34e114876b0b # v4` -> `de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2` in `ci.yml`/`ci-docs.yml`), matching precedent commit `1ff3e0d3d` on `llm`. This is an in-scope inline shepherd fix, not a fixer escalation, even on a feature PR that otherwise touches no workflows. Note `check-action-pins` (a separate check) can pass while zizmor fails: they audit different properties.
