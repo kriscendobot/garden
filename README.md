@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T13:50:32Z_
+_As of 2026-07-20T13:51:49Z_
 
 ## Latest
 
@@ -2457,24 +2457,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 73.5M | $818.30 _(notional, rate-card)_ | no quota set |
-| Codex | 223.1M _(+556.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Claude | 73.5M | $818.52 _(notional, rate-card)_ | no quota set |
+| Codex | 223.1M _(+556.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr598-review-53d23086-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr598-review-53d23086-retro.md) — Retrospective on endojs/endo-but-for-bots PR #598 (primary: endojs-endo-but-f...
+### doin (1)
 - [`xs2rust-endor-press-20260720-135002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-135002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (2981)
+### tada (2982)
+- [`endojs-endo-but-for-bots-pr598-review-53d23086-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr598-review-53d23086-retro.md) — Completion report: prosecutor retrospective on endojs/endo-but-for-bots #598 ...
 - [`kriscendobot-minion.town-pr8-review-b00f7a71-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr8-review-b00f7a71-retro.md) — Completion report
 - [`kriskowal-garden-pr7-review-4798277a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr7-review-4798277a-retro.md) — Recorded a process review miss for garden PR #7: its design-panel gauntlet di...
 - [`endojs-endo-but-for-bots-pr771-review-c92c5d14-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr771-review-c92c5d14-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr598-a5ffa84f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr598-a5ffa84f-retro.md) — Recorded a not-a-miss dismissal for PR #598 comment 4997870862. The request a...
-- [`endojs-endo-but-for-bots-pr737-review-3363fee9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr737-review-3363fee9-retro.md) — Verdict recorded: not-a-miss (new-direction) for #737 review 4718500574. The ...
-- … and 2976 more
+- … and 2977 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
