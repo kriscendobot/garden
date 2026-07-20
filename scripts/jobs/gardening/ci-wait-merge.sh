@@ -15,7 +15,9 @@
 #     timeout/backoff cadence until every check has SETTLED (no QUEUED/IN_PROGRESS/
 #     PENDING/WAITING left), or the overall deadline passes.
 #   * On GREEN terminal (no failures) and --merge (default): first UNFREEZE the
-#     base if it is a frozen snapshot (conductor step 2 — see below), then
+#     base if it is a frozen snapshot (conductor step 2 — see below), then refuse
+#     to merge if the PR's reviewDecision is CHANGES_REQUESTED (a maintainer
+#     review that landed during the wait — alert + exit 1, re-enqueue), else
 #     `"$GH" pr merge --merge --delete-branch`, then VERIFY state=MERGED. Issuing
 #     the merge in the same invocation as the wait is the whole point — never
 #     "wait, exit, hope a later tick merges".
@@ -45,7 +47,8 @@
 #   3  CI red (terminal failure)                    → stall: needs shepherd
 #   4  timed out with CI still pending              → re-enqueue, still unmerged
 #   1  hard error / merge blocked / not mergeable / frozen base shared by a
-#      sibling stack (maintainer alerted)           → stall
+#      sibling stack / reviewDecision=CHANGES_REQUESTED (maintainer
+#      alerted)                                      → stall, re-enqueue
 #
 # --no-merge makes it a pure block-until-CI-terminal probe (exit 0 = green,
 # 3 = red, 4 = timeout) for callers that drive the merge themselves.
@@ -101,11 +104,14 @@ poll_secs="${GARDEN_CI_POLL_SECS:-60}"
 poll_max="${GARDEN_CI_POLL_MAX_SECS:-60}"
 start="$(date +%s)"
 
-# One rollup read. Echoes "<state>|<pending>|<failed>|<total>" on stdout, or
-# returns non-zero (never a fabricated green) when the read itself fails.
+# One rollup read. Echoes "<state>|<pending>|<failed>|<total>|<reviewDecision>"
+# on stdout, or returns non-zero (never a fabricated green) when the read itself
+# fails. reviewDecision is GitHub's review rollup (CHANGES_REQUESTED / APPROVED /
+# REVIEW_REQUIRED / ""); the green-and-terminal block below refuses to merge over
+# a CHANGES_REQUESTED so a maintainer review landing mid-wait is never merged over.
 read_rollup() {
-  local json state pending failed total
-  json="$("$GH" pr view "$pr" -R "$repo" --json state,mergeable,statusCheckRollup 2>/dev/null)" \
+  local json state pending failed total review
+  json="$("$GH" pr view "$pr" -R "$repo" --json state,mergeable,statusCheckRollup,reviewDecision 2>/dev/null)" \
     || { log "gh pr view $repo#$pr failed — aborting this tick (never fabricate green)"; return 1; }
   [ -n "$json" ] || { log "empty PR state for $repo#$pr"; return 1; }
   # Validate the payload IS json before extracting: a jq parse failure on
@@ -127,7 +133,8 @@ read_rollup() {
       | select($s=="QUEUED" or $s=="IN_PROGRESS" or $s=="PENDING" or $s=="WAITING") ]
     | length')"
   total="$(printf '%s' "$json" | jq -r '[ .statusCheckRollup[]? ] | length')"
-  printf '%s|%s|%s|%s\n' "$state" "${pending:-0}" "${failed:-0}" "${total:-0}"
+  review="$(printf '%s' "$json" | jq -r '.reviewDecision // ""')"
+  printf '%s|%s|%s|%s|%s\n' "$state" "${pending:-0}" "${failed:-0}" "${total:-0}" "$review"
 }
 
 print_failures() {
@@ -203,7 +210,7 @@ while :; do
     fi
     sleep "$poll_secs"; continue
   fi
-  IFS='|' read -r state pending failed total <<<"$rollup"
+  IFS='|' read -r state pending failed total review <<<"$rollup"
 
   case "$state" in
     MERGED) echo "terminal repo=$repo pr=$pr state=MERGED (already merged)"; exit 0 ;;
@@ -250,6 +257,26 @@ done
 # --- CI is green and terminal: carry the merge to completion IN THIS JOB -----
 echo "rollup-terminal repo=$repo pr=$pr total=$total failed=0 → CI GREEN"
 if [ "$do_merge" -eq 0 ]; then exit 0; fi
+
+# --- deterministic review gate: never merge over a CHANGES_REQUESTED review ---
+# reviewDecision is GitHub's review rollup. On a repo WITHOUT branch protection
+# requiring approval (a checkless / own-fork repo), GitHub still reports the PR
+# `mergeable`, so a maintainer's CHANGES_REQUESTED review landing during the CI
+# wait would otherwise be merged straight over — kriscendobot/minion.town#7: a
+# CHANGES_REQUESTED landed ~2.5 min before the merge and the branch was merged
+# and closed with two inline directives unaddressed. Refuse HERE, in the
+# deterministic spine, rather than relying on the conductor agent to notice a
+# review that arrived mid-wait; that closes the race for every checkless/own-fork
+# repo. Key off reviewDecision (not the presence of some stale review): it clears
+# to APPROVED / REVIEW_REQUIRED once the CHANGES_REQUESTED review is dismissed or
+# superseded, so a later re-enqueued tick merges cleanly once the feedback is
+# resolved. Exit 1 (stall) leaves the merge job claimable, not completed-merged.
+if [ "$review" = CHANGES_REQUESTED ]; then
+  alert_maintainer "changes-requested-${repo//\//_}-$pr" \
+    "conductor merge BLOCKED for $repo#$pr: reviewDecision=CHANGES_REQUESTED. A reviewer requested changes; I will NOT merge over it even though GitHub reports the PR mergeable (no branch protection requiring approval). Address the review feedback (or dismiss/supersede the review) and the next tick merges cleanly. (#$pr left claimable: not merged, not stranded.)"
+  echo "review-blocked repo=$repo pr=$pr reviewDecision=CHANGES_REQUESTED → alerted maintainer, NOT merging"
+  exit 1
+fi
 
 if ! merr="$("$GH" pr merge "$pr" -R "$repo" --merge --delete-branch 2>&1)"; then
   # Auto-merge fallback: if direct merge is momentarily blocked but the repo

@@ -23,6 +23,9 @@
 #      base edited, merge called) — conductor step 2 (the #510 stranding fix)
 #   T10 frozen base shared by a sibling stack → alert maintainer, exit 1, NO merge,
 #      NO base edit (neither strand silently nor force-fork the shared base)
+#   T11 green + reviewDecision=CHANGES_REQUESTED → refuse to merge (exit 1, NO
+#      merge): a maintainer review landing mid-wait is never merged over even
+#      though GitHub reports the PR mergeable (kriscendobot/minion.town#7)
 #
 # Usage: ci-wait-merge-test.sh
 set -euo pipefail
@@ -71,6 +74,8 @@ b64() { printf '%s' "$1" | base64 | tr -d '\n'; }
 PEND='{"state":"OPEN","mergeable":"MERGEABLE","statusCheckRollup":[{"name":"build","status":"IN_PROGRESS","conclusion":null}]}'
 GREEN='{"state":"OPEN","mergeable":"MERGEABLE","statusCheckRollup":[{"name":"build","status":"COMPLETED","conclusion":"SUCCESS"}]}'
 RED='{"state":"OPEN","mergeable":"MERGEABLE","statusCheckRollup":[{"name":"build","status":"COMPLETED","conclusion":"FAILURE"}]}'
+# Green CI but a maintainer requested changes: reviewDecision drives the gate.
+GREEN_CR='{"state":"OPEN","mergeable":"MERGEABLE","reviewDecision":"CHANGES_REQUESTED","statusCheckRollup":[{"name":"build","status":"COMPLETED","conclusion":"SUCCESS"}]}'
 
 reset_seq() { : > "$STUBDIR/seq"; echo 0 > "$STUBDIR/i"; rm -f "$STUBDIR/merge.log" "$STUBDIR/edit.log" "$STUBDIR/basemeta" "$STUBDIR/prcount" "$STUBDIR/prnums"; }
 seq_add()   { b64 "$1" >> "$STUBDIR/seq"; printf '\n' >> "$STUBDIR/seq"; }
@@ -134,6 +139,10 @@ reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
 printf '{"state":"OPEN","baseRefName":"llm-65b0abe"}' > "$STUBDIR/basemeta"
 echo 2 > "$STUBDIR/prcount"; printf '510, #521' > "$STUBDIR/prnums"   # #510 + sibling #521
 run o/r 510; chk "$rc" 1 T10; nomerge T10; noedit T10
+
+echo "T11 green + reviewDecision=CHANGES_REQUESTED → refuse to merge (exit 1, no merge)"
+reset_seq; seq_add "$GREEN_CR"; printf 'MERGED|false' > "$STUBDIR/verify"
+run o/r 7; chk "$rc" 1 T11; nomerge T11
 
 rm -rf "$TR"
 echo "----------------------------------------------------------------"
