@@ -23,3 +23,10 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 Does the endo pet daemon support the `@agoric/store`  interfaces? If so, show me the tests that demonstrate it. If not, make a design and build it. run the guantlet. 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-20T19:51:35Z
