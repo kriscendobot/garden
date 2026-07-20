@@ -1,5 +1,5 @@
-Implemented and pushed `e80d69e7b6` to `main2`.
+Implemented and pushed `6f8501d8db` to `main2`.
 
-- Added corruption classification and one-time locked re-clone/retry with `REPAIRED` logging.
-- Extended journal tests for bad-object recovery.
-- Verified with `fetch-timeout-test.sh`: 13 passed, 0 failed.
+- Corrupt journal-fetch failures now atomically re-clone once, retry once, and log the required repair message.
+- Updated corruption tests to assert re-clone recovery and bounded failure behavior.
+- Verified syntax/diff checks plus injected recovery and persistent-corruption scenarios.
