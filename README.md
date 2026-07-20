@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T04:49:52Z_
+_As of 2026-07-20T04:52:27Z_
 
 ## Latest
 
@@ -2045,16 +2045,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 72.8M | $794.10 _(notional, rate-card)_ | no quota set |
+| Claude | 72.8M | $793.39 _(notional, rate-card)_ | no quota set |
 | Codex | 205.4M _(+549.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
 - [`self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs.md) — In scripts/jobs/common.sh, handle LOCAL journal-clone corruption the way ensu...
+- [`xs2rust-endor-stage10m-native-fn-reflection`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10m-native-fn-reflection.md) — stage-10m child 1: F1(s43) — native-method length/name own-property reflectio...
 
 ### tada (2938)
 - [`xs2rust-endor-stage10m-set-property-at`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10m-set-property-at.md) — Completion report
