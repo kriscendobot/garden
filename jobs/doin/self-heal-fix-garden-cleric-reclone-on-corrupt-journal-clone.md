@@ -9,3 +9,10 @@ Change:
 4. Add a unit test under `scripts/jobs/test/` injecting a `GARDEN_FETCH_CMD` that emits the `bad object` / `did not send all necessary objects` stderr, asserting sync_clone re-clones and recovers instead of dying (mirroring the poisoned-partial-clone and offline-classification tests).
 
 Note the corrupt clone is per-worker state under `.garden-state/clerics/<n>/journal`; the guard must key off the passed `$dir`, not the shared bare clone.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 10
+  worker_kind: gardener
+  claimed_at: 2026-07-20T03:26:52Z
