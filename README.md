@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T09:01:21Z_
+_As of 2026-07-20T09:16:00Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4h)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 5h)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 1d)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 2d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 2d)
@@ -2204,18 +2204,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260720-022510.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
-- [`ocapn-noise-press-20260720-083504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260720-083504.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`port-xs-to-rust-memory-safe-engine-s46`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s46.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
-### tada (2967)
+### tada (2968)
+- [`ocapn-noise-press-20260720-083504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260720-083504.md) — **Press dispatch 11 close-out (resumed after reap) — steady state confirmed, ...
 - [`xs2rust-endor-build-stage10o`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10o.md) — orchestration xs2rust-endor-build-stage10o — complete
 - [`xs2rust-endor-stage10o-remeasure-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10o-remeasure-retry.md) — Host gate failed — MISROUTED. /home/kris/garden2/tmp/s10e is absent, and the ...
 - [`xs2rust-endor-stage10o-remeasure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10o-remeasure.md) — Completion report
 - [`xs2rust-endor-stage10o-live-env-diagnosis`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10o-live-env-diagnosis.md) — Completion report — xs2rust-endor-stage10o-live-env-diagnosis
-- [`endo-npm-cas-registry-press-20260720-083504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260720-083504.md) — Completion report — endo-npm-cas-registry-press-20260720-083504
-- … and 2962 more
+- … and 2963 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
