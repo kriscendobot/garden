@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T18:09:28Z_
+_As of 2026-07-20T18:12:32Z_
 
 ## Latest
 
@@ -2693,22 +2693,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 73.9M | $824.15 _(notional, rate-card)_ | no quota set |
-| Codex | 247.4M _(+562.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 247.5M _(+563.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr259-review-8288f2bf-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr259-review-8288f2bf-retro.md) — Retrospective on endojs/endo-but-for-bots PR #259 (primary: endojs-endo-but-f...
+### doin (0)
+(none)
 
-### tada (3012)
+### tada (3013)
+- [`endojs-endo-but-for-bots-pr259-review-8288f2bf-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr259-review-8288f2bf-retro.md) — Recorded a review-process miss for PR #259: the prior panel accepted an unsup...
 - [`improve-review-miss-drain-reopen-distinction`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-review-miss-drain-reopen-distinction.md) — Completion report
 - [`minion-town-agenda-review-20260720-172003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-172003.md) — Completion report — Minion Town hourly agenda review (kriskowal/garden#58), 2...
 - [`kriscendobot-agoric-sdk-pr15-review-aad444c1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-review-aad444c1-retro.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr15-review-d6c7561e-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-review-d6c7561e-retro.md) — Recorded a major spec-violation miss for PR #15 review 4726532241, joining ex...
-- [`kriscendobot-agoric-sdk-pr15-review-ccb767b7-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-review-ccb767b7-retro.md) — Completion report
-- … and 3007 more
+- … and 3008 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
