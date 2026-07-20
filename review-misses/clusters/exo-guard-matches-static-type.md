@@ -1,7 +1,7 @@
 ---
 slug: exo-guard-matches-static-type
 category: spec-violation
-status: open
+status: closed
 count: 4
 members:
   - kriscendobot-agoric-sdk-pr15-review-396a141c
@@ -12,6 +12,7 @@ prs: [15]
 improvement_job: review-improve-exo-guard-matches-static-type
 improved_by: 8ec780c5ac: roles/builder/AGENT.md, roles/jurors/spec-keeper/AGENT.md, skills/panel-hints/SKILL.md, skills/panel-hints/probes/C-spec-keeper.sh
 ---
+
 
 
 
@@ -43,3 +44,19 @@ agoric-sdk (now in the garden's active experimentation scope), not specific to
 #15. Holding for a second PR would leave the panel re-missing the same pattern on
 the next exo-guard change. Dispatching one `review-improve-exo-guard-matches-static-type`
 builder job.
+
+**Threshold rationale:** Re-closed by the ccb767b7 retro (review 4726535732). This member reopened the
+cluster with recurrence=1, but the reopen is a concurrent-backlog-drain artifact,
+NOT a genuine post-improvement recurrence. Review 4726535732 was submitted
+2026-07-17, three days BEFORE the improvement commit 8ec780c5ac landed
+(2026-07-20). It is one more entry in the same pre-improvement PR #15
+guard-tightness cascade the cluster already characterizes, queued behind the peer
+retro (9a12af5e) that dispatched and closed the improvement. It is not new work
+the panel re-missed after the fix, so the recurrence-after-closure maintainer
+escalation does NOT apply and none was sent. Re-litigation test re-verified: the
+improved skills/panel-hints/probes/C-spec-keeper.sh fires the spec-keeper seat on
+a PR #15-shaped diff (an added M.any()/M.record() guard in a portfolio *.exo.ts /
+M.interface(...) block), and roles/builder/AGENT.md now carries the
+match-known-static-type prevention directive. The cluster's terminal state is
+closed; a TRUE recurrence would be a miss on a DIFFERENT PR authored after
+8ec780c5ac deploys.
