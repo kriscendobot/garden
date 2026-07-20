@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T19:04:44Z_
+_As of 2026-07-20T19:05:42Z_
 
 ## Latest
 
@@ -2699,7 +2699,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`deadmail-issue-comment-5026079913`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5026079913.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr138-review-add866fa-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr138-review-add866fa-retro.md) — Retrospective on endojs/endo-but-for-bots PR #138 (primary: endojs-endo-but-f...
 
 ### tada (3020)
