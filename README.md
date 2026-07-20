@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T23:52:42Z_
+_As of 2026-07-20T23:56:02Z_
 
 ## Latest
 
@@ -3089,17 +3089,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
-- [`kriscendobot-agoric-sdk-pr10-review-498316a6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr10-review-498316a6.md) — Review directive on kriscendobot/agoric-sdk PR #10
+### doin (1)
 - [`xs2rust-endor-press-20260720-230516`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-230516.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3047)
+### tada (3048)
+- [`kriscendobot-agoric-sdk-pr10-review-498316a6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-498316a6.md) — Completion report
 - [`encode-ci-parity-policy`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/encode-ci-parity-policy.md) — Completion report — encode-ci-parity-policy
 - [`kriscendobot-agoric-sdk-pr10-review-e3ccce0c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-e3ccce0c.md) — Completed review 4739631968.
 - [`minion-town-agenda-review-20260720-230516`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-230516.md) — Hourly agenda review complete. No garden (main2) code changes were warranted ...
 - [`kriscendobot-agoric-sdk-pr10-review-9acf0d53`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-9acf0d53.md) — Completion report
-- [`kriscendobot-minion.town-pr10-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr10-conduct.md) — Completion report
-- … and 3042 more
+- … and 3043 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
