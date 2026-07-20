@@ -1,15 +1,16 @@
-All verification complete — this is a clean verify-and-stand-down tick. Nothing needs weaving, fixing, or new surface.
+All checks are green across the board. This is a verify-and-stand-down tick per the job spec.
 
 ## Completion report — endo-vfs-parity-press-20260720-022510
 
-**Verify-and-stand-down tick.** No repo activity on the press surface since the 2026-07-18 18:35 verification; all seven press PRs re-verified healthy and unchanged.
+**Outcome: verify-and-stand-down tick.** No repo activity on the parity surface since the 2026-07-18 18:35 tick, and the entire stack remains review-blocked, so no new surface was opened and no weaves or CI fixes were needed.
 
-**Verified state (2026-07-20 ~02:30Z):**
-- All seven open press PRs — **#656** (provideSubMount), **#655** (old mount grep), **#657** (mount JSON), **#713** (mount glob+grep+glorp), **#788** (genie parity), **#790** (fae glob/grep), **#796** (hashline pure core) — are `MERGEABLE` with `mergeStateStatus: CLEAN` and every CI check passing (no failures, no pending).
-- Head OIDs unchanged since the last tick (#713 still at 454b2b97db, #796 at cd11b28bcf, etc.), so no re-weave and no close/reopen CI-skip cure was needed.
-- No new comments or reviews on any of the seven since 2026-07-18 18:35. The maintainer has still not replied to the #655 close-as-superseded question (msg 20260717T124846Z-815188); per standing instruction I did not re-ping.
-- Job inbox empty.
+**Verified state (endojs/endo-but-for-bots, 2026-07-20 ~06:35Z):**
 
-**What I did not do, and why:** opened no new surface. The remaining finish line (lal glob/grep; `EndoMount.edit`/`EndoGuest.edit` + `endo edit` hashline wiring; hashline on agent read/edit tools) is all review-blocked on the open mount stack (#656/#655/#657/#713) landing, per the job spec — a no-activity tick is a stand-down tick.
+- All seven press PRs are OPEN, MERGEABLE, merge-state CLEAN, with fully green CI: **#656** provideSubMount (24 SUCCESS), **#655** mount grep (23 SUCCESS), **#657** mount JSON (23 SUCCESS), **#713** mount glob+grep+glorp (24 SUCCESS), **#788** genie parity (24 SUCCESS), **#790** fae glob/grep (24 SUCCESS), **#796** hashline pure core (24 SUCCESS).
+- None has been updated since 2026-07-18 (most recent: #796 at 12:46Z, #713 at 06:37Z that day) — no merges, no reviews, no new comments, so nothing dirtied and nothing needs a re-weave or close/reopen CI kick.
+- The maintainer question on **#655** (close as superseded by #713, msg 20260717T124846Z-815188) still has no reply; per standing instruction I did not re-ping.
+- Job inbox was empty.
 
-**Follow-ups for the next dispatch:** unchanged — watch for maintainer review/merges on the mount stack; on any merge, re-verify the siblings' mergeability (a merge may dirty them) and then unblock the wiring work.
+**Remaining finish-line surface (unchanged, all blocked on the open mount stack landing):** lal glob/grep (needs #713/#655), `EndoMount.edit`/`EndoGuest.edit` + `endo edit` CLI hashline wiring (pure core is #796), then hashline exposure on the agent read/edit tools.
+
+**Follow-ups:** none for this tick; the next dispatch should re-verify mergeable/CI state first, since a merge of any stack member will dirty its dependents.
