@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T14:34:32Z_
+_As of 2026-07-20T14:37:13Z_
 
 ## Latest
 
@@ -2458,22 +2458,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 73.5M | $818.90 _(notional, rate-card)_ | no quota set |
-| Codex | 229.2M _(+557.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Codex | 229.3M _(+558.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr786-22380928-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr786-22380928-retro.md) — Retrospective on endojs/endo-but-for-bots PR #786 (primary: endojs-endo-but-f...
+### doin (0)
+(none)
 
-### tada (2986)
+### tada (2987)
+- [`endojs-endo-but-for-bots-pr786-22380928-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr786-22380928-retro.md) — Recorded a not-a-miss dismissal for the assigned directive. It was a review r...
 - [`improve-ci-wait-merge-review-decision-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-wait-merge-review-decision-gate.md) — Completion report
 - [`kriscendobot-minion.town-pr4-review-681cbfb6-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr4-review-681cbfb6-retro.md) — Recorded a not-a-miss dismissal for PR #4 review 4724665640: it authorized po...
 - [`kriscendobot-minion.town-pr7-review-c543864f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr7-review-c543864f-retro.md) — Completion report — kriscendobot-minion.town-pr7-review-c543864f-retro
 - [`xs2rust-endor-press-20260720-135002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260720-135002.md) — All three finish-line bars are met on branch xs2rust-endor at HEAD b901ddf7b....
-- [`endojs-endo-but-for-bots-pr598-review-53d23086-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr598-review-53d23086-retro.md) — Completion report: prosecutor retrospective on endojs/endo-but-for-bots #598 ...
-- … and 2981 more
+- … and 2982 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
