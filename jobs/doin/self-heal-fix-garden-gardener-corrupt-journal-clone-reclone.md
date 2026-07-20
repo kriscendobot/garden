@@ -9,3 +9,10 @@ What to change:
 2. In `sync_clone` (common.sh:2483), when `journal_fetch` fails and the stderr is NOT offline but IS a corruption signature, self-heal by re-cloning `$dir` once: `rm -rf "$dir"` then re-run `ensure_clone "$dir"` (which now clones fresh via its atomic `${dir}.tmp.$$` temp-and-rename path), then retry `journal_fetch` once. Do this under the clone_lock already held by sync_clone. Only if the post-reclone fetch still fails do we `die`. Log a `REPAIRED: re-cloned corrupt journal clone $dir (signature: <sig>)` line, mirroring the existing poisoned-partial-clone WARN at common.sh:1555.
 3. Guard against a reclone loop: heal at most once per sync_clone invocation (a corruption that survives a fresh clone is a genuine upstream problem and should surface as a die, not spin).
 4. Extend `scripts/jobs/test/run-test.sh` with a case that injects the `bad object` / `did not send all necessary objects` stderr via `GARDEN_FETCH_CMD` and asserts the corrupt path triggers a re-clone-and-retry rather than the offline skip or a bare die (alongside the existing `expect_online "bad object"` case at run-test.sh:2391, which currently only checks classification — add the heal-and-recover assertion).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 9
+  worker_kind: cleric
+  claimed_at: 2026-07-20T02:27:28Z
