@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T22:46:29Z_
+_As of 2026-07-20T22:51:05Z_
 
 ## Latest
 
@@ -1089,6 +1089,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260720T224615Z-8e9a69` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T224615Z-8e9a69.md)
 
 > Milestone M2 (Project Hygiene) is complete except for merging its two hardened-shim PRs: endojs/endo-but-for-bots **#259** (permit TextEncoder/TextDecoder as universal intrinsics) and **#263** (permit URL/URLSearchParams). Both are non-draft, MERGEABLE/CLEAN, and fully green on CI; merging them (a conductor step, out of foreman bounds) closes the last two `Not Started` M2 designs. Decision needed: authorize merge of #259 and #263.
+
+- `20260720T225047Z-30bd5f` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T225047Z-30bd5f.md)
+
+> Milestone M2 (Project Hygiene) is complete except for merge: both remaining vetted-shim designs are built, green, and MERGEABLE — text-codecs shim as [endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/issues/259) (CLEAN, no duplicates) and the URL shim as two competing green PRs, #263 (universal-permits mirror) and #719 (`%URL%`/`%SharedURL%` split). Decision needed: which URL-shim approach to merge (or close the other), then merge #259 and the chosen URL PR to close M2.
 
 - `poison-build-daemon-mapstore-gh59-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-daemon-mapstore-gh59-deadline-overrun.md)
 
@@ -3078,7 +3082,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.6M | $833.37 _(notional, rate-card)_ | no quota set |
+| Claude | 74.7M | $834.57 _(notional, rate-card)_ | no quota set |
 | Codex | 286.1M _(+573.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
