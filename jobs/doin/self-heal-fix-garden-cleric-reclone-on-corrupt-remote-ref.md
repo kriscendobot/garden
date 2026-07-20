@@ -3,3 +3,10 @@ In `scripts/jobs/common.sh`, `sync_clone` dies permanently when `journal_fetch` 
 Fix: in `sync_clone`, after `journal_fetch` fails and the stderr is classified as NOT-offline (i.e. it would otherwise reach `die "fetch failed in $dir after bounded retries"`), add a local-corruption self-heal that mirrors `ensure_clone`'s existing poisoned-partial-clone recovery. Define a corruption-signature set (case-insensitive) covering at least: `bad object refs/`, `invalid sha1 pointer`, `did not send all necessary objects`, `bad ref for`, `broken ref`, `unable to read`, `loose object .* is corrupt`, `object file .* is empty`. When `GARDEN_FETCH_STDERR` matches, log a WARN (`WARN: <dir> journal clone corrupt (<signature>); self-healing by re-cloning`), then either (a) attempt the cheap targeted repair first — `git -C "$dir" update-ref -d refs/remotes/origin/$JOURNAL_BRANCH 2>/dev/null; git -C "$dir" remote prune origin 2>/dev/null` — and re-run `journal_fetch` once; or (b) if that still fails, `rm -rf "$dir"` and re-provision via the existing `ensure_clone "$dir"` atomic-temp-clone path, then re-fetch. Only fall through to `die` if the post-repair fetch still fails for a non-offline, non-corruption reason. Keep the offline (`124`/`137`/`_fetch_stderr_is_offline`) branch exactly as-is and ahead of the new corruption branch. Add the corruption signatures as a single named regex (e.g. `GARDEN_CORRUPT_SIGNATURES`) next to `GARDEN_OFFLINE_SIGNATURES` so both classifications share one source of truth, and extend `scripts/jobs/test/run-test.sh`'s fetch-classification cases with a null-sha-remote-ref / `did not send all necessary objects` fixture asserting the re-clone path (not `die`).
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: cleric
+  claimed_at: 2026-07-20T06:33:30Z
