@@ -68,3 +68,10 @@ ROOT lib 111/0 + three markers, forbid/VARIANT_COUNT/warnings/`unsafe` invariant
 completion report ONLY (never inbox-send the parked supervisor).
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: gardener
+  claimed_at: 2026-07-20T05:43:14Z
