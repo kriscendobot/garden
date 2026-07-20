@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T10:35:55Z_
+_As of 2026-07-20T10:36:20Z_
 
 ## Latest
 
@@ -2201,24 +2201,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 72.8M | $802.93 _(notional, rate-card)_ | no quota set |
+| Claude | 72.8M | $803.32 _(notional, rate-card)_ | no quota set |
 | Codex | 205.9M _(+554.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260720-022510.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
+### doin (2)
 - [`weave-endo-but-for-bots-pr621-endoclaw-oauth-20260720`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/weave-endo-but-for-bots-pr621-endoclaw-oauth-20260720.md) — ---
 - [`xs2rust-endor-stage10p-unbound-builtins`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10p-unbound-builtins.md) — Stage-10p child 2: the unbound-builtin cluster (PR #600, xs2rust-endor)
 
 ### tada (2971)
+- [`esheets-supervisor-20260720-022510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260720-022510.md) — Assessed the tree and posted weave-endo-but-for-bots-pr621-endoclaw-oauth-202...
 - [`xs2rust-endor-stage10p-regexp-lastindex-at-key`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10p-regexp-lastindex-at-key.md) — Completion report
 - [`xs2rust-endor-stage10p-collection-iterator-aliases`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage10p-collection-iterator-aliases.md) — Completion report — s10p child 0: collection @@iterator alias completion (F1(...
 - [`port-xs-to-rust-memory-safe-engine-s46`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s46.md) — Completion report — port-xs-to-rust-memory-safe-engine-s46
 - [`ocapn-noise-press-20260720-083504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260720-083504.md) — **Press dispatch 11 close-out (resumed after reap) — steady state confirmed, ...
-- [`xs2rust-endor-build-stage10o`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10o.md) — orchestration xs2rust-endor-build-stage10o — complete
 - … and 2966 more
 
 ## Plan queue (parked — not claimable until promoted)
