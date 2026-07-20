@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T20:59:34Z_
+_As of 2026-07-20T21:00:12Z_
 
 ## Latest
 
@@ -2866,25 +2866,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.3M | $829.54 _(notional, rate-card)_ | no quota set |
-| Codex | 277.9M _(+568.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Claude | 74.3M | $829.81 _(notional, rate-card)_ | no quota set |
+| Codex | 277.9M _(+568.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr811-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr811-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #811
+### doin (2)
 - [`endojs-endo-but-for-bots-pr811-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr811-weave.md) — Weave/rebase endojs/endo-but-for-bots PR #811 (https://github.com/endojs/endo...
 - [`xs2rust-endor-press-20260720-203502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-203502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3029)
+### tada (3030)
+- [`endojs-endo-but-for-bots-pr811-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr811-shepherd.md) — Fixed and pushed:
 - [`minion-town-agenda-review-20260720-203502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-203502.md) — Reviewed agenda, repository, journal, PRs, and live endpoints. No deployment:...
 - [`endojs-endo-but-for-bots-pr809-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr809-shepherd.md) — CI is green on PR #809 head 0c54930ce310154f33083a5564266d65c92bfedf. Verifie...
 - [`deadmail-issue-comment-5026725853`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5026725853.md) — Completion report
 - [`issue-kriskowal-garden-59`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-59.md) — Completion report — issue-kriskowal-garden-59
-- [`deadmail-issue-comment-5026492697`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5026492697.md) — Completion report
-- … and 3024 more
+- … and 3025 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
