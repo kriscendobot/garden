@@ -1,0 +1,2 @@
+base: improve-ci-wait-merge-review-decision-gate
+identity: mentor:scripts/jobs/gardening/ci-wait-merge.sh
