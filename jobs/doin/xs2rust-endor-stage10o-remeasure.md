@@ -65,3 +65,10 @@ load). Artifacts to `$HOME/tmp/s10o-results/` (mkdir first). Prior anchors: s10i
 HARD STOP: size to one 2400s invocation; the sweep runs detached and survives reaper requeues (resume from
 the checkpointed TSV, do not restart). Report via your tada completion report ONLY (never inbox-send the
 parked supervisor).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 10
+  worker_kind: gardener
+  claimed_at: 2026-07-20T08:55:16Z
