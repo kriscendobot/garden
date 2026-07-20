@@ -1,4 +1,4 @@
-cadence: 2h
+cadence: 6h
 last_dispatched: 2026-07-20T02:25:10Z
 job_basename_prefix: endo-sturdyref-press
 ---
