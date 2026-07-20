@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T04:32:28Z_
+_As of 2026-07-20T04:32:55Z_
 
 ## Latest
 
@@ -2052,19 +2052,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
 - [`self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-corrupt-journal-clone-refs.md) — In scripts/jobs/common.sh, handle LOCAL journal-clone corruption the way ensu...
-- [`self-heal-fix-garden-repo-watcher-corrupt-journal-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-repo-watcher-corrupt-journal-clone.md) — scripts/jobs/common.sh
 - [`xs2rust-endor-stage10m-set-property-at`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10m-set-property-at.md) — stage-10m child 0: land the set_property_at runtime-opcode frontier (computed...
 
-### tada (2936)
+### tada (2937)
+- [`self-heal-fix-garden-repo-watcher-corrupt-journal-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-repo-watcher-corrupt-journal-clone.md) — Implemented on main2 (already present at d492de4996): corrupt journal-fetch s...
 - [`self-heal-fix-garden-gardener-journal-clone-corrupt-bad-object-reclone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-gardener-journal-clone-corrupt-bad-object-reclone.md) — Implemented and pushed a31a27558b to main2.
 - [`port-xs-to-rust-memory-safe-engine-s43`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s43.md) — Completion report — supervisor s43 (XS→Rust Endor port)
 - [`endojs-endo-but-for-bots-pr503-1f49fc2e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr503-1f49fc2e.md) — Corrected PR #503’s Security Considerations wording and acknowledged erights’...
 - [`xs2rust-endor-build-stage10l`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage10l.md) — orchestration xs2rust-endor-build-stage10l — complete
-- [`self-heal-fix-garden-repo-watcher-journal-clone-broken-ref`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-repo-watcher-journal-clone-broken-ref.md) — Completion report
-- … and 2931 more
+- … and 2932 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
