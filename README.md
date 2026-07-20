@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T14:53:54Z_
+_As of 2026-07-20T14:56:27Z_
 
 ## Latest
 
@@ -1023,6 +1023,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260720T131607Z-6cf5fc` — from watchdog:hermit/2, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T131607Z-6cf5fc.md)
 
 > gardener job 'xs2rust-endor-press-20260720-123515' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260720T145610Z-aea2df` — from gardener:finbot-progress-20260720-145005, reply_to `finbot-progress-20260720-145005` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T145610Z-aea2df.md)
+
+> Advanced kriscendobot/finbot main 45470c4 -> 55c7c02 (feat(simulator): align DM report with selector contest). The walk-forward DM line now compares the better asymmetric branch (GJR-GARCH or EGARCH) directly with GARCH, exactly matching the auto-family selector; naive baselines remain in the broad honesty table but cannot change the selector-evidence contest. Added a regression where EWMA wins the broad table while DM correctly evaluates EGARCH vs GARCH. Verified: npm test passed (599 tests, 0 failures); default and auto-family finbot-ooda --seed=7 both auditor-APPROVED with WALLET TOUCHED: false. Next step needs your decision: should significanceAlpha become the live auto-family default? That changes proposal hashes and needs a re-baselined fixture. No maintainer decision is otherwise needed.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -2458,7 +2462,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 73.5M | $819.33 _(notional, rate-card)_ | no quota set |
-| Codex | 229.4M _(+559.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
+| Codex | 229.8M _(+560.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
