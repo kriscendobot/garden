@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T14:53:32Z_
+_As of 2026-07-20T14:53:54Z_
 
 ## Latest
 
@@ -2458,27 +2458,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 73.5M | $819.33 _(notional, rate-card)_ | no quota set |
-| Codex | 229.4M _(+558.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
+| Codex | 229.4M _(+559.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - [`endo-git-integration-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260720-145005.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260720-145005.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`finbot-progress-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260720-145005.md) — Push progress on kriscendobot/finbot (every 6h)
-- [`minion-town-agenda-review-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260720-145005.md) — Minion Town hourly agenda review
 - [`ocapn-noise-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260720-145005.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`xs2rust-endor-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260720-145005.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (2993)
+### tada (2994)
+- [`minion-town-agenda-review-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-145005.md) — Reviewed and reported on garden issue #58: https://github.com/kriskowal/garde...
 - [`endo-sturdyref-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260720-145005.md) — SturdyRef press — 14:51 tick completion report
 - [`endo-daemon-data-plane-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260720-145005.md) — All checks confirm the same steady state as the previous dispatches, verified...
 - [`endo-vfs-parity-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260720-145005.md) — Completion report
 - [`endo-byte-array-press-20260720-145005`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260720-145005.md) — Byte-array press dispatch report (2026-07-20 14:50 UTC)
-- [`kriscendobot-agoric-sdk-pr15-review-2bf0daa3-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-review-2bf0daa3-retro.md) — Recorded a not-a-miss dismissal: the feedback was comment-hygiene direction, ...
-- … and 2988 more
+- … and 2989 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
