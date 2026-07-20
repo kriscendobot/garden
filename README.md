@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T20:38:17Z_
+_As of 2026-07-20T20:41:01Z_
 
 ## Latest
 
@@ -1067,6 +1067,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260720T200230Z-295385` — from watchdog:hermit/2, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T200230Z-295385.md)
 
 > gardener job 'xs2rust-endor-press-20260720-192031' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2405s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260720T204034Z-6b68cc` — from watchdog:gardener/13, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T204034Z-6b68cc.md)
+
+> gardener job 'build-daemon-mapstore-gh59' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
@@ -2794,7 +2798,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 74.3M | $828.91 _(notional, rate-card)_ | no quota set |
-| Codex | 268.9M _(+566.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 269.4M _(+566.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
