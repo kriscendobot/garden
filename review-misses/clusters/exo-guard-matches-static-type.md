@@ -1,7 +1,7 @@
 ---
 slug: exo-guard-matches-static-type
 category: spec-violation
-status: open
+status: closed
 count: 5
 members:
   - kriscendobot-agoric-sdk-pr15-review-396a141c
@@ -13,6 +13,7 @@ prs: [15]
 improvement_job: review-improve-exo-guard-matches-static-type
 improved_by: 8ec780c5ac: roles/builder/AGENT.md, roles/jurors/spec-keeper/AGENT.md, skills/panel-hints/SKILL.md, skills/panel-hints/probes/C-spec-keeper.sh
 ---
+
 
 
 
@@ -62,3 +63,12 @@ M.interface(...) block), and roles/builder/AGENT.md now carries the
 match-known-static-type prevention directive. The cluster's terminal state is
 closed; a TRUE recurrence would be a miss on a DIFFERENT PR authored after
 8ec780c5ac deploys.
+
+**Threshold rationale:** Re-closed without a second improvement dispatch. This review was submitted before
+the existing improvement commit 8ec780c5ac and is a queued member of the same
+PR #15 cascade, not evidence that the new prevention or sensing failed. The
+existing builder guidance, spec-keeper guard-tightness check, and C-spec-keeper
+panel-hints probe re-litigate this member: its additional loose exo
+M.interface() argument and return guards match the historical PR #15 diff signal
+that the probe fires on. The cluster remains closed after escalation so a later,
+post-improvement miss can be assessed as a genuine recurrence.
