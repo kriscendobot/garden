@@ -1756,11 +1756,23 @@ _fetch_stderr_is_offline() {
 # unnecessary re-clone, and corruption never gets silently skipped as offline.
 # Matched case-insensitively for the same cross-version diagnostic variance as
 # the offline classifier above. `invalid sha1 pointer` / `bad ref for` / `broken
-# ref` cover a damaged REF specifically (the garden-cleric item-7 incident, whose
-# refs/remotes/origin/journal2 was the null sha 0000…0000 left by an interrupted
-# ref update: fetch aborted `fatal: bad object refs/…` / `did not send all
-# necessary objects`, and `git fsck` reported `invalid sha1 pointer 0000...0000`).
-: "${GARDEN_CORRUPT_CLONE_SIGNATURES:=bad object|invalid sha1 pointer|bad ref for|broken ref|did not send all necessary objects|unable to read (tree|sha1|object)|object file .* is empty|loose object .* is corrupt|packfile .* cannot be accessed|invalid index-pack output|did not receive expected object|fsck error}"
+# ref` / `does not point to a valid object` cover a damaged REF specifically (the
+# garden-cleric item-7 incident, whose refs/remotes/origin/journal2 was the null
+# sha 0000…0000 left by an interrupted ref update: fetch aborted `fatal: bad
+# object refs/…` / `did not send all necessary objects`, and `git fsck` reported
+# `invalid sha1 pointer 0000...0000`).
+#
+# A second cleric-item-7 shape observed later was a damaged OBJECT DB, not just a
+# ref: a stale `.git/gc.log` blocked every repack and gc, so fetch's implicit
+# maintenance failed with `fatal: failed to run repack` and git refused to gc
+# (`warning: … Please correct the root cause and remove .git/gc.log`). That state
+# emits NO `bad object` line on its own, so without `failed to run repack` /
+# `gc\.log` in the set it slips past the classifier and crash-loops the unit. The
+# re-clone subsumes removing gc.log. `unable to read` is kept generic (not just
+# tree/sha1/object) to catch any `unable to read <path>` the object DB throws;
+# the offline classifier runs FIRST, so a transport `Could not read from remote`
+# is claimed as offline before this set ever sees it.
+: "${GARDEN_CORRUPT_CLONE_SIGNATURES:=bad object|invalid sha1 pointer|bad ref for|broken ref|does not point to a valid object|did not send all necessary objects|unable to read|object file .* is empty|loose object .* is corrupt|packfile .* cannot be accessed|invalid index-pack output|did not receive expected object|failed to run repack|gc\.log|fsck error}"
 
 _fetch_stderr_is_corrupt() {
   printf '%s' "$1" | grep -qiE "$GARDEN_CORRUPT_CLONE_SIGNATURES"

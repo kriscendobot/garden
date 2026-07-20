@@ -2456,6 +2456,17 @@ error: /root/.garden-state/clerics/7/journal did not send all necessary objects"
   expect_corrupt "unable to read sha1"   "error: unable to read sha1 file of jobs/todo/x (deadbeef...)"
   expect_corrupt "loose object corrupt"  "error: loose object 0d5645f4298ba42b49e45f951ae711c129c87618 is corrupt"
   expect_corrupt "empty object file"     "fatal: object file .git/objects/0d/5645... is empty"
+  # the second cleric item-7 shape: a stale gc.log blocks repack, so fetch's
+  # implicit gc/maintenance fails with `failed to run repack` and git names
+  # `.git/gc.log` — with NO `bad object` line of its own. Both must classify
+  # corrupt on their own so this state re-clones instead of crash-looping the unit.
+  expect_corrupt "failed to run repack"  "error: Could not read 0d5645f4298ba42b49e45f951ae711c129c87618
+fatal: failed to run repack"
+  expect_corrupt "gc.log present"        "warning: The last gc run reported the following. Please correct the root cause
+and remove .git/gc.log.
+Automatic cleanup will not be performed until the file is removed."
+  # a bare `does not point to a valid object` (no accompanying `broken ref`)
+  expect_corrupt "dangling ref only"     "error: refs/remotes/origin/journal2 does not point to a valid object!"
   # case-insensitivity: an upper-cased corruption diagnostic still classifies
   expect_corrupt "uppercased corrupt"    "FATAL: BAD OBJECT REFS/REMOTES/ORIGIN/JOURNAL2"
   # a genuine connectivity outage is NOT corruption (offline path owns it)
