@@ -72,3 +72,10 @@ read that hands the holder to the guest).
 - Sized to one 2400s window. If you cannot finish both items, land what is pushed (push-per-item
   protects it) and tada HONESTLY with the remainder named. Report via your tada completion report
   ONLY — never inbox-send the parked supervisor.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-20T03:07:07Z
