@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-20T16:23:35Z_
+_As of 2026-07-20T16:26:57Z_
 
 ## Latest
 
@@ -2567,23 +2567,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 73.8M | $822.35 _(notional, rate-card)_ | no quota set |
+| Claude | 73.8M | $822.54 _(notional, rate-card)_ | no quota set |
 | Codex | 241.7M _(+560.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`kriscendobot-agoric-sdk-pr15-review-63f630f8-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr15-review-63f630f8-retro.md) — Retrospective on kriscendobot/agoric-sdk PR #15 (primary: kriscendobot-agoric...
+### doin (0)
+(none)
 
-### tada (3004)
+### tada (3005)
+- [`kriscendobot-agoric-sdk-pr15-review-63f630f8-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr15-review-63f630f8-retro.md) — Completion report
 - [`minion-town-agenda-review-20260720-162001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260720-162001.md) — Completion report
 - [`xs2rust-endor-press-20260720-160510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260720-160510.md) — Branch state
 - [`minion-town-restore-hourly`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-restore-hourly.md) — Completion report
 - [`answer-garden-issue51-heap-snapshot-diffs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/answer-garden-issue51-heap-snapshot-diffs.md) — Completion report
-- [`hermit-ollama-self-heal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/hermit-ollama-self-heal.md) — Completion report — hermit-ollama-self-heal
-- … and 2999 more
+- … and 3000 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
