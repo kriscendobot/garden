@@ -16,6 +16,7 @@ Guards (the watcher already enforced these; re-verify before merging):
 Source: pr-review-body by kriskowal
 Approval: https://github.com/endojs/endo-but-for-bots/pull/802#pullrequestreview-4740280808
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
