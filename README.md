@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T03:42:21Z_
+_As of 2026-07-21T03:43:58Z_
 
 ## Latest
 
@@ -3488,22 +3488,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 75.5M | $845.03 _(notional, rate-card)_ | no quota set |
-| Codex | 343.1M _(+572.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 343.6M _(+572.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-press-20260721-032030`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-032030.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+### doin (0)
+(none)
 
-### tada (3081)
+### tada (3082)
+- [`xs2rust-endor-press-20260721-032030`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-032030.md) — Finish Line Assessment
 - [`deadmail-issue-comment-5029877730`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5029877730.md) — Replied on issue #59, reorienting the design toward a directory-backed zone/s...
 - [`endojs-endo-but-for-bots-npm-stack-landing`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-npm-stack-landing.md) — orchestration endojs-endo-but-for-bots-npm-stack-landing — complete
 - [`minion-town-agenda-review-20260721-032030`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-032030.md) — Reviewed agenda and posted findings to https://github.com/kriskowal/garden/is...
 - [`endojs-endo-but-for-bots-pr802-retarget-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr802-retarget-conduct.md) — Retargeted PR #802 to llm after confirming PR #800 merged there. Revalidated ...
-- [`endojs-endo-but-for-bots-pr800-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr800-conduct.md) — Merged endojs/endo-but-for-bots PR #800 into llm as 151db3d8b40b6a674b043b785...
-- … and 3076 more
+- … and 3077 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
