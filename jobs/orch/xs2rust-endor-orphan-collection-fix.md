@@ -2,7 +2,7 @@
 order: serial
 children: fix-handler-reap-spawned-process-group verify-no-orphan-leak-on-handler-timeout resume-xs2rust-endor-press-schedule
 on-child-failure: halt
-state: pending
+state: running
 created_by: liaison
 created_at: 2026-07-21T04:58:46Z
 ---
