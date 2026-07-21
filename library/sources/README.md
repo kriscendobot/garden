@@ -857,6 +857,15 @@ Sources retrieved from public URLs rather than from repository git history. Use 
 | [Muse Spark 1.1 Evaluation Report (Meta)](web--meta-muse-spark-1-1-eval-report.md) | https://ai.meta.com/static-resource/muse-spark-1-1-evaluation-report | 2 | current (2026-07-10; PDF, `source_is_pdf=true`, fetched `direct`, content SHA-256 `cd25634e`; text via pypdf; safety/agentic-robustness + attractor-states behavioral profile; scholar-muse-spark-harness) |
 
 
+## AI-writing evidence and detector guidance
+
+| Source | Repository / publisher | Sections | Status |
+|--------|------------------------|----------|--------|
+| [Large-scale human versus ChatGPT essay comparison](papers--herbold-large-scale-chatgpt-essays.md) | *Scientific Reports* / PMC | 1 | current (primary comparative study; retrieved 2026-07-21) |
+| [GPT detectors are biased against non-native English writers](papers--liang-gpt-detector-bias.md) | *Patterns* / PMC | 1 | current (primary detector-bias evaluation; retrieved 2026-07-21) |
+| [GPTZero perplexity and burstiness guide](web--gptzero-perplexity-burstiness.md) | GPTZero | 1 | current (vendor heuristic documentation; retrieved 2026-07-21) |
+| [Turnitin AI Writing Report guide](web--turnitin-ai-writing-report.md) | Turnitin | 1 | current (vendor limitation guidance; retrieved 2026-07-21 via Internet Archive) |
+
 ## Web essays and surveys
 
 External web content ingested in support of Workstream B (the persuasion suite). These are `source_kind: web-essay` and `source_kind: web-survey` rather than repo doc-file, paper, or comment-fragment sources. Idempotency anchor for web essays is retrieval date plus URL; web surveys list their primary sources in the `notes:` frontmatter. Re-ingest on next scholar cycle if the canonical URL content has materially changed.
