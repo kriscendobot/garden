@@ -34,3 +34,10 @@ By the time you run, #805's TLA change is already on `llm`. So:
 Report real-execution evidence only.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 13
+  worker_kind: gardener
+  claimed_at: 2026-07-21T16:03:07Z
