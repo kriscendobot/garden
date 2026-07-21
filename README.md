@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T02:44:44Z_
+_As of 2026-07-21T02:46:49Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 15h)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 16h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 22h)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 1d)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 3d)
@@ -3331,13 +3331,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 75.4M | $843.51 _(notional, rate-card)_ | no quota set |
-| Codex | 333.4M _(+574.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 333.3M _(+574.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr651-7e0513a0`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr651-7e0513a0.md) — attention directive on endojs/endo-but-for-bots PR #651
 - [`endojs-endo-but-for-bots-pr793-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr793-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #793
 - [`xs2rust-endor-press-20260721-022003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-022003.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
