@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-21T22:23:48Z_
+_As of 2026-07-21T22:25:12Z_
 
 ## Latest
 
-[kriscendobot/finbot#2](https://github.com/kriscendobot/finbot/pull/2) landed (green, mergeable) — it makes the pending "significanceAlpha as the live default?" question CLI-evaluable via `finbot-eval --significance-alpha=A` without moving any default; on the shipped fixtures the DM/QLIKE gate is a no-op at α=0.05 but several presets flip to "significantly better" by α=0.20, so the boundary is now inspectable before committing. A gauntlet is running on [endojs/endo-but-for-bots#818](https://github.com/endojs/endo-but-for-bots/pull/818), and reviews completed on [endojs/endo-but-for-bots#809](https://github.com/endojs/endo-but-for-bots/pull/809). A shepherd on [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) got its own URL diff green but reports the remaining red is pre-existing master debt (jsdoc lint, TextEncoder/TextDecoder permit tests from `536f82d18`, stale zizmor action pins) — it recommends a dedicated master-greening pass rather than smuggling those fixes into a feature PR.
-
-The recurring `xs2rust-endor-press` (PR [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) remains the fleet's sore spot: three more dispatches today deterministically overran the 2400s handler budget and were poisoned to `jobs/plan/`, and the earlier leak of ~356 orphaned processes traces to the same too-large job. It needs a dedicated builder working iteratively across dispatches (or a split into claim-sized stages), not the hourly press. The weekly Qwen watch found no new harnessable model (live hermit stays qwen3.6). Twenty-seven PRs remain parked for maintainer review — the long-stalled esheets/endoclaw-OAuth ([endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621), 11 days on one review) and the merge-gated M2/M3 shims are the highest-leverage unblocks.
+A gardener consolidated the **199-entry maintainer inbox** down to ~30 open decisions across 13 topics (every original acknowledged, nothing deleted) — the single most useful thing to read; the standouts are an 11-day stall on re-approving [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (a stale `CHANGES_REQUESTED` now dams the whole Google-Sheets/OAuth tree), SturdyRef held on arbitration between [#737](https://github.com/endojs/endo-but-for-bots/pull/737) and [#774](https://github.com/endojs/endo-but-for-bots/pull/774), and merge-gated milestones M2 ([#259](https://github.com/endojs/endo-but-for-bots/pull/259), URL shim [#719](https://github.com/endojs/endo-but-for-bots/pull/719) vs [#263](https://github.com/endojs/endo-but-for-bots/pull/263)) and M3 ([#705](https://github.com/endojs/endo-but-for-bots/pull/705)/[#707](https://github.com/endojs/endo-but-for-bots/pull/707)/[#694](https://github.com/endojs/endo-but-for-bots/pull/694)) all green-and-waiting. The one board transition this cycle was [endojs/endo-but-for-bots#818](https://github.com/endojs/endo-but-for-bots/pull/818)'s gauntlet completing. Watch the xs2rust-endor press on [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600): it **deterministically overran its 2400s handler budget three more times today** and was poisoned each cycle (earlier runs also leaked ~356 orphaned processes) — it needs a dedicated builder split into claim-sized stages, not the hourly press. A shepherd on [#719](https://github.com/endojs/endo-but-for-bots/pull/719) traced its remaining red to broadly-RED `master` debt (jsdoc, text-codec permits, stale action pins), not the PR's own diff, and recommends a master-greening pass first; and finbot landed [kriscendobot/finbot#2](https://github.com/kriscendobot/finbot/pull/2) (merged, green), making the pending `significanceAlpha` default decision CLI-evaluable without changing any default.
 
 ## Parked for maintainer feedback
 
@@ -579,25 +577,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 86.0M | $964.01 _(notional, rate-card)_ | no quota set |
+| Claude | 86.1M | $964.21 _(notional, rate-card)_ | no quota set |
 | Codex | 495.8M _(+521.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr818-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr818-gauntlet.md) — Run the gauntlet on endojs/endo-but-for-bots#818
+### doin (2)
 - [`xs2rust-endor-press-20260721-212001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-212001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260721-222001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-222001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3189)
+### tada (3190)
+- [`endojs-endo-but-for-bots-pr818-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr818-gauntlet.md) — Completion report
 - [`minion-town-agenda-review-20260721-222001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-222001.md) — Posted the agenda review: https://github.com/kriskowal/garden/issues/58#issue...
 - [`endojs-endo-but-for-bots-pr809-review-da1fca9d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr809-review-da1fca9d.md) — Completion report
 - [`finbot-progress-20260721-213504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260721-213504.md) — finbot progress cycle 20260721-213504 — report
 - [`endo-npm-cas-registry-press-20260721-213504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260721-213504.md) — Completion report — endo-npm-cas-registry-press-20260721-213504
-- [`ocapn-noise-press-20260721-213504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260721-213504.md) — OCapN-over-Noise press, dispatch 14 (2026-07-21 ~21:40Z) — steady state confi...
-- … and 3184 more
+- … and 3185 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
