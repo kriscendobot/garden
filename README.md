@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T15:29:35Z_
+_As of 2026-07-21T15:31:13Z_
 
 ## Latest
 
@@ -4408,7 +4408,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 78.9M | $899.81 _(notional, rate-card)_ | no quota set |
+| Claude | 78.9M | $901.23 _(notional, rate-card)_ | no quota set |
 | Codex | 448.9M _(+555.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
@@ -4421,13 +4421,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-harness-ses-attenuator-0e2ac80-review`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-harness-ses-attenuator-0e2ac80-review.md) — Repository: kriscendobot/finbot (worktree slug kriscendobot-finbot), default ...
 - [`fix-garden-root-test-leak-cleanup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-garden-root-test-leak-cleanup.md) — Clean up test-context leak damage in the deployed garden root (endolin-garden...
 
-### tada (3134)
+### tada (3135)
+- [`merge-endo-but-for-bots-pr585-content-store-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/merge-endo-but-for-bots-pr585-content-store-powers.md) — Merged endojs/endo-but-for-bots PR #585 (content-store powers)
 - [`endo-git-integration-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260721-152002.md) — Press dispatch complete — M3 posture verified and unchanged (all gates still ...
 - [`finbot-progress-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260721-152002.md) — Cycle report
 - [`endo-byte-array-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260721-152002.md) — Completion report — endo-byte-array-press-20260721-152002
 - [`ocapn-noise-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260721-152002.md) — OCapN-over-Noise press, dispatch 13 (2026-07-21 ~15:20Z) — steady state confi...
-- [`endo-vfs-parity-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260721-152002.md) — State verified across the board — this is a verify-and-stand-down tick. Summa...
-- … and 3129 more
+- … and 3130 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -4454,7 +4454,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting.md) — _normal_ · ---
 - [`gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop.md) — _normal_ · ---
 - [`kriscendobot-agoric-sdk-pr15-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-shepherd.md) — _normal_ · shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #15
-- [`merge-endo-but-for-bots-pr585-content-store-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/merge-endo-but-for-bots-pr585-content-store-powers.md) — _normal_ · Merge endojs/endo-but-for-bots PR #585 (content-store powers)
 - [`merge-upstream-master-into-llm-20260717`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/merge-upstream-master-into-llm-20260717.md) — _normal_ · Merge upstream master into the endo-but-for-bots llm branch (propose PR -> sh...
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-npm.md) — _normal_ · ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-pnpm.md) — _normal_ · ---
