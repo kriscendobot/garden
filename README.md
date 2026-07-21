@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T04:54:29Z_
+_As of 2026-07-21T04:59:07Z_
 
 ## Latest
 
@@ -3471,14 +3471,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 76.1M | $859.57 _(notional, rate-card)_ | no quota set |
-| Codex | 344.7M _(+573.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 76.2M | $864.09 _(notional, rate-card)_ | no quota set |
+| Codex | 345.0M _(+573.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`kriscendobot-endo-pr2-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-endo-pr2-shepherd.md) — shepherd (auto: red CI) on kriscendobot/endo PR #2
 - [`scholar-ingest-kni`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-kni.md) — Ingest github.com/kriskowal/kni into the library — read it as agent-context s...
 - [`xs2rust-endor-press-20260721-043501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-043501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
