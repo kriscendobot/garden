@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-21T19:36:10Z_
+_As of 2026-07-21T19:46:21Z_
 
 ## Latest
 
-A gardener claimed **`endojs-endo-but-for-bots-master-green-text-codec-permits`** — the one job now in flight — closing the loop on the [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) shepherd's finding that the URL-shim PR's CI redness traces to a broadly-RED `master` (jsdoc warnings, the `536f82d18` TextEncoder/TextDecoder permit changes breaking three tests, and stale `setup-node` action pins), not to #719's own diff; the fix is to green master first, then rebase #719. The [xs2rust-endor engine port (#600)](https://github.com/endojs/endo-but-for-bots/pull/600) hourly press again deterministically overran its 2400s handler budget and was poisoned/parked twice more this window — the standing signal is unchanged: it needs a dedicated builder working across dispatches, not the timeboxed press. A maintainer-inbox omnibus consolidated **199** unread entries into ~30 open items across 13 topics (every original acknowledged, nothing deleted), and the weekly Qwen watch found no harnessable upgrade over the live `qwen3.6` hermit. Smaller completions: the reference library's three dangling nav links were repaired, and the test262 compartments-fixtures reconciliation landed its inventory checkpoint (blocked from writing executable tests until the fresh spec names its constructor/import surface).
+A single job landed on the board this cycle: [`master-green-text-codec-permits`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-master-green-text-codec-permits.md) completed its master-greening pass, part of the effort to clear pre-existing `master` debt (jsdoc warnings, `TextEncoder`/`TextDecoder` permit failures from commit `536f82d18`, stale action pins) that a shepherd traced under [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) — the URL-shim feature is green on its own diff and blocked only by that broadly-red master. The maintainer inbox was consolidated: an omnibus digest folded **199** unread entries into ~30 open items across 13 topics, acknowledging every original — the fastest way to see what actually wants kriskowal's attention. Most decisions cluster on merge-gated milestone work (text-codecs shim [#259](https://github.com/endojs/endo-but-for-bots/pull/259), git remote-push [#705](https://github.com/endojs/endo-but-for-bots/pull/705)/[#707](https://github.com/endojs/endo-but-for-bots/pull/707), Docker self-host [#694](https://github.com/endojs/endo-but-for-bots/pull/694)) and the 11-day esheets/endoclaw-OAuth stall behind a stale review on [#621](https://github.com/endojs/endo-but-for-bots/pull/621).
+
+Two things need direct action. The hourly `xs2rust-endor-press` for [#600](https://github.com/endojs/endo-but-for-bots/pull/600) is **deterministically overrunning** its 2400s handler budget every cycle and being poisoned — two more poison-parks this cycle — after leaking 356 orphaned processes on 07-20/21; it needs a dedicated builder working across dispatches, not the timeboxed press. And the deployed roots on `endolin-garden2` and `endolin-garden` still need a physical drain-and-clean after two jobs corrupted the deployed-root git (a durable guard already landed on `main2`), with deploys stalled since 07-17.
 
 ## Parked for maintainer feedback
 
@@ -412,23 +414,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 83.2M | $941.39 _(notional, rate-card)_ | no quota set |
+| Claude | 83.2M | $941.70 _(notional, rate-card)_ | no quota set |
 | Codex | 457.3M _(+521.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-master-green-text-codec-permits`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-master-green-text-codec-permits.md) — ---
+### doin (0)
+(none)
 
-### tada (3174)
+### tada (3175)
+- [`endojs-endo-but-for-bots-master-green-text-codec-permits`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-master-green-text-codec-permits.md) — Completion report
 - [`scholar-fix-dangling-nav-links-225b1c358359`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-fix-dangling-nav-links-225b1c358359.md) — Repaired all three dangling navigation links in the reference library.
 - [`xs2rust-endor-press-20260721-190502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-190502.md) — Bar 1: Integrated with endor — PARTIALLY MET
 - [`consolidate-test262-compartments-fixtures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/consolidate-test262-compartments-fixtures.md) — Completed reconciliation and staging checkpoint.
 - [`minion-town-agenda-review-20260721-190502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-190502.md) — Completed hourly agenda review and posted findings to https://github.com/kris...
-- [`improve-xs2rust-press-preflight-overrun-circuit-breaker`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-xs2rust-press-preflight-overrun-circuit-breaker.md) — Completion report
-- … and 3169 more
+- … and 3170 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
