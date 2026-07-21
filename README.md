@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T15:32:37Z_
+_As of 2026-07-21T15:33:00Z_
 
 ## Latest
 
@@ -4467,27 +4467,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 78.9M | $902.96 _(notional, rate-card)_ | no quota set |
+| Claude | 78.8M | $897.39 _(notional, rate-card)_ | no quota set |
 | Codex | 448.9M _(+555.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
-- [`endo-daemon-data-plane-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-daemon-data-plane-press-20260721-152002.md) — Press the Endo daemon data plane forward (endojs/endo-but-for-bots, base llm)
+### doin (4)
 - [`endo-npm-cas-registry-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260721-152002.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`fix-garden-root-test-leak-cleanup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-garden-root-test-leak-cleanup.md) — Clean up test-context leak damage in the deployed garden root (endolin-garden...
 - [`harden-garden-root-repo-against-job-escapes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/harden-garden-root-repo-against-job-escapes.md) — Harden the deployed garden root repo against job git-escapes (incident 2026-0...
 - [`scholar-arxiv-2606-26294`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-arxiv-2606-26294.md) — scholar — ingest arXiv 2606.26294 and report its relevance to gardening
 
-### tada (3136)
+### tada (3137)
+- [`endo-daemon-data-plane-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260721-152002.md) — Completion report — endo-daemon-data-plane-press-20260721-152002
 - [`finbot-harness-ses-attenuator-0e2ac80-review`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-harness-ses-attenuator-0e2ac80-review.md) — Completion report — security review of finbot harness SES compartment attenua...
 - [`merge-endo-but-for-bots-pr585-content-store-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/merge-endo-but-for-bots-pr585-content-store-powers.md) — Merged endojs/endo-but-for-bots PR #585 (content-store powers)
 - [`endo-git-integration-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260721-152002.md) — Press dispatch complete — M3 posture verified and unchanged (all gates still ...
 - [`finbot-progress-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260721-152002.md) — Cycle report
-- [`endo-byte-array-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260721-152002.md) — Completion report — endo-byte-array-press-20260721-152002
-- … and 3131 more
+- … and 3132 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
