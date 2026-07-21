@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T04:38:25Z_
+_As of 2026-07-21T04:40:46Z_
 
 ## Latest
 
@@ -3503,14 +3503,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.9M | $852.04 _(notional, rate-card)_ | no quota set |
+| Claude | 75.9M | $852.60 _(notional, rate-card)_ | no quota set |
 | Codex | 343.6M _(+572.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
+- [`deadmail-issue-comment-5030189831`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5030189831.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr809-review-581b1021`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr809-review-581b1021.md) — Review directive on endojs/endo-but-for-bots PR #809
 - [`gauntlet-endo-but-for-bots-pr705-agent-tools-git-remote-push-tier`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr705-agent-tools-git-remote-push-tier.md) — ---
 - [`xs2rust-endor-press-20260721-043501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-043501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
