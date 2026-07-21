@@ -47,6 +47,9 @@ Provenance: mechanism and quotes trace to kriskowal's `github.com/kriskowal/kni`
 | [dialogs-and-renderers](../sections/kni--hackni--dialogs-and-renderers.md) | Dialog (`ask`/`answer`) and renderer are pluggable roles — an agent is a smart dialog-plus-handler. |
 | [command-line-tooling](../sections/kni--readme--command-line-tooling.md) | Transcript/verify/waypoint — the durability and replayability of the recorded feedback. |
 |[read bot interview](../sections/kni--examples-read--overview.md) | The literal route-elicit-record-render loop: text fields plus a bounded choice become a bot profile.
+| [coin toss](../sections/kni--examples-coin--overview.md) | The minimal route-elicit-record-compare-render loop: option consequences write the call, a guard renders the outcome. |
+| [hilo binary search](../sections/kni--examples-hilo--overview.md) | Successive bounded questions narrow lo/hi to convergence; q tallies the elicitation cost — adaptive question selection. |
+| [archery shop economy](../sections/kni--examples-archery--overview.md) | Precondition-filtered options fuse a guard with a state mutation, then re-render the gathered totals. |
 
 ## See also
 
