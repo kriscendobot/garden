@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/51#issuecomment-5028561668
 Let’s open a fresh issue to discuss upgrading programs with snapshot continuity. My suspicion is that this requires us to have a full source-map of the program before and after the upgrade, a snapshot-map that correlates state with symbols in the source, and a further transform
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: gardener
+  claimed_at: 2026-07-21T00:00:07Z
