@@ -974,6 +974,11 @@ kriskowal's own **kni** — a whitespace-significant language that presents as i
 | [kni HOWTO](kni--howto.md) | kriskowal/kni | 2025-12-29 (commit `5e66290e`) | Kris Kowal | 2 | current (graduated tutorial; tutorial-shape overlap with MANUAL) |
 | [kni HACKNI](kni--hackni.md) | kriskowal/kni | 2025-12-29 (commit `0d6e2949`) | Kris Kowal | 4 | current (implementation tour: parser pipeline, runtime engine, handler hooks, dialog/renderer) |
 | [kni INKKNI](kni--inkkni.md) | kriskowal/kni | 2026-01-02 (commit `3a62b89e`) | Kris Kowal | 2 | current (differences from Inkle's Ink; the capability boundary) |
+| [kni example: read](kni--examples-read.md) | kriskowal/kni | 2019-01-01 (commit `8af2380b`) | Kris Kowal | 1 | current (literal bot interview: collect fields and render a profile) |
+| [kni example: calc](kni--examples-calc.md) | kriskowal/kni | 2018-03-09 (commit `5df7a8d8`) | Kris Kowal | 1 | current (minimal mutation-and-loop state machine) |
+| [kni example: door-lock](kni--examples-door-lock.md) | kriskowal/kni | 2018-03-09 (commit `3c17d8a3`) | Kris Kowal | 1 | current (guarded two-room door controller) |
+| [kni example: forest](kni--examples-forest.md) | kriskowal/kni | 2016-07-30 (commit `435ec3cf`) | Kris Kowal | 1 | current (state-indexed procedural feedback loop) |
+| [kni example: maze](kni--examples-maze.md) | kriskowal/kni | 2016-07-30 (commit `435ec3cf`) | Kris Kowal | 1 | current (coordinate-derived guards and navigation) |
 
 ## Notes
 
