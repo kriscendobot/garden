@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T05:26:26Z_
+_As of 2026-07-21T05:29:37Z_
 
 ## Latest
 
@@ -3493,25 +3493,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 76.1M | $860.19 _(notional, rate-card)_ | no quota set |
-| Codex | 346.8M _(+581.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 347.1M _(+581.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr809-review-2f33af27`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr809-review-2f33af27.md) — Review directive on endojs/endo-but-for-bots PR #809
 - [`scholar-ingest-kni-examples-batch2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-kni-examples-batch2.md) — Finish kriskowal/kni examples ingestion (batch 2)
-- [`verify-no-orphan-leak-on-handler-timeout`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/verify-no-orphan-leak-on-handler-timeout.md) — assayer — verify the orphan-reap fix leaves ZERO orphans (the resume gate)
 - [`xs2rust-endor-press-20260721-043501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-043501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3096)
+### tada (3097)
+- [`verify-no-orphan-leak-on-handler-timeout`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/verify-no-orphan-leak-on-handler-timeout.md) — Assayer verdict: **FAIL — do NOT resume the schedule** (orchestration-failed:...
 - [`scholar-ingest-kni-examples-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-kni-examples-remainder.md) — Completion report: scholar-ingest-kni-examples-remainder
 - [`scholar-fix-dangling-nav-links-4a606de76f4a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-fix-dangling-nav-links-4a606de76f4a.md) — What I found
 - [`fix-handler-reap-spawned-process-group`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-handler-reap-spawned-process-group.md) — Completion report
 - [`endojs-endo-but-for-bots-pr777-e4a522e4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr777-e4a522e4.md) — Completion report
-- [`kriscendobot-endo-pr2-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-endo-pr2-shepherd.md) — Fixed and pushed 063ecd888 to PR #2: lint/type guards and updated expectation...
-- … and 3091 more
+- … and 3092 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
