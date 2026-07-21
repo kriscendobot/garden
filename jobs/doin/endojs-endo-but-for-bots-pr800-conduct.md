@@ -28,3 +28,10 @@ Guards (re-verify before merging):
 
 Source: press tick endo-npm-cas-registry-press-20260721-030507
 Approval: https://github.com/endojs/endo-but-for-bots/pull/800#pullrequestreview-4740263926
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  worker_kind: cleric
+  claimed_at: 2026-07-21T03:16:07Z
