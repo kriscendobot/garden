@@ -979,6 +979,18 @@ kriskowal's own **kni** — a whitespace-significant language that presents as i
 | [kni example: door-lock](kni--examples-door-lock.md) | kriskowal/kni | 2018-03-09 (commit `3c17d8a3`) | Kris Kowal | 1 | current (guarded two-room door controller) |
 | [kni example: forest](kni--examples-forest.md) | kriskowal/kni | 2016-07-30 (commit `435ec3cf`) | Kris Kowal | 1 | current (state-indexed procedural feedback loop) |
 | [kni example: maze](kni--examples-maze.md) | kriskowal/kni | 2016-07-30 (commit `435ec3cf`) | Kris Kowal | 1 | current (coordinate-derived guards and navigation) |
+| [kni example: archery](kni--examples-archery.md) | kriskowal/kni | 2016-07-30 (commit `435ec3cf`) | Kris Kowal | 1 | current (guarded economy loop rendering gathered totals) |
+| [kni example: bottles](kni--examples-bottles.md) | kriskowal/kni | 2018-03-09 (commit `aaf798b7`) | Kris Kowal | 1 | current (recursive counter-driven countdown loop) |
+| [kni example: troll](kni--examples-troll.md) | kriskowal/kni | 2016-07-30 (commit `435ec3cf`) | Kris Kowal | 1 | current (minimal inline random continuation) |
+| [kni example: spacestation](kni--examples-spacestation.md) | kriskowal/kni | 2016-07-30 (commit `435ec3cf`) | Kris Kowal | 1 | current (indentation as a nested outline tree) |
+| [kni example: ship](kni--examples-ship.md) | kriskowal/kni | 2016-07-30 (commit `435ec3cf`) | Kris Kowal | 1 | current (large labeled-room navigation with a config variant) |
+| [kni example: space](kni--examples-space.md) | kriskowal/kni | 2016-07-30 (commit `435ec3cf`) | Kris Kowal | 1 | current (coordinate-hash procedural star map) |
+| [kni example: coin](kni--examples-coin.md) | kriskowal/kni | 2016-07-30 (commit `435ec3cf`) | Kris Kowal | 1 | current (elicit-record-compare-render toss) |
+| [kni example: hilo](kni--examples-hilo.md) | kriskowal/kni | 2016-07-30 (commit `435ec3cf`) | Kris Kowal | 1 | current (binary-search adaptive question loop) |
+| [kni example: loop](kni--examples-loop.md) | kriskowal/kni | 2018-03-09 (commit `aaf798b7`) | Kris Kowal | 1 | current (the anonymous @... loop label idiom) |
+| [kni example: door](kni--examples-door.md) | kriskowal/kni | 2016-07-30 (commit `435ec3cf`) | Kris Kowal | 1 | current (two-room shared-flag doorway) |
+| [kni example: subroutine](kni--examples-subroutine.md) | kriskowal/kni | 2018-01-16 (commit `3841b36a`) | Kris Kowal | 1 | current (subroutines that build a menu) |
+| [kni example: nominal](kni--examples-nominal.md) | kriskowal/kni | 2016-08-01 (commit `34ed0749`) | Kris Kowal | 1 | current (recursive integer-to-words procedure) |
 
 ## Notes
 
