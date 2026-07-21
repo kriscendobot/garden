@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 9
-worker_kind: gardener
-claimed_at: 2026-07-21T18:52:21Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-improve-xs2rust-press-preflight-overrun-circuit-breaker
