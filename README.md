@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T11:05:44Z_
+_As of 2026-07-21T11:07:36Z_
 
 ## Latest
 
@@ -4043,25 +4043,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 77.3M | $876.60 _(notional, rate-card)_ | no quota set |
-| Codex | 415.1M _(+571.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 77.2M | $877.28 _(notional, rate-card)_ | no quota set |
+| Codex | 415.3M _(+571.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`build-hardened-url-vetted-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-hardened-url-vetted-shim.md) — ---
-- [`minion-town-agenda-review-20260721-110503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260721-110503.md) — Minion Town hourly agenda review
 - [`xs2rust-endor-press-20260721-110503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-110503.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3120)
+### tada (3121)
+- [`minion-town-agenda-review-20260721-110503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-110503.md) — Completion report
 - [`build-hardened-text-encoder-decoder-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-hardened-text-encoder-decoder-shim.md) — Existing PR #259 already implements the requested shim on feat/hardened-text-...
 - [`minion-town-agenda-review-20260721-100501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-100501.md) — Completion report
 - [`endojs-endo-but-for-bots-pr809-review-2f33af27-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr809-review-2f33af27-retro.md) — Completion report
 - [`endo-npm-cas-registry-press-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260721-092001.md) — Completion report — npm-via-CAS registry press tick 2026-07-21 09:20
-- [`finbot-progress-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260721-092001.md) — Advanced PR https://github.com/kriscendobot/finbot/pull/1 to 3b74dfe.
-- … and 3115 more
+- … and 3116 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
