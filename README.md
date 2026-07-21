@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T05:34:19Z_
+_As of 2026-07-21T05:35:45Z_
 
 ## Latest
 
@@ -3590,16 +3590,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 76.1M | $860.19 _(notional, rate-card)_ | no quota set |
-| Codex | 348.3M _(+581.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 76.1M | $860.55 _(notional, rate-card)_ | no quota set |
+| Codex | 348.8M _(+581.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr809-review-2f33af27`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr809-review-2f33af27.md) — Review directive on endojs/endo-but-for-bots PR #809
+- [`minion-town-agenda-review-20260721-053503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260721-053503.md) — Minion Town hourly agenda review
 - [`scholar-ingest-kni-examples-batch2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-kni-examples-batch2.md) — Finish kriskowal/kni examples ingestion (batch 2)
+- [`xs2rust-endor-press-20260721-053503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-053503.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3099)
 - [`xs2rust-endor-orphan-collection-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-orphan-collection-fix.md) — orchestration xs2rust-endor-orphan-collection-fix — complete
