@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-21T22:59:50Z_
+_As of 2026-07-21T23:02:50Z_
 
 ## Latest
 
-A gardener consolidated the maintainer inbox — **199 unread entries folded into ~30 open items across 13 topics**, every original acknowledged — so the standup/press/poison noise is now one digest; the live decisions it surfaces (esheets [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) stalled 11 days on a stale `CHANGES_REQUESTED`, the SturdyRef arbitration, M2/M3 merge-gates, and the minion.town Gate-1 human action) are unchanged and still waiting. The hourly **xs2rust-endor press ([endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) deterministically overran its 2400s handler budget and was poisoned three times today** (the 16:50, 18:05, and 20:20 dispatches all parked to `jobs/plan/` at `gate: go-ahead`); the fix is to split it into claim-sized stages or hand it to a dedicated builder, not the timeboxed press. A shepherd on the URL-shim PR [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) drove it partially green and found the real blocker is a **broadly-RED fork `master`** (jsdoc lint, TextCodec permit/test regressions from `536f82d18`, stale zizmor pins) — not the PR's own diff — and recommends a dedicated master-greening pass. On finbot, [kriscendobot/finbot#2](https://github.com/kriscendobot/finbot/pull/2) merged, making the pending `significanceAlpha`-as-default question evaluable from the CLI without changing any default. The weekly Qwen watch was a no-op (no new harnessable model), and the [endojs/endo-but-for-bots#809](https://github.com/endojs/endo-but-for-bots/pull/809) review retrospective is the one job now in flight.
+The board has fully drained (0 posted, 0 in-flight); the only transition since the last bulletin was the completion of the [endo-but-for-bots#809](https://github.com/endojs/endo-but-for-bots/pull/809) review retrospective. The dominant recent signal is a self-reinforcing failure loop: the hourly `xs2rust-endor` press ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) deterministically overran its 2400s handler budget three cycles running and was poisoned and parked each time — it needs a dedicated builder split into claim-sized stages, not the timeboxed press. A maintainer-inbox omnibus folded 199 unread entries down to ~30 open items across 13 topics; the headline asks are unchanged and merge-gated — approve/re-review the esheets [endoclaw-oauth #621](https://github.com/endojs/endo-but-for-bots/pull/621) (11 days dammed on one stale `CHANGES_REQUESTED`), the M2 text-codecs shim [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and a URL-shim pick between [#719](https://github.com/endojs/endo-but-for-bots/pull/719) and [#263](https://github.com/endojs/endo-but-for-bots/pull/263), and the M3 merges [#705](https://github.com/endojs/endo-but-for-bots/pull/705)/[#707](https://github.com/endojs/endo-but-for-bots/pull/707)/[#694](https://github.com/endojs/endo-but-for-bots/pull/694). A shepherd drove [#719](https://github.com/endojs/endo-but-for-bots/pull/719) to partial green and traced the remaining red to pre-existing master debt (jsdoc lint, text-codec permit tests, stale action pins), recommending a dedicated master-greening pass rather than smuggling those fixes into a feature PR. On the finbot side, [finbot#2](https://github.com/kriscendobot/finbot/pull/2) merged, adding a `finbot-eval --significance-alpha` CLI gate so the pending default-flip decision is now evaluable against fixtures without changing any hash. The weekly Qwen watch found no harnessable upgrade over the live `qwen3.6` hermit. Fleet cleanup still owed a human: drain and physically sweep the corrupted deployed roots on `endolin-garden2`/`endolin-garden`, and confirm a deliberate deploy (root has been stalled at `374deede65` since 07-17).
 
 ## Parked for maintainer feedback
 
@@ -577,23 +577,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 86.5M | $967.41 _(notional, rate-card)_ | no quota set |
+| Claude | 86.6M | $967.86 _(notional, rate-card)_ | no quota set |
 | Codex | 504.9M _(+511.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr809-review-da1fca9d-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr809-review-da1fca9d-retro.md) — Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
+### doin (0)
+(none)
 
-### tada (3193)
+### tada (3194)
+- [`endojs-endo-but-for-bots-pr809-review-da1fca9d-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr809-review-da1fca9d-retro.md) — Completion report
 - [`xs-upstream-watch-20260721-225002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs-upstream-watch-20260721-225002.md) — No new upstream changes, no job to post, no garden changes. Clean no-op week.
 - [`xs2rust-endor-press-20260721-222001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-222001.md) — xs2rust-endor Press Driver Report (2026-07-21T22:20Z)
 - [`xs2rust-endor-press-20260721-212001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-212001.md) — xs2rust-endor-press-20260721-212001 — Dispatch 4 (requeue 5)
 - [`endojs-endo-but-for-bots-pr818-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr818-gauntlet.md) — Completion report
-- [`minion-town-agenda-review-20260721-222001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-222001.md) — Posted the agenda review: https://github.com/kriskowal/garden/issues/58#issue...
-- … and 3188 more
+- … and 3189 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
