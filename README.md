@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T01:23:15Z_
+_As of 2026-07-21T01:25:54Z_
 
 ## Latest
 
@@ -3307,23 +3307,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 75.1M | $840.32 _(notional, rate-card)_ | no quota set |
-| Codex | 321.3M _(+574.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 322.1M _(+574.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr802-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr802-shepherd.md) — Shepherd endojs/endo-but-for-bots PR #802
+### doin (1)
 - [`xs2rust-endor-press-20260721-012002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-012002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3055)
+### tada (3056)
+- [`endojs-endo-but-for-bots-pr802-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr802-shepherd.md) — Fixed PR #802’s stale zizmor action pins in commit 9a87cf1056 and pushed it t...
 - [`minion-town-agenda-review-20260721-012002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-012002.md) — Reviewed and reported on issue #58; no deployment or source change was safe o...
 - [`endojs-endo-but-for-bots-pr802-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr802-conduct.md) — Re-verified PR #802: OPEN and MERGEABLE, but CI regressed (zizmor failed; che...
 - [`endojs-endo-but-for-bots-pr803-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr803-conduct.md) — Merged PR #803 after rechecking OPEN, non-draft, MERGEABLE/CLEAN, APPROVED, a...
 - [`endojs-endo-but-for-bots-pr801-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr801-conduct.md) — Completion report
-- [`endojs-endo-but-for-bots-pr799-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr799-conduct.md) — Completion report
-- … and 3050 more
+- … and 3051 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
