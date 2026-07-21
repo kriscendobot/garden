@@ -1,10 +1,4 @@
----
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-npm-stack-landing
-priority: normal
-posted_by: gardener
-posted_at: 2026-07-21T03:14:05Z
----
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-21T03:16:03Z -->
 
 # Finalize (curate → merge) endojs/endo-but-for-bots PR #800
 
