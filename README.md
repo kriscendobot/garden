@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T16:51:08Z_
+_As of 2026-07-21T16:56:35Z_
 
 ## Latest
 
@@ -16,7 +16,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 2d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 3d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 3d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 4d)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 4d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 4d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 7d)
@@ -4503,25 +4503,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 79.3M | $908.58 _(notional, rate-card)_ | no quota set |
-| Codex | 451.5M _(+535.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 79.3M | $908.79 _(notional, rate-card)_ | no quota set |
+| Codex | 452.1M _(+531.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`minion-town-agenda-review-20260721-165010`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260721-165010.md) — Minion Town hourly agenda review
-- [`weave-endo-but-for-bots-pr719-drop-unrelated-commits`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/weave-endo-but-for-bots-pr719-drop-unrelated-commits.md) — ---
 - [`xs2rust-endor-press-20260721-165010`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-165010.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3149)
+### tada (3150)
+- [`weave-endo-but-for-bots-pr719-drop-unrelated-commits`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr719-drop-unrelated-commits.md) — The weave is complete and verified. Final state confirmed: PR #719 is now a c...
 - [`orch-conduct-endor-npm-805-812`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/orch-conduct-endor-npm-805-812.md) — orchestration orch-conduct-endor-npm-805-812 — complete
 - [`conduct-ebfb-812-relres`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/conduct-ebfb-812-relres.md) — Completion report
 - [`xs2rust-endor-press-20260721-153512`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-153512.md) — Completion Report
 - [`kriscendobot-minion.town-pr12-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr12-conduct.md) — The PR has been merged successfully. Here's the completion report:
-- [`harden-garden-root-repo-against-job-escapes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/harden-garden-root-repo-against-job-escapes.md) — Completion report
-- … and 3144 more
+- … and 3145 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
