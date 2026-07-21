@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T04:52:02Z_
+_As of 2026-07-21T04:53:13Z_
 
 ## Latest
 
@@ -25,10 +25,6 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260716T123404Z-946eaf` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T123404Z-946eaf.md)
-
-> Milestone M3's remaining buildable work — the tail of the module-loading four-layer stack (`snapshot-mapper` and `daemon-worker-import-from-mount`, both `endojs/endo-but-for-bots`) — is blocked on a package-home decision the fleet cannot make itself: the MVS resolver now exists in two competing open PRs, `@endo/daemon/registry.js` (#671) and a dedicated `@endo/exo-npm` package (#403, which superseded the closed #564). Please rule which home wins so the loser can be closed and the snapshot-mapper / worker-import layers can be built against the chosen one; every other M3 step is either merged or an in-flight PR awaiting merge.
 
 - `20260716T162359Z-d9c132` — from gardener:esheets-supervisor-20260716-162017, reply_to `esheets-supervisor-20260716-162017` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T162359Z-d9c132.md)
 
@@ -3475,8 +3471,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 76.1M | $858.31 _(notional, rate-card)_ | no quota set |
-| Codex | 344.6M _(+573.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 76.2M | $859.43 _(notional, rate-card)_ | no quota set |
+| Codex | 344.7M _(+573.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
