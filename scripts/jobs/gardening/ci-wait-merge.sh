@@ -21,6 +21,14 @@
 #     `"$GH" pr merge --merge --delete-branch`, then VERIFY state=MERGED. Issuing
 #     the merge in the same invocation as the wait is the whole point — never
 #     "wait, exit, hope a later tick merges".
+#   * STACKED-PR BRANCH RETENTION: `--delete-branch` is DROPPED when another
+#     open PR uses this PR's head branch as its BASE. Deleting the ref through
+#     the API makes GitHub AUTO-CLOSE such downstream PRs (base_ref_deleted)
+#     instead of retargeting them — endo-but-for-bots #800 was closed six
+#     seconds after the maintainer APPROVED it, when the #799 conductor's
+#     merge deleted the branch #800 was based on. The guard fails RETAIN:
+#     the branch is also kept when the downstream enumeration itself fails
+#     (an unreadable answer is not license to perform the destructive act).
 #   * UNFREEZE-TO-LIVE (conductor step 2): a fork-side PR opened under the
 #     frozen-base-branch convention targets a snapshot named `<branch>-<sha>`
 #     (e.g. `llm-65b0abe`) so a stacked PR's base does not move under it. Merging
@@ -278,7 +286,24 @@ if [ "$review" = CHANGES_REQUESTED ]; then
   exit 1
 fi
 
-if ! merr="$("$GH" pr merge "$pr" -R "$repo" --merge --delete-branch 2>&1)"; then
+# --- stacked-PR branch-retention guard: never delete a head branch that is ---
+# the BASE of another open PR (see the header note; the #800 auto-close).
+delete_flag="--delete-branch"
+head_ref="$("$GH" pr view "$pr" -R "$repo" --json headRefName --jq '.headRefName // ""' 2>/dev/null || echo "")"
+if [ -z "$head_ref" ]; then
+  log "could not read head branch for $repo#$pr — retaining the branch after merge (fail-retain)"
+  delete_flag=""
+elif downstream="$("$GH" pr list -R "$repo" --base "$head_ref" --state open --json number --jq '[.[].number|tostring]|join(", #")' 2>/dev/null)"; then
+  if [ -n "$downstream" ]; then
+    echo "retain-branch repo=$repo pr=$pr head=$head_ref: open PR(s) #$downstream use it as base — merging WITHOUT --delete-branch"
+    delete_flag=""
+  fi
+else
+  log "could not enumerate open PRs based on $head_ref — retaining the branch after merge (fail-retain)"
+  delete_flag=""
+fi
+
+if ! merr="$("$GH" pr merge "$pr" -R "$repo" --merge ${delete_flag:+"$delete_flag"} 2>&1)"; then
   # Auto-merge fallback: if direct merge is momentarily blocked but the repo
   # supports queued auto-merge, queue it so GitHub completes on the now-green CI.
   log "direct --merge failed for $repo#$pr: $merr"

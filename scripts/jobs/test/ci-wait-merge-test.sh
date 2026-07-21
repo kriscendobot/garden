@@ -26,6 +26,9 @@
 #   T11 green + reviewDecision=CHANGES_REQUESTED → refuse to merge (exit 1, NO
 #      merge): a maintainer review landing mid-wait is never merged over even
 #      though GitHub reports the PR mergeable (kriscendobot/minion.town#7)
+#   T12 downstream open PR based on the head branch → merge WITHOUT
+#      --delete-branch (branch retained; the endo-but-for-bots #800 auto-close)
+#   T13 head-branch read fails → fail-RETAIN: merge but keep the branch
 #
 # Usage: ci-wait-merge-test.sh
 set -euo pipefail
@@ -56,10 +59,16 @@ case "$1 $2" in
     if printf ' %s' "$@" | grep -q -- '--json statusCheckRollup --jq'; then cat "$STUBDIR/failures" 2>/dev/null; exit 0; fi
     if printf ' %s' "$@" | grep -q -- '--json state,baseRefName'; then
       cat "$STUBDIR/basemeta" 2>/dev/null || printf '{"state":"OPEN","baseRefName":"llm"}'; exit 0; fi
+    if printf ' %s' "$@" | grep -q -- '--json headRefName'; then
+      cat "$STUBDIR/headref" 2>/dev/null || echo "feat-x"; exit 0; fi
     line=$(sed -n "$((i+1))p" "$SEQ"); echo $((i+1)) > "$STUBDIR/i"
     [ -z "$line" ] && line=$(tail -n1 "$SEQ")   # past the script → repeat last
     printf '%s' "$line" | base64 -d; exit 0 ;;
   "pr list")
+    # --base flag → the branch-retention downstream check; base:… search → the
+    # frozen-base sibling check.
+    if printf ' %s' "$@" | grep -q -- ' --base '; then
+      cat "$STUBDIR/downstream" 2>/dev/null || echo ""; exit 0; fi
     if printf ' %s' "$@" | grep -q -- 'join'; then cat "$STUBDIR/prnums" 2>/dev/null || echo ""
     else cat "$STUBDIR/prcount" 2>/dev/null || echo 1; fi
     exit 0 ;;
@@ -77,19 +86,21 @@ RED='{"state":"OPEN","mergeable":"MERGEABLE","statusCheckRollup":[{"name":"build
 # Green CI but a maintainer requested changes: reviewDecision drives the gate.
 GREEN_CR='{"state":"OPEN","mergeable":"MERGEABLE","reviewDecision":"CHANGES_REQUESTED","statusCheckRollup":[{"name":"build","status":"COMPLETED","conclusion":"SUCCESS"}]}'
 
-reset_seq() { : > "$STUBDIR/seq"; echo 0 > "$STUBDIR/i"; rm -f "$STUBDIR/merge.log" "$STUBDIR/edit.log" "$STUBDIR/basemeta" "$STUBDIR/prcount" "$STUBDIR/prnums"; }
+reset_seq() { : > "$STUBDIR/seq"; echo 0 > "$STUBDIR/i"; rm -f "$STUBDIR/merge.log" "$STUBDIR/edit.log" "$STUBDIR/basemeta" "$STUBDIR/prcount" "$STUBDIR/prnums" "$STUBDIR/downstream" "$STUBDIR/headref"; }
 seq_add()   { b64 "$1" >> "$STUBDIR/seq"; printf '\n' >> "$STUBDIR/seq"; }
 chk()       { if [ "$1" = "$2" ]; then ok "$3 (rc=$1)"; else bad "$3 (got rc=$1 want $2)"; fi; }
 merged()    { if [ -f "$STUBDIR/merge.log" ]; then ok "$1 merge called"; else bad "$1 merge NOT called"; fi; }
 nomerge()   { if [ -f "$STUBDIR/merge.log" ]; then bad "$1 merge WAS called"; else ok "$1 no merge"; fi; }
 edited()    { if [ -f "$STUBDIR/edit.log" ]; then ok "$1 base unfrozen"; else bad "$1 base NOT unfrozen"; fi; }
 noedit()    { if [ -f "$STUBDIR/edit.log" ]; then bad "$1 base WAS edited"; else ok "$1 no base edit"; fi; }
+deleted()   { if grep -q -- '--delete-branch' "$STUBDIR/merge.log" 2>/dev/null; then ok "$1 head branch deleted"; else bad "$1 head branch NOT deleted"; fi; }
+retained()  { if grep -q -- '--delete-branch' "$STUBDIR/merge.log" 2>/dev/null; then bad "$1 head branch WAS deleted"; else ok "$1 head branch retained"; fi; }
 # set -e-safe invocation: capture the exit code without aborting the suite.
 run()       { rc=0; bash "$SCRIPT" "$@" >/dev/null 2>&1 || rc=$?; }
 
 echo "T1 pending,pending,green → blocks then merges"
 reset_seq; seq_add "$PEND"; seq_add "$PEND"; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
-run o/r 178; chk "$rc" 0 T1; merged T1
+run o/r 178; chk "$rc" 0 T1; merged T1; deleted T1
 
 echo "T2 red terminal → exit 3, no merge"
 reset_seq; seq_add "$RED"; printf '  red: build = FAILURE\n' > "$STUBDIR/failures"
@@ -143,6 +154,19 @@ run o/r 510; chk "$rc" 1 T10; nomerge T10; noedit T10
 echo "T11 green + reviewDecision=CHANGES_REQUESTED → refuse to merge (exit 1, no merge)"
 reset_seq; seq_add "$GREEN_CR"; printf 'MERGED|false' > "$STUBDIR/verify"
 run o/r 7; chk "$rc" 1 T11; nomerge T11
+
+echo "T12 green + downstream open PR based on the head branch → merge WITHOUT --delete-branch"
+# The endo-but-for-bots #800 auto-close: deleting a merged PR's head branch while
+# an open (freshly APPROVED) PR uses it as base makes GitHub close that PR
+# (base_ref_deleted) instead of retargeting it. The spine must retain the branch.
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
+printf '800' > "$STUBDIR/downstream"
+run o/r 799; chk "$rc" 0 T12; merged T12; retained T12
+
+echo "T13 green + head-branch read fails → fail-RETAIN (merge, keep the branch)"
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
+printf '' > "$STUBDIR/headref"   # unreadable/empty head ref → not license to delete
+run o/r 799; chk "$rc" 0 T13; merged T13; retained T13
 
 rm -rf "$TR"
 echo "----------------------------------------------------------------"

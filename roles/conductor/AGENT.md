@@ -66,7 +66,7 @@ For each PR in the job:
    ```
    **Always `--merge`** (never `--rebase`, never `--squash`). `--auto --merge` is permitted; `--auto --rebase` / `--auto --squash` are forbidden because they discard the merge-commit shape. Verify with `gh pr view <N> --json state,autoMergeRequest`.
    Reject (`mergeable=BLOCKED`, missing reviews, branch protection): stall `merge blocked: <gh error>`.
-6. **Clean up the merged PR's branches.** The per-job worktree teardown is the gardener's job. The remote branch is the upstream concern: `gh pr merge --merge --delete-branch` cleans it up automatically.
+6. **Clean up the merged PR's branches.** The per-job worktree teardown is the gardener's job. The remote branch is the upstream concern: `gh pr merge --merge --delete-branch` cleans it up automatically — **unless another open PR uses this PR's head branch as its base**: deleting the ref then makes GitHub auto-close that downstream PR (`base_ref_deleted`) instead of retargeting it (endo-but-for-bots #800 was closed six seconds after the maintainer approved it, when the #799 merge deleted its base). The `ci-wait-merge.sh` spine enforces this deterministically (it drops `--delete-branch` when a downstream open PR sits on the branch, and fails RETAIN when the check itself cannot be read); a conductor merging by hand honors the same rule.
 7. **Record outcomes.** Note any unblocked downstream PRs in the report so the next triager tick can post weave / shepherd follow-up jobs. The conductor does NOT post follow-ups itself.
 8. **Pick the next PR**, return to step 1.
 
