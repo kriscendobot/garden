@@ -23,3 +23,10 @@ SES already implement a phase, note it as evidence, not as the spec. Keep proven
 material fans out beyond this job's budget, write what is supported, post a follow-on
 `scholar-research-module-harmony-intersection`, and complete. Route structural lessons via
 `skills/self-improvement`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-21T18:11:19Z
