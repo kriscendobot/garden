@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T16:31:02Z_
+_As of 2026-07-21T16:35:56Z_
 
 ## Latest
 
@@ -1460,6 +1460,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260721T163047Z-ac8e82` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T163047Z-ac8e82.md)
 
 > M2 (Project Hygiene), the current in-progress milestone, has no unblocked work remaining: its last two steps are both green PRs in endojs/endo-but-for-bots awaiting a maintainer merge decision — #259 (hardened TextEncoder/TextDecoder shim; OPEN, mergeable, CI green, but note an errant direct `536f82d18` push to the fork's master a builder recommends reverting) and #719 (hardened URL shim; un-drafted, CI green, but carrying 3 unrelated commits — decide: rebase #719 to ses-only, or promote a clean ses-only rebuild). Merging M2 to completion (and unblocking M3) needs these two decisions.
+
+- `20260721T163542Z-a9c1b0` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T163542Z-a9c1b0.md)
+
+> Milestone M2 (Project Hygiene) cannot close without a maintainer decision: its two remaining vetted-shim designs are each satisfied by a green, non-draft, MERGEABLE PR in endojs/endo-but-for-bots — #259 (TextEncoder/TextDecoder) and #719 (URL/URLSearchParams %URL%/%SharedURL% split). Please pick #719 over the alternate #263 (close the loser), then merge/ferry #259 and #719 upstream so M2 completes.
 
 - `poison-build-daemon-mapstore-gh59-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-daemon-mapstore-gh59-deadline-overrun.md)
 
@@ -4499,8 +4503,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 79.1M | $904.78 _(notional, rate-card)_ | no quota set |
-| Codex | 454.0M _(+547.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 79.2M | $905.77 _(notional, rate-card)_ | no quota set |
+| Codex | 454.0M _(+544.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
