@@ -25,3 +25,10 @@ Un-draft PR #809 (it is currently a draft), confirm CI is green on the current
 head, and merge it into `llm`. You own the merge method. After merge, sweep any
 frozen-base branches per your role's discipline. The phased implementation is
 already orchestrated (`daemon-store-family-build`); nothing else to post here.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 10
+  worker_kind: cleric
+  claimed_at: 2026-07-21T23:26:38Z
