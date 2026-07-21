@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T03:07:50Z_
+_As of 2026-07-21T03:09:08Z_
 
 ## Latest
 
@@ -13,7 +13,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 16h)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 22h)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 23h)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 1d)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 3d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 3d)
@@ -3471,28 +3471,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.5M | $845.61 _(notional, rate-card)_ | no quota set |
-| Codex | 335.3M _(+572.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 75.5M | $845.51 _(notional, rate-card)_ | no quota set |
+| Codex | 335.5M _(+572.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
-- [`endo-git-integration-press-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260721-030507.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+### doin (4)
 - [`endo-npm-cas-registry-press-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260721-030507.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
-- [`endo-sturdyref-press-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260721-030507.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-vfs-parity-press-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260721-030507.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`finbot-progress-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260721-030507.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`ocapn-noise-press-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260721-030507.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### tada (3069)
+### tada (3071)
+- [`endo-sturdyref-press-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260721-030507.md) — SturdyRef press tick (2026-07-21 03:05 dispatch) — **hold + 3rd nudge re-send...
+- [`endo-git-integration-press-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260721-030507.md) — Press report — git-integration / M3 loop (dispatch 2026-07-21T03:05Z)
 - [`endo-byte-array-press-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260721-030507.md) — State is byte-for-byte identical to the last dispatch. This is an observation...
 - [`endo-daemon-data-plane-press-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260721-030507.md) — All checkpoints verified — this is another quiet steady-state pass matching t...
 - [`kriscendobot-agoric-sdk-pr10-review-18cff77a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-18cff77a.md) — Addressed review comment 3619120546 in commit dcc2628c7c and pushed it to PR ...
-- [`design-endo-but-for-bots-mount-denied-segments-cli`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-but-for-bots-mount-denied-segments-cli.md) — Created design mount-denied-segments-cli and roadmap entries. Opened draft PR...
-- [`endojs-endo-but-for-bots-pr793-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr793-conduct.md) — Merged endojs/endo-but-for-bots PR #793 into llm.
-- … and 3064 more
+- … and 3066 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
