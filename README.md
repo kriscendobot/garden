@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T06:29:31Z_
+_As of 2026-07-21T06:32:29Z_
 
 ## Latest
 
@@ -3771,22 +3771,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 76.2M | $863.20 _(notional, rate-card)_ | no quota set |
-| Codex | 352.2M _(+581.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 352.2M _(+581.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr809-review-581b1021-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr809-review-581b1021-retro.md) — Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
+### doin (0)
+(none)
 
-### tada (3101)
+### tada (3102)
+- [`endojs-endo-but-for-bots-pr809-review-581b1021-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr809-review-581b1021-retro.md) — Recorded a review-process miss for PR #809: the required design gauntlet/pane...
 - [`scholar-ingest-kni-examples-batch2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-kni-examples-batch2.md) — Completion report
 - [`minion-town-agenda-review-20260721-053503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-053503.md) — Hourly agenda review complete for kriskowal/garden#58 (minion.town primary ph...
 - [`xs2rust-endor-orphan-collection-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-orphan-collection-fix.md) — orchestration xs2rust-endor-orphan-collection-fix — complete
 - [`resume-xs2rust-endor-press-schedule`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/resume-xs2rust-endor-press-schedule.md) — Confirmed origin/journal2:schedules/xs2rust-endor-press.md is present and act...
-- [`verify-no-orphan-leak-on-handler-timeout`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/verify-no-orphan-leak-on-handler-timeout.md) — Assayer verdict: **FAIL — do NOT resume the schedule** (orchestration-failed:...
-- … and 3096 more
+- … and 3097 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
