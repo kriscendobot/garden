@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6601 (530 parent indexes + 6071 children).
+Total section files: 6605 (530 parent indexes + 6075 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8394,6 +8394,14 @@ Total section files: 6601 (530 parent indexes + 6071 children).
 - [papers--hansen-test-superior-predictive-ability-2005--relation-to-reality-check-and-the-correction-lineage](papers--hansen-test-superior-predictive-ability-2005--relation-to-reality-check-and-the-correction-lineage.md)
 - [papers--hansen-test-superior-predictive-ability-2005--studentized-statistic-and-sample-dependent-null](papers--hansen-test-superior-predictive-ability-2005--studentized-statistic-and-sample-dependent-null.md)
 
+### papers--herbold-large-scale-chatgpt-essays
+
+- [papers--herbold-large-scale-chatgpt-essays--rigid-essay-scaffolding-and-linguistic-variation](papers--herbold-large-scale-chatgpt-essays--rigid-essay-scaffolding-and-linguistic-variation.md)
+
+### papers--liang-gpt-detector-bias
+
+- [papers--liang-gpt-detector-bias--false-positives-and-authorship-inference](papers--liang-gpt-detector-bias--false-positives-and-authorship-inference.md)
+
 ### papers--maloyan-namiot-sleeper-channels-2026
 
 - [papers--maloyan-namiot-sleeper-channels-2026--executable-policy-and-measurement-plan](papers--maloyan-namiot-sleeper-channels-2026--executable-policy-and-measurement-plan.md) (index)
@@ -8945,6 +8953,10 @@ Total section files: 6601 (530 parent indexes + 6071 children).
 - [web--goldilocks-select-height--problem-and-default-sizing](web--goldilocks-select-height--problem-and-default-sizing.md)
 - [web--goldilocks-select-height--viewport-margin-and-flip-fallbacks](web--goldilocks-select-height--viewport-margin-and-flip-fallbacks.md)
 
+### web--gptzero-perplexity-burstiness
+
+- [web--gptzero-perplexity-burstiness--detector-heuristics-are-aggregate-signals](web--gptzero-perplexity-burstiness--detector-heuristics-are-aggregate-signals.md)
+
 ### web--hyndman-fpp3-forecast-evaluation
 
 - [web--hyndman-fpp3-forecast-evaluation--forecast-errors-and-scale-dependent-measures](web--hyndman-fpp3-forecast-evaluation--forecast-errors-and-scale-dependent-measures.md)
@@ -9222,6 +9234,10 @@ Total section files: 6601 (530 parent indexes + 6071 children).
   - [Role hierarchy and metadata files](web--tuf-signed-update-framework--overview--role-hierarchy-and-metadata-files.md)
   - [Security properties](web--tuf-signed-update-framework--overview--security-properties.md)
   - [Threat model](web--tuf-signed-update-framework--overview--threat-model.md)
+
+### web--turnitin-ai-writing-report
+
+- [web--turnitin-ai-writing-report--detector-limits-and-human-review](web--turnitin-ai-writing-report--detector-limits-and-human-review.md)
 
 ### web--willison-muse-spark-1-1
 
