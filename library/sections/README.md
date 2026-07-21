@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6551 (530 parent indexes + 6021 children).
+Total section files: 6571 (530 parent indexes + 6041 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -7631,6 +7631,41 @@ Total section files: 6551 (530 parent indexes + 6021 children).
 
 - [kamera--readme--focus-api](kamera--readme--focus-api.md)
 - [kamera--readme--overview](kamera--readme--overview.md)
+
+### kni--hackni
+
+- [kni--hackni--dialogs-and-renderers](kni--hackni--dialogs-and-renderers.md)
+- [kni--hackni--parser-pipeline](kni--hackni--parser-pipeline.md)
+- [kni--hackni--runtime-engine](kni--hackni--runtime-engine.md)
+- [kni--hackni--runtime-hooks](kni--hackni--runtime-hooks.md)
+
+### kni--howto
+
+- [kni--howto--tutorial-getting-started](kni--howto--tutorial-getting-started.md)
+- [kni--howto--tutorial-state-and-flow](kni--howto--tutorial-state-and-flow.md)
+
+### kni--inkkni
+
+- [kni--inkkni--kni-beyond-ink-and-limitations](kni--inkkni--kni-beyond-ink-and-limitations.md)
+- [kni--inkkni--shared-ideas-and-differences](kni--inkkni--shared-ideas-and-differences.md)
+
+### kni--manual
+
+- [kni--manual--blocks-sequences-and-alternation](kni--manual--blocks-sequences-and-alternation.md)
+- [kni--manual--blocks-switch-conditions-and-modifiers](kni--manual--blocks-switch-conditions-and-modifiers.md)
+- [kni--manual--expressions-conditions-consequences](kni--manual--expressions-conditions-consequences.md)
+- [kni--manual--flow-directives](kni--manual--flow-directives.md)
+- [kni--manual--indentation-and-threads](kni--manual--indentation-and-threads.md)
+- [kni--manual--input-prompts](kni--manual--input-prompts.md)
+- [kni--manual--options-and-questions](kni--manual--options-and-questions.md)
+- [kni--manual--overview](kni--manual--overview.md)
+- [kni--manual--procedures](kni--manual--procedures.md)
+- [kni--manual--text-space-and-symbols](kni--manual--text-space-and-symbols.md)
+
+### kni--readme
+
+- [kni--readme--command-line-tooling](kni--readme--command-line-tooling.md)
+- [kni--readme--overview](kni--readme--overview.md)
 
 ### koerper--readme
 
