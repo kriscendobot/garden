@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T13:30:05Z_
+_As of 2026-07-21T13:33:32Z_
 
 ## Latest
 
@@ -4089,14 +4089,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 77.7M | $884.08 _(notional, rate-card)_ | no quota set |
-| Codex | 436.7M _(+555.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 437.9M _(+555.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`xs2rust-endor-press-20260721-122001`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260721-122001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### doin (2)
-- [`xs2rust-endor-press-20260721-122001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-122001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+### doin (1)
 - [`xs2rust-endor-press-20260721-132003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-132003.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3125)
