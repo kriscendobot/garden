@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T03:24:20Z_
+_As of 2026-07-21T03:25:35Z_
 
 ## Latest
 
@@ -3488,23 +3488,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 75.5M | $845.03 _(notional, rate-card)_ | no quota set |
-| Codex | 338.5M _(+573.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 339.1M _(+573.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`minion-town-agenda-review-20260721-032030`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260721-032030.md) — Minion Town hourly agenda review
+### doin (1)
 - [`xs2rust-endor-press-20260721-032030`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-032030.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3078)
+### tada (3080)
+- [`endojs-endo-but-for-bots-npm-stack-landing`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-npm-stack-landing.md) — orchestration endojs-endo-but-for-bots-npm-stack-landing — complete
+- [`minion-town-agenda-review-20260721-032030`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-032030.md) — Reviewed agenda and posted findings to https://github.com/kriskowal/garden/is...
 - [`endojs-endo-but-for-bots-pr802-retarget-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr802-retarget-conduct.md) — Retargeted PR #802 to llm after confirming PR #800 merged there. Revalidated ...
 - [`endojs-endo-but-for-bots-pr800-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr800-conduct.md) — Merged endojs/endo-but-for-bots PR #800 into llm as 151db3d8b40b6a674b043b785...
 - [`finbot-progress-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260721-030507.md) — What advanced this cycle
-- [`endo-npm-cas-registry-press-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260721-030507.md) — Completion report — npm-via-CAS registry press tick 2026-07-21
-- [`endojs-endo-but-for-bots-pr812-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr812-conduct.md) — orchestration-failed: true
-- … and 3073 more
+- … and 3075 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
