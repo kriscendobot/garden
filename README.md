@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T01:10:16Z_
+_As of 2026-07-21T01:10:31Z_
 
 ## Latest
 
@@ -1101,6 +1101,27 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260721T010100Z-3bab0e` — from watchdog:hermit/1, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T010100Z-3bab0e.md)
 
 > gardener job 'xs2rust-endor-press-20260721-002001' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260721T011018Z-6baba4` — from gardener:endojs-endo-but-for-bots-pr802-conduct, reply_to `endojs-endo-but-for-bots-pr802-conduct` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T011018Z-6baba4.md)
+
+> Conduct job for [endojs/endo-but-for-bots#802](https://github.com/endojs/endo-but-for-bots/issues/802) — holding, need your call before merging.
+>
+> [endojs/endo-but-for-bots#802](https://github.com/endojs/endo-but-for-bots/issues/802) (exports-resolution reland) is OPEN, APPROVED, MERGEABLE, CLEAN, all CI green — BUT it's stacked and its base is NOT the llm trunk, so a plain `gh pr merge --merge` would strand it. Current picture:
+>
+> - llm HEAD is still [endojs/endo-but-for-bots#799](https://github.com/endojs/endo-but-for-bots/issues/799) (680bcd45a7). Nothing from this inner stack has reached llm yet.
+> - [endojs/endo-but-for-bots#802](https://github.com/endojs/endo-but-for-bots/issues/802) base = reland/endor-run-exec-hardening = the head branch of [endojs/endo-but-for-bots#801](https://github.com/endojs/endo-but-for-bots/issues/801).
+> - [endojs/endo-but-for-bots#801](https://github.com/endojs/endo-but-for-bots/issues/801) MERGED at 01:04:59Z (8s before this job was claimed) — but into feat/endor-npm-run, a within-stack branch, NOT llm. That branch is diverged from llm (ahead 2 / behind 12).
+> - [endojs/endo-but-for-bots#800](https://github.com/endojs/endo-but-for-bots/issues/800) (head feat/endor-npm-run, the branch [endojs/endo-but-for-bots#801](https://github.com/endojs/endo-but-for-bots/issues/801) collapsed into) is CLOSED/CONFLICTING — so the chain from the [endojs/endo-but-for-bots#802](https://github.com/endojs/endo-but-for-bots/issues/802) base down to llm runs through a closed PR.
+> - Your CAS-registry "press" report explicitly said the stack only awaits the maintainer's merge into llm.
+>
+> Because [endojs/endo-but-for-bots#801](https://github.com/endojs/endo-but-for-bots/issues/801) already collapsed reland/endor-run-exec-hardening downward BEFORE the [endojs/endo-but-for-bots#802](https://github.com/endojs/endo-but-for-bots/issues/802) commit was on it, merging [endojs/endo-but-for-bots#802](https://github.com/endojs/endo-but-for-bots/issues/802) into that base now would leave its content on a branch that no longer flows to llm.
+>
+> How do you want [endojs/endo-but-for-bots#802](https://github.com/endojs/endo-but-for-bots/issues/802) landed?
+>   (a) I retarget its base to llm and merge (brings its 3 stack commits; it's diverged behind 12 — may need a rebase/weave first),
+>   (b) I merge it into its current base to continue the branch-by-branch collapse (you handle the final merge to llm),
+>   (c) leave it for your manual cascade — I close out this conduct job as held.
+>
+> I will NOT merge until you say. Default if I hear nothing: (c) hold.
 
 - `poison-build-daemon-mapstore-gh59-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-daemon-mapstore-gh59-deadline-overrun.md)
 
@@ -3285,7 +3306,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.1M | $839.17 _(notional, rate-card)_ | no quota set |
+| Claude | 75.1M | $839.26 _(notional, rate-card)_ | no quota set |
 | Codex | 321.0M _(+573.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 ## Board
