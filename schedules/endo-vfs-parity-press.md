@@ -20,15 +20,16 @@ and `fs-interface-consolidation.md`.
 **Each dispatch (every 6h; be idempotent):** Assess, don't assume — read those two
 reconciliation designs plus `daemon-mount.md`, `agent-tools-mount-fs-tools.md`,
 `namehub-interface-unification.md`, and `endopi-edit-tool.md`, and the live PRs.
-State as of 2026-07-21 (post-03:05 tick): **#714** and **#643** MERGED;
+State as of 2026-07-21 (post-09:20 tick): **#714** and **#643** MERGED;
 **#658** closed (superseded). Open, review-blocked, ALL re-verified green and
-MERGEABLE/CLEAN at 2026-07-21 03:15 (23–24 SUCCESS checks each, zero
+MERGEABLE/CLEAN at 2026-07-21 09:30 (23–24 SUCCESS checks each, zero
 pending/failed; no activity on any press PR since 2026-07-18 — two merges
-into `llm` since the last tick, #799 endor npm resolution (01:01) and the
-#793 cap-std-watch design (02:51), triggered GitHub mergeable
-recomputation; every press PR re-polled MERGEABLE/CLEAN afterward — no
-re-weave needed; new #814, a draft design for #650's denied-segments CLI
-flags by another worker, is mount-adjacent but does not touch the parity
+into `llm` since the last tick, #800 endor entry-point assembly (Phase 4)
+and #802 endor Node-semantics exports resolution reland, both endor-only,
+triggered GitHub mergeable recomputation; #656 and #713 briefly reported
+UNKNOWN and re-polled MERGEABLE/CLEAN — no re-weave needed; #814, the
+draft design for #650's denied-segments CLI flags by another worker, is
+mount-adjacent but does not touch the parity
 surface): **#656** (provideSubMount, head
 76e6800ee5), **#655** (old non-delegated
 mount grep, head 741642e2ee — maintainer asked about closing as superseded
