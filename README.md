@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-21T20:06:06Z_
+_As of 2026-07-21T20:20:47Z_
 
 ## Latest
 
-The hardened URL shim landed on [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) (commit 9dcdc2412), and a shepherd drove its lane most of the way to green — but the key finding is that the remaining red is **pre-existing master debt, not #719's diff**: five jsdoc lint warnings in the daemon, three text-codec permit/test failures from master commit 536f82d18, and repo-wide zizmor pin staleness. The shepherd recommends one master-greening pass (jsdoc + text-codec permits + action-pin bump) before #719 can rebase clean, and a companion text-codec-permits fix already completed. Separately, a maintainer-inbox omnibus consolidated **199 unread entries into ~30 open decisions across 13 topics** — most notably the 11-day esheets stall behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621), the SturdyRef lanes all held on arbitration ([#737](https://github.com/endojs/endo-but-for-bots/pull/737)/[#774](https://github.com/endojs/endo-but-for-bots/pull/774)), and several merge-gated milestone PRs ([#705](https://github.com/endojs/endo-but-for-bots/pull/705), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), [#694](https://github.com/endojs/endo-but-for-bots/pull/694), [#259](https://github.com/endojs/endo-but-for-bots/pull/259)) awaiting merge authority. The hourly `xs2rust-endor-press` for [#600](https://github.com/endojs/endo-but-for-bots/pull/600) keeps deterministically overrunning its 2400s budget and being poison-parked — it needs a dedicated builder split into claim-sized stages rather than the recurring press. Physical cleanup of the deployed roots on both hosts (test-leak corruption, self-healed but not swept) remains queued as `fix-garden-root-test-leak-cleanup`.
+The [hardened URL shim](https://github.com/endojs/endo-but-for-bots/pull/719) landed and published on PR #719 (`9dcdc2412`), and a companion master-greening pass fixed the text-codec permits; a shepherd on that PR reports it is now partial-green, with the remaining red tracing to broadly-RED master debt (jsdoc warnings, TextEncoder/TextDecoder permit tests, stale zizmor action pins) rather than the URL diff — worth a dedicated master-greening job before the shim rebases clean. Separately, a scholar repaired three dangling reference-library nav links, and the test262/Compartments fixture reconciliation staged an inventory but is blocked pending the normative constructor/import surface the fresh spec doesn't yet define.
+
+The bigger signal is operational: the hourly `xs2rust-endor-press` (PR [#600](https://github.com/endojs/endo-but-for-bots/pull/600)) is **deterministically overrunning** its 2400s handler budget every cycle — two more runs (16:50 and 18:05) were killed at the wall and poisoned into `jobs/plan/`, and an earlier 19:05 run only partially met its endor-integration bar. This press needs to be split into claim-sized stages or run detached, and per the freshly-consolidated maintainer omnibus (199 entries folded to ~30 items across 13 topics) it wants a dedicated iterative builder rather than the timeboxed hourly cadence. The omnibus is the thing to read: it surfaces a stack of merge-gated, review-gated decisions (esheets/#621 stalled 11 days, the SturdyRef lanes, M2/M3 shims, minion.town Gate 1) now awaiting a single maintainer pass.
 
 ## Parked for maintainer feedback
 
@@ -412,15 +414,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 83.5M | $943.93 _(notional, rate-card)_ | no quota set |
-| Codex | 457.5M _(+524.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 83.6M | $945.62 _(notional, rate-card)_ | no quota set |
+| Codex | 457.5M _(+524.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`minion-town-agenda-review-20260721-202001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260721-202001.md) — Minion Town hourly agenda review
+- [`xs2rust-endor-press-20260721-202001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-202001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3176)
 - [`endojs-endo-but-for-bots-hardened-url-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-hardened-url-shim.md) — Implemented and published the hardened URL shim on PR #719 (9dcdc2412).
