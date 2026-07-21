@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T05:24:54Z_
+_As of 2026-07-21T05:25:53Z_
 
 ## Latest
 
@@ -3499,19 +3499,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`scholar-ingest-kni-examples-batch2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-kni-examples-batch2.md) — Finish kriskowal/kni examples ingestion (batch 2)
-- [`scholar-ingest-kni-examples-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-kni-examples-remainder.md) — Continue kriskowal/kni examples ingestion
 - [`verify-no-orphan-leak-on-handler-timeout`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/verify-no-orphan-leak-on-handler-timeout.md) — assayer — verify the orphan-reap fix leaves ZERO orphans (the resume gate)
 - [`xs2rust-endor-press-20260721-043501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-043501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3095)
+### tada (3096)
+- [`scholar-ingest-kni-examples-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-kni-examples-remainder.md) — Completion report: scholar-ingest-kni-examples-remainder
 - [`scholar-fix-dangling-nav-links-4a606de76f4a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-fix-dangling-nav-links-4a606de76f4a.md) — What I found
 - [`fix-handler-reap-spawned-process-group`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-handler-reap-spawned-process-group.md) — Completion report
 - [`endojs-endo-but-for-bots-pr777-e4a522e4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr777-e4a522e4.md) — Completion report
 - [`kriscendobot-endo-pr2-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-endo-pr2-shepherd.md) — Fixed and pushed 063ecd888 to PR #2: lint/type guards and updated expectation...
-- [`scholar-ingest-kni-examples`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-kni-examples.md) — Ingested five kni examples: read, calc, door-lock, forest, and maze. Updated ...
-- … and 3090 more
+- … and 3091 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
