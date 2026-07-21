@@ -14,3 +14,10 @@ https://github.com/endojs/endo-but-for-bots/actions/runs/29792338876/job/8851659
 Other CI checks were still in progress at observation time.
 
 Source approval: https://github.com/endojs/endo-but-for-bots/pull/802#pullrequestreview-4740280808
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 10
+  worker_kind: cleric
+  claimed_at: 2026-07-21T01:15:00Z
