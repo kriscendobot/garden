@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T11:45:59Z_
+_As of 2026-07-21T12:14:38Z_
 
 ## Latest
 
@@ -1278,6 +1278,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260721T114543Z-6bb33d` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T114543Z-6bb33d.md)
 
 > Milestone M2 (Project Hygiene) is complete except for merging two vetted-shim PRs on endojs/endo-but-for-bots that are built, gauntleted, and already OPEN/MERGEABLE/CLEAN — #719 (hardened `URL`/`URLSearchParams` shim, design `hardened-url-shim`) and #259 (hardened `TextEncoder`/`TextDecoder` shim, design `hardened-text-codecs-shim`); please merge these (or authorize a ferry) and reconcile their plan records, which still read "Not Started" and keep triggering redundant build re-posts.
+
+- `20260721T121419Z-d9350d` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T121419Z-d9350d.md)
+
+> M3's headline exit-criterion PR endojs/endo-but-for-bots #694 (`feat: Docker self-hosting image with authenticated remote gateway`) has been un-drafted, MERGEABLE, and green for ~9 days but sits unmerged; completing M3 needs a merge decision (conductor/ferry), which is outside the fleet's autonomous bounds.
 
 - `poison-build-daemon-mapstore-gh59-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-daemon-mapstore-gh59-deadline-overrun.md)
 
@@ -4076,7 +4080,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 77.3M | $876.38 _(notional, rate-card)_ | no quota set |
+| Claude | 77.5M | $880.74 _(notional, rate-card)_ | no quota set |
 | Codex | 423.8M _(+571.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
