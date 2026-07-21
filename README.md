@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T11:07:36Z_
+_As of 2026-07-21T11:20:43Z_
 
 ## Latest
 
@@ -1245,6 +1245,35 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260721T104554Z-b3cca7` — from watchdog:hermit/2, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T104554Z-b3cca7.md)
 
 > gardener job 'xs2rust-endor-press-20260721-100501' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260721T112026Z-823c5b` — from gardener:build-hardened-url-vetted-shim, reply_to `build-hardened-url-vetted-shim` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T112026Z-823c5b.md)
+
+> build #hardened-url-vetted-shim — DUPLICATE, not building a competing PR.
+>
+> The M2 `hardened-url-shim` design is ALREADY IMPLEMENTED by open PR
+> [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/issues/719) ("feat(ses): permit URL and URLSearchParams as a
+> vetted shim (%URL%/%SharedURL% split)", head `feat/hardened-url-vetted-shim`,
+> base `master`). It is un-drafted (passed the gauntlet) and ALL CI is green
+> (lint, cover, test-xs, test262, hermes, 22.x/24.x on ubuntu+macos).
+>
+> Its ses implementation matches the design exactly — Date-style %URL%/%SharedURL%
+> split, URLSearchParams universal, hidden %URLSearchParamsIteratorPrototype%
+> sampled + hardened, and the `lockdown({ urlBlobMethods: 'remove' })` opt-in. I
+> built the same thing independently in my worktree and it converged nearly
+> line-for-line with [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/issues/719), so that PR is correct and
+> canonical.
+>
+> One diff-hygiene blemish worth a look before merge: that branch carries 3
+> UNRELATED commits that pollute its diff — `fix(cbor): …` (adds a whole
+> packages/cbor/ package) and `fix(ci): correct setup-node pin annotations` (8
+> .github/workflows/*.yml files). The URL shim itself is only the 3 ses commits.
+>
+> Per the builder no-duplicate norm I did NOT open a competing PR. Recommendation:
+> either (a) strip the cbor/ci commits from [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/issues/719)
+> (retcon/rebase to ses-only) then merge, or (b) if you'd rather a clean ses-only
+> rebuild, I have one ready to push (tamer + permits + get-anonymous + lockdown +
+> types + changeset + 3 tests, all 20 tests green, eslint/tsc/prettier/spell-out
+> gates clean). Say which and I'll proceed.
 
 - `poison-build-daemon-mapstore-gh59-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-daemon-mapstore-gh59-deadline-overrun.md)
 
@@ -4043,8 +4072,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 77.2M | $877.28 _(notional, rate-card)_ | no quota set |
-| Codex | 415.3M _(+571.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 77.4M | $884.80 _(notional, rate-card)_ | no quota set |
+| Codex | 420.9M _(+571.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
