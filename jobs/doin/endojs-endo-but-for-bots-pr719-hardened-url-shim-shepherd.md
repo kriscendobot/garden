@@ -7,6 +7,7 @@ Shepherd PR #719 ("feat(ses): permit URL and URLSearchParams as a vetted shim") 
 <!-- garden-reaped: 1 -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
