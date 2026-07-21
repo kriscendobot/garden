@@ -20,6 +20,9 @@
 | [runtime-hooks](../sections/kni--hackni--runtime-hooks.md) | kni HACKNI | The handler `has`/`get`/`set`, `waypoint`/`resume`, and `ask`/`answer` hooks — the concrete seam where the deterministic graph hands off to and receives back from external/agentic behavior. |
 | [kni-beyond-ink-and-limitations](../sections/kni--inkkni--kni-beyond-ink-and-limitations.md) | kni INKKNI | The capability boundary (no types beyond 32-bit ints, no label-values, no user functions, `<hook>` escape) — the "gaps" half of the fit assessment. |
 |[read bot interview](../sections/kni--examples-read--overview.md) | kni examples/read.kni | A literal deterministic intake: free-text capture plus a bounded choice, rendered as a bot profile.
+| [archery shop economy](../sections/kni--examples-archery--overview.md) | kni examples/archery.kni | A bounded, guard-filtered menu records each choice as a mutation; procedures render the gathered totals each turn. |
+| [coin toss](../sections/kni--examples-coin--overview.md) | kni examples/coin.kni | The elicit-record-compare-render archetype in miniature: capture a call as typed state, render the verdict from it. |
+| [hilo binary search](../sections/kni--examples-hilo--overview.md) | kni examples/hilo.kni | Adaptive question selection: the graph computes the next question from accumulated state and tallies the cost. |
 
 ## See also
 
