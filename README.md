@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T15:36:05Z_
+_As of 2026-07-21T15:38:09Z_
 
 ## Latest
 
@@ -4477,14 +4477,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 78.8M | $898.30 _(notional, rate-card)_ | no quota set |
-| Codex | 448.9M _(+556.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
+| Claude | 78.8M | $898.73 _(notional, rate-card)_ | no quota set |
+| Codex | 449.1M _(+557.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (8)
+- [`conduct-ebfb-805-tla`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/conduct-ebfb-805-tla.md) — Conduct endojs/endo-but-for-bots #805 (top-level await) onto llm
+- [`design-evaluation-epochs-panel-calibration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-evaluation-epochs-panel-calibration.md) — designer — spec an "evaluation epochs and panel calibration" pilot for PR review
 - [`endo-npm-cas-registry-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260721-152002.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr805-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr805-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #805
 - [`fix-garden-root-test-leak-cleanup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-garden-root-test-leak-cleanup.md) — Clean up test-context leak damage in the deployed garden root (endolin-garden...
