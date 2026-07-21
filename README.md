@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-21T21:45:51Z_
+_As of 2026-07-21T21:51:26Z_
 
 ## Latest
 
-A gardener consolidated the maintainer inbox — [199 unread entries folded into ~30 open items across 13 topics](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T171232Z-297e3f.md), each original acknowledged. The upshot is that most of the fleet is now review-gated, not blocked on code: several merge-ready shims and stacks sit waiting on your call — text codecs [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259), M3's [endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705)/[#707](https://github.com/endojs/endo-but-for-bots/pull/707)/[#694](https://github.com/endojs/endo-but-for-bots/pull/694), the 11-day-stalled esheets/OAuth review at [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621), and the SturdyRef lanes ([endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737) vs [#774](https://github.com/endojs/endo-but-for-bots/pull/774)) — while the CAS-registry stack (#802/#805/#812), content-store #585, and confined-HTTP #661 have all merged.
-
-A shepherd took [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL shim) to partial green and pinned the residual failures on a **broadly-red master** — jsdoc lint debt, a text-codec permit regression from direct-to-master push `536f82d18`, and stale zizmor action pins — recommending a dedicated master-greening pass rather than smuggling those fixes into a feature PR. On the board, the gauntlet on [endo-but-for-bots#818](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr818-gauntlet.md) is in flight and an npm CAS-registry press completed cleanly.
-
-Two operational flags worth your eye: the hourly **xs2rust-endor press ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) deterministically overran its 2400s budget three more times today** and was poisoned each cycle — it needs a dedicated iterative builder split into claim-sized stages, not the timeboxed press. And the **deployed-root cleanup on `endolin-garden2`/`endolin-garden` is still pending a human** after two jobs leaked into the deployed git (the durable guard landed on `main2`, but the physical sweep and a confirmed deliberate deploy remain outstanding since 07-17).
+[finbot#2](https://github.com/kriscendobot/finbot/pull/2) merged (green, mergeable): the `significanceAlpha` question is now evaluable from the CLI without flipping any default — `finbot-eval --significance-alpha=A` engages the Diebold-Mariano QLIKE gate on the auto-* rows, and early evidence shows the gate is a no-op at α=0.05 but several presets flip to "significantly better" by α=0.20, so the maintainer can sweep α against the fixtures before committing. A maintainer-inbox omnibus consolidated **199 unread entries into ~30 open decisions across 13 topics** (every original acknowledged, nothing deleted) — the highest-leverage stalls it surfaces are the 11-days-dammed esheets/endoclaw-OAuth review ([#621](https://github.com/endojs/endo-but-for-bots/pull/621)), the SturdyRef lanes held on arbitration since 2026-07-15, and merge-gated M2/M3 shims ([#259](https://github.com/endojs/endo-but-for-bots/pull/259), [#705](https://github.com/endojs/endo-but-for-bots/pull/705), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), [#694](https://github.com/endojs/endo-but-for-bots/pull/694)). The `xs2rust-endor-press` continues to **deterministically overrun its 2400s handler budget every cycle** — three more poison-parks today (165010, 180501, 202001), each preserved in `jobs/plan/` at `gate: go-ahead`; the fix is to split it into claim-sized stages or hand PR [#600](https://github.com/endojs/endo-but-for-bots/pull/600) to a dedicated builder rather than the hourly press. A shepherd on URL-shim [#719](https://github.com/endojs/endo-but-for-bots/pull/719) reports it reached partial green with its own 21 URL tests passing — the remaining red is pre-existing master debt (jsdoc, text-codec permits, stale action pins), recommended for a separate master-greening pass. The gauntlet on [#818](https://github.com/endojs/endo-but-for-bots/pull/818) is in flight.
 
 ## Parked for maintainer feedback
 
@@ -171,6 +167,39 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260721T213358Z-d57586` — from watchdog:hermit/2, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T213358Z-d57586.md)
 
 > gardener job 'xs2rust-endor-press-20260721-202001' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260721T215035Z-671cc6` — from gardener:finbot-progress-20260721-213504, reply_to `finbot-progress-20260721-213504` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T215035Z-671cc6.md)
+
+> finbot progress (cycle 20260721-213504) — one increment landed as a PR.
+>
+> **Advanced:** [https://github.com/kriscendobot/finbot/pull/2](https://github.com/kriscendobot/finbot/pull/2) (green, MERGEABLE,
+> no CI on the repo) — makes the pending "significanceAlpha as the live default?"
+> decision *evaluable from the CLI* without changing any default:
+>   • `finbot-eval` now evaluates the production `auto-garch-family` selector in
+>     its walk-forward vol table (was invisible before — only `auto-egarch` ran).
+>   • New `finbot-eval --significance-alpha=A` (0<A<1) engages the Diebold-Mariano
+>     QLIKE gate on the auto-* rows + the DM report α. Merged only into auto-*
+>     kinds; default (null) leaves the whole table + every proposal hash
+>     byte-identical. 607 tests pass (+5), 0 fail.
+>   • First evidence: on the shipped fixtures the gate is a no-op at α=0.05 (no
+>     asymmetric branch clears the parsimony margin there); the DM verdicts do move
+>     with α (e.g. several presets flip to "significantly better" at α=0.20), so you
+>     can now see how close each preset sits to the boundary.
+>
+> **Next unblocked step:** none deep — the dry-run OODA axis (OBSERVE→…→ACT by
+> inference, incl. `--live-llm`), forecasting/vol-selection, cap-attenuation, and
+> substrates are all built and green. The remaining frontier is maintainer-gated.
+>
+> **Needs a maintainer decision (carried; a tool now exists to answer the latter two):**
+>   a. Live executor: choose the CapTP transport (Unix socket vs TCP; persistent
+>      vs spawn-fresh) and grant explicit paper-wallet/test-net live authorization.
+>   b. Whether to make `significanceAlpha` the live `auto-family` default (changes
+>      proposal hashes, needs re-baselined fixtures) — now runnable via
+>      `finbot-eval --significance-alpha=…` against the fixtures first.
+>   c. Related: at what α — the new flag lets you sweep it before committing.
+>
+> If none of those are answered, next cycle likely has no deep unblocked increment
+> and I'll say so rather than churn the saturated forecasting axis.
 
 - `poison-xs2rust-endor-press-20260721-165010-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-xs2rust-endor-press-20260721-165010-deadline-overrun.md)
 
@@ -548,25 +577,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 85.5M | $961.74 _(notional, rate-card)_ | no quota set |
-| Codex | 487.1M _(+521.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 85.5M | $959.65 _(notional, rate-card)_ | no quota set |
+| Codex | 487.3M _(+521.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr818-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr818-gauntlet.md) — Run the gauntlet on endojs/endo-but-for-bots#818
-- [`finbot-progress-20260721-213504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260721-213504.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`xs2rust-endor-press-20260721-212001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-212001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3186)
+### tada (3187)
+- [`finbot-progress-20260721-213504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260721-213504.md) — finbot progress cycle 20260721-213504 — report
 - [`endo-npm-cas-registry-press-20260721-213504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260721-213504.md) — Completion report — endo-npm-cas-registry-press-20260721-213504
 - [`ocapn-noise-press-20260721-213504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260721-213504.md) — OCapN-over-Noise press, dispatch 14 (2026-07-21 ~21:40Z) — steady state confi...
 - [`endo-vfs-parity-press-20260721-213504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260721-213504.md) — Verify-and-stand-down tick — all press surface remains review-blocked and hea...
 - [`endo-sturdyref-press-20260721-213504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260721-213504.md) — SturdyRef press — 21:35 dispatch: hold + observation (no movement; nudge cade...
-- [`endo-git-integration-press-20260721-213504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260721-213504.md) — All gates re-verified — the stack is fully green and every next motion remain...
-- … and 3181 more
+- … and 3182 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
