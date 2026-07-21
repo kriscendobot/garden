@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T15:33:00Z_
+_As of 2026-07-21T15:34:24Z_
 
 ## Latest
 
@@ -1428,6 +1428,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > proposal for this 6h schedule (`20260719T003815Z-5d2bfd`) still awaits you; with
 > the finish line met and now the last dangling merge conducted, I'd renew that
 > recommendation.
+
+- `20260721T153350Z-b60870` — from gardener:scholar-arxiv-2606-26294, reply_to `scholar-arxiv-2606-26294` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T153350Z-b60870.md)
+
+> Paper: RQGM replaces static evaluation in recursive self-improvement with controlled utility evolution: agents and learned evaluators co-evolve in a shared multi-role workspace. A frozen evaluator scores each epoch; at exponentially spaced checkpoints, challengers are tested on a held-out ground-truth anchor, the conservative epsilon-best-belief winner is promoted, and only scores depending on the displaced evaluator are selectively erased/recomputed. This preserves a stationary objective and prior search guarantees within each epoch while allowing stricter or adversarial objectives across epochs. The preprint reports 71.7% vs 69.9% Polyglot held-out coding pass rate at 1.35–1.72x fewer tokens; paper writers reached 38.8–40.5% panel acceptance vs 21.8% (1.78–1.86x), and co-evolved graders gained 9% ground-truth accuracy. It also uses an adversarial replay pool to correct reviewer over-acceptance of AI-written papers (baseline up to 1.91x the human acceptance rate). This is a preliminary work-in-progress preprint; its guarantees are epoch-local and anchor quality bounds evaluator quality.
+>
+> Relevance: HIGH. The garden already has role workers, panels, a journal/archive, deterministic job outcomes, and a retrospective loop, but its evaluator standards are mostly fixed. RQGM maps unusually directly to evolving panel rubrics and adversarial verification while retaining a stable, auditable criterion during each review epoch. It is not a reason to self-modify roles autonomously: promotion must remain maintainer-gated and anchored to objective signals.
+>
+> Concrete design sketch: (1) add a versioned journal evaluation registry, e.g. evaluation-epochs/<domain>.md, recording active rubric/panel composition, epoch ID, anchor set, calibration metrics, and replacement rationale; tag each panel verdict/result with the epoch ID. (2) Add a verifier-calibration skill plus deterministic scripts to score candidate juror/rubric configurations against a held-out anchor corpus of known CI failures, accepted/rejected review findings, and maintainer dispositions, measuring precision/recall, false accept/false reject, cost, and inter-rater spread. (3) Run the existing panel under a frozen rubric for an epoch; collect disagreements, escaped defects, and known-good work as prospective challenger evidence, but do not use it to alter contemporaneous verdicts. (4) At scheduled checkpoints, a calibration role proposes challenger rubrics/juror mixes; promote only if conservative lower-bound anchor performance improves, with maintainer approval. Invalidate/re-run only verdicts materially dependent on the superseded rubric, preserving deterministic checks and independent evidence. (5) Add adversarial replay: a red-team/juror pair builds cases that the outgoing panel passed but later failed or that exploit known judge bias; make resistance a separately reported, bounded promotion metric. Feed epoch deltas and failures to the existing retrospective/self-improvement workflow as designer jobs, never direct role mutation.
+>
+> Suggested next step: post a designer job to specify an “evaluation epochs and panel calibration” pilot for one narrow domain (PR review), including its immutable anchor corpus, promotion thresholds, invalidation rule, maintainer approval gate, and a no-autonomous-mutation safety boundary. Source: https://arxiv.org/abs/2606.26294 (v2; PDF read).
 
 - `poison-build-daemon-mapstore-gh59-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-daemon-mapstore-gh59-deadline-overrun.md)
 
@@ -4467,26 +4477,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 78.8M | $897.39 _(notional, rate-card)_ | no quota set |
+| Claude | 78.8M | $897.89 _(notional, rate-card)_ | no quota set |
 | Codex | 448.9M _(+555.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endo-npm-cas-registry-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260721-152002.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`fix-garden-root-test-leak-cleanup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-garden-root-test-leak-cleanup.md) — Clean up test-context leak damage in the deployed garden root (endolin-garden...
 - [`harden-garden-root-repo-against-job-escapes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/harden-garden-root-repo-against-job-escapes.md) — Harden the deployed garden root repo against job git-escapes (incident 2026-0...
-- [`scholar-arxiv-2606-26294`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-arxiv-2606-26294.md) — scholar — ingest arXiv 2606.26294 and report its relevance to gardening
 
-### tada (3137)
+### tada (3138)
+- [`scholar-arxiv-2606-26294`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-arxiv-2606-26294.md) — Read arXiv 2606.26294 abstract and PDF; sent the requested faithful summary, ...
 - [`endo-daemon-data-plane-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260721-152002.md) — Completion report — endo-daemon-data-plane-press-20260721-152002
 - [`finbot-harness-ses-attenuator-0e2ac80-review`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-harness-ses-attenuator-0e2ac80-review.md) — Completion report — security review of finbot harness SES compartment attenua...
 - [`merge-endo-but-for-bots-pr585-content-store-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/merge-endo-but-for-bots-pr585-content-store-powers.md) — Merged endojs/endo-but-for-bots PR #585 (content-store powers)
 - [`endo-git-integration-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260721-152002.md) — Press dispatch complete — M3 posture verified and unchanged (all gates still ...
-- [`finbot-progress-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260721-152002.md) — Cycle report
-- … and 3132 more
+- … and 3133 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
