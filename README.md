@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T10:25:18Z_
+_As of 2026-07-21T10:35:15Z_
 
 ## Latest
 
@@ -3917,23 +3917,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 77.1M | $872.95 _(notional, rate-card)_ | no quota set |
-| Codex | 413.5M _(+571.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 414.0M _(+571.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`build-hardened-text-encoder-decoder-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-hardened-text-encoder-decoder-shim.md) — ---
+### doin (1)
 - [`xs2rust-endor-press-20260721-100501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-100501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3119)
+### tada (3120)
+- [`build-hardened-text-encoder-decoder-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-hardened-text-encoder-decoder-shim.md) — Existing PR #259 already implements the requested shim on feat/hardened-text-...
 - [`minion-town-agenda-review-20260721-100501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-100501.md) — Completion report
 - [`endojs-endo-but-for-bots-pr809-review-2f33af27-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr809-review-2f33af27-retro.md) — Completion report
 - [`endo-npm-cas-registry-press-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260721-092001.md) — Completion report — npm-via-CAS registry press tick 2026-07-21 09:20
 - [`finbot-progress-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260721-092001.md) — Advanced PR https://github.com/kriscendobot/finbot/pull/1 to 3b74dfe.
-- [`xs2rust-endor-press-20260721-085004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-085004.md) — Assessment
-- … and 3114 more
+- … and 3115 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
