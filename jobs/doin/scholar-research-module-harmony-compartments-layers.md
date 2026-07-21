@@ -30,3 +30,10 @@ virtualization protocol). Also consider whether the tc39 `import-attributes`, `a
 `ShadowRealm` proposals warrant their own thin sections as module-harmony neighbors. Respect the section budget;
 post a further follow-on if `4-compartment.md` + `GRAPH.md` exceed one cycle. Route structural lessons via
 `skills/self-improvement`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 7
+  worker_kind: gardener
+  claimed_at: 2026-07-21T18:32:43Z
