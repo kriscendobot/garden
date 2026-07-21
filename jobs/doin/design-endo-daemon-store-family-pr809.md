@@ -35,3 +35,10 @@ issue_spine: issue-kriskowal-garden-59
 issue_url: https://github.com/kriskowal/garden/issues/59#issuecomment-5030189831
 submitter: dckc
 ----- END ISSUE NOTE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  claimed_at: 2026-07-21T04:43:14Z
