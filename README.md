@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T04:50:35Z_
+_As of 2026-07-21T04:52:02Z_
 
 ## Latest
 
@@ -25,34 +25,6 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260716T043343Z-508cfd` — from gardener:endojs-endo-but-for-bots-pr671-review-3fa7398f-retro, reply_to `endojs-endo-but-for-bots-pr671-review-3fa7398f-retro` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T043343Z-508cfd.md)
-
-> Review-retrospective escalation — avoid-name-abbreviations cluster RECURRED (needs your call)
->
-> The abbreviation improvement (spell-out-identifiers pre-push gate + stylist
-> never-abbreviate brief, closed on main2 aa2da527e5) has RECURRED on
-> [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/issues/671): your "Avoid abbreviation" on `fetchImpl`
-> (registry-node-backend.js). Cluster reopened, count=4, prs={650,609,671}.
->
-> Why it slipped despite the gate being deployed:
->   1. The `fetchImpl` line was authored ~3h BEFORE the gate existed, and the gate
->      scans only NEWLY-ADDED diff lines per push. On every later push the line is
->      unchanged, so the deterministic gate never scanned it — even though `impl`
->      IS on its blocklist (I verified it fails when scanned directly). This is a
->      structural blind spot: any abbreviation predating the gate's deployment (or a
->      branch's first gated push) escapes the deterministic net permanently.
->   2. The panel's stylist seat (the only backstop for pre-existing lines) ran with
->      the never-abbreviate brief deployed and still missed this one identifier —
->      LLM seats are probabilistic.
->
-> Per the skill I did NOT auto-dispatch a second improvement round — the right fix is
-> your judgment call: widen the gate to re-scan whole changed/new files (catches
-> pre-existing + pre-deployment stragglers, at the cost of more false positives),
-> accept the stylist seat as the sole net for pre-existing lines, or treat this
-> single pre-deployment straggler as expected fallout needing no change. The gate is
-> not broken for the lines it is designed to see. Miss recorded either way. Your call
-> on whether/how to widen.
 
 - `20260716T123404Z-946eaf` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260716T123404Z-946eaf.md)
 
@@ -3503,8 +3475,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 76.1M | $856.82 _(notional, rate-card)_ | no quota set |
-| Codex | 344.5M _(+573.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 76.1M | $858.31 _(notional, rate-card)_ | no quota set |
+| Codex | 344.6M _(+573.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
