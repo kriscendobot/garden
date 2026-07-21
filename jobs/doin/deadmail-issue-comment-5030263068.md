@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/55#issuecomment-5030263068
 Please create a pull request for the referenced branch. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  worker_kind: gardener
+  claimed_at: 2026-07-21T04:50:10Z
