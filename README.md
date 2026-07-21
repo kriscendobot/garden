@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T13:20:56Z_
+_As of 2026-07-21T13:30:05Z_
 
 ## Latest
 
@@ -4088,25 +4088,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 77.7M | $884.20 _(notional, rate-card)_ | no quota set |
-| Codex | 435.7M _(+555.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 77.7M | $884.08 _(notional, rate-card)_ | no quota set |
+| Codex | 436.7M _(+555.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`minion-town-agenda-review-20260721-132003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260721-132003.md) — Minion Town hourly agenda review
+### doin (2)
 - [`xs2rust-endor-press-20260721-122001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-122001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260721-132003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-132003.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3124)
+### tada (3125)
+- [`minion-town-agenda-review-20260721-132003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-132003.md) — Completion report — Minion Town hourly agenda review (2026-07-21 13:28 UTC)
 - [`minion-town-agenda-review-20260721-122001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-122001.md) — Completion report:
 - [`xs2rust-endor-press-20260721-110503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-110503.md) — ---
 - [`build-hardened-url-vetted-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-hardened-url-vetted-shim.md) — Completion report — build-hardened-url-vetted-shim
 - [`minion-town-agenda-review-20260721-110503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-110503.md) — Completion report
-- [`build-hardened-text-encoder-decoder-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-hardened-text-encoder-decoder-shim.md) — Existing PR #259 already implements the requested shim on feat/hardened-text-...
-- … and 3119 more
+- … and 3120 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
