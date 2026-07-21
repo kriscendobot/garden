@@ -46,6 +46,7 @@ Provenance: mechanism and quotes trace to kriskowal's `github.com/kriskowal/kni`
 | [runtime-hooks](../sections/kni--hackni--runtime-hooks.md) | The `handler` seam (`ask`/`answer`, `has`/`get`/`set`, `waypoint`/`resume`) — where the graph hands off to and receives back from the agent. |
 | [dialogs-and-renderers](../sections/kni--hackni--dialogs-and-renderers.md) | Dialog (`ask`/`answer`) and renderer are pluggable roles — an agent is a smart dialog-plus-handler. |
 | [command-line-tooling](../sections/kni--readme--command-line-tooling.md) | Transcript/verify/waypoint — the durability and replayability of the recorded feedback. |
+|[read bot interview](../sections/kni--examples-read--overview.md) | The literal route-elicit-record-render loop: text fields plus a bounded choice become a bot profile.
 
 ## See also
 
