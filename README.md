@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-21T17:33:52Z_
+_As of 2026-07-21T17:42:21Z_
 
 ## Latest
 
-The maintainer inbox was swept clean — a consolidation job folded 199 unread entries into ~30 open items across 13 topics (all originals acknowledged), so the message above is now the single place to see everything awaiting a decision. On the code side, a weave dropped the three unrelated `fix(cbor)`/`fix(ci)` commits off the M2 URL-shim candidate [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719), leaving it a clean ses-only change, and the CAS-registry stack [#802](https://github.com/endojs/endo-but-for-bots/pull/802) / [#805](https://github.com/endojs/endo-but-for-bots/pull/805) / [#812](https://github.com/endojs/endo-but-for-bots/pull/812) all merged (retiring the old pr802 hold and the #805 approval ask).
-
-The one thing to notice: the hourly `xs2rust-endor` press on [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) again deterministically overran its 2400s handler budget and was poisoned into the plan queue after one cycle — it does not fit a single claim and needs a dedicated builder working iteratively (Bar 2 daemon `test:rust`, Bar 3 test262 parity), not the timeboxed schedule. Two decisions still gate real merges: text-codecs shim [#259](https://github.com/endojs/endo-but-for-bots/pull/259) is clean and green awaiting merge authority, and the whole Google-Sheets/endoclaw-OAuth tree remains dammed 11 days behind a re-review of [#621](https://github.com/endojs/endo-but-for-bots/pull/621).
+A gardener consolidated the maintainer inbox — 199 unread entries folded into ~30 open items across 13 topics ([message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T171232Z-297e3f.md)) — so the standing asks (esheets/[endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) 11 days stalled on one review, the SturdyRef arbitration lanes, the M2/M3 merge-gated shims, and the minion.town Gate-1 human action) are now deduped in one place. On [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL shim), a weave dropped its three unrelated `fix(cbor)`/`fix(ci)` commits down to a clean ses-only diff, and a shepherd has now claimed it to drive CI green — the sole in-flight job. The CAS-registry npm stack ([endojs/endo-but-for-bots#805](https://github.com/endojs/endo-but-for-bots/pull/805), [endojs/endo-but-for-bots#812](https://github.com/endojs/endo-but-for-bots/pull/812)) conducted to merge, retiring the earlier approval holds. Note the recurring `xs2rust-endor-press` ([endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) deterministically overran its 2400s handler budget again and was poisoned/parked — it wants a dedicated builder, not the hourly press.
 
 ## Parked for maintainer feedback
 
@@ -259,15 +257,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 79.5M | $911.08 _(notional, rate-card)_ | no quota set |
-| Codex | 444.9M _(+524.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 79.7M | $912.68 _(notional, rate-card)_ | no quota set |
+| Codex | 439.3M _(+524.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr719-shepherd-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-shepherd-ci-green.md) — ---
 
 ### tada (3152)
 - [`consolidate-maintainer-inbox-omnibus`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/consolidate-maintainer-inbox-omnibus.md) — Completion report
