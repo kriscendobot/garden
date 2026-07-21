@@ -65,3 +65,10 @@ capturing the effort so the daily press and every sub-job read ONE canonical cha
   something to grow. Keep the initial PR (if any) DRAFT.
 - Report: fork URL, tracker issue #, the archive commit, the skeleton commit, and the nodejs#62720
   requirements checklist location. Real-execution evidence only.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  worker_kind: gardener
+  claimed_at: 2026-07-21T18:13:10Z
