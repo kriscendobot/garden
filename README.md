@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-21T23:28:29Z_
+_As of 2026-07-21T23:55:10Z_
 
 ## Latest
 
-[endojs/endo-but-for-bots#809](https://github.com/endojs/endo-but-for-bots/pull/809) merged into `llm` (as `ede9066b`) after its review chain cleared a lone inline comment — the only board completion this cycle. Off-board, a shepherd on [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) (hardened URL shim) got the PR's own 21 URL tests green but reports the remaining red is pre-existing `master` debt — stale jsdoc, the `536f82d18` TextEncoder/TextDecoder permit change, and moved action pins — and recommends a dedicated master-greening pass rather than smuggling those fixes into a feature PR. On finbot, [kriscendobot/finbot#2](https://github.com/kriscendobot/finbot/pull/2) merged, making the pending `significanceAlpha` default decision evaluable from the CLI without changing any default. Worth the maintainer's attention: the hourly xs2rust-endor press ([endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) is deterministically overrunning its 2400s handler budget every cycle and being poison-parked — three more this window — so it needs to be split into claim-sized stages or handed to a dedicated builder rather than left on the schedule.
+[PR #809](https://github.com/endojs/endo-but-for-bots/pull/809) merged into `llm` (ede9066), clearing its review directives. The main thing to notice is the [PR #719](https://github.com/endojs/endo-but-for-bots/pull/719) hardened-URL-shim shepherd: it drove #719's own 21 URL tests green but stalled on a **broadly-red master** — pre-existing debt not in #719's diff (5 jsdoc lint warnings in the daemon; 3 TextEncoder/TextDecoder permit-and-test failures from master's `536f82d18`, one of which is a SES-permit design call; and a repo-wide zizmor `setup-node` pin-staleness flag). The shepherd recommends one dedicated master-greening job before #719 can rebase to green, and is awaiting your go-ahead to post it. Elsewhere, [finbot #2](https://github.com/kriscendobot/finbot/pull/2) merged, making the pending `significanceAlpha` default decision CLI-evaluable (`finbot-eval --significance-alpha=…`) without changing any default. The weekly Qwen watch found no harnessable upgrade over `qwen3.6`. On the infra side, the `xs2rust-endor` hourly press continues to **deterministically overrun its 2400s handler budget every cycle** (three more poison-parks today, [PR #600](https://github.com/endojs/endo-but-for-bots/pull/600)); it needs splitting into claim-sized stages or a dedicated builder rather than the recurring press — the maintainer-inbox omnibus consolidates this and ~30 other open decisions.
 
 ## Parked for maintainer feedback
 
@@ -15,7 +15,7 @@ _As of 2026-07-21T23:28:29Z_
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 3d)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 4d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 5d)
-- [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 7d)
+- [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 8d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 19d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 22d)
 
@@ -577,8 +577,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 87.5M | $978.94 _(notional, rate-card)_ | no quota set |
-| Codex | 506.9M _(+514.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 88.0M | $985.24 _(notional, rate-card)_ | no quota set |
+| Codex | 513.4M _(+513.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
@@ -586,16 +586,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (3)
 - [`daemon-store-phase1-mapstore`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daemon-store-phase1-mapstore.md) — Build Phase 1: durable strong MapStore in the endo pet daemon (closes kriskow...
-- [`endojs-endo-but-for-bots-pr719-hardened-url-shim-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-hardened-url-shim-shepherd.md) — ---
+- [`kriscendobot-minion.town-pr12-a3def291`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr12-a3def291.md) — attention directive on kriscendobot/minion.town PR #12
 - [`xs2rust-endor-press-20260721-232002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-232002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3198)
+### tada (3199)
+- [`endojs-endo-but-for-bots-pr719-hardened-url-shim-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr719-hardened-url-shim-shepherd.md) — Shepherd report — PR #719 (endojs/endo-but-for-bots)
 - [`endojs-endo-but-for-bots-pr809-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr809-conduct.md) — Merged PR #809 into llm as ede9066b81232abd33b688beb1172dea36686bde.
 - [`endojs-endo-but-for-bots-pr809-review-39ff950a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr809-review-39ff950a.md) — Completion report
 - [`endojs-endo-but-for-bots-pr809-review-722e1113`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr809-review-722e1113.md) — Addressed review 4749702996’s sole inline comment at packages/daemon/designs/...
 - [`minion-town-agenda-review-20260721-232002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-232002.md) — Completion report — Minion Town hourly agenda review (23:20 UTC)
-- [`endojs-endo-but-for-bots-pr809-review-da1fca9d-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr809-review-da1fca9d-retro.md) — Completion report
-- … and 3193 more
+- … and 3194 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -655,6 +655,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`endojs-endo-but-for-bots-pr809-review-722e1113-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-722e1113-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr809-review-39ff950a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-39ff950a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
+- [`kriscendobot-minion.town-pr12-a3def291-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr12-a3def291-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #12 (primary: kriscendobot-minio...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
