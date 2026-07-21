@@ -2,7 +2,7 @@
 order: serial
 children: conduct-ebfb-805-tla conduct-ebfb-812-relres
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-07-21T15:35:03Z
 ---
