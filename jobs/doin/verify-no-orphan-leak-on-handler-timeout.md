@@ -26,3 +26,10 @@ must be **ZERO** descendants left reparented to `systemd --user` (no `endor-xst`
 - If ANY orphan survives, or the fix is not effective on the path a resumed press
   would hit, **FAIL** (report `orchestration-failed: true`) so the serial
   orchestration HALTS and the schedule is NOT resumed.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 10
+  worker_kind: gardener
+  claimed_at: 2026-07-21T05:22:20Z
