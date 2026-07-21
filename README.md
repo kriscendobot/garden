@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T05:19:23Z_
+_As of 2026-07-21T05:20:52Z_
 
 ## Latest
 
@@ -3488,25 +3488,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 76.0M | $859.31 _(notional, rate-card)_ | no quota set |
-| Codex | 346.1M _(+581.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 76.1M | $859.85 _(notional, rate-card)_ | no quota set |
+| Codex | 346.2M _(+581.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`fix-handler-reap-spawned-process-group`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-handler-reap-spawned-process-group.md) — fixer (garden main2, direct — no PR for the garden's own repo) — reap the spa...
+### doin (2)
 - [`scholar-ingest-kni-examples-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-kni-examples-remainder.md) — Continue kriskowal/kni examples ingestion
 - [`xs2rust-endor-press-20260721-043501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-043501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3093)
+### tada (3094)
+- [`fix-handler-reap-spawned-process-group`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-handler-reap-spawned-process-group.md) — Completion report
 - [`endojs-endo-but-for-bots-pr777-e4a522e4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr777-e4a522e4.md) — Completion report
 - [`kriscendobot-endo-pr2-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-endo-pr2-shepherd.md) — Fixed and pushed 063ecd888 to PR #2: lint/type guards and updated expectation...
 - [`scholar-ingest-kni-examples`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-kni-examples.md) — Ingested five kni examples: read, calc, door-lock, forest, and maze. Updated ...
 - [`scholar-ingest-kni`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-kni.md) — Completion report — scholar-ingest-kni
-- [`deadmail-issue-comment-5030263068`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5030263068.md) — Completion report
-- … and 3088 more
+- … and 3089 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
