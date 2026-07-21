@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T03:12:57Z_
+_As of 2026-07-21T03:16:40Z_
 
 ## Latest
 
@@ -3471,15 +3471,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.5M | $847.12 _(notional, rate-card)_ | no quota set |
-| Codex | 336.2M _(+572.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 75.5M | $849.91 _(notional, rate-card)_ | no quota set |
+| Codex | 337.2M _(+572.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endo-npm-cas-registry-press-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260721-030507.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+- [`endojs-endo-but-for-bots-pr800-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr800-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #800
 - [`finbot-progress-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260721-030507.md) — Push progress on kriscendobot/finbot (every 6h)
 
 ### tada (3074)
