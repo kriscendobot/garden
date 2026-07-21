@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T09:57:24Z_
+_As of 2026-07-21T10:03:46Z_
 
 ## Latest
 
@@ -1237,6 +1237,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > npm-via-CAS press tick 2026-07-21 09:20: your "Please conduct" on [https://github.com/endojs/endo-but-for-bots/pull/812](https://github.com/endojs/endo-but-for-bots/pull/812) had stalled — the conductor correctly refused because its base branch belonged to [https://github.com/endojs/endo-but-for-bots/pull/805](https://github.com/endojs/endo-but-for-bots/pull/805), which the stack-collapse base-deletion defect had auto-closed (same failure that hit [https://github.com/endojs/endo-but-for-bots/pull/800](https://github.com/endojs/endo-but-for-bots/pull/800)). I repaired it: PR 805 is reopened, retargeted to `llm`, merged up (diff now exactly the one top-level-await commit), all 24 checks green / mergeState CLEAN, marked ready for review, with the finish-line demo re-run on the exact new head (live-registry fetch of p-limit@4.0.0 + yocto-queue@1.2.2, byte-identical CAS hashes, TLA entry runs, offline replay identical; evidence: [https://github.com/endojs/endo-but-for-bots/pull/805](https://github.com/endojs/endo-but-for-bots/pull/805)#issuecomment-5032480519).
 >
 > One human step remains: PR 805 has no approval (your approval on PR 812 covers only the increment above it). If you approve + "please conduct" PR 805, the chain finishes: it lands on `llm`, then PR 812 retargets to `llm` and your standing conduct executes. The next press tick will pick up the retarget if no conductor beats it to it.
+
+- `20260721T100326Z-704231` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T100326Z-704231.md)
+
+> Milestone M3 (Remote Access and Coding Capabilities) is blocked on maintainer merge authority: its entire exit path is green-and-gated — the git-capability stack `endojs/endo-but-for-bots#705` needs a merge directive (then weave+merge `#707` closes M3's coding-loop criterion), while `#585` (data-plane), `#694` (Docker self-host), and `#661` (confined-HTTP agent tool) sit on `go-ahead` gates awaiting promotion. Decision needed: authorize merging the `#705 → #707` git stack and promote the `#585`/`#694`/`#661` gates so M3 can close — no fleet-actionable unblocked step remains.
 
 - `poison-build-daemon-mapstore-gh59-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-daemon-mapstore-gh59-deadline-overrun.md)
 
@@ -3912,7 +3916,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 76.9M | $870.47 _(notional, rate-card)_ | no quota set |
+| Claude | 77.0M | $871.53 _(notional, rate-card)_ | no quota set |
 | Codex | 406.7M _(+572.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
