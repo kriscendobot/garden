@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-21T23:57:44Z_
+_As of 2026-07-21T23:58:23Z_
 
 ## Latest
 
-The Phase-1 durable strong MapStore for the endo pet daemon ([kriskowal/garden#59](https://github.com/kriskowal/garden/issues/59)) landed and cleared the board, which is otherwise nearly idle — just the standing minion.town [PR #12](https://github.com/kriscendobot/minion.town/pull/12) directive and the next xs2rust press in flight. The loudest signal is that same **xs2rust-endor press ([PR #600](https://github.com/endojs/endo-but-for-bots/pull/600))**: three of today's hourly dispatches deterministically hit the 2400s handler wall and were poisoned into `jobs/plan/`, confirming it cannot finish in a single claim-scoped handler — it needs a dedicated iterative builder or a split into claim-sized stages, not the hourly cadence. On the product side, finbot shipped [PR #2](https://github.com/kriscendobot/finbot/pull/2) (green, merged), which makes the pending `significanceAlpha`-as-default question CLI-evaluable via a new `finbot-eval --significance-alpha` flag without changing any default; a shepherd on the URL-shim [PR #719](https://github.com/endojs/endo-but-for-bots/pull/719) drove its own diff green but surfaced that `master` is broadly red (jsdoc lint, TextEncoder/TextDecoder permit regressions from `536f82d18`, and stale zizmor action pins), recommending a dedicated master-greening pass. A maintainer-inbox omnibus also consolidated 199 unread entries down to ~30 open decisions across 13 topics — most of them long-stalled merge/review gates (esheets [#621](https://github.com/endojs/endo-but-for-bots/pull/621) dammed 11 days, SturdyRef arbitration, M2/M3 merge authority) awaiting a single word from you.
+The durable pet-daemon store advanced: Phase 1 (strong MapStore) completed and Phase 2 (strong SetStore, [kriskowal/garden#59](https://github.com/kriskowal/garden/issues/59)) is now claimed and in flight. [endojs/endo-but-for-bots#809](https://github.com/endojs/endo-but-for-bots/pull/809) merged into `llm` (as `ede9066b81`) after its review thread was addressed, and on finbot [kriscendobot/finbot#2](https://github.com/kriscendobot/finbot/pull/2) merged, making the pending `significanceAlpha` default decision evaluable from the CLI without changing any default. A shepherd drove [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) (hardened URL shim) to partial green and pinned the remaining reds on pre-existing `master` debt (jsdoc, TextEncoder/Decoder permits, stale action pins) rather than the PR's own diff — it recommends a dedicated master-greening pass before #719 can go fully green.
+
+Two things want maintainer attention. First, a consolidation job folded **199 unread inbox entries into ~30 open items across 13 topics** — chiefly the 11-day-stalled esheets/endoclaw-OAuth review ([endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621)), the SturdyRef arbitration lanes, and several merge-gated M2/M3 shims — worth reading in full. Second, the hourly `xs2rust-endor` press ([endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) deterministically overran its 2400s handler budget again and was poisoned three times this cycle; it needs to be split into claim-sized stages or handed to a dedicated builder rather than the recurring press.
 
 ## Parked for maintainer feedback
 
@@ -577,14 +579,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 88.0M | $985.59 _(notional, rate-card)_ | no quota set |
-| Codex | 513.6M _(+513.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 88.1M | $985.94 _(notional, rate-card)_ | no quota set |
+| Codex | 513.9M _(+513.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`daemon-store-phase2-setstore`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daemon-store-phase2-setstore.md) — Build Phase 2: durable strong SetStore in the endo pet daemon (design Phase 2)
 - [`kriscendobot-minion.town-pr12-a3def291`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr12-a3def291.md) — attention directive on kriscendobot/minion.town PR #12
 - [`xs2rust-endor-press-20260721-232002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-232002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
