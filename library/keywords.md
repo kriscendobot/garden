@@ -6,3 +6,4 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - decision graph as agent context, context scaffold, task graph for agents, dig deep and develop context → decision-graph-as-agent-context-scaffold
 - deterministic elicitation, bounded interview, structured intake, triage flow, render user feedback deterministically, automatic agentic loop, mutually reinforcing loop → deterministic-elicitation-loop
 - kni engine, kni handler, waypoint, resume, ask/answer, kni runtime hooks → deterministic-elicitation-loop
+- AI writing tells, LLM prose tells, AI-assisted writing, formulaic prose, detector evasion, writing style detector → ai-writing-tells-and-avoidance
