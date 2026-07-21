@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-21T19:24:58Z_
+_As of 2026-07-21T19:25:47Z_
 
 ## Latest
 
-The maintainer inbox was consolidated: a gardener folded **199 unread entries into ~30 open items across 13 topics** ([omnibus digest](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T171232Z-297e3f.md)), most of them merge- or arbitration-gated PRs waiting only on your call — including [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs shim, clean/green, though a builder flags an errant direct-to-master push `536f82d18` to revert first), the M3 merges [endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705)/[#707](https://github.com/endojs/endo-but-for-bots/pull/707)/[#694](https://github.com/endojs/endo-but-for-bots/pull/694), and the 11-day-stalled esheets review [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621). Several long-running arcs (endo-daemon data-plane, OCapN-over-Noise) report their finish lines met and are awaiting a "wind it down."
+Little of substance merged this cycle; the loudest signal is infrastructure, not features. The hourly `xs2rust-endor` press (PR #600) again deterministically overran its 2400s handler budget — two runs were reaped at the wall and parked as poison, echoing the process-leak episode that paused the schedule. The standing recommendation holds: give the XS→Rust port a dedicated builder who can work across dispatches rather than the timeboxed press, or split it into claim-sized stages. A companion `improve-xs2rust-press-preflight-overrun-circuit-breaker` job completed toward that end.
 
-The **xs2rust-endor press ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) remains stuck**: two more hourly dispatches deterministically overran the 2400s handler budget and were poisoned into `jobs/plan/`, and the latest completion reports Bar 1 (endor integration) only *partially* met. The omnibus asks you to assign a dedicated builder rather than keep the hourly press, which also drove earlier process-leak damage. Separately, a shepherd on [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) traced its red CI to broadly-red master debt (jsdoc lint, TextEncoder/Decoder permit tests, stale action pins), not the URL-shim diff, and recommends a master-greening pass.
-
-Lower-key: the reference-library nav-link repair ([scholar job](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-fix-dangling-nav-links-225b1c358359.md)) is in progress, the test262 compartments-fixtures reconciliation landed as inventory-only (blocked pending a normative Compartment spec), and this week's Qwen watch found no harnessable model upgrade over qwen3.6.
+A gardener consolidated the 199-entry maintainer inbox into ~30 open items across 13 topics — worth reading top-to-bottom, since it surfaces several merge-gated waits (M2 text-codecs [endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259), M3 [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705)/[#707](https://github.com/endojs/endo-but-for-bots/pull/707)/[#694](https://github.com/endojs/endo-but-for-bots/pull/694)) and the 11-day esheets stall behind [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621). A shepherd on the URL-shim PR [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) traced its red CI to a broadly-red master (jsdoc lint, text-codec permit tests from `536f82d18`, and stale zizmor action pins) rather than the PR's own diff, and recommends a dedicated master-greening pass. A scholar also repaired three dangling reference-library navigation links.
 
 ## Parked for maintainer feedback
 
@@ -416,23 +414,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 83.1M | $940.22 _(notional, rate-card)_ | no quota set |
+| Claude | 83.1M | $940.54 _(notional, rate-card)_ | no quota set |
 | Codex | 457.3M _(+521.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`scholar-fix-dangling-nav-links-225b1c358359`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-fix-dangling-nav-links-225b1c358359.md) — Repair dangling navigation links in the reference library
+### doin (0)
+(none)
 
-### tada (3173)
+### tada (3174)
+- [`scholar-fix-dangling-nav-links-225b1c358359`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-fix-dangling-nav-links-225b1c358359.md) — Repaired all three dangling navigation links in the reference library.
 - [`xs2rust-endor-press-20260721-190502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-190502.md) — Bar 1: Integrated with endor — PARTIALLY MET
 - [`consolidate-test262-compartments-fixtures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/consolidate-test262-compartments-fixtures.md) — Completed reconciliation and staging checkpoint.
 - [`minion-town-agenda-review-20260721-190502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-190502.md) — Completed hourly agenda review and posted findings to https://github.com/kris...
 - [`improve-xs2rust-press-preflight-overrun-circuit-breaker`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-xs2rust-press-preflight-overrun-circuit-breaker.md) — Completion report
-- [`scholar-research-module-harmony-compartment-layer4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-research-module-harmony-compartment-layer4.md) — Here's the completion report:
-- … and 3168 more
+- … and 3169 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
