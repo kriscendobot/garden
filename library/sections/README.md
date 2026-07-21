@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6571 (530 parent indexes + 6041 children).
+Total section files: 6576 (530 parent indexes + 6046 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -7631,6 +7631,26 @@ Total section files: 6571 (530 parent indexes + 6041 children).
 
 - [kamera--readme--focus-api](kamera--readme--focus-api.md)
 - [kamera--readme--overview](kamera--readme--overview.md)
+
+### kni--examples-calc
+
+- [kni--examples-calc--overview](kni--examples-calc--overview.md)
+
+### kni--examples-door-lock
+
+- [kni--examples-door-lock--overview](kni--examples-door-lock--overview.md)
+
+### kni--examples-forest
+
+- [kni--examples-forest--overview](kni--examples-forest--overview.md)
+
+### kni--examples-maze
+
+- [kni--examples-maze--overview](kni--examples-maze--overview.md)
+
+### kni--examples-read
+
+- [kni--examples-read--overview](kni--examples-read--overview.md)
 
 ### kni--hackni
 
