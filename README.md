@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T15:25:43Z_
+_As of 2026-07-21T15:27:19Z_
 
 ## Latest
 
@@ -4404,17 +4404,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 78.9M | $899.41 _(notional, rate-card)_ | no quota set |
+| Claude | 78.9M | $901.57 _(notional, rate-card)_ | no quota set |
 | Codex | 448.9M _(+555.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`endo-daemon-data-plane-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-daemon-data-plane-press-20260721-152002.md) — Press the Endo daemon data plane forward (endojs/endo-but-for-bots, base llm)
 - [`endo-git-integration-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260721-152002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260721-152002.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+- [`finbot-harness-ses-attenuator-0e2ac80-review`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-harness-ses-attenuator-0e2ac80-review.md) — Repository: kriscendobot/finbot (worktree slug kriscendobot-finbot), default ...
 
 ### tada (3133)
 - [`finbot-progress-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260721-152002.md) — Cycle report
