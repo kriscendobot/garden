@@ -1,0 +1,16 @@
+[Unit]
+Description=Garden root-repo-guard timer
+
+[Timer]
+# Absolute wall-clock schedule (every 30 minutes at :22 / :52), NOT a relative
+# OnActiveSec/OnUnitActiveSec pair: a relative first-elapse window larger than the
+# fleet's ~1-minute daemon-reload cadence is re-armed before it elapses and can be
+# deferred indefinitely (see garden-library-source-drift-scan.timer for the full
+# rationale). Offset to :22/:52 so it runs after clone-keeper (:00/:30) and the
+# journal-worktree-keeper (:15/:45) — origin/main2 is fast-forward-fresh in the bare
+# clones before this guard fetches and audits against it. Persistent=true catches up.
+OnCalendar=*:22/30
+Persistent=true
+
+[Install]
+WantedBy=timers.target

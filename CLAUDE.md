@@ -187,6 +187,17 @@ continuous fast-forward. Procedure:
 [context/operations/deploy.md](context/operations/deploy.md); rationale:
 [`designs/deliberate-deploy.md`](designs/deliberate-deploy.md).
 
+Because the root checkout and the `journal/` worktree share ONE repo
+(`$GARDEN_ROOT/.git`), a job that runs git with that repo as its enclosing
+repository can corrupt it (2026-07-17/07-21: a HEAD moved onto a fixture branch; an
+origin rewritten to an unrelated remote — undetected for days). The
+**`garden-root-repo-guard`** timer (every host, ~30m) asserts the root's invariants
+— canonical origin, HEAD detached at a `main2` ancestor — and losslessly repairs +
+alerts on drift, plus watches for a stalled deploy; the worker spine also caps git's
+ascent with `GIT_CEILING_DIRECTORIES=$GARDEN_ROOT` and every worker prompt forbids
+running git in `$GARDEN_ROOT`. Rationale:
+[`designs/root-repo-guard.md`](designs/root-repo-guard.md).
+
 ### Orchestrating a multi-part job (the standing decomposition)
 
 **Standing pattern (kriskowal 2026-07-01): for a MULTI-PART job, always make an

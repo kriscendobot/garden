@@ -39,6 +39,23 @@ export GARDEN_WORKER_KIND
 STATE_NS="$(worker_kind_field "$KIND" state_ns)" || die "unknown worker kind '$KIND'"
 GARDEN_TAG="$KIND/$id"
 
+# --- git-escape ceiling (the root-repo-corruption backstop) ------------------
+# The root checkout ($GARDEN_ROOT) and the journal/ worktree SHARE ONE repo
+# ($GARDEN_ROOT/.git). A job that runs a git command in a dir UNDER the root that is
+# not itself a repo lets git ASCEND to the root repo and mutate it — the 2026-07-17
+# native-git test-fixture escape moved the root's HEAD onto a fixture `feature`
+# branch and the fleet ran the corrupted tree for four days. Cap git's upward repo
+# discovery at $GARDEN_ROOT for THIS worker and every child it spawns (the `claude`/
+# `codex` handler and its git subprocesses inherit the env): an un-inited dir under
+# the root now FATALs with "not a git repository" instead of silently latching onto
+# $GARDEN_ROOT/.git. Legitimate work is unaffected — a per-job worktree, a project
+# checkout, and this worker's own state clone each carry their own .git found without
+# any ascent, and an explicit `git -C <dir>` is exempt (the ceiling never excludes a
+# named/current dir). This is one layer: the root-repo-guard timer repairs drift that
+# still slips through, and the worker prompt (worker-common.sh) forbids running git in
+# $GARDEN_ROOT at all.
+export GIT_CEILING_DIRECTORIES="$GARDEN_ROOT${GIT_CEILING_DIRECTORIES:+:$GIT_CEILING_DIRECTORIES}"
+
 # Per-instance journal clone lives under the KIND's state namespace, so a cleric-1
 # and a gardener-1 never share a working tree. Exported as GARDEN_GARDENER_CLONE —
 # the name claim-job.sh / complete-job.sh inherit — so those primitives operate on

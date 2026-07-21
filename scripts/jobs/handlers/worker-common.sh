@@ -81,6 +81,14 @@ It prints the absolute path (a detached checkout under $GARDEN_SCRATCH, stable
 across a requeue so you resume in-flight work); cd there and do the project work.
 Concurrent same-branch pushes still race at the git-push CAS — that is fine; the
 working trees must never be shared.
+
+NEVER run git in the deployed garden root ($GARDEN_ROOT). That checkout and the
+journal worktree SHARE ONE repo, so a stray 'git remote set-url' / 'fetch' /
+'checkout' / 'commit' there — or ANY git command run in a dir under the root that
+you did not 'git init' yourself — corrupts journal sync for the WHOLE host (incident
+2026-07-17/07-21). Run git ONLY inside your per-job worktree (your cwd) or a project
+checkout from ensure-project-worktree.sh above. If a tool needs a scratch git repo,
+create it OUTSIDE the root (e.g. under \$TMPDIR) and 'git init' it before use.
 EOF
 }
 
