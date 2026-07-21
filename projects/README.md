@@ -15,6 +15,7 @@ The structure follows the [context-library](../../skills/context-library/SKILL.m
 | [garden](garden/README.md) | [kriskowal/garden](https://github.com/kriskowal/garden) | The garden itself. This is the meta library of roles, skills, and the journal you are reading. Driven by the maintainer and the in-session liaison. |
 | [ocapn](ocapn/README.md) | (the upstream OCapN protocol repository) | Reference-only fork at `kriscendobot/ocapn`. **Unusually strict engagement rules**: no comments, no cross-references, oblique references in outward-facing artifacts only. Read the project README before acting. |
 | [package-json](package-json/README.md) | (none; research/reference) | A journal-only research project: the `package.json` manifest schema and a property-by-consumer matrix across package managers, runtimes, and bundlers, with inconsistencies and publishing strategies. No upstream, no fork, no GitHub interaction. |
+| [proposal-compartments](proposal-compartments/README.md) | [tc39/proposal-compartments](https://github.com/tc39/proposal-compartments) | Fresh Compartments proposal with intersection semantics across the module-harmony proposals. Worked on the `kriscendobot` fork; single-source-of-truth charter with the Node.js viability checklist. Tracker kriskowal/garden#61. |
 
 ---
 
