@@ -142,16 +142,6 @@ export GARDEN
 # on its first successful read, after which this default no longer applies.
 : "${GARDEN_LEADER_DEFAULT:=leader}"
 
-# --- local inference (hermit worker backend, provider: local) ----------------
-# GARDEN_LOCAL_OLLAMA_URL is the OpenAI-compatible /v1 base URL the hermit (provider:
-# local) codex worker's reachability probe and inline provider block target, and from
-# which the supervised endpoint (garden-ollama.service → ollama-serve.sh) derives its
-# OLLAMA_HOST bind address — so the served endpoint and the client base URL cannot
-# drift on a host serving a non-default port/box. Canonical default lives HERE (both
-# ollama-serve.sh and codex-provider-common.sh read it) so all three agree.
-# See context/operations/local-inference-amd.md.
-: "${GARDEN_LOCAL_OLLAMA_URL:=http://127.0.0.1:11434/v1}"
-
 # The dev / next-version branch. Subagents land development here from their own
 # worktrees; the deliberate deploy (deploy-garden.sh) merges it into the root
 # checkout, and the upgrade monitor compares its tip to the deployed sha. Named
@@ -459,18 +449,6 @@ read_desired_count() {
   printf '%s\n' "$v"
 }
 
-# ollama_serve_host — the OLLAMA_HOST (host:port, NO scheme, NO /v1 path) that
-# `ollama serve` must bind so it answers requests to GARDEN_LOCAL_OLLAMA_URL. The
-# supervised endpoint (ollama-serve.sh) derives its bind address from the SAME client
-# URL the hermit handler probes, so the two cannot drift. Strips the scheme and any
-# trailing path from GARDEN_LOCAL_OLLAMA_URL (http://127.0.0.1:11434/v1 → 127.0.0.1:11434).
-ollama_serve_host() {
-  local u="${GARDEN_LOCAL_OLLAMA_URL:-http://127.0.0.1:11434/v1}"
-  u="${u#*://}"     # strip scheme://
-  u="${u%%/*}"      # strip any path (/v1, /v1/, …) → host:port
-  printf '%s\n' "${u:-127.0.0.1:11434}"
-}
-
 # gardener.sh drops a local, lock-free marker file while a job handler runs and
 # clears it the moment the job ends (and at the top of each loop), so a worker
 # instance is "busy" (mid-job) exactly while that marker exists. Both the
@@ -723,32 +701,6 @@ derive_clone_url() {
   name="${bn#*-}"
   [ -n "$owner" ] && [ -n "$name" ] || return 1
   printf '%s/%s/%s.git\n' "$GARDEN_CLONE_URL_BASE" "$owner" "$name"
-}
-
-# Bounded fetch in <dir>. The remaining arguments are passed to `git fetch`, so
-# callers can fetch a named remote/branch or refresh every configured remote.
-# Each attempt has a wall-clock deadline, retries with backoff, and returns the
-# last non-zero status only after the retry budget is spent. This is shared by
-# clone-keeper and triager: a network blip must not leave either timer running
-# until systemd kills it.
-bounded_fetch() {
-  local dir="$1" attempt=1 rc=0
-  shift
-  while :; do
-    if timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
-         git -C "$dir" fetch -q "$@" 2>/dev/null; then
-      return 0
-    else
-      rc=$?
-    fi
-    { [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ]; } \
-      && log "fetch $* in $dir timed out (>${GARDEN_FETCH_TIMEOUT}s, rc=$rc) on attempt $attempt"
-    if [ "$attempt" -ge "$GARDEN_FETCH_RETRIES" ]; then
-      log "fetch $* in $dir failed after $attempt attempt(s) (last rc=$rc)"
-      return "$rc"
-    fi
-    backoff "$attempt"; attempt=$((attempt+1))
-  done
 }
 
 # Bounded bare clone of <src> into <abs>, mirroring bounded_fetch's timeout+retry
@@ -1351,6 +1303,44 @@ _reheal_journal_worktree_origin() {
   return 0
 }
 
+# _is_foreign_github_remote <url> — 0 when <url> is a github.com repo that is NOT the
+# canonical garden journal remote: the exact signature of the incident-2026-07-21
+# poison, a root origin a worker rewrote to a project/fork repo (endojs/…,
+# kriscendobot/…). Returns 1 for the garden remote itself AND for any NON-github url
+# (a local throwaway test upstream, an operator's JOURNAL_REMOTE bare repo), so the
+# refusal it drives targets ONLY a foreign github repo and can never reject a
+# legitimate non-production journal remote. The github match is deliberately broad
+# (host anywhere in the url, scp-ssh or https) so a fork in any transport is caught.
+_is_foreign_github_remote() {
+  local url="$1"
+  [ -n "$url" ] || return 1
+  printf '%s' "$url" | grep -qiE 'github\.com[:/]' || return 1   # not a github url → not the poison
+  is_production_journal_remote "$url" && return 1                # the garden itself → fine
+  return 0                                                       # a foreign github repo → the poison
+}
+
+# _reheal_root_origin <url> — re-assert the canonical garden origin on the ROOT
+# checkout when a worker has REWRITTEN it to a project/fork repo (incident
+# 2026-07-21: a worker misused the deployed root as an endo-but-for-bots project
+# working tree and left remote.origin.url pointing at the fork, which — because
+# linked worktrees share repo config — poisoned journal_remote for every FRESH
+# doer clone). Called ONLY with a URL already accepted as the journal remote, and
+# ONLY acts when the current root origin is a FOREIGN github repo (the poison
+# signature, _is_foreign_github_remote). It can therefore only ever move a poisoned
+# fork origin BACK to the resolved garden remote, never disturb a legitimate origin
+# (including a local test upstream). Best-effort and idempotent; every git error
+# swallowed so a caller under set -e is safe. This ends the recurrence at the source
+# so later ticks stop having to fall through the refusal.
+_reheal_root_origin() {
+  local url="$1" cur
+  [ -n "$url" ] || return 0
+  cur="$(git -C "$GARDEN_ROOT" config --get remote.origin.url 2>/dev/null || true)"
+  _is_foreign_github_remote "$cur" || return 0
+  git -C "$GARDEN_ROOT" remote set-url origin "$url" >/dev/null 2>&1 \
+    && log "REPAIRED: root checkout $GARDEN_ROOT origin was '$cur' (a foreign github repo — a worker rewrote it to a project/fork); reset to '$url'" || true
+  return 0
+}
+
 # _journal_remote_from_state_clones — last-resort read of remote.origin.url from any
 # existing per-instance journal clone under $GARDEN_STATE. Each v2 service and the
 # shared producer hash into their own $GARDEN_STATE/<svc>/journal clone, and the
@@ -1390,10 +1380,31 @@ journal_remote() {
   # `git worktree repair` + `prune` to re-link the forward .git file and the admin
   # gitdir back-pointer.
   ensure_journal_worktree_linked "$jw" || true
-  local url
+  local url poisoned=0
+  # --- structural refusal against a project/fork origin rewrite (incident 2026-07-21)
+  # A worker misusing the deployed ROOT checkout as an endo-but-for-bots project
+  # working tree rewrote remote.origin.url to the fork. Because linked worktrees
+  # SHARE repo config, that rewrite poisoned the journal-worktree read below AND the
+  # root-origin fallback AND (once resolved) the cache — so journal_remote handed a
+  # FORK url to every FRESH doer clone, which then cloned the wrong repo (and the
+  # push CAS silently targeted the fork). The durable fix, in the same shape as
+  # guard_no_production_push_in_test: REFUSE any resolved journal remote whose url is
+  # a FOREIGN github repo (_is_foreign_github_remote — a github.com repo that is not
+  # kriskowal/garden), the exact poison signature. A local throwaway test upstream or
+  # an operator's JOURNAL_REMOTE bare repo is NOT github-shaped, so it flows through
+  # untouched. A poisoned source is skipped with a loud REFUSED log (never cached,
+  # never re-healed FROM); we fall through to a clean source and, from a non-shared
+  # clean source, re-assert the correct root origin (_reheal_root_origin) so the
+  # poison is repaired at the source. If EVERY source is poisoned we die loudly
+  # naming the fix — never returning a fork url.
   if url="$(git -C "$jw" config --get remote.origin.url 2>/dev/null)" && [ -n "$url" ]; then
-    _cache_journal_remote "$url"
-    printf '%s\n' "$url"; return
+    if _is_foreign_github_remote "$url"; then
+      poisoned=1
+      log "REFUSED: journal worktree $jw origin is '$url', a foreign github repo (NOT kriskowal/garden) — the root checkout's remote.origin.url appears rewritten to a project/fork repo; refusing to propagate it (would make fresh doer clones clone the wrong repo). Restore with: git -C \"$GARDEN_ROOT\" remote set-url origin git@github.com:kriskowal/garden.git"
+    else
+      _cache_journal_remote "$url"
+      printf '%s\n' "$url"; return
+    fi
   fi
   # The journal worktree yielded no origin — the repair above could not re-link a
   # dangling gitdir (its admin dir is gone, not just mis-pointed), origin is unset
@@ -1410,21 +1421,46 @@ journal_remote() {
   # worktree in place (_reheal_journal_worktree_origin) so the NEXT tick reads it
   # straight from the worktree and skips the fallback entirely.
   if url="$(cat "$JOURNAL_REMOTE_CACHE" 2>/dev/null)" && [ -n "$url" ]; then
-    log "WARN: journal worktree $jw yielded no origin; using cached journal remote $url (transient — config lock / worktree repair / deploy window)"
-    _reheal_journal_worktree_origin "$url" "$jw"
-    printf '%s\n' "$url"; return
+    if _is_foreign_github_remote "$url"; then
+      poisoned=1
+      log "REFUSED: cached journal remote at $JOURNAL_REMOTE_CACHE is '$url', a foreign github repo (NOT kriskowal/garden) — a poisoned root origin was previously cached; refusing. Clear it with: rm -f \"$JOURNAL_REMOTE_CACHE\""
+    else
+      log "WARN: journal worktree $jw yielded no origin; using cached journal remote $url (transient — config lock / worktree repair / deploy window)"
+      _reheal_journal_worktree_origin "$url" "$jw"
+      _reheal_root_origin "$url"
+      printf '%s\n' "$url"; return
+    fi
   fi
   if url="$(git -C "$GARDEN_ROOT" config --get remote.origin.url 2>/dev/null)" && [ -n "$url" ]; then
-    log "WARN: journal worktree $jw yielded no origin; falling back to $GARDEN_ROOT origin $url"
-    _cache_journal_remote "$url"
-    _reheal_journal_worktree_origin "$url" "$jw"
-    printf '%s\n' "$url"; return
+    if _is_foreign_github_remote "$url"; then
+      poisoned=1
+      log "REFUSED: $GARDEN_ROOT origin is '$url', a foreign github repo (NOT kriskowal/garden) — the root checkout's origin appears rewritten to a project/fork repo; refusing to propagate it as the journal remote. Restore with: git -C \"$GARDEN_ROOT\" remote set-url origin git@github.com:kriskowal/garden.git"
+    else
+      log "WARN: journal worktree $jw yielded no origin; falling back to $GARDEN_ROOT origin $url"
+      _cache_journal_remote "$url"
+      _reheal_journal_worktree_origin "$url" "$jw"
+      printf '%s\n' "$url"; return
+    fi
   fi
   if url="$(_journal_remote_from_state_clones)" && [ -n "$url" ]; then
-    log "WARN: journal worktree $jw yielded no origin; falling back to a per-instance clone origin under $GARDEN_STATE ($url)"
-    _cache_journal_remote "$url"
-    _reheal_journal_worktree_origin "$url" "$jw"
-    printf '%s\n' "$url"; return
+    if _is_foreign_github_remote "$url"; then
+      poisoned=1
+      log "REFUSED: per-instance clone origin under $GARDEN_STATE is '$url', a foreign github repo (NOT kriskowal/garden) — refusing."
+    else
+      log "WARN: journal worktree $jw yielded no origin; falling back to a per-instance clone origin under $GARDEN_STATE ($url)"
+      _cache_journal_remote "$url"
+      _reheal_journal_worktree_origin "$url" "$jw"
+      _reheal_root_origin "$url"
+      printf '%s\n' "$url"; return
+    fi
+  fi
+  # Every source that yielded a value was a foreign github repo: the root checkout's
+  # origin was rewritten to a project/fork repo and the poison reached every
+  # fallback (shared config + cache + clones). Die loudly rather than return a fork
+  # url — a fork url would make fresh doer clones clone the wrong repo and the push
+  # CAS target the fork. Name the exact repair.
+  if [ "$poisoned" = 1 ]; then
+    die "journal remote UNRESOLVABLE: every source that yielded a value was a foreign github repo (a project/fork, NOT kriskowal/garden). The root checkout's remote.origin.url was rewritten by a worker misusing the deployed root as a project working tree. Refusing to return a fork url. Restore with: git -C \"$GARDEN_ROOT\" remote set-url origin git@github.com:kriskowal/garden.git   then clear the poisoned cache: rm -f \"$JOURNAL_REMOTE_CACHE\""
   fi
   # Nothing resolved on either checkout. Distinguish a BROKEN worktree (git can't
   # open the repo — name the dangling gitdir target so the fix is obvious) from a
@@ -1580,41 +1616,11 @@ clone_unlock() {
   exec {fd}>&- || true
 }
 
-# clone_is_corrupt <dir> -- a cheap local health probe for a present journal
-# clone. A checkout can retain a `.git` directory while its origin tracking ref
-# points at a missing object, so merely testing for `.git` is not enough. gc.log
-# is also an explicit poison marker: git leaves it after a failed maintenance
-# run and may refuse future repacks until it is removed. Re-cloning is safer than
-# trying to reason about the rest of that object database.
-clone_is_corrupt() {
-  local dir="$1"
-  [ -e "$dir/.git/gc.log" ] && return 0
-  git -C "$dir" rev-parse -q --verify "refs/remotes/origin/$JOURNAL_BRANCH^{commit}" >/dev/null 2>&1 || return 0
-  return 1
-}
-
-# reclone_clone <dir> <remote> -- replace a missing, partial, or corrupt clone
-# through a sibling temporary directory. The caller holds clone_lock, so the
-# remove/clone/rename sequence cannot race another producer using this clone.
-reclone_clone() {
-  local dir="$1" remote="$2" tmp
-  rm -rf "$dir"
-  mkdir -p "$(dirname "$dir")"
-  tmp="${dir}.tmp.$$"
-  rm -rf "$tmp"
-  if git clone -q --single-branch --branch "$JOURNAL_BRANCH" "$remote" "$tmp"; then
-    mv "$tmp" "$dir" || { rm -rf "$tmp"; die "atomic rename of fresh clone $tmp -> $dir failed"; }
-  else
-    rm -rf "$tmp"
-    die "clone of $remote ($JOURNAL_BRANCH) into $dir failed"
-  fi
-}
-
-# Ensure a single-branch journal clone exists, is healthy, and is identity-pinned.
-# The clone + config write is serialized so concurrent producers don't race a cold
+# Ensure a single-branch journal clone exists at $1 and is identity-pinned. The
+# clone + config write is serialized so concurrent producers don't race a cold
 # `git clone` into the same dir or collide on `.git/config`.
 ensure_clone() {
-  local dir="$1" remote; remote="$(journal_remote)"
+  local dir="$1" remote tmp; remote="$(journal_remote)"
   clone_lock "$dir"
   if [ ! -d "$dir/.git" ]; then
     # A destination that exists but lacks .git is a POISONED PARTIAL CLONE: a
@@ -1631,11 +1637,17 @@ ensure_clone() {
     # throughout, so no concurrent producer races the same destination.
     if [ -e "$dir" ]; then
       log "WARN: $dir exists without .git (poisoned partial clone); self-healing by re-cloning"
+      rm -rf "$dir"
     fi
-    reclone_clone "$dir" "$remote"
-  elif clone_is_corrupt "$dir"; then
-    log "WARN: $dir has a corrupt clone; self-healing by re-cloning"
-    reclone_clone "$dir" "$remote"
+    mkdir -p "$(dirname "$dir")"
+    tmp="${dir}.tmp.$$"
+    rm -rf "$tmp"
+    if git clone -q --single-branch --branch "$JOURNAL_BRANCH" "$remote" "$tmp"; then
+      mv "$tmp" "$dir" || { rm -rf "$tmp"; die "atomic rename of fresh clone $tmp -> $dir failed"; }
+    else
+      rm -rf "$tmp"
+      die "clone of $remote ($JOURNAL_BRANCH) into $dir failed"
+    fi
   fi
   git -C "$dir" config user.name  "$(bot_name)"
   git -C "$dir" config user.email "$(bot_email)"
@@ -1793,44 +1805,6 @@ journal_fetch() {
 # signature classifies regardless of how the producing tool cased it.
 _fetch_stderr_is_offline() {
   printf '%s' "$1" | grep -qiE "$GARDEN_OFFLINE_SIGNATURES"
-}
-
-# Local repository corruption is distinct from a transient transport outage: a
-# retry against the same clone will deterministically fail, but a fresh clone
-# can recover a bad remote-tracking ref or damaged object database. Keep this
-# set separate from GARDEN_OFFLINE_SIGNATURES so an outage never causes an
-# unnecessary re-clone, and corruption never gets silently skipped as offline.
-# Matched case-insensitively for the same cross-version diagnostic variance as
-# the offline classifier above. `invalid sha1 pointer` / `bad ref for` / `broken
-# ref` / `invalid HEAD` / `does not point to a valid object` cover a damaged
-# REF/reflog specifically — both the garden-cleric item-7 remote-tracking case
-# (refs/remotes/origin/journal2 = the null sha 0000…0000 left by an interrupted
-# ref update) AND the repo-watcher local-ref case (a zero-byte loose
-# refs/heads/journal2 shadowing a valid packed-refs entry, with bad
-# .git/logs/{HEAD,refs/…} reflogs): fetch aborts `fatal: bad object refs/…` /
-# `bad ref for …` / `did not send all necessary objects`, and `git fsck` reports
-# `invalid sha1 pointer 0000...0000` / `invalid HEAD`. Either shape re-clones.
-#
-# A second cleric-item-7 shape observed later was a damaged OBJECT DB, not just a
-# ref: a stale `.git/gc.log` blocked every repack and gc, so fetch's implicit
-# maintenance failed with `fatal: failed to run repack` and git refused to gc
-# (`warning: … Please correct the root cause and remove .git/gc.log`). That state
-# emits NO `bad object` line on its own, so without `failed to run repack` /
-# `gc\.log` in the set it slips past the classifier and crash-loops the unit. The
-# re-clone subsumes removing gc.log. `unable to read` is kept generic (not just
-# tree/sha1/object) to catch any `unable to read <path>` the object DB throws;
-# the offline classifier runs FIRST, so a transport `Could not read from remote`
-# is claimed as offline before this set ever sees it.
-: "${GARDEN_CORRUPT_SIGNATURES:=bad object|invalid sha1 pointer|bad ref for|broken ref|invalid HEAD|does not point to a valid object|did not send all necessary objects|unable to read|object file .* is empty|loose object .* is corrupt|packfile .* cannot be accessed|invalid index-pack output|did not receive expected object|failed to run repack|gc\.log|fsck}"
-
-_fetch_stderr_is_corrupt() {
-  printf '%s' "$1" | grep -qiE "$GARDEN_CORRUPT_SIGNATURES"
-}
-
-# Print the first matching corruption signature for an operator-useful repair
-# log. This deliberately shares the classifier's source of truth.
-_fetch_stderr_corrupt_signature() {
-  printf '%s\n' "$1" | grep -ioEm1 "$GARDEN_CORRUPT_SIGNATURES" || true
 }
 
 # --- bounded read-only gh-api retry (the transient-blip absorber) ------------
@@ -2038,31 +2012,6 @@ is_transient_claude_signature() {
   printf '%s' "$1" | grep -qiE "$GARDEN_TRANSIENT_CLAUDE_SIGNATURES"
 }
 
-# EXPLICIT-CAP subset of the transient signatures: the first-person Claude Code
-# session/usage-cap wordings ("You've hit your session limit …", "usage limit
-# reached", the "resets H:MMam (UTC)" clause). These are definitive statements the
-# CLI prints about ITS OWN quota state, not ambient error text a setup script might
-# echo, so they are trustworthy on CONTENT alone — gardener.sh exempts them from
-# the GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS floor. The floor's premise ("a genuine cap
-# cannot trip in a couple of seconds") is empirically FALSE for these: a cap
-# rejection is one fast API round trip — on 2026-07-17T00:43:48Z a real cap hit
-# died rc=1 after 2s with "You've hit your session limit · resets 2am (UTC)"
-# (capture blob ac1a1d97f4) and was misclassified a deterministic defect twice,
-# killing a review job and a press claim until the reaper's TTL. The AMBIGUOUS
-# overload-shaped alternatives (overloaded / 429 / 5xx / api error / connection
-# drops — the 2026-07-03 sub-2s echo batch the floor was built for) are NOT in
-# this subset and keep the floor. Matched case-insensitively.
-: "${GARDEN_EXPLICIT_CAP_SIGNATURES:=hit your (session|usage) limit|(session|usage|5-hour) limit (reached|reset)|resets [0-9].*\(utc\)}"
-
-# Classify a failed `claude -p`'s combined output ($1) as carrying an EXPLICIT
-# session/usage-cap statement (returns 0) — transient by content, regardless of
-# how fast the handler died. Callers use this to bypass elapsed-plausibility
-# heuristics; it is a SUBSET refinement of is_transient_claude_signature, never a
-# replacement (anything matching this also matches the transient set).
-is_explicit_cap_signature() {
-  printf '%s' "$1" | grep -qiE "$GARDEN_EXPLICIT_CAP_SIGNATURES"
-}
-
 # Classify a handler exit code ($1) as an EXTERNAL signal-kill: SIGTERM (143),
 # SIGINT (130), or SIGKILL/OOM (137). Returns 0 for these, 1 otherwise. An
 # external signal-kill is NEVER a deterministic job defect — it is a deploy-window
@@ -2128,64 +2077,6 @@ is_transient_empty_failure() {
     143|130|137|"${GARDEN_OFFLINE_RC:-75}") return 0 ;;
     *) return 1 ;;
   esac
-}
-
-# --- claim-scoped handler process-group reaper -------------------------------
-#
-# Root cause of the 2026-07-20/21 incident: the xs2rust-endor-press leaked 356
-# orphaned processes — four `endor-xst` each pegging a full core plus a 344-proc
-# `endor`/`manager-node.js` daemon tree — all reparented to `systemd --user` with
-# NO agent watching. When a claim-scoped handler is killed at its wall-clock bound
-# (rc=124) OR exits on its own leaving a runaway tree (a `claude -p` that crashed /
-# hit a quota cut mid-run, then requeue-exhausts into poison), the board job is
-# requeued/poisoned but the OS process tree the handler spawned KEEPS RUNNING
-# headless. The pegged cores then starve the next tick, which overruns and poisons
-# in turn — a self-reinforcing loop.
-#
-# The structural backstop: gardener.sh launches every handler in its OWN process
-# group (job control at the single call site, so the group id == the launched
-# `timeout` pid) and calls this to SWEEP that whole group after the handler returns
-# for ANY reason — completion, wall-clock overrun, or self-exit into poison. So no
-# `endor-xst`/`endor`/`node` descendant survives the job.
-#
-# reap_process_group PGID [GRACE_SECS]
-#   SIGTERM the group, wait up to GRACE_SECS (polling, early-exits the instant the
-#   group empties), then SIGKILL any survivor. Idempotent and SAFE: it only ever
-#   signals the ONE group id it is handed — THIS job's own group, minted fresh per
-#   handler by job control, never a peer job's — and hard-guards against a
-#   non-numeric / non-positive / init(1) / this-process's-own-group target so a
-#   caller bug can never turn it into a `kill -TERM -1` fleet-wide sweep. A no-op
-#   when the group is already empty (the common clean-completion case: `claude`
-#   reaped its own children, so the first `kill -0` finds nothing).
-#
-#   RESIDUAL: a descendant that itself called setsid()/daemonized (an endo daemon
-#   that deliberately detaches into a NEW session) has LEFT this group and is not
-#   reachable here. That gap is covered by defense-in-depth at the leaf — the
-#   xs2rust-endor-press charter now mandates per-test `timeout` + self-reaping — not
-#   by this group sweep, which is the structural backstop for the ordinary
-#   (non-detaching) descendant tree.
-reap_process_group() {
-  local pgid="${1:-}" grace="${2:-5}" waited=0
-  # Guard the target: numeric, > 1 (never init), and never our OWN process group
-  # (a `set -m` background job always gets a fresh pgid distinct from the shell, so
-  # this can only fire on a caller bug — but a `kill -- -<our-pgid>` would take the
-  # gardener itself down with the orphans, so refuse it outright).
-  case "$pgid" in ''|*[!0-9]*) return 0 ;; esac
-  [ "$pgid" -gt 1 ] 2>/dev/null || return 0
-  [ "$pgid" = "$$" ] && return 0
-  local self_pgid
-  self_pgid="$(ps -o pgid= -p "$$" 2>/dev/null | tr -dc '0-9')"
-  [ -n "$self_pgid" ] && [ "$pgid" = "$self_pgid" ] && return 0
-  # Nothing left in the group → clean completion, no-op.
-  kill -0 -"$pgid" 2>/dev/null || return 0
-  kill -TERM -"$pgid" 2>/dev/null || true
-  while [ "$waited" -lt "$grace" ]; do
-    kill -0 -"$pgid" 2>/dev/null || return 0   # all descendants exited on SIGTERM
-    sleep 1
-    waited=$((waited + 1))
-  done
-  kill -KILL -"$pgid" 2>/dev/null || true
-  return 0
 }
 
 # --- job completion signal ---------------------------------------------------
@@ -2674,7 +2565,7 @@ job_cycle_productive() {
 # read-only caller that never pushes releases the lock at process exit (fd close)
 # or on its next sync_clone (clone_lock re-entry).
 sync_clone() {
-  local dir="$1" rc corrupt_sig
+  local dir="$1" rc
   clone_lock "$dir"
   # `journal_fetch ...; rc=$?` would trip the caller's `set -e` at the call itself
   # when the fetch fails (a function returning non-zero in a bare statement is a
@@ -2700,30 +2591,7 @@ sync_clone() {
       log "offline; skipping tick (rc=$GARDEN_OFFLINE_RC)"
       exit "$GARDEN_OFFLINE_RC"
     fi
-    # A corrupt LOCAL clone cannot recover by retrying unchanged. Replace it
-    # through ensure_clone's atomic sibling-temp clone path, while retaining the
-    # clone lock held by this sync. This branch is deliberately reached once: a
-    # corruption signature from the fresh clone is an upstream problem, not a
-    # reason to spin a re-clone loop.
-    if _fetch_stderr_is_corrupt "$GARDEN_FETCH_STDERR" || [ -e "$dir/.git/gc.log" ]; then
-      corrupt_sig="$(_fetch_stderr_corrupt_signature "$GARDEN_FETCH_STDERR")"
-      log "WARN: $dir corrupt (${corrupt_sig:-stale gc.log}); self-healing by re-cloning"
-      rm -rf "$dir"
-      # ensure_clone re-enters the inherited lock in a subshell and closes only
-      # that subshell's fd, so this sync_clone invocation remains serialized.
-      ( ensure_clone "$dir" )
-      if journal_fetch "$dir"; then rc=0; else rc=$?; fi
-      if [ "$rc" -ne 0 ]; then
-        if [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ] || _fetch_stderr_is_offline "$GARDEN_FETCH_STDERR"; then
-          log "offline; skipping tick (rc=$GARDEN_OFFLINE_RC)"
-          exit "$GARDEN_OFFLINE_RC"
-        fi
-        die "fetch failed in $dir after re-cloning corrupt journal clone"
-      fi
-      log "REPAIRED: re-cloned corrupt journal clone $dir (signature: ${corrupt_sig:-stale gc.log})"
-    else
-      die "fetch failed in $dir after bounded retries"
-    fi
+    die "fetch failed in $dir after bounded retries"
   fi
   # The fetch above succeeded, but the hard reset can ITSELF exit 128 on a
   # momentary network/ref inconsistency (a blip racing the local ref update).
@@ -3399,25 +3267,6 @@ orch_failure_policy() {
 # The watcher-managed lifecycle state (pending default before the first tick).
 orch_state() {
   local s; s="$(plan_field "$1" state)"; printf '%s\n' "${s:-pending}"
-}
-
-# Did a job's tada REPORT declare that the job completed WITHOUT achieving its
-# gated outcome? A job can reach tada/ (it finished, its worker exited cleanly)
-# yet decline the very thing a downstream gate keys on — the canonical case is a
-# conductor whose `merge` job correctly REFUSES to merge (CI red, base frozen,
-# ferry-required) but still completes. Such a report carries an explicit failure
-# marker so a dependent is NOT satisfied by the mere completion:
-#   orchestration-failed: true|yes            (or: yes)
-#   orchestration-status: fail…               (halted / failed / fail)
-# Returns 0 when the marker is present, 1 otherwise. This is the SINGLE source of
-# truth for "completed-but-declined", honored by BOTH deterministic serial
-# primitives: the orchestrate watcher (a child that failed → on-child-failure
-# policy) and the unblock watcher (a blocked_on predecessor that declined → do
-# NOT promote; hold for the maintainer). Keep the two in lock-step by reading the
-# same marker here rather than re-spelling the grep in each.
-tada_failed() {
-  grep -qiE '^orchestration-(status:[[:space:]]*fail|failed:[[:space:]]*(true|yes))' \
-    "$1" 2>/dev/null
 }
 
 # Parse an artifact string as a GitHub pull-request reference. On a match prints
