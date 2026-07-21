@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-21T21:24:39Z_
+_As of 2026-07-21T21:34:40Z_
 
 ## Latest
 
-A gardener consolidated the maintainer inbox — 199 unread entries folded into roughly 30 open items across 13 topics (every original acknowledged, nothing deleted), so the standing asks are now deduped in one place rather than scattered across daily standups. The headline decisions it surfaces: the entire Google Sheets/endoclaw-OAuth tree is 11 days dammed behind a stale `CHANGES_REQUESTED` on [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621); the SturdyRef lanes all await your arbitration ([#737](https://github.com/endojs/endo-but-for-bots/pull/737) vs [#774](https://github.com/endojs/endo-but-for-bots/pull/774)); and the M2/M3 milestone shims ([#259](https://github.com/endojs/endo-but-for-bots/pull/259), [#705](https://github.com/endojs/endo-but-for-bots/pull/705), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), [#694](https://github.com/endojs/endo-but-for-bots/pull/694)) are green and merge-gated.
+The hardened URL shim landed on [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) (commit `9dcdc2412`), and a shepherd rebased it onto master and drove build, browser-tests, test262, cover, hermes, xs, and the pin/release checks green — but the PR still reads `UNSTABLE`/`CHANGES_REQUESTED` because master itself is broadly red: five jsdoc lint warnings in the daemon tree, three test failures from master's `536f82d18` TextEncoder/TextDecoder taming (a SES-permit decision for a designer), and a repo-wide zizmor `setup-node` v6 pin drift. The shepherd recommends a single master-greening pass before [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) can rebase clean, and separately flagged that the errant direct-to-master push `536f82d18` was never gauntleted. A companion fixer closed out lint and tests on [endojs/endo-but-for-bots#723](https://github.com/endojs/endo-but-for-bots/pull/723).
 
-On the code side, the hardened URL shim landed on [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) (9dcdc2412) and a shepherd drove it to partial green — the residual RED is pre-existing master debt (jsdoc, text-codec permits, stale action pins), not the PR's diff, so a dedicated master-greening pass is the recommended split rather than smuggling fixes into the feature PR. A text-codec-permits fixer and the [#723](https://github.com/endojs/endo-but-for-bots/pull/723) endo-fetch lint/test fixer also completed.
+The XS→Rust engine press on [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) remains stuck: three more hourly `xs2rust-endor-press` dispatches deterministically overran the 2400s handler budget and were poisoned/parked, with two more now in flight — this schedule needs splitting into claim-sized stages or a dedicated iterative builder rather than the hourly press. This week's Qwen watch found no harnessable upgrade over the live `qwen3.6` hermit.
 
-Most urgent operationally: the hourly `xs2rust-endor-press` ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) is deterministically overrunning its 2400s handler budget and getting poisoned every cycle — three copies poisoned into `jobs/plan/` today, and earlier ticks leaked hundreds of orphaned processes. It needs a dedicated builder working across dispatches (or the job split into claim-sized stages), not the timeboxed press. The minion.town agenda review ran and reported no deployment was warranted.
+Most notably, a consolidation job folded **199 unread maintainer-inbox entries into ~30 open items across 13 topics** — the single highest-leverage read. Chief among them: the entire Google Sheets / endoclaw-OAuth tree has been dammed 11 days behind one stale review on [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621); the SturdyRef lanes ([endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737), [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774)) await your arbitration; and several vetted, green, merge-gated shims sit ready — text codecs [endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259), M3's [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705)/[endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/pull/707) and [endojs/endo-but-for-bots#694](https://github.com/endojs/endo-but-for-bots/pull/694). Infra note: two jobs corrupted the deployed roots (one rewrote `origin.url`, breaking the bus host-wide); origin/refs are restored and a durable `main2` guard landed, but endolin-garden2 and endolin-garden still need a physical drain-and-clean (board job `fix-garden-root-test-leak-cleanup`), and deploys have been stalled since 07-17.
 
 ## Parked for maintainer feedback
 
@@ -167,6 +167,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260721T204825Z-d753dc` — from gardener:xs2rust-endor-press-20260721-202001, reply_to `xs2rust-endor-press-20260721-202001` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T204825Z-d753dc.md)
 
 > (empty message)
+
+- `20260721T213358Z-d57586` — from watchdog:hermit/2, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T213358Z-d57586.md)
+
+> gardener job 'xs2rust-endor-press-20260721-202001' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `poison-xs2rust-endor-press-20260721-165010-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-xs2rust-endor-press-20260721-165010-deadline-overrun.md)
 
@@ -420,8 +424,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 84.6M | $952.63 _(notional, rate-card)_ | no quota set |
-| Codex | 478.2M _(+523.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 84.7M | $953.27 _(notional, rate-card)_ | no quota set |
+| Codex | 483.2M _(+522.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
