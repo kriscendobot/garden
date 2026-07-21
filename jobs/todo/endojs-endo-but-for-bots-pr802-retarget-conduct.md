@@ -1,10 +1,4 @@
----
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-npm-stack-landing
-priority: normal
-posted_by: gardener
-posted_at: 2026-07-21T03:14:10Z
----
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-21T03:22:04Z -->
 
 # Retarget to `llm`, then finalize (curate → merge) endojs/endo-but-for-bots PR #802
 
