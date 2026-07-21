@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: xs2rust-endor-orphan-collection-fix
-priority: normal
 role: fixer
-posted_by: producer
-posted_at: 2026-07-21T04:58:22Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-21T05:01:05Z -->
 
 # fixer (garden main2, direct — no PR for the garden's own repo) — reap the spawned process tree on handler overrun/poison
 
