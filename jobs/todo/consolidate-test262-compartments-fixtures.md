@@ -1,11 +1,7 @@
 ---
-gate: blocked
-blocked_on: bootstrap-test262-bot-fork
-priority: normal
 role: builder
-posted_by: producer
-posted_at: 2026-07-21T18:12:01Z
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-07-21T18:36:24Z -->
 
 ---
 role: builder
