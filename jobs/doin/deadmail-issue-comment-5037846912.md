@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/59#issuecomment-5037846912
 This issue was motivated by mention of ERTP in #58  An ERTP issuer is often implemented with a WeakMapStore. Make sure ERTP is one of the integration tests.  
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: gardener
+  claimed_at: 2026-07-21T18:55:08Z
