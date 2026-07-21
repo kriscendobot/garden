@@ -2,7 +2,7 @@
 order: serial
 children: bootstrap-proposal-compartments-fork bootstrap-test262-bot-fork
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-07-21T18:11:56Z
 ---
