@@ -29,6 +29,33 @@ system beside them.
 - The **XS reference implementation** is the guide for behavior.
 - **SES** details are incorporated only where necessary.
 
+## Additional completion criteria (2026-07-21)
+
+These requirements refine the goal and are binding for the specification, the
+four implementations, and the Compartments test262 suite.
+
+- **Top-level await:** module linking and evaluation must preserve the ordinary
+  top-level-await dependency and error behavior, including across compartment
+  links.
+- **Root-realm reuse:** a Compartment must be able to use the surrounding
+  realm's global object so a root-realm module graph can be extended. This is
+  the Node.js viability path, not an exceptional mode.
+- **No lockdown prerequisite:** the proposal must work without SES lockdown.
+  Lockdown-compatible behavior may be an additional property, not a required
+  initialization condition.
+- **Cross-compartment linkage:** modules must be able to link across
+  Compartments, including cyclic graphs that span more than one Compartment.
+- **Instance and link identity:** importing a source in separate Compartments
+  creates a separate instance in each Compartment. At the same time, the design
+  must provide a reusable, deferred module-exports namespace keyed by
+  Compartment and specifier (or the equivalent opaque source key) before source
+  construction. That identity supports links and cycles without accidentally
+  constructing a local importing-compartment instance. The design must compare
+  this trade-off explicitly with SES `compartment.module(specifier)`.
+- **Implementation proof:** v8, JSC, XS, and endor must each implement the
+  agreed semantics and pass the Compartments test262 suite. Passing only a
+  proposal-level suite or only one engine is not sufficient.
+
 ## Dispense with SES legacy
 
 - The **module descriptor** concept is abandoned.
