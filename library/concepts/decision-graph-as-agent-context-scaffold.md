@@ -43,6 +43,9 @@ Provenance: all claims trace to kriskowal's `github.com/kriskowal/kni` docs (REA
 | [kni-beyond-ink-and-limitations](../sections/kni--inkkni--kni-beyond-ink-and-limitations.md) | The capability boundary — the gaps half of the fit assessment. |
 |[read bot interview](../sections/kni--examples-read--overview.md) | A literal bot intake flow: collect fields and render a structured profile from them.
 |[maze navigation](../sections/kni--examples-maze--overview.md) | State-derived guards render only the branches applicable to the current context.
+| [archery shop economy](../sections/kni--examples-archery--overview.md) | A guarded menu records each choice as state; procedures render the accumulated context back each turn. |
+| [coin toss](../sections/kni--examples-coin--overview.md) | Capture a bounded call as typed state and render a verdict computed from it against a fresh event. |
+| [hilo binary search](../sections/kni--examples-hilo--overview.md) | The graph computes the next question from what it already knows — adaptive, state-driven context gathering. |
 
 ## See also
 
