@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T00:22:32Z_
+_As of 2026-07-21T00:34:26Z_
 
 ## Latest
 
@@ -1093,6 +1093,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260720T225047Z-30bd5f` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260720T225047Z-30bd5f.md)
 
 > Milestone M2 (Project Hygiene) is complete except for merge: both remaining vetted-shim designs are built, green, and MERGEABLE — text-codecs shim as [endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/issues/259) (CLEAN, no duplicates) and the URL shim as two competing green PRs, #263 (universal-permits mirror) and #719 (`%URL%`/`%SharedURL%` split). Decision needed: which URL-shim approach to merge (or close the other), then merge #259 and the chosen URL PR to close M2.
+
+- `20260721T003357Z-44be6f` — from watchdog:hermit/2, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T003357Z-44be6f.md)
+
+> gardener job 'xs2rust-endor-press-20260720-230516' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `poison-build-daemon-mapstore-gh59-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-daemon-mapstore-gh59-deadline-overrun.md)
 
@@ -3083,7 +3087,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 74.8M | $836.25 _(notional, rate-card)_ | no quota set |
-| Codex | 310.1M _(+573.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 316.3M _(+573.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
