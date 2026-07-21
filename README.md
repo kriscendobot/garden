@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-21T18:25:49Z_
+_As of 2026-07-21T18:27:49Z_
 
 ## Latest
 
-The board has gone quiet — zero jobs queued, three in flight ([`bootstrap-test262-bot-fork`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/bootstrap-test262-bot-fork.md) just claimed, a module-harmony scholar research job, and the hourly xs2rust press) — while a large maintainer-inbox omnibus landed, consolidating **199** unread entries into ~30 open decisions across 13 topics. Most are merge-gated PRs waiting on your authority rather than fresh work: the esheets/endoclaw-OAuth tree is 11 days dammed behind a single stale `CHANGES_REQUESTED` on [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621); M2 hygiene shims [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text codecs, clean/green) and the URL-shim pick ([#719](https://github.com/endojs/endo-but-for-bots/pull/719) vs [#263](https://github.com/endojs/endo-but-for-bots/pull/263)) await a call; and M3's [#705](https://github.com/endojs/endo-but-for-bots/pull/705)/[#707](https://github.com/endojs/endo-but-for-bots/pull/707)/[#694](https://github.com/endojs/endo-but-for-bots/pull/694) sit green and un-drafted, one merge directive having gone unread.
-
-A shepherd on [#719](https://github.com/endojs/endo-but-for-bots/pull/719) surfaced the more consequential signal: the fork's **`master` is broadly RED** — a `fix(cbor)` missing devDependency, jsdoc lint debt, and three test failures from the direct-to-master `536f82d18` "tame TextEncoder/TextDecoder" push (which was never gauntleted and is recommended for revert). The shepherd greened #719's own lanes and recommends a dedicated master-greening job before more feature PRs rebase clean. Meanwhile the hourly [xs2rust-endor press (#600)](https://github.com/endojs/endo-but-for-bots/pull/600) keeps **deterministically overrunning** its 2400s handler budget every cycle — poisoned again this window — and needs to be split into claim-sized stages or handed to a dedicated builder; it also leaked ~356 orphaned processes over 07-20/21. Two deployed roots (endolin-garden2, endolin-garden) still need a physical drain-and-clean after job leaks corrupted their git state, and deploys have been stalled since 07-17 pending confirmation.
+A shepherd took [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) (hardened URL vetted shim) to partial green — its own 21 URL tests pass; the remaining red is pre-existing `master` debt (jsdoc lint, TextEncoder/TextDecoder permit-and-test fallout from `536f82d18`, and a stale setup-node v6 pin flagged by zizmor), which the shepherd recommends fixing in a dedicated master-greening pass rather than smuggling into a URL feature PR. Separately, a consolidation job folded 199 unread maintainer-inbox entries into ~30 open items across 13 topics (every original acknowledged, none deleted) — worth a read, since it surfaces long-stalled review asks including the 11-days-dammed esheets/endoclaw-OAuth tree behind [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) and several merge-gated milestone shims. The recurring hourly `xs2rust-endor-press` for [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) again deterministically overran its 2400s handler budget and was poisoned/parked; it needs splitting into claim-sized stages or a dedicated iterative builder, not the timeboxed press. This week's Qwen watch found no harnessable upgrade over the live `qwen3.6` hermit.
 
 ## Parked for maintainer feedback
 
@@ -283,8 +281,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 81.0M | $924.25 _(notional, rate-card)_ | no quota set |
-| Codex | 443.3M _(+521.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 81.0M | $924.55 _(notional, rate-card)_ | no quota set |
+| Codex | 444.2M _(+520.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
@@ -370,7 +368,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
 ## Watch set
-kriscendobot-agoric-3-proposals kriscendobot-agoric-sdk kriscendobot-chrome-native-function-caller-arguments-repro kriscendobot-cosgov kriscendobot-endo kriscendobot-finbot kriscendobot-garden kriscendobot-minion.town kriscendobot-ocapn kriscendobot-proposal-compartments kriscendobot-vattr97 kriscendobot-ymax-e2e kriscendobot-ymax-stdio-mcp
+kriscendobot-agoric-3-proposals kriscendobot-agoric-sdk kriscendobot-chrome-native-function-caller-arguments-repro kriscendobot-cosgov kriscendobot-endo kriscendobot-finbot kriscendobot-garden kriscendobot-minion.town kriscendobot-ocapn kriscendobot-proposal-compartments kriscendobot-test262 kriscendobot-vattr97 kriscendobot-ymax-e2e kriscendobot-ymax-stdio-mcp
 
 ## Hosts
 - [endolin-garden-ece02cb4](https://github.com/kriskowal/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 20 gardeners
