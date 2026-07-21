@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T13:43:47Z_
+_As of 2026-07-21T13:50:31Z_
 
 ## Latest
 
@@ -4221,15 +4221,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 78.0M | $886.20 _(notional, rate-card)_ | no quota set |
+| Claude | 78.0M | $887.06 _(notional, rate-card)_ | no quota set |
 | Codex | 442.2M _(+555.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`build-hardened-text-codecs-vetted-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-hardened-text-codecs-vetted-shim.md) — ---
 
 ### tada (3126)
 - [`xs2rust-endor-press-20260721-132003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-132003.md) — xs2rust-endor-press-20260721-132003 — Dispatch Report
