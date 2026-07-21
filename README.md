@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-21T22:46:50Z_
+_As of 2026-07-21T22:50:22Z_
 
 ## Latest
 
-The dominant event is a maintainer-inbox omnibus that folded **199 unread entries into ~30 open items across 13 topics** — worth reading, because it surfaces a long tail of merge-gated and arbitration-gated work: the esheets/endoclaw-OAuth tree dammed 11 days behind one stale review on [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621), the SturdyRef lanes all held on your arbitration since 07-15 ([#737](https://github.com/endojs/endo-but-for-bots/pull/737) vs [#774](https://github.com/endojs/endo-but-for-bots/pull/774)), M2 shims ([#259](https://github.com/endojs/endo-but-for-bots/pull/259), [#719](https://github.com/endojs/endo-but-for-bots/pull/719)/[#263](https://github.com/endojs/endo-but-for-bots/pull/263)) and M3 merges ([#705](https://github.com/endojs/endo-but-for-bots/pull/705)/[#707](https://github.com/endojs/endo-but-for-bots/pull/707)/[#694](https://github.com/endojs/endo-but-for-bots/pull/694)) all green-and-gated on your merge authority. On the moving side, finbot landed [finbot#2](https://github.com/kriscendobot/finbot/pull/2) (merged, green), making the pending `significanceAlpha` default decision evaluable from the CLI without changing any default. A shepherd drove [#719](https://github.com/endojs/endo-but-for-bots/pull/719)'s own 21 URL tests green and traced the remaining red to a broadly-red master (jsdoc lint, a `TextEncoder`-tame permit regression from `536f82d18`, stale zizmor action pins) — it recommends a dedicated master-greening pass rather than smuggling those fixes into the URL PR. The gauntlet on [#818](https://github.com/endojs/endo-but-for-bots/pull/818) and the review on [#809](https://github.com/endojs/endo-but-for-bots/pull/809) both completed.
+A gardener consolidated the maintainer inbox — 199 unread entries folded into ~30 open items across 13 topics — surfacing several long-stalled merge-gates: the esheets/endoclaw-OAuth tree ([endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621)) dammed 11 days behind one stale `CHANGES_REQUESTED`, the M2 text-codecs shim ([endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259)) clean-and-green (with a flagged errant direct-to-`master` push `536f82d18` to revert first), and the M3 chain ([endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705), [endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/pull/707), [endojs/endo-but-for-bots#694](https://github.com/endojs/endo-but-for-bots/pull/694)) waiting on merge authority. On finbot, [kriscendobot/finbot#2](https://github.com/kriscendobot/finbot/pull/2) merged, making the pending `significanceAlpha`-as-default question CLI-evaluable via a new `finbot-eval --significance-alpha` flag without changing any default. A shepherd took [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL shim) to partial green and traced the remaining red to broadly-red master debt (jsdoc, text-codec permits, stale action pins), recommending a dedicated master-greening pass rather than smuggling fixes into the URL PR.
 
-The one recurring alarm to notice: the hourly **xs2rust-endor press ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) deterministically overruns its 2400s handler budget every cycle** and gets poisoned-and-parked (three more parks this window); it previously leaked 356 orphaned processes. The omnibus's fix stands — assign a dedicated builder who can work across dispatches and split the work into claim-sized stages, rather than let the hourly press keep exhausting on assessment. This week's Qwen watch found no new harnessable model.
+The recurring **xs2rust-endor press** (PR [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) remains the dominant infrastructure signal: three more hourly dispatches deterministically overran the 2400s handler budget and were poisoned into `jobs/plan/`, confirming the standing advice to assign a dedicated builder and split the work into claim-sized stages rather than keep the hourly cadence. Deploys remain stalled since 07-17 (root at `374deede65`, `origin/main2` ahead) now that the deployed-root corruption is self-healed, and the physical cleanup of the two deployed roots is posted as `fix-garden-root-test-leak-cleanup`. The weekly Qwen watch found no harnessable upgrade over `qwen3.6`.
 
 ## Parked for maintainer feedback
 
@@ -579,14 +579,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 86.2M | $964.93 _(notional, rate-card)_ | no quota set |
-| Codex | 502.5M _(+518.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 86.2M | $965.45 _(notional, rate-card)_ | no quota set |
+| Codex | 504.0M _(+516.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`xs-upstream-watch-20260721-225002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs-upstream-watch-20260721-225002.md) — WEEKLY XS-upstream watch → project engine-relevant changes to our Rust port (...
 - [`xs2rust-endor-press-20260721-222001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-222001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3191)
