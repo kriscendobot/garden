@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: orch-conduct-endor-npm-805-812
-priority: normal
 role: conductor
-posted_by: producer
-posted_at: 2026-07-21T15:34:58Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-21T15:49:06Z -->
 
 ---
 role: conductor
