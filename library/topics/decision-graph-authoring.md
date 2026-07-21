@@ -43,6 +43,19 @@
 | [two-room door](../sections/kni--examples-door--overview.md) | kni examples/door.kni | Two rooms share one door flag; guarded threads offer only legal actions and mutate the shared state. |
 | [subroutine menu builder](../sections/kni--examples-subroutine--overview.md) | kni examples/subroutine.kni | Procedures contribute options and text to a menu the caller presents — a menu assembled from subroutines. |
 | [nominal integer-to-words](../sections/kni--examples-nominal--overview.md) | kni examples/nominal.kni | A recursive procedure that spells any 32-bit integer by peeling magnitude places and recursing on the remainder. |
+| [hilbert space filler](../sections/kni--examples-hilbert--overview.md) | kni examples/hilbert.kni | Nested loops fill a grid with letters indexed by a Hilbert-curve value; the space-filling curve is visible in the field. |
+| [plane consistent-hash field](../sections/kni--examples-plane--overview.md) | kni examples/plane.kni | A consistent hash of each coordinate's Hilbert value assigns every point a stable random letter with no axis symmetry. |
+| [distribution ~ operator](../sections/kni--examples-distribution--overview.md) | kni examples/distribution.kni | Emits 100 samples of the attenuated random variable 3~6; X~Y sums X uniform samples from [0,Y). |
+| [liftoff sequence block](../sections/kni--examples-liftoff--overview.md) | kni examples/liftoff.kni | A bare unselected brace block advances one item per visit; re-entered by ->start it counts down, then <- exits. |
+| [tree recursive procedure](../sections/kni--examples-tree--overview.md) | kni examples/tree.kni | Climbing calls a deeper frame and climbing down returns <-, so the call stack itself encodes the tree position. |
+| [tetrominoes state machine](../sections/kni--examples-tetrominoes--overview.md) | kni examples/tetrominoes.kni | Rich state vector rendered by nested cyclic switches; a - {type <> O} guard thread gates the whole rotate-options group. |
+| [paint coordinate grid](../sections/kni--examples-paint--overview.md) | kni examples/paint.kni | A 2-D grid stored as dynamically-named variables keyed by the interpolated coordinate {x}.{y}. |
+| [list dynamic-name arrays](../sections/kni--examples-list--overview.md) | kni examples/list.kni | Arrays over a flat namespace: shapes.{i} indexes elements, shapes.length tracks the count, with add/pop and a render loop. |
+| [option-styles notation reference](../sections/kni--examples-option-styles--overview.md) | kni examples/option-styles.kni | The reference for kni's option-bracket notation: threads woven into the question, the answer, or both. |
+| [fish show-once options](../sections/kni--examples-fish--overview.md) | kni examples/fish.kni | Four * optional-once options plus an always-offered + [End]; the menu exhausts as fish are chosen. |
+| [ascii text rendering](../sections/kni--examples-ascii--overview.md) | kni examples/ascii.kni | Rendering-only: curly quote braces, en-/em-dashes, and brace escaping (concretizes MANUAL text-space-and-symbols). |
+| [german line-continuation](../sections/kni--examples-german--overview.md) | kni examples/german.kni | Rendering-only: trailing-\ line-continuation suppresses the collapsed word break; Unicode passes through verbatim. |
+| [hyperlinks brace form](../sections/kni--examples-hyperlinks--overview.md) | kni examples/hyperlinks.kni | Rendering-only: {url text} renders a hyperlink in HTML output and degrades to plain text elsewhere. |
 
 ## See also
 
