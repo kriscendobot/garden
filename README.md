@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T04:35:56Z_
+_As of 2026-07-21T04:38:25Z_
 
 ## Latest
 
@@ -3503,7 +3503,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.9M | $852.16 _(notional, rate-card)_ | no quota set |
+| Claude | 75.9M | $852.04 _(notional, rate-card)_ | no quota set |
 | Codex | 343.6M _(+572.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
@@ -3511,17 +3511,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 (none)
 
 ### doin (3)
+- [`endojs-endo-but-for-bots-pr809-review-581b1021`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr809-review-581b1021.md) — Review directive on endojs/endo-but-for-bots PR #809
 - [`gauntlet-endo-but-for-bots-pr705-agent-tools-git-remote-push-tier`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr705-agent-tools-git-remote-push-tier.md) — ---
-- [`minion-town-agenda-review-20260721-043501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260721-043501.md) — Minion Town hourly agenda review
 - [`xs2rust-endor-press-20260721-043501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-043501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3083)
+### tada (3084)
+- [`minion-town-agenda-review-20260721-043501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-043501.md) — The correction is now durably recorded in the issue thread itself (the canoni...
 - [`kriscendobot-agoric-sdk-pr10-review-18cff77a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-18cff77a-retro.md) — Job complete. Summary of what I did:
 - [`xs2rust-endor-press-20260721-032030`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-032030.md) — Finish Line Assessment
 - [`deadmail-issue-comment-5029877730`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5029877730.md) — Replied on issue #59, reorienting the design toward a directory-backed zone/s...
 - [`endojs-endo-but-for-bots-npm-stack-landing`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-npm-stack-landing.md) — orchestration endojs-endo-but-for-bots-npm-stack-landing — complete
-- [`minion-town-agenda-review-20260721-032030`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-032030.md) — Reviewed agenda and posted findings to https://github.com/kriskowal/garden/is...
-- … and 3078 more
+- … and 3079 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -3571,7 +3571,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage10p-fresh-env-sweep.md) — _normal_ · Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-(none)
+- [`endojs-endo-but-for-bots-pr809-review-581b1021-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-581b1021-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
