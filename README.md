@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T15:47:33Z_
+_As of 2026-07-21T15:48:00Z_
 
 ## Latest
 
@@ -4492,25 +4492,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 78.8M | $899.17 _(notional, rate-card)_ | no quota set |
-| Codex | 450.1M _(+558.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
+| Codex | 450.2M _(+558.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
-- [`conduct-ebfb-805-tla`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/conduct-ebfb-805-tla.md) — Conduct endojs/endo-but-for-bots #805 (top-level await) onto llm
+### doin (3)
 - [`harden-garden-root-repo-against-job-escapes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/harden-garden-root-repo-against-job-escapes.md) — Harden the deployed garden root repo against job git-escapes (incident 2026-0...
 - [`kriscendobot-minion.town-pr12-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr12-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #12
 - [`xs2rust-endor-press-20260721-153512`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-153512.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3143)
+### tada (3144)
+- [`conduct-ebfb-805-tla`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/conduct-ebfb-805-tla.md) — Merged #805 into llm: 1c45ab718d1698b2d2687cd1f13aefe7f4b86a75.
 - [`endojs-endo-but-for-bots-pr805-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr805-conduct.md) — Rebased PR #805 onto current llm, force-pushed 09540db9f, and waited for the ...
 - [`endo-npm-cas-registry-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260721-152002.md) — Completion report — endo-npm-cas-registry-press-20260721-152002
 - [`design-evaluation-epochs-panel-calibration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-evaluation-epochs-panel-calibration.md) — Completion report
 - [`fix-garden-root-test-leak-cleanup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-garden-root-test-leak-cleanup.md) — Completion report — fix-garden-root-test-leak-cleanup
-- [`minion-town-agenda-review-20260721-153512`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-153512.md) — Reviewed agenda, journal, repository, PRs, and deployed edge; posted report: ...
-- … and 3138 more
+- … and 3139 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
