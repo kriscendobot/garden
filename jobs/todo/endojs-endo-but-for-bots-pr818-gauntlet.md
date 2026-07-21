@@ -10,10 +10,4 @@ panel review → fix-loop → un-draft (skill: skills/pr-creation-flow/SKILL.md)
 The branch is `feat/endor-cjs-require-linkage`; tests are green locally
 (147 endo + 120 xsnap) and real-execution evidence is in the PR body.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 4
-  worker_kind: gardener
-  claimed_at: 2026-07-21T21:44:41Z
+<!-- garden-reaped: 1 -->
