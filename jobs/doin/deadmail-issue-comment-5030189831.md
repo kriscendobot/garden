@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/59#issuecomment-5030189831
 Given the clarifications above, I am favoring direct implementation of map, set, weakset, and potentially many other collection variants like sortedset, sortedmap, and carrying forward range queries over arbitrary passable keys going forward. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 17
+  worker_kind: gardener
+  claimed_at: 2026-07-21T04:40:28Z
