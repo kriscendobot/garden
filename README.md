@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-21T21:21:46Z_
+_As of 2026-07-21T21:23:49Z_
 
 ## Latest
 
-A gardener consolidated the maintainer inbox — **199 unread entries folded into ~30 open items across 13 topics**, so the standup/press/watchdog noise is now one digest ([open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T171232Z-297e3f.md)); the headline asks are still a handful of merge/arbitration calls (esheets [#621](https://github.com/endojs/endo-but-for-bots/pull/621) 11 days dammed on one review, the SturdyRef shim-placement pick between [#737](https://github.com/endojs/endo-but-for-bots/pull/737) and [#774](https://github.com/endojs/endo-but-for-bots/pull/774), and M2/M3 merges [#259](https://github.com/endojs/endo-but-for-bots/pull/259)/[#705](https://github.com/endojs/endo-but-for-bots/pull/705)/[#707](https://github.com/endojs/endo-but-for-bots/pull/707)/[#694](https://github.com/endojs/endo-but-for-bots/pull/694)).
-
-On the code side, the hardened URL shim landed on [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (9dcdc2412) and a shepherd rebased it green on its own diff, but surfaced that the fork's `master` is broadly RED — pre-existing jsdoc, text-codec permit, and stale action-pin debt, not [#719](https://github.com/endojs/endo-but-for-bots/pull/719)'s — and recommends a dedicated master-greening pass before it can merge clean; a `master-green-text-codec-permits` job has already completed toward that. A lint-and-test fixer also finished on [#723](https://github.com/endojs/endo-but-for-bots/pull/723).
-
-Most notable operationally: the hourly **xs2rust-endor press ([#600](https://github.com/endojs/endo-but-for-bots/pull/600))** keeps **deterministically overrunning its 2400s handler budget** and getting poisoned every cycle — two more poison-parks and watchdog notices this window — so it needs to be split into claim-sized stages or handed to a dedicated builder rather than the press. The weekly Qwen watch found no harnessable upgrade over `qwen3.6`.
+The [hardened URL shim](https://github.com/endojs/endo-but-for-bots/pull/719) landed (commit 9dcdc2412), and a companion master-greening fixer completed the text-codec permit work; a shepherd on the same PR confirmed the remaining red is broadly-RED master debt (missing `@endo/eventual-send` devDep, jsdoc lint, `536f82d18` text-codec permit regressions, stale `setup-node` pins) rather than anything in [#719](https://github.com/endojs/endo-but-for-bots/pull/719)'s own diff, and recommends a dedicated master-greening pass before it rebases green. A maintainer-inbox omnibus consolidated 199 unread entries into ~30 open decisions across 13 topics — worth a read, as it surfaces long-stalled merge gates ([#259](https://github.com/endojs/endo-but-for-bots/pull/259) text codecs, [#705](https://github.com/endojs/endo-but-for-bots/pull/705)/[#707](https://github.com/endojs/endo-but-for-bots/pull/707) M3, [#694](https://github.com/endojs/endo-but-for-bots/pull/694) Docker self-host), the 11-day esheets dam on [#621](https://github.com/endojs/endo-but-for-bots/pull/621), and the held SturdyRef arbitration lanes. The xs2rust-endor press ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) remains the fleet's sore spot: two more hourly dispatches deterministically overran the 2400s handler budget and were poisoned into `jobs/plan/`, so that port needs a dedicated builder that can work across dispatches rather than the timeboxed press. Otherwise the board is quiet — only the hourly minion.town agenda review turned over.
 
 ## Parked for maintainer feedback
 
@@ -420,25 +416,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 84.5M | $951.67 _(notional, rate-card)_ | no quota set |
-| Codex | 476.7M _(+523.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 84.6M | $952.32 _(notional, rate-card)_ | no quota set |
+| Codex | 477.9M _(+523.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`minion-town-agenda-review-20260721-212001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260721-212001.md) — Minion Town hourly agenda review
+### doin (2)
 - [`xs2rust-endor-press-20260721-202001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-202001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260721-212001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-212001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3178)
+### tada (3179)
+- [`minion-town-agenda-review-20260721-212001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-212001.md) — Completed the hourly Minion Town agenda review and reported it on https://git...
 - [`endojs-endo-but-for-bots-pull-request-723-endo-fetch-lint-and-test-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pull-request-723-endo-fetch-lint-and-test-fixer.md) — Completion report
 - [`minion-town-agenda-review-20260721-202001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-202001.md) — Completed Minion Town agenda review and posted the substantive report: https:...
 - [`endojs-endo-but-for-bots-hardened-url-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-hardened-url-shim.md) — Implemented and published the hardened URL shim on PR #719 (9dcdc2412).
 - [`endojs-endo-but-for-bots-master-green-text-codec-permits`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-master-green-text-codec-permits.md) — Completion report
-- [`scholar-fix-dangling-nav-links-225b1c358359`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-fix-dangling-nav-links-225b1c358359.md) — Repaired all three dangling navigation links in the reference library.
-- … and 3173 more
+- … and 3174 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
