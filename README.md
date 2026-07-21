@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T08:51:10Z_
+_As of 2026-07-21T08:52:57Z_
 
 ## Latest
 
@@ -3775,24 +3775,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 76.5M | $866.48 _(notional, rate-card)_ | no quota set |
-| Codex | 387.7M _(+572.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 388.1M _(+572.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`minion-town-agenda-review-20260721-085004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260721-085004.md) — Minion Town hourly agenda review
+### doin (2)
 - [`xs2rust-endor-press-20260721-063505`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-063505.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260721-085004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-085004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3107)
+### tada (3108)
+- [`minion-town-agenda-review-20260721-085004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-085004.md) — Reviewed agenda, journal, private repo, PRs, and deployed edge. Posted findin...
 - [`xs2rust-endor-press-20260721-073528`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-073528.md) — All three finish line bars have been verified with real execution evidence:
 - [`minion-town-agenda-review-20260721-073528`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-073528.md) — Completion report
 - [`daily-progress-summary-20260721-070504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260721-070504.md) — Created and pushed periodicals/2026/07/20.md on journal2 (commit dd80309bc).
 - [`minion-town-agenda-review-20260721-063505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-063505.md) — Reported the hourly reconciliation on garden issue #58. No repository changes...
-- [`endojs-endo-but-for-bots-pr777-e4a522e4-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr777-e4a522e4-retro.md) — Completion report
-- … and 3102 more
+- … and 3103 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
