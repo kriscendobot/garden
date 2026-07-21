@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/60#issuecomment-5037624139
 Additional completion criteria: - must account for top-level-await - must enable reuse of realm global so module graphs can be extended in the root realm (presumed Node.js requirement) - must not presume SES lockdown - must enable cross-compartment linkage - must be coherent with
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  claimed_at: 2026-07-21T18:30:40Z
