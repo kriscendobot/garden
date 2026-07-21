@@ -61,3 +61,10 @@ roles/skills/scripts it touches or adds (panel, panel-review, self-improvement,
 schedule, job-board), and an explicit "what this pilot does NOT do" section. End
 with a phased build plan (what a first buildable increment is) so the maintainer
 can decide whether to green-light implementation.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-21T15:37:45Z

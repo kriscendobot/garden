@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 6
+worker_kind: gardener
+claimed_at: 2026-07-21T15:37:45Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-design-evaluation-epochs-panel-calibration
