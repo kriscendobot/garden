@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-21T23:02:50Z_
+_As of 2026-07-21T23:06:09Z_
 
 ## Latest
 
-The board has fully drained (0 posted, 0 in-flight); the only transition since the last bulletin was the completion of the [endo-but-for-bots#809](https://github.com/endojs/endo-but-for-bots/pull/809) review retrospective. The dominant recent signal is a self-reinforcing failure loop: the hourly `xs2rust-endor` press ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) deterministically overran its 2400s handler budget three cycles running and was poisoned and parked each time — it needs a dedicated builder split into claim-sized stages, not the timeboxed press. A maintainer-inbox omnibus folded 199 unread entries down to ~30 open items across 13 topics; the headline asks are unchanged and merge-gated — approve/re-review the esheets [endoclaw-oauth #621](https://github.com/endojs/endo-but-for-bots/pull/621) (11 days dammed on one stale `CHANGES_REQUESTED`), the M2 text-codecs shim [#259](https://github.com/endojs/endo-but-for-bots/pull/259) and a URL-shim pick between [#719](https://github.com/endojs/endo-but-for-bots/pull/719) and [#263](https://github.com/endojs/endo-but-for-bots/pull/263), and the M3 merges [#705](https://github.com/endojs/endo-but-for-bots/pull/705)/[#707](https://github.com/endojs/endo-but-for-bots/pull/707)/[#694](https://github.com/endojs/endo-but-for-bots/pull/694). A shepherd drove [#719](https://github.com/endojs/endo-but-for-bots/pull/719) to partial green and traced the remaining red to pre-existing master debt (jsdoc lint, text-codec permit tests, stale action pins), recommending a dedicated master-greening pass rather than smuggling those fixes into a feature PR. On the finbot side, [finbot#2](https://github.com/kriscendobot/finbot/pull/2) merged, adding a `finbot-eval --significance-alpha` CLI gate so the pending default-flip decision is now evaluable against fixtures without changing any hash. The weekly Qwen watch found no harnessable upgrade over the live `qwen3.6` hermit. Fleet cleanup still owed a human: drain and physically sweep the corrupted deployed roots on `endolin-garden2`/`endolin-garden`, and confirm a deliberate deploy (root has been stalled at `374deede65` since 07-17).
+A gardener consolidated the **maintainer inbox** — 199 unread entries folded into ~30 open items across 13 topics (all originals acknowledged), so the standout signal now is a small set of merge-and-arbitration calls rather than a wall of duplicated standups. The most-stalled thread is [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth refinement), which has dammed the whole `@endo/exo-google-sheets` tree for 11 days behind one stale `CHANGES_REQUESTED`; several M2/M3 shims sit green-and-merge-gated ([#259](https://github.com/endojs/endo-but-for-bots/pull/259), [#705](https://github.com/endojs/endo-but-for-bots/pull/705), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), [#694](https://github.com/endojs/endo-but-for-bots/pull/694)).
+
+On the board itself little moved — a single shepherd claim on the hardened-URL shim [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719), which reached partial green with the residual failures traced to a broadly-red master (jsdoc lint, TextEncoder/TextDecoder permit tests, stale zizmor pins) rather than the PR's own diff; the shepherd recommends a dedicated master-greening pass before #719 rebases clean. In finbot, [finbot#2](https://github.com/kriscendobot/finbot/pull/2) merged, making the pending `significanceAlpha` default decision CLI-evaluable without changing any default.
+
+The recurring pain is the hourly **xs2rust-endor press** ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)): four cycles deterministically overran the 2400s handler budget and were poisoned into `jobs/plan/`, and this same press earlier leaked ~356 orphaned processes. It needs to be split into claim-sized stages or handed to a dedicated builder rather than left on the timeboxed schedule. Fleet infra otherwise self-healed, but two deployed roots (`endolin-garden2`, `endolin-garden`) still need a manual drain-and-clean, and deploys have been stalled since 07-17.
 
 ## Parked for maintainer feedback
 
@@ -577,15 +581,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 86.6M | $967.86 _(notional, rate-card)_ | no quota set |
+| Claude | 86.7M | $969.26 _(notional, rate-card)_ | no quota set |
 | Codex | 504.9M _(+511.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr719-hardened-url-shim-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-hardened-url-shim-shepherd.md) — ---
 
 ### tada (3194)
 - [`endojs-endo-but-for-bots-pr809-review-da1fca9d-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr809-review-da1fca9d-retro.md) — Completion report
