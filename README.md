@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T04:47:55Z_
+_As of 2026-07-21T04:50:01Z_
 
 ## Latest
 
@@ -3503,25 +3503,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 76.0M | $854.64 _(notional, rate-card)_ | no quota set |
-| Codex | 344.3M _(+573.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 76.0M | $856.11 _(notional, rate-card)_ | no quota set |
+| Codex | 344.5M _(+573.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`gauntlet-endo-but-for-bots-pr705-agent-tools-git-remote-push-tier`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr705-agent-tools-git-remote-push-tier.md) — ---
+### doin (2)
 - [`scholar-ingest-kni`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-kni.md) — Ingest github.com/kriskowal/kni into the library — read it as agent-context s...
 - [`xs2rust-endor-press-20260721-043501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-043501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3087)
+### tada (3088)
+- [`gauntlet-endo-but-for-bots-pr705-agent-tools-git-remote-push-tier`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr705-agent-tools-git-remote-push-tier.md) — Gauntlet complete — endojs/endo-but-for-bots PR #705 driven to review-passed
 - [`design-endo-daemon-store-family-pr809`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-daemon-store-family-pr809.md) — Revised and pushed daemon-persistent-stores at 74755af9b.
 - [`deadmail-issue-comment-5030189831`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5030189831.md) — Completion report
 - [`endojs-endo-but-for-bots-pr809-review-581b1021`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr809-review-581b1021.md) — Completion report
 - [`minion-town-agenda-review-20260721-043501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-043501.md) — The correction is now durably recorded in the issue thread itself (the canoni...
-- [`kriscendobot-agoric-sdk-pr10-review-18cff77a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-18cff77a-retro.md) — Job complete. Summary of what I did:
-- … and 3082 more
+- … and 3083 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
