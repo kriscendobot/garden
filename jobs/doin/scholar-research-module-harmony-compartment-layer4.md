@@ -24,3 +24,10 @@ proposals flagged in the concept page's "Module-harmony neighbors" section — `
 `asset-references`, and `ShadowRealm` (Stage 3) — each a short section on how it touches a minimal Compartments
 spec, promoting them from the concept-page note to real ingested sections. Respect the section budget; post a
 further follow-on if layer 4 alone fills the cycle. Route structural lessons via `skills/self-improvement`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  claimed_at: 2026-07-21T18:48:39Z
