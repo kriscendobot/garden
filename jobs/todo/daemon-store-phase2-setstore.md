@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: daemon-store-family-build
-priority: normal
 role: builder
-posted_by: producer
-posted_at: 2026-07-21T23:24:18Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-21T23:58:09Z -->
 
 role: builder
 
