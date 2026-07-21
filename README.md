@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T09:25:28Z_
+_As of 2026-07-21T09:26:04Z_
 
 ## Latest
 
@@ -3902,25 +3902,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 76.9M | $869.20 _(notional, rate-card)_ | no quota set |
-| Codex | 406.6M _(+572.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 76.9M | $869.43 _(notional, rate-card)_ | no quota set |
+| Codex | 406.7M _(+572.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endo-npm-cas-registry-press-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260721-092001.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`finbot-progress-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260721-092001.md) — Push progress on kriscendobot/finbot (every 6h)
-- [`xs2rust-endor-press-20260721-085004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-085004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3114)
+### tada (3115)
+- [`xs2rust-endor-press-20260721-085004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-085004.md) — Assessment
 - [`endo-git-integration-press-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260721-092001.md) — Press report — git-integration / M3 loop (endojs/endo-but-for-bots), dispatch...
 - [`endo-vfs-parity-press-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260721-092001.md) — **VFS-parity press tick (2026-07-21 09:20 dispatch) — verify-and-stand-down; ...
 - [`ocapn-noise-press-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260721-092001.md) — All checks are done and the picture is clear — steady state again. No re-run ...
 - [`endo-sturdyref-press-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260721-092001.md) — SturdyRef press 09:20 tick — **hold + observation; no movement since the 03:0...
-- [`endo-daemon-data-plane-press-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260721-092001.md) — All watchpoints verified with no change — this is another quiet steady-state ...
-- … and 3109 more
+- … and 3110 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
