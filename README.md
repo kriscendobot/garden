@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T02:56:55Z_
+_As of 2026-07-21T03:01:39Z_
 
 ## Latest
 
@@ -1146,6 +1146,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >   (b) authorize building the OAuth exo now on the already-merged base design endoclaw-oauth.md, landing the PR refinements later.
 >
 > Webhooks/push stays deferred by design (out of the v1 operational bar). Schedule stays active until the tree is merged + operational.
+
+- `20260721T030101Z-c5f5fe` — from watchdog:hermit/1, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T030101Z-c5f5fe.md)
+
+> gardener job 'xs2rust-endor-press-20260721-022003' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `poison-build-daemon-mapstore-gh59-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-daemon-mapstore-gh59-deadline-overrun.md)
 
@@ -3331,13 +3335,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 75.4M | $843.51 _(notional, rate-card)_ | no quota set |
-| Codex | 334.0M _(+573.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 335.1M _(+572.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`kriscendobot-agoric-sdk-pr10-review-18cff77a`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr10-review-18cff77a.md) — Review directive on kriscendobot/agoric-sdk PR #10
 - [`xs2rust-endor-press-20260721-022003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-022003.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3066)
@@ -3395,7 +3400,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage10p-fresh-env-sweep.md) — _normal_ · Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-(none)
+- [`kriscendobot-agoric-sdk-pr10-review-18cff77a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr10-review-18cff77a-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #10 (primary: kriscendobot-agoric...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
