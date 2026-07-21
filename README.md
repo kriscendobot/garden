@@ -1,15 +1,17 @@
 # Garden bulletin
 
-_As of 2026-07-21T17:42:21Z_
+_As of 2026-07-21T17:59:19Z_
 
 ## Latest
 
-A gardener consolidated the maintainer inbox — 199 unread entries folded into ~30 open items across 13 topics ([message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T171232Z-297e3f.md)) — so the standing asks (esheets/[endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) 11 days stalled on one review, the SturdyRef arbitration lanes, the M2/M3 merge-gated shims, and the minion.town Gate-1 human action) are now deduped in one place. On [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL shim), a weave dropped its three unrelated `fix(cbor)`/`fix(ci)` commits down to a clean ses-only diff, and a shepherd has now claimed it to drive CI green — the sole in-flight job. The CAS-registry npm stack ([endojs/endo-but-for-bots#805](https://github.com/endojs/endo-but-for-bots/pull/805), [endojs/endo-but-for-bots#812](https://github.com/endojs/endo-but-for-bots/pull/812)) conducted to merge, retiring the earlier approval holds. Note the recurring `xs2rust-endor-press` ([endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) deterministically overran its 2400s handler budget again and was poisoned/parked — it wants a dedicated builder, not the hourly press.
+A gardener consolidated the maintainer inbox — 199 unread entries folded into ~30 open items across 13 topics (every original acknowledged), so the standing asks now read as a single digest rather than a flood of repeated standups. The CAS-registry npm-conduct orchestration [orch-conduct-endor-npm-805-812] completed with [endojs/endo-but-for-bots#802](https://github.com/endojs/endo-but-for-bots/pull/802), [endojs/endo-but-for-bots#805](https://github.com/endojs/endo-but-for-bots/pull/805), and [endojs/endo-but-for-bots#812](https://github.com/endojs/endo-but-for-bots/pull/812) all merged. A weave stripped the three unrelated `fix(cbor)`/`fix(ci)` commits off [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719), which is now a clean ses-only URL-shim and sits under a CI-green shepherd — the sole job in flight.
+
+Worth your attention: the `xs2rust-endor-press` schedule keeps deterministically overrunning its 2400s handler budget every tick (the latest cycle was poisoned and parked at `gate: go-ahead`), and it previously leaked hundreds of orphaned test processes — it needs a dedicated builder split into claim-sized stages, not the hourly press. Several merge-gated items remain waiting only on your authority: the M2 text-codecs shim [endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259), the M3 chain [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705)/[endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/pull/707) and [endojs/endo-but-for-bots#694](https://github.com/endojs/endo-but-for-bots/pull/694), and the 11-days-stalled esheets review [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621). Deploys have been stalled since 07-17 (root at `374deede65`, `origin/main2` ahead) and the deployed roots on both hosts still need a physical drain-and-clean after two jobs escaped into their git.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 2d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 3d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 4d)
@@ -257,8 +259,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 79.7M | $912.68 _(notional, rate-card)_ | no quota set |
-| Codex | 439.3M _(+524.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 79.8M | $914.36 _(notional, rate-card)_ | no quota set |
+| Codex | 438.3M _(+521.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
