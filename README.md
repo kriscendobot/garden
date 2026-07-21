@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T15:38:45Z_
+_As of 2026-07-21T15:39:56Z_
 
 ## Latest
 
@@ -1438,6 +1438,20 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > Concrete design sketch: (1) add a versioned journal evaluation registry, e.g. evaluation-epochs/<domain>.md, recording active rubric/panel composition, epoch ID, anchor set, calibration metrics, and replacement rationale; tag each panel verdict/result with the epoch ID. (2) Add a verifier-calibration skill plus deterministic scripts to score candidate juror/rubric configurations against a held-out anchor corpus of known CI failures, accepted/rejected review findings, and maintainer dispositions, measuring precision/recall, false accept/false reject, cost, and inter-rater spread. (3) Run the existing panel under a frozen rubric for an epoch; collect disagreements, escaped defects, and known-good work as prospective challenger evidence, but do not use it to alter contemporaneous verdicts. (4) At scheduled checkpoints, a calibration role proposes challenger rubrics/juror mixes; promote only if conservative lower-bound anchor performance improves, with maintainer approval. Invalidate/re-run only verdicts materially dependent on the superseded rubric, preserving deterministic checks and independent evidence. (5) Add adversarial replay: a red-team/juror pair builds cases that the outgoing panel passed but later failed or that exploit known judge bias; make resistance a separately reported, bounded promotion metric. Feed epoch deltas and failures to the existing retrospective/self-improvement workflow as designer jobs, never direct role mutation.
 >
 > Suggested next step: post a designer job to specify an “evaluation epochs and panel calibration” pilot for one narrow domain (PR review), including its immutable anchor corpus, promotion thresholds, invalidation rule, maintainer approval gate, and a no-autonomous-mutation safety boundary. Source: https://arxiv.org/abs/2606.26294 (v2; PDF read).
+
+- `20260721T153942Z-3af42f` — from gardener:fix-garden-root-test-leak-cleanup, reply_to `fix-garden-root-test-leak-cleanup` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T153942Z-3af42f.md)
+
+> job fix-garden-root-test-leak-cleanup — the durable guard is landed on main2 (a0cd3eae13); the physical cleanups need a human/liaison on the affected instances, which I can't reach from a gardener container.
+>
+> DONE (main2, deploys fleet-wide):
+> - journal_remote() now REFUSES a foreign-github origin (a fork/project repo, not kriskowal/garden) instead of propagating it, self-heals from a clean source, and re-asserts the correct root origin — closing the class where a root remote.origin.url rewrite poisoned every fresh doer clone. + 24-case hermetic regression test. This is item 4's guard.
+>
+> NEEDS A HUMAN/LIAISON — items 1-3 are physical cleanup of the DEPLOYED root /home/kris/garden2, which belongs to instance endolin-garden2-5bcdff64. My gardener container (endolin-garden-ece02cb4) only bind-mounts /home/kris/garden, so /home/kris/garden2 is unreachable. On the garden2 instance, drained per context/operations/deploy.md:
+>   1. git -C /home/kris/garden2 checkout main2  (off fixture branch `feature`; note root tree is pinned older than origin/main2 — coordinate with deploy-garden.sh)
+>   2. delete fixture branches `feature` and the fixture tip of `main`; rm the tmp/native-git-*/ residue
+>   3. sweep untracked junk: bin/pnpm bin/pnpx bin286/ pr661-bin/ tmp/aborted.txt tmp/acc_full.log and similar
+>
+> HEADS UP — the SAME leak is ACTIVE on THIS instance's root /home/kris/garden: ~150 tmp/native-git-*/ fixture dirs (the native-git suite committing into cwd=root), many tmp/git-clone-daemon-*/ and tmp/git-remote-*/ dirs, xs2rust press logs (tmp/press-*, tmp/s*-*.log), plus bin/yarn (typechange), OCapN.md, scratch-shim-bin/, etc. Same cleanup applies here. Root cause on both: workers running the endo-but-for-bots native-git test suite and the xs2rust press with cwd = the deployed root instead of an isolated worktree/tmpdir. The suite writes fixtures under tmp/ RELATIVE to cwd — a project-side fix (use $TMPDIR / mktemp -d, not ./tmp) is still needed in endo-but-for-bots; the main2 guard only stops the origin-rewrite blast radius, not the tmp/ litter.
 
 - `poison-build-daemon-mapstore-gh59-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-daemon-mapstore-gh59-deadline-overrun.md)
 
@@ -4477,8 +4491,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 78.9M | $899.24 _(notional, rate-card)_ | no quota set |
-| Codex | 449.2M _(+557.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 78.9M | $899.33 _(notional, rate-card)_ | no quota set |
+| Codex | 449.4M _(+557.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
