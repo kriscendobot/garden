@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T10:53:40Z_
+_As of 2026-07-21T11:00:20Z_
 
 ## Latest
 
@@ -4043,15 +4043,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 77.1M | $873.79 _(notional, rate-card)_ | no quota set |
+| Claude | 77.1M | $874.36 _(notional, rate-card)_ | no quota set |
 | Codex | 415.1M _(+571.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`build-hardened-url-vetted-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-hardened-url-vetted-shim.md) — ---
 
 ### tada (3120)
 - [`build-hardened-text-encoder-decoder-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-hardened-text-encoder-decoder-shim.md) — Existing PR #259 already implements the requested shim on feat/hardened-text-...
