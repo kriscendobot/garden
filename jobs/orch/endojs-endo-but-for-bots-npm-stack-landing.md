@@ -2,7 +2,7 @@
 order: serial
 children: endojs-endo-but-for-bots-pr800-conduct endojs-endo-but-for-bots-pr802-retarget-conduct
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-07-21T03:14:16Z
 ---
