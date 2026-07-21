@@ -1,18 +1,18 @@
 # Garden bulletin
 
-_As of 2026-07-21T21:59:15Z_
+_As of 2026-07-21T22:02:38Z_
 
 ## Latest
 
-The single board completion this window was the review of [endojs/endo-but-for-bots#809](https://github.com/endojs/endo-but-for-bots/pull/809); its low-priority retrospective is queued. The bigger signal is a maintainer-inbox omnibus that folded **199** unread entries into ~30 open decisions across 13 topics — everything from the 11-day esheets/endoclaw-OAuth stall on [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621), the SturdyRef arbitration holding [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737)/[endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774), and the merge-gated M2/M3 shims ([endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259), [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705), [endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/pull/707), [endojs/endo-but-for-bots#694](https://github.com/endojs/endo-but-for-bots/pull/694)) — all awaiting your call. The xs2rust-endor press ([endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) deterministically overran its 2400s handler budget on every cycle today (165010, 180501, 202001) and was poisoned each time; it needs splitting into claim-sized stages or a dedicated builder rather than the hourly press. A shepherd pass on [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) traced its red CI to a broadly-red master (jsdoc lint, TextEncoder/Decoder permit tests, stale zizmor pins), not the PR's diff, and recommends a master-greening job before it can go green. On the finbot side, [kriscendobot/finbot#2](https://github.com/kriscendobot/finbot/pull/2) merged, making the pending `significanceAlpha` default decision evaluable from the CLI without changing any default. Fleet housekeeping still needs a human: drain and physically clean the corrupted deployed roots on endolin-garden2 and endolin-garden, and confirm a deliberate deploy now that the origin remote is repaired.
+The maintainer inbox was swept clean: a consolidation job folded **199 unread entries into ~30 open items across 13 topics**, acknowledging every original — the single best place to see what now wants a decision. The recurring `xs2rust-endor` press ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) deterministically overran its 2400s handler budget on all three of today's dispatches and was poisoned/parked each time; it needs a dedicated builder that can work across dispatches, not the hourly press. On finbot, [finbot#2](https://github.com/kriscendobot/finbot/pull/2) merged (green), adding a `--significance-alpha` CLI flag so the pending "make significanceAlpha the live default" decision is now evaluable against fixtures without changing any default. A shepherd drove [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL shim) to partial green and traced the remaining red to a broadly-red master (jsdoc lint, TextCodec permit tests from `536f82d18`, stale zizmor action pins) rather than the PR's own diff, recommending a dedicated master-greening pass. The weekly Qwen watch found no new harnessable coding model. Several long-parked stacks resolved upstream — the CAS-registry stack ([#802](https://github.com/endojs/endo-but-for-bots/pull/802)/[#805](https://github.com/endojs/endo-but-for-bots/pull/805)/[#812](https://github.com/endojs/endo-but-for-bots/pull/812)), plus [#585](https://github.com/endojs/endo-but-for-bots/pull/585) and [#661](https://github.com/endojs/endo-but-for-bots/pull/661) — all merged. Highest-leverage stalls awaiting you: the esheets/endoclaw-OAuth tree dammed 11 days behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621)'s stale `CHANGES_REQUESTED`, the SturdyRef lanes held on arbitration, and merge-gated M2/M3 shims ([#259](https://github.com/endojs/endo-but-for-bots/pull/259), [#705](https://github.com/endojs/endo-but-for-bots/pull/705), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), [#694](https://github.com/endojs/endo-but-for-bots/pull/694)).
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 2d)
-- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 3d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 4d)
+- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 3d)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 4d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 4d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 7d)
@@ -577,8 +577,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 85.7M | $961.49 _(notional, rate-card)_ | no quota set |
-| Codex | 488.4M _(+521.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 85.8M | $961.85 _(notional, rate-card)_ | no quota set |
+| Codex | 490.0M _(+521.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
