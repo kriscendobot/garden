@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T05:20:52Z_
+_As of 2026-07-21T05:23:24Z_
 
 ## Latest
 
@@ -3489,14 +3489,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 76.1M | $859.85 _(notional, rate-card)_ | no quota set |
-| Codex | 346.2M _(+581.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 346.7M _(+581.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
+- [`scholar-fix-dangling-nav-links-4a606de76f4a`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-fix-dangling-nav-links-4a606de76f4a.md) — Repair dangling navigation links in the reference library
 - [`scholar-ingest-kni-examples-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-kni-examples-remainder.md) — Continue kriskowal/kni examples ingestion
+- [`verify-no-orphan-leak-on-handler-timeout`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/verify-no-orphan-leak-on-handler-timeout.md) — assayer — verify the orphan-reap fix leaves ZERO orphans (the resume gate)
 - [`xs2rust-endor-press-20260721-043501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-043501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3094)
