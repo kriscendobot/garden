@@ -79,6 +79,32 @@ Press the implementation forward until ALL of the following hold, then stop:
    maintainer via `/home/kris/garden/scripts/jobs/message-user.sh <your-base>` rather
    than silently spinning.
 
+## Process hygiene (MANDATORY — spawned-process discipline)
+
+This press is **timeboxed**: your handler is reaped at a hard wall (~2400s). Every
+process you spawn is YOUR responsibility to bound and collect — the reaper poisons
+the *board job* but does **not** kill the process tree you started.
+
+1. **Timeout every test you spawn.** Never invoke `endor-xst`, the `endor` daemon,
+   `test:rust`, a test262 run, or a daemon smoke test unbounded. Wrap each in
+   `timeout` sized **well below** your remaining handler budget (e.g.
+   `timeout 900 target/release/endor-xst …`, and a whole-tree test262 enumeration
+   must carry its own generous-but-finite cap). A single test must never be able to
+   outlive this job's timebox.
+2. **Reap on the way out — always.** Before you complete (success, no-op, failure,
+   OR when you notice you are near the timebox), **tear down every process you
+   launched**: kill the *process group* of each test/daemon you started
+   (`kill -- -<pgid>`), including the `endor` daemon and its `manager-node.js`
+   worker tree. Launch spawned daemons in their own process group so this is clean.
+   Leaving an `endor-xst`, an `endor daemon`, or a `node` manager alive after you
+   exit is a **defect**, not acceptable fallout.
+3. **Why this is mandatory.** On 2026-07-20/21 this press leaked **356 orphaned
+   processes** — four `endor-xst` pegging a core each (oldest 15.5h) and a 344-proc
+   daemon tree — because tests were spawned unbounded and never reaped when the job
+   was poisoned. The pegged cores then starved the next tick, which overran and
+   poisoned in turn: a self-reinforcing loop. The maintainer paused this schedule
+   over it. Bounded-and-collected spawns are the condition of resuming.
+
 ## Reporting norm
 
 Do not claim a bar is "verified"/"green" without real-execution evidence — cite
