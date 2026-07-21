@@ -1,7 +1,3 @@
-Completed the hourly Minion Town agenda review and reported it on https://github.com/kriskowal/garden/issues/58#issuecomment-5039182281.
+Reviewed and reported Minion Town status on issue #58. No deployment was warranted; confirmed OAuth/MCP boundary and three WSS routes live, while real-daemon bridge and wildcard weblet gateway remain unbuilt.
 
-Re-fetched the issue agenda and comments; reconciled the journal, private minion.town repository, open pull requests, run-ahead branch, deployment workflow, and live edge. No deployment was appropriate or attempted: the Gate-2 real-daemon bridge and wildcard weblet gateway remain unbuilt reviewed seams. Fresh evidence: OAuth/MCP discovery and unauthenticated boundary are live; all three OCapN WSS routes returned HTTP 101 after RFC 6455 upgrade; bootstrap remains OAuth-gated and wildcard host remains unavailable.
-
-Follow-up: reviewed Gate-2 daemon-control implementation, then browser OAuth -> daemon guest -> authenticated tools validation; weblet gateway follows. Deferred phases remain deferred.
-
-Self-improvement: nothing this cycle.
+Follow-up: reviewed Gate-2 daemon bridge, then browser OAuth-to-daemon validation.
