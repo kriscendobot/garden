@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6618 (530 parent indexes + 6088 children).
+Total section files: 6627 (530 parent indexes + 6097 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8802,6 +8802,16 @@ Total section files: 6618 (530 parent indexes + 6088 children).
 - [system--readme--overview](system--readme--overview.md)
 - [system--readme--usage-and-bootstrapping](system--readme--usage-and-bootstrapping.md)
 
+### tc39-module-harmony--compartments-evaluator
+
+- [tc39-module-harmony--compartments-evaluator--evaluators-constructor-and-realm-rebinding](tc39-module-harmony--compartments-evaluator--evaluators-constructor-and-realm-rebinding.md)
+- [tc39-module-harmony--compartments-evaluator--evaluators-motivation-dsl-and-least-authority](tc39-module-harmony--compartments-evaluator--evaluators-motivation-dsl-and-least-authority.md)
+
+### tc39-module-harmony--compartments-graph
+
+- [tc39-module-harmony--compartments-graph--feature-to-layer-map-and-module-proposals](tc39-module-harmony--compartments-graph--feature-to-layer-map-and-module-proposals.md)
+- [tc39-module-harmony--compartments-graph--motivating-use-cases](tc39-module-harmony--compartments-graph--motivating-use-cases.md)
+
 ### tc39-module-harmony--compartments-module-and-source
 
 - [tc39-module-harmony--compartments-module-and-source--intersection-semantics-and-262-factoring](tc39-module-harmony--compartments-module-and-source--intersection-semantics-and-262-factoring.md)
@@ -8811,6 +8821,17 @@ Total section files: 6618 (530 parent indexes + 6088 children).
 ### tc39-module-harmony--compartments-overview
 
 - [tc39-module-harmony--compartments-overview--five-layer-compartment-structure](tc39-module-harmony--compartments-overview--five-layer-compartment-structure.md)
+
+### tc39-module-harmony--compartments-static-analysis
+
+- [tc39-module-harmony--compartments-static-analysis--binding-shapes-and-modulesource-reflection](tc39-module-harmony--compartments-static-analysis--binding-shapes-and-modulesource-reflection.md)
+- [tc39-module-harmony--compartments-static-analysis--motivation-and-graph-analysis-examples](tc39-module-harmony--compartments-static-analysis--motivation-and-graph-analysis-examples.md)
+
+### tc39-module-harmony--compartments-virtual-module-source
+
+- [tc39-module-harmony--compartments-virtual-module-source--protocol-and-binding-linkage](tc39-module-harmony--compartments-virtual-module-source--protocol-and-binding-linkage.md)
+- [tc39-module-harmony--compartments-virtual-module-source--serializability-and-transmission-limits](tc39-module-harmony--compartments-virtual-module-source--serializability-and-transmission-limits.md)
+- [tc39-module-harmony--compartments-virtual-module-source--virtualization-examples-json-cjs-wasm-passthrough](tc39-module-harmony--compartments-virtual-module-source--virtualization-examples-json-cjs-wasm-passthrough.md)
 
 ### tc39-module-harmony--import-defer
 
