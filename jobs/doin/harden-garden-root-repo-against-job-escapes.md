@@ -50,3 +50,10 @@ Proposed hardening (design the right subset, then land it on main2):
 
 Full incident narrative: maintainer message from press dispatch
 `endo-daemon-data-plane-press-20260721-152002`, 2026-07-21.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 19
+  worker_kind: gardener
+  claimed_at: 2026-07-21T15:31:36Z
