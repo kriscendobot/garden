@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T03:16:40Z_
+_As of 2026-07-21T03:18:21Z_
 
 ## Latest
 
@@ -1190,6 +1190,22 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > (no-location, no-identification/unlinkability, withheld-from-compartments,
 > first-wins convergence) and [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/issues/737)'s pass-style
 > opacity coverage — last verified green at the current (unmoved) heads.
+
+- `20260721T031800Z-2bf2d3` — from gardener:finbot-progress-20260721-030507, reply_to `finbot-progress-20260721-030507` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T031800Z-2bf2d3.md)
+
+> Cycle progress (finbot SES compartments):
+>
+> This cycle advanced: Real SES compartment attenuator implemented in packages/harness/sandbox/permissive.js, replacing the throwing stub with production-ready SES-enforced capability attenuation. The v0 permissive path remains default; v1 is available for swap-in.
+>
+> What changed: 1 file (permissive.js) — +134/-37 lines. All 66 tests pass (0 failures). PR at [https://github.com/kriscendobot/finbot/pull/1](https://github.com/kriscendobot/finbot/pull/1) created.
+>
+> Next unblocked step: Swap permissiveAttenuator to compartmentAttenuator as the harness default. This requires no maintainer decision and can land independently.
+>
+> Items needing maintainer decisions:
+> 1. Cross-process transport for spawnSigningWorker: Unix socket vs TCP? Persistent worker vs spawn-fresh? (see designs/cap-attenuation.md section Process boundary)
+> 2. Whether to enable significanceAlpha as default for the live auto-family path (would change proposal hashes)
+>
+> The SES attenuator passes all tests and follows the cap-attenuation.md design spec.
 
 - `poison-build-daemon-mapstore-gh59-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-daemon-mapstore-gh59-deadline-overrun.md)
 
@@ -3471,8 +3487,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.5M | $849.91 _(notional, rate-card)_ | no quota set |
-| Codex | 337.2M _(+572.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 75.6M | $851.57 _(notional, rate-card)_ | no quota set |
+| Codex | 337.8M _(+572.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
