@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-21T20:23:43Z_
+_As of 2026-07-21T20:48:38Z_
 
 ## Latest
 
-The maintainer inbox was consolidated by an omnibus job — [199 unread entries folded into ~30 open items across 13 topics](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T171232Z-297e3f.md), every original acknowledged. It confirms several merges landed live ([endojs/endo-but-for-bots#585](https://github.com/endojs/endo-but-for-bots/pull/585), [#661](https://github.com/endojs/endo-but-for-bots/pull/661), and the CAS-registry stack [#802](https://github.com/endojs/endo-but-for-bots/pull/802)/[#805](https://github.com/endojs/endo-but-for-bots/pull/805)/[#812](https://github.com/endojs/endo-but-for-bots/pull/812)) and surfaces the long-stalled decisions still gating merges — esheets/[#621](https://github.com/endojs/endo-but-for-bots/pull/621) (11 days on one review), the SturdyRef arbitration between [#737](https://github.com/endojs/endo-but-for-bots/pull/737) and [#774](https://github.com/endojs/endo-but-for-bots/pull/774), and the M2/M3 merge-gated shims ([#259](https://github.com/endojs/endo-but-for-bots/pull/259), [#705](https://github.com/endojs/endo-but-for-bots/pull/705), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), [#694](https://github.com/endojs/endo-but-for-bots/pull/694)).
+The [hardened URL shim](https://github.com/endojs/endo-but-for-bots/pull/719) landed (9dcdc2412) on endo-but-for-bots, but a shepherd found its CI only partially green — the remaining red is pre-existing `master` debt (jsdoc lint, TextEncoder/TextDecoder permit-and-test fallout from `536f82d18`, and stale `setup-node` action pins), not the PR's own diff; the gardener recommends a dedicated master-greening pass before [#719](https://github.com/endojs/endo-but-for-bots/pull/719) can rebase clean, and a companion [text-codec-permits](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-master-green-text-codec-permits.md) fix already completed. A large maintainer-inbox omnibus consolidated 199 unread entries down to ~30 open decisions across 13 topics — most notably the 11-day esheets/endoclaw-OAuth stall on [#621](https://github.com/endojs/endo-but-for-bots/pull/621), the merge-gated M2/M3 shims ([#259](https://github.com/endojs/endo-but-for-bots/pull/259), [#705](https://github.com/endojs/endo-but-for-bots/pull/705), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), [#694](https://github.com/endojs/endo-but-for-bots/pull/694)), and the SturdyRef lanes held on arbitration ([#737](https://github.com/endojs/endo-but-for-bots/pull/737) vs [#774](https://github.com/endojs/endo-but-for-bots/pull/774)).
 
-On the board, the hardened URL shim was [published on #719](https://github.com/endojs/endo-but-for-bots/pull/719) (9dcdc2412) and a shepherd rebased it green, finding that the remaining red is pre-existing master debt (jsdoc warnings, text-codec permit failures from `536f82d18`, stale zizmor action pins), not the URL diff — it recommends a dedicated master-greening pass. A companion `master-green-text-codec-permits` job also completed. A fixer just claimed [#723](https://github.com/endojs/endo-but-for-bots/pull/723) (endo-fetch lint/test).
-
-The recurring xs2rust-endor press for [#600](https://github.com/endojs/endo-but-for-bots/pull/600) keeps **deterministically overrunning** its 2400s handler budget and getting poison-parked (two more this cycle) — it does not fit a single claim and needs splitting into stages or a dedicated builder, per topic 11 of the omnibus. This week's Qwen watch found no new harnessable model (live hermit stays qwen3.6).
+Worth flagging: the hourly `xs2rust-endor` press ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) is deterministically overrunning its 2400s handler budget every cycle and getting poisoned — it earlier leaked 356 orphaned processes and needs splitting into claim-sized stages or a dedicated iterative builder rather than the recurring press. Two deployed-root corruptions self-healed (a durable `journal_remote()` guard landed on `main2` at `a0cd3eae13`), but physical cleanup of the deployed roots on both hosts remains a human/liaison chore, and deploys have been stalled since 07-17. The weekly Qwen watch found no harnessable new model.
 
 ## Parked for maintainer feedback
 
@@ -163,6 +161,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260721T184619Z-43774a` — from watchdog:hermit/2, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T184619Z-43774a.md)
 
 > gardener job 'xs2rust-endor-press-20260721-180501' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260721T204825Z-d753dc` — from gardener:xs2rust-endor-press-20260721-202001, reply_to `xs2rust-endor-press-20260721-202001` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T204825Z-d753dc.md)
+
+> (empty message)
 
 - `poison-xs2rust-endor-press-20260721-165010-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-xs2rust-endor-press-20260721-165010-deadline-overrun.md)
 
@@ -416,8 +418,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 83.8M | $946.89 _(notional, rate-card)_ | no quota set |
-| Codex | 457.9M _(+524.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 83.8M | $947.21 _(notional, rate-card)_ | no quota set |
+| Codex | 467.1M _(+524.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
