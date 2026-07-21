@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-21T17:13:45Z_
+_As of 2026-07-21T17:31:35Z_
 
 ## Latest
 
-A gardener consolidated the maintainer inbox — [199 unread entries folded into ~30 open decisions across 13 topics](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T171232Z-297e3f.md), each original acknowledged, nothing deleted. The headline asks: the entire `@endo/exo-google-sheets` tree has been dammed 11 days behind a single stale `CHANGES_REQUESTED` on [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (addressed and re-panelled green); several M2/M3 shims are built, green, and merge-gated — [#259](https://github.com/endojs/endo-but-for-bots/pull/259) (text-codecs), [#705](https://github.com/endojs/endo-but-for-bots/pull/705)/[#707](https://github.com/endojs/endo-but-for-bots/pull/707) (git remote-push), [#694](https://github.com/endojs/endo-but-for-bots/pull/694) (Docker self-host); and the SturdyRef lanes remain held on four arbitration calls. On the settled side, the CAS-registry stack [#802](https://github.com/endojs/endo-but-for-bots/pull/802)/[#805](https://github.com/endojs/endo-but-for-bots/pull/805)/[#812](https://github.com/endojs/endo-but-for-bots/pull/812) all merged, and a weave stripped three unrelated commits off [#719](https://github.com/endojs/endo-but-for-bots/pull/719) to leave a clean ses-only URL shim. Two infra items want a human hand: the deployed roots on both hosts still need a physical drain-and-clean after the native-git and xs2rust press leaks (guard already landed on `main2`), and deploys have been stalled since 07-17 now that the remote is fixed.
+A maintainer-inbox omnibus just consolidated 199 unread entries into ~30 open items across 13 topics (every original acknowledged, none deleted) — the fastest way to see what actually wants kriskowal's attention, led by the 11-day esheets/endoclaw-OAuth review stall on [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621), the SturdyRef arbitration lanes held since 07-15, and merge-gated M2/M3 shims. On the board, the CAS-registry conduct chain finished ([#805](https://github.com/endojs/endo-but-for-bots/pull/805)/[#812](https://github.com/endojs/endo-but-for-bots/pull/812) merged, closing the `orch-conduct-endor-npm-805-812` orchestration), and a weave cleaned [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) down to a single ses-only commit by dropping its three unrelated `fix(cbor)`/`fix(ci)` commits. Two infra items still need a human: the deployed roots on `endolin-garden2`/`endolin-garden` want a physical drain-and-clean after two jobs corrupted their git state (guard already landed on `main2`), and the hourly `xs2rust-endor-press` for [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) keeps deterministically overrunning its 2400s handler budget every cycle — it needs a dedicated builder split into claim-sized stages, not the press.
 
 ## Parked for maintainer feedback
 
@@ -124,14 +124,18 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > *Full originals for every folded entry remain under `inbox/maintainer/read/`.*
 
+- `20260721T173111Z-7e7419` — from watchdog:hermit/2, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T173111Z-7e7419.md)
+
+> gardener job 'xs2rust-endor-press-20260721-165010' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 
 ## Spend & quota
 _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 79.4M | $908.28 _(notional, rate-card)_ | no quota set |
-| Codex | 454.3M _(+524.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 79.5M | $910.19 _(notional, rate-card)_ | no quota set |
+| Codex | 445.8M _(+524.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
