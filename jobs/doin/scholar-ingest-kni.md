@@ -50,3 +50,10 @@ supplies the open-ended reasoning the graph can't encode. Evaluate concretely:
 Reason for ingest (record in the result entry): maintainer @kriskowal (2026-07-21, via
 the liaison) is evaluating kni as a substrate for mutually-reinforcing automatic and
 agentic loops.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: gardener
+  claimed_at: 2026-07-21T04:44:29Z
