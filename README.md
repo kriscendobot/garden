@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T15:40:33Z_
+_As of 2026-07-21T15:42:21Z_
 
 ## Latest
 
@@ -4491,19 +4491,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 78.9M | $899.55 _(notional, rate-card)_ | no quota set |
-| Codex | 449.5M _(+557.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
+| Claude | 78.9M | $899.99 _(notional, rate-card)_ | no quota set |
+| Codex | 449.9M _(+557.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (7)
 - [`conduct-ebfb-805-tla`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/conduct-ebfb-805-tla.md) — Conduct endojs/endo-but-for-bots #805 (top-level await) onto llm
 - [`design-evaluation-epochs-panel-calibration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-evaluation-epochs-panel-calibration.md) — designer — spec an "evaluation epochs and panel calibration" pilot for PR review
 - [`endo-npm-cas-registry-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260721-152002.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr805-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr805-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #805
 - [`harden-garden-root-repo-against-job-escapes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/harden-garden-root-repo-against-job-escapes.md) — Harden the deployed garden root repo against job git-escapes (incident 2026-0...
+- [`kriscendobot-minion.town-pr12-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr12-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #12
 - [`xs2rust-endor-press-20260721-153512`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-153512.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3140)
