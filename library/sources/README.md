@@ -963,6 +963,18 @@ How each bundler/compiler consumes `package.json` (resolution conditions, `mainF
 | [swc compilation configuration](web--swc-compilation.md) | web | https://swc.rs/docs/configuration/compilation (content `2981937c`) | 1 | current (`scholar-package-json-bundlers-2`; compiler, not resolver) |
 | [Babel options](web--babel-options.md) | web | https://babeljs.io/docs/options (content `068855fa`) | 1 | current (`scholar-package-json-bundlers-2`; compiler, not resolver) |
 
+## kriskowal/kni (decision-graph language)
+
+kriskowal's own **kni** — a whitespace-significant language that presents as interactive-fiction tooling but is, read past the storytelling framing, a **decision-graph language plus a graph-walking runtime**. Ingested 2026-07-21 (job `scholar-ingest-kni`) through the lens of evaluating kni-style decision graphs as the deterministic half of a mutually-reinforcing automatic ↔ agentic loop for developing agent context (maintainer @kriskowal). Topics: `decision-graph-authoring`, `automatic-agentic-loop`.
+
+| Source | Repo | Last-modified | Primary author | Sections | Status |
+|--------|------|---------------|----------------|----------|--------|
+| [kni README](kni--readme.md) | kriskowal/kni | 2025-12-29 (commit `120fd885`) | Kris Kowal | 2 | current (front-door model + the CLI transcript/verify/JSON/`-d` surface) |
+| [kni MANUAL](kni--manual.md) | kriskowal/kni | 2025-12-29 (commit `120fd885`) | Kris Kowal | 10 | current (the language reference: grammar, threads, options, input, flow, blocks, expressions) |
+| [kni HOWTO](kni--howto.md) | kriskowal/kni | 2025-12-29 (commit `5e66290e`) | Kris Kowal | 2 | current (graduated tutorial; tutorial-shape overlap with MANUAL) |
+| [kni HACKNI](kni--hackni.md) | kriskowal/kni | 2025-12-29 (commit `0d6e2949`) | Kris Kowal | 4 | current (implementation tour: parser pipeline, runtime engine, handler hooks, dialog/renderer) |
+| [kni INKKNI](kni--inkkni.md) | kriskowal/kni | 2026-01-02 (commit `3a62b89e`) | Kris Kowal | 2 | current (differences from Inkle's Ink; the capability boundary) |
+
 ## Notes
 
 - Some files have only one commit in `git log` (probably post-rename); their content date may predate the commit date. The pilot ingestion flagged these in per-source `notes:` fields. A future contradiction-check pass should compare pre- and post- rename content if the upstream history is recovered.
