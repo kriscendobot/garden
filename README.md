@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-21T18:15:26Z_
+_As of 2026-07-21T18:20:43Z_
 
 ## Latest
 
-A gardener consolidated the [maintainer inbox](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T171232Z-297e3f.md) — 199 unread entries folded into ~30 open items across 13 topics, all originals acknowledged. The headline asks are merge-and-review gates: the entire `@endo/exo-google-sheets` tree has been dammed 11 days behind a re-review of [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth, CI-green but carrying a stale `CHANGES_REQUESTED`); SturdyRef has held every lane on maintainer arbitration since 2026-07-15 ([#737](https://github.com/endojs/endo-but-for-bots/pull/737) vs [#774](https://github.com/endojs/endo-but-for-bots/pull/774), plus a marshal rank-prefix pick); and the M2/M3 shims — text-codecs [#259](https://github.com/endojs/endo-but-for-bots/pull/259), the worked-loop [#707](https://github.com/endojs/endo-but-for-bots/pull/707), Docker self-host [#694](https://github.com/endojs/endo-but-for-bots/pull/694) — are green and waiting only on merge authority. Several stacks reported as resolved: the CAS-registry stack ([#802](https://github.com/endojs/endo-but-for-bots/pull/802)/[#805](https://github.com/endojs/endo-but-for-bots/pull/805)/[#812](https://github.com/endojs/endo-but-for-bots/pull/812)), content-store [#585](https://github.com/endojs/endo-but-for-bots/pull/585), and confined-HTTP [#661](https://github.com/endojs/endo-but-for-bots/pull/661) all merged.
-
-On the URL shim [#719](https://github.com/endojs/endo-but-for-bots/pull/719): a weave dropped its three unrelated commits down to a clean ses-only diff, and a shepherd drove it to partial green — the residual red (jsdoc lint, TextEncoder/TextDecoder permit-tests, stale zizmor action pins) traces to a broadly-red master, not #719's own diff, so the shepherd recommends a dedicated master-greening pass rather than smuggling those fixes into the feature PR.
-
-Two operational cautions worth a glance. The hourly `xs2rust-endor-press` (PR [#600](https://github.com/endojs/endo-but-for-bots/pull/600)) is **deterministically overrunning** its 2400s handler budget every cycle and being poisoned/parked; the fix is to assign a dedicated builder who can work across dispatches rather than keep re-firing the press — and an earlier leaked run left ~150 `tmp/native-git-*` dirs and a corrupted deployed root (self-healed, but `endolin-garden2`/`endolin-garden` still need a physical drain-and-clean, posted as `fix-garden-root-test-leak-cleanup`). The weekly Qwen watch found no harnessable upgrade this week (live hermit stays `qwen3.6`).
+A gardener consolidated the maintainer inbox down from 199 unread entries to ~30 open items across 13 topics, surfacing several long-stalled asks — most notably the endoclaw-OAuth tree dammed 11 days behind a single review on [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621), and the SturdyRef lanes all held on arbitration since 2026-07-15 ([endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737) vs [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774)). A shepherd took [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) (hardened URL shim) to partial green and diagnosed the remaining red as pre-existing master debt — a `536f82d18` direct-to-master text-codec change breaking three tests, plus jsdoc and stale action-pin warnings — recommending a dedicated master-greening pass rather than smuggling those fixes into the URL PR. A scholar ingested an AI-writing style reference into the library, and the weekly Qwen watch found no new harnessable coding model (Qwen-AgentWorld-35B is a specialized simulator with no Ollama tag, not a hermit upgrade). The `xs2rust-endor` hourly press again deterministically overran its 2400s handler budget and was poisoned — the standing fix is to split it into claim-sized stages or hand PR #600 to a dedicated builder.
 
 ## Parked for maintainer feedback
 
@@ -285,27 +281,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 80.3M | $919.26 _(notional, rate-card)_ | no quota set |
-| Codex | 440.4M _(+521.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 80.8M | $924.43 _(notional, rate-card)_ | no quota set |
+| Codex | 442.0M _(+521.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`bootstrap-proposal-compartments-fork`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/bootstrap-proposal-compartments-fork.md) — Bootstrap the kriscendobot fork of tc39/proposal-compartments (fresh, minimal...
-- [`endojs-endo-but-for-bots-pr719-shepherd-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-shepherd-ci-green.md) — ---
-- [`scholar-research-ai-writing-tells`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-research-ai-writing-tells.md) — Scholar: research the tells of AI-assisted writing, so we can avoid them
+- [`proposal-compartments-press-20260721-182003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-press-20260721-182003.md) — Press the fresh Compartments proposal forward (daily) — spec, tests, explaine...
 - [`scholar-research-module-harmony-intersection`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-research-module-harmony-intersection.md) — Scholar: research the module-harmony proposals for Compartments intersection ...
 - [`xs2rust-endor-press-20260721-180501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-180501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3154)
+### tada (3156)
+- [`scholar-research-ai-writing-tells`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-research-ai-writing-tells.md) — Ingested the citable AI-writing style reference into journal/library/, includ...
+- [`endojs-endo-but-for-bots-pr719-shepherd-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr719-shepherd-ci-green.md) — Shepherd report — PR endojs/endo-but-for-bots#719 (feat/hardened-url-vetted-s...
 - [`minion-town-agenda-review-20260721-180501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-180501.md) — Completion report
 - [`qwen-model-watch-20260721-180501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/qwen-model-watch-20260721-180501.md) — Checked Qwen blog and Ollama registry; sent maintainer report. Live hermit re...
 - [`consolidate-maintainer-inbox-omnibus`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/consolidate-maintainer-inbox-omnibus.md) — Completion report
-- [`minion-town-agenda-review-20260721-165010`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-165010.md) — Completion report
-- [`weave-endo-but-for-bots-pr719-drop-unrelated-commits`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr719-drop-unrelated-commits.md) — The weave is complete and verified. Final state confirmed: PR #719 is now a c...
-- … and 3149 more
+- … and 3151 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -374,7 +369,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
 ## Watch set
-kriscendobot-agoric-3-proposals kriscendobot-agoric-sdk kriscendobot-chrome-native-function-caller-arguments-repro kriscendobot-cosgov kriscendobot-endo kriscendobot-finbot kriscendobot-garden kriscendobot-minion.town kriscendobot-ocapn kriscendobot-vattr97 kriscendobot-ymax-e2e kriscendobot-ymax-stdio-mcp
+kriscendobot-agoric-3-proposals kriscendobot-agoric-sdk kriscendobot-chrome-native-function-caller-arguments-repro kriscendobot-cosgov kriscendobot-endo kriscendobot-finbot kriscendobot-garden kriscendobot-minion.town kriscendobot-ocapn kriscendobot-proposal-compartments kriscendobot-vattr97 kriscendobot-ymax-e2e kriscendobot-ymax-stdio-mcp
 
 ## Hosts
 - [endolin-garden-ece02cb4](https://github.com/kriskowal/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 20 gardeners
