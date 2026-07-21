@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T16:35:56Z_
+_As of 2026-07-21T16:47:26Z_
 
 ## Latest
 
@@ -4503,15 +4503,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 79.2M | $905.77 _(notional, rate-card)_ | no quota set |
-| Codex | 454.0M _(+544.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 79.2M | $907.27 _(notional, rate-card)_ | no quota set |
+| Codex | 453.2M _(+537.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`weave-endo-but-for-bots-pr719-drop-unrelated-commits`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/weave-endo-but-for-bots-pr719-drop-unrelated-commits.md) — ---
 
 ### tada (3149)
 - [`orch-conduct-endor-npm-805-812`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/orch-conduct-endor-npm-805-812.md) — orchestration orch-conduct-endor-npm-805-812 — complete
