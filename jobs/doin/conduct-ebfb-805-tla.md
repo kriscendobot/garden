@@ -36,3 +36,10 @@ Do:
    than proceeding to #812.
 
 Report real-execution evidence only (roles/COMMON.md § Reporting — no "verified" without it).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  worker_kind: cleric
+  claimed_at: 2026-07-21T15:37:11Z
