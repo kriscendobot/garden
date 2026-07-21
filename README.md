@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T09:21:31Z_
+_As of 2026-07-21T09:22:33Z_
 
 ## Latest
 
@@ -3778,16 +3778,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 76.9M | $869.93 _(notional, rate-card)_ | no quota set |
-| Codex | 404.6M _(+572.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 76.9M | $869.71 _(notional, rate-card)_ | no quota set |
+| Codex | 405.1M _(+572.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (10)
-- [`endo-byte-array-press-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260721-092001.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
-- [`endo-daemon-data-plane-press-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-daemon-data-plane-press-20260721-092001.md) — Press the Endo daemon data plane forward (endojs/endo-but-for-bots, base llm)
+### doin (8)
 - [`endo-git-integration-press-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260721-092001.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260721-092001.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-sturdyref-press-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260721-092001.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
@@ -3797,13 +3795,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260721-063505`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-063505.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260721-085004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-085004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3108)
+### tada (3110)
+- [`endo-daemon-data-plane-press-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260721-092001.md) — All watchpoints verified with no change — this is another quiet steady-state ...
+- [`endo-byte-array-press-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260721-092001.md) — State is byte-for-byte identical to the 03:05Z dispatch on every front. This ...
 - [`minion-town-agenda-review-20260721-085004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-085004.md) — Reviewed agenda, journal, private repo, PRs, and deployed edge. Posted findin...
 - [`xs2rust-endor-press-20260721-073528`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-073528.md) — All three finish line bars have been verified with real execution evidence:
 - [`minion-town-agenda-review-20260721-073528`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-073528.md) — Completion report
-- [`daily-progress-summary-20260721-070504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260721-070504.md) — Created and pushed periodicals/2026/07/20.md on journal2 (commit dd80309bc).
-- [`minion-town-agenda-review-20260721-063505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-063505.md) — Reported the hourly reconciliation on garden issue #58. No repository changes...
-- … and 3103 more
+- … and 3105 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
