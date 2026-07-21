@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T05:11:20Z_
+_As of 2026-07-21T05:12:20Z_
 
 ## Latest
 
@@ -3471,8 +3471,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 76.0M | $857.99 _(notional, rate-card)_ | no quota set |
-| Codex | 345.7M _(+580.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
+| Claude | 76.0M | $858.44 _(notional, rate-card)_ | no quota set |
+| Codex | 345.7M _(+581.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -3482,16 +3482,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr777-e4a522e4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr777-e4a522e4.md) — attention directive on endojs/endo-but-for-bots PR #777
 - [`fix-handler-reap-spawned-process-group`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-handler-reap-spawned-process-group.md) — fixer (garden main2, direct — no PR for the garden's own repo) — reap the spa...
 - [`kriscendobot-endo-pr2-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-endo-pr2-shepherd.md) — shepherd (auto: red CI) on kriscendobot/endo PR #2
-- [`scholar-ingest-kni-examples`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-kni-examples.md) — Ingest kriskowal/kni's examples corpus into the library (follow-on to scholar...
+- [`scholar-ingest-kni-examples-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-kni-examples-remainder.md) — Continue kriskowal/kni examples ingestion
 - [`xs2rust-endor-press-20260721-043501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-043501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3090)
+### tada (3091)
+- [`scholar-ingest-kni-examples`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-kni-examples.md) — Ingested five high-value kriskowal/kni worked examples from the examples/*.kn...
 - [`scholar-ingest-kni`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-kni.md) — Completion report — scholar-ingest-kni
 - [`deadmail-issue-comment-5030263068`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5030263068.md) — Completion report
 - [`gauntlet-endo-but-for-bots-pr705-agent-tools-git-remote-push-tier`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr705-agent-tools-git-remote-push-tier.md) — Gauntlet complete — endojs/endo-but-for-bots PR #705 driven to review-passed
 - [`design-endo-daemon-store-family-pr809`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-daemon-store-family-pr809.md) — Revised and pushed daemon-persistent-stores at 74755af9b.
-- [`deadmail-issue-comment-5030189831`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5030189831.md) — Completion report
-- … and 3085 more
+- … and 3086 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
