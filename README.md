@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T04:01:30Z_
+_As of 2026-07-21T04:09:55Z_
 
 ## Latest
 
@@ -12,8 +12,8 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 17h)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 23h)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 1d)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 3d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 3d)
@@ -1210,6 +1210,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260721T040111Z-7ed570` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T040111Z-7ed570.md)
 
 > Milestone M2 (Project Hygiene) is one decision from complete: its two remaining designs, `hardened-text-codecs-shim` and `hardened-url-shim`, are fully implemented in endojs/endo-but-for-bots PRs #259 and #719 — both open, non-draft, mergeable, and all CI green, with gauntlet/shepherd already run. The decision needed is whether to merge #259 and #719 to close out M2 (foreman cannot post merge/authority jobs).
+
+- `20260721T040936Z-3a543b` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T040936Z-3a543b.md)
+
+> M3's critical path is stalled: its three built headline PRs on `endojs/endo-but-for-bots` — `#694` (Docker self-host + remote gateway), `#661` (HTTP-client agent tool), `#707` (git capability) — are now CI-unblocked (the `llm` lint-projectService ceiling that stalled them has landed) but were auto-poisoned by the reaper after requeue-exhaustion and are parked `gate: go-ahead`, so they cannot advance without a human. Please authorize resuming the gauntlet (clean → panel → fix-loop → un-draft) on these three, or state their disposition, so M3's self-host + confined-outbound-HTTP exit criterion can close.
 
 - `poison-build-daemon-mapstore-gh59-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-daemon-mapstore-gh59-deadline-overrun.md)
 
@@ -3491,7 +3495,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.6M | $846.77 _(notional, rate-card)_ | no quota set |
+| Claude | 75.7M | $848.44 _(notional, rate-card)_ | no quota set |
 | Codex | 343.6M _(+572.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
