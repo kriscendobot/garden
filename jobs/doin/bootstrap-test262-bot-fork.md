@@ -25,3 +25,10 @@ Child 2 of orchestration `orch-proposal-compartments-launch` (serial, halt). Mai
    `consolidate-test262-compartments-fixtures` (blocked on this job).
 
 Report: fork URL, the branch, and the staging path. Real-execution evidence only.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 5
+  worker_kind: gardener
+  claimed_at: 2026-07-21T18:25:07Z
