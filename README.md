@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T02:35:38Z_
+_As of 2026-07-21T02:37:37Z_
 
 ## Latest
 
@@ -1122,6 +1122,30 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >   (c) leave it for your manual cascade — I close out this conduct job as held.
 >
 > I will NOT merge until you say. Default if I hear nothing: (c) hold.
+
+- `20260721T023720Z-f4777b` — from gardener:esheets-supervisor-20260721-023510, reply_to `esheets-supervisor-20260721-023510` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T023720Z-f4777b.md)
+
+> esheets supervisor — daily standup 2026-07-21
+>
+> The exo-google-sheets tree is STILL fully dammed behind ONE maintainer decision, now 11 days stalled.
+>
+> MERGED (floor only): endoclaw-network-fetch → packages @endo/http-confine + @endo/exo-http-client. Base designs endoclaw-oauth.md + exo-google-sheets.md merged.
+>
+> SOLE BLOCKER — [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621) (refine endoclaw-oauth foundation):
+>   [https://github.com/endojs/endo-but-for-bots/pull/621](https://github.com/endojs/endo-but-for-bots/pull/621)
+>   OPEN, non-draft, all 5 CI checks GREEN, rebased fresh onto llm tip yesterday.
+>   State: mergeable=MERGEABLE, mergeStateStatus=BLOCKED — i.e. blocked ONLY on your approving re-review.
+>   Your 2026-07-10 CHANGES_REQUESTED was addressed + re-panelled green; review re-requested 2026-07-17 (comment). reviewDecision is a stale CHANGES_REQUESTED.
+>
+> NOT STARTED (all dammed behind [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621)): OAuth exo, @endo/google-sheets, @endo/exo-google-sheets — confirmed absent from packages/ on llm.
+>
+> Advanced today: nothing — deliberately. The PR is green + one-click-mergeable + rebased; another weave/gauntlet would be pure noise. Everything downstream waits on you.
+>
+> DECISION NEEDED (one of):
+>   (a) approve+merge [https://github.com/endojs/endo-but-for-bots/pull/621](https://github.com/endojs/endo-but-for-bots/pull/621) → next fire I post the OAuth-exo builder (deepest next node); or
+>   (b) authorize building the OAuth exo now on the already-merged base design endoclaw-oauth.md, landing the PR refinements later.
+>
+> Webhooks/push stays deferred by design (out of the v1 operational bar). Schedule stays active until the tree is merged + operational.
 
 - `poison-build-daemon-mapstore-gh59-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-daemon-mapstore-gh59-deadline-overrun.md)
 
@@ -3306,7 +3330,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.2M | $842.36 _(notional, rate-card)_ | no quota set |
+| Claude | 75.3M | $843.75 _(notional, rate-card)_ | no quota set |
 | Codex | 333.3M _(+574.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
