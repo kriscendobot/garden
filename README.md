@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T16:56:35Z_
+_As of 2026-07-21T16:59:06Z_
 
 ## Latest
 
@@ -4503,24 +4503,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 79.3M | $908.79 _(notional, rate-card)_ | no quota set |
-| Codex | 452.1M _(+531.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 79.3M | $907.58 _(notional, rate-card)_ | no quota set |
+| Codex | 452.7M _(+529.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`minion-town-agenda-review-20260721-165010`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260721-165010.md) — Minion Town hourly agenda review
+### doin (1)
 - [`xs2rust-endor-press-20260721-165010`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-165010.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3150)
+### tada (3151)
+- [`minion-town-agenda-review-20260721-165010`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-165010.md) — Completion report
 - [`weave-endo-but-for-bots-pr719-drop-unrelated-commits`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr719-drop-unrelated-commits.md) — The weave is complete and verified. Final state confirmed: PR #719 is now a c...
 - [`orch-conduct-endor-npm-805-812`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/orch-conduct-endor-npm-805-812.md) — orchestration orch-conduct-endor-npm-805-812 — complete
 - [`conduct-ebfb-812-relres`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/conduct-ebfb-812-relres.md) — Completion report
 - [`xs2rust-endor-press-20260721-153512`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-153512.md) — Completion Report
-- [`kriscendobot-minion.town-pr12-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr12-conduct.md) — The PR has been merged successfully. Here's the completion report:
-- … and 3145 more
+- … and 3146 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
