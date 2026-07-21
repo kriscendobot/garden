@@ -54,3 +54,10 @@ is the deferred follow-up.
 - Surface any ambiguity (flag spelling, repeatable vs comma-separated, the
   empty-set form) under `## Open questions` rather than silently choosing.
 - Match the project's `designs/CLAUDE.md` conventions and metadata table.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  claimed_at: 2026-07-21T02:48:32Z
