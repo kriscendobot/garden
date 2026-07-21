@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T04:43:53Z_
+_As of 2026-07-21T04:44:48Z_
 
 ## Latest
 
@@ -3503,16 +3503,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.9M | $852.64 _(notional, rate-card)_ | no quota set |
-| Codex | 343.6M _(+572.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
+| Claude | 75.9M | $852.80 _(notional, rate-card)_ | no quota set |
+| Codex | 343.7M _(+572.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`design-endo-daemon-store-family-pr809`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-daemon-store-family-pr809.md) — Revise design PR #809 — full persistent collection family in the pet daemon
 - [`gauntlet-endo-but-for-bots-pr705-agent-tools-git-remote-push-tier`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr705-agent-tools-git-remote-push-tier.md) — ---
+- [`scholar-ingest-kni`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-kni.md) — Ingest github.com/kriskowal/kni into the library — read it as agent-context s...
 - [`xs2rust-endor-press-20260721-043501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-043501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3086)
