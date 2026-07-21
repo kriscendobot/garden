@@ -31,6 +31,18 @@
 |[door-lock state machine](../sections/kni--examples-door-lock--overview.md) | kni examples/door-lock.kni | Guards filter legal door actions and local mutations update the shared two-room state.
 |[forest procedural walk](../sections/kni--examples-forest--overview.md) | kni examples/forest.kni | Render a hash-derived local feature from `x`, mutate position, and return to the loop.
 |[maze navigation](../sections/kni--examples-maze--overview.md) | kni examples/maze.kni | Compute state-derived directional guards, render only open moves, update coordinates, and repeat.
+| [archery shop economy](../sections/kni--examples-archery--overview.md) | kni examples/archery.kni | Guarded condition-and-consequence options mutate a gold/arrow inventory; procedures render the accumulated totals each loop. |
+| [bottles countdown](../sections/kni--examples-bottles--overview.md) | kni examples/bottles.kni | A self-recursive label that decrements a counter and re-enters under a guard until zero — the minimal terminating loop. |
+| [troll random continuation](../sections/kni--examples-troll--overview.md) | kni examples/troll.kni | One inline shuffle block splices a random continuation into fixed text — the smallest hidden random branch. |
+| [spacestation outline](../sections/kni--examples-spacestation--overview.md) | kni examples/spacestation.kni | A structure-only compartment outline: significant-whitespace indentation is itself a nested tree. |
+| [ship navigation](../sections/kni--examples-ship--overview.md) | kni examples/ship.kni | A large labeled-room navigation graph where one randomized configuration variable varies several rooms. |
+| [space procedural map](../sections/kni--examples-space--overview.md) | kni examples/space.kni | Coordinate consistent-hashes drive nested name-generator procedures; a jump option moves to a fresh neighbor. |
+| [coin toss](../sections/kni--examples-coin--overview.md) | kni examples/coin.kni | Elicit a call into a variable, flip a random result, render win/lose from the comparison. |
+| [hilo binary search](../sections/kni--examples-hilo--overview.md) | kni examples/hilo.kni | Compute the next question from lo/hi bounds, fold each yes/no answer back in, count questions, converge. |
+| [anonymous loop label](../sections/kni--examples-loop--overview.md) | kni examples/loop.kni | The bare @... loop point: a continue option re-enters it, an exit option carries <- to break. |
+| [two-room door](../sections/kni--examples-door--overview.md) | kni examples/door.kni | Two rooms share one door flag; guarded threads offer only legal actions and mutate the shared state. |
+| [subroutine menu builder](../sections/kni--examples-subroutine--overview.md) | kni examples/subroutine.kni | Procedures contribute options and text to a menu the caller presents — a menu assembled from subroutines. |
+| [nominal integer-to-words](../sections/kni--examples-nominal--overview.md) | kni examples/nominal.kni | A recursive procedure that spells any 32-bit integer by peeling magnitude places and recursing on the remainder. |
 
 ## See also
 
