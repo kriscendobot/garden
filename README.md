@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T01:01:20Z_
+_As of 2026-07-21T01:02:34Z_
 
 ## Latest
 
@@ -3188,24 +3188,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.0M | $837.83 _(notional, rate-card)_ | no quota set |
+| Claude | 75.0M | $838.02 _(notional, rate-card)_ | no quota set |
 | Codex | 320.9M _(+573.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr799-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr799-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #799
+### doin (1)
 - [`xs2rust-endor-press-20260721-002001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-002001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3050)
+### tada (3051)
+- [`endojs-endo-but-for-bots-pr799-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr799-conduct.md) — Completion report
 - [`minion-town-agenda-review-20260721-002001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-002001.md) — Report
 - [`deadmail-issue-comment-5028561668`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5028561668.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr10-review-498316a6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-498316a6.md) — Completion report
 - [`encode-ci-parity-policy`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/encode-ci-parity-policy.md) — Completion report — encode-ci-parity-policy
-- [`kriscendobot-agoric-sdk-pr10-review-e3ccce0c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-e3ccce0c.md) — Completed review 4739631968.
-- … and 3045 more
+- … and 3046 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
