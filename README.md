@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T09:28:40Z_
+_As of 2026-07-21T09:29:42Z_
 
 ## Latest
 
@@ -3906,7 +3906,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 76.9M | $869.43 _(notional, rate-card)_ | no quota set |
+| Claude | 76.9M | $869.76 _(notional, rate-card)_ | no quota set |
 | Codex | 406.7M _(+572.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
@@ -3917,7 +3917,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-npm-cas-registry-press-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260721-092001.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 
 ### tada (3116)
-- [`finbot-progress-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260721-092001.md) — Advanced https://github.com/kriscendobot/finbot/pull/1 to commit 3b74dfe.
+- [`finbot-progress-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260721-092001.md) — Advanced PR https://github.com/kriscendobot/finbot/pull/1 to 3b74dfe.
 - [`xs2rust-endor-press-20260721-085004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-085004.md) — Assessment
 - [`endo-git-integration-press-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260721-092001.md) — Press report — git-integration / M3 loop (endojs/endo-but-for-bots), dispatch...
 - [`endo-vfs-parity-press-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260721-092001.md) — **VFS-parity press tick (2026-07-21 09:20 dispatch) — verify-and-stand-down; ...
