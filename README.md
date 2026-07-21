@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T02:09:31Z_
+_As of 2026-07-21T02:12:06Z_
 
 ## Latest
 
@@ -3313,16 +3313,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`kriscendobot-agoric-sdk-pr10-review-e3ccce0c-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr10-review-e3ccce0c-retro.md) — Retrospective on kriscendobot/agoric-sdk PR #10 (primary: kriscendobot-agoric...
+### doin (0)
+(none)
 
-### tada (3058)
+### tada (3059)
+- [`kriscendobot-agoric-sdk-pr10-review-e3ccce0c-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-e3ccce0c-retro.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr10-review-9acf0d53-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-9acf0d53-retro.md) — Recorded a not-a-miss dismissal: PR #10 was a draft design PR with no gauntle...
 - [`xs2rust-endor-press-20260721-012002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-012002.md) — Finish Line Assessment
 - [`endojs-endo-but-for-bots-pr802-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr802-shepherd.md) — Fixed PR #802’s stale zizmor action pins in commit 9a87cf1056 and pushed it t...
 - [`minion-town-agenda-review-20260721-012002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-012002.md) — Reviewed and reported on issue #58; no deployment or source change was safe o...
-- [`endojs-endo-but-for-bots-pr802-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr802-conduct.md) — Re-verified PR #802: OPEN and MERGEABLE, but CI regressed (zizmor failed; che...
-- … and 3053 more
+- … and 3054 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
