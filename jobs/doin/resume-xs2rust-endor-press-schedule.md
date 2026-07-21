@@ -25,3 +25,10 @@ Either way, end GREEN. The charter's MANDATORY "Process hygiene" section (per-te
 ## Report
 State where the schedule file is and that it is active. Do not surface a failure
 for the already-resumed case — that is the expected state.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  claimed_at: 2026-07-21T05:31:13Z
