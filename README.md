@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T12:14:38Z_
+_As of 2026-07-21T12:17:10Z_
 
 ## Latest
 
@@ -1282,6 +1282,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260721T121419Z-d9350d` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T121419Z-d9350d.md)
 
 > M3's headline exit-criterion PR endojs/endo-but-for-bots #694 (`feat: Docker self-hosting image with authenticated remote gateway`) has been un-drafted, MERGEABLE, and green for ~9 days but sits unmerged; completing M3 needs a merge decision (conductor/ferry), which is outside the fleet's autonomous bounds.
+
+- `20260721T121652Z-10b6c5` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T121652Z-10b6c5.md)
+
+> Milestone M2 (Project Hygiene) is complete except for landing its two final vetted-shim steps, which are already built and green: endojs/endo-but-for-bots PR #719 (hardened `URL`/`URLSearchParams` shim) and PR #259 (hardened `TextEncoder`/`TextDecoder` shim), both OPEN, non-draft, CLEAN, and MERGEABLE. Decision needed: merge #719 and #259 (or direct a conductor to) to close out M2 — no unblocked build/design/weave/shepherd work remains in this milestone.
 
 - `poison-build-daemon-mapstore-gh59-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-daemon-mapstore-gh59-deadline-overrun.md)
 
@@ -4080,7 +4084,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 77.5M | $880.74 _(notional, rate-card)_ | no quota set |
+| Claude | 77.6M | $881.90 _(notional, rate-card)_ | no quota set |
 | Codex | 423.8M _(+571.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
