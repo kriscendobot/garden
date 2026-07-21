@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6590 (530 parent indexes + 6060 children).
+Total section files: 6601 (530 parent indexes + 6071 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -7636,6 +7636,10 @@ Total section files: 6590 (530 parent indexes + 6060 children).
 
 - [kni--examples-archery--overview](kni--examples-archery--overview.md)
 
+### kni--examples-ascii
+
+- [kni--examples-ascii--overview](kni--examples-ascii--overview.md)
+
 ### kni--examples-bottles
 
 - [kni--examples-bottles--overview](kni--examples-bottles--overview.md)
@@ -7648,6 +7652,10 @@ Total section files: 6590 (530 parent indexes + 6060 children).
 
 - [kni--examples-coin--overview](kni--examples-coin--overview.md)
 
+### kni--examples-distribution
+
+- [kni--examples-distribution--overview](kni--examples-distribution--overview.md)
+
 ### kni--examples-door
 
 - [kni--examples-door--overview](kni--examples-door--overview.md)
@@ -7656,9 +7664,17 @@ Total section files: 6590 (530 parent indexes + 6060 children).
 
 - [kni--examples-door-lock--overview](kni--examples-door-lock--overview.md)
 
+### kni--examples-fish
+
+- [kni--examples-fish--overview](kni--examples-fish--overview.md)
+
 ### kni--examples-forest
 
 - [kni--examples-forest--overview](kni--examples-forest--overview.md)
+
+### kni--examples-german
+
+- [kni--examples-german--overview](kni--examples-german--overview.md)
 
 ### kni--examples-hilbert
 
@@ -7667,6 +7683,18 @@ Total section files: 6590 (530 parent indexes + 6060 children).
 ### kni--examples-hilo
 
 - [kni--examples-hilo--overview](kni--examples-hilo--overview.md)
+
+### kni--examples-hyperlinks
+
+- [kni--examples-hyperlinks--overview](kni--examples-hyperlinks--overview.md)
+
+### kni--examples-liftoff
+
+- [kni--examples-liftoff--overview](kni--examples-liftoff--overview.md)
+
+### kni--examples-list
+
+- [kni--examples-list--overview](kni--examples-list--overview.md)
 
 ### kni--examples-loop
 
@@ -7679,6 +7707,14 @@ Total section files: 6590 (530 parent indexes + 6060 children).
 ### kni--examples-nominal
 
 - [kni--examples-nominal--overview](kni--examples-nominal--overview.md)
+
+### kni--examples-option-styles
+
+- [kni--examples-option-styles--overview](kni--examples-option-styles--overview.md)
+
+### kni--examples-paint
+
+- [kni--examples-paint--overview](kni--examples-paint--overview.md)
 
 ### kni--examples-plane
 
@@ -7703,6 +7739,14 @@ Total section files: 6590 (530 parent indexes + 6060 children).
 ### kni--examples-subroutine
 
 - [kni--examples-subroutine--overview](kni--examples-subroutine--overview.md)
+
+### kni--examples-tetrominoes
+
+- [kni--examples-tetrominoes--overview](kni--examples-tetrominoes--overview.md)
+
+### kni--examples-tree
+
+- [kni--examples-tree--overview](kni--examples-tree--overview.md)
 
 ### kni--examples-troll
 
