@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: orch-proposal-compartments-launch
-priority: normal
 role: builder
-posted_by: producer
-posted_at: 2026-07-21T18:11:35Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-21T18:13:05Z -->
 
 ---
 role: builder
