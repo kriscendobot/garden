@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T02:04:44Z_
+_As of 2026-07-21T02:06:50Z_
 
 ## Latest
 
@@ -3307,22 +3307,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 75.1M | $840.89 _(notional, rate-card)_ | no quota set |
-| Codex | 330.5M _(+574.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 330.6M _(+574.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`kriscendobot-agoric-sdk-pr10-review-9acf0d53-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr10-review-9acf0d53-retro.md) — Retrospective on kriscendobot/agoric-sdk PR #10 (primary: kriscendobot-agoric...
+### doin (0)
+(none)
 
-### tada (3057)
+### tada (3058)
+- [`kriscendobot-agoric-sdk-pr10-review-9acf0d53-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-9acf0d53-retro.md) — Recorded a not-a-miss dismissal: PR #10 was a draft design PR with no gauntle...
 - [`xs2rust-endor-press-20260721-012002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-012002.md) — Finish Line Assessment
 - [`endojs-endo-but-for-bots-pr802-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr802-shepherd.md) — Fixed PR #802’s stale zizmor action pins in commit 9a87cf1056 and pushed it t...
 - [`minion-town-agenda-review-20260721-012002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-012002.md) — Reviewed and reported on issue #58; no deployment or source change was safe o...
 - [`endojs-endo-but-for-bots-pr802-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr802-conduct.md) — Re-verified PR #802: OPEN and MERGEABLE, but CI regressed (zizmor failed; che...
-- [`endojs-endo-but-for-bots-pr803-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr803-conduct.md) — Merged PR #803 after rechecking OPEN, non-draft, MERGEABLE/CLEAN, APPROVED, a...
-- … and 3052 more
+- … and 3053 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
