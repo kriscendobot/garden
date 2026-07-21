@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 8
-worker_kind: gardener
-claimed_at: 2026-07-21T15:20:21Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-endo-daemon-data-plane-press-20260721-152002
