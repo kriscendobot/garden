@@ -7,3 +7,10 @@ Remaining work, all in the DEPLOYED root (careful, live fleet):
 2. Delete fixture branches `feature` and the fixture tip of `main` (v1 branch; verify nothing needs it), and the fixture commits' `tmp/native-git-TdaKeS/` residue.
 3. Sweep untracked junk left by root-misusing workers: `bin/pnpm`, `bin/pnpx`, `bin286/`, `pr661-bin/`, `tmp/aborted.txt`, `tmp/acc_full.log`, and similar.
 4. Root-cause + guard: find which job/test harness runs with cwd = the deployed root (the native-git suite from the git-capability work, and the xs2rust press) and make it use an isolated worktree/tmpdir instead; consider a guard in common.sh refusing project-repo origin rewrites of the root checkout, in the spirit of the recent "refuse a production-journal push from a test context" fix.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 13
+  worker_kind: gardener
+  claimed_at: 2026-07-21T15:28:32Z
