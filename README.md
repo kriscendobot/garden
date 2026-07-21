@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T03:49:32Z_
+_As of 2026-07-21T03:52:17Z_
 
 ## Latest
 
@@ -3494,16 +3494,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`kriscendobot-agoric-sdk-pr10-review-18cff77a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr10-review-18cff77a-retro.md) — Retrospective on kriscendobot/agoric-sdk PR #10 (primary: kriscendobot-agoric...
+### doin (0)
+(none)
 
-### tada (3082)
+### tada (3083)
+- [`kriscendobot-agoric-sdk-pr10-review-18cff77a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-18cff77a-retro.md) — Job complete. Summary of what I did:
 - [`xs2rust-endor-press-20260721-032030`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-032030.md) — Finish Line Assessment
 - [`deadmail-issue-comment-5029877730`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5029877730.md) — Replied on issue #59, reorienting the design toward a directory-backed zone/s...
 - [`endojs-endo-but-for-bots-npm-stack-landing`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-npm-stack-landing.md) — orchestration endojs-endo-but-for-bots-npm-stack-landing — complete
 - [`minion-town-agenda-review-20260721-032030`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-032030.md) — Reviewed agenda and posted findings to https://github.com/kriskowal/garden/is...
-- [`endojs-endo-but-for-bots-pr802-retarget-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr802-retarget-conduct.md) — Retargeted PR #802 to llm after confirming PR #800 merged there. Revalidated ...
-- … and 3077 more
+- … and 3078 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
