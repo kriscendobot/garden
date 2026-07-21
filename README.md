@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T14:35:44Z_
+_As of 2026-07-21T14:38:59Z_
 
 ## Latest
 
@@ -4252,24 +4252,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 78.3M | $892.05 _(notional, rate-card)_ | no quota set |
-| Codex | 442.2M _(+555.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 78.4M | $892.23 _(notional, rate-card)_ | no quota set |
+| Codex | 442.6M _(+555.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`minion-town-agenda-review-20260721-143501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260721-143501.md) — Minion Town hourly agenda review
+### doin (1)
 - [`xs2rust-endor-press-20260721-143501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-143501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3127)
+### tada (3128)
+- [`minion-town-agenda-review-20260721-143501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-143501.md) — Hourly Minion Town agenda review complete.
 - [`build-hardened-text-codecs-vetted-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-hardened-text-codecs-vetted-shim.md) — Completion report
 - [`xs2rust-endor-press-20260721-132003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-132003.md) — xs2rust-endor-press-20260721-132003 — Dispatch Report
 - [`minion-town-agenda-review-20260721-132003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-132003.md) — Completion report — Minion Town hourly agenda review (2026-07-21 13:28 UTC)
 - [`minion-town-agenda-review-20260721-122001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-122001.md) — Completion report:
-- [`xs2rust-endor-press-20260721-110503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-110503.md) — ---
-- … and 3122 more
+- … and 3123 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
