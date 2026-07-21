@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T05:13:53Z_
+_As of 2026-07-21T05:18:32Z_
 
 ## Latest
 
@@ -1190,6 +1190,23 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260721T041717Z-233d23` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T041717Z-233d23.md)
 
 > Milestone M3's entire exit-criterion critical path on endojs/endo-but-for-bots — Docker self-host (PR #694), confined outbound HTTP / agent-tools (PR #661), git capability (PR #707), plus in-flight shepherds (#704, #763, #124) — is parked in the plan queue under `gate: go-ahead`, so no unblocked M3 step remains for a gardener to claim; advancing M3 needs your go-ahead to promote one of these gated jobs via the liaison.
+
+- `20260721T051820Z-b1d244` — from gardener:endojs-endo-but-for-bots-pr777-e4a522e4, reply_to `endojs-endo-but-for-bots-pr777-e4a522e4` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T051820Z-b1d244.md)
+
+> Routed the "add an ocapn-cbor-quic-iroh lane on minion.town" directive ([endojs/endo-but-for-bots#777](https://github.com/endojs/endo-but-for-bots/issues/777) comment).
+>
+> Deliverable: [kriscendobot/minion.town#12](https://github.com/kriscendobot/minion.town/issues/12) — a design doc defining the iroh validation lane, following the box's deploy/aws/daemon durable-record precedent.
+>
+> Key finding: iroh dials by EndpointId through its relay mesh, so the listener needs NO inbound port and NO Caddy route — it should sidestep minion.town's 443-only inbound posture that stalled cross-host TCP+CBOR. That's the lane's first validation target.
+>
+> Why design-only (not a live lane) right now — three gates block deployment:
+> 1. [endojs/endo-but-for-bots#777](https://github.com/endojs/endo-but-for-bots/issues/777) is green on all 26 checks but CONFLICTING with llm; it must rebase + merge first (maintainer-paced).
+> 2. A listener boot script (ocapn-iroh-server.mjs) is net-new — the PR ships only the netlayer + tests, no server demo; it belongs in Endo source.
+> 3. The @number0/iroh native binding needs confirming on the x86_64 box.
+>
+> On your hypotheses (also answered in the doc + a reply on [endojs/endo-but-for-bots#777](https://github.com/endojs/endo-but-for-bots/issues/777)): redundant crypto — iroh's transport auth REPLACES the WS init:peer-auth challenge here, but WOULD be redundant over Noise-IK. Can't-join-noise-network — confirmed by construction; "consolidate" = per-peer transport selection over a shared OCapN session layer.
+>
+> Want me to queue the follow-up (rebase [endojs/endo-but-for-bots#777](https://github.com/endojs/endo-but-for-bots/issues/777) → merge to llm → author the iroh boot script → stand up + validate the live lane) as an orchestration once you're ready, or hold for your review of the design first?
 
 - `poison-build-daemon-mapstore-gh59-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-daemon-mapstore-gh59-deadline-overrun.md)
 
@@ -3471,8 +3488,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 76.1M | $858.85 _(notional, rate-card)_ | no quota set |
-| Codex | 345.8M _(+581.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
+| Claude | 76.1M | $860.89 _(notional, rate-card)_ | no quota set |
+| Codex | 346.1M _(+581.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
