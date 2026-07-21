@@ -70,6 +70,14 @@ CLONE="$GARDEN_GARDENER_CLONE"
 # is_external_kill_rc already classifies transient — so, like the rc=124 wall-clock
 # kill (is_handler_timeout_rc), it needs no new classification branch.
 : "${GARDEN_HANDLER_KILL_AFTER:=60}"
+# Grace (seconds) between the group-wide SIGTERM and SIGKILL when the gardener
+# sweeps the handler's process group after it returns (reap_process_group, the
+# structural orphan backstop for the 2026-07-20/21 endor-leak incident). Kept SMALL
+# and independent of GARDEN_HANDLER_KILL_AFTER: these are already-orphaned
+# descendants we want gone fast, and the sweep early-exits the instant the group
+# empties, so a clean tree that respects SIGTERM costs ~0s and only a wedged tree
+# pays the full grace before the unconditional SIGKILL.
+: "${GARDEN_HANDLER_REAP_GRACE:=5}"
 # The reaper's stale-claim window (reaper.sh, default 14400 = 4h — the authority).
 # Mirrored here ONLY so the optional per-job `handler-timeout:` header (resolved at the
 # call site below) can be clamped against the INVARIANT above; keep this default in
@@ -406,12 +414,54 @@ while :; do
   # compound) so the completion gate below can branch on the three distinct
   # outcomes independently: (0 + sentinel)=complete, (0 + no sentinel)=exit-0-
   # unsatisfying requeue, (non-zero)=the existing transient-vs-real classifier.
+  #
+  # PROCESS-GROUP ISOLATION (structural orphan backstop; incident 2026-07-20/21:
+  # the xs2rust-endor-press leaked 356 orphaned endor/endor-xst/node procs, all
+  # reparented to `systemd --user` with no agent watching, because a killed/poisoned
+  # handler left its spawned OS tree running headless). `set -m` (job control) places
+  # the backgrounded handler in its OWN process group whose pgid == the launched
+  # `timeout` pid ($!), so the handler AND its whole non-detaching descendant tree
+  # share one addressable group. `timeout --foreground` stops `timeout` from creating
+  # a SECOND inner group of its own (which would split the tree off the pgid we
+  # capture); the tree therefore all lands in the group we own, and this gardener —
+  # the one process that knows that pgid and shares the host — sweeps it below.
+  # timeout still enforces the wall on the direct handler (rc=124 unchanged); the
+  # group-wide SIGTERM→SIGKILL escalation now comes from reap_process_group, not from
+  # timeout's own group signal.
   set +e
+  set -m
   GARDEN_GARDENER_ID="$id" GARDEN_COMPLETION_SENTINEL="$completion_sentinel" \
-    timeout --signal=TERM --kill-after="$GARDEN_HANDLER_KILL_AFTER" "$handler_budget" \
-    "$GARDEN_JOB_HANDLER" "$base" "$jobfile" "$report" >"$capture" 2>&1
-  hrc=$?
+    timeout --foreground --signal=TERM --kill-after="$GARDEN_HANDLER_KILL_AFTER" "$handler_budget" \
+    "$GARDEN_JOB_HANDLER" "$base" "$jobfile" "$report" >"$capture" 2>&1 &
+  handler_pgid=$!
+  set +m
+  # Wait for the handler, RESUMING across any trapped-signal interruption. A
+  # deploy-drain SIGTERM to THIS gardener (self-heal-run.sh signals only the worker
+  # process, never the in-flight handler) fires the TERM trap above and interrupts
+  # `wait`, which returns 143 while the handler is STILL RUNNING in its background
+  # group. The graceful-drain contract is that the current handler RUNS TO
+  # COMPLETION (the old foreground `timeout` deferred the trap until it returned), so
+  # we re-`wait` rather than mistake the interruption for the handler's own exit —
+  # which would both misclassify the outcome AND make reap_process_group kill a
+  # legitimately-running job's tree mid-work. `kill -0` distinguishes the two:
+  # process gone → `wait` returned the real exit code (break); still alive → the wait
+  # was signal-interrupted (loop).
+  while :; do
+    wait "$handler_pgid"; hrc=$?
+    kill -0 "$handler_pgid" 2>/dev/null || break
+  done
   set -e
+
+  # REAP the handler's process group UNCONDITIONALLY, for every outcome. On an
+  # rc=124 wall-clock overrun timeout killed only the direct handler (--foreground),
+  # so its descendants (the `claude -p` → node → xsnap/endor tree) are still alive
+  # here; on a self-exit into poison/requeue-exhaustion (a `claude` that crashed or
+  # hit a quota cut mid-run) the handler returned but may have left a runaway tree;
+  # on clean completion the group is already empty and this is a fast no-op. Either
+  # way ZERO descendants outlive the job. Safe by construction: reap_process_group
+  # only ever signals THIS job's own freshly-minted group id, never a peer's (see
+  # common.sh). Subshell-guarded so a stray failure cannot abort the gardener loop.
+  ( reap_process_group "$handler_pgid" "$GARDEN_HANDLER_REAP_GRACE" ) || true
 
   # PRODUCTIVE-CYCLE detection. For any NON-completion outcome (the job is about to be
   # left in doin for the reaper to requeue), decide whether the handler made real

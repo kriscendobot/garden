@@ -2130,6 +2130,64 @@ is_transient_empty_failure() {
   esac
 }
 
+# --- claim-scoped handler process-group reaper -------------------------------
+#
+# Root cause of the 2026-07-20/21 incident: the xs2rust-endor-press leaked 356
+# orphaned processes — four `endor-xst` each pegging a full core plus a 344-proc
+# `endor`/`manager-node.js` daemon tree — all reparented to `systemd --user` with
+# NO agent watching. When a claim-scoped handler is killed at its wall-clock bound
+# (rc=124) OR exits on its own leaving a runaway tree (a `claude -p` that crashed /
+# hit a quota cut mid-run, then requeue-exhausts into poison), the board job is
+# requeued/poisoned but the OS process tree the handler spawned KEEPS RUNNING
+# headless. The pegged cores then starve the next tick, which overruns and poisons
+# in turn — a self-reinforcing loop.
+#
+# The structural backstop: gardener.sh launches every handler in its OWN process
+# group (job control at the single call site, so the group id == the launched
+# `timeout` pid) and calls this to SWEEP that whole group after the handler returns
+# for ANY reason — completion, wall-clock overrun, or self-exit into poison. So no
+# `endor-xst`/`endor`/`node` descendant survives the job.
+#
+# reap_process_group PGID [GRACE_SECS]
+#   SIGTERM the group, wait up to GRACE_SECS (polling, early-exits the instant the
+#   group empties), then SIGKILL any survivor. Idempotent and SAFE: it only ever
+#   signals the ONE group id it is handed — THIS job's own group, minted fresh per
+#   handler by job control, never a peer job's — and hard-guards against a
+#   non-numeric / non-positive / init(1) / this-process's-own-group target so a
+#   caller bug can never turn it into a `kill -TERM -1` fleet-wide sweep. A no-op
+#   when the group is already empty (the common clean-completion case: `claude`
+#   reaped its own children, so the first `kill -0` finds nothing).
+#
+#   RESIDUAL: a descendant that itself called setsid()/daemonized (an endo daemon
+#   that deliberately detaches into a NEW session) has LEFT this group and is not
+#   reachable here. That gap is covered by defense-in-depth at the leaf — the
+#   xs2rust-endor-press charter now mandates per-test `timeout` + self-reaping — not
+#   by this group sweep, which is the structural backstop for the ordinary
+#   (non-detaching) descendant tree.
+reap_process_group() {
+  local pgid="${1:-}" grace="${2:-5}" waited=0
+  # Guard the target: numeric, > 1 (never init), and never our OWN process group
+  # (a `set -m` background job always gets a fresh pgid distinct from the shell, so
+  # this can only fire on a caller bug — but a `kill -- -<our-pgid>` would take the
+  # gardener itself down with the orphans, so refuse it outright).
+  case "$pgid" in ''|*[!0-9]*) return 0 ;; esac
+  [ "$pgid" -gt 1 ] 2>/dev/null || return 0
+  [ "$pgid" = "$$" ] && return 0
+  local self_pgid
+  self_pgid="$(ps -o pgid= -p "$$" 2>/dev/null | tr -dc '0-9')"
+  [ -n "$self_pgid" ] && [ "$pgid" = "$self_pgid" ] && return 0
+  # Nothing left in the group → clean completion, no-op.
+  kill -0 -"$pgid" 2>/dev/null || return 0
+  kill -TERM -"$pgid" 2>/dev/null || true
+  while [ "$waited" -lt "$grace" ]; do
+    kill -0 -"$pgid" 2>/dev/null || return 0   # all descendants exited on SIGTERM
+    sleep 1
+    waited=$((waited + 1))
+  done
+  kill -KILL -"$pgid" 2>/dev/null || true
+  return 0
+}
+
 # --- job completion signal ---------------------------------------------------
 #
 # The deterministic "the job genuinely finished" contract between the `claude -p`
