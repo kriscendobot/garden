@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T15:29:06Z_
+_As of 2026-07-21T15:29:35Z_
 
 ## Latest
 
@@ -4408,27 +4408,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 79.0M | $903.25 _(notional, rate-card)_ | no quota set |
+| Claude | 78.9M | $899.81 _(notional, rate-card)_ | no quota set |
 | Codex | 448.9M _(+555.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`endo-daemon-data-plane-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-daemon-data-plane-press-20260721-152002.md) — Press the Endo daemon data plane forward (endojs/endo-but-for-bots, base llm)
-- [`endo-git-integration-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260721-152002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260721-152002.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`finbot-harness-ses-attenuator-0e2ac80-review`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-harness-ses-attenuator-0e2ac80-review.md) — Repository: kriscendobot/finbot (worktree slug kriscendobot-finbot), default ...
 - [`fix-garden-root-test-leak-cleanup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-garden-root-test-leak-cleanup.md) — Clean up test-context leak damage in the deployed garden root (endolin-garden...
 
-### tada (3133)
+### tada (3134)
+- [`endo-git-integration-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260721-152002.md) — Press dispatch complete — M3 posture verified and unchanged (all gates still ...
 - [`finbot-progress-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260721-152002.md) — Cycle report
 - [`endo-byte-array-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260721-152002.md) — Completion report — endo-byte-array-press-20260721-152002
 - [`ocapn-noise-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260721-152002.md) — OCapN-over-Noise press, dispatch 13 (2026-07-21 ~15:20Z) — steady state confi...
 - [`endo-vfs-parity-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260721-152002.md) — State verified across the board — this is a verify-and-stand-down tick. Summa...
-- [`endo-sturdyref-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260721-152002.md) — SturdyRef press tick (2026-07-21 15:20 dispatch): **hold + observation — no m...
-- … and 3128 more
+- … and 3129 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
