@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6588 (530 parent indexes + 6058 children).
+Total section files: 6590 (530 parent indexes + 6060 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -7660,6 +7660,10 @@ Total section files: 6588 (530 parent indexes + 6058 children).
 
 - [kni--examples-forest--overview](kni--examples-forest--overview.md)
 
+### kni--examples-hilbert
+
+- [kni--examples-hilbert--overview](kni--examples-hilbert--overview.md)
+
 ### kni--examples-hilo
 
 - [kni--examples-hilo--overview](kni--examples-hilo--overview.md)
@@ -7675,6 +7679,10 @@ Total section files: 6588 (530 parent indexes + 6058 children).
 ### kni--examples-nominal
 
 - [kni--examples-nominal--overview](kni--examples-nominal--overview.md)
+
+### kni--examples-plane
+
+- [kni--examples-plane--overview](kni--examples-plane--overview.md)
 
 ### kni--examples-read
 
