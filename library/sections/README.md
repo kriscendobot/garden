@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6576 (530 parent indexes + 6046 children).
+Total section files: 6588 (530 parent indexes + 6058 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -7632,9 +7632,25 @@ Total section files: 6576 (530 parent indexes + 6046 children).
 - [kamera--readme--focus-api](kamera--readme--focus-api.md)
 - [kamera--readme--overview](kamera--readme--overview.md)
 
+### kni--examples-archery
+
+- [kni--examples-archery--overview](kni--examples-archery--overview.md)
+
+### kni--examples-bottles
+
+- [kni--examples-bottles--overview](kni--examples-bottles--overview.md)
+
 ### kni--examples-calc
 
 - [kni--examples-calc--overview](kni--examples-calc--overview.md)
+
+### kni--examples-coin
+
+- [kni--examples-coin--overview](kni--examples-coin--overview.md)
+
+### kni--examples-door
+
+- [kni--examples-door--overview](kni--examples-door--overview.md)
 
 ### kni--examples-door-lock
 
@@ -7644,13 +7660,45 @@ Total section files: 6576 (530 parent indexes + 6046 children).
 
 - [kni--examples-forest--overview](kni--examples-forest--overview.md)
 
+### kni--examples-hilo
+
+- [kni--examples-hilo--overview](kni--examples-hilo--overview.md)
+
+### kni--examples-loop
+
+- [kni--examples-loop--overview](kni--examples-loop--overview.md)
+
 ### kni--examples-maze
 
 - [kni--examples-maze--overview](kni--examples-maze--overview.md)
 
+### kni--examples-nominal
+
+- [kni--examples-nominal--overview](kni--examples-nominal--overview.md)
+
 ### kni--examples-read
 
 - [kni--examples-read--overview](kni--examples-read--overview.md)
+
+### kni--examples-ship
+
+- [kni--examples-ship--overview](kni--examples-ship--overview.md)
+
+### kni--examples-space
+
+- [kni--examples-space--overview](kni--examples-space--overview.md)
+
+### kni--examples-spacestation
+
+- [kni--examples-spacestation--overview](kni--examples-spacestation--overview.md)
+
+### kni--examples-subroutine
+
+- [kni--examples-subroutine--overview](kni--examples-subroutine--overview.md)
+
+### kni--examples-troll
+
+- [kni--examples-troll--overview](kni--examples-troll--overview.md)
 
 ### kni--hackni
 
