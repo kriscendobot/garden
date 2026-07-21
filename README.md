@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T08:04:02Z_
+_As of 2026-07-21T08:04:21Z_
 
 ## Latest
 
@@ -3774,24 +3774,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 76.2M | $863.92 _(notional, rate-card)_ | no quota set |
-| Codex | 374.4M _(+579.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 76.5M | $865.86 _(notional, rate-card)_ | no quota set |
+| Codex | 374.5M _(+579.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`xs2rust-endor-press-20260721-063505`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-063505.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
-- [`xs2rust-endor-press-20260721-073528`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-073528.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3106)
+### tada (3107)
+- [`xs2rust-endor-press-20260721-073528`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-073528.md) — All three finish line bars have been verified with real execution evidence:
 - [`minion-town-agenda-review-20260721-073528`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-073528.md) — Completion report
 - [`daily-progress-summary-20260721-070504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260721-070504.md) — Created and pushed periodicals/2026/07/20.md on journal2 (commit dd80309bc).
 - [`minion-town-agenda-review-20260721-063505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-063505.md) — Reported the hourly reconciliation on garden issue #58. No repository changes...
 - [`endojs-endo-but-for-bots-pr777-e4a522e4-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr777-e4a522e4-retro.md) — Completion report
-- [`endojs-endo-but-for-bots-pr809-review-581b1021-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr809-review-581b1021-retro.md) — Recorded a review-process miss for PR #809: the required design gauntlet/pane...
-- … and 3101 more
+- … and 3102 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
