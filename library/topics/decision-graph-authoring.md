@@ -26,6 +26,11 @@
 | [dialogs-and-renderers](../sections/kni--hackni--dialogs-and-renderers.md) | kni HACKNI | The pluggable input (dialog: `ask`/`answer`) and output (renderer: `write`/`option`/`display`) boundary; web and command-line implementations. |
 | [shared-ideas-and-differences](../sections/kni--inkkni--shared-ideas-and-differences.md) | kni INKKNI | What kni shares with Inkle's Ink and how it diverges (pure JS, significant whitespace, explicit prompt, fully-qualified labels). |
 | [kni-beyond-ink-and-limitations](../sections/kni--inkkni--kni-beyond-ink-and-limitations.md) | kni INKKNI | What kni adds over Ink (subroutines, second-person options, procedural-generation operators, `<hook>` hooks) and what it still lacks (types, label-values, modules, user functions). |
+|[read bot interview](../sections/kni--examples-read--overview.md) | kni examples/read.kni | A literal bot intake: collect free text plus a bounded choice, then render the recorded fields.
+|[calc state-machine loop](../sections/kni--examples-calc--overview.md) | kni examples/calc.kni | Render `n`, offer named mutations, and loop: the smallest explicit state-machine controller.
+|[door-lock state machine](../sections/kni--examples-door-lock--overview.md) | kni examples/door-lock.kni | Guards filter legal door actions and local mutations update the shared two-room state.
+|[forest procedural walk](../sections/kni--examples-forest--overview.md) | kni examples/forest.kni | Render a hash-derived local feature from `x`, mutate position, and return to the loop.
+|[maze navigation](../sections/kni--examples-maze--overview.md) | kni examples/maze.kni | Compute state-derived directional guards, render only open moves, update coordinates, and repeat.
 
 ## See also
 
