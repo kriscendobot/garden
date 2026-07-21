@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T03:18:40Z_
+_As of 2026-07-21T03:21:23Z_
 
 ## Latest
 
@@ -3487,23 +3487,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.4M | $844.03 _(notional, rate-card)_ | no quota set |
-| Codex | 337.9M _(+572.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 75.4M | $844.50 _(notional, rate-card)_ | no quota set |
+| Codex | 337.9M _(+572.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr800-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr800-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #800
+### doin (2)
+- [`minion-town-agenda-review-20260721-032030`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260721-032030.md) — Minion Town hourly agenda review
+- [`xs2rust-endor-press-20260721-032030`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-032030.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3076)
+### tada (3077)
+- [`endojs-endo-but-for-bots-pr800-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr800-conduct.md) — Merged endojs/endo-but-for-bots PR #800 into llm as 151db3d8b40b6a674b043b785...
 - [`finbot-progress-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260721-030507.md) — What advanced this cycle
 - [`endo-npm-cas-registry-press-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260721-030507.md) — Completion report — npm-via-CAS registry press tick 2026-07-21
 - [`endojs-endo-but-for-bots-pr812-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr812-conduct.md) — orchestration-failed: true
 - [`endo-vfs-parity-press-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260721-030507.md) — Verify-and-stand-down tick complete. All press PRs remain green and mergeable...
-- [`ocapn-noise-press-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260721-030507.md) — **Press dispatch 14 complete (2026-07-21 ~03:06–03:15Z) — steady state confir...
-- … and 3071 more
+- … and 3072 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
