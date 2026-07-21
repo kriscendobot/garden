@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T07:05:32Z_
+_As of 2026-07-21T07:09:53Z_
 
 ## Latest
 
@@ -3771,23 +3771,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 76.2M | $863.49 _(notional, rate-card)_ | no quota set |
-| Codex | 355.5M _(+579.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 357.1M _(+579.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`daily-progress-summary-20260721-070504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260721-070504.md) — Daily midnight Pacific progress summary
+### doin (1)
 - [`xs2rust-endor-press-20260721-063505`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-063505.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3104)
+### tada (3105)
+- [`daily-progress-summary-20260721-070504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260721-070504.md) — Created and pushed periodicals/2026/07/20.md on journal2 (commit dd80309bc).
 - [`minion-town-agenda-review-20260721-063505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-063505.md) — Reported the hourly reconciliation on garden issue #58. No repository changes...
 - [`endojs-endo-but-for-bots-pr777-e4a522e4-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr777-e4a522e4-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr809-review-581b1021-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr809-review-581b1021-retro.md) — Recorded a review-process miss for PR #809: the required design gauntlet/pane...
 - [`scholar-ingest-kni-examples-batch2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-kni-examples-batch2.md) — Completion report
-- [`minion-town-agenda-review-20260721-053503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-053503.md) — Hourly agenda review complete for kriskowal/garden#58 (minion.town primary ph...
-- … and 3099 more
+- … and 3100 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
