@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T15:35:44Z_
+_As of 2026-07-21T15:36:05Z_
 
 ## Latest
 
@@ -4478,18 +4478,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 78.8M | $898.30 _(notional, rate-card)_ | no quota set |
-| Codex | 448.9M _(+556.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
+| Codex | 448.9M _(+556.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`xs2rust-endor-press-20260721-153512`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260721-153512.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+### todo (0)
+(none)
 
-### doin (5)
+### doin (6)
 - [`endo-npm-cas-registry-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260721-152002.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr805-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr805-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #805
 - [`fix-garden-root-test-leak-cleanup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-garden-root-test-leak-cleanup.md) — Clean up test-context leak damage in the deployed garden root (endolin-garden...
 - [`harden-garden-root-repo-against-job-escapes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/harden-garden-root-repo-against-job-escapes.md) — Harden the deployed garden root repo against job git-escapes (incident 2026-0...
 - [`minion-town-agenda-review-20260721-153512`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260721-153512.md) — Minion Town hourly agenda review
+- [`xs2rust-endor-press-20260721-153512`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-153512.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3138)
 - [`scholar-arxiv-2606-26294`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-arxiv-2606-26294.md) — Read arXiv 2606.26294 abstract and PDF; sent the requested faithful summary, ...
