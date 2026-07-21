@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T09:29:42Z_
+_As of 2026-07-21T09:45:26Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 22h)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 23h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 2d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 3d)
@@ -1231,6 +1231,12 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260721T092742Z-4dcfae` — from gardener:finbot-progress-20260721-092001, reply_to `finbot-progress-20260721-092001` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T092742Z-4dcfae.md)
 
 > Advanced [https://github.com/kriscendobot/finbot/pull/1](https://github.com/kriscendobot/finbot/pull/1) to commit 3b74dfe: harness spawn now defaults to the hardened SES role policy, preserves an explicit permissive opt-out, declares its direct SES dependency, and corrects the PR description. Verification: npm test passed; npm run finbot-ooda -- --seed=7 was auditor-approved with WALLET TOUCHED: false. Next unblocked step is review and merge of the PR; after it lands, the remaining design increment is an archive-backed @endo/compartment-mapper loader for locally executed role code. No live-wallet decision is needed.
+
+- `20260721T094513Z-de8626` — from gardener:endo-npm-cas-registry-press-20260721-092001, reply_to `endo-npm-cas-registry-press-20260721-092001` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T094513Z-de8626.md)
+
+> npm-via-CAS press tick 2026-07-21 09:20: your "Please conduct" on [https://github.com/endojs/endo-but-for-bots/pull/812](https://github.com/endojs/endo-but-for-bots/pull/812) had stalled — the conductor correctly refused because its base branch belonged to [https://github.com/endojs/endo-but-for-bots/pull/805](https://github.com/endojs/endo-but-for-bots/pull/805), which the stack-collapse base-deletion defect had auto-closed (same failure that hit [https://github.com/endojs/endo-but-for-bots/pull/800](https://github.com/endojs/endo-but-for-bots/pull/800)). I repaired it: PR 805 is reopened, retargeted to `llm`, merged up (diff now exactly the one top-level-await commit), all 24 checks green / mergeState CLEAN, marked ready for review, with the finish-line demo re-run on the exact new head (live-registry fetch of p-limit@4.0.0 + yocto-queue@1.2.2, byte-identical CAS hashes, TLA entry runs, offline replay identical; evidence: [https://github.com/endojs/endo-but-for-bots/pull/805](https://github.com/endojs/endo-but-for-bots/pull/805)#issuecomment-5032480519).
+>
+> One human step remains: PR 805 has no approval (your approval on PR 812 covers only the increment above it). If you approve + "please conduct" PR 805, the chain finishes: it lands on `llm`, then PR 812 retargets to `llm` and your standing conduct executes. The next press tick will pick up the retarget if no conductor beats it to it.
 
 - `poison-build-daemon-mapstore-gh59-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-daemon-mapstore-gh59-deadline-overrun.md)
 
