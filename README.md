@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T15:50:25Z_
+_As of 2026-07-21T16:00:48Z_
 
 ## Latest
 
@@ -4491,24 +4491,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 78.8M | $899.60 _(notional, rate-card)_ | no quota set |
-| Codex | 451.0M _(+558.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 78.9M | $901.03 _(notional, rate-card)_ | no quota set |
+| Codex | 454.1M _(+558.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`conduct-ebfb-812-relres`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/conduct-ebfb-812-relres.md) — Conduct endojs/endo-but-for-bots #812 (referrer-relative resolution) onto llm
-- [`xs2rust-endor-press-20260721-153512`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-153512.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3146)
+### tada (3147)
+- [`xs2rust-endor-press-20260721-153512`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-153512.md) — Completion Report
 - [`kriscendobot-minion.town-pr12-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr12-conduct.md) — The PR has been merged successfully. Here's the completion report:
 - [`harden-garden-root-repo-against-job-escapes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/harden-garden-root-repo-against-job-escapes.md) — Completion report
 - [`conduct-ebfb-805-tla`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/conduct-ebfb-805-tla.md) — Merged #805 into llm: 1c45ab718d1698b2d2687cd1f13aefe7f4b86a75.
 - [`endojs-endo-but-for-bots-pr805-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr805-conduct.md) — Rebased PR #805 onto current llm, force-pushed 09540db9f, and waited for the ...
-- [`endo-npm-cas-registry-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260721-152002.md) — Completion report — endo-npm-cas-registry-press-20260721-152002
-- … and 3141 more
+- … and 3142 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
