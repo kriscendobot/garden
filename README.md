@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T03:03:30Z_
+_As of 2026-07-21T03:06:35Z_
 
 ## Latest
 
@@ -3431,23 +3431,30 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.4M | $843.70 _(notional, rate-card)_ | no quota set |
-| Codex | 335.2M _(+572.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
+| Claude | 75.5M | $845.35 _(notional, rate-card)_ | no quota set |
+| Codex | 335.2M _(+572.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`kriscendobot-agoric-sdk-pr10-review-18cff77a`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr10-review-18cff77a.md) — Review directive on kriscendobot/agoric-sdk PR #10
+### doin (8)
+- [`endo-byte-array-press-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260721-030507.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+- [`endo-daemon-data-plane-press-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-daemon-data-plane-press-20260721-030507.md) — Press the Endo daemon data plane forward (endojs/endo-but-for-bots, base llm)
+- [`endo-git-integration-press-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260721-030507.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+- [`endo-npm-cas-registry-press-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260721-030507.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+- [`endo-sturdyref-press-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260721-030507.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+- [`endo-vfs-parity-press-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260721-030507.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+- [`finbot-progress-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260721-030507.md) — Push progress on kriscendobot/finbot (every 6h)
+- [`ocapn-noise-press-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260721-030507.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### tada (3066)
+### tada (3067)
+- [`kriscendobot-agoric-sdk-pr10-review-18cff77a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-18cff77a.md) — Addressed review comment 3619120546 in commit dcc2628c7c and pushed it to PR ...
 - [`design-endo-but-for-bots-mount-denied-segments-cli`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-but-for-bots-mount-denied-segments-cli.md) — Created design mount-denied-segments-cli and roadmap entries. Opened draft PR...
 - [`endojs-endo-but-for-bots-pr793-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr793-conduct.md) — Merged endojs/endo-but-for-bots PR #793 into llm.
 - [`endojs-endo-but-for-bots-pr651-7e0513a0`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr651-7e0513a0.md) — Completion report
 - [`arc-status-daily-20260721-023510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/arc-status-daily-20260721-023510.md) — Daily status posted to all nine arc tracking issues for 2026-07-21 UTC — no i...
-- [`esheets-supervisor-20260721-023510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260721-023510.md) — Completion report — esheets-supervisor-20260721-023510
-- … and 3061 more
+- … and 3062 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
