@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T02:52:07Z_
+_As of 2026-07-21T02:56:55Z_
 
 ## Latest
 
@@ -3331,23 +3331,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 75.4M | $843.51 _(notional, rate-card)_ | no quota set |
-| Codex | 333.4M _(+573.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 334.0M _(+573.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`design-endo-but-for-bots-mount-denied-segments-cli`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-but-for-bots-mount-denied-segments-cli.md) — design: Mount CLI plumbing for the deniedSegments creation option
+### doin (1)
 - [`xs2rust-endor-press-20260721-022003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-022003.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3065)
+### tada (3066)
+- [`design-endo-but-for-bots-mount-denied-segments-cli`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-but-for-bots-mount-denied-segments-cli.md) — Created design mount-denied-segments-cli and roadmap entries. Opened draft PR...
 - [`endojs-endo-but-for-bots-pr793-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr793-conduct.md) — Merged endojs/endo-but-for-bots PR #793 into llm.
 - [`endojs-endo-but-for-bots-pr651-7e0513a0`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr651-7e0513a0.md) — Completion report
 - [`arc-status-daily-20260721-023510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/arc-status-daily-20260721-023510.md) — Daily status posted to all nine arc tracking issues for 2026-07-21 UTC — no i...
 - [`esheets-supervisor-20260721-023510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260721-023510.md) — Completion report — esheets-supervisor-20260721-023510
-- [`minion-town-agenda-review-20260721-022003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-022003.md) — Reported on https://github.com/kriskowal/garden/issues/58#issuecomment-502949...
-- … and 3060 more
+- … and 3061 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
