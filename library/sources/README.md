@@ -991,6 +991,19 @@ kriskowal's own **kni** — a whitespace-significant language that presents as i
 | [kni example: door](kni--examples-door.md) | kriskowal/kni | 2016-07-30 (commit `435ec3cf`) | Kris Kowal | 1 | current (two-room shared-flag doorway) |
 | [kni example: subroutine](kni--examples-subroutine.md) | kriskowal/kni | 2018-01-16 (commit `3841b36a`) | Kris Kowal | 1 | current (subroutines that build a menu) |
 | [kni example: nominal](kni--examples-nominal.md) | kriskowal/kni | 2016-08-01 (commit `34ed0749`) | Kris Kowal | 1 | current (recursive integer-to-words procedure) |
+| [kni example: hilbert](kni--examples-hilbert.md) | kriskowal/kni | 2016-07-30 (commit `435ec3cf`) | Kris Kowal | 1 | current (Hilbert-curve space-filling generator; cyclic `@` switch) |
+| [kni example: plane](kni--examples-plane.md) | kriskowal/kni | 2016-07-30 (commit `435ec3cf`) | Kris Kowal | 1 | current (consistent-hash coordinate field, no axis symmetry) |
+| [kni example: distribution](kni--examples-distribution.md) | kriskowal/kni | 2021-02-12 (commit `e82da3ba`) | Kris Kowal | 1 | current (attenuated random variable; the `~` operator algebra) |
+| [kni example: liftoff](kni--examples-liftoff.md) | kriskowal/kni | 2016-07-30 (commit `435ec3cf`) | Kris Kowal | 1 | current (bare stateful sequence block re-entered per tick) |
+| [kni example: tree](kni--examples-tree.md) | kriskowal/kni | 2016-07-30 (commit `435ec3cf`) | Kris Kowal | 1 | current (recursion as spatial structure; call stack is position) |
+| [kni example: tetrominoes](kni--examples-tetrominoes.md) | kriskowal/kni | 2018-02-10 (commit `658b3240`) | Kris Kowal | 1 | current (rich state machine; a guard thread gates a group of options) |
+| [kni example: paint](kni--examples-paint.md) | kriskowal/kni | 2016-07-30 (commit `435ec3cf`) | Kris Kowal | 1 | current (coordinate-addressed grid via dynamic variable names) |
+| [kni example: list](kni--examples-list.md) | kriskowal/kni | 2016-08-01 (commit `7f0653dc`) | Kris Kowal | 1 | current (arrays over a flat namespace; `shapes.{i}` + length) |
+| [kni example: option-styles](kni--examples-option-styles.md) | kriskowal/kni | 2016-07-30 (commit `435ec3cf`) | Kris Kowal | 1 | current (the Q/A/QA option-bracket notation reference) |
+| [kni example: fish](kni--examples-fish.md) | kriskowal/kni | 2016-07-30 (commit `435ec3cf`) | Kris Kowal | 1 | current (`*` show-once options and menu exhaustion) |
+| [kni example: ascii](kni--examples-ascii.md) | kriskowal/kni | 2016-07-30 (commit `435ec3cf`) | Kris Kowal | 1 | current (rendering-only: curly quotes, dashes, brace escaping) |
+| [kni example: german](kni--examples-german.md) | kriskowal/kni | 2018-03-25 (commit `2aea0f1b`) | Kris Kowal | 1 | current (rendering-only: `\` line-continuation, Unicode) |
+| [kni example: hyperlinks](kni--examples-hyperlinks.md) | kriskowal/kni | 2019-01-01 (commit `b6670835`) | Kris Kowal | 1 | current (rendering-only: the hyperlink brace form) |
 
 ## Notes
 
