@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T03:43:58Z_
+_As of 2026-07-21T03:49:32Z_
 
 ## Latest
 
@@ -3494,8 +3494,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriscendobot-agoric-sdk-pr10-review-18cff77a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr10-review-18cff77a-retro.md) — Retrospective on kriscendobot/agoric-sdk PR #10 (primary: kriscendobot-agoric...
 
 ### tada (3082)
 - [`xs2rust-endor-press-20260721-032030`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-032030.md) — Finish Line Assessment
@@ -3553,7 +3553,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage10p-fresh-env-sweep.md) — _normal_ · Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`kriscendobot-agoric-sdk-pr10-review-18cff77a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr10-review-18cff77a-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #10 (primary: kriscendobot-agoric...
+(none)
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
