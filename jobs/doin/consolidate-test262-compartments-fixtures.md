@@ -35,3 +35,10 @@ Report: the fixture counts per source, the reconciliation report path, the stage
 of unresolved divergences. Real-execution evidence only.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  claimed_at: 2026-07-21T19:03:08Z
