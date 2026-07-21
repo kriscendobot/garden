@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T05:25:53Z_
+_As of 2026-07-21T05:26:26Z_
 
 ## Latest
 
@@ -3499,7 +3499,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
+- [`endojs-endo-but-for-bots-pr809-review-2f33af27`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr809-review-2f33af27.md) — Review directive on endojs/endo-but-for-bots PR #809
 - [`scholar-ingest-kni-examples-batch2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-kni-examples-batch2.md) — Finish kriskowal/kni examples ingestion (batch 2)
 - [`verify-no-orphan-leak-on-handler-timeout`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/verify-no-orphan-leak-on-handler-timeout.md) — assayer — verify the orphan-reap fix leaves ZERO orphans (the resume gate)
 - [`xs2rust-endor-press-20260721-043501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-043501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
@@ -3562,6 +3563,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`endojs-endo-but-for-bots-pr809-review-581b1021-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-581b1021-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr777-e4a522e4-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr777-e4a522e4-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #777 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr809-review-2f33af27-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-2f33af27-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
