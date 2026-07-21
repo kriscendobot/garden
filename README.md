@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T15:48:38Z_
+_As of 2026-07-21T15:49:38Z_
 
 ## Latest
 
@@ -4492,13 +4492,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 78.8M | $899.17 _(notional, rate-card)_ | no quota set |
-| Codex | 450.4M _(+558.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 450.6M _(+558.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`conduct-ebfb-812-relres`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/conduct-ebfb-812-relres.md) — Conduct endojs/endo-but-for-bots #812 (referrer-relative resolution) onto llm
 - [`kriscendobot-minion.town-pr12-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr12-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #12
 - [`xs2rust-endor-press-20260721-153512`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-153512.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
