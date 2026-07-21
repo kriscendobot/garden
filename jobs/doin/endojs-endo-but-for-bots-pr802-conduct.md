@@ -17,3 +17,10 @@ Source: pr-review-body by kriskowal
 Approval: https://github.com/endojs/endo-but-for-bots/pull/802#pullrequestreview-4740280808
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  worker_kind: cleric
+  claimed_at: 2026-07-21T01:13:30Z
