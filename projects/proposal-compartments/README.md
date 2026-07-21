@@ -93,8 +93,18 @@ for the shortfall.
 ## test262
 
 A kriscendobot fork of test262 (sibling job `bootstrap-test262-bot-fork`) holds the
-proposed tests. Fixtures are consolidated from **hardened262, XS, and endor**, then
-reconciled.
+proposed tests:
+
+- Fork: https://github.com/kriscendobot/test262 (default branch `main`, mirror of upstream)
+- Working branch: `proposal-compartments`
+- Staging path: `test/staging/Compartments/` (a `README.md` describes the intent; the
+  `Compartment` feature is registered in `features.txt`)
+
+Proposed tests land in the staging area under test262's staging rules (pre Stage 3,
+fewer requirements, runnable across implementations) so they can be offered upstream
+later. Fixtures are consolidated from **hardened262, XS, and endor**, then reconciled;
+that consolidation is the follow-on `consolidate-test262-compartments-fixtures` and is
+not done in the bootstrap.
 
 ## Work products (definition of done)
 
