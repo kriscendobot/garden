@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T03:18:21Z_
+_As of 2026-07-21T03:18:40Z_
 
 ## Latest
 
@@ -3487,25 +3487,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.6M | $851.57 _(notional, rate-card)_ | no quota set |
-| Codex | 337.8M _(+572.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 75.4M | $844.03 _(notional, rate-card)_ | no quota set |
+| Codex | 337.9M _(+572.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endo-npm-cas-registry-press-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260721-030507.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr800-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr800-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #800
-- [`finbot-progress-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260721-030507.md) — Push progress on kriscendobot/finbot (every 6h)
 
-### tada (3074)
+### tada (3076)
+- [`finbot-progress-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260721-030507.md) — What advanced this cycle
+- [`endo-npm-cas-registry-press-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260721-030507.md) — Completion report — npm-via-CAS registry press tick 2026-07-21
 - [`endojs-endo-but-for-bots-pr812-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr812-conduct.md) — orchestration-failed: true
 - [`endo-vfs-parity-press-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260721-030507.md) — Verify-and-stand-down tick complete. All press PRs remain green and mergeable...
 - [`ocapn-noise-press-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260721-030507.md) — **Press dispatch 14 complete (2026-07-21 ~03:06–03:15Z) — steady state confir...
-- [`endo-sturdyref-press-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260721-030507.md) — SturdyRef press tick (2026-07-21 03:05 dispatch) — **hold + 3rd nudge re-send...
-- [`endo-git-integration-press-20260721-030507`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260721-030507.md) — Press report — git-integration / M3 loop (dispatch 2026-07-21T03:05Z)
-- … and 3069 more
+- … and 3071 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
