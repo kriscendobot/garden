@@ -2,3 +2,10 @@ scripts/jobs/gardening/xs2rust-endor-press-preflight.sh
 Add a deterministic **circuit-breaker** so a chronically-overrunning press-driver stops burning a full Fable budget every cadence. Today the stall bar dispatches (exit 0) whenever the `xs2rust-endor` HEAD is unchanged across two ticks with no live build child — but it cannot see that the *previous* stall-dispatch overran (rc=124, `<!-- garden-deadline-overrun -->`, reaper-poisoned) without ever moving HEAD. That is the known "xs2rust-endor-press wedge" (`gardener.sh:586`, `reaper.sh:529`): each tick re-arms a doomed 2400s driver that dies at the wall and advances nothing.
 
 Change: persist a per-host `consecutive-stall-dispatches` counter in `$STATE_DIR` alongside `last-head`. Increment it on the final stall branch (the `exit 0` at line ~231, HEAD unchanged) and reset it to 0 whenever HEAD advances (the `cur != prev` branch) or a terminal PR state defers. When the counter reaches a threshold (e.g. `GARDEN_XS2RUST_PRESS_MAX_STALL_DISPATCHES`, default 3) — i.e. the chain is stalled *and* the driver has repeatedly failed to advance it — DEFER (exit 2) instead of dispatching, and raise one `alert_maintainer` (already sourced via `common.sh`) reporting that the press campaign is wedged: the branch is not moving and every dispatched driver overruns its handler budget, so it needs a human (split the press into claim-sized build-stage children or run it detached, per the `gardener.sh:391` doctrine) rather than another doomed Fable tick. Keep the fail-open posture on ambiguity (unreadable HEAD still dispatches); the breaker only fires on the positively-observed repeated-stall signature. This moves the "stop throwing budget at a wedged campaign and escalate" judgment out of after-the-fact reaper poisoning and into the one deterministic control point that decides whether to dispatch at all.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 9
+  worker_kind: gardener
+  claimed_at: 2026-07-21T18:52:21Z
