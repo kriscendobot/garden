@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6627 (530 parent indexes + 6097 children).
+Total section files: 6632 (530 parent indexes + 6102 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8801,6 +8801,14 @@ Total section files: 6627 (530 parent indexes + 6097 children).
 - [system--readme--history](system--readme--history.md)
 - [system--readme--overview](system--readme--overview.md)
 - [system--readme--usage-and-bootstrapping](system--readme--usage-and-bootstrapping.md)
+
+### tc39-module-harmony
+
+- [tc39-module-harmony--compartments-compartment-class-and-interfaces](tc39-module-harmony--compartments-compartment-class-and-interfaces.md)
+- [tc39-module-harmony--compartments-compartment-constructor-and-options](tc39-module-harmony--compartments-compartment-constructor-and-options.md)
+- [tc39-module-harmony--compartments-compartment-motivating-examples](tc39-module-harmony--compartments-compartment-motivating-examples.md)
+- [tc39-module-harmony--compartments-compartment-thenable-and-design](tc39-module-harmony--compartments-compartment-thenable-and-design.md)
+- [tc39-module-harmony--compartments-compartment-virtual-modules](tc39-module-harmony--compartments-compartment-virtual-modules.md)
 
 ### tc39-module-harmony--compartments-evaluator
 
