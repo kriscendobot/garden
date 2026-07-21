@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/59#issuecomment-5029877730
 I would like to avoid duplicating the functionality of an Endo directory with `storeValue`. What can be achieved with a map store that cannot be with a directory and storing values by name in that directory? I would like to be able to add and remove entries in a set, which the da
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  worker_kind: cleric
+  claimed_at: 2026-07-21T03:40:07Z
