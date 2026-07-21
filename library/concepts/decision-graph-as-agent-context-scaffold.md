@@ -41,6 +41,8 @@ Provenance: all claims trace to kriskowal's `github.com/kriskowal/kni` docs (REA
 | [runtime-engine](../sections/kni--hackni--runtime-engine.md) | Program counter + call stack + pluggable storage/RNG; reproducible transcripts. |
 | [runtime-hooks](../sections/kni--hackni--runtime-hooks.md) | The `handler` seam (`get`/`set`, `waypoint`/`resume`, `ask`/`answer`) where the graph meets external/agentic behavior. |
 | [kni-beyond-ink-and-limitations](../sections/kni--inkkni--kni-beyond-ink-and-limitations.md) | The capability boundary — the gaps half of the fit assessment. |
+|[read bot interview](../sections/kni--examples-read--overview.md) | A literal bot intake flow: collect fields and render a structured profile from them.
+|[maze navigation](../sections/kni--examples-maze--overview.md) | State-derived guards render only the branches applicable to the current context.
 
 ## See also
 
