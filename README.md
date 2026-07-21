@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T11:21:26Z_
+_As of 2026-07-21T11:26:41Z_
 
 ## Latest
 
@@ -4073,22 +4073,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 77.1M | $874.72 _(notional, rate-card)_ | no quota set |
-| Codex | 421.0M _(+571.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 423.8M _(+571.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-press-20260721-110503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-110503.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+### doin (0)
+(none)
 
-### tada (3122)
+### tada (3123)
+- [`xs2rust-endor-press-20260721-110503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-110503.md) — ---
 - [`build-hardened-url-vetted-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-hardened-url-vetted-shim.md) — Completion report — build-hardened-url-vetted-shim
 - [`minion-town-agenda-review-20260721-110503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-110503.md) — Completion report
 - [`build-hardened-text-encoder-decoder-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-hardened-text-encoder-decoder-shim.md) — Existing PR #259 already implements the requested shim on feat/hardened-text-...
 - [`minion-town-agenda-review-20260721-100501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-100501.md) — Completion report
-- [`endojs-endo-but-for-bots-pr809-review-2f33af27-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr809-review-2f33af27-retro.md) — Completion report
-- … and 3117 more
+- … and 3118 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
