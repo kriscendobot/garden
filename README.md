@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T02:20:46Z_
+_As of 2026-07-21T02:23:18Z_
 
 ## Latest
 
@@ -3306,24 +3306,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.2M | $841.59 _(notional, rate-card)_ | no quota set |
-| Codex | 330.6M _(+574.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
+| Claude | 75.2M | $842.36 _(notional, rate-card)_ | no quota set |
+| Codex | 330.9M _(+574.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`minion-town-agenda-review-20260721-022003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260721-022003.md) — Minion Town hourly agenda review
+### doin (1)
 - [`xs2rust-endor-press-20260721-022003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-022003.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3060)
+### tada (3061)
+- [`minion-town-agenda-review-20260721-022003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-022003.md) — Hourly agenda review, 2026-07-21 02:22 UTC.
 - [`kriscendobot-agoric-sdk-pr10-review-498316a6-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-498316a6-retro.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr10-review-e3ccce0c-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-e3ccce0c-retro.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr10-review-9acf0d53-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-9acf0d53-retro.md) — Recorded a not-a-miss dismissal: PR #10 was a draft design PR with no gauntle...
 - [`xs2rust-endor-press-20260721-012002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-012002.md) — Finish Line Assessment
-- [`endojs-endo-but-for-bots-pr802-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr802-shepherd.md) — Fixed PR #802’s stale zizmor action pins in commit 9a87cf1056 and pushed it t...
-- … and 3055 more
+- … and 3056 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
