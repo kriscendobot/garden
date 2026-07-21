@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: xs2rust-endor-orphan-collection-fix
-priority: normal
 role: assayer
-posted_by: producer
-posted_at: 2026-07-21T04:58:27Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-21T05:22:16Z -->
 
 # assayer — verify the orphan-reap fix leaves ZERO orphans (the resume gate)
 
