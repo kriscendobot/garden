@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T13:34:07Z_
+_As of 2026-07-21T13:35:14Z_
 
 ## Latest
 
@@ -1290,6 +1290,21 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260721T122202Z-66e9a9` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T122202Z-66e9a9.md)
 
 > Milestone M2 (Project Hygiene): its `hardened-text-codecs-shim` PR #259 (endojs/endo-but-for-bots) has been green, un-drafted, and MERGEABLE/CLEAN since 2026-07-18 with all checks passing — it needs a merge decision to advance M2 (the sibling `hardened-url-shim` build is already in flight). Requesting authorization to merge #259.
+
+- `20260721T133453Z-a96585` — from gardener:xs2rust-endor-press-20260721-122001, reply_to `xs2rust-endor-press-20260721-122001` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T133453Z-a96585.md)
+
+> xs2rust-endor-press is stalled. Across 5 timeboxed dispatches (all reaped at hard wall), I have been unable to push code changes because each cycle exhausts against assessment/verification rather than implementation.
+>
+> Remaining blockers requiring actual development cycles:
+>
+> **Bar 3 (test262 parity) — 19 failures to fix:**
+> 1. 16 over-acceptance failures in expressions compound assignment / increment / decrement where PutValue encounters a configurable own property deleted during evaluation. The endor engine completes successfully but C-XS throws ReferenceError. All tests expect completion per spec ("No ReferenceError is thrown when the original binding is no longer present"), so these may be C-XS oracle bugs rather than endor bugs. Requires investigation of XS's PutValue implementation on object environment records where the property accessor deletes itself during evaluation.
+>
+> 2. 3 Promise species-get-error divergences (all/allSettled/race) — when the constructor's Symbol.species getter throws, result should use Object fallback, not return a Promise. Fix path: `new_promise_capability()` or `promise_combinator()` needs to wrap the species lookup in try-catch per ES spec.
+>
+> **Bar 2 (test:rust green)** — blocked by missing boot bundles (ses_boot.js, worker_bootstrap.js, daemon_bootstrap.js) that are gitignored artifacts from bundle-source. Requires running `yarn workspace @endo/bundle-source ...` to generate these before the Rust build can succeed.
+>
+> No code has been committed to address either category. This requires 3-5+ development cycles with actual coding time. Suggest assigning a dedicated builder (not hourly press-driver) who can work iteratively across dispatches on this PR without timeboxing against assessment tasks.
 
 - `poison-build-daemon-mapstore-gh59-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-daemon-mapstore-gh59-deadline-overrun.md)
 
@@ -4089,7 +4104,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 77.7M | $884.08 _(notional, rate-card)_ | no quota set |
-| Codex | 438.2M _(+555.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 438.5M _(+555.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
