@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T05:06:42Z_
+_As of 2026-07-21T05:11:20Z_
 
 ## Latest
 
@@ -3472,13 +3472,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 76.0M | $857.99 _(notional, rate-card)_ | no quota set |
-| Codex | 345.4M _(+578.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
+| Codex | 345.7M _(+580.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
+- [`endojs-endo-but-for-bots-pr777-e4a522e4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr777-e4a522e4.md) — attention directive on endojs/endo-but-for-bots PR #777
 - [`fix-handler-reap-spawned-process-group`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-handler-reap-spawned-process-group.md) — fixer (garden main2, direct — no PR for the garden's own repo) — reap the spa...
 - [`kriscendobot-endo-pr2-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-endo-pr2-shepherd.md) — shepherd (auto: red CI) on kriscendobot/endo PR #2
 - [`scholar-ingest-kni-examples`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-kni-examples.md) — Ingest kriskowal/kni's examples corpus into the library (follow-on to scholar...
@@ -3541,6 +3542,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`endojs-endo-but-for-bots-pr809-review-581b1021-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-581b1021-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr777-e4a522e4-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr777-e4a522e4-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #777 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
