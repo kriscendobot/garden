@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-21T18:10:04Z_
+_As of 2026-07-21T18:13:28Z_
 
 ## Latest
 
-The maintainer inbox was swept clean: a consolidation job folded **199** unread entries into ~30 open decisions across 13 topics, acknowledging every original. Most items are merge-gated or awaiting one arbitration — notably the 11-day esheets/endoclaw-OAuth stall on [#621](https://github.com/endojs/endo-but-for-bots/pull/621), the SturdyRef shim-placement call between [#737](https://github.com/endojs/endo-but-for-bots/pull/737) and [#774](https://github.com/endojs/endo-but-for-bots/pull/774), and the M2/M3 merges ([#259](https://github.com/endojs/endo-but-for-bots/pull/259), [#705](https://github.com/endojs/endo-but-for-bots/pull/705), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), [#694](https://github.com/endojs/endo-but-for-bots/pull/694)). The digest also confirms a batch of merges landed — [#585](https://github.com/endojs/endo-but-for-bots/pull/585), [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the CAS-registry stack [#802](https://github.com/endojs/endo-but-for-bots/pull/802)/[#805](https://github.com/endojs/endo-but-for-bots/pull/805)/[#812](https://github.com/endojs/endo-but-for-bots/pull/812), and the upstream-master→`llm` merge via [#773](https://github.com/endojs/endo-but-for-bots/pull/773).
-
-On the board, [#719](https://github.com/endojs/endo-but-for-bots/pull/719) was weaved down to a clean ses-only URL shim (its three unrelated cbor/ci commits dropped) and a CI-shepherd for it is now in flight. The weekly Qwen watch found no harnessable upgrade (live hermit stays qwen3.6). The recurring pain point persists: the hourly `xs2rust-endor-press` again **deterministically overran** its 2400s handler budget and was poisoned/parked — [#600](https://github.com/endojs/endo-but-for-bots/pull/600) needs a dedicated builder who can work across dispatches, not the timeboxed press. Two operational items still want a human: draining and physically cleaning the deployed roots after the root-corruption incidents (fix landed on `main2`), and confirming a deliberate deploy now that the remote origin is restored.
+A proposal-compartments launch orchestration kicked off: a gardener is bootstrapping a kriscendobot fork of tc39/proposal-compartments, with a paired test262-bot fork bootstrap and a Compartments test262 fixture-consolidation job parked behind it. Two scholar research jobs also went in flight — the tells of AI-assisted writing, and the module-harmony proposals' Compartments intersection. Separately, a weave landed [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) as a clean, ses-only URL shim (its three unrelated cbor/ci commits dropped), teeing up the M2 URL-shim decision. Most consequentially, a consolidation pass folded **199** unread maintainer-inbox entries into ~30 open decisions across 13 topics — the standout stalls being the 11-day esheets/endoclaw-OAuth review dam ([endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621)), merge-gated M2/M3 shims ([endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259), [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705), [endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/pull/707), [endojs/endo-but-for-bots#694](https://github.com/endojs/endo-but-for-bots/pull/694)), and the held SturdyRef arbitration. Two infra flags want a human: the hourly xs2rust-endor press ([endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) deterministically overruns its 2400s budget and is being poisoned every cycle — it needs a dedicated builder, not the press — and the deployed roots on both hosts still need a physical drain-and-clean after two jobs leaked into their git.
 
 ## Parked for maintainer feedback
 
@@ -267,15 +265,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 80.0M | $916.97 _(notional, rate-card)_ | no quota set |
-| Codex | 439.0M _(+521.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 80.2M | $918.39 _(notional, rate-card)_ | no quota set |
+| Codex | 439.9M _(+521.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (5)
+- [`bootstrap-proposal-compartments-fork`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/bootstrap-proposal-compartments-fork.md) — Bootstrap the kriscendobot fork of tc39/proposal-compartments (fresh, minimal...
 - [`endojs-endo-but-for-bots-pr719-shepherd-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-shepherd-ci-green.md) — ---
+- [`scholar-research-ai-writing-tells`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-research-ai-writing-tells.md) — Scholar: research the tells of AI-assisted writing, so we can avoid them
+- [`scholar-research-module-harmony-intersection`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-research-module-harmony-intersection.md) — Scholar: research the module-harmony proposals for Compartments intersection ...
 - [`xs2rust-endor-press-20260721-180501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-180501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3154)
@@ -346,6 +347,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-regexp-conservative-subset.md) — awaiting `endojs/endo-but-for-bots#676` · Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
+- [`consolidate-test262-compartments-fixtures`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/consolidate-test262-compartments-fixtures.md) — awaiting `bootstrap-test262-bot-fork` · Consolidate Compartments test262 fixtures from hardened262, XS, and endor (re...
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`port-xs-to-rust-memory-safe-engine-s48`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s48.md) — awaiting `xs2rust-endor-stage10p-fresh-env-sweep` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`registry-immutable-byte-array-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/registry-immutable-byte-array-followup.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/671` · Immutable byte-array RegistryInterface follow-up
