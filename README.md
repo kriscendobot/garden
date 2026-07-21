@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T06:23:20Z_
+_As of 2026-07-21T06:29:31Z_
 
 ## Latest
 
@@ -3770,15 +3770,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 76.2M | $862.57 _(notional, rate-card)_ | no quota set |
-| Codex | 352.2M _(+581.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 76.2M | $863.20 _(notional, rate-card)_ | no quota set |
+| Codex | 352.2M _(+581.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr809-review-581b1021-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr809-review-581b1021-retro.md) — Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
 
 ### tada (3101)
 - [`scholar-ingest-kni-examples-batch2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-kni-examples-batch2.md) — Completion report
@@ -3839,7 +3839,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage10p-fresh-env-sweep.md) — _normal_ · Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr809-review-581b1021-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-581b1021-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr777-e4a522e4-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr777-e4a522e4-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #777 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr809-review-2f33af27-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-2f33af27-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
 
