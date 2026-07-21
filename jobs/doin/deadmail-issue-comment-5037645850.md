@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/61#issuecomment-5037645850
 Please forward these specifications to #61. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  worker_kind: cleric
+  claimed_at: 2026-07-21T18:35:23Z
