@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T04:50:01Z_
+_As of 2026-07-21T04:50:35Z_
 
 ## Latest
 
@@ -3503,14 +3503,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 76.0M | $856.11 _(notional, rate-card)_ | no quota set |
+| Claude | 76.1M | $856.82 _(notional, rate-card)_ | no quota set |
 | Codex | 344.5M _(+573.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`deadmail-issue-comment-5030263068`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5030263068.md) — Dead-lettered message — pick up its intent
 - [`scholar-ingest-kni`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-kni.md) — Ingest github.com/kriskowal/kni into the library — read it as agent-context s...
 - [`xs2rust-endor-press-20260721-043501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-043501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
