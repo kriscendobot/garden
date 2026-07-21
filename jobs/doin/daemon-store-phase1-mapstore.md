@@ -64,3 +64,10 @@ Design authority for the full detail and file:line grounding:
 `packages/daemon/designs/daemon-persistent-stores.md` (merged from PR #809).
 READ THE RELEVANT PHASE SECTION FIRST. When the PR is green and un-drafted,
 comment the outcome (link the PR) on https://github.com/kriskowal/garden/issues/59.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 12
+  worker_kind: gardener
+  claimed_at: 2026-07-21T23:25:07Z
