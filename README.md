@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-21T18:06:19Z_
+_As of 2026-07-21T18:07:39Z_
 
 ## Latest
 
-A gardener consolidated the [maintainer inbox omnibus](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T171232Z-297e3f.md) — 199 unread entries folded into ~30 open items across 13 topics, each original acknowledged. The headline asks are merge/review calls that have gone stale: the entire Google Sheets/endoclaw-OAuth tree is dammed 11 days behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621)'s review, and the M2/M3 shims ([#259](https://github.com/endojs/endo-but-for-bots/pull/259), [#705](https://github.com/endojs/endo-but-for-bots/pull/705), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), [#694](https://github.com/endojs/endo-but-for-bots/pull/694)) sit green-and-merge-gated. On the plus side, the CAS-registry npm stack ([#802](https://github.com/endojs/endo-but-for-bots/pull/802)/[#805](https://github.com/endojs/endo-but-for-bots/pull/805)/[#812](https://github.com/endojs/endo-but-for-bots/pull/812)) all merged, along with [#585](https://github.com/endojs/endo-but-for-bots/pull/585), [#661](https://github.com/endojs/endo-but-for-bots/pull/661), and the upstream-master→`llm` merge via [#773](https://github.com/endojs/endo-but-for-bots/pull/773), retiring several old asks. A weave dropped three unrelated commits off [#719](https://github.com/endojs/endo-but-for-bots/pull/719), leaving it a clean ses-only URL-shim.
+A quiet interval on the board itself — the only completion since the last bulletin was the [weekly Qwen watch](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/qwen-model-watch-20260721-180501.md), which found no harnessable upgrade (live hermit stays `qwen3.6:latest`; the new Qwen-AgentWorld-35B is a world-model simulator, not a coding-agent successor, and has no Ollama tag) — but two larger threads warrant attention. First, a maintainer-inbox omnibus folded **199** unread entries into ~30 open decisions across 13 topics; the standouts are all merge-gated or awaiting a single call: the esheets/endoclaw-OAuth tree has been dammed 11 days behind a stale `CHANGES_REQUESTED` on [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621), the SturdyRef lanes ([#737](https://github.com/endojs/endo-but-for-bots/pull/737)/[#774](https://github.com/endojs/endo-but-for-bots/pull/774)) all hold on your arbitration, and M2/M3 shims ([#259](https://github.com/endojs/endo-but-for-bots/pull/259), [#705](https://github.com/endojs/endo-but-for-bots/pull/705), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), [#694](https://github.com/endojs/endo-but-for-bots/pull/694)) are green and need only merge authority. The CAS-registry stack ([#802](https://github.com/endojs/endo-but-for-bots/pull/802)/[#805](https://github.com/endojs/endo-but-for-bots/pull/805)/[#812](https://github.com/endojs/endo-but-for-bots/pull/812)) and [#585](https://github.com/endojs/endo-but-for-bots/pull/585)/[#661](https://github.com/endojs/endo-but-for-bots/pull/661) all landed, and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) was weaved down to a clean single commit.
 
-The recurring red flag: the hourly `xs2rust-endor-press` on [#600](https://github.com/endojs/endo-but-for-bots/pull/600) deterministically overruns its 2400s handler budget every cycle and gets poisoned — it needs a dedicated builder working across dispatches rather than the timeboxed press, which had leaked 356 orphaned processes on 07-20/21. Physical cleanup of the deployed roots on both hosts (off a stray fixture branch, sweeping ~150 `tmp/native-git-*` dirs) remains a human task, and deploys have been stalled since 07-17 now that the origin corruption is fixed.
+Second, fleet health: the hourly `xs2rust-endor-press` on [#600](https://github.com/endojs/endo-but-for-bots/pull/600) deterministically overruns its 2400s handler budget every cycle and was poisoned/parked again — it needs a dedicated builder rather than the timeboxed press (see inbox topic 11). Two jobs also corrupted the deployed roots earlier in the week (self-healed, with a durable `journal_remote()` guard now on `main2`), but a physical cleanup of `endolin-garden2`/`endolin-garden` is still pending as board job `fix-garden-root-test-leak-cleanup`, and deploys have been stalled since 07-17.
 
 ## Parked for maintainer feedback
 
@@ -129,6 +129,14 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260721T173111Z-7e7419` — from watchdog:hermit/2, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T173111Z-7e7419.md)
 
 > gardener job 'xs2rust-endor-press-20260721-165010' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260721T180653Z-7648e2` — from gardener:--help, reply_to `--help` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T180653Z-7648e2.md)
+
+> (empty message)
+
+- `20260721T180659Z-e816a8` — from gardener:qwen-model-watch-20260721-180501, reply_to `qwen-model-watch-20260721-180501` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T180659Z-e816a8.md)
+
+> Weekly Qwen watch (2026-07-21): live hermit is qwen3.6:latest (23 GB). Newer blog candidate: Qwen-AgentWorld-35B-A3B (2026-06-23), a 35B-total/3B-active MoE, 256K-context language world model. It is open-weight but its release provides no Ollama quant/tag; read-only registry manifest HEAD checks for qwen-agentworld:latest, :35b-a3b, and :35b all returned 404 (qwen3.6:latest returned 200). A future Q4-class conversion would likely fit the 50 GiB GTT and run well on gfx1151, but this specialized simulator is not a hermit coding-agent upgrade over qwen3.6. Recommendation: do not pull or reroute; watch for an official Ollama tag / general-agent successor. No new harnessable Qwen model this week.
 
 - `poison-xs2rust-endor-press-20260721-165010-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-xs2rust-endor-press-20260721-165010-deadline-overrun.md)
 
@@ -259,26 +267,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 79.9M | $915.43 _(notional, rate-card)_ | no quota set |
-| Codex | 438.4M _(+521.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Claude | 80.0M | $916.01 _(notional, rate-card)_ | no quota set |
+| Codex | 438.5M _(+521.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr719-shepherd-ci-green`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-shepherd-ci-green.md) — ---
 - [`minion-town-agenda-review-20260721-180501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260721-180501.md) — Minion Town hourly agenda review
-- [`qwen-model-watch-20260721-180501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/qwen-model-watch-20260721-180501.md) — scholar — weekly watch: new Qwen models harnessable by ollama on our hardware
 - [`xs2rust-endor-press-20260721-180501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-180501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3152)
+### tada (3153)
+- [`qwen-model-watch-20260721-180501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/qwen-model-watch-20260721-180501.md) — Checked Qwen blog and Ollama registry; sent maintainer report. Live hermit re...
 - [`consolidate-maintainer-inbox-omnibus`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/consolidate-maintainer-inbox-omnibus.md) — Completion report
 - [`minion-town-agenda-review-20260721-165010`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-165010.md) — Completion report
 - [`weave-endo-but-for-bots-pr719-drop-unrelated-commits`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr719-drop-unrelated-commits.md) — The weave is complete and verified. Final state confirmed: PR #719 is now a c...
 - [`orch-conduct-endor-npm-805-812`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/orch-conduct-endor-npm-805-812.md) — orchestration orch-conduct-endor-npm-805-812 — complete
-- [`conduct-ebfb-812-relres`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/conduct-ebfb-812-relres.md) — Completion report
-- … and 3147 more
+- … and 3148 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
