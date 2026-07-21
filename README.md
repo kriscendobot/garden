@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-21T20:57:41Z_
+_As of 2026-07-21T21:21:46Z_
 
 ## Latest
 
-The maintainer inbox was consolidated into a single omnibus: [199 unread entries folded into ~30 open items across 13 topics](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T171232Z-297e3f.md), each original acknowledged and nothing deleted — the fastest path to seeing what still wants a decision (esheets/[endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) stalled 11 days on one review, SturdyRef's [#737](https://github.com/endojs/endo-but-for-bots/pull/737)-vs-[#774](https://github.com/endojs/endo-but-for-bots/pull/774) arbitration, and merge-gated M2/M3 shims lead the list).
+A gardener consolidated the maintainer inbox — **199 unread entries folded into ~30 open items across 13 topics**, so the standup/press/watchdog noise is now one digest ([open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T171232Z-297e3f.md)); the headline asks are still a handful of merge/arbitration calls (esheets [#621](https://github.com/endojs/endo-but-for-bots/pull/621) 11 days dammed on one review, the SturdyRef shim-placement pick between [#737](https://github.com/endojs/endo-but-for-bots/pull/737) and [#774](https://github.com/endojs/endo-but-for-bots/pull/774), and M2/M3 merges [#259](https://github.com/endojs/endo-but-for-bots/pull/259)/[#705](https://github.com/endojs/endo-but-for-bots/pull/705)/[#707](https://github.com/endojs/endo-but-for-bots/pull/707)/[#694](https://github.com/endojs/endo-but-for-bots/pull/694)).
 
-On the board, the endo-fetch lint-and-test fixer for [endo-but-for-bots#723](https://github.com/endojs/endo-but-for-bots/pull/723) completed. A shepherd drove the hardened-URL shim on [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) to partial green and traced the remaining red to a broadly-RED master (jsdoc warnings, text-codec permit/test regressions from `536f82d18`, stale zizmor pins) rather than the PR's own diff — recommending a dedicated master-greening pass before #719 can go green.
+On the code side, the hardened URL shim landed on [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (9dcdc2412) and a shepherd rebased it green on its own diff, but surfaced that the fork's `master` is broadly RED — pre-existing jsdoc, text-codec permit, and stale action-pin debt, not [#719](https://github.com/endojs/endo-but-for-bots/pull/719)'s — and recommends a dedicated master-greening pass before it can merge clean; a `master-green-text-codec-permits` job has already completed toward that. A lint-and-test fixer also finished on [#723](https://github.com/endojs/endo-but-for-bots/pull/723).
 
-The recurring theme is the `xs2rust-endor` press for [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600): three cycles this window deterministically overran the 2400s handler budget and were poisoned into `jobs/plan/`, and the earlier leak of 356 orphaned test processes is why the schedule was paused. The standing recommendation — assign a dedicated builder who can work across dispatches, or split the press into claim-sized stages — remains open; another press is currently in `doin`. The weekly Qwen watch found no harnessable upgrade over `qwen3.6`.
+Most notable operationally: the hourly **xs2rust-endor press ([#600](https://github.com/endojs/endo-but-for-bots/pull/600))** keeps **deterministically overrunning its 2400s handler budget** and getting poisoned every cycle — two more poison-parks and watchdog notices this window — so it needs to be split into claim-sized stages or handed to a dedicated builder rather than the press. The weekly Qwen watch found no harnessable upgrade over `qwen3.6`.
 
 ## Parked for maintainer feedback
 
@@ -420,15 +420,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 84.3M | $950.39 _(notional, rate-card)_ | no quota set |
-| Codex | 464.7M _(+524.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 84.5M | $951.67 _(notional, rate-card)_ | no quota set |
+| Codex | 476.7M _(+523.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`minion-town-agenda-review-20260721-212001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260721-212001.md) — Minion Town hourly agenda review
 - [`xs2rust-endor-press-20260721-202001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-202001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+- [`xs2rust-endor-press-20260721-212001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-212001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3178)
 - [`endojs-endo-but-for-bots-pull-request-723-endo-fetch-lint-and-test-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pull-request-723-endo-fetch-lint-and-test-fixer.md) — Completion report
