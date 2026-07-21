@@ -749,6 +749,19 @@ Roughly grouped by priority. The full file inventory was captured during the pil
 Auto-generated content not for ingestion:
 - `CHANGELOG.md` files (47): one per package; per-package change history. Out-of-scope for the library; the upstream files remain the source of truth.
 
+## TC39 module-harmony proposals
+
+The TC39 module-proposal landscape a **minimal Compartments spec must intersect** to be coherent under *module harmony*, ingested 2026-07-21 from the tc39 proposal repos (job `scholar-research-module-harmony-intersection`, feeding `journal/projects/proposal-compartments`). `source_kind: web`; fetched direct from `raw.githubusercontent.com` via `scripts/jobs/fetch-source.sh`; idempotency anchor is `source_content_sha256`. The synthesized per-proposal adopt/defer-to/stay-compatible-with intersection is the concept [[module-harmony-intersection-surface]]; the topic is [`module-harmony`](../topics/module-harmony.md). **Deferred to a follow-on** (`scholar-research-module-harmony-intersection`): the Compartments layered explainers `1-static-analysis.md`, `2-virtual-module-source.md`, `3-evaluator.md`, `4-compartment.md`, and `GRAPH.md`.
+
+| Source | URL | Stage | Sections | Status |
+|--------|-----|-------|----------|--------|
+| [source phase imports](tc39-module-harmony--source-phase-imports.md) | https://github.com/tc39/proposal-source-phase-imports | 3 | 3 | current |
+| [import defer (deferring module evaluation)](tc39-module-harmony--import-defer.md) | https://github.com/tc39/proposal-defer-import-eval | 3 | 3 | current |
+| [module expressions](tc39-module-harmony--module-expressions.md) | https://github.com/tc39/proposal-module-expressions | 3 (reviewers) | 2 | current |
+| [module declarations](tc39-module-harmony--module-declarations.md) | https://github.com/tc39/proposal-module-declarations | 2 | 1 | current |
+| [Compartments — overview (five layers)](tc39-module-harmony--compartments-overview.md) | https://github.com/tc39/proposal-compartments | 1 | 1 | current |
+| [Compartments — layer 0 (Module + ModuleSource)](tc39-module-harmony--compartments-module-and-source.md) | https://github.com/tc39/proposal-compartments/blob/master/0-module-and-module-source.md | 1 | 3 | current |
+
 ## External web sources
 
 Sources retrieved from public URLs rather than from repository git history. Use `source_kind: web` schema; idempotency anchor is the `source_url` and `source_date` (web pages do not have git SHAs). These sources were ingested in the scholar's one-shot directed engagement for Endo Workstream A (2026-06-11).
