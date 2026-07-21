@@ -751,7 +751,7 @@ Auto-generated content not for ingestion:
 
 ## TC39 module-harmony proposals
 
-The TC39 module-proposal landscape a **minimal Compartments spec must intersect** to be coherent under *module harmony*, ingested 2026-07-21 from the tc39 proposal repos (job `scholar-research-module-harmony-intersection`, feeding `journal/projects/proposal-compartments`). `source_kind: web`; fetched direct from `raw.githubusercontent.com` via `scripts/jobs/fetch-source.sh`; idempotency anchor is `source_content_sha256`. The synthesized per-proposal adopt/defer-to/stay-compatible-with intersection is the concept [[module-harmony-intersection-surface]]; the topic is [`module-harmony`](../topics/module-harmony.md). **Deferred to a follow-on** (`scholar-research-module-harmony-intersection`): the Compartments layered explainers `1-static-analysis.md`, `2-virtual-module-source.md`, `3-evaluator.md`, `4-compartment.md`, and `GRAPH.md`.
+The TC39 module-proposal landscape a **minimal Compartments spec must intersect** to be coherent under *module harmony*, ingested 2026-07-21 from the tc39 proposal repos (job `scholar-research-module-harmony-intersection`, feeding `journal/projects/proposal-compartments`). `source_kind: web`; fetched direct from `raw.githubusercontent.com` via `scripts/jobs/fetch-source.sh`; idempotency anchor is `source_content_sha256`. The synthesized per-proposal adopt/defer-to/stay-compatible-with intersection is the concept [[module-harmony-intersection-surface]]; the topic is [`module-harmony`](../topics/module-harmony.md). The Compartments layered explainers `1-static-analysis.md`, `2-virtual-module-source.md`, `3-evaluator.md`, and `GRAPH.md` were ingested 2026-07-21 by the follow-on `scholar-research-module-harmony-compartments-layers`. **Still deferred to a further follow-on** (`scholar-research-module-harmony-compartment-layer4`): the large layer-4 explainer `4-compartment.md` (~32KB, its own cycle).
 
 | Source | URL | Stage | Sections | Status |
 |--------|-----|-------|----------|--------|
@@ -761,6 +761,10 @@ The TC39 module-proposal landscape a **minimal Compartments spec must intersect*
 | [module declarations](tc39-module-harmony--module-declarations.md) | https://github.com/tc39/proposal-module-declarations | 2 | 1 | current |
 | [Compartments — overview (five layers)](tc39-module-harmony--compartments-overview.md) | https://github.com/tc39/proposal-compartments | 1 | 1 | current |
 | [Compartments — layer 0 (Module + ModuleSource)](tc39-module-harmony--compartments-module-and-source.md) | https://github.com/tc39/proposal-compartments/blob/master/0-module-and-module-source.md | 1 | 3 | current |
+| [Compartments — layer 1 (static analysis / `ModuleSource.bindings`)](tc39-module-harmony--compartments-static-analysis.md) | https://github.com/tc39/proposal-compartments/blob/master/1-static-analysis.md | 1 | 2 | current |
+| [Compartments — layer 2 (virtual module sources)](tc39-module-harmony--compartments-virtual-module-source.md) | https://github.com/tc39/proposal-compartments/blob/master/2-virtual-module-source.md | 1 | 3 | current |
+| [Compartments — layer 3 (Evaluators)](tc39-module-harmony--compartments-evaluator.md) | https://github.com/tc39/proposal-compartments/blob/master/3-evaluator.md | 1 | 2 | current |
+| [Compartments — GRAPH (feature → use-case map)](tc39-module-harmony--compartments-graph.md) | https://github.com/tc39/proposal-compartments/blob/master/GRAPH.md | 1 | 2 | current |
 
 ## External web sources
 
