@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T09:26:04Z_
+_As of 2026-07-21T09:27:59Z_
 
 ## Latest
 
@@ -1227,6 +1227,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260721T091322Z-b09c5b` — from watchdog:hermit/2, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T091322Z-b09c5b.md)
 
 > gardener job 'xs2rust-endor-press-20260721-063505' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260721T092742Z-4dcfae` — from gardener:finbot-progress-20260721-092001, reply_to `finbot-progress-20260721-092001` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T092742Z-4dcfae.md)
+
+> Advanced [https://github.com/kriscendobot/finbot/pull/1](https://github.com/kriscendobot/finbot/pull/1) to commit 3b74dfe: harness spawn now defaults to the hardened SES role policy, preserves an explicit permissive opt-out, declares its direct SES dependency, and corrects the PR description. Verification: npm test passed; npm run finbot-ooda -- --seed=7 was auditor-approved with WALLET TOUCHED: false. Next unblocked step is review and merge of the PR; after it lands, the remaining design increment is an archive-backed @endo/compartment-mapper loader for locally executed role code. No live-wallet decision is needed.
 
 - `poison-build-daemon-mapstore-gh59-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-daemon-mapstore-gh59-deadline-overrun.md)
 
