@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T02:37:56Z_
+_As of 2026-07-21T02:41:21Z_
 
 ## Latest
 
@@ -3330,24 +3330,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.3M | $843.24 _(notional, rate-card)_ | no quota set |
-| Codex | 333.3M _(+574.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 75.4M | $843.51 _(notional, rate-card)_ | no quota set |
+| Codex | 333.4M _(+574.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`arc-status-daily-20260721-023510`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260721-023510.md) — Daily status + change summary for the standing review arcs
+### doin (1)
 - [`xs2rust-endor-press-20260721-022003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-022003.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3062)
+### tada (3063)
+- [`arc-status-daily-20260721-023510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/arc-status-daily-20260721-023510.md) — Daily status posted to all nine arc tracking issues for 2026-07-21 UTC — no i...
 - [`esheets-supervisor-20260721-023510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260721-023510.md) — Completion report — esheets-supervisor-20260721-023510
 - [`minion-town-agenda-review-20260721-022003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-022003.md) — Reported on https://github.com/kriskowal/garden/issues/58#issuecomment-502949...
 - [`kriscendobot-agoric-sdk-pr10-review-498316a6-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-498316a6-retro.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr10-review-e3ccce0c-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-e3ccce0c-retro.md) — Completion report
-- [`kriscendobot-agoric-sdk-pr10-review-9acf0d53-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-9acf0d53-retro.md) — Recorded a not-a-miss dismissal: PR #10 was a draft design PR with no gauntle...
-- … and 3057 more
+- … and 3058 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
