@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T01:03:45Z_
+_As of 2026-07-21T01:05:40Z_
 
 ## Latest
 
@@ -3285,7 +3285,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.0M | $838.02 _(notional, rate-card)_ | no quota set |
+| Claude | 75.0M | $838.26 _(notional, rate-card)_ | no quota set |
 | Codex | 320.9M _(+573.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
@@ -3293,15 +3293,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 (none)
 
 ### doin (1)
-- [`endojs-endo-but-for-bots-pr801-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr801-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #801
+- [`endojs-endo-but-for-bots-pr802-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr802-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #802
 
-### tada (3051)
+### tada (3052)
+- [`endojs-endo-but-for-bots-pr801-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr801-conduct.md) — Completion report
 - [`endojs-endo-but-for-bots-pr799-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr799-conduct.md) — Completion report
 - [`minion-town-agenda-review-20260721-002001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-002001.md) — Report
 - [`deadmail-issue-comment-5028561668`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5028561668.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr10-review-498316a6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-498316a6.md) — Completion report
-- [`encode-ci-parity-policy`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/encode-ci-parity-policy.md) — Completion report — encode-ci-parity-policy
-- … and 3046 more
+- … and 3047 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
