@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T11:00:20Z_
+_As of 2026-07-21T11:05:44Z_
 
 ## Latest
 
@@ -4043,15 +4043,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 77.1M | $874.36 _(notional, rate-card)_ | no quota set |
+| Claude | 77.3M | $876.60 _(notional, rate-card)_ | no quota set |
 | Codex | 415.1M _(+571.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
 - [`build-hardened-url-vetted-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-hardened-url-vetted-shim.md) — ---
+- [`minion-town-agenda-review-20260721-110503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260721-110503.md) — Minion Town hourly agenda review
+- [`xs2rust-endor-press-20260721-110503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-110503.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3120)
 - [`build-hardened-text-encoder-decoder-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-hardened-text-encoder-decoder-shim.md) — Existing PR #259 already implements the requested shim on feat/hardened-text-...
