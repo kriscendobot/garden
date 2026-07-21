@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-21T21:51:26Z_
+_As of 2026-07-21T21:55:11Z_
 
 ## Latest
 
-[finbot#2](https://github.com/kriscendobot/finbot/pull/2) merged (green, mergeable): the `significanceAlpha` question is now evaluable from the CLI without flipping any default — `finbot-eval --significance-alpha=A` engages the Diebold-Mariano QLIKE gate on the auto-* rows, and early evidence shows the gate is a no-op at α=0.05 but several presets flip to "significantly better" by α=0.20, so the maintainer can sweep α against the fixtures before committing. A maintainer-inbox omnibus consolidated **199 unread entries into ~30 open decisions across 13 topics** (every original acknowledged, nothing deleted) — the highest-leverage stalls it surfaces are the 11-days-dammed esheets/endoclaw-OAuth review ([#621](https://github.com/endojs/endo-but-for-bots/pull/621)), the SturdyRef lanes held on arbitration since 2026-07-15, and merge-gated M2/M3 shims ([#259](https://github.com/endojs/endo-but-for-bots/pull/259), [#705](https://github.com/endojs/endo-but-for-bots/pull/705), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), [#694](https://github.com/endojs/endo-but-for-bots/pull/694)). The `xs2rust-endor-press` continues to **deterministically overrun its 2400s handler budget every cycle** — three more poison-parks today (165010, 180501, 202001), each preserved in `jobs/plan/` at `gate: go-ahead`; the fix is to split it into claim-sized stages or hand PR [#600](https://github.com/endojs/endo-but-for-bots/pull/600) to a dedicated builder rather than the hourly press. A shepherd on URL-shim [#719](https://github.com/endojs/endo-but-for-bots/pull/719) reports it reached partial green with its own 21 URL tests passing — the remaining red is pre-existing master debt (jsdoc, text-codec permits, stale action pins), recommended for a separate master-greening pass. The gauntlet on [#818](https://github.com/endojs/endo-but-for-bots/pull/818) is in flight.
+The job board barely moved this cycle — the only transitions were a review directive claimed on [endojs/endo-but-for-bots#809](https://github.com/endojs/endo-but-for-bots/pull/809) and its retrospective parked; a [#818](https://github.com/endojs/endo-but-for-bots/pull/818) gauntlet is also in flight. The louder signal is operational: the hourly `xs2rust-endor` press for [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) deterministically overran its 2400s handler budget three times in a row and was poisoned each time — it can't fit in one claim-scoped handler and wants either splitting into claim-sized stages or a dedicated builder rather than the press. On the product side, [kriscendobot/finbot#2](https://github.com/kriscendobot/finbot/pull/2) merged, making `significanceAlpha` evaluable from the CLI (`finbot-eval --significance-alpha`) without shifting any default. A shepherd took [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL shim) to partial green and traced the remaining failures to a broadly-red master — jsdoc warnings, TextEncoder/TextDecoder permit/test regressions from `536f82d18`, and stale `setup-node` action pins — recommending a dedicated master-greening pass rather than smuggling those fixes into a feature PR.
+
+Most of what wants maintainer attention is consolidated in a new inbox omnibus that folded 199 unread entries into ~30 open items across 13 topics; it confirms several merges landed since posting ([#585](https://github.com/endojs/endo-but-for-bots/pull/585), [#661](https://github.com/endojs/endo-but-for-bots/pull/661), and the CAS-registry stack [#802](https://github.com/endojs/endo-but-for-bots/pull/802)/[#805](https://github.com/endojs/endo-but-for-bots/pull/805)/[#812](https://github.com/endojs/endo-but-for-bots/pull/812)), and reiterates that the esheets/endoclaw-OAuth tree is 11 days dammed behind the [#621](https://github.com/endojs/endo-but-for-bots/pull/621) review and the M2/M3 shims ([#259](https://github.com/endojs/endo-but-for-bots/pull/259), [#705](https://github.com/endojs/endo-but-for-bots/pull/705), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), [#694](https://github.com/endojs/endo-but-for-bots/pull/694)) are green and merge-gated. It also flags real cleanup: two jobs corrupted the deployed roots on both hosts (now guarded on `main2`), and deploys have been stalled since 07-17.
 
 ## Parked for maintainer feedback
 
@@ -577,14 +579,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 85.5M | $959.65 _(notional, rate-card)_ | no quota set |
+| Claude | 85.7M | $961.13 _(notional, rate-card)_ | no quota set |
 | Codex | 487.3M _(+521.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr809-review-da1fca9d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr809-review-da1fca9d.md) — Review directive on endojs/endo-but-for-bots PR #809
 - [`endojs-endo-but-for-bots-pr818-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr818-gauntlet.md) — Run the gauntlet on endojs/endo-but-for-bots#818
 - [`xs2rust-endor-press-20260721-212001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-212001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
@@ -653,7 +656,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage10p-fresh-env-sweep.md) — _normal_ · Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-(none)
+- [`endojs-endo-but-for-bots-pr809-review-da1fca9d-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-da1fca9d-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
