@@ -1,7 +1,3 @@
-cadence: 6h
-last_dispatched: 2026-07-21T03:05:07Z
-job_basename_prefix: ocapn-noise-press
----
 ---
 model: fable
 ---
