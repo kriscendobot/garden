@@ -18,3 +18,10 @@ kriskowal's repo. Idempotency-check each example file's per-file commit sha per
 Reason for ingest: maintainer @kriskowal (2026-07-21) is evaluating kni as a
 substrate for mutually-reinforcing automatic and agentic loops; the worked
 examples are the concrete evidence the prose docs describe.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  worker_kind: cleric
+  claimed_at: 2026-07-21T05:05:28Z
