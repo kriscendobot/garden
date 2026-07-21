@@ -11,3 +11,10 @@ The branch is `feat/endor-cjs-require-linkage`; tests are green locally
 (147 endo + 120 xsnap) and real-execution evidence is in the PR body.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 10
+  worker_kind: gardener
+  claimed_at: 2026-07-21T22:23:08Z
