@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T04:17:30Z_
+_As of 2026-07-21T04:22:52Z_
 
 ## Latest
 
@@ -3503,15 +3503,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.8M | $850.57 _(notional, rate-card)_ | no quota set |
+| Claude | 75.9M | $851.89 _(notional, rate-card)_ | no quota set |
 | Codex | 343.6M _(+572.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`gauntlet-endo-but-for-bots-pr705-agent-tools-git-remote-push-tier`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr705-agent-tools-git-remote-push-tier.md) — ---
 
 ### tada (3083)
 - [`kriscendobot-agoric-sdk-pr10-review-18cff77a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-18cff77a-retro.md) — Job complete. Summary of what I did:
