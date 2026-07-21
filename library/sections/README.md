@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6605 (530 parent indexes + 6075 children).
+Total section files: 6618 (530 parent indexes + 6088 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8801,6 +8801,37 @@ Total section files: 6605 (530 parent indexes + 6075 children).
 - [system--readme--history](system--readme--history.md)
 - [system--readme--overview](system--readme--overview.md)
 - [system--readme--usage-and-bootstrapping](system--readme--usage-and-bootstrapping.md)
+
+### tc39-module-harmony--compartments-module-and-source
+
+- [tc39-module-harmony--compartments-module-and-source--intersection-semantics-and-262-factoring](tc39-module-harmony--compartments-module-and-source--intersection-semantics-and-262-factoring.md)
+- [tc39-module-harmony--compartments-module-and-source--modulesource-and-module-instance-model](tc39-module-harmony--compartments-module-and-source--modulesource-and-module-instance-model.md)
+- [tc39-module-harmony--compartments-module-and-source--virtual-import-hooks-and-referrer](tc39-module-harmony--compartments-module-and-source--virtual-import-hooks-and-referrer.md)
+
+### tc39-module-harmony--compartments-overview
+
+- [tc39-module-harmony--compartments-overview--five-layer-compartment-structure](tc39-module-harmony--compartments-overview--five-layer-compartment-structure.md)
+
+### tc39-module-harmony--import-defer
+
+- [tc39-module-harmony--import-defer--import-defer-semantics-and-namespace-exotic](tc39-module-harmony--import-defer--import-defer-semantics-and-namespace-exotic.md)
+- [tc39-module-harmony--import-defer--motivation-deferring-module-evaluation](tc39-module-harmony--import-defer--motivation-deferring-module-evaluation.md)
+- [tc39-module-harmony--import-defer--phases-model-modifiers-vs-attributes](tc39-module-harmony--import-defer--phases-model-modifiers-vs-attributes.md)
+
+### tc39-module-harmony--module-declarations
+
+- [tc39-module-harmony--module-declarations--named-inline-modules-for-bundling](tc39-module-harmony--module-declarations--named-inline-modules-for-bundling.md)
+
+### tc39-module-harmony--module-expressions
+
+- [tc39-module-harmony--module-expressions--module-expression-syntax-and-semantics](tc39-module-harmony--module-expressions--module-expression-syntax-and-semantics.md)
+- [tc39-module-harmony--module-expressions--relationship-to-module-class-and-bundling](tc39-module-harmony--module-expressions--relationship-to-module-class-and-bundling.md)
+
+### tc39-module-harmony--source-phase-imports
+
+- [tc39-module-harmony--source-phase-imports--abstract-module-source-and-module-source-objects](tc39-module-harmony--source-phase-imports--abstract-module-source-and-module-source-objects.md)
+- [tc39-module-harmony--source-phase-imports--cache-key-and-relationship-to-other-proposals](tc39-module-harmony--source-phase-imports--cache-key-and-relationship-to-other-proposals.md)
+- [tc39-module-harmony--source-phase-imports--overview-motivation-and-source-phase](tc39-module-harmony--source-phase-imports--overview-motivation-and-source-phase.md)
 
 ### typescript-website--packages-documentation-copy-en-declaration-files-publishing
 
