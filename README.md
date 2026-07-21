@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-21T18:55:51Z_
+_As of 2026-07-21T18:57:54Z_
 
 ## Latest
 
-The board is quiet — one dead-lettered message picked up, no new posts or completions — but a gardener consolidated the **199-entry maintainer inbox into ~30 open items across 13 topics**, which is the thing to read: it surfaces long-stalled merge and review gates, chief among them the 11-day dam on the Google Sheets / endoclaw-OAuth tree behind a single stale `CHANGES_REQUESTED` on [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621), the SturdyRef lanes held on your arbitration ([endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737) vs [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774)), and merge-gated M2/M3 shims ([endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259), [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705), [endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/pull/707), [endojs/endo-but-for-bots#694](https://github.com/endojs/endo-but-for-bots/pull/694)).
+The maintainer inbox was consolidated: a [199-entry backlog folded into ~30 open items across 13 topics](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T171232Z-297e3f.md), every original acknowledged. The recurring theme is merge-and-arbitration gating — nothing is stuck on the fleet, everything on your call. Longest-stalled is the Google Sheets / endoclaw-OAuth tree, dammed 11 days behind a single stale `CHANGES_REQUESTED` on [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621); the SturdyRef lanes are all held on your arbitration (shim placement [#737](https://github.com/endojs/endo-but-for-bots/pull/737) vs [#774](https://github.com/endojs/endo-but-for-bots/pull/774), rank-prefix pick, stack-collapse); and the M2/M3 milestones sit green-and-gated on merge authority ([#259](https://github.com/endojs/endo-but-for-bots/pull/259) text-codecs, [#705](https://github.com/endojs/endo-but-for-bots/pull/705)/[#707](https://github.com/endojs/endo-but-for-bots/pull/707) git-remote, [#694](https://github.com/endojs/endo-but-for-bots/pull/694) Docker self-host).
 
-The xs2rust-endor press ([endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) again **deterministically overran its 2400s handler budget and was poisoned/parked** — the recurring signal that this port needs a dedicated iterative builder, not the hourly press, plus physical cleanup of the deployed-root corruption it left on `endolin-garden2` and `endolin-garden`. A shepherd on the URL shim [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) got its own 21 URL tests green and traced the remaining red to **pre-existing master debt** (jsdoc lint, TextEncoder/TextDecoder permit failures from `536f82d18`, stale action pins), recommending a dedicated master-greening pass. Meanwhile the test262-Compartments fixture consolidation is stalled pending a normative spec decision, and the weekly Qwen watch found no harnessable upgrade.
+A shepherd on [#719](https://github.com/endojs/endo-but-for-bots/pull/719) drove its own 21 URL tests green but found the fork's `master` is **broadly red** — jsdoc lint, three TextEncoder/TextDecoder permit-test failures from `master` commit `536f82d18`, and stale zizmor action pins — none of it in #719's diff; the recommendation is a dedicated master-greening pass rather than smuggling fixes into the URL PR.
+
+The xs2rust-endor press ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) again **deterministically overran** its 2400s handler budget and was poisoned/parked; the ask is to hand it to a dedicated builder or split it into claim-sized stages rather than keep the hourly press churning. Two board self-healed corruptions of the deployed roots (a native-git fixture leak and an xs2rust press that rewrote `remote.origin.url`) are guarded on `main2` but still want a physical drain-and-clean on both `endolin` hosts. This week's Qwen watch found [no harnessable upgrade](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T180659Z-e816a8.md) — stay on qwen3.6.
 
 ## Parked for maintainer feedback
 
@@ -291,27 +293,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 82.4M | $935.67 _(notional, rate-card)_ | no quota set |
-| Codex | 448.8M _(+526.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 82.4M | $936.19 _(notional, rate-card)_ | no quota set |
+| Codex | 448.8M _(+525.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`consolidate-test262-compartments-fixtures`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/consolidate-test262-compartments-fixtures.md) — Consolidate Compartments test262 fixtures from hardened262, XS, and endor (re...
-- [`deadmail-issue-comment-5037846912`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5037846912.md) — Dead-lettered message — pick up its intent
 - [`improve-xs2rust-press-preflight-overrun-circuit-breaker`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-xs2rust-press-preflight-overrun-circuit-breaker.md) — scripts/jobs/gardening/xs2rust-endor-press-preflight.sh
 - [`scholar-research-module-harmony-compartment-layer4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-research-module-harmony-compartment-layer4.md) — Scholar: ingest Compartments layer 4 (4-compartment.md) + module-harmony neig...
 - [`xs2rust-endor-press-20260721-180501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-180501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3167)
+### tada (3168)
+- [`deadmail-issue-comment-5037846912`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5037846912.md) — Completion report
 - [`scholar-research-module-harmony-compartments-layers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-research-module-harmony-compartments-layers.md) — Completion report
 - [`deadmail-20260721T183747Z-f78465`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260721T183747Z-f78465.md) — Relayed bootstrap results to consolidate-test262-compartments-fixtures: chart...
 - [`deadmail-20260721T183442Z-f3d9a0`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260721T183442Z-f3d9a0.md) — Confirmed the project README already records the canonical tracker: https://g...
 - [`deadmail-issue-comment-5037645850`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5037645850.md) — Forwarding was already completed on issue #61 in comment 5037672535. The spec...
-- [`scholar-research-module-harmony-intersection`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-research-module-harmony-intersection.md) — All steps complete. The job's content is fully landed on origin/journal2 and ...
-- … and 3162 more
+- … and 3163 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
