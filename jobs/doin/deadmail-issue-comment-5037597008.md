@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/36#issuecomment-5037597008
 Please schedule a refresh to be available next Wednesday. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: cleric
+  claimed_at: 2026-07-21T18:30:12Z
