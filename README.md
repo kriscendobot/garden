@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-21T21:43:57Z_
+_As of 2026-07-21T21:45:51Z_
 
 ## Latest
 
-The hourly [xs2rust-endor #600](https://github.com/endojs/endo-but-for-bots/pull/600) press keeps failing the same way: three consecutive dispatches today (16:50, 18:05, 20:20) each hit the 2400s handler wall (rc=124) and were poison-parked to `jobs/plan/` after one overrun cycle, and a fourth is already in flight. The root cause is structural, not transient — the engine-port work doesn't fit a single claim-scoped handler and needs a dedicated builder or a split into claim-sized stages rather than the recurring press; every requeue will die identically. A separate shepherd on the [URL shim #719](https://github.com/endojs/endo-but-for-bots/pull/719) reports partial green and, importantly, that the remaining RED is pre-existing master debt (jsdoc warnings, TextEncoder/TextDecoder permit changes from `536f82d18`, stale zizmor action pins) not in #719's own diff — it recommends a dedicated master-greening pass before that PR can go green. Separately, a consolidation gardener folded 199 unread maintainer-inbox entries into ~30 open items across 13 topics (all originals acknowledged, none deleted), surfacing the long-stalled review asks — notably the 11-days-dammed endoclaw-OAuth tree behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621), the merge-gated M2/M3 shims, and the SturdyRef lanes held on arbitration. The weekly Qwen watch found no new harnessable coding-agent model.
+A gardener consolidated the maintainer inbox — [199 unread entries folded into ~30 open items across 13 topics](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T171232Z-297e3f.md), each original acknowledged. The upshot is that most of the fleet is now review-gated, not blocked on code: several merge-ready shims and stacks sit waiting on your call — text codecs [endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259), M3's [endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705)/[#707](https://github.com/endojs/endo-but-for-bots/pull/707)/[#694](https://github.com/endojs/endo-but-for-bots/pull/694), the 11-day-stalled esheets/OAuth review at [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621), and the SturdyRef lanes ([endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737) vs [#774](https://github.com/endojs/endo-but-for-bots/pull/774)) — while the CAS-registry stack (#802/#805/#812), content-store #585, and confined-HTTP #661 have all merged.
+
+A shepherd took [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL shim) to partial green and pinned the residual failures on a **broadly-red master** — jsdoc lint debt, a text-codec permit regression from direct-to-master push `536f82d18`, and stale zizmor action pins — recommending a dedicated master-greening pass rather than smuggling those fixes into a feature PR. On the board, the gauntlet on [endo-but-for-bots#818](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr818-gauntlet.md) is in flight and an npm CAS-registry press completed cleanly.
+
+Two operational flags worth your eye: the hourly **xs2rust-endor press ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) deterministically overran its 2400s budget three more times today** and was poisoned each cycle — it needs a dedicated iterative builder split into claim-sized stages, not the timeboxed press. And the **deployed-root cleanup on `endolin-garden2`/`endolin-garden` is still pending a human** after two jobs leaked into the deployed git (the durable guard landed on `main2`, but the physical sweep and a confirmed deliberate deploy remain outstanding since 07-17).
 
 ## Parked for maintainer feedback
 
@@ -544,25 +548,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 85.3M | $959.81 _(notional, rate-card)_ | no quota set |
-| Codex | 487.0M _(+522.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 85.5M | $961.74 _(notional, rate-card)_ | no quota set |
+| Codex | 487.1M _(+521.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (3)
-- [`endo-npm-cas-registry-press-20260721-213504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260721-213504.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+- [`endojs-endo-but-for-bots-pr818-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr818-gauntlet.md) — Run the gauntlet on endojs/endo-but-for-bots#818
 - [`finbot-progress-20260721-213504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260721-213504.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`xs2rust-endor-press-20260721-212001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-212001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3185)
+### tada (3186)
+- [`endo-npm-cas-registry-press-20260721-213504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260721-213504.md) — Completion report — endo-npm-cas-registry-press-20260721-213504
 - [`ocapn-noise-press-20260721-213504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260721-213504.md) — OCapN-over-Noise press, dispatch 14 (2026-07-21 ~21:40Z) — steady state confi...
 - [`endo-vfs-parity-press-20260721-213504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260721-213504.md) — Verify-and-stand-down tick — all press surface remains review-blocked and hea...
 - [`endo-sturdyref-press-20260721-213504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260721-213504.md) — SturdyRef press — 21:35 dispatch: hold + observation (no movement; nudge cade...
 - [`endo-git-integration-press-20260721-213504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260721-213504.md) — All gates re-verified — the stack is fully green and every next motion remain...
-- [`endo-daemon-data-plane-press-20260721-213504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260721-213504.md) — Completion report — endo-daemon-data-plane-press-20260721-213504
-- … and 3180 more
+- … and 3181 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
