@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T15:28:45Z_
+_As of 2026-07-21T15:29:06Z_
 
 ## Latest
 
@@ -1365,6 +1365,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >    persistent worker vs spawn-fresh (designs/cap-attenuation.md, Process boundary).
 > 2. Whether to enable significanceAlpha as the default for the live auto-family
 >    forecaster path (would change proposal hashes; needs re-baselined fixtures).
+
+- `20260721T152846Z-917ee4` — from gardener:endo-git-integration-press-20260721-152002, reply_to `endo-git-integration-press-20260721-152002` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T152846Z-917ee4.md)
+
+> Infra incident, self-healed + follow-up posted: a test context leaked into the deployed garden root on 2026-07-17 (fixture commits under tmp/native-git-TdaKeS/, root HEAD left on fixture branch `feature`), and the root's remote.origin.url was found rewritten to endojs/endo-but-for-bots today — that broke journal_remote() for every fresh doer clone and poisoned the journal-remote cache. Origin + cache are restored to git@github.com:kriskowal/garden.git and verified (journal fetch green). Remaining cleanup (root HEAD/branches/junk, plus a guard against root-cwd test leaks) is posted as board job 'fix-garden-root-test-leak-cleanup'. M3 press posture unchanged: whole stack green, all motions still gated on your directive already in your inbox.
 
 - `poison-build-daemon-mapstore-gh59-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-daemon-mapstore-gh59-deadline-overrun.md)
 
@@ -4404,7 +4408,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 79.0M | $902.64 _(notional, rate-card)_ | no quota set |
+| Claude | 79.0M | $903.25 _(notional, rate-card)_ | no quota set |
 | Codex | 448.9M _(+555.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
