@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T02:23:18Z_
+_As of 2026-07-21T02:23:54Z_
 
 ## Latest
 
@@ -3307,7 +3307,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 75.2M | $842.36 _(notional, rate-card)_ | no quota set |
-| Codex | 330.9M _(+574.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 331.1M _(+574.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
@@ -3317,7 +3317,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260721-022003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-022003.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3061)
-- [`minion-town-agenda-review-20260721-022003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-022003.md) — Hourly agenda review, 2026-07-21 02:22 UTC.
+- [`minion-town-agenda-review-20260721-022003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-022003.md) — Reported on https://github.com/kriskowal/garden/issues/58#issuecomment-502949...
 - [`kriscendobot-agoric-sdk-pr10-review-498316a6-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-498316a6-retro.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr10-review-e3ccce0c-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-e3ccce0c-retro.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr10-review-9acf0d53-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-9acf0d53-retro.md) — Recorded a not-a-miss dismissal: PR #10 was a draft design PR with no gauntle...
