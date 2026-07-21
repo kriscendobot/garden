@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T15:42:21Z_
+_As of 2026-07-21T15:44:31Z_
 
 ## Latest
 
@@ -4491,29 +4491,28 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 78.9M | $899.99 _(notional, rate-card)_ | no quota set |
-| Codex | 449.9M _(+557.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
+| Claude | 78.8M | $899.17 _(notional, rate-card)_ | no quota set |
+| Codex | 450.1M _(+558.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (6)
 - [`conduct-ebfb-805-tla`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/conduct-ebfb-805-tla.md) — Conduct endojs/endo-but-for-bots #805 (top-level await) onto llm
-- [`design-evaluation-epochs-panel-calibration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-evaluation-epochs-panel-calibration.md) — designer — spec an "evaluation epochs and panel calibration" pilot for PR review
 - [`endo-npm-cas-registry-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260721-152002.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr805-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr805-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #805
 - [`harden-garden-root-repo-against-job-escapes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/harden-garden-root-repo-against-job-escapes.md) — Harden the deployed garden root repo against job git-escapes (incident 2026-0...
 - [`kriscendobot-minion.town-pr12-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr12-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #12
 - [`xs2rust-endor-press-20260721-153512`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-153512.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3140)
+### tada (3141)
+- [`design-evaluation-epochs-panel-calibration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-evaluation-epochs-panel-calibration.md) — Completion report
 - [`fix-garden-root-test-leak-cleanup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-garden-root-test-leak-cleanup.md) — Completion report — fix-garden-root-test-leak-cleanup
 - [`minion-town-agenda-review-20260721-153512`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-153512.md) — Reviewed agenda, journal, repository, PRs, and deployed edge; posted report: ...
 - [`scholar-arxiv-2606-26294`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-arxiv-2606-26294.md) — Read arXiv 2606.26294 abstract and PDF; sent the requested faithful summary, ...
 - [`endo-daemon-data-plane-press-20260721-152002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-daemon-data-plane-press-20260721-152002.md) — Completion report — endo-daemon-data-plane-press-20260721-152002
-- [`finbot-harness-ses-attenuator-0e2ac80-review`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-harness-ses-attenuator-0e2ac80-review.md) — Completion report — security review of finbot harness SES compartment attenua...
-- … and 3135 more
+- … and 3136 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
