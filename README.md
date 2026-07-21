@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T16:16:07Z_
+_As of 2026-07-21T16:31:02Z_
 
 ## Latest
 
@@ -1456,6 +1456,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260721T161555Z-0e2b6d` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T161555Z-0e2b6d.md)
 
 > Milestone M2 (Project Hygiene) has only two designs left — `hardened-text-codecs-shim` and `hardened-url-shim` — and both are already built and mergeable ([endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/issues/259) and #719: OPEN, un-drafted, MERGEABLE/CLEAN, all CI green). M2 is blocked purely on your merge/ferry authority plus two reconciliation calls the builders surfaced: (a) revert the errant direct-to-`master` push `536f82d18` before merging #259, and (b) clean #719's 3 unrelated commits (`fix(cbor)` + `fix(ci)`) — retcon in place or promote the builder's ready ses-only rebuild.
+
+- `20260721T163047Z-ac8e82` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T163047Z-ac8e82.md)
+
+> M2 (Project Hygiene), the current in-progress milestone, has no unblocked work remaining: its last two steps are both green PRs in endojs/endo-but-for-bots awaiting a maintainer merge decision — #259 (hardened TextEncoder/TextDecoder shim; OPEN, mergeable, CI green, but note an errant direct `536f82d18` push to the fork's master a builder recommends reverting) and #719 (hardened URL shim; un-drafted, CI green, but carrying 3 unrelated commits — decide: rebase #719 to ses-only, or promote a clean ses-only rebuild). Merging M2 to completion (and unblocking M3) needs these two decisions.
 
 - `poison-build-daemon-mapstore-gh59-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-daemon-mapstore-gh59-deadline-overrun.md)
 
@@ -4495,8 +4499,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 78.9M | $901.68 _(notional, rate-card)_ | no quota set |
-| Codex | 454.1M _(+556.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 79.1M | $904.78 _(notional, rate-card)_ | no quota set |
+| Codex | 454.0M _(+547.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
