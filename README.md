@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T01:15:14Z_
+_As of 2026-07-21T01:15:45Z_
 
 ## Latest
 
@@ -3313,17 +3313,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr802-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr802-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #802
+### doin (1)
 - [`endojs-endo-but-for-bots-pr802-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr802-shepherd.md) — Shepherd endojs/endo-but-for-bots PR #802
 
-### tada (3053)
+### tada (3054)
+- [`endojs-endo-but-for-bots-pr802-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr802-conduct.md) — Re-verified PR #802: OPEN and MERGEABLE, but CI regressed (zizmor failed; che...
 - [`endojs-endo-but-for-bots-pr803-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr803-conduct.md) — Merged PR #803 after rechecking OPEN, non-draft, MERGEABLE/CLEAN, APPROVED, a...
 - [`endojs-endo-but-for-bots-pr801-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr801-conduct.md) — Completion report
 - [`endojs-endo-but-for-bots-pr799-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr799-conduct.md) — Completion report
 - [`minion-town-agenda-review-20260721-002001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-002001.md) — Report
-- [`deadmail-issue-comment-5028561668`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5028561668.md) — Completion report
-- … and 3048 more
+- … and 3049 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
