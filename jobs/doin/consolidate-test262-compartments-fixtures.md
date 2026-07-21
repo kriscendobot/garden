@@ -34,6 +34,7 @@ Do:
 Report: the fixture counts per source, the reconciliation report path, the staged commit, and the list
 of unresolved divergences. Real-execution evidence only.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
