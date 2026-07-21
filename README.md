@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T09:54:39Z_
+_As of 2026-07-21T09:57:24Z_
 
 ## Latest
 
@@ -3919,16 +3919,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr809-review-2f33af27-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr809-review-2f33af27-retro.md) — Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
+### doin (0)
+(none)
 
-### tada (3117)
+### tada (3118)
+- [`endojs-endo-but-for-bots-pr809-review-2f33af27-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr809-review-2f33af27-retro.md) — Completion report
 - [`endo-npm-cas-registry-press-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260721-092001.md) — Completion report — npm-via-CAS registry press tick 2026-07-21 09:20
 - [`finbot-progress-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260721-092001.md) — Advanced PR https://github.com/kriscendobot/finbot/pull/1 to 3b74dfe.
 - [`xs2rust-endor-press-20260721-085004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-085004.md) — Assessment
 - [`endo-git-integration-press-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260721-092001.md) — Press report — git-integration / M3 loop (endojs/endo-but-for-bots), dispatch...
-- [`endo-vfs-parity-press-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260721-092001.md) — **VFS-parity press tick (2026-07-21 09:20 dispatch) — verify-and-stand-down; ...
-- … and 3112 more
+- … and 3113 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
