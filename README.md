@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T02:49:35Z_
+_As of 2026-07-21T02:52:07Z_
 
 ## Latest
 
@@ -3337,18 +3337,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`design-endo-but-for-bots-mount-denied-segments-cli`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-but-for-bots-mount-denied-segments-cli.md) — design: Mount CLI plumbing for the deniedSegments creation option
-- [`endojs-endo-but-for-bots-pr793-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr793-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #793
 - [`xs2rust-endor-press-20260721-022003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-022003.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3064)
+### tada (3065)
+- [`endojs-endo-but-for-bots-pr793-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr793-conduct.md) — Merged endojs/endo-but-for-bots PR #793 into llm.
 - [`endojs-endo-but-for-bots-pr651-7e0513a0`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr651-7e0513a0.md) — Completion report
 - [`arc-status-daily-20260721-023510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/arc-status-daily-20260721-023510.md) — Daily status posted to all nine arc tracking issues for 2026-07-21 UTC — no i...
 - [`esheets-supervisor-20260721-023510`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260721-023510.md) — Completion report — esheets-supervisor-20260721-023510
 - [`minion-town-agenda-review-20260721-022003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-022003.md) — Reported on https://github.com/kriskowal/garden/issues/58#issuecomment-502949...
-- [`kriscendobot-agoric-sdk-pr10-review-498316a6-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-498316a6-retro.md) — Completion report
-- … and 3059 more
+- … and 3060 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
