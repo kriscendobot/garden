@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T09:45:26Z_
+_As of 2026-07-21T09:45:59Z_
 
 ## Latest
 
@@ -3912,23 +3912,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 76.9M | $869.76 _(notional, rate-card)_ | no quota set |
+| Claude | 76.9M | $870.09 _(notional, rate-card)_ | no quota set |
 | Codex | 406.7M _(+572.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endo-npm-cas-registry-press-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260721-092001.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+### doin (0)
+(none)
 
-### tada (3116)
+### tada (3117)
+- [`endo-npm-cas-registry-press-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260721-092001.md) — Completion report — npm-via-CAS registry press tick 2026-07-21 09:20
 - [`finbot-progress-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260721-092001.md) — Advanced PR https://github.com/kriscendobot/finbot/pull/1 to 3b74dfe.
 - [`xs2rust-endor-press-20260721-085004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-085004.md) — Assessment
 - [`endo-git-integration-press-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260721-092001.md) — Press report — git-integration / M3 loop (endojs/endo-but-for-bots), dispatch...
 - [`endo-vfs-parity-press-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260721-092001.md) — **VFS-parity press tick (2026-07-21 09:20 dispatch) — verify-and-stand-down; ...
-- [`ocapn-noise-press-20260721-092001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260721-092001.md) — All checks are done and the picture is clear — steady state again. No re-run ...
-- … and 3111 more
+- … and 3112 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
