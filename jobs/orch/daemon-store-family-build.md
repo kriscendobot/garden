@@ -2,7 +2,7 @@
 order: serial
 children: daemon-store-phase1-mapstore daemon-store-phase2-setstore daemon-store-phase3-weak-ertp daemon-store-phase4-sorted daemon-store-phase5-parity daemon-store-phase6-cli-wui
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-07-21T23:24:56Z
 ---
