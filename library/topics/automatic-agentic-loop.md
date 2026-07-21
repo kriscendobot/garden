@@ -19,6 +19,7 @@
 | [runtime-engine](../sections/kni--hackni--runtime-engine.md) | kni HACKNI | Pluggable storage and a seeded PRNG make the walk reproducible — the same script, seed, and answers reproduce the same trace. |
 | [runtime-hooks](../sections/kni--hackni--runtime-hooks.md) | kni HACKNI | The handler `has`/`get`/`set`, `waypoint`/`resume`, and `ask`/`answer` hooks — the concrete seam where the deterministic graph hands off to and receives back from external/agentic behavior. |
 | [kni-beyond-ink-and-limitations](../sections/kni--inkkni--kni-beyond-ink-and-limitations.md) | kni INKKNI | The capability boundary (no types beyond 32-bit ints, no label-values, no user functions, `<hook>` escape) — the "gaps" half of the fit assessment. |
+|[read bot interview](../sections/kni--examples-read--overview.md) | kni examples/read.kni | A literal deterministic intake: free-text capture plus a bounded choice, rendered as a bot profile.
 
 ## See also
 
