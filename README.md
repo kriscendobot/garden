@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T04:44:48Z_
+_As of 2026-07-21T04:47:55Z_
 
 ## Latest
 
@@ -13,7 +13,7 @@ The dominant thing for the maintainer to notice is a stack of decision gates blo
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 17h)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 18h)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 1d)
 - [endojs/endo#3326](https://github.com/endojs/endo/pull/3326) — chore(ci): remove check-action-pins job (waiting 3d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 3d)
@@ -3503,26 +3503,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.9M | $852.80 _(notional, rate-card)_ | no quota set |
-| Codex | 343.7M _(+572.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 76.0M | $854.64 _(notional, rate-card)_ | no quota set |
+| Codex | 344.3M _(+573.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
-- [`design-endo-daemon-store-family-pr809`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-daemon-store-family-pr809.md) — Revise design PR #809 — full persistent collection family in the pet daemon
+### doin (3)
 - [`gauntlet-endo-but-for-bots-pr705-agent-tools-git-remote-push-tier`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr705-agent-tools-git-remote-push-tier.md) — ---
 - [`scholar-ingest-kni`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-kni.md) — Ingest github.com/kriskowal/kni into the library — read it as agent-context s...
 - [`xs2rust-endor-press-20260721-043501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-043501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3086)
+### tada (3087)
+- [`design-endo-daemon-store-family-pr809`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-daemon-store-family-pr809.md) — Revised and pushed daemon-persistent-stores at 74755af9b.
 - [`deadmail-issue-comment-5030189831`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5030189831.md) — Completion report
 - [`endojs-endo-but-for-bots-pr809-review-581b1021`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr809-review-581b1021.md) — Completion report
 - [`minion-town-agenda-review-20260721-043501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-043501.md) — The correction is now durably recorded in the issue thread itself (the canoni...
 - [`kriscendobot-agoric-sdk-pr10-review-18cff77a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-18cff77a-retro.md) — Job complete. Summary of what I did:
-- [`xs2rust-endor-press-20260721-032030`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-032030.md) — Finish Line Assessment
-- … and 3081 more
+- … and 3082 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
