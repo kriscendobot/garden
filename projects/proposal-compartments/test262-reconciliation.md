@@ -15,14 +15,23 @@ The inventory was taken on 2026-07-21 from these immutable source commits:
 | XS reference | `Moddable-OpenSource/moddable` `23b4d6b0a65f35209d9118c4c13c6c9b3e68784d` | `tests/xs/built-ins/Compartment/` | 56 |
 | hardened262 overlay | `endojs/endo` `014b6a86ce1b5cee64c63b5abdb51aac7610b9f0` | `packages/test262-runner/test262/test/built-ins/Compartment/` | 42 |
 | endor validation | `endojs/endo-but-for-bots` `970253b9cd8a36e28321cf64af8b607c7f6af38b` | `packages/test262-runner/test262/test/built-ins/Compartment/` | 42 |
+| endor engine corpus | `endojs/endo-but-for-bots` `970253b9cd8a36e28321cf64af8b607c7f6af38b` | `rust/engine/endor-262/cases/built-ins/stage4-compartment/` | 29 |
 
 The hardened262 overlay is identified by its package metadata, which describes
 `@endo/test262-runner` as the "Hardened JavaScript Test262 Runner". Its 42
 fixture blobs are byte-identical to endor's 42 checked-in test262 fixtures at
-the commits above. A tree walk of endor's `rust/` engine test paths found no
-additional Compartment or ModuleSource fixture. The endor count is therefore
-the 42 vendored fixtures used by its validation front, not an inference that a
-separate native test suite exists.
+the commits above. XS has the same 42 paths plus fourteen additional paths. Its
+common-path files are adapted sources rather than byte-identical copies:
+hardened262 adds `features: [Compartment]` frontmatter; its only material parser
+shape difference is that `ModuleSource/bindings/test.js` omits the XS side-effect
+import and matching `importFrom` binding record. The two `Symbol.toStringTag`
+files use equivalent assertion helpers. These variations are all discarded with
+the legacy reflection surface.
+
+The 29 endor engine-corpus files use the `stage4-compartment` directory name but
+are arithmetic, built-in, and string-expression differential tests. None creates
+a `Compartment` or `ModuleSource`; they are not proposal fixtures and are not
+copied.
 
 Every path in the following common inventory has the two paths and commits in
 the table above as provenance. The XS path is the listed path under its fixture
@@ -95,6 +104,16 @@ prototype/importNow/importNowHook-source-parent.js
 prototype/importNow/loadNowHook-source-parent.js
 ```
 
+The following 29 files exist only in the endor engine-corpus root in the table
+above. They are listed individually for provenance, despite not being
+Compartments fixtures.
+
+```text
+001.js  002.js  003.js  004.js  005.js  006.js  007.js  008.js  009.js  010.js
+011.js  012.js  013.js  014.js  015.js  016.js  017.js  018.js  019.js  020.js
+021.js  022.js  023.js  024.js  025.js  026.js  027.js  028.js  029.js
+```
+
 The hardened overlay also has `packages/ses/test262/compartment-shim.js` at its
 recorded commit. It is runner support, not a Compartment proposal fixture. It
 imports SES before evaluating a test in `new Compartment()`, so it is not copied
@@ -117,12 +136,17 @@ requirements.
 | `prototype/globalThis/defaults` | Drop | It expects a new global object. The charter requires a first-class path that reuses the surrounding realm's global object. |
 | `prototype/import/*` and `prototype/importNow/*` | Drop | All versions use string specifiers plus `modules`, `loadHook`, `importHook`, or `importNowHook` descriptors. The XS-only fourteen files extend this same abandoned protocol. |
 | `prototype/Symbol.toStringTag*` | Do not stage yet | This is not a legacy descriptor assertion, but the fresh spec has not fixed the exposed object shape or its properties. It can be reconsidered after the constructor surface is written. |
+| endor `stage4-compartment/001.js` through `029.js` | Drop | These do not exercise Compartments or ModuleSource. Their directory name is corpus bookkeeping, not evidence of proposal behavior. |
 
 The source disagreement is consequently real but not a behavior to preserve:
 XS has fourteen extra synchronous and `importHook` variants, while the hardened
-overlay and endor retain only the 42-file subset. The new specification should
-not choose either hook family. It should replace both with the module-harmony
-operation that turns a source-phase key into a compartment-local instance.
+overlay and endor vendored suite retain the 42-file subset. The new specification
+should not choose either hook family. It should replace both with the
+module-harmony operation that turns a source-phase key into a
+compartment-local instance. The XS/hardened `bindings` grammar difference is
+also dropped with source reflection. No unresolved behavioral disagreement
+remains among the legacy fixtures because every disputed behavior belongs to a
+discarded surface.
 
 ## Fresh-suite targets after the operation surface is specified
 
@@ -154,9 +178,11 @@ not copied from the legacy fixtures:
 
 ## Staging result
 
-No legacy fixture was copied to `kriscendobot/test262` because every candidate
-either encodes the abandoned descriptor/hook design, contradicts root-global
-reuse, or depends on an operation that the fresh specification has not defined.
-This is intentional de-legacification, not an unverified claim that the 56 XS
-tests or 42 overlay/endor tests pass the new design. The required test fixture
-commit remains blocked on the five questions above.
+No legacy fixture was copied to `kriscendobot/test262` because all 127 source
+records either encode the abandoned descriptor/hook design, contradict
+root-global reuse, are unrelated endor corpus cases, or depend on an operation
+the fresh specification has not defined. The test262 staging branch has a
+documentation-only checkpoint recording this result. This is intentional
+de-legacification, not a claim that the 56 XS, 42 overlay, 42 endor-vendored, or
+29 endor-corpus records pass the new design. Executable fixtures remain blocked
+on the five questions above.
