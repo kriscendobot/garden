@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-21T22:53:39Z_
+_As of 2026-07-21T22:59:50Z_
 
 ## Latest
 
-A **maintainer-inbox omnibus** ([open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T171232Z-297e3f.md)) folded 199 unread entries into ~30 open items across 13 topics — the single highest-signal thing to read, since it surfaces the decisions still blocking whole trees: the esheets/endoclaw-OAuth stack dammed 11 days behind one review of [#621](https://github.com/endojs/endo-but-for-bots/pull/621), the SturdyRef arbitration ([#737](https://github.com/endojs/endo-but-for-bots/pull/737) vs [#774](https://github.com/endojs/endo-but-for-bots/pull/774)), and the merge-gated M2/M3 shims ([#259](https://github.com/endojs/endo-but-for-bots/pull/259), [#705](https://github.com/endojs/endo-but-for-bots/pull/705)/[#707](https://github.com/endojs/endo-but-for-bots/pull/707), [#694](https://github.com/endojs/endo-but-for-bots/pull/694)). The **xs2rust-endor press** ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) deterministically overran its 2400s handler budget on every cycle and was poisoned/parked three times running (16:50, 18:05, 20:20) — the recurring recommendation is to hand it to a dedicated builder and split it into claim-sized stages rather than keep the hourly press. A shepherd took [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL shim) to partial green, fixing the cbor `@endo/eventual-send` devDependency and prettier/eslint issues while isolating the remaining reds as pre-existing master debt (jsdoc, TextEncoder/Decoder permits, stale action pins). On finbot, [kriscendobot/finbot#2](https://github.com/kriscendobot/finbot/pull/2) merged, making the pending `significanceAlpha` default decision evaluable from the CLI without changing any default. The board itself was quiet — only a clean no-op weekly upstream watch closed.
+A gardener consolidated the maintainer inbox — **199 unread entries folded into ~30 open items across 13 topics**, every original acknowledged — so the standup/press/poison noise is now one digest; the live decisions it surfaces (esheets [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) stalled 11 days on a stale `CHANGES_REQUESTED`, the SturdyRef arbitration, M2/M3 merge-gates, and the minion.town Gate-1 human action) are unchanged and still waiting. The hourly **xs2rust-endor press ([endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) deterministically overran its 2400s handler budget and was poisoned three times today** (the 16:50, 18:05, and 20:20 dispatches all parked to `jobs/plan/` at `gate: go-ahead`); the fix is to split it into claim-sized stages or hand it to a dedicated builder, not the timeboxed press. A shepherd on the URL-shim PR [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) drove it partially green and found the real blocker is a **broadly-RED fork `master`** (jsdoc lint, TextCodec permit/test regressions from `536f82d18`, stale zizmor pins) — not the PR's own diff — and recommends a dedicated master-greening pass. On finbot, [kriscendobot/finbot#2](https://github.com/kriscendobot/finbot/pull/2) merged, making the pending `significanceAlpha`-as-default question evaluable from the CLI without changing any default. The weekly Qwen watch was a no-op (no new harnessable model), and the [endojs/endo-but-for-bots#809](https://github.com/endojs/endo-but-for-bots/pull/809) review retrospective is the one job now in flight.
 
 ## Parked for maintainer feedback
 
@@ -577,15 +577,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 86.4M | $966.46 _(notional, rate-card)_ | no quota set |
-| Codex | 504.9M _(+515.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 86.5M | $967.41 _(notional, rate-card)_ | no quota set |
+| Codex | 504.9M _(+511.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr809-review-da1fca9d-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr809-review-da1fca9d-retro.md) — Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
 
 ### tada (3193)
 - [`xs-upstream-watch-20260721-225002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs-upstream-watch-20260721-225002.md) — No new upstream changes, no job to post, no garden changes. Clean no-op week.
@@ -652,7 +652,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage10p-fresh-env-sweep.md) — _normal_ · Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr809-review-da1fca9d-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-da1fca9d-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
+(none)
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
