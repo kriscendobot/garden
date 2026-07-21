@@ -38,3 +38,10 @@ leaves ZERO orphaned processes** (spawn a child tree, overrun, assert the group 
 gone). Report the commit sha and the before/after process evidence. This is the
 structural backstop; the `xs2rust-endor-press` charter separately now mandates
 per-test `timeout` + self-reaping as defense-in-depth.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 16
+  worker_kind: gardener
+  claimed_at: 2026-07-21T05:01:09Z
