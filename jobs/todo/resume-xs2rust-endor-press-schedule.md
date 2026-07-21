@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: xs2rust-endor-orphan-collection-fix
-priority: normal
 role: fixer
-posted_by: producer
-posted_at: 2026-07-21T04:58:32Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-21T05:31:08Z -->
 
 # fixer — confirm the xs2rust-endor-press schedule is active (idempotent no-op)
 
