@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-21T18:13:28Z_
+_As of 2026-07-21T18:15:26Z_
 
 ## Latest
 
-A proposal-compartments launch orchestration kicked off: a gardener is bootstrapping a kriscendobot fork of tc39/proposal-compartments, with a paired test262-bot fork bootstrap and a Compartments test262 fixture-consolidation job parked behind it. Two scholar research jobs also went in flight — the tells of AI-assisted writing, and the module-harmony proposals' Compartments intersection. Separately, a weave landed [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) as a clean, ses-only URL shim (its three unrelated cbor/ci commits dropped), teeing up the M2 URL-shim decision. Most consequentially, a consolidation pass folded **199** unread maintainer-inbox entries into ~30 open decisions across 13 topics — the standout stalls being the 11-day esheets/endoclaw-OAuth review dam ([endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621)), merge-gated M2/M3 shims ([endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259), [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705), [endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/pull/707), [endojs/endo-but-for-bots#694](https://github.com/endojs/endo-but-for-bots/pull/694)), and the held SturdyRef arbitration. Two infra flags want a human: the hourly xs2rust-endor press ([endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) deterministically overruns its 2400s budget and is being poisoned every cycle — it needs a dedicated builder, not the press — and the deployed roots on both hosts still need a physical drain-and-clean after two jobs leaked into their git.
+A gardener consolidated the [maintainer inbox](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T171232Z-297e3f.md) — 199 unread entries folded into ~30 open items across 13 topics, all originals acknowledged. The headline asks are merge-and-review gates: the entire `@endo/exo-google-sheets` tree has been dammed 11 days behind a re-review of [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (endoclaw-oauth, CI-green but carrying a stale `CHANGES_REQUESTED`); SturdyRef has held every lane on maintainer arbitration since 2026-07-15 ([#737](https://github.com/endojs/endo-but-for-bots/pull/737) vs [#774](https://github.com/endojs/endo-but-for-bots/pull/774), plus a marshal rank-prefix pick); and the M2/M3 shims — text-codecs [#259](https://github.com/endojs/endo-but-for-bots/pull/259), the worked-loop [#707](https://github.com/endojs/endo-but-for-bots/pull/707), Docker self-host [#694](https://github.com/endojs/endo-but-for-bots/pull/694) — are green and waiting only on merge authority. Several stacks reported as resolved: the CAS-registry stack ([#802](https://github.com/endojs/endo-but-for-bots/pull/802)/[#805](https://github.com/endojs/endo-but-for-bots/pull/805)/[#812](https://github.com/endojs/endo-but-for-bots/pull/812)), content-store [#585](https://github.com/endojs/endo-but-for-bots/pull/585), and confined-HTTP [#661](https://github.com/endojs/endo-but-for-bots/pull/661) all merged.
+
+On the URL shim [#719](https://github.com/endojs/endo-but-for-bots/pull/719): a weave dropped its three unrelated commits down to a clean ses-only diff, and a shepherd drove it to partial green — the residual red (jsdoc lint, TextEncoder/TextDecoder permit-tests, stale zizmor action pins) traces to a broadly-red master, not #719's own diff, so the shepherd recommends a dedicated master-greening pass rather than smuggling those fixes into the feature PR.
+
+Two operational cautions worth a glance. The hourly `xs2rust-endor-press` (PR [#600](https://github.com/endojs/endo-but-for-bots/pull/600)) is **deterministically overrunning** its 2400s handler budget every cycle and being poisoned/parked; the fix is to assign a dedicated builder who can work across dispatches rather than keep re-firing the press — and an earlier leaked run left ~150 `tmp/native-git-*` dirs and a corrupted deployed root (self-healed, but `endolin-garden2`/`endolin-garden` still need a physical drain-and-clean, posted as `fix-garden-root-test-leak-cleanup`). The weekly Qwen watch found no harnessable upgrade this week (live hermit stays `qwen3.6`).
 
 ## Parked for maintainer feedback
 
@@ -136,6 +140,22 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Weekly Qwen watch (2026-07-21): live hermit is qwen3.6:latest (23 GB). Newer blog candidate: Qwen-AgentWorld-35B-A3B (2026-06-23), a 35B-total/3B-active MoE, 256K-context language world model. It is open-weight but its release provides no Ollama quant/tag; read-only registry manifest HEAD checks for qwen-agentworld:latest, :35b-a3b, and :35b all returned 404 (qwen3.6:latest returned 200). A future Q4-class conversion would likely fit the 50 GiB GTT and run well on gfx1151, but this specialized simulator is not a hermit coding-agent upgrade over qwen3.6. Recommendation: do not pull or reroute; watch for an official Ollama tag / general-agent successor. No new harnessable Qwen model this week.
 
+- `20260721T181513Z-e94e45` — from gardener:endojs-endo-but-for-bots-pr719-shepherd-ci-green, reply_to `endojs-endo-but-for-bots-pr719-shepherd-ci-green` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T181513Z-e94e45.md)
+
+> Shepherd PR endojs/[endo-but-for-botsendojs/endo-but-for-bots#719](https://github.com/endo-but-for-botsendojs/endo-but-for-bots/issues/719) (endojs/endo-but-for-bots): partial green — root cause is a broadly-RED master, not [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/issues/719)'s own diff ([endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/issues/719)'s 21 URL tests pass).
+>
+> FIXED + pushed to feat/hardened-url-vetted-shim (rebased onto master):
+> - cbor "Cannot find @endo/eventual-send" (all test lanes): added the missing @endo/eventual-send devDependency (every ses-ava pkg has it; cbor's shims-only ava config requires @endo/eventual-send/shim.js). Lanes now run past cbor.
+> - Prettier + eslint (globalThis no-undef) on packages/ses/test/text-encoder-decoder.test.js.
+> Now green: build, browser-tests, test262, cover, hermes, xs, ocapn-python, check-action-pins, viable-release.
+>
+> STILL RED — all pre-existing master/repo debt, NOT in [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/issues/719)'s diff; belongs on a master-greening pass, not smuggled into a URL feature PR:
+> 1. LINT (5 jsdoc warnings, eslint exits 1): daemon directory.js:129/174, pet-sitter.js:71, pet-store.js:159 (missing @param, since 2026-06-26); compartment-mapper policy-schema.ts:64 (@remarks tag). Trivial fixer.
+> 2. TESTS (3 failures) from master 536f82d18 "tame TextEncoder/TextDecoder": %TextDecoderPrototype% permit sets fatal:false/ignoreBOM:false (strips the getters the tests expect) while sibling encoding:getter — likely should be fatal:getter/ignoreBOM:getter to complete the standard-property whitelist. And test "absent when not on host" (globalNames exclusion) contradicts the universal-intrinsic design per the changeset. SES-permit change = security/design decision -> designer.
+> 3. ZIZMOR (repo-wide, master also red): setup-node v6 tag moved to 249970729cb0, so every "48b55a011bda # v6" pin is flagged stale across 16 workflow refs. Needs an update-action-pins chore (note: offline check-action-pins still PASSES, so it is zizmor online-audit vs repo pin policy).
+>
+> Recommend: one master-greening job (jsdoc + text-codec permits/tests + pin bump), then [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/issues/719) rebases to green. Want me to post it?
+
 - `poison-xs2rust-endor-press-20260721-165010-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-xs2rust-endor-press-20260721-165010-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -265,8 +285,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 80.2M | $918.39 _(notional, rate-card)_ | no quota set |
-| Codex | 439.9M _(+521.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 80.3M | $919.26 _(notional, rate-card)_ | no quota set |
+| Codex | 440.4M _(+521.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
