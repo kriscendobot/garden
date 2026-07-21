@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-21T19:46:21Z_
+_As of 2026-07-21T20:00:56Z_
 
 ## Latest
 
-A single job landed on the board this cycle: [`master-green-text-codec-permits`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-master-green-text-codec-permits.md) completed its master-greening pass, part of the effort to clear pre-existing `master` debt (jsdoc warnings, `TextEncoder`/`TextDecoder` permit failures from commit `536f82d18`, stale action pins) that a shepherd traced under [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) — the URL-shim feature is green on its own diff and blocked only by that broadly-red master. The maintainer inbox was consolidated: an omnibus digest folded **199** unread entries into ~30 open items across 13 topics, acknowledging every original — the fastest way to see what actually wants kriskowal's attention. Most decisions cluster on merge-gated milestone work (text-codecs shim [#259](https://github.com/endojs/endo-but-for-bots/pull/259), git remote-push [#705](https://github.com/endojs/endo-but-for-bots/pull/705)/[#707](https://github.com/endojs/endo-but-for-bots/pull/707), Docker self-host [#694](https://github.com/endojs/endo-but-for-bots/pull/694)) and the 11-day esheets/endoclaw-OAuth stall behind a stale review on [#621](https://github.com/endojs/endo-but-for-bots/pull/621).
-
-Two things need direct action. The hourly `xs2rust-endor-press` for [#600](https://github.com/endojs/endo-but-for-bots/pull/600) is **deterministically overrunning** its 2400s handler budget every cycle and being poisoned — two more poison-parks this cycle — after leaking 356 orphaned processes on 07-20/21; it needs a dedicated builder working across dispatches, not the timeboxed press. And the deployed roots on `endolin-garden2` and `endolin-garden` still need a physical drain-and-clean after two jobs corrupted the deployed-root git (a durable guard already landed on `main2`), with deploys stalled since 07-17.
+A shepherd drove the hardened URL shim [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) to partial green and established that its 21 URL tests pass — the remaining red is pre-existing `master` debt (jsdoc lint, the `536f82d18` text-codec permit/test regression, and stale zizmor action pins), not the PR's own diff; a follow-on `master-green-text-codec-permits` job has now completed, and the shim itself is back in flight (`endojs-endo-but-for-bots-hardened-url-shim` claimed). Meanwhile the hourly `xs2rust-endor` press ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) keeps deterministically overrunning its 2400s handler budget and being poisoned into `jobs/plan/` — it needs splitting into claim-sized stages or a dedicated builder rather than the recurring press, which is also the root of the recent watchdog/poison noise. A maintainer-inbox omnibus consolidated 199 unread entries down to ~30 open decisions across 13 topics (esheets/[endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) stalled 11 days on one review, SturdyRef arbitration, and several merge-gated milestone PRs lead the list), and this week's Qwen watch found no harnessable model upgrade over `qwen3.6`.
 
 ## Parked for maintainer feedback
 
@@ -414,15 +412,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 83.2M | $941.70 _(notional, rate-card)_ | no quota set |
-| Codex | 457.3M _(+521.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 83.4M | $943.61 _(notional, rate-card)_ | no quota set |
+| Codex | 457.3M _(+521.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-hardened-url-shim`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-hardened-url-shim.md) — ---
 
 ### tada (3175)
 - [`endojs-endo-but-for-bots-master-green-text-codec-permits`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-master-green-text-codec-permits.md) — Completion report
