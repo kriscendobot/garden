@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T01:05:40Z_
+_As of 2026-07-21T01:07:06Z_
 
 ## Latest
 
@@ -3285,15 +3285,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.0M | $838.26 _(notional, rate-card)_ | no quota set |
+| Claude | 75.0M | $838.66 _(notional, rate-card)_ | no quota set |
 | Codex | 320.9M _(+573.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr802-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr802-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #802
+- [`endojs-endo-but-for-bots-pr803-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr803-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #803
 
 ### tada (3052)
 - [`endojs-endo-but-for-bots-pr801-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr801-conduct.md) — Completion report
