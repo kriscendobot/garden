@@ -157,3 +157,12 @@ and the garden's `em-dash-style` skill.
   explainer stub"). The strict ecmarkup build (`npm run build`) renders
   `build/index.html` titled "Compartments" with no lint errors.
 - Orchestration: Child 1 of `orch-proposal-compartments-launch` (serial, halt).
+
+## Additional completion criteria (maintainer @kriskowal, 2026-07-21; tracker kriskowal/garden#61)
+
+- Must account for **top-level await**.
+- Must enable **reuse of the realm global** so module graphs can be extended in the root realm (presumed Node.js requirement).
+- Must **not presume SES lockdown**.
+- Must enable **cross-compartment linkage**.
+- Must be coherent with **importing the same module source in multiple compartments** — each gets its own instance, while it remains simultaneously possible to create links (possibly cyclic) with modules in farther compartments. SES does this with `compartment.module(specifier)`, which yields a module exports namespace, at the cost that the namespace must be constructed before the corresponding source, keyed on the specifier in a compartment. Producing a module source will not suffice, because that effects a local instance in the importing compartment. **Navigate these trade-offs**; deferred module export namespaces may be reusable for this purpose.
+- Must include an **implementation for v8, JSC, XS, and endor that passes the compartment test262 suite**.
