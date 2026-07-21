@@ -40,3 +40,10 @@ Send the report to the maintainer via
   (e.g. "post a designer job to spec X"). If LOW/NONE: say why briefly.
 Cite specifics from the paper; do not overclaim relevance to seem useful — an
 honest "LOW relevance because …" is a good outcome.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  claimed_at: 2026-07-21T15:31:59Z
