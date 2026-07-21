@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T02:46:49Z_
+_As of 2026-07-21T02:48:53Z_
 
 ## Latest
 
@@ -3331,13 +3331,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 75.4M | $843.51 _(notional, rate-card)_ | no quota set |
-| Codex | 333.3M _(+574.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 333.4M _(+573.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
+- [`design-endo-but-for-bots-mount-denied-segments-cli`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-but-for-bots-mount-denied-segments-cli.md) — design: Mount CLI plumbing for the deniedSegments creation option
 - [`endojs-endo-but-for-bots-pr651-7e0513a0`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr651-7e0513a0.md) — attention directive on endojs/endo-but-for-bots PR #651
 - [`endojs-endo-but-for-bots-pr793-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr793-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #793
 - [`xs2rust-endor-press-20260721-022003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-022003.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
