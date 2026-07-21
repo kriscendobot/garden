@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T05:39:44Z_
+_As of 2026-07-21T05:42:26Z_
 
 ## Latest
 
@@ -3591,24 +3591,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 76.1M | $860.55 _(notional, rate-card)_ | no quota set |
-| Codex | 348.9M _(+581.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 349.0M _(+581.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr809-review-2f33af27`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr809-review-2f33af27.md) — Review directive on endojs/endo-but-for-bots PR #809
-- [`scholar-ingest-kni-examples-batch2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-kni-examples-batch2.md) — Finish kriskowal/kni examples ingestion (batch 2)
 - [`xs2rust-endor-press-20260721-053503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-053503.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3100)
+### tada (3101)
+- [`scholar-ingest-kni-examples-batch2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-kni-examples-batch2.md) — Completion report
 - [`minion-town-agenda-review-20260721-053503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260721-053503.md) — Hourly agenda review complete for kriskowal/garden#58 (minion.town primary ph...
 - [`xs2rust-endor-orphan-collection-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-orphan-collection-fix.md) — orchestration xs2rust-endor-orphan-collection-fix — complete
 - [`resume-xs2rust-endor-press-schedule`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/resume-xs2rust-endor-press-schedule.md) — Confirmed origin/journal2:schedules/xs2rust-endor-press.md is present and act...
 - [`verify-no-orphan-leak-on-handler-timeout`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/verify-no-orphan-leak-on-handler-timeout.md) — Assayer verdict: **FAIL — do NOT resume the schedule** (orchestration-failed:...
-- [`scholar-ingest-kni-examples-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-kni-examples-remainder.md) — Completion report: scholar-ingest-kni-examples-remainder
-- … and 3095 more
+- … and 3096 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
