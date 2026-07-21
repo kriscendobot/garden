@@ -25,3 +25,10 @@ sources.
 Follow-up note for the liaison/mentor (route via `skills/self-improvement`, do NOT edit skills
 yourself): recommend this checklist be woven into house style (`roles/COMMON.md` § House style /
 `skills/em-dash-style` neighborhood) so it binds fleet-wide going forward.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  worker_kind: cleric
+  claimed_at: 2026-07-21T18:11:28Z
