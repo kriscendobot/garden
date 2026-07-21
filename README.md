@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T04:13:15Z_
+_As of 2026-07-21T04:17:30Z_
 
 ## Latest
 
@@ -1218,6 +1218,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260721T041300Z-c395c1` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T041300Z-c395c1.md)
 
 > Milestone M3's exit-criterion PR [endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/issues/707) (worked-loop coding capability) is green and mergeable but gated behind first merging #705 (git remote-push Phase 1, 22/22 checks, MERGEABLE/CLEAN); the merge directive (liaison msg 20260717T002451Z-cb5a1b) has been unread since 2026-07-17, so no fleet work can advance M3. Decision needed: approve merging #705 so #707 can weave onto `llm` and close M3.
+
+- `20260721T041717Z-233d23` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T041717Z-233d23.md)
+
+> Milestone M3's entire exit-criterion critical path on endojs/endo-but-for-bots — Docker self-host (PR #694), confined outbound HTTP / agent-tools (PR #661), git capability (PR #707), plus in-flight shepherds (#704, #763, #124) — is parked in the plan queue under `gate: go-ahead`, so no unblocked M3 step remains for a gardener to claim; advancing M3 needs your go-ahead to promote one of these gated jobs via the liaison.
 
 - `poison-build-daemon-mapstore-gh59-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-daemon-mapstore-gh59-deadline-overrun.md)
 
@@ -3499,7 +3503,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.7M | $849.47 _(notional, rate-card)_ | no quota set |
+| Claude | 75.8M | $850.57 _(notional, rate-card)_ | no quota set |
 | Codex | 343.6M _(+572.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
