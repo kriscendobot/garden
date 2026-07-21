@@ -1,0 +1,2 @@
+base: improve-xs2rust-press-preflight-overrun-circuit-breaker
+identity: mentor:scripts/jobs/gardening/xs2rust-endor-press-preflight.sh
