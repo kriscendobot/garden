@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T16:59:06Z_
+_As of 2026-07-21T17:04:25Z_
 
 ## Latest
 
@@ -4504,13 +4504,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 79.3M | $907.58 _(notional, rate-card)_ | no quota set |
-| Codex | 452.7M _(+529.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 455.0M _(+525.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`consolidate-maintainer-inbox-omnibus`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/consolidate-maintainer-inbox-omnibus.md) — Consolidate the entire maintainer inbox into a single topic-organized omnibus
 - [`xs2rust-endor-press-20260721-165010`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-165010.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3151)
