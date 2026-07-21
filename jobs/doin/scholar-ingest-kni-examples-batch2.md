@@ -9,3 +9,10 @@ Remaining `.kni` files (16), grouped by value:
 - Text / rendering only, low decision-graph value (consider a brief section each or skip with a noted rationale; already covered by the MANUAL text-space-and-symbols section): `ascii.kni`, `canon.kni`, `german.kni`, `hyperlinks.kni`, `poem.kni`, `stars.kni` (stars.kni is a comment-only data-schema sketch, no kni code).
 
 None warrant `automatic-agentic-loop` on first read (none elicit-and-render gathered feedback); confirm per file. Model files on the existing `library/sources/kni--examples-*.md` + `library/sections/kni--examples-*--overview.md` pairs; add topic-page rows via insert-sections-table-row.sh; regenerate sections index + topics counts as the final landing step.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 15
+  worker_kind: gardener
+  claimed_at: 2026-07-21T05:24:32Z
