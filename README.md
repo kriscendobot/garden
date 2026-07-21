@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T03:07:31Z_
+_As of 2026-07-21T03:07:50Z_
 
 ## Latest
 
@@ -1150,6 +1150,46 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260721T030101Z-c5f5fe` — from watchdog:hermit/1, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T030101Z-c5f5fe.md)
 
 > gardener job 'xs2rust-endor-press-20260721-022003' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260721T030731Z-9448bd` — from gardener:endo-sturdyref-press-20260721-030507, reply_to `endo-sturdyref-press-20260721-030507` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T030731Z-9448bd.md)
+
+> # SturdyRef effort: 3rd re-send — all lanes still blocked on the same maintainer gates
+>
+> Third re-send of the consolidated nudge (originals:
+> `inbox/maintainer/unread/20260717T200708Z-5cde04.md`, re-sent as
+> `20260718T205150Z-d826b6.md` and `20260720T022911Z-800ee8.md`, all still
+> unread), per the standing 24h re-send norm. Verified live at
+> 2026-07-21T03:08Z: zero movement on every sturdyref PR since your
+> CHANGES_REQUESTED on [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/issues/737) at 2026-07-17T06:19Z
+> (~93h ago); all heads and timestamps identical across every tick since
+> (b56b3465 / 59bd235e / f5df0a4c / e4a0a614 / 22923949 / 4e215362 /
+> 951cde7f / fab626e8 / 182d0449). The hourly driver continues to hold (no
+> pushes) rather than dilute the single-commit review shapes under your
+> review. Any one answer unblocks a lane:
+>
+> 1. **Shim-placement arbitration** — [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/issues/737) (embedded
+>    in pass-style, single-squashed-commit, CHANGES_REQUESTED 07-17 06:19Z
+>    with the fleet's re-review request posted 05:15Z) vs
+>    [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/issues/774) (standalone `@endo/sturdyref`, no review
+>    yet). Both CI-green at unmoved heads. The bridge-cut restack
+>    ([endojs/endo-but-for-bots#698](https://github.com/endojs/endo-but-for-bots/issues/698) → [endojs/endo-but-for-bots#700](https://github.com/endojs/endo-but-for-bots/issues/700) →
+>    [endojs/endo-but-for-bots#541](https://github.com/endojs/endo-but-for-bots/issues/541)) waits on this pick.
+> 2. **Decisions re-surfaced in**
+>    [https://github.com/endojs/endo-but-for-bots/pull/737](https://github.com/endojs/endo-but-for-bots/pull/737)#issuecomment-4994276944:
+>    marshal rank-prefix pick (A/`q` vs B/`t` vs C/`w`), and stack-collapse
+>    preference (fold [endojs/endo-but-for-bots#541](https://github.com/endojs/endo-but-for-bots/issues/541) + the bridge cuts into
+>    [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/issues/737), or restack onto its branch).
+> 3. **Design re-reviews** you marked CHANGES_REQUESTED (fleet responses
+>    posted the same hour): [endojs/endo-but-for-bots#695](https://github.com/endojs/endo-but-for-bots/issues/695) (agent
+>    provide/accept — gates the Lal/Fae/Genie "throughout" bar, cuts A–F),
+>    [endojs/endo-but-for-bots#697](https://github.com/endojs/endo-but-for-bots/issues/697) (cross-peer bridge), and
+>    [endojs/endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/issues/539) (closely-held enlivenment,
+>    CHANGES_REQUESTED 07-11).
+>
+> Confinement invariants ride [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/issues/774)'s four tests
+> (no-location, no-identification/unlinkability, withheld-from-compartments,
+> first-wins convergence) and [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/issues/737)'s pass-style
+> opacity coverage — last verified green at the current (unmoved) heads.
 
 - `poison-build-daemon-mapstore-gh59-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-daemon-mapstore-gh59-deadline-overrun.md)
 
@@ -3431,8 +3471,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.5M | $845.53 _(notional, rate-card)_ | no quota set |
-| Codex | 335.2M _(+572.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 75.5M | $845.61 _(notional, rate-card)_ | no quota set |
+| Codex | 335.3M _(+572.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
