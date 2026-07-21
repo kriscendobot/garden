@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T03:21:23Z_
+_As of 2026-07-21T03:22:26Z_
 
 ## Latest
 
@@ -3487,14 +3487,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.4M | $844.50 _(notional, rate-card)_ | no quota set |
-| Codex | 337.9M _(+572.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
+| Claude | 75.4M | $844.81 _(notional, rate-card)_ | no quota set |
+| Codex | 338.0M _(+572.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr802-retarget-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr802-retarget-conduct.md) — Retarget to llm, then finalize (curate → merge) endojs/endo-but-for-bots PR #802
 - [`minion-town-agenda-review-20260721-032030`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260721-032030.md) — Minion Town hourly agenda review
 - [`xs2rust-endor-press-20260721-032030`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-032030.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
