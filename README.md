@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T05:23:24Z_
+_As of 2026-07-21T05:24:12Z_
 
 ## Latest
 
@@ -1207,6 +1207,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > On your hypotheses (also answered in the doc + a reply on [endojs/endo-but-for-bots#777](https://github.com/endojs/endo-but-for-bots/issues/777)): redundant crypto — iroh's transport auth REPLACES the WS init:peer-auth challenge here, but WOULD be redundant over Noise-IK. Can't-join-noise-network — confirmed by construction; "consolidate" = per-peer transport selection over a shared OCapN session layer.
 >
 > Want me to queue the follow-up (rebase [endojs/endo-but-for-bots#777](https://github.com/endojs/endo-but-for-bots/issues/777) → merge to llm → author the iroh boot script → stand up + validate the live lane) as an orchestration once you're ready, or hold for your review of the design first?
+
+- `20260721T052344Z-8fcdf1` — from watchdog:hermit/1, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T052344Z-8fcdf1.md)
+
+> gardener job 'xs2rust-endor-press-20260721-043501' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `poison-build-daemon-mapstore-gh59-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-daemon-mapstore-gh59-deadline-overrun.md)
 
@@ -3488,8 +3492,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 76.1M | $859.85 _(notional, rate-card)_ | no quota set |
-| Codex | 346.7M _(+581.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 76.1M | $860.00 _(notional, rate-card)_ | no quota set |
+| Codex | 346.8M _(+581.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
