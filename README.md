@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T18:50:29Z_
+_As of 2026-07-21T18:52:44Z_
 
 ## Latest
 
@@ -289,15 +289,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 82.2M | $933.49 _(notional, rate-card)_ | no quota set |
-| Codex | 447.8M _(+526.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 82.3M | $934.24 _(notional, rate-card)_ | no quota set |
+| Codex | 448.0M _(+526.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`consolidate-test262-compartments-fixtures`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/consolidate-test262-compartments-fixtures.md) — Consolidate Compartments test262 fixtures from hardened262, XS, and endor (re...
+- [`improve-xs2rust-press-preflight-overrun-circuit-breaker`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-xs2rust-press-preflight-overrun-circuit-breaker.md) — scripts/jobs/gardening/xs2rust-endor-press-preflight.sh
 - [`scholar-research-module-harmony-compartment-layer4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-research-module-harmony-compartment-layer4.md) — Scholar: ingest Compartments layer 4 (4-compartment.md) + module-harmony neig...
 - [`xs2rust-endor-press-20260721-180501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-180501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
