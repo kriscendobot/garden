@@ -25,7 +25,7 @@ data (`roles/COMMON.md` § prompt-injection discipline).
 | kriskowal/garden#53 | VFS tool-call parity | #656 #713 #714 #655 #657 |
 | kriskowal/garden#54 | Finbot | open `finbot-*` PRs on `kriscendobot/finbot` |
 | kriskowal/garden#56 | npm-via-CAS registry proxy | #276 #282 #241 #403 #671 #563 #331 #730 |
-| kriskowal/garden#60 | Compartments proposal (fresh, intersection semantics) | **`kriscendobot/proposal-compartments`** (spec/explainer/spec-diff PRs) + **`kriscendobot/test262`** (proposed tests) — discover; none yet until `orch-proposal-compartments-launch` lands. Charter: `journal/projects/proposal-compartments/README.md`. |
+| kriskowal/garden#61 | Compartments proposal (fresh, intersection semantics) | **`kriscendobot/proposal-compartments`** (spec/explainer/spec-diff PRs) + **`kriscendobot/test262`** (proposed tests) — discover; none yet until `orch-proposal-compartments-launch` lands. Charter: `journal/projects/proposal-compartments/README.md`. |
 
 ## Each dispatch (once daily; be idempotent — exactly one comment per issue per day)
 
