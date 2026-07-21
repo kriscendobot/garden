@@ -51,6 +51,22 @@
 # a live stage2 worker owns the branch just as much as a stage3 one, so the
 # driver must never take the wheel while EITHER is active.
 #
+# Circuit breaker on a WEDGED campaign: the stall bar alone cannot see that the
+# driver it dispatches keeps OVERRUNNING (rc=124, `<!-- garden-deadline-overrun -->`,
+# reaper-poisoned) at its 2400s wall without ever moving HEAD — so each tick it
+# would re-arm the same doomed 2400s Fable driver forever (the "xs2rust-endor-press
+# wedge", gardener.sh:586 / reaper.sh:529). To break that loop we persist a per-host
+# `consecutive-stall-dispatches` counter beside `last-head`: it INCREMENTS on every
+# stall dispatch and RESETS to 0 the moment the chain advances (HEAD moves) or the
+# PR reaches a terminal state. When it reaches GARDEN_XS2RUST_PRESS_MAX_STALL_DISPATCHES
+# (default 3) — the branch is stalled AND repeated drivers have failed to advance it —
+# the gate DEFERS (exit 2) instead of dispatching and raises ONE throttled
+# alert_maintainer: the campaign needs a human (split into claim-sized build-stage
+# children or run detached, gardener.sh:391) rather than another budget-burning tick.
+# The breaker fires only on this positively-observed repeated-stall signature (a
+# cleanly-read, unchanged HEAD plus a persisted stall streak); an unreadable HEAD
+# still fails open (below) and never trips it.
+#
 # Fail open on ambiguity: if the branch HEAD cannot be read (a gh/network blip),
 # we cannot prove the chain is advancing OR stalled, so we DISPATCH (exit 0) —
 # never starve a possibly-stalled chain on a transient. At worst the woken driver
@@ -62,8 +78,9 @@
 # stall logic — so a blip there loosens the gate toward dispatch, never toward
 # silently skipping a live campaign.
 #
-# State: the last-seen branch HEAD is persisted per-host under $GARDEN_STATE
-# (outside any reset-prone worktree, uncommitted). Read-only against the board:
+# State: the last-seen branch HEAD and the consecutive-stall-dispatch counter are
+# persisted per-host under $GARDEN_STATE (outside any reset-prone worktree,
+# uncommitted). Read-only against the board:
 # reuses common.sh's clone helpers (ensure_clone / sync_clone / list_jobs) and
 # that same clone's inbox/ tree; never writes or pushes to the journal.
 
@@ -79,9 +96,23 @@ GARDEN_TAG="xs2rust-endor-press-preflight"
 : "${GARDEN_PRESS_PR:=600}"
 : "${GARDEN_PRESS_BRANCH:=xs2rust-endor}"
 
+# Circuit-breaker threshold: how many CONSECUTIVE stall-dispatches (each a fresh
+# Fable press-driver that woke on a stalled HEAD) we tolerate before concluding
+# the campaign is wedged — the branch is not moving AND every dispatched driver
+# overruns its handler budget without advancing it — and escalating to a human
+# rather than burning another doomed budget. Sanitize a non-numeric override.
+: "${GARDEN_XS2RUST_PRESS_MAX_STALL_DISPATCHES:=3}"
+case "$GARDEN_XS2RUST_PRESS_MAX_STALL_DISPATCHES" in
+  ''|*[!0-9]*) GARDEN_XS2RUST_PRESS_MAX_STALL_DISPATCHES=3 ;;
+esac
+
 DIR="${GARDEN_XS2RUST_PRESS_PREFLIGHT_CLONE:-$GARDEN_STATE/xs2rust-endor-press-preflight/journal}"
 STATE_DIR="$GARDEN_STATE/xs2rust-endor-press-preflight"
 HEAD_FILE="$STATE_DIR/last-head"
+# Per-host counter of consecutive stall-dispatches (uncommitted, alongside
+# last-head). Incremented on every stall dispatch; reset to 0 the moment the
+# chain advances (HEAD moves) or reaches a terminal PR state.
+STALL_FILE="$STATE_DIR/consecutive-stall-dispatches"
 
 ensure_clone "$DIR"
 sync_clone "$DIR"
@@ -137,6 +168,19 @@ record_head() {
   printf '%s\n' "$1" > "$HEAD_FILE"
 }
 
+# Read the consecutive-stall-dispatch counter; an absent or non-numeric file
+# reads as 0 (fail toward NOT tripping the breaker).
+read_stall_count() {
+  local n
+  n="$(head -1 "$STALL_FILE" 2>/dev/null | tr -d '[:space:]' || true)"
+  case "$n" in ''|*[!0-9]*) printf '0' ;; *) printf '%s' "$n" ;; esac
+}
+# Persist the counter (per-host $GARDEN_STATE, uncommitted).
+record_stall_count() {
+  mkdir -p "$STATE_DIR"
+  printf '%s\n' "${1:-0}" > "$STALL_FILE"
+}
+
 cur="$(read_head || true)"
 prev="$(head -1 "$HEAD_FILE" 2>/dev/null | tr -d '[:space:]' || true)"
 
@@ -152,14 +196,19 @@ record_head "$cur"
 # Read POSITIVELY: only a confirmed terminal state defers here; `draft` (still
 # being pressed) and an unreadable state both fall through to the stall logic,
 # which fails open. Placed before the board scans so a done PR skips cheapest.
+# A terminal state ends the campaign, so the stall streak is meaningless now →
+# reset the circuit-breaker counter alongside deferring.
 case "$(read_pr_state || true)" in
   merged)
+    record_stall_count 0
     log "no work: PR #$GARDEN_PRESS_PR is MERGED; press campaign complete; defer press-driver"
     exit 2 ;;
   closed)
+    record_stall_count 0
     log "no work: PR #$GARDEN_PRESS_PR is CLOSED (unmerged); no branch to press; defer press-driver"
     exit 2 ;;
   ready)
+    record_stall_count 0
     log "no work: PR #$GARDEN_PRESS_PR left DRAFT (ready for review → judge chain); finish line met; defer press-driver"
     exit 2 ;;
 esac
@@ -221,13 +270,35 @@ if [ -z "$prev" ]; then
   exit 2
 fi
 
-# HEAD moved since the previous tick → the chain is advancing under a push; defer.
+# HEAD moved since the previous tick → the chain is advancing under a push; the
+# stall streak is broken → reset the circuit-breaker counter and defer.
 if [ "$cur" != "$prev" ]; then
+  record_stall_count 0
   log "no work: $GARDEN_PRESS_BRANCH HEAD advanced ($prev → $cur); chain is advancing; defer press-driver"
   exit 2
 fi
 
 # (a) HEAD unchanged across two consecutive ticks, (b) no live build child owns
-# the branch, (c) no successor queued → the chain has STALLED. Take the wheel.
-log "work present: $GARDEN_PRESS_BRANCH HEAD unchanged across two ticks ($cur), no live build child, no successor queued — chain stalled; dispatch press-driver"
+# the branch, (c) no successor queued → the chain has STALLED.
+#
+# CIRCUIT BREAKER — before taking the wheel, check whether the last N dispatches
+# ALREADY stalled here without ever advancing HEAD. If the consecutive-stall
+# counter has reached the threshold, the driver is proven to overrun its handler
+# budget every cadence and advance nothing (the xs2rust-endor-press wedge): stop
+# throwing a full Fable budget at it and escalate to a human instead of arming
+# another doomed tick. This is the positively-observed repeated-stall signature —
+# HEAD read cleanly (we are past the fail-open guard), unchanged across ticks, and
+# a persisted streak of prior stall-dispatches — so the breaker never fires on
+# ambiguity.
+stall_count="$(read_stall_count)"
+if [ "$stall_count" -ge "$GARDEN_XS2RUST_PRESS_MAX_STALL_DISPATCHES" ]; then
+  log "no work (CIRCUIT BREAKER): $GARDEN_PRESS_BRANCH stalled and $stall_count consecutive press-drivers overran without advancing HEAD ($cur); defer and escalate — needs a human, not another doomed Fable tick"
+  alert_maintainer "xs2rust-endor-press-wedged-${GARDEN}" \
+    "xs2rust-endor press campaign is WEDGED: PR #$GARDEN_PRESS_PR branch $GARDEN_PRESS_BRANCH HEAD is stuck at $cur and the last $stall_count dispatched press-drivers each overran their handler budget (rc=124, reaper-poisoned) without advancing it. The stall-bar preflight has tripped its circuit breaker (GARDEN_XS2RUST_PRESS_MAX_STALL_DISPATCHES=$GARDEN_XS2RUST_PRESS_MAX_STALL_DISPATCHES) and STOPPED dispatching, so it is no longer burning a Fable budget every cadence. This needs a human: split the press into claim-sized build-stage children or run it detached (gardener.sh:391 doctrine) rather than as a repeatedly-doomed cadence tick. The breaker resets automatically once $GARDEN_PRESS_BRANCH HEAD advances or PR #$GARDEN_PRESS_PR reaches a terminal state."
+  exit 2
+fi
+
+# Under the threshold → take the wheel and count this stall dispatch.
+record_stall_count "$(( stall_count + 1 ))"
+log "work present: $GARDEN_PRESS_BRANCH HEAD unchanged across two ticks ($cur), no live build child, no successor queued — chain stalled; dispatch press-driver (consecutive stall dispatch $(( stall_count + 1 )) of $GARDEN_XS2RUST_PRESS_MAX_STALL_DISPATCHES)"
 exit 0

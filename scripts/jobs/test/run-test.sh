@@ -621,7 +621,54 @@ armstall; export GARDEN_PRESS_STATE_CMD='true'   # prints nothing
 armstall; export GARDEN_PRESS_STATE_CMD='echo draft'
 [ "$(pf)" = "0" ] && ok "open DRAFT under a stall → finish line unmet, dispatch (exit 0)" || bad "open draft wrongly deferred"
 
-unset GARDEN_PRESS_HEAD_CMD GARDEN_PRESS_STATE_CMD GARDEN_XS2RUST_PRESS_PREFLIGHT_CLONE
+# --- circuit breaker (overrun wedge): stop re-arming a doomed press-driver ------
+# A chronically-overrunning driver stalls (HEAD unchanged) every tick but never
+# advances HEAD. The consecutive-stall-dispatch counter counts those dispatches;
+# once it reaches GARDEN_XS2RUST_PRESS_MAX_STALL_DISPATCHES the gate DEFERS (exit 2)
+# and escalates ONE maintainer alert instead of burning another Fable budget. The
+# counter resets the moment the chain advances (HEAD moves) or the PR goes terminal.
+SCF="$GARDEN_STATE/xs2rust-endor-press-preflight/consecutive-stall-dispatches"
+ALOG="$TR/press-alerts.log"; : > "$ALOG"
+ACMD="$TR/press-alert-cmd.sh"
+printf '#!/bin/bash\nprintf "%%s\\n" "$1" >> "%s"\n' "$ALOG" > "$ACMD"; chmod +x "$ACMD"
+export GARDEN_ALERT_CMD="$ACMD"
+
+# Case 13 — with threshold=2, two consecutive stalls still dispatch (exit 0) and
+# each bumps the counter; the THIRD tick, at the threshold, trips the breaker →
+# defer (exit 2) AND raise exactly one maintainer alert about the wedged campaign.
+export GARDEN_XS2RUST_PRESS_MAX_STALL_DISPATCHES=2
+rm -f "$SCF"; armstall
+r13a="$(pf)"; r13b="$(pf)"
+{ [ "$r13a" = "0" ] && [ "$r13b" = "0" ]; } && ok "under threshold: consecutive stalls still dispatch (exit 0)" || bad "under-threshold stalls did not dispatch ($r13a,$r13b)"
+[ "$(tr -d '[:space:]' < "$SCF" 2>/dev/null)" = "2" ] && ok "consecutive-stall counter increments per dispatch" || bad "counter not 2 (got $(tr -d '[:space:]' < "$SCF" 2>/dev/null))"
+: > "$ALOG"
+[ "$(pf)" = "2" ] && ok "counter reaches threshold → CIRCUIT BREAKER defers (exit 2)" || bad "breaker did not defer at threshold"
+[ "$(grep -c 'xs2rust-endor-press-wedged' "$ALOG" 2>/dev/null || echo 0)" -eq 1 ] && ok "breaker raises exactly one wedged-campaign maintainer alert" || bad "breaker alert count wrong ($(grep -c 'xs2rust-endor-press-wedged' "$ALOG" 2>/dev/null || echo 0))"
+
+# Case 14 — a HEAD advance RESETS the counter, so the breaker re-arms and a later
+# fresh stall dispatches again rather than staying latched off.
+printf 'sha-stall\n' > "$PHF"; export GARDEN_PRESS_HEAD_CMD='echo sha-moved'
+[ "$(pf)" = "2" ] && ok "HEAD advance defers (exit 2)" || bad "advancing HEAD did not defer (breaker case)"
+[ "$(tr -d '[:space:]' < "$SCF" 2>/dev/null)" = "0" ] && ok "HEAD advance RESETS the stall counter to 0" || bad "HEAD advance did not reset counter (got $(tr -d '[:space:]' < "$SCF" 2>/dev/null))"
+armstall
+[ "$(pf)" = "0" ] && ok "after reset, a fresh stall dispatches again (breaker re-armed)" || bad "breaker stayed latched off after reset"
+
+# Case 15 — a terminal PR state RESETS the counter even when it sat at/over the
+# threshold (the campaign is over; the streak is meaningless).
+printf '5\n' > "$SCF"; armstall; export GARDEN_PRESS_STATE_CMD='echo merged'
+[ "$(pf)" = "2" ] && ok "merged PR defers (exit 2)" || bad "merged PR did not defer (breaker case)"
+[ "$(tr -d '[:space:]' < "$SCF" 2>/dev/null)" = "0" ] && ok "terminal PR state RESETS the stall counter to 0" || bad "terminal state did not reset counter (got $(tr -d '[:space:]' < "$SCF" 2>/dev/null))"
+export GARDEN_PRESS_STATE_CMD='echo draft'
+
+# Case 16 — an UNREADABLE HEAD fails open (exit 0) even with the counter parked
+# over the threshold: the breaker only fires on a positively-read stall, never on
+# ambiguity, and the fail-open path leaves the counter untouched.
+printf '9\n' > "$SCF"; printf 'sha-stall\n' > "$PHF"; export GARDEN_PRESS_HEAD_CMD='true'
+[ "$(pf)" = "0" ] && ok "unreadable HEAD fails open (exit 0) even with a high stall count — breaker never fires on ambiguity" || bad "unreadable HEAD did not fail open under a high counter"
+[ "$(tr -d '[:space:]' < "$SCF" 2>/dev/null)" = "9" ] && ok "fail-open (ambiguous) path leaves the stall counter untouched" || bad "fail-open path mutated the counter (got $(tr -d '[:space:]' < "$SCF" 2>/dev/null))"
+
+unset GARDEN_PRESS_HEAD_CMD GARDEN_PRESS_STATE_CMD GARDEN_XS2RUST_PRESS_PREFLIGHT_CLONE \
+      GARDEN_ALERT_CMD GARDEN_XS2RUST_PRESS_MAX_STALL_DISPATCHES
 
 # ============================================================================
 hr; echo "SUBTEST 9 — WATCHMAN: aggressive main2 checkout + reread broadcast"; hr
