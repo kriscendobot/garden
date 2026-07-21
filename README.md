@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T16:07:24Z_
+_As of 2026-07-21T16:16:07Z_
 
 ## Latest
 
@@ -1452,6 +1452,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >   3. sweep untracked junk: bin/pnpm bin/pnpx bin286/ pr661-bin/ tmp/aborted.txt tmp/acc_full.log and similar
 >
 > HEADS UP — the SAME leak is ACTIVE on THIS instance's root /home/kris/garden: ~150 tmp/native-git-*/ fixture dirs (the native-git suite committing into cwd=root), many tmp/git-clone-daemon-*/ and tmp/git-remote-*/ dirs, xs2rust press logs (tmp/press-*, tmp/s*-*.log), plus bin/yarn (typechange), OCapN.md, scratch-shim-bin/, etc. Same cleanup applies here. Root cause on both: workers running the endo-but-for-bots native-git test suite and the xs2rust press with cwd = the deployed root instead of an isolated worktree/tmpdir. The suite writes fixtures under tmp/ RELATIVE to cwd — a project-side fix (use $TMPDIR / mktemp -d, not ./tmp) is still needed in endo-but-for-bots; the main2 guard only stops the origin-rewrite blast radius, not the tmp/ litter.
+
+- `20260721T161555Z-0e2b6d` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T161555Z-0e2b6d.md)
+
+> Milestone M2 (Project Hygiene) has only two designs left — `hardened-text-codecs-shim` and `hardened-url-shim` — and both are already built and mergeable ([endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/issues/259) and #719: OPEN, un-drafted, MERGEABLE/CLEAN, all CI green). M2 is blocked purely on your merge/ferry authority plus two reconciliation calls the builders surfaced: (a) revert the errant direct-to-`master` push `536f82d18` before merging #259, and (b) clean #719's 3 unrelated commits (`fix(cbor)` + `fix(ci)`) — retcon in place or promote the builder's ready ses-only rebuild.
 
 - `poison-build-daemon-mapstore-gh59-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-daemon-mapstore-gh59-deadline-overrun.md)
 
@@ -4491,8 +4495,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 78.9M | $901.03 _(notional, rate-card)_ | no quota set |
-| Codex | 454.1M _(+558.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 78.9M | $901.68 _(notional, rate-card)_ | no quota set |
+| Codex | 454.1M _(+556.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
