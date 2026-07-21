@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T03:52:17Z_
+_As of 2026-07-21T04:01:30Z_
 
 ## Latest
 
@@ -1206,6 +1206,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > 2. Whether to enable significanceAlpha as default for the live auto-family path (would change proposal hashes)
 >
 > The SES attenuator passes all tests and follows the cap-attenuation.md design spec.
+
+- `20260721T040111Z-7ed570` — from foreman, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T040111Z-7ed570.md)
+
+> Milestone M2 (Project Hygiene) is one decision from complete: its two remaining designs, `hardened-text-codecs-shim` and `hardened-url-shim`, are fully implemented in endojs/endo-but-for-bots PRs #259 and #719 — both open, non-draft, mergeable, and all CI green, with gauntlet/shepherd already run. The decision needed is whether to merge #259 and #719 to close out M2 (foreman cannot post merge/authority jobs).
 
 - `poison-build-daemon-mapstore-gh59-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-daemon-mapstore-gh59-deadline-overrun.md)
 
@@ -3487,7 +3491,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.5M | $845.03 _(notional, rate-card)_ | no quota set |
+| Claude | 75.6M | $846.77 _(notional, rate-card)_ | no quota set |
 | Codex | 343.6M _(+572.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
