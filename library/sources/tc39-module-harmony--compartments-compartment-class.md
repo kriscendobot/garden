@@ -18,6 +18,6 @@ The **Compartments** layer 4 (layer 4) introduces the high-level **`Compartment`
 |---------|--------|--------|
 | [compartment-class-and-interfaces](../sections/tc39-module-harmony--compartments-compartment-class-and-interfaces.md) | module-harmony, compartments | current |
 | [compartment-constructor-and-options](../sections/tc39-module-harmony--compartments-compartment-constructor-and-options.md) | module-harmony, compartments | current |
-| [compartment-import-evaluate-methods](../sections/tc39-module-harmony--compartments-compartment-import-evaluate-methods.md) | module-harmony, compartments | current |
-| [compartment-resolve-load-hooks](../sections/tc39-module-harmony--compartments-compartment-resolve-load-hooks.md) | module-harmony, compartments | current |
-| [compartment-thenable-hazard](../sections/tc39-module-harmony--compartments-compartment-thenable-hazard.md) | module-harmony, compartments | current |
+| [compartment-virtual-modules](../sections/tc39-module-harmony--compartments-compartment-virtual-modules.md) | module-harmony, compartments | current |
+| [compartment-motivating-examples](../sections/tc39-module-harmony--compartments-compartment-motivating-examples.md) | module-harmony, compartments | current |
+| [compartment-thenable-and-design](../sections/tc39-module-harmony--compartments-compartment-thenable-and-design.md) | module-harmony, compartments | current |
