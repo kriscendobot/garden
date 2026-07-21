@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T06:32:29Z_
+_As of 2026-07-21T06:34:30Z_
 
 ## Latest
 
@@ -3777,8 +3777,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr777-e4a522e4-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr777-e4a522e4-retro.md) — Retrospective on endojs/endo-but-for-bots PR #777 (primary: endojs-endo-but-f...
 
 ### tada (3102)
 - [`endojs-endo-but-for-bots-pr809-review-581b1021-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr809-review-581b1021-retro.md) — Recorded a review-process miss for PR #809: the required design gauntlet/pane...
@@ -3839,7 +3839,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage10p-fresh-env-sweep.md) — _normal_ · Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr777-e4a522e4-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr777-e4a522e4-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #777 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr809-review-2f33af27-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-2f33af27-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
