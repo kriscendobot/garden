@@ -36,3 +36,10 @@ Guards:
 Source: press tick endo-npm-cas-registry-press-20260721-030507
 Approval: https://github.com/endojs/endo-but-for-bots/pull/802#pullrequestreview-4740280808
 Prior conduct: jobs/tada/endojs-endo-but-for-bots-pr802-conduct.md (stalled awaiting green; green since 9a87cf1056)
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 7
+  worker_kind: cleric
+  claimed_at: 2026-07-21T03:22:07Z
