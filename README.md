@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T08:13:20Z_
+_As of 2026-07-21T08:13:35Z_
 
 ## Latest
 
@@ -3778,11 +3778,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Codex | 374.5M _(+579.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (1)
-- [`xs2rust-endor-press-20260721-063505`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260721-063505.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
-
-### doin (0)
+### todo (0)
 (none)
+
+### doin (1)
+- [`xs2rust-endor-press-20260721-063505`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-063505.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3107)
 - [`xs2rust-endor-press-20260721-073528`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-073528.md) — All three finish line bars have been verified with real execution evidence:
