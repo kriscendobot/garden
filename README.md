@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T15:24:31Z_
+_As of 2026-07-21T15:25:22Z_
 
 ## Latest
 
@@ -1340,6 +1340,31 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260721T151543Z-e64ae3` — from watchdog:hermit/2, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T151543Z-e64ae3.md)
 
 > gardener job 'xs2rust-endor-press-20260721-143501' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260721T152507Z-c7e53c` — from gardener:finbot-progress-20260721-152002, reply_to `finbot-progress-20260721-152002` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T152507Z-c7e53c.md)
+
+> finbot progress (cycle 20260721-152002)
+>
+> Advanced this cycle: LANDED [kriscendobot/finbot#1](https://github.com/kriscendobot/finbot/issues/1) (feat: real SES compartment
+> attenuator). It had sat clean+mergeable across several cycles at "next: merge".
+> Verified locally first — npm install + full suite: 602 pass / 0 fail — then
+> merged to main (0e2ac80, 3 curated commits preserved, branch deleted). finbot
+> now defaults subagent spawning to the hardened SES role-policy attenuator, with
+> the permissive attenuator kept as an explicit opt-in. No CI is configured on the
+> repo, so local verification stands in.
+>
+> Board state: no other finbot PRs open; no in-flight competing finbot build jobs.
+>
+> Next unblocked increment (for the next cycle): implement the archive-backed
+> @endo/compartment-mapper loader for locally-executed role code — the documented
+> follow-up that [kriscendobot/finbot#1](https://github.com/kriscendobot/finbot/issues/1) was blocking. Independent build, no
+> decision needed.
+>
+> Needs a maintainer decision (carried from prior cycles, still open):
+> 1. Cross-process transport for spawnSigningWorker — Unix socket vs TCP;
+>    persistent worker vs spawn-fresh (designs/cap-attenuation.md, Process boundary).
+> 2. Whether to enable significanceAlpha as the default for the live auto-family
+>    forecaster path (would change proposal hashes; needs re-baselined fixtures).
 
 - `poison-build-daemon-mapstore-gh59-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-daemon-mapstore-gh59-deadline-overrun.md)
 
@@ -4379,7 +4404,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 78.8M | $898.77 _(notional, rate-card)_ | no quota set |
+| Claude | 78.9M | $899.09 _(notional, rate-card)_ | no quota set |
 | Codex | 448.9M _(+555.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
