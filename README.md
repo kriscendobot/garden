@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-21T01:57:00Z_
+_As of 2026-07-21T02:04:44Z_
 
 ## Latest
 
@@ -3313,8 +3313,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriscendobot-agoric-sdk-pr10-review-9acf0d53-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr10-review-9acf0d53-retro.md) — Retrospective on kriscendobot/agoric-sdk PR #10 (primary: kriscendobot-agoric...
 
 ### tada (3057)
 - [`xs2rust-endor-press-20260721-012002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-012002.md) — Finish Line Assessment
@@ -3371,7 +3371,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage10p-fresh-env-sweep.md) — _normal_ · Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`kriscendobot-agoric-sdk-pr10-review-9acf0d53-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr10-review-9acf0d53-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #10 (primary: kriscendobot-agoric...
 - [`kriscendobot-agoric-sdk-pr10-review-e3ccce0c-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr10-review-e3ccce0c-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #10 (primary: kriscendobot-agoric...
 - [`kriscendobot-agoric-sdk-pr10-review-498316a6-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr10-review-498316a6-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #10 (primary: kriscendobot-agoric...
 
