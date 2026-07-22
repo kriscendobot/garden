@@ -768,3 +768,12 @@ Inspect via `git -C journal cat-file -p 318da18ccc2950e98aea55a8f586c4e653ad3f30
 - Context: gardener-15 on endolin-garden-ece02cb4: job 'minion-town-daemon-guest-mcp-b2' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 38fd5edbdfeefc77b6b2586c6f13398b1cd74c1c`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-22T09:16:42Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 77e59dff5cd6e0d4a140644cb3862a9547d7c32c
+- Context: gardener-19 on endolin-garden-ece02cb4: job 'endojs-endo-but-for-bots-pr804-47b714b2' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 77e59dff5cd6e0d4a140644cb3862a9547d7c32c`.
