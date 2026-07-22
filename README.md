@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-22T05:18:58Z_
+_As of 2026-07-22T05:22:25Z_
 
 ## Latest
 
-The XS→Rust (Endor) port press ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) has stalled at a hard blocker and is asking for maintainer direction: the Rust engine is healthy (82/82 cargo tests, ~2,750 dual-run oracle tests green, stages 1–6 done with byte-identity confirmed through stage 5), but `daemon_bootstrap.js` generation fails because `@endo/platform`'s `blobref.js` pulls in `node:crypto`, which the SES/XS bundler can't handle — leaving `test:rust` unverified. HEAD has not moved in four consecutive check-ins and a prior blocker message went unanswered. The unblocking work is already in flight as the `design-endo-platform-neutral-hash` designer job (a platform-neutral hash package to break the XS/endor bundling dependency on `node:crypto`); until that lands or the maintainer picks a crypto-polyfill / package-exports approach, the press cannot proceed. Otherwise the board is quiet, with the daemon-store Phase 4 build the only other active work.
+The [platform-neutral hash design](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-platform-neutral-hash.md) landed as complete — the sole board completion this window, and a timely one, since the day's most pressing signal is a **hard stall on xs2rust-endor** ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)). Two press jobs sit in `doin` with no HEAD movement since tick 4; the gardener's final stall notice reports the Rust engine healthy (82/82 cargo tests, ~2750 dual-run oracle tests green, stages 1–6 done) but blocked at `daemon_bootstrap.js` generation because `@endo/platform`'s blobref pulls in `node:crypto`, which the SES/XS bundler can't handle — leaving `test:rust` unverified. It needs a maintainer call on the crypto-polyfill / package-exports approach before it can proceed (the neutral-hash design may be the relevant lever). Everything else is parked: 27 PRs await review — oldest movers being the [registry-capability work](https://github.com/endojs/endo-but-for-bots/pull/403) (22d) and [voice input](https://github.com/endojs/endo-but-for-bots/pull/101) (19d) — plus a deep plan queue thick with repeated xs2rust-endor press attempts.
 
 ## Parked for maintainer feedback
 
@@ -42,26 +42,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 94.0M | $1033.85 _(notional, rate-card)_ | no quota set |
-| Codex | 629.8M _(+516.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 94.1M | $1034.82 _(notional, rate-card)_ | no quota set |
+| Codex | 629.7M _(+516.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`daemon-store-phase4-sorted`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daemon-store-phase4-sorted.md) — Build Phase 4: sorted variants and range queries (design Phase 4)
-- [`design-endo-platform-neutral-hash`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-platform-neutral-hash.md) — designer — platform-neutral hash package to unblock XS/endor daemon bundling
 - [`xs2rust-endor-press-20260722-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-033502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260722-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-045001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3227)
+### tada (3228)
+- [`design-endo-platform-neutral-hash`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-platform-neutral-hash.md) — Completion report
 - [`daemon-store-phase3-weak-ertp`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daemon-store-phase3-weak-ertp.md) — Completion report — daemon-store-phase3-weak-ertp (build Phase 3)
 - [`explainer-from-archive4-compartment`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/explainer-from-archive4-compartment.md) — Completed and pushed:
 - [`minion-town-agenda-review-20260722-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260722-045001.md) — Completion report
 - [`daemon-store-phase2-setstore`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daemon-store-phase2-setstore.md) — Build Phase 2: durable strong SetStore in the endo pet daemon (kriskowal/gard...
-- [`endojs-endo-but-for-bots-pr821-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr821-gauntlet.md) — Completion report
-- … and 3222 more
+- … and 3223 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
