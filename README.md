@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-22T16:30:03Z_
+_As of 2026-07-22T16:30:58Z_
 
 ## Latest
 
@@ -14,8 +14,8 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 16m)
-- [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 6h)
+- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 21m)
+- [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 7h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 2d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 3d)
@@ -749,19 +749,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 107.4M | $1166.97 _(notional, rate-card)_ | no quota set |
-| Codex | 680.9M _(+524.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
+| Codex | 680.9M _(+524.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (19)
+### doin (18)
 - [`deadmail-issue-comment-5047612017`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5047612017.md) — Dead-lettered message — pick up its intent
 - [`endo-byte-array-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260722-095006.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260722-095006.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260722-095006.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-master-ci-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-master-ci-fix.md) — Propose a fix for red CI on endojs/endo-but-for-bots master
-- [`endojs-endo-but-for-bots-pr702-restack-pr737-line`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr702-restack-pr737-line.md) — Restack PR #702 (SturdyRef bridge cut 4, ocapn identity singleton) onto the r...
 - [`endojs-endo-but-for-bots-pr804-47b714b2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr804-47b714b2.md) — attention directive on endojs/endo-but-for-bots PR #804
 - [`endojs-endo-but-for-bots-pr806-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr806-conduct.md) — Role: conductor
 - [`endojs-endo-but-for-bots-pr807-5e6eb4e5`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr807-5e6eb4e5.md) — attention directive on endojs/endo-but-for-bots PR #807
@@ -776,13 +775,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-mcp-b3-daemon-standup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-mcp-b3-daemon-standup.md) — B3: endo daemon standup
 - [`ocapn-noise-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260722-095006.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### tada (3296)
+### tada (3297)
+- [`endojs-endo-but-for-bots-pr702-restack-pr737-line`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr702-restack-pr737-line.md) — Restacked #702 onto bridge-3 ff9f25c73; pushed new draft head 67ba9519e and c...
 - [`endojs-endo-but-for-bots-pr831-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr831-shepherd.md) — Fixed the TypeDoc failure with commit 1b227d8e0: typed CBOR boundary-case tup...
 - [`endojs-endo-but-for-bots-pr701-restack-pr737-line`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr701-restack-pr737-line.md) — Restacked PR #701 onto bridge-2 0a2d989961; pushed ff9f25c73a with force-with...
 - [`minion-town-mcp-b2-first-guest-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-mcp-b2-first-guest-tools.md) — B2 was already merged on main; added its missing local PKCE validation suppor...
 - [`minion-town-mcp-b1-socket-adapter`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-mcp-b1-socket-adapter.md) — B1 was already implemented and merged in kriscendobot/minion.town commit 3765...
-- [`finbot-progress-20260722-160501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260722-160501.md) — ---
-- … and 3291 more
+- … and 3292 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
