@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-22T18:38:17Z_
+_As of 2026-07-22T18:38:48Z_
 
 ## Latest
 
@@ -789,13 +789,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 107.4M | $1166.97 _(notional, rate-card)_ | no quota set |
-| Codex | 687.9M _(+552.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 688.2M _(+552.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (18)
+### doin (17)
 - [`deadmail-issue-comment-5047612017`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5047612017.md) — Dead-lettered message — pick up its intent
 - [`endo-byte-array-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260722-095006.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260722-095006.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
@@ -813,15 +813,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-mcp-b4-full-facet-surface`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-mcp-b4-full-facet-surface.md) — B4: full facet tool surface and tenant checks
 - [`ocapn-noise-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260722-095006.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`proposal-compartments-normative-operation-surface-20260722`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-normative-operation-surface-20260722.md) — Design the normative minimum operation surface for the fresh Compartments pro...
-- [`proposal-compartments-press-20260722-183502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-press-20260722-183502.md) — Press the fresh Compartments proposal forward (daily) — spec, tests, explaine...
 
-### tada (3309)
+### tada (3310)
+- [`proposal-compartments-press-20260722-183502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proposal-compartments-press-20260722-183502.md) — Assessed the completed launch and posted designer job proposal-compartments-n...
 - [`endojs-endo-but-for-bots-pr826-design-readable-blob-lines`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr826-design-readable-blob-lines.md) — Completed design PR: https://github.com/endojs/endo-but-for-bots/pull/832
 - [`minion-town-daemon-guest-mcp-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-daemon-guest-mcp-build.md) — orchestration minion-town-daemon-guest-mcp-build — complete
 - [`minion-town-daemon-guest-mcp-b5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-daemon-guest-mcp-b5.md) — Implemented B5 on https://github.com/kriscendobot/minion.town/pull/20 (commit...
 - [`endojs-endo-but-for-bots-pr826-review-0ea51177`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr826-review-0ea51177.md) — Reviewed #826: the review has no inline comments. Queued a designer job for r...
-- [`minion-town-daemon-guest-mcp-b4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-daemon-guest-mcp-b4.md) — Completed B4 on https://github.com/kriscendobot/minion.town/pull/19 (head c8c...
-- … and 3304 more
+- … and 3305 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
