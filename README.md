@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-22T04:59:02Z_
+_As of 2026-07-22T05:04:41Z_
 
 ## Latest
 
-On finbot ([kriscendobot/finbot](https://github.com/kriscendobot/finbot)), two increments landed to main: the significance-gate eval tooling ([finbot#2](https://github.com/kriscendobot/finbot/pull/2)) that makes the pending `significanceAlpha` default decision evaluable from the CLI without changing any default, and a first CI workflow ([finbot#3](https://github.com/kriscendobot/finbot/pull/3)) closing a long-flagged gap where every merge relied on a human running tests locally — though a gauntlet flagged that both self-merged with no panel review, worth deciding if you want finbot increments gated. The daemon MapStore arc advanced with Phase 2 (durable strong SetStore) complete and Phase 3 (weak variants + ERTP) now in flight. The iroh lane build ([minion.town#12](https://github.com/kriscendobot/minion.town/pull/12)) reached its buildable edge, opening draft [endo-but-for-bots#820](https://github.com/endojs/endo-but-for-bots/pull/820) (Gate-2 listener boot script, stacked on [#777](https://github.com/endojs/endo-but-for-bots/pull/777)) — full deploy blocked on merging #777 to `llm`.
-
-Two things want your attention. First, a maintainer-inbox omnibus consolidated 199 unread entries into ~30 open items across 13 topics; the standout is the Google Sheets tree, now **12 days dammed** on a single stale `CHANGES_REQUESTED` re-review of [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, one-click-mergeable) — four downstream packages wait on one word. Second, the hourly `xs2rust-endor-press` continues to **deterministically overrun** its 2400s handler budget and poison every cycle (four more poison-parks since the last bulletin); it needs to be split into claim-sized stages or handed to a dedicated builder rather than run as an hourly press.
+On the kriscendobot/finbot fork, two increments merged in quick succession: [finbot#2](https://github.com/kriscendobot/finbot/pull/2) landed the `--significance-alpha` DM/QLIKE eval gate (default-off, byte-identical tables) and [finbot#3](https://github.com/kriscendobot/finbot/pull/3) added the fork's first CI workflow, so future finbot PRs gate automatically — though a gauntlet job noted both increments self-merged with no panel review, worth deciding if you want that ordering enforced. The finbot build frontier is now maintainer-gated: live-executor CapTP transport + paper-wallet authorization, and whether `significanceAlpha` becomes the live default (now sweepable from the CLI against fixtures). The minion.town iroh lane build reached its buildable edge, opening draft [endo-but-for-bots#820](https://github.com/endojs/endo-but-for-bots/pull/820) (Gate-2 listener boot script, stacked on [#777](https://github.com/endojs/endo-but-for-bots/pull/777)); full deploy blocks on merging #777 to `llm`. The esheets tree hit day 12 dammed entirely behind [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — green and one-click-mergeable, held only by a stale `CHANGES_REQUESTED` re-review; a one-word answer unblocks four downstream packages. Meanwhile the hourly `xs2rust-endor-press` continues to deterministically overrun its 2400s budget every cycle, poisoning four consecutive dispatches into the plan queue — it needs a dedicated builder split into claim-sized stages rather than the timeboxed press. A consolidated maintainer-inbox omnibus also folded 199 unread entries into ~30 open items across 13 topics.
 
 ## Parked for maintainer feedback
 
@@ -805,26 +803,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 93.0M | $1024.41 _(notional, rate-card)_ | no quota set |
-| Codex | 621.3M _(+515.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 93.0M | $1024.81 _(notional, rate-card)_ | no quota set |
+| Codex | 624.0M _(+517.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`daemon-store-phase3-weak-ertp`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daemon-store-phase3-weak-ertp.md) — Build Phase 3: weak variants (WeakMapStore / WeakSetStore) + ERTP integration...
-- [`explainer-from-archive4-compartment`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/explainer-from-archive4-compartment.md) — Make README.md the explainer, weaving applicable pieces from archive/4-compar...
 - [`xs2rust-endor-press-20260722-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-033502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260722-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-045001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3225)
+### tada (3226)
+- [`explainer-from-archive4-compartment`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/explainer-from-archive4-compartment.md) — Completed and pushed:
 - [`minion-town-agenda-review-20260722-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260722-045001.md) — Completion report
 - [`daemon-store-phase2-setstore`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daemon-store-phase2-setstore.md) — Build Phase 2: durable strong SetStore in the endo pet daemon (kriskowal/gard...
 - [`endojs-endo-but-for-bots-pr821-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr821-gauntlet.md) — Completion report
 - [`endo-npm-cas-registry-press-20260722-035001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260722-035001.md) — Completion report — endo-npm-cas-registry-press-20260722-035001
-- [`finbot-eval-significance-gate-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-eval-significance-gate-gauntlet.md) — Completion report
-- … and 3220 more
+- … and 3221 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
