@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-22T21:08:15Z_
+_As of 2026-07-22T21:50:26Z_
 
 ## Latest
 
@@ -14,8 +14,8 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 4h)
-- [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 2h)
+- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 5h)
+- [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 3h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 2d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 3d)
@@ -326,6 +326,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260722T205539Z-f93fb9` — from gardener:minion-town-mcp-b2-first-guest-tools-gauntlet, reply_to `minion-town-mcp-b2-first-guest-tools-gauntlet` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T205539Z-f93fb9.md)
 
 > Gauntlet is blocked before panel completion: the first juror invocation fails because the Claude CLI weekly limit is exhausted (resets Jul 25 03:00 UTC). Local verification completed: typecheck and build passed; selected root Vitest suite passed 131 tests (3 integration tests skipped), and deploy/thunks/siwe npm test passed 19 tests. [https://github.com/kriscendobot/minion.town/pull/17](https://github.com/kriscendobot/minion.town/pull/17) remains draft and no changes were pushed.
+
+- `20260722T215010Z-a61630` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T215010Z-a61630.md)
+
+> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: ec3220dc2e4c78b68cb04e305c80dbe338012eb6 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ec3220dc2e4c78b68cb04e305c80dbe338012eb6). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
 
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
