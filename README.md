@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-22T01:20:58Z_
+_As of 2026-07-22T01:25:09Z_
 
 ## Latest
 
-A gardener consolidated the **199-entry maintainer inbox into ~30 open items across 13 topics** — the headline being that the whole `@endo/exo-google-sheets` tree has been dammed 11 days behind a single stale `CHANGES_REQUESTED` on [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621), and that several merge-ready shims ([#259](https://github.com/endojs/endo-but-for-bots/pull/259), [#705](https://github.com/endojs/endo-but-for-bots/pull/705), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), [#694](https://github.com/endojs/endo-but-for-bots/pull/694)) now wait only on merge authority. A shepherd took [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL shim) to partial green and traced the remaining red to pre-existing master debt (jsdoc, tamed-TextCodec permit tests, stale action pins), recommending a dedicated master-greening pass rather than smuggling fixes into the feature PR. The ocapn-iroh lane build reached its buildable edge, opening draft [#820](https://github.com/endojs/endo-but-for-bots/pull/820) (Gate-2 listener boot script) stacked on [#777](https://github.com/endojs/endo-but-for-bots/pull/777); full deploy is gated on merging #777 to `llm`. On finbot, [kriscendobot/finbot#2](https://github.com/kriscendobot/finbot/pull/2) merged, making the pending `significanceAlpha` default decision evaluable from the CLI without changing any default. Most notably for fleet health: the hourly `xs2rust-endor-press` (PR [#600](https://github.com/endojs/endo-but-for-bots/pull/600)) continues to **deterministically overrun its 2400s handler budget every cycle** — three more runs were poisoned and parked overnight — and needs to be split into claim-sized stages or handed to a dedicated builder rather than left on the press.
+A **maintainer-inbox omnibus** consolidated 199 unread entries into ~30 open items across 13 topics — the single highest-signal thing to read, since it deduplicates weeks of daily standups and surfaces the real decisions (esheets/[#621](https://github.com/endojs/endo-but-for-bots/pull/621) 11-day review stall, the SturdyRef arbitrations, M2/M3 merge gates, and the finbot security-framing correction). The recurring **xs2rust-endor press** ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) is stuck in a self-defeating loop: every hourly dispatch deterministically overruns the 2400s handler budget and is poisoned/parked (three more this window), so it needs a dedicated builder that can work across dispatches rather than the timeboxed press — its parked copies are piling up in the plan queue. A shepherd on the URL-shim PR [#719](https://github.com/endojs/endo-but-for-bots/pull/719) found its remaining red is pre-existing **master debt** (jsdoc lint, TextEncoder/TextDecoder permit tests from `536f82d18`, stale zizmor action pins), not the PR's own diff, and recommends a dedicated master-greening pass. On the fork side, [finbot#2](https://github.com/kriscendobot/finbot/pull/2) merged, making the `significanceAlpha` decision evaluable from the CLI without changing any default, and the minion.town iroh lane advanced to the buildable edge with draft [#820](https://github.com/endojs/endo-but-for-bots/pull/820) (Gate-2 listener boot script) stacked on [#777](https://github.com/endojs/endo-but-for-bots/pull/777) — full deploy now blocked only on merging #777 to `llm`. The weekly Qwen watch found no new harnessable coding model.
 
 ## Parked for maintainer feedback
 
@@ -581,25 +581,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.5M | $998.31 _(notional, rate-card)_ | no quota set |
-| Codex | 549.5M _(+520.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 89.6M | $998.81 _(notional, rate-card)_ | no quota set |
+| Codex | 550.3M _(+520.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`daemon-store-phase2-setstore`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daemon-store-phase2-setstore.md) — Build Phase 2: durable strong SetStore in the endo pet daemon (design Phase 2)
-- [`minion-town-agenda-review-20260722-012002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260722-012002.md) — Minion Town hourly agenda review
 - [`xs2rust-endor-press-20260722-012002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-012002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3206)
+### tada (3207)
+- [`minion-town-agenda-review-20260722-012002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260722-012002.md) — Completion report
 - [`setup-pages-proposal-compartments`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/setup-pages-proposal-compartments.md) — What was done
 - [`xs2rust-endor-press-20260722-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260722-002002.md) — What I Did
 - [`xs2rust-endor-press-20260721-232002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-232002.md) — Completion report — xs2rust-endor-press-20260721-232002 (session 3 / reaped #3)
 - [`endojs-endo-but-for-bots-pr819-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr819-shepherd.md) — CI is green on PR #819: all 22 checks succeeded. No changes were needed.
-- [`minion-town-agenda-review-20260722-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260722-002002.md) — The live comment now carries the correct head SHA and no stale/incorrect one....
-- … and 3201 more
+- … and 3202 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
