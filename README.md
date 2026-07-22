@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-22T07:35:51Z_
+_As of 2026-07-22T07:38:08Z_
 
 ## Latest
 
-The **xs2rust-endor press** (PR [#600](https://github.com/endojs/endo-but-for-bots/pull/600)) is stuck in a poison loop: five consecutive hourly press jobs overran the 2400s handler budget and were auto-poisoned into `plan/`, with the branch flatlined at `03656bac9d` across four check-ins. The driver reports the engine itself is healthy (82/82 cargo tests, ~2750 dual-run oracle tests green, stages 1–6 done) but is hard-blocked generating `daemon_bootstrap.js` — `@endo/platform`'s `blobref.js` imports `node:crypto`, which the SES/XS bundler can't handle, so `test:rust` is unverified. The driver acknowledged maintainer direction to add an XS crypto polyfill and began work; this recurring press needs splitting into claim-sized stages or a detached run, because it structurally cannot finish inside one handler.
-
-Relatedly, **daemon-store-phase4-sorted** (issue #59) also overran and was poisoned, **halting** the serial `daemon-store-family-build` orchestration at 3/6 (phases 5 and 6 swept back to `plan/`); it likewise needs splitting or a raised timeout before it can be promoted.
-
-On the research side, two independent reports (scholar + researcher) evaluated **Kimi K3** and converged: local hosting is off by >10× (2.8T-param MoE, ~1.5 TB at usable Q4 vs the box's 125 GiB) so the hermit lane can't touch it, but a hosted OpenAI-compatible arm is cheap to wire (one handler branch + routing row) and maps onto the existing bid-auction as a low-risk specialist — gated only on a funded Moonshot key and verifying codex↔Moonshot tool-calling. Meanwhile PR [#828](https://github.com/endojs/endo-but-for-bots/pull/828) (native Rust raw-DEFLATE host function) merged to `llm`, and the board is otherwise quiet (todo empty, only a dead-letter pickup in flight).
+Two automated efforts stalled and are now parked for maintainer attention. The **daemon-store-family-build** orchestration (issue [kriskowal/garden#59](https://github.com/kriskowal/garden/issues/59)) **halted** after its Phase-4 child `daemon-store-phase4-sorted` blew past the 2400s handler budget and was poisoned — 3 of 6 phases done before the serial halt swept the Phase-5 and Phase-6 children. Separately, the hourly **xs2rust-endor** press ([endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) overran the same handler wall on four consecutive ticks and was repeatedly poison-parked; one run surfaced a concrete blocker before dying — `daemon_bootstrap.js` generation fails because `@endo/platform/…/blobref.js` imports `node:crypto`, which the SES/XS bundler can't handle. The press reports the Rust engine itself is healthy (82/82 cargo tests, ~2750 dual-run oracle tests green, stages 1–6 complete) but cannot proceed without direction on the crypto-polyfill approach; both the family build and the press need splitting into claim-sized stages or a raised handler timeout before they'll make progress. On research, a scholar/researcher pair evaluated Moonshot's **Kimi K3** (2.8T-param MoE, released this week, weights due 2026-07-27): local hosting is off by >10× on memory (hard no), but a hosted trial via Moonshot's OpenAI-compatible `/v1` is cheap to wire and maps onto the garden's bid-auction as a cheap-specialist arm — gated only on a funded API key and codex tool-call verification. The only board movement since the last bulletin was the completion of the `design-minion-mcp-daemon-guest-tools` design job.
 
 ## Parked for maintainer feedback
 
@@ -665,26 +661,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.4M | $1073.47 _(notional, rate-card)_ | no quota set |
-| Codex | 689.6M _(+526.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Claude | 97.4M | $1069.66 _(notional, rate-card)_ | no quota set |
+| Codex | 689.9M _(+526.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`deadmail-issue-comment-5043116290`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5043116290.md) — Dead-lettered message — pick up its intent
-- [`design-minion-mcp-daemon-guest-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-minion-mcp-daemon-guest-tools.md) — Organize the replacement of minion.town's toy MCP tools with real daemon-gues...
 - [`endojs-endo-but-for-bots-pr160-review-b7e466e9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-b7e466e9.md) — Review directive on endojs/endo-but-for-bots PR #160
 - [`endojs-pr160-ci-fix-finalize`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-pr160-ci-fix-finalize.md) — ---
 
-### tada (3249)
+### tada (3250)
+- [`design-minion-mcp-daemon-guest-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-minion-mcp-daemon-guest-tools.md) — Completion report
 - [`endojs-endo-but-for-bots-pr826-review-1756c24f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr826-review-1756c24f.md) — Completion report
 - [`endojs-endo-but-for-bots-pr828-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr828-conduct.md) — Merged endojs/endo-but-for-bots PR #828 into llm.
 - [`deadmail-issue-comment-5043060750`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5043060750.md) — Completion report
 - [`endojs-endor-native-zip-xs-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endor-native-zip-xs-design.md) — Created and pushed draft design PR #828: native Rust raw-DEFLATE host functio...
-- [`research-harness-kimi-k3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/research-harness-kimi-k3.md) — Completion report follows.
-- … and 3244 more
+- … and 3245 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
