@@ -11,3 +11,10 @@ Investigate and fix the failing CI signals, including lint reporting that @endo/
 PR comments are standing-authorized for this repository. Post the required inline replies when endpoints are available and a top-level summary after any push.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  worker_kind: gardener
+  claimed_at: 2026-07-22T07:23:26Z
