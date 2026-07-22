@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-22T13:41:15Z_
+_As of 2026-07-22T13:46:00Z_
 
 ## Latest
 
-A cluster of long-running jobs hit the 2400s handler-budget wall and were poisoned/parked in one cycle: four `xs2rust-endor` press drivers (PR [#600](https://github.com/endojs/endo-but-for-bots/pull/600)), `daemon-store-phase4-sorted`, and `endojs-pr160-ci-fix-finalize`. The poison of the phase-4 store build **halted the serial `daemon-store-family-build` orchestration** at 3/6 (phases 5–6 swept), so issue [kriskowal/garden#59](https://github.com/kriskowal/garden/issues/59) stalls until those jobs are split into claim-sized stages or run detached. Two merge-path PRs need a human: [#824](https://github.com/endojs/endo-but-for-bots/pull/824) is green-ish but the conductor gate wants a **fresh approval on the current head** (a0cd0d00; only 9b40eef9 is approved), and [#806](https://github.com/endojs/endo-but-for-bots/pull/806) (the crossed-hello SYN fix) is parked awaiting review. On [#804](https://github.com/endojs/endo-but-for-bots/pull/804), a gardener is **holding for intent confirmation** before renaming the `cbors.md`/`syrups.md` design docs to the `-frame` names that actually shipped. finbot [#4](https://github.com/kriscendobot/finbot/pull/4) advanced (SES-compartment role code, CI green, dry-run wallet-untouched) but its required panel is blocked on the panel model's weekly limit until Jul 25. A researcher verdict on Kimi K3 landed: **local inference is off by >10× (no fit on the box), but a hosted OpenAI-compatible arm is cheap to wire** and maps onto the existing bid-auction — gated only on a funded Moonshot key and a codex-compat check.
+Two merges are stuck on stale approvals: [endo-but-for-bots#824](https://github.com/endojs/endo-but-for-bots/pull/824) is now non-draft with green CI but its head advanced to a0cd0d0 while kriskowal's approval sits on the old 9b40eef — it needs a fresh re-approval to land, and [#806](https://github.com/endojs/endo-but-for-bots/pull/806) (the crossed-hello SYN fix) is under a conductor job awaiting the same. A gardener on [#804](https://github.com/endojs/endo-but-for-bots/pull/804) is holding for intent confirmation before renaming the `cbors.md`/`syrups.md` design docs to their landed `-frame` names. The bigger signal is a poison cascade on `endolin-garden2`: the hourly qwen3.6 **xs2rust-endor** press (PR [#600](https://github.com/endojs/endo-but-for-bots/pull/600)) plus `daemon-store-phase4-sorted` and `endojs-pr160-ci-fix-finalize` each overran the 2400s handler budget and were poison-parked after one cycle — the press remains blocked on a daemon-bootstrap crypto polyfill (`node:crypto` unbundlable by SES/XS), and the halt cascaded the `daemon-store-family-build` orchestration (3/6 done, phases 5–6 swept). On [finbot#4](https://github.com/kriscendobot/finbot/pull/4) the SES-compartment llmProgram role now runs with green CI and a clean dry-run, gated only on the panel model's weekly limit (resets Jul 25). A researcher verdict lands too: Kimi K3 is a hard no locally (>10× the box's RAM) but cheap to wire as a hosted bid-auction arm if a funded Moonshot key appears.
 
 ## Parked for maintainer feedback
 
@@ -256,6 +256,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260722T132447Z-08d1fe` — from gardener:endojs-endo-but-for-bots-pr824-merge, reply_to `endojs-endo-but-for-bots-pr824-merge` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T132447Z-08d1fe.md)
 
 > [https://github.com/endojs/endo-but-for-bots/pull/824](https://github.com/endojs/endo-but-for-bots/pull/824) is ready for merge and CI is still running. The only recorded APPROVED review by kriskowal is for 9b40eef9; the current head is a0cd0d00, so the conductor gate requires a fresh approval on the current head before it can merge. Please re-approve once CI is green.
+
+- `20260722T134426Z-bf7fef` — from gardener:endojs-endo-but-for-bots-pr824-merge, reply_to `endojs-endo-but-for-bots-pr824-merge` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T134426Z-bf7fef.md)
+
+> [https://github.com/endojs/endo-but-for-bots/pull/824](https://github.com/endojs/endo-but-for-bots/pull/824) is now non-draft, has a clean merge state, and its latest CI run is green. The only current gate is approval: kriskowal's APPROVED review is attached to the previous head 9b40eef, while the current head is a0cd0d0, so GitHub reports reviewDecision empty. Please re-approve the current head and I will merge it immediately.
 
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
@@ -730,7 +734,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.0M | $1108.05 _(notional, rate-card)_ | no quota set |
+| Claude | 102.3M | $1110.06 _(notional, rate-card)_ | no quota set |
 | Codex | 680.0M _(+519.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 ## Board
