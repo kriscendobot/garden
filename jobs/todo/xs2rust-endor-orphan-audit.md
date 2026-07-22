@@ -1,6 +1,3 @@
-once: 2026-07-22T14:00:00Z
-job_basename_prefix: xs2rust-endor-orphan-audit
----
 # Orphaned-process audit — xs2rust-endor-press (maintainer check-in)
 
 READ-ONLY audit. Do NOT kill anything — the maintainer decides.
