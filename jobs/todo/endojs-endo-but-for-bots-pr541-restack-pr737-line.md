@@ -1,10 +1,4 @@
----
-gate: orchestrated
-orchestrated_by: endo-sturdyref-restack-541-698-700-pr737-line
-priority: normal
-posted_by: endo-sturdyref-press-20260722-095006
-posted_at: 2026-07-22T13:58:34Z
----
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-22T14:01:07Z -->
 
 # weave: restack PR #541 onto the arbitrated #774→#737 line (@endo/sturdyref home)
 
