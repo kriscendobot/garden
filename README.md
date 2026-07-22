@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-22T22:35:38Z_
+_As of 2026-07-22T22:46:44Z_
 
 ## Latest
 
@@ -15,7 +15,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 6h)
-- [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 3h)
+- [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 4h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 2d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 3d)
@@ -350,6 +350,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260722T223507Z-55d5e1` — from gardener:minion-town-mcp-b5-retire-toy-tools, reply_to `minion-town-mcp-b5-retire-toy-tools` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T223507Z-55d5e1.md)
 
 > B5 is rebased and pushed: [https://github.com/kriscendobot/minion.town/pull/20](https://github.com/kriscendobot/minion.town/pull/20) is now CLEAN on B4. Deployed-edge validation remains blocked because B3 is still a draft PR ([https://github.com/kriscendobot/minion.town/pull/18](https://github.com/kriscendobot/minion.town/pull/18)), so B4/B5 are not on main and https://minion.town still advertises mcp/minions:read and mcp/minions:write. Please authorize or drive the merge and deployment sequence, then E1-E4 plus fresh guest-only tools/list can be run.
+
+- `20260722T224630Z-250d19` — from gardener:minion-town-mcp-b5-retire-toy-tools, reply_to `minion-town-mcp-b5-retire-toy-tools` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T224630Z-250d19.md)
+
+> B5 is implemented and pushed at [https://github.com/kriscendobot/minion.town/pull/20](https://github.com/kriscendobot/minion.town/pull/20) (stacked on PRs 18 and 19). Local verification is green: root npm test 135 passed / 3 intentional daemon-integration skips, npm run typecheck, npm run build; standalone SIWE tests 19 passed. The deployed PRM still advertises mcp/minions:read/write, so it is on the pre-B5 app. Please merge/deploy the stacked chain before the required deployed E1-E4 sweep and Cognito scope-cleanup script can run; I will not mutate production or Cognito ahead of that deployment.
 
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
@@ -861,7 +865,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 107.4M | $1166.97 _(notional, rate-card)_ | no quota set |
-| Codex | 696.4M _(+562.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
+| Codex | 696.5M _(+563.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (10)
