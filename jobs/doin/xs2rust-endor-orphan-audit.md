@@ -32,3 +32,10 @@ A deterministic reaper backstop is in flight: orchestration
 - **Verdict:** GREEN — "0 orphans, charter mitigation holding" — or RED —
   "orphans recurring: N procs, oldest Xh" with the remedy (land+deploy the reaper
   fix; consider re-pausing the schedule). Include the raw evidence (counts).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 9
+  worker_kind: cleric
+  claimed_at: 2026-07-22T14:05:17Z
